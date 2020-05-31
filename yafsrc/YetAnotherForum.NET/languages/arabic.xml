@@ -42,6 +42,9 @@
     <Resource tag="YOUR_USERNAME">:اسم المستخدم الخاص بك</Resource>
   </page>
   <page name="ACCOUNT_RESEST_PASSWORD">
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password</Resource>
+    <Resource tag="INVALID_MATCH">The Password and Confirmation Password must match.</Resource>
+    <Resource tag="PASSWORD">Enter New Password</Resource>
     <Resource tag="TITLE">Lost Password</Resource>
   </page>
   <page name="ACTIVELOCATION">
@@ -4891,6 +4894,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="PASSWORD_SENT">لقد تم ارسال  كلمة المرور الى  البريد الإلكتروني.</Resource>
     <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">إسترجاع كلمة المرورل {0}المنتدى </Resource>
     <Resource tag="QUESTION_FAILURE">هذه لاجابة غير صحيه يرجى التأكد ز حاول مرة آخرى.</Resource>
+    <Resource tag="SUCCESS">An email with the Reset Link was send to your email address!</Resource>
     <Resource tag="TITLE">هل نسيت  كلمة المرور</Resource>
     <Resource tag="USERNAME_FAILURE">اسم المستخدم غير موجود </Resource>
   </page>

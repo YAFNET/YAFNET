@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,37 +22,55 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces
+namespace YAF.Controls
 {
+    #region Using
+
+    using System.Collections.Generic;
+    using System.Web.UI.WebControls;
+
+    using YAF.Core.BaseControls;
+    using YAF.Core.Helpers;
     using YAF.Types.Constants;
+    using YAF.Utils;
+
+    #endregion
 
     /// <summary>
-    /// The SingeSignOnUser interface.
+    /// The Header.
     /// </summary>
-    public interface ISingeSignOnUser
+    public partial class OpenAuthProviders : BaseUserControl
     {
         /// <summary>
-        /// Generates the oAUTH callback login URL.
+        /// Gets the provider names.
         /// </summary>
-        /// <param name="authService">The AUTH service.</param>
-        /// <param name="generatePopUpUrl">if set to <c>true</c> [generate pop up URL].</param>
-        /// <param name="connectCurrentUser">if set to <c>true</c> [connect current user].</param>
         /// <returns>
-        /// Returns the login Url
+        /// Returns the Provider Names
         /// </returns>
-        string GenerateLoginUrl([NotNull] AuthService authService, [NotNull] bool generatePopUpUrl, [CanBeNull] bool connectCurrentUser = false);
+        public IEnumerable<string> GetProviderNames()
+        {
+            return IdentityHelper.GetProviderNames();
+        }
 
         /// <summary>
-        /// Do login and set correct flag
+        /// Do Login
         /// </summary>
-        /// <param name="authService">The AUTH service.</param>
-        /// <param name="userName">Name of the user.</param>
-        /// <param name="userID">The user ID.</param>
-        /// <param name="doLogin">if set to <c>true</c> [do login].</param>
-        void LoginSuccess(
-            [NotNull] AuthService authService,
-            [CanBeNull] string userName,
-            [NotNull] int userID,
-            [NotNull] bool doLogin);
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Login_OnCommand(object sender, CommandEventArgs e)
+        {
+            var providerName = e.CommandArgument.ToString();
+
+            var redirectUrl = BuildLink.GetLink(ForumPages.Account_Login, "auth={0}", providerName);
+
+            IdentityHelper.RegisterExternalLogin(this.Context, providerName, redirectUrl);
+
+            this.Response.StatusCode = 401;
+            this.Response.End();
+        }
     }
 }

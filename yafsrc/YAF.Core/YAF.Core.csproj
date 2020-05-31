@@ -41,9 +41,12 @@
     <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.1.0" />
     <PackageReference Include="Microsoft.Owin.Security" Version="4.1.0" />
     <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Owin.Security.Facebook" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Owin.Security.Google" Version="4.1.0" />
     <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Owin.Security.Twitter" Version="4.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0-preview.3.20214.6" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0-preview.4.20251.6" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.6.0-preview3.19128.7" />
   </ItemGroup>
   <ItemGroup>
@@ -56,30 +59,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
-    <Compile Update="BaseControls\BaseUserControl.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Update="BasePages\AccountPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Update="BasePages\ForumPageBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Update="BasePages\ProfilePage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Update="BasePages\ModerateForumPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Update="BasePages\AdminPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Update="BasePages\ForumPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Update="BasePages\ForumPageRegistered.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Update="BaseControls\BaseUserControl.cs" />
+    <Compile Update="BasePages\AccountPage.cs" />
+    <Compile Update="BasePages\ForumPageBase.cs" />
+    <Compile Update="BasePages\ProfilePage.cs" />
+    <Compile Update="BasePages\ModerateForumPage.cs" />
+    <Compile Update="BasePages\AdminPage.cs" />
+    <Compile Update="BasePages\ForumPage.cs" />
+    <Compile Update="BasePages\ForumPageRegistered.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lucene.Net\Lucene.Net.Analysis.Common\YAF.Lucene.Net.Analysis.Common.csproj" />

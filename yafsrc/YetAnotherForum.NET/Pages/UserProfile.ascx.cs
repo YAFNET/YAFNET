@@ -28,6 +28,7 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
+    using System.Data.Linq.SqlClient;
     using System.Text;
     using System.Web;
     using System.Web.UI.WebControls;
@@ -43,7 +44,6 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
     using YAF.Utils;
@@ -52,6 +52,7 @@ namespace YAF.Pages
     using YAF.Web.Extensions;
 
     using ButtonStyle = YAF.Types.Constants.ButtonStyle;
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -211,35 +212,19 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            AspNetUsers user = null;
+            var user = this.GetRepository<User>().GetBoardUser(this.UserId);
 
-            try
-            {
-                user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.UserId);
-            }
-            catch (Exception ex)
-            {
-                this.Get<ILogger>().Error(ex, this.UserId.ToString());
-            }
-
-            if (user == null || user.Id == "0")
+            if (user == null || user.Item1.ID == 0)
             {
                 // No such user exists or this is an nntp user ("0")
                 BuildLink.AccessDenied();
             }
 
-            if (user.IsApproved == false)
-            {
-                BuildLink.AccessDenied();
-            }
-
-            var userData = new CombinedUserDataHelper(user, this.UserId);
-
             // populate user information controls...
             // Is BuddyList feature enabled?
             if (this.Get<BoardSettings>().EnableBuddyList)
             {
-                this.SetupBuddyList(this.UserId, userData);
+                this.SetupBuddyList(this.UserId, user);
             }
             else
             {
@@ -249,19 +234,19 @@ namespace YAF.Pages
             }
 
             var userNameOrDisplayName = this.HtmlEncode(
-                this.Get<BoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName);
+                this.Get<BoardSettings>().EnableDisplayName ? user.Item1.DisplayName : user.Item1.Name);
 
-            this.SetupUserProfileInfo(userData);
+            this.SetupUserProfileInfo(user);
 
             this.AddPageLinks(userNameOrDisplayName);
 
-            this.SetupUserStatistics(userData);
+            this.SetupUserStatistics(user);
 
-            this.SetupUserLinks(userData, userNameOrDisplayName);
+            this.SetupUserLinks(user, userNameOrDisplayName);
 
             this.SetupAvatar(this.UserId);
 
-            this.Groups.DataSource = AspNetRolesHelper.GetRolesForUser(user);
+            this.Groups.DataSource = AspNetRolesHelper.GetRolesForUser(user.Item2);
 
             this.ModerateTab.Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
 
@@ -301,16 +286,16 @@ namespace YAF.Pages
         /// <param name="userID">
         /// The user id.
         /// </param>
-        /// <param name="userData">
-        /// The user data.
+        /// <param name="user">
+        /// The user.
         /// </param>
-        private void SetupBuddyList(int userID, [NotNull] IUserData userData)
+        private void SetupBuddyList(int userID, [NotNull] Tuple<User, AspNetUsers, Rank, vaccess> user)
         {
             if (userID == this.PageContext.PageUserID)
             {
                 this.lnkBuddy.Visible = false;
             }
-            else if (this.Get<IFriends>().IsBuddy(userData.UserID, true) && !this.PageContext.IsGuest)
+            else if (this.Get<IFriends>().IsBuddy(user.Item1.ID, true) && !this.PageContext.IsGuest)
             {
                 this.lnkBuddy.Visible = true;
                 this.lnkBuddy.Icon = "user-minus";
@@ -320,13 +305,13 @@ namespace YAF.Pages
                 this.lnkBuddy.CommandArgument = "removebuddy";
                 this.lnkBuddy.ReturnConfirmText = this.GetText("FRIENDS", "NOTIFICATION_REMOVE");
             }
-            else if (this.Get<IFriends>().IsBuddy(userData.UserID, false))
+            else if (this.Get<IFriends>().IsBuddy(user.Item1.ID, false))
             {
                 this.lnkBuddy.Visible = false;
             }
             else
             {
-                if (!this.PageContext.IsGuest && !userData.Block.BlockFriendRequests)
+                if (!this.PageContext.IsGuest && !user.Item1.Block.BlockFriendRequests)
                 {
                     this.lnkBuddy.Visible = true;
                     this.lnkBuddy.TextLocalizedTag = "ADDBUDDY";
@@ -351,46 +336,56 @@ namespace YAF.Pages
         /// <summary>
         /// The setup user links.
         /// </summary>
-        /// <param name="userData">The user data.</param>
-        /// <param name="userName">Name of the user.</param>
-        private void SetupUserLinks([NotNull] IUserData userData, string userName)
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <param name="userName">
+        /// Name of the user.
+        /// </param>
+        private void SetupUserLinks([NotNull] Tuple<User, AspNetUsers, Rank, vaccess> user, string userName)
         {
             // homepage link
-            this.HomePlaceHolder.Visible = userData.Profile.Homepage.IsSet();
-            this.Home.NavigateUrl = userData.Profile.Homepage;
+            this.HomePlaceHolder.Visible = user.Item2.Profile_Homepage.IsSet();
+            this.Home.NavigateUrl = user.Item2.Profile_Homepage;
 
             // blog link
-            this.Blog.Visible = userData.Profile.Blog.IsSet();
-            this.SetupThemeButtonWithLink(this.Blog, userData.Profile.Blog);
+            this.Blog.Visible = user.Item2.Profile_Blog.IsSet();
+            this.SetupThemeButtonWithLink(this.Blog, user.Item2.Profile_Blog);
             this.Blog.ParamTitle0 = userName;
 
-            this.Facebook.Visible = this.User != null && userData.Profile.Facebook.IsSet();
+            this.Facebook.Visible = user.Item2.Profile_Facebook.IsSet();
 
-            if (userData.Profile.Facebook.IsSet())
+            if (user.Item2.Profile_Facebook.IsSet())
             {
-                this.Facebook.NavigateUrl = ValidationHelper.IsNumeric(userData.Profile.Facebook)
-                    ? $"https://www.facebook.com/profile.php?id={userData.Profile.Facebook}"
-                    : userData.Profile.Facebook;
+                this.Facebook.NavigateUrl = ValidationHelper.IsNumeric(user.Item2.Profile_Facebook)
+                    ? $"https://www.facebook.com/profile.php?id={user.Item2.Profile_Facebook}"
+                    : user.Item2.Profile_Facebook;
             }
 
             this.Facebook.ParamTitle0 = userName;
 
-            this.Twitter.Visible = this.User != null && userData.Profile.Twitter.IsSet();
-            this.Twitter.NavigateUrl = $"http://twitter.com/{this.HtmlEncode(userData.Profile.Twitter)}";
+            this.Twitter.Visible = user.Item2.Profile_Twitter.IsSet();
+            this.Twitter.NavigateUrl = $"http://twitter.com/{this.HtmlEncode(user.Item2.Profile_Twitter)}";
             this.Twitter.ParamTitle0 = userName;
 
-            if (userData.UserID == this.PageContext.PageUserID)
+            if (!this.Skype.Visible && !this.Blog.Visible && !this.XMPP.Visible && !this.Facebook.Visible &&
+                !this.Twitter.Visible)
+            {
+                this.SocialMediaHolder.Visible = false;
+            }
+
+            if (user.Item1.ID == this.PageContext.PageUserID)
             {
                 return;
             }
 
-            var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, userData.UserID);
+            var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, user.Item1.ID);
 
-            this.PM.Visible = !userData.IsGuest && this.User != null && this.Get<BoardSettings>().AllowPrivateMessages;
+            this.PM.Visible = !user.Item1.IsGuest.Value && this.Get<BoardSettings>().AllowPrivateMessages;
 
             if (this.PM.Visible)
             {
-                if (userData.Block.BlockPMs)
+                if (user.Item1.Block.BlockPMs)
                 {
                     this.PM.Visible = false;
                 }
@@ -401,15 +396,15 @@ namespace YAF.Pages
                 }
             }
 
-            this.PM.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage, "u={0}", userData.UserID);
+            this.PM.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage, "u={0}", user.Item1.ID);
             this.PM.ParamTitle0 = userName;
 
             // email link
-            this.Email.Visible = !userData.IsGuest && this.User != null && this.Get<BoardSettings>().AllowEmailSending;
+            this.Email.Visible = !user.Item1.IsGuest.Value && this.Get<BoardSettings>().AllowEmailSending;
 
             if (this.Email.Visible)
             {
-                if (userData.Block.BlockEmails && !this.PageContext.IsAdmin)
+                if (user.Item1.Block.BlockEmails && !this.PageContext.IsAdmin)
                 {
                     this.Email.Visible = false;
                 }
@@ -420,78 +415,74 @@ namespace YAF.Pages
                 }
             }
 
-            this.Email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", userData.UserID);
+            this.Email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", user.Item1.ID);
             if (this.PageContext.IsAdmin)
             {
-                this.Email.TitleNonLocalized = userData.Membership.Email;
+                this.Email.TitleNonLocalized = user.Item1.Email;
             }
 
             this.Email.ParamTitle0 = userName;
 
-            this.XMPP.Visible = this.User != null && userData.Profile.XMPP.IsSet();
-            this.XMPP.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Jabber, "u={0}", userData.UserID);
+            this.XMPP.Visible = user.Item2.Profile_XMPP.IsSet();
+            this.XMPP.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Jabber, "u={0}", user.Item1.ID);
             this.XMPP.ParamTitle0 = userName;
 
-            this.Skype.Visible = this.User != null && userData.Profile.Skype.IsSet();
-            this.Skype.NavigateUrl = $"skype:{userData.Profile.Skype}?call";
+            this.Skype.Visible = user.Item2.Profile_Skype.IsSet();
+            this.Skype.NavigateUrl = $"skype:{user.Item2.Profile_Skype}?call";
             this.Skype.ParamTitle0 = userName;
-
-            if (!this.Skype.Visible && !this.Blog.Visible && !this.XMPP.Visible && !this.Facebook.Visible &&
-                !this.Twitter.Visible)
-            {
-                this.SocialMediaHolder.Visible = false;
-            }
         }
 
         /// <summary>
         /// The setup user profile info.
         /// </summary>
-        /// <param name="userData">The user data.</param>
-        private void SetupUserProfileInfo([NotNull] IUserData userData)
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        private void SetupUserProfileInfo([NotNull] Tuple<User, AspNetUsers, Rank, vaccess> user)
         {
-            this.UserLabel1.UserID = userData.UserID;
+            this.UserLabel1.UserID = user.Item1.ID;
 
-            this.Joined.Text = $"{this.Get<IDateTime>().FormatDateLong(Convert.ToDateTime(userData.Joined))}";
+            this.Joined.Text = $"{this.Get<IDateTime>().FormatDateLong(Convert.ToDateTime(user.Item1.Joined))}";
 
             // vzrus: Show last visit only to admins if user is hidden
-            if (!this.PageContext.IsAdmin && Convert.ToBoolean(userData.IsActiveExcluded))
+            if (!this.PageContext.IsAdmin && Convert.ToBoolean(user.Item1.IsActiveExcluded))
             {
                 this.LastVisit.Text = this.GetText("COMMON", "HIDDEN");
                 this.LastVisit.Visible = true;
             }
             else
             {
-                this.LastVisitDateTime.DateTime = userData.LastVisit;
+                this.LastVisitDateTime.DateTime = user.Item1.LastVisit;
                 this.LastVisitDateTime.Visible = true;
             }
 
-            if (this.User != null && userData.RankName.IsSet())
+            if (user.Item3.Name.IsSet())
             {
                 this.RankTR.Visible = true;
-                this.Rank.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.RankName));
+                this.Rank.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(user.Item3.Name));
             }
 
-            if (this.User != null && userData.Profile.Location.IsSet())
+            if (user.Item2.Profile_Location.IsSet())
             {
                 this.LocationTR.Visible = true;
-                this.Location.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Location));
+                this.Location.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(user.Item2.Profile_Location));
             }
 
-            if (this.User != null && userData.Profile.Country.Trim().IsSet() && !userData.Profile.Country.Equals("N/A"))
+            if (user.Item2.Profile_Country.IsSet() && !user.Item2.Profile_Country.Equals("N/A"))
             {
                 this.CountryTR.Visible = true;
                 this.CountryLabel.Text =
-                    $"<span class=\"flag-icon flag-icon-{userData.Profile.Country.Trim().ToLower()}\"></span>&nbsp;{this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("COUNTRY", userData.Profile.Country.Trim())))}";
+                    $"<span class=\"flag-icon flag-icon-{user.Item2.Profile_Country.Trim().ToLower()}\"></span>&nbsp;{this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("COUNTRY", user.Item2.Profile_Country.Trim())))}";
             }
 
-            if (this.User != null && userData.Profile.Region.IsSet())
+            if (user.Item2.Profile_Region.IsSet())
             {
                 this.RegionTR.Visible = true;
 
                 try
                 {
                     var tag =
-                        $"RGN_{(userData.Profile.Country.Trim().IsSet() ? userData.Profile.Country.Trim() : this.Get<ILocalization>().Culture.Name.Remove(0, 3).ToUpperInvariant())}_{userData.Profile.Region}";
+                        $"RGN_{(user.Item2.Profile_Country.Trim().IsSet() ? user.Item2.Profile_Country.Trim() : this.Get<ILocalization>().Culture.Name.Remove(0, 3).ToUpperInvariant())}_{user.Item2.Profile_Region}";
                     this.RegionLabel.Text =
                         this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("REGION", tag)));
                 }
@@ -501,38 +492,39 @@ namespace YAF.Pages
                 }
             }
 
-            if (this.User != null && userData.Profile.City.IsSet())
+            if (user.Item2.Profile_City.IsSet())
             {
                 this.CityTR.Visible = true;
-                this.CityLabel.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.City));
+                this.CityLabel.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(user.Item2.Profile_City));
             }
 
-            if (this.User != null && userData.Profile.Location.IsSet())
+            if (user.Item2.Profile_Location.IsSet())
             {
                 this.LocationTR.Visible = true;
-                this.Location.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Location));
+                this.Location.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(user.Item2.Profile_Location));
             }
 
-            if (this.User != null && userData.Profile.RealName.IsSet())
+            if (user.Item2.Profile_RealName.IsSet())
             {
                 this.RealNameTR.Visible = true;
-                this.RealName.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.RealName));
+                this.RealName.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(user.Item2.Profile_RealName));
             }
 
-            if (this.User != null && userData.Profile.Interests.IsSet())
+            if (user.Item2.Profile_Interests.IsSet())
             {
                 this.InterestsTR.Visible = true;
-                this.Interests.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Interests));
+                this.Interests.Text =
+                    this.HtmlEncode(this.Get<IBadWordReplace>().Replace(user.Item2.Profile_Interests));
             }
 
-            if (this.User != null && userData.Profile.Gender > 0)
+            if (user.Item2.Profile_Gender > 0)
             {
                 var imagePath = string.Empty;
                 var imageAlt = string.Empty;
 
                 this.GenderTR.Visible = true;
 
-                switch (userData.Profile.Gender)
+                switch (user.Item2.Profile_Gender)
                 {
                     case 1:
                         imagePath = "male";
@@ -547,29 +539,29 @@ namespace YAF.Pages
                 this.Gender.Text = $@"<i class=""fa fa-{imagePath} fa-fw""></i>&nbsp;{imageAlt}";
             }
 
-            if (this.User != null && userData.Profile.Occupation.IsSet())
+            if (user.Item2.Profile_Occupation.IsSet())
             {
                 this.OccupationTR.Visible = true;
                 this.Occupation.Text =
-                    this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Occupation));
+                    this.HtmlEncode(this.Get<IBadWordReplace>().Replace(user.Item2.Profile_Occupation));
             }
 
-            this.ThanksFrom.Text = this.GetRepository<Thanks>().ThanksFromUser(userData.UserID).ToString();
+            this.ThanksFrom.Text = this.GetRepository<Thanks>().ThanksFromUser(user.Item1.ID).ToString();
 
             var thanksToArray = this.GetRepository<Thanks>().GetUserThanksTo(
-                userData.UserID,
+                user.Item1.ID,
                 this.PageContext.PageUserID);
 
             this.ThanksToTimes.Text = thanksToArray[0].ToString();
             this.ThanksToPosts.Text = thanksToArray[1].ToString();
             this.ReputationReceived.Text =
-                this.Get<IReputation>().GenerateReputationBar(userData.Points.Value, userData.UserID);
+                this.Get<IReputation>().GenerateReputationBar(user.Item1.Points, user.Item1.ID);
 
-            if (this.User != null && userData.Profile.Birthday >= DateTimeHelper.SqlDbMinTime())
+            if (user.Item2.Profile_Birthday >= DateTimeHelper.SqlDbMinTime())
             {
                 this.BirthdayTR.Visible = true;
-                this.Birthday.Text = this.Get<IDateTime>()
-                    .FormatDateLong(userData.Profile.Birthday.AddMinutes((double)-userData.TimeZone));
+                this.Birthday.Text = this.Get<IDateTime>().FormatDateLong(
+                    user.Item2.Profile_Birthday.AddMinutes(-DateTimeHelper.GetTimeZoneOffset(user.Item1.TimeZoneInfo)));
             }
             else
             {
@@ -677,20 +669,25 @@ namespace YAF.Pages
         /// <summary>
         /// The setup user statistics.
         /// </summary>
-        /// <param name="userData">
-        /// The user data.
+        /// <param name="user">
+        /// The user.
         /// </param>
-        private void SetupUserStatistics([NotNull] IUserData userData)
+        private void SetupUserStatistics([NotNull] Tuple<User, AspNetUsers, Rank, vaccess> user)
         {
             var allPosts = 0.0;
 
-            if (userData.User.NumPostsForum > 0)
+            var postsInBoard = this.GetRepository<Message>()
+                .Count(m => m.IsApproved.Value && m.IsDeleted.Value == false);
+
+            if (postsInBoard > 0)
             {
-                allPosts = 100.0 * userData.User.NumPosts.Value / userData.User.NumPostsForum;
+                allPosts = 100.0 * user.Item1.NumPosts / postsInBoard;
             }
 
+            var numberDays = SqlMethods.DateDiffDay(user.Item1.Joined, DateTime.UtcNow) + 1;
+
             this.Stats.Text =
-                $"{userData.NumPosts:N0} [{this.GetTextFormatted("NUMALL", allPosts)} / {this.GetTextFormatted("NUMDAY", (double)userData.NumPosts / userData.User.NumDays)}]";
+                $"{user.Item1.NumPosts:N0} [{this.GetTextFormatted("NUMALL", allPosts)} / {this.GetTextFormatted("NUMDAY", (double)user.Item1.NumPosts / numberDays)}]";
         }
 
         #endregion

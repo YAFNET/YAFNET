@@ -102,7 +102,7 @@ namespace YAF.Pages.Admin
                     using (var dataTable = this.GetRepository<User>().ListAsDataTable(
                         this.PageContext.PageBoardID,
                         e.CommandArgument.ToType<int>(),
-                        DBNull.Value))
+                        true))
                     {
                         // examine each if he's possible to delete
                         dataTable.Rows.Cast<DataRow>().ForEach(row =>
@@ -457,7 +457,7 @@ namespace YAF.Pages.Admin
             using (var dt = this.GetRepository<User>().ListAsDataTable(
                 this.PageContext.PageBoardID,
                 null,
-                null,
+                true,
                 this.group.SelectedIndex <= 0 ? null : this.group.SelectedValue,
                 this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue,
                 false))

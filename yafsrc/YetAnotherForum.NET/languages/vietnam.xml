@@ -42,6 +42,9 @@
     <Resource tag="YOUR_USERNAME">Tên đăng nhập:</Resource>
   </page>
   <page name="ACCOUNT_RESEST_PASSWORD">
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password</Resource>
+    <Resource tag="INVALID_MATCH">The Password and Confirmation Password must match.</Resource>
+    <Resource tag="PASSWORD">Enter New Password</Resource>
     <Resource tag="TITLE">Lost Password</Resource>
   </page>
   <page name="ACTIVELOCATION">
@@ -4920,6 +4923,7 @@ Spoiler Content
     <Resource tag="PASSWORD_SENT">Mật khẩu đã được gửi vào email của bạn.</Resource>
     <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
     <Resource tag="QUESTION_FAILURE">Bạn trả câu hỏi quên mật khẩu không đúng.Xin thử lại.</Resource>
+    <Resource tag="SUCCESS">An email with the Reset Link was send to your email address!</Resource>
     <Resource tag="TITLE">Quên mật khẩu</Resource>
     <Resource tag="USERNAME_FAILURE">Không xác minh được người dùng.</Resource>
   </page>

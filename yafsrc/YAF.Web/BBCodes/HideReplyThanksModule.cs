@@ -74,7 +74,7 @@ namespace YAF.Web.BBCodes
                 return;
             }
 
-            var userId = BoardContext.Current.CurrentUserData.UserID;
+            var userId = BoardContext.Current.PageUserID;
 
             // Handle Hide Thanks
             if (!this.Get<BoardSettings>().EnableThanksMod)

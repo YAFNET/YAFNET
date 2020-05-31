@@ -47,7 +47,7 @@
     <div class="col-md-3">
         <!--left col-->
         <ul class="list-group mb-3">
-            <li class="list-group-item text-light bg-primary">
+            <li class="list-group-item text-white bg-primary">
                 <YAF:LocalizedLabel runat="server" LocalizedTag="profile" />
             </li>
             <li class="list-group-item text-right">
@@ -155,7 +155,7 @@
         </ul>
         <asp:PlaceHolder runat="server" ID="HomePlaceHolder">
             <div class="card mb-3">
-                <div class="card-header">
+                <div class="card-header text-white bg-primary">
                     <YAF:LocalizedLabel runat="server" LocalizedTag="HOME"></YAF:LocalizedLabel>
                 </div>
                 <div class="card-body">
@@ -166,7 +166,7 @@
             </div>
         </asp:PlaceHolder>
         <ul class="list-group mb-3">
-            <li class="list-group-item text-light bg-primary">
+            <li class="list-group-item text-white bg-primary">
                 <YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedTag="STATISTICS" />
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-end">
@@ -219,7 +219,7 @@
         </ul>
         <asp:PlaceHolder runat="server" ID="SocialMediaHolder">
             <div class="card mb-3">
-                <div class="card-header text-light bg-primary">
+                <div class="card-header text-white bg-primary">
                     <YAF:LocalizedLabel runat="server"
                         LocalizedTag="SOCIAL_MEDIA">
                     </YAF:LocalizedLabel>

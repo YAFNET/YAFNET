@@ -62,7 +62,7 @@ namespace YAF.Pages.Profile
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<BoardSettings>().EnableDisplayName
-                    ? this.PageContext.CurrentUserData.DisplayName
+                    ? this.PageContext.CurrentUser.DisplayName
                     : this.PageContext.PageUserName,
                 BuildLink.GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);

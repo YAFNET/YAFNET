@@ -32,7 +32,6 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.BaseModules;
-    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -42,6 +41,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Models.Identity;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
@@ -75,6 +75,11 @@ namespace YAF.Controls
         ///  The signature Preview
         /// </summary>
         private SignaturePreview signaturePreview;
+
+        /// <summary>
+        /// The user.
+        /// </summary>
+        private Tuple<User, AspNetUsers, Rank, vaccess> user;
 
         #endregion
 
@@ -117,6 +122,12 @@ namespace YAF.Controls
                 return this.PageContext.PageUserID;
             }
         }
+
+        /// <summary>
+        /// Gets the User Data.
+        /// </summary>
+        [NotNull]
+        private Tuple<User, AspNetUsers, Rank, vaccess> User => this.user ??= this.GetRepository<User>().GetBoardUser(this.CurrentUserID);
 
         #endregion
 
@@ -250,16 +261,11 @@ namespace YAF.Controls
             {
                 if (this.signatureEditor.Text.Length <= this.allowedNumberOfCharacters)
                 {
-                    var userData = new CombinedUserDataHelper(this.CurrentUserID);
-
-                    if (userData.NumPosts < this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
+                    if (this.User.Item1.NumPosts < this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
                     {
                         // Check for spam
                         if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out var result))
                         {
-                            var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.CurrentUserID);
-                            var userId = this.CurrentUserID;
-
                             // Log and Send Message to Admins
                             if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
                             {
@@ -267,7 +273,7 @@ namespace YAF.Controls
                                     null,
                                     "Bot Detected",
                                     $@"Internal Spam Word Check detected a SPAM BOT: (
-                                                      user name : '{user.UserName}', 
+                                                      user name : '{this.User.Item1.Name}', 
                                                       user id : '{this.CurrentUserID}') 
                                                  after the user included a spam word in his/her signature: {result}",
                                     EventLogTypes.SpamBotDetected);
@@ -278,7 +284,7 @@ namespace YAF.Controls
                                     null,
                                     "Bot Detected",
                                     $@"Internal Spam Word Check detected a SPAM BOT: (
-                                                       user name : '{user.UserName}', 
+                                                       user name : '{this.User.Item1.Name}', 
                                                        user id : '{this.CurrentUserID}') 
                                                  after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.",
                                     EventLogTypes.SpamBotDetected);
@@ -286,9 +292,7 @@ namespace YAF.Controls
                                 // Kill user
                                 if (!this.PageContext.CurrentForumPage.IsAdminPage)
                                 {
-                                    var userIp = new CombinedUserDataHelper(user, userId).LastIP;
-
-                                    this.Get<IAspNetUsersHelper>().DeleteAndBanUser(this.CurrentUserID, user, userIp);
+                                    this.Get<IAspNetUsersHelper>().DeleteAndBanUser(this.CurrentUserID, this.User.Item2, this.User.Item1.IP);
                                 }
                             }
                         }

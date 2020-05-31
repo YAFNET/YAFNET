@@ -69,7 +69,7 @@ namespace YAF.Pages.Profile
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<BoardSettings>().EnableDisplayName
-                    ? this.PageContext.CurrentUserData.DisplayName
+                    ? this.PageContext.CurrentUser.DisplayName
                     : this.PageContext.PageUserName,
                 BuildLink.GetLink(ForumPages.MyAccount));
 
@@ -139,20 +139,15 @@ namespace YAF.Pages.Profile
                             "User Suspended his own account",
                             this.PageContext.PageUserID);
 
-                        var usr = this.GetRepository<User>().UserList(
-                            this.PageContext.PageBoardID,
-                            this.PageContext.PageUserID,
-                            null,
-                            null,
-                            null,
-                            false).ToList();
+                        var usr = this.GetRepository<User>().GetById(
+                            this.PageContext.PageUserID);
 
-                        if (usr.Any())
+                        if (usr != null)
                         {
                             this.Get<ILogger>().Log(
                                 this.PageContext.PageUserID,
                                 this,
-                                $"User {(this.Get<BoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name)} Suspended his own account until: {suspend} (UTC)",
+                                $"User {(this.Get<BoardSettings>().EnableDisplayName ? usr.DisplayName : usr.Name)} Suspended his own account until: {suspend} (UTC)",
                                 EventLogTypes.UserSuspended);
 
                             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
@@ -163,7 +158,7 @@ namespace YAF.Pages.Profile
                 case "delete":
                     {
                         // (Soft) Delete User
-                        var user = this.PageContext.User;
+                        var user = this.PageContext.MembershipUser;
 
                         // Update IsApproved
                         user.IsApproved = false;

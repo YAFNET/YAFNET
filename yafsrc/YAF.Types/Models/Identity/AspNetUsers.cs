@@ -315,6 +315,11 @@ namespace YAF.Types.Models.Identity
         public string Profile_GoogleId { get; set; }
 
         /// <summary>
+        /// Gets or sets GitHub Id
+        /// </summary>
+        public string Profile_GitHubId { get; set; }
+
+        /// <summary>
         /// Gets or sets Homepage.
         /// </summary>
         public string Profile_Homepage { get; set; }

@@ -26,8 +26,8 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
-    
+    using System.Globalization;
+
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -40,6 +40,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Models.Identity;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -49,6 +50,11 @@ namespace YAF.Controls
     /// </summary>
     public partial class EditUsersInfo : BaseUserControl
     {
+        /// <summary>
+        /// The user.
+        /// </summary>
+        private Tuple<User, AspNetUsers, Rank, vaccess> user;
+
         #region Properties
 
         /// <summary>
@@ -57,6 +63,13 @@ namespace YAF.Controls
         protected int CurrentUserID => this.PageContext.QueryIDs["u"].ToType<int>();
 
         #endregion
+
+        /// <summary>
+        /// Gets the User Data.
+        /// </summary>
+        [NotNull]
+        private Tuple<User, AspNetUsers, Rank, vaccess> User =>
+            this.user ??= this.GetRepository<User>().GetBoardUser(this.CurrentUserID);
 
         #region Methods
 
@@ -89,45 +102,46 @@ namespace YAF.Controls
             // Update the Membership
             if (!this.IsGuestX.Checked)
             {
-                var user = this.Get<IAspNetUsersHelper>().GetUserByName(this.Name.Text.Trim());
+                var aspNetUser = this.Get<IAspNetUsersHelper>().GetUserByName(this.Name.Text.Trim());
 
                 var userName = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text.Trim()).UserName;
-                if (userName.IsSet() && userName != user.UserName)
+                if (userName.IsSet() && userName != aspNetUser.UserName)
                 {
                     this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                     return;
                 }
 
-                if (this.Email.Text.Trim() != user.Email)
+                if (this.Email.Text.Trim() != aspNetUser.Email)
                 {
                     // update the e-mail here too...
-                    user.Email = this.Email.Text.Trim();
+                    aspNetUser.Email = this.Email.Text.Trim();
                 }
 
                 // Update IsApproved
-                user.IsApproved = this.IsApproved.Checked;
+                aspNetUser.IsApproved = this.IsApproved.Checked;
 
-                this.Get<IAspNetUsersHelper>().Update(user);
+                this.Get<IAspNetUsersHelper>().Update(aspNetUser);
             }
             else
             {
                 if (!this.IsApproved.Checked)
                 {
                     this.PageContext.AddLoadMessage(
-                        this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_GUEST_APPROVED"), MessageTypes.success);
+                        this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_GUEST_APPROVED"),
+                        MessageTypes.success);
                     return;
                 }
             }
 
             var userFlags = new UserFlags
-                                {
-                                    IsHostAdmin = this.IsHostAdminX.Checked,
-                                    IsGuest = this.IsGuestX.Checked,
-                                    IsCaptchaExcluded = this.IsCaptchaExcluded.Checked,
-                                    IsActiveExcluded = this.IsExcludedFromActiveUsers.Checked,
-                                    IsApproved = this.IsApproved.Checked,
-                                    Moderated = this.Moderated.Checked
-                                };
+            {
+                IsHostAdmin = this.IsHostAdminX.Checked,
+                IsGuest = this.IsGuestX.Checked,
+                IsCaptchaExcluded = this.IsCaptchaExcluded.Checked,
+                IsActiveExcluded = this.IsExcludedFromActiveUsers.Checked,
+                IsApproved = this.IsApproved.Checked,
+                Moderated = this.Moderated.Checked
+            };
 
             this.GetRepository<User>().AdminSave(
                 this.PageContext.PageBoardID,
@@ -153,31 +167,25 @@ namespace YAF.Controls
             this.RankID.DataTextField = "Name";
             this.RankID.DataBind();
 
-            using (var dt = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, this.CurrentUserID, null))
+            this.Name.Text = this.User.Item1.Name;
+            this.DisplayName.Text = this.User.Item1.DisplayName;
+            this.Email.Text = this.User.Item1.Email;
+            this.IsHostAdminX.Checked = this.User.Item1.UserFlags.IsHostAdmin;
+            this.IsApproved.Checked = this.User.Item1.UserFlags.IsApproved;
+            this.IsGuestX.Checked = this.User.Item1.UserFlags.IsGuest;
+            this.IsCaptchaExcluded.Checked = this.User.Item1.UserFlags.IsCaptchaExcluded;
+            this.IsExcludedFromActiveUsers.Checked = this.User.Item1.UserFlags.IsActiveExcluded;
+            this.Moderated.Checked = this.User.Item1.UserFlags.Moderated;
+            this.Joined.Text = this.User.Item1.Joined.ToString(CultureInfo.InvariantCulture);
+            this.IsFacebookUser.Checked = this.User.Item2.Profile_FacebookId.IsSet();
+            this.IsTwitterUser.Checked = this.User.Item2.Profile_TwitterId.IsSet();
+            this.IsGoogleUser.Checked = this.User.Item2.Profile_GoogleId.IsSet();
+            this.LastVisit.Text = this.User.Item1.LastVisit.ToString(CultureInfo.InvariantCulture);
+            var item = this.RankID.Items.FindByValue(this.User.Item1.RankID.ToString());
+
+            if (item != null)
             {
-                var row = dt.GetFirstRow();
-                var userFlags = new UserFlags(row["Flags"]);
-
-                this.Name.Text = row.Field<string>("Name");
-                this.DisplayName.Text = row.Field<string>("DisplayName");
-                this.Email.Text = row.Field<string>("Email");
-                this.IsHostAdminX.Checked = userFlags.IsHostAdmin;
-                this.IsApproved.Checked = userFlags.IsApproved;
-                this.IsGuestX.Checked = userFlags.IsGuest;
-                this.IsCaptchaExcluded.Checked = userFlags.IsCaptchaExcluded;
-                this.IsExcludedFromActiveUsers.Checked = userFlags.IsActiveExcluded;
-                this.Moderated.Checked = userFlags.Moderated;
-                this.Joined.Text = row["Joined"].ToString();
-                this.IsFacebookUser.Checked = row.Field<bool>("IsFacebookUser");
-                this.IsTwitterUser.Checked = row.Field<bool>("IsTwitterUser");
-                this.IsGoogleUser.Checked = row.Field<bool>("IsGoogleUser");
-                this.LastVisit.Text = row["LastVisit"].ToString();
-                var item = this.RankID.Items.FindByValue(row["RankID"].ToString());
-
-                if (item != null)
-                {
-                    item.Selected = true;
-                }
+                item.Selected = true;
             }
         }
 

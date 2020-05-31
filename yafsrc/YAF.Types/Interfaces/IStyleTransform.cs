@@ -45,6 +45,17 @@ namespace YAF.Types.Interfaces
         void DecodeStyleByGroup(Group group, bool colorOnly = false);
 
         /// <summary>
+        /// The decode style User
+        /// </summary>
+        /// <param name="user">
+        /// The User
+        /// </param>
+        /// <param name="colorOnly">
+        /// The color only.
+        /// </param>
+        void DecodeStyleByUser(User user, bool colorOnly = false);
+
+        /// <summary>
         /// The decode style by row.
         /// </summary>
         /// <param name="dr">
@@ -92,5 +103,16 @@ namespace YAF.Types.Interfaces
         /// The color only.
         /// </param>
         void DecodeStyleByGroupList(List<Group> list, bool colorOnly = false);
+
+        /// <summary>
+        /// Decode User Styles
+        /// </summary>
+        /// <param name="list">
+        /// The list.
+        /// </param>
+        /// <param name="colorOnly">
+        /// The color only.
+        /// </param>
+        void DecodeStyleByUserList(List<User> list, bool colorOnly = false);
     }
 }

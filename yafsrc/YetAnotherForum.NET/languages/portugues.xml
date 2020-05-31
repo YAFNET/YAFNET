@@ -42,6 +42,9 @@
     <Resource tag="YOUR_USERNAME">Seu nome de usuário:</Resource>
   </page>
   <page name="ACCOUNT_RESEST_PASSWORD">
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password</Resource>
+    <Resource tag="INVALID_MATCH">The Password and Confirmation Password must match.</Resource>
+    <Resource tag="PASSWORD">Enter New Password</Resource>
     <Resource tag="TITLE">Lost Password</Resource>
   </page>
   <page name="ACTIVELOCATION">
@@ -4920,6 +4923,7 @@ Spoiler Content
     <Resource tag="PASSWORD_SENT">Your password has been sent to your e-mail address on file.</Resource>
     <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
     <Resource tag="QUESTION_FAILURE">Your answer could not be verified. Please try again.</Resource>
+    <Resource tag="SUCCESS">An email with the Reset Link was send to your email address!</Resource>
     <Resource tag="TITLE">Lost Password</Resource>
     <Resource tag="USERNAME_FAILURE">Unable to locate the user name entered.</Resource>
   </page>

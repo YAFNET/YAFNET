@@ -106,7 +106,7 @@ namespace YAF.Web.BBCodes
 
                 // Check For Role Hiding
                 if (AspNetRolesHelper.GetRolesForUser(
-                            BoardContext.Current.User).Any(role => !groups.Any(role.Equals)))
+                            BoardContext.Current.MembershipUser).Any(role => !groups.Any(role.Equals)))
                 {
                     shownContentGuest = hiddenContent;
                 }
@@ -124,7 +124,7 @@ namespace YAF.Web.BBCodes
             }
 
             // Override Admin, or User is Post Author
-            if (BoardContext.Current.IsAdmin || this.DisplayUserID == BoardContext.Current.CurrentUserData.UserID)
+            if (BoardContext.Current.IsAdmin || this.DisplayUserID == BoardContext.Current.PageUserID)
             {
                 shownContentGuest = hiddenContent;
             }

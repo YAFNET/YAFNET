@@ -22,41 +22,22 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects
+namespace YAF.Core.Identity.Owin
 {
-    using System.Runtime.Serialization;
-
     /// <summary>
-    /// The Facebook Access Token
+    /// Interface For oAUTH
     /// </summary>
-    [DataContract]
-    public class FacebookAccessToken
+    public interface IAuthBase
     {
         /// <summary>
-        /// Gets or sets the access token.
+        /// The login or create user.
         /// </summary>
-        /// <value>
-        /// The access token.
-        /// </value>
-        [DataMember(Name = "access_token")]
-        public string AccessToken { get; set; }
-
-        /// <summary>
-        /// Gets or sets the type of the token.
-        /// </summary>
-        /// <value>
-        /// The type of the token.
-        /// </value>
-        [DataMember(Name = "token_type")]
-        public string TokenType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the expires in.
-        /// </summary>
-        /// <value>
-        /// The expires in.
-        /// </value>
-        [DataMember(Name = "expires_in")]
-        public int ExpiresIn { get; set; }
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        bool LoginOrCreateUser(out string message);
     }
 }

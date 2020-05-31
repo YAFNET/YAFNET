@@ -42,6 +42,9 @@
     <Resource tag="YOUR_USERNAME">Votre Nom&amp;nbsp;:</Resource>
   </page>
   <page name="ACCOUNT_RESEST_PASSWORD">
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password</Resource>
+    <Resource tag="INVALID_MATCH">The Password and Confirmation Password must match.</Resource>
+    <Resource tag="PASSWORD">Enter New Password</Resource>
     <Resource tag="TITLE">Lost Password</Resource>
   </page>
   <page name="ACTIVELOCATION">
@@ -4917,6 +4920,7 @@ Spoiler Content
     <Resource tag="PASSWORD_SENT">Votre mot de passe a été envoyé par e-mail.</Resource>
     <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Récupération du mot de passe pour {0} Forum</Resource>
     <Resource tag="QUESTION_FAILURE">Réponse non vérifiée. Essayez encore.</Resource>
+    <Resource tag="SUCCESS">An email with the Reset Link was send to your email address!</Resource>
     <Resource tag="TITLE">Mot de passe perdu</Resource>
     <Resource tag="USERNAME_FAILURE">Impossible de trouver cette utilisateur.</Resource>
   </page>

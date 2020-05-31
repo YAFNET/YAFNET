@@ -111,9 +111,9 @@ namespace YAF.Core.Context
             {
                 object userKey = null;
 
-                if (BoardContext.Current.User != null)
+                if (BoardContext.Current.MembershipUser != null)
                 {
-                    userKey = BoardContext.Current.User.Id;
+                    userKey = BoardContext.Current.MembershipUser.Id;
                 }
 
                 var tries = 0;
@@ -153,7 +153,7 @@ namespace YAF.Core.Context
                         // create the user...
                         if (
                             !AspNetRolesHelper.DidCreateForumUser(
-                                BoardContext.Current.User, BoardContext.Current.PageBoardID))
+                                BoardContext.Current.MembershipUser, BoardContext.Current.PageBoardID))
                         {
                             throw new ApplicationException("Failed to create new user.");
                         }

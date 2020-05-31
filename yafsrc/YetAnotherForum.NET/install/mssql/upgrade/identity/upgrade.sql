@@ -43,6 +43,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUsers](
     [Profile_Blog] NVARCHAR (255) NULL,
     [Profile_Gender] INT NULL,
     [Profile_GoogleId] NVARCHAR (255) NULL,
+    [Profile_GitHubId] NVARCHAR (255) NULL,
     [Profile_Homepage] NVARCHAR (255) NULL,
     [Profile_ICQ] NVARCHAR (255) NULL,
     [Profile_Facebook] NVARCHAR (400) NULL,

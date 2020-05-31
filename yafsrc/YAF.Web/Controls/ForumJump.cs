@@ -129,7 +129,7 @@ namespace YAF.Web.Controls
             var forumJump = this.Get<IDataCache>().GetOrSet(
                 string.Format(
                     Constants.Cache.ForumJump,
-                    this.PageContext.User != null ? this.PageContext.PageUserID.ToString() : "Guest"),
+                    this.PageContext.MembershipUser != null ? this.PageContext.PageUserID.ToString() : "Guest"),
                 () => this.GetRepository<Types.Models.Forum>().ListAllSortedAsDataTable(
                     this.PageContext.PageBoardID,
                     this.PageContext.PageUserID),

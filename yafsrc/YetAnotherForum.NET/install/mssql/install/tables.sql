@@ -566,14 +566,11 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[Moderated]	AS (CONVERT([bit],sign([Flags]&(128)),(0))),
 		[Activity] [bit] NOT NULL constraint [DF_{objectQualifier}User_Activity] default (1),
 		[Culture] varchar (10) default (10),
-		[IsFacebookUser][bit] NOT NULL constraint [DF_{objectQualifier}User_IsFacebookUser] default (0),
-		[IsTwitterUser][bit] NOT NULL constraint [DF_{objectQualifier}User_IsTwitterUser] default (0),
 		[UserStyle] [varchar](510) NULL,
 	    [StyleFlags] [int] NOT NULL constraint [DF_{objectQualifier}User_StyleFlags] default (0),
 	    [IsUserStyle]  AS (CONVERT([bit],sign([StyleFlags]&(1)),(0))),
 	    [IsGroupStyle]  AS (CONVERT([bit],sign([StyleFlags]&(2)),(0))),
 	    [IsRankStyle]  AS (CONVERT([bit],sign([StyleFlags]&(4)),(0))),
-		[IsGoogleUser][bit] NOT NULL constraint [DF_{objectQualifier}User_IsGoogleUser] default (0),
  constraint [PK_{objectQualifier}User] PRIMARY KEY CLUSTERED 
 (
 	[UserID] ASC

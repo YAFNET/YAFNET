@@ -154,6 +154,7 @@
       <Name>System.Data</Name>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
@@ -308,12 +309,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Install.zh-TW.resx</DependentUpon>
     </Compile>
-    <Compile Include="auth.aspx.cs">
-      <DependentUpon>auth.aspx</DependentUpon>
+    <Compile Include="controls\OpenAuthProviders.ascx.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="auth.aspx.designer.cs">
-      <DependentUpon>auth.aspx</DependentUpon>
+    <Compile Include="controls\OpenAuthProviders.ascx.designer.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\MostActiveUsers.ascx.cs">
       <DependentUpon>MostActiveUsers.ascx</DependentUpon>
@@ -1124,7 +1125,6 @@
       <LastGenOutput>Install.de.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Content Include="auth.aspx" />
     <Content Include="BuildScripts\MSBuild.ExtensionPack.Tasks.Targets" />
     <Content Include="Content\bootstrap-tagsinput.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -1943,6 +1943,7 @@
     <Content Include="Content\webfonts\fa-brands-400.svg" />
     <Content Include="Content\webfonts\fa-regular-400.svg" />
     <Content Include="Content\webfonts\fa-solid-900.svg" />
+    <Content Include="controls\OpenAuthProviders.ascx" />
     <Content Include="controls\MostActiveUsers.ascx" />
     <Content Include="controls\TopicTags.ascx" />
     <Content Include="controls\UserMenu.ascx" />
@@ -3665,7 +3666,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

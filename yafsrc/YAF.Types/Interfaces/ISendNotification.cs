@@ -91,16 +91,12 @@ namespace YAF.Types.Interfaces
         /// <param name="pass">
         /// The pass.
         /// </param>
-        /// <param name="securityAnswer">
-        /// The security answer.
-        /// </param>
         /// <param name="templateName">
         /// The template Name.
         /// </param>
         void SendRegistrationNotificationToUser(
             [NotNull] AspNetUsers user,
             [NotNull] string pass,
-            [NotNull] string securityAnswer,
             string templateName);
 
         /// <summary>

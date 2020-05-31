@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Dialogs.LoginBox" CodeBehind="LoginBox.ascx.cs" %>
 
+<%@ Register Src="../controls/OpenAuthProviders.ascx" TagPrefix="YAF" TagName="OpenAuthProviders" %>
+
 <div id="LoginBox" class="modal fade" role="dialog" aria-labelledby="LocalizedLabel1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -21,7 +23,7 @@
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                 LocalizedTag="username" />
                         </asp:Label>
-                        <div class="input-group mb-3">
+                        <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <YAF:Icon runat="server"
@@ -43,7 +45,7 @@
                                    AssociatedControlID="Password">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="PASSWORD" />
                         </asp:Label>
-                        <div class="input-group mb-3">
+                        <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <YAF:Icon runat="server"
@@ -55,17 +57,16 @@
                                          CssClass="form-control"
                                          TextMode="Password"
                                          required="required"/>
-                            <YAF:LocalizedRequiredFieldValidator runat="server"
-                                                                 CssClass="invalid-feedback"
-                                                                 LocalizedTag="NEED_PASSWORD"
-                                                                 ControlToValidate="Password" />
-                            
                             <div class="input-group-append">
                                 <a class="input-group-text" id="PasswordToggle" href="#">
                                     <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>
+                        <YAF:LocalizedRequiredFieldValidator runat="server"
+                                                             CssClass="invalid-feedback"
+                                                             LocalizedTag="NEED_PASSWORD"
+                                                             ControlToValidate="Password" />
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -90,6 +91,9 @@
                                     CssClass="btn btn-primary btn-loading btn-block"
                                     OnClick="SignIn"/>
                     </div>
+                    <section>
+                        <YAF:OpenAuthProviders runat="server" ID="OpenAuthLogin" />
+                    </section>
                 </div>
             </div>
             <div class="modal-footer text-center">

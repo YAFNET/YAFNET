@@ -27,7 +27,6 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
     using System.Drawing;
     using System.IO;
     using System.Security.Cryptography;
@@ -36,6 +35,7 @@ namespace YAF.Controls
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -299,7 +299,7 @@ namespace YAF.Controls
                 this.Logger.Log(
                     exception.Message,
                     EventLogTypes.Error,
-                    this.PageContext.CurrentUserData.UserName,
+                    this.PageContext.CurrentUser.Name,
                     string.Empty,
                     exception);
 
@@ -313,41 +313,33 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            DataRow row;
-
-            using (var dt = this.GetRepository<User>().ListAsDataTable(
-                this.PageContext.PageBoardID,
-                this.currentUserId,
-                null))
-            {
-                row = dt.GetFirstRow();
-            }
+            var user = this.GetRepository<User>().GetById(this.currentUserId);
 
             this.AvatarImg.Visible = true;
             this.Avatar.Text = string.Empty;
             this.DeleteAvatar.Visible = false;
             this.NoAvatar.Visible = false;
 
-            if (row["HasAvatarImage"] != null && long.Parse(row["HasAvatarImage"].ToString()) > 0)
+            if (!user.AvatarImage.IsNullOrEmptyDBField())
             {
                 this.AvatarImg.ImageUrl =
                     $"{BoardInfo.ForumClientFileRoot}resource.ashx?u={this.currentUserId}&v={DateTime.Now.Ticks}";
                 this.Avatar.Text = string.Empty;
                 this.DeleteAvatar.Visible = true;
             }
-            else if (row["Avatar"].ToString().Length > 0)
+            else if (user.Avatar.IsSet())
             {
                 // Took out PageContext.BoardSettings.AvatarRemote
                 this.AvatarImg.ImageUrl =
-                    $"{BoardInfo.ForumClientFileRoot}resource.ashx?url={this.Server.UrlEncode(row["Avatar"].ToString())}&width={this.Get<BoardSettings>().AvatarWidth}&height={this.Get<BoardSettings>().AvatarHeight}&v={DateTime.Now.Ticks}";
+                    $"{BoardInfo.ForumClientFileRoot}resource.ashx?url={this.Server.UrlEncode(user.Avatar)}&width={this.Get<BoardSettings>().AvatarWidth}&height={this.Get<BoardSettings>().AvatarHeight}&v={DateTime.Now.Ticks}";
 
-                this.Avatar.Text = row["Avatar"].ToString();
+                this.Avatar.Text = user.Avatar;
                 this.DeleteAvatar.Visible = true;
             }
             else if (this.Get<BoardSettings>().AvatarGravatar)
             {
                 var x = new MD5CryptoServiceProvider();
-                var bs = Encoding.UTF8.GetBytes(this.PageContext.User.Email);
+                var bs = Encoding.UTF8.GetBytes(this.PageContext.MembershipUser.Email);
                 bs = x.ComputeHash(bs);
                 var s = new StringBuilder();
 

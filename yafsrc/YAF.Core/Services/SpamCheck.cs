@@ -89,7 +89,7 @@ namespace YAF.Core.Services
                 return false;
             }
 
-            if (BoardContext.Current.CurrentUserData.NumPosts
+            if (BoardContext.Current.CurrentUser.NumPosts
                 >= this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
             {
                 return false;

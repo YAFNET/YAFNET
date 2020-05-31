@@ -44,6 +44,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Models.Identity;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -62,9 +63,9 @@ namespace YAF.Controls
         private int currentUserId;
 
         /// <summary>
-        /// The _user data.
+        /// The user.
         /// </summary>
-        private CombinedUserDataHelper userData;
+        private Tuple<User, AspNetUsers, Rank, vaccess> user;
 
         #endregion
 
@@ -84,8 +85,7 @@ namespace YAF.Controls
         /// Gets the User Data.
         /// </summary>
         [NotNull]
-        private CombinedUserDataHelper UserData =>
-            this.userData ?? (this.userData = new CombinedUserDataHelper(this.currentUserId));
+        private Tuple<User, AspNetUsers, Rank, vaccess> User => this.user ??= this.GetRepository<User>().GetBoardUser(this.currentUserId);
 
         #endregion
 
@@ -177,8 +177,6 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void UpdateProfileClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var userName = this.Get<IAspNetUsersHelper>().GetUserNameFromID(this.currentUserId);
-
             if (this.UpdateEmailFlag)
             {
                 var newEmail = this.Email.Text.Trim();
@@ -191,7 +189,7 @@ namespace YAF.Controls
 
                 var userFromEmail = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text.Trim());
 
-                if (userFromEmail != null && userFromEmail.Email != userName)
+                if (userFromEmail != null && userFromEmail.Email != this.User.Item1.Name)
                 {
                     this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                     return;
@@ -238,7 +236,7 @@ namespace YAF.Controls
                 this.currentUserId,
                 this.PageContext.PageBoardID,
                 null,
-                this.UserData.DisplayName,
+                this.User.Item1.DisplayName,
                 null,
                 this.TimeZones.SelectedValue,
                 language,
@@ -250,16 +248,7 @@ namespace YAF.Controls
                 () => new User { Activity = this.Activity.Checked },
                 u => u.ID == this.currentUserId);
 
-            // vzrus: If it's a guest edited by an admin registry value should be changed
-            var dt = this.GetRepository<User>().ListAsDataTable(
-                this.PageContext.PageBoardID,
-                this.currentUserId,
-                true,
-                null,
-                null,
-                false);
-
-            if (dt.HasRows() && dt.Rows[0]["IsGuest"].ToType<bool>())
+            if (this.User.Item1.IsGuest.Value)
             {
                 this.GetRepository<Registry>().Save(
                     "timezone",
@@ -278,7 +267,6 @@ namespace YAF.Controls
             }
             else
             {
-                this.userData = null;
                 this.BindData();
             }
         }
@@ -304,9 +292,9 @@ namespace YAF.Controls
 
             this.DataBind();
 
-            this.Email.Text = this.UserData.Email;
+            this.Email.Text = this.User.Item1.Email;
 
-            var timeZoneItem = this.TimeZones.Items.FindByValue(this.UserData.TimeZoneInfo.Id);
+            var timeZoneItem = this.TimeZones.Items.FindByValue(this.User.Item1.TimeZoneInfo.Id);
 
             if (timeZoneItem != null)
             {
@@ -319,9 +307,9 @@ namespace YAF.Controls
                 // While "Allow User Change Theme" option in the host settings is true
                 var themeFile = this.Get<BoardSettings>().Theme;
 
-                if (this.UserData.ThemeFile.IsSet())
+                if (this.User.Item1.ThemeFile.IsSet())
                 {
-                    themeFile = this.UserData.ThemeFile;
+                    themeFile = this.User.Item1.ThemeFile;
                 }
 
                 var themeItem = this.Theme.Items.FindByValue(themeFile);
@@ -341,10 +329,10 @@ namespace YAF.Controls
                 }
             }
 
-            this.HideMe.Checked = this.UserData.IsActiveExcluded
+            this.HideMe.Checked = this.User.Item1.IsActiveExcluded.Value
                                   && (this.Get<BoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
 
-            this.Activity.Checked = this.UserData.Activity;
+            this.Activity.Checked = this.User.Item1.Activity;
 
             if (!this.Get<BoardSettings>().AllowUserLanguage || this.Culture.Items.Count <= 0)
             {
@@ -377,26 +365,26 @@ namespace YAF.Controls
 
             if (overrideByPageUserCulture)
             {
-                if (this.PageContext.CurrentUserData.LanguageFile.IsSet())
+                if (this.PageContext.CurrentUser.LanguageFile.IsSet())
                 {
-                    languageFile = this.PageContext.CurrentUserData.LanguageFile;
+                    languageFile = this.PageContext.CurrentUser.LanguageFile;
                 }
 
-                if (this.PageContext.CurrentUserData.CultureUser.IsSet())
+                if (this.PageContext.CurrentUser.Culture.IsSet())
                 {
-                    culture4Tag = this.PageContext.CurrentUserData.CultureUser;
+                    culture4Tag = this.PageContext.CurrentUser.Culture;
                 }
             }
             else
             {
-                if (this.UserData.LanguageFile.IsSet())
+                if (this.User.Item1.LanguageFile.IsSet())
                 {
-                    languageFile = this.UserData.LanguageFile;
+                    languageFile = this.User.Item1.LanguageFile;
                 }
 
-                if (this.UserData.CultureUser.IsSet())
+                if (this.User.Item1.Culture.IsSet())
                 {
-                    culture4Tag = this.UserData.CultureUser;
+                    culture4Tag = this.User.Item1.Culture;
                 }
             }
 

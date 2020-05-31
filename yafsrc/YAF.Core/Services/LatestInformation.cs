@@ -31,6 +31,7 @@ namespace YAF.Core.Services
     using ServiceStack;
 
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     /// <summary>
@@ -85,15 +86,9 @@ namespace YAF.Core.Services
                 version.VersionDate = date;
                 version.Version = tagName.Replace("v", string.Empty);
             }
-#if DEBUG
             catch (Exception x)
             {
                 this.Get<ILogger>().Error(x, "Exception In LatestInformationService");
-#else
-            catch (Exception x)
-            {
-#endif
-                return version;
             }
 
             return version;

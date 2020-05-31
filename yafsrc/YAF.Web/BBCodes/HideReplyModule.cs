@@ -73,7 +73,7 @@ namespace YAF.Web.BBCodes
                 return;
             }
 
-            var userId = BoardContext.Current.CurrentUserData.UserID;
+            var userId = BoardContext.Current.PageUserID;
 
             if (BoardContext.Current.IsGuest)
             {

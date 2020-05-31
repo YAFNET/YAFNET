@@ -2114,37 +2114,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}nntpserver_delete](@NntpServerID int) as
-begin
-    delete from [{databaseOwner}].[{objectQualifier}NntpTopic] where NntpForumID in (select NntpForumID from [{databaseOwner}].[{objectQualifier}NntpForum] where NntpServerID = @NntpServerID)
-    delete from [{databaseOwner}].[{objectQualifier}NntpForum] where NntpServerID = @NntpServerID
-    delete from [{databaseOwner}].[{objectQualifier}NntpServer] where NntpServerID = @NntpServerID
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}nntpserver_save](
-    @NntpServerID 	int=null,
-    @BoardID	int,
-    @Name		nvarchar(50),
-    @Address	nvarchar(100),
-    @Port		int,
-    @UserName	nvarchar(255)=null,
-    @UserPass	nvarchar(50)=null
-) as begin
-        if @NntpServerID is null
-        insert into [{databaseOwner}].[{objectQualifier}NntpServer](Name,BoardID,Address,Port,UserName,UserPass)
-        values(@Name,@BoardID,@Address,@Port,@UserName,@UserPass)
-    else
-        update [{databaseOwner}].[{objectQualifier}NntpServer] set
-            Name = @Name,
-            [Address] = @Address,
-            Port = @Port,
-            UserName = @UserName,
-            UserPass = @UserPass
-        where NntpServerID = @NntpServerID
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}nntptopic_savemessage](
     @NntpForumID	int,
     @Topic 			nvarchar(100),
@@ -4830,25 +4799,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_guest]
-(
-    @BoardID int,@UTCTIMESTAMP datetime
-)
-as
-begin
-
-    select top 1
-        a.UserID
-    from
-        [{databaseOwner}].[{objectQualifier}User] a
-        inner join [{databaseOwner}].[{objectQualifier}UserGroup] b on b.UserID = a.UserID
-        inner join [{databaseOwner}].[{objectQualifier}Group] c on b.GroupID = c.GroupID
-    where
-        a.BoardID = @BoardID and
-        (c.Flags & 2)<>0
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}user_list](@BoardID int,@UserID int=null,@Approved bit=null,@GroupID int=null,@RankID int=null,@StyledNicks bit = null, @UTCTIMESTAMP datetime) as
 begin
     if @UserID is not null
@@ -4890,9 +4840,9 @@ begin
         a.[IsDirty],
         a.[Moderated],
         a.[Activity],
-        a.[IsFacebookUser],
-        a.[IsTwitterUser],
-        a.[IsGoogleUser],
+        aspnet.Profile_FacebookId,
+        aspnet.Profile_GoogleId,
+        aspnet.Profile_TwitterId,
         a.[Culture],
             CultureUser = a.Culture,
             RankName = b.Name,
@@ -4909,6 +4859,7 @@ begin
             IsModerator		= IsNull(c.IsModerator,0)
         from
             [{databaseOwner}].[{objectQualifier}User] a
+            join [{databaseOwner}].[{objectQualifier}AspNetUsers] aspnet on aspnet.Id=a.ProviderUserKey
             join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID=a.RankID
             left join [{databaseOwner}].[{objectQualifier}vaccess] c on c.UserID=a.UserID
         where
@@ -4956,9 +4907,9 @@ begin
         a.[IsDirty],
         a.[Moderated],
         a.[Activity],
-        a.[IsFacebookUser],
-        a.[IsTwitterUser],
-        a.[IsGoogleUser],
+        aspnet.Profile_FacebookId,
+        aspnet.Profile_GoogleId,
+        aspnet.Profile_TwitterId,
         a.[Culture],
             CultureUser = a.Culture,
             Style = case(@StyledNicks)
@@ -4970,6 +4921,7 @@ begin
             RankName = b.Name
         from
             [{databaseOwner}].[{objectQualifier}User] a
+            join [{databaseOwner}].[{objectQualifier}AspNetUsers] aspnet on aspnet.Id=a.ProviderUserKey
             join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID=a.RankID
         where
             a.BoardID = @BoardID and
@@ -5012,9 +4964,9 @@ begin
         a.[IsDirty],
         a.[Moderated],
         a.[Activity],
-        a.[IsFacebookUser],
-        a.[IsTwitterUser],
-        a.[IsGoogleUser],
+        aspnet.Profile_FacebookId,
+        aspnet.Profile_GoogleId,
+        aspnet.Profile_TwitterId,
         a.[Culture],
             CultureUser = a.Culture,
             IsAdmin = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0),
@@ -5026,6 +4978,7 @@ begin
             else ''	 end
         from
             [{databaseOwner}].[{objectQualifier}User] a
+            join [{databaseOwner}].[{objectQualifier}AspNetUsers] aspnet on aspnet.Id=a.ProviderUserKey
             join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID=a.RankID
         where
             a.BoardID = @BoardID and
@@ -5034,82 +4987,6 @@ begin
             (@RankID is null or a.RankID=@RankID)
         order by
             a.Name
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}admin_list](@BoardID int = null, @StyledNicks bit = null,@UTCTIMESTAMP datetime) as
-begin
-         select
-        a.UserID,
-        a.BoardID,
-        b.Name AS BoardName,
-        a.ProviderUserKey,
-        a.[Name],
-        a.[DisplayName],
-        a.[Password],
-        a.[Email],
-        a.Joined,
-        a.LastVisit,
-        a.IP,
-        a.NumPosts,
-        a.TimeZone,
-        a.Avatar,
-        a.[Signature],
-        a.AvatarImage,
-        a.AvatarImageType,
-        a.RankID,
-        a.Suspended,
-        a.LanguageFile,
-        a.ThemeFile,
-        a.[PMNotification],
-        a.[AutoWatchTopics],
-        a.[DailyDigest],
-        a.[NotificationType],
-        a.[Flags],
-		a.[BlockFlags],
-        a.[Points],
-        a.[IsApproved],
-        a.[IsGuest],
-        a.[IsCaptchaExcluded],
-        a.[IsActiveExcluded],
-        a.[IsDST],
-        a.[IsDirty],
-        a.[Moderated],
-        a.[Activity],
-        a.[IsFacebookUser],
-        a.[IsTwitterUser],
-        a.[IsGoogleUser],
-        a.[Culture],
-            a.NumPosts,
-            CultureUser = a.Culture,
-            r.RankID,
-            RankName = r.Name,
-            Style = case(@StyledNicks)
-            when 1 then  a.UserStyle
-            else ''	 end,
-            NumDays = datediff(d,a.Joined,@UTCTIMESTAMP )+1,
-            NumPostsForum = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.IsApproved = 1 and x.IsDeleted = 0),
-            HasAvatarImage = (select count(1) from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=a.UserID and AvatarImage is not null),
-            IsAdmin	= IsNull(c.IsAdmin,0),
-            IsHostAdmin	= IsNull(a.Flags & 1,0)
-        from
-            [{databaseOwner}].[{objectQualifier}User] a
-            JOIN
-            [{databaseOwner}].[{objectQualifier}Board] b
-            ON b.BoardID = a.BoardID
-            JOIN
-            [{databaseOwner}].[{objectQualifier}Rank] r
-            ON r.RankID = a.RankID
-            left join [{databaseOwner}].[{objectQualifier}vaccess] c on c.UserID=a.UserID
-        where
-            (@BoardID IS NULL OR a.BoardID = @BoardID) and
-            -- is not guest
-            IsNull(a.Flags & 4,0) = 0 and
-            c.ForumID = 0 and
-            -- is admin
-            (IsNull(c.IsAdmin,0) <> 0)
-        order by
-            a.DisplayName
 end
 GO
 
@@ -7007,8 +6884,6 @@ begin
         CultureUser		    = a.Culture,
         IsGuest				= SIGN(a.IsGuest),
         IsDirty				= SIGN(a.IsDirty),
-        IsFacebookUser      = a.IsFacebookUser,
-        IsTwitterUser       = a.IsTwitterUser,
         ModeratePosts       = (select count(1)
                                 from [{databaseOwner}].[{objectQualifier}Message] a
                                 join [{databaseOwner}].[{objectQualifier}Topic] b ON a.TopicID=b.TopicID

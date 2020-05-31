@@ -93,7 +93,7 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<BoardSettings>().EnableDisplayName
-                    ? this.PageContext.CurrentUserData.DisplayName
+                    ? this.PageContext.CurrentUser.DisplayName
                     : this.PageContext.PageUserName,
                 BuildLink.GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("BUDDYLIST_TT"), string.Empty);

@@ -327,8 +327,8 @@
                 <tr>
                     <td>
                         <YAF:UserLink ID="UnverifiedUserLink" 
-                                      UserID='<%# this.Eval("UserID") %>' 
-                                      Style='<%# this.Eval("Style") %>'
+                                      UserID='<%# this.Eval("ID") %>' 
+                                      Style='<%# this.Eval("UserStyle") %>'
                             runat="server" />
                     </td>
                     <td>
@@ -354,7 +354,7 @@
                         </YAF:ThemeButton>
                         <YAF:ThemeButton runat="server" 
                                          CommandName="approve" 
-                                         CommandArgument='<%# this.Eval("UserID") %>'
+                                         CommandArgument='<%# this.Eval("ID") %>'
                                          Type="None"
                                          CssClass="dropdown-item"
                                          ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
@@ -363,7 +363,7 @@
                         </YAF:ThemeButton>
                         <YAF:ThemeButton runat="server" 
                                          CommandName="delete" 
-                                         CommandArgument='<%# this.Eval("UserID") %>'
+                                         CommandArgument='<%# this.Eval("ID") %>'
                                          Type="None"
                                          CssClass="dropdown-item" 
                                          ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE") %>'

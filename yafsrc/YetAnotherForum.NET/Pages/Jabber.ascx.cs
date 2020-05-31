@@ -124,20 +124,17 @@ namespace YAF.Pages
             }
             else
             {
-                // Data for current page user
-                var userMe = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.PageContext.PageUserID);
-
                 // get full user data...
-                var userDataHe = new CombinedUserDataHelper(userHe, this.UserID);
-                var userDataMe = new CombinedUserDataHelper(userMe, this.PageContext.PageUserID);
+                var userDataHe = this.Get<AspNetUsersHelper>().GetMembershipUserById(this.UserID);
 
-                var serverHe = userDataHe.Profile.XMPP
-                    .Substring(userDataHe.Profile.XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
-                var serverMe = userDataMe.Profile.XMPP
-                    .Substring(userDataMe.Profile.XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
+                var serverHe = userDataHe.Profile_XMPP
+                    .Substring(userDataHe.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
+                
+                var serverMe = this.PageContext.MembershipUser.Profile_XMPP
+                    .Substring(this.PageContext.MembershipUser.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
 
                 this.NotifyLabel.Text = serverMe == serverHe
-                                            ? this.GetTextFormatted("SERVERSAME", userDataHe.Profile.XMPP)
+                                            ? this.GetTextFormatted("SERVERSAME", userDataHe.Profile_XMPP)
                                             : this.GetTextFormatted("SERVEROTHER", $"http://{serverHe}");
 
                 this.Alert.Type = MessageTypes.info;

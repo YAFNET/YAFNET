@@ -42,6 +42,9 @@
     <Resource tag="YOUR_USERNAME">שם המשתמש שלך:</Resource>
   </page>
   <page name="ACCOUNT_RESEST_PASSWORD">
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password</Resource>
+    <Resource tag="INVALID_MATCH">The Password and Confirmation Password must match.</Resource>
+    <Resource tag="PASSWORD">Enter New Password</Resource>
     <Resource tag="TITLE">Lost Password</Resource>
   </page>
   <page name="ACTIVE">
@@ -4959,6 +4962,7 @@ Spoiler Content
     <Resource tag="PASSWORD_SENT">סיסמתך נשלחה לכתובת הדוא"ל המוזנת בפרופיל שלך.</Resource>
     <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">שחזור סיסמא בשביל פורום {0}</Resource>
     <Resource tag="QUESTION_FAILURE">תשובתך לא אומתה מול הסיסמא, נסה שנית.</Resource>
+    <Resource tag="SUCCESS">An email with the Reset Link was send to your email address!</Resource>
     <Resource tag="TITLE">שחזור סיסמא</Resource>
     <Resource tag="USERNAME_FAILURE">שם המשתמש אינו קיים במערכת.</Resource>
   </page>

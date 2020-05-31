@@ -82,7 +82,7 @@ namespace YAF.Web.Controls
                 ForumPages.UserProfile,
                 this.GetText("VIEW_PROFILE"),
                 "user",
-                $"u={this.PageContext.PageUserID}&name={this.PageContext.User.UserName}");
+                $"u={this.PageContext.PageUserID}&name={this.PageContext.MembershipUser.UserName}");
 
             htmlDropDown.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("PERSONAL_PROFILE"));
 
@@ -92,7 +92,7 @@ namespace YAF.Web.Controls
                 ForumPages.UserProfile,
                 this.GetText("VIEW_PROFILE"),
                 "user",
-                $"u={this.PageContext.PageUserID}&name={this.PageContext.User.UserName}");
+                $"u={this.PageContext.PageUserID}&name={this.PageContext.MembershipUser.UserName}");
 
             if (!Config.IsDotNetNuke)
             {

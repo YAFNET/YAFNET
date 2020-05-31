@@ -31,6 +31,7 @@ namespace YAF.Pages.Account
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
+    using YAF.Core.Identity.Owin;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -74,61 +75,6 @@ namespace YAF.Pages.Account
         #region Methods
 
         /// <summary>
-        /// Finds the user.
-        /// </summary>
-        /// <param name="userName">
-        /// The user Name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="AspNetUsers"/>.
-        /// </returns>
-        protected virtual AspNetUsers FindUser(string userName)
-        {
-            if (userName.Contains("@"))
-            {
-                // attempt Email Login
-                var realUser = this.Get<IAspNetUsersHelper>().GetUserByEmail(userName);
-
-                if (realUser != null)
-                {
-                    return realUser;
-                }
-            }
-
-            var user = this.Get<IAspNetUsersHelper>().GetUserByName(userName);
-
-            // Standard user name login
-            if (user != null)
-            {
-                return user;
-            }
-
-            // display name login...
-            if (!this.Get<BoardSettings>().EnableDisplayName)
-            {
-                return null;
-            }
-
-            // Display name login
-            var id = this.Get<IUserDisplayName>().GetId(userName);
-
-            if (!id.HasValue)
-            {
-                return null;
-            }
-
-            // get the username associated with this id...
-            var realUsername = this.Get<IAspNetUsersHelper>().GetUserNameFromID(id.Value);
-
-            user = this.Get<IAspNetUsersHelper>().GetUserByName(realUsername);
-
-            // validate again...
-            return user;
-
-            // no valid login -- return null
-        }
-
-        /// <summary>
         /// The page_ load.
         /// </summary>
         /// <param name="sender">
@@ -139,6 +85,11 @@ namespace YAF.Pages.Account
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (this.Get<HttpRequestBase>().QueryString.Exists("auth"))
+            {
+                this.HandleExternalLogin();
+            }
+
             if (this.IsPostBack)
             {
                 this.ContentBody.CssClass = "card-body was-validated";
@@ -214,7 +165,7 @@ namespace YAF.Pages.Account
                 return;
             }
 
-            var user = this.FindUser(this.UserName.Text.Trim());
+            var user = this.Get<IAspNetUsersHelper>().ValidateUser(this.UserName.Text.Trim());
 
             if (user == null)
             {
@@ -264,14 +215,64 @@ namespace YAF.Pages.Account
         {
             this.Get<IAspNetUsersHelper>().SignIn(user, this.RememberMe.Checked);
 
-            this.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
-            this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
-
             this.Page.Response.Redirect(
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
                     ? this.HtmlEncode(
                         this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl")))
                     : BuildLink.GetLink(ForumPages.Board));
+        }
+
+        /// <summary>
+        ///  handle external login if provider exist in Querystring
+        /// </summary>
+        private void HandleExternalLogin()
+        {
+            var providerName = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<string>("auth");
+
+            var loginAuth = (AuthService)Enum.Parse(typeof(AuthService), providerName, true);
+
+            var message = string.Empty;
+
+            switch (loginAuth)
+            {
+                case AuthService.twitter:
+                    {
+                        var twitterAuth = new Twitter();
+                        twitterAuth.LoginOrCreateUser(out message);
+                    }
+
+                    break;
+                case AuthService.facebook:
+                    {
+                        var facebookAuth = new Facebook();
+                        facebookAuth.LoginOrCreateUser(out message);
+                    }
+
+                    break;
+                case AuthService.google:
+                    {
+                        var googleAuth = new Google();
+                        googleAuth.LoginOrCreateUser(out message);
+                    }
+
+                    break;
+                case AuthService.github:
+                    {
+                        var gitHubAccountAuth = new GitHub();
+                        gitHubAccountAuth.LoginOrCreateUser(out message);
+                    }
+
+                    break;
+            }
+
+            if (message.IsSet())
+            {
+                this.PageContext.AddLoadMessage(message, MessageTypes.warning);
+            }
+            else
+            {
+                this.Get<IAspNetUsersHelper>().SignInExternal();
+            }
         }
 
         #endregion

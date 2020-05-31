@@ -485,14 +485,14 @@ namespace YAF.Controls
                 "u={0}&name={1}",
                 this.PageContext.PageUserID,
                 this.Get<BoardSettings>().EnableDisplayName
-                    ? this.PageContext.CurrentUserData.DisplayName
-                    : this.PageContext.CurrentUserData.UserName);
+                    ? this.PageContext.CurrentUser.DisplayName
+                    : this.PageContext.CurrentUser.Name);
 
             var unreadCount = this.PageContext.UnreadPrivate + this.PageContext.PendingBuddies;
 
             var unreadNotify = this.PageContext.Mention + this.PageContext.Quoted + this.PageContext.ReceivedThanks;
 
-            if (!this.PageContext.CurrentUserData.Activity)
+            if (!this.PageContext.CurrentUser.Activity)
             {
                 this.MyNotifications.Visible = false;
             }

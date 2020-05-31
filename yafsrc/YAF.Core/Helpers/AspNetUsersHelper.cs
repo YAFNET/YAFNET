@@ -49,8 +49,8 @@ namespace YAF.Core.Helpers
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
-    using YAF.Utils.Helpers;
-
+    using YAF.Utils;
+    
     using Constants = YAF.Types.Constants.Constants;
 
     /// <summary>
@@ -93,27 +93,24 @@ namespace YAF.Core.Helpers
         {
             get
             {
-                int? guestUserID = this.Get<IDataCache>().GetOrSet(
+                var guestUserID = this.Get<IDataCache>().GetOrSet(
                     Constants.Cache.GuestUserID,
                     () =>
                     {
                         // get the guest user for this board...
-                        guestUserID =
-                            this.GetRepository<User>()
-                                .GetGuestUserId(BoardContext.Current.PageBoardID) ?? this
-                                .GetRepository<User>().GetGuestUserId(BoardContext.Current.PageBoardID);
+                        var guestUser = this.GetRepository<User>().GetGuestUser(BoardContext.Current.PageBoardID);
 
-                        if (!guestUserID.HasValue)
+                        if (guestUser == null)
                         {
                             // failure...
                             throw new NoValidGuestUserForBoardException(
                                 $"Could not locate the guest user for the board id {BoardContext.Current.PageBoardID}. You might have deleted the guest group or removed the guest user.");
                         }
 
-                        return guestUserID.Value;
+                        return guestUser.ID;
                     });
 
-                return guestUserID ?? -1;
+                return guestUserID;
             }
         }
 
@@ -121,9 +118,7 @@ namespace YAF.Core.Helpers
         /// Gets the Username of the Guest user for the current board.
         /// </summary>
         public string GuestUserName =>
-            this.GetRepository<User>()
-                .ListAsDataTable(BoardContext.Current.PageBoardID, this.Get<IAspNetUsersHelper>().GuestUserId, true)
-                .GetFirstRowColumnAsValue<string>("Name", null);
+            this.GetRepository<User>().GetGuestUser(BoardContext.Current.PageBoardID).Name;
 
         #endregion
 
@@ -255,12 +250,10 @@ namespace YAF.Core.Helpers
 
             var dt = this.GetRepository<UserAlbum>().ListByUser(userID);
 
-            dt.ForEach(
-                dr => this.Get<IAlbum>().AlbumImageDelete(uploadFolderPath, dr.ID, userID, null));
+            dt.ForEach(dr => this.Get<IAlbum>().AlbumImageDelete(uploadFolderPath, dr.ID, userID, null));
 
             // Check if there are any avatar images in the uploads folder
-            if (!this.Get<BoardSettings>().UseFileTable &&
-                this.Get<BoardSettings>().AvatarUpload)
+            if (!this.Get<BoardSettings>().UseFileTable && this.Get<BoardSettings>().AvatarUpload)
             {
                 string[] imageExtensions = { "jpg", "jpeg", "gif", "png", "bmp" };
 
@@ -353,11 +346,10 @@ namespace YAF.Core.Helpers
             dt.ForEach(dr => this.Get<IAlbum>().AlbumImageDelete(uploadDir, dr.ID, userID, null));
 
             // delete posts...
-            var messageIds = this.GetRepository<Message>().GetAllUserMessages(userID).Select(m => m.ID)
-                .Distinct().ToList();
+            var messageIds = this.GetRepository<Message>().GetAllUserMessages(userID).Select(m => m.ID).Distinct()
+                .ToList();
 
-            messageIds.ForEach(
-                x => this.GetRepository<Message>().Delete(x, true, string.Empty, 1, true));
+            messageIds.ForEach(x => this.GetRepository<Message>().Delete(x, true, string.Empty, 1, true));
 
             this.Get<AspNetUsersManager>().Delete(user);
             this.GetRepository<User>().Delete(userID);
@@ -431,7 +423,9 @@ namespace YAF.Core.Helpers
         {
             var providerUserKey = this.Get<IAspNetUsersHelper>().GetUserProviderKeyFromUserID(userID);
 
-            return providerUserKey != null ? this.Get<IAspNetUsersHelper>().GetMembershipUserByKey(providerUserKey) : null;
+            return providerUserKey != null
+                ? this.Get<IAspNetUsersHelper>().GetMembershipUserByKey(providerUserKey)
+                : null;
         }
 
         /// <summary>
@@ -457,8 +451,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public AspNetUsers GetUser()
         {
-            return this.Get<HttpContextBase>().User != null &&
-                   this.Get<HttpContextBase>().User.Identity.IsAuthenticated
+            return this.Get<HttpContextBase>().User != null && this.Get<HttpContextBase>().User.Identity.IsAuthenticated
                 ? this.Get<IAspNetUsersHelper>().GetUserByName(HttpContext.Current.User.Identity.Name)
                 : null;
         }
@@ -510,9 +503,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public int GetUserIDFromProviderUserKey(object providerUserKey)
         {
-            return this.GetRepository<User>().GetUserId(
-                BoardContext.Current.PageBoardID,
-                providerUserKey.ToString());
+            return this.GetRepository<User>().GetUserId(BoardContext.Current.PageBoardID, providerUserKey.ToString());
         }
 
         /// <summary>
@@ -685,12 +676,29 @@ namespace YAF.Core.Helpers
 
             this.Get<IAspNetUsersHelper>().Update(user);
 
-            this.Get<IRaiseEvent>()
-                .Raise(new SuccessfulUserLoginEvent(BoardContext.Current.PageUserID));
+            this.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
+            this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
 
-            this.GetRepository<User>().UpdateAuthServiceStatus(
-                BoardContext.Current.PageUserID,
-                AuthService.none);
+            this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(BoardContext.Current.PageUserID));
+        }
+
+        /// <summary>
+        /// The sign in external.
+        /// </summary>
+        public void SignInExternal()
+        {
+            var loginInfo = this.Get<IAuthenticationManager>().GetExternalLoginInfo();
+
+            var user = loginInfo.Login.LoginProvider.Equals("Twitter")
+                ? this.Get<IAspNetUsersHelper>().GetUserByName(loginInfo.DefaultUserName)
+                : this.Get<IAspNetUsersHelper>().GetUserByEmail(loginInfo.Email);
+
+            this.Get<IAspNetUsersHelper>().AddLogin(user.Id, loginInfo.Login);
+
+            // Login
+            this.Get<IAspNetUsersHelper>().SignIn(user);
+
+            BuildLink.Redirect(ForumPages.Board);
         }
 
         /// <summary>
@@ -900,6 +908,88 @@ namespace YAF.Core.Helpers
         public IdentityResult ChangePassword(string userId, string currentPassword, string newPassword)
         {
             return this.Get<AspNetUsersManager>().ChangePassword(userId, currentPassword, newPassword);
+        }
+
+        /// <summary>
+        /// The add login.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="login">
+        /// The login.
+        /// </param>
+        public void AddLogin(string userId, UserLoginInfo login)
+        {
+            CodeContracts.VerifyNotNull(userId, nameof(userId));
+            CodeContracts.VerifyNotNull(login, nameof(login));
+
+            if (this.GetRepository<AspNetUserLogins>().GetSingle(l => l.UserId == userId) != null)
+            {
+                return;
+            }
+
+            var userLogin = new AspNetUserLogins
+            {
+                UserId = userId, ProviderKey = login.ProviderKey, LoginProvider = login.LoginProvider
+            };
+
+            this.GetRepository<AspNetUserLogins>().Insert(userLogin);
+        }
+
+        /// <summary>
+        /// Finds the user.
+        /// </summary>
+        /// <param name="userName">
+        /// The user Name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="AspNetUsers"/>.
+        /// </returns>
+        public AspNetUsers ValidateUser(string userName)
+        {
+            if (userName.Contains("@"))
+            {
+                // attempt Email Login
+                var realUser = BoardContext.Current.Get<IAspNetUsersHelper>().GetUserByEmail(userName);
+
+                if (realUser != null)
+                {
+                    return realUser;
+                }
+            }
+
+            var user = this.Get<IAspNetUsersHelper>().GetUserByName(userName);
+
+            // Standard user name login
+            if (user != null)
+            {
+                return user;
+            }
+
+            // display name login...
+            if (!this.Get<BoardSettings>().EnableDisplayName)
+            {
+                return null;
+            }
+
+            // Display name login
+            var id = this.Get<IUserDisplayName>().GetId(userName);
+
+            if (!id.HasValue)
+            {
+                return null;
+            }
+
+            // get the username associated with this id...
+            var realUsername = this.Get<IAspNetUsersHelper>().GetUserNameFromID(id.Value);
+
+            user = this.Get<IAspNetUsersHelper>().GetUserByName(realUsername);
+
+            // validate again...
+            return user;
+
+            // no valid login -- return null
         }
 
         #endregion

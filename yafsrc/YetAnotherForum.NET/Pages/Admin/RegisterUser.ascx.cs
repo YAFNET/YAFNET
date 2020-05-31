@@ -104,6 +104,7 @@ namespace YAF.Pages.Admin
                 Profile_Blog = userProfile.Blog,
                 Profile_Gender = userProfile.Gender,
                 Profile_GoogleId = userProfile.GoogleId,
+                Profile_GitHubId = userProfile.GitHubId,
                 Profile_Homepage = userProfile.Homepage,
                 Profile_ICQ = userProfile.ICQ,
                 Profile_Facebook = userProfile.Facebook,

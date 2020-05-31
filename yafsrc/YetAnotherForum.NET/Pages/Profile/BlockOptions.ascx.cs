@@ -90,7 +90,7 @@ namespace YAF.Pages.Profile
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<BoardSettings>().EnableDisplayName
-                    ? this.PageContext.CurrentUserData.DisplayName
+                    ? this.PageContext.CurrentUser.DisplayName
                     : this.PageContext.PageUserName,
                 BuildLink.GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("BLOCK_OPTIONS", "TITLE"), string.Empty);
@@ -148,9 +148,9 @@ namespace YAF.Pages.Profile
         /// </summary>
         private void BindData()
         {
-            this.BlockPMs.Checked = this.PageContext.CurrentUserData.Block.BlockPMs;
-            this.BlockFriendRequests.Checked = this.PageContext.CurrentUserData.Block.BlockFriendRequests;
-            this.BlockEmails.Checked = this.PageContext.CurrentUserData.Block.BlockEmails;
+            this.BlockPMs.Checked = this.PageContext.CurrentUser.Block.BlockPMs;
+            this.BlockFriendRequests.Checked = this.PageContext.CurrentUser.Block.BlockFriendRequests;
+            this.BlockEmails.Checked = this.PageContext.CurrentUser.Block.BlockEmails;
 
             var ignoreUsers = this.GetRepository<IgnoreUser>().Get(u => u.UserID == this.PageContext.PageUserID);
 

@@ -110,7 +110,6 @@ namespace YAF.Core.Modules
             builder.RegisterType<SpamWordCheck>().As<ISpamWordCheck>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<SpamCheck>().As<ISpamCheck>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<ThankYou>().As<IThankYou>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<SingleSignOnUser>().As<ISingeSignOnUser>().SingleInstance().PreserveExistingDefaults();
 
             builder.RegisterType<Permissions>().As<IPermissions>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();

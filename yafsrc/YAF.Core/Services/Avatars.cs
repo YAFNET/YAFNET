@@ -31,10 +31,11 @@ namespace YAF.Core.Services
 
     using YAF.Configuration;
     using YAF.Core.Context;
-    using YAF.Core.Helpers;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -78,7 +79,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetAvatarUrlForCurrentUser()
         {
-            return this.GetAvatarUrlForUser(BoardContext.Current.CurrentUserData);
+            return this.GetAvatarUrlForUser(BoardContext.Current.CurrentUser);
         }
 
         /// <summary>
@@ -94,9 +95,8 @@ namespace YAF.Core.Services
         {
             try
             {
-                var userData = new CombinedUserDataHelper(userId);
-
-                return this.GetAvatarUrlForUser(userData);
+                var user = BoardContext.Current.GetRepository<User>().GetById(userId);
+                return this.GetAvatarUrlForUser(user);
             }
             catch (Exception)
             {
@@ -108,15 +108,15 @@ namespace YAF.Core.Services
         /// <summary>
         /// The get avatar url for user.
         /// </summary>
-        /// <param name="userData">
-        /// The user data. 
+        /// <param name="user">
+        /// The user.
         /// </param>
         /// <returns>
         /// Returns the Avatar Url 
         /// </returns>
-        public string GetAvatarUrlForUser([NotNull] IUserData userData)
+        public string GetAvatarUrlForUser([NotNull] User user)
         {
-            CodeContracts.VerifyNotNull(userData, "userData");
+            CodeContracts.VerifyNotNull(user, "user");
 
             var getUserEmail = new Func<string>(
                 () =>
@@ -124,7 +124,7 @@ namespace YAF.Core.Services
                         string userEmail;
                         try
                         {
-                            userEmail = userData.Email;
+                            userEmail = user.Email;
                         }
                         catch (Exception)
                         {
@@ -135,9 +135,9 @@ namespace YAF.Core.Services
                     });
 
             return this.GetAvatarUrlForUser(
-                userData.UserID,
-                userData.Avatar,
-                userData.HasAvatarImage,
+                user.ID,
+                user.Avatar,
+                user.AvatarImage != null,
                 this.boardSettings.AvatarGravatar ? getUserEmail() : string.Empty);
         }
 

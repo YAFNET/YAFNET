@@ -149,7 +149,7 @@ namespace YAF.Utils
 
             var versionString = new StringBuilder();
 
-            versionString.AppendFormat("{0}.{1}{2}", version.Major, version.Minor, version.Build);
+            versionString.AppendFormat("{0}.{1}.{2}", version.Major, version.Minor, version.Build);
 
             if (version.Sub > 0)
             {

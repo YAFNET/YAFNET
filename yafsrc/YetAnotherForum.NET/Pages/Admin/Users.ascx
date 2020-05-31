@@ -2,7 +2,6 @@
     CodeBehind="Users.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="YAF.Types.Flags" %>
 
 <%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/UsersImport.ascx" %>
 
@@ -160,20 +159,33 @@
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" />:</strong>
                                             <%# this.Get<IDateTime>().FormatDateTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
                                         </li>
-                                        <li class="list-inline-item">
-                                            <span id="FacebookUser" class="FacebookIcon" runat="server" 
-                                                  Visible='<%# this.Eval("IsFacebookUser").ToType<bool>() %>' 
-                                                  title='<%# this.GetText("ADMIN_EDITUSER", "FACEBOOK_USER_HELP") %>'>&nbsp;</span>
+                                        <li class="list-inline-item" runat="server" 
+                                            Visible='<%# this.Eval("Profile_FacebookId").ToString().IsSet() %>'>
+                                            <span title='<%# this.GetText("ADMIN_EDITUSER", "FACEBOOK_USER_HELP") %>'>
+                                                <YAF:Icon runat="server" 
+                                                          IconName="facebook" 
+                                                          IconStyle="fab" 
+                                                          IconType="text-info" />
+                                            </span>
                                         </li>
-                                        <li class="list-inline-item">
-                                            <span id="TwitterUser" class="TwitterIcon" runat="server" 
-                                                  Visible='<%# this.Eval("IsTwitterUser").ToType<bool>() %>' 
-                                                  title='<%# this.GetText("ADMIN_EDITUSER", "TWITTER_USER_HELP") %>'>&nbsp;</span>
+                                        <li class="list-inline-item" runat="server" 
+                                            Visible='<%# this.Eval("Profile_TwitterId").ToString().IsSet() %>' >
+                                            <span title='<%# this.GetText("ADMIN_EDITUSER", "TWITTER_USER_HELP") %>'>
+                                                
+                                                <YAF:Icon runat="server" 
+                                                          IconName="twitter" 
+                                                          IconStyle="fab" 
+                                                          IconType="text-info" />
+                                            </span>
                                         </li>
-                                        <li class="list-inline-item">
-                                            <span id="GoogleUser" class="GoogleIcon" runat="server" 
-                                                  Visible='<%# this.Eval("IsGoogleUser").ToType<bool>() %>' 
-                                                  title='<%# this.GetText("ADMIN_EDITUSER", "GOOGLE_USER_HELP") %>'>&nbsp;</span>
+                                        <li class="list-inline-item" runat="server" 
+                                            Visible='<%# this.Eval("Profile_GoogleId").ToString().IsSet() %>'>
+                                            <span title='<%# this.GetText("ADMIN_EDITUSER", "GOOGLE_USER_HELP") %>'>
+                                                <YAF:Icon runat="server" 
+                                                          IconName="google" 
+                                                          IconStyle="fab" 
+                                                          IconType="text-info" />
+                                            </span>
                                         </li>
                                     </ul>
                                 </p>

@@ -42,6 +42,9 @@
     <Resource tag="YOUR_USERNAME">Dein Benutzername:</Resource>
   </page>
   <page name="ACCOUNT_RESEST_PASSWORD">
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password</Resource>
+    <Resource tag="INVALID_MATCH">The Password and Confirmation Password must match.</Resource>
+    <Resource tag="PASSWORD">Enter New Password</Resource>
     <Resource tag="TITLE">Lost Password</Resource>
   </page>
   <page name="ACTIVELOCATION">
@@ -4843,6 +4846,7 @@ Spoiler Content
     <Resource tag="PASSWORD_SENT">Dein Passwort wurde an die gespeicherte E-Mail-Adresse geschickt.</Resource>
     <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Passwortwiederherstellung für Forum: {0}</Resource>
     <Resource tag="QUESTION_FAILURE">Die Antwort ist leider falsch. Bitte nochmal versuchen.</Resource>
+    <Resource tag="SUCCESS">An email with the Reset Link was send to your email address!</Resource>
     <Resource tag="TITLE">Passwort vergessen</Resource>
     <Resource tag="USERNAME_FAILURE">Der eingegebene Benutzername ist unbekannt</Resource>
   </page>
@@ -5417,7 +5421,6 @@ Hallo!
 
       Benutzername: {user}
 	  Automatisch generiertes Passwort: {pass}
-	  Automatisch generierte Sicherheits Antwort: {answer}
       E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Facebook anmelden)
 
     </Resource>
@@ -5467,7 +5470,6 @@ Hallo!
 
       Benutzername: {user}
       Automatisch generiertes Passwort: {pass}
-      Automatisch generierte Sicherheits Antwort: {answer}
       E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Google anmelden)
 
     </Resource>
@@ -5639,7 +5641,6 @@ Der Beitrag wurde im {forumname} forum veröffentlicht.
 
       Benutzername: {user}
       Automatisch generiertes Passwort: {pass}
-      Automatisch generierte Sicherheits Antwort: {answer}
       E-Mail: {email}
 
     </Resource>
@@ -5799,7 +5800,6 @@ Der Beitrag wurde im {forumname} forum veröffentlicht.
 
       Benutzername: {user}
 	  Automatisch generiertes Passwort: {pass}
-	  Automatisch generierte Sicherheits Antwort: {answer}
       E-Mail: {email} (Bitte ändern umgehend ihre E-Mail Adresse.)
 
     </Resource>

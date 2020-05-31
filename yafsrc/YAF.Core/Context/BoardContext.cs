@@ -34,6 +34,7 @@ namespace YAF.Core.Context
     using YAF.Configuration;
     using YAF.Configuration.Pattern;
     using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Types;
@@ -43,6 +44,7 @@ namespace YAF.Core.Context
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Models;
     using YAF.Utils.Helpers;
 
     using AspNetUsers = YAF.Types.Models.Identity.AspNetUsers;
@@ -64,12 +66,12 @@ namespace YAF.Core.Context
         /// <summary>
         /// The user.
         /// </summary>
-        private AspNetUsers user;
+        private AspNetUsers membershipUser;
 
         /// <summary>
-        /// The combined user data.
+        /// The user.
         /// </summary>
-        private CombinedUserDataHelper combinedUserData;
+        private User user;
 
         /// <summary>
         /// The load message.
@@ -151,12 +153,6 @@ namespace YAF.Core.Context
         public ForumPage CurrentForumPage { get; set; }
 
         /// <summary>
-        /// Gets the Instance of the Combined UserData for the current user.
-        /// </summary>
-        public IUserData CurrentUserData =>
-            this.combinedUserData ?? (this.combinedUserData = new CombinedUserDataHelper());
-
-        /// <summary>
         /// Gets the current page as the forumPage Enumerator (for comparison)
         /// </summary>
         public ForumPages ForumPageType
@@ -217,12 +213,12 @@ namespace YAF.Core.Context
         /// <summary>
         /// Gets or sets the Current Membership User
         /// </summary>
-        public AspNetUsers User
-        {
-            get => this.user ?? (this.user = this.Get<IAspNetUsersHelper>().GetUser());
+        public AspNetUsers MembershipUser => this.membershipUser ?? (this.membershipUser = this.Get<IAspNetUsersHelper>().GetUser());
 
-            set => this.user = value;
-        }
+        /// <summary>
+        ///   Gets DBRow.
+        /// </summary>
+        public User CurrentUser => this.user ?? (this.user = this.GetRepository<User>().GetById(Current.PageUserID));
 
         /// <summary>
         /// Gets the YAF Context Global Instance Variables Use for plugins or other situations where a value is needed per instance.
@@ -305,12 +301,12 @@ namespace YAF.Core.Context
 
             this.BeforeInit?.Invoke(this, new EventArgs());
 
-            if (this.User != null && (this.Get<HttpSessionStateBase>()["UserUpdated"] == null
+            if (this.MembershipUser != null && (this.Get<HttpSessionStateBase>()["UserUpdated"] == null
                                       || this.Get<HttpSessionStateBase>()["UserUpdated"].ToString()
-                                      != this.User.UserName))
+                                      != this.MembershipUser.UserName))
             {
-                AspNetRolesHelper.UpdateForumUser(this.User, this.PageBoardID);
-                this.Get<HttpSessionStateBase>()["UserUpdated"] = this.User.UserName;
+                AspNetRolesHelper.UpdateForumUser(this.MembershipUser, this.PageBoardID);
+                this.Get<HttpSessionStateBase>()["UserUpdated"] = this.MembershipUser.UserName;
             }
 
             var pageLoadEvent = new InitPageLoadEvent();

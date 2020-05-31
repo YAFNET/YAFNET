@@ -308,6 +308,11 @@ namespace YAF.Types.Interfaces.Identity
         void SignIn(AspNetUsers user, bool isPersistent = true);
 
         /// <summary>
+        /// The sign in external.
+        /// </summary>
+        void SignInExternal();
+
+        /// <summary>
         /// Creates a ClaimsIdentity representing the user
         /// </summary>
         /// <param name="user">
@@ -476,5 +481,27 @@ namespace YAF.Types.Interfaces.Identity
         /// The <see cref="IdentityResult"/>.
         /// </returns>
         IdentityResult ChangePassword(string userId, string currentPassword, string newPassword);
+
+        /// <summary>
+        /// The add login.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="login">
+        /// The login.
+        /// </param>
+        void AddLogin(string userId, UserLoginInfo login);
+
+        /// <summary>
+        /// Finds the user.
+        /// </summary>
+        /// <param name="userName">
+        /// The user Name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="AspNetUsers"/>.
+        /// </returns>
+        AspNetUsers ValidateUser(string userName);
     }
 }

@@ -173,7 +173,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Gets UserName for the current User (Read Only)
         /// </summary>
-        public string PageUserName => BoardContext.Current.User == null ? "Guest" : BoardContext.Current.User.UserName;
+        public string PageUserName => BoardContext.Current.MembershipUser == null ? "Guest" : BoardContext.Current.MembershipUser.UserName;
 
         /// <summary>
         ///   Gets ServiceLocator.
@@ -273,6 +273,8 @@ namespace YAF.Web.Controls
 
             base.OnInit(e);
         }
+
+        
 
         /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.

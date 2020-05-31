@@ -49,7 +49,7 @@ namespace YAF.Core.Data.Filters
         private readonly string[] _styledNickOperations =
         {
             "active_list", "active_listtopic", "active_listforum", "forum_moderators", "topic_latest",
-            "topic_latest", "active_list_user", "admin_list"
+            "topic_latest", "active_list_user"
         };
 
         #endregion

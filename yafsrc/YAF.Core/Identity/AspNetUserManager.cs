@@ -336,5 +336,22 @@ namespace YAF.Core.Identity
         {
             return this.ChangePasswordAsync(userId, currentPassword, newPassword).Result;
         }
+
+        /// <summary>
+        /// The add login.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="login">
+        /// The login.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IdentityResult"/>.
+        /// </returns>
+        public IdentityResult AddLogin(string userId, UserLoginInfo login)
+        {
+            return this.AddLoginAsync(userId, login).Result;
+        }
     }
 }

@@ -127,10 +127,8 @@ namespace YAF.Web.Controls
                         // and can add an info about last user who resolved the message
                         if (this.ResolvedDate.IsSet())
                         {
-                            var resolvedByName = this.GetRepository<User>().ListAsDataTable(
-                                this.PageContext.PageBoardID,
-                                this.ResolvedBy.ToType<int>(),
-                                true).Rows[0]["Name"].ToString();
+                            var resolvedByName = this.GetRepository<User>().GetById(
+                                this.ResolvedBy.ToType<int>()).Name;
 
                             var resolvedByDisplayName =
                                 this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(this.ResolvedBy).IsSet()

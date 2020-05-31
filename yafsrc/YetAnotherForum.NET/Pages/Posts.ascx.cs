@@ -41,7 +41,6 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Services.Auth;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -358,7 +357,7 @@ namespace YAF.Pages
         {
             if (!this.PageContext.IsGuest)
             {
-                if (this.PageContext.CurrentUserData.Activity)
+                if (this.PageContext.CurrentUser.Activity)
                 {
                     this.GetRepository<Activity>().UpdateTopicNotification(
                         this.PageContext.PageUserID,
@@ -459,15 +458,9 @@ namespace YAF.Pages
 
                 var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.TopicName));
 
-                if (this.topic.Description.IsSet())
-                {
-                    this.TopicTitle.Text =
-                        $"{topicSubject} - <em>{this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.Description))}</em>";
-                }
-                else
-                {
-                    this.TopicTitle.Text = this.Get<IBadWordReplace>().Replace(topicSubject);
-                }
+                this.TopicTitle.Text = this.topic.Description.IsSet()
+                    ? $"{topicSubject} - <em>{this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.Description))}</em>"
+                    : this.Get<IBadWordReplace>().Replace(topicSubject);
 
                 this.TopicLink.ToolTip = this.Get<IBadWordReplace>().Replace(
                     this.HtmlEncode(this.topic.Description));
@@ -1048,7 +1041,7 @@ namespace YAF.Pages
                                         findMessageId = unreadFirst.Field<int>("MessageID");
                                         messagePosition = unreadFirst.Field<int>("MessagePosition");
 
-                                        if (this.Get<HttpRequestBase>().QueryString.Exists("m") && this.PageContext.CurrentUserData.Activity)
+                                        if (this.Get<HttpRequestBase>().QueryString.Exists("m") && this.PageContext.CurrentUser.Activity)
                                         {
                                             this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, findMessageId);
                                         }
@@ -1188,31 +1181,7 @@ namespace YAF.Pages
                         var tweetUrl =
                             $"http://twitter.com/share?url={this.Server.UrlEncode(topicUrl)}&text={this.Server.UrlEncode(string.Format("RT {1}Thread: {0}", twitterMsg.Truncate(100), twitterName))}";
 
-                        // Send Re-tweet directly thru the Twitter API if User is Twitter User
-                        if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet()
-                            && this.Get<ISession>().TwitterToken.IsSet()
-                            && this.Get<ISession>().TwitterTokenSecret.IsSet() && this.PageContext.IsTwitterUser)
-                        {
-                            var auth = new OAuthTwitter
-                                {
-                                    ConsumerKey = Config.TwitterConsumerKey,
-                                    ConsumerSecret = Config.TwitterConsumerSecret,
-                                    Token = this.Get<ISession>().TwitterToken,
-                                    TokenSecret = this.Get<ISession>().TwitterTokenSecret
-                                };
-
-                            var tweets = new TweetAPI(auth);
-
-                            tweets.UpdateStatus(
-                                TweetAPI.ResponseFormat.json,
-                                this.Server.UrlEncode(
-                                    string.Format("RT {1}: {0} {2}", twitterMsg.Truncate(100), twitterName, topicUrl)),
-                                string.Empty);
-                        }
-                        else
-                        {
-                            this.Get<HttpResponseBase>().Redirect(tweetUrl);
-                        }
+                        this.Get<HttpResponseBase>().Redirect(tweetUrl);
                     }
 
                     break;

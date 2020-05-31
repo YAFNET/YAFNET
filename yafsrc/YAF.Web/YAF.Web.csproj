@@ -53,9 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
-    <Compile Update="Controls\BaseReportedPosts.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Update="Controls\BaseReportedPosts.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj" />

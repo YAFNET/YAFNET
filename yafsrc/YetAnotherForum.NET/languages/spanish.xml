@@ -42,6 +42,9 @@
     <Resource tag="YOUR_USERNAME">Tu nombre de usuario:</Resource>
   </page>
   <page name="ACCOUNT_RESEST_PASSWORD">
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password</Resource>
+    <Resource tag="INVALID_MATCH">The Password and Confirmation Password must match.</Resource>
+    <Resource tag="PASSWORD">Enter New Password</Resource>
     <Resource tag="TITLE">Lost Password</Resource>
   </page>
   <page name="ACTIVELOCATION">
@@ -5259,6 +5262,7 @@ public class Hello1
     <Resource tag="PASSWORD_SENT">Su clave nueva fue enviada a su cuenta de correo.</Resource>
     <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Recuperacion de clave del foro {0} </Resource>
     <Resource tag="QUESTION_FAILURE">Su respuesta no pudo ser verificada, trate de nuevo por favor.</Resource>
+    <Resource tag="SUCCESS">An email with the Reset Link was send to your email address!</Resource>
     <Resource tag="TITLE">Clave olvidada</Resource>
     <Resource tag="USERNAME_FAILURE">No se pudo encontrar el usuario tecleado.</Resource>
   </page>
@@ -5834,7 +5838,6 @@ Te has registrado correctamente en el foro {forumname} usando tu cuenta de Faceb
 
 Nombre de Usuario: {user}
 Contraseña autogenerada: {pass}
-Respuesta de seguridad autogenerada: {answer}
 Email de usuario: {email} (Por favor, no cambies tu email o dejarás de poder entrar con Facebook)
 	  
 </Resource>
@@ -5884,7 +5887,6 @@ Te has registrado correctamente en el foro {forumname} usando tu cuenta de Googl
 
 Nombre de Usuario: {user}
 Contraseña autogenerada: {pass}
-Respuesta de seguridad autogenerada: {answer}
 Email de usuario: {email} (Por favor, no cambies tu email o dejarás de poder entrar con Google)
 	  
     </Resource>
@@ -6056,7 +6058,6 @@ Te has registrado correctamente en el foro {forumname}:
 
 Nombre de usuario: {user}
 Contraseña autogenerada: {pass}
-Respuesta de seguridad autogenerada: {answer}
 Email de usuario: {email}
 
     </Resource>
@@ -6216,7 +6217,6 @@ Te has registrado correctamente en el foro {forumname} usando tu cuenta de Twitt
 
 Nombre de Usuario: {user}
 Contraseña autogenerada: {pass}
-Respuesta de seguridad autogenerada: {answer}
 Email de usuario: {email} (Por favor, cambia tu email a tu dirección real para poder recibir emails)	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">

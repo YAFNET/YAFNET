@@ -42,6 +42,9 @@
     <Resource tag="YOUR_USERNAME">Ваше имя пользователя:</Resource>
   </page>
   <page name="ACCOUNT_RESEST_PASSWORD">
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password</Resource>
+    <Resource tag="INVALID_MATCH">The Password and Confirmation Password must match.</Resource>
+    <Resource tag="PASSWORD">Enter New Password</Resource>
     <Resource tag="TITLE">Lost Password</Resource>
   </page>
   <page name="ACTIVELOCATION">
@@ -4877,6 +4880,7 @@ Spoiler Content
     <Resource tag="PASSWORD_SENT">Ваш пароль был отправлен на почтовый адрес, указанный в профиле.</Resource>
     <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Восстановление пароля для форума {0} </Resource>
     <Resource tag="QUESTION_FAILURE">Ваш ответ не может быть проверен. Попробуйте снова.</Resource>
+    <Resource tag="SUCCESS">An email with the Reset Link was send to your email address!</Resource>
     <Resource tag="TITLE">Потерянный пароль</Resource>
     <Resource tag="USERNAME_FAILURE">Невозможно найти введённое имя пользователя.</Resource>
   </page>
@@ -5452,7 +5456,6 @@ Spoiler Content
 
       Ник: {user}
 	  Авто пароль: {pass}
-	  Авто ответ на секретный вопрос: {answer}
       Ваша эл. почта: {email} (Пожалуйста не меняйте, иначе Вы не сможете войти через Facebook)
 	  
     </Resource>
@@ -5674,7 +5677,6 @@ Spoiler Content
 
       Ник: {user}
       Авто пароль: {pass}
-      Авто ответ на секретный вопрос: {answer}
       Ваш Email: {email} (Пожалуйста не меняйте, иначе Вы не сможете войти через  Facebook)
 
     </Resource>
@@ -5834,7 +5836,6 @@ Spoiler Content
 
       Имя пользователя: {user}
 	  Автоматический пароль: {pass}
-	  Автоматический ответ: {answer}
       Email пользователя: {email} (Пожалуйста измените адрес на свой настоящий адрес, чтобы получать сообщения E-Mail)
 	  
     </Resource>

@@ -51,12 +51,6 @@ namespace YAF.Types.Interfaces
         void GetMentionUsers([NotNull] HttpContext context);
 
         /// <summary>
-        /// Gets the twitter user info as JSON string for the hover cards
-        /// </summary>
-        /// <param name="context">The context.</param>
-        void GetTwitterUserInfo([NotNull] HttpContext context);
-
-        /// <summary>
         /// The get response local avatar.
         /// </summary>
         /// <param name="context">

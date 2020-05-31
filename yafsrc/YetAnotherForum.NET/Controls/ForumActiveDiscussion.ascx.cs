@@ -150,6 +150,7 @@ namespace YAF.Controls
 
                 if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
                 {
+                    postIcon.Visible = true;
                     postIcon.CssClass = "badge badge-success";
 
                     postIcon.Text = this.GetText("NEW_MESSAGE");

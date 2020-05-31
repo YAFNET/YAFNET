@@ -180,21 +180,6 @@ namespace YAF.Core.Context
         public bool IsDirty => this.PageValueAsBool("IsDirty");
 
         /// <summary>
-        ///   Gets a value indicating whether the current user is logged in via Facebook
-        /// </summary>
-        public bool IsFacebookUser => this.PageValueAsBool("IsFacebookUser");
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user is logged in via Twitter
-        /// </summary>
-        public bool IsTwitterUser => this.PageValueAsBool("IsTwitterUser");
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user is logged in via Google
-        /// </summary>
-        public bool IsGoogleUser => this.PageValueAsBool("IsGoogleUser");
-
-        /// <summary>
         ///   Gets a value indicating whether the current user is suspended (True).
         /// </summary>
         public bool IsSuspended => this.Page?["Suspended"] is DateTime;

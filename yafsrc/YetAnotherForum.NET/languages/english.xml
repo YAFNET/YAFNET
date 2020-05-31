@@ -4108,9 +4108,7 @@
   <Resource tag="BOTH_USERNAME_EMAIL">Both user name and email address must be entered.</Resource>
   <Resource tag="EMAIL">Email Address</Resource>
   <Resource tag="EMAIL_SENT_PASSWORD">A mail has been sent with your new password.</Resource>
-  <Resource tag="FACEBOOK_LOGIN">Login with Facebook</Resource>
   <Resource tag="FORUM_LOGIN">Forum Login</Resource>
-  <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>
   <Resource tag="LOSTPASSWORD">Lost Password</Resource>
   <Resource tag="PASSWORD">Password:</Resource>
   <Resource tag="PASSWORD_ERROR">The user name or password entered is incorrect. Please try again.</Resource>
@@ -4135,7 +4133,6 @@
   <Resource tag="TITLE">Login</Resource>
   <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
   <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
-  <Resource tag="TWITTER_LOGIN">Login with Twitter</Resource>
   <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Address now!</Resource>
   <Resource tag="USERNAME">User Name or E-Mail Address:</Resource>
   <Resource tag="WRONG_USERNAME_EMAIL">Wrong user name or email address.</Resource>

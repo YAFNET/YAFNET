@@ -261,7 +261,7 @@ namespace YAF.Core.BasePages
         /// <summary>
         ///   Gets the current user.
         /// </summary>
-        public AspNetUsers User => this.PageContext.User;
+        public AspNetUsers User => this.PageContext.MembershipUser;
 
         /// <summary>
         ///   Sets a value indicating whether  Set to <see langword = "true" /> if this is the start page. Should only be set by the page that initialized the database.

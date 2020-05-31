@@ -60,6 +60,11 @@ namespace YAF.Types.Models.Identity
         public string GoogleId { get; set; }
 
         /// <summary>
+        /// Gets or sets the github id.
+        /// </summary>
+        public string GitHubId { get; set; }
+
+        /// <summary>
         /// Gets or sets Homepage.
         /// </summary>
         public string Homepage { get; set; }

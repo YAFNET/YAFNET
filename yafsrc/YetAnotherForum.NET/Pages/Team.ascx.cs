@@ -28,7 +28,6 @@ namespace YAF.Pages
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Web.UI.WebControls;
 
@@ -95,7 +94,7 @@ namespace YAF.Pages
 
             var modForums = gridItem.FindControlAs<DropDownList>("ModForums");
 
-            if (int.TryParse(modForums.SelectedValue, out var redirForum))
+            if (int.TryParse(modForums.SelectedValue, out var redirectForum))
             {
                 BuildLink.Redirect(ForumPages.Topics, "f={0}", modForums.SelectedValue);
             }
@@ -112,10 +111,10 @@ namespace YAF.Pages
         /// Moderators List
         /// </returns>
         [NotNull]
-        protected DataTable GetAdmins()
+        protected List<User> GetAdmins()
         {
             // get a row with user lazy data...
-            var adminListDataTable = this.Get<IDataCache>()
+            var adminList = this.Get<IDataCache>()
                 .GetOrSet(
                     Constants.Cache.BoardAdmins,
                     () =>
@@ -124,10 +123,10 @@ namespace YAF.Pages
 
             if (this.Get<BoardSettings>().UseStyledNicks)
             {
-                this.Get<IStyleTransform>().DecodeStyleByTable(adminListDataTable);
+                this.Get<IStyleTransform>().DecodeStyleByUserList(adminList);
             }
 
-            return adminListDataTable;
+            return adminList;
         }
 
         /// <summary>
@@ -285,15 +284,14 @@ namespace YAF.Pages
 
             var adminAvatar = e.Item.FindControlAs<Image>("AdminAvatar");
 
-            var itemDataItem = (DataRowView)e.Item.DataItem;
-            var userid = itemDataItem["UserID"].ToType<int>();
-            var displayName = this.Get<BoardSettings>().EnableDisplayName ? itemDataItem.Row["DisplayName"].ToString() : itemDataItem.Row["Name"].ToString();
+            var user = (User)e.Item.DataItem;
+            var displayName = this.Get<BoardSettings>().EnableDisplayName ? user.DisplayName : user.Name;
 
             adminAvatar.ImageUrl = this.GetAvatarUrlFileName(
-                itemDataItem.Row["UserID"].ToType<int>(),
-                itemDataItem.Row["Avatar"].ToString(),
-                itemDataItem.Row["AvatarImage"].ToString().IsSet(),
-                itemDataItem.Row["Email"].ToString());
+                user.ID,
+                user.Avatar,
+                !user.AvatarImage.IsNullOrEmptyDBField(),
+                user.Email);
 
             adminAvatar.AlternateText = displayName;
             adminAvatar.ToolTip = displayName; 
@@ -305,19 +303,18 @@ namespace YAF.Pages
 
             adminUserButton.Visible = this.PageContext.IsAdmin;
 
-            if (userid == this.PageContext.PageUserID)
+            if (user.ID == this.PageContext.PageUserID)
             {
                 return;
             }
 
-            var blockFlags = new UserBlockFlags(itemDataItem.Row["BlockFlags"].ToType<int>());
-            var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, userid);
+            var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, user.ID);
 
             pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowPrivateMessages;
 
             if (pm.Visible)
             {
-                if (blockFlags.BlockPMs)
+                if (user.Block.BlockPMs)
                 {
                     pm.Visible = false;
                 }
@@ -328,27 +325,29 @@ namespace YAF.Pages
                 }
             }
 
-            pm.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage, "u={0}", userid);
+            pm.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage, "u={0}", user.ID);
             pm.ParamTitle0 = displayName;
 
             // email link
             email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowEmailSending;
 
-            if (email.Visible)
+            if (!email.Visible)
             {
-                if (blockFlags.BlockEmails)
-                {
-                    email.Visible = false;
-                }
-
-                if (this.PageContext.IsAdmin && isFriend)
-                {
-                    email.Visible = true;
-                }
-
-                email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", userid);
-                email.ParamTitle0 = displayName;
+                return;
             }
+
+            if (user.Block.BlockEmails)
+            {
+                email.Visible = false;
+            }
+
+            if (this.PageContext.IsAdmin && isFriend)
+            {
+                email.Visible = true;
+            }
+
+            email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", user.ID);
+            email.ParamTitle0 = displayName;
         }
 
         /// <summary>
@@ -502,6 +501,9 @@ namespace YAF.Pages
             /// </summary>
             public string Email { get; set; }
 
+            /// <summary>
+            /// Gets or sets the block.
+            /// </summary>
             public UserBlockFlags Block { get; set; }
 
             /// <summary>

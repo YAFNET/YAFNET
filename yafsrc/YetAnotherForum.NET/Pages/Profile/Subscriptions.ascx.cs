@@ -97,7 +97,7 @@ namespace YAF.Pages.Profile
 
             var setting =
                 this.rblNotificationType.Items.FindByValue(
-                    this.PageContext.CurrentUserData.NotificationSetting.ToInt().ToString())
+                    this.PageContext.CurrentUser.NotificationSetting.ToInt().ToString())
                 ?? this.rblNotificationType.Items.FindByValue(0.ToString());
 
             if (setting != null)
@@ -106,7 +106,7 @@ namespace YAF.Pages.Profile
             }
 
             // update the ui...
-            this.UpdateSubscribeUi(this.PageContext.CurrentUserData.NotificationSetting);
+            this.UpdateSubscribeUi(this.PageContext.CurrentUser.NotificationSetting);
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace YAF.Pages.Profile
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<BoardSettings>().EnableDisplayName
-                    ? this.PageContext.CurrentUserData.DisplayName
+                    ? this.PageContext.CurrentUser.DisplayName
                     : this.PageContext.PageUserName,
                 BuildLink.GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
@@ -173,10 +173,18 @@ namespace YAF.Pages.Profile
         /// <summary>
         /// Gets the checked ids.
         /// </summary>
-        /// <param name="repeater">The repeater.</param>
-        /// <param name="checkBoxId">The check box id.</param>
-        /// <param name="idLabelId">The id label id.</param>
-        /// <returns></returns>
+        /// <param name="repeater">
+        /// The repeater.
+        /// </param>
+        /// <param name="checkBoxId">
+        /// The check box id.
+        /// </param>
+        /// <param name="idLabelId">
+        /// The id label id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
         private static List<int> GetCheckedIds(Repeater repeater, string checkBoxId, string idLabelId)
         {
             return (from item in repeater.Items.OfType<RepeaterItem>()
@@ -278,8 +286,8 @@ namespace YAF.Pages.Profile
 
             this.TopicsHolder.Visible = topicList.Count() != 0;
 
-            this.PMNotificationEnabled.Checked = this.PageContext.CurrentUserData.PMNotification;
-            this.DailyDigestEnabled.Checked = this.PageContext.CurrentUserData.DailyDigest;
+            this.PMNotificationEnabled.Checked = this.PageContext.CurrentUser.PMNotification;
+            this.DailyDigestEnabled.Checked = this.PageContext.CurrentUser.DailyDigest;
 
             this.DataBind();
         }

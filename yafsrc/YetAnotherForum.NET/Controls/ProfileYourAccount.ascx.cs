@@ -79,10 +79,10 @@ namespace YAF.Controls
       this.DataBind();
 
       // TitleUserName.Text = HtmlEncode( userData.Membership.UserName );
-      this.AccountEmail.Text = this.PageContext.CurrentUserData.Membership.Email;
-      this.Name.Text = this.HtmlEncode(this.PageContext.CurrentUserData.Membership.UserName);
-      this.Joined.Text = this.Get<IDateTime>().FormatDateTime(this.PageContext.CurrentUserData.Joined);
-      this.NumPosts.Text = $"{this.PageContext.CurrentUserData.NumPosts:N0}";
+      this.AccountEmail.Text = this.PageContext.CurrentUser.Email;
+      this.Name.Text = this.HtmlEncode(this.PageContext.CurrentUser.Name);
+      this.Joined.Text = this.Get<IDateTime>().FormatDateTime(this.PageContext.CurrentUser.Joined);
+      this.NumPosts.Text = $"{this.PageContext.CurrentUser.NumPosts:N0}";
 
       this.DisplayNameHolder.Visible = this.PageContext.BoardSettings.EnableDisplayName;
 

@@ -25,7 +25,7 @@ namespace YAF.Core.Services
     #region Using
 
     using System.IO;
-    using System.Web;
+    using System.Web.Hosting;
 
     using ServiceStack;
 
@@ -111,7 +111,7 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(theme, "theme");
 
             return
-                HttpContext.Current.Server.MapPath($"{BoardInfo.ForumServerFileRoot}Content/Themes/{theme.Trim()}");
+                HostingEnvironment.MapPath($"{BoardInfo.ForumServerFileRoot}Content/Themes/{theme.Trim()}");
         }
     }
 }

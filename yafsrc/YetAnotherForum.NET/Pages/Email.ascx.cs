@@ -140,7 +140,7 @@ namespace YAF.Pages
 
                 // send it...
                 this.Get<ISendMail>().Send(
-                    new MailAddress(this.PageContext.User.Email, this.PageContext.User.UserName),
+                    new MailAddress(this.PageContext.MembershipUser.Email, this.PageContext.MembershipUser.UserName),
                     new MailAddress(toUser.Email.Trim(), toUser.UserName.Trim()),
                     new MailAddress(this.PageContext.BoardSettings.ForumEmail, this.PageContext.BoardSettings.Name),
                     this.Subject.Text.Trim(),

@@ -76,6 +76,23 @@ namespace YAF.Utils
             }
         }
 
+        /// <summary>
+        /// The decode style User
+        /// </summary>
+        /// <param name="user">
+        /// The User
+        /// </param>
+        /// <param name="colorOnly">
+        /// The color only.
+        /// </param>
+        public void DecodeStyleByUser(User user, bool colorOnly = false)
+        {
+            if (user.UserStyle.IsSet())
+            {
+                user.UserStyle = this.DecodeStyleByString(user.UserStyle, colorOnly);
+            }
+        }
+
         #endregion
 
         #region Implemented Interfaces
@@ -137,6 +154,20 @@ namespace YAF.Utils
         public void DecodeStyleByGroupList(List<Group> list, bool colorOnly = false)
         {
             list.ForEach(group => this.DecodeStyleByGroup(group, colorOnly));
+        }
+
+        /// <summary>
+        /// Decode User Styles
+        /// </summary>
+        /// <param name="list">
+        /// The list.
+        /// </param>
+        /// <param name="colorOnly">
+        /// The color only.
+        /// </param>
+        public void DecodeStyleByUserList(List<User> list, bool colorOnly = false)
+        {
+            list.ForEach(user => this.DecodeStyleByUser(user, colorOnly));
         }
 
         #endregion

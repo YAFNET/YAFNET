@@ -47,7 +47,6 @@ namespace YAF.Core.Services
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
-    using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -500,7 +499,7 @@ namespace YAF.Core.Services
 
         /// <summary>
         /// Send an Email to the Newly Created User with
-        /// his Account Info (Pass, Security Question and Answer)
+        /// his Account Info (Pass)
         /// </summary>
         /// <param name="user">
         /// The user.
@@ -508,16 +507,12 @@ namespace YAF.Core.Services
         /// <param name="pass">
         /// The pass.
         /// </param>
-        /// <param name="securityAnswer">
-        /// The security answer.
-        /// </param>
         /// <param name="templateName">
         /// The template Name.
         /// </param>
         public void SendRegistrationNotificationToUser(
             [NotNull] AspNetUsers user,
             [NotNull] string pass,
-            [NotNull] string securityAnswer,
             string templateName)
         {
             var subject = this.Get<ILocalization>().GetTextFormatted(
@@ -530,8 +525,7 @@ namespace YAF.Core.Services
                                          {
                                              ["{user}"] = user.UserName,
                                              ["{email}"] = user.Email,
-                                             ["{pass}"] = pass,
-                                             ["{answer}"] = securityAnswer
+                                             ["{pass}"] = pass
                                          }
                                  };
 
@@ -545,26 +539,15 @@ namespace YAF.Core.Services
         /// <param name="medalName">Name of the medal.</param>
         public void ToUserWithNewMedal([NotNull] int toUserId, [NotNull] string medalName)
         {
-            var userList = this.GetRepository<User>().UserList(
-                BoardContext.Current.PageBoardID,
-                toUserId,
-                true,
-                null,
-                null,
-                null).ToList();
+            var toUser = this.GetRepository<User>().GetById(
+                toUserId);
 
-            TypedUserList toUser;
-
-            if (userList.Any())
-            {
-                toUser = userList.First();
-            }
-            else
+            if (toUser == null)
             {
                 return;
             }
 
-            var languageFile = UserHelper.GetUserLanguageFile(toUser.UserID.ToType<int>());
+            var languageFile = UserHelper.GetUserLanguageFile(toUser.ID);
 
             var subject = string.Format(
                 this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT", languageFile),
@@ -759,18 +742,12 @@ namespace YAF.Core.Services
             if (this.BoardSettings.AllowPrivateMessages
                 && this.BoardSettings.SendWelcomeNotificationAfterRegister.Equals(2))
             {
-                var users = this.GetRepository<User>().UserList(
-                    BoardContext.Current.PageBoardID,
-                    null,
-                    true,
-                    null,
-                    null,
-                    null).ToList();
-
-                var hostUser = users.FirstOrDefault(u => u.IsHostAdmin > 0);
+                var hostUser = this.GetRepository<User>()
+                    .Get(u => u.BoardID == BoardContext.Current.PageBoardID && u.UserFlags.IsHostAdmin)
+                    .FirstOrDefault();
 
                 BoardContext.Current.GetRepository<PMessage>().SendMessage(
-                    hostUser.UserID.Value,
+                    hostUser.ID,
                     userId,
                     subject,
                     emailBody,

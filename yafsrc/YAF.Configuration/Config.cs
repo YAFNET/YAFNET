@@ -163,6 +163,20 @@ namespace YAF.Configuration
         public static bool EnableURLRewriting => GetConfigValueAsBool("YAF.EnableUrlRewriting", true);
 
         /// <summary>
+        /// The GitHub client id.
+        /// </summary>
+        public static string GitHubClientID => GetConfigValueAsString("YAF.GithubClientID");
+
+        /// <summary>
+        /// The GitHub client secret.
+        /// </summary>
+        public static string GitHubClientSecret => GetConfigValueAsString("YAF.GithubClientSecret");
+
+        // public static string MicrosoftAccountClientID => GetConfigValueAsString("YAF.MicrosoftAccountClientID");
+
+        // public static string MicrosoftAccountClientSecret => GetConfigValueAsString("YAF.MicrosoftAccountClientSecret");
+
+        /// <summary>
         /// Gets the google client ID.
         /// </summary>
         /// <value>
@@ -318,31 +332,6 @@ namespace YAF.Configuration
         ///     Gets TwitterConsumerSecret
         /// </summary>
         public static string TwitterConsumerSecret => GetConfigValueAsString("YAF.TwitterConsumerSecret");
-
-        /// <summary>
-        /// Gets the twitter token.
-        /// </summary>
-        /// <value>
-        /// The twitter token.
-        /// </value>
-        public static string TwitterToken => GetConfigValueAsString("YAF.TwitterToken");
-
-        /// <summary>
-        /// Gets the twitter token secret.
-        /// </summary>
-        /// <value>
-        /// The twitter token secret.
-        /// </value>
-        public static string TwitterTokenSecret => GetConfigValueAsString("YAF.TwitterTokenSecret");
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is twitter enabled.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is twitter enabled; otherwise, <c>false</c>.
-        /// </value>
-        public static bool IsTwitterEnabled => TwitterConsumerKey.IsSet() && TwitterConsumerSecret.IsSet() && TwitterToken.IsSet()
-                                               && TwitterTokenSecret.IsSet();
 
         /// <summary>
         ///     Gets the Url Rewriting URLRewritingMode? -- default is Unicode.

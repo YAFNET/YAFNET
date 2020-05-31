@@ -89,7 +89,7 @@ namespace YAF.Web.BBCodes
                 return;
             }
 
-            var userId = BoardContext.Current.CurrentUserData.UserID;
+            var userId = BoardContext.Current.PageUserID;
 
             if (postsCount > -1)
             {
@@ -109,7 +109,7 @@ namespace YAF.Web.BBCodes
                 }
 
                 if (this.DisplayUserID == userId ||
-                    BoardContext.Current.CurrentUserData.NumPosts >= postsCount)
+                    BoardContext.Current.CurrentUser.NumPosts >= postsCount)
                 {
                     shownContent = hiddenContent;
                 }

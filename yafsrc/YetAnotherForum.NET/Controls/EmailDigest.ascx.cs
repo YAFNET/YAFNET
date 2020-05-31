@@ -61,11 +61,6 @@ namespace YAF.Controls
         #region Constants and Fields
 
         /// <summary>
-        ///   The combined user data.
-        /// </summary>
-        private CombinedUserDataHelper combinedUserData;
-
-        /// <summary>
         ///   The forum data.
         /// </summary>
         private List<SimpleForum> forumData;
@@ -144,13 +139,6 @@ namespace YAF.Controls
                     .GroupBy(x => x.Forum);
             }
         }
-
-        /// <summary>
-        ///   Gets UserData.
-        /// </summary>
-        [NotNull]
-        public CombinedUserDataHelper UserData =>
-            this.combinedUserData ?? (this.combinedUserData = new CombinedUserDataHelper(this.CurrentUserID));
 
         /// <summary>
         /// Gets a value indicating whether [show errors].

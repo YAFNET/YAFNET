@@ -68,9 +68,9 @@ namespace YAF.Controls
         private int currentUserId;
 
         /// <summary>
-        /// The _user data.
+        /// The user.
         /// </summary>
-        private CombinedUserDataHelper userData;
+        private Tuple<User, AspNetUsers, Rank, vaccess> user;
 
         /// <summary>
         /// The current culture information
@@ -107,7 +107,7 @@ namespace YAF.Controls
         /// Gets the User Data.
         /// </summary>
         [NotNull]
-        private CombinedUserDataHelper UserData => this.userData ?? (this.userData = new CombinedUserDataHelper(this.currentUserId));
+        private Tuple<User, AspNetUsers, Rank, vaccess> User => this.user ??= this.GetRepository<User>().GetBoardUser(this.currentUserId);
 
         #endregion
 
@@ -204,7 +204,7 @@ namespace YAF.Controls
                     return;
                 }
 
-                if (this.UserData.NumPosts < this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
+                if (this.User.Item1.NumPosts < this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
                 {
                     // Check for spam
                     if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out _))
@@ -229,12 +229,7 @@ namespace YAF.Controls
                             // Kill user
                             if (!this.PageContext.CurrentForumPage.IsAdminPage)
                             {
-                                var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.currentUserId);
-                                var userId = this.currentUserId;
-
-                                var userIp = new CombinedUserDataHelper(user, userId).LastIP;
-
-                                this.Get<IAspNetUsersHelper>().DeleteAndBanUser(this.currentUserId, user, userIp);
+                                this.Get<IAspNetUsersHelper>().DeleteAndBanUser(this.currentUserId, this.User.Item2, this.User.Item1.IP);
                             }
                         }
                     }
@@ -291,7 +286,7 @@ namespace YAF.Controls
                     return;
                 }
 
-                if (this.DisplayName.Text.Trim() != this.UserData.DisplayName)
+                if (this.DisplayName.Text.Trim() != this.User.Item1.DisplayName)
                 {
                     if (this.Get<IUserDisplayName>().GetId(this.DisplayName.Text.Trim()).HasValue)
                     {
@@ -333,11 +328,11 @@ namespace YAF.Controls
                 null,
                 displayName,
                 null,
-                this.UserData.TimeZoneInfo.Id,
-                this.UserData.LanguageFile,
-                this.UserData.CultureUser,
-                this.UserData.ThemeFile,
-                this.UserData.IsActiveExcluded);
+                this.User.Item1.TimeZoneInfo.Id,
+                this.User.Item1.LanguageFile,
+                this.User.Item1.Culture,
+                this.User.Item1.ThemeFile,
+                this.User.Item1.IsActiveExcluded);
 
             // clear the cache for this user...)
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
@@ -350,7 +345,6 @@ namespace YAF.Controls
             }
             else
             {
-                this.userData = null;
                 this.BindData();
             }
         }
@@ -392,7 +386,7 @@ namespace YAF.Controls
         {
             var userIpLocator = BoardContext.Current.Get<IIpInfoService>().GetUserIpLocator(
                 this.PageContext.CurrentForumPage.IsAdminPage
-                    ? this.UserData.LastIP
+                    ? this.User.Item1.IP
                     : BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress());
 
             if (userIpLocator.CountryCode.IsSet() &&
@@ -423,26 +417,26 @@ namespace YAF.Controls
             this.Country.DataValueField = "Value";
             this.Country.DataTextField = "Name";
 
-            if (this.UserData.Profile.Country.IsSet())
+            if (this.User.Item2.Profile_Country.IsSet())
             {
-                this.LookForNewRegionsBind(this.UserData.Profile.Country);
+                this.LookForNewRegionsBind(this.User.Item2.Profile_Country);
             }
 
             this.DataBind();
 
             if (this.Get<BoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
-                this.Birthday.Text = this.UserData.Profile.Birthday > DateTimeHelper.SqlDbMinTime()
-                                     || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
-                                         ? PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday)
+                this.Birthday.Text = this.User.Item2.Profile_Birthday > DateTimeHelper.SqlDbMinTime()
+                                     || this.User.Item2.Profile_Birthday.IsNullOrEmptyDBField()
+                                         ? PersianDateConverter.ToPersianDate(this.User.Item2.Profile_Birthday)
                                                .ToString("d")
                                          : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
             }
             else
             {
-                this.Birthday.Text = this.UserData.Profile.Birthday > DateTimeHelper.SqlDbMinTime()
-                                     || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
-                                         ? this.UserData.Profile.Birthday.Date.ToString(
+                this.Birthday.Text = this.User.Item2.Profile_Birthday > DateTimeHelper.SqlDbMinTime()
+                                     || this.User.Item2.Profile_Birthday.IsNullOrEmptyDBField()
+                                         ? this.User.Item2.Profile_Birthday.Date.ToString(
                                              this.CurrentCultureInfo.DateTimeFormat.ShortDatePattern,
                                              CultureInfo.InvariantCulture)
                                          : DateTimeHelper.SqlDbMinTime()
@@ -453,40 +447,40 @@ namespace YAF.Controls
 
             this.Birthday.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
 
-            this.DisplayName.Text = this.UserData.DisplayName;
-            this.City.Text = this.UserData.Profile.City;
-            this.Location.Text = this.UserData.Profile.Location;
-            this.HomePage.Text = this.UserData.Profile.Homepage;
-            this.Realname.Text = this.UserData.Profile.RealName;
-            this.Occupation.Text = this.UserData.Profile.Occupation;
-            this.Interests.Text = this.UserData.Profile.Interests;
-            this.Weblog.Text = this.UserData.Profile.Blog;
-            this.ICQ.Text = this.UserData.Profile.ICQ;
+            this.DisplayName.Text = this.User.Item1.DisplayName;
+            this.City.Text = this.User.Item2.Profile_City;
+            this.Location.Text = this.User.Item2.Profile_Location;
+            this.HomePage.Text = this.User.Item2.Profile_Homepage;
+            this.Realname.Text = this.User.Item2.Profile_RealName;
+            this.Occupation.Text = this.User.Item2.Profile_Occupation;
+            this.Interests.Text = this.User.Item2.Profile_Interests;
+            this.Weblog.Text = this.User.Item2.Profile_Blog;
+            this.ICQ.Text = this.User.Item2.Profile_ICQ;
 
-            this.Facebook.Text = ValidationHelper.IsNumeric(this.UserData.Profile.Facebook)
-                                     ? $"https://www.facebook.com/profile.php?id={this.UserData.Profile.Facebook}"
-                                     : this.UserData.Profile.Facebook;
+            this.Facebook.Text = ValidationHelper.IsNumeric(this.User.Item2.Profile_Facebook)
+                                     ? $"https://www.facebook.com/profile.php?id={this.User.Item2.Profile_Facebook}"
+                                     : this.User.Item2.Profile_Facebook;
 
-            this.Twitter.Text = this.UserData.Profile.Twitter;
-            this.Xmpp.Text = this.UserData.Profile.XMPP;
-            this.Skype.Text = this.UserData.Profile.Skype;
-            this.Gender.SelectedIndex = this.UserData.Profile.Gender;
+            this.Twitter.Text = this.User.Item2.Profile_Twitter;
+            this.Xmpp.Text = this.User.Item2.Profile_XMPP;
+            this.Skype.Text = this.User.Item2.Profile_Skype;
+            this.Gender.SelectedIndex = this.User.Item2.Profile_Gender;
 
-            if (this.UserData.Profile.Country.IsSet())
+            if (this.User.Item2.Profile_Country.IsSet())
             {
-                var countryItem = this.Country.Items.FindByValue(this.UserData.Profile.Country.Trim());
+                var countryItem = this.Country.Items.FindByValue(this.User.Item2.Profile_Country.Trim());
                 if (countryItem != null)
                 {
                     countryItem.Selected = true;
                 }
             }
 
-            if (!this.UserData.Profile.Region.IsSet())
+            if (!this.User.Item2.Profile_Region.IsSet())
             {
                 return;
             }
 
-            var regionItem = this.Region.Items.FindByValue(this.UserData.Profile.Region.Trim());
+            var regionItem = this.Region.Items.FindByValue(this.User.Item2.Profile_Region.Trim());
             if (regionItem != null)
             {
                 regionItem.Selected = true;
@@ -552,28 +546,29 @@ namespace YAF.Controls
                 }
             }
 
-            this.UserData.Membership.Profile_Birthday = userProfile.Birthday;
-            this.UserData.Membership.Profile_Blog = userProfile.Blog;
-            this.UserData.Membership.Profile_Gender = userProfile.Gender;
-            this.UserData.Membership.Profile_GoogleId = userProfile.GoogleId;
-            this.UserData.Membership.Profile_Homepage = userProfile.Homepage;
-            this.UserData.Membership.Profile_ICQ = userProfile.ICQ;
-            this.UserData.Membership.Profile_Facebook = userProfile.Facebook;
-            this.UserData.Membership.Profile_FacebookId = userProfile.FacebookId;
-            this.UserData.Membership.Profile_Twitter = userProfile.Twitter;
-            this.UserData.Membership.Profile_TwitterId = userProfile.TwitterId;
-            this.UserData.Membership.Profile_Interests = userProfile.Interests;
-            this.UserData.Membership.Profile_Location = userProfile.Location;
-            this.UserData.Membership.Profile_Country = userProfile.Country;
-            this.UserData.Membership.Profile_Region = userProfile.Region;
-            this.UserData.Membership.Profile_City = userProfile.City;
-            this.UserData.Membership.Profile_Occupation = userProfile.Occupation;
-            this.UserData.Membership.Profile_RealName = userProfile.RealName;
-            this.UserData.Membership.Profile_Skype = userProfile.Skype;
-            this.UserData.Membership.Profile_XMPP = userProfile.XMPP;
-            this.UserData.Membership.Profile_LastSyncedWithDNN = userProfile.LastSyncedWithDNN;
+            this.User.Item2.Profile_Birthday = userProfile.Birthday;
+            this.User.Item2.Profile_Blog = userProfile.Blog;
+            this.User.Item2.Profile_Gender = userProfile.Gender;
+            this.User.Item2.Profile_GoogleId = userProfile.GoogleId;
+            this.User.Item2.Profile_GitHubId = userProfile.GitHubId;
+            this.User.Item2.Profile_Homepage = userProfile.Homepage;
+            this.User.Item2.Profile_ICQ = userProfile.ICQ;
+            this.User.Item2.Profile_Facebook = userProfile.Facebook;
+            this.User.Item2.Profile_FacebookId = userProfile.FacebookId;
+            this.User.Item2.Profile_Twitter = userProfile.Twitter;
+            this.User.Item2.Profile_TwitterId = userProfile.TwitterId;
+            this.User.Item2.Profile_Interests = userProfile.Interests;
+            this.User.Item2.Profile_Location = userProfile.Location;
+            this.User.Item2.Profile_Country = userProfile.Country;
+            this.User.Item2.Profile_Region = userProfile.Region;
+            this.User.Item2.Profile_City = userProfile.City;
+            this.User.Item2.Profile_Occupation = userProfile.Occupation;
+            this.User.Item2.Profile_RealName = userProfile.RealName;
+            this.User.Item2.Profile_Skype = userProfile.Skype;
+            this.User.Item2.Profile_XMPP = userProfile.XMPP;
+            this.User.Item2.Profile_LastSyncedWithDNN = userProfile.LastSyncedWithDNN;
 
-            this.Get<IAspNetUsersHelper>().Update(this.UserData.Membership);
+            this.Get<IAspNetUsersHelper>().Update(this.User.Item2);
         }
 
         /// <summary>
@@ -618,26 +613,26 @@ namespace YAF.Controls
 
             if (overrideByPageUserCulture)
             {
-                if (this.PageContext.CurrentUserData.LanguageFile.IsSet())
+                if (this.PageContext.CurrentUser.LanguageFile.IsSet())
                 {
-                    languageFile = this.PageContext.CurrentUserData.LanguageFile;
+                    languageFile = this.PageContext.CurrentUser.LanguageFile;
                 }
 
-                if (this.PageContext.CurrentUserData.CultureUser.IsSet())
+                if (this.PageContext.CurrentUser.Culture.IsSet())
                 {
-                    culture4Tag = this.PageContext.CurrentUserData.CultureUser;
+                    culture4Tag = this.PageContext.CurrentUser.Culture;
                 }
             }
             else
             {
-                if (this.UserData.LanguageFile.IsSet())
+                if (this.User.Item1.LanguageFile.IsSet())
                 {
-                    languageFile = this.UserData.LanguageFile;
+                    languageFile = this.User.Item1.LanguageFile;
                 }
 
-                if (this.UserData.CultureUser.IsSet())
+                if (this.User.Item1.Culture.IsSet())
                 {
-                    culture4Tag = this.UserData.CultureUser;
+                    culture4Tag = this.User.Item1.Culture;
                 }
             }
 

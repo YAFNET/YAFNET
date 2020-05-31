@@ -25,6 +25,7 @@
 namespace YAF.Utils.Helpers
 {
     using System;
+    using System.Text.RegularExpressions;
 
     using YAF.Types.Extensions;
 
@@ -51,7 +52,7 @@ namespace YAF.Utils.Helpers
         /// <returns>Returns the Time Zone Info</returns>
         public static TimeZoneInfo GetTimeZoneInfo(string input)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(input, @"^[\-?\+?\d]*$"))
+            if (Regex.IsMatch(input, @"^[\-?\+?\d]*$"))
             {
                 return TimeZoneInfo.Local;
             }

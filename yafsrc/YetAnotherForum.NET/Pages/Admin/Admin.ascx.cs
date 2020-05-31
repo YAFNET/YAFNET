@@ -271,19 +271,27 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void ShowUpgradeMessage()
         {
-            var version = this.Get<IDataCache>().GetOrSet(
-                "LatestVersion",
-                () => this.Get<ILatestInformation>().GetLatestVersion(),
-                TimeSpan.FromDays(1));
-
-            if (version.VersionDate <= BoardInfo.AppVersionDate)
+            try
             {
-                return;
+                var version = this.Get<IDataCache>().GetOrSet(
+                    "LatestVersion",
+                    () => this.Get<ILatestInformation>().GetLatestVersion(),
+                    TimeSpan.FromDays(1));
+
+                if (version.VersionDate <= BoardInfo.AppVersionDate)
+                {
+                    return;
+                }
+
+                // updateLink
+                this.UpdateHightlight.Visible = true;
+                this.UpdateLinkHighlight.NavigateUrl = version.UpgradeUrl;
+            }
+            catch (Exception exception)
+            {
+              return;
             }
 
-            // updateLink
-            this.UpdateHightlight.Visible = true;
-            this.UpdateLinkHighlight.NavigateUrl = version.UpgradeUrl;
         }
         
         /// <summary>
@@ -339,9 +347,9 @@ namespace YAF.Pages.Admin
 
             if (this.UnverifiedUsersHolder.Visible)
             {
-                var unverifiedUsers = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, null, false);
+                var unverifiedUsers = this.GetRepository<User>().UnApprovedUsers(this.PageContext.PageBoardID);
 
-                if (unverifiedUsers.HasRows())
+                if (unverifiedUsers.Any())
                 {
                     BoardContext.Current.PageElements.RegisterJsBlock(
                         "UnverifiedUserstablesorterLoadJs",

@@ -37,7 +37,6 @@ namespace YAF.Dialogs
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
     using YAF.Core.Helpers;
-    using YAF.Core.Membership;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -219,10 +218,7 @@ namespace YAF.Dialogs
                 return importCount;
             }
 
-            var provider = new YafMembershipProvider();
-
-            var pass = provider.GeneratePassword();
-            var securityAnswer = provider.GeneratePassword();
+            var pass = PasswordGenerator.GeneratePassword(true, true, true, true, false, 16);
 
             // create empty profile just so they have one
             var userProfile = new ProfileInfo();
@@ -343,6 +339,7 @@ namespace YAF.Dialogs
                 Profile_Blog = userProfile.Blog,
                 Profile_Gender = userProfile.Gender,
                 Profile_GoogleId = userProfile.GoogleId,
+                Profile_GitHubId = userProfile.GitHubId,
                 Profile_Homepage = userProfile.Homepage,
                 Profile_ICQ = userProfile.ICQ,
                 Profile_Facebook = userProfile.Facebook,
@@ -377,7 +374,7 @@ namespace YAF.Dialogs
 
             // send user register notification to the new users
             this.Get<ISendNotification>().SendRegistrationNotificationToUser(
-                user, pass, securityAnswer, "NOTIFICATION_ON_REGISTER");
+                user, pass, "NOTIFICATION_ON_REGISTER");
 
             // save the time zone...
             var userId = this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id);

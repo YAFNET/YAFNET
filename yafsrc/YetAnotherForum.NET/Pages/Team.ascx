@@ -37,8 +37,8 @@
                                                 CssClass="rounded img-fluid"/>
                                      <YAF:UserLink ID="AdminLink" runat="server" 
                                                    IsGuest="False" 
-                                                   UserID='<%# this.Eval("UserID").ToType<int>() %>' 
-                                                   Style='<%# this.Eval("Style") %>'  />
+                                                   UserID='<%# this.Eval("ID").ToType<int>() %>' 
+                                                   Style='<%# this.Eval("UserStyle") %>'  />
                                  </h5>
                                  <small>
                                      <span class="font-weight-bold">
@@ -66,7 +66,7 @@
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE" 
                                                      Size="Small" Visible="false"
                                                      Icon="user-cog" Type="Secondary"
-                                                     NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.Admin_EditUser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
+                                                     NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.Admin_EditUser,"u={0}", this.Eval("ID").ToType<int>() ) %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>

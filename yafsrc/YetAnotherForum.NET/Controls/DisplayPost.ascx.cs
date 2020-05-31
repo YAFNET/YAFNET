@@ -279,7 +279,7 @@ namespace YAF.Controls
             if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().ReportPostPermissions)
                 && !this.PostData.PostDeleted)
             {
-                if (!this.PageContext.IsGuest && this.PageContext.User != null)
+                if (!this.PageContext.IsGuest && this.PageContext.MembershipUser != null)
                 {
                     this.ReportPost.Visible = this.ReportPost2.Visible = true;
 
@@ -291,7 +291,7 @@ namespace YAF.Controls
             }
 
             // mark post as answer
-            if (!this.PostData.PostDeleted && !this.PageContext.IsGuest && this.PageContext.User != null
+            if (!this.PostData.PostDeleted && !this.PageContext.IsGuest && this.PageContext.MembershipUser != null
                 && this.PageContext.PageUserID.Equals(this.DataRow["TopicOwnerID"].ToType<int>())
                 && !this.PostData.UserId.Equals(this.PageContext.PageUserID))
             {

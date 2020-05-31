@@ -49,61 +49,6 @@ namespace YAF.Dialogs
         #region Methods
 
         /// <summary>
-        /// Finds the user.
-        /// </summary>
-        /// <param name="userName">
-        /// The user Name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="AspNetUsers"/>.
-        /// </returns>
-        protected virtual AspNetUsers FindUser(string userName)
-        {
-            if (userName.Contains("@"))
-            {
-                // attempt Email Login
-                var realUser = this.Get<IAspNetUsersHelper>().GetUserByEmail(userName);
-
-                if (realUser != null)
-                {
-                    return realUser;
-                }
-            }
-
-            var user = this.Get<IAspNetUsersHelper>().GetUserByName(userName);
-
-            // Standard user name login
-            if (user != null)
-            {
-                return user;
-            }
-
-            // display name login...
-            if (!this.Get<BoardSettings>().EnableDisplayName)
-            {
-                return null;
-            }
-
-            // Display name login
-            var id = this.Get<IUserDisplayName>().GetId(userName);
-
-            if (!id.HasValue)
-            {
-                return null;
-            }
-
-            // get the username associated with this id...
-            var realUsername = this.Get<IAspNetUsersHelper>().GetUserNameFromID(id.Value);
-
-            user = this.Get<IAspNetUsersHelper>().GetUserByName(realUsername);
-
-            // validate again...
-            return user;
-
-            // no valid login -- return null
-        }
-
-        /// <summary>
         /// The On PreRender event.
         /// </summary>
         /// <param name="e">
@@ -189,7 +134,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            var user = this.FindUser(this.UserName.Text.Trim());
+            var user = this.Get<IAspNetUsersHelper>().ValidateUser(this.UserName.Text.Trim());
 
             if (user == null)
             {
@@ -238,9 +183,6 @@ namespace YAF.Dialogs
         private void UserAuthenticated(AspNetUsers user)
         {
             this.Get<IAspNetUsersHelper>().SignIn(user, this.RememberMe.Checked);
-
-            this.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
-            this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
 
             this.Page.Response.Redirect(this.Request.RawUrl);
         }

@@ -463,7 +463,7 @@ namespace YAF.Pages
                 {
                     this.PostOptions1.WatchChecked = this.PageContext.PageTopicID > 0
                         ? this.GetRepository<WatchTopic>().Check(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue
-                        : new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
+                        : this.PageContext.CurrentUser.AutoWatchTopics;
                 }
 
                 if (this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests
@@ -923,7 +923,7 @@ namespace YAF.Pages
                         BBCodeHelper.StripBBCode(
                             HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.forumEditor.Text)))
                             .RemoveMultipleWhitespace(),
-                        this.PageContext.IsGuest ? null : this.PageContext.User.Email,
+                        this.PageContext.IsGuest ? null : this.PageContext.MembershipUser.Email,
                         out var spamResult))
                 {
                     switch (this.PageContext.BoardSettings.SpamMessageHandling)
@@ -959,15 +959,10 @@ namespace YAF.Pages
                                 $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName)}, user was deleted and banned",
                                 EventLogTypes.SpamMessageDetected);
 
-                            var userIp =
-                                new CombinedUserDataHelper(
-                                    this.PageContext.CurrentUserData.Membership,
-                                    this.PageContext.PageUserID).LastIP;
-
                             this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                 this.PageContext.PageUserID,
-                                this.PageContext.CurrentUserData.Membership,
-                                userIp);
+                                this.PageContext.MembershipUser,
+                                this.PageContext.CurrentUser.IP);
 
                             return;
                     }
@@ -975,7 +970,7 @@ namespace YAF.Pages
             }
 
             // Check posts for urls if the user has only x posts
-            if (this.PageContext.CurrentUserData.NumPosts
+            if (this.PageContext.CurrentUser.NumPosts
                 <= this.PageContext.Get<BoardSettings>().IgnoreSpamWordCheckPostCount &&
                 !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
             {
@@ -1019,15 +1014,10 @@ namespace YAF.Pages
                                 $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName)}, user was deleted and banned",
                                 EventLogTypes.SpamMessageDetected);
 
-                            var userIp =
-                                new CombinedUserDataHelper(
-                                    this.PageContext.CurrentUserData.Membership,
-                                    this.PageContext.PageUserID).LastIP;
-
                             this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                 this.PageContext.PageUserID,
-                                this.PageContext.CurrentUserData.Membership,
-                                userIp);
+                                this.PageContext.MembershipUser,
+                                this.PageContext.CurrentUser.IP);
 
                             return;
                     }
@@ -1081,7 +1071,7 @@ namespace YAF.Pages
                     this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
                 }
 
-                if (this.EditMessageId == null && !this.PageContext.IsGuest && this.PageContext.CurrentUserData.Activity)
+                if (this.EditMessageId == null && !this.PageContext.IsGuest && this.PageContext.CurrentUser.Activity)
                 {
                     // Handle Mentions
                     BBCodeHelper.FindMentions(this.forumEditor.Text).ForEach(
@@ -1505,7 +1495,7 @@ namespace YAF.Pages
 
             var moderatedPostCount = forumInfo.ModeratedPostCount;
 
-            return !(this.PageContext.CurrentUserData.NumPosts >= moderatedPostCount);
+            return !(this.PageContext.CurrentUser.NumPosts >= moderatedPostCount);
         }
 
         /// <summary>

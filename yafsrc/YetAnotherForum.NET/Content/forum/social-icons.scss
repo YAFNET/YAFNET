@@ -67,13 +67,13 @@
     border-color: rgba(0,0,0,0.2)
 }
 
-.btn-facebook:active, .btn-facebook.active, .open > .dropdown-toggle.btn-facebook {
+.btn-facebook:active, .btn-facebook.active {
     color: #fff;
     background-color: #2d4373;
     border-color: rgba(0,0,0,0.2)
 }
 
-.btn-facebook:active:hover, .btn-facebook.active:hover, .open > .dropdown-toggle.btn-facebook:hover, .btn-facebook:active:focus, .btn-facebook.active:focus, .open > .dropdown-toggle.btn-facebook:focus, .btn-facebook:active.focus, .btn-facebook.active.focus, .open > .dropdown-toggle.btn-facebook.focus {
+.btn-facebook:active:hover, .btn-facebook.active:hover, .btn-facebook:active:focus, .btn-facebook.active:focus, .open > .dropdown-toggle.btn-facebook:focus, .btn-facebook:active.focus, .btn-facebook.active.focus, .open > .dropdown-toggle.btn-facebook.focus {
     color: #fff;
     background-color: #23345a;
     border-color: rgba(0,0,0,0.2)
@@ -179,4 +179,43 @@
 .btn-twitter .badge {
     color: #55acee;
     background-color: #fff
+}
+
+.btn-github {
+    color: #fff;
+    background-color: #444;
+    border-color: rgba(0,0,0,0.2)
+}
+
+.btn-github:focus, .btn-github.focus {
+    color: #fff;
+    background-color: #2b2b2b;
+    border-color: rgba(0,0,0,0.2)
+}
+
+.btn-github:hover {
+    color: #fff;
+    background-color: #2b2b2b;
+    border-color: rgba(0,0,0,0.2)
+}
+
+.btn-github:active, .btn-github.active {
+    color: #fff;
+    background-color: #2b2b2b;
+    border-color: rgba(0,0,0,0.2)
+}
+
+.btn-github:active:hover, .btn-github.active:hover, .btn-github:active:focus, .btn-github.active:focus, .btn-github:active.focus, .btn-github.active.focus {
+    color: #fff;
+    background-color: #191919;
+    border-color: rgba(0,0,0,0.2)
+}
+
+.btn-github:active {
+    background-image: none
+}
+
+.btn-github.disabled, .btn-github[disabled], fieldset[disabled] .btn-github, .btn-github.disabled:hover, .btn-github[disabled]:hover, fieldset[disabled] .btn-github:hover, .btn-github.disabled:focus, .btn-github[disabled]:focus, fieldset[disabled] .btn-github:focus, .btn-github.disabled.focus, .btn-github[disabled].focus, fieldset[disabled] .btn-github.focus, .btn-github.disabled:active, .btn-github[disabled]:active, fieldset[disabled] .btn-github:active, .btn-github.disabled.active, .btn-github[disabled].active, fieldset[disabled] .btn-github.active {
+    background-color: #444;
+    border-color: rgba(0,0,0,0.2)
 }

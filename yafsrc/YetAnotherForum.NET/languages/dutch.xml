@@ -42,6 +42,9 @@
     <Resource tag="YOUR_USERNAME">Je gebruikersnaam:</Resource>
   </page>
   <page name="ACCOUNT_RESEST_PASSWORD">
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password</Resource>
+    <Resource tag="INVALID_MATCH">The Password and Confirmation Password must match.</Resource>
+    <Resource tag="PASSWORD">Enter New Password</Resource>
     <Resource tag="TITLE">Lost Password</Resource>
   </page>
   <page name="ACTIVELOCATION">
@@ -4869,6 +4872,7 @@ Spoiler Inhoud
     <Resource tag="PASSWORD_SENT">Je wachtwoord is naar je e-mail adres verzonden.</Resource>
     <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Wachtwoord opvragen voor {0} forum</Resource>
     <Resource tag="QUESTION_FAILURE">Je antwoord kan niet geverifieerd worden. Probeer het a.u.b. opnieuw.</Resource>
+    <Resource tag="SUCCESS">An email with the Reset Link was send to your email address!</Resource>
     <Resource tag="TITLE">Wachtwoord kwijt</Resource>
     <Resource tag="USERNAME_FAILURE">De opgegeven gebruikersnaam is onbekend.</Resource>
   </page>
@@ -5456,7 +5460,6 @@ Als je je e-mail niet wilde wijzigen, dan kun je deze mail negeren.
 
       Gebruikersnaam: {user}
 	  Automatisch gemaakt wachtwoord: {pass}
-	  Automatisch gemaakte veiligheidsantwoord: {answer}
       E-mail: {email} (Aub niet wijzigen, anders kun je niet meer inloggen met Facebook)</Resource>
     <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER_HTML">
      &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
@@ -5675,7 +5678,6 @@ Het bericht was gepost op het  {forumname} forum.
 
       Gebruikersnaam: {user}
 	  Automatisch gemaakt wachtwoord: {pass}
-	  Automatisch gemaakte veiligheidsantwoord: {answer}
       E-mail: {email} (Aub niet wijzigen, anders kun je niet meer inloggen met Facebook)
 	  
     </Resource>
@@ -5832,7 +5834,6 @@ Het bericht was gepost op het  {forumname} forum.
 
       Gebruikersnaam: {user}
 	  Automatisch gemaakt wachtwoord: {pass}
-	  Automatisch gemaakte veiligheidsantwoord: {answer}
       E-mail: {email} (Wijzig aub je e-mail in je echte e-mailadres, zodat je e-mails kunt ontvangen)</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">		Hallo!
 

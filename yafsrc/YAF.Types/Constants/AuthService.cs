@@ -29,10 +29,7 @@ namespace YAF.Types.Constants
     /// </summary>
     public enum AuthService
     {
-        /// <summary>
-        /// regular login UTH service
-        /// </summary>
-        none,
+        microsoftaccount,
 
         /// <summary>
         /// The facebook AUTH service
@@ -47,6 +44,11 @@ namespace YAF.Types.Constants
         /// <summary>
         /// The google AUTH service
         /// </summary>
-        google
+        google,
+
+        /// <summary>
+        /// The github.
+        /// </summary>
+        github
     }
 }

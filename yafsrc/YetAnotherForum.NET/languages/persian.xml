@@ -42,6 +42,9 @@
     <Resource tag="YOUR_USERNAME">نام کاربری شما:</Resource>
   </page>
   <page name="ACCOUNT_RESEST_PASSWORD">
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password</Resource>
+    <Resource tag="INVALID_MATCH">The Password and Confirmation Password must match.</Resource>
+    <Resource tag="PASSWORD">Enter New Password</Resource>
     <Resource tag="TITLE">Lost Password</Resource>
   </page>
   <page name="ACTIVELOCATION">
@@ -4950,6 +4953,7 @@
     <Resource tag="PASSWORD_SENT">رمز عبور به پست الکترونیک شما ارسال شد.</Resource>
     <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">بازیابی رمز عبور برای انجمن {0}</Resource>
     <Resource tag="QUESTION_FAILURE">پاسخ شما قابل تائید نمی باشد.دوباره تلاش کنید.</Resource>
+    <Resource tag="SUCCESS">An email with the Reset Link was send to your email address!</Resource>
     <Resource tag="TITLE">رمز عبور را فراموش کرده ام</Resource>
     <Resource tag="USERNAME_FAILURE">نام کاربری شما پیدا نشد.</Resource>
   </page>
@@ -5514,7 +5518,6 @@
 شما با موفقیت در  {forumname} از طریق لاگین فیسبوک وارد شدید:
       نام کاربری: {user}
       رمزعبور خودکار: {pass}
-      سوال امنیتی خودکار ایجاد شده: {answer}
       پست الکترونیکی کاربر: {email} (لطفا ایمیل خود را تغییر ندهید در غیر این صورت نمی توانید از طریق فیسبوک لاگین کنید)
 
     </Resource>

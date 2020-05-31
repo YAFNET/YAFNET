@@ -207,7 +207,7 @@ namespace YAF.Pages
             // users control panel
             this.PageLinks.AddLink(
                 this.Get<BoardSettings>().EnableDisplayName
-                    ? this.PageContext.CurrentUserData.DisplayName
+                    ? this.PageContext.CurrentUser.DisplayName
                     : this.PageContext.PageUserName,
                 BuildLink.GetLink(ForumPages.MyAccount));
 
@@ -386,15 +386,7 @@ namespace YAF.Pages
                     return;
                 }
 
-                var users = this.GetRepository<User>().UserList(
-                    BoardContext.Current.PageBoardID,
-                    null,
-                    true,
-                    null,
-                    null,
-                    null).ToList();
-
-                var hostUser = users.FirstOrDefault(u => u.IsHostAdmin > 0);
+                var hostUser = this.GetRepository<User>().Get(u => u.BoardID == BoardContext.Current.PageBoardID && u.UserFlags.IsHostAdmin).FirstOrDefault();
 
                 if (hostUser != null)
                 {
@@ -489,14 +481,14 @@ namespace YAF.Pages
                 }
 
                 var currentRow =
-                    this.GetRepository<User>().ListAsDataTable(BoardContext.Current.PageBoardID, toUserId, true).GetFirstRow();
+                    this.GetRepository<User>().GetById(toUserId);
 
                 if (currentRow == null)
                 {
                     return;
                 }
 
-                this.To.Text = this.Get<IUserDisplayName>().GetName(currentRow.Field<int>("UserID"));
+                this.To.Text = this.Get<IUserDisplayName>().GetName(currentRow.ID);
                 this.To.Enabled = false;
 
                 // hide find user/all users buttons
@@ -542,16 +534,11 @@ namespace YAF.Pages
                 return;
             }
 
-            using (
-                var userDT = this.GetRepository<User>().ListAsDataTable(
-                    BoardContext.Current.PageBoardID,
-                    BoardContext.Current.PageUserID,
-                    true))
+            var user = this.GetRepository<User>().GetById(BoardContext.Current.PageUserID);
+
+            if (user.Signature.IsSet())
             {
-                if (!userDT.Rows[0].IsNull("Signature"))
-                {
-                    this.PreviewMessagePost.Signature = userDT.Rows[0]["Signature"].ToString();
-                }
+                this.PreviewMessagePost.Signature = user.Signature;
             }
         }
 
@@ -695,7 +682,7 @@ namespace YAF.Pages
                         < receivingPMInfo["NumberAllowed"].ToType<int>() || BoardContext.Current.IsAdmin
                         || (bool)
                            Convert.ChangeType(
-                               BoardContext.Current.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID,userId.Value, true).GetFirstRow()["IsAdmin"],
+                               BoardContext.Current.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, userId.Value, true).GetFirstRow()["IsAdmin"],
                                typeof(bool)))
                     {
                         continue;
@@ -763,7 +750,7 @@ namespace YAF.Pages
                     this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
                     BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     message,
-                    this.PageContext.User.Email,
+                    this.PageContext.MembershipUser.Email,
                     out var spamResult))
                 {
                     switch (this.Get<BoardSettings>().SpamMessageHandling)
@@ -807,15 +794,10 @@ namespace YAF.Pages
                                 $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}, user was deleted and bannded",
                                 EventLogTypes.SpamMessageDetected);
 
-                            var userIp =
-                                new CombinedUserDataHelper(
-                                    this.PageContext.CurrentUserData.Membership,
-                                    this.PageContext.PageUserID).LastIP;
-
                             this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                 this.PageContext.PageUserID,
-                                this.PageContext.CurrentUserData.Membership,
-                                userIp);
+                                this.PageContext.MembershipUser,
+                                this.PageContext.CurrentUser.IP);
 
                             break;
                     }
@@ -824,7 +806,7 @@ namespace YAF.Pages
                 }
 
                 // Check posts for urls if the user has only x posts
-                if (BoardContext.Current.CurrentUserData.NumPosts
+                if (BoardContext.Current.CurrentUser.NumPosts
                     <= BoardContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount &&
                     !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
                 {
@@ -871,16 +853,10 @@ namespace YAF.Pages
                                 $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}, user was deleted and bannded",
                                 EventLogTypes.SpamMessageDetected);
 
-                            var userIp =
-                                new CombinedUserDataHelper(
-                                    this.PageContext.CurrentUserData.Membership,
-                                    this.PageContext.PageUserID).LastIP;
-
                             this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                 this.PageContext.PageUserID,
-                                this.PageContext.CurrentUserData.Membership,
-                                userIp);
-
+                                this.PageContext.MembershipUser,
+                                this.PageContext.CurrentUser.IP);
                             break;
                     }
 

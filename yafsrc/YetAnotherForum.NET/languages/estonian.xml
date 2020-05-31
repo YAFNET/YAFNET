@@ -42,6 +42,9 @@
     <Resource tag="YOUR_USERNAME">Teie kasutajanimi:</Resource>
   </page>
   <page name="ACCOUNT_RESEST_PASSWORD">
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password</Resource>
+    <Resource tag="INVALID_MATCH">The Password and Confirmation Password must match.</Resource>
+    <Resource tag="PASSWORD">Enter New Password</Resource>
     <Resource tag="TITLE">Lost Password</Resource>
   </page>
   <page name="ACTIVELOCATION">
@@ -4915,6 +4918,7 @@ Spoiler Content
     <Resource tag="PASSWORD_SENT">Teie parool on saadetud teie poolt märgitud e-posti aadressile.</Resource>
     <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Parooli taastamine {0} foorumile</Resource>
     <Resource tag="QUESTION_FAILURE">Teie vastuse kontroll ebaõnnestus. Palun proovide uuesti.</Resource>
+    <Resource tag="SUCCESS">An email with the Reset Link was send to your email address!</Resource>
     <Resource tag="TITLE">Parool kaotatud</Resource>
     <Resource tag="USERNAME_FAILURE">Sisestatud kasutajanime tuvastamine ebaõnnestus.</Resource>
   </page>

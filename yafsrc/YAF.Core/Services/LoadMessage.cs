@@ -28,8 +28,7 @@ namespace YAF.Core.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
-
+    
     using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -78,9 +77,15 @@ namespace YAF.Core.Services
         {
             get
             {
-                BoardContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] ??= new List<MessageNotification>();
+                if (BoardContext.Current.Get<IDataCache>().Get("LoadStringList") == null)
+                {
+                    BoardContext.Current.Get<IDataCache>().Set(
+                        "LoadStringList",
+                        new List<MessageNotification>(),
+                        TimeSpan.FromMinutes(30));
+                }
 
-                return BoardContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] as List<MessageNotification>;
+                return BoardContext.Current.Get<IDataCache>().Get("LoadStringList") as List<MessageNotification>;
             }
         }
 

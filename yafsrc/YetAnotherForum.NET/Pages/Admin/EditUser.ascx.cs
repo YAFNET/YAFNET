@@ -27,18 +27,16 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
-    using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
@@ -70,19 +68,6 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// Determines whether [is user host admin]
-        /// </summary>
-        /// <param name="userRow">The user row.</param>
-        /// <returns>
-        /// The is user host admin.
-        /// </returns>
-        protected bool IsUserHostAdmin([NotNull] DataRow userRow)
-        {
-            var userFlags = new UserFlags(userRow["Flags"]);
-            return userFlags.IsHostAdmin;
-        }
-
-        /// <summary>
         /// Registers the java scripts
         /// </summary>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -105,17 +90,15 @@ namespace YAF.Pages.Admin
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-            var dt = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, this.CurrentUserId, null);
+            var user = this.GetRepository<User>().GetById(this.CurrentUserId);
 
-            if (dt.Rows.Count != 1)
+            if (user == null)
             {
                 return;
             }
 
-            var userRow = dt.GetFirstRow();
-
             // do admin permission check...
-            if (!this.PageContext.IsHostAdmin && this.IsUserHostAdmin(userRow))
+            if (!this.PageContext.IsHostAdmin && user.UserFlags.IsHostAdmin)
             {
                 // user is not host admin and is attempted to edit host admin account...
                 BuildLink.AccessDenied();
@@ -127,8 +110,8 @@ namespace YAF.Pages.Admin
             }
 
             var userName = this.HtmlEncode(this.Get<BoardSettings>().EnableDisplayName
-                               ? userRow["DisplayName"].ToString()
-                               : userRow["Name"].ToString());
+                               ? user.DisplayName
+                               : user.Name);
 
             var header = string.Format(this.GetText("ADMIN_EDITUSER", "TITLE"), userName);
 
@@ -143,12 +126,12 @@ namespace YAF.Pages.Admin
                 $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_USERS", "TITLE")} - {string.Format(this.GetText("ADMIN_EDITUSER", "TITLE"), userName)}";
 
             // do a quick user membership sync...
-            var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.CurrentUserId);
+            var aspNetUser = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.CurrentUserId);
 
             // update if the user is not Guest
             if (!this.IsGuestUser)
             {
-                AspNetRolesHelper.UpdateForumUser(user, this.PageContext.PageBoardID);
+                AspNetRolesHelper.UpdateForumUser(aspNetUser, this.PageContext.PageBoardID);
             }
 
             this.EditUserTabs.DataBind();
