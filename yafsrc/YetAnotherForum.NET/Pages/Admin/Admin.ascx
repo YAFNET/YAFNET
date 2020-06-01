@@ -239,6 +239,7 @@
                             <tr>
                     <td>
                         <YAF:UserLink ID="ActiveUserLink" 
+                                      Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
                                       UserID='<%# this.Eval("UserID") %>' 
                                       CrawlerName='<%# this.Eval("IsCrawler").ToType<int>() > 0 ? this.Eval("Browser").ToString() : string.Empty %>'
                                       Style='<%# this.Eval("Style") %>' runat="server" />
@@ -327,6 +328,7 @@
                 <tr>
                     <td>
                         <YAF:UserLink ID="UnverifiedUserLink" 
+                                      Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
                                       UserID='<%# this.Eval("ID") %>' 
                                       Style='<%# this.Eval("UserStyle") %>'
                             runat="server" />

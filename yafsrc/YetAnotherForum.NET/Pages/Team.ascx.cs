@@ -39,13 +39,15 @@ namespace YAF.Pages
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
+
+    using ListItem = System.Web.UI.WebControls.ListItem;
 
     #endregion
 
@@ -59,7 +61,7 @@ namespace YAF.Pages
         /// <summary>
         ///   The Moderators List
         /// </summary>
-        private List<Moderator> completeModsList = new List<Moderator>();
+        private List<SimpleModerator> completeModsList = new List<SimpleModerator>();
 
         #endregion
 
@@ -136,56 +138,42 @@ namespace YAF.Pages
         /// Moderators List
         /// </returns>
         [NotNull]
-        protected List<Moderator> GetModerators()
+        protected List<SimpleModerator> GetModerators()
         {
             var moderators = this.Get<DataBroker>().GetAllModerators();
 
-            var modsSorted = new List<Moderator>();
+            var modsSorted = new List<SimpleModerator>();
 
-            foreach (var mod in moderators)
-            {
-                if (mod.IsGroup)
+            moderators.Where(m => !m.IsGroup).ForEach(
+                mod =>
                 {
-                    continue;
-                }
+                    var sortedMod = mod;
 
-                var sortedMod = new Moderator
+                    // Check if Mod is already in modsSorted
+                    if (modsSorted.Find(
+                        s => s.Name.Equals(sortedMod.Name) && s.ModeratorID.Equals(sortedMod.ModeratorID)) != null)
                     {
-                        Name = mod.Name,
-                        ModeratorID = mod.ModeratorID,
-                        Email = mod.Email,
-                        Block = new UserBlockFlags(mod.BlockFlags),
-                        Avatar = mod.Avatar,
-                        AvatarImage = mod.AvatarImage,
-                        DisplayName = mod.DisplayName,
-                        Style = mod.Style
-                    };
+                        return;
+                    }
 
-                // Check if Mod is already in modsSorted
-                if (modsSorted.Find(s => s.Name.Equals(sortedMod.Name) && s.ModeratorID.Equals(sortedMod.ModeratorID))
-                    != null)
-                {
-                    continue;
-                }
+                    // Get All Items from that MOD
+                    var modList = moderators.Where(m => m.Name.Equals(sortedMod.Name)).ToList();
+                    var forumsCount = modList.Count;
 
-                // Get All Items from that MOD
-                var modList = moderators.Where(m => m.Name.Equals(sortedMod.Name)).ToList();
-                var forumsCount = modList.Count;
+                    sortedMod.ForumIDs = new ModeratorsForums[forumsCount];
 
-                sortedMod.ForumIDs = new ModeratorsForums[forumsCount];
-
-                for (var i = 0; i < forumsCount; i++)
-                {
-                    var forumsId = new ModeratorsForums
+                    for (var i = 0; i < forumsCount; i++)
+                    {
+                        var forumsId = new ModeratorsForums
                         {
-                           ForumID = modList[i].ForumID, ForumName = modList[i].ForumName 
+                            ForumID = modList[i].ForumID, ForumName = modList[i].ForumName
                         };
 
-                    sortedMod.ForumIDs[i] = forumsId;
-                }
+                        sortedMod.ForumIDs[i] = forumsId;
+                    }
 
-                modsSorted.Add(sortedMod);
-            }
+                    modsSorted.Add(sortedMod);
+                });
 
             return modsSorted;
         }
@@ -396,7 +384,7 @@ namespace YAF.Pages
 
             adminUserButton.Visible = this.PageContext.IsAdmin;
 
-            var itemDataItem = (Moderator)e.Item.DataItem;
+            var itemDataItem = (SimpleModerator)e.Item.DataItem;
             var userid = itemDataItem.ModeratorID.ToType<int>();
             var displayName = this.Get<BoardSettings>().EnableDisplayName ? itemDataItem.DisplayName : itemDataItem.Name;
 
@@ -418,7 +406,7 @@ namespace YAF.Pages
 
             if (pm.Visible)
             {
-                if (mod.Block.BlockPMs)
+                if (mod.UserBlockFlags.BlockPMs)
                 {
                     pm.Visible = false;
                 }
@@ -440,7 +428,7 @@ namespace YAF.Pages
                 return;
             }
 
-            if (mod.Block.BlockEmails && !this.PageContext.IsAdmin)
+            if (mod.UserBlockFlags.BlockEmails && !this.PageContext.IsAdmin)
             {
                 email.Visible = false;
             }
@@ -478,86 +466,5 @@ namespace YAF.Pages
         }
 
         #endregion
-
-        /// <summary>
-        /// Moderators List
-        /// </summary>
-        public class Moderator
-        {
-            #region Properties
-
-            /// <summary>
-            ///   Gets or sets The Moderators Forums
-            /// </summary>
-            public ModeratorsForums[] ForumIDs { get; set; }
-
-            /// <summary>
-            ///   Gets or sets The Moderator ID (User ID)
-            /// </summary>
-            public long ModeratorID { get; set; }
-
-            /// <summary>
-            ///   Gets or sets The Moderator Email
-            /// </summary>
-            public string Email { get; set; }
-
-            /// <summary>
-            /// Gets or sets the block.
-            /// </summary>
-            public UserBlockFlags Block { get; set; }
-
-            /// <summary>
-            ///   Gets or sets The Moderator Avatar
-            /// </summary>
-            public string Avatar { get; set; }
-
-            /// <summary>
-            /// Gets or sets a value indicating whether [avatar image].
-            /// </summary>
-            /// <value>
-            ///   <c>true</c> if [avatar image]; otherwise, <c>false</c>.
-            /// </value>
-            public bool AvatarImage { get; set; }
-
-            /// <summary>
-            ///   Gets or sets The Moderator Name
-            /// </summary>
-            public string Name { get; set; }
-
-            /// <summary>
-            ///   Gets or sets The Moderator Display Name
-            /// </summary>
-            public string DisplayName { get; set; }
-
-            /// <summary>
-            ///   Gets or sets The Moderator Style
-            /// </summary>
-            public string Style { get; set; }
-
-            #endregion
-        }
-
-        /// <summary>
-        /// Moderator Forums
-        /// </summary>
-        public class ModeratorsForums
-        {
-            #region Properties
-
-            /// <summary>
-            ///   Gets or sets The Forum ID.
-            /// </summary>
-            public long ForumID { get; set; }
-
-            /// <summary>
-            /// Gets or sets the name of the forum.
-            /// </summary>
-            /// <value>
-            /// The name of the forum.
-            /// </value>
-            public string ForumName { get; set; }
-
-            #endregion
-        }
     }
 }

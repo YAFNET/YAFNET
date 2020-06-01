@@ -181,14 +181,15 @@ namespace YAF.Web.Controls
                                                    topicStartedDateTime);
 
             var topicStarterLink = new UserLink
-                                       {
-                                           UserID = this.TopicRow["UserID"].ToType<int>(),
-                                           ReplaceName = this
-                                               .TopicRow[this.Get<BoardSettings>().EnableDisplayName
-                                                             ? "StarterDisplay"
-                                                             : "Starter"].ToString(),
-                                           Style = this.TopicRow["StarterStyle"].ToString()
-                                       };
+            {
+                IsGuest = true,
+                Suspended = this.TopicRow["StarterSuspended"].ToType<DateTime?>(),
+                UserID = this.TopicRow["UserID"].ToType<int>(),
+                ReplaceName = this
+                    .TopicRow[this.Get<BoardSettings>().EnableDisplayName ? "StarterDisplay" : "Starter"]
+                    .ToString(),
+                Style = this.TopicRow["StarterStyle"].ToString()
+            };
 
             var span = this.Get<BoardSettings>().ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
@@ -328,14 +329,16 @@ namespace YAF.Web.Controls
                                                 lastPostedDateTime);
 
                 var userLast = new UserLink
-                                   {
-                                       UserID = this.TopicRow["LastUserID"].ToType<int>(),
-                                       ReplaceName = this
-                                           .TopicRow[this.Get<BoardSettings>().EnableDisplayName
-                                                         ? "LastUserDisplayName"
-                                                         : "LastUserName"].ToString(),
-                                       Style = this.TopicRow["LastUserStyle"].ToString()
-                                   };
+                {
+                    IsGuest = true,
+                    Suspended = this.TopicRow["LastUserSuspended"].ToType<DateTime?>(),
+                    UserID = this.TopicRow["LastUserID"].ToType<int>(),
+                    ReplaceName = this
+                        .TopicRow[this.Get<BoardSettings>().EnableDisplayName
+                            ? "LastUserDisplayName"
+                            : "LastUserName"].ToString(),
+                    Style = this.TopicRow["LastUserStyle"].ToString()
+                };
 
                 infoLastPost.DataContent =
                     $@"{userLast.RenderToString()}{dateTimeIcon}{span}{formattedDatetime}</span>";

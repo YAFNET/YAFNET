@@ -1,5 +1,7 @@
 namespace YAF.Core.Model
 {
+    using System.Collections.Generic;
+    
     using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
@@ -68,6 +70,29 @@ namespace YAF.Core.Model
                             IgnoredUserID = ignoredUserId
                         });
             }
+        }
+
+        /// <summary>
+        /// Gets the List of Ignored Users
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        [NotNull]
+        public static List<User> IgnoredUsers(this IRepository<IgnoreUser> repository, [NotNull] int userId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<IgnoreUser>();
+
+            expression.Join<User>((i, u) => u.ID == i.IgnoredUserID).Where<IgnoreUser>(
+                u => u.UserID == userId).Select();
+
+            return repository.DbAccess.Execute(db => db.Connection.Select<User>(expression));
         }
 
         #endregion

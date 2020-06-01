@@ -32,7 +32,10 @@
 
                 <span class="font-weight-bold"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                                    LocalizedTag="FROM" />:</span>
-                <YAF:UserLink ID="FromUserLink" runat="server" UserID='<%# this.Eval("FromUserID").ToType<int>() %>' />
+                <YAF:UserLink ID="FromUserLink" runat="server" 
+                              Suspended='<%# this.Eval("FromSuspended").ToType<DateTime?>() %>'
+                              Style='<%# this.Eval("FromStyle") %>'
+                              UserID='<%# this.Eval("FromUserID").ToType<int>() %>' />
             </span>
                     </div>
                     <div class="card-body">

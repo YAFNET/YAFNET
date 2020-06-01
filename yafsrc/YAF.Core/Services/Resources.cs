@@ -127,9 +127,11 @@ namespace YAF.Core.Services
 
                 var activeUsers = this.Get<IDataCache>().GetOrSet(
                     Constants.Cache.UsersOnlineStatus,
-                    () =>
-                    this.Get<DataBroker>().GetActiveList(
-                        false, BoardContext.Current.Get<BoardSettings>().ShowCrawlersInActiveList),
+                    () => this.GetRepository<Active>().ListAsDataTable(
+                        false,
+                        this.Get<BoardSettings>().ShowCrawlersInActiveList,
+                        this.Get<BoardSettings>().ActiveListTime,
+                        this.Get<BoardSettings>().UseStyledNicks),
                     TimeSpan.FromMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
 
                 var userIsOnline =

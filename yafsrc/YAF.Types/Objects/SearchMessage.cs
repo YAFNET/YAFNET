@@ -50,6 +50,7 @@ namespace YAF.Types.Objects
             this.UserDisplayName = row.Field<string>("UserDisplayName");
             this.UserStyle = row.Field<string>("UserStyle");
             this.UserId = row.Field<int?>("UserID");
+            this.Suspended = row.Field<DateTime?>("Suspended");
 
             this.TopicId = row.Field<int?>("TopicID");
             this.Topic = row.Field<string>("Topic");
@@ -122,6 +123,11 @@ namespace YAF.Types.Objects
         /// The user style.
         /// </value>
         public string UserStyle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user suspended.
+        /// </summary>
+        public DateTime? Suspended { get; set; }
 
         /// <summary>
         /// Gets or sets the user identifier.

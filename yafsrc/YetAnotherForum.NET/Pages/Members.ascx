@@ -191,6 +191,7 @@
                                              title="<%# this.HtmlEncode(this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name").ToString()) %>" 
                                              class="rounded img-fluid" />
                                         <YAF:UserLink ID="UserProfileLink" runat="server" 
+                                                      Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
                                                       IsGuest="False" 
                                                       ReplaceName='<%# this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name").ToString() %>' 
                                                       UserID='<%# this.Eval("UserID").ToType<int>() %>'

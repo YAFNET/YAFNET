@@ -858,12 +858,12 @@ namespace YAF.Pages
 
             // make message flags
             var messageFlags = new MessageFlags
-                               {
-                                   IsHtml = this.forumEditor.UsesHTML,
-                                   IsBBCode = this.forumEditor.UsesBBCode,
-                                   IsPersistent = this.PostOptions1.PersistentChecked,
-                                   IsApproved = isSpamApproved
-                               };
+            {
+                IsHtml = this.forumEditor.UsesHTML,
+                IsBBCode = this.forumEditor.UsesBBCode,
+                IsPersistent = this.PostOptions1.PersistentChecked,
+                IsApproved = isSpamApproved
+            };
 
             var messageId = this.GetRepository<Message>().SaveNew(
                 this.TopicId.Value,

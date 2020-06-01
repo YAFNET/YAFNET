@@ -25,10 +25,13 @@ namespace YAF.Web.BBCodes
 {
     using System.Web.UI;
 
+    using YAF.Configuration;
     using YAF.Core.BBCode;
     using YAF.Core.Extensions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Models;
     using YAF.Web.Controls;
 
     /// <summary>
@@ -56,17 +59,29 @@ namespace YAF.Web.BBCodes
                 return;
             }
 
-            var userId = this.Get<IUserDisplayName>().GetId(userName.Trim());
+            var user = this.Get<IAspNetUsersHelper>().GetUserByName(userName.Trim());
 
-            if (userId.HasValue)
+            if (user != null)
             {
+                var boardUser = this.GetRepository<User>().GetSingle(u => u.ProviderUserKey == user.Id);
+
+                if (boardUser == null)
+                {
+                    writer.Write(this.HtmlEncode(userName));
+                    return;
+                }
+
                 var userLink = new UserLink
-                                   {
-                                       UserID = userId.ToType<int>(),
-                                       CssClass = "btn btn-outline-primary",
-                                       BlankTarget = true,
-                                       ID = $"UserLinkBBCodeFor{userId}"
-                                   };
+                {
+                    Suspended = boardUser.Suspended,
+                    UserID = boardUser.ID,
+                    Style = boardUser.UserStyle,
+                    ReplaceName =
+                        this.Get<BoardSettings>().EnableDisplayName ? boardUser.DisplayName : boardUser.Name,
+                    CssClass = "btn btn-outline-primary",
+                    BlankTarget = true,
+                    ID = $"UserLinkBBCodeFor{boardUser.ID}"
+                };
 
                 writer.Write("<!-- BEGIN userlink -->");
                 writer.Write(@"<span>");

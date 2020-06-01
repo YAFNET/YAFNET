@@ -113,8 +113,10 @@ namespace YAF.Controls
 
                 // Last Topic User
                 var lastUserLink = new UserLink
-                {
-                    UserID = this.DataRow["LastUserID"].ToType<int>(),
+                { 
+                    Suspended = this.DataRow.Field<DateTime?>("LastUserSuspended"),
+                    UserID = this.DataRow.Field<int>("LastUserID"),
+                    IsGuest = true,
                     Style = this.Get<BoardSettings>().UseStyledNicks
                                                        ? this.Get<IStyleTransform>().DecodeStyleByString(
                                                            this.DataRow["Style"].ToString())

@@ -23,8 +23,10 @@
  */
 namespace YAF.Core.Model
 {
+    using System;
     using System.Collections.Generic;
-    using System.Linq;
+    
+    using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
     using YAF.Core.Extensions;
@@ -43,7 +45,7 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// Gets The Activity Stream
+        /// Gets the Users notifications.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -54,13 +56,44 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Activity> List(
+        public static List<Tuple<Activity, User>> Notifications(
             this IRepository<Activity> repository,
             int userId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.Get(a => a.UserID == userId).OrderByDescending(a => a.Created).ToList();
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+
+            expression.Join<Activity, User>((a, u) => u.ID  == a.UserID)
+                .Where<Activity>(a => a.UserID == userId && a.FromUserID.HasValue).OrderByDescending(a => a.Created).Select();
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, User>(expression));
+        }
+
+        /// <summary>
+        /// Gets the User Timeline.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<Tuple<Activity, User>> Timeline(
+            this IRepository<Activity> repository,
+            int userId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+
+            expression.Join<Activity, User>((a, u) => u.ID == a.FromUserID)
+                .Where<Activity>(a => a.UserID == userId).OrderByDescending(a => a.Created).Select();
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, User>(expression));
         }
 
         /// <summary>

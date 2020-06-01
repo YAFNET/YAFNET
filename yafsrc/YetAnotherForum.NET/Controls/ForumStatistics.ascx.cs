@@ -208,6 +208,7 @@ namespace YAF.Controls
                 this.LastPostUserLink.ReplaceName = this.Get<BoardSettings>().EnableDisplayName
                                                         ? postsStatisticsDataRow["LastUserDisplayName"].ToString()
                                                         : postsStatisticsDataRow["LastUser"].ToString();
+                this.LastPostUserLink.Suspended = postsStatisticsDataRow.Field<DateTime?>("LastUserSuspended");
                 this.LastPostUserLink.Style = postsStatisticsDataRow["LastUserStyle"].ToString();
                 this.StatsLastPost.Text = this.GetTextFormatted(
                     "stats_lastpost",
@@ -230,6 +231,8 @@ namespace YAF.Controls
             this.NewestMemberUserLink.ReplaceName = this.Get<BoardSettings>().EnableDisplayName
                                                         ? userStatisticsDataRow["LastMemberDisplayName"].ToString()
                                                         : userStatisticsDataRow["LastMember"].ToString();
+            this.NewestMemberUserLink.Style = userStatisticsDataRow["LastMemberStyle"].ToString();
+            this.NewestMemberUserLink.Suspended = userStatisticsDataRow.Field<DateTime?>("LastMemberSuspended");
 
             if (this.Get<BoardSettings>().DeniedRegistrations > 0 || this.Get<BoardSettings>().BannedUsers > 0
                                                                      || this.Get<BoardSettings>().ReportedSpammers

@@ -27,15 +27,12 @@ namespace YAF.Core.Model
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
 
     using ServiceStack.OrmLite;
-    using ServiceStack.OrmLite.Dapper;
 
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;

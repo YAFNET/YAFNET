@@ -15,7 +15,9 @@
     <ItemTemplate>
         <li class="list-group-item">
             <YAF:UserLink ID="UserProfileLink" runat="server" 
-                          UserID='<%# this.CurrentUserID == this.Eval("UserID").ToType<int>() ? (int)this.Eval("FromUserID") : (int)this.Eval("UserID") %>' />
+                          Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
+                          Style='<%# this.Eval("UserStyle") %>'
+                          UserID='<%#  this.Eval(this.CurrentUserID == this.Eval("UserID").ToType<int>() ? "FromUserID": "UserID").ToType<int>() %>' />
             <div class="btn-group" role="group">
             <asp:PlaceHolder ID="pnlRemove" runat="server" Visible="false">
                 <YAF:ThemeButton ID="lnkRemove" runat="server"

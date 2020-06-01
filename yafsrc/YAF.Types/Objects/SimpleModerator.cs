@@ -25,6 +25,8 @@ namespace YAF.Types.Objects
 {
     using System;
 
+    using YAF.Types.Flags;
+
     /// <summary>
     /// The moderator.
     /// </summary>
@@ -49,6 +51,9 @@ namespace YAF.Types.Objects
         /// <param name="email">
         /// The email.
         /// </param>
+        /// <param name="blockFlags">
+        /// The block Flags.
+        /// </param>
         /// <param name="avatar">
         /// The avatar.
         /// </param>
@@ -64,8 +69,22 @@ namespace YAF.Types.Objects
         /// <param name="isGroup">
         /// The is group.
         /// </param>
+        /// <param name="suspended">
+        /// The suspended.
+        /// </param>
         public SimpleModerator(
-            long forumID, string forumName, long moderatorID,  string name, string email, int blockFlags, string avatar, bool avatarImage, string displayName, string style, bool isGroup)
+            long forumID,
+            string forumName,
+            long moderatorID,
+            string name,
+            string email,
+            int blockFlags,
+            string avatar,
+            bool avatarImage,
+            string displayName,
+            string style,
+            bool isGroup,
+            DateTime? suspended)
         {
             this.ForumID = forumID;
             this.ForumName = forumName;
@@ -78,7 +97,14 @@ namespace YAF.Types.Objects
             this.DisplayName = displayName;
             this.Style = style;
             this.IsGroup = isGroup;
+            this.UserBlockFlags = new UserBlockFlags(blockFlags);
+            this.Suspended = suspended;
         }
+
+        /// <summary>
+        ///   Gets or sets The Moderators Forums
+        /// </summary>
+        public ModeratorsForums[] ForumIDs { get; set; }
 
         /// <summary>
         /// Gets or sets ForumID.
@@ -105,7 +131,15 @@ namespace YAF.Types.Objects
         /// </summary>
         public string Email { get; set; }
 
+        /// <summary>
+        /// Gets or sets the block flags.
+        /// </summary>
         public int BlockFlags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user block flags.
+        /// </summary>
+        public UserBlockFlags UserBlockFlags { get; set; }
 
         /// <summary>
         /// Gets or sets Avatar.
@@ -134,5 +168,10 @@ namespace YAF.Types.Objects
         /// Gets or sets a value indicating whether IsGroup.
         /// </summary>
         public bool IsGroup { get; set; }
+
+        /// <summary>
+        /// Gets or sets the suspended.
+        /// </summary>
+        public DateTime? Suspended { get; set; }
     }
 }

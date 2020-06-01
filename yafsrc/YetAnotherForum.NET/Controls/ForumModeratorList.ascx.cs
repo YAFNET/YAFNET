@@ -91,6 +91,7 @@ namespace YAF.Controls
                         // Render Moderator User Link
                         var userLink = new UserLink
                         {
+                            Style = row["Style"].ToString(),
                             UserID = row["ModeratorID"].ToType<int>(),
                             ReplaceName = row[this.Get<BoardSettings>().EnableDisplayName
                                                                      ? "ModeratorDisplayName"

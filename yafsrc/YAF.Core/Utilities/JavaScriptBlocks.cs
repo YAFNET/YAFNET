@@ -1251,5 +1251,26 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                            template: '<div class=""popover"" role=""tooltip""><h3 class=""popover-header""></h3><div class=""arrow""></div><div class=""popover-body popover-body-scrollable""></div></div>'
                 }});";
         }
+
+        /// <summary>
+        /// The Hover Card Load JS.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        [NotNull]
+        public static string HoverCardJs()
+        {
+            return $@"if (typeof(jQuery.fn.hovercard) != 'undefined'){{ 
+                      {Config.JQueryAlias}('.hc-user').hovercard({{
+                                      delay: {BoardContext.Current.Get<BoardSettings>().HoverCardOpenDelay}, 
+                                      width: 350,
+                                      loadingHTML: '{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}',
+                                      errorHTML: '{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}',
+                                      pointsText: '{BoardContext.Current.Get<ILocalization>().GetText("REPUTATION").ToJsString()}', 
+                                      postsText: '{BoardContext.Current.Get<ILocalization>().GetText("POSTS").ToJsString()}'
+                      }}); 
+                 }}";
+        }
     }
 }

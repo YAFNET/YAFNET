@@ -24,10 +24,8 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
 
-    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
@@ -97,7 +95,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable"/> . 
         /// </returns>
-        public static DataTable List(
+        public static DataTable ListAsDataTable(
             this IRepository<Active> repository,
             bool guests,
             bool showCrawlers,
@@ -114,53 +112,6 @@ namespace YAF.Core.Model
                 ActiveTime: activeTime,
                 StyledNicks: styledNicks,
                 UTCTIMESTAMP: DateTime.UtcNow);
-        }
-
-        /// <summary>
-        /// The list typed.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="guests">
-        /// The guests.
-        /// </param>
-        /// <param name="showCrawlers">
-        /// The show crawlers.
-        /// </param>
-        /// <param name="activeTime">
-        /// The active time.
-        /// </param>
-        /// <param name="styledNicks">
-        /// The styled nicks.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IList"/>.
-        /// </returns>
-        public static IList<Active> ListTyped(
-            this IRepository<Active> repository,
-            bool guests,
-            bool showCrawlers,
-            int activeTime,
-            bool styledNicks,
-            int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.SqlList(
-                "active_list",
-                new
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        Guests = guests,
-                        ShowCrawlers = showCrawlers,
-                        ActiveTime = activeTime,
-                        StyledNicks = styledNicks,
-                        UTCTIMESTAMP = DateTime.UtcNow
-                    });
         }
 
         /// <summary>

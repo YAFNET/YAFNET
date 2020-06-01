@@ -73,7 +73,7 @@ namespace YAF.Core.Identity
         /// <summary>
         /// The users.
         /// </summary>
-        public virtual IQueryable<AspNetUsers> Users => this.GetRepository<AspNetUsers>().Get(u => u.UserName.IsSet()).AsQueryable();
+        public virtual IQueryable<AspNetUsers> Users => this.GetRepository<AspNetUsers>().GetAll().AsQueryable();
 
         /// <summary>
         /// The add login async.

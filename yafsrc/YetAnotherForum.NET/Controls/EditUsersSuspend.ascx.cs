@@ -306,7 +306,6 @@ namespace YAF.Controls
             this.CurrentSuspendedReason.Text = this.User.SuspendedReason;
 
             this.SuspendedBy.UserID = this.User.SuspendedBy;
-
         }
 
         #endregion

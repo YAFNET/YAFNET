@@ -48,11 +48,14 @@
                                 <p class="mb-1">
                                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                         LocalizedPage="POSTMESSAGE"
-                                                        LocalizedTag="EDITEDBY" />: <YAF:UserLink ID="UserLink3" runat="server" UserID='<%# Container.DataItemToField<int>("EditedBy") %>' />
-                                    <asp:PlaceHolder runat="server" Visible='<%# this.PageContext.IsAdmin || this.Get<BoardSettings>().AllowModeratorsViewIPs && this.PageContext.ForumModeratorAccess%>'>
+                                                        LocalizedTag="EDITEDBY" />: <YAF:UserLink ID="UserLink3" runat="server"
+                                                                                                  Suspended='<%# Container.DataItemToField<DateTime?>("Suspended") %>'
+                                                                                                  Style='<%# Container.DataItemToField<string>("UserStyle") %>'
+                                                                                                  UserID='<%# Container.DataItemToField<int>("EditedBy") %>' />
+                                    <asp:PlaceHolder runat="server" Visible="<%# this.PageContext.IsAdmin || this.Get<BoardSettings>().AllowModeratorsViewIPs && this.PageContext.ForumModeratorAccess%>">
                                         <strong>
                                             <%# this.GetText("IP") %>:</strong><a id="IPLink1" 
-                                                                                  href='<%# string.Format(this.Get<BoardSettings>().IPInfoPageURL, this.GetIpAddress(Container.DataItem)) %>'
+                                                                                  href="<%# string.Format(this.Get<BoardSettings>().IPInfoPageURL, this.GetIpAddress(Container.DataItem)) %>"
                                                                                   title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
                                                                                   target="_blank" runat="server"><%# this.GetIpAddress(Container.DataItem) %></a>
                                     </asp:PlaceHolder>
@@ -66,7 +69,7 @@
                                                      CommandArgument='<%# Container.DataItemToField<DateTime>("Edited") %>'
                                                      TitleLocalizedTag="RESTORE_MESSAGE" 
                                                      TextLocalizedTag="RESTORE_MESSAGE"
-                                                     Visible='<%# (this.PageContext.IsAdmin || this.PageContext.IsModeratorInAnyForum) && !Container.ItemIndex.Equals(this.RevisionsCount-1) %>'
+                                                     Visible="<%# (this.PageContext.IsAdmin || this.PageContext.IsModeratorInAnyForum) && !Container.ItemIndex.Equals(this.RevisionsCount-1) %>"
                                                      ReturnConfirmText='<%# this.GetText("MESSAGEHISTORY", "CONFIRM_RESTORE") %>'
                                                      Type="Secondary" 
                                                      Size="Small" 

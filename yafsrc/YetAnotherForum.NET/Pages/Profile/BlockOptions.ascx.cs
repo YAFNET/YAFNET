@@ -152,7 +152,7 @@ namespace YAF.Pages.Profile
             this.BlockFriendRequests.Checked = this.PageContext.CurrentUser.Block.BlockFriendRequests;
             this.BlockEmails.Checked = this.PageContext.CurrentUser.Block.BlockEmails;
 
-            var ignoreUsers = this.GetRepository<IgnoreUser>().Get(u => u.UserID == this.PageContext.PageUserID);
+            var ignoreUsers = this.GetRepository<IgnoreUser>().IgnoredUsers(this.PageContext.PageUserID);
 
             this.UserIgnoredList.DataSource = ignoreUsers;
 

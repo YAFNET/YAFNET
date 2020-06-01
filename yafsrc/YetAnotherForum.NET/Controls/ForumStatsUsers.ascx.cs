@@ -170,9 +170,11 @@ namespace YAF.Controls
             // Active users : Call this before forum_stats to clean up active users
             var activeUsers = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.UsersOnlineStatus,
-                () => this.Get<DataBroker>().GetActiveList(
+                () => this.GetRepository<Active>().ListAsDataTable(
                     false,
-                    this.Get<BoardSettings>().ShowCrawlersInActiveList),
+                    this.Get<BoardSettings>().ShowCrawlersInActiveList,
+                    this.Get<BoardSettings>().ActiveListTime,
+                    this.Get<BoardSettings>().UseStyledNicks),
                 TimeSpan.FromMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
 
             this.ActiveUsers1.ActiveUserTable = activeUsers;

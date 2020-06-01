@@ -27,6 +27,7 @@ namespace YAF.Web.Controls
 
     using System.Web.UI;
 
+    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -193,7 +194,7 @@ namespace YAF.Web.Controls
                 output.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
             }
 
-            if (this.Style.IsSet())
+            if (this.Style.IsSet() && this.Get<BoardSettings>().UseStyledNicks)
             {
                 output.WriteAttribute(HtmlTextWriterAttribute.Style.ToString(), this.HtmlEncode(this.Style));
             }

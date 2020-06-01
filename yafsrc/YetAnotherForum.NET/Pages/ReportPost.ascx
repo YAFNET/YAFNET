@@ -27,12 +27,12 @@
                         <small class="text-muted">
                             <YAF:LocalizedLabel ID="PostedByLabel" runat="server" LocalizedTag="POSTEDBY" />
                             <YAF:UserLink ID="UserLink1" runat="server" 
+                                          Suspended='<%# Container.DataItemToField<DateTime?>("Suspended") %>'
+                                          Style='<%# this.Eval("UserStyle") %>'
                                           UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' />
-                            <span class="fa-stack">
-                                <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
-                                <i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i>
-                                <i class="fa fa-clock fa-badge text-secondary"></i>
-                            </span>
+                            <YAF:Icon runat="server" 
+                                      IconName="calendar-day"
+                                      IconNameBadge="clock"></YAF:Icon>
                             <%# this.Get<IDateTime>().FormatDateTime( Container.DataItemToField<DateTime>("Posted") )%>
                         </small>
                     </div>

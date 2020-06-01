@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Moderate.UnapprovedPosts" CodeBehind="UnapprovedPosts.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Types.Models" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -20,45 +20,48 @@
                                         IconName="comment" 
                                         LocalizedTag="Topic"></YAF:IconHeader>
                         <a id="TopicLink"
-                           href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}", this.Eval("TopicID")) %>'
+                           href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}", ((Tuple<Topic, Message, User>)Container.DataItem).Item1.ID) %>'
                            runat="server" 
-                           Visible='<%# this.Eval("MessageCount").ToType<int>() > 0 %>'><%# this.Eval("Topic") %></a>
+                           Visible="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item1.NumPosts > 0 %>"><%# ((Tuple<Topic, Message, User>)Container.DataItem).Item1.TopicName %></a>
                          <asp:Label id="TopicName" 
                                     runat="server" 
-                                    Visible='<%# this.Eval("MessageCount").ToType<int>() == 0 %>' 
-                                    Text='<%# this.Eval("Topic") %>'></asp:Label>
+                                    Visible="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item1.NumPosts == 0 %>" 
+                                    Text="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item1.TopicName %>"></asp:Label>
                         <div class="float-right text-muted">
                             <span class="font-weight-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
                             </span>
-                            <%# this.Get<IDateTime>().FormatDateTimeShort(this.Eval("Posted").ToType<DateTime>())%>
+                            <%# this.Get<IDateTime>().FormatDateTimeShort(((Tuple<Topic, Message, User>)Container.DataItem).Item2.Posted)%>
                             <span class="font-weight-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                     LocalizedTag="POSTEDBY" LocalizedPage="REPORTPOST" />
                             </span>
-                            <YAF:UserLink ID="UserName" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
+                            <YAF:UserLink ID="UserName" runat="server" 
+                                          Suspended="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item3.Suspended %>"
+                                          Style="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item3.UserStyle %>"
+                                          UserID="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item2.UserID %>" />
                             <YAF:ThemeButton ID="AdminUserButton" runat="server" 
                                              Size="Small"
                                              Visible="<%# this.PageContext.IsAdmin %>"
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                              Icon="users-cog" 
                                              Type="Danger"
-                                             NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.Admin_EditUser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
+                                             NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.Admin_EditUser,"u={0}", ((Tuple<Topic, Message, User>)Container.DataItem).Item2.UserID ) %>'>
                             </YAF:ThemeButton>
                         </div>
                     </div>
                     <div class="card-body">
-                        <%#this.FormatMessage((System.Data.DataRowView)Container.DataItem)%>
+                        <%# this.FormatMessage((Tuple<Topic, Message, User>)Container.DataItem)%>
                     </div>
                     <div class="card-footer text-center">
                         <YAF:ThemeButton ID="ApproveBtn" runat="server" 
                                          TextLocalizedPage="MODERATE_FORUM"
                                          TextLocalizedTag="APPROVE" 
-                                         CommandName="Approve" CommandArgument='<%# this.Eval("MessageID") %>'
+                                         CommandName="Approve" CommandArgument="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item2.ID %>"
                                          Icon="check" Type="Success"/>
                         <YAF:ThemeButton ID="DeleteBtn" runat="server"
                                          TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="DELETE" 
-                                         CommandName="Delete" CommandArgument='<%# this.Eval("MessageID") %>'
+                                         CommandName="Delete" CommandArgument="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item2.ID %>"
                                          ReturnConfirmText='<%# this.GetText("ASK_DELETE") %>'
                                          Icon="trash" Type="Danger" />
                     </div>

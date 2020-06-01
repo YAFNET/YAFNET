@@ -92,6 +92,7 @@ begin
             Style = case(@StyledNicks)
             when 1 then  a.UserStyle
             else ''	 end,
+            a.Suspended,
             UserCount = 1,
             c.[Login],
             c.LastActive,
@@ -126,6 +127,7 @@ begin
             Style = case(@StyledNicks)
             when 1 then  a.UserStyle
             else ''	 end,
+            a.Suspended,
             UserCount = 1,
             c.[Login],
             c.LastActive,
@@ -161,6 +163,7 @@ begin
             Style = case(@StyledNicks)
             when 1 then  a.UserStyle
             else ''	 end,
+            a.Suspended,
             UserCount = 1,
             c.[Login],
             c.LastActive,
@@ -208,6 +211,7 @@ begin
             Style = case(@StyledNicks)
             when 1 then  a.UserStyle
             else ''	 end,
+            a.Suspended,
             UserCount = 1,
             c.[Login],
             c.LastActive,
@@ -245,6 +249,7 @@ begin
             Style = case(@StyledNicks)
             when 1 then  a.UserStyle
             else ''	 end,
+            a.Suspended,
             UserCount = 1,
             c.[Login],
             c.LastActive,
@@ -284,6 +289,7 @@ begin
             Style = case(@StyledNicks)
             when 1 then  a.UserStyle
             else ''	 end,
+            a.Suspended,
             UserCount = 1,
             c.[Login],
             c.LastActive,
@@ -324,6 +330,7 @@ begin
         Style = case(@StyledNicks)
         when 1 then  b.UserStyle
         else ''	 end,
+        b.Suspended,
         UserCount   = (SELECT COUNT(ac.UserID) from
         [{databaseOwner}].[{objectQualifier}Active] ac  where ac.UserID = a.UserID and ac.ForumID = @ForumID),
         Browser = a.Browser
@@ -339,6 +346,7 @@ begin
         b.IsActiveExcluded,
         b.UserID,
         b.UserStyle,
+        b.Suspended,
         a.Flags,
         a.Browser
     order by
@@ -357,6 +365,7 @@ begin
         Style = case(@StyledNicks)
             when 1 then  b.UserStyle
             else ''	 end,
+        b.Suspended,
         UserCount   = (SELECT COUNT(ac.UserID) from
         [{databaseOwner}].[{objectQualifier}Active] ac  where ac.UserID = a.UserID and ac.TopicID = @TopicID),
         Browser = a.Browser
@@ -372,6 +381,7 @@ begin
         b.IsActiveExcluded,
         b.UserID,
         b.UserStyle,
+        b.Suspended,
         a.Flags,
         a.Browser
     order by
@@ -617,9 +627,8 @@ BEGIN
         LastUserID	= a.UserID,
         LastUser	= e.Name,
         LastUserDisplayName	= e.DisplayName,
-        LastUserStyle =  case(@StyledNicks)
-            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = a.UserID)
-            else ''	 end
+        LastUserStyle =  e.UserStyle,
+        LastUserSuspended = e.Suspended
             FROM
                 [{databaseOwner}].[{objectQualifier}Message] a
 				join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID
@@ -645,7 +654,8 @@ BEGIN
         LastUserID	= null,
         LastUser	= null,
         LastUserDisplayName	= null,
-        LastUserStyle = ''
+        LastUserStyle = '',
+        LastUserSuspended = null
         END
         -- this can be in any very rare updatable cached place
         DECLARE @linkDate datetime = GETUTCDATE()
@@ -668,7 +678,9 @@ BEGIN
                 LastMemberInfoID= 1,
                 LastMemberID	= UserID,
                 LastMember	= [Name],
-                LastMemberDisplayName	= [DisplayName]
+                LastMemberDisplayName	= [DisplayName],
+                LastMemberStyle = UserStyle,
+                LastMemberSuspended = Suspended
             FROM
                 [{databaseOwner}].[{objectQualifier}User]
             WHERE
@@ -1055,6 +1067,7 @@ select
         LastUserID		= t.LastUserID,
         LastUser		= lastUser.Name,
         LastUserDisplayName	= lastUser.DisplayName,
+        LastUserSuspended = lastUser.Suspended,
         LastTopicID		= t.TopicID,
         TopicMovedID    = t.TopicMovedID,
         LastTopicName	= t.Topic,
@@ -1067,6 +1080,7 @@ select
         Style = case(@StyledNicks)
             when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = t.LastUserID)
             else ''	 end,
+        usr.Suspended,
         LastForumAccess = case(@FindLastRead)
              when 1 then
                (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x  WHERE x.ForumID=b.ForumID AND x.UserID = @UserID)
@@ -1138,7 +1152,8 @@ BEGIN
         Style = case(@StyledNicks)
             when 1 then b.Style
             else ''	 end,
-        IsGroup=1
+        IsGroup=1,
+        Suspended = null
     from
         [{databaseOwner}].[{objectQualifier}Forum] f
         INNER JOIN [{databaseOwner}].[{objectQualifier}ForumAccess] a  ON a.ForumID = f.ForumID
@@ -1161,7 +1176,8 @@ BEGIN
         Style = case(@StyledNicks)
             when 1 then  usr.UserStyle
             else ''	 end,
-        IsGroup=0
+        IsGroup=0,
+        Suspended = usr.Suspended
     from
         [{databaseOwner}].[{objectQualifier}User] usr
         INNER JOIN (
@@ -1632,6 +1648,8 @@ SELECT
         m.UserID,
         IsNull(t.UserName, u.Name) as UserName,
         IsNull(t.UserDisplayName, u.DisplayName) as DisplayName,
+        u.UserStyle,
+        u.Suspended,
         m.[Message],
         m.Posted,
         t.TopicID,
@@ -1669,6 +1687,8 @@ BEGIN
         UserName	= IsNull(b.UserName,d.Name),
         UserDisplayName	= IsNull(b.UserDisplayName,d.DisplayName),
         UserID = b.UserID,
+        d.Suspended,
+        d.UserStyle,
         Posted		= b.Posted,
         TopicID = b.TopicID,
         Topic		= c.Topic,
@@ -1696,14 +1716,20 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_listreporters](@Mes
 BEGIN
     IF ( @UserID > 0 )
     BEGIN
-    SELECT b.UserID, UserName = a.Name,UserDisplayName = a.DisplayName, b.ReportedNumber, b.ReportText
+    SELECT 
+    b.UserID, UserName = a.Name,UserDisplayName = a.DisplayName, b.ReportedNumber, b.ReportText,
+    a.Suspended, 
+    a.UserStyle
     FROM [{databaseOwner}].[{objectQualifier}User] a,
     [{databaseOwner}].[{objectQualifier}MessageReportedAudit] b
     WHERE   a.UserID = b.UserID  AND b.MessageID = @MessageID AND b.UserID = @UserID
     END
     ELSE
     BEGIN
-    SELECT b.UserID, UserName = a.Name,UserDisplayName = a.DisplayName, b.ReportedNumber, b.ReportText
+    SELECT 
+    b.UserID, UserName = a.Name,UserDisplayName = a.DisplayName, b.ReportedNumber, b.ReportText,
+    a.Suspended, 
+    a.UserStyle
     FROM [{databaseOwner}].[{objectQualifier}User] a,
     [{databaseOwner}].[{objectQualifier}MessageReportedAudit] b
     WHERE   a.UserID = b.UserID  AND b.MessageID = @MessageID
@@ -1848,34 +1874,6 @@ BEGIN
     IF ((@Flags & 16) = 16)
         EXEC [{databaseOwner}].[{objectQualifier}message_approve] @MessageID
 END
-
-GO
-
-CREATE procedure [{databaseOwner}].[{objectQualifier}message_unapproved](@ForumID int) as begin
-        select
-        MessageID	= b.MessageID,
-        UserID		= b.UserID,
-        UserName	= IsNull(b.UserName,c.Name),
-        UserDisplayName = IsNull(b.UserDisplayName, c.DisplayName),
-        Posted		= b.Posted,
-        TopicID		= a.TopicID,
-        Topic		= a.Topic,
-        MessageCount = a.NumPosts,
-        [Message]	= b.[Message],
-        [Flags]		= b.Flags,
-        [IsModeratorChanged] = b.IsModeratorChanged
-    from
-        [{databaseOwner}].[{objectQualifier}Topic] a
-        inner join [{databaseOwner}].[{objectQualifier}Message] b on b.TopicID = a.TopicID
-        inner join [{databaseOwner}].[{objectQualifier}User] c on c.UserID = b.UserID
-    where
-        a.ForumID = @ForumID and
-        b.IsApproved=0 and
-        a.IsDeleted =0 and
-        b.IsDeleted=0
-    order by
-        a.Posted
-end
 
 GO
 
@@ -2580,8 +2578,15 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_list](@FromUserID int=null,@ToUserID int=null,@UserPMessageID int=null) AS
 BEGIN
         SELECT
-    a.ReplyTo, a.PMessageID, b.UserPMessageID, a.FromUserID, d.[Name] AS FromUser,
-    b.[UserID] AS ToUserId, c.[Name] AS ToUser, a.Created, a.[Subject],
+    a.ReplyTo, a.PMessageID, b.UserPMessageID, a.FromUserID, 
+    d.[Name] AS FromUser,
+    d.UserStyle as FromStyle,
+    d.Suspended as FromSuspended,
+    b.[UserID] AS ToUserId, 
+    c.[Name] AS ToUser, 
+    c.UserStyle as ToStyle,
+    c.Suspended as ToSuspended,
+    a.Created, a.[Subject],
     a.Body, a.Flags, b.IsRead,b.IsReply, b.IsInOutbox, b.IsArchived, b.IsDeleted
 FROM
     [{databaseOwner}].[{objectQualifier}PMessage] a
@@ -3259,6 +3264,8 @@ begin
         c.TopicMovedID,
         ForumFlags = d.Flags,
         FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
+        StarterSuspended = b.Suspended,
+        LastUserSuspended = lastUser.Suspended,
         StarterStyle = case(@StyledNicks)
             when 1 then  b.UserStyle
             else ''	 end,
@@ -3386,6 +3393,8 @@ begin
         c.TopicMovedID,
         ForumFlags = d.Flags,
         FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
+        StarterSuspended = b.Suspended,
+        LastUserSuspended = lastUser.Suspended,
         StarterStyle = case(@StyledNicks)
             when 1 then  b.UserStyle
             else ''	 end,
@@ -3985,6 +3994,8 @@ begin
             StarterStyle = case(@StyledNicks)
             when 1 then  b.UserStyle
             else ''	 end,
+            StarterSuspended = b.Suspended,
+            LastUserSuspended = lastUser.Suspended,
             LastUserStyle= case(@StyledNicks)
             when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID)
             else ''	 end,
@@ -4089,6 +4100,8 @@ begin
             StarterStyle = case(@StyledNicks)
             when 1 then  b.UserStyle
             else ''	 end,
+        StarterSuspended = b.Suspended,
+        LastUserSuspended = lastUser.Suspended,
             LastUserStyle= case(@StyledNicks)
             when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID)
             else ''	 end,
@@ -6196,7 +6209,9 @@ AS
                 RankName = b.Name,
                 c.Approved,
                 c.FromUserID,
-                c.Requested
+                c.Requested,
+                a.UserStyle,
+                a.Suspended
         FROM   [{databaseOwner}].[{objectQualifier}User] a
                 JOIN [{databaseOwner}].[{objectQualifier}Rank] b ON b.RankID = a.RankID
                 JOIN [{databaseOwner}].[{objectQualifier}Buddy] c ON ( c.ToUserID = a.UserID
@@ -6212,7 +6227,9 @@ AS
                 RankName = b.Name,
                 c.Approved,
                 c.FromUserID,
-                c.Requested
+                c.Requested,
+                a.UserStyle,
+                a.Suspended
         FROM    [{databaseOwner}].[{objectQualifier}User] a
                 JOIN [{databaseOwner}].[{objectQualifier}Rank] b ON b.RankID = a.RankID
                 JOIN [{databaseOwner}].[{objectQualifier}Buddy] c ON ( ( c.Approved = 0 )
@@ -6347,6 +6364,8 @@ begin
         c.TopicMovedID,
         ForumFlags = d.Flags,
         FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
+        StarterSuspended = b.Suspended,
+        LastUserSuspended = lastUser.Suspended,
         StarterStyle = case(@StyledNicks)
             when 1 then  b.UserStyle
             else ''	 end,
@@ -6636,6 +6655,8 @@ as
 	 m.UserID, 
 	 m.UserName, 
 	 IsNull(m.UserDisplayName,(SELECT u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u where u.UserID = m.UserID)) AS UserDisplayName, 
+     editUser.UserStyle,
+     editUser.Suspended,
 	 t.ForumID, 
 	 t.TopicID, 
 	 t.Topic, 
@@ -6645,6 +6666,7 @@ as
      LEFT JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mh.MessageID
      LEFT JOIN [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = m.TopicID
      LEFT JOIN [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
+     LEFT JOIN [{databaseOwner}].[{objectQualifier}User] editUser ON mh.EditedBy = editUser.UserID
      WHERE mh.MessageID = @MessageID
      order by mh.Edited, mh.MessageID
     END
@@ -6798,6 +6820,7 @@ begin
                 WHEN 1 THEN U.UserStyle
                 ELSE ''
             END,
+    U.Suspended,
     U.LastVisit
     FROM [{databaseOwner}].[{objectQualifier}User] AS U
                 JOIN [{databaseOwner}].[{objectQualifier}Rank] R on R.RankID=U.RankID
@@ -6978,6 +7001,8 @@ begin
         c.TopicMovedID,
         ForumFlags = d.Flags,
         FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
+        StarterSuspended = b.Suspended,
+        LastUserSuspended = lastUser.Suspended,
         StarterStyle = case(@StyledNicks)
             when 1 then  b.UserStyle
             else ''	 end,
@@ -7143,6 +7168,8 @@ begin
         c.TopicMovedID,
         ForumFlags = d.Flags,
         FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
+        StarterSuspended = b.Suspended,
+        LastUserSuspended = lastUser.Suspended,
         StarterStyle = case(@StyledNicks)
             when 1 then  b.UserStyle
             else ''	 end,
@@ -7216,6 +7243,7 @@ BEGIN
 		ISNULL(m.UserDisplayName, u.DisplayName) as UserDisplayName,
         ISNULL(m.UserName, u.Name) as UserName,
 		u.UserStyle,
+        u.Suspended,
 		m.UserID,
         t.TopicID,
 		t.Topic,

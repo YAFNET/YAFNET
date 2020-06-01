@@ -1,4 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Profile.BlockOptions" CodeBehind="BlockOptions.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Models" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -65,21 +66,26 @@
                     <ItemTemplate>
                         <li class="list-group-item">
                             <YAF:UserLink runat="server" 
-                                          UserID='<%# this.Eval("IgnoredUserID") %>'></YAF:UserLink>
-                            &nbsp;<YAF:ThemeButton runat="server"
-                                                   Type="Secondary"
-                                                   Icon="eye"
-                                                   TextLocalizedPage="POSTS"
-                                                   TextLocalizedTag="TOGGLEUSERPOSTS_SHOW"
-                                                   CommandName="delete"
-                                                   CommandArgument='<%# this.Eval("IgnoredUserID") %>'>
-                            </YAF:ThemeButton>
+                                          Suspended="<%# ((User)Container.DataItem).Suspended %>"
+                                          Style="<%# ((User)Container.DataItem).UserStyle %>"
+                                          ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? 
+                                                               ((User)Container.DataItem).DisplayName : 
+                                                               ((User)Container.DataItem).Name %>"
+                                          UserID="<%# ((User)Container.DataItem).ID %>"/>
+                            <YAF:ThemeButton runat="server"
+                                             Type="Secondary"
+                                             Icon="eye"
+                                             TextLocalizedPage="POSTS"
+                                             TextLocalizedTag="TOGGLEUSERPOSTS_SHOW"
+                                             CommandName="delete"
+                                             CommandArgument="<%# ((User)Container.DataItem).ID %>" />
+                            
                         </li>
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
             <div class="card-footer text-muted">
-                <YAF:LocalizedLabel runat="server" LocalizedTag="NOTE_USERS"></YAF:LocalizedLabel>
+                <YAF:LocalizedLabel runat="server" LocalizedTag="NOTE_USERS" />
             </div>
         </div>
     </div>

@@ -234,12 +234,16 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="IEnumerable"/>.
         /// </returns>
-        public static IEnumerable<Message> LastPosts(
+        public static List<Tuple<Message, User>> LastPosts(
             this IRepository<Message> repository,
             [NotNull] int topicId)
         {
-            return repository.Get(m => m.TopicID == topicId && m.MessageFlags.IsApproved && !m.MessageFlags.IsDeleted)
-                .OrderByDescending(m => m.Posted).Take(10);
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+            expression.Join<Message, User>((m, u) => m.UserID == u.ID)
+                .Where<Message>(m => m.TopicID == topicId && (m.Flags & 24) == 16).OrderByDescending(m => m.Posted).Take(10).Select();
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, User>(expression));
         }
 
         /// <summary>
@@ -488,11 +492,14 @@ namespace YAF.Core.Model
         /// The <see cref="DataTable"/>.
         /// </returns>
         [NotNull]
-        public static List<Message> RepliesListAsDataTable(this IRepository<Message> repository, [NotNull] int messageId)
+        public static List<Tuple<Message, User>> Replies(this IRepository<Message> repository, [NotNull] int messageId)
         {
-            return
-                repository.Get(
-                    m => m.IsApproved.Value == true && m.ReplyTo == messageId);
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+            expression.Join<User>((message, user) => user.ID == message.UserID).Where<Message>(
+                    m => m.IsApproved.Value && m.ReplyTo == messageId).Select();
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, User>(expression));
         }
 
         /// <summary>
@@ -818,9 +825,18 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataTable UnapprovedAsDataTable(this IRepository<Message> repository, [NotNull] int forumId)
+        public static List<Tuple<Topic, Message, User>> Unapproved(this IRepository<Message> repository, [NotNull] int forumId)
         {
-            return repository.DbFunction.GetData.message_unapproved(ForumID: forumId);
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
+
+            expression.Join<Message>((topic, message) => message.TopicID == topic.ID)
+                .Join<Message, User>((message, user) => message.UserID == user.ID).Where<Topic, Message>(
+                    (topic, message) => topic.ForumID == forumId && message.IsApproved == false &&
+                                        topic.IsDeleted == false && message.IsDeleted == false).Select();
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Topic, Message, User>(expression));
         }
 
         /// <summary>

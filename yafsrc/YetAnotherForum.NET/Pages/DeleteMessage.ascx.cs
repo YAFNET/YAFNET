@@ -269,7 +269,7 @@ namespace YAF.Pages
             // delete message...
             this.PreviewRow.Visible = true;
 
-            var replies = this.GetRepository<Message>().RepliesListAsDataTable(
+            var replies = this.GetRepository<Message>().Replies(
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").ToType<int>());
 
             if (replies.Any() && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))

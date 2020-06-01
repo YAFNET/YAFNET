@@ -1,9 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.LastPosts"
     CodeBehind="LastPosts.ascx.cs" %>
 
-<%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="YAF.Types.Models" %>
 
 <asp:Repeater ID="repLastPosts" runat="server">
@@ -30,19 +27,22 @@
                 <div class="card-title h5">
                     <footer class="blockquote-footer">
                         <YAF:UserLink ID="ProfileLink" runat="server" 
-                                      UserID="<%# ((Message)Container.DataItem).UserID %>"
+                                      UserID="<%# ((Tuple<Message, User>)Container.DataItem).Item2.ID %>"
+                                      Suspended="<%# ((Tuple<Message, User>)Container.DataItem).Item2.Suspended %>"
+                                      Style="<%# ((Tuple<Message, User>)Container.DataItem).Item2.UserStyle %>"
                                       BlankTarget="true" />
                         <small class="text-muted">
                             <YAF:Icon runat="server" 
                                       IconName="calendar-day"
                                       IconNameBadge="clock"></YAF:Icon>
-                            <YAF:DisplayDateTime ID="DisplayDateTime" runat="server" DateTime="<%# ((Message)Container.DataItem).Posted %>"></YAF:DisplayDateTime>
+                            <YAF:DisplayDateTime ID="DisplayDateTime" runat="server" 
+                                                 DateTime="<%# ((Tuple<Message, User>)Container.DataItem).Item1.Posted %>" />
                         </small>
                     </footer>
                 </div>
                 <div class="card-text">
                     <YAF:MessagePostData ID="MessagePostPrimary" runat="server" 
-                                         CurrentMessage="<%# ((Message)Container.DataItem)%>"
+                                         CurrentMessage="<%# ((Tuple<Message, User>)Container.DataItem).Item1%>"
                                          ShowAttachments="false">
                     </YAF:MessagePostData>
                 </div>

@@ -123,21 +123,25 @@ namespace YAF.Web.Controls
                             howMany = $"({reporter["ReportedNumber"]})";
                         }
 
-                        var resolvedBy = this.GetRepository<User>().GetById(
-                            this.ResolvedBy.ToType<int>());
+                        var resolvedByName = string.Empty;
+
                         var reporterUser = this.GetRepository<User>().GetById(reporter["UserID"].ToType<int>());
 
-                        var resolvedByName = this.Get<BoardSettings>().EnableDisplayName
-                            ? resolvedBy.DisplayName
-                            : resolvedBy.Name;
                         var reporterName = this.Get<BoardSettings>().EnableDisplayName
                             ? reporterUser.DisplayName
                             : reporterUser.Name;
 
                         // If the message was previously resolved we have not null string
                         // and can add an info about last user who resolved the message
-                        if (this.ResolvedDate.IsSet())
+                        if (this.ResolvedDate.IsSet()  && DateTime.Parse(this.ResolvedDate) > DateTime.MinValue)
                         {
+                            var resolvedBy = this.GetRepository<User>().GetById(
+                                this.ResolvedBy.ToType<int>());
+
+                            resolvedByName = this.Get<BoardSettings>().EnableDisplayName
+                                ? resolvedBy.DisplayName
+                                : resolvedBy.Name;
+
                             writer.Write(
                                 @"<span class=""font-weight-bold"">{0}</span><a href=""{1}""> {2}</a> : {3}",
                                 this.GetText("RESOLVEDBY"),

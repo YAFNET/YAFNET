@@ -234,7 +234,8 @@ namespace YAF.Core.Services
                                 new DataColumn("ModeratorEmail", typeof(string)),
                                 new DataColumn("ModeratorAvatar", typeof(string)),
                                 new DataColumn("ModeratorAvatarImage", typeof(bool)),
-                                new DataColumn("Style", typeof(string)), new DataColumn("IsGroup", typeof(bool))
+                                new DataColumn("Style", typeof(string)), 
+                                new DataColumn("IsGroup", typeof(bool))
                             });
                 }
 
@@ -341,25 +342,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// The get active list.
-        /// </summary>
-        /// <param name="guests">The guests.</param>
-        /// <param name="crawlers">The bots.</param>
-        /// <param name="activeTime">The active time.</param>
-        /// <returns>
-        /// Returns the active list.
-        /// </returns>
-        public DataTable GetActiveList(bool guests, bool crawlers, int? activeTime = null)
-        {
-            return this.GetRepository<Active>()
-                .List(
-                    guests,
-                    crawlers,
-                    activeTime ?? this.BoardSettings.ActiveListTime,
-                    this.BoardSettings.UseStyledNicks);
-        }
-
-        /// <summary>
         ///     The get all moderators.
         /// </summary>
         /// <returns> Returns List with all moderators </returns>
@@ -382,7 +364,8 @@ namespace YAF.Core.Services
                         row.Field<bool>("ModeratorAvatarImage"),
                         row.Field<string>("ModeratorDisplayName"),
                         row.Field<string>("Style"),
-                        row["IsGroup"].ToType<bool>())).ToList();
+                        row["IsGroup"].ToType<bool>(),
+                        row.Field<System.DateTime?>("Suspended"))).ToList();
         }
 
         /// <summary>

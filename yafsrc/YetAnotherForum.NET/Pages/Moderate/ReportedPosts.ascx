@@ -30,7 +30,7 @@
                             <span class="font-weight-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
                             </span>
-                            <%# this.Get<IDateTime>().FormatDateShort((DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
+                            <%# this.Get<IDateTime>().FormatDateShort(Container.DataItemToField<DateTime>("Posted")) %>
                             <span class="font-weight-bold pl-3">
                                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NUMBERREPORTED" />
                             </span>
@@ -39,7 +39,10 @@
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                     LocalizedTag="POSTEDBY" LocalizedPage="REPORTPOST" />
                             </span>
-                            <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
+                            <YAF:UserLink ID="UserLink1" runat="server" 
+                                          Suspended='<%# Container.DataItemToField<DateTime?>("Suspended") %>'
+                                          Style='<%# Container.DataItemToField<string>("UserStyle") %>'
+                                          UserID='<%# this.Eval("UserID").ToType<int>() %>' />
                             <YAF:ThemeButton ID="AdminUserButton" runat="server" 
                                              Size="Small"
                                              Visible="<%# this.PageContext.IsAdmin %>"
@@ -73,10 +76,10 @@
                         <div class="row">
                             <div class="col">
                                 <YAF:ReportedPosts ID="ReportersList" runat="server" 
-                                                   MessageID='<%# DataBinder.Eval(Container.DataItem, "[\"MessageID\"]") %>'
-                                                   ResolvedBy='<%# DataBinder.Eval(Container.DataItem, "[\"ResolvedBy\"]") %>' 
+                                                   MessageID='<%# Container.DataItemToField<int>("MessageID") %>'
+                                                   ResolvedBy='<%# Container.DataItemToField<int>("ResolvedBy") %>' 
                                                    Resolved='<%# DataBinder.Eval(Container.DataItem, "[\"Resolved\"]") %>'
-                                                   ResolvedDate='<%# DataBinder.Eval(Container.DataItem, "[\"ResolvedDate\"]") %>' />
+                                                   ResolvedDate='<%# Container.DataItemToField<DateTime>("ResolvedDate") %>' />
                             </div>
                         </div>
                     </div>

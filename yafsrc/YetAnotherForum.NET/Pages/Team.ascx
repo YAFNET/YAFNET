@@ -37,6 +37,7 @@
                                                 CssClass="rounded img-fluid"/>
                                      <YAF:UserLink ID="AdminLink" runat="server" 
                                                    IsGuest="False" 
+                                                   Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
                                                    UserID='<%# this.Eval("ID").ToType<int>() %>' 
                                                    Style='<%# this.Eval("UserStyle") %>'  />
                                  </h5>
@@ -104,6 +105,7 @@
                                                 Height="40px"
                                                 CssClass="rounded img-fluid"/>
                                      <YAF:UserLink ID="ModLink" runat="server" 
+                                                   Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
                                                    ReplaceName='<%#  this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name").ToString() %>' 
                                                    UserID='<%# this.Eval("ModeratorID").ToType<int>() %>' 
                                                    IsGuest="False" 

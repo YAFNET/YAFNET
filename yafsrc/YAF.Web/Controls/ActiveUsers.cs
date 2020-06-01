@@ -167,6 +167,7 @@ namespace YAF.Web.Controls
                             crawlers.Add(row["Browser"].ToString());
                             userLink = new UserLink
                                            {
+                                               Suspended = row.Field<DateTime?>("Suspended"),
                                                CrawlerName = row["Browser"].ToString(),
                                                UserID = row["UserID"].ToType<int>(),
                                                Style = this.Get<BoardSettings>().UseStyledNicks
@@ -179,16 +180,16 @@ namespace YAF.Web.Controls
                         else
                         {
                             userLink = new UserLink
-                                           {
-                                               UserID = row["UserID"].ToType<int>(),
-                                               Style = this.Get<BoardSettings>().UseStyledNicks
-                                                           ? this.Get<IStyleTransform>().DecodeStyleByString(
-                                                               row["Style"].ToString())
-                                                           : string.Empty,
-                                               ReplaceName = this.Get<BoardSettings>().EnableDisplayName
-                                                                 ? row["UserDisplayName"].ToString()
-                                                                 : row["UserName"].ToString()
-                                           };
+                            {
+                                Suspended = row.Field<DateTime?>("Suspended"),
+                                UserID = row["UserID"].ToType<int>(),
+                                Style = this.Get<BoardSettings>().UseStyledNicks
+                                    ? this.Get<IStyleTransform>().DecodeStyleByString(row["Style"].ToString())
+                                    : string.Empty,
+                                ReplaceName = this.Get<BoardSettings>().EnableDisplayName
+                                    ? row["UserDisplayName"].ToString()
+                                    : row["UserName"].ToString()
+                            };
                             userLink.ID = $"UserLink{this.InstantId}{userLink.UserID}";
                         }
 

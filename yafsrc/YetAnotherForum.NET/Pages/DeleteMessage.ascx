@@ -1,10 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True"
     Inherits="YAF.Pages.DeleteMessage" Codebehind="DeleteMessage.ascx.cs" %>
-
-<%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Models" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
@@ -101,18 +98,21 @@
             <div class="card-title h5">
                 <footer class="blockquote-footer">
                     <YAF:UserLink ID="ProfileLink" runat="server" 
-                                  UserID="<%# ((Message)Container.DataItem).UserID %>"
+                                  Suspended="<%# ((Tuple<Message, User>)Container.DataItem).Item2.Suspended %>"
+                                  Style="<%# ((Tuple<Message, User>)Container.DataItem).Item2.UserStyle %>"
+                                  UserID="<%# ((Tuple<Message, User>)Container.DataItem).Item1.UserID %>"
+                                  ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ?  ((Tuple<Message, User>)Container.DataItem).Item2.DisplayName : ((Tuple<Message, User>)Container.DataItem).Item2.Name %>"
                                   BlankTarget="true" />
                     <small class="text-muted">
                         <YAF:Icon runat="server" 
                                   IconName="calendar-day"
                                   IconNameBadge="clock"></YAF:Icon>
-                        <%# this.Get<IDateTime>().FormatDateTime(((Message)Container.DataItem).Posted)%>
+                        <%# this.Get<IDateTime>().FormatDateTime(((Tuple<Message, User>)Container.DataItem).Item1.Posted)%>
                     </small>
                 </footer>
             </div>
             <div class="card-text">
-                <YAF:MessagePostData ID="MessagePost1" runat="server" CurrentMessage="<%# (Message)Container.DataItem %>"
+                <YAF:MessagePostData ID="MessagePost1" runat="server" CurrentMessage="<%# ((Tuple<Message, User>)Container.DataItem).Item1 %>"
                                      ShowAttachments="false" ShowSignature="false">
                 </YAF:MessagePostData>
             </div>

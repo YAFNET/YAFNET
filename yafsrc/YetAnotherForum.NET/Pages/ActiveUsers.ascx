@@ -48,7 +48,7 @@
                                                                 LocalizedTag="platform" />
 		                                </th>
                                         <th id="Iptd_header1" runat="server" 
-                                            visible='<%# this.PageContext.IsAdmin %>'>
+                                            visible="<%# this.PageContext.IsAdmin %>">
                                             IP
 		                                </th>
                                     </tr>
@@ -59,6 +59,7 @@
                         <tr>
 				        <td>		
 					        <YAF:UserLink ID="NameLink" runat="server" 
+                                          Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
                                           ReplaceName='<%# this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName") %>' 
                                           CrawlerName='<%# this.Eval("IsCrawler").ToType<int>() > 0 ? this.Eval("Browser").ToString() : string.Empty %>'
                                           UserID='<%# this.Eval("UserID").ToType<int>() %>' 
@@ -94,7 +95,7 @@
 				        <td>
 					        <%# this.Eval("Platform") %>
 				        </td>
-                        <td id="Iptd1" runat="server" visible='<%# this.PageContext.IsAdmin %>'>
+                        <td id="Iptd1" runat="server" visible="<%# this.PageContext.IsAdmin %>">
 					         <a id="Iplink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIp4Address(this.Eval("IP").ToString())) %>'
                                 title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
                              <%# IPHelper.GetIp4Address(this.Eval("IP").ToString())%></a>
