@@ -346,6 +346,8 @@ namespace YAF.Controls
             {
                 stream.RemoveAll(a => a.WasQuoted);
             }
+			
+			stream.RemoveAll(a => a.GivenThanks);
 
             var paged = stream.OrderByDescending(item => item.ID)
                 .Skip(this.PagerTop.CurrentPageIndex * this.PagerTop.PageSize).Take(this.PagerTop.PageSize).ToList();

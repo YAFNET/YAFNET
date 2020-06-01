@@ -329,8 +329,8 @@ namespace YAF.Controls
         {
             this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
-            var stream = this.GetRepository<Activity>().Get(x => x.UserID == this.PageContext.PageUserID && !x.FromUserID.HasValue);
-
+            var stream = this.GetRepository<Activity>().Get(x => x.UserID == this.PageContext.PageUserID);
+			 
             if (!this.CreatedTopic.Checked)
             {
                 stream.RemoveAll(a => a.CreatedTopic);
