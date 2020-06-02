@@ -64,7 +64,7 @@ namespace YAF.Core.Model
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
-            expression.Join<Activity, User>((a, u) => u.ID  == a.UserID)
+            expression.Join<Activity, User>((a, u) => u.ID  == a.FromUserID)
                 .Where<Activity>(a => a.UserID == userId && a.FromUserID.HasValue).OrderByDescending(a => a.Created).Select();
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, User>(expression));
