@@ -1,12 +1,12 @@
 ﻿jQuery(document).ready(function() {
     var yafCKEditor = jQuery("textarea.YafTextEditor").ckeditor({
-        extraPlugins: "autosave,bbcode,syntaxhighlight,bbcodeselector,codemirror,emojione,wordcount",
+        extraPlugins: "autosave,bbcode,syntaxhighlight,bbcodeselector,codemirror,emoji,wordcount",
         toolbar: [
             ["Source"],
             ["Undo", "Redo"],
             ["-", "NumberedList", "BulletedList"],
             ["-", "Link", "Unlink", "Image"],
-            ["Emojione", "Blockquote", "syntaxhighlight", "bbcodeselector"],
+            ["EmojiPanel", "Blockquote", "syntaxhighlight", "bbcodeselector"],
             ["SelectAll", "RemoveFormat"],
             ["About"],
             "/",

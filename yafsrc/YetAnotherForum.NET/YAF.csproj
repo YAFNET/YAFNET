@@ -2479,14 +2479,9 @@
     <Content Include="Scripts\ckeditor\plugins\dialog\dialogDefinition.js" />
     <Content Include="Scripts\ckeditor\plugins\dialog\styles\dialog.css" />
     <Content Include="Scripts\ckeditor\plugins\div\dialogs\div.js" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\.bower.json" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\.gitignore" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\bower.json" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\dialogs\emojione.js" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\libs\emojione\emojione.min.js" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\styles\emojione-awesome.css" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\styles\emojione.css" />
+    <Content Include="Scripts\ckeditor\plugins\emoji\assets\iconsall.png" />
+    <Content Include="Scripts\ckeditor\plugins\emoji\assets\iconsall.svg" />
+    <Content Include="Scripts\ckeditor\plugins\emoji\skins\default.css" />
     <Content Include="Scripts\ckeditor\plugins\find\dialogs\find.js" />
     <Content Include="Scripts\ckeditor\plugins\forms\dialogs\button.js" />
     <Content Include="Scripts\ckeditor\plugins\forms\dialogs\checkbox.js" />
@@ -3317,6 +3312,7 @@
     <Content Include="v1.9.1.upgrade.web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\ckeditor\plugins\emoji\emoji.json" />
     <None Include="web.config">
       <SubType>Designer</SubType>
     </None>
@@ -3643,7 +3639,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
