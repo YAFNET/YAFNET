@@ -1,6 +1,12 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.1.06
+* [FIXED] Emoji Button in CKEditor
+* Upgraded to CKEditor 4.14.0
+* Bug fixes
+
+
 # YetAnotherForum.NET v2.3.1.05
 * [FIXED] sending watch emails + added erro handling
 * [FIXED] MultiQuote Button
