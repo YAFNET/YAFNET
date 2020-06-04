@@ -30,7 +30,6 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
-    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -150,7 +149,7 @@ namespace YAF.Controls
                 return;
             }
 
-            var activity = (Tuple<Activity, User>)e.Item.DataItem;
+            var activity = (Tuple<Activity, User, Topic>)e.Item.DataItem;
 
             var messageHolder = e.Item.FindControlAs<PlaceHolder>("Message");
             var displayDateTime = e.Item.FindControlAs<DisplayDateTime>("DisplayDateTime");
@@ -168,7 +167,7 @@ namespace YAF.Controls
                                             "m={0}#post{0}",
                                             activity.Item1.MessageID.Value),
                                     Type = ButtonStyle.None,
-                                    Text = this.GetRepository<Topic>().GetById(activity.Item1.TopicID.Value).TopicName,
+                                    Text = activity.Item3.TopicName,
                                     Icon = "comment"
                                 };
 

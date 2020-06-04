@@ -56,7 +56,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Tuple<Activity, User>> Notifications(
+        public static List<Tuple<Activity, User, Topic>> Notifications(
             this IRepository<Activity> repository,
             int userId)
         {
@@ -64,10 +64,11 @@ namespace YAF.Core.Model
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
-            expression.Join<Activity, User>((a, u) => u.ID  == a.FromUserID)
-                .Where<Activity>(a => a.UserID == userId && a.FromUserID.HasValue).OrderByDescending(a => a.Created).Select();
+            expression.Join<User>((a, u) => u.ID == a.FromUserID).Join<Topic>((a, t) => t.ID == a.TopicID.Value)
+                .Where<Activity>(a => a.UserID == userId && a.FromUserID.HasValue).OrderByDescending(a => a.Created)
+                .Select();
 
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, User>(expression));
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, User, Topic>(expression));
         }
 
         /// <summary>
@@ -82,7 +83,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Tuple<Activity, User>> Timeline(
+        public static List<Tuple<Activity, Topic>> Timeline(
             this IRepository<Activity> repository,
             int userId)
         {
@@ -90,10 +91,11 @@ namespace YAF.Core.Model
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
-            expression.Join<Activity, User>((a, u) => u.ID == a.FromUserID)
-                .Where<Activity>(a => a.UserID == userId).OrderByDescending(a => a.Created).Select();
+            expression.Join<Topic>((a, t) => t.ID == a.TopicID)
+                .Where<Activity>(a => a.UserID == userId && a.ReceivedThanks == false && a.WasQuoted == false)
+                .OrderByDescending(a => a.Created).Select();
 
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, User>(expression));
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, Topic>(expression));
         }
 
         /// <summary>

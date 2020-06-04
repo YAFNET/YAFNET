@@ -112,21 +112,11 @@ namespace YAF.Controls
         public int BoardId { get; set; }
 
         /// <summary>
-        ///   Gets or sets CategoryId
-        /// </summary>
-        public int CategoryId { get; set; }
-
-        /// <summary>
         ///   Gets or sets EditBoardId.
         ///   Used to return to edit board page.
         ///   Currently is not implemented.
         /// </summary>
         public int EditBoardId { get; set; }
-
-        /// <summary>
-        ///   Gets or sets EditCategoryId
-        /// </summary>
-        public int EditCategoryId { get; set; }
 
         /// <summary>
         ///   Gets or sets EditForumId
@@ -234,10 +224,10 @@ namespace YAF.Controls
 
             if (!this.Get<BoardSettings>().AllowPollChangesAfterFirstVote)
             {
-                return this.ShowButtons && (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess
-                                                                     || this.PageContext.PageUserID
-                                                                     == this._dtPollGroupAllChoices.Rows[0][
-                                                                         "GroupUserID"].ToType<int>() && hasNoVotes);
+                return this.ShowButtons && (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
+                                            this.PageContext.PageUserID ==
+                                            this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
+                                            hasNoVotes);
             }
 
             return this.ShowButtons && (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess
@@ -335,7 +325,6 @@ namespace YAF.Controls
 
                 soon = true;
                 return 1;
-
             }
 
             return null;
@@ -605,7 +594,6 @@ namespace YAF.Controls
                     this.PollGroupId,
                     this.TopicId,
                     this.ForumId,
-                    this.CategoryId,
                     this.BoardId,
                     false,
                     false);
@@ -620,7 +608,6 @@ namespace YAF.Controls
                     this.PollGroupId,
                     this.TopicId,
                     this.ForumId,
-                    this.CategoryId,
                     this.BoardId,
                     true,
                     false);
@@ -1023,7 +1010,6 @@ namespace YAF.Controls
                     this.PollGroupId,
                     this.TopicId,
                     this.ForumId,
-                    this.CategoryId,
                     this.BoardId,
                     true,
                     true);
@@ -1156,7 +1142,7 @@ namespace YAF.Controls
             }
 
             // only admins can edit this
-            if (this.CategoryId > 0 || this.BoardId > 0)
+            if (this.BoardId > 0)
             {
                 return this.PageContext.IsAdmin;
             }
@@ -1216,11 +1202,10 @@ namespace YAF.Controls
             var topicPoll = this.PageContext.ForumPollAccess
                             && (this.EditMessageId > 0 || this.TopicId > 0 && this.ShowButtons);
             var forumPoll = this.EditForumId > 0 || this.ForumId > 0 && this.ShowButtons;
-            var categoryPoll = this.EditCategoryId > 0 || this.CategoryId > 0 && this.ShowButtons;
             var boardPoll = this.PageContext.BoardVoteAccess
                             && (this.EditBoardId > 0 || this.BoardId > 0 && this.ShowButtons);
 
-            this.NewPollRow.Visible = this.ShowButtons && (topicPoll || forumPoll || categoryPoll || boardPoll)
+            this.NewPollRow.Visible = this.ShowButtons && (topicPoll || forumPoll || boardPoll)
                                                        && this.HasOwnerExistingGroupAccess() && !existingPoll;
 
             // if this is > 0 then we already have a poll and will display all buttons
@@ -1292,26 +1277,6 @@ namespace YAF.Controls
                 sb += $"ef={this.EditForumId}";
             }
 
-            if (this.CategoryId > 0)
-            {
-                if (sb.IsSet())
-                {
-                    sb += '&';
-                }
-
-                sb += $"c={this.CategoryId}";
-            }
-
-            if (this.EditCategoryId > 0)
-            {
-                if (sb.IsSet())
-                {
-                    sb += '&';
-                }
-
-                sb += $"ec={this.EditCategoryId}";
-            }
-
             if (this.BoardId > 0)
             {
                 if (sb.IsSet())
@@ -1372,12 +1337,6 @@ namespace YAF.Controls
                         BuildLink.Redirect(ForumPages.Board);
                     }
 
-                    // This is a poll in a category list 
-                    if (this.CategoryId > 0)
-                    {
-                        BuildLink.Redirect(ForumPages.Board, "c={0}", this.CategoryId);
-                    }
-
                     break;
                 case ForumPages.Topics:
 
@@ -1401,15 +1360,6 @@ namespace YAF.Controls
                     if (this.EditForumId > 0)
                     {
                         BuildLink.Redirect(ForumPages.Admin_EditForum, "f={0}", this.ForumId);
-                    }
-
-                    break;
-                case ForumPages.Admin_EditCategory:
-
-                    // this is a poll on edit category page
-                    if (this.EditCategoryId > 0)
-                    {
-                        BuildLink.Redirect(ForumPages.Admin_EditCategory, "c={0}", this.EditCategoryId);
                     }
 
                     break;

@@ -117,7 +117,9 @@ namespace YAF.Controls
             imageMessageLink.NavigateUrl = messageUrl;
 
             forumLink.Text = $"({currentRow["Forum"]})";
-            forumLink.NavigateUrl = BuildLink.GetLink(ForumPages.Topics, "f={0}", currentRow["ForumID"]);
+            forumLink.NavigateUrl = BuildLink.GetForumLink(
+                currentRow["ForumID"].ToType<int>(),
+                currentRow["Forum"].ToString());
 
             if (imageLastUnreadMessageLink.Visible)
             {

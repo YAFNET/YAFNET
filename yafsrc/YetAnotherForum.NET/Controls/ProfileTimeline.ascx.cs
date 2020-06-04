@@ -150,7 +150,7 @@ namespace YAF.Controls
                 return;
             }
 
-            var activity = (Tuple<Activity, User>)e.Item.DataItem;
+            var activity = (Tuple<Activity, Topic>)e.Item.DataItem;
 
             var card = e.Item.FindControlAs<Panel>("Card");
             var iconLabel = e.Item.FindControlAs<Label>("Icon");
@@ -163,16 +163,12 @@ namespace YAF.Controls
             var icon = string.Empty;
 
             var topicLink = new ThemeButton
-                                {
-                                    NavigateUrl =
-                                        BuildLink.GetLink(
-                                            ForumPages.Posts,
-                                            "m={0}#post{0}",
-                                            activity.Item1.MessageID.Value),
-                                    Type = ButtonStyle.None,
-                                    Text = this.GetRepository<Topic>().GetById(activity.Item1.TopicID.Value).TopicName,
-                                    Icon = "comment"
-                                };
+            {
+                NavigateUrl = BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", activity.Item1.MessageID.Value),
+                Type = ButtonStyle.None,
+                Text = activity.Item2.TopicName,
+                Icon = "comment"
+            };
 
             if (activity.Item1.ActivityFlags.CreatedTopic)
             {
@@ -192,14 +188,14 @@ namespace YAF.Controls
 
             if (activity.Item1.ActivityFlags.GivenThanks)
             {
+                var user = this.GetRepository<User>().GetById(activity.Item1.FromUserID.Value);
+
                 var userLink = new UserLink
                 {
                     UserID = activity.Item1.FromUserID.Value,
-                    Suspended = activity.Item2.Suspended,
-                    Style = activity.Item2.UserStyle,
-                    ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
-                        ? activity.Item2.DisplayName
-                        : activity.Item2.Name
+                    Suspended = user.Suspended,
+                    Style = user.UserStyle,
+                    ReplaceName = this.PageContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name
                 };
 
                 title.Text = this.GetText("ACCOUNT", "GIVEN_THANKS");
@@ -310,7 +306,7 @@ namespace YAF.Controls
             this.CreatedTopic.Checked = true;
             this.CreatedReply.Checked = true;
             this.GivenThanks.Checked = true;
-            
+
             this.BindData();
         }
 
@@ -333,7 +329,7 @@ namespace YAF.Controls
         /// <summary>
         /// The bind data.
         /// </summary>
-            private void BindData()
+        private void BindData()
         {
             this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 

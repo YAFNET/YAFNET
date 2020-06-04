@@ -56,7 +56,7 @@
                                                  CommandArgument="<%# this.PageContext.PageCategoryID != 0 ? this.PageContext.PageCategoryID.ToString() : null %>"/>
                                 <YAF:RssFeedLink ID="RssFeed1" runat="server"
                                                  FeedType="Forum" 
-                                                 AdditionalParameters='<%# this.PageContext.PageCategoryID != 0 ? "c={0}".Fmt(this.PageContext.PageCategoryID) : null %>'
+                                                 AdditionalParameters='<%# this.PageContext.PageCategoryID != 0 ? "c={0}&name={1}".Fmt(this.PageContext.PageCategoryID,this.PageContext.PageCategoryName) : null %>'
                                                  Visible="<%# this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ForumFeedAccess) %>" />
                             </div>
                         </div>
