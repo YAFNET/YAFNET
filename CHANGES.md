@@ -1,6 +1,26 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.1.06
+* [FIXED] Emoji Button in CKEditor
+* Upgraded to CKEditor 4.14.0
+* Bug fixes
+ 
+
+# YetAnotherForum.NET v2.3.1.05
+* [FIXED] sending watch emails + added erro handling
+* [FIXED] MultiQuote Button
+* Bug fixes
+
+
+# YetAnotherForum.NET v2.3.1.04
+* Avatars are now visible for posts on mobile devices 
+* Removed spacing from Quotes
+* [FIXED] Display Date Times in Posts
+* [FIXED] dont send email notifications after edit post
+* Better handling of mass emails
+
+
 # YetAnotherForum.NET v2.3.1.03
 * [NEW #549] Admin option to restore or permanently delete old topics that are deleted
 * Language for guests is now based on current browser Language

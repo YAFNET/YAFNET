@@ -40,10 +40,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         {
         }
 
-        public override string Name
-        {
-            get { return "idf"; }
-        }
+        public override string Name => "idf";
 
         public override FunctionValues GetValues(IDictionary context, AtomicReaderContext readerContext)
         {
