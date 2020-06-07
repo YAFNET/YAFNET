@@ -219,7 +219,7 @@
     <DisplayJS></DisplayJS>
     <EditJS></EditJS>
     <DisplayCSS></DisplayCSS>
-    <SearchRegex>\[instagram\](?&lt;inner&gt;(.*?)\.instagram.com/p/(?&lt;id&gt;.+)?\/\?(.*?))\[/instagram\]|\[instagram\](?&lt;inner&gt;(.*?)\.instagram.com/p/(?&lt;id&gt;.+)?\/)\[/instagram\]</SearchRegex>
+    <SearchRegex>\[instagram\](?&lt;inner&gt;(.*?).instagram.com/p/(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/instagram\]</SearchRegex>
     <ReplaceRegex>&lt;div class="embed-responsive embed-responsive-1by1"  data-oembed-url="https://www.instagram.com/p/${id}"&gt;&lt;iframe src="https://www.instagram.com/p/${id}/embed/captioned/" class="embed-responsive-item"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
     <Variables>id</Variables>
     <UseModule>false</UseModule>
