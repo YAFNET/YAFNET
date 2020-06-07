@@ -160,16 +160,12 @@ namespace YAF.Controls
             var icon = string.Empty;
 
             var topicLink = new ThemeButton
-                                {
-                                    NavigateUrl =
-                                        BuildLink.GetLink(
-                                            ForumPages.Posts,
-                                            "m={0}#post{0}",
-                                            activity.Item1.MessageID.Value),
-                                    Type = ButtonStyle.None,
-                                    Text = activity.Item3.TopicName,
-                                    Icon = "comment"
-                                };
+            {
+                NavigateUrl = BuildLink.GetTopicLink(activity.Item1.MessageID.Value, activity.Item3.TopicName),
+                Type = ButtonStyle.None,
+                Text = activity.Item3.TopicName,
+                Icon = "comment"
+            };
 
             if (activity.Item1.ActivityFlags.ReceivedThanks)
             {

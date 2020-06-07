@@ -120,21 +120,25 @@ namespace YAF.Pages.Profile
                 return;
             }
 
+            this.Back.TextLocalizedTag = !this.Get<HttpRequestBase>().QueryString.Exists("t")
+                                 ? "BACK"
+                                 : "CONTINUE";
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The create page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             var displayName = this.PageContext.BoardSettings.EnableDisplayName
                 ? this.PageContext.CurrentUser.DisplayName
                 : this.PageContext.CurrentUser.Name;
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                displayName,
-                BuildLink.GetLink(ForumPages.UserProfile, "u={0}", this.PageContext.PageUserID, displayName));
+            this.PageLinks.AddUser(this.PageContext.PageUserID, displayName);
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
-            this.Back.TextLocalizedTag = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t").IsNotSet()
-                                 ? "BACK"
-                                 : "CONTINUE";
-
-            this.BindData();
         }
 
         /// <summary>

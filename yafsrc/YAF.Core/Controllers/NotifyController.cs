@@ -87,15 +87,17 @@ namespace YAF.Core.Controllers
                         var message = string.Empty;
                         var icon = string.Empty;
 
+                        var topic = this.GetRepository<Topic>().GetById(activity.TopicID.Value);
+
                         var topicLink = new HyperLink
                         {
                             NavigateUrl =
-                                                    BuildLink.GetLink(
-                                                        ForumPages.Posts,
-                                                        "m={0}#post{0}",
-                                                        activity.MessageID.Value),
-                            Text =
-                                $"<i class=\"fas fa-comment fa-fw mr-1\"></i>{this.GetRepository<Topic>().GetById(activity.TopicID.Value).TopicName}"
+                                BuildLink.GetLink(
+                                    ForumPages.Posts,
+                                    "m={0}&name={1}#post{0}",
+                                    activity.MessageID.Value,
+                                    topic.TopicName),
+                            Text = $"<i class=\"fas fa-comment fa-fw mr-1\"></i>{topic.TopicName}"
                         };
 
                         var name = this.Get<IUserDisplayName>().GetName(activity.FromUserID.Value);

@@ -10,7 +10,7 @@
                                 IconName="poll-h"
                                 LocalizedTag="POLLHEADER"/>
             </div>
-            <div class="card-body">
+            <div class="card-body">gro
                 <asp:PlaceHolder id="PollRow1" runat="server" visible="true">
 		            <div class="form-group">
 			            <asp:Label runat="server" AssociatedControlID="Question">
@@ -99,14 +99,6 @@
                             <YAF:LocalizedLabel ID="IsClosedBoundExplainLabel" runat="server" LocalizedTag="POLLGROUP_CLOSEDBOUND_WARN" /> 
                         </small>
                     </div>	
-                </asp:PlaceHolder> 
-                <asp:PlaceHolder id="PollGroupList" runat="server" visible="false">
-                    <div class="form-group">
-                        <asp:Label runat="server" AssociatedControlID="PollGroupListDropDown">
-				            <YAF:LocalizedLabel ID="PollGroupListLabel" runat="server" LocalizedTag="pollgroup_list" />
-			            </asp:Label>
-                        <asp:DropDownList ID="PollGroupListDropDown" runat="server" CssClass="select2-select" MaxLength="10" />			
-		            </div>
                 </asp:PlaceHolder>
             </div>
             <div class="card-footer text-center">

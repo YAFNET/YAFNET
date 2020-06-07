@@ -397,8 +397,8 @@ namespace YAF.Core.Services
                                              ["{link}"] = BuildLink.GetLinkNotEscaped(
                                                  ForumPages.Posts,
                                                  true,
-                                                 "m={0}#post{0}",
-                                                 newMessageId),
+                                                 "m={0}&name={1}#post{0}",
+                                                 newMessageId, message.Topic),
                                              ["{subscriptionlink}"] = BuildLink.GetLinkNotEscaped(
                                                  ForumPages.Profile_Subscriptions,
                                                  true)

@@ -107,23 +107,6 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
-        ///   Gets or sets BoardId
-        /// </summary>
-        public int BoardId { get; set; }
-
-        /// <summary>
-        ///   Gets or sets EditBoardId.
-        ///   Used to return to edit board page.
-        ///   Currently is not implemented.
-        /// </summary>
-        public int EditBoardId { get; set; }
-
-        /// <summary>
-        ///   Gets or sets EditForumId
-        /// </summary>
-        public int EditForumId { get; set; }
-
-        /// <summary>
         ///   Gets or sets EditMessageId.
         /// </summary>
         public int EditMessageId { get; set; }
@@ -168,6 +151,11 @@ namespace YAF.Controls
         /// </summary>
         public int TopicId { get; set; }
 
+        /// <summary>
+        /// The topic.
+        /// </summary>
+        private Topic topic;
+
         #endregion
 
         #region Methods
@@ -210,52 +198,6 @@ namespace YAF.Controls
                                                                  || this.PageContext.PageUserID
                                                                  == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]
                                                                      .ToType<int>() && !this.IsPollClosed(pollId));
-        }
-
-        /// <summary>
-        /// Checks if a user can remove all polls in a group
-        /// </summary>
-        /// <returns>
-        /// The can remove group.
-        /// </returns>
-        protected bool CanRemoveGroup()
-        {
-            var hasNoVotes = !this._dtPollAllChoices.Rows.Cast<DataRow>().Any(dr => dr["Votes"].ToType<int>() > 0);
-
-            if (!this.Get<BoardSettings>().AllowPollChangesAfterFirstVote)
-            {
-                return this.ShowButtons && (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
-                                            this.PageContext.PageUserID ==
-                                            this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
-                                            hasNoVotes);
-            }
-
-            return this.ShowButtons && (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess
-                                                                 || this.PageContext.PageUserID
-                                                                 == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]
-                                                                     .ToType<int>());
-        }
-
-        /// <summary>
-        /// Checks if  a user can remove all polls in a group completely.
-        /// </summary>
-        /// <returns>
-        /// The can remove group completely.
-        /// </returns>
-        protected bool CanRemoveGroupCompletely()
-        {
-            return this.ShowButtons && this.PageContext.IsAdmin;
-        }
-
-        /// <summary>
-        /// Checks if a user can delete group from all places, but not completely
-        /// </summary>
-        /// <returns>
-        /// The can remove group everywhere.
-        /// </returns>
-        protected bool CanRemoveGroupEverywhere()
-        {
-            return this.ShowButtons && this.PageContext.IsAdmin;
         }
 
         /// <summary>
@@ -551,72 +493,46 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void PollGroup_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
-            if (e.CommandName == "new" && this.PageContext.ForumVoteAccess)
+            switch (e.CommandName)
             {
-                BuildLink.Redirect(ForumPages.PollEdit, "{0}", this.ParamsToSend());
-            }
-
-            if (e.CommandName == "edit" && this.PageContext.ForumVoteAccess)
-            {
-                BuildLink.Redirect(
-                    ForumPages.PollEdit,
-                    "{0}&p={1}",
-                    this.ParamsToSend(),
-                    e.CommandArgument.ToString());
-            }
-
-            if (e.CommandName == "remove" && this.PageContext.ForumVoteAccess)
-            {
-                // ChangePollShowStatus(false);
-                if (e.CommandArgument != null && e.CommandArgument.ToString() != string.Empty)
+                case "new" when this.PageContext.ForumVoteAccess:
+                    BuildLink.Redirect(ForumPages.PollEdit, "{0}", this.ParamsToSend());
+                    break;
+                case "edit" when this.PageContext.ForumVoteAccess:
+                    BuildLink.Redirect(
+                        ForumPages.PollEdit,
+                        "{0}&p={1}",
+                        this.ParamsToSend(),
+                        e.CommandArgument.ToString());
+                    break;
+                case "remove" when this.PageContext.ForumVoteAccess:
                 {
-                    this.GetRepository<Poll>().Remove(this.PollGroupId, e.CommandArgument, this.BoardId, false);
-                    this.ReturnToPage();
+                    // ChangePollShowStatus(false);
+                    if (e.CommandArgument != null && e.CommandArgument.ToString() != string.Empty)
+                    {
+                        this.GetRepository<Poll>().Remove(this.PollGroupId, e.CommandArgument, this.PageContext.PageBoardID, false);
+                        this.ReturnToPage();
 
-                    // BindData();
+                        // BindData();
+                    }
+
+                    break;
+                }
+                case "removeall" when this.PageContext.ForumVoteAccess:
+                {
+                    if (e.CommandArgument != null && e.CommandArgument.ToString() != string.Empty)
+                    {
+                        this.GetRepository<Poll>().Remove(this.PollGroupId, e.CommandArgument, this.PageContext.PageBoardID, true);
+                        this.ReturnToPage();
+
+                        // BindData();
+                    }
+
+                    break;
                 }
             }
 
-            if (e.CommandName == "removeall" && this.PageContext.ForumVoteAccess)
-            {
-                if (e.CommandArgument != null && e.CommandArgument.ToString() != string.Empty)
-                {
-                    this.GetRepository<Poll>().Remove(this.PollGroupId, e.CommandArgument, this.BoardId, true);
-                    this.ReturnToPage();
-
-                    // BindData();
-                }
-            }
-
-            if (e.CommandName == "removegroup" && this.PageContext.ForumVoteAccess)
-            {
-                this.GetRepository<Poll>().PollGroupRemove(
-                    this.PollGroupId,
-                    this.TopicId,
-                    this.ForumId,
-                    this.BoardId,
-                    false,
-                    false);
-                this.ReturnToPage();
-
-                // BindData();
-            }
-
-            if (e.CommandName == "removegroupall" && this.PageContext.ForumVoteAccess)
-            {
-                this.GetRepository<Poll>().PollGroupRemove(
-                    this.PollGroupId,
-                    this.TopicId,
-                    this.ForumId,
-                    this.BoardId,
-                    true,
-                    false);
-                this.ReturnToPage();
-
-                // BindData();
-            }
-
-            if (e.CommandName != "removegroupevery" || !this.PageContext.ForumVoteAccess)
+            if (!this.PageContext.ForumVoteAccess)
             {
                 return;
             }
@@ -831,7 +747,7 @@ namespace YAF.Controls
                 }
 
                 if (!isNotVoted && (this.PageContext.ForumVoteAccess
-                                    || this.PageContext.BoardVoteAccess && (this.BoardId > 0 || this.EditBoardId > 0)))
+                                    || this.PageContext.BoardVoteAccess))
                 {
                     notificationString += $" {this.GetText("POLLEDIT", "POLL_VOTED")}";
                 }
@@ -940,14 +856,14 @@ namespace YAF.Controls
         /// </returns>
         private static decimal GetImageAspect([NotNull] object mimeType)
         {
-            if (!mimeType.IsNullOrEmptyDBField())
+            if (mimeType.IsNullOrEmptyDBField())
             {
-                var attrs = mimeType.ToString().Split('!')[1].Split(';');
-                var width = attrs[0].ToType<decimal>();
-                return width / attrs[1].ToType<decimal>();
+                return 1;
             }
 
-            return 1;
+            var attrs = mimeType.ToString().Split('!')[1].Split(';');
+            var width = attrs[0].ToType<decimal>();
+            return width / attrs[1].ToType<decimal>();
         }
 
         /// <summary>
@@ -1010,7 +926,7 @@ namespace YAF.Controls
                     this.PollGroupId,
                     this.TopicId,
                     this.ForumId,
-                    this.BoardId,
+                    this.PageContext.PageBoardID,
                     true,
                     true);
                 return;
@@ -1141,12 +1057,6 @@ namespace YAF.Controls
                                                                       || this.PageContext.ForumModeratorAccess;
             }
 
-            // only admins can edit this
-            if (this.BoardId > 0)
-            {
-                return this.PageContext.IsAdmin;
-            }
-
             // in other places only admins and forum moderators can have access
             return this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess;
         }
@@ -1169,10 +1079,10 @@ namespace YAF.Controls
                 return false;
             }
 
-            if (!this.PageContext.BoardVoteAccess && this.BoardId > 0)
+           /* if (!this.PageContext.BoardVoteAccess && this.BoardId > 0)
             {
                 return false;
-            }
+            }*/
 
             return !this.IsPollClosed(pollId);
         }
@@ -1185,27 +1095,24 @@ namespace YAF.Controls
             // Only if this control is in a topic we find the topic creator
             if (this.TopicId > 0)
             {
-                var topic = this.GetRepository<Topic>().GetById(this.TopicId);
+                this.topic = this.GetRepository<Topic>().GetById(this.TopicId);
 
-                this._topicUser = topic.UserID;
+                this._topicUser = this.topic.UserID;
 
-                if (topic.PollID.HasValue)
+                if (this.topic.PollID.HasValue)
                 {
-                    this.PollGroupId = topic.PollID.Value;
+                    this.PollGroupId = this.topic.PollID.Value;
                 }
             }
 
             // We check here various variants if a poll exists, as we don't know from which place comes the call
-            var existingPoll = this.PollGroupId > 0 && (this.TopicId > 0 || this.ForumId > 0 || this.BoardId > 0);
+            var existingPoll = this.PollGroupId > 0 && (this.TopicId > 0);
 
             // Here we'll find whether we should display create new poll button only 
             var topicPoll = this.PageContext.ForumPollAccess
                             && (this.EditMessageId > 0 || this.TopicId > 0 && this.ShowButtons);
-            var forumPoll = this.EditForumId > 0 || this.ForumId > 0 && this.ShowButtons;
-            var boardPoll = this.PageContext.BoardVoteAccess
-                            && (this.EditBoardId > 0 || this.BoardId > 0 && this.ShowButtons);
-
-            this.NewPollRow.Visible = this.ShowButtons && (topicPoll || forumPoll || boardPoll)
+            
+            this.NewPollRow.Visible = this.ShowButtons && topicPoll
                                                        && this.HasOwnerExistingGroupAccess() && !existingPoll;
 
             // if this is > 0 then we already have a poll and will display all buttons
@@ -1267,36 +1174,6 @@ namespace YAF.Controls
                 sb += $"f={this.ForumId}";
             }
 
-            if (this.EditForumId > 0)
-            {
-                if (sb.IsSet())
-                {
-                    sb += '&';
-                }
-
-                sb += $"ef={this.EditForumId}";
-            }
-
-            if (this.BoardId > 0)
-            {
-                if (sb.IsSet())
-                {
-                    sb += '&';
-                }
-
-                sb += $"b={this.BoardId}";
-            }
-
-            if (this.EditBoardId > 0)
-            {
-                if (sb.IsSet())
-                {
-                    sb += '&';
-                }
-
-                sb += $"eb={this.EditBoardId}";
-            }
-
             return sb;
         }
 
@@ -1325,16 +1202,7 @@ namespace YAF.Controls
                 case ForumPages.Posts:
                     if (this.TopicId > 0)
                     {
-                        BuildLink.Redirect(ForumPages.Posts, "t={0}", this.TopicId);
-                    }
-
-                    break;
-                case ForumPages.Board:
-
-                    // This is a poll on the board main page
-                    if (this.BoardId > 0)
-                    {
-                        BuildLink.Redirect(ForumPages.Board);
+                        BuildLink.Redirect(ForumPages.Posts, "t={0}&name={1}", this.TopicId, this.topic.TopicName);
                     }
 
                     break;
@@ -1343,7 +1211,7 @@ namespace YAF.Controls
                     // this is a poll in forums topic view
                     if (this.ForumId > 0)
                     {
-                        BuildLink.Redirect(ForumPages.Topics, "f={0}", this.ForumId);
+                       // BuildLink.Redirect(ForumPages.Topics, "f={0}", this.ForumId, this.ForumName);
                     }
 
                     break;
@@ -1354,24 +1222,7 @@ namespace YAF.Controls
                     }
 
                     break;
-                case ForumPages.Admin_EditForum:
 
-                    // This is a poll on edit forum page
-                    if (this.EditForumId > 0)
-                    {
-                        BuildLink.Redirect(ForumPages.Admin_EditForum, "f={0}", this.ForumId);
-                    }
-
-                    break;
-                case ForumPages.Admin_EditBoard:
-
-                    // this is a poll on edit board page
-                    if (this.EditBoardId > 0)
-                    {
-                        BuildLink.Redirect(ForumPages.Admin_EditBoard, "b={0}", this.EditBoardId);
-                    }
-
-                    break;
                 default:
                     BuildLink.RedirectInfoPage(InfoMessage.Invalid);
                     break;

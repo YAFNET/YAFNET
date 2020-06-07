@@ -372,7 +372,11 @@ namespace YAF.Controls
                 this.GetRepository<Message>().UpdateFlags(this.PostData.MessageId, messageFlags.BitValue);
             }
 
-            BuildLink.Redirect(ForumPages.Posts, "m={0}#post{0}", this.PostData.MessageId);
+            BuildLink.Redirect(
+                ForumPages.Posts,
+                "m={0}&name={1}#post{0}",
+                this.PostData.MessageId,
+                this.PageContext.PageTopicID);
         }
 
         /// <summary>
@@ -406,7 +410,7 @@ namespace YAF.Controls
                         sb.AppendFormat(
                             @"<li><a id=""{0}"" href=""{1}""><u>{2}</u></a>",
                             userId,
-                            BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", userId, displayName),
+                            BuildLink.GetUserProfileLink(userId, displayName),
                             this.Get<HttpServerUtilityBase>().HtmlEncode(displayName));
 
                         // If showing thanks date is enabled, add it to the formatted string.

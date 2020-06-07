@@ -40,7 +40,7 @@ namespace YAF.Web.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
-
+    
     #endregion
 
     /// <summary>
@@ -76,12 +76,12 @@ namespace YAF.Web.Controls
         /// </returns>
         public virtual bool LoadPostData([NotNull] string postDataKey, [NotNull] NameValueCollection postCollection)
         {
-            if (!int.TryParse(postCollection[postDataKey], out var forumId) || forumId == this.ForumId)
+            if (!int.TryParse(postCollection[postDataKey], out var forumID) || forumID == this.ForumId)
             {
                 return false;
             }
 
-            this.ForumId = forumId;
+            this.ForumId = forumID;
             return true;
         }
 
@@ -96,14 +96,25 @@ namespace YAF.Web.Controls
                 return;
             }
 
+            var forumJump = this.Get<IDataCache>().GetOrSet(
+                string.Format(
+                    Constants.Cache.ForumJump,
+                    this.PageContext.MembershipUser != null ? this.PageContext.PageUserID.ToString() : "Guest"),
+                () => this.GetRepository<Types.Models.Forum>().ListAllSortedAsDataTable(
+                    this.PageContext.PageBoardID,
+                    this.PageContext.PageUserID),
+                TimeSpan.FromMinutes(5));
+
+            var name = forumJump.Rows.Cast<DataRow>().First(r => r.Field<int>("ForumID") == this.ForumId)["Title"];
+
             if (this.ForumId < 0)
             {
                 // categories are negative
-                BuildLink.Redirect(ForumPages.Board, "c={0}", -this.ForumId);
+                BuildLink.Redirect(ForumPages.Board, "c={0}&name={1}", -this.ForumId, name);
                 return;
             }
 
-            BuildLink.Redirect(ForumPages.Topics, "f={0}", this.ForumId);
+            BuildLink.Redirect(ForumPages.Topics, "f={0}&name={1}", this.ForumId, name);
         }
 
         #endregion

@@ -106,7 +106,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets EditMessageID.
         /// </summary>
-        protected long? EditMessageId => this.PageContext.QueryIDs["m"];
+        protected int? EditMessageId => this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("m");
 
         /// <summary>
         ///   Gets or sets the PollGroupId if the topic has a poll attached
@@ -116,12 +116,12 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets Quoted Message ID.
         /// </summary>
-        protected long? QuotedMessageId => this.PageContext.QueryIDs["q"];
+        protected int? QuotedMessageId => this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("q");
 
         /// <summary>
         ///   Gets TopicID.
         /// </summary>
-        protected long? TopicId => this.PageContext.QueryIDs["t"];
+        protected int? TopicId => this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("t");
 
         #endregion
 
@@ -137,12 +137,20 @@ namespace YAF.Pages
             if (this.TopicId != null || this.EditMessageId != null)
             {
                 // reply to existing topic or editing of existing topic
-                BuildLink.Redirect(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
+                BuildLink.Redirect(
+                    ForumPages.Posts,
+                    "t={0}&name={1}",
+                    this.PageContext.PageTopicID,
+                    this.PageContext.PageTopicName);
             }
             else
             {
                 // new topic -- cancel back to forum
-                BuildLink.Redirect(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
+                BuildLink.Redirect(
+                    ForumPages.Topics,
+                    "f={0}&name={1}",
+                    this.PageContext.PageForumID,
+                    this.PageContext.PageForumName);
             }
         }
 
@@ -249,17 +257,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The new topic.
-        /// </summary>
-        /// <returns>
-        /// Returns if New Topic
-        /// </returns>
-        protected bool NewTopic()
-        {
-            return !(this.PollGroupId > 0);
-        }
-
-        /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
@@ -305,8 +302,6 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.QueryIDs = new QueryStringIDHelper(new[] { "m", "t", "q" }, false);
-
             TypedMessageList currentMessage = null;
 
             this.topic = this.GetRepository<Topic>().GetById(this.PageContext.PageTopicID);
@@ -477,9 +472,7 @@ namespace YAF.Pages
                 if (this.PageContext.Settings.LockedForum == 0)
                 {
                     this.PageLinks.AddRoot();
-                    this.PageLinks.AddLink(
-                        this.PageContext.PageCategoryName,
-                        BuildLink.GetLink(ForumPages.Board, "c={0}", this.PageContext.PageCategoryID));
+                    this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
                 }
 
                 this.PageLinks.AddForum(this.PageContext.PageForumID);
@@ -1119,7 +1112,7 @@ namespace YAF.Pages
                 if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)
                 {
                     // regular redirect...
-                    BuildLink.Redirect(ForumPages.Posts, "m={0}#post{0}", messageId);
+                    BuildLink.Redirect(ForumPages.Posts, "m={0}&name={1}#post{0}", messageId, this.PageContext.PageTopicName);
                 }
                 else
                 {
@@ -1147,11 +1140,11 @@ namespace YAF.Pages
                 }
 
                 // Tell user that his message will have to be approved by a moderator
-                var url = BuildLink.GetLink(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
+                var url = BuildLink.GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForumName);
 
                 if (this.PageContext.PageTopicID > 0 && this.topic.NumPosts > 1)
                 {
-                    url = BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
+                    url = BuildLink.GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopicName);
                 }
 
                 if (attachPollParameter.Length <= 0)
@@ -1294,9 +1287,7 @@ namespace YAF.Pages
             this.PostReply.TextLocalizedPage = "COMMON";
 
             // add topic link...
-            this.PageLinks.AddLink(
-                this.Server.HtmlDecode(currentMessage.Topic),
-                BuildLink.GetLink(ForumPages.Posts, "m={0}", this.EditMessageId));
+            this.PageLinks.AddTopic(this.Server.HtmlDecode(currentMessage.Topic), this.PageContext.PageTopicID);
 
             // editing..
             this.PageLinks.AddLink(this.GetText("EDIT"));
@@ -1421,9 +1412,7 @@ namespace YAF.Pages
             this.Title.Text = this.GetText("reply");
 
             // add topic link...
-            this.PageLinks.AddLink(
-                this.Server.HtmlDecode(this.topic.TopicName),
-                BuildLink.GetLink(ForumPages.Posts, "t={0}", this.TopicId));
+            this.PageLinks.AddTopic(this.topic.TopicName, this.TopicId.ToType<int>());
 
             // add "reply" text...
             this.PageLinks.AddLink(this.GetText("reply"));

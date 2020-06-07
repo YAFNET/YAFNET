@@ -90,23 +90,23 @@ namespace YAF.Pages
 
             this.PageLinks.AddLink(
                 this.PageContext.PageTopicName,
-                BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
+                BuildLink.GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopicName));
 
             this.Subject.Text = this.PageContext.PageTopicName;
 
             var emailTopic = new TemplateEmail
-                                 {
-                                     TemplateParams =
-                                         {
-                                             ["{link}"] =
-                                             BuildLink.GetLinkNotEscaped(
-                                                 ForumPages.Posts,
-                                                 true,
-                                                 "t={0}",
-                                                 this.PageContext.PageTopicID),
-                                             ["{user}"] = this.PageContext.PageUserName
-                                         }
-                                 };
+            {
+                TemplateParams =
+                {
+                    ["{link}"] = BuildLink.GetLinkNotEscaped(
+                        ForumPages.Posts,
+                        true,
+                        "t={0}&name={1}",
+                        this.PageContext.PageTopicID,
+                        this.PageContext.PageTopicName),
+                    ["{user}"] = this.PageContext.PageUserName
+                }
+            };
 
             this.Message.Text = emailTopic.ProcessTemplate("EMAILTOPIC");
         }
@@ -134,7 +134,11 @@ namespace YAF.Pages
                 // send a change email message...
                 emailTopic.SendEmail(new MailAddress(this.EmailAddress.Text.Trim()), this.Subject.Text.Trim());
 
-                BuildLink.Redirect(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
+                BuildLink.Redirect(
+                    ForumPages.Posts,
+                    "t={0}&name={1}",
+                    this.PageContext.PageTopicID,
+                    this.PageContext.PageTopicName);
             }
             catch (Exception x)
             {

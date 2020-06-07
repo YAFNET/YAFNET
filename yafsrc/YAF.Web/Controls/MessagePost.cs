@@ -276,7 +276,7 @@ namespace YAF.Web.Controls
                           <span aria-hidden=""true"">&times;</span>
                       </button></div>",
                 this.GetText("GO_TO_ANSWER"),
-                BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", messageId));
+                BuildLink.GetLink(ForumPages.Posts, "m={0}&name={1}#post{0}", messageId, this.PageContext.PageTopicName));
         }
 
         /// <summary>

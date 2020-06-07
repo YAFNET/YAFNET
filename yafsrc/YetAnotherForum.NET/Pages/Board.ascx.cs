@@ -65,7 +65,6 @@ namespace YAF.Pages
         {
             this.PollList.Visible = this.Get<BoardSettings>().BoardPollID > 0;
             this.PollList.PollGroupId = this.Get<BoardSettings>().BoardPollID;
-            this.PollList.BoardId = this.PageContext.Settings.BoardID;
 
             // Since these controls have EnabledViewState=false, set their visibility on every page load so that this value is not lost on post-back.
             // This is important for another reason: these are board settings; values in the view state should have no impact on whether these controls are shown or not.
@@ -103,9 +102,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageLinks.AddLink(
-                this.PageContext.PageCategoryName,
-                BuildLink.GetLink(ForumPages.Board, "c={0}", this.PageContext.PageCategoryID));
+            this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
         }
 
         #endregion

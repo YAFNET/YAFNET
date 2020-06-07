@@ -81,7 +81,7 @@ namespace YAF.Pages
             }
 
             var userId =
-                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+                Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
             var albumId = Security.StringToLongOrRedirect(
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
 
@@ -90,9 +90,7 @@ namespace YAF.Pages
             // Generate the page links.
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                displayName,
-                BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", userId, displayName));
+            this.PageLinks.AddUser(userId, displayName);
             this.PageLinks.AddLink(this.GetText("ALBUMS"), BuildLink.GetLink(ForumPages.Albums, "u={0}", userId));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 

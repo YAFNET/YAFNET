@@ -35,7 +35,6 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
@@ -173,14 +172,11 @@ namespace YAF.Pages
             if (this.PageContext.Settings.LockedForum == 0)
             {
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.PageContext.PageCategoryName,
-                    BuildLink.GetLink(ForumPages.Board, "c={0}", this.PageContext.PageCategoryID));
+                this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID);
-            this.PageLinks.AddLink(
-                this.PageContext.PageTopicName, BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
+            this.PageLinks.AddTopic(this.PageContext.PageTopicName, this.PageContext.PageTopicID);
         }
 
         #endregion

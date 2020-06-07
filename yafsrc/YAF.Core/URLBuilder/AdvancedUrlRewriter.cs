@@ -108,13 +108,7 @@ namespace YAF.Core.URLBuilder
                         case ForumPages.Topics:
                             useKey = "f";
                             pageName += "/";
-
-                            // description = UrlRewriteHelper.GetForumName(parser[useKey].ToType<int>());
-                            description =
-                                UrlRewriteHelper.CleanStringForURL(
-                                    parser["name"].IsSet()
-                                        ? parser["name"]
-                                        : UrlRewriteHelper.GetForumName(parser[useKey].ToType<int>()));
+                            description = parser["name"];
                             handlePage = true;
                             break;
                         case ForumPages.Posts:
@@ -123,21 +117,13 @@ namespace YAF.Core.URLBuilder
                             {
                                 useKey = "t";
                                 pageName += "t";
-                                description = UrlRewriteHelper.GetTopicName(parser[useKey].ToType<int>());
+                                description = UrlRewriteHelper.CleanStringForURL(parser["name"]);
                             }
                             else if (parser["m"].IsSet())
                             {
                                 useKey = "m";
                                 pageName += "m";
-
-                                try
-                                {
-                                    description = UrlRewriteHelper.GetTopicNameFromMessage(parser[useKey].ToType<int>());
-                                }
-                                catch (Exception)
-                                {
-                                    description = "posts";
-                                }
+                                description = UrlRewriteHelper.CleanStringForURL(parser["name"]);
                             }
 
                             handlePage = true;
@@ -145,11 +131,7 @@ namespace YAF.Core.URLBuilder
                         case ForumPages.UserProfile:
                             useKey = "u";
                             pageName += "/";
-                            description =
-                                UrlRewriteHelper.CleanStringForURL(
-                                    parser["name"].IsSet()
-                                        ? parser["name"]
-                                        : UrlRewriteHelper.GetProfileName(parser[useKey].ToType<int>()));
+                            description = UrlRewriteHelper.CleanStringForURL(parser["name"]);
 
                             parser.Parameters.Remove("name");
                             break;
@@ -158,7 +140,7 @@ namespace YAF.Core.URLBuilder
                             if (parser["c"].IsSet())
                             {
                                 useKey = "c";
-                                description = UrlRewriteHelper.GetCategoryName(parser[useKey].ToType<int>());
+                                description = UrlRewriteHelper.CleanStringForURL(parser["name"]);
                             }
                             else
                             {
@@ -176,17 +158,17 @@ namespace YAF.Core.URLBuilder
 
                             if (parser["f"].IsSet())
                             {
-                                description += $"_{UrlRewriteHelper.GetForumName(parser["f"].ToType<int>())}";
+                                description += $"_{parser["name"]}";
                             }
 
                             if (parser["t"].IsSet())
                             {
-                                description += $"_{UrlRewriteHelper.GetTopicName(parser["t"].ToType<int>())}";
+                                description += $"_{parser["name"]}";
                             }
 
                             if (parser["c"].IsSet())
                             {
-                                description += $"_{UrlRewriteHelper.GetCategoryName(parser["c"].ToType<int>())}";
+                                description += $"_{parser["name"]}";
                             }
 
                             handlePage = true;

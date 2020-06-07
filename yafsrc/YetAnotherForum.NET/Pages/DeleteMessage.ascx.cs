@@ -154,12 +154,20 @@ namespace YAF.Pages
                 || this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
                 // reply to existing topic or editing of existing topic
-                BuildLink.Redirect(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
+                BuildLink.Redirect(
+                    ForumPages.Posts,
+                    "t={0}&name={1}",
+                    this.PageContext.PageTopicID,
+                    this.PageContext.PageTopicName);
             }
             else
             {
                 // new topic -- cancel back to forum
-                BuildLink.Redirect(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
+                BuildLink.Redirect(
+                    ForumPages.Topics,
+                    "f={0}&name={1}",
+                    this.PageContext.PageForumID,
+                    this.PageContext.PageForumName);
             }
         }
 
@@ -315,9 +323,7 @@ namespace YAF.Pages
         {
             // setup page links
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.PageContext.PageCategoryName,
-                BuildLink.GetLink(ForumPages.Board, "c={0}", this.PageContext.PageCategoryID));
+            this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
             this.PageLinks.AddForum(this.PageContext.PageForumID);
         }
 
@@ -356,7 +362,8 @@ namespace YAF.Pages
             // Toggle delete message -- if the message is currently deleted it will be un-deleted.
             // If it's not deleted it will be marked deleted.
             // If it is the last message of the topic, the topic is also deleted
-            this.GetRepository<Message>().Delete(tmpMessageID.ToType<int>(),
+            this.GetRepository<Message>().Delete(
+                tmpMessageID.ToType<int>(),
                 this._isModeratorChanged,
                 HttpUtility.HtmlEncode(this.ReasonEditor.Text),
                 this.PostDeleted ? 0 : 1,
@@ -369,11 +376,11 @@ namespace YAF.Pages
             // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
             if (topic == null)
             {
-                BuildLink.Redirect(ForumPages.Topics, "f={0}", tmpForumID);
+                BuildLink.Redirect(ForumPages.Topics, "f={0}&name={1}", tmpForumID, this._messageRow["ForumName"]);
             }
             else
             {
-                BuildLink.Redirect(ForumPages.Posts, "t={0}", tmpTopicID);
+                BuildLink.Redirect(ForumPages.Posts, "t={0}&name={1}", tmpTopicID, topic.TopicName);
             }
         }
 

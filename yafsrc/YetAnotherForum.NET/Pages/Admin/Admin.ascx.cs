@@ -196,7 +196,7 @@ namespace YAF.Pages.Admin
             }
 
             return
-                $"<a target=\"_top\" href=\"{BuildLink.GetLink(ForumPages.Topics, "f={0}&name={1}", forumId, forumName)}\">{forumName}</a>";
+                $"<a target=\"_top\" href=\"{BuildLink.GetForumLink(forumId.ToType<int>(), forumName.ToString())}\">{forumName}</a>";
         }
 
         /// <summary>
@@ -211,15 +211,15 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// The format topic link.
         /// </returns>
-        protected string FormatTopicLink([NotNull] object topicId, [NotNull] object topicName)
+        protected string FormatTopicLink([NotNull] object topicId, [NotNull] string topicName)
         {
-            if (topicId.ToString() == string.Empty || topicName.ToString() == string.Empty)
+            if (topicId.ToString() == string.Empty || topicName.IsNotSet())
             {
                 return string.Empty;
             }
 
             return
-                $"<a target=\"_top\" href=\"{BuildLink.GetLink(ForumPages.Posts, "t={0}", topicId)}\">{topicName}</a>";
+                $"<a target=\"_top\" href=\"{BuildLink.GetLink(ForumPages.Posts, "t={0}&name={1}", topicId, topicName)}\">{topicName}</a>";
         }
 
         /// <summary>

@@ -33,7 +33,6 @@ namespace YAF.Pages
     
     using YAF.Core.BasePages;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
@@ -94,13 +93,6 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            this.PageLinks.Clear();
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.Get<IUserDisplayName>().GetName(userId),
-                BuildLink.GetLink(ForumPages.UserProfile, "u={0}", userId));
-            this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
-
             // Initialize the Album List control.
             this.AlbumList1.UserID = userId.ToType<int>();
         }
@@ -110,7 +102,13 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-            // 
+            var userId =
+                Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+
+            this.PageLinks.Clear();
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddUser(userId, null);
+            this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
         }
 
         #endregion

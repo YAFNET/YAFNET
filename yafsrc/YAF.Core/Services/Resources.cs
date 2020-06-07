@@ -166,8 +166,7 @@ namespace YAF.Core.Services
                     Location = location,
                     Joined =
                         $"{this.Get<IHaveLocalization>().GetText("PROFILE", "JOINED")} {this.Get<IDateTime>().FormatDateLong(user.Item1.Joined)}",
-                    Online = userIsOnline/*,
-                    ProfileLink = BuildLink.GetLink(ForumPages.UserProfile, true, "u={0}&name={1}", userId, userName)*/
+                    Online = userIsOnline
                 };
 
                 if (BoardContext.Current.Get<BoardSettings>().EnableUserReputation)

@@ -287,13 +287,10 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-            // PageLinks.Clear();
             if (this.PageContext.Settings.LockedForum == 0)
             {
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.PageContext.PageCategoryName,
-                    BuildLink.GetLink(ForumPages.Board, "c={0}", this.PageContext.PageCategoryID));
+                this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID, true);

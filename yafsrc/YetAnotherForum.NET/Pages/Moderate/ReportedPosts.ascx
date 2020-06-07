@@ -24,7 +24,7 @@
                                         IconName="comment"
                                         LocalizedTag="TOPIC"></YAF:IconHeader>
                         <a id="TopicLink" 
-                           href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}", this.Eval("TopicID")) %>'
+                           href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}&name={1}", this.Eval("TopicID"), this.Eval("Topic")) %>'
                            runat="server"><%# this.Eval("Topic") %></a>
                         <div class="float-right text-muted">
                             <span class="font-weight-bold">

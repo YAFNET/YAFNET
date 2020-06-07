@@ -480,9 +480,7 @@ namespace YAF.Controls
                 this.UserDropDown.CssClass = "nav-link dropdown-toggle";
             }
 
-            this.UserDropDown.NavigateUrl = BuildLink.GetLink(
-                ForumPages.UserProfile,
-                "u={0}&name={1}",
+            this.UserDropDown.NavigateUrl = BuildLink.GetUserProfileLink(
                 this.PageContext.PageUserID,
                 this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUser.DisplayName

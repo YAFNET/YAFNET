@@ -29,6 +29,7 @@ namespace YAF.Controls
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
@@ -58,7 +59,8 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserID => this.PageContext.QueryIDs["u"].ToType<int>();
+        protected int CurrentUserID =>
+            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         #endregion
 
@@ -104,8 +106,6 @@ namespace YAF.Controls
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
-
             // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {

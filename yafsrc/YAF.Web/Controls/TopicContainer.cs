@@ -104,8 +104,8 @@ namespace YAF.Web.Controls
         {
             if (lastPosted > DateTime.Now.AddDays(-this.Get<BoardSettings>().PopularTopicDays))
             {
-                return row["Replies"].ToType<int>() >= this.Get<BoardSettings>().PopularTopicReplys
-                       || row["Views"].ToType<int>() >= this.Get<BoardSettings>().PopularTopicViews;
+                return row["Replies"].ToType<int>() >= this.Get<BoardSettings>().PopularTopicReplys ||
+                       row["Views"].ToType<int>() >= this.Get<BoardSettings>().PopularTopicViews;
             }
 
             return false;
@@ -159,26 +159,23 @@ namespace YAF.Web.Controls
             this.RenderPriorityMessage(writer, this.TopicRow);
 
             var topicLink = new HyperLink
-                                {
-                                    NavigateUrl = BuildLink.GetLinkNotEscaped(
-                                        ForumPages.Posts,
-                                        "t={0}",
-                                        this.TopicRow["LinkTopicID"]),
-                                    Text = this.FormatTopicName(),
-                                    CssClass = "topic-starter-popover"
-                                };
+            {
+                NavigateUrl = BuildLink.GetLinkNotEscaped(
+                    ForumPages.Posts,
+                    "t={0}&name={1}",
+                    this.TopicRow["LinkTopicID"],
+                    this.TopicRow["Subject"]),
+                Text = this.FormatTopicName(),
+                CssClass = "topic-starter-popover"
+            };
 
             topicLink.Attributes.Add("data-toggle", "popover");
 
             var topicStartedDateTime = this.TopicRow["Posted"].ToType<DateTime>();
 
             var formattedStartedDatetime = this.Get<BoardSettings>().ShowRelativeTime
-                                               ? topicStartedDateTime.ToString(
-                                                   "yyyy-MM-ddTHH:mm:ssZ",
-                                                   CultureInfo.InvariantCulture)
-                                               : this.Get<IDateTime>().Format(
-                                                   DateTimeFormat.BothTopic,
-                                                   topicStartedDateTime);
+                ? topicStartedDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)
+                : this.Get<IDateTime>().Format(DateTimeFormat.BothTopic, topicStartedDateTime);
 
             var topicStarterLink = new UserLink
             {
@@ -194,12 +191,12 @@ namespace YAF.Web.Controls
             var span = this.Get<BoardSettings>().ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
             var dateTimeIcon = new Icon
-                                   {
-                                       IconName = "calendar-day",
-                                       IconType = "text-secondary",
-                                       IconNameBadge = "clock",
-                                       IconBadgeType = "text-secondary"
-                                   }.RenderToString();
+            {
+                IconName = "calendar-day",
+                IconType = "text-secondary",
+                IconNameBadge = "clock",
+                IconBadgeType = "text-secondary"
+            }.RenderToString();
 
             topicLink.Attributes.Add(
                 "data-content",
@@ -222,17 +219,14 @@ namespace YAF.Web.Controls
             if (favoriteCount > 0)
             {
                 var favoriteLabel = new Label
-                                        {
-                                            CssClass = "badge badge-light ml-1",
-                                            Text = new IconHeader
-                                                       {
-                                                           IconName = "star",
-                                                           IconType = " ",
-                                                           IconStyle = "far",
-                                                           Text = favoriteCount.ToString()
-                                                       }.RenderToString(),
-                                            ToolTip = this.GetText("FAVORITE_COUNT_TT")
-                                        };
+                {
+                    CssClass = "badge badge-light ml-1",
+                    Text = new IconHeader
+                    {
+                        IconName = "star", IconType = " ", IconStyle = "far", Text = favoriteCount.ToString()
+                    }.RenderToString(),
+                    ToolTip = this.GetText("FAVORITE_COUNT_TT")
+                };
 
                 favoriteLabel.Attributes.Add("data-toggle", "tooltip");
 
@@ -241,34 +235,28 @@ namespace YAF.Web.Controls
 
             // Render Replies & Views
             var repliesLabel = new Label
-                                   {
-                                       CssClass = "badge badge-light ml-1 mr-1",
-                                       Text = new IconHeader
-                                                  {
-                                                      IconName = "comment",
-                                                      IconType = " ",
-                                                      IconStyle = "far",
-                                                      Text = this.FormatReplies()
-                                                  }.RenderToString(),
-                                       ToolTip = this.GetText("MODERATE", "REPLIES"),
-                                   };
+            {
+                CssClass = "badge badge-light ml-1 mr-1",
+                Text = new IconHeader
+                {
+                    IconName = "comment", IconType = " ", IconStyle = "far", Text = this.FormatReplies()
+                }.RenderToString(),
+                ToolTip = this.GetText("MODERATE", "REPLIES"),
+            };
 
             repliesLabel.Attributes.Add("data-toggle", "tooltip");
 
             repliesLabel.RenderControl(writer);
 
             var viewsLabel = new Label
-                                 {
-                                     CssClass = "badge badge-light",
-                                     Text = new IconHeader
-                                                {
-                                                    IconName = "eye",
-                                                    IconType = " ",
-                                                    IconStyle = "far",
-                                                    Text = this.FormatViews()
-                                                }.RenderToString(),
-                                     ToolTip = this.GetText("MODERATE", "VIEWS"),
-                                 };
+            {
+                CssClass = "badge badge-light",
+                Text = new IconHeader
+                {
+                    IconName = "eye", IconType = " ", IconStyle = "far", Text = this.FormatViews()
+                }.RenderToString(),
+                ToolTip = this.GetText("MODERATE", "VIEWS"),
+            };
 
             viewsLabel.Attributes.Add("data-toggle", "tooltip");
 
@@ -307,26 +295,22 @@ namespace YAF.Web.Controls
                 writer.Write($"{this.GetText("LASTPOST")}:");
 
                 var infoLastPost = new ThemeButton
-                                       {
-                                           Size = ButtonSize.Small,
-                                           Icon = "info-circle",
-                                           IconCssClass = "fas fa-lg",
-                                           IconColor = "text-secondary",
-                                           Type = ButtonStyle.Link,
-                                           DataToggle = "popover",
-                                           CssClass = "topic-link-popover",
-                                           NavigateUrl = "#!"
-                                       };
+                {
+                    Size = ButtonSize.Small,
+                    Icon = "info-circle",
+                    IconCssClass = "fas fa-lg",
+                    IconColor = "text-secondary",
+                    Type = ButtonStyle.Link,
+                    DataToggle = "popover",
+                    CssClass = "topic-link-popover",
+                    NavigateUrl = "#!"
+                };
 
                 var lastPostedDateTime = this.TopicRow["LastPosted"].ToType<DateTime>();
 
                 var formattedDatetime = this.Get<BoardSettings>().ShowRelativeTime
-                                            ? lastPostedDateTime.ToString(
-                                                "yyyy-MM-ddTHH:mm:ssZ",
-                                                CultureInfo.InvariantCulture)
-                                            : this.Get<IDateTime>().Format(
-                                                DateTimeFormat.BothTopic,
-                                                lastPostedDateTime);
+                    ? lastPostedDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)
+                    : this.Get<IDateTime>().Format(DateTimeFormat.BothTopic, lastPostedDateTime);
 
                 var userLast = new UserLink
                 {
@@ -352,32 +336,34 @@ namespace YAF.Web.Controls
                 writer.Write(infoLastPost.RenderToString());
 
                 var gotoLastPost = new ThemeButton
-                                       {
-                                           NavigateUrl =
-                                               BuildLink.GetLink(
-                                                   ForumPages.Posts,
-                                                   "m={0}#post{0}",
-                                                   this.TopicRow["LastMessageID"]),
-                                           Size = ButtonSize.Small,
-                                           Icon = "share-square",
-                                           Type = ButtonStyle.OutlineSecondary,
-                                           TitleLocalizedTag = "GO_LAST_POST",
-                                           DataToggle = "tooltip"
-                                       };
+                {
+                    NavigateUrl =
+                        BuildLink.GetLink(
+                            ForumPages.Posts,
+                            "m={0}&name={1}#post{0}",
+                            this.TopicRow["LastMessageID"],
+                            this.TopicRow["Subject"]),
+                    Size = ButtonSize.Small,
+                    Icon = "share-square",
+                    Type = ButtonStyle.OutlineSecondary,
+                    TitleLocalizedTag = "GO_LAST_POST",
+                    DataToggle = "tooltip"
+                };
 
                 var gotoLastUnread = new ThemeButton
-                                         {
-                                             NavigateUrl =
-                                                 BuildLink.GetLink(
-                                                     ForumPages.Posts,
-                                                     "t={0}&find=unread",
-                                                     this.TopicRow["TopicID"]),
-                                             Size = ButtonSize.Small,
-                                             Icon = "book-reader",
-                                             Type = ButtonStyle.OutlineSecondary,
-                                             TitleLocalizedTag = "GO_LASTUNREAD_POST",
-                                             DataToggle = "tooltip"
-                                         };
+                {
+                    NavigateUrl =
+                        BuildLink.GetLink(
+                            ForumPages.Posts,
+                            "t={0}&name={1}&find=unread",
+                            this.TopicRow["TopicID"],
+                            this.TopicRow["Subject"]),
+                    Size = ButtonSize.Small,
+                    Icon = "book-reader",
+                    Type = ButtonStyle.OutlineSecondary,
+                    TitleLocalizedTag = "GO_LASTUNREAD_POST",
+                    DataToggle = "tooltip"
+                };
 
                 writer.Write(@"<div class=""btn-group"" role=""group"">");
                 gotoLastUnread.RenderControl(writer);
@@ -428,7 +414,10 @@ namespace YAF.Web.Controls
 
             if (pageCount > NumToDisplay)
             {
-                this.MakeLink("1", BuildLink.GetLink(ForumPages.Posts, "t={0}", topicID), 1).RenderControl(writer);
+                this.MakeLink(
+                    "1",
+                    BuildLink.GetLink(ForumPages.Posts, "t={0}&name={1}", topicID, this.TopicRow["Subject"]),
+                    1).RenderControl(writer);
                 writer.Write(" ... ");
 
                 // show links from the end
@@ -438,7 +427,12 @@ namespace YAF.Web.Controls
 
                     this.MakeLink(
                         post.ToString(),
-                        BuildLink.GetLink(ForumPages.Posts, "t={0}&p={1}", topicID, post),
+                        BuildLink.GetLink(
+                            ForumPages.Posts,
+                            "t={0}&name={2}&p={1}",
+                            topicID,
+                            post,
+                            this.TopicRow["Subject"]),
                         post).RenderControl(writer);
                 }
             }
@@ -450,7 +444,12 @@ namespace YAF.Web.Controls
 
                     this.MakeLink(
                         post.ToString(),
-                        BuildLink.GetLink(ForumPages.Posts, "t={0}&p={1}", topicID, post),
+                        BuildLink.GetLink(
+                            ForumPages.Posts,
+                            "t={0}&name={2}&p={1}",
+                            topicID,
+                            post,
+                            this.TopicRow["Subject"]),
                         post).RenderControl(writer);
                 }
             }
@@ -512,8 +511,8 @@ namespace YAF.Web.Controls
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Subject"]));
 
             var styles = this.Get<BoardSettings>().UseStyledTopicTitles
-                             ? this.Get<IStyleTransform>().DecodeStyleByString(this.TopicRow["Styles"].ToString())
-                             : string.Empty;
+                ? this.Get<IStyleTransform>().DecodeStyleByString(this.TopicRow["Styles"].ToString())
+                : string.Empty;
 
             if (styles.IsNotSet())
             {
@@ -599,29 +598,29 @@ namespace YAF.Web.Controls
             CodeContracts.VerifyNotNull(row, "row");
 
             var lastPosted = row["LastPosted"] != DBNull.Value
-                                 ? (DateTime)row["LastPosted"]
-                                 : DateTimeHelper.SqlDbMinTime();
+                ? (DateTime)row["LastPosted"]
+                : DateTimeHelper.SqlDbMinTime();
 
             var topicFlags = new TopicFlags(row["TopicFlags"]);
             var forumFlags = new ForumFlags(row["ForumFlags"]);
 
             var iconNew = new Icon
-                              {
-                                  IconName = "comment",
-                                  IconStackName = "comment",
-                                  IconStackType = "fa-inverse",
-                                  IconStackSize = "fa-1x",
-                                  IconType = "text-success"
-                              };
+            {
+                IconName = "comment",
+                IconStackName = "comment",
+                IconStackType = "fa-inverse",
+                IconStackSize = "fa-1x",
+                IconType = "text-success"
+            };
 
             var icon = new Icon
-                           {
-                               IconName = "comment",
-                               IconStackName = "comment",
-                               IconStackType = "fa-inverse",
-                               IconStackSize = "fa-1x",
-                               IconType = "text-secondary"
-                           };
+            {
+                IconName = "comment",
+                IconStackName = "comment",
+                IconStackType = "fa-inverse",
+                IconStackSize = "fa-1x",
+                IconType = "text-secondary"
+            };
 
             var isHotTopic = this.IsPopularTopic(lastPosted, row);
 
@@ -669,15 +668,17 @@ namespace YAF.Web.Controls
         /// <returns>
         /// Returns the created link.
         /// </returns>
-        protected HyperLink MakeLink([NotNull] string text, [NotNull] string link, [NotNull] int pageId)
+        protected ThemeButton MakeLink([NotNull] string text, [NotNull] string link, [NotNull] int pageId)
         {
-            return new HyperLink
-                       {
-                           NavigateUrl = link,
-                           ToolTip = this.GetTextFormatted("GOTO_POST_PAGER", pageId),
-                           CssClass = "btn btn-secondary btn-sm",
-                           Text = text
-                       };
+            return new ThemeButton
+            {
+                NavigateUrl = link,
+                TitleLocalizedTag = "GOTO_POST_PAGER",
+                ParamTitle0 = pageId.ToString(),
+                Type = ButtonStyle.Secondary,
+                Size = ButtonSize.Small,
+                Text = text
+            };
         }
     }
-} 
+}

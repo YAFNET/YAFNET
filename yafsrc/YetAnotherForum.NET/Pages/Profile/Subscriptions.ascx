@@ -117,7 +117,7 @@
                                         </asp:CheckBox>
                                         <asp:Label ID="ttid" runat="server" Text='<%# this.Eval("Item1.ID") %>'
                                                Visible="false" />
-                                            <a href="<%# BuildLink.GetLinkNotEscaped(ForumPages.Posts, "t={0}", this.Eval("Item1.TopicID"))%>">
+                                            <a href="<%# BuildLink.GetLinkNotEscaped(ForumPages.Posts, "t={0}&name={1}", this.Eval("Item1.TopicID"), this.Eval("Item2.TopicName"))%>">
                                                 <%# this.HtmlEncode(this.Eval("Item2.TopicName"))%></a>
                                     </li>
                                 </ItemTemplate>

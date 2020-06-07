@@ -145,7 +145,11 @@ namespace YAF.Pages.Moderate
                 case "view":
 
                     // go to the message
-                    BuildLink.Redirect(ForumPages.Posts, "m={0}#post{0}", e.CommandArgument);
+                    BuildLink.Redirect(
+                        ForumPages.Posts,
+                        "m={0}&name={1}#post{0}",
+                        e.CommandArgument,
+                        this.GetRepository<Topic>().GetNameFromMessage(e.CommandArgument.ToType<int>()));
                     break;
                 case "copyover":
 

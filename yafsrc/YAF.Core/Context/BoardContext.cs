@@ -45,8 +45,7 @@ namespace YAF.Core.Context
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils.Helpers;
-
+    
     using AspNetUsers = YAF.Types.Models.Identity.AspNetUsers;
 
     #endregion
@@ -189,11 +188,6 @@ namespace YAF.Core.Context
         /// Gets the Current Page Elements
         /// </summary>
         public PageElementRegister PageElements => this.pageElements ?? (this.pageElements = new PageElementRegister());
-
-        /// <summary>
-        /// Gets or sets the Current Page Query ID Helper
-        /// </summary>
-        public QueryStringIDHelper QueryIDs { get; set; }
 
         /// <summary>
         /// Gets the Provides access to the Service Locator

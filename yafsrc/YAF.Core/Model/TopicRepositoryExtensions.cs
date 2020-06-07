@@ -54,6 +54,33 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
+        /// Get the Topic Name From Message.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string GetNameFromMessage(
+            this IRepository<Topic> repository,
+            [NotNull] int messageId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(
+                        m => m.ID == messageId).Select();
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic>(expression))
+                .FirstOrDefault().Item2.TopicName;
+        }
+
+        /// <summary>
         /// Sets the answer message.
         /// </summary>
         /// <param name="repository">The repository.</param>
@@ -982,28 +1009,6 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.Get(t => t.ID >= limit && t.ID < startId + limit).OrderBy(t => t.ID).ToList();
-        }
-
-        /// <summary>
-        /// The simple list as data table.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="startId">
-        /// The start id.
-        /// </param>
-        /// <param name="limit">
-        /// The limit.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable SimpleListAsDataTable(this IRepository<Topic> repository, [CanBeNull] int startId = 0, [CanBeNull] int limit = 500)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.topic_simplelist(StartID: startId, Limit: limit);
         }
 
         /// <summary>

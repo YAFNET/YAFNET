@@ -220,7 +220,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[Name]			[nvarchar](128) NOT NULL,
 		[CategoryImage] [nvarchar](255) NULL,		
 		SortOrder		smallint NOT NULL,
-		PollGroupID     int null,
  constraint [PK_{objectQualifier}Category] PRIMARY KEY CLUSTERED 
 (
 	[CategoryID] ASC
@@ -308,7 +307,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[IsNoCount]		AS (CONVERT([bit],sign([Flags]&(4)),(0))),
 		[IsModerated]	AS (CONVERT([bit],sign([Flags]&(8)),(0))),
 		ThemeURL		nvarchar(50) NULL,
-		PollGroupID     int null,
 		ImageURL        nvarchar(128) NULL,
 	    Styles          nvarchar(255) NULL,
 		UserID          int null,

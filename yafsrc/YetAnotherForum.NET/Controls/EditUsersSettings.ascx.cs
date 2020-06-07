@@ -28,7 +28,8 @@ namespace YAF.Controls
 
     using System;
     using System.Linq;
-    
+    using System.Web;
+
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
@@ -134,12 +135,10 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.QueryIDs = new QueryStringIDHelper("u");
-
             if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin
-                                                              && this.PageContext.QueryIDs.ContainsKey("u"))
+                                                              && this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
-                this.currentUserId = this.PageContext.QueryIDs["u"].ToType<int>();
+                this.currentUserId = Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
             }
             else
             {

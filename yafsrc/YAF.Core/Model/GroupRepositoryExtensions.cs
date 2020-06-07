@@ -28,6 +28,8 @@ namespace YAF.Core.Model
     using System.Data;
     using System.Linq;
 
+    using ServiceStack.OrmLite;
+
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces.Data;
@@ -84,7 +86,7 @@ namespace YAF.Core.Model
             [NotNull] int boardId,
             [NotNull] int userId)
         {
-             return repository.DbFunction.GetData.group_member(BoardID: boardId, UserID: userId);
+            return repository.DbFunction.GetData.group_member(BoardID: boardId, UserID: userId);
         }
 
         /// <summary>

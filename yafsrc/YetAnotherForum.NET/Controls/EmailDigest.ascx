@@ -41,7 +41,7 @@
                     foreach (var t in f.OrderByDescending(x => x.LastPostDate))
                     { %>
                            <h6 class="card-subtitle">
-                            <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                            <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}&name={1}#post{0}", t.LastMessageID, t.Subject) %>"
                                 target="_blank">
                                 <i class="fas fa-comment"></i> <%= t.Subject %></a> 
                                  <span class="badge badge-secondary">
@@ -56,7 +56,7 @@
                         </p>
                        
                         <a class="btn btn-primary btn-sm mx-auto mt-2"
-                                  href="<%= BuildLink.GetLink(ForumPages.Posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                                  href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}&name={1}#post{0}", t.LastMessageID, t.Subject) %>"
                                   target="_blank">
                             <%= this.GetText("LINK") %></a>
                     
@@ -83,7 +83,7 @@
                         foreach (var t in f.OrderByDescending(x => x.LastPostDate))
                         { %>
                         <h6 class="card-subtitle">
-                            <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                            <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}&name={1}#post{0}", t.LastMessageID, t.Subject) %>"
                                target="_blank">
                                 <i class="fas fa-comment"></i> <%= t.Subject %></a> 
                             <span class="badge badge-secondary">
@@ -98,7 +98,7 @@
                         </p>
                        
                         <a class="btn btn-primary btn-sm mx-auto mt-2"
-                           href="<%= BuildLink.GetLink(ForumPages.Posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                           href="<%= BuildLink.GetLink(ForumPages.Posts, true, "m={0}&name={1}#post{0}", t.LastMessageID, t.Subject) %>"
                            target="_blank">
                             <%= this.GetText("LINK") %></a>
                     
@@ -113,7 +113,7 @@
 
     <div class="text-center text-muted small">
         <YAF:LocalizedLabel runat="server" LocalizedTag="REMOVALTEXT"></YAF:LocalizedLabel>&nbsp;
-        <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Subscriptions, true) %>">
+        <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Profile_Subscriptions, true) %>">
             <YAF:LocalizedLabel runat="server" LocalizedTag="REMOVALLINK"></YAF:LocalizedLabel>
         </a>
   </div>

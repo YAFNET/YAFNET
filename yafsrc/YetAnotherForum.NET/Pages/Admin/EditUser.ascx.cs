@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Web;
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
@@ -41,7 +42,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -56,7 +56,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserId => this.PageContext.QueryIDs["u"].ToType<int>();
+        protected int CurrentUserId =>
+            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         /// <summary>
         ///   Gets a value indicating whether Is Guest User.
@@ -88,8 +89,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
-
             var user = this.GetRepository<User>().GetById(this.CurrentUserId);
 
             if (user == null)

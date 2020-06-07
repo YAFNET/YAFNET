@@ -47,7 +47,7 @@
                                              Type="Secondary"
                                              Icon="edit"/>
                             <YAF:ThemeButton ID="CreatePoll" runat="server" 
-                                             Visible='<%# this.CanCreatePoll() %>'
+                                             Visible="<%# this.CanCreatePoll() %>"
                                              CommandName="new" 
                                              Size="Small" 
                                              CssClass="mr-1" 
@@ -79,39 +79,6 @@
             </div>
             </div>
         </ItemTemplate>
-        <FooterTemplate>
-            <div class="row">
-                <div class="col">
-                    <asp:PlaceHolder id="PollGroupInfoTr" runat="server" visible="false">
-                    <small class="text-muted">
-                        <asp:Label ID="PollGroupNotification" Visible="false" runat="server" />
-                    </small>
-            </asp:PlaceHolder>
-            <asp:PlaceHolder id="PollGroupCommandRow" runat="server">
-                    <YAF:ThemeButton ID="RemoveGroupAll" runat="server" Visible='<%# this.CanRemoveGroupCompletely() %>'
-                                     CommandName="removegroupall" 
-                                     ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL") %>'
-                                     TextLocalizedTag="REMOVEPOLLGROUP_ALL"
-                                     CssClass="mr-1"
-                                     Type="Danger"
-                                     Icon="trash"/>
-                    <YAF:ThemeButton ID="RemoveGroupEverywhere" runat="server" Visible='<%# this.CanRemoveGroupEverywhere() %>'
-                                     CommandName="removegroupevery" 
-                                     ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLLROUP_DETACH_EVR") %>'
-                                     TextLocalizedTag="DETACHGROUP_EVERYWHERE"
-                                     CssClass="mr-1"
-                                     Type="Secondary"
-                                     Icon="compress-arrows-alt"/>
-                    <YAF:ThemeButton ID="RemoveGroup" runat="server" Visible='<%# this.CanRemoveGroup() %>'
-                                     CommandName="removegroup" 
-                                     ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLLGROUP_DETACH") %>'
-                                     TextLocalizedTag="DETACHPOLLGROUP"
-                                     Type="Secondary"
-                                     Icon="compress-arrows-alt"/>
-                </asp:PlaceHolder>
-            </div>
-            </div>
-        </FooterTemplate>
     </asp:Repeater>
     <asp:PlaceHolder id="NewPollRow" runat="server" visible="false">
         <div class="row">

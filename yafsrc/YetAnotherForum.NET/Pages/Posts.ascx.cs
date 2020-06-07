@@ -142,7 +142,11 @@ namespace YAF.Pages
 
             this.GetRepository<Topic>().Delete(this.PageContext.PageTopicID, true);
 
-            BuildLink.Redirect(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(
+                ForumPages.Topics,
+                "f={0}&name={1}",
+                this.PageContext.PageForumID,
+                this.PageContext.PageForumName);
         }
 
         /// <summary>
@@ -234,7 +238,7 @@ namespace YAF.Pages
                 return;
             }
 
-            BuildLink.Redirect(ForumPages.Posts, "t={0}", nextTopic.ID.ToString());
+            BuildLink.Redirect(ForumPages.Posts, "t={0}&name={1}", nextTopic.ID.ToString(), nextTopic.TopicName);
         }
 
         /// <summary>
@@ -264,7 +268,11 @@ namespace YAF.Pages
             if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowShareTopicTo))
             {
                 var topicUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.Posts, true, "t={0}", this.PageContext.PageTopicID);
+                    ForumPages.Posts,
+                    true,
+                    "t={0}&name={1}",
+                    this.PageContext.PageTopicID,
+                    this.PageContext.PageTopicName);
 
                 if (this.Get<BoardSettings>().AllowEmailTopic)
                 {
@@ -462,7 +470,10 @@ namespace YAF.Pages
                 this.TopicLink.ToolTip = this.Get<IBadWordReplace>().Replace(
                     this.HtmlEncode(this.topic.Description));
                 this.TopicLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
+                    ForumPages.Posts,
+                    "t={0}&name={1}",
+                    this.PageContext.PageTopicID,
+                    this.PageContext.PageTopicName);
 
                 this.QuickReplyDialog.Visible = yafBoardSettings.ShowQuickAnswer;
                 this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
@@ -532,9 +543,7 @@ namespace YAF.Pages
             if (this.PageContext.Settings.LockedForum == 0)
             {
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.PageContext.PageCategoryName,
-                    BuildLink.GetLink(ForumPages.Board, "c={0}", this.PageContext.PageCategoryID));
+                this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID);
@@ -596,7 +605,11 @@ namespace YAF.Pages
                 return;
             }
 
-            BuildLink.Redirect(ForumPages.Posts, "t={0}", previousTopic.ID.ToString());
+            BuildLink.Redirect(
+                ForumPages.Posts,
+                "t={0}&name={1}",
+                previousTopic.ID.ToString(),
+                previousTopic.TopicName);
         }
 
         /// <summary>
@@ -608,8 +621,7 @@ namespace YAF.Pages
         protected bool ShowPollButtons()
         {
             return false;
-
-            /* return (Convert.ToInt32(_topic["UserID"]) == PageContext.PageUserID) || PageContext.IsModerator || PageContext.IsAdmin; */
+             //return (Convert.ToInt32(_topic["UserID"]) == PageContext.PageUserID) || PageContext.IsModerator || PageContext.IsAdmin; 
         }
 
         /// <summary>
@@ -786,7 +798,11 @@ namespace YAF.Pages
         {
             if (this.topic == null)
             {
-                BuildLink.Redirect(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
+                BuildLink.Redirect(
+                    ForumPages.Topics,
+                    "f={0}&name={1}",
+                    this.PageContext.PageForumID,
+                    this.PageContext.PageForumName);
             }
 
             this.dataBound = true;
@@ -1130,7 +1146,12 @@ namespace YAF.Pages
         /// <param name="e">The Pop Event Arguments.</param>
         private void ShareMenuItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
-            var topicUrl = BuildLink.GetLinkNotEscaped(ForumPages.Posts, true, "t={0}", this.PageContext.PageTopicID);
+            var topicUrl = BuildLink.GetLinkNotEscaped(
+                ForumPages.Posts,
+                true,
+                "t={0}&name={1}",
+                this.PageContext.PageTopicID,
+                this.PageContext.PageTopicName);
 
             switch (e.Item.ToLower())
             {

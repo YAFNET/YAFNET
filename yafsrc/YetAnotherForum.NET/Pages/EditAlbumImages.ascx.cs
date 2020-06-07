@@ -208,7 +208,7 @@ namespace YAF.Pages
             var usrAlbumsAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
 
             var albumSize = this.GetRepository<UserAlbum>().CountUserAlbum(this.PageContext.PageUserID);
-            int userID;
+            
             switch (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"))
             {
                 // A new album is being created. check the permissions.
@@ -235,33 +235,9 @@ namespace YAF.Pages
                               {
                                   BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
                               }*/
-                    userID = this.PageContext.PageUserID;
-                    break;
-                default:
-                    userID = this.GetRepository<UserAlbum>().List(
-                            Security.StringToIntOrRedirect(
-                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a")))
-                        .FirstOrDefault().UserID;
-
-                    if (userID != this.PageContext.PageUserID)
-                    {
-                        BuildLink.AccessDenied();
-                    }
-
+                    
                     break;
             }
-
-            var displayName = this.Get<IUserDisplayName>().GetName(userID);
-
-            // Add the page links.
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                displayName,
-                BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", userID.ToString(), displayName));
-            this.PageLinks.AddLink(
-                this.GetText("ALBUMS"),
-                BuildLink.GetLink(ForumPages.Albums, "u={0}", userID.ToString()));
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             this.BindData();
 
@@ -300,7 +276,15 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
+            var displayName = this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID);
 
+            // Add the page links.
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddUser(this.PageContext.PageUserID, displayName);
+            this.PageLinks.AddLink(
+                this.GetText("ALBUMS"),
+                BuildLink.GetLink(ForumPages.Albums, "u={0}", this.PageContext.PageUserID));
+            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 
         /// <summary>
@@ -449,13 +433,13 @@ namespace YAF.Pages
 
             // If we don't get a match from the db, then the extension is not allowed
             // also, check to see an image is being uploaded.
-            if (Array.IndexOf(imageExtensions, extension) == -1)
+            if (Array.IndexOf(imageExtensions, extension) != -1)
             {
-                this.PageContext.AddLoadMessage(this.GetTextFormatted("FILEERROR", extension), MessageTypes.warning);
-                return false;
+                return true;
             }
 
-            return true;
+            this.PageContext.AddLoadMessage(this.GetTextFormatted("FILEERROR", extension), MessageTypes.warning);
+            return false;
         }
 
         /// <summary>

@@ -60,10 +60,6 @@ namespace YAF.Types.Models
         [StringLength(255)]
         public string CategoryImage { get; set; }
 
-        [References(typeof(PollGroupCluster))]
-        public int? PollGroupID { get; set; }
-
-
         #endregion
     }
 }

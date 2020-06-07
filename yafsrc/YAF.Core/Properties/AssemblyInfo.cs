@@ -51,7 +51,4 @@ using Startup = YAF.Core.Context.Start.Startup;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("5d0e8405-371c-4cf8-817d-bd1000631c65")]
 
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("..\\YetAnotherForum.NET.snk")]
-
 [assembly: OwinStartup(typeof(Startup))]

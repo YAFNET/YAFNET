@@ -164,12 +164,6 @@ namespace YAF.Types.Models
         public string ThemeURL { get; set; }
 
         /// <summary>
-        /// Gets or sets the poll group id.
-        /// </summary>
-        [References(typeof(PollGroupCluster))]
-        public int? PollGroupID { get; set; }
-
-        /// <summary>
         /// Gets or sets the image url.
         /// </summary>
         [StringLength(128)]

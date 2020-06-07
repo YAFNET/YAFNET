@@ -29,6 +29,7 @@ namespace YAF.Controls
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
@@ -43,8 +44,7 @@ namespace YAF.Controls
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
-
+    
     using ListItem = System.Web.UI.WebControls.ListItem;
 
     #endregion
@@ -106,7 +106,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets CurrentUserID.
         /// </summary>
-        protected int CurrentUserId => this.PageContext.QueryIDs["u"].Value.ToType<int>();
+        protected int CurrentUserId => Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         /// <summary>
         /// Gets or sets the current user.
@@ -255,9 +255,6 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // init ids...
-            this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
-
             // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {
@@ -292,7 +289,7 @@ namespace YAF.Controls
                         "ADMIN_EDITUSER",
                         "LINK_USER_BAN",
                         this.CurrentUserId,
-                        BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", this.CurrentUserId, name),
+                        BuildLink.GetUserProfileLink(this.CurrentUserId, name),
                         this.HtmlEncode(name));
 
                     this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);

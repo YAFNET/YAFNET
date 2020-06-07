@@ -240,8 +240,7 @@ namespace YAF.Core.Model
                                                          ForumID = forum.ID,
                                                          Forum = forum.Name,
                                                          Indent = 0,
-                                                         forum.ParentID,
-                                                         forum.PollGroupID
+                                                         forum.ParentID
                                                      });
 
             return repository.DbAccess.Execute(
@@ -445,31 +444,6 @@ namespace YAF.Core.Model
 
                 return repository.DbAccess.Execute(db => db.Connection.Select(expression));
             }
-        }
-
-        /// <summary>
-        /// The simple list as data table.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="startId">
-        /// The start id.
-        /// </param>
-        /// <param name="limit">
-        /// The limit.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable SimpleListAsDataTable(
-            this IRepository<Forum> repository,
-            [CanBeNull] int startId = 0,
-            [CanBeNull] int limit = 500)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.forum_simplelist(StartID: startId, Limit: limit);
         }
 
         /// <summary>

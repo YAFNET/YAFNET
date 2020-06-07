@@ -268,8 +268,8 @@ BEGIN TRY
 	-- PRINT N'Copy AF Forum Groups to YAF.Net Categories:';
 	MERGE INTO  [{databaseOwner}].[{objectQualifier}category] T
 	USING (SELECT * FROM dbo.activeforums_Groups WHERE ModuleID = @oModuleID) S ON T.BoardID = @BoardID AND T.Name = S.GroupName
-	WHEN NOT MATCHED THEN INSERT ( BoardID,     [Name],              CategoryImage,   SortOrder, PollgroupID, oGroupID)
-						  VALUES (@BoardID,  GroupName, N'categoryImageSample.gif', S.SortOrder, Null,  S.ForumGroupID);
+	WHEN NOT MATCHED THEN INSERT ( BoardID,     [Name],              CategoryImage,   SortOrder, oGroupID)
+						  VALUES (@BoardID,  GroupName, N'categoryImageSample.gif', S.SortOrder, S.ForumGroupID);
 
 	-- PRINT N'Copy AF Forums to YAF.Net Forums (parent forums):';
 	MERGE INTO  [{databaseOwner}].[{objectQualifier}forum] T
@@ -283,8 +283,8 @@ BEGIN TRY
 			JOIN   [{databaseOwner}].[{objectQualifier}category]        C ON F.ForumGroupID = C.oGroupID
 			WHERE F.ParentForumID = 0
 		  ) S ON S.CategoryID = T.CategoryID AND T.Name = S.ForumName
-	WHEN NOT MATCHED THEN INSERT (  CategoryID,   ParentID,  [Name], Description, SortOrder, LastPosted, LastTopicID, LastMessageID, LastUserID, LastUserName, LastUserDisplayName,     NumTopics, NumPosts, RemoteURL, Flags, ThemeURL, PollGroupID, ImageURL, Styles, IsModeratedNewTopicOnly, oForumID)
-						  VALUES (S.CategoryID,       Null, S.FName,     S.FDesc, S.SortOrder, S.LPDate,        Null,          Null,       Null,         Null,                Null, S.TotalTopics, S.TPosts,      Null,     4,     Null,        Null,     Null,   Null,                      0, S.ForumID);
+	WHEN NOT MATCHED THEN INSERT (  CategoryID,   ParentID,  [Name], Description, SortOrder, LastPosted, LastTopicID, LastMessageID, LastUserID, LastUserName, LastUserDisplayName,     NumTopics, NumPosts, RemoteURL, Flags, ThemeURL, ImageURL, Styles, IsModeratedNewTopicOnly, oForumID)
+						  VALUES (S.CategoryID,       Null, S.FName,     S.FDesc, S.SortOrder, S.LPDate,        Null,          Null,       Null,         Null,                Null, S.TotalTopics, S.TPosts,      Null,     4,     Null,     Null,   Null,                      0, S.ForumID);
 
 	-- PRINT N'Copy AF Forums to YAF.Net Forums (child forums):';
 	MERGE INTO  [{databaseOwner}].[{objectQualifier}forum] T
@@ -299,8 +299,8 @@ BEGIN TRY
 			JOIN   [{databaseOwner}].[{objectQualifier}Category]        C ON F.ForumGroupID  = C.oGroupID
 			JOIN   [{databaseOwner}].[{objectQualifier}Forum]           Y ON F.ParentForumID = Y.oForumID
 		  ) S ON S.CategoryID = T.CategoryID AND T.Name = S.ForumName
-	WHEN NOT MATCHED THEN INSERT (  CategoryID,   ParentID,  [Name], Description, SortOrder, LastPosted, LastTopicID, LastMessageID, LastUserID, LastUserName, LastUserDisplayName,     NumTopics, NumPosts, RemoteURL, Flags, ThemeURL, PollGroupID, ImageURL, Styles, IsModeratedNewTopicOnly, oForumID)
-						  VALUES (S.CategoryID, S.ParentID, S.FName,     S.FDesc, S.SortOrder, S.LPDate,        Null,          Null,       Null,         Null,                Null, S.TotalTopics, S.TPosts,      Null,     4,     Null,        Null,     Null,   Null,                      0, S.ForumID);
+	WHEN NOT MATCHED THEN INSERT (  CategoryID,   ParentID,  [Name], Description, SortOrder, LastPosted, LastTopicID, LastMessageID, LastUserID, LastUserName, LastUserDisplayName,     NumTopics, NumPosts, RemoteURL, Flags, ThemeURL, ImageURL, Styles, IsModeratedNewTopicOnly, oForumID)
+						  VALUES (S.CategoryID, S.ParentID, S.FName,     S.FDesc, S.SortOrder, S.LPDate,        Null,          Null,       Null,         Null,                Null, S.TotalTopics, S.TPosts,      Null,     4,     Null,     Null,   Null,                      0, S.ForumID);
 
 	/* YAF Topic Flags: None = 0, IsLocked = 1, IsDeleted = 8, IsPersistent = 512, IsQuestion = 1024 */
 	-- PRINT N'Create Threads:';

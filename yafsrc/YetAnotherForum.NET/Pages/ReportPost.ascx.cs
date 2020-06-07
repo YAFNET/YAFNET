@@ -39,6 +39,7 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -54,6 +55,11 @@ namespace YAF.Pages
         ///   To save message id value.
         /// </summary>
         private int messageID;
+
+        /// <summary>
+        /// The topic name.
+        /// </summary>
+        private string topicName;
 
         #endregion
 
@@ -117,12 +123,11 @@ namespace YAF.Pages
             if (this.Get<BoardSettings>().EmailModeratorsOnReportedPost)
             {
                 // not approved, notify moderators
-                this.Get<ISendNotification>()
-                    .ToModeratorsThatMessageWasReported(
-                        this.PageContext.PageForumID,
-                        this.messageID,
-                        this.PageContext.PageUserID,
-                        this.Report.Text);
+                this.Get<ISendNotification>().ToModeratorsThatMessageWasReported(
+                    this.PageContext.PageForumID,
+                    this.messageID,
+                    this.PageContext.PageUserID,
+                    this.Report.Text);
             }
 
             // Redirect to reported post
@@ -146,7 +151,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").IsSet())
+            if (this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
                 // We check here if the user have access to the option
                 if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ReportPostPermissions))
@@ -154,10 +159,8 @@ namespace YAF.Pages
                     BuildLink.Redirect(ForumPages.Info, "i=1");
                 }
 
-                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), out this.messageID))
-                {
-                    BuildLink.Redirect(ForumPages.Error, "Incorrect message value: {0}", this.messageID);
-                }
+                this.messageID =
+                    Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
             }
 
             if (this.IsPostBack)
@@ -167,6 +170,8 @@ namespace YAF.Pages
 
             // Get reported message text for better quoting                    
             var messageRow = this.GetRepository<Message>().SecAsDataTable(this.messageID, this.PageContext.PageUserID);
+
+            this.topicName = messageRow.GetFirstRow()["Topic"].ToString();
 
             // Checking if the user has a right to view the message and getting data  
             if (messageRow.HasRows())
@@ -192,7 +197,7 @@ namespace YAF.Pages
         protected void RedirectToPost()
         {
             // Redirect to reported post
-            BuildLink.Redirect(ForumPages.Posts, "m={0}#post{0}", this.messageID);
+            BuildLink.Redirect(ForumPages.Posts, "m={0}&name={1}#post{0}", this.messageID, this.topicName);
         }
 
         #endregion

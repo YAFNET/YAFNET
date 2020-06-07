@@ -910,31 +910,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The simple list as data table.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="startId">
-        /// The start id.
-        /// </param>
-        /// <param name="limit">
-        /// The limit.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable SimpleListAsDataTable(
-            this IRepository<User> repository,
-            [CanBeNull] int startId = 0,
-            [CanBeNull] int limit = 500)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.user_simplelist(StartID: startId, Limit: limit);
-        }
-
-        /// <summary>
         /// Gets the List of Administrators
         /// </summary>
         /// <param name="repository">

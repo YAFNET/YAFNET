@@ -41,6 +41,74 @@ namespace YAF.Utils
         #region Public Methods
 
         /// <summary>
+        /// The get user profile link.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="userName">
+        /// The user name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string GetUserProfileLink(int userId, string userName)
+        {
+            return GetLink(ForumPages.UserProfile, "u={0}&name={1}", userId, userName);
+        }
+
+        /// <summary>
+        /// The get forum link.
+        /// </summary>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <param name="forumName">
+        /// The forum name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string GetForumLink(int forumId, string forumName)
+        {
+            return GetLink(ForumPages.Topics, "f={0}&name={1}", forumId, forumName);
+        }
+
+        /// <summary>
+        /// The get category link.
+        /// </summary>
+        /// <param name="categoryId">
+        /// The category id.
+        /// </param>
+        /// <param name="categoryName">
+        /// The category name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string GetCategoryLink(int categoryId, string categoryName)
+        {
+            return GetLink(ForumPages.Board, "c={0}&name={1}", categoryId, categoryName);
+        }
+
+        /// <summary>
+        /// The get topic link.
+        /// </summary>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="topicName">
+        /// The topic name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string GetTopicLink(int topicId, string topicName)
+        {
+            return GetLink(ForumPages.Posts, "t={0}&name={1}", topicId, topicName);
+        }
+
+        /// <summary>
         /// Gets base path to the page without ampersand.
         /// </summary>
         /// <returns>

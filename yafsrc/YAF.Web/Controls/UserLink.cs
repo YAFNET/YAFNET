@@ -34,7 +34,6 @@ namespace YAF.Web.Controls
     using YAF.Core.Extensions;
     using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -160,7 +159,7 @@ namespace YAF.Web.Controls
             {
                 output.WriteBeginTag("a");
 
-                output.WriteAttribute("href", BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", this.UserID, displayName));
+                output.WriteAttribute("href", BuildLink.GetUserProfileLink(this.UserID, displayName));
 
                 if (this.CanViewProfile && this.IsHoverCardEnabled)
                 {

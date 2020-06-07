@@ -98,7 +98,11 @@ namespace YAF.Pages
 
             if (int.TryParse(modForums.SelectedValue, out var redirectForum))
             {
-                BuildLink.Redirect(ForumPages.Topics, "f={0}", modForums.SelectedValue);
+                BuildLink.Redirect(
+                    ForumPages.Topics,
+                    "f={0}&name={1}",
+                    modForums.SelectedValue,
+                    modForums.SelectedItem.Text);
             }
         }
 

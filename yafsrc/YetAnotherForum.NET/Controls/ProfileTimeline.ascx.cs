@@ -164,7 +164,7 @@ namespace YAF.Controls
 
             var topicLink = new ThemeButton
             {
-                NavigateUrl = BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", activity.Item1.MessageID.Value),
+                NavigateUrl = BuildLink.GetTopicLink(activity.Item2.ID, activity.Item2.TopicName),
                 Type = ButtonStyle.None,
                 Text = activity.Item2.TopicName,
                 Icon = "comment"
@@ -172,8 +172,7 @@ namespace YAF.Controls
 
             if (activity.Item1.ActivityFlags.CreatedTopic)
             {
-                topicLink.NavigateUrl = BuildLink.GetLink(ForumPages.Posts, "t={0}", activity.Item1.TopicID.Value);
-
+                topicLink.NavigateUrl = BuildLink.GetTopicLink(activity.Item1.TopicID.Value, activity.Item2.TopicName);
                 title.Text = this.GetText("ACCOUNT", "CREATED_TOPIC");
                 icon = "comment";
                 message = this.GetTextFormatted("CREATED_TOPIC_MSG", topicLink.RenderToString());

@@ -145,11 +145,7 @@ namespace YAF.Web.Controls
                             writer.Write(
                                 @"<span class=""font-weight-bold"">{0}</span><a href=""{1}""> {2}</a> : {3}",
                                 this.GetText("RESOLVEDBY"),
-                                BuildLink.GetLink(
-                                    ForumPages.UserProfile,
-                                    "u={0}&name={1}",
-                                    this.ResolvedBy.ToType<int>(),
-                                    resolvedByName),
+                                BuildLink.GetUserProfileLink(this.ResolvedBy.ToType<int>(), resolvedByName),
                                 resolvedByName,
                                 this.Get<IDateTime>().FormatDateTimeTopic(this.ResolvedDate));
                         }
@@ -157,11 +153,7 @@ namespace YAF.Web.Controls
                         writer.Write(
                             @"<span class=""font-weight-bold"">{3}</span><a href=""{1}""> {0}{2} </a>",
                             resolvedByName,
-                            BuildLink.GetLink(
-                                ForumPages.UserProfile,
-                                "u={0}&name={1}",
-                                reporter["UserID"].ToType<int>(),
-                                reporterName),
+                            BuildLink.GetUserProfileLink(reporter["UserID"].ToType<int>(), reporterName),
                             howMany,
                             this.GetText("REPORTEDBY"));
 

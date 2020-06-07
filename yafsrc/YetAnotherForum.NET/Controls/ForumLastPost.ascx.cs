@@ -88,12 +88,15 @@ namespace YAF.Controls
 
             if (this.DataRow["LastPosted"] != DBNull.Value)
             {
+                this.topicLink.Text = this.Get<IBadWordReplace>()
+                    .Replace(this.HtmlEncode(this.DataRow["LastTopicName"].ToString())).Truncate(50);
+
                 // Last Post Date
                 var lastPostedDateTime = this.DataRow["LastPosted"].ToType<DateTime>();
 
                 // Topic Link
                 this.topicLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.Posts, "t={0}", this.DataRow["LastTopicID"]);
+                    ForumPages.Posts, "t={0}&name={1}", this.DataRow["LastTopicID"], this.topicLink.Text);
 
                 this.topicLink.ToolTip = this.GetText("COMMON", "VIEW_TOPIC");
                 this.topicLink.Attributes.Add("data-toggle", "tooltip");
@@ -107,9 +110,6 @@ namespace YAF.Controls
                 {
                     this.topicLink.Attributes.Add("style", styles);
                 }
-
-                this.topicLink.Text = this.Get<IBadWordReplace>()
-                    .Replace(this.HtmlEncode(this.DataRow["LastTopicName"].ToString())).Truncate(50);
 
                 // Last Topic User
                 var lastUserLink = new UserLink
@@ -128,10 +128,16 @@ namespace YAF.Controls
                 };
 
                 this.LastTopicImgLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.Posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);
+                    ForumPages.Posts,
+                    "m={0}&name={1}#post{0}",
+                    this.DataRow["LastMessageID"],
+                    this.topicLink.Text);
 
                 this.ImageLastUnreadMessageLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.Posts, "t={0}&find=unread", this.DataRow["LastTopicID"]);
+                    ForumPages.Posts,
+                    "t={0}&name={1}&find=unread",
+                    this.DataRow["LastTopicID"],
+                    this.topicLink.Text);
 
                 var lastRead =
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(

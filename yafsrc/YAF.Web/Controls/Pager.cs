@@ -192,11 +192,29 @@ namespace YAF.Web.Controls
             var url = this.PageContext.ForumPageType switch
             {
                 ForumPages.Topics => page > 1
-                    ? BuildLink.GetLinkNotEscaped(ForumPages.Topics, "f={0}&p={1}", this.PageContext.PageForumID, page)
-                    : BuildLink.GetLinkNotEscaped(ForumPages.Topics, "f={0}", this.PageContext.PageForumID),
+                    ? BuildLink.GetLinkNotEscaped(
+                        ForumPages.Topics,
+                        "f={0}&p={1}&name={2}",
+                        this.PageContext.PageForumID,
+                        page,
+                        this.PageContext.PageForumName)
+                    : BuildLink.GetLinkNotEscaped(
+                        ForumPages.Topics,
+                        "f={0}&name={1}",
+                        this.PageContext.PageForumID,
+                        this.PageContext.PageForumName),
                 ForumPages.Posts => page > 1
-                    ? BuildLink.GetLinkNotEscaped(ForumPages.Posts, "t={0}&p={1}", this.PageContext.PageTopicID, page)
-                    : BuildLink.GetLinkNotEscaped(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID),
+                    ? BuildLink.GetLinkNotEscaped(
+                        ForumPages.Posts,
+                        "t={0}&p={1}&name={2}",
+                        this.PageContext.PageTopicID,
+                        page,
+                        this.PageContext.PageTopicName)
+                    : BuildLink.GetLinkNotEscaped(
+                        ForumPages.Posts,
+                        "t={0}&name={1}",
+                        this.PageContext.PageTopicID,
+                        this.PageContext.PageTopicName),
                 _ => string.Empty
             };
 

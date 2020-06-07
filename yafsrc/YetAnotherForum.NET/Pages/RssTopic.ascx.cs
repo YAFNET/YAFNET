@@ -422,8 +422,10 @@ namespace YAF.Pages
                             var messageLink = BuildLink.GetLinkNotEscaped(
                                 ForumPages.Posts,
                                 true,
-                                "m={0}#post{0}",
-                                row["LastMessageID"]);
+                                "m={0}&name={1}#post{0}",
+                                row["LastMessageID"],
+                                row["Subject"].ToString());
+
                             syndicationItems.AddSyndicationItem(
                                 row["Subject"].ToString(),
                                 GetPostLatestContent(
@@ -556,7 +558,8 @@ namespace YAF.Pages
                                         ForumPages.Posts,
                                         true,
                                         "m={0}#post{0}",
-                                        row["LastMessageID"]),
+                                        row["LastMessageID"],
+                                        row["Subject"].ToString()),
                                     lastPostName,
                                     lastPostName,
                                     !row["LastMessageFlags"].IsNullOrEmptyDBField()
@@ -564,7 +567,12 @@ namespace YAF.Pages
                                         : 22,
                                     false),
                                 null,
-                                BuildLink.GetLinkNotEscaped(ForumPages.Posts, true, "t={0}", row["LinkTopicID"]),
+                                BuildLink.GetLinkNotEscaped(
+                                    ForumPages.Posts,
+                                    true,
+                                    "t={0}&name={1}",
+                                    row["LinkTopicID"],
+                                    row["Subject"].ToString()),
                                 $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? SyndicationFormats.Atom.ToInt() : SyndicationFormats.Rss.ToInt())}:span{feedNameAlphaNum}:ltid{row["LinkTopicID"].ToType<int>()}:lmid{row["LastMessageID"]}:{this.PageContext.PageBoardID}"
                                     .Unidecode(),
                                 lastPosted,
@@ -657,7 +665,7 @@ namespace YAF.Pages
                         row["Forum"].ToString(),
                         this.HtmlEncode(row["Description"].ToString()),
                         null,
-                        BuildLink.GetLinkNotEscaped(ForumPages.Topics, true, "f={0}", row["ForumID"]),
+                        BuildLink.GetLinkNotEscaped(ForumPages.Topics, true, "f={0}&name={1}", row["ForumID"], row["Forum"]),
                         $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? SyndicationFormats.Atom.ToInt() : SyndicationFormats.Rss.ToInt())}:fid{row["ForumID"]}:lmid{row["LastMessageID"]}:{this.PageContext.PageBoardID}"
                             .Unidecode(),
                         lastPosted,
@@ -728,8 +736,8 @@ namespace YAF.Pages
                             BuildLink.GetLinkNotEscaped(
                                 ForumPages.Posts,
                                 true,
-                                "t={0}",
-                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t")),
+                                "t={0}&name={1}",
+                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"), row["Topic"].ToString()),
                             $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? SyndicationFormats.Atom.ToInt() : SyndicationFormats.Rss.ToInt())}:tid{this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t")}:lmid{row["LastMessageID"]}:{this.PageContext.PageBoardID}"
                                 .Unidecode(),
                             lastPosted,
@@ -839,8 +847,9 @@ namespace YAF.Pages
                             var messageLink = BuildLink.GetLinkNotEscaped(
                                 ForumPages.Posts,
                                 true,
-                                "m={0}#post{0}",
-                                row["LastMessageID"]);
+                                "m={0}&name={1}#post{0}",
+                                row["LastMessageID"],
+                                row["Topic"].ToString());
 
                             syndicationItems.AddSyndicationItem(
                                 row["Topic"].ToString(),
@@ -856,8 +865,9 @@ namespace YAF.Pages
                                 BuildLink.GetLinkNotEscaped(
                                     ForumPages.Posts,
                                     true,
-                                    "t={0}",
-                                    row["TopicID"].ToType<int>()),
+                                    "t={0}&name={1}",
+                                    row["TopicID"].ToType<int>(),
+                                    row["Topic"].ToString()),
                                 $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? SyndicationFormats.Atom.ToInt() : SyndicationFormats.Rss.ToInt())}:tid{row["TopicID"]}:mid{row["LastMessageID"]}:{this.PageContext.PageBoardID}"
                                     .Unidecode(),
                                 lastPosted,
@@ -986,8 +996,9 @@ namespace YAF.Pages
                                 BuildLink.GetLinkNotEscaped(
                                     ForumPages.Posts,
                                     true,
-                                    "m={0}&find=lastpost",
-                                    row["MessageID"]),
+                                    "m={0}&name={1}&find=lastpost",
+                                    row["MessageID"],
+                                    row["Topic"].ToString()),
                                 $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? SyndicationFormats.Atom.ToInt() : SyndicationFormats.Rss.ToInt())}:meid{row["MessageID"]}:{this.PageContext.PageBoardID}"
                                     .Unidecode(),
                                 posted,
@@ -1076,8 +1087,9 @@ namespace YAF.Pages
                                     BuildLink.GetLinkNotEscaped(
                                         ForumPages.Posts,
                                         true,
-                                        "m={0}#post{0}",
-                                        row["LastMessageID"]),
+                                        "m={0}&name={1}#post{0}",
+                                        row["LastMessageID"],
+                                        row["Topic"].ToString()),
                                     lastPostName,
                                     row["LastMessage"].ToString(),
                                     !row["LastMessageFlags"].IsNullOrEmptyDBField()
@@ -1085,7 +1097,12 @@ namespace YAF.Pages
                                         : 22,
                                     false),
                                 null,
-                                BuildLink.GetLinkNotEscaped(ForumPages.Posts, true, "t={0}", row["TopicID"]),
+                                BuildLink.GetLinkNotEscaped(
+                                    ForumPages.Posts,
+                                    true,
+                                    "t={0}&name={1}",
+                                    row["TopicID"],
+                                    row["Topic"].ToString()),
                                 $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? SyndicationFormats.Atom.ToInt() : SyndicationFormats.Rss.ToInt())}:tid{row["TopicID"]}:lmid{row["LastMessageID"]}:{this.PageContext.PageBoardID}"
                                     .Unidecode(),
                                 lastPosted,

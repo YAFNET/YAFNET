@@ -29,9 +29,11 @@ namespace YAF.Core.BBCode.ReplaceRules
 
     using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     /// <summary>
@@ -109,9 +111,15 @@ namespace YAF.Core.BBCode.ReplaceRules
                         userName = quote;
                     }
 
+                    var topicLink = BuildLink.GetLink(
+                        ForumPages.Posts,
+                        "m={0}&name={1}#post{0}",
+                        postId,
+                        BoardContext.Current.GetRepository<Topic>().GetNameFromMessage(postId.ToType<int>()));
+
                     quote = postId.IsSet()
                                 ? $@"<footer class=""blockquote-footer"">
-                                         <cite>{localQuotePosted.Replace("{0}", userName)}&nbsp;<a href=""{BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", postId)}""><i class=""fas fa-external-link-alt""></i></a></cite></footer>
+                                         <cite>{localQuotePosted.Replace("{0}", userName)}&nbsp;<a href=""{topicLink}""><i class=""fas fa-external-link-alt""></i></a></cite></footer>
                                          <p class=""mb-0 mt-2"">"
                                 : $@"<footer class=""blockquote-footer"">
                                          <cite>{localQuoteWrote.Replace("{0}", quote)}</cite></footer><p class=""mb-0"">";

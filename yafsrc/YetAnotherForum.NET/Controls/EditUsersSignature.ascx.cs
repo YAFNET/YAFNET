@@ -28,7 +28,8 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
-    
+    using System.Web;
+
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.BaseModules;
@@ -108,15 +109,17 @@ namespace YAF.Controls
             get
             {
                 if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin
-                                                                  && this.PageContext.QueryIDs.ContainsKey("u"))
+                                                                  && this.Get<HttpRequestBase>().QueryString.Exists("u"))
                 {
-                    return this.PageContext.QueryIDs["u"].ToType<int>();
+                    return Security.StringToIntOrRedirect(
+                        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
                 }
 
                 if (this.InModeratorMode && (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
-                                         && this.PageContext.QueryIDs.ContainsKey("u"))
+                                         && this.Get<HttpRequestBase>().QueryString.Exists("u"))
                 {
-                    return this.PageContext.QueryIDs["u"].ToType<int>();
+                    return Security.StringToIntOrRedirect(
+                        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
                 }
 
                 return this.PageContext.PageUserID;
@@ -150,8 +153,6 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.PageContext.QueryIDs = new QueryStringIDHelper("u");
-
             var sigData = this.GetRepository<User>()
                 .SignatureDataAsDataRow(this.CurrentUserID, this.PageContext.PageBoardID);
 
@@ -216,7 +217,11 @@ namespace YAF.Controls
         {
             if (this.InModeratorMode)
             {
-                BuildLink.Redirect(ForumPages.UserProfile, "u={0}", this.CurrentUserID);
+                BuildLink.Redirect(
+                    ForumPages.UserProfile,
+                    "u={0}&name={1}",
+                    this.CurrentUserID,
+                    this.Get<IUserDisplayName>().GetName(this.CurrentUserID));
             }
             else
             {

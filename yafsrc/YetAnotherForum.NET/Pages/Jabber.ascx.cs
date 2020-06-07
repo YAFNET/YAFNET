@@ -108,13 +108,9 @@ namespace YAF.Pages
             var displayNameHe = this.Get<IUserDisplayName>().GetName(this.UserID);
 
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.PageContext.BoardSettings.EnableDisplayName ? displayNameHe : userHe.UserName,
-                BuildLink.GetLink(
-                    ForumPages.UserProfile,
-                    "u={0}&name={1}",
-                    this.UserID,
-                    this.PageContext.BoardSettings.EnableDisplayName ? displayNameHe : userHe.UserName));
+            this.PageLinks.AddUser(
+                this.UserID,
+                this.PageContext.BoardSettings.EnableDisplayName ? displayNameHe : userHe.UserName);
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             if (this.UserID == this.PageContext.PageUserID)

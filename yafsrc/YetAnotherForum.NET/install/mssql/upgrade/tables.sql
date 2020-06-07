@@ -226,7 +226,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[Name]			[nvarchar](128) NOT NULL,
 		[CategoryImage] [nvarchar](255) NULL,		
 		SortOrder		smallint NOT NULL,
-		PollGroupID     int null,
  constraint [PK_{objectQualifier}Category] PRIMARY KEY CLUSTERED 
 (
 	[CategoryID] ASC
@@ -314,7 +313,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[IsNoCount]		AS (CONVERT([bit],sign([Flags]&(4)),(0))),
 		[IsModerated]	AS (CONVERT([bit],sign([Flags]&(8)),(0))),
 		ThemeURL		nvarchar(50) NULL,
-		PollGroupID     int null,
 		ImageURL        nvarchar(128) NULL,
 	    Styles          nvarchar(255) NULL,
 		UserID          int null,
@@ -1427,10 +1425,6 @@ if not exists (select top 1 1 from sys.columns where object_id = object_id(N'[{d
 	
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='PollGroupID')
-	alter table [{databaseOwner}].[{objectQualifier}Forum] add PollGroupID int NULL
-GO
-
 if not exists (select top 1 1 from sys.columns where object_id =  object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsHidden')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsHidden] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
@@ -2239,10 +2233,6 @@ IF NOT exists (select top 1 1 from sys.columns where object_id =  Object_id(N'[{
 BEGIN
     ALTER TABLE [{databaseOwner}].[{objectQualifier}Category] ADD [CategoryImage] [nvarchar](255) NULL
 END
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Category]') and name='PollGroupID')
-	alter table [{databaseOwner}].[{objectQualifier}Category] add PollGroupID int NULL
 GO
 
 

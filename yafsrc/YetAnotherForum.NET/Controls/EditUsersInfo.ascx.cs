@@ -27,6 +27,7 @@ namespace YAF.Controls
 
     using System;
     using System.Globalization;
+    using System.Web;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
@@ -41,8 +42,8 @@ namespace YAF.Controls
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
-    using YAF.Utils.Helpers;
-
+    using YAF.Utils;
+    
     #endregion
 
     /// <summary>
@@ -60,7 +61,8 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserID => this.PageContext.QueryIDs["u"].ToType<int>();
+        protected int CurrentUserID =>
+            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         #endregion
 
@@ -80,8 +82,6 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
-
             this.IsHostAdminRow.Visible = this.PageContext.IsHostAdmin;
 
             if (this.IsPostBack)

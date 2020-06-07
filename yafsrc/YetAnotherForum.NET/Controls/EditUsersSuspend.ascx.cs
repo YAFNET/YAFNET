@@ -28,6 +28,7 @@ namespace YAF.Controls
 
     using System;
     using System.Globalization;
+    using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
@@ -41,8 +42,8 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
-    using YAF.Utils.Helpers;
-
+    using YAF.Utils;
+    
     #endregion
 
     /// <summary>
@@ -70,7 +71,8 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets CurrentUserID.
         /// </summary>
-        protected int CurrentUserID => this.PageContext.QueryIDs["u"].ToType<int>();
+        protected int CurrentUserID =>
+            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         /// <summary>
         /// Gets the User Data.
@@ -119,9 +121,6 @@ namespace YAF.Controls
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // init ids...
-            this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
-
             this.SuspendInfo.Text = this.GetTextFormatted(
                 "SUSPEND_INFO",
                 this.Get<IDateTime>().GetUserDateTime(DateTime.UtcNow, this.User.TimeZoneInfo)

@@ -51,38 +51,6 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// Gets a typed poll group list.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IEnumerable"/>.
-        /// </returns>
-        [NotNull]
-        public static IEnumerable<TypedPollGroup> PollGroupList(
-            this IRepository<Poll> repository,
-            int userID,
-            int? forumId,
-            int boardId)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction
-                .GetAsDataTable(cdb => cdb.pollgroup_list(UserID: userID, ForumID: forumId, BoardID: boardId))
-                .SelectTypedList(t => new TypedPollGroup(t));
-        }
-
-        /// <summary>
         /// The poll_remove.
         /// </summary>
         /// <param name="repository">
@@ -195,46 +163,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The pollgroup_attach.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="pollGroupId">
-        /// The poll group id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic Id.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum Id.
-        /// </param>
-        /// <param name="categoryId">
-        /// The category Id.
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <returns>
-        /// The pollgroup_attach.
-        /// </returns>
-        public static int PollGroupAttach(
-            this IRepository<Poll> repository,
-            int? pollGroupId,
-            int? topicId,
-            int? forumId,
-            int? categoryId,
-            int? boardId)
-        {
-            return repository.DbFunction.GetData.pollgroup_attach(
-                PollGroupID: pollGroupId,
-                TopicID: topicId,
-                ForumID: forumId,
-                CategoryID: categoryId,
-                BoardID: boardId);
-        }
-
-        /// <summary>
         /// The poll_remove.
         /// </summary>
         /// <param name="repository">
@@ -267,7 +195,6 @@ namespace YAF.Core.Model
             [NotNull] object pollGroupID,
             [NotNull] object topicId,
             [NotNull] object forumId,
-            [NotNull] object categoryId,
             [NotNull] object boardId,
             bool removeCompletely,
             bool removeEverywhere)
@@ -276,7 +203,7 @@ namespace YAF.Core.Model
                 PollGroupID: pollGroupID,
                 TopicID: topicId,
                 ForumID: forumId,
-                CategoryID: categoryId,
+                CategoryID: null,
                 BoardID: boardId,
                 RemoveCompletely: removeCompletely,
                 RemoveEverywhere: removeEverywhere);
@@ -360,12 +287,6 @@ namespace YAF.Core.Model
                     sb.Append(CommandTextHelpers.GetObjectName("Forum"));
                     sb.Append(" WHERE ForumID = @ForumID");
                 }
-                else if (question.CategoryId > 0)
-                {
-                    sb.Append("select @PollGroupID = PollGroupID  from ");
-                    sb.Append(CommandTextHelpers.GetObjectName("Category"));
-                    sb.Append(" WHERE CategoryID = @CategoryID");
-                }
 
                 // the group doesn't exists, create a new one
                 sb.Append("IF @PollGroupID IS NULL BEGIN INSERT INTO ");
@@ -427,14 +348,6 @@ namespace YAF.Core.Model
                     sb.Append("UPDATE ");
                     sb.Append(CommandTextHelpers.GetObjectName("Forum"));
                     sb.Append(" SET PollGroupID= @NewPollGroupID WHERE ForumID= @ForumID; ");
-                }
-
-                // fill a pollgroup field in Category Table if the call comes from a category's topic list
-                if (question.CategoryId > 0)
-                {
-                    sb.Append("UPDATE ");
-                    sb.Append(CommandTextHelpers.GetObjectName("Category"));
-                    sb.Append(" SET PollGroupID= @NewPollGroupID WHERE CategoryID= @CategoryID; ");
                 }
 
                 // fill a pollgroup field in Board Table if the call comes from the main page poll
@@ -526,11 +439,6 @@ namespace YAF.Core.Model
                     if (question.ForumId > 0)
                     {
                         cmd.AddParam("@ForumID", question.ForumId);
-                    }
-
-                    if (question.CategoryId > 0)
-                    {
-                        cmd.AddParam("@CategoryID", question.CategoryId);
                     }
 
                     repository.DbAccess.ExecuteNonQuery(cmd, true);

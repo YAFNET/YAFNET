@@ -40,7 +40,6 @@ namespace YAF.Web.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -282,7 +281,7 @@ namespace YAF.Web.Controls
                 {
                     outText.AppendFormat(
                         @"<a href=""{0}"" id=""topicid_{1}""  title=""{2}"" runat=""server""> {3} </a>",
-                        BuildLink.GetLink(ForumPages.Posts, "t={0}", this.TopicID),
+                        BuildLink.GetTopicLink(this.TopicID, this.TopicName),
                         this.UserID,
                         this.GetText("COMMON", "VIEW_TOPIC"),
                         HttpUtility.HtmlEncode(this.TopicName));
@@ -292,7 +291,7 @@ namespace YAF.Web.Controls
                         outText.Append(this.GetText("ACTIVELOCATION", "TOPICINFORUM"));
                         outText.AppendFormat(
                             @"<a href=""{0}"" id=""forumidtopic_{1}"" title=""{2}"" runat=""server""> {3} </a>",
-                            BuildLink.GetLink(ForumPages.Topics, "f={0}", this.ForumID),
+                            BuildLink.GetForumLink(this.ForumID, this.ForumName),
                             this.UserID,
                             this.GetText("COMMON", "VIEW_FORUM"),
                             HttpUtility.HtmlEncode(this.ForumName));
@@ -310,7 +309,7 @@ namespace YAF.Web.Controls
                     {
                         outText.AppendFormat(
                             @"<a href=""{0}"" id=""forumid_{1}"" title=""{2}"" runat=""server""> {3} </a>",
-                            BuildLink.GetLink(ForumPages.Topics, "f={0}", this.ForumID),
+                            BuildLink.GetForumLink(this.ForumID, this.ForumName),
                             this.UserID,
                             this.GetText("COMMON", "VIEW_FORUM"),
                             HttpUtility.HtmlEncode(this.ForumName));
@@ -417,6 +416,8 @@ namespace YAF.Web.Controls
 
             if (ValidationHelper.IsValidInt(userID) && ValidationHelper.IsValidInt(albumID))
             {
+                var userId = userID.ToType<int>();
+
                 // The DataRow should not be missing in the case
                 var dr = this.GetRepository<UserAlbum>().List(albumID.Trim().ToType<int>()).FirstOrDefault();
 
@@ -424,10 +425,10 @@ namespace YAF.Web.Controls
                 var albumName = dr.Title.IsNotSet() ? dr.Title : dr.ID.ToString();
 
                 // Render
-                if (userID.ToType<int>() != this.UserID)
+                if (userId != this.UserID)
                 {
                     var displayName =
-                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetName(userID.ToType<int>()));
+                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetName(userId));
 
                     outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
                     outstring.AppendFormat(
@@ -438,7 +439,7 @@ namespace YAF.Web.Controls
                     outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM_OFUSER"));
                     outstring.AppendFormat(
                         @"<a href=""{0}"" id=""albumuserid_{1}"" runat=""server""> {2} </a>",
-                        BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", userID, displayName),
+                        BuildLink.GetUserProfileLink(userId, displayName),
                         userID,
                         HttpUtility.HtmlEncode(displayName));
                 }
@@ -473,11 +474,13 @@ namespace YAF.Web.Controls
         {
             var outstring = new StringBuilder();
 
-            var userId = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2)
+            var userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2)
                 .Substring(0).Trim();
 
-            if (ValidationHelper.IsValidInt(userId))
+            if (ValidationHelper.IsValidInt(userID))
             {
+                var userId = userID.ToType<int>();
+
                 if (userId.ToType<int>() == this.UserID)
                 {
                     outstring.Append(this.GetText("ACTIVELOCATION", "ALBUMS_OWN"));
@@ -489,7 +492,7 @@ namespace YAF.Web.Controls
 
                     outstring.AppendFormat(
                         @"{3}<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>",
-                        BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", userId, displayName),
+                        BuildLink.GetUserProfileLink(userId, displayName),
                         userId + this.PageContext.PageUserID,
                         HttpUtility.HtmlEncode(displayName),
                         this.GetText("ACTIVELOCATION", "ALBUMS_OFUSER"));
@@ -515,23 +518,25 @@ namespace YAF.Web.Controls
         private string Profile([NotNull] string forumPageAttributes)
         {
             var outstring = new StringBuilder();
-            var userId = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2);
+            var userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2);
 
-            userId = userId.Contains("&")
-                         ? userId.Substring(0, userId.IndexOf("&", StringComparison.Ordinal)).Trim()
-                         : userId.Substring(0).Trim();
+            userID = userID.Contains("&")
+                         ? userID.Substring(0, userID.IndexOf("&", StringComparison.Ordinal)).Trim()
+                         : userID.Substring(0).Trim();
 
-            if (ValidationHelper.IsValidInt(userId.Trim()))
+            if (ValidationHelper.IsValidInt(userID.Trim()))
             {
-                if (userId.ToType<int>() != this.UserID)
+                var userId = userID.ToType<int>();
+
+                if (userId != this.UserID)
                 {
                     var displayName =
-                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetName(userId.ToType<int>()));
+                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetName(userId));
 
                     outstring.Append(this.GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
                     outstring.AppendFormat(
                         @"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>",
-                        BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", userId, displayName),
+                        BuildLink.GetUserProfileLink(userId, displayName),
                         userId + this.PageContext.PageUserID,
                         this.GetText("COMMON", "VIEW_USRPROFILE"),
                         HttpUtility.HtmlEncode(displayName));

@@ -20,7 +20,7 @@
                                         IconName="comment" 
                                         LocalizedTag="Topic"></YAF:IconHeader>
                         <a id="TopicLink"
-                           href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}", ((Tuple<Topic, Message, User>)Container.DataItem).Item1.ID) %>'
+                           href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}&name={1}", ((Tuple<Topic, Message, User>)Container.DataItem).Item1.ID, ((Tuple<Topic, Message, User>)Container.DataItem).Item1.TopicName) %>'
                            runat="server" 
                            Visible="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item1.NumPosts > 0 %>"><%# ((Tuple<Topic, Message, User>)Container.DataItem).Item1.TopicName %></a>
                          <asp:Label id="TopicName" 

@@ -23,139 +23,145 @@
  */
 namespace YAF.Types.Objects
 {
-  #region Using
+    #region Using
 
-  using System;
-
-  #endregion
-
-  /// <summary>
-  /// Class to hold polls and questions data to save
-  /// </summary>
-  [Serializable]
-  public class PollSaveList
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PollSaveList"/> class.
-    /// </summary>
-    public PollSaveList()
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PollSaveList"/> class.
-    /// </summary>
-    /// <param name="pollQuestion">
-    /// The poll question.
-    /// </param>
-    /// <param name="pollChoices">
-    /// The poll choices.
-    /// </param>
-    /// <param name="pollCloses">
-    /// The poll closes.
-    /// </param>
-    public PollSaveList(string pollQuestion, string[,] pollChoices, DateTime? pollCloses, 
-        int userId, int? topicId, int? forumId, int? categoryId, int? boardId,
-        string questionObjectPath, string questionMimeType, bool isBound, bool isClosedBound, bool allowMultipleChoices, bool showVoters, bool allowSkipVote)
-    {
-        this.Question = pollQuestion;
-        this.Choice = pollChoices;
-        this.Closes = pollCloses;
-        this.UserId = userId;
-        this.TopicId = topicId;
-        this.ForumId = forumId;
-        this.CategoryId = categoryId;
-        this.BoardId = boardId;
-        this.QuestionObjectPath = questionObjectPath;
-        this.QuestionMimeType = questionMimeType;
-        this.IsBound = isBound;
-        this.IsClosedBound = isClosedBound;
-        this.AllowSkipVote = allowSkipVote;
-        this.AllowMultipleChoices = allowMultipleChoices;
-        this.ShowVoters = showVoters;
-    }
+    using System;
 
     #endregion
 
-    #region Properties
-
     /// <summary>
-    ///   Gets or Sets value for Question text
+    /// Class to hold polls and questions data to save
     /// </summary>
-    public string[,] Choice { get; set; }
+    [Serializable]
+    public class PollSaveList
+    {
+        #region Constructors and Destructors
 
-    /// <summary>
-    ///   Gets or Sets value indicatiing when a poll (question) closes
-    /// </summary>
-    public DateTime? Closes { get; set; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PollSaveList"/> class.
+        /// </summary>
+        public PollSaveList()
+        {
+        }
 
-    /// <summary>
-    ///   Gets or Sets value for Question text
-    /// </summary>
-    public string Question { get; set; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PollSaveList"/> class.
+        /// </summary>
+        /// <param name="pollQuestion">
+        /// The poll question.
+        /// </param>
+        /// <param name="pollChoices">
+        /// The poll choices.
+        /// </param>
+        /// <param name="pollCloses">
+        /// The poll closes.
+        /// </param>
+        public PollSaveList(
+            string pollQuestion,
+            string[,] pollChoices,
+            DateTime? pollCloses,
+            int userId,
+            int? topicId,
+            int? forumId,
+            int? boardId,
+            string questionObjectPath,
+            string questionMimeType,
+            bool isBound,
+            bool isClosedBound,
+            bool allowMultipleChoices,
+            bool showVoters,
+            bool allowSkipVote)
+        {
+            this.Question = pollQuestion;
+            this.Choice = pollChoices;
+            this.Closes = pollCloses;
+            this.UserId = userId;
+            this.TopicId = topicId;
+            this.ForumId = forumId;
+            this.BoardId = boardId;
+            this.QuestionObjectPath = questionObjectPath;
+            this.QuestionMimeType = questionMimeType;
+            this.IsBound = isBound;
+            this.IsClosedBound = isClosedBound;
+            this.AllowSkipVote = allowSkipVote;
+            this.AllowMultipleChoices = allowMultipleChoices;
+            this.ShowVoters = showVoters;
+        }
 
-    /// <summary>
-    ///   Gets or Sets value for UserId 
-    /// </summary>
-    public int UserId { get; set; }
+        #endregion
 
-    /// <summary>
-    ///   Gets or Sets value for TopicId 
-    /// </summary>
-    public int? TopicId { get; set; }
+        #region Properties
 
-    /// <summary>
-    ///   Gets or Sets value for ForumId 
-    /// </summary>
-    public int? ForumId { get; set; }
+        /// <summary>
+        ///   Gets or Sets value for Question text
+        /// </summary>
+        public string[,] Choice { get; set; }
 
-    /// <summary>
-    ///   Gets or Sets value for CategoryId 
-    /// </summary>
-    public int? CategoryId { get; set; }
+        /// <summary>
+        ///   Gets or Sets value indicatiing when a poll (question) closes
+        /// </summary>
+        public DateTime? Closes { get; set; }
 
-    /// <summary>
-    ///   Gets or Sets value for BoardId 
-    /// </summary>
-    public int? BoardId { get; set; }
+        /// <summary>
+        ///   Gets or Sets value for Question text
+        /// </summary>
+        public string Question { get; set; }
 
-    /// <summary>
-    ///   Gets or Sets value for ObjectPath 
-    /// </summary>
-    public string QuestionObjectPath { get; set; }
+        /// <summary>
+        ///   Gets or Sets value for UserId 
+        /// </summary>
+        public int UserId { get; set; }
 
-    /// <summary>
-    ///   Gets or Sets value for MimeType 
-    /// </summary>
-    public string QuestionMimeType { get; set; }
+        /// <summary>
+        ///   Gets or Sets value for TopicId 
+        /// </summary>
+        public int? TopicId { get; set; }
 
-    /// <summary>
-    ///   Gets or Sets value for IsBound. The polls in a group are bounded by voting. 
-    /// </summary>
-    public bool IsBound { get; set; }
+        /// <summary>
+        ///   Gets or Sets value for ForumId 
+        /// </summary>
+        public int? ForumId { get; set; }
 
-    /// <summary>
-    ///   Gets or Sets value for IsClosedBound. Users can't see results if the poll is not expired. 
-    /// </summary>
-    public bool IsClosedBound { get; set; }
+        /// <summary>
+        ///   Gets or Sets value for BoardId 
+        /// </summary>
+        public int? BoardId { get; set; }
 
-    /// <summary>
-    ///   Gets or Sets value for AllowMultipleChoices. Users can vote for many choices. 
-    /// </summary>
-    public bool AllowMultipleChoices { get; set; }
+        /// <summary>
+        ///   Gets or Sets value for ObjectPath 
+        /// </summary>
+        public string QuestionObjectPath { get; set; }
 
-    /// <summary>
-    ///   Gets or Sets value for ShowVoters. Users can see who voted. 
-    /// </summary>
-    public bool ShowVoters { get; set; }
+        /// <summary>
+        ///   Gets or Sets value for MimeType 
+        /// </summary>
+        public string QuestionMimeType { get; set; }
 
-    /// <summary>
-    ///   Gets or Sets value for AllowSkipVote. Users can be allowed to skip voting. 
-    /// </summary>
-    public bool AllowSkipVote { get; set; }
+        /// <summary>
+        ///   Gets or Sets value for IsBound. The polls in a group are bounded by voting. 
+        /// </summary>
+        public bool IsBound { get; set; }
 
-    #endregion
-  }
+        /// <summary>
+        ///   Gets or Sets value for IsClosedBound. Users can't see results if the poll is not expired. 
+        /// </summary>
+        public bool IsClosedBound { get; set; }
+
+        /// <summary>
+        ///   Gets or Sets value for AllowMultipleChoices. Users can vote for many choices. 
+        /// </summary>
+        public bool AllowMultipleChoices { get; set; }
+
+        /// <summary>
+        ///   Gets or Sets value for ShowVoters. Users can see who voted. 
+        /// </summary>
+        public bool ShowVoters { get; set; }
+
+        /// <summary>
+        ///   Gets or Sets value for AllowSkipVote. Users can be allowed to skip voting. 
+        /// </summary>
+        public bool AllowSkipVote { get; set; }
+
+        #endregion
+    }
 }

@@ -45,9 +45,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
     using YAF.Utils;
-    using YAF.Utils.Extensions;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
@@ -98,7 +96,7 @@ namespace YAF.Pages.Admin
             this.BindData();
 
             // bind poll group list
-            var pollGroup = this.GetRepository<Poll>()
+            /*var pollGroup = this.GetRepository<Poll>()
                 .PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
                     new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID)).ToList();
 
@@ -107,7 +105,7 @@ namespace YAF.Pages.Admin
             // TODO: vzrus needs some work, will be in polls only until feature is debugged there.
             this.PollGroupListDropDown.Items.AddRange(
                 pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
-
+            */
             // population default notification setting options...
             var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 

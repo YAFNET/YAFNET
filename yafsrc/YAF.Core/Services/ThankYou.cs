@@ -31,7 +31,6 @@ namespace YAF.Core.Services
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
@@ -170,7 +169,7 @@ namespace YAF.Core.Services
                         filler.AppendFormat(
                             @"<li class=""list-inline-item""><a id=""{0}"" href=""{1}""><u>{2}</u></a>",
                             dr.Item2.ID,
-                            BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", dr.Item2.ID, name),
+                            BuildLink.GetUserProfileLink(dr.Item2.ID, name),
                             name);
 
                         if (this.Get<BoardSettings>().ShowThanksDate)

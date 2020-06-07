@@ -107,13 +107,9 @@ namespace YAF.Pages
                 var displayName = this.Get<IUserDisplayName>().GetName(this.UserId);
 
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName,
-                    BuildLink.GetLink(
-                        ForumPages.UserProfile,
-                        "u={0}&name={1}",
-                        this.UserId,
-                        this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName));
+                this.PageLinks.AddUser(
+                    this.UserId,
+                    this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName);
                 this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
             }
         }
@@ -147,7 +143,12 @@ namespace YAF.Pages
                     this.Body.Text.Trim());
 
                 // redirect to profile page...
-                BuildLink.Redirect(ForumPages.UserProfile, false, "u={0}", this.UserId);
+                BuildLink.Redirect(
+                    ForumPages.UserProfile,
+                    false,
+                    "u={0}&name={1}",
+                    this.UserId,
+                    this.Get<IUserDisplayName>().GetName(this.UserId));
             }
             catch (Exception x)
             {

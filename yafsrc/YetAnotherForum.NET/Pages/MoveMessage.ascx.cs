@@ -94,7 +94,11 @@ namespace YAF.Pages
                     topicId.ToType<int>(),
                     true);
 
-                BuildLink.Redirect(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
+                BuildLink.Redirect(
+                    ForumPages.Topics,
+                    "f={0}&name={1}",
+                    this.PageContext.PageForumID,
+                    this.PageContext.PageForumName);
             }
             else
             {
@@ -144,7 +148,11 @@ namespace YAF.Pages
                     true);
             }
 
-            BuildLink.Redirect(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(
+                ForumPages.Topics,
+                "f={0}&name={1}",
+                this.PageContext.PageForumID,
+                this.PageContext.PageForumName);
         }
 
         /// <summary>
@@ -184,14 +192,9 @@ namespace YAF.Pages
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-
-            this.PageLinks.AddLink(
-                this.PageContext.PageCategoryName,
-                BuildLink.GetLink(ForumPages.Board, "c={0}", this.PageContext.PageCategoryID));
+            this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
             this.PageLinks.AddForum(this.PageContext.PageForumID);
-            this.PageLinks.AddLink(
-                this.PageContext.PageTopicName,
-                BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
+            this.PageLinks.AddTopic(this.PageContext.PageTopicName, this.PageContext.PageTopicID);
 
             this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
         }

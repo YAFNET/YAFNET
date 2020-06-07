@@ -26,6 +26,7 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Web;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
@@ -33,8 +34,8 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils.Helpers;
-
+    using YAF.Utils;
+    
     #endregion
 
     /// <summary>
@@ -47,7 +48,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserID => this.PageContext.QueryIDs["u"].ToType<int>();
+        protected int CurrentUserID => Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         #endregion
 
@@ -87,8 +88,6 @@ namespace YAF.Controls
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
-
             if (this.IsPostBack)
             {
                 return;

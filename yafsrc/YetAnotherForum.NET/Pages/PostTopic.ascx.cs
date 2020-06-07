@@ -93,7 +93,11 @@ namespace YAF.Pages
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // new topic -- cancel back to forum
-            BuildLink.Redirect(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(
+                ForumPages.Topics,
+                "f={0}&name={1}",
+                this.PageContext.PageForumID,
+                this.PageContext.PageForumName);
         }
 
         /// <summary>
@@ -330,9 +334,7 @@ namespace YAF.Pages
             if (this.PageContext.Settings.LockedForum == 0)
             {
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.PageContext.PageCategoryName,
-                    BuildLink.GetLink(ForumPages.Board, "c={0}", this.PageContext.PageCategoryID));
+                this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID);
@@ -661,7 +663,7 @@ namespace YAF.Pages
                 if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)
                 {
                     // regular redirect...
-                    BuildLink.Redirect(ForumPages.Posts, "m={0}#post{0}", messageId);
+                    BuildLink.Redirect(ForumPages.Posts, "m={0}&name={1}#post{0}", messageId, newTopic.ToType<int>());
                 }
                 else
                 {
@@ -689,7 +691,7 @@ namespace YAF.Pages
                 }
 
                 // Tell user that his message will have to be approved by a moderator
-                var url = BuildLink.GetLink(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
+                var url = BuildLink.GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForumName);
 
                 if (attachPollParameter.Length <= 0)
                 {

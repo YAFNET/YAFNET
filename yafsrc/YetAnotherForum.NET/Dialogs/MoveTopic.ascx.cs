@@ -133,7 +133,11 @@ namespace YAF.Dialogs
                     linkDays.Value);
             }
 
-            BuildLink.Redirect(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(
+                ForumPages.Topics,
+                "f={0}&name={1}",
+                this.PageContext.PageForumID,
+                this.PageContext.PageForumName);
         }
 
         #endregion

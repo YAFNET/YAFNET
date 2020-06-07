@@ -23,84 +23,84 @@
  */
 namespace YAF.Utils.Extensions
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Collections.Generic;
+    using System;
+    using System.Collections.Generic;
 
-  using YAF.Types;
+    using YAF.Types;
 
     #endregion
 
     /// <summary>The are equal func.</summary>
     /// <typeparam name="T"></typeparam>
     public class AreEqualFunc<T> : IEqualityComparer<T>
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    /// The _comparer.
-    /// </summary>
-    private readonly Func<T, T, bool> comparer;
-
-    #endregion
-
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="AreEqualFunc{T}"/> class.
-    /// </summary>
-    /// <param name="comparer">
-    /// The comparer.
-    /// </param>
-    /// <exception cref="ArgumentNullException">
-    /// </exception>
-    public AreEqualFunc([NotNull] Func<T, T, bool> comparer)
     {
-      CodeContracts.VerifyNotNull(comparer, "comparer");
+        #region Constants and Fields
 
-      this.comparer = comparer;
+        /// <summary>
+        /// The _comparer.
+        /// </summary>
+        private readonly Func<T, T, bool> comparer;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AreEqualFunc{T}"/> class.
+        /// </summary>
+        /// <param name="comparer">
+        /// The comparer.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// </exception>
+        public AreEqualFunc([NotNull] Func<T, T, bool> comparer)
+        {
+            CodeContracts.VerifyNotNull(comparer, "comparer");
+
+            this.comparer = comparer;
+        }
+
+        #endregion
+
+        #region Implemented Interfaces
+
+        #region IEqualityComparer<T>
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="x">
+        /// The x.
+        /// </param>
+        /// <param name="y">
+        /// The y.
+        /// </param>
+        /// <returns>
+        /// The equals.
+        /// </returns>
+        public bool Equals(T x, T y)
+        {
+            return this.comparer(x, y);
+        }
+
+        /// <summary>
+        /// The get hash code.
+        /// </summary>
+        /// <param name="obj">
+        /// The obj.
+        /// </param>
+        /// <returns>
+        /// The get hash code.
+        /// </returns>
+        public int GetHashCode(T obj)
+        {
+            return obj.ToString().ToLower().GetHashCode();
+        }
+
+        #endregion
+
+        #endregion
     }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IEqualityComparer<T>
-
-    /// <summary>
-    /// The equals.
-    /// </summary>
-    /// <param name="x">
-    /// The x.
-    /// </param>
-    /// <param name="y">
-    /// The y.
-    /// </param>
-    /// <returns>
-    /// The equals.
-    /// </returns>
-    public bool Equals(T x, T y)
-    {
-      return this.comparer(x, y);
-    }
-
-    /// <summary>
-    /// The get hash code.
-    /// </summary>
-    /// <param name="obj">
-    /// The obj.
-    /// </param>
-    /// <returns>
-    /// The get hash code.
-    /// </returns>
-    public int GetHashCode(T obj)
-    {
-      return obj.ToString().ToLower().GetHashCode();
-    }
-
-    #endregion
-
-    #endregion
-  }
 }

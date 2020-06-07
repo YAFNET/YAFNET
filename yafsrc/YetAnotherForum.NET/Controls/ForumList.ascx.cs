@@ -38,7 +38,6 @@ namespace YAF.Controls
     using YAF.Core.Extensions;
     using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
@@ -180,7 +179,7 @@ namespace YAF.Controls
 
                 output = !row["RemoteURL"].IsNullOrEmptyDBField()
                              ? $"<a href=\"{row["RemoteURL"]}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fas fa-external-link-alt fa-fw\"></i></a>"
-                             : $"<a href=\"{BuildLink.GetLink(ForumPages.Topics, "f={0}&name={1}", forumID, output)}\" data-toggle=\"tooltip\" title=\"{title}\">{this.Page.HtmlEncode(output)}</a>";
+                             : $"<a href=\"{BuildLink.GetForumLink(forumID, output)}\" data-toggle=\"tooltip\" title=\"{title}\">{this.Page.HtmlEncode(output)}</a>";
             }
             else
             {

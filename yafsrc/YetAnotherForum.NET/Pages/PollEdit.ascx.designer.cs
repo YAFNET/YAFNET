@@ -222,33 +222,6 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.LocalizedLabel IsClosedBoundExplainLabel;
 
         /// <summary>
-        /// PollGroupList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PollGroupList;
-
-        /// <summary>
-        /// PollGroupListLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel PollGroupListLabel;
-
-        /// <summary>
-        /// PollGroupListDropDown control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList PollGroupListDropDown;
-
-        /// <summary>
         /// SavePoll control.
         /// </summary>
         /// <remarks>

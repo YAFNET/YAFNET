@@ -856,19 +856,6 @@ namespace YAF.Core.BBCode
             // and finally the closing quote tag
             ruleEngine.AddRule(
                 new SingleRegexReplaceRule(@"\[/quote\]", "</p></blockquote>", Options) { RuleRank = 63 });
-
-            // post and topic rules...
-            ruleEngine.AddRule(
-                new PostTopicRegexReplaceRule(
-                    @"\[post=(?<post>[0-9]*)\](?<inner>(.*?))\[/post\]",
-                    @"<a href=""${post}"" title=""${inner}"">${inner}</a>",
-                    Options));
-
-            ruleEngine.AddRule(
-                new PostTopicRegexReplaceRule(
-                    @"\[topic=(?<topic>[0-9]*)\](?<inner>(.*?))\[/topic\]",
-                    @"<a href=""${topic}"" title=""${inner}"">${inner}</a>",
-                    Options));
         }
 
         /// <summary>

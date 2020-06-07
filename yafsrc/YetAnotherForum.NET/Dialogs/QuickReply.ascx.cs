@@ -386,7 +386,11 @@ namespace YAF.Dialogs
                     }
 
                     // redirect to newly posted message
-                    BuildLink.Redirect(ForumPages.Posts, "m={0}&#post{0}", messageId);
+                    BuildLink.Redirect(
+                        ForumPages.Posts,
+                        "m={0}&name={1}&#post{0}",
+                        messageId,
+                        this.PageContext.PageTopicName);
                 }
                 else
                 {
@@ -399,7 +403,7 @@ namespace YAF.Dialogs
                             isPossibleSpamMessage);
                     }
 
-                    var url = BuildLink.GetLink(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
+                    var url = BuildLink.GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForumName);
 
                     BuildLink.Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
                 }

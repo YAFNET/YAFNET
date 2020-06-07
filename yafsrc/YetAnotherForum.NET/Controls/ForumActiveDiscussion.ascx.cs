@@ -74,9 +74,14 @@ namespace YAF.Controls
 
             var currentRow = (DataRowView)e.Item.DataItem;
 
+            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]));
+
             // make message url...
             var messageUrl = BuildLink.GetLinkNotEscaped(
-                ForumPages.Posts, "m={0}#post{0}", currentRow["LastMessageID"]);
+                ForumPages.Posts,
+                "m={0}&name={1}#post{0}",
+                currentRow["LastMessageID"],
+                topicSubject);
 
             // get the controls
             var postIcon = e.Item.FindControlAs<Label>("PostIcon");
@@ -87,8 +92,6 @@ namespace YAF.Controls
             var imageLastUnreadMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastUnread");
             var lastUserLink = new UserLink();
             var lastPostedDateLabel = new DisplayDateTime { Format = DateTimeFormat.BothTopic };
-
-            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]));
 
             var styles = this.Get<BoardSettings>().UseStyledTopicTitles
                              ? this.Get<IStyleTransform>().DecodeStyleByString(currentRow["Styles"].ToString())
@@ -112,7 +115,10 @@ namespace YAF.Controls
             textMessageLink.Attributes.Add("data-toggle", "tooltip");
 
             textMessageLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                ForumPages.Posts, "t={0}&find=unread", currentRow["TopicID"]);
+                ForumPages.Posts,
+                "t={0}&name={1}&find=unread",
+                currentRow["TopicID"],
+                topicSubject);
 
             imageMessageLink.NavigateUrl = messageUrl;
 
@@ -125,8 +131,9 @@ namespace YAF.Controls
             {
                 imageLastUnreadMessageLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
                     ForumPages.Posts,
-                    "t={0}&find=unread",
-                    currentRow["TopicID"]);
+                    "t={0}&name={1}&find=unread",
+                    currentRow["TopicID"],
+                    topicSubject);
             }
             
             // Just in case...

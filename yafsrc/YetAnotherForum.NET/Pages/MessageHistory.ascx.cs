@@ -102,18 +102,15 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").IsSet())
+            if (this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
-                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), out this.messageID))
-                {
-                    this.Get<HttpResponseBase>().Redirect(
-                        BuildLink.GetLink(ForumPages.Error, "Incorrect message value: {0}", this.messageID));
-                }
+                this.messageID =
+                    Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
 
                 this.ReturnBtn.Visible = true;
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f").IsSet())
+            if (this.Get<HttpRequestBase>().QueryString.Exists("f"))
             {
                 // We check here if the user have access to the option
                 if (this.PageContext.IsGuest)
@@ -121,11 +118,8 @@ namespace YAF.Pages
                     this.Get<HttpResponseBase>().Redirect(BuildLink.GetLinkNotEscaped(ForumPages.Info, "i=4"));
                 }
 
-                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out this.forumID))
-                {
-                    this.Get<HttpResponseBase>().Redirect(
-                        BuildLink.GetLink(ForumPages.Error, "Incorrect forum value: {0}", this.forumID));
-                }
+                this.forumID =
+                    Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
 
                 this.ReturnModBtn.Visible = true;
             }
@@ -156,7 +150,12 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReturnBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<HttpResponseBase>().Redirect(BuildLink.GetLinkNotEscaped(ForumPages.Posts, "m={0}#post{0}", this.messageID));
+            this.Get<HttpResponseBase>().Redirect(
+                BuildLink.GetLinkNotEscaped(
+                    ForumPages.Posts,
+                    "m={0}&name={1}#post{0}",
+                    this.messageID,
+                    this.originalRow.GetFirstRow()["Topic"].ToString()));
         }
 
         /// <summary>
@@ -190,7 +189,7 @@ namespace YAF.Pages
 
                     Enumerable.Where(
                             revisionsTable,
-                            row => row["Edited"].ToType<string>().Equals(e.CommandArgument.ToType<string>()))
+                            row => row["Edited"].ToString().Equals(e.CommandArgument.ToType<string>()))
                         .ForEach(row => restoreMessage = row);
 
                     if (restoreMessage != null)
@@ -217,6 +216,15 @@ namespace YAF.Pages
             }
         }
 
+        /// <summary>
+        /// The get IP address.
+        /// </summary>
+        /// <param name="dataItem">
+        /// The data item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         protected string GetIpAddress(object dataItem)
         {
             var row = (DataRow)dataItem;
