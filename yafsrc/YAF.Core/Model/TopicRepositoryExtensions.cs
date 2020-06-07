@@ -76,8 +76,19 @@ namespace YAF.Core.Model
             expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(
                         m => m.ID == messageId).Select();
 
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic>(expression))
-                .FirstOrDefault().Item2.TopicName;
+            string topicName;
+
+            try
+            {
+                topicName = repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic>(expression))
+                    .FirstOrDefault().Item2.TopicName;
+            }
+            catch (Exception)
+            {
+                topicName = string.Empty;
+            }
+
+            return topicName;
         }
 
         /// <summary>
