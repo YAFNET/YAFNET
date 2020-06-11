@@ -29,6 +29,7 @@ namespace YAF.Pages.Admin
     using System;
 
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -67,8 +68,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.Days1.Text = "60";
-            this.Days2.Text = "180";
             this.BindData();
         }
 
@@ -92,10 +91,10 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            using (var dataTable = this.GetRepository<UserPMessage>().InfoAsDataTable())
-            {
-                this.Count.Text = dataTable.Rows[0]["NumTotal"].ToString();
-            }
+            this.Days1.Text = "60";
+            this.Days2.Text = "180";
+
+            this.Count.Text = this.GetRepository<UserPMessage>().Count(m => m.IsDeleted == false).ToString();
         }
 
         /// <summary>
@@ -105,9 +104,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CommitClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.GetRepository<PMessage>().PruneAll(
-                this.Days1.Text.ToType<DateTime>(),
-                this.Days2.Text.ToType<DateTime>());
+            this.GetRepository<PMessage>().PruneAll(this.Days1.Text.ToType<int>(), this.Days2.Text.ToType<int>());
 
             this.BindData();
         }
