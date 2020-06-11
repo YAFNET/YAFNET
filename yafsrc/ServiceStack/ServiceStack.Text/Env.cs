@@ -31,7 +31,7 @@ namespace ServiceStack.Text
             IsUnix = IsOSX || IsLinux;
             HasMultiplePlatformTargets = true;
             IsUWP = IsRunningAsUwp();
-#elif NET472
+#elif NET48
             IsNetFramework = true;
             switch (Environment.OSVersion.Platform)
             {
@@ -110,7 +110,7 @@ namespace ServiceStack.Text
 
         public static string VersionString { get; set; }
 
-        public static decimal ServiceStackVersion = 5.7m;
+        public static decimal ServiceStackVersion = 5.8m;
 
         public static bool IsLinux { get; set; }
 

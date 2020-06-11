@@ -1,4 +1,4 @@
-﻿#if NET472 || NETCORE2_1
+﻿#if NET48 || NETCORE2_1
 
 using System;
 using System.Linq;

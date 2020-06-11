@@ -96,7 +96,7 @@ namespace ServiceStack
             var nextTryMs = (2 ^ i) * 50;
 #if NETSTANDARD2_0
             System.Threading.Tasks.Task.Delay(nextTryMs).Wait();
-#elif NET472
+#elif NET48
             System.Threading.Thread.Sleep(nextTryMs);
 #endif
         }

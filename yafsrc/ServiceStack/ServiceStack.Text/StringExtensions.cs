@@ -533,7 +533,7 @@ namespace ServiceStack
         {
             return TypeSerializer.DeserializeFromSpan<T>(jsv);
         }
-
+        
         public static string ToJson<T>(this T obj)
         {
             return JsConfig.PreferInterfaces

@@ -32,10 +32,10 @@ namespace ServiceStack.OrmLite
         public static SqlServer2017OrmLiteDialectProvider Instance => SqlServer2017OrmLiteDialectProvider.Instance;
     }
 
-    /*public static class SqlServer2019Dialect
+    public static class SqlServer2019Dialect
     {
         public static IOrmLiteDialectProvider Provider => SqlServer2019OrmLiteDialectProvider.Instance;
         public static SqlServer2019OrmLiteDialectProvider Instance => SqlServer2019OrmLiteDialectProvider.Instance;
-    }*/
+    }
 
 }
