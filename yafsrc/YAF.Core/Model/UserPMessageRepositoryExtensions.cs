@@ -1,9 +1,7 @@
 namespace YAF.Core.Model
 {
-    using System.Data;
-
+    
     using YAF.Types;
-    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -28,20 +26,6 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Scalar.pmessage_markread(UserPMessageID: userPMessageId);
-        }
-
-        /// <summary>
-        /// The info as data table.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable InfoAsDataTable(this IRepository<UserPMessage> repository)
-        {
-            return repository.DbFunction.GetAsDataTable(cdb => cdb.pmessage_info());
         }
 
         #endregion

@@ -80,7 +80,7 @@ namespace YAF.Core.Model
         /// <param name="daysUnread">
         /// The days unread.
         /// </param>
-        public static void PruneAll(this IRepository<PMessage> repository, DateTime daysRead, DateTime daysUnread)
+        public static void PruneAll(this IRepository<PMessage> repository, int daysRead, int daysUnread)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
