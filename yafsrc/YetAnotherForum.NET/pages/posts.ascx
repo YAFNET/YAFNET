@@ -124,7 +124,6 @@
             </ul>
             <ul class="navbar-nav  ml-auto">
                 <li class="nav-item dropdown">
-                    <div id="fb-root"></div>
                     <YAF:ThemeButton runat="server" ID="ShareLink"
                                      TextLocalizedTag="SHARE" TitleLocalizedTag="SHARE_TOOLTIP"
                                      Icon="share" 
@@ -147,7 +146,9 @@
                             <span id="WatchTopicID" runat="server" visible="false"></span>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-                    <YAF:PopMenu runat="server" ID="OptionsMenu" Control="OptionsLink" />
+                    <YAF:PopMenu runat="server" ID="OptionsMenu"
+                                 AlignRight="true" 
+                                 Control="OptionsLink" />
                 </li>
             </ul>
         </div>
