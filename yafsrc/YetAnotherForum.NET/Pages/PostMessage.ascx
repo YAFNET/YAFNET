@@ -8,7 +8,7 @@
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
-<YAF:PollList ID="PollList" ShowButtons="true" PollGroupId="<%# this.GetPollGroupID() %>" runat="server" />
+<YAF:PollList ID="PollList" ShowButtons="true" PollId="<%# this.GetPollID() %>" runat="server" />
 
 <div class="row">
     <div class="col-xl-12">

@@ -30,9 +30,7 @@ namespace YAF.Pages
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -45,7 +43,7 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "forum" /> class.
+        ///   Initializes a new instance of the <see cref = "Board" /> class.
         /// </summary>
         public Board()
             : base("DEFAULT")
@@ -63,9 +61,6 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PollList.Visible = this.Get<BoardSettings>().BoardPollID > 0;
-            this.PollList.PollGroupId = this.Get<BoardSettings>().BoardPollID;
-
             // Since these controls have EnabledViewState=false, set their visibility on every page load so that this value is not lost on post-back.
             // This is important for another reason: these are board settings; values in the view state should have no impact on whether these controls are shown or not.
             this.ForumStats.Visible = this.Get<BoardSettings>().ShowForumStatistics;

@@ -259,7 +259,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		Choice			nvarchar (50) NOT NULL,
 		Votes			int NOT NULL,
 		[ObjectPath] nvarchar(255) NULL,
-		[MimeType] varchar(50) NULL,
  constraint [PK_{objectQualifier}Choice] PRIMARY KEY CLUSTERED 
 (
 	[ChoiceID] ASC
@@ -278,15 +277,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 (
 	[PollVoteID] ASC
 )WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
-	)
-GO
-
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}PollVoteRefuse]') and type in (N'U'))
-	CREATE TABLE [{databaseOwner}].[{objectQualifier}PollVoteRefuse] (
-		[RefuseID] [int] IDENTITY (1,1) NOT NULL,		
-		[PollID] [int] NOT NULL,
-		[UserID] [int] NULL,
-		[RemoteIP] [varchar] (57) NULL
 	)
 GO
 
@@ -460,28 +450,13 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 GO
 
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and type in (N'U'))
-	create table [{databaseOwner}].[{objectQualifier}PollGroupCluster](		
-		PollGroupID int IDENTITY (1,1) NOT NULL,
-		UserID	    int not NULL,
-		[Flags]     int NOT NULL constraint [DF_{objectQualifier}PollGroupCluster_Flags] default (0),
-		[IsBound]   AS (CONVERT([bit],sign([Flags]&(2)),(0)))
- constraint [PK_{objectQualifier}PollGroupCluster] PRIMARY KEY CLUSTERED 
-(
-	[PollGroupID] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)	
-	)
-GO
-
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Poll]') and type in (N'U'))
 	create table [{databaseOwner}].[{objectQualifier}Poll](
 		PollID			       int IDENTITY (1,1) NOT NULL,
 		Question		       nvarchar (50) NOT NULL,
 		Closes                 datetime NULL,		
-		PollGroupID            int NULL,
 		UserID                 int not NULL constraint [DF_{objectQualifier}Poll_UserID] default (1),	
 		[ObjectPath]           nvarchar(255) NULL,
-		[MimeType]             varchar(50) NULL,
 		[Flags]                int NOT NULL constraint [DF_{objectQualifier}Poll_Flags] default (0),		
 		[IsClosedBound] 	   AS (CONVERT([bit],sign([Flags]&(4)),(0))),
 		[AllowMultipleChoices] AS (CONVERT([bit],sign([Flags]&(8)),(0))),
@@ -1138,12 +1113,6 @@ begin
 	exec('update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags | 1 where IsHostAdmin<>0')
 	revoke update on [{databaseOwner}].[{objectQualifier}User] from public
 	alter table [{databaseOwner}].[{objectQualifier}User] drop column IsHostAdmin
-end
-GO
-
-if exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}PollVoteRefuse]') and name='BoardID')
-begin
-alter table [{databaseOwner}].[{objectQualifier}PollVoteRefuse] drop column [BoardID] 
 end
 GO
 
@@ -2038,12 +2007,6 @@ begin
 end
 GO
 
-IF  EXISTS (SELECT top 1 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollgroup_migration]') AND type in (N'P', N'PC'))
-begin
-DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_migration]		
-end
-GO
-
 -- should drop it else error
 if exists(select top 1 1 from sys.objects where name='FK_{objectQualifier}Topic_{objectQualifier}Poll' and parent_object_id =object_id('[{databaseOwner}].[{objectQualifier}Topic]') and type in (N'F'))
 	alter table [{databaseOwner}].[{objectQualifier}Topic] drop constraint [FK_{objectQualifier}Topic_{objectQualifier}Poll] 
@@ -2055,72 +2018,11 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}pollgroup_migration]
- as
-  begin
-     declare @ptmp int
-	 declare @ttmp int
-	 declare @utmp int 
-	 declare @PollGroupID int
-
-        declare c cursor for
-        select  PollID,TopicID, UserID from [{databaseOwner}].[{objectQualifier}Topic] where PollID IS NOT NULL
-		        
-        open c
-        
-        fetch next from c into @ptmp, @ttmp, @utmp
-        while @@FETCH_STATUS = 0
-        begin
-		if @ptmp is not null
-		begin
-		insert into [{databaseOwner}].[{objectQualifier}PollGroupCluster](UserID, Flags) values (@utmp, 0)	
-		SET @PollGroupID = SCOPE_IDENTITY()  
-		
-	            update [{databaseOwner}].[{objectQualifier}Topic] SET PollID = @PollGroupID WHERE TopicID = @ttmp
-				update [{databaseOwner}].[{objectQualifier}Poll] SET UserID = @utmp, PollGroupID = @PollGroupID, Flags = 0 WHERE PollID = @ptmp
-		end       
-        fetch next from c into @ptmp, @ttmp, @utmp
-        end
-
-        close c
-        deallocate c 
-
-		end
-GO
-
-if (not exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}PollGroupCluster]) and exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}Poll]))
-begin
-	--vzrus: migrate to independent multiple polls	
-	exec('[{databaseOwner}].[{objectQualifier}pollgroup_migration]')	
-
-		-- vzrus: drop the temporary  sp
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollgroup_migration]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_migration]		
-end
-GO
-
-if exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name='Flags')
-begin
-	grant update on [{databaseOwner}].[{objectQualifier}Poll] to public
-	exec('update [{databaseOwner}].[{objectQualifier}Poll] set Flags = 0 where Flags is null')
-	revoke update on [{databaseOwner}].[{objectQualifier}Poll] from public
-	-- here computed columns on Flags should be dropped if exist before
-	-- alter table [{databaseOwner}].[{objectQualifier}Poll] alter column Flags int not null
-	-- alter table [{databaseOwner}].[{objectQualifier}Poll] add constraint [DF_{objectQualifier}Poll_Flags] default(0) for Flags
-end
-GO
-
 -- TODO: change userid to not null
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'ObjectPath')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add [ObjectPath] nvarchar(255) NULL
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'MimeType')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Poll] add [MimeType] varchar(50) NULL
 end
 GO
 
@@ -2148,22 +2050,6 @@ begin
 end
 GO
 
- -- PollGroupTable
- if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and name=N'IsBound')
- begin
- 	alter table [{databaseOwner}].[{objectQualifier}PollGroupCluster] add [IsBound]	AS (CONVERT([bit],sign([Flags]&(2)),(0)))
- end
-GO
- 
-if exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and name='Flags')
-begin
-	grant update on [{databaseOwner}].[{objectQualifier}PollGroupCluster] to public
-	exec('update [{databaseOwner}].[{objectQualifier}PollGroupCluster] set Flags = 0 where Flags is null')
-	revoke update on [{databaseOwner}].[{objectQualifier}PollGroupCluster] from public
-	-- alter table [{databaseOwner}].[{objectQualifier}PollGroupCluster] alter column Flags int not null
-	-- alter table [{databaseOwner}].[{objectQualifier}PollGroupCluster] add constraint [DF_{objectQualifier}PollGroupCluster_Flags] default(0) for Flags
-end
-GO
 -- ActiveAccess Table
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}ActiveAccess]') and name=N'LastActive')
 begin
@@ -2197,12 +2083,6 @@ GO
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Choice]') and name=N'ObjectPath')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Choice] add [ObjectPath] nvarchar(255) NULL
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Choice]') and name=N'MimeType')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Choice] add [MimeType] varchar(50) NULL
 end
 GO
 
@@ -2816,3 +2696,50 @@ if exists(select top 1 1 from sys.columns where object_id =  object_id(N'[{datab
 	alter table [{databaseOwner}].[{objectQualifier}CheckEmail] drop constraint [IX_{objectQualifier}CheckEmail]
 	alter table [{databaseOwner}].[{objectQualifier}CheckEmail] alter column [Hash] nvarchar(max) NOT NULL
 GO
+
+if exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Choice]') and name=N'MimeType')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Choice] drop column MimeType
+end
+GO
+
+if exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'MimeType')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Poll] drop column MimeType
+end
+GO
+
+if exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'PollGroupID')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Poll] drop column PollGroupID
+end
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}PollVoteRefuse]'))
+begin
+    drop table [{databaseOwner}].[{objectQualifier}PollVoteRefuse]
+end
+go
+
+
+if exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Topic_{objectQualifier}PollGroupCluster' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and type in (N'F'))
+	alter table [{databaseOwner}].[{objectQualifier}Topic] drop constraint [FK_{objectQualifier}Topic_{objectQualifier}PollGroupCluster]
+go
+
+if exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Poll_{objectQualifier}PollGroupCluster' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and type in (N'F'))
+	alter table [{databaseOwner}].[{objectQualifier}Poll] drop constraint [FK_{objectQualifier}Poll_{objectQualifier}PollGroupCluster]
+go
+
+if exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Forum_{objectQualifier}PollGroupCluster' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and type in (N'F'))
+	alter table [{databaseOwner}].[{objectQualifier}Forum] drop constraint [FK_{objectQualifier}Forum_{objectQualifier}PollGroupCluster]
+go
+
+if exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Category_{objectQualifier}PollGroupCluster' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Category]') and type in (N'F'))
+	alter table [{databaseOwner}].[{objectQualifier}Category] drop constraint [FK_{objectQualifier}Category_{objectQualifier}PollGroupCluster]
+go
+
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}PollGroupCluster]'))
+begin
+    drop table [{databaseOwner}].[{objectQualifier}PollGroupCluster]
+end
+go

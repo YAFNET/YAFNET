@@ -569,10 +569,6 @@ if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}PMessag
 	alter table [{databaseOwner}].[{objectQualifier}PMessage] with nocheck add constraint [PK_{objectQualifier}PMessage] primary key clustered(PMessageID)
 go
 
-if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}PollGroupCluster]'), 'TableHasPrimaryKey')) = 0
-	alter table [{databaseOwner}].[{objectQualifier}PollGroupCluster] with nocheck add constraint [PK_{objectQualifier}PollGroupCluster] primary key clustered(PollGroupID)
-go
-
 if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Poll]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Poll] with nocheck add constraint [PK_{objectQualifier}Poll] primary key clustered(PollID)
 go
@@ -1041,13 +1037,6 @@ if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}P
 	alter table [{databaseOwner}].[{objectQualifier}PollVote] add constraint [FK_{objectQualifier}PollVote_{objectQualifier}Poll] foreign key(PollID) references [{databaseOwner}].[{objectQualifier}Poll](PollID) on delete cascade
 go
 
-if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Poll_{objectQualifier}PollGroupCluster' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}Poll] add constraint [FK_{objectQualifier}Poll_{objectQualifier}PollGroupCluster] foreign key(PollGroupID) references [{databaseOwner}].[{objectQualifier}PollGroupCluster](PollGroupID)  on delete cascade
-go
-
- if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Topic_{objectQualifier}PollGroupCluster' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}Topic] add constraint [FK_{objectQualifier}Topic_{objectQualifier}PollGroupCluster] foreign key(PollID) references [{databaseOwner}].[{objectQualifier}PollGroupCluster](PollGroupID)
-
 if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}EventLog_{objectQualifier}User' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}EventLog]') and type in (N'F'))
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] add constraint [FK_{objectQualifier}EventLog_{objectQualifier}User] foreign key(UserID) references [{databaseOwner}].[{objectQualifier}User](UserID) on delete cascade
 go
@@ -1177,3 +1166,4 @@ GO
 if exists(select top 1 1 from sys.indexes where name=N'IX_{objectQualifier}CheckEmail' and object_id=object_id(N'[{databaseOwner}].[{objectQualifier}CheckEmail]'))
 	alter table [{databaseOwner}].[{objectQualifier}CheckEmail] drop constraint [IX_{objectQualifier}CheckEmail]
 go
+

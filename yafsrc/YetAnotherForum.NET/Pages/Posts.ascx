@@ -19,7 +19,6 @@
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
 <YAF:PollList ID="PollList" TopicId="<%# this.PageContext.PageTopicID %>"
-    ShowButtons="<%# this.ShowPollButtons() %>"
     Visible="<%# this.PollGroupId() > 0 %>"
     PollGroupId="<%# this.PollGroupId() %>" runat="server" />
 
@@ -126,7 +125,6 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
-                        <div id="fb-root"></div>
                         <YAF:ThemeButton runat="server" ID="ShareLink"
                                          TextLocalizedTag="SHARE" TitleLocalizedTag="SHARE_TOOLTIP"
                                          Icon="share-alt"
@@ -134,7 +132,6 @@
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown" />
                         <YAF:PopMenu ID="ShareMenu" runat="server" 
-                                     Control="ShareLink" 
                                      AlignRight="true" />
                     </li>
                     <li class="nav-item dropdown">
@@ -144,13 +141,7 @@
                                          Type="Link"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown" />
-                        <asp:UpdatePanel ID="PopupMenuUpdatePanel" runat="server" style="display: inline">
-                            <ContentTemplate>
-                                <span id="WatchTopicID" runat="server" visible="false"></span>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
                         <YAF:PopMenu runat="server" ID="OptionsMenu" 
-                                     Control="OptionsLink"
                                      AlignRight="true" />
                     </li>
                 </ul>

@@ -957,29 +957,13 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="poll" role="tabpanel" aria-labelledby="poll-tab">
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <YAF:HelpLabel ID="HelpLabel115" runat="server"
-                                                   AssociatedControlID="AllowedPollNumber"
-                                                   LocalizedTag="MAX_ALLOWED_POLLS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                    <asp:TextBox CssClass="form-control" ID="AllowedPollNumber" MaxLength="2" runat="server"></asp:TextBox>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <YAF:HelpLabel ID="HelpLabel116" runat="server"
-                                                   AssociatedControlID="AllowedPollChoiceNumber"
-                                                   LocalizedTag="MAX_ALLOWED_CHOICES" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                    <asp:TextBox CssClass="form-control" ID="AllowedPollChoiceNumber" MaxLength="2" runat="server"></asp:TextBox>
-                                </div>
+                            <div class="form-group">
+                                <YAF:HelpLabel ID="HelpLabel116" runat="server"
+                                               AssociatedControlID="AllowedPollChoiceNumber"
+                                               LocalizedTag="MAX_ALLOWED_CHOICES" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <asp:TextBox CssClass="form-control" ID="AllowedPollChoiceNumber" MaxLength="2" runat="server"></asp:TextBox>
                             </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel117" runat="server"
-                                               AssociatedControlID="PollVoteTiedToIP"
-                                               LocalizedTag="POLLVOTING_PERIP" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox Text="&nbsp;" ID="PollVoteTiedToIP" runat="server"></asp:CheckBox>
-                                </div>
-                            </div>
                             <div class="form-group col-md-6">
                                 <YAF:HelpLabel ID="HelpLabel118" runat="server"
                                                AssociatedControlID="AllowPollChangesAfterFirstVote"
@@ -1004,14 +988,6 @@
                                                    LocalizedTag="ALLOW_HIDE_POLLRESULTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                     <div class="custom-control custom-switch">
                                         <asp:CheckBox Text="&nbsp;" ID="AllowUsersHidePollResults" runat="server"></asp:CheckBox>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <YAF:HelpLabel ID="HelpLabel121" runat="server"
-                                                   AssociatedControlID="AllowGuestsViewPollOptions"
-                                                   LocalizedTag="ALLOW_GUESTS_VIEWPOLL" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                    <div class="custom-control custom-switch">
-                                        <asp:CheckBox Text="&nbsp;" ID="AllowGuestsViewPollOptions" runat="server"></asp:CheckBox>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">

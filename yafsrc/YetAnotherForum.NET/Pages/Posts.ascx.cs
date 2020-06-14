@@ -321,12 +321,14 @@ namespace YAF.Pages
                 }
             }
 
-            // options menu...
-            this.OptionsMenu.AddPostBackItem(
-                "watch",
-                isWatched ? this.GetText("UNWATCHTOPIC") : this.GetText("WATCHTOPIC"),
-                isWatched ? "fa fa-eye-slash" : "fa fa-eye");
-
+            if (!this.PageContext.IsGuest)
+            {
+                this.OptionsMenu.AddPostBackItem(
+                    isWatched ? "unwatch" : "watch",
+                    isWatched ? this.GetText("UNWATCHTOPIC") : this.GetText("WATCHTOPIC"),
+                    isWatched ? "fa fa-eye-slash" : "fa fa-eye");
+            }
+            
             this.OptionsMenu.AddPostBackItem(
                 "print", this.GetText("PRINTTOPIC"), "fa fa-print");
 
@@ -613,19 +615,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The show poll buttons.
-        /// </summary>
-        /// <returns>
-        /// Returns The show poll buttons.
-        /// </returns>
-        protected bool ShowPollButtons()
-        {
-            return false;
-             //return (Convert.ToInt32(_topic["UserID"]) == PageContext.PageUserID) || PageContext.IsModerator || PageContext.IsAdmin; 
-        }
-
-        /// <summary>
-        /// The track topic_ click.
+        /// Watch Topic
         /// </summary>
         /// <param name="sender">
         /// The source of the event.
@@ -633,27 +623,29 @@ namespace YAF.Pages
         /// <param name="e">
         /// The <see cref="System.EventArgs"/> instance containing the event data.
         /// </param>
-        protected void TrackTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void TrackTopicClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.PageContext.IsGuest)
-            {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_WATCHLOGIN"), MessageTypes.warning);
-                return;
-            }
+            this.GetRepository<WatchTopic>().Add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
+            this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_TOPIC"), MessageTypes.warning);
 
-            if (this.WatchTopicID.InnerText == string.Empty)
-            {
-                this.GetRepository<WatchTopic>().Add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
-                this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_TOPIC"), MessageTypes.warning);
-            }
-            else
-            {
-                var tmpID = this.WatchTopicID.InnerText.ToType<int>();
+            this.HandleWatchTopic();
+        }
 
-                this.GetRepository<WatchTopic>().DeleteById(tmpID);
+        /// <summary>
+        /// Un-Watch Topic
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        protected void UnTrackTopicClick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.GetRepository<WatchTopic>().Delete(
+                w => w.TopicID == this.PageContext.PageTopicID && w.UserID == this.PageContext.PageUserID);
 
-                this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_TOPIC"), MessageTypes.info);
-            }
+            this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_TOPIC"), MessageTypes.info);
 
             this.HandleWatchTopic();
         }
@@ -855,8 +847,7 @@ namespace YAF.Pages
 
             if (this.Get<BoardSettings>().EnableThanksMod)
             {
-                // Add necessary columns for later use in displaypost.ascx (Prevent repetitive
-                // calls to database.)
+                // Add necessary columns for later use in DisplayPost (Prevent repetitive calls to database.)
                 if (!postListDataTable.Columns.Contains("ThanksInfo"))
                 {
                     postListDataTable.Columns.Add("ThanksInfo", typeof(string));
@@ -944,7 +935,7 @@ namespace YAF.Pages
                 }
             }
 
-            var pagedData = rowList; // .Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
+            var pagedData = rowList;
 
             // Add thanks info and styled nicks if they are enabled
             if (this.Get<BoardSettings>().EnableThanksMod)
@@ -1114,18 +1105,7 @@ namespace YAF.Pages
             var watchTopicId = this.GetRepository<WatchTopic>().Check(this.PageContext.PageUserID, this.PageContext.PageTopicID);
 
             // check if this forum is being watched by this user
-            if (watchTopicId.HasValue)
-            {
-                // subscribed to this forum
-                this.WatchTopicID.InnerText = watchTopicId.Value.ToString();
-
-                return true;
-            }
-
-            // not subscribed
-            this.WatchTopicID.InnerText = string.Empty;
-
-            return false;
+            return watchTopicId.HasValue;
         }
 
         /// <summary>
@@ -1230,7 +1210,10 @@ namespace YAF.Pages
                     BuildLink.Redirect(ForumPages.PrintTopic, "t={0}", this.PageContext.PageTopicID);
                     break;
                 case "watch":
-                    this.TrackTopic_Click(sender, e);
+                    this.TrackTopicClick(sender, e);
+                    break;
+                case "unwatch":
+                    this.UnTrackTopicClick(sender, e);
                     break;
                 case "email":
                     this.EmailTopic_Click(sender, e);

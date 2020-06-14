@@ -27,10 +27,9 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
-    using System.Web.UI.HtmlControls;
+    using System.Text;
     using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
@@ -42,6 +41,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
 
     #endregion
 
@@ -69,12 +69,12 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets the Choice Id array.
         /// </summary>
-        public int?[] ChoiceId { get; set; }
+        public List<PollVote> UserPollVotes { get; set; }
 
         /// <summary>
         ///   Gets or sets the data source.
         /// </summary>
-        public DataTable DataSource { get; set; }
+        public List<Tuple<Poll, Choice>> DataSource { get; set; }
 
         /// <summary>
         ///   Gets or sets number of  days to run.
@@ -97,14 +97,9 @@ namespace YAF.Controls
         public bool IsLocked { get; set; }
 
         /// <summary>
-        ///   Gets or sets MaxImageAspect. Stores max aspect to get rows of equal height.
-        /// </summary>
-        public decimal MaxImageAspect { get; set; }
-
-        /// <summary>
         ///   Gets or sets Voters. Stores users which are voted for a choice.
         /// </summary>
-        public DataTable Voters { get; set; }
+        public List<Tuple<PollVote, User>> Voters { get; set; }
 
         /// <summary>
         ///   Gets or sets the PollId for the choices.
@@ -136,21 +131,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The get total.
-        /// </summary>
-        /// <param name="pollId">
-        /// The poll Id.
-        /// </param>
-        /// <returns>
-        /// Returns total string.
-        /// </returns>
-        [NotNull]
-        protected string GetTotal([NotNull] object pollId)
-        {
-            return this.DataSource.Rows[0]["Total"].ToString();
-        }
-
-        /// <summary>
         /// The Page_Load event.
         /// </summary>
         /// <param name="sender">
@@ -161,7 +141,6 @@ namespace YAF.Controls
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.LoadMessage.Clear();
             this.BindData();
         }
 
@@ -199,56 +178,18 @@ namespace YAF.Controls
                 return;
             }
 
-            int? userID = null;
-            var remoteIP = string.Empty;
-
-            if (this.PageContext.BoardSettings.PollVoteTiedToIP)
-            {
-                remoteIP = IPHelper.IPStringToLong(this.Get<HttpRequestBase>().ServerVariables["REMOTE_ADDR"]).ToString();
-            }
-
-            if (!this.PageContext.IsGuest)
-            {
-                userID = this.PageContext.PageUserID;
-            }
-
             var choiceId = e.CommandArgument.ToType<int>();
 
             this.GetRepository<Choice>().Vote(choiceId);
 
-            this.GetRepository<PollVote>().Vote(choiceId, userID, this.PollId, remoteIP);
-
-            // save the voting cookie...
-            var cookieCurrent = string.Empty;
-
-            // We check whether is a vote for an option  
-            if (this.Get<HttpRequestBase>().Cookies[VotingCookieName(this.PollId.ToType<int>())] != null)
-            {
-                // Add the voted option to cookie value string
-                cookieCurrent = $"{this.Get<HttpRequestBase>().Cookies[VotingCookieName(this.PollId.ToType<int>())].Value},";
-                this.Get<HttpRequestBase>().Cookies.Remove(VotingCookieName(this.PollId.ToType<int>()));
-            }
-
-            var c = new HttpCookie(
-                            VotingCookieName(this.PollId),
-                            $"{cookieCurrent}{e.CommandArgument}")
-                            {
-                                Expires = DateTime.UtcNow
-                                    .AddYears(1)
-                            };
-
-            this.Get<HttpResponseBase>().Cookies.Add(c);
-
-            // show an info that the user is voted 
-            var msg = this.GetText("INFO_VOTED");
+            this.GetRepository<PollVote>().Vote(choiceId, this.PageContext.PageUserID, this.PollId);
 
             this.BindData();
 
             // Initialize bubble event to update parent control.
             this.ChoiceVoted?.Invoke(source, e);
 
-            // show the notification  window to user
-            this.PageContext.AddLoadMessage(msg, MessageTypes.success);
+            this.PageContext.AddLoadMessage(this.GetText("INFO_VOTED"), MessageTypes.success);
         }
 
         /// <summary>
@@ -263,8 +204,7 @@ namespace YAF.Controls
         protected void Poll_OnItemDataBound([NotNull] object source, [NotNull] RepeaterItemEventArgs e)
         {
             var item = e.Item;
-            var drowv = (DataRowView)e.Item.DataItem;
-            var trow = item.FindControlRecursiveAs<PlaceHolder>("VoteTr");
+            var choice = (Tuple<Poll, Choice>)e.Item.DataItem;
 
             if (item.ItemType != ListItemType.Item && item.ItemType != ListItemType.AlternatingItem)
             {
@@ -272,63 +212,52 @@ namespace YAF.Controls
             }
 
             // Voting link 
-            var myLinkButton = item.FindControlRecursiveAs<LinkButton>("MyLinkButton1");
+            var voteButton = item.FindControlRecursiveAs<ThemeButton>("VoteButton");
 
             var myChoiceMarker = item.FindControlRecursiveAs<Label>("YourChoice");
-            if (this.ChoiceId != null)
+
+            if (this.UserPollVotes.Any())
             {
-                foreach (var mychoice in this.ChoiceId.Where(choice => drowv.Row["ChoiceID"].ToType<int>() == choice))
+                if (this.UserPollVotes.Any(v => choice.Item2.ID == v.ChoiceID))
                 {
                     myChoiceMarker.Visible = true;
                 }
-
-                /*if (this.Voters != null)
-                {
-                    // TODO:
-                    var voters = item.FindControlRecursiveAs<Label>("Voters");
-                    var voterNames = string.Empty;
-
-                    foreach (DataRow row in this.Voters.Rows.Cast<DataRow>().ForEach(row =>
-                    {
-                        if (row["ChoiceID"].ToType<int>() == drowv["ChoiceID"].ToType<int>() && row["PollID"].ToType<int>() == this.PollId)
-                        {
-                            voterNames += row["UserName"] + ",";
-                        }
-                    }
-
-                    voters.Text = voterNames;
-
-                }*/
             }
 
-
-            myLinkButton.ToolTip = this.GetText("POLLEDIT", "POLL_PLEASEVOTE");
-            myLinkButton.Enabled = this.CanVote && !myChoiceMarker.Visible;
-            myLinkButton.Visible = true;
-
-            if (!myLinkButton.Enabled)
+            if (this.Voters.Any())
             {
-                myLinkButton.CssClass = "btn btn-success btn-sm disabled";
+                var voters = item.FindControlRecursiveAs<Label>("Voters");
+                var voterNames = new StringBuilder();
+
+                voterNames.Append("(");
+
+                this.Voters.Where(i => i.Item1.ChoiceID == choice.Item2.ID).ForEach(
+                    itemTuple => voterNames.AppendFormat(
+                        "{0}, ",
+                        this.PageContext.BoardSettings.EnableDisplayName
+                            ? itemTuple.Item2.DisplayName
+                            : itemTuple.Item2.Name));
+
+                voterNames.Remove(voterNames.Length - 2, 2);
+
+                voterNames.Append(")");
+
+                voters.Text = voterNames.ToString();
             }
+
+            voteButton.Enabled = this.CanVote && !myChoiceMarker.Visible;
+            voteButton.Visible = true;
 
             // Poll Choice image
-            var choiceImage = item.FindControlRecursiveAs<HtmlImage>("ChoiceImage");
+            var choiceImage = item.FindControlRecursiveAs<Image>("ChoiceImage");
 
             // Don't render if it's a standard image
-            if (!drowv.Row["ObjectPath"].IsNullOrEmptyDBField())
+            if (choice.Item2.ObjectPath.IsSet())
             {
-                choiceImage.Src = this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
+                choiceImage.ImageUrl = this.HtmlEncode(choice.Item2.ObjectPath);
 
-                if (!drowv.Row["MimeType"].IsNullOrEmptyDBField())
-                {
-                    var aspect = GetImageAspect(drowv.Row["MimeType"]);
-                    var imageWidth = 80;
-
-                    choiceImage.Width = imageWidth;
-                    choiceImage.Height = (choiceImage.Width / aspect).ToType<int>();
-
-                    choiceImage.Attributes["style"] = $"width:{imageWidth}px; height:{choiceImage.Height}px;";
-                }
+                choiceImage.AlternateText =
+                    choiceImage.ToolTip = this.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName);
             }
             else
             {
@@ -350,43 +279,18 @@ namespace YAF.Controls
         /// </returns>
         protected int VoteWidth([NotNull] object o)
         {
-            var row = (DataRowView)o;
-            return row.Row["Stats"].ToType<int>() * 80 / 100;
-        }
-
-        /// <summary>
-        /// Returns an image width|height ratio.
-        /// </summary>
-        /// <param name="mimeType">
-        /// The mime type of the image.
-        /// </param>
-        /// <returns>
-        /// The get image aspect.
-        /// </returns>
-        private static decimal GetImageAspect([NotNull] object mimeType)
-        {
-            if (mimeType.IsNullOrEmptyDBField())
+            try
             {
-                return 1;
+                var itemTuple = (Tuple<Poll, Choice>)o;
+
+                var votes = this.DataSource.Sum(x => x.Item2.Votes);
+
+                return 100 * itemTuple.Item2.Votes / votes;
             }
-
-            var attrs = mimeType.ToString().Split('!')[1].Split(';');
-            var width = attrs[0].ToType<decimal>();
-            return width / attrs[1].ToType<decimal>();
-        }
-
-        /// <summary>
-        /// Gets VotingCookieName.
-        /// </summary>
-        /// <param name="pollId">
-        /// The poll Id.
-        /// </param>
-        /// <returns>
-        /// The voting cookie name.
-        /// </returns>
-        private static string VotingCookieName(int pollId)
-        {
-            return $"poll#{pollId}";
+            catch (Exception)
+            {
+                return 0;
+            }
         }
 
         /// <summary>
@@ -395,38 +299,6 @@ namespace YAF.Controls
         private void BindData()
         {
             this.DataBind();
-        }
-
-        /// <summary>
-        /// The get poll is closed.
-        /// </summary>
-        /// <returns>
-        /// Returns a 'poll is closed' warning string.
-        /// </returns>
-        private string GetPollIsClosed()
-        {
-            var strPollClosed = string.Empty;
-            if (this.IsClosed)
-            {
-                strPollClosed = this.GetText("POLL_CLOSED");
-            }
-
-            return strPollClosed;
-        }
-
-        /// <summary>
-        /// Checks if a poll has no votes.
-        /// </summary>
-        /// <param name="pollId">
-        /// The poll id.
-        /// </param>
-        /// <returns>
-        /// The poll has no votes.
-        /// </returns>
-        private bool PollHasNoVotes([NotNull] object pollId)
-        {
-            return this.DataSource.Rows.Cast<DataRow>().Where(dr => dr["PollID"].ToType<int>() == pollId.ToType<int>())
-                .All(dr => dr["Votes"].ToType<int>() <= 0);
         }
 
         #endregion

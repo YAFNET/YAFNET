@@ -108,7 +108,6 @@ namespace YAF.Core.Modules
             builder.RegisterType<Session>().As<ISession>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<BadWordReplace>().As<IBadWordReplace>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<SpamWordCheck>().As<ISpamWordCheck>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<SpamCheck>().As<ISpamCheck>().SingleInstance().PreserveExistingDefaults();
 
             builder.RegisterType<Permissions>().As<IPermissions>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
@@ -171,6 +170,8 @@ namespace YAF.Core.Modules
             builder.RegisterType<FavoriteTopic>().As<IFavoriteTopic>().InstancePerBoardContext()
                 .PreserveExistingDefaults();
             builder.RegisterType<ThankYou>().As<IThankYou>().InstancePerBoardContext();
+
+            builder.RegisterType<SpamCheck>().As<ISpamCheck>().InstancePerBoardContext();
         }
 
         /// <summary>

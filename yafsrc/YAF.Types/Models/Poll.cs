@@ -31,7 +31,7 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_Poll table.
+    /// A class which represents the Poll table.
     /// </summary>
     [Serializable]
     [Table(Name = "Poll")]
@@ -39,30 +39,65 @@ namespace YAF.Types.Models
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the Poll id.
+        /// </summary>
         [Alias("PollID")]
         [AutoIncrement]
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the question.
+        /// </summary>
         [Required]
         [StringLength(50)]
         public string Question { get; set; }
+
+        /// <summary>
+        /// Gets or sets the closes.
+        /// </summary>
         public DateTime? Closes { get; set; }
-        [References(typeof(PollGroupCluster))]
-        public int? PollGroupID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [Required]
         [Default(1)]
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the object path.
+        /// </summary>
         [StringLength(255)]
         public string ObjectPath { get; set; }
-        [StringLength(50)]
-        public string MimeType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the flags.
+        /// </summary>
         [Default(0)]
         public int Flags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the is closed bound.
+        /// </summary>
         [Compute]
         public bool? IsClosedBound { get; set; }
+
+        /// <summary>
+        /// Gets or sets the allow multiple choices.
+        /// </summary>
         [Compute]
         public bool? AllowMultipleChoices { get; set; }
+
+        /// <summary>
+        /// Gets or sets the show voters.
+        /// </summary>
         [Compute]
         public bool? ShowVoters { get; set; }
+
+        /// <summary>
+        /// Gets or sets the allow skip vote.
+        /// </summary>
         [Compute]
         public bool? AllowSkipVote { get; set; }
 

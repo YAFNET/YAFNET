@@ -46,7 +46,7 @@
     <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.1.0" />
     <PackageReference Include="Microsoft.Owin.Security.Twitter" Version="4.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0-preview.4.20251.6" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0-preview.5.20278.1" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.6.0-preview3.19128.7" />
   </ItemGroup>
   <ItemGroup>

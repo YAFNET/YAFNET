@@ -15,7 +15,8 @@
  </HeaderTemplate>
     <ItemTemplate>
         <li class="list-inline-item">
-            <asp:PlaceHolder ID="ForumIcon" runat="server" />&nbsp;<%#  this.GetForumLink((System.Data.DataRow)Container.DataItem) %>
+            <YAF:Icon IconName="comments" IconType="text-secondary" runat="server" />
+            <%#  this.GetForumLink((System.Data.DataRow)Container.DataItem) %>
         </li>
     </ItemTemplate>
     <FooterTemplate>

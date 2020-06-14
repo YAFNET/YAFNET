@@ -186,24 +186,6 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.ThemeButton OptionsLink;
 
         /// <summary>
-        /// PopupMenuUpdatePanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel PopupMenuUpdatePanel;
-
-        /// <summary>
-        /// WatchTopicID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl WatchTopicID;
-
-        /// <summary>
         /// OptionsMenu control.
         /// </summary>
         /// <remarks>

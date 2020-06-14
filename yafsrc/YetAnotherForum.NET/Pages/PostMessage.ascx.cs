@@ -109,9 +109,9 @@ namespace YAF.Pages
         protected int? EditMessageId => this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("m");
 
         /// <summary>
-        ///   Gets or sets the PollGroupId if the topic has a poll attached
+        ///   Gets or sets the PollId if the topic has a poll attached
         /// </summary>
-        protected int? PollGroupId { get; set; }
+        protected int? PollId { get; set; }
 
         /// <summary>
         ///   Gets Quoted Message ID.
@@ -155,14 +155,14 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The get poll group id.
+        /// The get poll id.
         /// </summary>
         /// <returns>
-        /// Returns the PollGroup Id
+        /// Returns the Poll Id
         /// </returns>
-        protected int? GetPollGroupID()
+        protected int? GetPollID()
         {
-            return this.PollGroupId;
+            return this.PollId;
         }
 
         /// <summary>
@@ -334,7 +334,7 @@ namespace YAF.Pages
                         BuildLink.AccessDenied();
                     }
 
-                    this.PollGroupId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
+                    this.PollId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
                                            ? 0
                                            : currentMessage.PollID;
 
@@ -364,7 +364,7 @@ namespace YAF.Pages
                         BuildLink.AccessDenied();
                     }
 
-                    this.PollGroupId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
+                    this.PollId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
                                            ? 0
                                            : currentMessage.PollID;
 
@@ -551,7 +551,7 @@ namespace YAF.Pages
                         this.PollList.EditMessageId = this.EditMessageId.ToType<int>();
                     }
 
-                    this.PollGroupId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
+                    this.PollId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
                         ? 0
                         : currentMessage.PollID.ToType<int>();
                 }
@@ -571,14 +571,9 @@ namespace YAF.Pages
                 {
                     this.FromRow.Visible = false;
                 }
-
-                /*   if (this.TopicID == null)
-                                {
-                                        this.PollList.TopicId = (currentRow["TopicID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(currentRow["TopicID"]));
-                                } */
             }
 
-            this.PollList.PollGroupId = this.PollGroupId;
+            this.PollList.PollId = this.PollId;
         }
 
         /// <summary>
@@ -587,7 +582,7 @@ namespace YAF.Pages
         /// <returns>
         /// Returns the Message Id
         /// </returns>
-        protected long PostReplyHandleEditPost()
+        protected Message PostReplyHandleEditPost()
         {
             if (!this.PageContext.ForumEditAccess)
             {
@@ -723,89 +718,7 @@ namespace YAF.Pages
             this.Get<IDataCache>()
                 .Remove(string.Format(Constants.Cache.FirstPostCleaned, this.PageContext.PageBoardID, this.TopicId));
 
-            return messageId;
-        }
-
-        /// <summary>
-        /// The post reply handle new post.
-        /// </summary>
-        /// <param name="topicId">
-        /// The topic Id.
-        /// </param>
-        /// <returns>
-        /// Returns the Message Id.
-        /// </returns>
-        protected long PostReplyHandleNewPost(out long topicId)
-        {
-            long messageId = 0;
-
-            if (!this.PageContext.ForumPostAccess)
-            {
-                BuildLink.AccessDenied();
-            }
-
-            // Check if Forum is Moderated
-            var isForumModerated = false;
-
-            var forumInfo = this.GetRepository<Forum>()
-                .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
-            
-            if (forumInfo != null)
-            {
-                isForumModerated = this.CheckForumModerateStatus(forumInfo, true);
-            }
-
-            // If Forum is Moderated
-            if (isForumModerated)
-            {
-                this.spamApproved = false;
-            }
-
-            // Bypass Approval if Admin or Moderator
-            if (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess)
-            {
-                this.spamApproved = true;
-            }
-
-            // make message flags
-            var messageFlags = new MessageFlags
-                               {
-                                   IsHtml = this.forumEditor.UsesHTML,
-                                   IsBBCode = this.forumEditor.UsesBBCode,
-                                   IsPersistent = this.PostOptions1.PersistentChecked,
-                                   IsApproved = this.spamApproved
-                               };
-
-            // Save to Db
-            topicId = this.GetRepository<Topic>().Save(
-                this.PageContext.PageForumID,
-                this.TopicSubjectTextBox.Text.Trim(),
-                string.Empty,
-                this.TopicStylesTextBox.Text.Trim(),
-                this.TopicDescriptionTextBox.Text.Trim(),
-                this.forumEditor.Text,
-                this.PageContext.PageUserID,
-                this.Priority.SelectedValue.ToType<int>(),
-                this.User != null ? null : this.From.Text,
-                this.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                DateTime.UtcNow,
-                string.Empty,
-                messageFlags.BitValue,
-                this.Tags.Text,
-                ref messageId);
-
-            this.UpdateWatchTopic(this.PageContext.PageUserID, (int)topicId);
-
-            // clear caches as stats changed
-            if (!messageFlags.IsApproved)
-            {
-                return messageId;
-            }
-
-            this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
-            this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
-
-            return messageId;
+            return editMessage;
         }
 
         /// <summary>
@@ -817,7 +730,7 @@ namespace YAF.Pages
         /// <returns>
         /// Returns the Message Id.
         /// </returns>
-        protected long PostReplyHandleReplyToTopic(bool isSpamApproved)
+        protected int PostReplyHandleReplyToTopic(bool isSpamApproved)
         {
             if (!this.PageContext.ForumReplyAccess)
             {
@@ -1020,37 +933,36 @@ namespace YAF.Pages
             // update the last post time...
             this.Get<ISession>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
-            long messageId;
-            long newTopic = 0;
+            int? messageId = null;
+
+            var isApproved = true;
 
             if (this.TopicId != null)
             {
                 // Reply to topic
                 messageId = this.PostReplyHandleReplyToTopic(this.spamApproved);
-                newTopic = this.TopicId.ToType<long>();
+
+                isApproved = this.spamApproved;
             }
             else if (this.EditMessageId != null)
             {
                 // Edit existing post
-                messageId = this.PostReplyHandleEditPost();
-            }
-            else
-            {
-                // New post
-                messageId = this.PostReplyHandleNewPost(out newTopic);
-            }
+                var editMessage = this.PostReplyHandleEditPost();
 
-            // Check if message is approved
-            var isApproved = this.GetRepository<Message>().GetById(messageId.ToType<int>()).MessageFlags.IsApproved;
+                // Check if message is approved
+                isApproved = editMessage.MessageFlags.IsApproved;
+
+                messageId = editMessage.ID;
+            }
 
             // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
             var attachPollParameter = string.Empty;
             var returnForum = string.Empty;
 
-            if (this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible && newTopic > 0)
+            if (this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible && this.TopicId != null)
             {
                 // new topic poll token
-                attachPollParameter = $"&t={newTopic}";
+                attachPollParameter = $"&t={this.TopicId}";
 
                 // new return forum poll token
                 returnForum = $"&f={this.PageContext.PageForumID}";
@@ -1061,7 +973,7 @@ namespace YAF.Pages
             {
                 if (this.EditMessageId == null)
                 {
-                    this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
+                    this.Get<ISendNotification>().ToWatchingUsers(messageId.Value);
                 }
 
                 if (this.EditMessageId == null && !this.PageContext.IsGuest && this.PageContext.CurrentUser.Activity)
@@ -1076,7 +988,7 @@ namespace YAF.Pages
                                 {
                                     this.Get<IActivityStream>().AddMentionToStream(
                                         userId,
-                                        newTopic.ToType<int>(),
+                                        this.TopicId.Value,
                                         messageId.ToType<int>(),
                                         this.PageContext.PageUserID);
                                 }
@@ -1092,21 +1004,18 @@ namespace YAF.Pages
                                 {
                                     this.Get<IActivityStream>().AddQuotingToStream(
                                         userId,
-                                        newTopic.ToType<int>(),
+                                        this.TopicId.Value,
                                         messageId.ToType<int>(),
                                         this.PageContext.PageUserID);
                                 }
                             });
 
-                    if (this.TopicId != null)
-                    {
-                        this.Get<IActivityStream>().AddReplyToStream(
-                            Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
-                            newTopic,
-                            messageId.ToType<int>(),
-                            this.PageContext.PageTopicName,
-                            this.forumEditor.Text);
-                    }
+                    this.Get<IActivityStream>().AddReplyToStream(
+                        Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
+                        this.TopicId.Value,
+                        messageId.ToType<int>(),
+                        this.PageContext.PageTopicName,
+                        this.forumEditor.Text);
                 }
 
                 if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)

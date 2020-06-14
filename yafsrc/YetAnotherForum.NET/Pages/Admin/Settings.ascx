@@ -92,16 +92,6 @@
                     </asp:DropDownList>
                 </div>
             </div>
-            <asp:PlaceHolder ID="PollGroupList" runat="server" Visible="false">
-                <div class="form-group">
-                    <YAF:HelpLabel ID="PollGroupListLabel" runat="server"
-                                   AssociatedControlID="PollGroupList"
-                                   LocalizedTag="POLLGROUP_LIST_BOARD"/>
-                    <asp:DropDownList ID="PollGroupListDropDown" runat="server" 
-                                      CssClass="select2-select" 
-                                      placeholder='<%# this.GetText("pollgroup_list") %>'/>
-                </div>
-            </asp:PlaceHolder>
             <div class="form-group">
                 <YAF:HelpLabel ID="LocalizedLabel17" runat="server"
                                AssociatedControlID="DefaultNotificationSetting"

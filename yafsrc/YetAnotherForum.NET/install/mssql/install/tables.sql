@@ -253,7 +253,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		Choice			nvarchar (50) NOT NULL,
 		Votes			int NOT NULL,
 		[ObjectPath] nvarchar(255) NULL,
-		[MimeType] varchar(50) NULL,
  constraint [PK_{objectQualifier}Choice] PRIMARY KEY CLUSTERED 
 (
 	[ChoiceID] ASC
@@ -272,15 +271,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 (
 	[PollVoteID] ASC
 )WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
-	)
-GO
-
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}PollVoteRefuse]') and type in (N'U'))
-	CREATE TABLE [{databaseOwner}].[{objectQualifier}PollVoteRefuse] (
-		[RefuseID] [int] IDENTITY (1,1) NOT NULL,		
-		[PollID] [int] NOT NULL,
-		[UserID] [int] NULL,
-		[RemoteIP] [varchar] (57) NULL
 	)
 GO
 
@@ -454,28 +444,13 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 GO
 
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and type in (N'U'))
-	create table [{databaseOwner}].[{objectQualifier}PollGroupCluster](		
-		PollGroupID int IDENTITY (1,1) NOT NULL,
-		UserID	    int not NULL,
-		[Flags]     int NOT NULL constraint [DF_{objectQualifier}PollGroupCluster_Flags] default (0),
-		[IsBound]   AS (CONVERT([bit],sign([Flags]&(2)),(0)))
- constraint [PK_{objectQualifier}PollGroupCluster] PRIMARY KEY CLUSTERED 
-(
-	[PollGroupID] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)	
-	)
-GO
-
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Poll]') and type in (N'U'))
 	create table [{databaseOwner}].[{objectQualifier}Poll](
 		PollID			       int IDENTITY (1,1) NOT NULL,
 		Question		       nvarchar (50) NOT NULL,
 		Closes                 datetime NULL,		
-		PollGroupID            int NULL,
 		UserID                 int not NULL constraint [DF_{objectQualifier}Poll_UserID] default (1),	
 		[ObjectPath]           nvarchar(255) NULL,
-		[MimeType]             varchar(50) NULL,
 		[Flags]                int NOT NULL constraint [DF_{objectQualifier}Poll_Flags] default (0),		
 		[IsClosedBound] 	   AS (CONVERT([bit],sign([Flags]&(4)),(0))),
 		[AllowMultipleChoices] AS (CONVERT([bit],sign([Flags]&(8)),(0))),

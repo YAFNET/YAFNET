@@ -26,7 +26,7 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0-preview.4.20251.6" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0-preview.5.20278.1" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.6.0-preview3.19128.7" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
   </ItemGroup>

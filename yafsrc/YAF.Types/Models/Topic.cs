@@ -70,7 +70,6 @@ namespace YAF.Types.Models
         [Required]
         public short Priority { get; set; }
 
-        [References(typeof(PollGroupCluster))]
         public int? PollID { get; set; }
 
         [References(typeof(Topic))]

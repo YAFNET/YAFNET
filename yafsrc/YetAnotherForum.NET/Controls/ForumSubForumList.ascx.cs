@@ -37,8 +37,7 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
-
+    
     #endregion
 
     /// <summary>
@@ -78,7 +77,9 @@ namespace YAF.Controls
             // get the Forum Description
             var output = Convert.ToString(row["Forum"]);
 
-            output = int.Parse(row["ReadAccess"].ToString()) > 0 ? $"<a class=\"card-link small\" href=\"{BuildLink.GetForumLink(forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>" : $"{output} {this.GetText("NO_FORUM_ACCESS")}";
+            output = int.Parse(row["ReadAccess"].ToString()) > 0
+                ? $"<a class=\"card-link small\" href=\"{BuildLink.GetForumLink(forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>"
+                : $"{output} {this.GetText("NO_FORUM_ACCESS")}";
 
             return output;
         }
@@ -94,56 +95,18 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="RepeaterItemEventArgs"/> instance containing the event data.</param>
         protected void SubForumList_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
         {
-            switch (e.Item.ItemType)
+            if (!e.Item.ItemType.Equals(ListItemType.Footer))
             {
-                case ListItemType.Item:
-                case ListItemType.AlternatingItem:
-                    {
-                        var row = e.Item.DataItem.ToType<DataRow>();
-                        var lastRead = this.Get<IReadTrackCurrentUser>()
-                            .GetForumRead(
-                                row["ForumID"].ToType<int>(),
-                                row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
+                return;
+            }
 
-                        var lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
+            var repeater = sender as Repeater;
+            var dataSource = repeater.DataSource.ToType<IEnumerable>();
 
-                        var forumIcon = e.Item.FindControlAs<PlaceHolder>("ForumIcon");
-
-                        var icon = new Literal { Text = "<i class=\"fa fa-comments text-secondary\"></i>" };
-
-                        try
-                        {
-                            if (lastPosted > lastRead)
-                            {
-                                icon.Text = "<i class=\"fa fa-comments text-success\"></i>";
-                            }
-                        }
-                        catch
-                        {
-                            icon = new Literal { Text = "<i class=\"fa fa-comments text-secondary\"></i>" };
-                        }
-
-                        forumIcon.Controls.Add(icon);
-                    }
-
-                    break;
-                case ListItemType.EditItem:
-                    break;
-                case ListItemType.Footer:
-                    {
-                        var repeater = sender as Repeater;
-                        var dataSource = repeater.DataSource.ToType<IEnumerable>();
-
-                        if (dataSource != null
-                            && dataSource.ToType<ArrayList>().Count >= this.Get<BoardSettings>().SubForumsInForumList)
-                        {
-                            e.Item.FindControl("CutOff").Visible = true;
-                        }
-                    }
-
-                    break;
-                default:
-                    return;
+            if (dataSource != null && dataSource.ToType<ArrayList>().Count >=
+                this.Get<BoardSettings>().SubForumsInForumList)
+            {
+                e.Item.FindControl("CutOff").Visible = true;
             }
         }
 

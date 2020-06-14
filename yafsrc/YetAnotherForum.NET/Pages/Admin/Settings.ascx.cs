@@ -174,17 +174,6 @@ namespace YAF.Pages.Admin
 
             this.DigestSendEveryXHours.Text = boardSettings.DigestSendEveryXHours.ToString();
 
-            if (boardSettings.BoardPollID > 0)
-            {
-                this.PollGroupListDropDown.SelectedValue = boardSettings.BoardPollID.ToString();
-            }
-            else
-            {
-                this.PollGroupListDropDown.SelectedIndex = 0;
-            }
-
-            this.PollGroupList.Visible = true;
-
             // Copyright Link-back Algorithm
             // Please keep if you haven't purchased a removal or commercial license.
             this.CopyrightHolder.Visible = true;
@@ -254,10 +243,6 @@ namespace YAF.Pages.Admin
 
             // save poll group
             var boardSettings = this.Get<BoardSettings>();
-
-            boardSettings.BoardPollID = this.PollGroupListDropDown.SelectedIndex.ToType<int>() > 0
-                                            ? this.PollGroupListDropDown.SelectedValue.ToType<int>()
-                                            : 0;
 
             boardSettings.Language = languageFile;
             boardSettings.Culture = this.Culture.SelectedValue;

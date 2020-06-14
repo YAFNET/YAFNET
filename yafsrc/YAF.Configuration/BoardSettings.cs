@@ -78,8 +78,9 @@ namespace YAF.Configuration
             set => this.RegistryBoard.SetValue("ReportedSpammers", value);
         }
 
-        // Provider Settings
-
+        /// <summary>
+        /// The application id.
+        /// </summary>
         public Guid ApplicationId => this.RegistryBoard.GetValue("ApplicationId", string.Empty).ToType<Guid>();
 
         /// <summary>
@@ -784,16 +785,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets AllowedPollNumber.
-        /// </summary>
-        public int AllowedPollNumber
-        {
-            get => this.Registry.GetValue("AllowedPollNumber", 3);
-
-            set => this.Registry.SetValue("AllowedPollNumber", value);
-        }
-
-        /// <summary>
         /// Gets or sets PollImageMaxFileSize.
         /// </summary>
         public int PollImageMaxFileSize
@@ -921,16 +912,6 @@ namespace YAF.Configuration
             get => this.Registry.GetValue("SearchPermissions", (int)ViewPermissions.Everyone);
 
             set => this.Registry.SetValue("SearchPermissions", value);
-        }
-
-        /// <summary>
-        /// Gets or sets BoardPollID.
-        /// </summary>
-        public int BoardPollID
-        {
-            get => this.RegistryBoard.GetValue("BoardPollID", 0);
-
-            set => this.RegistryBoard.SetValue("BoardPollID", value);
         }
 
         /// <summary>
@@ -1405,16 +1386,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether AllowGuestsViewPollOptions.
-        /// </summary>
-        public bool AllowGuestsViewPollOptions
-        {
-            get => this.Registry.GetValue("AllowGuestsViewPollOptions", true);
-
-            set => this.Registry.SetValue("AllowGuestsViewPollOptions", value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether AllowUsersImagedPoll.
         /// </summary>
         public bool AllowUsersImagedPoll
@@ -1635,16 +1606,6 @@ namespace YAF.Configuration
             get => this.Registry.GetValue("ShowGroupsProfile", false);
 
             set => this.Registry.SetValue("ShowGroupsProfile", value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether PollVoteTiedToIP.
-        /// </summary>
-        public bool PollVoteTiedToIP
-        {
-            get => this.Registry.GetValue("PollVoteTiedToIP", true);
-
-            set => this.Registry.SetValue("PollVoteTiedToIP", value);
         }
 
         /// <summary>
@@ -2471,15 +2432,5 @@ namespace YAF.Configuration
         ///  Gets or sets the legacy board settings.
         /// </summary>
         protected virtual LegacyBoardSettings LegacySettings { get; set; }
-
-        /// <summary>
-        ///  Gets or sets the membership app name.
-        /// </summary>
-       // protected virtual string membershipAppName { get; set; }
-
-        /// <summary>
-        ///  Gets or sets the roles app name.
-        /// </summary>
-    //    protected virtual string rolesAppName { get; set; }
     }
 }

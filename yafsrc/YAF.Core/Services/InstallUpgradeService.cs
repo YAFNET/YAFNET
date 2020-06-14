@@ -342,7 +342,6 @@ namespace YAF.Core.Services
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Board>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Rank>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<User>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PollGroupCluster>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Category>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Forum>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Topic>());
@@ -364,7 +363,6 @@ namespace YAF.Core.Services
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Poll>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Choice>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PollVote>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PollVoteRefuse>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AccessMask>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ForumAccess>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Mail>());

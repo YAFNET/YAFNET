@@ -54,6 +54,25 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
+        /// Attach a Poll to a Topic
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="pollId">
+        /// The poll id.
+        /// </param>
+        public static void AttachPoll(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] int pollId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.UpdateOnly(() => new Topic { PollID = pollId }, t => t.ID == topicId);
+        }
+
+        /// <summary>
         /// Get the Topic Name From Message.
         /// </summary>
         /// <param name="repository">
@@ -65,16 +84,13 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public static string GetNameFromMessage(
-            this IRepository<Topic> repository,
-            [NotNull] int messageId)
+        public static string GetNameFromMessage(this IRepository<Topic> repository, [NotNull] int messageId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
-            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(
-                        m => m.ID == messageId).Select();
+            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.ID == messageId).Select();
 
             string topicName;
 
@@ -97,7 +113,10 @@ namespace YAF.Core.Model
         /// <param name="repository">The repository.</param>
         /// <param name="topicId">The topic identifier.</param>
         /// <param name="messageId">The message identifier.</param>
-        public static void SetAnswerMessage(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] int messageId)
+        public static void SetAnswerMessage(
+            this IRepository<Topic> repository,
+            [NotNull] int topicId,
+            [NotNull] int messageId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -433,13 +452,17 @@ namespace YAF.Core.Model
         /// Returns the new Topic ID
         /// </returns>
         public static long CreateByMessage(
-            this IRepository<Topic> repository, [NotNull] int messageId, [NotNull] int forumId, [NotNull] string newTopicSubject)
+            this IRepository<Topic> repository,
+            [NotNull] int messageId,
+            [NotNull] int forumId,
+            [NotNull] string newTopicSubject)
         {
-            return long.Parse(repository.DbFunction.GetData.topic_create_by_message(
-                MessageID: messageId,
-                ForumID: forumId,
-                Subject: newTopicSubject,
-                UTCTIMESTAMP: DateTime.UtcNow).GetFirstRow()["TopicID"].ToString());
+            return long.Parse(
+                repository.DbFunction.GetData.topic_create_by_message(
+                    MessageID: messageId,
+                    ForumID: forumId,
+                    Subject: newTopicSubject,
+                    UTCTIMESTAMP: DateTime.UtcNow).GetFirstRow()["TopicID"].ToString());
         }
 
         /// <summary>
@@ -493,8 +516,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns a DataTable with the Topics of a Forum
         /// </returns>
-        public static DataTable RssListAsDataTable(
-            this IRepository<Topic> repository, int forumId, int topicLimit)
+        public static DataTable RssListAsDataTable(this IRepository<Topic> repository, int forumId, int topicLimit)
         {
             return repository.DbFunction.GetData.rsstopic_list(ForumID: forumId, TopicLimit: topicLimit);
         }
@@ -808,22 +830,22 @@ namespace YAF.Core.Model
 
             // Add to search index
             var newMessage = new SearchMessage
-                                 {
-                                     MessageId = messageId.ToType<int>(),
-                                     Message = message,
-                                     Flags = flags,
-                                     Posted = posted.ToString(CultureInfo.InvariantCulture),
-                                     UserName = BoardContext.Current.MembershipUser.UserName,
-                                     UserDisplayName = BoardContext.Current.CurrentUser.DisplayName,
-                                     UserStyle = BoardContext.Current.UserStyle,
-                                     UserId = BoardContext.Current.PageUserID,
-                                     TopicId = topicId.ToType<int>(),
-                                     Topic = subject,
-                                     TopicTags = topicTags,
-                                     ForumId = BoardContext.Current.PageForumID,
-                                     ForumName = BoardContext.Current.PageForumName,
-                                     Description = string.Empty
-                                 };
+            {
+                MessageId = messageId.ToType<int>(),
+                Message = message,
+                Flags = flags,
+                Posted = posted.ToString(CultureInfo.InvariantCulture),
+                UserName = BoardContext.Current.MembershipUser.UserName,
+                UserDisplayName = BoardContext.Current.CurrentUser.DisplayName,
+                UserStyle = BoardContext.Current.UserStyle,
+                UserId = BoardContext.Current.PageUserID,
+                TopicId = topicId.ToType<int>(),
+                Topic = subject,
+                TopicTags = topicTags,
+                ForumId = BoardContext.Current.PageForumID,
+                ForumName = BoardContext.Current.PageForumName,
+                Description = string.Empty
+            };
 
             BoardContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
 
@@ -848,7 +870,12 @@ namespace YAF.Core.Model
         /// <param name="linkDays">
         /// The link Days.
         /// </param>
-        public static void MoveTopic(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] int forumId, [NotNull] bool showMoved, [NotNull] int linkDays)
+        public static void MoveTopic(
+            this IRepository<Topic> repository,
+            [NotNull] int topicId,
+            [NotNull] int forumId,
+            [NotNull] bool showMoved,
+            [NotNull] int linkDays)
         {
             repository.DbFunction.Scalar.topic_move(
                 TopicID: topicId,
@@ -934,7 +961,7 @@ namespace YAF.Core.Model
 
             repository.DbFunction.Scalar.topic_delete(TopicID: topicId, EraseTopic: eraseTopic);
         }
-        
+
         /// <summary>
         /// The check for duplicate topic.
         /// </summary>
@@ -973,9 +1000,8 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.Get(
-                    t => t.LastPosted > currentTopic.LastPosted && t.ForumID == currentTopic.ForumID
-                                                                && !t.TopicFlags.IsDeleted && t.TopicMovedID == null)
-                .OrderBy(t => t.LastPosted).FirstOrDefault();
+                t => t.LastPosted > currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
+                     !t.TopicFlags.IsDeleted && t.TopicMovedID == null).OrderBy(t => t.LastPosted).FirstOrDefault();
         }
 
         /// <summary>
@@ -995,9 +1021,9 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.Get(
-                    t => t.LastPosted < currentTopic.LastPosted && t.ForumID == currentTopic.ForumID
-                                                                && !t.TopicFlags.IsDeleted && t.TopicMovedID == null)
-                .OrderByDescending(t => t.LastPosted).FirstOrDefault();
+                    t => t.LastPosted < currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
+                         !t.TopicFlags.IsDeleted && t.TopicMovedID == null).OrderByDescending(t => t.LastPosted)
+                .FirstOrDefault();
         }
 
         /// <summary>
@@ -1015,7 +1041,10 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Topic> SimpleList(this IRepository<Topic> repository, [CanBeNull] int startId = 0, [CanBeNull] int limit = 500)
+        public static List<Topic> SimpleList(
+            this IRepository<Topic> repository,
+            [CanBeNull] int startId = 0,
+            [CanBeNull] int limit = 500)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -1031,30 +1060,30 @@ namespace YAF.Core.Model
         /// <param name="decodeTopicFunc">
         /// The decode topic function
         /// </param>
-        public static void UnEncodeAllTopicsSubjects(this IRepository<Topic> repository, [NotNull] Func<string, string> decodeTopicFunc)
+        public static void UnEncodeAllTopicsSubjects(
+            this IRepository<Topic> repository,
+            [NotNull] Func<string, string> decodeTopicFunc)
         {
             var topics = repository.SimpleList(0, 99999999);
 
             topics.Where(t => t.TopicName.IsSet()).ForEach(
                 topic =>
+                {
+                    try
                     {
-                        try
-                        {
-                            var decodedTopic = decodeTopicFunc(topic.TopicName);
+                        var decodedTopic = decodeTopicFunc(topic.TopicName);
 
-                            if (!decodedTopic.Equals(topic.TopicName))
-                            {
-                                // un-encode it and update.
-                                repository.UpdateOnly(
-                                    () => new Topic { TopicName = decodedTopic },
-                                    t => t.ID == topic.ID);
-                            }
-                        }
-                        catch
+                        if (!decodedTopic.Equals(topic.TopicName))
                         {
-                            // soft-fail...
+                            // un-encode it and update.
+                            repository.UpdateOnly(() => new Topic { TopicName = decodedTopic }, t => t.ID == topic.ID);
                         }
-                    });
+                    }
+                    catch
+                    {
+                        // soft-fail...
+                    }
+                });
         }
 
         /// <summary>
@@ -1072,7 +1101,10 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Tuple<Forum, Topic>> GetDeletedTopics(this IRepository<Topic> repository, [NotNull] int boardId, [CanBeNull] string filter)
+        public static List<Tuple<Forum, Topic>> GetDeletedTopics(
+            this IRepository<Topic> repository,
+            [NotNull] int boardId,
+            [CanBeNull] string filter)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -1082,7 +1114,9 @@ namespace YAF.Core.Model
             {
                 expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                     .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
-                        (t, category) => category.BoardID == boardId && t.IsDeleted == true && t.TopicName.Contains(filter)).Select();
+                        (t, category) =>
+                            category.BoardID == boardId && t.IsDeleted == true && t.TopicName.Contains(filter))
+                    .Select();
             }
             else
             {
@@ -1090,7 +1124,7 @@ namespace YAF.Core.Model
                     .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
                         (t, category) => category.BoardID == boardId && t.IsDeleted == true).Select();
             }
-            
+
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic>(expression));
         }
 
@@ -1111,13 +1145,7 @@ namespace YAF.Core.Model
 
             foreach (DataRow row in topics.Rows)
             {
-                repository.DeleteRecursively(
-                    row["MessageID"].ToType<int>(),
-                    true,
-                    string.Empty,
-                    0,
-                    true,
-                    false);
+                repository.DeleteRecursively(row["MessageID"].ToType<int>(), true, string.Empty, 0, true, false);
             }
         }
 
@@ -1159,7 +1187,8 @@ namespace YAF.Core.Model
             if (deleteLinked)
             {
                 // Delete replies
-                var replies = BoardContext.Current.GetRepository<Message>().Get(m => m.ReplyTo == messageID).Select(x => x.ID);
+                var replies = BoardContext.Current.GetRepository<Message>().Get(m => m.ReplyTo == messageID)
+                    .Select(x => x.ID);
 
                 replies.ForEach(
                     replyId => repository.DeleteRecursively(
@@ -1183,9 +1212,7 @@ namespace YAF.Core.Model
                 // Delete Message from Search Index
                 BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByMessageId(messageID);
 
-                repository.DbFunction.Scalar.message_delete(
-                    MessageID: messageID,
-                    EraseMessage: true);
+                repository.DbFunction.Scalar.message_delete(MessageID: messageID, EraseMessage: true);
             }
             else
             {

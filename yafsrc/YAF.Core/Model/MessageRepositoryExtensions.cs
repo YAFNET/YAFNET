@@ -706,7 +706,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns the Message ID
         /// </returns>
-        public static long SaveNew(
+        public static int SaveNew(
             this IRepository<Message> repository,
             [NotNull] long topicId,
             [NotNull] int userId,
@@ -739,12 +739,12 @@ namespace YAF.Core.Model
                         parameterMessage = cmd.AddParam("MessageID", direction: ParameterDirection.Output);
                     });
 
-            var messageId = parameterMessage.Value.ToType<long>();
+            var messageId = parameterMessage.Value.ToType<int>();
 
             // Add to search index
             var newMessage = new SearchMessage
                                     {
-                                        MessageId = messageId.ToType<int>(),
+                                        MessageId = messageId,
                                         Message = message,
                                         Flags = flags.BitValue,
                                         Posted = posted.ToString(CultureInfo.InvariantCulture),

@@ -14,8 +14,6 @@
     </div>
 </div>
 
-<YAF:PollList ID="PollList" runat="server"/>
-
 <div class="row">
     <div class='<%= this.Get<BoardSettings>().TwoColumnBoardLayout ? "col-md-8" : "col" %>'>
         <YAF:ForumCategoryList ID="ForumCategoryList" runat="server" />

@@ -24,9 +24,14 @@
 
 namespace YAF.Core.Model
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+
+    using ServiceStack.OrmLite;
+
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -38,37 +43,84 @@ namespace YAF.Core.Model
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// Checks for a vote in the database
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="pollId">
+        /// The poll Id.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
+        public static List<PollVote> VoteCheck(
+            this IRepository<PollVote> repository,
+            [NotNull] int pollId,
+            [NotNull] int userId)
+        {
+            CodeContracts.VerifyNotNull(repository, nameof(repository));
+
+            return repository.Get(p => p.UserID == userId);
+        }
+
+        /// <summary>
+        /// Get all Voters for the Current Poll
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="pollId">
+        /// The poll id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<Tuple<PollVote, User>> Voters(
+            this IRepository<PollVote> repository,
+            [NotNull] int pollId)
+        {
+            CodeContracts.VerifyNotNull(repository, nameof(repository));
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<PollVote>();
+
+            expression.Join<User>((p, u) => u.ID == p.UserID)
+                .Where<PollVote>(p => p.PollID == pollId)
+                .Select();
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<PollVote, User>(expression));
+        }
+
+        /// <summary>
+        /// Adds a Vote
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="choiceId">
+        /// The choice id.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="pollId">
+        /// The poll id.
+        /// </param>
         public static void Vote(
             this IRepository<PollVote> repository,
             [NotNull] int choiceId,
-            [CanBeNull] int? userId,
-            [NotNull] int pollId,
-            [NotNull] string remoteIP)
+            [CanBeNull] int userId,
+            [NotNull] int pollId)
         {
-            if (userId.HasValue)
-            {
-                var entity = new PollVote { PollID = pollId, UserID = userId.Value, RemoteIP = remoteIP, ChoiceID = choiceId };
+            var entity = new PollVote { PollID = pollId, UserID = userId, ChoiceID = choiceId };
 
-                repository.Insert(entity);
+            repository.Insert(entity);
 
-                repository.FireNew(entity);
-            }
-            else
-            {
-                if (remoteIP.IsNotSet())
-                {
-                    return;
-                }
-
-                var entity = new PollVote
-                                 {
-                                     PollID = pollId, UserID = null, RemoteIP = remoteIP, ChoiceID = choiceId
-                                 };
-
-                repository.Insert(entity);
-
-                repository.FireNew(entity);
-            }
+            repository.FireNew(entity);
         }
 
         #endregion

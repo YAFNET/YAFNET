@@ -24,13 +24,13 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
-        /// PollRow1 control.
+        /// Header control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PollRow1;
+        protected global::YAF.Web.Controls.IconHeader Header;
 
         /// <summary>
         /// LocalizedLabel1 control.
@@ -105,33 +105,6 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.CheckBox AllowMultipleChoicesCheckBox;
 
         /// <summary>
-        /// tr_AllowSkipVote control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder tr_AllowSkipVote;
-
-        /// <summary>
-        /// AllowSkipVoteCheckBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowSkipVoteCheckBox;
-
-        /// <summary>
-        /// tr_ShowVoters control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder tr_ShowVoters;
-
-        /// <summary>
         /// ShowVotersCheckBox control.
         /// </summary>
         /// <remarks>
@@ -175,24 +148,6 @@ namespace YAF.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
-
-        /// <summary>
-        /// IsBound control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder IsBound;
-
-        /// <summary>
-        /// IsBoundCheckBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox IsBoundCheckBox;
 
         /// <summary>
         /// IsClosedBound control.
