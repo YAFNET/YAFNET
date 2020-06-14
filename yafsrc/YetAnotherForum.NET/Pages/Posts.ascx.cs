@@ -423,6 +423,13 @@ namespace YAF.Pages
                 BuildLink.RedirectInfoPage(InfoMessage.Invalid);
             }
 
+            if (this.topic.PollID.HasValue)
+            {
+                this.PollList.TopicId = this.PageContext.PageTopicID;
+                this.PollList.Visible = true;
+                this.PollList.PollId = this.topic.PollID.Value;
+            }
+
             this.forum = this.GetRepository<Forum>().GetById(
                 this.PageContext.PageForumID);
             
@@ -552,17 +559,6 @@ namespace YAF.Pages
             this.PageLinks.AddLink(
                 this.Get<IBadWordReplace>().Replace(this.Server.HtmlDecode(this.PageContext.PageTopicName)),
                 string.Empty);
-        }
-
-        /// <summary>
-        /// The poll group id.
-        /// </summary>
-        /// <returns>
-        /// Returns The poll group id.
-        /// </returns>
-        protected int PollGroupId()
-        {
-            return this.topic.PollID ?? 0;
         }
 
         /// <summary>

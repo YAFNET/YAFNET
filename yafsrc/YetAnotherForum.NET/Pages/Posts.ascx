@@ -18,11 +18,8 @@
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
-<YAF:PollList ID="PollList" TopicId="<%# this.PageContext.PageTopicID %>"
-    Visible="<%# this.PollGroupId() > 0 %>"
-    PollGroupId="<%# this.PollGroupId() %>" runat="server" />
-
-<a id="top"></a>
+<YAF:PollList ID="PollList" runat="server"
+              Visible="False" />
 
 <div class="row mb-3 d-flex justify-content-between">
     <div class="col-md-4">

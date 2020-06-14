@@ -95,17 +95,6 @@ namespace YAF.Pages.Admin
 
             this.BindData();
 
-            // bind poll group list
-            /*var pollGroup = this.GetRepository<Poll>()
-                .PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
-                    new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID)).ToList();
-
-            pollGroup.Insert(0, new TypedPollGroup(this.GetText("NONE"), -1));
-
-            // TODO: vzrus needs some work, will be in polls only until feature is debugged there.
-            this.PollGroupListDropDown.Items.AddRange(
-                pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
-            */
             // population default notification setting options...
             var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 
@@ -135,12 +124,6 @@ namespace YAF.Pages.Admin
                 SetSelectedOnList(ref this.Theme, boardSettings.Theme);
             }
 
-            // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
-            /* SetSelectedOnList(
-                ref this.Culture,
-                langFileCulture.Substring(0, 2) == this.Get<BoardSettings>().Culture
-                  ? this.Get<BoardSettings>().Culture
-                  : langFileCulture);*/
             SetSelectedOnList(ref this.Culture, boardSettings.Culture);
             if (this.Culture.SelectedIndex == 0)
             {
@@ -228,7 +211,7 @@ namespace YAF.Pages.Admin
             var languageFile = "english.xml";
 
             var cultures = StaticDataHelper.Cultures()
-                .Where(c => c.CultureTag.Equals(this.Culture.SelectedValue));
+                .Where(c => c.CultureTag.Equals(this.Culture.SelectedValue)).ToList();
 
             if (cultures.Any())
             {

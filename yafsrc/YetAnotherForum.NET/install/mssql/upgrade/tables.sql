@@ -1995,12 +1995,6 @@ begin
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'PollGroupID')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Poll] add PollGroupID int NULL
-end
-GO
-
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'UserID')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add [UserID] int NOT NULL constraint [DF_{objectQualifier}Poll_UserID] default (1)
@@ -2712,6 +2706,16 @@ GO
 if exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'PollGroupID')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] drop column PollGroupID
+end
+
+if exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Category]') and name=N'PollGroupID')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Category] drop column PollGroupID
+end
+
+if exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name=N'PollGroupID')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Forum] drop column PollGroupID
 end
 
 if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}PollVoteRefuse]'))

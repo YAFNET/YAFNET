@@ -1036,7 +1036,6 @@ select
         b.ImageURL,
         b.Styles,
         b.ParentID,
-        b.PollGroupID,
         Topics			= [{databaseOwner}].[{objectQualifier}forum_topics](b.ForumID),
         Posts			= [{databaseOwner}].[{objectQualifier}forum_posts](b.ForumID),
         LastPosted		= t.LastPosted,
