@@ -302,14 +302,20 @@ namespace YAF.Pages.Admin
                 () => this.Get<ILatestInformation>().GetLatestVersion(),
                 TimeSpan.FromDays(1));
 
-            if (version.VersionDate <= BoardInfo.AppVersionDate)
+            try
             {
-                return;
-            }
+                if (version.VersionDate <= BoardInfo.AppVersionDate)
+                {
+                    return;
+                }
 
-            // updateLink
-            this.UpdateHightlight.Visible = true;
-            this.UpdateLinkHighlight.NavigateUrl = version.UpgradeUrl;
+                this.UpdateHightlight.Visible = true;
+                this.UpdateLinkHighlight.NavigateUrl = version.UpgradeUrl;
+            }
+            catch (Exception)
+            {
+                this.UpdateHightlight.Visible = false;
+            }
         }
 
         /// <summary>
