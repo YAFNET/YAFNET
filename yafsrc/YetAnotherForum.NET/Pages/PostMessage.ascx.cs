@@ -27,7 +27,6 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.IO;
     using System.Linq;
     using System.Web;
@@ -78,9 +77,9 @@ namespace YAF.Pages
         private bool spamApproved = true;
 
         /// <summary>
-        ///   Gets or sets OriginalMessage.
+        /// The edit or quoted message.
         /// </summary>
-        private TypedMessageList originalMessage;
+        private Tuple<Message, Topic, Forum, User> editOrQuotedMessage;
 
         /// <summary>
         ///   The forum.
@@ -134,7 +133,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.TopicId != null || this.EditMessageId != null)
+            if (this.TopicId != null || this.EditMessageId.HasValue)
             {
                 // reply to existing topic or editing of existing topic
                 BuildLink.Redirect(
@@ -183,7 +182,7 @@ namespace YAF.Pages
             // see if they've past that delay point
             if (this.Get<ISession>().LastPost
                 <= DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)
-                || this.EditMessageId != null)
+                || this.EditMessageId.HasValue)
             {
                 return false;
             }
@@ -239,7 +238,7 @@ namespace YAF.Pages
 
             if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.AllowCreateTopicsSameName)
                 && this.GetRepository<Topic>().CheckForDuplicateTopic(this.TopicSubjectTextBox.Text.Trim()) && this.TopicId == null
-                && this.EditMessageId == null)
+                && !this.EditMessageId.HasValue)
             {
                 this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
                 return false;
@@ -302,91 +301,13 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            TypedMessageList currentMessage = null;
-
-            this.topic = this.GetRepository<Topic>().GetById(this.PageContext.PageTopicID);
-
-            // we reply to a post with a quote
-            if (this.QuotedMessageId != null)
-            {
-                currentMessage =
-                    this.GetRepository<Message>().MessageList(this.QuotedMessageId.ToType<int>())
-                        .FirstOrDefault();
-
-                if (currentMessage != null)
-                {
-                    if (this.Get<HttpRequestBase>().QueryString.Exists("text"))
-                    {
-                        var quotedMessage =
-                            this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text"));
-
-                        currentMessage.Message =
-                            HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(quotedMessage));
-                    }
-
-                    if (currentMessage.TopicID.ToType<int>() != this.PageContext.PageTopicID)
-                    {
-                        BuildLink.AccessDenied();
-                    }
-
-                    if (!this.CanQuotePostCheck(this.topic))
-                    {
-                        BuildLink.AccessDenied();
-                    }
-
-                    this.PollId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
-                                           ? 0
-                                           : currentMessage.PollID;
-
-                    // if this is a quoted message (a new reply with a quote)  we should transfer the TopicId value only to return
-                    this.PollList.TopicId = this.TopicId.ToType<int>();
-
-                    if (this.TopicId == null)
-                    {
-                        this.PollList.TopicId = currentMessage.TopicID.ToType<int>().IsNullOrEmptyDBField()
-                                                    ? 0
-                                                    : currentMessage.TopicID.ToType<int>();
-                    }
-                }
-            }
-            else if (this.EditMessageId != null)
-            {
-                currentMessage = this.GetRepository<Message>().MessageList(this.EditMessageId.ToType<int>()).FirstOrDefault();
-
-                if (currentMessage != null)
-                {
-                    this.originalMessage = currentMessage;
-
-                    this.ownerUserId = currentMessage.UserID.ToType<int>();
-
-                    if (!this.CanEditPostCheck(currentMessage, this.topic))
-                    {
-                        BuildLink.AccessDenied();
-                    }
-
-                    this.PollId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
-                                           ? 0
-                                           : currentMessage.PollID;
-
-                    // we edit message and should transfer both the message ID and TopicID for PageLinks.
-                    this.PollList.EditMessageId = this.EditMessageId.ToType<int>();
-
-                    if (this.TopicId == null)
-                    {
-                        this.PollList.TopicId = currentMessage.TopicID.ToType<int>().IsNullOrEmptyDBField()
-                                                    ? 0
-                                                    : currentMessage.TopicID.ToType<int>();
-                    }
-                }
-            }
-
             if (this.PageContext.PageForumID == 0)
             {
                 BuildLink.AccessDenied();
             }
 
             if (this.Get<HttpRequestBase>()["t"] == null && this.Get<HttpRequestBase>()["m"] == null
-                && !this.PageContext.ForumPostAccess)
+                                                         && !this.PageContext.ForumPostAccess)
             {
                 BuildLink.AccessDenied();
             }
@@ -396,16 +317,65 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            this.Title.Text = this.GetText("NEWTOPIC");
+            this.topic = this.GetRepository<Topic>().GetById(this.PageContext.PageTopicID);
+
+            // we reply to a post with a quote
+            if (this.QuotedMessageId.HasValue)
+            {
+                var quotedMessage =
+                    this.GetRepository<Message>().GetMessage(this.QuotedMessageId.Value);
+
+                if (quotedMessage != null)
+                {
+                    if (this.Get<HttpRequestBase>().QueryString.Exists("text"))
+                    {
+                        var quotedMessageText =
+                            this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text"));
+
+                        quotedMessage.Item1.MessageText =
+                            HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(quotedMessageText));
+                    }
+
+                    if (quotedMessage.Item1.TopicID != this.PageContext.PageTopicID)
+                    {
+                        BuildLink.AccessDenied();
+                    }
+
+                    if (!this.CanQuotePostCheck(this.topic))
+                    {
+                        BuildLink.AccessDenied();
+                    }
+                }
+
+                this.editOrQuotedMessage = quotedMessage;
+            }
+            else if (this.EditMessageId.HasValue)
+            {
+                var editMessage = this.GetRepository<Message>().GetMessage(this.EditMessageId.Value);
+
+                if (editMessage != null)
+                {
+                    this.ownerUserId = editMessage.Item1.UserID;
+
+                    if (!this.CanEditPostCheck(editMessage.Item1, this.topic))
+                    {
+                        BuildLink.AccessDenied();
+                    }
+                }
+
+                this.editOrQuotedMessage = editMessage;
+
+                // we edit message and should transfer both the message ID and TopicID for PageLinks.
+                this.PollList.EditMessageId = this.EditMessageId.Value;
+            }
+
+            this.PollId = this.topic.PollID;
+            this.PollList.TopicId = this.editOrQuotedMessage.Item1.TopicID;
 
             this.HandleUploadControls();
 
             if (!this.IsPostBack)
             {
-                // helper bool -- true if this is a completely new topic...
-                var isNewTopic = this.TopicId == null && this.QuotedMessageId == null
-                                  && this.EditMessageId == null;
-
                 var normal = new ListItem(this.GetText("normal"), "0");
 
                 normal.Attributes.Add(
@@ -452,7 +422,7 @@ namespace YAF.Pages
                 this.PostOptions1.PersistentOptionVisible =
                     this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess;
                 this.PostOptions1.WatchOptionVisible = !this.PageContext.IsGuest;
-                this.PostOptions1.PollOptionVisible = this.PageContext.ForumPollAccess && isNewTopic;
+                this.PostOptions1.PollOptionVisible = false;
 
                 if (!this.PageContext.IsGuest)
                 {
@@ -485,12 +455,9 @@ namespace YAF.Pages
                     this.PollList.TopicId = this.TopicId.ToType<int>();
                 }
 
-                // If currentRow != null, we are quoting a post in a new reply, or editing an existing post
-                if (currentMessage != null)
+                if (this.editOrQuotedMessage != null)
                 {
-                    this.originalMessage = currentMessage;
-
-                    if (this.QuotedMessageId != null)
+                    if (this.QuotedMessageId.HasValue)
                     {
                         if (this.Get<ISession>().MultiQuoteIds != null)
                         {
@@ -506,63 +473,27 @@ namespace YAF.Pages
                                         multiQuote);
                             }
 
-                            var messages = this.GetRepository<Message>().PostListAsDataTable(
-                                this.TopicId,
-                                this.PageContext.PageUserID,
-                                this.PageContext.PageUserID,
-                                0,
-                                false,
-                                false,
-                                false,
-                                DateTimeHelper.SqlDbMinTime(),
-                                DateTime.UtcNow,
-                                DateTimeHelper.SqlDbMinTime(),
-                                DateTime.UtcNow,
-                                0,
-                                500,
-                                1,
-                                0,
-                                0,
-                                false,
-                                0);
+                            var messages = this.GetRepository<Message>().GetByIds(
+                                this.Get<ISession>().MultiQuoteIds.Select(i => i.MessageID));
 
-                            // quoting a reply to a topic...
-                            this.Get<ISession>().MultiQuoteIds
-                                .Select(
-                                    item => messages.AsEnumerable().Select(t => new TypedMessageList(t))
-                                        .Where(m => m.MessageID == item.MessageID))
-                                .SelectMany(quotedMessage => quotedMessage).ForEach(
-                                    this.InitQuotedReply);
+                            messages.ForEach(this.InitQuotedReply);
 
                             // Clear Multi-quotes
                             this.Get<ISession>().MultiQuoteIds = null;
                         }
                         else
                         {
-                            this.InitQuotedReply(currentMessage);
+                            this.InitQuotedReply(this.editOrQuotedMessage.Item1);
                         }
 
                         this.PollList.TopicId = this.TopicId.ToType<int>();
                     }
-                    else if (this.EditMessageId != null)
+                    else if (this.EditMessageId.HasValue)
                     {
                         // editing a message...
-                        this.InitEditedPost(currentMessage);
-                        this.PollList.EditMessageId = this.EditMessageId.ToType<int>();
+                        this.InitEditedPost(this.editOrQuotedMessage.Item1);
+                        this.PollList.EditMessageId = this.EditMessageId.Value;
                     }
-
-                    this.PollId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
-                        ? 0
-                        : currentMessage.PollID.ToType<int>();
-                }
-
-                // add the "New Topic" page link last...
-                if (isNewTopic)
-                {
-                    this.PageLinks.AddLink(this.GetText("NEWTOPIC"));
-
-                    // enable similar topics search
-                    this.TopicSubjectTextBox.CssClass += " searchSimilarTopics";
                 }
 
                 // form user is only for "Guest"
@@ -643,8 +574,7 @@ namespace YAF.Pages
                 stylesSave = this.TopicStylesTextBox.Text;
             }
 
-            var editMessage = this.GetRepository<Message>().ListTyped(this.EditMessageId.ToType<int>())
-                .FirstOrDefault();
+            var editMessage = this.GetRepository<Message>().GetById(this.EditMessageId.Value);
 
             // Remove Message Attachments
             if (editMessage?.HasAttachments != null && editMessage.HasAttachments.Value)
@@ -693,24 +623,23 @@ namespace YAF.Pages
                     .PersistentChecked
             };
 
+            editMessage.Flags = messageFlags.BitValue;
+
             var isModeratorChanged = this.PageContext.PageUserID != this.ownerUserId;
 
             this.GetRepository<Message>().Update(
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m"),
+                editMessage.ID,
                 this.Priority.SelectedValue.ToType<int>(),
                 this.forumEditor.Text.Trim(),
                 descriptionSave.Trim(),
                 string.Empty,
                 stylesSave.Trim(),
                 subjectSave.Trim(),
-                messageFlags.BitValue,
                 this.HtmlEncode(this.ReasonEditor.Text),
                 isModeratorChanged,
                 this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
-                this.originalMessage,
+                this.editOrQuotedMessage,
                 this.PageContext.PageUserID);
-
-            var messageId = this.EditMessageId.Value;
 
             this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
 
@@ -944,7 +873,7 @@ namespace YAF.Pages
 
                 isApproved = this.spamApproved;
             }
-            else if (this.EditMessageId != null)
+            else if (this.EditMessageId.HasValue)
             {
                 // Edit existing post
                 var editMessage = this.PostReplyHandleEditPost();
@@ -1101,13 +1030,13 @@ namespace YAF.Pages
         /// <returns>
         /// Returns if user can edit post check.
         /// </returns>
-        private bool CanEditPostCheck([NotNull] TypedMessageList message, Topic topicInfo)
+        private bool CanEditPostCheck([NotNull] Message message, Topic topicInfo)
         {
             var postLocked = false;
 
             if (!this.PageContext.IsAdmin && this.PageContext.BoardSettings.LockPosts > 0)
             {
-                var edited = message.Edited.ToType<DateTime>();
+                var edited = message.Edited.Value;
 
                 if (edited.AddDays(this.PageContext.BoardSettings.LockPosts) < DateTime.UtcNow)
                 {
@@ -1121,7 +1050,7 @@ namespace YAF.Pages
             // Ederon : 9/9/2007 - moderator can edit in locked topics
             return !postLocked && !forumInfo.ForumFlags.IsLocked
                                && !topicInfo.TopicFlags.IsLocked
-                               && message.UserID.ToType<int>() == this.PageContext.PageUserID
+                               && message.UserID == this.PageContext.PageUserID
                     || this.PageContext.ForumModeratorAccess && this.PageContext.ForumEditAccess;
         }
 
@@ -1157,7 +1086,7 @@ namespace YAF.Pages
         /// <param name="currentMessage">
         /// The current message.
         /// </param>
-        private void InitEditedPost([NotNull] TypedMessageList currentMessage)
+        private void InitEditedPost([NotNull] Message currentMessage)
         {
             /*if (this.forumEditor.UsesHTML && currentMessage.Flags.IsBBCode)
             {
@@ -1165,30 +1094,30 @@ namespace YAF.Pages
                 currentMessage.Message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(currentMessage.Message);
             }*/
 
-            if (this.forumEditor.UsesBBCode && currentMessage.Flags.IsHtml)
+            if (this.forumEditor.UsesBBCode && currentMessage.MessageFlags.IsHtml)
             {
                 // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
-                currentMessage.Message = this.Get<IBBCode>().ConvertHtmlToBBCodeForEdit(currentMessage.Message);
+                currentMessage.MessageText = this.Get<IBBCode>().ConvertHtmlToBBCodeForEdit(currentMessage.MessageText);
             }
 
-            this.forumEditor.Text = currentMessage.Message;
+            this.forumEditor.Text = currentMessage.MessageText;
 
             // Convert Message Attachments to new [Attach] BBCode Attachments
             if (currentMessage.HasAttachments.HasValue && currentMessage.HasAttachments.Value)
             {
-                var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == currentMessage.MessageID);
+                var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == currentMessage.ID);
 
                 attachments.ForEach(
                     attach => this.forumEditor.Text += $" [ATTACH]{attach.ID}[/Attach] ");
             }
 
-            if (this.forumEditor.UsesHTML && currentMessage.Flags.IsBBCode)
+            if (this.forumEditor.UsesHTML && currentMessage.MessageFlags.IsBBCode)
             {
                 this.forumEditor.Text = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
                     this.forumEditor.Text,
-                    currentMessage.Flags,
+                    currentMessage.MessageFlags,
                     currentMessage.UserID,
-                    currentMessage.MessageID);
+                    currentMessage.ID);
             }
 
             this.Title.Text = this.GetText("EDIT");
@@ -1196,15 +1125,15 @@ namespace YAF.Pages
             this.PostReply.TextLocalizedPage = "COMMON";
 
             // add topic link...
-            this.PageLinks.AddTopic(this.Server.HtmlDecode(currentMessage.Topic), this.PageContext.PageTopicID);
+            this.PageLinks.AddTopic(this.Server.HtmlDecode(this.PageContext.PageTopicName), this.PageContext.PageTopicID);
 
             // editing..
             this.PageLinks.AddLink(this.GetText("EDIT"));
 
-            this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(currentMessage.Topic);
-            this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(currentMessage.Description);
+            this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(this.PageContext.PageTopicName);
+            this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(this.topic.Description);
 
-            if (currentMessage.TopicOwnerID.ToType<int>() == currentMessage.UserID.ToType<int>()
+            if (this.topic.UserID == currentMessage.UserID.ToType<int>()
                 || this.PageContext.ForumModeratorAccess)
             {
                 // allow editing of the topic subject
@@ -1228,14 +1157,14 @@ namespace YAF.Pages
                 this.TopicStylesTextBox.Enabled = false;
             }
 
-            this.TopicStylesTextBox.Text = currentMessage.Styles;
+            this.TopicStylesTextBox.Text = this.topic.Styles;
 
             this.Priority.SelectedItem.Selected = false;
-            this.Priority.Items.FindByValue(currentMessage.Priority.ToString()).Selected = true;
+            this.Priority.Items.FindByValue(this.topic.Priority.ToString()).Selected = true;
 
             this.EditReasonRow.Visible = true;
             this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.EditReason);
-            this.PostOptions1.PersistentChecked = currentMessage.Flags.IsPersistent;
+            this.PostOptions1.PersistentChecked = currentMessage.MessageFlags.IsPersistent;
 
             var topicsList = this.GetRepository<TopicTag>().List(this.PageContext.PageTopicID);
 
@@ -1251,9 +1180,9 @@ namespace YAF.Pages
         /// <param name="message">
         /// The current TypedMessage.
         /// </param>
-        private void InitQuotedReply(TypedMessageList message)
+        private void InitQuotedReply(Message message)
         {
-            var messageContent = message.Message;
+            var messageContent = message.MessageText;
 
             if (this.PageContext.BoardSettings.RemoveNestedQuotes)
             {
@@ -1266,7 +1195,7 @@ namespace YAF.Pages
                 messageContent = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(messageContent);
             }*/
 
-            if (this.forumEditor.UsesBBCode && message.Flags.IsHtml)
+            if (this.forumEditor.UsesBBCode && message.MessageFlags.IsHtml)
             {
                 // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
                 messageContent = this.Get<IBBCode>().ConvertHtmlToBBCodeForEdit(messageContent);
@@ -1280,7 +1209,7 @@ namespace YAF.Pages
 
             // Quote the original message
             this.forumEditor.Text +=
-                $"[quote={this.Get<IUserDisplayName>().GetName(message.UserID.ToType<int>())};{message.MessageID}]{messageContent}[/quote]\r\n"
+                $"[quote={this.Get<IUserDisplayName>().GetName(message.UserID.ToType<int>())};{message.ID}]{messageContent}[/quote]\r\n"
                     .TrimStart();
 
             /*if (this.forumEditor.UsesHTML && message.Flags.IsBBCode)

@@ -2703,6 +2703,22 @@ begin
 end
 GO
 
+if exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Topic_{objectQualifier}PollGroupCluster' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and type in (N'F'))
+	alter table [{databaseOwner}].[{objectQualifier}Topic] drop constraint [FK_{objectQualifier}Topic_{objectQualifier}PollGroupCluster]
+go
+
+if exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Poll_{objectQualifier}PollGroupCluster' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and type in (N'F'))
+	alter table [{databaseOwner}].[{objectQualifier}Poll] drop constraint [FK_{objectQualifier}Poll_{objectQualifier}PollGroupCluster]
+go
+
+if exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Forum_{objectQualifier}PollGroupCluster' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and type in (N'F'))
+	alter table [{databaseOwner}].[{objectQualifier}Forum] drop constraint [FK_{objectQualifier}Forum_{objectQualifier}PollGroupCluster]
+go
+
+if exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Category_{objectQualifier}PollGroupCluster' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Category]') and type in (N'F'))
+	alter table [{databaseOwner}].[{objectQualifier}Category] drop constraint [FK_{objectQualifier}Category_{objectQualifier}PollGroupCluster]
+go
+
 if exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'PollGroupID')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] drop column PollGroupID
@@ -2722,23 +2738,6 @@ if exists (select top 1 1 from sys.columns where object_id = object_id('[{databa
 begin
     drop table [{databaseOwner}].[{objectQualifier}PollVoteRefuse]
 end
-go
-
-
-if exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Topic_{objectQualifier}PollGroupCluster' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}Topic] drop constraint [FK_{objectQualifier}Topic_{objectQualifier}PollGroupCluster]
-go
-
-if exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Poll_{objectQualifier}PollGroupCluster' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}Poll] drop constraint [FK_{objectQualifier}Poll_{objectQualifier}PollGroupCluster]
-go
-
-if exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Forum_{objectQualifier}PollGroupCluster' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}Forum] drop constraint [FK_{objectQualifier}Forum_{objectQualifier}PollGroupCluster]
-go
-
-if exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Category_{objectQualifier}PollGroupCluster' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Category]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}Category] drop constraint [FK_{objectQualifier}Category_{objectQualifier}PollGroupCluster]
 go
 
 

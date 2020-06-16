@@ -53,6 +53,34 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
+        /// The get message.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Tuple"/>.
+        /// </returns>
+        public static Tuple<Message, Topic, Forum, User> GetMessage(
+            this IRepository<Message> repository,
+            [NotNull] int messageId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+            expression.Join<Topic>((message, topic) => topic.ID == message.TopicID)
+                .Join<Topic, Forum>((t, f) => f.ID == t.ForumID).Join<User>((m, u) => u.ID == m.UserID)
+                .Where<Message>(m => m.ID == messageId).Select();
+
+            return repository.DbAccess.Execute(
+                db => db.Connection.SelectMulti<Message, Topic, Forum, User>(expression)).FirstOrDefault();
+        }
+
+        /// <summary>
         /// Get Deleted Topics
         /// </summary>
         /// <param name="repository">
@@ -284,40 +312,6 @@ namespace YAF.Core.Model
             return repository.DbFunction
                 .GetAsDataTable(cdb => cdb.message_list_search(ForumID: forumId))
                 .SelectTypedList(t => new SearchMessage(t));
-        }
-
-        /// <summary>
-        /// Gets the Typed Message List
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <returns>
-        /// Returns the TypedMessage List
-        /// </returns>
-        [NotNull]
-        public static IEnumerable<TypedMessageList> MessageList(this IRepository<Message> repository, int messageId)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetAsDataTable(cdb => cdb.message_list(MessageID: messageId))
-                .SelectTypedList(t => new TypedMessageList(t));
-        }
-
-        /// <summary>
-        /// A list of messages.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="messageId">The message identifier.</param>
-        /// <returns>Returns Typed Message List</returns>
-        public static IList<Message> ListTyped(this IRepository<Message> repository, int messageId)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.SqlList("message_list", new { MessageID = messageId });
         }
 
         /// <summary>
@@ -841,9 +835,6 @@ namespace YAF.Core.Model
         /// <param name="subject">
         /// The subject.
         /// </param>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
         /// <param name="reasonOfEdit">
         /// The reason of edit.
         /// </param>
@@ -862,17 +853,16 @@ namespace YAF.Core.Model
         public static void Update(
             this IRepository<Message> repository,
             [NotNull] int messageId,
-            [NotNull] int priority,
+            [CanBeNull] int? priority,
             [NotNull] string message,
-            [NotNull] string description,
+            [CanBeNull] string description,
             [CanBeNull] string status,
             [CanBeNull] string styles,
-            [NotNull] string subject,
-            [NotNull] int flags,
+            [CanBeNull] string subject,
             [NotNull] string reasonOfEdit,
             [NotNull] bool isModeratorChanged,
             [NotNull] bool? overrideApproval,
-            [NotNull] TypedMessageList originalMessage,
+            [NotNull] Tuple<Message, Topic, Forum, User> originalMessage,
             [NotNull] int editedBy)
         {
             repository.DbFunction.Scalar.message_update(
@@ -883,12 +873,12 @@ namespace YAF.Core.Model
                 Status: status,
                 Styles: styles,
                 Subject: subject,
-                Flags: flags,
+                Flags: originalMessage.Item1.Flags,
                 Reason: reasonOfEdit,
                 EditedBy: editedBy,
                 IsModeratorChanged: isModeratorChanged,
                 OverrideApproval: overrideApproval,
-                OriginalMessage: originalMessage.Message,
+                OriginalMessage: originalMessage.Item1.MessageText,
                 CurrentUtcTimestamp: DateTime.UtcNow);
 
             // Update Search index Item
@@ -896,16 +886,16 @@ namespace YAF.Core.Model
                                     {
                                         MessageId = messageId,
                                         Message = message,
-                                        Flags = flags,
-                                        Posted = originalMessage.Posted.ToString(CultureInfo.InvariantCulture),
-                                        UserName = originalMessage.UserName,
-                                        UserDisplayName = originalMessage.UserDisplayName,
-                                        UserStyle = originalMessage.UserStyle,
-                                        UserId = originalMessage.UserID,
-                                        TopicId = originalMessage.TopicID,
-                                        Topic = originalMessage.Topic,
-                                        ForumId = originalMessage.ForumID,
-                                        ForumName = originalMessage.ForumName,
+                                        Flags = originalMessage.Item1.Flags,
+                                        Posted = originalMessage.Item1.Posted.ToString(CultureInfo.InvariantCulture),
+                                        UserName = originalMessage.Item4.Name,
+                                        UserDisplayName = originalMessage.Item4.DisplayName,
+                                        UserStyle = originalMessage.Item4.UserStyle,
+                                        UserId = originalMessage.Item4.ID,
+                                        TopicId = originalMessage.Item2.ID,
+                                        Topic = originalMessage.Item2.TopicName,
+                                        ForumId = originalMessage.Item3.ID,
+                                        ForumName = originalMessage.Item3.Name,
                                         Description = description
                                     };
 
