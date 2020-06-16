@@ -287,9 +287,9 @@ namespace YAF.Pages.Admin
                 this.UpdateHightlight.Visible = true;
                 this.UpdateLinkHighlight.NavigateUrl = version.UpgradeUrl;
             }
-            catch (Exception exception)
+            catch (Exception)
             {
-              return;
+                this.UpdateHightlight.Visible = false;
             }
 
         }
