@@ -64,7 +64,7 @@ namespace YAF.Pages
         /// <summary>
         ///   To save originalRow value.
         /// </summary>
-        private DataTable originalRow;
+        private Tuple<Topic, Message, User, Forum> originalMessage;
 
         #endregion
 
@@ -124,23 +124,33 @@ namespace YAF.Pages
                 this.ReturnModBtn.Visible = true;
             }
 
-            this.originalRow = this.GetRepository<Message>().SecAsDataTable(this.messageID, this.PageContext.PageUserID);
+            this.originalMessage = this.GetRepository<Message>().GetMessageWithAccess(this.messageID, this.PageContext.PageUserID);
 
-            if (this.originalRow.Rows.Count <= 0)
+            if (this.originalMessage == null)
             {
                 this.Get<HttpResponseBase>().Redirect(
                     BuildLink.GetLink(ForumPages.Error, "Incorrect message value: {0}", this.messageID));
             }
+
+            this.PageLinks.AddForum(this.originalMessage.Item4.ID);
+            this.PageLinks.AddTopic(this.originalMessage.Item1.TopicName, this.originalMessage.Item1.ID);
+
+            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             if (this.IsPostBack)
             {
                 return;
             }
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
             this.BindData();
+        }
+
+        /// <summary>
+        /// The create page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
         }
 
         /// <summary>
@@ -150,12 +160,11 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReturnBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<HttpResponseBase>().Redirect(
-                BuildLink.GetLinkNotEscaped(
-                    ForumPages.Posts,
-                    "m={0}&name={1}#post{0}",
-                    this.messageID,
-                    this.originalRow.GetFirstRow()["Topic"].ToString()));
+            BuildLink.Redirect(
+                ForumPages.Posts,
+                "m={0}&name={1}#post{0}",
+                this.messageID,
+                this.originalMessage.Item1.TopicName);
         }
 
         /// <summary>
@@ -165,8 +174,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReturnModBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<HttpResponseBase>().Redirect(
-                BuildLink.GetLinkNotEscaped(ForumPages.Moderate_ReportedPosts, "f={0}", this.forumID));
+            BuildLink.Redirect(ForumPages.Moderate_ReportedPosts, "f={0}", this.forumID);
         }
 
         /// <summary>
@@ -179,7 +187,7 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "restore":
-                    var currentMessage = this.GetRepository<Message>().MessageList(this.messageID).FirstOrDefault();
+                    var currentMessage = this.GetRepository<Message>().GetMessage(this.messageID);
 
                     DataRow restoreMessage = null;
 
@@ -196,15 +204,14 @@ namespace YAF.Pages
                     {
                         this.GetRepository<Message>().Update(
                             this.messageID,
-                            currentMessage.Priority.Value,
+                            null,
                             restoreMessage["Message"].ToString(),
-                            currentMessage.Description,
-                            currentMessage.Status,
-                            currentMessage.Styles,
-                            currentMessage.Topic,
-                            currentMessage.Flags.BitValue,
+                            null,
+                            null,
+                            null,
+                            null,
                             restoreMessage["EditReason"].ToString(),
-                            this.PageContext.PageUserID != currentMessage.UserID,
+                            this.PageContext.PageUserID != currentMessage.Item1.UserID,
                             this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
                             currentMessage,
                             this.PageContext.PageUserID);
@@ -243,10 +250,6 @@ namespace YAF.Pages
             var revisionsTable = this.GetRepository<Message>().HistoryListAsDataTable(
                 this.messageID,
                 this.PageContext.BoardSettings.MessageHistoryDaysToLog);
-
-            revisionsTable.AcceptChanges();
-
-            revisionsTable.Merge(this.GetRepository<Message>().SecAsDataTable(this.messageID, this.PageContext.PageUserID));
 
             this.RevisionsCount = revisionsTable.Rows.Count;
 

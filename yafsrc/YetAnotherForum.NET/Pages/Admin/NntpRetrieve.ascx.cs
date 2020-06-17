@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Linq;
 
     using YAF.Core.BasePages;
     using YAF.Core.Model;
@@ -34,7 +35,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -48,7 +48,7 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// The last message no.
+        /// Gets the last message no.
         /// </summary>
         /// <param name="_o">
         /// The _o.
@@ -58,8 +58,8 @@ namespace YAF.Pages.Admin
         /// </returns>
         protected string LastMessageNo([NotNull] object _o)
         {
-            var row = (TypedNntpForum)_o;
-            return $"{row.LastMessageNo:N0}";
+            var row = (Tuple<NntpForum, NntpServer, Forum>)_o;
+            return $"{row.Item1.LastMessageNo:N0}";
         }
 
         /// <summary>
@@ -125,8 +125,8 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.List.DataSource = this.GetRepository<NntpForum>()
-                .NntpForumList(this.PageContext.PageBoardID, 10, null, true);
+            this.List.DataSource = this.GetRepository<NntpForum>().NntpForumList(this.PageContext.PageBoardID, true)
+                .Where(n => (n.Item1.LastUpdate - DateTime.UtcNow).Minutes > 10);
 
             this.DataBind();
 

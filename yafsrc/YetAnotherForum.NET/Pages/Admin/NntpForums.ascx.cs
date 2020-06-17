@@ -126,7 +126,8 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.RankList.DataSource = this.GetRepository<NntpForum>().NntpForumList(this.PageContext.PageBoardID, null, null, null);
+            this.RankList.DataSource = this.GetRepository<NntpForum>()
+                .NntpForumList(this.PageContext.PageBoardID, null);
             this.DataBind();
         }
 

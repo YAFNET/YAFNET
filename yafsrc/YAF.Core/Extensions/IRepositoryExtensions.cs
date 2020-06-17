@@ -24,11 +24,11 @@
 namespace YAF.Core.Extensions
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Linq.Expressions;
-    using System.Threading.Tasks;
 
     using ServiceStack;
     using ServiceStack.OrmLite;
@@ -424,6 +424,32 @@ namespace YAF.Core.Extensions
 
             return repository.DbAccess.Execute(db => db.Connection.SingleById<T>(id));
         }
+
+        /// <summary>
+        /// Returns results using the supplied primary key ids. E.g:
+        /// <para>
+        /// db.SelectByIds&lt;Person&gt;(new[] { 1, 2, 3 })
+        /// </para>
+        /// </summary>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="idValues">
+        /// The id Values.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<T> GetByIds<T>([NotNull] this IRepository<T> repository, IEnumerable idValues)
+            where T : IEntity, new()
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectByIds<T>(idValues));
+        }
+
 
         /// <summary>
         /// Gets a single entity by its ID.

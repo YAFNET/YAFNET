@@ -14,10 +14,12 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <span class="fa-stack fa-1x">
-                    <i class="fas fa-comment fa-stack-2x"></i>
-                    <i class="fas fa-trash fa-stack-1x fa-inverse"></i>
-                </span>&nbsp; 
+                <YAF:Icon runat="server" 
+                          IconStackName="trash"
+                          IconStackType="fa-inverse"
+                          IconName="comment"
+                          IconStackSize="fa-1x"
+                          IconType="text-secondary"></YAF:Icon>
                 <YAF:LocalizedLabel runat="server" LocalizedTag="subject" />&nbsp;<asp:Label runat="server" ID="Subject" />
             </div>
             <div class="card-body">
@@ -55,7 +57,7 @@
             </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton ID="Delete" runat="server" 
-                                 OnClick="ToogleDeleteStatus_Click"
+                                 OnClick="ToggleDeleteStatus_Click"
                                  Type="Danger"
                                  Icon="trash"/>
                 <YAF:ThemeButton ID="Cancel" runat="server" 

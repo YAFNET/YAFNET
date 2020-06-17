@@ -39,7 +39,6 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -78,7 +77,7 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The btn cancel_ click.
+        /// Return to Post
         /// </summary>
         /// <param name="sender">
         /// The sender.
@@ -86,14 +85,14 @@ namespace YAF.Pages
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void BtnCancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Redirect to reported post
             this.RedirectToPost();
         }
 
         /// <summary>
-        /// The btn run query_ click.
+        /// Report Message.
         /// </summary>
         /// <param name="sender">
         /// The sender.
@@ -101,7 +100,7 @@ namespace YAF.Pages
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void BtnReport_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ReportClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.Report.Text.Length > this.Get<BoardSettings>().MaxReportPostChars)
             {
@@ -135,16 +134,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Handles the Init event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Report.MaxLength = this.Get<BoardSettings>().MaxReportPostChars;
-        }
-
-        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -169,26 +158,38 @@ namespace YAF.Pages
             }
 
             // Get reported message text for better quoting                    
-            var messageRow = this.GetRepository<Message>().SecAsDataTable(this.messageID, this.PageContext.PageUserID);
-
-            this.topicName = messageRow.GetFirstRow()["Topic"].ToString();
+            var message = this.GetRepository<Message>().GetMessageWithAccess(this.messageID, this.PageContext.PageUserID);
 
             // Checking if the user has a right to view the message and getting data  
-            if (messageRow.HasRows())
+            if (message != null)
             {
-                // populate the repeater with the message data row...
-                this.MessageList.DataSource = messageRow;
-                this.MessageList.DataBind();
+                this.topicName = message.Item1.TopicName;
+
+                this.MessagePreview.CurrentMessage = message.Item2;
+
+                this.UserLink1.Suspended = message.Item3.Suspended;
+                this.UserLink1.Style = message.Item3.UserStyle;
+                this.UserLink1.UserID = message.Item3.ID;
+
+                this.Posted.DateTime = message.Item2.Posted;
             }
             else
             {
                 BuildLink.Redirect(ForumPages.Info, "i=1");
             }
 
-            // Get Forum Link
-            this.PageLinks.AddRoot();
+            this.Report.MaxLength = this.Get<BoardSettings>().MaxReportPostChars;
 
             this.LocalizedLblMaxNumberOfPost.Param0 = this.Get<BoardSettings>().MaxReportPostChars.ToString();
+        }
+
+        /// <summary>
+        /// The create page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            // Get Forum Link
+            this.PageLinks.AddRoot();
         }
 
         /// <summary>

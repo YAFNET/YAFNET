@@ -79,7 +79,7 @@ namespace YAF.Pages
         /// <summary>
         /// The edit or quoted message.
         /// </summary>
-        private Tuple<Message, Topic, Forum, User> editOrQuotedMessage;
+        private Tuple<Topic, Message, User, Forum> editOrQuotedMessage;
 
         /// <summary>
         ///   The forum.
@@ -332,11 +332,11 @@ namespace YAF.Pages
                         var quotedMessageText =
                             this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text"));
 
-                        quotedMessage.Item1.MessageText =
+                        quotedMessage.Item2.MessageText =
                             HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(quotedMessageText));
                     }
 
-                    if (quotedMessage.Item1.TopicID != this.PageContext.PageTopicID)
+                    if (quotedMessage.Item2.TopicID != this.PageContext.PageTopicID)
                     {
                         BuildLink.AccessDenied();
                     }
@@ -357,7 +357,7 @@ namespace YAF.Pages
                 {
                     this.ownerUserId = editMessage.Item1.UserID;
 
-                    if (!this.CanEditPostCheck(editMessage.Item1, this.topic))
+                    if (!this.CanEditPostCheck(editMessage.Item2, this.topic))
                     {
                         BuildLink.AccessDenied();
                     }
@@ -370,7 +370,7 @@ namespace YAF.Pages
             }
 
             this.PollId = this.topic.PollID;
-            this.PollList.TopicId = this.editOrQuotedMessage.Item1.TopicID;
+            this.PollList.TopicId = this.topic.ID;
 
             this.HandleUploadControls();
 
@@ -483,7 +483,7 @@ namespace YAF.Pages
                         }
                         else
                         {
-                            this.InitQuotedReply(this.editOrQuotedMessage.Item1);
+                            this.InitQuotedReply(this.editOrQuotedMessage.Item2);
                         }
 
                         this.PollList.TopicId = this.TopicId.ToType<int>();
@@ -491,7 +491,7 @@ namespace YAF.Pages
                     else if (this.EditMessageId.HasValue)
                     {
                         // editing a message...
-                        this.InitEditedPost(this.editOrQuotedMessage.Item1);
+                        this.InitEditedPost(this.editOrQuotedMessage.Item2);
                         this.PollList.EditMessageId = this.EditMessageId.Value;
                     }
                 }

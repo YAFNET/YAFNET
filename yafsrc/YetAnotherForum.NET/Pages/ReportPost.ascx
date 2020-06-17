@@ -14,30 +14,28 @@
 <div class="row">
     <div class="col">
         <div class="card bg-light mb-3">
-            <asp:Repeater ID="MessageList" runat="server">
-                <ItemTemplate>
-                    <div class="card-body">
-                        <YAF:MessagePostData ID="MessagePreview" runat="server" 
-                                             ShowAttachments="false" 
-                                             ShowSignature="false"
-                                             DataRow="<%# ((System.Data.DataRowView)Container.DataItem).Row %>">
-                        </YAF:MessagePostData>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">
-                            <YAF:LocalizedLabel ID="PostedByLabel" runat="server" LocalizedTag="POSTEDBY" />
-                            <YAF:UserLink ID="UserLink1" runat="server" 
-                                          Suspended='<%# Container.DataItemToField<DateTime?>("Suspended") %>'
-                                          Style='<%# this.Eval("UserStyle") %>'
-                                          UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' />
-                            <YAF:Icon runat="server" 
-                                      IconName="calendar-day"
-                                      IconNameBadge="clock"></YAF:Icon>
-                            <%# this.Get<IDateTime>().FormatDateTime( Container.DataItemToField<DateTime>("Posted") )%>
-                        </small>
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>
+            <div class="card-header">
+                <YAF:IconHeader runat="server"
+                                IconName="comment"
+                                LocalizedTag="REPORTPOST_TITLE"/>
+            </div>
+            <div class="card-body">
+                <YAF:MessagePostData ID="MessagePreview" runat="server" 
+                                     ShowAttachments="false" 
+                                     ShowSignature="false" />
+                
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">
+                    <YAF:LocalizedLabel ID="PostedByLabel" runat="server" 
+                                        LocalizedTag="POSTEDBY" />
+                    <YAF:UserLink ID="UserLink1" runat="server"/>
+                    <YAF:Icon runat="server" 
+                              IconName="calendar-day"
+                              IconNameBadge="clock" />
+                    <YAF:DisplayDateTime runat="server" ID="Posted"></YAF:DisplayDateTime>
+                </small>
+            </div>
         </div>
     </div>
 </div>
@@ -65,7 +63,9 @@
                 <div class="d-sm-none d-md-block">
                     <YAF:Alert runat="server" Type="info">
                         <strong>
-                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NOTE" LocalizedPage="COMMON" />
+                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                                LocalizedTag="NOTE" 
+                                                LocalizedPage="COMMON" />
                         </strong>
                         <YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" 
                                             LocalizedTag="MAXNUMBEROF"/>
@@ -75,11 +75,11 @@
             <div class="card-footer text-center">
                 <YAF:ThemeButton ID="btnReport" runat="server"
                                  TextLocalizedTag="SEND" TitleLocalizedTag="SEND_TITLE" 
-                                 OnClick="BtnReport_Click"
+                                 OnClick="ReportClick"
                                  Icon="paper-plane" ReturnConfirmText='<%#this.GetText("CONFIRM_REPORTPOST") %>'/>
                 <YAF:ThemeButton ID="btnCancel" runat="server"
                                  TextLocalizedTag="CANCEL" TitleLocalizedTag="CANCEL_TITLE" 
-                                 OnClick="BtnCancel_Click"
+                                 OnClick="CancelClick"
                                  Type="Secondary"
                                  Icon="times"/>
             </div>

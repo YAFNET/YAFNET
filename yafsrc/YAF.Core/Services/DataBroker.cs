@@ -609,7 +609,7 @@ namespace YAF.Core.Services
                                this.Get<IUserDisplayName>().GetName(row.Field<int>("LastUserID")),
                            LastMessageID = row.Field<int>("LastMessageID"),
                            FirstMessage = row.Field<string>("FirstMessage"),
-                           LastMessage = this.GetRepository<Message>().MessageList(row.Field<int>("LastMessageID")).First().Message,
+                           LastMessage = this.GetRepository<Message>().GetById(row.Field<int>("LastMessageID")).MessageText,
                            Forum = forum
                        };
         }

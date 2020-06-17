@@ -404,6 +404,76 @@ namespace YAF.Core.Helpers
             return list;
         }
 
+        /// <summary>
+        /// The cultures IetfLangTags (4-letter).
+        /// </summary>
+        /// <returns>
+        /// The cultures filtered by first 2 letters in the language tag in a language file
+        /// </returns>
+        public static IReadOnlyCollection<Culture> Logos()
+        {
+            var list = new List<Culture>();
+
+            // Get all language files info
+            var dir = new DirectoryInfo(
+                BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
+            var files = dir.GetFiles("*.xml");
+
+            // Create an array with tags
+            var tags = new string[2, files.Length];
+
+            // Extract available language tags into the array
+            for (var i = 0; i < files.Length; i++)
+            {
+                try
+                {
+                    var doc = new XmlDocument();
+                    doc.Load(files[i].FullName);
+                    tags[0, i] = files[i].Name;
+                    var attr = doc.DocumentElement.Attributes["code"];
+                    if (attr != null)
+                    {
+                        tags[1, i] = attr.Value.Trim();
+                    }
+                    else
+                    {
+                        tags[1, i] = "en-US";
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+
+            cultures.ForEach(
+                ci =>
+                {
+                    for (var j = 0; j < files.Length; j++)
+                    {
+                        if (ci.IsNeutralCulture || !tags[1, j].ToLower().Substring(0, 2)
+                                    .Contains(ci.TwoLetterISOLanguageName.ToLower()))
+                        {
+                            continue;
+                        }
+
+                        var item = new Culture
+                        {
+                            CultureTag = ci.IetfLanguageTag,
+                            CultureFile = tags[0, j],
+                            CultureEnglishName = ci.EnglishName,
+                            CultureNativeName = ci.NativeName,
+                            CultureDisplayName = ci.DisplayName
+                        };
+
+                        list.Add(item);
+                    }
+                });
+
+            return list;
+        }
+
         #endregion
     }
 }

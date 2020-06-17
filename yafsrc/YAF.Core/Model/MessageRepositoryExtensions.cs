@@ -64,20 +64,56 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="Tuple"/>.
         /// </returns>
-        public static Tuple<Message, Topic, Forum, User> GetMessage(
+        public static Tuple<Topic, Message, User, Forum> GetMessage(
             this IRepository<Message> repository,
             [NotNull] int messageId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
-            expression.Join<Topic>((message, topic) => topic.ID == message.TopicID)
-                .Join<Topic, Forum>((t, f) => f.ID == t.ForumID).Join<User>((m, u) => u.ID == m.UserID)
+            expression.Join<Message>((t, m) => m.TopicID == t.ID)
+                .Join<Message, User>((m, u) => u.ID == m.UserID)
+                .Join<Forum>((t, f) => f.ID == t.ForumID)
                 .Where<Message>(m => m.ID == messageId).Select();
 
             return repository.DbAccess.Execute(
-                db => db.Connection.SelectMulti<Message, Topic, Forum, User>(expression)).FirstOrDefault();
+                db => db.Connection.SelectMulti<Topic, Message, User, Forum>(expression)).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gets the message with access.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Tuple"/>.
+        /// </returns>
+        public static Tuple<Topic, Message, User, Forum> GetMessageWithAccess(
+            this IRepository<Message> repository,
+            [NotNull] int messageId,
+            [NotNull] int userId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
+
+            expression.Join<Message>((t, m) => m.TopicID == t.ID)
+                .Join<Message, User>((m, u) => u.ID == m.UserID)
+                .Join<Forum>((t, f) => f.ID == t.ForumID)
+                .LeftJoin<ActiveAccess>((t, x) => x.ForumID == t.ForumID)
+                .Where<Message, ActiveAccess>((m, x) => m.ID == messageId && x.UserID == userId && x.ReadAccess)
+                .Select();
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Topic, Message, User, Forum>(expression))
+                .FirstOrDefault();
         }
 
         /// <summary>
@@ -472,23 +508,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The message_list.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable ListAsDataTable(this IRepository<Message> repository, [NotNull] int messageId)
-        {
-            return repository.DbFunction.GetData.message_list(MessageID: messageId);
-        }
-
-        /// <summary>
         /// Finds the Unread Message
         /// </summary>
         /// <param name="repository">
@@ -760,29 +779,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Returns message data based on user access rights
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <param name="pageUserId">
-        /// The page User Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable SecAsDataTable(
-            this IRepository<Message> repository,
-            int messageId,
-            [NotNull] int pageUserId)
-        {
-            return repository.DbFunction.GetData.message_secdata(PageUserID: pageUserId, MessageID: messageId);
-        }
-
-        /// <summary>
         /// The message_unapproved.
         /// </summary>
         /// <param name="repository">
@@ -862,7 +858,7 @@ namespace YAF.Core.Model
             [NotNull] string reasonOfEdit,
             [NotNull] bool isModeratorChanged,
             [NotNull] bool? overrideApproval,
-            [NotNull] Tuple<Message, Topic, Forum, User> originalMessage,
+            [NotNull] Tuple<Topic, Message, User, Forum> originalMessage,
             [NotNull] int editedBy)
         {
             repository.DbFunction.Scalar.message_update(
@@ -878,7 +874,7 @@ namespace YAF.Core.Model
                 EditedBy: editedBy,
                 IsModeratorChanged: isModeratorChanged,
                 OverrideApproval: overrideApproval,
-                OriginalMessage: originalMessage.Item1.MessageText,
+                OriginalMessage: originalMessage.Item2.MessageText,
                 CurrentUtcTimestamp: DateTime.UtcNow);
 
             // Update Search index Item
@@ -889,11 +885,11 @@ namespace YAF.Core.Model
                                         Flags = originalMessage.Item1.Flags,
                                         Posted = originalMessage.Item1.Posted.ToString(CultureInfo.InvariantCulture),
                                         UserName = originalMessage.Item4.Name,
-                                        UserDisplayName = originalMessage.Item4.DisplayName,
-                                        UserStyle = originalMessage.Item4.UserStyle,
+                                        UserDisplayName = originalMessage.Item3.DisplayName,
+                                        UserStyle = originalMessage.Item3.UserStyle,
                                         UserId = originalMessage.Item4.ID,
                                         TopicId = originalMessage.Item2.ID,
-                                        Topic = originalMessage.Item2.TopicName,
+                                        Topic = originalMessage.Item1.TopicName,
                                         ForumId = originalMessage.Item3.ID,
                                         ForumName = originalMessage.Item3.Name,
                                         Description = description

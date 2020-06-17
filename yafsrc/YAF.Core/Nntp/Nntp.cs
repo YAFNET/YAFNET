@@ -37,7 +37,6 @@ namespace YAF.Core.Nntp
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
     using YAF.Types.Objects.Nntp;
 
     #endregion
@@ -135,20 +134,21 @@ namespace YAF.Core.Nntp
 
                 // Only those not updated in the last 30 minutes
                 foreach (var nntpForum in BoardContext.Current.GetRepository<NntpForum>()
-                    .NntpForumList(boardID, lastUpdate, null, true))
+                    .NntpForumList(boardID, true)
+                    .Where(n => (n.Item1.LastUpdate - DateTime.UtcNow).Minutes > lastUpdate))
                 {
                     using (var nntpConnection = GetNntpConnection(nntpForum))
                     {
-                        var group = nntpConnection.ConnectGroup(nntpForum.GroupName);
+                        var group = nntpConnection.ConnectGroup(nntpForum.Item1.GroupName);
 
-                        var lastMessageNo = nntpForum.LastMessageNo ?? 0;
+                        var lastMessageNo = nntpForum.Item1.LastMessageNo;
 
                         // start at the bottom...
                         var currentMessage = lastMessageNo == 0 ? group.Low : lastMessageNo + 1;
-                        var nntpForumID = nntpForum.NntpForumID;
-                        var cutOffDate = nntpForum.DateCutOff ?? DateTime.MinValue;
+                        var nntpForumID = nntpForum.Item1.ID;
+                        var cutOffDate = nntpForum.Item1.DateCutOff ?? DateTime.MinValue;
 
-                        if (nntpForum.DateCutOff.HasValue)
+                        if (nntpForum.Item1.DateCutOff.HasValue)
                         {
                             var behindCutOff = true;
 
@@ -179,7 +179,7 @@ namespace YAF.Core.Nntp
 
                             // update the group lastMessage info...
                             BoardContext.Current.GetRepository<NntpForum>().Update(
-                                nntpForum.NntpForumID,
+                                nntpForum.Item1.ID,
                                 currentMessage,
                                 guestUserId);
                         }
@@ -252,7 +252,7 @@ namespace YAF.Core.Nntp
                                 var body = ReplaceBody(article.Body.Text.Trim());
 
                                 BoardContext.Current.GetRepository<NntpTopic>().SaveMessage(
-                                    nntpForumID.Value,
+                                    nntpForumID,
                                     subject.Truncate(75),
                                     body,
                                     guestUserId,
@@ -280,7 +280,7 @@ namespace YAF.Core.Nntp
 
                                 count = 0;
                                 BoardContext.Current.GetRepository<NntpForum>().Update(
-                                    nntpForum.NntpForumID,
+                                    nntpForum.Item1.ID,
                                     lastMessageNo,
                                     guestUserId);
                             }
@@ -302,7 +302,7 @@ namespace YAF.Core.Nntp
                         }
 
                         BoardContext.Current.GetRepository<NntpForum>().Update(
-                            nntpForum.NntpForumID,
+                            nntpForum.Item1.ID,
                             lastMessageNo,
                             guestUserId);
 
@@ -332,22 +332,22 @@ namespace YAF.Core.Nntp
         /// The <see cref="NntpConnection"/>.
         /// </returns>
         [NotNull]
-        public static NntpConnection GetNntpConnection([NotNull] TypedNntpForum nntpForum)
+        public static NntpConnection GetNntpConnection([NotNull] Tuple<NntpForum, NntpServer, Forum> nntpForum)
         {
             CodeContracts.VerifyNotNull(nntpForum, "nntpForum");
 
             var nntpConnection = new NntpConnection();
 
             // call connect server
-            nntpConnection.ConnectServer(nntpForum.Address.ToLower(), nntpForum.Port ?? 119);
+            nntpConnection.ConnectServer(nntpForum.Item2.Address.ToLower(), nntpForum.Item2.Port ?? 119);
 
             // provide authentication if required...
-            if (!nntpForum.UserName.IsSet() || !nntpForum.UserPass.IsSet())
+            if (!nntpForum.Item2.UserName.IsSet() || !nntpForum.Item2.UserPass.IsSet())
             {
                 return nntpConnection;
             }
 
-            nntpConnection.ProvideIdentity(nntpForum.UserName, nntpForum.UserPass);
+            nntpConnection.ProvideIdentity(nntpForum.Item2.UserName, nntpForum.Item2.UserPass);
             nntpConnection.SendIdentity();
 
             return nntpConnection;

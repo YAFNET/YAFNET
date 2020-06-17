@@ -371,17 +371,17 @@ namespace YAF.Core.Services
             var boardName = this.BoardSettings.Name;
             var forumEmail = this.BoardSettings.ForumEmail;
 
-            var message = this.GetRepository<Message>().MessageList(newMessageId).FirstOrDefault();
+            var message = this.GetRepository<Message>().GetById(newMessageId);
 
-            var messageAuthorUserID = message.UserID ?? 0;
+            var messageAuthorUserID = message.UserID;
 
             // cleaned body as text...
             var bodyText = this.Get<IBadWordReplace>()
-                .Replace(BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.Message))))
+                .Replace(BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.MessageText))))
                 .RemoveMultipleWhitespace();
 
             var watchUsers = this.GetRepository<User>()
-                .WatchMailListAsDataTable(message.TopicID ?? 0, messageAuthorUserID);
+                .WatchMailListAsDataTable(message.TopicID, messageAuthorUserID);
 
             var watchEmail = new TemplateEmail("TOPICPOST")
                                  {
