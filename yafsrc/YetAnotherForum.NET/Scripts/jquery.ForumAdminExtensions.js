@@ -55474,7 +55474,7 @@ jQuery(document).ready(function () {
         });
 
         $(this).find(".context-menu a").on("click", function (e) {
-            if ($(this).data("toggle") !== undefined) {
+            if ($(this).data("toggle") !== undefined && $(this).data("toggle") == "confirm") {
                 e.preventDefault();
 
                 var link = $(this).attr("href");
