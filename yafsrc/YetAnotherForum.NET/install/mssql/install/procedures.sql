@@ -737,32 +737,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}category_listread](@BoardID int,@UserID int,@CategoryID int=null) as
-begin
-        select
-        a.CategoryID,
-        a.Name,
-        a.CategoryImage
-    from
-        [{databaseOwner}].[{objectQualifier}Category] a
-        join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] v   on v.ForumID=b.ForumID
-    where
-        a.BoardID=@BoardID and
-        v.UserID=@UserID and
-        (CONVERT(int,v.ReadAccess)<>0 or (b.Flags & 2)=0) and
-        (@CategoryID is null or a.CategoryID=@CategoryID) and
-        b.ParentID is null
-    group by
-        a.CategoryID,
-        a.Name,
-        a.SortOrder,
-        a.CategoryImage
-    order by
-        a.SortOrder
-end
-GO
-
 CREATE procedure [{databaseOwner}].[{objectQualifier}checkemail_update](@Hash nvarchar(32)) as
 begin
         declare @UserID int
@@ -1670,16 +1644,6 @@ BEGIN
     UPDATE [{databaseOwner}].[{objectQualifier}Message]
     SET Flags = Flags & (~POWER(2, @MessageFlag))
     WHERE MessageID = @MessageID;
-END
-GO
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_reportcopyover](@MessageID int) AS
-BEGIN
-        UPDATE [{databaseOwner}].[{objectQualifier}MessageReported]
-    SET [{databaseOwner}].[{objectQualifier}MessageReported].[Message] = m.[Message]
-    FROM [{databaseOwner}].[{objectQualifier}MessageReported] mr
-    JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mr.MessageID
-    WHERE mr.MessageID = @MessageID;
 END
 GO
 

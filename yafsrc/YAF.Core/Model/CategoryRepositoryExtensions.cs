@@ -80,30 +80,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The list read.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userID">The user id.</param>
-        /// <param name="categoryID">The category id.</param>
-        /// <param name="boardId">The board id.</param>
-        /// <returns>
-        /// The <see cref="DataTable" />.
-        /// </returns>
-        public static DataTable ListReadAsDataTable(
-            this IRepository<Category> repository,
-            int userID,
-            int? categoryID,
-            int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.category_listread(
-                BoardID: boardId ?? repository.BoardID,
-                UserID: userID,
-                CategoryID: categoryID);
-        }
-
-        /// <summary>
         /// Save a Category
         /// </summary>
         /// <param name="repository">The repository.</param>
