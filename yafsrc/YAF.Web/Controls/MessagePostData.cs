@@ -174,27 +174,6 @@ namespace YAF.Web.Controls
                 {
                     this.DisplayUserID = this.CurrentMessage.UserID;
                 }
-
-                if (this.ShowAttachments)
-                {
-                    if (this.CurrentMessage.HasAttachments ?? false)
-                    {
-                        // add attached files control...
-                        var attached = new MessageAttached { MessageID = this.CurrentMessage.ID };
-
-                        if (this.CurrentMessage.UserID > 0
-                            && BoardContext.Current.Get<BoardSettings>().EnableDisplayName)
-                        {
-                            attached.UserName = this.Get<IUserDisplayName>().GetName(this.CurrentMessage.UserID);
-                        }
-                        else
-                        {
-                            attached.UserName = this.CurrentMessage.UserName;
-                        }
-
-                        this.Controls.Add(attached);
-                    }
-                }
             }
 
             base.OnPreRender(e);

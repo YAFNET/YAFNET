@@ -27,7 +27,6 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.IO;
     using System.Linq;
     using System.Web;
     
@@ -576,32 +575,6 @@ namespace YAF.Pages
 
             var editMessage = this.GetRepository<Message>().GetById(this.EditMessageId.Value);
 
-            // Remove Message Attachments
-            if (editMessage?.HasAttachments != null && editMessage.HasAttachments.Value)
-            {
-                var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == this.EditMessageId.ToType<int>());
-
-                attachments.ForEach(
-                    attach =>
-                        {
-                            // Rename filename
-                            if (attach.FileData == null)
-                            {
-                                var oldFilePath = this.Get<HttpRequestBase>().MapPath(
-                                    $"{BoardFolders.Current.Uploads}/{attach.MessageID.ToString()}.{attach.FileName}.yafupload");
-
-                                var newFilePath =
-                                    this.Get<HttpRequestBase>().MapPath(
-                                        $"{BoardFolders.Current.Uploads}/u{attach.UserID}.{attach.FileName}.yafupload");
-
-                                File.Move(oldFilePath, newFilePath);
-                            }
-
-                            attach.MessageID = 0;
-                            this.GetRepository<Attachment>().Update(attach);
-                        });
-            }
-
             // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
             // Ederon : now it should be better, but all this code around forum/topic/message flags needs revamp
             // retrieve message flags
@@ -1101,15 +1074,6 @@ namespace YAF.Pages
             }
 
             this.forumEditor.Text = currentMessage.MessageText;
-
-            // Convert Message Attachments to new [Attach] BBCode Attachments
-            if (currentMessage.HasAttachments.HasValue && currentMessage.HasAttachments.Value)
-            {
-                var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == currentMessage.ID);
-
-                attachments.ForEach(
-                    attach => this.forumEditor.Text += $" [ATTACH]{attach.ID}[/Attach] ");
-            }
 
             if (this.forumEditor.UsesHTML && currentMessage.MessageFlags.IsBBCode)
             {

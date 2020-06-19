@@ -27,6 +27,7 @@ namespace YAF.Core.Services
     using System;
     using System.IO;
     using System.Linq;
+    using System.Threading;
     using System.Web;
 
     using ServiceStack.OrmLite;
@@ -36,6 +37,7 @@ namespace YAF.Core.Services
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services.Import;
+    using YAF.Core.Tasks;
     using YAF.Types;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
@@ -258,6 +260,13 @@ namespace YAF.Core.Services
                 {
                     // Upgrade to ASPNET Identity
                     this.DbAccess.Information.IdentityUpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
+                    
+                    this.Get<ITaskModuleManager>().StartTask(MigrateAttachmentsTask.TaskName, () => new MigrateAttachmentsTask());
+
+                    while (this.Get<ITaskModuleManager>().IsTaskRunning(MigrateAttachmentsTask.TaskName))
+                    {
+                        Thread.Sleep(100);
+                    }
                 }
 
                 if (prevVersion < 30 || upgradeExtensions)

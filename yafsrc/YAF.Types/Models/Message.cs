@@ -37,15 +37,21 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "Message")]
-    public partial class Message : IEntity, IHaveID
+    public class Message : IEntity, IHaveID
     {
-        partial void OnCreated();
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Message"/> class.
+        /// </summary>
         public Message()
         {
-            this.OnCreated();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Message"/> class.
+        /// </summary>
+        /// <param name="row">
+        /// The row.
+        /// </param>
         public Message([NotNull] DataRow row)
         {
             this.ID = row.Field<int?>("MessageID") ?? 0;
@@ -81,7 +87,6 @@ namespace YAF.Types.Models
             {
                 this.Position = 0;
             }
-
 
             try
             {
@@ -136,15 +141,6 @@ namespace YAF.Types.Models
             {
                 this.ReferenceMessageId = string.Empty;
             }
-            
-            try
-            {
-                this.HasAttachments = row.Field<bool?>("HasAttachments");
-            }
-            catch (Exception)
-            {
-                this.HasAttachments = false;
-            }
 
             try
             {
@@ -163,54 +159,100 @@ namespace YAF.Types.Models
             {
                 this.Signature = string.Empty;
             }
-            
-
         }
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [AliasAttribute("MessageID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the topic.
+        /// </summary>
         [Ignore]
         public string Topic { get; set; }
 
+        /// <summary>
+        /// Gets or sets the topic id.
+        /// </summary>
         [References(typeof(Topic))]
         [Required]
         [Index]
 
         public int TopicID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reply to.
+        /// </summary>
         [References(typeof(Message))]
         public int? ReplyTo { get; set; }
+
+        /// <summary>
+        /// Gets or sets the position.
+        /// </summary>
         [Required]
         public int Position { get; set; }
+
+        /// <summary>
+        /// Gets or sets the indent.
+        /// </summary>
         [Required]
         public int Indent { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         [Index]
 
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user name.
+        /// </summary>
         [StringLength(255)]
         public string UserName { get; set; }
 
-        [Ignore]
-        public bool? HasAttachments { get; set; }
+        /// <summary>
+        /// Gets or sets the posted.
+        /// </summary>
         [Required]
         public DateTime Posted { get; set; }
+
+        /// <summary>
+        /// Gets or sets the message text.
+        /// </summary>
         [Alias("Message")]
         public string MessageText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the IP.
+        /// </summary>
         [Required]
         [StringLength(39)]
         public string IP { get; set; }
+
+        /// <summary>
+        /// Gets or sets the edited.
+        /// </summary>
         public DateTime? Edited { get; set; }
+
+        /// <summary>
+        /// Gets or sets the flags.
+        /// </summary>
         [Required]
         [Default(23)]
         [Index]
-
         public int Flags { get; set; }
 
+        /// <summary>
+        /// Gets or sets the message flags.
+        /// </summary>
         [Ignore]
         public MessageFlags MessageFlags
         {
@@ -218,30 +260,76 @@ namespace YAF.Types.Models
 
             set => this.Flags = value.BitValue;
         }
+
+        /// <summary>
+        /// Gets or sets the edit reason.
+        /// </summary>
         [StringLength(100)]
         public string EditReason { get; set; }
 
+        /// <summary>
+        /// Gets or sets the signature.
+        /// </summary>
         [Ignore]
         public string Signature { get; set; }
+
+        /// <summary>
+        /// Gets or sets the is moderator changed.
+        /// </summary>
         [Required]
         [Default(0)]
         public bool? IsModeratorChanged { get; set; }
+
+        /// <summary>
+        /// Gets or sets the delete reason.
+        /// </summary>
         [StringLength(100)]
         public string DeleteReason { get; set; }
+
+        /// <summary>
+        /// Gets or sets the is deleted.
+        /// </summary>
         [Compute]
         public bool? IsDeleted { get; set; }
+
+        /// <summary>
+        /// Gets or sets the is approved.
+        /// </summary>
         [Compute]
         public bool? IsApproved { get; set; }
+
+        /// <summary>
+        /// Gets or sets the blog post id.
+        /// </summary>
         [StringLength(50)]
         public string BlogPostID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the edited by.
+        /// </summary>
         public int? EditedBy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the external message id.
+        /// </summary>
         [StringLength(255)]
         public string ExternalMessageId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reference message id.
+        /// </summary>
         [StringLength(255)]
         public string ReferenceMessageId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user display name.
+        /// </summary>
         [StringLength(255)]
         public string UserDisplayName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the answer message id.
+        /// </summary>
         [Ignore]
         public int? AnswerMessageId { get; set; }
 

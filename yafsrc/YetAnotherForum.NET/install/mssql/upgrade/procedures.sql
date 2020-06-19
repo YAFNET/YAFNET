@@ -4024,7 +4024,6 @@ begin
             when 1 then  b.UserStyle
             else ''	 end,
         Edited = IsNull(m.Edited,m.Posted),
-        HasAttachments	= CONVERT(bit,ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=m.MessageID),0)),
         HasAvatarImage = ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.UserID and AvatarImage is not null),0),
         TotalRows = @TotalRows,
         PageIndex = @PageIndex
@@ -4903,7 +4902,6 @@ begin
                (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @UserID)
              else ''	 end,
              c.TopicImage,
-             0 as HasAttachments,
             PageIndex = @PageIndex,
             @TotalRows as TotalRows
             from
@@ -5009,7 +5007,6 @@ begin
                (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=c.TopicID AND y.UserID = @UserID)
              else ''	 end,
              c.TopicImage,
-            0 as HasAttachments,
             PageIndex = @PageIndex,
             @TotalRows as TotalRows
             from
