@@ -109,17 +109,16 @@ namespace YAF.Modules
                 }
 
                 // load jQuery
-                // element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUrl));
                 ScriptManager.ScriptResourceMapping.AddDefinition(
                     "jquery",
                     new ScriptResourceDefinition
                     {
                         Path = jqueryUrl,
                         DebugPath = BoardInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.js"),
-                        CdnPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.min.js",
-                        CdnDebugPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.js",
-                        CdnSupportsSecureConnection = true/*,
-                            LoadSuccessExpression = "window.jQuery"*/
+                        CdnPath = $"//code.jquery.com/jquery-{Config.JQueryVersion}.min.js",
+                        CdnDebugPath = $"//code.jquery.com/jquery-{Config.JQueryVersion}.js",
+                        CdnSupportsSecureConnection = true,
+                            LoadSuccessExpression = "window.jQuery"
                     });
 
                 BoardContext.Current.PageElements.AddScriptReference("jquery");
