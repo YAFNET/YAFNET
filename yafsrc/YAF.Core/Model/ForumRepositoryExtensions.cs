@@ -232,16 +232,17 @@ namespace YAF.Core.Model
                 .Where<Forum, Category, ActiveAccess>(
                     (forum, category, active) =>
                         active.UserID == userId && category.BoardID == boardId && active.ReadAccess)
-                .Select<Forum, Category, Active>(
+                .OrderBy<Category>(c => c.SortOrder).ThenBy<Forum>(f => f.SortOrder).ThenBy<Category>(c => c.ID)
+                .ThenBy<Forum>(f => f.ID).Select<Forum, Category, Active>(
                     (forum, category, active) => new
-                                                     {
-                                                         CategoryID = category.ID,
-                                                         Category = category.Name,
-                                                         ForumID = forum.ID,
-                                                         Forum = forum.Name,
-                                                         Indent = 0,
-                                                         forum.ParentID
-                                                     });
+                    {
+                        CategoryID = category.ID,
+                        Category = category.Name,
+                        ForumID = forum.ID,
+                        Forum = forum.Name,
+                        Indent = 0,
+                        forum.ParentID
+                    });
 
             return repository.DbAccess.Execute(
                 db => db.Connection.SelectMulti<Forum, Category, ActiveAccess>(expression));
@@ -345,9 +346,9 @@ namespace YAF.Core.Model
             [NotNull] int userID,
             bool emptyFirstRow)
         {
-            var dataTable = repository.ListAll(boardID, userID);
+            var list = repository.ListAll(boardID, userID);
 
-            return repository.SortList(dataTable, 0, 0, 0, emptyFirstRow);
+            return repository.SortList(list, 0, 0, 0, emptyFirstRow);
         }
 
         /// <summary>

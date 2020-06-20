@@ -1,6 +1,15 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.1.07
+* Upgraded to jQuery 3.5.1
+* Upgraded to Bootstrap 4.5.0
+* [NEW] user attachments can be managed
+* [FIXED] font size in quotes
+* [FIXED] Pruning of private messages
+* [FIXED #569] Instagram BB Code
+
+
 # YetAnotherForum.NET v2.3.1.06
 * [FIXED] Emoji Button in CKEditor
 * Upgraded to CKEditor 4.14.0
