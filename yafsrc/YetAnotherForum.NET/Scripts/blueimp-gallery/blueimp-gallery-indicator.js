@@ -12,37 +12,39 @@
 /* global define */
 
 ;(function (factory) {
-  'use strict';
-  if (typeof define === 'function' && define.amd) {
+  "use strict";
+  if (typeof define === "function" && define.amd) {
     // Register as an anonymous AMD module:
-    define(['./blueimp-helper', './blueimp-gallery'], factory);
+    define(["./blueimp-helper", "./blueimp-gallery"], factory);
   } else {
     // Browser globals:
     factory(window.blueimp.helper || window.jQuery, window.blueimp.Gallery);
   }
 })(function ($, Gallery) {
-  'use strict';
+  "use strict";
 
-  $.extend(Gallery.prototype.options, {
+  var galleryPrototype = Gallery.prototype;
+
+  $.extend(galleryPrototype.options, {
     // The tag name, Id, element or querySelector of the indicator container:
-    indicatorContainer: 'ol',
+    indicatorContainer: "ol",
     // The class for the active indicator:
-    activeIndicatorClass: 'active',
+    activeIndicatorClass: "active",
     // The list object property (or data attribute) with the thumbnail URL,
     // used as alternative to a thumbnail child element:
-    thumbnailProperty: 'thumbnail',
+    thumbnailProperty: "thumbnail",
     // Defines if the gallery indicators should display a thumbnail:
     thumbnailIndicators: true
   });
 
-  var initSlides = Gallery.prototype.initSlides;
-  var addSlide = Gallery.prototype.addSlide;
-  var resetSlides = Gallery.prototype.resetSlides;
-  var handleClick = Gallery.prototype.handleClick;
-  var handleSlide = Gallery.prototype.handleSlide;
-  var handleClose = Gallery.prototype.handleClose;
+  var initSlides = galleryPrototype.initSlides;
+  var addSlide = galleryPrototype.addSlide;
+  var resetSlides = galleryPrototype.resetSlides;
+  var handleClick = galleryPrototype.handleClick;
+  var handleSlide = galleryPrototype.handleSlide;
+  var handleClose = galleryPrototype.handleClose;
 
-  $.extend(Gallery.prototype, {
+  $.extend(galleryPrototype, {
     createIndicator: function (obj) {
       var indicator = this.indicatorPrototype.cloneNode(false);
       var title = this.getItemProperty(obj, this.options.titleProperty);
@@ -54,7 +56,7 @@
           thumbnailUrl = this.getItemProperty(obj, thumbnailProperty);
         }
         if (thumbnailUrl === undefined) {
-          thumbnail = obj.getElementsByTagName && $(obj).find('img')[0];
+          thumbnail = obj.getElementsByTagName && $(obj).find("img")[0];
           if (thumbnail) {
             thumbnailUrl = thumbnail.src;
           }
@@ -66,13 +68,14 @@
       if (title) {
         indicator.title = title;
       }
+      indicator.setAttribute("role", "link");
       return indicator;
     },
 
     addIndicator: function (index) {
       if (this.indicatorContainer.length) {
         var indicator = this.createIndicator(this.list[index]);
-        indicator.setAttribute('data-index', index);
+        indicator.setAttribute("data-index", index);
         this.indicatorContainer[0].appendChild(indicator);
         this.indicators.push(indicator);
       }
@@ -94,7 +97,7 @@
           this.options.indicatorContainer
         );
         if (this.indicatorContainer.length) {
-          this.indicatorPrototype = document.createElement('li');
+          this.indicatorPrototype = document.createElement("li");
           this.indicators = this.indicatorContainer[0].children;
         }
       }
@@ -128,9 +131,9 @@
       }
     },
 
-    handleSlide: function (index) {
-      handleSlide.call(this, index);
-      this.setActiveIndicator(index);
+    handleSlide: function (oldIndex, newIndex) {
+      handleSlide.call(this, oldIndex, newIndex);
+      this.setActiveIndicator(newIndex);
     },
 
     handleClose: function () {
