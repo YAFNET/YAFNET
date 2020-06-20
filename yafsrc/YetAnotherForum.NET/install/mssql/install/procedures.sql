@@ -3642,8 +3642,8 @@ begin
             [Views] = c.[Views],
             LastPosted = c.LastPosted,
             LastUserID = c.LastUserID,
-            LastUserName = lastUser.Name,
-            LastUserDisplayName = lastUser.DisplayName,
+            LastUserName = (select top 1 usr.Name from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID),
+            LastUserDisplayName = (select top 1 usr.DisplayName from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID),
             LastMessageID = c.LastMessageID,
             LastTopicID = c.TopicID,
             LinkDate = c.LinkDate,
@@ -3656,7 +3656,7 @@ begin
             when 1 then  b.UserStyle
             else ''	 end,
         StarterSuspended = b.Suspended,
-        LastUserSuspended = lastUser.Suspended,
+        LastUserSuspended = (select top 1 usr.Suspended from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID),
             LastUserStyle= case(@StyledNicks)
             when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID)
             else ''	 end,
@@ -3677,7 +3677,6 @@ begin
             ON c.TopicID = ti.TopicID
             JOIN [{databaseOwner}].[{objectQualifier}User] b
             ON b.UserID=c.UserID
-            join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = c.LastUserID
             join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
             WHERE ti.RowNum between @FirstSelectRowNumber and @LastSelectRowNumber
         order by

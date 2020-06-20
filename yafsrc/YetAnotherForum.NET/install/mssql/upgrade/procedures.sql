@@ -4944,8 +4944,8 @@ begin
             [Views] = c.[Views],
             LastPosted = c.LastPosted,
             LastUserID = c.LastUserID,
-            LastUserName = lastUser.Name,
-            LastUserDisplayName = lastUser.DisplayName,
+            LastUserName = (select top 1 usr.Name from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID),
+            LastUserDisplayName = (select top 1 usr.DisplayName from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID),
             LastMessageID = c.LastMessageID,
             LastTopicID = c.TopicID,
             LinkDate = c.LinkDate,
@@ -4955,7 +4955,7 @@ begin
             ForumFlags = d.Flags,
             FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
             StarterSuspended = b.Suspended,
-            LastUserSuspended = lastUser.Suspended,
+            LastUserSuspended = (select top 1 usr.Suspended from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID),
             StarterStyle = case(@StyledNicks)
             when 1 then  b.UserStyle
             else ''	 end,
@@ -4977,7 +4977,6 @@ begin
             TopicIds ti
             inner join [{databaseOwner}].[{objectQualifier}Topic] c
             ON c.TopicID = ti.TopicID
-            join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = c.LastUserID
             JOIN [{databaseOwner}].[{objectQualifier}User] b
             ON b.UserID=c.UserID
             join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
