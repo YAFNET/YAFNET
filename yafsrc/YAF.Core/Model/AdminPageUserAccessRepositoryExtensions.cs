@@ -23,7 +23,7 @@
  */
 namespace YAF.Core.Model
 {
-    using System.Data;
+    using System.Collections.Generic;
     using System.Linq;
 
     using YAF.Core.Extensions;
@@ -39,25 +39,47 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// Lists the forum.
+        /// Lists all Pages
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
         /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="pageName">
-        /// The page Name.
+        /// The user id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/> .
+        /// The <see cref="IEnumerable"/>.
         /// </returns>
-        public static DataTable List(this IRepository<AdminPageUserAccess> repository, int userId, string pageName)
+        public static IEnumerable<AdminPageUserAccess> List(this IRepository<AdminPageUserAccess> repository, int userId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.adminpageaccess_list(UserID: userId, PageName: pageName);
+            return repository.Get(a => a.UserID == userId).Select(
+                a => new AdminPageUserAccess { PageName = a.PageName, UserID = a.UserID, ReadAccess = true });
+        }
+
+        /// <summary>
+        /// Checks if the Admin user has Access to the Admin Page.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="pageName">
+        /// The page name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool HasAccess(this IRepository<AdminPageUserAccess> repository, int userId, string pageName)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var access = repository.GetSingle(a => a.UserID == userId && a.PageName == pageName);
+
+            return access != null;
         }
 
         /// <summary>

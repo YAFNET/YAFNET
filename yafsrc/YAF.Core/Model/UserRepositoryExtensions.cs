@@ -343,6 +343,9 @@ namespace YAF.Core.Model
         /// <param name="groupID">
         /// The group id.
         /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
         public static List<string> GroupEmails(
             this IRepository<User> repository,
             [NotNull] int groupID)
@@ -355,7 +358,6 @@ namespace YAF.Core.Model
                  .Select(u => new { u.Email });
 
             return repository.DbAccess.Execute(db => db.Connection.SqlList<string>(expression));
-
         }
 
         /// <summary>
@@ -899,7 +901,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<User> AdminList(
+        public static List<User> ListAdmins(
             this IRepository<User> repository,
             bool? useStyledNicks = null,
             int? boardId = null)

@@ -47,6 +47,9 @@ namespace YAF.Types.Models
         [StringLength(128)]
         public string PageName { get; set; }
 
+        [Ignore]
+        public bool ReadAccess { get; set; }
+
         #endregion
     }
 }

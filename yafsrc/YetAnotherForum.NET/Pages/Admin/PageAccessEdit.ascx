@@ -16,7 +16,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server" ID="IconHeader"
-                                    IconName="building"></YAF:IconHeader>
+                                    IconName="building"/>
                 </div>
                 <div class="card-body">
                     <asp:Repeater ID="AccessList" OnItemDataBound="AccessList_OnItemDataBound" runat="server">

@@ -4449,39 +4449,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}admin_pageaccesslist](@BoardID int = null, @StyledNicks bit = null,@UTCTIMESTAMP datetime) as
-begin
-         select
-        a.UserID,
-        a.BoardID,
-        b.Name AS BoardName,
-        a.[Name],
-        a.[DisplayName],
-        a.[Culture],
-            a.NumPosts,
-            CultureUser = a.Culture,
-            Style = case(@StyledNicks)
-            when 1 then  a.UserStyle
-            else ''	 end
-        from
-            [{databaseOwner}].[{objectQualifier}User] a
-            JOIN
-            [{databaseOwner}].[{objectQualifier}Board] b
-            ON b.BoardID = a.BoardID
-            left join [{databaseOwner}].[{objectQualifier}vaccess] c
-            on c.UserID=a.UserID
-        where
-            (@BoardID IS NULL OR a.BoardID = @BoardID) and
-            -- is admin
-            (IsNull(c.IsAdmin,0) <> 0) and
-            c.ForumID = 0 and
-            -- is not host admin
-            IsNull(a.Flags & 1,0) = 0
-        order by
-            a.DisplayName
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}user_listmembers](
                 @BoardID int,
                 @UserID int=null,
@@ -6570,40 +6537,6 @@ begin
         order by
             RowNum ASC
 
-end
-GO
-
-CREATE procedure [{databaseOwner}].[{objectQualifier}adminpageaccess_list] (@UserID int, @PageName nvarchar(128) = null) as
-begin
-        if (@UserID > 0  and @PageName IS NOT NULL)
-        select ap.*,
-        u.Name as UserName,
-        u.DisplayName as UserDisplayName,
-        b.Name as BoardName
-        from [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] ap
-        JOIN  [{databaseOwner}].[{objectQualifier}User] u on ap.UserID = u.UserID
-        JOIN [{databaseOwner}].[{objectQualifier}Board] b ON b.BoardID = u.BoardID
-        where u.UserID = @UserID and PageName = @PageName and (u.Flags & 1) <> 1 order by  b.BoardID,u.Name,ap.PageName;
-        else if (@UserID > 0 and @PageName IS  NULL)
-        select ap.*,
-        u.Name as UserName,
-        u.DisplayName as UserDisplayName,
-        b.Name as BoardName,
-        1 as ReadAccess
-         from [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] ap
-        JOIN  [{databaseOwner}].[{objectQualifier}User] u on ap.UserID = u.UserID
-        JOIN [{databaseOwner}].[{objectQualifier}Board] b ON b.BoardID = u.BoardID
-        where u.UserID = @UserID and (u.Flags & 1) <> 1 order by  b.BoardID,u.Name,ap.PageName;
-        else
-        select ap.*,
-        u.Name as UserName,
-        u.DisplayName as UserDisplayName,
-        b.Name as BoardName
-        from [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] ap
-        JOIN  [{databaseOwner}].[{objectQualifier}User] u on ap.UserID = u.UserID
-        JOIN [{databaseOwner}].[{objectQualifier}Board] b ON b.BoardID = u.BoardID
-        where (u.Flags & 1) <> 1
-        order by  b.BoardID,u.Name,ap.PageName;
 end
 GO
 

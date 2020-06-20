@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Core.BasePages;
@@ -105,7 +106,8 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // list admins but not host admins
-            this.List.DataSource = this.GetRepository<vaccess>().List(null, true);
+            this.List.DataSource = this.GetRepository<User>().ListAdmins(false, this.PageContext.PageBoardID)
+                .Where(u => !u.UserFlags.IsHostAdmin);
             this.DataBind();
         }
 

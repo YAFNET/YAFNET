@@ -100,11 +100,10 @@ namespace YAF.Core.BasePages
             }
 
             // Load the page access list.
-            var dt = this.GetRepository<AdminPageUserAccess>().List(
-                this.PageContext.PageUserID, this.PageContext.ForumPageType.ToString().ToLowerInvariant());
+            var hasAccess = this.GetRepository<AdminPageUserAccess>().HasAccess(this.PageContext.PageUserID, this.PageContext.ForumPageType.ToString());
 
             // Check access rights to the page.
-            if (!this.PageContext.ForumPageType.ToString().IsSet() || dt == null || !dt.HasRows())
+            if (!this.PageContext.ForumPageType.ToString().IsSet() || !hasAccess)
             {
                 BuildLink.RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
             }

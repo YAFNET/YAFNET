@@ -30,12 +30,7 @@
                             <%# this.HtmlEncode(this.Get<BoardSettings>().EnableDisplayName ? this.Eval("DisplayName") : this.Eval("Name"))%>
                         </h5>
                     </div>
-                    <p class="mb-1">
-                        <YAF:LocalizedLabel ID="BoardNameLabel" runat="server" 
-                                            LocalizedTag="BOARDnAME"  
-                                            LocalizedPage="ADMIN_PAGEACCESSLIST" />:
-                        <%# this.HtmlEncode(this.Eval( "BoardName")) %>
-                    </p>
+                    
                     <small>
                         <div class="btn-group btn-group-sm">
                             <YAF:ThemeButton ID="ThemeButtonEdit" runat="server" 
@@ -43,7 +38,7 @@
                                              Size="Small"
                                              TitleLocalizedPage="ADMIN_PAGEACCESSLIST" 
                                              CommandName="edit" 
-                                             CommandArgument='<%# this.Eval( "UserID") %>'
+                                             CommandArgument='<%# this.Eval( "ID") %>'
                                              TitleLocalizedTag="EDIT"
                                              Icon="edit"
                                              TextLocalizedTag="EDIT">
