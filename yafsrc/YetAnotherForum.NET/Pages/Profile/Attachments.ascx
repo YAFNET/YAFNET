@@ -9,11 +9,13 @@
         <YAF:ProfileMenu runat="server"></YAF:ProfileMenu>
     </div>
     <div class="col">
-<div class="row">
-    <div class="col">
+        <div class="row">
+            <div class="col">
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                LocalizedTag="TITLE"
+                                LocalizedPage="ATTACHMENTS"
                                 IconName="paperclip"></YAF:IconHeader>
             </div>
             <div class="card-body">
@@ -64,6 +66,6 @@
             </div>
         </div>
     </div>
-</div>
-</div>
+        </div>
     </div>
+</div>
