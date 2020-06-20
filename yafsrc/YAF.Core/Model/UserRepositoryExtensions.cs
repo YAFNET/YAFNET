@@ -48,31 +48,6 @@ namespace YAF.Core.Model
     public static class UserRepositoryExtensions
     {
         /// <summary>
-        /// Checks if the User has replied to the specific topic.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// Returns if true or not
-        /// </returns>
-        public static bool RepliedTopic(
-            this IRepository<User> repository,
-            [NotNull] int messageId,
-            [NotNull] int userId)
-        {
-            var messageCount = repository.DbFunction.Scalar.user_repliedtopic(MessageID: messageId, UserID: userId);
-
-            return messageCount > 0;
-        }
-
-        /// <summary>
         /// The user_activity_rank.
         /// </summary>
         /// <param name="repository">

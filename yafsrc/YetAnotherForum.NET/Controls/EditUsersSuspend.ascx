@@ -53,7 +53,7 @@
     </div>
 </div>
 <YAF:Alert runat="server" Type="info">
-    <asp:Label runat="server" ID="SuspendInfo"></asp:Label>
+    <YAF:Icon runat="server" IconName="info-circle" /><asp:Label runat="server" ID="SuspendInfo"></asp:Label>
 </YAF:Alert>
 
 <div class="text-center">

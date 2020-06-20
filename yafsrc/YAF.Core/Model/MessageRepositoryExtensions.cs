@@ -53,6 +53,29 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
+        /// Checks if the User has replied to the specific topic.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// Returns if true or not
+        /// </returns>
+        public static bool RepliedTopic(
+            this IRepository<Message> repository,
+            [NotNull] int topicId,
+            [NotNull] int userId)
+        {
+            return repository.Count(m => m.TopicID == topicId && m.UserID == userId) > 0;
+        }
+
+        /// <summary>
         /// The get message.
         /// </summary>
         /// <param name="repository">

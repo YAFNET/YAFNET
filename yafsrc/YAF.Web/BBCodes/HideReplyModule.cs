@@ -48,8 +48,6 @@ namespace YAF.Web.BBCodes
         {
             var hiddenContent = this.Parameters["inner"];
 
-            var messageId = this.MessageID;
-
             if (hiddenContent.IsNotSet())
             {
                 return;
@@ -82,7 +80,7 @@ namespace YAF.Web.BBCodes
             }
 
             if (this.DisplayUserID == userId ||
-                this.GetRepository<User>().RepliedTopic(messageId.ToType<int>(), userId))
+                this.GetRepository<Message>().RepliedTopic(this.PageContext.PageTopicID, userId))
             {
                 // Show hidden content if user is the poster or have thanked the poster.
                 shownContent = hiddenContent;

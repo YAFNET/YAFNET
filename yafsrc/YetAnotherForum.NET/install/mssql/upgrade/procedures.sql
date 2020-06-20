@@ -7483,18 +7483,6 @@ AS
     END
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}user_repliedtopic]
-(@MessageID int, @UserID int) as
-begin
-        DECLARE @TopicID int
-        SET @TopicID = (SELECT TopicID FROM [{databaseOwner}].[{objectQualifier}Message] WHERE (MessageID = @MessageID))
-
-        SELECT COUNT(t.MessageID)
-        FROM [{databaseOwner}].[{objectQualifier}Message] AS t WHERE (t.TopicID=@TopicID) AND (t.UserID = @UserID)
-
-end
-GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}recent_users](@BoardID int,@TimeSinceLastLogin int,@StyledNicks bit=0) as
 begin
     SELECT U.UserID,
