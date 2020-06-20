@@ -2237,9 +2237,6 @@
     <None Include="compilerconfig.json" />
     <Content Include="Scripts\bootstrap-typeahead.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.bundle.min.js">
-      <DependentUpon>bootstrap.bundle.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
@@ -2692,12 +2689,12 @@
     <Content Include="Scripts\InstallWizard.comb.min.js">
       <DependentUpon>InstallWizard.comb.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js">
-      <DependentUpon>jquery-3.4.1.js</DependentUpon>
+    <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js">
+      <DependentUpon>jquery-3.5.1.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-3.4.1.min.map">
-      <DependentUpon>jquery-3.4.1.min.js</DependentUpon>
+    <Content Include="Scripts\jquery-3.5.1.min.map">
+      <DependentUpon>jquery-3.5.1.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.blueimp-gallery.js" />
@@ -2734,9 +2731,6 @@
       <DependentUpon>jquery.ForumExtensionsDnn.js</DependentUpon>
     </Content>
     <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment-with-locales.min.js">
-      <DependentUpon>moment-with-locales.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\spin.min.js">
       <DependentUpon>spin.js</DependentUpon>
     </Content>
