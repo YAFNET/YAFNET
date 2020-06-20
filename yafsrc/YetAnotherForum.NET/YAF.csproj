@@ -309,6 +309,13 @@
       <DependentUpon>auth.aspx</DependentUpon>
     </Compile>
     <Compile Include="Classes\MembershipUpgradeEvent.cs" />
+    <Compile Include="controls\EditUsersAttachments.ascx.cs">
+      <DependentUpon>EditUsersAttachments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\EditUsersAttachments.ascx.designer.cs">
+      <DependentUpon>EditUsersAttachments.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\TopicTags.ascx.cs">
       <DependentUpon>TopicTags.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1945,6 +1952,7 @@
     <Content Include="Content\webfonts\fa-brands-400.svg" />
     <Content Include="Content\webfonts\fa-regular-400.svg" />
     <Content Include="Content\webfonts\fa-solid-900.svg" />
+    <Content Include="controls\EditUsersAttachments.ascx" />
     <Content Include="controls\TopicTags.ascx" />
     <Content Include="controls\UserMenu.ascx" />
     <Content Include="controls\AdminMenu.ascx" />
