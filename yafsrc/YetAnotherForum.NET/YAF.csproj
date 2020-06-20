@@ -309,6 +309,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Install.zh-TW.resx</DependentUpon>
     </Compile>
+    <Compile Include="controls\EditUsersAttachments.ascx.cs">
+      <DependentUpon>EditUsersAttachments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\EditUsersAttachments.ascx.designer.cs">
+      <DependentUpon>EditUsersAttachments.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\OpenAuthProviders.ascx.cs">
       <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1943,6 +1950,7 @@
     <Content Include="Content\webfonts\fa-brands-400.svg" />
     <Content Include="Content\webfonts\fa-regular-400.svg" />
     <Content Include="Content\webfonts\fa-solid-900.svg" />
+    <Content Include="controls\EditUsersAttachments.ascx" />
     <Content Include="controls\OpenAuthProviders.ascx" />
     <Content Include="controls\MostActiveUsers.ascx" />
     <Content Include="controls\TopicTags.ascx" />
@@ -2787,6 +2795,9 @@
     </Content>
     <Content Include="Scripts\jsdifflib.js" />
     <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.js" />
@@ -3343,6 +3354,8 @@
     <Content Include="v1.9.1.upgrade.web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\moment.min.js.map" />
+    <Content Include="Scripts\moment-with-locales.min.js.map" />
     <None Include="web.config">
       <SubType>Designer</SubType>
     </None>
