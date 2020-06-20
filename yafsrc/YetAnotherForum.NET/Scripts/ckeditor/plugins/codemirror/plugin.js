@@ -72,7 +72,8 @@
             var pluginRequire;
             if (requirePresent){
                 var requireContext = config.requireContext || "_";
-                var location = CKEDITOR.getUrl("plugins/codemirror/js");
+                var location = CKEDITOR.getUrl("plugins/codemirror/js/");
+                location = location.substring(0, location.length - 1);
                 pluginRequire = require.config({
                     context: requireContext,
                     packages: [{
@@ -1059,7 +1060,9 @@
                 editor.getCommand("source").setState(editor.mode === "source" ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF);
 
                 if (editor.mode === "source") {
-                    editor.getCommand("autoCompleteToggle").setState(window["codemirror_" + editor.id].config.autoCloseTags ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF);
+                    if ("autoCompleteToggle" in editor.commands) {
+                        editor.getCommand("autoCompleteToggle").setState(window["codemirror_" + editor.id].config.autoCloseTags ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF);
+                    }
 
                     if (editor.plugins.textselection && textRange && !editor.config.fullPage) {
 
@@ -1163,11 +1166,46 @@
                 return this.getValue();
             },
             // Insertions are not supported in source editable.
-            insertHtml: function() {
+            insertHtml: function (insert) {
+                var selection = window["codemirror_" + this.editor.id].getSelection();
+
+                if (selection.length > 0) {
+                    window["codemirror_" + this.editor.id].replaceSelection(insert);
+                }
+                else {
+
+                    var doc = window["codemirror_" + this.editor.id].getDoc();
+                    var cursor = doc.getCursor();
+
+                    var pos = {
+                        line: cursor.line,
+                        ch: cursor.ch
+                    }
+
+                    doc.replaceRange(insert, pos);
+
+                }
             },
             insertElement: function() {
             },
-            insertText: function() {
+            insertText: function(insert) {
+                var selection = window["codemirror_" + this.editor.id].getSelection();
+
+                if (selection.length > 0) {
+                    window["codemirror_" + this.editor.id].replaceSelection(insert);
+                } else {
+
+                    var doc = window["codemirror_" + this.editor.id].getDoc();
+                    var cursor = doc.getCursor();
+
+                    var pos = {
+                        line: cursor.line,
+                        ch: cursor.ch
+                    }
+
+                    doc.replaceRange(insert, pos);
+
+                }
             },
             // Read-only support for textarea.
             setReadOnly: function(isReadOnly) {

@@ -4,9 +4,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'codemirror', 'ru', {
 	toolbar: 'Источник',
-	searchCode: 'Search Source',
-	autoFormat: 'Format Selection',
-	commentSelectedRange: 'Comment Selection',
-	uncommentSelectedRange: 'Uncomment Selection',
-	autoCompleteToggle: 'Enable/Disable HTML Tag Autocomplete'
+	searchCode: 'Найти в источнике',
+	autoFormat: 'Форматировать выбранное значение',
+	commentSelectedRange: 'Закомментировать выбранное значение',
+	uncommentSelectedRange: 'Раскомментировать выбранное значение',
+	autoCompleteToggle: 'Включить/отключить автозаполнение тегов HTML'
 });

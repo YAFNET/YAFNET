@@ -26,11 +26,11 @@
 		}
 	} );
 
-	var bbcodeMap = { b: 'strong', u: 'u', i: 'em', s: 's', color: 'span', size: 'span', left: 'div', right: 'div', center: 'div', justify: 'div', quote: 'blockquote', code: 'code', url: 'a', email: 'span', img: 'span', '*': 'li', list: 'ol' },
-		convertMap = { strong: 'b', b: 'b', u: 'u', em: 'i', i: 'i', s: 's', code: 'code', li: '*' },
-		tagnameMap = { strong: 'b', em: 'i', u: 'u', s: 's', li: '*', ul: 'list', ol: 'list', code: 'code', a: 'link', img: 'img', blockquote: 'quote' },
-		stylesMap = { color: 'color', size: 'font-size', left: 'text-align', center: 'text-align', right: 'text-align', justify: 'text-align' },
-		attributesMap = { url: 'href', email: 'mailhref', quote: 'cite', list: 'listType' };
+	var bbcodeMap = { b: 'strong', u: 'u', i: 'em', s: 's', color: 'span', size: 'span', left: 'div', right: 'div', center: 'div', justify: 'div', indend: 'div', url: 'a', email: 'span', img: 'span', '*': 'li', list: 'ol', h: 'mark' },
+		convertMap = { strong: 'b', b: 'b', u: 'u', em: 'i', i: 'i', s: 's', li: '*',mark: 'h' },
+		tagnameMap = { strong: 'b', em: 'i', u: 'u', s: 's', li: '*', ul: 'list', ol: 'list', a: 'link', img: 'img', mark: 'h' },
+		stylesMap = { color: 'color', size: 'font-size', left: 'text-align', center: 'text-align', right: 'text-align', justify: 'text-align', indend: 'margin-left' },
+		attributesMap = { url: 'href', email: 'mailhref', list: 'listType' };
 
 	// List of block-like tags.
 	var dtd = CKEDITOR.dtd,
@@ -127,9 +127,13 @@
 						optionPart = parts[ 2 ];
 
 					// Special handling of justify tags, these provide the alignment as a tag name (#2248).
-					if ( part == 'left' || part == 'right' || part == 'center' || part == 'justify' ) {
+                    if ( part == 'left' || part == 'right' || part == 'center' || part == 'justify') {
 						optionPart = part;
 					}
+
+                    if (part == 'indend') {
+                        optionPart = "40px;";
+                    }
 
 					if ( optionPart ) {
 						if ( part == 'list' ) {
@@ -146,7 +150,7 @@
 							if ( part == 'size' ) {
 								optionPart += '%';
 							}
-
+							
 							styles[ stylesMap[ part ] ] = optionPart;
 							attribs.style = serializeStyleText( styles );
 						} else if ( attributesMap[ part ] ) {
@@ -434,12 +438,12 @@
 				breakAfterClose: 0
 			} );
 
-			this.setRules( 'quote', {
+			/*this.setRules( 'quote', {
 				breakBeforeOpen: 1,
 				breakAfterOpen: 0,
 				breakBeforeClose: 0,
 				breakAfterClose: 1
-			} );
+			} );*/
 		},
 
 		proto: {
@@ -593,7 +597,7 @@
 			var bbcodeFilter = new CKEDITOR.htmlParser.filter();
 			bbcodeFilter.addRules( {
 				elements: {
-					blockquote: function( element ) {
+					/*blockquote: function( element ) {
 						var quoted = new CKEDITOR.htmlParser.element( 'div' );
 						quoted.children = element.children;
 						element.children = [ quoted ];
@@ -604,7 +608,7 @@
 							delete element.attributes.cite;
 							element.children.unshift( cite );
 						}
-					},
+					},*/
 					span: function( element ) {
 						var bbcode;
 						if ( ( bbcode = element.attributes.bbcode ) ) {
@@ -687,7 +691,7 @@
 							}
 
 							tagName = 'list';
-						} else if ( tagName == 'blockquote' ) {
+						}/* else if ( tagName == 'blockquote' ) {
 							try {
 								var cite = element.children[ 0 ],
 									quoted = element.children[ 1 ],
@@ -701,7 +705,7 @@
 							} catch ( er ) {}
 
 							tagName = 'quote';
-						} else if ( tagName == 'a' ) {
+						} */else if ( tagName == 'a' ) {
 							if ( ( value = attributes.href ) ) {
 								if ( value.indexOf( 'mailto:' ) !== -1 ) {
 									tagName = 'email';
@@ -742,6 +746,13 @@
 							element.name = alignment;
 							return null;
 						}
+
+                        var marginleft = CKEDITOR.tools.parseCssText(element.attributes.style, 1)['margin-left'] || '';
+
+						if (marginleft) {
+                            element.name = "indend";
+                            return null;
+                        }
 					},
 
 					// Remove any bogus br from the end of a pseudo block,
