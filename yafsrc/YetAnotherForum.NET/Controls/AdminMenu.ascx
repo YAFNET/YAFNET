@@ -197,8 +197,7 @@
                             </ul>
                         </li>
                         <!---->
-    <li class="dropdown-item dropdown-submenu<%= this.PageContext.ForumPageType == ForumPages.Admin_Attachments || 
-                                                 this.PageContext.ForumPageType == ForumPages.Admin_Prune || 
+    <li class="dropdown-item dropdown-submenu<%= this.PageContext.ForumPageType == ForumPages.Admin_Prune || 
                                                  this.PageContext.ForumPageType == ForumPages.Admin_Restore || 
                                                  this.PageContext.ForumPageType == ForumPages.Admin_TaskManager || 
                                                  this.PageContext.ForumPageType == ForumPages.Admin_EventLog || 
@@ -206,13 +205,6 @@
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-recycle fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server"
                                                                            LocalizedTag="Maintenance" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel></a>
                             <ul class="dropdown-menu">
-                                <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.Admin_Attachments ? " active" : ""%>">
-                                    <a href="<%= BuildLink.GetLink(ForumPages.Admin_Attachments) %>">
-                                        <i class="fa fa-paperclip fa-fw"></i>&nbsp;
-                                        <YAF:LocalizedLabel runat="server" 
-                                                            LocalizedTag="admin_attachments" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
-                                    </a>
-                                </li>
                                 <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.Admin_Prune ? " active" : ""%>">
                                     <a href="<%= BuildLink.GetLink(ForumPages.Admin_Prune) %>">
                                     <i class="fa fa-trash fa-fw"></i>&nbsp;
