@@ -650,20 +650,6 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        public static void ReportCopyOver(this IRepository<Message> repository, [NotNull] int messageId)
-        {
-            repository.DbFunction.Scalar.message_reportcopyover(MessageID: messageId);
-        }
-
-        /// <summary>
-        /// Copy current Message text over reported Message text.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
         /// <param name="messageFlag">
         /// The message flag.
         /// </param>

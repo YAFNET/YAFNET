@@ -85,27 +85,33 @@
                     </div>
                     <div class="card-footer text-center">
                         <YAF:ThemeButton ID="CopyOverBtn" runat="server" 
-                                     TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="COPYOVER" 
-                                     CommandName="CopyOver" CommandArgument='<%# this.Eval("MessageID") %>'
-                                     Visible='<%# General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'
-                                     Icon="copy" Type="Secondary" />
+                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="COPYOVER" 
+                                         CommandName="CopyOver" CommandArgument='<%# this.Eval("MessageID") %>'
+                                         Visible='<%# General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'
+                                         Icon="copy" 
+                                         Type="Secondary" />
                         <YAF:ThemeButton ID="DeleteBtn" runat="server" 
-                                     TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="DELETE" 
-                                     CommandName="Delete" CommandArgument='<%# this.Eval("MessageID") %>'
-                                     ReturnConfirmText='<%# this.GetText("ASK_DELETE") %>'
-                                     Icon="trash" Type="Danger"/>
+                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="DELETE" 
+                                         CommandName="Delete" CommandArgument='<%# this.Eval("MessageID") %>'
+                                         ReturnConfirmText='<%# this.GetText("ASK_DELETE") %>'
+                                         Icon="trash" 
+                                         Type="Danger"/>
                         <YAF:ThemeButton ID="ResolveBtn" runat="server" 
-                                     TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="RESOLVED" 
-                                     CommandName="Resolved" CommandArgument='<%# this.Eval("MessageID") %>'
-                                     Icon="check" Type="Success" />
+                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="RESOLVED" 
+                                         CommandName="Resolved" CommandArgument='<%# this.Eval("MessageID") %>'
+                                         Icon="check" 
+                                         Type="Success" />
                         <YAF:ThemeButton ID="ViewBtn" runat="server" 
-                                     TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="VIEW" 
-                                     CommandName="View" CommandArgument='<%# this.Eval("MessageID") %>'
-                                     Icon="eye" Type="Secondary" />
+                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="VIEW" 
+                                         CommandName="View" CommandArgument='<%# this.Eval("MessageID") %>'
+                                         Icon="eye" 
+                                         Type="Secondary" />
                         <YAF:ThemeButton ID="ViewHistoryBtn" runat="server" 
-                                     TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="HISTORY" 
-                                     CommandName="ViewHistory" CommandArgument='<%# "{0},{1}".Fmt(this.PageContext.PageForumID, this.Eval("MessageID")) %>'
-                                     Icon="history" Type="Secondary" />
+                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="HISTORY" 
+                                         Visible='<%# General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'
+                                         CommandName="ViewHistory" CommandArgument='<%# "{0},{1}".Fmt(this.PageContext.PageForumID, this.Eval("MessageID")) %>'
+                                         Icon="history" 
+                                         Type="Secondary" />
                     </div>
                 </div>
             </div>

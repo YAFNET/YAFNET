@@ -32,6 +32,7 @@ namespace YAF.Pages.Moderate
 
     using YAF.Core.BasePages;
     using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -156,8 +157,10 @@ namespace YAF.Pages.Moderate
                     // re-bind data
                     this.BindData();
 
+                    var message = this.GetRepository<Message>().GetById(e.CommandArgument.ToType<int>());
+
                     // update message text
-                    this.GetRepository<Message>().ReportCopyOver(e.CommandArgument.ToType<int>());
+                    this.GetRepository<MessageReported>().ReportCopyOver(message);
                     break;
                 case "viewhistory":
 
