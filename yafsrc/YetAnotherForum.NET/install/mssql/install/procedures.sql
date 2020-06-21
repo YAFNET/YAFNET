@@ -55,20 +55,6 @@ GO
 
 /* End of procedures for "Thanks" Mod */
 
-create procedure [{databaseOwner}].[{objectQualifier}accessmask_delete](@AccessMaskID int) as
-begin
-        declare @flag int
-
-    set @flag=1
-    if exists(select 1 from [{databaseOwner}].[{objectQualifier}ForumAccess] where AccessMaskID=@AccessMaskID) or exists(select 1 from [{databaseOwner}].[{objectQualifier}UserForum] where AccessMaskID=@AccessMaskID)
-        set @flag=0
-    else
-        delete from [{databaseOwner}].[{objectQualifier}AccessMask] where AccessMaskID=@AccessMaskID
-
-    select @flag
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0,@ShowCrawlers bit=0,@ActiveTime int,@StyledNicks bit=0,@UTCTIMESTAMP datetime) as
 begin
     delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,@UTCTIMESTAMP )>@ActiveTime

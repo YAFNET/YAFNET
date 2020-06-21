@@ -98,7 +98,7 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot()
-                .AddLink(this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.Admin_Admin))
+                .AddAdminIndex()
                 .AddLink(this.GetText("ADMIN_NNTPSERVERS", "TITLE"), string.Empty);
 
             this.Page.Header.Title =

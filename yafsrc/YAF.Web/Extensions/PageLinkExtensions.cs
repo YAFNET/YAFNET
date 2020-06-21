@@ -57,6 +57,25 @@ namespace YAF.Web.Extensions
         }
 
         /// <summary>
+        /// The add admin index.
+        /// </summary>
+        /// <param name="pageLinks">
+        /// The page links.
+        /// </param>
+        /// <returns>
+        /// The <see cref="PageLinks"/>.
+        /// </returns>
+        public static PageLinks AddAdminIndex(
+            this PageLinks pageLinks)
+        {
+            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
+
+            pageLinks.AddLink(pageLinks.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.Admin_Admin));
+
+            return pageLinks;
+        }
+
+        /// <summary>
         /// The add user.
         /// </summary>
         /// <param name="pageLinks">

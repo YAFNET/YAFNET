@@ -299,7 +299,7 @@ namespace YAF.Pages.Profile
 
             if (this.returnUserID > 0)
             {
-                this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+                this.PageLinks.AddAdminIndex();
                 this.PageLinks.AddLink("Users", BuildLink.GetLink(ForumPages.Admin_Users));
             }
             else
