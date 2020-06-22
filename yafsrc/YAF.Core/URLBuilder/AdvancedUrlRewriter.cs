@@ -177,10 +177,25 @@ namespace YAF.Core.URLBuilder
                     }
                 }
 
-                // special handling for admin pages
-                if (parser["g"].StartsWith("admin_"))
+                if (parser["g"].StartsWith("Admin_"))
                 {
-                    pageName = parser["g"].Replace("_", "/");
+                    // special handling for admin pages
+                    pageName = parser["g"].Replace("Admin_", "Admin/");
+                }
+                else if (parser["g"].StartsWith("Moderate_"))
+                {
+                    // special handling for moderate pages
+                    pageName = parser["g"].Replace("Moderate_", "Moderate/");
+                }
+                else if (parser["g"].StartsWith("Profile_"))
+                {
+                    // special handling for Profile pages
+                    pageName = parser["g"].Replace("Profile_", "Profile/");
+                }
+                else if (parser["g"].StartsWith("Account_"))
+                {
+                    // special handling for Account pages
+                    pageName = parser["g"].Replace("Account_", "Account/");
                 }
 
                 newUrl += pageName;
