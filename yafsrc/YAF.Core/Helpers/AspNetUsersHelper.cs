@@ -281,9 +281,7 @@ namespace YAF.Core.Helpers
             }
 
             // clear the cache
-            this.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
-            this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
-            this.Get<IDataCache>().Remove(Constants.Cache.UsersDisplayNameCollection);
+            this.Get<IDataCache>().Clear();
 
             return true;
         }
