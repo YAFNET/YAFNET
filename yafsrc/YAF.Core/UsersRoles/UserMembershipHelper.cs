@@ -262,9 +262,7 @@ namespace YAF.Core.UsersRoles
                 EventLogTypes.UserDeleted);
 
             // clear the cache
-            BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
-            BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
-            BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersDisplayNameCollection);
+            BoardContext.Current.Get<IDataCache>().Clear();
 
             return true;
         }
