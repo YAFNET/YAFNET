@@ -2395,7 +2395,6 @@
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
     <Content Include="Scripts\ckeditor\plugins\autosave\css\autosave.min.css" />
     <Content Include="Scripts\ckeditor\plugins\autosave\js\extensions.min.js" />
-    <Content Include="Scripts\ckeditor\plugins\bbcodehtml\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\dialogs\bbcodeselector.js" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\images\yafbbcode.gif" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\lang\en.js" />
@@ -2641,15 +2640,7 @@
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
     <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\dialogs\syntaxhighlight.js" />
-    <Content Include="Scripts\ckeditor\plugins\tableselection\styles\tableselection.css" />
-    <Content Include="Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
     <Content Include="Scripts\ckeditor\plugins\table\dialogs\table.js" />
-    <Content Include="Scripts\ckeditor\plugins\templates\dialogs\templates.css" />
-    <Content Include="Scripts\ckeditor\plugins\templates\dialogs\templates.js" />
-    <Content Include="Scripts\ckeditor\plugins\templates\templates\default.js" />
-    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template1.gif" />
-    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template2.gif" />
-    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template3.gif" />
     <Content Include="Scripts\ckeditor\plugins\widget\images\handle.png" />
     <Content Include="Scripts\ckeditor\plugins\wordcount\css\wordcount.css" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />
@@ -3642,7 +3633,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

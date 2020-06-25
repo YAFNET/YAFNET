@@ -130,7 +130,7 @@ namespace YAF.Pages.Admin
 
             var header = string.Format(this.GetText("ADMIN_EDITUSER", "TITLE"), userName);
 
-            this.Header.Text = this.Header2.Text = header;
+            this.Header.Text = header;
 
             // current page label (no link)
             this.PageLinks.AddLink(
