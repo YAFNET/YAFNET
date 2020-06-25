@@ -24,7 +24,6 @@
 
 namespace YAF.Types.Constants
 {
-    using System;
     using System.Xml.Serialization;
 
     /// <summary>
@@ -89,7 +88,7 @@ namespace YAF.Types.Constants
         /// Gets or sets the last modified.
         /// </summary>
         [XmlElement("lastmod")]
-        public DateTime? LastModified { get; set; }
+        public string LastModified { get; set; }
 
         /// <summary>
         /// Gets or sets the priority.
@@ -117,17 +116,6 @@ namespace YAF.Types.Constants
         public bool ShouldSerializeChangeFrequency()
         {
             return this.ChangeFrequency.HasValue;
-        }
-
-        /// <summary>
-        /// The should serialize last modified.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public bool ShouldSerializeLastModified()
-        {
-            return this.LastModified.HasValue;
         }
     }
 }
