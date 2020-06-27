@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util.Mutable;
 using System;
+using System.Globalization;
 
 namespace YAF.Lucene.Net.Queries.Function.DocValues
 {
@@ -75,9 +76,9 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
             return (double)Int32Val(doc);
         }
 
-        public override string StrVal(int doc) // LUCENENET TODO: API - Add overload to include CultureInfo ?
+        public override string StrVal(int doc)
         {
-            return Convert.ToString(Int32Val(doc));
+            return Int32Val(doc).ToString(CultureInfo.InvariantCulture);
         }
 
         public override object ObjectVal(int doc)
@@ -90,7 +91,7 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
             return m_vs.GetDescription() + '=' + StrVal(doc);
         }
 
-        public override ValueSourceScorer GetRangeScorer(IndexReader reader, string lowerVal, string upperVal, bool includeLower, bool includeUpper) // LUCENENET TODO: API - Add overload to include CultureInfo ?
+        public override ValueSourceScorer GetRangeScorer(IndexReader reader, string lowerVal, string upperVal, bool includeLower, bool includeUpper)
         {
             int lower, upper;
 
@@ -102,7 +103,7 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
             }
             else
             {
-                lower = Convert.ToInt32(lowerVal);
+                lower = Convert.ToInt32(lowerVal, CultureInfo.InvariantCulture);
                 if (!includeLower && lower < int.MaxValue)
                 {
                     lower++;
@@ -115,7 +116,7 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
             }
             else
             {
-                upper = Convert.ToInt32(upperVal);
+                upper = Convert.ToInt32(upperVal, CultureInfo.InvariantCulture);
                 if (!includeUpper && upper > int.MinValue)
                 {
                     upper--;
