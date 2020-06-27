@@ -177,7 +177,6 @@
                                                      Icon="trash-restore"
                                                      Type="Success"
                                                      CommandName="restore"
-                                                     Visible='<%# this.Eval("Item2.NumPosts").ToType<int>() > 0 %>'
                                                      CommandArgument='<%# this.Eval("Item3.ID") %>'></YAF:ThemeButton>
                                     <YAF:ThemeButton runat="server" ID="Delete"
                                                      TextLocalizedTag="DELETE"

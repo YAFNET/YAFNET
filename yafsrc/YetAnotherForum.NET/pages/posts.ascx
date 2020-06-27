@@ -131,7 +131,9 @@
                                      CssClass="dropdown-toggle"
                                      DataToggle="dropdown">
                     </YAF:ThemeButton>
-                    <YAF:PopMenu ID="ShareMenu" runat="server" Control="ShareLink" />
+                    <YAF:PopMenu ID="ShareMenu" runat="server" 
+                                 AlignRight="true" 
+                                 Control="ShareLink" />
                 </li>
                 <li class="nav-item dropdown">
                     <YAF:ThemeButton runat="server" ID="OptionsLink"
