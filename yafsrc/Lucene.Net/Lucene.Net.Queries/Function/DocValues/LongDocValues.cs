@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util.Mutable;
 using System;
+using System.Globalization;
 
 namespace YAF.Lucene.Net.Queries.Function.DocValues
 {
@@ -77,9 +78,9 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
             return Int64Val(doc) != 0;
         }
 
-        public override string StrVal(int doc) // LUCENENET TODO: API - Add overload to include CultureInfo ?
+        public override string StrVal(int doc)
         {
-            return Convert.ToString(Int64Val(doc));
+            return Int64Val(doc).ToString(CultureInfo.InvariantCulture);
         }
 
         public override object ObjectVal(int doc)
@@ -95,9 +96,9 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
         /// <summary>
         /// NOTE: This was externalToLong() in Lucene
         /// </summary>
-        protected virtual long ExternalToInt64(string extVal) // LUCENENET TODO: API - Add overload to include CultureInfo ?
+        protected virtual long ExternalToInt64(string extVal)
         {
-            return Convert.ToInt64(extVal);
+            return Convert.ToInt64(extVal, CultureInfo.InvariantCulture);
         }
 
         public override ValueSourceScorer GetRangeScorer(IndexReader reader, string lowerVal, string upperVal, bool includeLower, bool includeUpper)

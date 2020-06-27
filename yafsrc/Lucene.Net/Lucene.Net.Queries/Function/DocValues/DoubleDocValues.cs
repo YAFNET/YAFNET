@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util.Mutable;
 using System;
+using System.Globalization;
 
 namespace YAF.Lucene.Net.Queries.Function.DocValues
 {
@@ -78,9 +79,9 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
 
         public override abstract double DoubleVal(int doc);
 
-        public override string StrVal(int doc) // LUCENENET TODO: API - Add overload to include CultureInfo ?
+        public override string StrVal(int doc)
         {
-            return Convert.ToString(DoubleVal(doc));
+            return DoubleVal(doc).ToString("R", CultureInfo.InvariantCulture);
         }
 
         public override object ObjectVal(int doc)
@@ -94,7 +95,7 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
         }
 
         public override ValueSourceScorer GetRangeScorer(IndexReader reader, string lowerVal, string upperVal,
-            bool includeLower, bool includeUpper) // LUCENENET TODO: API - Add overload to include CultureInfo ?
+            bool includeLower, bool includeUpper)
         {
             double lower, upper;
 
@@ -104,7 +105,7 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
             }
             else
             {
-                lower = Convert.ToDouble(lowerVal);
+                lower = Convert.ToDouble(lowerVal, CultureInfo.InvariantCulture);
             }
 
             if (upperVal == null)
@@ -113,7 +114,7 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
             }
             else
             {
-                upper = Convert.ToDouble(upperVal);
+                upper = Convert.ToDouble(upperVal, CultureInfo.InvariantCulture);
             }
 
             double l = lower;
