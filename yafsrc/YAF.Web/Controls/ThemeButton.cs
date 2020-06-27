@@ -498,6 +498,11 @@ namespace YAF.Web.Controls
                 output.WriteAttribute("title", HttpUtility.HtmlEncode(this.TitleNonLocalized));
             }
 
+            if (this.DataToggle.IsSet() && (this.DataToggle == "dropdown" || this.DataToggle == "popover"))
+            {
+                this.NavigateUrl = "#";
+            }
+
             output.WriteAttribute(
                 "href",
                 this.NavigateUrl.IsSet()
