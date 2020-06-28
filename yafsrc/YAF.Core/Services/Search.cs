@@ -247,7 +247,7 @@ namespace YAF.Core.Services
         {
             try
             {
-                messageList.ForEach(message => { this.UpdateSearchIndexItemAsync(message).Wait(); });
+                messageList.ForEach(message => this.UpdateSearchIndexItemAsync(message).Wait());
             }
             finally
             {

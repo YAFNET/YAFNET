@@ -31,13 +31,13 @@ namespace YAF.Web.Controls
 
     using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -84,6 +84,16 @@ namespace YAF.Web.Controls
             set => this.ViewState["IsGuest"] = value;
         }
 
+        /// <summary>
+        /// Gets or sets the suspended.
+        /// </summary>
+        public DateTime? Suspended
+        {
+            get => this.ViewState["Suspended"] as DateTime?;
+
+            set => this.ViewState["Suspended"] = value;
+        }
+
         #endregion
 
         #region Properties
@@ -120,20 +130,10 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            var script =
-                $@"if (typeof(jQuery.fn.hovercard) != 'undefined'){{ 
-                      {Config.JQueryAlias}('.userHoverCard').hovercard({{
-                                      delay: {this.Get<BoardSettings>().HoverCardOpenDelay}, 
-                                      width: 350,
-                                      loadingHTML: '{this.GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}',
-                                      errorHTML: '{this.GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}',
-                                      pointsText: '{this.GetText("REPUTATION").ToJsString()}', 
-                                      postsText: '{this.GetText("POSTS").ToJsString()}'
-                      }}); 
-                 }}";
-
             // Setup Hover Card JS
-            BoardContext.Current.PageElements.RegisterJsBlockStartup("yafhovercardtjs", script);
+            BoardContext.Current.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.HoverCardJs),
+                JavaScriptBlocks.HoverCardJs());
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            var userSuspended = this.GetRepository<User>().GetSuspended(this.UserID);
+            var userSuspended = this.Suspended;
 
             output.BeginRender();
 
@@ -167,11 +167,11 @@ namespace YAF.Web.Controls
                 {
                     if (this.CssClass.IsSet())
                     {
-                        this.CssClass += " btn-sm userHoverCard";
+                        this.CssClass += " btn-sm hc-user";
                     }
                     else
                     {
-                        this.CssClass = " btn-sm userHoverCard";
+                        this.CssClass = " btn-sm hc-user";
                     }
 
                     output.WriteAttribute(

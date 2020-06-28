@@ -30,12 +30,15 @@ namespace YAF.Web.Controls
     using System.Linq;
     using System.Web.UI;
 
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
-    using YAF.Core.Services;
+    using YAF.Core.Context;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -61,7 +64,7 @@ namespace YAF.Web.Controls
         ///   <c>true</c> if suspended; otherwise, <c>false</c>.
         /// </value>
         [NotNull]
-        public System.DateTime? Suspended { get; set; }
+        public DateTime? Suspended { get; set; }
 
         #endregion
 
@@ -82,9 +85,11 @@ namespace YAF.Web.Controls
 
             var activeUsers = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.UsersOnlineStatus,
-                () => this.Get<DataBroker>().GetActiveList(
+                () => this.GetRepository<Active>().List(
                     false,
-                    BoardContext.Current.BoardSettings.ShowCrawlersInActiveList),
+                    this.Get<BoardSettings>().ShowCrawlersInActiveList,
+                    this.Get<BoardSettings>().ActiveListTime,
+                    this.Get<BoardSettings>().UseStyledNicks),
                 TimeSpan.FromMilliseconds(BoardContext.Current.BoardSettings.OnlineStatusCacheTimeout));
 
             output.BeginRender();

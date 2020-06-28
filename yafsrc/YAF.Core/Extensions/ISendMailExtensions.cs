@@ -155,13 +155,30 @@ namespace YAF.Core.Extensions
         /// <summary>
         /// The send.
         /// </summary>
-        /// <param name="sendMail">The send mail.</param>
-        /// <param name="fromAddress">The from address.</param>
-        /// <param name="toAddress">The to address.</param>
-        /// <param name="senderAddress">The sender address.</param>
-        /// <param name="subject">The subject.</param>
-        /// <param name="bodyText">The body text.</param>
-        /// <param name="bodyHtml">The body html.</param>
+        /// <param name="sendMail">
+        /// The send mail.
+        /// </param>
+        /// <param name="fromAddress">
+        /// The from address.
+        /// </param>
+        /// <param name="toAddress">
+        /// The to address.
+        /// </param>
+        /// <param name="senderAddress">
+        /// The sender address.
+        /// </param>
+        /// <param name="subject">
+        /// The subject.
+        /// </param>
+        /// <param name="bodyText">
+        /// The body text.
+        /// </param>
+        /// <param name="bodyHtml">
+        /// The body html.
+        /// </param>
+        /// <returns>
+        /// The <see cref="MailMessage"/>.
+        /// </returns>
         public static MailMessage CreateMessage(
             [NotNull] this ISendMail sendMail,
             [NotNull] MailAddress fromAddress,

@@ -89,7 +89,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 this.Get<ILogger>().Error(x, "Exception In LatestInformationService");
-                return version;
+                return null;
             }
 
             return version;

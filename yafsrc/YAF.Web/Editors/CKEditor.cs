@@ -104,7 +104,7 @@ namespace YAF.Web.Editors
                 "insertsmiley",
                 $@"function insertAttachment(id,url) {{
                                    var ckEditor = CKEDITOR.instances.{this.TextAreaControl.ClientID}; ckEditor.insertHtml( '[attach]' + id + '[/attach]' );
-                         }}");
+                         }};");
         }
 
         /// <summary>

@@ -1116,6 +1116,27 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         }
 
         /// <summary>
+        /// The Hover Card Load JS.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        [NotNull]
+        public static string HoverCardJs()
+        {
+            return $@"if (typeof(jQuery.fn.hovercard) != 'undefined'){{ 
+                      {Config.JQueryAlias}('.hc-user').hovercard({{
+                                      delay: {BoardContext.Current.Get<BoardSettings>().HoverCardOpenDelay}, 
+                                      width: 350,
+                                      loadingHTML: '{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}',
+                                      errorHTML: '{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}',
+                                      pointsText: '{BoardContext.Current.Get<ILocalization>().GetText("REPUTATION").ToJsString()}', 
+                                      postsText: '{BoardContext.Current.Get<ILocalization>().GetText("POSTS").ToJsString()}'
+                      }}); 
+                 }}";
+        }
+
+        /// <summary>
         /// The forum mods popover JS.
         /// </summary>
         /// <param name="title">

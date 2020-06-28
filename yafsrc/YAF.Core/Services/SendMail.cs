@@ -33,6 +33,7 @@ namespace YAF.Core.Services
 
     using YAF.Configuration;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -70,6 +71,7 @@ namespace YAF.Core.Services
                 catch (Exception ex)
                 {
                     smtpClient.Dispose();
+					
                     if (handleException != null)
                     {
                         handleException(m, ex);

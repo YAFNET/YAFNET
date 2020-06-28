@@ -34,6 +34,7 @@ namespace YAF.Core
 
     using YAF.Configuration;
     using YAF.Configuration.Pattern;
+    using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Core.UsersRoles;
     using YAF.Types;
