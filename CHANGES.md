@@ -8,6 +8,9 @@ YetAnotherForum.NET Changelog
 * [FIXED] font size in quotes
 * [FIXED] Pruning of private messages
 * [FIXED #569] Instagram BB Code
+* [FIXED] Links to Moved topics
+* [FIXED #580] wrong DateTime format for Sitemap Urls
+* [FIXED #579] Clear cache on user delete
 
 
 # YetAnotherForum.NET v2.3.1.06
