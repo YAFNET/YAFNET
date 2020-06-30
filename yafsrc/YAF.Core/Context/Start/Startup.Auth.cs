@@ -80,11 +80,6 @@ namespace YAF.Core.Context.Start
 
             DataProtectionProvider = app.GetDataProtectionProvider();
 
-            if (!BoardContext.Current.Get<BoardSettings>().AllowSingleSignOn)
-            {
-                return;
-            }
-
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             if (Config.FacebookSecretKey.IsSet() && Config.FacebookAPIKey.IsSet())
