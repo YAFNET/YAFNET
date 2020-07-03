@@ -40,14 +40,19 @@ namespace YAF.Lucene.Net.Util
 #if FEATURE_SERIALIZABLE
     [Serializable]
 #endif
-    public sealed class BytesRef : IComparable<BytesRef>, IComparable // LUCENENET specific - implemented IComparable for FieldComparator
+    public sealed class BytesRef : IComparable<BytesRef>, IComparable, IEquatable<BytesRef> // LUCENENET specific - implemented IComparable for FieldComparator, IEquatable<BytesRef>
 #if FEATURE_CLONEABLE
         , System.ICloneable
 #endif
     {
         /// <summary>
         /// An empty byte array for convenience </summary>
-        public static readonly byte[] EMPTY_BYTES = new byte[0];
+        public static readonly byte[] EMPTY_BYTES =
+#if FEATURE_ARRAYEMPTY
+            Array.Empty<byte>();
+#else
+            new byte[0];
+#endif
 
         /// <summary>
         /// The contents of the BytesRef. Should never be <c>null</c>.
@@ -210,15 +215,16 @@ namespace YAF.Lucene.Net.Util
         public override bool Equals(object other)
         {
             if (other == null)
-            {
                 return false;
-            }
-            if (other is BytesRef)
-            {
-                return this.BytesEquals((BytesRef)other);
-            }
+
+            if (other is BytesRef otherBytes)
+                return this.BytesEquals(otherBytes);
+
             return false;
         }
+
+        bool IEquatable<BytesRef>.Equals(BytesRef other) // LUCENENET specific - implemented IEquatable<BytesRef>
+            => BytesEquals(other);
 
         /// <summary>
         /// Interprets stored bytes as UTF8 bytes, returning the

@@ -154,7 +154,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Builders
                             }
                         }
                     }
-                } while (builder == null && (clazz = clazz.GetTypeInfo().BaseType) != null);
+                } while (builder == null && (clazz = clazz.BaseType) != null);
             }
 
             return builder;

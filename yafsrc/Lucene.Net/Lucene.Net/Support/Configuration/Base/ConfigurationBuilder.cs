@@ -10,9 +10,6 @@ namespace YAF.Lucene.Net.Configuration
     /// <summary>
     /// Used to build key/value based configuration settings for use in an application.
     /// </summary>
-    /// <summary>
-    /// Used to build key/value based configuration settings for use in an application.
-    /// </summary>
     internal class ConfigurationBuilder : IConfigurationBuilder
     {
         private readonly IList<IConfigurationSource> _sources = new List<IConfigurationSource>();
@@ -24,8 +21,8 @@ namespace YAF.Lucene.Net.Configuration
 #if FEATURE_ICONFIGURATIONBUILDER_SOURCES_AS_ILIST
         public IList<IConfigurationSource> Sources => _sources;
 #else
-
-        public IList<IConfigurationSource> Sources => _sources;
+        
+        public IEnumerable<IConfigurationSource> Sources => _sources;
 #endif
 
         /// <summary>
@@ -35,8 +32,8 @@ namespace YAF.Lucene.Net.Configuration
 #if FEATURE_ICONFIGURATIONBUILDER_PROPERTIES_AS_IDICTIONARY
         public IDictionary<string, object> Properties => _properties;
 #else
-
-        public IDictionary<string, object> Properties => _properties;
+        
+        public Dictionary<string, object> Properties => _properties;
 #endif
         /// <summary>
         /// Adds a new configuration source.

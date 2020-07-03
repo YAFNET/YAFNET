@@ -77,12 +77,15 @@ namespace YAF.Lucene.Net.Support
         /// </summary>
         public static string ToString<T>(ICollection<T> collection)
         {
+            if (collection == null)
+                return "null";
+
             if (collection.Count == 0)
             {
                 return "[]";
             }
 
-            bool isValueType = typeof(T).GetTypeInfo().IsValueType;
+            bool isValueType = typeof(T).IsValueType;
             using (var it = collection.GetEnumerator())
             {
                 StringBuilder sb = new StringBuilder();
@@ -121,13 +124,16 @@ namespace YAF.Lucene.Net.Support
         /// </summary>
         public static string ToString<TKey, TValue>(IDictionary<TKey, TValue> dictionary)
         {
+            if (dictionary == null)
+                return "null";
+
             if (dictionary.Count == 0)
             {
                 return "{}";
             }
 
-            bool keyIsValueType = typeof(TKey).GetTypeInfo().IsValueType;
-            bool valueIsValueType = typeof(TValue).GetTypeInfo().IsValueType;
+            bool keyIsValueType = typeof(TKey).IsValueType;
+            bool valueIsValueType = typeof(TValue).IsValueType;
             using (var i = dictionary.GetEnumerator())
             {
                 StringBuilder sb = new StringBuilder();
@@ -171,7 +177,7 @@ namespace YAF.Lucene.Net.Support
         public static string ToString(object obj)
         {
             Type t = obj.GetType();
-            if (t.GetTypeInfo().IsGenericType
+            if (t.IsGenericType
                 && (t.ImplementsGenericInterface(typeof(ICollection<>)))
                 || t.ImplementsGenericInterface(typeof(IDictionary<,>)))
             {
