@@ -1,4 +1,6 @@
-﻿namespace YAF.Lucene.Net.Codecs
+﻿using YAF.Lucene.Net.Util;
+
+namespace YAF.Lucene.Net.Codecs
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -18,12 +20,16 @@
      */
 
     /// <summary>
-    /// LUCENENET specific contract for extending the functionality of <see cref="DocValuesFormat"/> implementations so
+    /// Contract for extending the functionality of <see cref="DocValuesFormat"/> implementations so
     /// they can be injected with dependencies.
     /// <para/>
     /// To set the <see cref="IDocValuesFormatFactory"/>, call <see cref="DocValuesFormat.SetDocValuesFormatFactory(IDocValuesFormatFactory)"/>.
+    /// <para/>
+    /// See the <see cref="Lucene.Net.Codecs"/> namespace documentation for some common usage examples.
     /// </summary>
     /// <seealso cref="DefaultDocValuesFormatFactory"/>
+    /// <seealso cref="IServiceListable"/>
+    // LUCENENET specific
     public interface IDocValuesFormatFactory
     {
         /// <summary>

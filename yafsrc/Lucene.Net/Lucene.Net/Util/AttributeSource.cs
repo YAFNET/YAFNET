@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Analysis.TokenAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,6 +6,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using FlagsAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.FlagsAttribute;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util
@@ -68,12 +70,37 @@ namespace YAF.Lucene.Net.Util
                 {
                     try
                     {
-                        return (Attribute)Activator.CreateInstance(GetClassForInterface<S>());
+                        Type attributeType = GetClassForInterface<S>();
+
+                        // LUCENENET: Optimize for creating instances of the most common attributes
+                        // directly rather than using Activator.CreateInstance()
+                        return CreateInstance(attributeType) ?? (Attribute)Activator.CreateInstance(attributeType);
                     }
                     catch (Exception e)
                     {
                         throw new ArgumentException("Could not instantiate implementing class for " + typeof(S).FullName, e);
                     }
+                }
+
+                // LUCENENET: optimize known creation of built-in types
+                private Attribute CreateInstance(Type attributeType)
+                {
+                    if (ReferenceEquals(typeof(CharTermAttribute), attributeType))
+                        return new CharTermAttribute();
+                    if (ReferenceEquals(typeof(FlagsAttribute), attributeType))
+                        return new FlagsAttribute();
+                    if (ReferenceEquals(typeof(OffsetAttribute), attributeType))
+                        return new OffsetAttribute();
+                    if (ReferenceEquals(typeof(PayloadAttribute), attributeType))
+                        return new PayloadAttribute();
+                    if (ReferenceEquals(typeof(PositionIncrementAttribute), attributeType))
+                        return new PositionIncrementAttribute();
+                    if (ReferenceEquals(typeof(PositionLengthAttribute), attributeType))
+                        return new PositionLengthAttribute();
+                    if (ReferenceEquals(typeof(TypeAttribute), attributeType))
+                        return new TypeAttribute();
+
+                    return null;
                 }
 
                 internal static Type GetClassForInterface<T>() where T : IAttribute
@@ -91,10 +118,8 @@ namespace YAF.Lucene.Net.Util
                     lock (attClassImplMap)
 #endif
                     {
-                        var @ref = attClassImplMap.GetValue(attClass, (key) =>
-                        {
-                            return CreateAttributeWeakReference(key, out clazz);
-                        });
+                        var @ref = attClassImplMap.GetValue(attClass, createValueCallback: (key) =>
+                            CreateAttributeWeakReference(key, out clazz));
 
                         if (!@ref.TryGetTarget(out clazz))
                         {
@@ -112,16 +137,34 @@ namespace YAF.Lucene.Net.Util
                 }
 
                 // LUCENENET specific - factored this out so we can reuse
-                private static WeakReference<Type> CreateAttributeWeakReference(Type attClass, out Type clazz)
+                private static WeakReference<Type> CreateAttributeWeakReference(Type attributeInterfaceType, out Type clazz)
                 {
                     try
                     {
-                        string name = attClass.FullName.Replace(attClass.Name, attClass.Name.Substring(1)) + ", " + attClass.GetTypeInfo().Assembly.FullName;
-                        return new WeakReference<Type>(clazz = Type.GetType(name, true));
+                        string name = ConvertAttributeInterfaceToClassName(attributeInterfaceType);
+                        return new WeakReference<Type>(clazz = attributeInterfaceType.Assembly.GetType(name, true));
                     }
                     catch (Exception e)
                     {
-                        throw new ArgumentException("Could not find implementing class for " + attClass.Name, e);
+                        throw new ArgumentException("Could not find implementing class for " + attributeInterfaceType.Name, e);
+                    }
+                }
+
+                private static string ConvertAttributeInterfaceToClassName(Type attributeInterfaceType)
+                {
+                    int lastPlus = attributeInterfaceType.FullName.LastIndexOf('+');
+                    if (lastPlus == -1)
+                    {
+                        return string.Concat(
+                            attributeInterfaceType.Namespace,
+                            ".",
+                            attributeInterfaceType.Name.Substring(1));
+                    }
+                    else
+                    {
+                        return string.Concat(
+                            attributeInterfaceType.FullName.Substring(0, lastPlus + 1),
+                            attributeInterfaceType.Name.Substring(1));
                     }
                 }
             }
@@ -310,7 +353,7 @@ namespace YAF.Lucene.Net.Util
                             foundInterfaces.AddLast(new WeakReference<Type>(curInterface));
                         }
                     }
-                    actClazz = actClazz.GetTypeInfo().BaseType;
+                    actClazz = actClazz.BaseType;
                 } while (actClazz != null);
 
                 return foundInterfaces;
@@ -367,7 +410,7 @@ namespace YAF.Lucene.Net.Util
             var attClass = typeof(T);
             if (!attributes.ContainsKey(attClass))
             {
-                if (!(attClass.GetTypeInfo().IsInterface && typeof(IAttribute).IsAssignableFrom(attClass)))
+                if (!(attClass.IsInterface && typeof(IAttribute).IsAssignableFrom(attClass)))
                 {
                     throw new ArgumentException("AddAttribute() only accepts an interface that extends IAttribute, but " + attClass.FullName + " does not fulfil this contract.");
                 }
