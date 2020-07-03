@@ -35,6 +35,7 @@ namespace YAF.Core.Tasks
 
     using YAF.Configuration;
     using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -151,7 +152,7 @@ namespace YAF.Core.Tasks
         {
             try
             {
-                var boardIds = this.GetRepository<Board>().ListTyped().Select(b => b.ID);
+                var boardIds = this.GetRepository<Board>().GetAll().Select(b => b.ID);
 
                 boardIds.ForEach(
                     boardId =>

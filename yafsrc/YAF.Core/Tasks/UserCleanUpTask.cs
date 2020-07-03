@@ -61,7 +61,7 @@ namespace YAF.Core.Tasks
             try
             {
                 // get all boards...
-                var boardIds = this.GetRepository<Board>().ListTyped().Select(x => x.ID).ToList();
+                var boardIds = this.GetRepository<Board>().GetAll().Select(x => x.ID);
 
                 // go through each board...
                 boardIds.ForEach(
