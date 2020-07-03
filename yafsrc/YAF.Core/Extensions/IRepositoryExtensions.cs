@@ -232,6 +232,17 @@ namespace YAF.Core.Extensions
             return repository.DbAccess.Execute(db => db.Connection.Insert(entity, true)).ToType<int>();
         }
 
+        public static void InsertAll<T>(
+            [NotNull] this IRepository<T> repository,
+            [NotNull] IEnumerable<T> objs,
+            IDbTransaction transaction = null)
+            where T : class, IEntity, new()
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.DbAccess.Execute(db => db.Connection.InsertAll(objs));
+        }
+
         /// <summary>
         /// Update or Insert entity.
         /// </summary>

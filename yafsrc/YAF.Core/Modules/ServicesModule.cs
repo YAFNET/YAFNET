@@ -80,7 +80,6 @@ namespace YAF.Core.Modules
             builder.RegisterType<ActivityStream>().As<IActivityStream>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<SendNotification>().As<ISendNotification>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
-            builder.RegisterType<Search>().As<ISearch>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<Digest>().As<IDigest>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
@@ -166,12 +165,12 @@ namespace YAF.Core.Modules
 
             builder.RegisterType<AspNetUsersHelper>().As<IAspNetUsersHelper>().InstancePerBoardContext();
 
-            // favorite topic is based on BoardContext
+            // based on BoardContext
             builder.RegisterType<FavoriteTopic>().As<IFavoriteTopic>().InstancePerBoardContext()
                 .PreserveExistingDefaults();
             builder.RegisterType<ThankYou>().As<IThankYou>().InstancePerBoardContext();
-
             builder.RegisterType<SpamCheck>().As<ISpamCheck>().InstancePerBoardContext();
+            builder.RegisterType<Search>().As<ISearch>().InstancePerBoardContext();
         }
 
         /// <summary>

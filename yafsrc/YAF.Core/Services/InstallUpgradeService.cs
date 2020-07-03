@@ -58,7 +58,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///     The BBCode extensions import xml file.
         /// </summary>
-        private const string BbcodeImport = "bbCodeExtensions.xml";
+        private const string BbcodeImport = "BBCodeExtensions.xml";
 
         /// <summary>
         ///     The Spam Words list import xml file.
@@ -70,15 +70,21 @@ namespace YAF.Core.Services
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InstallUpgradeService" /> class.
+        /// Initializes a new instance of the <see cref="InstallUpgradeService"/> class.
         /// </summary>
-        /// <param name="serviceLocator">The service locator.</param>
-        /// <param name="raiseEvent">The raise Event.</param>
-        /// <param name="dbAccess">The database access.</param>
-        public InstallUpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEvent, IDbAccess dbAccess)
+        /// <param name="serviceLocator">
+        /// The service locator.
+        /// </param>
+        /// <param name="raiseEvent">
+        /// The raise Event.
+        /// </param>
+        /// <param name="access">
+        /// The access.
+        /// </param>
+        public InstallUpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEvent, IDbAccess access)
         {
             this.RaiseEvent = raiseEvent;
-            this.DbAccess = dbAccess;
+            this.DbAccess = access;
             this.ServiceLocator = serviceLocator;
         }
 
@@ -249,6 +255,8 @@ namespace YAF.Core.Services
             // Handle Tables
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Tag>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicTag>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileDefinition>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileCustom>());
 
             // Ederon : 9/7/2007
             // re-sync all boards - necessary for proper last post bubbling
@@ -465,19 +473,20 @@ namespace YAF.Core.Services
                         }
                     });
 
-            var boards = this.GetRepository<Board>().ListTyped();
+            // get all boards...
+            var boardIds = this.GetRepository<Board>().GetAll().Select(x => x.ID);
 
             // Upgrade all Boards
-            boards.ForEach(
-                board =>
+            boardIds.ForEach(
+                boardId =>
                     {
-                        this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(board.ID));
+                        this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
 
                         // load default bbcode if available...
-                        loadWrapper(BbcodeImport, s => DataImport.BBCodeExtensionImport(board.ID, s));
+                        loadWrapper(BbcodeImport, s => DataImport.BBCodeExtensionImport(boardId, s));
 
                         // load default spam word if available...
-                        loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(board.ID, s));
+                        loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(boardId, s));
                     });
         }
 

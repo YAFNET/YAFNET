@@ -339,6 +339,11 @@ namespace YAF.Types.Constants
         Admin_PageAccessEdit,
 
         /// <summary>
+        /// The admin profile definitions page.
+        /// </summary>
+        Admin_ProfileDefinitions,
+
+        /// <summary>
         /// The Admin prune page.
         /// </summary>
         Admin_Prune,

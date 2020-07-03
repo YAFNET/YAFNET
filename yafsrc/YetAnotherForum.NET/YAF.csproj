@@ -414,6 +414,13 @@
     <Compile Include="controls\ProfileTimeline.ascx.designer.cs">
       <DependentUpon>ProfileTimeline.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\EditProfileDefinition.ascx.cs">
+      <DependentUpon>EditProfileDefinition.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\EditProfileDefinition.ascx.designer.cs">
+      <DependentUpon>EditProfileDefinition.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\MoveTopic.ascx.cs">
       <DependentUpon>MoveTopic.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -649,7 +656,7 @@
     <Compile Include="error.aspx.designer.cs">
       <DependentUpon>error.aspx</DependentUpon>
     </Compile>
-    <Compile Include="install\default.aspx.designer.cs">
+    <Compile Include="Install\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\CanonicalMetaTagModule.cs" />
@@ -680,6 +687,13 @@
     </Compile>
     <Compile Include="Pages\ActiveUsers.ascx.designer.cs">
       <DependentUpon>ActiveUsers.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\ProfileDefinitions.ascx.cs">
+      <DependentUpon>ProfileDefinitions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\ProfileDefinitions.ascx.designer.cs">
+      <DependentUpon>ProfileDefinitions.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Admin\AccessMasks.ascx.designer.cs">
       <DependentUpon>AccessMasks.ascx</DependentUpon>
@@ -1797,49 +1811,24 @@
     <Content Include="Content\bootstrap\bootstrap-reboot.scss" />
     <Content Include="Content\bootstrap\bootstrap.scss" />
     <Content Include="Content\bootstrap\mixins\_alert.scss" />
-    <Content Include="Content\bootstrap\mixins\_background-variant.scss" />
-    <Content Include="Content\bootstrap\mixins\_badge.scss" />
     <Content Include="Content\bootstrap\mixins\_border-radius.scss" />
     <Content Include="Content\bootstrap\mixins\_box-shadow.scss" />
     <Content Include="Content\bootstrap\mixins\_breakpoints.scss" />
     <Content Include="Content\bootstrap\mixins\_buttons.scss" />
     <Content Include="Content\bootstrap\mixins\_caret.scss" />
     <Content Include="Content\bootstrap\mixins\_clearfix.scss" />
-    <Content Include="Content\bootstrap\mixins\_float.scss" />
     <Content Include="Content\bootstrap\mixins\_forms.scss" />
     <Content Include="Content\bootstrap\mixins\_gradients.scss" />
-    <Content Include="Content\bootstrap\mixins\_grid-framework.scss" />
     <Content Include="Content\bootstrap\mixins\_grid.scss" />
-    <Content Include="Content\bootstrap\mixins\_hover.scss" />
     <Content Include="Content\bootstrap\mixins\_image.scss" />
     <Content Include="Content\bootstrap\mixins\_list-group.scss" />
     <Content Include="Content\bootstrap\mixins\_lists.scss" />
-    <Content Include="Content\bootstrap\mixins\_nav-divider.scss" />
     <Content Include="Content\bootstrap\mixins\_pagination.scss" />
     <Content Include="Content\bootstrap\mixins\_reset-text.scss" />
     <Content Include="Content\bootstrap\mixins\_resize.scss" />
     <Content Include="Content\bootstrap\mixins\_screen-reader.scss" />
-    <Content Include="Content\bootstrap\mixins\_size.scss" />
-    <Content Include="Content\bootstrap\mixins\_table-row.scss" />
-    <Content Include="Content\bootstrap\mixins\_text-emphasis.scss" />
-    <Content Include="Content\bootstrap\mixins\_text-hide.scss" />
     <Content Include="Content\bootstrap\mixins\_text-truncate.scss" />
     <Content Include="Content\bootstrap\mixins\_transition.scss" />
-    <Content Include="Content\bootstrap\mixins\_visibility.scss" />
-    <Content Include="Content\bootstrap\utilities\_align.scss" />
-    <Content Include="Content\bootstrap\utilities\_background.scss" />
-    <Content Include="Content\bootstrap\utilities\_borders.scss" />
-    <Content Include="Content\bootstrap\utilities\_clearfix.scss" />
-    <Content Include="Content\bootstrap\utilities\_display.scss" />
-    <Content Include="Content\bootstrap\utilities\_embed.scss" />
-    <Content Include="Content\bootstrap\utilities\_flex.scss" />
-    <Content Include="Content\bootstrap\utilities\_float.scss" />
-    <Content Include="Content\bootstrap\utilities\_position.scss" />
-    <Content Include="Content\bootstrap\utilities\_screenreaders.scss" />
-    <Content Include="Content\bootstrap\utilities\_sizing.scss" />
-    <Content Include="Content\bootstrap\utilities\_spacing.scss" />
-    <Content Include="Content\bootstrap\utilities\_text.scss" />
-    <Content Include="Content\bootstrap\utilities\_visibility.scss" />
     <Content Include="Content\bootstrap\_alert.scss" />
     <Content Include="Content\bootstrap\_badge.scss" />
     <Content Include="Content\bootstrap\_breadcrumb.scss" />
@@ -1848,24 +1837,18 @@
     <Content Include="Content\bootstrap\_card.scss" />
     <Content Include="Content\bootstrap\_carousel.scss" />
     <Content Include="Content\bootstrap\_close.scss" />
-    <Content Include="Content\bootstrap\_code.scss" />
-    <Content Include="Content\bootstrap\_custom-forms.scss" />
     <Content Include="Content\bootstrap\_dropdown.scss" />
     <Content Include="Content\bootstrap\_forms.scss" />
     <Content Include="Content\bootstrap\_functions.scss" />
     <Content Include="Content\bootstrap\_grid.scss" />
     <Content Include="Content\bootstrap\_images.scss" />
-    <Content Include="Content\bootstrap\_input-group.scss" />
-    <Content Include="Content\bootstrap\_jumbotron.scss" />
     <Content Include="Content\bootstrap\_list-group.scss" />
-    <Content Include="Content\bootstrap\_media.scss" />
     <Content Include="Content\bootstrap\_mixins.scss" />
     <Content Include="Content\bootstrap\_modal.scss" />
     <Content Include="Content\bootstrap\_nav.scss" />
     <Content Include="Content\bootstrap\_navbar.scss" />
     <Content Include="Content\bootstrap\_pagination.scss" />
     <Content Include="Content\bootstrap\_popover.scss" />
-    <Content Include="Content\bootstrap\_print.scss" />
     <Content Include="Content\bootstrap\_progress.scss" />
     <Content Include="Content\bootstrap\_reboot.scss" />
     <Content Include="Content\bootstrap\_root.scss" />
@@ -1875,7 +1858,6 @@
     <Content Include="Content\bootstrap\_type.scss" />
     <Content Include="Content\bootstrap\_utilities.scss" />
     <Content Include="Content\bootstrap\_variables.scss" />
-    <Content Include="Content\bootstrap\utilities\_shadows.scss" />
     <Content Include="Content\bootstrap\vendor\_rfs.scss" />
     <Content Include="Content\flag-icons\flag-icon.scss" />
     <Content Include="Content\flag-icons\_flag-icon-base.scss" />
@@ -1904,11 +1886,31 @@
     <Content Include="Content\blueimp-gallery.scss" />
     <Content Include="app.config" />
     <Content Include="Content\bootstrap\mixins\_deprecate.scss" />
-    <Content Include="Content\bootstrap\utilities\_interactions.scss" />
-    <Content Include="Content\bootstrap\utilities\_overflow.scss" />
-    <Content Include="Content\bootstrap\utilities\_stretched-link.scss" />
     <Content Include="Content\bootstrap\_spinners.scss" />
     <Content Include="Content\bootstrap\_toasts.scss" />
+    <Content Include="Content\bootstrap\forms\_form-check.scss" />
+    <Content Include="Content\bootstrap\forms\_form-control.scss" />
+    <Content Include="Content\bootstrap\forms\_form-file.scss" />
+    <Content Include="Content\bootstrap\forms\_form-range.scss" />
+    <Content Include="Content\bootstrap\forms\_form-select.scss" />
+    <Content Include="Content\bootstrap\forms\_form-text.scss" />
+    <Content Include="Content\bootstrap\forms\_input-group.scss" />
+    <Content Include="Content\bootstrap\forms\_labels.scss" />
+    <Content Include="Content\bootstrap\forms\_validation.scss" />
+    <Content Include="Content\bootstrap\helpers\_clearfix.scss" />
+    <Content Include="Content\bootstrap\helpers\_colored-links.scss" />
+    <Content Include="Content\bootstrap\helpers\_embed.scss" />
+    <Content Include="Content\bootstrap\helpers\_position.scss" />
+    <Content Include="Content\bootstrap\helpers\_screenreaders.scss" />
+    <Content Include="Content\bootstrap\helpers\_stretched-link.scss" />
+    <Content Include="Content\bootstrap\helpers\_text-truncation.scss" />
+    <Content Include="Content\bootstrap\mixins\_container.scss" />
+    <Content Include="Content\bootstrap\mixins\_table-variants.scss" />
+    <Content Include="Content\bootstrap\mixins\_utilities.scss" />
+    <Content Include="Content\bootstrap\bootstrap-utilities.scss" />
+    <Content Include="Content\bootstrap\_containers.scss" />
+    <Content Include="Content\bootstrap\_helpers.scss" />
+    <Content Include="Content\bootstrap\utilities\_api.scss" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
     <Content Include="Content\images\error.svg" />
@@ -1965,6 +1967,7 @@
     <Content Include="controls\CookieConsent.ascx" />
     <Content Include="controls\EditUsersSettings.ascx" />
     <Content Include="controls\ProfileTimeline.ascx" />
+    <Content Include="Dialogs\EditProfileDefinition.ascx" />
     <Content Include="Dialogs\MoveTopic.ascx" />
     <Content Include="Dialogs\UserMedalEdit.ascx" />
     <Content Include="Dialogs\GroupMedalEdit.ascx" />
@@ -2050,22 +2053,23 @@
     <Content Include="Images\Medals\medal_small.png" />
     <Content Include="Images\Logos\YAFLogo.svg" />
     <Content Include="Images\noavatar.svg" />
-    <Content Include="install\custom\custom.sql" />
-    <Content Include="install\custom\dnn.sql" />
-    <Content Include="install\mssql\install\constraints.sql" />
-    <Content Include="install\mssql\install\functions.sql" />
-    <Content Include="install\mssql\install\indexes.sql" />
-    <Content Include="install\mssql\install\procedures.sql" />
-    <Content Include="install\mssql\install\tables.sql" />
-    <Content Include="install\mssql\install\views.sql" />
-    <Content Include="install\mssql\upgrade\fulltext.sql" />
-    <Content Include="install\mssql\upgrade\identity\upgrade.sql" />
-    <Content Include="install\SpamWords.xml" />
+    <Content Include="Install\custom\custom.sql" />
+    <Content Include="Install\custom\dnn.sql" />
+    <Content Include="Install\mssql\install\constraints.sql" />
+    <Content Include="Install\mssql\install\functions.sql" />
+    <Content Include="Install\mssql\install\indexes.sql" />
+    <Content Include="Install\mssql\install\procedures.sql" />
+    <Content Include="Install\mssql\install\tables.sql" />
+    <Content Include="Install\mssql\install\views.sql" />
+    <Content Include="Install\mssql\upgrade\fulltext.sql" />
+    <Content Include="Install\mssql\upgrade\identity\upgrade.sql" />
+    <Content Include="Install\SpamWords.xml" />
     <Content Include="languages\arabic.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="languages\estonian.xml" />
     <Content Include="Pages\Account\ResetPassword.ascx" />
+    <Content Include="Pages\Admin\ProfileDefinitions.ascx" />
     <Content Include="Pages\Admin\BannedEmails.ascx" />
     <Content Include="Pages\Admin\BannedNames.ascx" />
     <Content Include="Pages\Admin\Profiler.ascx" />
@@ -2078,19 +2082,19 @@
     <Content Include="Dialogs\SpamWordsImport.ascx" />
     <Content Include="Images\Categories\categoryImageSample.gif" />
     <Content Include="Images\Forums\forumImageSample.gif" />
-    <Content Include="install\BBCodeExtensions.xml">
+    <Content Include="Install\BBCodeExtensions.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="install\default.aspx">
+    <Content Include="Install\default.aspx">
       <SubType>Form</SubType>
     </Content>
-    <Content Include="install\mssql\upgrade\constraints.sql" />
-    <Content Include="install\mssql\upgrade\functions.sql" />
-    <Content Include="install\mssql\upgrade\indexes.sql" />
-    <Content Include="install\mssql\upgrade\procedures.sql" />
-    <Content Include="install\mssql\upgrade\tables.sql" />
-    <Content Include="install\mssql\upgrade\triggers.sql" />
-    <Content Include="install\mssql\upgrade\views.sql" />
+    <Content Include="Install\mssql\upgrade\constraints.sql" />
+    <Content Include="Install\mssql\upgrade\functions.sql" />
+    <Content Include="Install\mssql\upgrade\indexes.sql" />
+    <Content Include="Install\mssql\upgrade\procedures.sql" />
+    <Content Include="Install\mssql\upgrade\tables.sql" />
+    <Content Include="Install\mssql\upgrade\triggers.sql" />
+    <Content Include="Install\mssql\upgrade\views.sql" />
     <Content Include="languages\china.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -2795,9 +2799,6 @@
     </Content>
     <Content Include="Scripts\jsdifflib.js" />
     <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment-with-locales.min.js" />
-    <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.js" />
@@ -2948,7 +2949,7 @@
       <DependentUpon>error.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="install\default.aspx.cs">
+    <Compile Include="Install\default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -3354,8 +3355,6 @@
     <Content Include="v1.9.1.upgrade.web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Scripts\moment.min.js.map" />
-    <Content Include="Scripts\moment-with-locales.min.js.map" />
     <None Include="web.config">
       <SubType>Designer</SubType>
     </None>

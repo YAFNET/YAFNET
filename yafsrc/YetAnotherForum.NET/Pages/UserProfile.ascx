@@ -2,7 +2,6 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="System.Data" %>
-<%@ Import Namespace="YAF.Core.Context" %>
 
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
@@ -31,7 +30,7 @@
             Type="Info" />
         <YAF:ThemeButton ID="AdminUserButton" runat="server" Visible="false"
             TextLocalizedTag="ADMIN_USER"
-            NavigateUrl='<%# BuildLink.GetLinkNotEscaped(ForumPages.Admin_EditUser,"u={0}", this.UserId) %>'
+            NavigateUrl='<%# BuildLink.GetLink(ForumPages.Admin_EditUser,"u={0}", this.UserId) %>'
             Icon="user-cog"
             Type="Danger">
         </YAF:ThemeButton>
@@ -47,7 +46,7 @@
     <div class="col-md-3">
         <!--left col-->
         <ul class="list-group mb-3">
-            <li class="list-group-item text-white bg-primary">
+            <li class="list-group-item link-light bg-primary">
                 <YAF:LocalizedLabel runat="server" LocalizedTag="profile" />
             </li>
             <li class="list-group-item text-right">
@@ -129,7 +128,7 @@
                 <asp:PlaceHolder runat="server" ID="BirthdayTR" Visible="false">
                     <li class="list-group-item text-right">
                         <span class="float-left font-weight-bold">
-                            <YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedTag="BIRTHDAY" />
+                            <YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedTag="BIRTHDAY" />:
                         </span>
                         <asp:Label ID="Birthday" runat="server" />
                     </li>
@@ -151,11 +150,22 @@
                         <asp:Literal runat="server" ID="Gender" />
                     </li>
                 </asp:PlaceHolder>
+
+                <asp:Repeater runat="server" ID="CustomProfile">
+                    <ItemTemplate>
+                        <li class="list-group-item text-right">
+                            <span class="float-left font-weight-bold">
+                                <%# this.Eval("Item2.Name") %>:
+                            </span>
+                            <%# this.Eval("Item1.Value") %>
+                        </li>
+                    </ItemTemplate>
+                </asp:Repeater>
             </asp:PlaceHolder>
         </ul>
         <asp:PlaceHolder runat="server" ID="HomePlaceHolder">
             <div class="card mb-3">
-                <div class="card-header text-white bg-primary">
+                <div class="card-header link-light bg-primary">
                     <YAF:LocalizedLabel runat="server" LocalizedTag="HOME"></YAF:LocalizedLabel>
                 </div>
                 <div class="card-body">
@@ -166,7 +176,7 @@
             </div>
         </asp:PlaceHolder>
         <ul class="list-group mb-3">
-            <li class="list-group-item text-white bg-primary">
+            <li class="list-group-item link-light bg-primary">
                 <YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedTag="STATISTICS" />
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-end">
@@ -219,7 +229,7 @@
         </ul>
         <asp:PlaceHolder runat="server" ID="SocialMediaHolder">
             <div class="card mb-3">
-                <div class="card-header text-white bg-primary">
+                <div class="card-header link-light bg-primary">
                     <YAF:LocalizedLabel runat="server"
                         LocalizedTag="SOCIAL_MEDIA">
                     </YAF:LocalizedLabel>
@@ -334,7 +344,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:LocalizedLabel ID="LocalizedLabel44" runat="server"
-                        LocalizedTag='<%# this.UserId == BoardContext.Current.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' />
+                        LocalizedTag='<%# this.UserId == this.PageContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' />
                 </div>
                 <div class="card-body">
                     <div runat="server" id="BuddyListTab" class="tab-pane" role="tabpanel">

@@ -393,6 +393,15 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.Literal Gender;
 
         /// <summary>
+        /// CustomProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater CustomProfile;
+
+        /// <summary>
         /// HomePlaceHolder control.
         /// </summary>
         /// <remarks>

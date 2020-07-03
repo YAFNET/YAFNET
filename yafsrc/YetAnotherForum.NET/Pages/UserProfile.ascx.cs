@@ -78,20 +78,8 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets or sets UserId.
         /// </summary>
-        public int UserId
-        {
-            get
-            {
-                if (this.ViewState["UserId"] == null)
-                {
-                    return 0;
-                }
-
-                return (int)this.ViewState["UserId"];
-            }
-
-            set => this.ViewState["UserId"] = value;
-        }
+        public int UserId =>
+            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         #endregion
 
@@ -116,8 +104,6 @@ namespace YAF.Pages
 
             if (!this.IsPostBack)
             {
-                this.UserId =
-                    Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
                 this.userGroupsRow.Visible = this.Get<BoardSettings>().ShowGroupsProfile || this.PageContext.IsAdmin;
             }
 
@@ -260,7 +246,7 @@ namespace YAF.Pages
                     this.PageContext.PageUserID,
                     10).AsEnumerable();
 
-                this.SearchUser.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                this.SearchUser.NavigateUrl = BuildLink.GetLink(
                     ForumPages.Search,
                     "postedby={0}",
                     userNameOrDisplayName);
@@ -374,6 +360,9 @@ namespace YAF.Pages
                 this.SocialMediaHolder.Visible = false;
             }
 
+            this.CustomProfile.DataSource = this.GetRepository<ProfileCustom>().ListByUser(this.UserId);
+            this.CustomProfile.DataBind();
+
             if (user.Item1.ID == this.PageContext.PageUserID)
             {
                 return;
@@ -396,7 +385,7 @@ namespace YAF.Pages
                 }
             }
 
-            this.PM.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage, "u={0}", user.Item1.ID);
+            this.PM.NavigateUrl = BuildLink.GetLink(ForumPages.PostPrivateMessage, "u={0}", user.Item1.ID);
             this.PM.ParamTitle0 = userName;
 
             // email link
@@ -415,7 +404,7 @@ namespace YAF.Pages
                 }
             }
 
-            this.Email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", user.Item1.ID);
+            this.Email.NavigateUrl = BuildLink.GetLink(ForumPages.Email, "u={0}", user.Item1.ID);
             if (this.PageContext.IsAdmin)
             {
                 this.Email.TitleNonLocalized = user.Item1.Email;
@@ -424,7 +413,7 @@ namespace YAF.Pages
             this.Email.ParamTitle0 = userName;
 
             this.XMPP.Visible = user.Item2.Profile_XMPP.IsSet();
-            this.XMPP.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Jabber, "u={0}", user.Item1.ID);
+            this.XMPP.NavigateUrl = BuildLink.GetLink(ForumPages.Jabber, "u={0}", user.Item1.ID);
             this.XMPP.ParamTitle0 = userName;
 
             this.Skype.Visible = user.Item2.Profile_Skype.IsSet();

@@ -9,7 +9,7 @@
             LocalizedTag="aboutyou" />
     </h2>
     <asp:PlaceHolder ID="DisplayNamePlaceholder" runat="server" Visible="false">
-        <div class="form-group">
+        <div class="mb-3">
             <asp:Label runat="server" AssociatedControlID="DisplayName">
                 <YAF:LocalizedLabel ID="LocalizedLabel34" runat="server"
                     LocalizedPage="EDIT_PROFILE"
@@ -18,7 +18,7 @@
             <asp:TextBox ID="DisplayName" runat="server" CssClass="form-control" />
         </div>
     </asp:PlaceHolder>
-    <div class="form-group">
+    <div class="mb-3">
         <asp:Label runat="server" AssociatedControlID="Realname">
             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
                 LocalizedPage="EDIT_PROFILE"
@@ -26,23 +26,21 @@
         </asp:Label>
         <asp:TextBox ID="Realname" runat="server" CssClass="form-control" />
     </div>
-    <div class="form-group">
+    <div class="mb-3">
         <asp:Label runat="server" AssociatedControlID="Birthday">
             <YAF:LocalizedLabel ID="BirthdayLabel" runat="server"
                 LocalizedPage="EDIT_PROFILE"
                 LocalizedTag="BIRTHDAY" />
         </asp:Label>
         <div class='input-group mb-3 date datepickerinput'>
-            <span class="input-group-prepend">
-                <button class="btn btn-secondary datepickerbutton" type="button">
-                    <i class="fa fa-calendar-day fa-fw"></i>
-                </button>
-            </span>
+            <button class="btn btn-secondary datepickerbutton" type="button">
+                <i class="fa fa-calendar-day fa-fw"></i>
+            </button>
             <asp:TextBox ID="Birthday" runat="server"
                 CssClass="form-control"></asp:TextBox>
         </div>
     </div>
-    <div class="form-group">
+    <div class="mb-3">
         <asp:Label runat="server" AssociatedControlID="Occupation">
             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
                 LocalizedPage="EDIT_PROFILE"
@@ -51,7 +49,7 @@
         <asp:TextBox ID="Occupation" runat="server"
             CssClass="form-control" />
     </div>
-    <div class="form-group">
+    <div class="mb-3">
         <asp:Label runat="server" AssociatedControlID="Gender">
             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server"
                 LocalizedPage="EDIT_PROFILE"
@@ -63,13 +61,13 @@
             MaxLength="400"
             Rows="4" />
     </div>
-    <div class="form-group">
+    <div class="mb-3">
         <asp:Label runat="server" AssociatedControlID="Gender">
             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
                 LocalizedPage="EDIT_PROFILE"
                 LocalizedTag="GENDER" />
         </asp:Label>
-        <div class="custom-control custom-radio custom-control-inline">
+        <div class="form-check form-check-inline">
             <asp:RadioButtonList ID="Gender" runat="server"
                 RepeatLayout="UnorderedList"
                 CssClass="list-unstyled" />
@@ -81,7 +79,7 @@
             LocalizedTag="LOCATION" />
     </h4>
 
-    <div class="form-group">
+    <div class="mb-3">
         <YAF:ThemeButton runat="server" ID="GetLocation"
             Visible="<%# this.Get<BoardSettings>().EnableIPInfoService %>"
             Icon="location-arrow"
@@ -90,8 +88,8 @@
             OnClick="GetLocationOnClick">
         </YAF:ThemeButton>
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-4">
+    <div class="row">
+        <div class="mb-3 col-md-4">
             <asp:Label runat="server" AssociatedControlID="Country">
                 <YAF:LocalizedLabel ID="LocalizedLabel40" runat="server"
                     LocalizedPage="EDIT_PROFILE"
@@ -104,7 +102,7 @@
 
         </div>
         <asp:PlaceHolder ID="RegionTr" Visible="false" runat="server">
-            <div class="form-group col-md-4">
+            <div class="mb-3 col-md-4">
                 <asp:Label runat="server" AssociatedControlID="Region">
                     <YAF:LocalizedLabel ID="LocalizedLabel41" runat="server"
                         LocalizedPage="EDIT_PROFILE"
@@ -114,7 +112,7 @@
                     CssClass="select2-select" />
             </div>
         </asp:PlaceHolder>
-        <div class="form-group col-md-4">
+        <div class="mb-3 col-md-4">
             <asp:Label runat="server" AssociatedControlID="City">
                 <YAF:LocalizedLabel ID="LocalizedLabel42" runat="server"
                     LocalizedPage="EDIT_PROFILE"
@@ -124,7 +122,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
         <asp:Label runat="server" AssociatedControlID="Location">
             <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server"
                 LocalizedPage="EDIT_PROFILE"
@@ -137,8 +135,8 @@
             LocalizedPage="EDIT_PROFILE"
             LocalizedTag="homepage" />
     </h2>
-    <div class="form-row">
-        <div class="form-group col-md-6">
+    <div class="row">
+        <div class="mb-3 col-md-6">
             <asp:Label runat="server" AssociatedControlID="HomePage">
                 <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server"
                     LocalizedPage="EDIT_PROFILE"
@@ -148,7 +146,7 @@
                 CssClass="form-control"
                 TextMode="Url" />
         </div>
-        <div class="form-group col-md-6">
+        <div class="mb-3 col-md-6">
             <asp:Label runat="server" AssociatedControlID="Weblog">
                 <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server"
                     LocalizedPage="EDIT_PROFILE"
@@ -168,8 +166,8 @@
             LocalizedPage="EDIT_PROFILE"
             LocalizedTag="messenger" />
     </h4>
-    <div class="form-row">
-        <div class="form-group col-md-6">
+    <div class="row">
+        <div class="mb-3 col-md-6">
             <asp:Label runat="server" AssociatedControlID="ICQ">
                 <YAF:LocalizedLabel ID="LocalizedLabel26" runat="server"
                     LocalizedPage="EDIT_PROFILE"
@@ -179,7 +177,7 @@
                 CssClass="form-control"
                 TextMode="Number" />
         </div>
-        <div class="form-group col-md-6">
+        <div class="mb-3 col-md-6">
             <asp:Label runat="server" AssociatedControlID="Twitter">
                 <YAF:LocalizedLabel ID="LocalizedLabel33" runat="server"
                     LocalizedPage="EDIT_PROFILE"
@@ -188,8 +186,8 @@
             <asp:TextBox runat="server" ID="Twitter" CssClass="form-control" />
         </div>
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
+    <div class="row">
+        <div class="mb-3 col-md-6">
             <asp:Label runat="server" AssociatedControlID="Xmpp">
                 <YAF:LocalizedLabel ID="LocalizedLabel32" runat="server"
                     LocalizedPage="EDIT_PROFILE"
@@ -197,7 +195,7 @@
             </asp:Label>
             <asp:TextBox runat="server" ID="Xmpp" CssClass="form-control" />
         </div>
-        <div class="form-group col-md-6">
+        <div class="mb-3 col-md-6">
             <asp:Label runat="server" AssociatedControlID="Skype">
                 <YAF:LocalizedLabel ID="LocalizedLabel30" runat="server"
                     LocalizedPage="EDIT_PROFILE"
@@ -208,7 +206,7 @@
     </div>
 
 
-    <div class="form-group">
+    <div class="mb-3">
         <asp:Label runat="server" AssociatedControlID="Facebook">
             <YAF:LocalizedLabel ID="LocalizedLabel31" runat="server"
                 LocalizedPage="EDIT_PROFILE"
@@ -217,16 +215,34 @@
         <asp:TextBox runat="server" ID="Facebook" CssClass="form-control" />
     </div>
 </asp:PlaceHolder>
+<asp:Repeater runat="server" ID="CustomProfile" Visible="False" OnItemDataBound="CustomProfile_OnItemDataBound">
+    <HeaderTemplate>
+        <hr/>
+        <h4>
+            <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server"
+                                LocalizedPage="EDIT_PROFILE"
+                                LocalizedTag="OTHER" />
+        </h4>
+    </HeaderTemplate>
+    <ItemTemplate>
+        <div class="mb-3">
+            <asp:HiddenField runat="server" ID="DefID" />
+            <asp:Label runat="server" ID="DefLabel" />
+            <asp:TextBox runat="server" ID="DefText" Visible="False" />
+            <asp:TextBox runat="server" ID="DefCheck" Visible="False" />
+        </div>
+    </ItemTemplate>
+</asp:Repeater>
 
 <div class="text-lg-center">
     <YAF:ThemeButton ID="UpdateProfile" runat="server"
-        Type="Primary"
-        OnClick="UpdateProfileClick"
-        Icon="save"
-        TextLocalizedTag="SAVE"
-        TextLocalizedPage="COMMON" />
+                     Type="Primary"
+                     OnClick="UpdateProfileClick"
+                     Icon="save"
+                     TextLocalizedTag="SAVE"
+                     TextLocalizedPage="COMMON" />
     &nbsp;
-                    <YAF:ThemeButton ID="Cancel" runat="server"
+    <YAF:ThemeButton ID="Cancel" runat="server"
                         Type="Secondary"
                         OnClick="CancelClick"
                         Icon="trash"

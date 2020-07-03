@@ -24,10 +24,7 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
-
-    using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
     using YAF.Core.Extensions;
@@ -181,27 +178,6 @@ namespace YAF.Core.Model
             repository.FireNew(boardId);
 
             return boardId;
-        }
-
-        /// <summary>
-        /// The list typed.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IList"/>.
-        /// </returns>
-        public static IList<Board> ListTyped(this IRepository<Board> repository, int? boardID = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return boardID.HasValue
-                ? new List<Board> { repository.GetById(boardID.Value) }
-                : repository.DbAccess.Execute(cmd => cmd.Connection.Select<Board>());
         }
 
         /// <summary>
