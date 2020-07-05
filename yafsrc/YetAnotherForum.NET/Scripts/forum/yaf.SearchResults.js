@@ -128,7 +128,7 @@
                                 var topicTags = data.TopicTags.split(",");
 
                                 $(topicTags).each(function (index, d) {
-                                    tags += "<span class='badge badge-secondary mr-1'><i class='fas fa-tag mr-1'></i>" +  d  + "</span>";
+                                    tags += "<span class='badge bg-secondary mr-1'><i class='fas fa-tag mr-1'></i>" +  d  + "</span>";
                                 });
                             }
 

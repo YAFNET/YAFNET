@@ -168,12 +168,12 @@
                                 (profileData.HomePage ? '<li class="px-2 py-1"><i class="fas fa-globe mr-1"></i><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + "</a></li>" : "") +
                                                 "</ul >" +
                                                 '<div class="row no-gutters">' +
-                                                    '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
-                                                        options.postsText + ':&nbsp;<span class="badge badge-light rounded">' + profileData.Posts + "</span>" +
+                                                    '<div class="col-5 p-1 small bg-secondary link-light d-flex align-items-center justify-content-between">' +
+                                options.postsText + ':&nbsp;<span class="badge bg-light text-dark rounded">' + profileData.Posts + "</span>" +
                                                     "</div>" +
                                 (profileData.Points ? '<div class="flex-grow-1"></div>' +
-                                                    '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
-                                                        options.pointsText + ':&nbsp;<span class="badge badge-light rounded">' + profileData.Points + "</span>" +
+                                                    '<div class="col-5 p-1 small bg-secondary link-light d-flex align-items-center justify-content-between">' +
+                                options.pointsText + ':&nbsp;<span class="badge bg-light text-dark rounded">' + profileData.Points + "</span>" +
                                                     "</div>" : "") +
                                                 "</div>" +
                                 (profileData.ProfileLink ? '<div class="row no-gutters p-1"><a class="btn btn-secondary btn-sm" role="button" href="' + profileData.ProfileLink + '"><i class="fas fa-external-link-alt"></i></a></div>' : "") +

@@ -8,7 +8,7 @@
 
   var defaultOptions = {
     tagClass: function(item) {
-      return "badge badge-primary";
+      return "badge bg-primary";
     },
     focusClass: "focus",
     itemValue: function(item) {

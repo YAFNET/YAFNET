@@ -43,10 +43,13 @@
                 jQuery(".albums-toggle").dropdown("toggle");
             }
 
-            jQuery("#PostAlbumsListPlaceholder ul li").tooltip({
-                html: true,
-                template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
-                placement: "top"
+            var tooltipAlbumsTriggerList = [].slice.call(document.querySelectorAll("#PostAlbumsListPlaceholder ul li"));
+            var tooltipAlbumsList = tooltipAlbumsTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl, {
+                    html: true,
+                    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
+                    placement: "top"
+                });
             });
         },
         error: function(request, status, error) {

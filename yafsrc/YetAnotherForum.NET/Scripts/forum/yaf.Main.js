@@ -8,27 +8,27 @@ jQuery(document).ready(function () {
     });
 
     // Main Menu
-    $(".dropdown-menu a.dropdown-toggle").on("click", function () {
-		var $el = $(this);
-		var $parent = $(this).offsetParent(".dropdown-menu");
-		if (!$(this).next().hasClass("show")) {
-			$(this).parents(".dropdown-menu").first().find(".show").removeClass("show");
-		}
-		var $subMenu = $(this).next(".dropdown-menu");
-		$subMenu.toggleClass("show");
+    $(".dropdown-menu a.dropdown-toggle").on("show.bs.dropdown", function () {
 
-		$(this).parent("li").toggleClass("show");
+        var $el = $(this);
+        var $subMenu = $(this).next(".dropdown-menu");
+        var $parent = $el.parents(".dropdown-menu").first();
 
-		$(this).parents("li.nav-item.dropdown.show").on("hidden.bs.dropdown", function () {
-			$(".dropdown-menu .show").removeClass("show");
-		});
+        //$el.parents(".dropdown-menu .show").removeClass("show");
 
-		if (!$parent.parent().hasClass("navbar-nav")) {
-			$el.next().css({ "top": $el[0].offsetTop, "left": $parent.outerWidth() - 4 });
-		}
+        $subMenu.toggleClass("show");
+
+        $parent.toggleClass("show");
+
+        $(this).parents(".dropdown").on("hidden.bs.dropdown",
+            function() {
+                //$(".dropdown-menu .show").removeClass("show");
+            });
+
+        $subMenu.css({ "top": $el[0].offsetTop - 10, "left": $parent.outerWidth() - 4 });
 
 		return false;
-	});
+    });
 
     // Numeric Spinner Inputs
     jQuery("input[type='number']").TouchSpin({
@@ -57,17 +57,23 @@ jQuery(document).ready(function () {
         width: "style"
     });
 
-    jQuery(".thanks-popover").popover({
-        template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
+    var popoverTriggerList = [].slice.call(document.querySelectorAll(".thanks-popover"));
+    var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+        return new new bootstrap.Popover(popoverTriggerEl,
+            {
+                template:
+                    '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
+            });
     });
 
-    jQuery('[data-toggle="tooltip"]').tooltip();
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
 
     // Convert user posted image to modal images
     jQuery(".img-user-posted").each(function () {
         var image = jQuery(this);
-
-        
 
         if (image.parents(".selectionQuoteable").length && image.parent().attr("class") !== "card-body py-0") {
 
