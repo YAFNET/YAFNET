@@ -8311,20 +8311,9 @@ div#UploadDialog {
   width: 100%;
   margin: 0 !important;
   z-index: 999;
-  opacity: 0;
   border-radius: 0;
   background: #212327;
-  -webkit-transform: translateY(100%);
-          transform: translateY(100%);
-  -webkit-transition: all 500ms ease-out;
-  transition: all 500ms ease-out;
   color: #ecf0f1; }
-  .cookiealert.show {
-    opacity: 1;
-    -webkit-transform: translateY(0%);
-            transform: translateY(0%);
-    -webkit-transition-delay: 1000ms;
-            transition-delay: 1000ms; }
 
 .scrolltop {
   display: none;
