@@ -222,11 +222,11 @@ namespace YAF.Pages
 
                 this.moderate1.NavigateUrl =
                     this.moderate2.NavigateUrl =
-                    BuildLink.GetLinkNotEscaped(ForumPages.Moderating, "f={0}", this.PageContext.PageForumID);
+                    BuildLink.GetLink(ForumPages.Moderating, "f={0}", this.PageContext.PageForumID);
 
                 this.NewTopic1.NavigateUrl =
                     this.NewTopic2.NavigateUrl =
-                    BuildLink.GetLinkNotEscaped(ForumPages.PostTopic, "f={0}", this.PageContext.PageForumID);
+                    BuildLink.GetLink(ForumPages.PostTopic, "f={0}", this.PageContext.PageForumID);
 
                 this.HandleWatchForum();
             }

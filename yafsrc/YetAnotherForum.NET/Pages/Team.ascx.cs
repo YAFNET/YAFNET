@@ -317,7 +317,7 @@ namespace YAF.Pages
                 }
             }
 
-            pm.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage, "u={0}", user.ID);
+            pm.NavigateUrl = BuildLink.GetLink(ForumPages.PostPrivateMessage, "u={0}", user.ID);
             pm.ParamTitle0 = displayName;
 
             // email link
@@ -338,7 +338,7 @@ namespace YAF.Pages
                 email.Visible = true;
             }
 
-            email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", user.ID);
+            email.NavigateUrl = BuildLink.GetLink(ForumPages.Email, "u={0}", user.ID);
             email.ParamTitle0 = displayName;
         }
 
@@ -421,7 +421,7 @@ namespace YAF.Pages
                 }
             }
 
-            pm.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage, "u={0}", userid);
+            pm.NavigateUrl = BuildLink.GetLink(ForumPages.PostPrivateMessage, "u={0}", userid);
             pm.ParamTitle0 = displayName;
 
             // email link
@@ -442,7 +442,7 @@ namespace YAF.Pages
                 email.Visible = true;
             }
 
-            email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", userid);
+            email.NavigateUrl = BuildLink.GetLink(ForumPages.Email, "u={0}", userid);
             email.ParamTitle0 = displayName;
         }
 

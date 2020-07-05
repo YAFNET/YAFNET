@@ -210,7 +210,7 @@ namespace YAF.Pages.Admin
             var flag = new UserFlags((int)userFlag);
             return flag.IsApproved
                        ? string.Empty
-                       : $@"<span class=""badge badge-warning"">{this.GetText("DISABLED")}</span>";
+                       : $@"<span class=""badge bg-warning text-dark"">{this.GetText("DISABLED")}</span>";
         }
 
         #endregion
@@ -228,7 +228,7 @@ namespace YAF.Pages.Admin
                 JavaScriptBlocks.BlockUiExecuteJs("SyncUsersMessage", $"#{this.SyncUsers.ClientID}"));
 
             // setup jQuery and Jquery Ui Tabs.
-            BoardContext.Current.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+            this.PageContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
 
             base.OnPreRender(e);
         }

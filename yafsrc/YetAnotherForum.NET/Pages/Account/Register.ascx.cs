@@ -32,7 +32,6 @@ namespace YAF.Pages.Account
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -190,12 +189,12 @@ namespace YAF.Pages.Account
             else
             {
                 // setup initial roles (if any) for this user
-                AspNetRolesHelper.SetupUserRoles(BoardContext.Current.PageBoardID, user);
+                AspNetRolesHelper.SetupUserRoles(this.PageContext.PageBoardID, user);
 
                 var displayName = this.DisplayName.Text;
 
                 // create the user in the YAF DB as well as sync roles...
-                var userID = AspNetRolesHelper.CreateForumUser(user, displayName, BoardContext.Current.PageBoardID);
+                var userID = AspNetRolesHelper.CreateForumUser(user, displayName, this.PageContext.PageBoardID);
 
                 if (userID == null)
                 {
@@ -451,7 +450,7 @@ namespace YAF.Pages.Account
                         // Clear cache
                         this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
 
-                        if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
+                        if (this.PageContext.Get<BoardSettings>().LogBannedIP)
                         {
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
@@ -462,13 +461,13 @@ namespace YAF.Pages.Account
                     }
 
                     // Ban Name ?
-                    BoardContext.Current.GetRepository<BannedName>().Save(
+                    this.PageContext.GetRepository<BannedName>().Save(
                         null,
                         userName,
                         "Name was reported by the automatic spam system.");
 
                     // Ban User Email?
-                    BoardContext.Current.GetRepository<BannedEmail>().Save(
+                    this.PageContext.GetRepository<BannedEmail>().Save(
                         null,
                         this.Email.Text,
                         "Email was reported by the automatic spam system.");

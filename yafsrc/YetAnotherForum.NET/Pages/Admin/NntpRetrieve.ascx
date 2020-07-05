@@ -57,8 +57,8 @@
 
             </FooterTemplate>
 		</asp:Repeater>
-                        <div class="form-row mt-3">
-                            <div class="form-group col-md-6">
+                        <div class="row mt-3">
+                            <div class="mb-3 col-md-6">
                                 <asp:Label runat="server" AssociatedControlID="Seconds">
                                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                         LocalizedTag="TIME" 
@@ -69,11 +69,9 @@
                                                  Text="30" 
                                                  CssClass="form-control" 
                                                  TextMode="Number" />
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <YAF:LocalizedLabel runat="server" 
-                                                                LocalizedTag="SECONDS"></YAF:LocalizedLabel>
-                                        </div>
+                                    <div class="input-group-text">
+                                        <YAF:LocalizedLabel runat="server" 
+                                                            LocalizedTag="SECONDS"></YAF:LocalizedLabel>
                                     </div>
                                 </div>
                             </div>

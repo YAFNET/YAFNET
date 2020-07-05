@@ -15,7 +15,7 @@
           <div id="QuickReplyLine" runat="server">
           </div>
           <div id="CaptchaDiv" visible="false" runat="server">
-              <div class="form-group">
+              <div class="mb-3">
                   <asp:Label runat="server" AssociatedControlID="imgCaptcha">
                       <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" 
                                           LocalizedTag="Captcha_Image" />
@@ -24,7 +24,7 @@
                              AlternateText="Captcha" 
                              CssClass="form-control" />
               </div>
-              <div class="form-group">
+              <div class="mb-3">
                   <asp:Label runat="server" AssociatedControlID="tbCaptcha">
                       <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" 
                                           LocalizedTag="Captcha_Enter" />
@@ -34,9 +34,8 @@
           </div>
           <div>
               <asp:PlaceHolder runat="server" ID="QuickReplyWatchTopic">
-                  <div class="custom-control custom-checkbox mt-3">
-                      <asp:CheckBox ID="TopicWatch" runat="server" 
-                                    CssClass="custom-control-input"/>
+                  <div class="form-check mt-3">
+                      <asp:CheckBox ID="TopicWatch" runat="server"/>
                       <asp:Label runat="server" CssClass="custom-control-label" 
                                  AssociatedControlID="TopicWatch">
                           <YAF:LocalizedLabel ID="TopicWatchLabel" runat="server" 

@@ -29,7 +29,6 @@ namespace YAF.Core.Extensions
 
     using YAF.Core.Context;
     using YAF.Core.Syndication;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -182,46 +181,7 @@ namespace YAF.Core.Extensions
             return new SyndicationPerson(
                 userEmail,
                 userNameToShow,
-                BuildLink.GetLinkNotEscaped(ForumPages.UserProfile, true, "u={0}&name={1}", userId, userNameToShow));
-        }
-
-        /// <summary>
-        /// The add syndication item.
-        /// </summary>
-        /// <param name="currentList">
-        /// The current list.
-        /// </param>
-        /// <param name="title">
-        /// The title.
-        /// </param>
-        /// <param name="content">
-        /// The content.
-        /// </param>
-        /// <param name="link">
-        /// The link.
-        /// </param>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <param name="posted">
-        /// The posted.
-        /// </param>
-        public static void AddSyndicationItem(
-            this List<SyndicationItem> currentList,
-            string title,
-            string content,
-            string link,
-            string id,
-            DateTime posted)
-        {
-            var si = new SyndicationItem(
-                BoardContext.Current.Get<IBadWordReplace>().Replace(title),
-                new TextSyndicationContent(BoardContext.Current.Get<IBadWordReplace>().Replace(content)),
-                new Uri(link),
-                id,
-                new DateTimeOffset(posted));
-
-            currentList.Add(si);
+                BuildLink.GetUserProfileLink(userId, userNameToShow));
         }
 
         #endregion

@@ -20,8 +20,8 @@
                             <YAF:LocalizedLabel ID="LocalizedLabel200" runat="server" 
                                                 LocalizedTag="OPTIONS_TITLE" />
                         </h6>
-                        <div class="form-group">
-                            <div class="custom-control custom-radio">
+                        <div class="mb-3">
+                            <div class="form-check">
                                 <asp:RadioButtonList ID="Options" runat="server" 
                                                      RepeatLayout="UnorderedList"
                                                      CssClass="list-unstyled" />

@@ -76,7 +76,7 @@ namespace YAF.Core.Syndication
 
             // Self Link
             var slink = new Uri(
-                BuildLink.GetLinkNotEscaped(ForumPages.RssTopic, true, $"pg={feedType.ToInt()}&ft={sf}"));
+                BuildLink.GetLink(ForumPages.RssTopic, true, $"pg={feedType.ToInt()}&ft={sf}"));
             this.Links.Add(SyndicationLink.CreateSelfLink(slink));
 
             this.Generator = "YetAnotherForum.NET";

@@ -32,7 +32,6 @@ namespace YAF.Dialogs
     using YAF.Configuration;
     
     using YAF.Core.BaseControls;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -159,7 +158,7 @@ namespace YAF.Dialogs
                 this.BanReason.Text.Trim(),
                 this.PageContext.PageUserID);
 
-            if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
+            if (this.PageContext.Get<BoardSettings>().LogBannedIP)
             {
                 this.Logger.Log(
                     $"IP or mask {this.mask.Text.Trim()} was saved by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUser.DisplayName : this.PageContext.CurrentUser.Name)}.",

@@ -30,7 +30,6 @@ namespace YAF.Dialogs
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
-    using YAF.Core.Context;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -57,7 +56,7 @@ namespace YAF.Dialogs
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and YAF JS...
-            BoardContext.Current.PageElements.RegisterJsBlock(
+            this.PageContext.PageElements.RegisterJsBlock(
                 "yafmodaldialogJs",
                 JavaScriptBlocks.LoginBoxLoadJs(".LoginLink", "#LoginBox"));
 

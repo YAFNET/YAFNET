@@ -35,7 +35,6 @@ namespace YAF.Pages
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -149,7 +148,7 @@ namespace YAF.Pages
 
                     var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
                         this.PageContext.PageUserID,
-                        BoardContext.Current.PageBoardID);
+                        this.PageContext.PageBoardID);
 
                     var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
 
@@ -203,7 +202,7 @@ namespace YAF.Pages
 
             var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
                 this.PageContext.PageUserID,
-                BoardContext.Current.PageBoardID);
+                this.PageContext.PageBoardID);
 
             var usrAlbumsAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
 
@@ -330,7 +329,7 @@ namespace YAF.Pages
 
                 var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
                     this.PageContext.PageUserID,
-                    BoardContext.Current.PageBoardID);
+                    this.PageContext.PageBoardID);
 
                 var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
 
@@ -489,7 +488,7 @@ namespace YAF.Pages
             // vzrus: the checks here are useless but in a case...
             var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
                 this.PageContext.PageUserID,
-                BoardContext.Current.PageBoardID);
+                this.PageContext.PageBoardID);
 
             var usrAlbumsAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
             var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);

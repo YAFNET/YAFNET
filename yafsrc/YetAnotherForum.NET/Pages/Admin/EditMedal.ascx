@@ -24,8 +24,8 @@
                                     LocalizedPage="ADMIN_EDITMEDAL"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel1" runat="server" 
                                            AssociatedControlID="Name"
                                            LocalizedTag="MEDAL_NAME" LocalizedPage="ADMIN_EDITMEDAL" />
@@ -39,14 +39,14 @@
                                                         Text="Required"
                                                         CssClass="form-text text-muted"/>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel4" runat="server"
                                            AssociatedControlID="Category"
                                            LocalizedTag="MEDAL_CATEGORY" LocalizedPage="ADMIN_EDITMEDAL" />
                             <asp:TextBox  ID="Category" MaxLength="50" CssClass="form-control"  runat="server" />
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel2" runat="server" 
                                        AssociatedControlID="Description" 
                                        LocalizedTag="MEDAL_DESC" LocalizedPage="ADMIN_EDITMEDAL" />
@@ -63,7 +63,7 @@
                                                     Text="Required"
                                                     CssClass="form-text text-muted"/>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel9" runat="server"
                                        AssociatedControlID="SortOrder"
                                        LocalizedTag="SORT_ORDER" LocalizedPage="ADMIN_EDITMEDAL" />
@@ -72,8 +72,8 @@
                                      TextMode="Number"
                                      MaxLength="5"/>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel3" runat="server"
                                            AssociatedControlID="Message"
                                            LocalizedTag="MEDAL_MESSAGE" LocalizedPage="ADMIN_EDITMEDAL" />
@@ -86,67 +86,67 @@
                                                         ValidationGroup="Medal" 
                                                         Text="Required" />
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel10" runat="server"
                                            AssociatedControlID="ShowMessage"
                                            LocalizedTag="SHOW_MESSAGE" LocalizedPage="ADMIN_EDITMEDAL" />
              
-                            <div class="custom-control custom-switch">
+                            <div class="form-check form-switch">
                                 <asp:CheckBox ID="ShowMessage" runat="server" Checked="true" Text="&nbsp;" />
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel5" runat="server"
                                        AssociatedControlID="MedalImage"
                                        LocalizedTag="MEDAL_IMAGE" LocalizedPage="ADMIN_EDITMEDAL" />
                         <YAF:ImageListBox ID="MedalImage" runat="server" CssClass="select2-image-select" />
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel6" runat="server"
                                        AssociatedControlID="RibbonImage"
                                        LocalizedTag="RIBBON_IMAGE" LocalizedPage="ADMIN_EDITMEDAL" />
                         <YAF:ImageListBox ID="RibbonImage" runat="server" CssClass="select2-image-select" />
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel7" runat="server"
                                        AssociatedControlID="SmallMedalImage"
                                        LocalizedTag="SMALL_IMAGE" LocalizedPage="ADMIN_EDITMEDAL" />
                         <YAF:ImageListBox ID="SmallMedalImage" runat="server" CssClass="select2-image-select" />
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel8" runat="server"
                                        AssociatedControlID="SmallRibbonImage"
                                        LocalizedTag="SMALL_RIBBON" LocalizedPage="ADMIN_EDITMEDAL" />
                         <YAF:ImageListBox ID="SmallRibbonImage" runat="server" CssClass="select2-image-select" />
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel11" runat="server"
                                            AssociatedControlID="AllowRibbon"
                                            LocalizedTag="ALLOW_RIBBON" LocalizedPage="ADMIN_EDITMEDAL" />
-                            <div class="custom-control custom-switch">
+                            <div class="form-check form-switch">
                                 <asp:CheckBox ID="AllowRibbon" runat="server" 
                                               Checked="true" 
                                               Text="&nbsp;" />
                             </div> 
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel12" runat="server"
                                            AssociatedControlID="AllowHiding"
                                            LocalizedTag="ALLOW_HIDING" LocalizedPage="ADMIN_EDITMEDAL" />
-                            <div class="custom-control custom-switch">
+                            <div class="form-check form-switch">
                                 <asp:CheckBox ID="AllowHiding" runat="server"
                                               AssociatedControlID=""
                                               Checked="true" 
                                               Text="&nbsp;" />
                             </div> 
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel13" runat="server"
                                            AssociatedControlID="AllowReOrdering"
                                            LocalizedTag="ALLOW_REORDER" LocalizedPage="ADMIN_EDITMEDAL" />
-                            <div class="custom-control custom-switch">
+                            <div class="form-check form-switch">
                                 <asp:CheckBox ID="AllowReOrdering" runat="server" 
                                               Checked="true" 
                                               Text="&nbsp;" />

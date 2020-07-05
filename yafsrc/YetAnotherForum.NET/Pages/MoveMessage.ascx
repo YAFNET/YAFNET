@@ -18,7 +18,7 @@
                                 LocalizedTag="MOVE_TITLE"/>
             </div>
             <div class="card-body text-center">
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="ForumList">
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                             LocalizedTag="select_forum_moveto" />
@@ -28,7 +28,7 @@
                                       AutoPostBack="True" 
                                       OnSelectedIndexChanged="ForumList_SelectedIndexChanged" />
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="TopicsList">
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="select_topic_moveto" />
                     </asp:Label>
@@ -57,7 +57,7 @@
                                 LocalizedTag="SPLIT_TITLE"/>
             </div>
             <div class="card-body text-center">
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="TopicSubject">
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                             LocalizedTag="new_topic" />

@@ -33,8 +33,8 @@
                                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                         <div class="dropdown-menu">
                             <div class="px-3 py-1">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="name">
                                             <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" 
                                                                 LocalizedTag="NAME_CONTAINS" 
@@ -42,7 +42,7 @@
                                         </asp:Label>
                                         <asp:TextBox ID="name" runat="server" CssClass="form-control"></asp:TextBox>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="Email">
                                             <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" 
                                                                 LocalizedTag="EMAIL_CONTAINS" 
@@ -51,53 +51,53 @@
                                         <asp:TextBox ID="Email" runat="server" CssClass="form-control"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="group">
                                             <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" 
                                                                 LocalizedTag="ROLE" 
                                                                 LocalizedPage="ADMIN_USERS" />
                                         </asp:Label>
                                         <asp:DropDownList ID="group" runat="server" 
-                                                          CssClass="custom-select" 
+                                                          CssClass="form-select" 
                                                           data-placeholder='<%# this.GetText("ADMIN_USERS", "FILTER_BY_GROUP") %>'>
                                         </asp:DropDownList>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="rank">
                                             <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" 
                                                                 LocalizedTag="RANK" 
                                                                 LocalizedPage="ADMIN_USERS" />
                                         </asp:Label>
                                         <asp:DropDownList ID="rank" runat="server" 
-                                                          CssClass="custom-select" 
+                                                          CssClass="form-select" 
                                                           data-placeholder='<%# this.GetText("ADMIN_USERS", "FILTER_BY_RANK") %>'>
                                         </asp:DropDownList>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="Since">
                                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                                 LocalizedTag="FILTER" 
                                                                 LocalizedPage="ADMIN_USERS" />
                                         </asp:Label>
                                         <asp:DropDownList ID="Since" runat="server"
-                                                          CssClass="custom-select"/>
+                                                          CssClass="form-select"/>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="SuspendedOnly">
                                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                                 LocalizedTag="SUSPENDED_ONLY" 
                                                                 LocalizedPage="ADMIN_USERS" />
                                         </asp:Label>
-                                        <div class="custom-control custom-switch">
+                                        <div class="form-check form-switch">
                                             <asp:CheckBox ID="SuspendedOnly" runat="server" Text="&nbsp;"/>
                                         </div>
                                     </div>
 
                                 </div>
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <YAF:ThemeButton ID="search" runat="server" 
                                                      OnClick="SearchClick" 
                                                      Type="Primary"
@@ -138,7 +138,7 @@
                                         <span style="font-weight:bold">
                                             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE_SUSPENDED" LocalizedPage="INFO" />&nbsp;:&nbsp;
                                         </span>
-                                        <asp:Label runat="server" ID="Suspended" CssClass='<%# this.Eval("Suspended") == DBNull.Value ? "badge badge-success" : "badge badge-danger" %>'><%# this.GetSuspendedString(this.Eval("Suspended").ToString())%></asp:Label>
+                                        <asp:Label runat="server" ID="Suspended" CssClass='<%# this.Eval("Suspended") == DBNull.Value ? "badge bg-success" : "badge bg-danger" %>'><%# this.GetSuspendedString(this.Eval("Suspended").ToString())%></asp:Label>
                                     </small>
                                 </div>
                                 <p class="mb-1">
@@ -307,7 +307,7 @@
                                     LocalizedTag="TOOLS"></YAF:LocalizedLabel>
             </div>
             <div class="card-body">
-                <div class="form-group">
+                <div class="mb-3">
                     <YAF:HelpLabel runat="server" 
                                    AssociatedControlID="YearsOld"
                                    LocalizedTag="LOCK_INACTIVE"></YAF:HelpLabel>
@@ -318,10 +318,8 @@
                                      CssClass="form-control"
                                      TextMode="Number">
                         </asp:TextBox>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <YAF:LocalizedLabel runat="server" LocalizedTag="YEARS"></YAF:LocalizedLabel>
-                            </div>
+                        <div class="input-group-text">
+                            <YAF:LocalizedLabel runat="server" LocalizedTag="YEARS"></YAF:LocalizedLabel>
                         </div>
                     </div>
                 </div>
@@ -345,7 +343,7 @@
 </asp:UpdatePanel>
 <div>
     <div id="SyncUsersMessage" style="display: none">
-		<div class="card text-white bg-danger mb-3 text-center">
+		<div class="card link-light bg-danger mb-3 text-center">
 		    <div class="card-body">
 		        <blockquote class="blockquote mb-0 card-body">
                     <p>

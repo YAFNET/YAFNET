@@ -3774,46 +3774,6 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}post_alluser](@BoardID int,@UserID int,@PageUserID int,@topCount int = 0) as
-begin
-        IF (@topCount IS NULL) SET @topCount = 0;
-        SET NOCOUNT ON
-        SET ROWCOUNT @topCount
-
-    select
-        a.MessageID,
-        a.Posted,
-        [Subject] = c.Topic,
-        a.[Message],
-        a.IP,
-        a.UserID,
-        a.Flags,
-        UserName = IsNull(a.UserName,b.Name),
-        UserDisplayName = IsNull(a.UserDisplayName, b.DisplayName),
-        b.[Signature],
-        c.TopicID
-    from
-        [{databaseOwner}].[{objectQualifier}Message] a
-        join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
-        join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID=a.TopicID
-        join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID=d.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=d.ForumID
-    where
-        a.UserID = @UserID and
-        x.UserID = @PageUserID and
-        CONVERT(int,x.ReadAccess) <> 0 and
-        e.BoardID = @BoardID and
-        (a.Flags & 24)=16 and
-        c.IsDeleted=0
-    order by
-        a.Posted desc
-
-    SET ROWCOUNT 0;
-     SET NOCOUNT OFF
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}post_list](
                  @TopicID int,
                  @PageUserID int,

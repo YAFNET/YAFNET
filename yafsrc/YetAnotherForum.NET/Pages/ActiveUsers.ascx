@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <div class="table-responsive">
 	                        <table class="table tablesorter table-bordered table-striped" id="ActiveUsers">
-                                <thead class="thead-light">
+                                <thead class="table-light">
                                     <tr>
                                         <th>
                                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
@@ -107,8 +107,8 @@
                         </div>
                         </div>
             <div class="card-footer">
-            <div id="ActiveUsersPager" class="tableSorterPager form-inline">
-                <select class="pagesize custom-select custom-select-sm">
+            <div id="ActiveUsersPager" class="tableSorterPager d-flex">
+                <select class="pagesize form-select form-select-sm">
                     <option selected="selected"  value="10">10</option>
                     <option value="20">20</option>
                     <option value="30">30</option>

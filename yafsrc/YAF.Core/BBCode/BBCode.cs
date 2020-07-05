@@ -837,7 +837,7 @@ namespace YAF.Core.BBCode
                     @"\[quote=(?<quote>(.*?))]",
                     @"<blockquote class=""blockquote blockquote-custom pt-3 px-1 pb-1 mb-4 border border-secondary rounded"">
                                          <div class=""blockquote-custom-icon bg-secondary"">
-                                             <i class=""fa fa-quote-left fa-sm text-white""></i>
+                                             <i class=""fa fa-quote-left fa-sm link-light""></i>
                                          </div>${quote}",
                     Options));
 
@@ -845,7 +845,7 @@ namespace YAF.Core.BBCode
             var simpleOpenQuoteReplace =
                 $@"<blockquote class=""blockquote blockquote-custom pt-3 px-1 pb-1 mb-4 border border-secondary rounded"">
                           <div class=""blockquote-custom-icon bg-secondary"">
-                              <i class=""fa fa-quote-left fa-sm text-white""></i>
+                              <i class=""fa fa-quote-left fa-sm link-light""></i>
                           </div>
                           <footer class=""blockquote-footer""><cite>{localQuoteStr}</cite></footer>
                           <p class=""mb-0"">";

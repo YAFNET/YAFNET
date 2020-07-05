@@ -128,7 +128,7 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            writer.Write("<div class=\"navbar-header\"><ol class=\"breadcrumb\">");
+            writer.Write("<nav aria-label=\"breadcrump\"><ol class=\"breadcrumb\">");
 
             linkedPageList.ForEach(
                 link =>
@@ -142,7 +142,7 @@ namespace YAF.Web.Controls
                                 : $@"<li class=""breadcrumb-item""><a href=""{url}"">{encodedTitle}</a></li>");
                     });
 
-            writer.Write("</ol></div>");
+            writer.Write("</ol></nav>");
 
             // Inject Board Announcement
             var boardAnnounceControl =

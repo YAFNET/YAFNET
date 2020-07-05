@@ -17,7 +17,7 @@
             </div>
             <div class="card-body text-center">
                 <asp:PlaceHolder id="TitleRow" runat="server">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="txtTitle">
                             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="ALBUM_TITLE" />
                         </asp:Label>
@@ -63,22 +63,20 @@
                 </asp:PlaceHolder>
                 <asp:PlaceHolder id="selectfiletr" runat="server">
                     <div class="input-group">
-                        <div class="custom-file mb-3">
-                            <input type="file" id="File" class="custom-file-input" runat="server" />
-                            <asp:Label runat="server" CssClass="custom-file-label text-truncate">
+                        <div class="form-file mb-3">
+                            <input type="file" id="File" class="form-file-input" runat="server" />
+                            <asp:Label runat="server" CssClass="form-file-label text-truncate">
                                 <YAF:LocalizedLabel ID="LocalizedLabel3" 
                                                     LocalizedTag="SELECT_FILE" 
                                                     LocalizedPage="EDIT_ALBUMIMAGES" runat="server" />
                             </asp:Label>
                         </div>
-                        <div class="input-group-append">
-                            <YAF:ThemeButton runat="server" ID="Upload" 
-                                             OnClick="Upload_Click" 
-                                             TextLocalizedTag="UPLOAD"
-                                             CssClass="mb-3"
-                                             Type="Success" 
-                                             Icon="upload"/>
-                        </div>
+                        <YAF:ThemeButton runat="server" ID="Upload" 
+                                         OnClick="Upload_Click" 
+                                         TextLocalizedTag="UPLOAD"
+                                         CssClass="mb-3"
+                                         Type="Success" 
+                                         Icon="upload"/>
                     </div>
                 </asp:PlaceHolder>
                 <YAF:Alert runat="server" Type="info">

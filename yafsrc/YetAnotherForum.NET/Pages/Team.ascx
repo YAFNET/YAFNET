@@ -67,7 +67,7 @@
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE" 
                                                      Size="Small" Visible="false"
                                                      Icon="user-cog" Type="Secondary"
-                                                     NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.Admin_EditUser,"u={0}", this.Eval("ID").ToType<int>() ) %>'>
+                                                     NavigateUrl='<%# BuildLink.GetLink(ForumPages.Admin_EditUser,"u={0}", this.Eval("ID").ToType<int>() ) %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>
@@ -118,13 +118,11 @@
                                                                 LocalizedTag="FORUMS" />:
                                         </span>
                                     <div class="input-group">
-                                        <span class="input-group-prepend">
-                                            <YAF:ThemeButton ID="GoToForumButton" runat="server" 
-                                                             Icon="external-link-alt" 
-                                                             Type="Secondary"
-                                                             TextLocalizedTag="GO" 
-                                                             OnClick="GoToForum"></YAF:ThemeButton>
-                                        </span>
+                                        <YAF:ThemeButton ID="GoToForumButton" runat="server" 
+                                                         Icon="external-link-alt" 
+                                                         Type="Secondary"
+                                                         TextLocalizedTag="GO" 
+                                                         OnClick="GoToForum"></YAF:ThemeButton>
                                         <asp:DropDownList ID="ModForums" runat="server" CssClass="select2-select form-control">
                                         </asp:DropDownList>
                                     </div>
@@ -146,7 +144,7 @@
                                                      TitleLocalizedPage="PROFILE" TitleLocalizedTag="ADMIN_USER"
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                                      Icon="user-cog" Type="Secondary"
-                                                     NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.Admin_EditUser,"u={0}", this.Eval("ModeratorID").ToType<int>() ) %>'>
+                                                     NavigateUrl='<%# BuildLink.GetLink( ForumPages.Admin_EditUser,"u={0}", this.Eval("ModeratorID").ToType<int>() ) %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>

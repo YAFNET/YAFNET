@@ -17,7 +17,7 @@
             </div>
             <asp:Panel runat="server" ID="ContentBody"
                        CssClass="card-body">
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label ID="CurrentPasswordLabel" runat="server"
                                AssociatedControlID="CurrentPassword">
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
@@ -33,8 +33,8 @@
                                                          ValidationGroup="ctl00$ChangePassword1" 
                                                          CssClass="invalid-feedback" />
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="mb-3 col-md-6">
                         <asp:Label ID="NewPasswordLabel" runat="server" AssociatedControlID="NewPassword">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NEW_PASSWORD" />
                         </asp:Label>
@@ -48,7 +48,7 @@
                                                              ValidationGroup="ctl00$ChangePassword1" 
                                                              CssClass="invalid-feedback" />
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="mb-3 col-md-6">
                         <asp:Label ID="ConfirmNewPasswordLabel" runat="server"
                                    AssociatedControlID="ConfirmNewPassword">
                             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="CONFIRM_PASSWORD" />
@@ -63,7 +63,7 @@
                                                              ValidationGroup="ctl00$ChangePassword1" CssClass="invalid-feedback" />
                     </div>
                 </div>
-                <div class="form-row">
+                <div class="row">
                     <asp:CompareValidator ID="NewPasswordCompare" runat="server"
                                           ControlToCompare="NewPassword"
                                           ControlToValidate="ConfirmNewPassword"

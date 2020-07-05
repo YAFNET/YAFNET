@@ -16,8 +16,8 @@
                 </YAF:Alert>
             </asp:Panel>
             <asp:Panel ID="BodyRegister" runat="server" CssClass="card-body">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="mb-3 col-md-6">
                         <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                 LocalizedTag="USERNAME" />
@@ -32,7 +32,7 @@
                                                              CssClass="invalid-feedback" />
                     </div>
                     <asp:PlaceHolder runat="server" ID="DisplayNamePlaceHolder" Visible="false">
-                        <div class="form-group col-md-6">
+                        <div class="mb-3 col-md-6">
                             <asp:Label ID="DisplayNameLabel" runat="server" AssociatedControlID="DisplayName">
                                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="DISPLAYNAME" />
                                 </asp:Label>
@@ -43,7 +43,7 @@
 					
                     </asp:PlaceHolder>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label ID="EmailLabel" runat="server" AssociatedControlID="Email">
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="EMAIL" />
                     </asp:Label>
@@ -62,8 +62,8 @@
                                                     CssClass="invalid-feedback">
                     </asp:RegularExpressionValidator>
                 </div>
-                <div class="form-row">
-                            <div class="form-group col-md-6">
+                <div class="row">
+                            <div class="mb-3 col-md-6">
 								<asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">
 									<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="PASSWORD" />
 									</asp:Label>
@@ -82,7 +82,7 @@
                                                                  LocalizedTag="NEED_PASSWORD"
                                                                  CssClass="invalid-feedback"/>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="mb-3 col-md-6">
 								<asp:Label ID="ConfirmPasswordLabel" runat="server" AssociatedControlID="ConfirmPassword">
 									<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="CONFIRM_PASSWORD" />
 									</asp:Label>
@@ -100,21 +100,21 @@
                         </div>
                
 						<asp:PlaceHolder runat="server" ID="YafCaptchaHolder" Visible="false">
-							<div class="form-group">
+							<div class="mb-3">
 								<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="Captcha_Image" />
 							
 								<asp:Image ID="imgCaptcha" runat="server" />
                                 <br />
                                 <asp:LinkButton id="RefreshCaptcha" runat="server"></asp:LinkButton>
                             </div>
-							<div class="form-group">
+							<div class="mb-3">
 								<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="Captcha_Enter" />
 							
 								<asp:TextBox CssClass="form-control" ID="tbCaptcha" runat="server" />
                             </div>
 						</asp:PlaceHolder>
 						<asp:PlaceHolder runat="server" ID="RecaptchaPlaceHolder" Visible="false">
-                            <div class="form-group">
+                            <div class="mb-3">
                                 <YAF:ReCaptchaControl runat="server" ID="Recaptcha1" />
                             </div>
 					    </asp:PlaceHolder>

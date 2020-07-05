@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.UserProfile" CodeBehind="UserProfile.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="System.Data" %>
 
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
@@ -283,23 +282,27 @@
                     <ItemTemplate>
                         <div class="card mb-3">
                             <div class="card-header">
-                                <i class="fa fa-comment fa-fw"></i>&nbsp;<span class="font-weight-bold">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="topic" />
+                                <YAF:Icon runat="server" IconName="comment" />
+                                <span class="font-weight-bold">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" 
+                                                        LocalizedTag="topic" />
                                 </span><a
                                     title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>'
-                                    href='<%# BuildLink.GetLink(ForumPages.Posts,"t={0}&name={1}",Container.DataItemToField<int>("TopicID"), Container.DataItemToField<string>("Subject")) %>'>
-                                    <%# this.Get<IBadWordReplace>().Replace(this.HtmlEncode(Container.DataItemToField<string>("Subject"))) %>
+                                    href='<%# BuildLink.GetTopicLink(this.Eval("Item2.ID").ToType<int>(), this.Eval("Item2.TopicName").ToString()) %>'>
+                                    <%# this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.Eval("Item2.TopicName").ToString())) %>
                                 </a>
                             </div>
                             <div class="card-body">
-                                <YAF:MessagePostData ID="MessagePost" runat="server" ShowAttachments="false" DataRow="<%# (DataRow)Container.DataItem %>">
-                                </YAF:MessagePostData>
+                                <YAF:MessagePostData ID="MessagePost" runat="server" 
+                                                     ShowAttachments="false" 
+                                                     CurrentMessage='<%# this.Eval("Item1") %>' />
                             </div>
                             <div class="card-footer">
                                 <small class="text-muted">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="posted" />
+                                    <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" 
+                                                        LocalizedTag="posted" />
                                     &nbsp;
-                                            <%# this.Get<IDateTime>().FormatDateTime(Container.DataItemToField<DateTime>("Posted"))%>
+                                            <%# this.Get<IDateTime>().FormatDateTime(this.Eval("Item1.Posted").ToType<DateTime>())%>
                                 </small>
                             </div>
                         </div>

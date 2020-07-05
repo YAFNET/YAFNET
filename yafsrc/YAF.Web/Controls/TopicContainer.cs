@@ -160,11 +160,9 @@ namespace YAF.Web.Controls
 
             var topicLink = new HyperLink
             {
-                NavigateUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.Posts,
-                    "t={0}&name={1}",
-                    this.TopicRow["LinkTopicID"],
-                    this.TopicRow["Subject"]),
+                NavigateUrl = BuildLink.GetTopicLink(
+                    this.TopicRow["LinkTopicID"].ToType<int>(),
+                    this.TopicRow["Subject"].ToString()),
                 Text = this.FormatTopicName(),
                 CssClass = "topic-starter-popover"
             };
@@ -206,7 +204,7 @@ namespace YAF.Web.Controls
             {
                 if (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)
                 {
-                    var success = new Label { CssClass = "badge badge-success mr-1", Text = this.GetText("NEW_POSTS") };
+                    var success = new Label { CssClass = "badge bg-success mr-1", Text = this.GetText("NEW_POSTS") };
 
                     success.RenderControl(writer);
                 }
@@ -220,7 +218,7 @@ namespace YAF.Web.Controls
             {
                 var favoriteLabel = new Label
                 {
-                    CssClass = "badge badge-light ml-1",
+                    CssClass = "badge bg-light text-dark ml-1",
                     Text = new IconHeader
                     {
                         IconName = "star", IconType = " ", IconStyle = "far", Text = favoriteCount.ToString()
@@ -236,7 +234,7 @@ namespace YAF.Web.Controls
             // Render Replies & Views
             var repliesLabel = new Label
             {
-                CssClass = "badge badge-light ml-1 mr-1",
+                CssClass = "badge bg-light text-dark ml-1 mr-1",
                 Text = new IconHeader
                 {
                     IconName = "comment", IconType = " ", IconStyle = "far", Text = this.FormatReplies()
@@ -250,7 +248,7 @@ namespace YAF.Web.Controls
 
             var viewsLabel = new Label
             {
-                CssClass = "badge badge-light",
+                CssClass = "badge bg-light text-dark",
                 Text = new IconHeader
                 {
                     IconName = "eye", IconType = " ", IconStyle = "far", Text = this.FormatViews()
@@ -545,7 +543,7 @@ namespace YAF.Web.Controls
             {
                 priorityLabel.Text = new IconHeader { LocalizedTag = "MOVED", IconName = "arrows-alt", IconType = " " }
                     .RenderToString();
-                priorityLabel.CssClass = "badge badge-secondary mr-1";
+                priorityLabel.CssClass = "badge bg-secondary mr-1";
 
                 priorityLabel.RenderControl(writer);
             }
@@ -553,7 +551,7 @@ namespace YAF.Web.Controls
             {
                 priorityLabel.Text = new IconHeader { LocalizedTag = "POLL", IconName = "poll-h", IconType = " " }
                     .RenderToString();
-                priorityLabel.CssClass = "badge badge-secondary mr-1";
+                priorityLabel.CssClass = "badge bg-secondary mr-1";
 
                 priorityLabel.RenderControl(writer);
             }
@@ -565,7 +563,7 @@ namespace YAF.Web.Controls
                         priorityLabel.Text =
                             new IconHeader { LocalizedTag = "STICKY", IconName = "thumbtack", IconType = " " }
                                 .RenderToString();
-                        priorityLabel.CssClass = "badge badge-warning mr-1";
+                        priorityLabel.CssClass = "badge bg-warning text-dark mr-1";
 
                         priorityLabel.RenderControl(writer);
                         break;
@@ -573,7 +571,7 @@ namespace YAF.Web.Controls
                         priorityLabel.Text =
                             new IconHeader { LocalizedTag = "ANNOUNCEMENT", IconName = "bullhorn", IconType = " " }
                                 .RenderToString();
-                        priorityLabel.CssClass = "badge badge-primary mr-1";
+                        priorityLabel.CssClass = "badge bg-primary mr-1";
 
                         priorityLabel.RenderControl(writer);
                         break;

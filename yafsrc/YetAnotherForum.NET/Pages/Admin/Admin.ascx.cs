@@ -37,7 +37,6 @@ namespace YAF.Pages.Admin
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -99,7 +98,7 @@ namespace YAF.Pages.Admin
                         var subject = this.Get<ILocalization>()
                             .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<BoardSettings>().Name);
 
-                        verifyEmail.TemplateParams["{link}"] = BuildLink.GetLinkNotEscaped(
+                        verifyEmail.TemplateParams["{link}"] = BuildLink.GetLink(
                             ForumPages.Account_Approve,
                             true,
                             "code={0}",
@@ -291,7 +290,6 @@ namespace YAF.Pages.Admin
             {
                 this.UpdateHightlight.Visible = false;
             }
-
         }
         
         /// <summary>
@@ -303,7 +301,7 @@ namespace YAF.Pages.Admin
 
             if (activeUsers.HasRows())
             {
-                BoardContext.Current.PageElements.RegisterJsBlock(
+                this.PageContext.PageElements.RegisterJsBlock(
                     "ActiveUsersTablesorterLoadJs",
                     JavaScriptBlocks.LoadTableSorter("#ActiveUsers", "sortList: [[0,0]]", "#ActiveUsersPager"));
             }
@@ -351,7 +349,7 @@ namespace YAF.Pages.Admin
 
                 if (unverifiedUsers.Any())
                 {
-                    BoardContext.Current.PageElements.RegisterJsBlock(
+                    this.PageContext.PageElements.RegisterJsBlock(
                         "UnverifiedUserstablesorterLoadJs",
                         JavaScriptBlocks.LoadTableSorter(
                             "#UnverifiedUsers",

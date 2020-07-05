@@ -19,7 +19,7 @@
             </div>
             <asp:Panel runat="server" ID="ContentBody" 
                        CssClass="card-body">
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" 
                                AssociatedControlID="Email">
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="EMAIL" />
@@ -33,7 +33,7 @@
                                                          LocalizedTag="NEED_EMAIL"
                                                          CssClass="invalid-feedback" />
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" 
                                AssociatedControlID="Password">
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="PASSWORD" />
@@ -47,7 +47,7 @@
                                                          LocalizedTag="NEED_PASSWORD"
                                                          CssClass="invalid-feedback"/>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" 
                                AssociatedControlID="ConfirmPassword">
                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="CONFIRM_PASSWORD" />
@@ -68,7 +68,7 @@
                                           ErrorMessage='<%# this.GetText("INVALID_MATCH") %>' />
                     
                 </div>
-                <div class="form-group text-center">
+                <div class="mb-3 text-center">
                     <YAF:ThemeButton runat="server" ID="Forgot"
                                      CausesValidation="True"
                                      Icon="key"

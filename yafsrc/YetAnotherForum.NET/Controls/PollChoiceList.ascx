@@ -22,7 +22,7 @@
                     </h5>
                     <small>
                         <asp:Label id="YourChoice" visible="false" runat="server" 
-                                   CssClass="badge badge-success"
+                                   CssClass="badge bg-success"
                                    ToolTip='<%# this.GetText("POLLEDIT", "POLL_VOTED") %>'>
                             <i class="fa fa-check-circle fa-fw"></i>&nbsp;<%# this.GetText("POLLEDIT", "POLL_VOTED") %>
                         </asp:Label>

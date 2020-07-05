@@ -32,7 +32,6 @@ namespace YAF.Modules
     using System.Web.UI;
 
     using YAF.Configuration;
-    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Interfaces;
@@ -65,9 +64,9 @@ namespace YAF.Modules
         /// <summary>
         /// Registers the jQuery script library.
         /// </summary>
-        private static void RegisterJQuery()
+        private void RegisterJQuery()
         {
-            if (BoardContext.Current.PageElements.PageElementExists("jquery"))
+            if (this.PageContext.PageElements.PageElementExists("jquery"))
             {
                 return;
             }
@@ -92,10 +91,10 @@ namespace YAF.Modules
 
             if (registerJQuery)
             {
-                BoardContext.Current.PageElements.AddScriptReference("jquery");
+                this.PageContext.PageElements.AddScriptReference("jquery");
             }
 
-            BoardContext.Current.PageElements.AddPageElement("jquery");
+            this.PageContext.PageElements.AddPageElement("jquery");
         }
         
         /// <summary>
@@ -116,7 +115,7 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CurrentForumPagePreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            RegisterJQuery();
+            this.RegisterJQuery();
 
             if (this.PageContext.Vars.ContainsKey("yafForumExtensions"))
             {
@@ -152,7 +151,7 @@ namespace YAF.Modules
                         DebugPath = BoardInfo.GetURLToScripts("jquery.fileupload.comb.js")
                     });
 
-            BoardContext.Current.PageElements.AddScriptReference(
+            this.PageContext.PageElements.AddScriptReference(
                 this.PageContext.CurrentForumPage.IsAdminPage ? "yafForumAdminExtensions" : "yafForumExtensions");
 
             this.PageContext.Vars["yafForumExtensions"] = true;
@@ -166,7 +165,7 @@ namespace YAF.Modules
         /// </param>
         private void RegisterCssFiles(int version)
         {
-            var element = BoardContext.Current.CurrentForumPage.TopPageControl;
+            var element = this.PageContext.CurrentForumPage.TopPageControl;
 
             element.Controls.Add(
                 ControlHelper.MakeCssIncludeControl(

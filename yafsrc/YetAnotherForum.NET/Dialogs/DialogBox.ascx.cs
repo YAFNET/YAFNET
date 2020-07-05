@@ -31,7 +31,6 @@ namespace YAF.Dialogs
     using System.Web;
 
     using YAF.Core.BaseControls;
-    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -56,7 +55,7 @@ namespace YAF.Dialogs
             get =>
                 this.ViewState["CancelButtonLink"] != null
                     ? (ForumLink)this.ViewState["CancelButtonLink"]
-                    : new ForumLink(BoardContext.Current.ForumPageType);
+                    : new ForumLink(this.PageContext.ForumPageType);
 
             set => this.ViewState["CancelButtonLink"] = value;
         }
@@ -69,7 +68,7 @@ namespace YAF.Dialogs
             get =>
                 this.ViewState["OkButtonLink"] != null
                     ? (ForumLink)this.ViewState["OkButtonLink"]
-                    : new ForumLink(BoardContext.Current.ForumPageType);
+                    : new ForumLink(this.PageContext.ForumPageType);
 
             set => this.ViewState["OkButtonLink"] = value;
         }
@@ -101,7 +100,7 @@ namespace YAF.Dialogs
             if (okay != null)
             {
                 this.OkButtonLink =
-                    okay.ForumPageLink ?? new ForumLink(BoardContext.Current.ForumPageType);
+                    okay.ForumPageLink ?? new ForumLink(this.PageContext.ForumPageType);
 
                 if (okay.Text.IsSet())
                 {
@@ -119,7 +118,7 @@ namespace YAF.Dialogs
             if (cancel != null)
             {
                 this.CancelButtonLink =
-                    cancel.ForumPageLink ?? new ForumLink(BoardContext.Current.ForumPageType);
+                    cancel.ForumPageLink ?? new ForumLink(this.PageContext.ForumPageType);
 
                 this.CancelButton.Visible = true;
 
@@ -133,7 +132,7 @@ namespace YAF.Dialogs
             {
                 this.CancelButton.Visible = false;
 
-                this.CancelButtonLink = new ForumLink(BoardContext.Current.ForumPageType);
+                this.CancelButtonLink = new ForumLink(this.PageContext.ForumPageType);
             }
 
             var script = new StringBuilder();
@@ -166,7 +165,7 @@ namespace YAF.Dialogs
         /// </param>
         protected void CancelButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.CancelButtonLink.ForumPage.Equals(BoardContext.Current.ForumPageType))
+            if (this.CancelButtonLink.ForumPage.Equals(this.PageContext.ForumPageType))
             {
                 // Make Sure the Current Page is correctly Returned with all query strings
                 this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().Url.ToString());
@@ -199,7 +198,7 @@ namespace YAF.Dialogs
         /// </param>
         protected void OkButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.OkButtonLink.ForumPage.Equals(BoardContext.Current.ForumPageType))
+            if (this.OkButtonLink.ForumPage.Equals(this.PageContext.ForumPageType))
             {
                 // Make Sure the Current Page is correctly Returned with all query strings
                 this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().Url.ToString());

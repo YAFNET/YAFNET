@@ -31,7 +31,6 @@ namespace YAF.Pages.Admin
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
-    using YAF.Core.Context;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
@@ -99,7 +98,6 @@ namespace YAF.Pages.Admin
                 Email = newEmail,
                 IsApproved = !this.Get<BoardSettings>().EmailVerification,
                 EmailConfirmed = !this.Get<BoardSettings>().EmailVerification,
-
                 Profile_Birthday = userProfile.Birthday,
                 Profile_Blog = userProfile.Blog,
                 Profile_Gender = userProfile.Gender,
@@ -133,45 +131,45 @@ namespace YAF.Pages.Admin
             }
 
             // setup initial roles (if any) for this user
-              AspNetRolesHelper.SetupUserRoles(BoardContext.Current.PageBoardID, user);
+            AspNetRolesHelper.SetupUserRoles(this.PageContext.PageBoardID, user);
 
-              // create the user in the YAF DB as well as sync roles...
-              var userId = AspNetRolesHelper.CreateForumUser(user, BoardContext.Current.PageBoardID);
+            // create the user in the YAF DB as well as sync roles...
+            var userId = AspNetRolesHelper.CreateForumUser(user, this.PageContext.PageBoardID);
 
-              var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
-                  .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
+            var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
+                .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
 
-              // save the time zone...
-              this.GetRepository<User>().Save(
-                  this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id),
-                  this.PageContext.PageBoardID,
-                  null,
-                  null,
-                  null,
-                  this.TimeZones.SelectedValue,
-                  null,
-                  null,
-                  null,
-                  false);
+            // save the time zone...
+            this.GetRepository<User>().Save(
+                this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id),
+                this.PageContext.PageBoardID,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                false);
 
-              if (this.Get<BoardSettings>().EmailVerification)
-              {
-                  this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userId, newUsername);
-              }
+            if (this.Get<BoardSettings>().EmailVerification)
+            {
+                this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userId, newUsername);
+            }
 
-              this.GetRepository<User>().SaveNotification(
-                  this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id),
-                  true,
-                  autoWatchTopicsEnabled,
-                  this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
-                  this.Get<BoardSettings>().DefaultSendDigestEmail);
+            this.GetRepository<User>().SaveNotification(
+                this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id),
+                true,
+                autoWatchTopicsEnabled,
+                this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
+                this.Get<BoardSettings>().DefaultSendDigestEmail);
 
-              // success
-              this.PageContext.AddLoadMessage(
-                  this.GetTextFormatted("MSG_CREATED", this.UserName.Text.Trim()),
-                  MessageTypes.success);
+            // success
+            this.PageContext.AddLoadMessage(
+                this.GetTextFormatted("MSG_CREATED", this.UserName.Text.Trim()),
+                MessageTypes.success);
 
-              BuildLink.Redirect(ForumPages.Admin_RegisterUser);
+            BuildLink.Redirect(ForumPages.Admin_RegisterUser);
         }
 
         /// <summary>
@@ -186,7 +184,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.TimeZones.DataSource = StaticDataHelper.TimeZones();
             this.DataBind();
         }
 

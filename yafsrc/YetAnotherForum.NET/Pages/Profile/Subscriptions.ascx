@@ -1,6 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Profile.Subscriptions" CodeBehind="Subscriptions.ascx.cs" %>
 
-<%@ Import Namespace="YAF.Types.Constants" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -24,7 +24,7 @@
                             <h5 class="card-title">
                                 <YAF:LocalizedLabel ID="LocalizedLabel200" runat="server" LocalizedTag="NOTIFICATIONSELECTION" />
                             </h5>
-                        <div class="custom-control custom-radio">
+                        <div class="form-check">
                             <asp:RadioButtonList ID="rblNotificationType" runat="server" AutoPostBack="true"
                                                      OnSelectedIndexChanged="rblNotificationType_SelectionChanged"
                                                      RepeatLayout="UnorderedList"
@@ -33,12 +33,12 @@
                             </div>
                             <asp:PlaceHolder runat="server" id="DailyDigestRow">
                                 <asp:CheckBox ID="DailyDigestEnabled" runat="server" 
-                                              CssClass="custom-control custom-checkbox"
+                                              CssClass="form-check"
                                               Text='<%# this.GetText("DAILY_DIGEST") %>'/>
                             </asp:PlaceHolder>
                             <asp:PlaceHolder runat="server" id="PMNotificationRow">
                                 <asp:CheckBox ID="PMNotificationEnabled" runat="server" 
-                                              CssClass="custom-control custom-checkbox" 
+                                              CssClass="form-check" 
                                               Text='<%# this.GetText("EDIT_PROFILE","PM_EMAIL_NOTIFICATION") %>' />
                             </asp:PlaceHolder>
                     </div>
@@ -74,10 +74,10 @@
                                 </FooterTemplate>
                                 <ItemTemplate>
                                     <li class="list-group-item list-group-item-action">
-                                        <asp:CheckBox ID="unsubf" runat="server" CssClass="custom-control custom-checkbox d-inline-block" Text="&nbsp;" />
+                                        <asp:CheckBox ID="unsubf" runat="server" CssClass="form-check d-inline-block" Text="&nbsp;" />
                                         <asp:Label ID="tfid" runat="server" Text='<%# this.Eval("Item1.ID") %>'
                                                Visible="false" />
-                                        <a href="<%# BuildLink.GetLinkNotEscaped(ForumPages.Topics, "f={0}&name={1}",  this.Eval("Item1.ForumID"), this.Eval("Item2.Name"))%>">
+                                        <a href="<%# BuildLink.GetForumLink(this.Eval("Item1.ForumID").ToType<int>(), this.Eval("Item2.Name").ToString())%>">
                                                 <%# this.HtmlEncode(this.Eval("Item2.Name"))%></a>
                                     </li>
                                 </ItemTemplate>
@@ -113,11 +113,11 @@
                                 </FooterTemplate>
                                 <ItemTemplate>
                                     <li class="list-group-item list-group-item-action">
-                                        <asp:CheckBox ID="unsubx" runat="server" CssClass="custom-control custom-checkbox d-inline-block" Text="&nbsp;">
+                                        <asp:CheckBox ID="unsubx" runat="server" CssClass="form-check d-inline-block" Text="&nbsp;">
                                         </asp:CheckBox>
                                         <asp:Label ID="ttid" runat="server" Text='<%# this.Eval("Item1.ID") %>'
                                                Visible="false" />
-                                            <a href="<%# BuildLink.GetLinkNotEscaped(ForumPages.Posts, "t={0}&name={1}", this.Eval("Item1.TopicID"), this.Eval("Item2.TopicName"))%>">
+                                            <a href="<%# BuildLink.GetTopicLink(this.Eval("Item1.TopicID").ToType<int>(), this.Eval("Item2.TopicName").ToString())%>">
                                                 <%# this.HtmlEncode(this.Eval("Item2.TopicName"))%></a>
                                     </li>
                                 </ItemTemplate>

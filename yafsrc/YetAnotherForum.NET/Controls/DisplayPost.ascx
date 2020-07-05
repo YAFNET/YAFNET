@@ -59,9 +59,9 @@
                                     <li class="list-inline-item d-none d-md-inline-block">
                                         <asp:Label id="IPInfo" runat="server" 
                                                    Visible="false" 
-                                                   CssClass="badge badge-info">
+                                                   CssClass="badge bg-info">
                                             <%# this.GetText("IP") %>:&nbsp;
-                                            <a id="IPLink1" href="#" target="_blank" runat="server" class="text-white"></a>			   
+                                            <a id="IPLink1" href="#" target="_blank" runat="server" class="link-light"></a>			   
                                         </asp:Label> 
                                     </li>
                                 </asp:PlaceHolder>
@@ -71,16 +71,16 @@
                                     </li>
                                 </asp:PlaceHolder>
                                 <li class="list-inline-item d-block">
-                                    <span class="badge badge-secondary"><%# this.DataRow["RankName"]%></span>
+                                    <span class="badge bg-secondary"><%# this.DataRow["RankName"]%></span>
                                     <asp:Label ID="TopicStarterBadge" runat="server" 
-                                           CssClass="badge badge-dark mb-2"
+                                           CssClass="badge bg-dark mb-2"
                                            Visible='<%# this.DataRow.Field<int>("TopicOwnerID").Equals(this.PostData.UserId) %>'
                                            ToolTip='<%# this.GetText("POSTS","TOPIC_STARTER_HELP") %>'>
                                     <YAF:LocalizedLabel ID="TopicStarterText" runat="server" 
                                                         LocalizedTag="TOPIC_STARTER" 
                                                         LocalizedPage="POSTS" />
                                     </asp:Label>
-                                    <asp:Label runat="server" CssClass="badge badge-success" ID="MessageIsAnswerBadge" 
+                                    <asp:Label runat="server" CssClass="badge bg-success" ID="MessageIsAnswerBadge" 
                                            Visible="<%# this.PostData.PostIsAnswer %>"
                                            ToolTip='<%# this.GetText("POSTS","MESSAGE_ANSWER_HELP") %>'>
                                     <i class="fas fa-check fa-fw"></i>
@@ -275,7 +275,7 @@
                                                  DataToggle="tooltip"
                                                  TitleLocalizedTag="BUTTON_QUOTE_TT" />
                                 <asp:CheckBox runat="server" ID="MultiQuote" 
-                                              CssClass="MultiQuoteButton custom-control custom-checkbox btn btn-link" />
+                                              CssClass="MultiQuoteButton form-check btn btn-link" />
                             </div>
                         </div>
                         </div>

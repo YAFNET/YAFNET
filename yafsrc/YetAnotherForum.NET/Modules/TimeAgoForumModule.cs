@@ -28,7 +28,6 @@ namespace YAF.Modules
 
     using System;
 
-    using YAF.Core.Context;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Attributes;
@@ -68,7 +67,7 @@ namespace YAF.Modules
                 return;
             }
 
-            BoardContext.Current.PageElements.RegisterJsBlockStartup("timeagoloadjs", JavaScriptBlocks.MomentLoadJs);
+            this.PageContext.PageElements.RegisterJsBlockStartup("timeagoloadjs", JavaScriptBlocks.MomentLoadJs);
             this.PageContext.Vars["RegisteredTimeago"] = true;
         }
 

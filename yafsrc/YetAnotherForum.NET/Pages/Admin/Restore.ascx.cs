@@ -155,7 +155,7 @@ namespace YAF.Pages.Admin
 
                 case "delete_complete":
                     {
-                        var deletedTopics = this.GetRepository<Topic>().GetDeletedTopics(BoardContext.Current.PageBoardID, this.Filter.Text);
+                        var deletedTopics = this.GetRepository<Topic>().GetDeletedTopics(this.PageContext.PageBoardID, this.Filter.Text);
 
                         deletedTopics.ForEach(
                             topic => this.GetRepository<Topic>().Delete(topic.Item2.ID, true));
@@ -279,7 +279,7 @@ namespace YAF.Pages.Admin
             this.PagerMessages.PageSize = this.PageContext.BoardSettings.TopicsPerPage;
 
             var deletedTopics = this.GetRepository<Topic>()
-                .GetDeletedTopics(BoardContext.Current.PageBoardID, this.Filter.Text);
+                .GetDeletedTopics(this.PageContext.PageBoardID, this.Filter.Text);
 
             var count = deletedTopics.Count;
 
@@ -293,7 +293,7 @@ namespace YAF.Pages.Admin
                                       : 0;
 
             var deletedMessages = this.GetRepository<Message>()
-                .GetDeletedMessages(BoardContext.Current.PageBoardID);
+                .GetDeletedMessages(this.PageContext.PageBoardID);
 
             count = deletedMessages.Count;
 

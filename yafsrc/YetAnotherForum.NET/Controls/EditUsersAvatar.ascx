@@ -33,7 +33,7 @@
                     <hr />
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="AvatarOurs">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <h4>
                             <asp:Label runat="server">
                                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
@@ -50,7 +50,7 @@
                     <hr />
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="AvatarRemoteRow">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <h4>
                             <asp:Label runat="server" AssociatedControlID="Avatar">
                                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server"
@@ -65,7 +65,7 @@
                     <YAF:Alert runat="server" Type="info">
                         <asp:Label ID="noteRemote" runat="server"></asp:Label>
                     </YAF:Alert>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:ThemeButton ID="UpdateRemote" runat="server"
                                          Type="Primary"
                                          OnClick="RemoteUpdate_Click"
@@ -75,7 +75,7 @@
                     <hr />
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="AvatarUploadRow">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <h4>
                             <asp:Label runat="server" AssociatedControlID="File">
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
@@ -84,9 +84,9 @@
                             </asp:Label>
                         </h4>
                         <div class="input-group">
-                            <div class="custom-file mb-3">
-                                <input type="file" id="File" runat="server" class="custom-file-input" aria-describedby="File" />
-                                <asp:Label runat="server" AssociatedControlID="File" CssClass="custom-file-label">
+                            <div class="form-file mb-3">
+                                <input type="file" id="File" runat="server" class="form-file-input" aria-describedby="File" />
+                                <asp:Label runat="server" AssociatedControlID="File" CssClass="form-file-label">
                                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
                                                         LocalizedPage="EDIT_AVATAR"
                                                         LocalizedTag="AVATARUPLOAD" />

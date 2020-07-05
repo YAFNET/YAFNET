@@ -28,7 +28,7 @@
                         <li class="list-group-item list-group-item-action">
                                  <div class="d-flex w-100 justify-content-between">
                                      <h5 class="mb-1">
-                                         <div class="custom-control custom-checkbox d-inline-block">
+                                         <div class="form-check d-inline-block">
                                              <asp:Checkbox runat="server" ID="Compare" 
                                                            onclick="toggleSelection(this);" 
                                                            Text="&nbsp;" />
@@ -61,7 +61,7 @@
                                     </asp:PlaceHolder>
                                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                         LocalizedPage="POSTMESSAGE"
-                                                        LocalizedTag="EDITEDBY_MOD" />: <span class="badge badge-secondary"><%# Container.DataItemToField<bool>("IsModeratorChanged") ?  this.GetText("YES") : this.GetText("NO") %></span>
+                                                        LocalizedTag="EDITEDBY_MOD" />: <span class="badge bg-secondary"><%# Container.DataItemToField<bool>("IsModeratorChanged") ?  this.GetText("YES") : this.GetText("NO") %></span>
                                 </p>
                                 <small>
                                     <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"

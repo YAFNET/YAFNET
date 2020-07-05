@@ -63,7 +63,7 @@
                         <asp:HiddenField ID="MessageID" runat="server" Value='<%# this.Eval("UserPMessageID") %>' />
                         <asp:CheckBox runat="server" ID="ItemCheck" 
                                        Text="&nbsp;"
-                                       CssClass="custom-control custom-checkbox d-inline-flex"/>
+                                       CssClass="form-check d-inline-flex"/>
                         <YAF:Icon runat="server"
                                   IconName='<%# this.Eval("IsRead").ToType<bool>() ? "envelope-open" : "envelope" %>'
                                   IconType='<%# this.Eval("IsRead").ToType<bool>() ? "text-secondary" : "text-success" %>'></YAF:Icon>
@@ -159,7 +159,7 @@
 <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
 
 <asp:Label id="lblExportType" runat="server"></asp:Label>
-<div class="custom-control custom-radio custom-control-inline">
+<div class="form-check form-check-inline">
     <asp:RadioButtonList runat="server" id="ExportType" 
                          RepeatLayout="UnorderedList"
                          CssClass="list-unstyled">

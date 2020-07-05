@@ -49,7 +49,7 @@
                                 LocalizedTag="HEADER"/>
             </div>
             <div class="card-body">
-                <div class="form-group">
+                <div class="mb-3">
                     <h6 class="card-subtitle mb-2 text-muted">
                         <YAF:LocalizedLabel ID="EnterReportTextLabel" runat="server" 
                                             LocalizedTag="ENTER_TEXT" />

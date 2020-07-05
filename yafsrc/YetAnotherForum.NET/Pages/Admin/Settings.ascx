@@ -20,27 +20,27 @@
                                  LocalizedPage="ADMIN_BOARDSETTINGS"></YAF:IconHeader>
         </div>
         <div class="card-body">
-            <div class="form-row">
-                <div class="form-group col-md-6">
+            <div class="row">
+                <div class="mb-3 col-md-6">
                     <YAF:HelpLabel ID="HelpLabel1" runat="server"
                                    AssociatedControlID="Name"
                                    LocalizedTag="BOARD_NAME" LocalizedPage="ADMIN_BOARDSETTINGS"/>
                     <asp:TextBox ID="Name" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="mb-3 col-md-6">
                     <YAF:HelpLabel ID="HelpLabel4" runat="server"
                                    AssociatedControlID="ForumEmail"
                                    LocalizedTag="FORUM_EMAIL" LocalizedPage="ADMIN_HOSTSETTINGS"/>
                     <asp:TextBox ID="ForumEmail" runat="server" TextMode="Email" CssClass="form-control"></asp:TextBox>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <YAF:HelpLabel ID="HelpLabel14" runat="server"
                                AssociatedControlID="BoardLogo"
                                LocalizedTag="BOARD_LOGO" LocalizedPage="ADMIN_BOARDSETTINGS" />
                 <YAF:ImageListBox ID="BoardLogo" runat="server" CssClass="select2-image-select" />
             </div>
-        <div class="form-group">
+        <div class="mb-3">
                 <YAF:HelpLabel ID="HelpLabel5" runat="server"
                                AssociatedControlID="ForumBaseUrlMask"
                                LocalizedTag="FORUM_BASEURLMASK" LocalizedPage="ADMIN_HOSTSETTINGS"/>
@@ -48,32 +48,31 @@
                 <asp:TextBox ID="ForumBaseUrlMask" runat="server" TextMode="Url" CssClass="form-control"></asp:TextBox>
             </div>
             <asp:PlaceHolder ID="CopyrightHolder" runat="server">
-                <div class="form-group">
+                <div class="mb-3">
                     <YAF:HelpLabel ID="HelpLabel2" runat="server"
                                    AssociatedControlID="CopyrightHolder"
                                    LocalizedTag="COPYRIGHT_REMOVAL_KEY" LocalizedPage="ADMIN_BOARDSETTINGS"/>
                     <div class="input-group">
-                        <asp:TextBox ID="CopyrightRemovalKey" runat="server" CssClass="form-control"></asp:TextBox>
-                        <div class="input-group-append">
-                            <YAF:ThemeButton runat="server" ID="GetRemovalKey"
+                        <asp:TextBox ID="CopyrightRemovalKey" runat="server" 
+                                     CssClass="form-control"></asp:TextBox>
+                        <YAF:ThemeButton runat="server" ID="GetRemovalKey"
                                              NavigateUrl="https://yetanotherforum.net/purchase.aspx"
                                              Type="Info"
                                              Icon="key"
                                              TextLocalizedTag="COPYRIGHT_REMOVAL_KEY_DOWN">
-                            </YAF:ThemeButton>
-                        </div>
+                        </YAF:ThemeButton>
                     </div>
                 </div>
 
             </asp:PlaceHolder>
-            <div class="form-group">
+            <div class="mb-3">
                 <YAF:HelpLabel ID="LocalizedLabel5" runat="server"
                                AssociatedControlID="Theme"
                                LocalizedTag="BOARD_THEME" LocalizedPage="ADMIN_BOARDSETTINGS"/>
                 <asp:DropDownList ID="Theme" runat="server" CssClass="select2-select"></asp:DropDownList>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
+            <div class="row">
+                <div class="mb-3 col-md-6">
                     <YAF:HelpLabel ID="LocalizedLabel11" runat="server"
                                    AssociatedControlID="ShowTopic"
                                    LocalizedTag="BOARD_TOPIC_DEFAULT"
@@ -83,8 +82,8 @@
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
+            <div class="row">
+                <div class="mb-3 col-md-6">
                     <YAF:HelpLabel ID="LocalizedLabel10" runat="server"
                                    AssociatedControlID="Culture"
                                    LocalizedTag="BOARD_CULTURE" LocalizedPage="ADMIN_BOARDSETTINGS"/>
@@ -92,7 +91,7 @@
                     </asp:DropDownList>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <YAF:HelpLabel ID="LocalizedLabel17" runat="server"
                                AssociatedControlID="DefaultNotificationSetting"
                                LocalizedTag="BOARD_DEFAULT_NOTIFICATION"
@@ -102,55 +101,55 @@
                                   placeholder='<%# this.GetText("BOARD_DEFAULT_NOTIFICATION") %>'>
                 </asp:DropDownList>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <YAF:HelpLabel ID="LocalizedLabel13" runat="server"
                                AssociatedControlID="NotificationOnUserRegisterEmailList"
                                LocalizedTag="BOARD_EMAIL_ONREGISTER"
                                LocalizedPage="ADMIN_BOARDSETTINGS"/>
                 <asp:TextBox ID="NotificationOnUserRegisterEmailList" runat="server" CssClass="form-control"></asp:TextBox>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
+            <div class="row">
+                <div class="mb-3 col-md-6">
                     <YAF:HelpLabel ID="LocalizedLabel14" runat="server"
                                    AssociatedControlID="EmailModeratorsOnModeratedPost"
                                    LocalizedTag="BOARD_EMAIL_MODS"
                                    LocalizedPage="ADMIN_BOARDSETTINGS"/>
-                    <div class="custom-control custom-switch">
+                    <div class="form-check form-switch">
                         <asp:CheckBox ID="EmailModeratorsOnModeratedPost" runat="server" Text="&nbsp;"></asp:CheckBox>
                     </div>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="mb-3 col-md-6">
                     <YAF:HelpLabel ID="HelpLabel3" runat="server"
                                    AssociatedControlID="EmailModeratorsOnReportedPost"
                                    LocalizedTag="BOARD_EMAIL_REPORTMODS"
                                    LocalizedPage="ADMIN_BOARDSETTINGS"/>
-                    <div class="custom-control custom-switch">
+                    <div class="form-check form-switch">
                         <asp:CheckBox ID="EmailModeratorsOnReportedPost" runat="server" Text="&nbsp;"></asp:CheckBox>
                     </div>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
+            <div class="row">
+                <div class="mb-3 col-md-6">
                     <YAF:HelpLabel ID="LocalizedLabel15" runat="server"
                                    AssociatedControlID="AllowDigestEmail"
                                    LocalizedTag="BOARD_ALLOW_DIGEST"
                                    LocalizedPage="ADMIN_BOARDSETTINGS"/>
-                    <div class="custom-control custom-switch">
+                    <div class="form-check form-switch">
                         <asp:CheckBox ID="AllowDigestEmail" runat="server" Text="&nbsp;"></asp:CheckBox>
                     </div>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="mb-3 col-md-6">
                     <YAF:HelpLabel ID="LocalizedLabel16" runat="server"
                                    AssociatedControlID="DefaultSendDigestEmail"
                                    LocalizedTag="BOARD_DIGEST_NEWUSERS"
                                    LocalizedPage="ADMIN_BOARDSETTINGS"/>
-                    <div class="custom-control custom-switch">
+                    <div class="form-check form-switch">
                         <asp:CheckBox ID="DefaultSendDigestEmail" runat="server" Text="&nbsp;"></asp:CheckBox>
                     </div>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
+            <div class="row">
+                <div class="mb-3 col-md-4">
                     <YAF:HelpLabel ID="HelpLabelDigest1" runat="server"
                                    AssociatedControlID="DigestSendEveryXHours"
                                    LocalizedTag="BOARD_DIGEST_HOURS"
@@ -158,23 +157,21 @@
                     <asp:TextBox ID="DigestSendEveryXHours" runat="server" TextMode="Number" CssClass="form-control"></asp:TextBox>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <YAF:HelpLabel ID="HelpLabel6" runat="server"
                                AssociatedControlID="CdvVersion"
                                LocalizedTag="CdvVersion"
                                LocalizedPage="ADMIN_BOARDSETTINGS"/>
                 <div class="input-group">
                     <asp:TextBox ID="CdvVersion" runat="server" CssClass="form-control" Enabled="False"></asp:TextBox>
-                    <div class="input-group-append">
-                        <YAF:ThemeButton runat="server"
-                                         OnClick="IncreaseVersionOnClick"
-                                         CssClass="float-right"
-                                         Type="Info"
-                                         Icon="file-code"
-                                         TextLocalizedTag="CDVVERSION_BUTTON"
-                                         TitleLocalizedTag="CDVVERSION_HELP">
-                        </YAF:ThemeButton>
-                    </div>
+                    <YAF:ThemeButton runat="server"
+                                     OnClick="IncreaseVersionOnClick"
+                                     CssClass="float-right"
+                                     Type="Info"
+                                     Icon="file-code"
+                                     TextLocalizedTag="CDVVERSION_BUTTON"
+                                     TitleLocalizedTag="CDVVERSION_HELP">
+                    </YAF:ThemeButton>
                 </div>
             </div>
         </div>
@@ -204,7 +201,7 @@
                                          OnClick="DeleteClick"></YAF:ThemeButton>
                     </YAF:Alert>
                 </asp:PlaceHolder>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="BoardAnnouncement">
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                             LocalizedTag="ANNOUNCEMENT_MESSAGE" />
@@ -214,20 +211,20 @@
                                  CssClass="form-control" 
                                  Rows="3"></asp:TextBox>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="BoardAnnouncementUntil">
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                             LocalizedTag="ANNOUNCEMENT_UNTIL" />
                     </asp:Label>
                     <asp:TextBox runat="server" ID="BoardAnnouncementUntil" CssClass="form-control" TextMode="Number" />
-                    <div class="custom-control custom-radio custom-control-inline mt-1">
+                    <div class="form-check form-check-inline mt-1">
                         <asp:RadioButtonList
                             runat="server" ID="BoardAnnouncementUntilUnit" 
                             RepeatLayout="UnorderedList"
                             CssClass="list-unstyled" />
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="BoardAnnouncementType">
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
                                             LocalizedTag="ANNOUNCEMENT_TYPE" />

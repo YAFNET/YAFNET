@@ -28,7 +28,6 @@ namespace YAF.Modules
   using System;
   using System.Web.UI.HtmlControls;
 
-  using YAF.Core.Context;
   using YAF.Core.Extensions;
   using YAF.Types;
   using YAF.Types.Attributes;
@@ -108,7 +107,7 @@ namespace YAF.Modules
           rssLink.Attributes.Add("type", "application/rss+xml");
           rssLink.Attributes.Add(
               "title",
-              $"{this.GetText("RSSFEED")} - {BoardContext.Current.BoardSettings.Name}");
+              $"{this.GetText("RSSFEED")} - {this.PageContext.BoardSettings.Name}");
 
           head.Controls.Add(rssLink);
       }
@@ -135,7 +134,7 @@ namespace YAF.Modules
       atomLink.Attributes.Add("type", "application/atom+xml");
       atomLink.Attributes.Add(
           "title",
-          $"{this.GetText("ATOMFEED")} - {BoardContext.Current.BoardSettings.Name}");
+          $"{this.GetText("ATOMFEED")} - {this.PageContext.BoardSettings.Name}");
 
       head.Controls.Add(atomLink);
     }

@@ -29,7 +29,6 @@ namespace YAF.Modules
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
@@ -87,7 +86,7 @@ namespace YAF.Modules
             bannerLink.NavigateUrl = BuildLink.GetLink(ForumPages.Board);
             bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
 
-            var logoUrl = $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{BoardContext.Current.BoardSettings.ForumLogo}";
+            var logoUrl = $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
 
             bannerLink.Attributes.Add("style", $"background: url('{logoUrl}') no-repeat");
             

@@ -10,8 +10,9 @@
     <asp:Label id="GuestMessage" runat="server"></asp:Label>
 </YAF:Alert>
     
-<header class="mb-3">
+<header class="mb-2">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
         <a class="navbar-brand mb-1" href="<%=BuildLink.GetLink(ForumPages.Board) %>">
             <%= this.PageContext.BoardSettings.Name %>
         </a>
@@ -41,7 +42,8 @@
                                              Type="None"
                                              CssClass="nav-link dropdown-toggle"
                                              TextLocalizedTag="HOST"
-                                             TextLocalizedPage="TOOLBAR" />
+                                             TextLocalizedPage="TOOLBAR"
+                                             NavigateUrl="#"/>
                             <div class="dropdown-menu" aria-labelledby="hostDropdown">
                                 <a href="<%= BuildLink.GetLink(ForumPages.Admin_HostSettings) %>"
                                    class="<%= this.PageContext.ForumPageType == ForumPages.Admin_HostSettings ? "dropdown-item active" : "dropdown-item" %>">
@@ -102,7 +104,7 @@
                     <YAF:UserMenu runat="server"></YAF:UserMenu>
                 </asp:PlaceHolder>
             </ul>
-            <asp:Panel ID="quickSearch" runat="server" CssClass="form-inline" Visible="false">
+            <asp:Panel ID="quickSearch" runat="server" CssClass="d-flex" Visible="false">
                 <asp:TextBox ID="searchInput" Type="Search" runat="server" 
                              CssClass="form-control"
                              aria-label="Search"></asp:TextBox>&nbsp;
@@ -113,6 +115,7 @@
                                  Icon="search">
                 </YAF:ThemeButton>
             </asp:Panel>
+        </div>
         </div>
     </nav>
 </header>

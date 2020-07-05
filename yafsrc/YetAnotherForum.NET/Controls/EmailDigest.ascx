@@ -44,7 +44,7 @@
                             <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}&name={1}#post{0}", t.LastMessageID, t.Subject) %>"
                                 target="_blank">
                                 <i class="fas fa-comment"></i> <%= t.Subject %></a> 
-                                 <span class="badge badge-secondary">
+                                 <span class="badge bg-secondary">
                                     <%= string.Format(this.GetText("COMMENTS"), t.Replies) %>
                                  </span>
                            </h6>
@@ -86,7 +86,7 @@
                             <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}&name={1}#post{0}", t.LastMessageID, t.Subject) %>"
                                target="_blank">
                                 <i class="fas fa-comment"></i> <%= t.Subject %></a> 
-                            <span class="badge badge-secondary">
+                            <span class="badge bg-secondary">
                                 <%= string.Format(this.GetText("COMMENTS"), t.Replies) %>
                             </span>
                         </h6>

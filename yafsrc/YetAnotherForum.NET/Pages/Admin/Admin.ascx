@@ -24,7 +24,7 @@
     <div class="row">
              <div class="col-xl-12">
                     <div class="card mb-3">
-                        <div class="card-header form-inline">
+                        <div class="card-header d-flex">
                             <YAF:IconHeader runat="server"
                                             IconName="tachometer-alt"
                                             LocalizedTag="HEADER3"
@@ -34,7 +34,7 @@
                                               DataValueField="ID"
                                               OnSelectedIndexChanged="BoardStatsSelectChanged" 
                                               AutoPostBack="true" 
-                                              CssClass="custom-select" 
+                                              CssClass="form-select" 
                                               Width="300" />
                         </div>
                         <div class="card-body">
@@ -217,7 +217,7 @@
                     <HeaderTemplate>
                         <div class="table-responsive">
                         <table class="table tablesorter table-bordered table-striped" id="ActiveUsers">
-                            <thead class="thead-light">
+                            <thead class="table-light">
                             <tr>
                                 <th>
                                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
@@ -265,8 +265,8 @@
                             </tbody>
                         </table>
                         </div>
-                        <div id="ActiveUsersPager" class=" tableSorterPager form-inline">
-                            <select class="pagesize custom-select custom-select-sm">
+                        <div id="ActiveUsersPager" class=" tableSorterPager d-flex">
+                            <select class="pagesize form-select form-select-sm">
 		                        <option selected="selected" value="10">10</option>
 		                        <option value="20">20</option>
                         	    <option value="30">30</option>
@@ -306,7 +306,7 @@
             <HeaderTemplate>
                 <div class="table-responsive">
                 <table class="table tablesorter table-bordered table-striped" id="UnverifiedUsers">
-                <thead class="thead-light">
+                <thead class="table-light">
                 <tr>
                     <th>
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADMIN_NAME"
@@ -381,8 +381,8 @@
                 </tbody>
                 </table>
                 </div>
-                    <div id="UnverifiedUsersPager" class=" tableSorterPager form-inline">
-                        <select class="pagesize custom-select custom-select-sm">
+                    <div id="UnverifiedUsersPager" class=" tableSorterPager d-flex">
+                        <select class="pagesize form-select form-select-sm">
 		                        <option selected="selected" value="10">10</option>
 		                        <option value="20">20</option>
                         	    <option value="30">30</option>
@@ -398,7 +398,7 @@
                         </div>
                     </div>
                </div>
-                <div class="card-footer form-inline">
+                <div class="card-footer d-flex">
                     <YAF:ThemeButton runat="server" 
                                      CommandName="approveall" 
                                      Type="Primary" 

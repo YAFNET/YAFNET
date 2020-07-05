@@ -32,7 +32,7 @@
                                 </span>
                                 <asp:Label ID="PageName" runat="server" 
                                            AssociatedControlID="ReadAccess" />
-                                <div class="custom-control custom-switch">
+                                <div class="form-check form-switch">
                                     <asp:CheckBox  ID="ReadAccess" runat="server" 
                                                    Text='<%# this.GetText("CANACCESS") %>'/>
                                 </div>

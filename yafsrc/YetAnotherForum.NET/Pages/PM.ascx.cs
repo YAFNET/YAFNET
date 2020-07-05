@@ -31,7 +31,6 @@ namespace YAF.Pages
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
-    using YAF.Core.Context;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -80,7 +79,7 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            BoardContext.Current.PageElements.RegisterJsBlock(
+            this.PageContext.PageElements.RegisterJsBlock(
                 "yafPmTabsJs",
                 JavaScriptBlocks.BootstrapTabsLoadJs(this.PmTabs.ClientID, this.hidLastTab.ClientID));
 
@@ -112,7 +111,7 @@ namespace YAF.Pages
                 this.hidLastTab.Value = $"View{(int)this.View}";
             }
 
-            this.NewPM.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage);
+            this.NewPM.NavigateUrl = BuildLink.GetLink(ForumPages.PostPrivateMessage);
             this.NewPM2.NavigateUrl = this.NewPM.NavigateUrl;
         }
 

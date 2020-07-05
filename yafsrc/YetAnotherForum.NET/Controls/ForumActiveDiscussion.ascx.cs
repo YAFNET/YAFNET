@@ -33,7 +33,6 @@ namespace YAF.Controls
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
@@ -77,7 +76,7 @@ namespace YAF.Controls
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]));
 
             // make message url...
-            var messageUrl = BuildLink.GetLinkNotEscaped(
+            var messageUrl = BuildLink.GetLink(
                 ForumPages.Posts,
                 "m={0}&name={1}#post{0}",
                 currentRow["LastMessageID"],
@@ -114,7 +113,7 @@ namespace YAF.Controls
                 $"{startedByText} {inForumText}";
             textMessageLink.Attributes.Add("data-toggle", "tooltip");
 
-            textMessageLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
+            textMessageLink.NavigateUrl = BuildLink.GetLink(
                 ForumPages.Posts,
                 "t={0}&name={1}&find=unread",
                 currentRow["TopicID"],
@@ -129,7 +128,7 @@ namespace YAF.Controls
 
             if (imageLastUnreadMessageLink.Visible)
             {
-                imageLastUnreadMessageLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                imageLastUnreadMessageLink.NavigateUrl = BuildLink.GetLink(
                     ForumPages.Posts,
                     "t={0}&name={1}&find=unread",
                     currentRow["TopicID"],
@@ -160,7 +159,7 @@ namespace YAF.Controls
                 if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
                 {
                     postIcon.Visible = true;
-                    postIcon.CssClass = "badge badge-success";
+                    postIcon.CssClass = "badge bg-success";
 
                     postIcon.Text = this.GetText("NEW_MESSAGE");
                 }
@@ -239,11 +238,11 @@ namespace YAF.Controls
             {
                 this.Get<ISession>().UnreadTopics = 0;
 
-                if (BoardContext.Current.Settings.CategoryID > 0)
+                if (this.PageContext.Settings.CategoryID > 0)
                 {
                     activeTopics = this.GetRepository<Topic>().LatestInCategoryAsDataTable(
                         this.PageContext.PageBoardID,
-                        BoardContext.Current.Settings.CategoryID,
+                        this.PageContext.Settings.CategoryID,
                         this.Get<BoardSettings>().ActiveDiscussionsCount,
                         this.PageContext.PageUserID,
                         this.Get<BoardSettings>().UseStyledNicks,

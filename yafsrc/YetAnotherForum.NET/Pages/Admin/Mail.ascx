@@ -19,7 +19,7 @@
                                     LocalizedPage="ADMIN_MAIL"></YAF:IconHeader>
 			     </div>
                 <div class="card-body">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" 
                                    CssClass="font-weight-bold"
                                    AssociatedControlID="ToList">
@@ -29,10 +29,10 @@
                         <asp:DropDownList ID="ToList" runat="server" 
                                           DataValueField="ID" 
                                           DataTextField="Name" 
-                                          CssClass="custom-select">
+                                          CssClass="form-select">
                 </asp:DropDownList>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" 
                                    CssClass="font-weight-bold"
                                    AssociatedControlID="Subject">
@@ -42,7 +42,7 @@
                         <asp:TextBox ID="Subject" runat="server" 
                                      CssClass="form-control"></asp:TextBox>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" 
                                    CssClass="font-weight-bold"
                                    AssociatedControlID="Body">
@@ -72,8 +72,8 @@
                 Mail testing
             </div>
             <div class="card-body">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="mb-3 col-md-6">
                         <YAF:HelpLabel runat="server" 
                                        LocalizedTag="FROM_MAIL"
                                        AssociatedControlID="TestFromEmail">
@@ -83,7 +83,7 @@
                                      Type="Email"
                                      CssClass="form-control"/>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="mb-3 col-md-6">
                         <YAF:HelpLabel runat="server"
                                        LocalizedTag="TO_MAIL"
                                        AssociatedControlID="TestToEmail">
@@ -93,7 +93,7 @@
                                      CssClass="form-control"/>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" 
                                CssClass="font-weight-bold"
                                AssociatedControlID="TestSubject">
@@ -103,7 +103,7 @@
                     <asp:TextBox ID="TestSubject" runat="server" 
                                  CssClass="form-control"></asp:TextBox>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" 
                                CssClass="font-weight-bold"
                                AssociatedControlID="TestBody">

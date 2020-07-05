@@ -36,7 +36,7 @@
                                                          Size="Small">
                                             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                                                 LocalizedTag="UNAPPROVED" />
-                                            <span class="badge badge-light"><%# this.Eval( "[\"MessageCount\"]") %></span>
+                                            <span class="badge bg-light text-dark"><%# this.Eval( "[\"MessageCount\"]") %></span>
                                         </YAF:ThemeButton>
                                         <YAF:ThemeButton ID="NoUnapprovedInfo" runat="server"
                                                          TextLocalizedTag="NO_POSTS" TextLocalizedPage="MODERATE" 
@@ -53,7 +53,7 @@
                                                          Size="Small">
                                             <YAF:LocalizedLabel ID="ReportedCountLabel" runat="server" 
                                                                 LocalizedTag="REPORTED" /> 
-                                            <span class="badge badge-light"><%# this.Eval( "[\"ReportedCount\"]") %></span>
+                                            <span class="badge bg-light text-dark"><%# this.Eval( "[\"ReportedCount\"]") %></span>
                                         </YAF:ThemeButton>
                                         <YAF:ThemeButton ID="NoReportedInfo" runat="server"
                                                          TextLocalizedTag="NO_POSTS" TextLocalizedPage="MODERATE"

@@ -28,7 +28,7 @@
             </div>
             <asp:Panel runat="server" ID="Footer" 
                        CssClass="card-footer">
-                <div class="mb-1 form-inline">
+                <div class="mb-1 d-flex">
                     <asp:Label runat="server" AssociatedControlID="Since">
                         <YAF:LocalizedLabel ID="SinceLabel" runat="server"
                                             LocalizedTag="SINCE"/>
@@ -36,7 +36,7 @@
                     <asp:DropDownList ID="Since" runat="server" 
                                       AutoPostBack="True" 
                                       OnSelectedIndexChanged="Since_SelectedIndexChanged" 
-                                      CssClass="select2-select custom-select" />
+                                      CssClass="select2-select form-select" />
                 </div>
             </asp:Panel>
     </div>

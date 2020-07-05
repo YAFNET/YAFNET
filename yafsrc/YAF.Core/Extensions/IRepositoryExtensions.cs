@@ -232,6 +232,20 @@ namespace YAF.Core.Extensions
             return repository.DbAccess.Execute(db => db.Connection.Insert(entity, true)).ToType<int>();
         }
 
+        /// <summary>
+        /// The insert all.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="objs">
+        /// The objs.
+        /// </param>
+        /// <param name="transaction">
+        /// The transaction.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
         public static void InsertAll<T>(
             [NotNull] this IRepository<T> repository,
             [NotNull] IEnumerable<T> objs,
@@ -461,7 +475,6 @@ namespace YAF.Core.Extensions
             return repository.DbAccess.Execute(db => db.Connection.SelectByIds<T>(idValues));
         }
 
-
         /// <summary>
         /// Gets a single entity by its ID.
         /// </summary>
@@ -560,7 +573,6 @@ namespace YAF.Core.Extensions
             return repository.DbAccess.Execute(
                 dbCmd => dbCmd.Connection.SqlList<T>($"{Config.DatabaseObjectQualifier}{sql}", dbCmdFilter));
         }
-
 
         /// <summary>
         /// Gets the paged list of entities by the criteria.

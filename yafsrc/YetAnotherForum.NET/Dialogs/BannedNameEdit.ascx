@@ -17,7 +17,7 @@
                     </div>
                     <div class="modal-body">
                         <!-- Modal Content START !-->
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel1" runat="server"
                                            AssociatedControlID="mask"
                                            LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDNAME_EDIT" />
@@ -26,7 +26,7 @@
                                          Height="100"
                                          TextMode="MultiLine"></asp:TextBox>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel2" runat="server" 
                                            AssociatedControlID="BanReason"
                                            LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDNAME_EDIT" />

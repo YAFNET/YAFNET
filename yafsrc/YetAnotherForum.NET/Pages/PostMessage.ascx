@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.PostMessage" CodeBehind="PostMessage.ascx.cs" %>
-<%@ Import Namespace="YAF.Core.Context" %>
+
 <%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../controls/LastPosts.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
@@ -38,7 +38,7 @@
                     </asp:PlaceHolder>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="SubjectRow" runat="server">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="TopicSubjectTextBox">
                             <YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server" LocalizedTag="subject" />
                         </asp:Label>
@@ -49,11 +49,11 @@
                     </div>
                     <div id="SearchResultsPlaceholder"
                         data-url="<%=BoardInfo.ForumClientFileRoot %>"
-                        data-userid="<%= BoardContext.Current.PageUserID %>">
+                        data-userid="<%= this.PageContext.PageUserID %>">
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="DescriptionRow" Visible="false" runat="server">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="TopicDescriptionTextBox">
                             <YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server" LocalizedTag="description" />
                         </asp:Label>
@@ -64,7 +64,7 @@
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="FromRow" runat="server">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="From">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="from" />
                         </asp:Label>
@@ -72,7 +72,7 @@
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="PriorityRow" runat="server">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="Priority">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="priority" />
                         </asp:Label>
@@ -80,7 +80,7 @@
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="StyleRow" runat="server">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="TopicStylesTextBox">
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="STYLES" />
                         </asp:Label>
@@ -88,7 +88,7 @@
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="TagsHolder" runat="server">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="Tags">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="TAGS" />
                         </asp:Label>
@@ -97,7 +97,7 @@
                         </asp:TextBox>
                     </div>
                 </asp:PlaceHolder>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server">
                         <YAF:LocalizedLabel runat="server" LocalizedTag="message" />
                     </asp:Label>
@@ -108,7 +108,7 @@
                 <YAF:PostOptions ID="PostOptions1" runat="server"></YAF:PostOptions>
 
                 <asp:PlaceHolder ID="tr_captcha1" runat="server" Visible="false">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server">
                 <YAF:LocalizedLabel runat="server" LocalizedTag="Captcha_Image" />
                         </asp:Label>
@@ -116,7 +116,7 @@
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="tr_captcha2" runat="server" Visible="false">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="tbCaptcha">
                             <YAF:LocalizedLabel runat="server" 
                                                 LocalizedTag="Captcha_Enter" />
@@ -125,7 +125,7 @@
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="EditReasonRow" runat="server">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="ReasonEditor">
                             <YAF:LocalizedLabel runat="server" 
                                                 LocalizedTag="EditReason" />

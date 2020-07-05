@@ -28,7 +28,6 @@ namespace YAF.Controls
   using System;
 
   using YAF.Core.BaseControls;
-  using YAF.Core.Context;
   using YAF.Core.Extensions;
   using YAF.Core.Model;
   using YAF.Types;
@@ -69,7 +68,7 @@ namespace YAF.Controls
     {
       var groups = this.GetRepository<UserGroup>().List(this.PageContext.PageUserID);
 
-      if (BoardContext.Current.BoardSettings.UseStyledNicks)
+      if (this.PageContext.BoardSettings.UseStyledNicks)
       {
         this.Get<IStyleTransform>().DecodeStyleByGroupList(groups);
       }

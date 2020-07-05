@@ -16,7 +16,7 @@
                                 IconName="paper-plane"></YAF:IconHeader>
             </div>
             <div class="card-body">
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="EmailAddress">
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                             LocalizedTag="to" />
@@ -25,7 +25,7 @@
                                  CssClass="form-control">
                     </asp:TextBox>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="Subject">
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                             LocalizedTag="subject" />
@@ -34,7 +34,7 @@
                                  CssClass="form-control">
                     </asp:TextBox>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="Message">
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                             LocalizedTag="message" />

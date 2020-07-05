@@ -61,6 +61,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Sets the DataRow.
         /// </summary>
+        [Obsolete("Use CurrentMessage instead!")]    
         public DataRow DataRow
         {
             set => this.CurrentMessage = value != null ? new Message(value) : null;

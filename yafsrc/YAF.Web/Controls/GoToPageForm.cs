@@ -109,9 +109,6 @@ namespace YAF.Web.Controls
 
             inputGroup.Controls.Add(this.gotoTextBox);
 
-            var groupBtn = new HtmlGenericControl("div");
-            groupBtn.Attributes.Add("class", "input-group-append");
-
             this.gotoButton.ID = this.GetExtendedID("GotoButton");
             this.gotoButton.CssClass = "btn btn-primary";
             this.gotoButton.CausesValidation = false;
@@ -119,9 +116,7 @@ namespace YAF.Web.Controls
             this.gotoButton.Click += this.GotoButtonClick;
             this.gotoButton.Text = this.GetText("COMMON", "GO");
 
-            groupBtn.Controls.Add(this.gotoButton);
-
-            inputGroup.Controls.Add(groupBtn);
+            inputGroup.Controls.Add(this.gotoButton);
 
             this.Controls.Add(inputGroup);
         }

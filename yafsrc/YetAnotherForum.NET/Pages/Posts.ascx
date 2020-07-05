@@ -40,6 +40,7 @@
                              DataToggle="dropdown"
                              TextLocalizedTag="MANAGE_TOPIC"
                              TextLocalizedPage="POSTS"
+                             NavigateUrl="#"
                              Icon="cogs" />
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="<%# this.Tools1.ClientID %>">
                 <YAF:ThemeButton ID="MoveTopic1" runat="server"
@@ -127,7 +128,8 @@
                                          Icon="share-alt"
                                          Type="Link"
                                          CssClass="dropdown-toggle"
-                                         DataToggle="dropdown" />
+                                         DataToggle="dropdown"
+                                         NavigateUrl="#" />
                         <YAF:PopMenu ID="ShareMenu" runat="server" 
                                      AlignRight="true" />
                     </li>
@@ -137,7 +139,8 @@
                                          Icon="cog"
                                          Type="Link"
                                          CssClass="dropdown-toggle"
-                                         DataToggle="dropdown" />
+                                         DataToggle="dropdown"
+                                         NavigateUrl="#" />
                         <YAF:PopMenu runat="server" ID="OptionsMenu" 
                                      AlignRight="true" />
                     </li>
@@ -190,6 +193,7 @@
                              Type="Danger"
                              DataToggle="dropdown"
                              TextLocalizedTag="MANAGE_TOPIC"
+                             NavigateUrl="#"
                              Icon="cogs" />
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="<%# this.Tools1.ClientID %>">
                 <YAF:ThemeButton ID="MoveTopic2" runat="server"

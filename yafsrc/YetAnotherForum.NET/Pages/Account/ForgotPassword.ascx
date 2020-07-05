@@ -10,7 +10,7 @@
                 <h5 class="card-title">
                     <YAF:LocalizedLabel runat="server" LocalizedTag="PAGE1_INSTRUCTIONS"></YAF:LocalizedLabel>
                 </h5>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                             LocalizedPage="LOGIN" LocalizedTag="USERNAME" />
@@ -23,7 +23,7 @@
                                                          LocalizedTag="NEED_USERNAME"
                                                          CssClass="invalid-feedback"/>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <YAF:ThemeButton runat="server" ID="Forgot"
                                      CausesValidation="True"
                                      TextLocalizedTag="SUBMIT"

@@ -11,14 +11,14 @@
                                 IconName="poll-h"/>
             </div>
             <div class="card-body">
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="Question">
                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="pollquestion" />
                     </asp:Label>
                     <asp:TextBox ID="Question" runat="server" CssClass="form-control" MaxLength="255" />            
                 </div>
                 <asp:PlaceHolder id="PollObjectRow1" runat="server">
-                   <div class="form-group">
+                   <div class="mb-3">
 			           <asp:Label runat="server" AssociatedControlID="QuestionObjectPath">				
                            <YAF:LocalizedLabel ID="PollQuestionObjectLabel" runat="server" 
                                                LocalizedTag="POLLIMAGE_TEXT" />
@@ -30,8 +30,8 @@
                </asp:PlaceHolder>
                 <asp:Repeater ID="ChoiceRepeater" runat="server">
                     <ItemTemplate>
-                        <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="row">
+                        <div class="mb-3 col-md-6">
                             <asp:Label runat="server" AssociatedControlID="PollChoice">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                     LocalizedTag="choice" 
@@ -46,7 +46,7 @@
                         </div>
                         <asp:PlaceHolder id="ChoiceRow1" 
                                          visible="<%# (this.PageContext.IsAdmin || this.PageContext.BoardSettings.AllowUsersImagedPoll) && this.PageContext.ForumPollAccess %>" runat="server">
-                            <div class="form-group col-md-6">
+                            <div class="mb-3 col-md-6">
                                 <asp:Label runat="server" AssociatedControlID="ObjectPath">
                                     <YAF:LocalizedLabel ID="PollChoiceObjectLabel"  runat="server" LocalizedTag="POLLIMAGE_TEXT" />
                                 </asp:Label>
@@ -59,18 +59,18 @@
                     </ItemTemplate>
                 </asp:Repeater>
                 <asp:PlaceHolder id="tr_AllowMultipleChoices" runat="server">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:CheckBox ID="AllowMultipleChoicesCheckBox" runat="server" 
-                                      CssClass="custom-control custom-checkbox" />
+                                      CssClass="form-check" />
                     </div>
                 </asp:PlaceHolder> 
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:CheckBox ID="ShowVotersCheckBox" runat="server" 
-                                  CssClass="custom-control custom-checkbox" />
+                                  CssClass="form-check" />
                 </div>
                 <asp:PlaceHolder id="PollRowExpire" runat="server" 
                                  visible="false">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="PollExpire">
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                 LocalizedTag="poll_expire" />
@@ -86,9 +86,9 @@
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder id="IsClosedBound" runat="server" visible="false">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:CheckBox ID="IsClosedBoundCheckBox"  runat="server" 
-                                      CssClass="custom-control custom-checkbox" />
+                                      CssClass="form-check" />
                         <small class="form-text text-muted">
                             <YAF:LocalizedLabel ID="IsClosedBoundExplainLabel" runat="server" 
                                                 LocalizedTag="POLLGROUP_CLOSEDBOUND_WARN" /> 

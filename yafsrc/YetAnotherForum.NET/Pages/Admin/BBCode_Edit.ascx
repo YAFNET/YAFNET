@@ -24,14 +24,14 @@
                                             LocalizedPage="ADMIN_BBCODE_EDIT" /></h2>
                     <hr />
                     <div class="ml-2">
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel1" runat="server" 
                                            AssociatedControlID="txtName"
                                            LocalizedTag="BBCODE_NAME" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
                             <asp:TextBox id="txtName" runat="server" 
                                          CssClass="form-control"></asp:TextBox>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel2" runat="server" 
                                            AssociatedControlID="txtExecOrder"
                                            LocalizedTag="EXEC_ORDER" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
@@ -42,7 +42,7 @@
                                          TextMode="Number"
                                          MaxLength="5"></asp:TextBox>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel3" runat="server" 
                                            AssociatedControlID="txtDescription"
                                            LocalizedTag="BBCODE_DESC" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
@@ -50,12 +50,12 @@
                                          TextMode="MultiLine" 
                                          CssClass="form-control"></asp:TextBox>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel14" runat="server" 
                                            AssociatedControlID="UseToolbar"
                                            LocalizedTag="USE_TOOLBAR" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
                      
-                            <div class="custom-control custom-switch">
+                            <div class="form-check form-switch">
                                 <asp:CheckBox ID="UseToolbar" runat="server" Text="&nbsp;" />
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                     </h2>
                     <hr />
                     <div class="ml-2">
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel4" runat="server" 
                                            AssociatedControlID="txtSearchRegEx"
                                            LocalizedTag="SEARCH_REGEX" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
@@ -74,13 +74,13 @@
                                          TextMode="MultiLine" 
                                          CssClass="form-control"></asp:TextBox>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel5" runat="server" 
                                            AssociatedControlID="txtReplaceRegEx"
                                            LocalizedTag="REPLACE_REGEX" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
                             <asp:TextBox ID="txtReplaceRegEx" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel8" runat="server" 
                                            AssociatedControlID="txtVariables"
                                            LocalizedTag="REPLACE_VARIABLES" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
@@ -88,17 +88,17 @@
                                          TextMode="MultiLine"
                                          CssClass="form-control"></asp:TextBox>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
                                 <YAF:HelpLabel ID="HelpLabel6" runat="server" 
                                                AssociatedControlID="chkUseModule"
                                                LocalizedTag="USE_MODULE" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
-                                <div class="custom-control custom-switch">
+                                <div class="form-check form-switch">
                                     <asp:CheckBox ID="chkUseModule" runat="server" 
                                                   Text="&nbsp;" />
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="mb-3 col-md-6">
                                 <YAF:HelpLabel ID="HelpLabel7" runat="server" 
                                                AssociatedControlID="txtModuleClass"
                                                LocalizedTag="CLASS_NAME" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
@@ -112,7 +112,7 @@
                     </h2>
                     <hr />
                     <div class="ml-2">
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel9" runat="server" 
                                            AssociatedControlID="txtOnClickJS"
                                            LocalizedTag="ONCLICK_JS" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
@@ -120,7 +120,7 @@
                                          TextMode="MultiLine" 
                                          CssClass="form-control"></asp:TextBox>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel10" runat="server" 
                                            AssociatedControlID="txtDisplayJS"
                                            LocalizedTag="DISPLAY_JS" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
@@ -128,7 +128,7 @@
                                          TextMode="MultiLine" 
                                          CssClass="form-control"></asp:TextBox>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel11" runat="server" 
                                            AssociatedControlID="txtEditJS"
                                            LocalizedTag="EDIT_JS" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
@@ -136,7 +136,7 @@
                                          TextMode="MultiLine" 
                                          CssClass="form-control"></asp:TextBox>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel12" runat="server" 
                                            AssociatedControlID="txtDisplayCSS"
                                            LocalizedTag="DISPLAY_CSS" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />

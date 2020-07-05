@@ -32,7 +32,7 @@
                                     <h5 class="mb-1">
                                         <asp:CheckBox ID="chkSelected" runat="server"
                                                       Text="&nbsp;"
-                                                      CssClass="custom-control custom-checkbox d-inline-flex"/>
+                                                      CssClass="form-check d-inline-flex"/>
                                         <asp:HiddenField ID="hiddenBBCodeID" runat="server" Value='<%# this.Eval("ID") %>' />
                                         <%# this.Eval("Name") %>
                                     </h5>

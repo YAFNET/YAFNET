@@ -12,15 +12,15 @@
                                 LocalizedPage="ADMIN_VERSION"></YAF:IconHeader>
             </div>
             <div class="card-body">
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="dDLPages">
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
                                             LocalizedTag="SELECT_PAGE" 
                                             LocalizedPage="ADMIN_EDITLANGUAGE" />
                     </asp:Label>
-                    <asp:DropDownList runat="server" id="dDLPages" CssClass="custom-select"></asp:DropDownList>
+                    <asp:DropDownList runat="server" id="dDLPages" CssClass="form-select"></asp:DropDownList>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <YAF:ThemeButton runat="server" id="btnLoadPageLocalization" 
                                      Type="Primary" 
                                      Icon="share" 

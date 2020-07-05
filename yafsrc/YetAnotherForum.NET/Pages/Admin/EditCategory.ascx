@@ -21,8 +21,8 @@
                                     IconName="comments"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel1" runat="server"
                              AssociatedControlID="Name"
                              LocalizedTag="CATEGORY_NAME" LocalizedPage="ADMIN_EDITCATEGORY" />
@@ -30,7 +30,7 @@
                                          MaxLength="50" 
                                          CssClass="form-control"></asp:TextBox>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel3" runat="server"
                                            AssociatedControlID="SortOrder"
                                            LocalizedTag="SORT_ORDER" LocalizedPage="ADMIN_EDITCATEGORY" />
@@ -40,7 +40,7 @@
                                          TextMode="Number"></asp:TextBox>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel2" runat="server"
                                        AssociatedControlID="CategoryImages"
                                        LocalizedTag="CATEGORY_IMAGE" LocalizedPage="ADMIN_EDITCATEGORY" />

@@ -1191,10 +1191,13 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull]
         public static string ForumIconLegendPopoverJs([NotNull] string content, [NotNull] string cssClass)
         {
-            return $@"{Config.JQueryAlias}('.{cssClass}').popover({{
+            return $@"var popoverTriggerIconList = [].slice.call(document.querySelectorAll('.{cssClass}'));
+                      var popoverIconList = popoverTriggerIconList.map(function(popoverTriggerEl) {{
+                           return new bootstrap.Popover(popoverTriggerEl,{{
                            html: true,
                            content: ""{content}"",
                            trigger: ""focus hover""
+                           }});
                     }});";
         }
 
@@ -1220,7 +1223,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                            title: '{title}',
                            html: true,
                            trigger: '{trigger}',
-                           template: '<div class=""popover"" role=""tooltip""><h3 class=""popover-header""></h3><div class=""arrow""></div><div class=""popover-body""></div></div>'
+                           template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body""></div></div>'
                 }});
                 {Config.JQueryAlias}('{cssClass}').on('inserted.bs.popover', function () {{
                       {Config.JQueryAlias}('.popover-timeago').each(function() {{
@@ -1244,11 +1247,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull]
         public static string ForumModsPopoverJs([NotNull] string title)
         {
-            return $@"{Config.JQueryAlias}('.forum-mods-popover').popover({{
+            return $@"var popoverTriggerModsList = [].slice.call(document.querySelectorAll('.forum-mods-popover'));
+                      var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {{
+                           return new bootstrap.Popover(popoverTriggerEl,{{
                            title: '{title}',
                            html: true,
                            trigger: 'focus hover',
-                           template: '<div class=""popover"" role=""tooltip""><h3 class=""popover-header""></h3><div class=""arrow""></div><div class=""popover-body popover-body-scrollable""></div></div>'
+                           template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'
+                           }});
                 }});";
         }
 
@@ -1271,6 +1277,37 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                       postsText: '{BoardContext.Current.Get<ILocalization>().GetText("POSTS").ToJsString()}'
                       }}); 
                  }}";
+        }
+
+        /// <summary>
+        /// Form Validator JS.
+        /// </summary>
+        /// <param name="buttonClientId">
+        /// The button Client Id.
+        /// </param>
+        /// <returns>
+        /// Returns the JS String
+        /// </returns>
+        [NotNull]
+        public static string FormValidatorJs([NotNull] string buttonClientId)
+        {
+            return $@"(function() {{
+                'use strict';
+                window.addEventListener('load', function() {{
+                    var form = document.forms[0];
+
+                    var test = document.getElementById('{buttonClientId}');
+                    test.addEventListener('click', function(event) {{
+                        if (form.checkValidity() === false)
+                        {{
+                            event.preventDefault();
+                                event.stopPropagation();
+                        }}
+                        form.classList.add('was-validated');
+                    }}, false);
+                   
+                }}, false);
+            }})();";
         }
     }
 }

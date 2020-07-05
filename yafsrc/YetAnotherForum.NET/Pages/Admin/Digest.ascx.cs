@@ -66,7 +66,7 @@ namespace YAF.Pages.Admin
         protected void ForceSendClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<BoardSettings>().ForceDigestSend = true;
-            ((LoadBoardSettings)BoardContext.Current.BoardSettings).SaveRegistry();
+            ((LoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
 
             this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"), MessageTypes.success);
         }

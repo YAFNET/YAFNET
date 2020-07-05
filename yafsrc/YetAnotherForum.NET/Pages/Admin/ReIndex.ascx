@@ -43,7 +43,7 @@
                     <p class="card-text">
                         <YAF:ThemeButton ID="RecoveryMode" Type="Primary" runat="server" OnClick="RecoveryModeClick"
                                          Icon="database" TextLocalizedTag="SETRECOVERY_BTN" />
-                        <div class="custom-control custom-radio custom-control-inline">
+                        <div class="form-check form-check-inline">
 					        <asp:RadioButtonList ID="RadioButtonList1" runat="server"
                                                  RepeatLayout="UnorderedList"
                                                  CssClass="list-unstyled">
@@ -83,7 +83,7 @@
 
 <div>
 	<div id="DeleteForumMessage" style="display:none">
-		<div class="card text-white text-center bg-danger mb-3">
+		<div class="card link-light text-center bg-danger mb-3">
 		    <div class="card-body">
 		        <blockquote class="blockquote">
                     <p>

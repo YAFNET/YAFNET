@@ -21,7 +21,7 @@
         <div>
             <div id="fileupload">
                       <div class="fileupload-buttonbar">
-                          <div id="dropzone" class="card text-white bg-dark border-danger mb-3">
+                          <div id="dropzone" class="card link-light bg-dark border-danger mb-3">
                               <div class="card-body">
                                   <p class="card-text"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "DROP_HERE") %></p>
                               </div>

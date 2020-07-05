@@ -19,21 +19,19 @@
             </div>
             <div class="card-body text-center">
                 <div class="input-group mb-3">
-                        <asp:TextBox runat="server" ID="UserName" CssClass="form-control mb-1" PlaceHolder='<%# this.GetText("USER") %>' />
-                        <div class="input-group-append">
-                            <YAF:ThemeButton runat="server" ID="FindUsers" 
-                                             TextLocalizedTag="FIND"
-                                             OnClick="FindUsers_Click" 
-                                             Type="Secondary"
-                                             Icon="search" />
-                        </div>
+                    <asp:TextBox runat="server" ID="UserName" CssClass="form-control mb-1" PlaceHolder='<%# this.GetText("USER") %>' />
+                    <YAF:ThemeButton runat="server" ID="FindUsers" 
+                                     TextLocalizedTag="FIND"
+                                     OnClick="FindUsers_Click" 
+                                     Type="Secondary"
+                                     Icon="search" />
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:DropDownList runat="server" ID="ToList"
                                           Visible="false" 
                                           CssClass="select2-select" />
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="AccessMaskID">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ACCESSMASK" />
                         </asp:Label>

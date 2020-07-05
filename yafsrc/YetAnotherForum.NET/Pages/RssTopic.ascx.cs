@@ -38,7 +38,6 @@ namespace YAF.Pages
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Syndication;
@@ -302,14 +301,14 @@ namespace YAF.Pages
         /// <returns>
         /// An Html formatted first message content string.
         /// </returns>
-        private static string GetPostLatestContent(
+        private string GetPostLatestContent(
             [NotNull] string link,
             [NotNull] string linkName,
             [NotNull] string text,
             int flags,
             bool altItem)
         {
-            text = BoardContext.Current.Get<IFormatMessage>().FormatSyndicationMessage(
+            text = this.Get<IFormatMessage>().FormatSyndicationMessage(
                 text,
                 new MessageFlags(flags),
                 altItem,
@@ -419,7 +418,7 @@ namespace YAF.Pages
                                     null,
                                     null));
 
-                            var messageLink = BuildLink.GetLinkNotEscaped(
+                            var messageLink = BuildLink.GetLink(
                                 ForumPages.Posts,
                                 true,
                                 "m={0}&name={1}#post{0}",
@@ -554,7 +553,7 @@ namespace YAF.Pages
                             syndicationItems.AddSyndicationItem(
                                 row["Subject"].ToString(),
                                 GetPostLatestContent(
-                                    BuildLink.GetLinkNotEscaped(
+                                    BuildLink.GetLink(
                                         ForumPages.Posts,
                                         true,
                                         "m={0}#post{0}",
@@ -567,7 +566,7 @@ namespace YAF.Pages
                                         : 22,
                                     false),
                                 null,
-                                BuildLink.GetLinkNotEscaped(
+                                BuildLink.GetLink(
                                     ForumPages.Posts,
                                     true,
                                     "t={0}&name={1}",
@@ -648,7 +647,7 @@ namespace YAF.Pages
                         feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
 
                         // Alternate Link
-                        // feed.Links.Add(new SyndicationLink(new Uri(BuildLink.GetLinkNotEscaped(ForumPages.Topics, true))));
+                        // feed.Links.Add(new SyndicationLink(new Uri(BuildLink.GetLink(ForumPages.Topics, true))));
                     }
 
                     if (!row["LastUserID"].IsNullOrEmptyDBField())
@@ -665,7 +664,7 @@ namespace YAF.Pages
                         row["Forum"].ToString(),
                         this.HtmlEncode(row["Description"].ToString()),
                         null,
-                        BuildLink.GetLinkNotEscaped(ForumPages.Topics, true, "f={0}&name={1}", row["ForumID"], row["Forum"]),
+                        BuildLink.GetLink(ForumPages.Topics, true, "f={0}&name={1}", row["ForumID"], row["Forum"]),
                         $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? SyndicationFormats.Atom.ToInt() : SyndicationFormats.Rss.ToInt())}:fid{row["ForumID"]}:lmid{row["LastMessageID"]}:{this.PageContext.PageBoardID}"
                             .Unidecode(),
                         lastPosted,
@@ -733,7 +732,7 @@ namespace YAF.Pages
                             row["Topic"].ToString(),
                             row["Message"].ToString(),
                             null,
-                            BuildLink.GetLinkNotEscaped(
+                            BuildLink.GetLink(
                                 ForumPages.Posts,
                                 true,
                                 "t={0}&name={1}",
@@ -844,7 +843,7 @@ namespace YAF.Pages
                                     row["LastUserName"].ToString(),
                                     row["LastUserDisplayName"].ToString()));
 
-                            var messageLink = BuildLink.GetLinkNotEscaped(
+                            var messageLink = BuildLink.GetLink(
                                 ForumPages.Posts,
                                 true,
                                 "m={0}&name={1}#post{0}",
@@ -862,7 +861,7 @@ namespace YAF.Pages
                                         : 22,
                                     altItem),
                                 null,
-                                BuildLink.GetLinkNotEscaped(
+                                BuildLink.GetLink(
                                     ForumPages.Posts,
                                     true,
                                     "t={0}&name={1}",
@@ -993,7 +992,7 @@ namespace YAF.Pages
                                     altItem,
                                     4000),
                                 null,
-                                BuildLink.GetLinkNotEscaped(
+                                BuildLink.GetLink(
                                     ForumPages.Posts,
                                     true,
                                     "m={0}&name={1}&find=lastpost",
@@ -1071,7 +1070,7 @@ namespace YAF.Pages
                                 feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
 
                                 // Alternate Link
-                                // feed.Links.Add(new SyndicationLink(new Uri(BuildLink.GetLinkNotEscaped(ForumPages.Posts, true))));
+                                // feed.Links.Add(new SyndicationLink(new Uri(BuildLink.GetLink(ForumPages.Posts, true))));
                             }
 
                             feed.Contributors.Add(
@@ -1084,7 +1083,7 @@ namespace YAF.Pages
                             syndicationItems.AddSyndicationItem(
                                 row["Topic"].ToString(),
                                 GetPostLatestContent(
-                                    BuildLink.GetLinkNotEscaped(
+                                    BuildLink.GetLink(
                                         ForumPages.Posts,
                                         true,
                                         "m={0}&name={1}#post{0}",
@@ -1097,7 +1096,7 @@ namespace YAF.Pages
                                         : 22,
                                     false),
                                 null,
-                                BuildLink.GetLinkNotEscaped(
+                                BuildLink.GetLink(
                                     ForumPages.Posts,
                                     true,
                                     "t={0}&name={1}",

@@ -9,11 +9,11 @@
     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                         LocalizedTag="CURRENT_POINTS" 
                         LocalizedPage="ADMIN_EDITUSER" />
-    <span class="badge badge-secondary"><asp:Literal ID="ltrCurrentPoints" runat="server" /></span>
+    <span class="badge bg-secondary"><asp:Literal ID="ltrCurrentPoints" runat="server" /></span>
 </h6>
 
-<div class="form-row">
-    <div class="form-group col-md-4">
+<div class="row">
+    <div class="mb-3 col-md-4">
         <asp:Label runat="server" AssociatedControlID="txtUserPoints">
             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                 LocalizedTag="SET_POINTS" 
@@ -40,7 +40,7 @@
                          OnClick="SetUserPoints_Click"
                          CssClass="mt-1"/>
     </div>
-    <div class="form-group col-md-4">
+    <div class="mb-3 col-md-4">
         <asp:Label runat="server" AssociatedControlID="txtAddPoints">
             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                 LocalizedTag="ADD_POINTS" 
@@ -67,7 +67,7 @@
                          OnClick="AddPoints_Click"
                          CssClass="mt-1" />
     </div>
-    <div class="form-group col-md-4">
+    <div class="mb-3 col-md-4">
         <asp:Label runat="server" AssociatedControlID="txtRemovePoints">
             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                 LocalizedTag="REMOVE_POINTS" 

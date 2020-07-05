@@ -34,35 +34,31 @@
                                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                         <div class="dropdown-menu">
                             <div class="px-3 py-1">
-                               <div class="form-group">
+                               <div class="mb-3">
                         <YAF:HelpLabel ID="SinceDateLabel" runat="server" 
                                        AssociatedControlID="SinceDate"
                                        LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="SINCEDATE" />
                      
                         <div class='input-group mb-3 date datepickerinput'>
-                            <span class="input-group-prepend">
-                                <button class="btn btn-secondary datepickerbutton" type="button">
-                                    <i class="fa fa-calendar-day fa-fw"></i>
-                                </button>
-                            </span>
+                            <button class="btn btn-secondary datepickerbutton" type="button">
+                                <i class="fa fa-calendar-day fa-fw"></i>
+                            </button>
                             <asp:TextBox ID="SinceDate" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:HelpLabel ID="ToDateLabel" runat="server" 
                                        AssociatedControlID="ToDate"
                                        LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TODATE" />
                          
                         <div class='input-group mb-3 date datepickerinput'>
-                            <span class="input-group-prepend">
-                                <button class="btn btn-secondary datepickerbutton" type="button">
-                                    <i class="fa fa-calendar-day fa-fw"></i>
-                                </button>
-                            </span>
+                            <button class="btn btn-secondary datepickerbutton" type="button">
+                                <i class="fa fa-calendar-day fa-fw"></i>
+                            </button>
                             <asp:TextBox ID="ToDate" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                     </div>
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <YAF:ThemeButton ID="ApplyButton" runat="server"
                                                      Type="Primary" 
                                                      CssClass="btn-block"

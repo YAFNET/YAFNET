@@ -6113,7 +6113,7 @@ readers do not read off random characters that represent icons */
   cursor: pointer;
   white-space: normal; }
 
-.tablesorter-bootstrap:not(.table-dark) thead:not(.thead-dark) .tablesorter-header,
+.tablesorter-bootstrap:not(.table-dark) thead:not(.table-dark) .tablesorter-header,
 .tablesorter-bootstrap:not(.table-dark) tfoot th,
 .tablesorter-bootstrap:not(.table-dark) tfoot td {
   background-color: #eee; }
@@ -6140,15 +6140,15 @@ readers do not read off random characters that represent icons */
   background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDE0IDE0Ij48cGF0aCBkPSJNMTQgNWwtMi41LTIuNS00LjUgNC41LTQuNS00LjVMMCA1IDcgMTJ6Ii8+PC9zdmc+); }
 
 /* white icons */
-.tablesorter-bootstrap thead.thead-dark .tablesorter-headerUnSorted:not(.sorter-false),
+.tablesorter-bootstrap thead.table-dark .tablesorter-headerUnSorted:not(.sorter-false),
 .tablesorter-bootstrap.table-dark thead .tablesorter-headerUnSorted:not(.sorter-false) {
   background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE0IDIwIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTQgMTNsLTIuNS0yLjVMNyAxNWwtNC41LTQuNUwwIDEzbDcgN3pNMTQgNy41TDExLjUgMTAgNyA1LjUgMi41IDEwIDAgNy41bDctN3oiLz48L3N2Zz4=); }
 
-.tablesorter-bootstrap thead.thead-dark .tablesorter-headerAsc,
+.tablesorter-bootstrap thead.table-dark .tablesorter-headerAsc,
 .tablesorter-bootstrap.table-dark thead .tablesorter-headerAsc {
   background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDE0IDE0Ij48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTQgOS41TDExLjUgMTIgNyA3LjUgMi41IDEyIDAgOS41bDctN3oiLz48L3N2Zz4=); }
 
-.tablesorter-bootstrap thead.thead-dark .tablesorter-headerDesc,
+.tablesorter-bootstrap thead.table-dark .tablesorter-headerDesc,
 .tablesorter-bootstrap.table-dark thead .tablesorter-headerDesc {
   background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDE0IDE0Ij48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTQgNWwtMi41LTIuNS00LjUgNC41LTQuNS00LjVMMCA1IDcgMTJ6Ii8+PC9zdmc+); }
 
@@ -6843,18 +6843,16 @@ readers do not read off random characters that represent icons */
 
 .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow {
   position: absolute;
-  top: 50%;
+  top: 40%;
   right: 3px;
   width: 20px; }
 
 .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow b {
-  top: 60%;
-  border-color: #343a40 transparent transparent transparent;
-  border-style: solid;
-  border-width: 5px 4px 0 4px;
-  width: 0;
-  height: 0;
-  left: 50%;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 12px;
   margin-left: -4px;
   margin-top: -2px;
   position: absolute; }
@@ -6912,7 +6910,7 @@ readers do not read off random characters that represent icons */
 .input-group .select2-container--bootstrap4 {
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
-  flex-grow: 1; }
+      flex-grow: 1; }
 
 .input-group-prepend ~ .select2-container--bootstrap4 .select2-selection {
   border-top-left-radius: 0;

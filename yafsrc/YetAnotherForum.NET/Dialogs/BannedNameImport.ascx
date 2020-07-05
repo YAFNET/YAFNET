@@ -24,9 +24,9 @@
                                                 LocalizedTag="NOTE" LocalizedPage="ADMIN_BANNEDNAME">
                             </YAF:LocalizedLabel>
                         </YAF:Alert>
-                        <div class="custom-file">
-                            <input type="file" id="importFile" class="custom-file-input" runat="server" />
-                            <asp:Label runat="server" CssClass="custom-file-label" AssociatedControlID="importFile">
+                        <div class="form-file">
+                            <input type="file" id="importFile" class="form-file-input" runat="server" />
+                            <asp:Label runat="server" CssClass="form-file-label" AssociatedControlID="importFile">
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="SELECT_IMPORT" 
                                                     LocalizedPage="ADMIN_EXTENSIONS_IMPORT"></YAF:LocalizedLabel>

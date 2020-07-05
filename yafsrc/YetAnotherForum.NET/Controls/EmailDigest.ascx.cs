@@ -39,7 +39,6 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
-    using YAF.Core.Context;
     using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Core.Services.Localization;
@@ -237,8 +236,8 @@ namespace YAF.Controls
 
             if (HttpContext.Current != null)
             {
-                this.BoardSettings = BoardContext.Current.BoardSettings.BoardID.Equals(this.BoardID)
-                                         ? BoardContext.Current.BoardSettings
+                this.BoardSettings = this.PageContext.BoardSettings.BoardID.Equals(this.BoardID)
+                                         ? this.PageContext.BoardSettings
                                          : new LoadBoardSettings(this.BoardID);
             }
             else

@@ -22,13 +22,13 @@
             </div>
             <div class="card-body">
                 <asp:PlaceHolder id="PreviewRow" runat="server" visible="false">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="previewtitle" />
                         <YAF:MessagePost ID="PreviewMessagePost" runat="server" />
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder id="ToRow" runat="server">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="To">
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="to" />
                         </asp:Label>
@@ -64,13 +64,13 @@
                         <asp:Label ID="MultiReceiverInfo" runat="server" Visible="false" />
                     </div>
                 </asp:PlaceHolder>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="PmSubjectTextBox">
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="subject" />
                     </asp:Label>
                     <asp:TextBox ID="PmSubjectTextBox" runat="server" CssClass="form-control" />
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server">
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="message" />
                     </asp:Label>

@@ -29,7 +29,7 @@
                            Visible="False">
                     <asp:Literal runat="server" ID="ErrorMessage"></asp:Literal>
                 </YAF:Alert>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="key">
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                             LocalizedTag="enter_key" />

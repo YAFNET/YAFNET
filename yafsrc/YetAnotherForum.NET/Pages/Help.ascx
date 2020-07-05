@@ -8,7 +8,7 @@
     <asp:Repeater runat="server" ID="HelpList">
         <ItemTemplate>
             <div class="card my-3">
-                <div class="card-header form-inline"><%# this.Eval("Title") %></div>
+                <div class="card-header d-flex"><%# this.Eval("Title") %></div>
                 <div class="card-body">
                     <%# this.Eval("Content") %>
                 </div>
@@ -25,7 +25,7 @@
                 <p class="card-text">
                     <asp:Label ID="HelpContent" runat="server" />
                 </p>
-                <div class="form-row">
+                <div class="row">
                     <asp:Label runat="server" AssociatedControlID="search"
                         CssClass="col-lg-6">
                         <YAF:LocalizedLabel ID="SearchFor" runat="server"
@@ -35,7 +35,7 @@
                         <asp:TextBox runat="server" ID="search" CssClass="form-control" />
                     </div>
                 </div>
-                <div class="form-row float-right">
+                <div class="row float-right">
                     <YAF:ThemeButton runat="server" ID="DoSearch" CssClass="my-2 mr-1"
                         TextLocalizedTag="BTNSEARCH"
                         Type="Primary" Icon="search" />

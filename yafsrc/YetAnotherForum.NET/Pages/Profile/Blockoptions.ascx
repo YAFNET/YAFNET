@@ -21,17 +21,17 @@
                             <YAF:LocalizedLabel ID="LocalizedLabel200" runat="server" 
                                                 LocalizedTag="SELECT_OPTIONS" />
                         </h6>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <asp:CheckBox runat="server" ID="BlockPMs" 
-                                      CssClass="custom-control custom-checkbox"/>
+                                      CssClass="form-check"/>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <asp:CheckBox runat="server" ID="BlockFriendRequests" 
-                                          CssClass="custom-control custom-checkbox"/>
+                                          CssClass="form-check"/>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <asp:CheckBox runat="server" ID="BlockEmails" 
-                                          CssClass="custom-control custom-checkbox"/>
+                                          CssClass="form-check"/>
                         </div>
                         <YAF:Alert runat="server" Type="info">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="NOTE_BLOCK"></YAF:LocalizedLabel>

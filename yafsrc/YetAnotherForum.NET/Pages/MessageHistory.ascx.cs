@@ -115,7 +115,7 @@ namespace YAF.Pages
                 // We check here if the user have access to the option
                 if (this.PageContext.IsGuest)
                 {
-                    this.Get<HttpResponseBase>().Redirect(BuildLink.GetLinkNotEscaped(ForumPages.Info, "i=4"));
+                    this.Get<HttpResponseBase>().Redirect(BuildLink.GetLink(ForumPages.Info, "i=4"));
                 }
 
                 this.forumID =

@@ -31,7 +31,6 @@ namespace YAF.Pages.Moderate
     using System.Web.UI.WebControls;
 
     using YAF.Core.BasePages;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -166,8 +165,8 @@ namespace YAF.Pages.Moderate
 
                     // go to history page
                     var ff = e.CommandArgument.ToString().Split(',');
-                    BoardContext.Current.Get<HttpResponseBase>().Redirect(
-                      BuildLink.GetLinkNotEscaped(ForumPages.MessageHistory, "f={0}&m={1}", ff[0], ff[1]));
+                    this.Get<HttpResponseBase>().Redirect(
+                      BuildLink.GetLink(ForumPages.MessageHistory, "f={0}&m={1}", ff[0], ff[1]));
                     break;
                 case "resolved":
 

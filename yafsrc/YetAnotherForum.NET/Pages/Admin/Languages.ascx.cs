@@ -121,7 +121,7 @@ namespace YAF.Pages.Admin
 
             this.List.DataSource = cultureTable;
 
-            BoardContext.Current.PageElements.RegisterJsBlock(
+            this.PageContext.PageElements.RegisterJsBlock(
                "tablesorterLoadJs",
                JavaScriptBlocks.LoadTableSorter(
                    "#language-table",

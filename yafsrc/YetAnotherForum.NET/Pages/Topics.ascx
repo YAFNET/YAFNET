@@ -97,7 +97,7 @@
                 </asp:Repeater>
             </div>
             <div class="card-footer">
-                <div class="form-group row align-items-center">
+                <div class="mb-3 row align-items-center">
                     <div class="col-sm-3">
                         <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" 
                                             LocalizedTag="showtopics" />:
@@ -105,11 +105,11 @@
                     <div class="col-sm-9">
                         <asp:DropDownList ID="ShowList" runat="server" 
                                           AutoPostBack="True" 
-                                          CssClass="custom-select" />                            
+                                          CssClass="form-select" />                            
                     </div>
                 </div>
                 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
-                <div class="form-group row align-items-center">
+                <div class="mb-3 row align-items-center">
                     <div class="col-sm-3">
                         <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" 
                                             LocalizedTag="FORUM_JUMP" />:
@@ -121,7 +121,7 @@
                 </asp:PlaceHolder>
 
                 <asp:PlaceHolder ID="ForumSearchHolder" runat="server">
-                <div class="form-group row align-items-center">
+                <div class="mb-3 row align-items-center">
                     <label class="col-sm-3 col-form-label">
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
                                             LocalizedTag="SEARCH_FORUM" />:
@@ -130,13 +130,11 @@
 						<div class="input-group">
                             <asp:TextBox id="forumSearch" 
                                          CssClass="form-control mb-1" runat="server"></asp:TextBox>
-                            <div class="input-group-append">
-                                <YAF:ThemeButton ID="forumSearchOK" runat="server" 
-                                                 Size="Small"
-                                                 Type="Secondary"
-                                                 TextLocalizedTag="OK" TitleLocalizedTag="OK_TT" 
-                                                 OnClick="ForumSearch_Click" />
-                            </div>
+                            <YAF:ThemeButton ID="forumSearchOK" runat="server" 
+                                             Size="Small"
+                                             Type="Secondary"
+                                             TextLocalizedTag="OK" TitleLocalizedTag="OK_TT" 
+                                             OnClick="ForumSearch_Click" />
 						</div>
                     </div>
                 </div>

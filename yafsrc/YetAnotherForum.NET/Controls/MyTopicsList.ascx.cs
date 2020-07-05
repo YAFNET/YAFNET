@@ -34,7 +34,6 @@ namespace YAF.Controls
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -220,9 +219,9 @@ namespace YAF.Controls
                     this.IconHeader.LocalizedTag = "FavoriteTopics";
 
                     topicList = this.GetRepository<FavoriteTopic>().Details(
-                        BoardContext.Current.Settings.CategoryID == 0
+                        this.PageContext.Settings.CategoryID == 0
                             ? null
-                            : (int?)BoardContext.Current.Settings.CategoryID,
+                            : (int?)this.PageContext.Settings.CategoryID,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,

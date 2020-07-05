@@ -3,11 +3,13 @@
 
 <YAF:PageLinks id="PageLinks" runat="server" />
     <div class="row">
-    <div class="col-xl-12">
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                LocalizedTag="HEADER" 
-                                LocalizedPage="ADMIN_REGUSER" /></h1>
-    </div>
+        <div class="col-xl-12">
+            <h1>
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                    LocalizedTag="HEADER" 
+                                    LocalizedPage="ADMIN_REGUSER" />
+            </h1>
+        </div>
     </div>
     <div class="row">
         <div class="col-xl-12">
@@ -19,8 +21,8 @@
                                     LocalizedPage="ADMIN_REGUSER"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
                             <asp:Label runat="server" AssociatedControlID="UserName">
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                     LocalizedTag="USERNAME" LocalizedPage="REGISTER"></YAF:LocalizedLabel>:
@@ -31,7 +33,7 @@
                                                         ErrorMessage="User Name is required." 
                                                         CssClass="form-text text-danger"></asp:RequiredFieldValidator>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="mb-3 col-md-6">
                             <asp:Label runat="server" AssociatedControlID="Email">
                                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
                                                     LocalizedTag="EMAIL" LocalizedPage="REGISTER"></YAF:LocalizedLabel>:
@@ -44,8 +46,8 @@
                                                         CssClass="form-text text-danger"></asp:RequiredFieldValidator>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
                             <asp:Label runat="server" AssociatedControlID="Password">
                                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
                                                     LocalizedTag="PASSWORD" LocalizedPage="ADMIN_REGUSER"></YAF:LocalizedLabel>
@@ -58,7 +60,7 @@
                                                         ErrorMessage="Password is required." 
                                                         CssClass="form-text text-danger"></asp:RequiredFieldValidator>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="mb-3 col-md-6">
                             <asp:Label runat="server" AssociatedControlID="Password2">
                                 <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
                                                     LocalizedTag="CONFIRM_PASSWORD" LocalizedPage="REGISTER"></YAF:LocalizedLabel>:
@@ -79,7 +81,7 @@
                                             LocalizedTag="HEADER3" 
                                             LocalizedPage="ADMIN_REGUSER" />:
                     </h3>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="Location">
                             <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" 
                                                 LocalizedTag="LOCATION" 
@@ -88,7 +90,7 @@
                         <asp:TextBox id="Location" runat="server"
                                      CssClass="form-control"></asp:TextBox>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="HomePage">
                             <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" 
                                                 LocalizedTag="HOMEPAGE" 
@@ -96,22 +98,6 @@
                         </asp:Label>
                         <asp:TextBox id="HomePage" runat="server"
                                      CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <h3>
-                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
-                                            LocalizedTag="HEADER4" 
-                                            LocalizedPage="ADMIN_REGUSER"></YAF:LocalizedLabel>
-                    </h3>
-                    <div class="form-group">
-                        <asp:Label runat="server" AssociatedControlID="TimeZones">
-                            <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" 
-                                                LocalizedTag="TIMEZONE" 
-                                                LocalizedPage="ADMIN_REGUSER"></YAF:LocalizedLabel>:
-                        </asp:Label>
-                        <asp:DropDownList id="TimeZones" runat="server" 
-                                          DataValueField="Value" 
-                                          DataTextField="Name"
-                                          CssClass="custom-select"></asp:DropDownList>
                     </div>
                 </div>
                 <div class="card-footer text-center">

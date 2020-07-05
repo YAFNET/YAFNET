@@ -164,7 +164,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-           BoardContext.Current.PageElements.RegisterJsBlock(
+           this.PageContext.PageElements.RegisterJsBlock(
                 "FixGridTableJs",
                 JavaScriptBlocks.FixGridTable(this.grdLocals.ClientID));
 

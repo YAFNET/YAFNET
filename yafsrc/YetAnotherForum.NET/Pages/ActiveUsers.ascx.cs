@@ -32,7 +32,6 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Core.BasePages;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
@@ -184,7 +183,7 @@ namespace YAF.Pages
                 return;
             }
 
-            BoardContext.Current.PageElements.RegisterJsBlock(
+            this.PageContext.PageElements.RegisterJsBlock(
                 "UnverifiedUserstablesorterLoadJs",
                 JavaScriptBlocks.LoadTableSorter(
                     "#ActiveUsers",

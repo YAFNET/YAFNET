@@ -16,7 +16,7 @@
                     </div>
                     <div class="modal-body">
                         <!-- Modal Content START !-->
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="LocalizedLabel2" runat="server" 
                                            AssociatedControlID="badword"
                                            LocalizedTag="BAD" LocalizedPage="ADMIN_REPLACEWORDS_EDIT" />
@@ -25,7 +25,7 @@
                                          Height="100"
                                          TextMode="MultiLine"></asp:TextBox>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="LocalizedLabel3" runat="server"
                                            AssociatedControlID="goodword"
                                            LocalizedTag="GOOD" LocalizedPage="ADMIN_REPLACEWORDS_EDIT" />

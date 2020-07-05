@@ -95,7 +95,7 @@ namespace YAF.Controls
                 var lastPostedDateTime = this.DataRow["LastPosted"].ToType<DateTime>();
 
                 // Topic Link
-                this.topicLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                this.topicLink.NavigateUrl = BuildLink.GetLink(
                     ForumPages.Posts, "t={0}&name={1}", this.DataRow["LastTopicID"], this.topicLink.Text);
 
                 this.topicLink.ToolTip = this.GetText("COMMON", "VIEW_TOPIC");
@@ -127,13 +127,13 @@ namespace YAF.Controls
                                                             : "LastUser"].ToString()
                 };
 
-                this.LastTopicImgLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                this.LastTopicImgLink.NavigateUrl = BuildLink.GetLink(
                     ForumPages.Posts,
                     "m={0}&name={1}#post{0}",
                     this.DataRow["LastMessageID"],
                     this.topicLink.Text);
 
-                this.ImageLastUnreadMessageLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                this.ImageLastUnreadMessageLink.NavigateUrl = BuildLink.GetLink(
                     ForumPages.Posts,
                     "t={0}&name={1}&find=unread",
                     this.DataRow["LastTopicID"],
@@ -172,7 +172,7 @@ namespace YAF.Controls
                 if (this.DataRow["LastPosted"].ToType<DateTime>() > lastRead)
                 {
                     this.NewMessage.Visible = true;
-                    this.NewMessage.Text = $" <span class=\"badge badge-success\">{this.GetText("NEW_POSTS")}</span>";
+                    this.NewMessage.Text = $" <span class=\"badge bg-success\">{this.GetText("NEW_POSTS")}</span>";
                 }
                 else
                 {

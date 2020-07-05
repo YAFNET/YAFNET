@@ -23,13 +23,13 @@
           
                     <%# this.GetForumLink((System.Data.DataRow)Container.DataItem) %>
             
-                    <asp:Label CssClass="badge badge-light" runat="server" 
+                    <asp:Label CssClass="badge bg-light text-dark" runat="server" 
                                Visible='<%# ((System.Data.DataRow)Container.DataItem)["Viewing"].ToType<int>() > 0 %>'>
                         <%# this.GetViewing((System.Data.DataRow)Container.DataItem) %>
                     </asp:Label>
                     <asp:PlaceHolder runat="server" Visible='<%# ((System.Data.DataRow)Container.DataItem)["RemoteURL"].IsNullOrEmptyDBField() %>'>
                         <asp:Label runat="server" 
-                                   CssClass="badge badge-light mr-1"
+                                   CssClass="badge bg-light text-dark mr-1"
                                    ToolTip='<%# this.GetText("TOPICS") %>'
                                    data-toggle="tooltip">
                             <YAF:Icon runat="server" 
@@ -38,7 +38,7 @@
                             <%# this.Topics((System.Data.DataRow)Container.DataItem) %>
                         </asp:Label>
                         <asp:Label runat="server"
-                                   CssClass="badge badge-light" 
+                                   CssClass="badge bg-light text-dark" 
                                    ToolTip='<%# this.GetText("Posts") %>'
                                    data-toggle="tooltip">
                             <YAF:Icon runat="server" 

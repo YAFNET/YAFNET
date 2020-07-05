@@ -92,6 +92,7 @@
     <Resource tag="ADMIN_NNTPRETRIEVE">Ruft NNTP</Resource>
     <Resource tag="ADMIN_NNTPSERVERS">Betrachtet/Bearbeitet NNTP Server</Resource>
     <Resource tag="ADMIN_PM">Betrachtet/Bearbeitet PMs</Resource>
+    <Resource tag="ADMIN_PROFILEDEFINITIONS">Views the Custom Profile Definitions</Resource>
     <Resource tag="ADMIN_PRUNE">Betrachtet/Bearbeitet Beschneiden</Resource>
     <Resource tag="ADMIN_RANKS">Betrachtet/Bearbeitet Ränge im Adminbereich</Resource>
     <Resource tag="ADMIN_REGUSER">Registriert einen Benutzer</Resource>
@@ -498,6 +499,23 @@
     <Resource tag="MSG_VALID_MAIL">Bitte geben Sie eine gültige E-Mail-Adresse ein, um ein Test zu schicken.</Resource>
     <Resource tag="SEND_TEST">Test senden</Resource>
     <Resource tag="TITLE">Zusammenfassung (Digest)</Resource>
+  </page>
+  <page name="ADMIN_EDIT_PROFILEDEFINITION">
+    <Resource tag="DATA_TYPE">Data Type</Resource>
+    <Resource tag="DATA_TYPE_HELP">Select an Data Type for the Profile Definition.</Resource>
+    <Resource tag="DEFAULT">Default Value</Resource>
+    <Resource tag="DEFAULT_HELP">Define a Default Value, would be needed if required is set.</Resource>
+    <Resource tag="LENGTH">Length</Resource>
+    <Resource tag="LENGTH_HELP">Maximum Length of the Field</Resource>
+    <Resource tag="NAME">Name</Resource>
+    <Resource tag="NAME_HELP">Will be used as Profile Name/Label</Resource>
+    <Resource tag="NEED_LENGTH">Maximum Length Value with Minimum 1 is required</Resource>
+    <Resource tag="NEED_NAME">You must define a name</Resource>
+    <Resource tag="REQUIRED">Required</Resource>
+    <Resource tag="REQUIRED_HELP">Define if the field should be required or not</Resource>
+    <Resource tag="SAVE_NEW">Save New</Resource>
+    <Resource tag="TITLE">Add New Profile Definition</Resource>
+    <Resource tag="TITLE_EDIT">Edit Profile Definition</Resource>
   </page>
   <page name="ADMIN_EDITACCESSMASKS">
     <Resource tag="ACCESS">Zugang</Resource>
@@ -1645,6 +1663,11 @@
     <Resource tag="PM_NUMBER">Anzahl der privaten Nachrichten:</Resource>
     <Resource tag="TITLE">PN Wartung</Resource>
   </page>
+  <page name="ADMIN_PROFILEDEFINITIONS">
+    <Resource tag="CONFIRM_DELETE">Delete Definition?</Resource>
+    <Resource tag="NEW_DEF">Add New Definition</Resource>
+    <Resource tag="TITLE">Custom Profile Definitions</Resource>
+  </page>
   <page name="ADMIN_PROFILER">
     <Resource tag="TITLE">Web Profiler</Resource>
   </page>
@@ -1911,6 +1934,7 @@
     <Resource tag="admin_pageaccessedit">Admin Seiten Zugriff Bearbeiten</Resource>
     <Resource tag="admin_pageaccesslist">Admin Seiten Zugriff</Resource>
     <Resource tag="admin_pm">Private Nachrichten</Resource>
+    <Resource tag="ADMIN_PROFILEDEFINITIONS">Custom Profile Definitions</Resource>
     <Resource tag="admin_profiler">Web Profiler</Resource>
     <Resource tag="admin_prune">Themen kürzen</Resource>
     <Resource tag="admin_ranks">Ränke</Resource>
@@ -2739,6 +2763,7 @@
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Benutzername:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post nach MetaWeblog (API Einstellungen)</Resource>
     <Resource tag="MSN">Windows Live-ID (MSN) Name:</Resource>
+    <Resource tag="OTHER">Other</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Anderes Thema wählen</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Möchtest du eine E-Mail erhalten, wenn dir jemand eine private Nachricht schickt?</Resource>
     <Resource tag="REALNAME2">Wie ist dein richtiger Name?</Resource>

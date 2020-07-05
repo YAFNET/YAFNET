@@ -35,7 +35,6 @@ namespace YAF.Dialogs
     using YAF.Configuration;
     
     using YAF.Core.BaseControls;
-    using YAF.Core.Context;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
@@ -361,10 +360,10 @@ namespace YAF.Dialogs
             this.Get<IAspNetUsersHelper>().Create(user, pass);
 
             // setup initial roles (if any) for this user
-            AspNetRolesHelper.SetupUserRoles(BoardContext.Current.PageBoardID, user);
+            AspNetRolesHelper.SetupUserRoles(this.PageContext.PageBoardID, user);
 
             // create the user in the YAF DB as well as sync roles...
-            var userID = AspNetRolesHelper.CreateForumUser(user, BoardContext.Current.PageBoardID);
+            var userID = AspNetRolesHelper.CreateForumUser(user, this.PageContext.PageBoardID);
 
             if (userID == null)
             {
@@ -391,7 +390,7 @@ namespace YAF.Dialogs
 
             this.GetRepository<User>().Save(
                 userId,
-                BoardContext.Current.PageBoardID,
+                this.PageContext.PageBoardID,
                 row["Name"],
                 row.Table.Columns.Contains("DisplayName") ? row["DisplayName"] : null,
                 row["Email"],

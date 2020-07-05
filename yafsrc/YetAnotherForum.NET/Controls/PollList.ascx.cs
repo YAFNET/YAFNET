@@ -345,7 +345,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindCreateNewPollRow()
         {
-            this.CreatePoll.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PollEdit, "{0}", this.ParamsToSend());
+            this.CreatePoll.NavigateUrl = BuildLink.GetLink(ForumPages.PollEdit, "{0}", this.ParamsToSend());
             this.CreatePoll.DataBind();
 
             this.NewPollRow.Visible = true;
@@ -481,7 +481,7 @@ namespace YAF.Controls
                     notificationString.Append(this.GetText("POLLEDIT", "POLL_EXPIRED"));
 
                     this.PollClosed.Text =
-                        $"<span class=\"badge badge-danger ml-1\"><i class=\"fa fa-lock fa-fw\"></i>&nbsp;{this.GetText("POLLEDIT", "POLL_CLOSED")}</span>";
+                        $"<span class=\"badge bg-danger ml-1\"><i class=\"fa fa-lock fa-fw\"></i>&nbsp;{this.GetText("POLLEDIT", "POLL_CLOSED")}</span>";
                     this.PollClosed.Visible = true;
                 }
 

@@ -15,7 +15,7 @@
                     </div>
                     <div class="modal-body">
                         <!-- Modal Content START !-->
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel23" runat="server" 
                                            AssociatedControlID="UserName"
                                            LocalizedTag="MEDAL_USER" LocalizedPage="ADMIN_EDITMEDAL"/>
@@ -23,7 +23,7 @@
                                          CssClass="form-control"/>
                             <asp:DropDownList runat="server" ID="UserNameList"
                                               Visible="false"
-                                              CssClass="custom-select"/>
+                                              CssClass="form-select"/>
                             <YAF:ThemeButton runat="server" ID="FindUsers"
                                              OnClick="FindUsersClick"
                                              Type="Info"
@@ -38,32 +38,32 @@
                             <asp:TextBox Visible="false" ID="UserID" runat="server"
                                          CssClass="form-control"/>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel19" runat="server" 
                                            AssociatedControlID="UserMessage"
                                            LocalizedTag="OVERRIDE_MESSAGE" LocalizedPage="ADMIN_EDITMEDAL"/>
                             <asp:TextBox ID="UserMessage" runat="server" MaxLength="100" CssClass="form-control"/>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel20" runat="server" 
                                            AssociatedControlID="UserSortOrder"
                                            LocalizedTag="OVERRIDE_ORDER" LocalizedPage="ADMIN_EDITMEDAL"/>
                             <asp:TextBox ID="UserSortOrder" runat="server" CssClass="form-control" TextMode="Number"/>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
                                 <YAF:HelpLabel ID="HelpLabel21" runat="server" 
                                                AssociatedControlID="UserOnlyRibbon"
                                                LocalizedTag="ONLY_RIBBON" LocalizedPage="ADMIN_EDITMEDAL"/>
-                                <div class="custom-control custom-switch">
+                                <div class="form-check form-switch">
                                     <asp:CheckBox runat="server" ID="UserOnlyRibbon" Checked="false" Text="&nbsp;"/>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="mb-3 col-md-6">
                                 <YAF:HelpLabel ID="HelpLabel22" runat="server" 
                                                AssociatedControlID="UserHide"
                                                LocalizedTag="HIDE" LocalizedPage="ADMIN_EDITMEDAL"/>
-                                <div class="custom-control custom-switch">
+                                <div class="form-check form-switch">
                                     <asp:CheckBox runat="server" ID="UserHide" Checked="false" Text="&nbsp;"/>
                                 </div>
                             </div>

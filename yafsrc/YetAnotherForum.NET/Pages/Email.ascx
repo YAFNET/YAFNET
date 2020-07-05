@@ -18,13 +18,13 @@
             </div>
             <div class="card-body text-center">
                 <form>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="">
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SUBJECT" />
                         </asp:Label>
                         <asp:TextBox runat="server" ID="Subject" CssClass="form-control" />
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="BODY" />
                         </asp:Label>

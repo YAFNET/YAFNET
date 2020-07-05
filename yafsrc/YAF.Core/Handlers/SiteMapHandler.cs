@@ -85,12 +85,7 @@ namespace YAF.Core.Handlers
                 forum => siteMap.Add(
                     new UrlLocation
                     {
-                        Url = BuildLink.GetLinkNotEscaped(
-                            ForumPages.Topics,
-                            true,
-                            "f={0}&name={1}",
-                            forum.Item1.ID,
-                            forum.Item1.Name),
+                        Url = BuildLink.GetTopicLink(forum.Item1.ID, forum.Item1.Name),
                         Priority = 0.8D,
                         LastModified =
                             forum.Item1.LastPosted.HasValue

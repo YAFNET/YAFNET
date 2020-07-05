@@ -200,7 +200,6 @@ namespace YAF.Controls
                         }
 
                         // get user(s) we are about to delete
-                        //var boardUser = this.GetRepository<User>().GetById(this.CurrentUserId);
                         if (this.User.Item1.IsGuest.Value)
                         {
                             // we cannot delete guest
@@ -223,7 +222,7 @@ namespace YAF.Controls
 
 
                         // all is good, user can be deleted
-                        this.Get<IAspNetUsersHelper>().DeleteUser(this.CurrentUserId.ToType<int>());
+                        this.Get<IAspNetUsersHelper>().DeleteUser(this.CurrentUserId);
 
                         BuildLink.Redirect(ForumPages.Admin_Users);
                     }
@@ -233,7 +232,7 @@ namespace YAF.Controls
                     if (this.CurrentUserId > 0)
                     {
                         this.GetRepository<User>().Suspend(
-                            this.CurrentUserId.ToType<int>(),
+                            this.CurrentUserId,
                             DateTime.UtcNow.AddYears(5));
                     }
 
@@ -304,7 +303,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.ViewPostsLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
+            this.ViewPostsLink.NavigateUrl = BuildLink.GetLink(
                 ForumPages.Search,
                 "postedby={0}",
                 !this.User.Item1.IsGuest.Value

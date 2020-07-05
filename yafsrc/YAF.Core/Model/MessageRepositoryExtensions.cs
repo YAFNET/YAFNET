@@ -167,41 +167,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets all the post by a user.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="pageUserID">
-        /// The page user id.
-        /// </param>
-        /// <param name="topCount">
-        /// Top count to return. Null is all.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable AllUserAsDataTable(
-            this IRepository<Message> repository,
-            [NotNull] object boardId,
-            [NotNull] object userID,
-            [NotNull] object pageUserID,
-            [NotNull] object topCount)
-        {
-            return repository.DbFunction.GetData.post_alluser(
-                BoardID: boardId,
-                UserID: userID,
-                PageUserID: pageUserID,
-                topCount: topCount);
-        }
-
-        /// <summary>
         /// The post_list.
         /// </summary>
         /// <param name="repository">
@@ -348,6 +313,50 @@ namespace YAF.Core.Model
         public static IOrderedEnumerable<Message> GetAllUserMessages(this IRepository<Message> repository, int userId)
         {
             return repository.Get(m => m.UserID == userId).OrderByDescending(m => m.Posted);
+        }
+
+        /// <summary>
+        /// Gets all the post by a user. (With Read Access of current Page User)
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="pageUserId">
+        /// The page User Id.
+        /// </param>
+        /// <param name="count">
+        /// The count.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<Tuple<Message, Topic, User>> GetAllUserMessagesWithAccess(
+            this IRepository<Message> repository,
+            [NotNull] int boardId,
+            [NotNull] int userId,
+            [NotNull] int pageUserId,
+            [NotNull] int count)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+            expression.Join<User>((a, b) => b.ID == a.UserID).Join<Topic>((a, c) => c.ID == a.TopicID)
+                .Join<Topic, Forum>((c, d) => d.ID == c.ForumID).Join<Forum, Category>((d, e) => e.ID == d.CategoryID)
+                .Join<Category, ActiveAccess>((d, x) => x.ForumID == d.ID)
+                .Where<Topic, Message, ActiveAccess, Category>(
+                    (topic, message, x, e) => message.UserID == userId && x.UserID == pageUserId && x.ReadAccess &&
+                                              e.BoardID == boardId && topic.IsDeleted == false &&
+                                              message.IsDeleted == false).Select()
+                .OrderByDescending<Message>(x => x.Posted).Take(count);
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic, User>(expression));
         }
 
         /// <summary>

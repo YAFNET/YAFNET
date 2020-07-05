@@ -33,14 +33,14 @@
                                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                         <div class="dropdown-menu">
                             <div class="px-3 py-1">
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <YAF:HelpLabel ID="HelpLabel1" runat="server"
                                                    AssociatedControlID="SearchInput"
                                                    LocalizedTag="MASK" LocalizedPage="ADMIN_SPAMWORDS" />
                                     <asp:TextBox runat="server" ID="SearchInput"
                                                  CssClass="form-control"></asp:TextBox>
                                 </div>
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <YAF:ThemeButton ID="search" runat="server"  
                                                      Type="Primary"
                                                      CssClass="btn-block"

@@ -240,11 +240,11 @@ namespace YAF.Pages
 
             if (this.LastPosts.Visible)
             {
-                this.LastPosts.DataSource = this.GetRepository<Message>().AllUserAsDataTable(
+                this.LastPosts.DataSource = this.GetRepository<Message>().GetAllUserMessagesWithAccess(
                     this.PageContext.PageBoardID,
                     this.UserId,
                     this.PageContext.PageUserID,
-                    10).AsEnumerable();
+                    10);
 
                 this.SearchUser.NavigateUrl = BuildLink.GetLink(
                     ForumPages.Search,

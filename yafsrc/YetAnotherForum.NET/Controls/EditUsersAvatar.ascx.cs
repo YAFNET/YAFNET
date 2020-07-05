@@ -135,7 +135,7 @@ namespace YAF.Controls
                 addAdminParam = $"u={this.currentUserId}";
             }
 
-            this.OurAvatar.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Profile_Avatar, addAdminParam);
+            this.OurAvatar.NavigateUrl = BuildLink.GetLink(ForumPages.Profile_Avatar, addAdminParam);
 
             this.noteRemote.Text = this.GetTextFormatted(
                 "NOTE_REMOTE",

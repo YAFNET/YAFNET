@@ -196,7 +196,7 @@ namespace YAF.Controls
                             ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}&nbsp;"
                             : $"{linkText}&nbsp;"));
 
-                var unreadLabel = new Label { CssClass = "badge badge-danger", ToolTip = unreadText, Text = unread };
+                var unreadLabel = new Label { CssClass = "badge bg-danger", ToolTip = unreadText, Text = unread };
 
                 unreadLabel.Attributes.Add("data-toggle", "tooltip");
 
@@ -421,7 +421,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("TOOLBAR", "MYALBUMS"),
                     this.GetText("TOOLBAR", "MYALBUMS_TITLE"),
-                    BuildLink.GetLinkNotEscaped(ForumPages.Albums, "u={0}", this.PageContext.PageUserID),
+                    BuildLink.GetLink(ForumPages.Albums, "u={0}", this.PageContext.PageUserID),
                     false,
                     false,
                     null,
@@ -480,11 +480,7 @@ namespace YAF.Controls
                 this.UserDropDown.CssClass = "nav-link dropdown-toggle";
             }
 
-            this.UserDropDown.NavigateUrl = BuildLink.GetUserProfileLink(
-                this.PageContext.PageUserID,
-                this.Get<BoardSettings>().EnableDisplayName
-                    ? this.PageContext.CurrentUser.DisplayName
-                    : this.PageContext.CurrentUser.Name);
+            this.UserDropDown.NavigateUrl = "#";
 
             var unreadCount = this.PageContext.UnreadPrivate + this.PageContext.PendingBuddies;
 

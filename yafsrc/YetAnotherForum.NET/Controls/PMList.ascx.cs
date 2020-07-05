@@ -39,7 +39,6 @@ namespace YAF.Controls
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -397,7 +396,7 @@ namespace YAF.Controls
                 percentage = decimal.Round(total.ToType<decimal>() / limit.ToType<decimal>() * 100, 2);
             }
 
-            if (!BoardContext.Current.IsAdmin)
+            if (!this.PageContext.IsAdmin)
             {
                 return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, limit, percentage));
             }

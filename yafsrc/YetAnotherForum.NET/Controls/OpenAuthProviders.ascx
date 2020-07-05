@@ -4,7 +4,7 @@
 
 <asp:Panel ID="SocialLoginList" runat="server">
     <hr />
-    <div class="form-group">
+    <div class="mb-3">
         <asp:ListView runat="server" ID="providerDetails" 
                       ItemType="System.String"
                       SelectMethod="GetProviderNames" 

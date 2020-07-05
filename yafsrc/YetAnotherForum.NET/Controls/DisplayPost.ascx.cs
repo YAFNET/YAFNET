@@ -36,7 +36,6 @@ namespace YAF.Controls
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -138,13 +137,13 @@ namespace YAF.Controls
 
             this.Edit.Visible = this.Edit2.Visible =
                                     !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
-            this.Edit.NavigateUrl = this.Edit2.NavigateUrl = BuildLink.GetLinkNotEscaped(
+            this.Edit.NavigateUrl = this.Edit2.NavigateUrl = BuildLink.GetLink(
                                         ForumPages.PostMessage,
                                         "m={0}",
                                         this.PostData.MessageId);
             this.MovePost.Visible =
                 this.Move.Visible = this.PageContext.ForumModeratorAccess && !this.PostData.IsLocked;
-            this.MovePost.NavigateUrl = this.Move.NavigateUrl = BuildLink.GetLinkNotEscaped(
+            this.MovePost.NavigateUrl = this.Move.NavigateUrl = BuildLink.GetLink(
                                             ForumPages.MoveMessage,
                                             "m={0}",
                                             this.PostData.MessageId);
@@ -152,12 +151,12 @@ namespace YAF.Controls
                                       !this.PostData.PostDeleted && this.PostData.CanDeletePost
                                                                  && !this.PostData.IsLocked;
 
-            this.Delete.NavigateUrl = this.Delete2.NavigateUrl = BuildLink.GetLinkNotEscaped(
+            this.Delete.NavigateUrl = this.Delete2.NavigateUrl = BuildLink.GetLink(
                                           ForumPages.DeleteMessage,
                                           "m={0}&action=delete",
                                           this.PostData.MessageId);
             this.UnDelete.Visible = this.UnDelete2.Visible = this.PostData.CanUnDeletePost && !this.PostData.IsLocked;
-            this.UnDelete.NavigateUrl = this.UnDelete2.NavigateUrl = BuildLink.GetLinkNotEscaped(
+            this.UnDelete.NavigateUrl = this.UnDelete2.NavigateUrl = BuildLink.GetLink(
                                             ForumPages.DeleteMessage,
                                             "m={0}&action=undelete",
                                             this.PostData.MessageId);
@@ -174,7 +173,7 @@ namespace YAF.Controls
             {
                 this.ContextMenu.Attributes.Add(
                     "data-url",
-                    BuildLink.GetLinkNotEscaped(
+                    BuildLink.GetLink(
                         ForumPages.PostMessage,
                         "t={0}&f={1}",
                         this.PageContext.PageTopicID,
@@ -197,14 +196,14 @@ namespace YAF.Controls
 
             this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
 
-            this.Quote.NavigateUrl = this.Quote2.NavigateUrl = BuildLink.GetLinkNotEscaped(
+            this.Quote.NavigateUrl = this.Quote2.NavigateUrl = BuildLink.GetLink(
                                          ForumPages.PostMessage,
                                          "t={0}&f={1}&q={2}",
                                          this.PageContext.PageTopicID,
                                          this.PageContext.PageForumID,
                                          this.PostData.MessageId);
 
-            this.Reply.NavigateUrl = this.ReplyFooter.NavigateUrl = BuildLink.GetLinkNotEscaped(
+            this.Reply.NavigateUrl = this.ReplyFooter.NavigateUrl = BuildLink.GetLink(
                                          ForumPages.PostMessage,
                                          "t={0}&f={1}",
                                          this.PageContext.PageTopicID,
@@ -216,10 +215,10 @@ namespace YAF.Controls
                     "onclick",
                     $"handleMultiQuoteButton(this, '{this.PostData.MessageId}', '{this.PostData.TopicId}')");
 
-                BoardContext.Current.PageElements.RegisterJsBlockStartup(
+                this.PageContext.PageElements.RegisterJsBlockStartup(
                     "MultiQuoteButtonJs",
                     JavaScriptBlocks.MultiQuoteButtonJs);
-                BoardContext.Current.PageElements.RegisterJsBlockStartup(
+                this.PageContext.PageElements.RegisterJsBlockStartup(
                     "MultiQuoteCallbackSuccessJS",
                     JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
 
@@ -246,7 +245,7 @@ namespace YAF.Controls
                 this.ManageDropPlaceHolder.Visible = false;
             }
 
-            BoardContext.Current.PageElements.RegisterJsBlockStartup(
+            this.PageContext.PageElements.RegisterJsBlockStartup(
                 "asynchCallFailedJs",
                 "function CallFailed(res){console.log(res);  }");
 
@@ -286,7 +285,7 @@ namespace YAF.Controls
                 {
                     this.ReportPost.Visible = this.ReportPost2.Visible = true;
 
-                    this.ReportPost.NavigateUrl = this.ReportPost2.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                    this.ReportPost.NavigateUrl = this.ReportPost2.NavigateUrl = BuildLink.GetLink(
                                                       ForumPages.ReportPost,
                                                       "m={0}",
                                                       this.PostData.MessageId);

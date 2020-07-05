@@ -8,13 +8,13 @@
         </h4>
 </asp:PlaceHolder>
 <asp:PlaceHolder id="HideTr" visible="<%# this.Get<BoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin %>" runat="server">
-    <div class="form-group">
+    <div class="mb-3">
         <asp:Label runat="server" AssociatedControlID="Activity">
             <YAF:LocalizedLabel ID="LocalizedLabel35" runat="server" 
                                 LocalizedPage="EDIT_PROFILE"
                                 LocalizedTag="ACTIVITY" />
         </asp:Label>
-        <div class="custom-control custom-switch">
+        <div class="form-check form-switch">
             <asp:CheckBox Text="&nbsp;" ID="Activity" runat="server" Checked="false" />
         </div>
     </div>
@@ -23,10 +23,10 @@
     <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="EDIT_PROFILE"
                         LocalizedTag="HIDEME" />
 </asp:Label>
-<div class="custom-control custom-switch">
+<div class="form-check form-switch">
     <asp:CheckBox Text="&nbsp;" ID="HideMe" runat="server" Checked="false" />
 </div>
-<div class="form-group">
+<div class="mb-3">
     <asp:Label runat="server" AssociatedControlID="TimeZones">
         <YAF:LocalizedLabel ID="LocalizedLabel24" runat="server" 
                             LocalizedPage="EDIT_PROFILE"
@@ -38,7 +38,7 @@
                       CssClass="select2-select" />
 </div>
     <asp:PlaceHolder runat="server" id="UserThemeRow">
-        <div class="form-group">
+        <div class="mb-3">
         <asp:Label runat="server" AssociatedControlID="Theme">
             <YAF:LocalizedLabel ID="LocalizedLabel22" runat="server" 
                                 LocalizedPage="EDIT_PROFILE"
@@ -48,7 +48,7 @@
         </div>
     </asp:PlaceHolder>
     <asp:PlaceHolder runat="server" id="UserLanguageRow">
-        <div class="form-group">
+        <div class="mb-3">
         <asp:Label runat="server" AssociatedControlID="Culture">
             <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" 
                                 LocalizedPage="EDIT_PROFILE"
@@ -63,7 +63,7 @@
                                         LocalizedPage="EDIT_PROFILE"
                                         LocalizedTag="CHANGE_EMAIL" />
             </h4>
-        <div class="form-group">
+        <div class="mb-3">
         <asp:Label runat="server" AssociatedControlID="Email">
                 <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" 
                                     LocalizedPage="EDIT_PROFILE"

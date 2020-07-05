@@ -20,8 +20,8 @@
                                     LocalizedPage="ADMIN_EDITGROUP"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel1" runat="server"
                                            AssociatedControlID="Name"
                                            LocalizedTag="ROLE_NAME" LocalizedPage="ADMIN_EDITGROUP" />
@@ -33,7 +33,7 @@
                                                         ErrorMessage="Role name is required."
                                                         CssClass="form-text text-muted"></asp:RequiredFieldValidator>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel6" runat="server"
                                            AssociatedControlID="Description"
                                            LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_EDITGROUP" />
@@ -42,46 +42,46 @@
                         </div>
                     </div>
                     <asp:PlaceHolder runat="server" visible="false" id="IsGuestTR">
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel14" runat="server"
                                            AssociatedControlID="IsGuestX"
                                            LocalizedTag="IS_GUEST" LocalizedPage="ADMIN_EDITGROUP" />
-                            <div class="custom-control custom-switch">
+                            <div class="form-check form-switch">
                                 <asp:CheckBox ID="IsGuestX" runat="server" 
                                               Text="&nbsp;" />
                             </div>
                         </div>
                     </asp:PlaceHolder>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel2" runat="server"
                                            AssociatedControlID="IsStartX"
                                            LocalizedTag="IS_START" LocalizedPage="ADMIN_EDITGROUP" />
-                            <div class="custom-control custom-switch">
+                            <div class="form-check form-switch">
                                 <asp:CheckBox ID="IsStartX" runat="server" 
                                               Text="&nbsp;"></asp:CheckBox>
                             </div> 
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel3" runat="server"
                                            AssociatedControlID="IsModeratorX"
                                            LocalizedTag="FORUM_MOD" LocalizedPage="ADMIN_EDITGROUP" />
-                            <div class="custom-control custom-switch">
+                            <div class="form-check form-switch">
                                 <asp:CheckBox ID="IsModeratorX" runat="server" 
                                               Text="&nbsp;"></asp:CheckBox>
                             </div> 
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel4" runat="server"
                                            AssociatedControlID="IsAdminX"
                                            LocalizedTag="IS_ADMIN" LocalizedPage="ADMIN_EDITGROUP" />
-                            <div class="custom-control custom-switch">
+                            <div class="form-check form-switch">
                                 <asp:CheckBox ID="IsAdminX" runat="server" 
                                               Text="&nbsp;"></asp:CheckBox>
                             </div> 
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel12" runat="server"
                                        AssociatedControlID="Priority"
                                        LocalizedTag="PRIORITY" LocalizedPage="ADMIN_EDITGROUP" />
@@ -91,8 +91,8 @@
                                      MaxLength="5" 
                                      Text="0" />
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel5" runat="server"
                                            AssociatedControlID="PMLimit"
                                            LocalizedTag="PMMESSAGES" LocalizedPage="ADMIN_EDITGROUP" />
@@ -101,7 +101,7 @@
                                          TextMode="Number"
                                          Text="0"/>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel7" runat="server"
                                            AssociatedControlID="UsrSigChars"
                                            LocalizedTag="SIGNATURE_LENGTH" LocalizedPage="ADMIN_EDITGROUP" />
@@ -111,22 +111,22 @@
                                          TextMode="Number" />
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel8" runat="server"
                                        AssociatedControlID="UsrSigBBCodes"
                                        LocalizedTag="SIG_BBCODES" LocalizedPage="ADMIN_EDITGROUP" />
                         <asp:TextBox ID="UsrSigBBCodes" runat="server"
                                      CssClass="form-control"/>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel9" runat="server"
                                        AssociatedControlID="UsrSigHTMLTags"
                                        LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITGROUP" />
                         <asp:TextBox ID="UsrSigHTMLTags" runat="server"
                                      CssClass="form-control" />
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel10" runat="server"
                                            AssociatedControlID="UsrAlbums"
                                            LocalizedTag="ALBUM_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
@@ -135,7 +135,7 @@
                                          CssClass="form-control" 
                                          TextMode="Number" />
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel11" runat="server"
                                            AssociatedControlID="UsrAlbumImages"
                                            LocalizedTag="IMAGES_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
@@ -145,7 +145,7 @@
                                          TextMode="Number" />
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel13" runat="server"
                                        AssociatedControlID="StyleTextBox"
                                        LocalizedTag="STYLE" LocalizedPage="ADMIN_EDITGROUP" />
@@ -154,31 +154,31 @@
                                      CssClass="form-control" />
                     </div>
                     <asp:PlaceHolder runat="server" id="NewGroupRow">
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel15" runat="server" 
                                            AssociatedControlID="AccessMaskID"
                                            LocalizedTag="INITIAL_MASK" LocalizedPage="ADMIN_EDITGROUP" />
                             <asp:DropDownList runat="server" ID="AccessMaskID" 
                                               OnDataBinding="BindDataAccessMaskId" 
-                                              CssClass="custom-select" />
+                                              CssClass="form-select" />
                         </div>
                     </asp:PlaceHolder>
                     <asp:Repeater ID="AccessList" runat="server">
                         <HeaderTemplate>
-                            <div class="form-row">
+                            <div class="row">
                         </HeaderTemplate>
                         <FooterTemplate>
                             </div>
                         </FooterTemplate>
                         <ItemTemplate>
-                            <div class="form-group col-md-4">
+                            <div class="mb-3 col-md-4">
                                 <asp:HiddenField ID="ForumID" runat="server" Value='<%# this.Eval( "ForumID") %>' />
                                 <asp:Label runat="server" AssociatedControlID="AccessMaskID">
                                     <%# this.Eval( "ForumName") %>
                                 </asp:Label>
                                 <asp:DropDownList runat="server" ID="AccessMaskID" 
                                                   OnDataBinding="BindDataAccessMaskId" 
-                                                  CssClass="custom-select"
+                                                  CssClass="form-select"
                                                   OnPreRender="SetDropDownIndex" value='<%# this.Eval("AccessMaskID") %>' />
                             </div>
                         </ItemTemplate>

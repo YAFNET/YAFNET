@@ -96,7 +96,7 @@ namespace YAF.Pages.Admin
         {
             this.GroupEditDialog.BindData(null, this.CurrentMedalId);
 
-            BoardContext.Current.PageElements.RegisterJsBlockStartup(
+            this.PageContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("GroupEditDialog"));
         }
@@ -113,7 +113,7 @@ namespace YAF.Pages.Admin
         {
             this.UserEditDialog.BindData(null, this.CurrentMedalId);
 
-            BoardContext.Current.PageElements.RegisterJsBlockStartup(
+            this.PageContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("UserEditDialog"));
         }
@@ -202,7 +202,7 @@ namespace YAF.Pages.Admin
                 case "edit":
                     this.GroupEditDialog.BindData(e.CommandArgument.ToType<int>(), this.CurrentMedalId);
 
-                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
+                    this.PageContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("GroupEditDialog"));
                     break;
@@ -352,7 +352,7 @@ namespace YAF.Pages.Admin
                 case "edit":
                     this.UserEditDialog.BindData(e.CommandArgument.ToType<int>(), this.CurrentMedalId);
 
-                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
+                    this.PageContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("UserEditDialog"));
                     break;

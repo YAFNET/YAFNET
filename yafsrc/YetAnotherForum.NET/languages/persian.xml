@@ -92,6 +92,7 @@
     <Resource tag="ADMIN_NNTPRETRIEVE">در حال دریافت اطلاعات از NNTP</Resource>
     <Resource tag="ADMIN_NNTPSERVERS">در حال مشاهده/ویرایش سرورهای NNTP</Resource>
     <Resource tag="ADMIN_PM">در حال مشاهده/ویرایش پیامهای خصوصی</Resource>
+    <Resource tag="ADMIN_PROFILEDEFINITIONS">Views the Custom Profile Definitions</Resource>
     <Resource tag="ADMIN_PRUNE">در حال مشاهده/انجام عملیات پاکسازی</Resource>
     <Resource tag="ADMIN_RANKS">در حال مشاهده رتبه ها در بخش مدیر</Resource>
     <Resource tag="ADMIN_REGUSER">در حال ثبت نام کاربر</Resource>
@@ -498,6 +499,23 @@
     <Resource tag="MSG_VALID_MAIL">لطفا یک آدرس پست الکترونیکی معتبر برای ارسال آزمایشی وارد کنید.</Resource>
     <Resource tag="SEND_TEST">ارسال آزمایشی</Resource>
     <Resource tag="TITLE">خلاصه</Resource>
+  </page>
+  <page name="ADMIN_EDIT_PROFILEDEFINITION">
+    <Resource tag="DATA_TYPE">Data Type</Resource>
+    <Resource tag="DATA_TYPE_HELP">Select an Data Type for the Profile Definition.</Resource>
+    <Resource tag="DEFAULT">Default Value</Resource>
+    <Resource tag="DEFAULT_HELP">Define a Default Value, would be needed if required is set.</Resource>
+    <Resource tag="LENGTH">Length</Resource>
+    <Resource tag="LENGTH_HELP">Maximum Length of the Field</Resource>
+    <Resource tag="NAME">Name</Resource>
+    <Resource tag="NAME_HELP">Will be used as Profile Name/Label</Resource>
+    <Resource tag="NEED_LENGTH">Maximum Length Value with Minimum 1 is required</Resource>
+    <Resource tag="NEED_NAME">You must define a name</Resource>
+    <Resource tag="REQUIRED">Required</Resource>
+    <Resource tag="REQUIRED_HELP">Define if the field should be required or not</Resource>
+    <Resource tag="SAVE_NEW">Save New</Resource>
+    <Resource tag="TITLE">Add New Profile Definition</Resource>
+    <Resource tag="TITLE_EDIT">Edit Profile Definition</Resource>
   </page>
   <page name="ADMIN_EDITACCESSMASKS">
     <Resource tag="ACCESS">دسترسی</Resource>
@@ -1657,6 +1675,11 @@
     <Resource tag="PM_NUMBER">تعداد پیام های خصوصی :</Resource>
     <Resource tag="TITLE">نگداری پیام خصوصی</Resource>
   </page>
+  <page name="ADMIN_PROFILEDEFINITIONS">
+    <Resource tag="CONFIRM_DELETE">Delete Definition?</Resource>
+    <Resource tag="NEW_DEF">Add New Definition</Resource>
+    <Resource tag="TITLE">Custom Profile Definitions</Resource>
+  </page>
   <page name="ADMIN_PROFILER">
     <Resource tag="TITLE">Web Profiler</Resource>
   </page>
@@ -1939,6 +1962,7 @@
     <Resource tag="admin_pageaccessedit">ویرایش دسترسی صفحه مدیر</Resource>
     <Resource tag="admin_pageaccesslist">دسترسی صفحه مدیر</Resource>
     <Resource tag="admin_pm">پیام های خصوصی</Resource>
+    <Resource tag="ADMIN_PROFILEDEFINITIONS">Custom Profile Definitions</Resource>
     <Resource tag="admin_profiler">Web Profiler</Resource>
     <Resource tag="admin_prune">اصلاح موضوعات</Resource>
     <Resource tag="admin_ranks">رتبه ها</Resource>
@@ -2775,6 +2799,7 @@
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API نام کاربری:</Resource>
     <Resource tag="METAWEBLOG_TITLE">ارسال به MetaWeblog (API تنظیمات)</Resource>
     <Resource tag="MSN">شناسه MSN شما:</Resource>
+    <Resource tag="OTHER">Other</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">انتخاب قالب مختلف:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">آیا مایل به دریافت ایمیل یادآوری در زمان دریافت پیغام خصوصی می‌باشید؟</Resource>
     <Resource tag="REALNAME2">نام حقیقی شما چیست؟</Resource>

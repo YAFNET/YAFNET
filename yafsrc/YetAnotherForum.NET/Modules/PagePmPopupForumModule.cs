@@ -27,7 +27,6 @@ namespace YAF.Modules
 
     using System;
 
-    using YAF.Core.Context;
     using YAF.Dialogs;
     using YAF.Types;
     using YAF.Types.Attributes;
@@ -116,7 +115,7 @@ namespace YAF.Modules
                                           Text = this.GetText("COMMON", "NO"),
                                           CssClass = "btn btn-danger btn-sm",
                                           ForumPageLink =
-                                              new ForumLink { ForumPage = BoardContext.Current.ForumPageType }
+                                              new ForumLink { ForumPage = this.PageContext.ForumPageType }
                                       });
 
                 this.Get<ISession>().LastPm = this.PageContext.LastUnreadPm;
@@ -144,7 +143,7 @@ namespace YAF.Modules
                                       Text = this.GetText("COMMON", "NO"),
                                       CssClass = "btn btn-danger btn-sm",
                                       ForumPageLink =
-                                          new ForumLink { ForumPage = BoardContext.Current.ForumPageType }
+                                          new ForumLink { ForumPage = this.PageContext.ForumPageType }
                                   });
 
             this.Get<ISession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;

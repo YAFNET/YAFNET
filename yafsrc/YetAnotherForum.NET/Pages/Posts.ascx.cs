@@ -267,7 +267,7 @@ namespace YAF.Pages
 
             if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowShareTopicTo))
             {
-                var topicUrl = BuildLink.GetLinkNotEscaped(
+                var topicUrl = BuildLink.GetLink(
                     ForumPages.Posts,
                     true,
                     "t={0}&name={1}",
@@ -460,11 +460,11 @@ namespace YAF.Pages
 
                 this.NewTopic2.NavigateUrl =
                     this.NewTopic1.NavigateUrl =
-                    BuildLink.GetLinkNotEscaped(ForumPages.PostTopic, "f={0}", this.PageContext.PageForumID);
+                    BuildLink.GetLink(ForumPages.PostTopic, "f={0}", this.PageContext.PageForumID);
 
                 this.PostReplyLink1.NavigateUrl =
                     this.PostReplyLink2.NavigateUrl =
-                    BuildLink.GetLinkNotEscaped(
+                    BuildLink.GetLink(
                         ForumPages.PostMessage,
                         "t={0}&f={1}",
                         this.PageContext.PageTopicID,
@@ -478,7 +478,7 @@ namespace YAF.Pages
 
                 this.TopicLink.ToolTip = this.Get<IBadWordReplace>().Replace(
                     this.HtmlEncode(this.topic.Description));
-                this.TopicLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                this.TopicLink.NavigateUrl = BuildLink.GetLink(
                     ForumPages.Posts,
                     "t={0}&name={1}",
                     this.PageContext.PageTopicID,
@@ -1122,7 +1122,7 @@ namespace YAF.Pages
         /// <param name="e">The Pop Event Arguments.</param>
         private void ShareMenuItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
-            var topicUrl = BuildLink.GetLinkNotEscaped(
+            var topicUrl = BuildLink.GetLink(
                 ForumPages.Posts,
                 true,
                 "t={0}&name={1}",

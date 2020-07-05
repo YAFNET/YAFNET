@@ -25,20 +25,20 @@
                                      TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                             <div class="dropdown-menu">
                                 <div class="px-3 py-1">
-                                    <div class="form-group">
-                                        <div class="custom-control custom-switch">
+                                    <div class="mb-3">
+                                        <div class="form-check form-switch">
                                             <asp:CheckBox runat="server" ID="CreatedTopic" 
                                                           Checked="True"/>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-switch">
+                                    <div class="mb-3">
+                                        <div class="form-check form-switch">
                                             <asp:CheckBox runat="server" ID="CreatedReply" 
                                                           Checked="True"/>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-switch">
+                                    <div class="mb-3">
+                                        <div class="form-check form-switch">
                                             <asp:CheckBox runat="server" ID="GivenThanks" 
                                                           Checked="True"/>
                                         </div>
@@ -111,16 +111,14 @@
             </div>
             <div class="card-footer">
                 <div class="input-group col-md-4">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <YAF:LocalizedLabel ID="SinceLabel" runat="server"
-                                                LocalizedTag="ITEMS"/>:
-                        </div>
+                    <div class="input-group-text">
+                        <YAF:LocalizedLabel ID="SinceLabel" runat="server"
+                                            LocalizedTag="ITEMS"/>:
                     </div>
                     <asp:DropDownList ID="PageSize" runat="server" 
                                       AutoPostBack="True"
                                       OnSelectedIndexChanged="PageSizeSelectedIndexChanged" 
-                                      CssClass="select2-select custom-select">
+                                      CssClass="select2-select form-select">
                         <asp:ListItem Text="5" Value="5" Selected="True" />
                         <asp:ListItem Text="10" Value="10" />
                         <asp:ListItem Text="20" Value="20" />

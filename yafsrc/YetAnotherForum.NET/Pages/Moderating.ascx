@@ -83,7 +83,7 @@
                                     <h5>
                                         <asp:CheckBox runat="server" ID="topicCheck"
                                                       Text="&nbsp;"
-                                                      CssClass="custom-control custom-checkbox d-inline-flex" />
+                                                      CssClass="form-check d-inline-flex" />
                                         <YAF:TopicContainer runat="server" ID="topicContainer" DataRow="<%# Container.DataItem %>" AllowSelection="True"></YAF:TopicContainer>
                         </ItemTemplate>
                         <SeparatorTemplate>
@@ -102,7 +102,7 @@
                          Type="Primary"></YAF:ThemeButton>
         <div class="dropdown-menu">
             <div class="px-4 py-3">
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label AssociatedControlID="ForumList" runat="server">
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="select_forum" />
                     </asp:Label>
@@ -113,12 +113,12 @@
                 </div>
                 <div class="dropdown-divider"></div>
                 <div id="trLeaveLink" runat="server" 
-                     class="custom-control custom-checkbox">
+                     class="form-check">
                     <asp:CheckBox ID="LeavePointer" runat="server" 
                                   Text='<%# this.GetText("LEAVE_POINTER") %>' />
                 </div>
                 <div class="dropdown-divider"></div>
-                <div class="form-group" id="trLeaveLinkDays" runat="server">
+                <div class="mb-3" id="trLeaveLinkDays" runat="server">
                     <asp:Label AssociatedControlID="LinkDays" runat="server">
                         <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="POINTER_DAYS" />
                     </asp:Label>

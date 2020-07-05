@@ -19,17 +19,17 @@
                                     IconName="comments"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel11" runat="server" 
                                        AssociatedControlID="MoveTopics"
                                        LocalizedTag="MOVE_TOPICS" LocalizedPage="ADMIN_DELETEFORUM" />
-                        <div class="custom-control custom-switch">
+                        <div class="form-check form-switch">
                             <asp:CheckBox ID="MoveTopics" runat="server" 
                                           AutoPostBack="True" 
                                           Text="&nbsp;"></asp:CheckBox>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel2" runat="server" 
                                        AssociatedControlID="ForumList"
                                        LocalizedTag="NEW_FORUM" LocalizedPage="ADMIN_DELETEFORUM" />
@@ -63,7 +63,7 @@
 
 <div>
 	<div id="DeleteForumMessage" style="display:none">
-		<div class="card text-white text-center bg-danger mb-3">
+		<div class="card link-light text-center bg-danger mb-3">
 		    <div class="card-body">
 		        <blockquote class="blockquote">
                     <p>

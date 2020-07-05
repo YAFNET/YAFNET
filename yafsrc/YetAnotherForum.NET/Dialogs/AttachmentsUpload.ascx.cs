@@ -29,7 +29,6 @@ namespace YAF.Dialogs
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
-    using YAF.Core.Context;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Interfaces;
@@ -53,7 +52,7 @@ namespace YAF.Dialogs
             base.OnPreRender(e);
 
             // Setup Hover Card JS
-            BoardContext.Current.PageElements.RegisterJsBlockStartup(
+            this.PageContext.PageElements.RegisterJsBlockStartup(
                 "fileUploadjs",
                 JavaScriptBlocks.FileUploadLoadJs(
                     this.Get<BoardSettings>().AllowedFileExtensions.Replace(",", "|"),

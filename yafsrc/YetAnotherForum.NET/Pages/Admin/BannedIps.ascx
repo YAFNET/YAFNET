@@ -37,14 +37,14 @@
                                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                         <div class="dropdown-menu">
                             <div class="px-3 py-1">
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <YAF:HelpLabel ID="HelpLabel1" runat="server"
                                                    AssociatedControlID="SearchInput"
                                                    LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP" />
                                     <asp:TextBox ID="SearchInput" runat="server" 
                                                  CssClass="form-control"></asp:TextBox>
                                 </div>
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <YAF:ThemeButton ID="search" runat="server"  
                                                      Type="Primary"
                                                      CssClass="btn-block"
@@ -90,7 +90,7 @@
                     </span>
                     <%# this.Eval("Reason") %>
                 </p>
-                <p class="mb-1">
+                <p class="mb-1" runat="server" Visible="<%# this.Eval("UserID").ToString().IsSet()%>">
                     <span class="font-weight-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="BAN_BY" LocalizedPage="ADMIN_BANNEDIP" />
                     </span>

@@ -98,7 +98,7 @@ namespace YAF.Pages
             {
                 TemplateParams =
                 {
-                    ["{link}"] = BuildLink.GetLinkNotEscaped(
+                    ["{link}"] = BuildLink.GetLink(
                         ForumPages.Posts,
                         true,
                         "t={0}&name={1}",

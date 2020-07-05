@@ -14,7 +14,7 @@
                     </div>
             <div class="modal-body">
              <!-- Modal Content START !-->
-                        <div class="form-group">
+                        <div class="mb-3">
                             <asp:Label runat="server" AssociatedControlID="ForumList">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                     LocalizedTag="select_forum" />
@@ -25,19 +25,19 @@
                                               CssClass="select2-image-select" />
                         </div>
                         <asp:PlaceHolder id="trLeaveLink" runat="server">
-                            <div class="form-group">
+                            <div class="mb-3">
                                 <asp:Label runat="server" 
                                            AssociatedControlID="LeavePointer">
                                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                         LocalizedTag="LEAVE_POINTER" />
                                 </asp:Label>
-                                <div class="custom-control custom-switch">
+                                <div class="form-check form-switch">
                                     <asp:CheckBox ID="LeavePointer" runat="server" Text="&nbsp;" />
                                 </div>
                             </div>
                         </asp:PlaceHolder>
                         <asp:PlaceHolder id="trLeaveLinkDays" runat="server">
-                            <div class="form-group">
+                            <div class="mb-3">
                                 <asp:Label runat="server" AssociatedControlID="LinkDays">
                                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                                         LocalizedTag="POINTER_DAYS" />

@@ -106,8 +106,8 @@
                         
                         <div class="dropdown-menu">
                             <div class="px-3 py-1" style="min-width:max-content">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="Group">
                                             <YAF:LocalizedLabel ID="SearchRolesLocalizedLabel" runat="server" 
                                                                 LocalizedTag="Search_Role" />
@@ -116,7 +116,7 @@
                                                           CssClass="select2-select">
                                         </asp:DropDownList>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="Ranks">
                                             <YAF:LocalizedLabel ID="SearchRankLocalizedLabel" runat="server" 
                                                                 LocalizedTag="Search_Rank" />
@@ -126,8 +126,8 @@
                                         </asp:DropDownList>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="NumPostDDL">
                                             <YAF:LocalizedLabel ID="NumPostsLabel" runat="server" 
                                                                 LocalizedTag="NUMPOSTS" />
@@ -136,14 +136,14 @@
                                                           CssClass="select2-select">
                                         </asp:DropDownList>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="NumPostsTB">&nbsp;</asp:Label>
                                         <asp:TextBox ID="NumPostsTB" runat="server"
                                                      CssClass="form-control"
                                                      TextMode="Number"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <asp:Label runat="server" AssociatedControlID="UserSearchName">
                                         <YAF:LocalizedLabel ID="SearchMemberLocalizedLabel" runat="server" 
                                                             LocalizedTag="Search_Member" />
@@ -151,7 +151,7 @@
                                     <asp:TextBox ID="UserSearchName" runat="server" 
                                                  CssClass="form-control"></asp:TextBox>
                                 </div>
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <YAF:ThemeButton ID="SearchByUserName" runat="server"
                                                      OnClick="Search_Click"
                                                      TextLocalizedTag="BTNSEARCH"

@@ -25,7 +25,7 @@
             <div class="card-body">
                 <form>
                     <asp:PlaceHolder runat="server" id="PreviewRow" visible="false">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
                         </asp:Label>
@@ -38,7 +38,7 @@
                     </div>
                     </asp:PlaceHolder>
                     <asp:PlaceHolder runat="server" id="DeleteReasonRow">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="ReasonEditor">
                             <% = this.GetReasonText() %>
                         </asp:Label>
@@ -46,11 +46,11 @@
                     </div>
                     </asp:PlaceHolder>
                     <asp:PlaceHolder id="EraseRow" runat="server" visible="false">
-                        <div class="form-group">
+                        <div class="mb-3">
                             
                             <asp:CheckBox ID="EraseMessage" runat="server" 
                                           Checked="false"
-                                          CssClass="custom-control custom-checkbox"/>
+                                          CssClass="form-check"/>
                         </div>
                     </asp:PlaceHolder>
                 </form>
@@ -83,7 +83,7 @@
                       IconStackSize="fa-1x"
                       IconType="text-secondary"></YAF:Icon>
             <asp:CheckBox ID="DeleteAllPosts" runat="server" 
-                          CssClass="custom-control custom-checkbox d-inline-block" Text='<%# this.GetText("DELETE_ALL") %>' />
+                          CssClass="form-check d-inline-block" Text='<%# this.GetText("DELETE_ALL") %>' />
             
         </div>
         <div class="card-body">

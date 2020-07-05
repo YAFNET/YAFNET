@@ -575,7 +575,7 @@ namespace YAF.Web.Controls
 
             stringBuilder.Append("<div class=\"table-responsive\">");
             stringBuilder.Append("<table class=\"table tablesorter table-bordered table-striped\">");
-            stringBuilder.Append("<thead class=\"thead-dark\">");
+            stringBuilder.Append("<thead class=\"table-dark\">");
             stringBuilder.Append("<tr>");
             stringBuilder.Append("<th scope=\"col\">");
             stringBuilder.Append("Total amount of objects");
@@ -633,7 +633,7 @@ namespace YAF.Web.Controls
 
             stringBuilder.Append("<div class=\"table-responsive\">");
             stringBuilder.Append("<table class=\"table tablesorter table-bordered table-striped\">");
-            stringBuilder.Append("<thead class=\"thead-dark\">");
+            stringBuilder.Append("<thead class=\"table-dark\">");
             stringBuilder.Append("<tr>");
             stringBuilder.Append("<th scope=\"col\">");
             stringBuilder.Append("Name");
@@ -784,7 +784,7 @@ namespace YAF.Web.Controls
 
             stringBuilder.Append("<div class=\"table-responsive\">");
             stringBuilder.Append("<table class=\"table tablesorter table-bordered table-striped\">");
-            stringBuilder.Append("<thead class=\"thead-dark\">");
+            stringBuilder.Append("<thead class=\"table-dark\">");
             stringBuilder.Append("<tr>");
             stringBuilder.Append("<th scope=\"col\">");
             stringBuilder.Append("Name");
@@ -933,7 +933,7 @@ namespace YAF.Web.Controls
 
             stringBuilder.Append("<div class=\"table-responsive\">");
             stringBuilder.Append("<table class=\"table tablesorter table-bordered table-striped\">");
-            stringBuilder.Append("<thead class=\"thead-dark\">");
+            stringBuilder.Append("<thead class=\"table-dark\">");
             stringBuilder.Append("<tr>");
             stringBuilder.Append("<th scope=\"col\">");
             stringBuilder.Append("Total amount of objects");
@@ -1227,7 +1227,7 @@ namespace YAF.Web.Controls
 
             stringBuilder.Append("<div class=\"table-responsive\">");
             stringBuilder.Append("<table class=\"table tablesorter table-bordered table-striped\">");
-            stringBuilder.Append("<thead class=\"thead-dark\">");
+            stringBuilder.Append("<thead class=\"table-dark\">");
             stringBuilder.Append("<tr>");
             stringBuilder.Append("<th scope=\"col\">");
             stringBuilder.Append("Total amount of active sessions");
@@ -1288,7 +1288,7 @@ namespace YAF.Web.Controls
 
             stringBuilder.Append("<div class=\"table-responsive\">");
             stringBuilder.Append("<table class=\"table tablesorter table-bordered table-striped\">");
-            stringBuilder.Append("<thead class=\"thead-dark\">");
+            stringBuilder.Append("<thead class=\"table-dark\">");
             stringBuilder.Append("<tr>");
             stringBuilder.Append("<th scope=\"col\">");
             stringBuilder.Append("Internal session ID");
@@ -1449,7 +1449,7 @@ namespace YAF.Web.Controls
                 stringBuilder.Append("<div class=\"table-responsive\">");
                 stringBuilder.Append("<table class=\"table tablesorter table-bordered table-striped\">");
 
-                stringBuilder.Append("<thead class=\"thead-dark\">");
+                stringBuilder.Append("<thead class=\"table-dark\">");
 
                 stringBuilder.Append("<tr>");
                 stringBuilder.Append("<th scope=\"col\">");

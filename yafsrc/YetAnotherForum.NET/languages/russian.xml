@@ -92,6 +92,7 @@
     <Resource tag="ADMIN_NNTPRETRIEVE">Получает данные от NNTP</Resource>
     <Resource tag="ADMIN_NNTPSERVERS">Находится в настройках NNTP-серверов</Resource>
     <Resource tag="ADMIN_PM">Администрирует личные сообщения</Resource>
+    <Resource tag="ADMIN_PROFILEDEFINITIONS">Views the Custom Profile Definitions</Resource>
     <Resource tag="ADMIN_PRUNE">Вычищает форум</Resource>
     <Resource tag="ADMIN_RANKS">Просматривает статусы в разделе администрирования</Resource>
     <Resource tag="ADMIN_REGUSER">Регистрирует пользователя</Resource>
@@ -498,6 +499,23 @@
     <Resource tag="MSG_VALID_MAIL">Пожалуйста, введите действительный адрес электронной почты, чтобы отправить тестовое сообщение.</Resource>
     <Resource tag="SEND_TEST">Тест</Resource>
     <Resource tag="TITLE">Дайджест</Resource>
+  </page>
+  <page name="ADMIN_EDIT_PROFILEDEFINITION">
+    <Resource tag="DATA_TYPE">Data Type</Resource>
+    <Resource tag="DATA_TYPE_HELP">Select an Data Type for the Profile Definition.</Resource>
+    <Resource tag="DEFAULT">Default Value</Resource>
+    <Resource tag="DEFAULT_HELP">Define a Default Value, would be needed if required is set.</Resource>
+    <Resource tag="LENGTH">Length</Resource>
+    <Resource tag="LENGTH_HELP">Maximum Length of the Field</Resource>
+    <Resource tag="NAME">Name</Resource>
+    <Resource tag="NAME_HELP">Will be used as Profile Name/Label</Resource>
+    <Resource tag="NEED_LENGTH">Maximum Length Value with Minimum 1 is required</Resource>
+    <Resource tag="NEED_NAME">You must define a name</Resource>
+    <Resource tag="REQUIRED">Required</Resource>
+    <Resource tag="REQUIRED_HELP">Define if the field should be required or not</Resource>
+    <Resource tag="SAVE_NEW">Save New</Resource>
+    <Resource tag="TITLE">Add New Profile Definition</Resource>
+    <Resource tag="TITLE_EDIT">Edit Profile Definition</Resource>
   </page>
   <page name="ADMIN_EDITACCESSMASKS">
     <Resource tag="ACCESS">Доступ</Resource>
@@ -1643,6 +1661,11 @@
     <Resource tag="PM_NUMBER">Число личных сообщений:</Resource>
     <Resource tag="TITLE">Управление ЛС</Resource>
   </page>
+  <page name="ADMIN_PROFILEDEFINITIONS">
+    <Resource tag="CONFIRM_DELETE">Delete Definition?</Resource>
+    <Resource tag="NEW_DEF">Add New Definition</Resource>
+    <Resource tag="TITLE">Custom Profile Definitions</Resource>
+  </page>
   <page name="ADMIN_PROFILER">
     <Resource tag="TITLE">Web Profiler</Resource>
   </page>
@@ -1909,6 +1932,7 @@
     <Resource tag="admin_pageaccessedit">Редактирование прав доступа </Resource>
     <Resource tag="admin_pageaccesslist">Страницы администратора</Resource>
     <Resource tag="admin_pm">Личные сообщения</Resource>
+    <Resource tag="ADMIN_PROFILEDEFINITIONS">Custom Profile Definitions</Resource>
     <Resource tag="admin_profiler">Web Profiler</Resource>
     <Resource tag="admin_prune">Чистка тем</Resource>
     <Resource tag="admin_ranks">Статусы</Resource>
@@ -2742,6 +2766,7 @@
     <Resource tag="METAWEBLOG_API_USERNAME">Имя пользователя для MetaWeblog API:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Разместить при помощи MetaWeblog (Настройки API)</Resource>
     <Resource tag="MSN">Ваш ник в  Windows Live-ID (MSN):</Resource>
+    <Resource tag="OTHER">Other</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Выберите другую тему форума:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте при получении нового личного сообщения?</Resource>
     <Resource tag="REALNAME2">Ваше настоящее имя:</Resource>
