@@ -8401,6 +8401,8 @@ div#UploadDialog {
 .blockquote-custom {
   position: relative;
   margin-top: .25rem; }
+  .blockquote-custom .blockquote-footer {
+    margin-top: 0px; }
   .blockquote-custom > .blockquote-custom {
     margin-top: 2rem; }
 

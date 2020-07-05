@@ -102,6 +102,10 @@
     position: relative;
     margin-top: .25rem;
 
+    .blockquote-footer {
+        margin-top:0px;
+    }
+
     > .blockquote-custom {
         margin-top: 2rem;
     }
