@@ -8357,11 +8357,12 @@ div#UploadDialog {
 .topic-title {
   white-space: pre-wrap; }
 
-.MultiQuoteButton {
-  display: inline-block; }
-  .MultiQuoteButton label {
+.btn-multiquote {
+  display: inline-block;
+  margin-left: 10px !important; }
+  .btn-multiquote label {
     margin-top: -1px; }
-  .MultiQuoteButton .fa-stack {
+  .btn-multiquote .fa-stack {
     margin-top: -2px; }
 
 .list-inline {

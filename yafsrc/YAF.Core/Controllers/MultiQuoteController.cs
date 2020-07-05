@@ -95,7 +95,7 @@ namespace YAF.Core.Controllers
                     yafSession.MultiQuoteIds.Remove(multiQuote);
                 }
 
-                buttonCssClass = "MultiQuoteButton form-check btn btn-link";
+                buttonCssClass = "btn-multiquote form-check btn btn-link";
             }
 
             return this.Ok(new ReturnClass { Id = buttonId, NewTitle = buttonCssClass });

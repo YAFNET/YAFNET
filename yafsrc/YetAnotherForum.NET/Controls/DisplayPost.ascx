@@ -275,7 +275,7 @@
                                                  DataToggle="tooltip"
                                                  TitleLocalizedTag="BUTTON_QUOTE_TT" />
                                 <asp:CheckBox runat="server" ID="MultiQuote" 
-                                              CssClass="MultiQuoteButton form-check btn btn-link" />
+                                              CssClass="btn-multiquote form-check btn btn-link" />
                             </div>
                         </div>
                         </div>

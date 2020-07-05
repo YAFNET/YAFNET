@@ -9,19 +9,17 @@
 
     .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow {
         position: absolute;
-        top: 50%;
+        top: 40%;
         right: 3px;
         width: 20px;
     }
 
         .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow b {
-            top: 60%;
-            border-color: #343a40 transparent transparent transparent;
-            border-style: solid;
-            border-width: 5px 4px 0 4px;
-            width: 0;
-            height: 0;
-            left: 50%;
+            background-color: #fff;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            width: 16px;
+            height: 12px;
             margin-left: -4px;
             margin-top: -2px;
             position: absolute;
@@ -89,7 +87,6 @@
 
 .input-group .select2-container--bootstrap4 {
     -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
     flex-grow: 1;
 }
 
