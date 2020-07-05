@@ -171,7 +171,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="row message">
+                <div class="message">
                     <asp:panel id="panMessage" runat="server">
                             <YAF:MessagePostData runat="server"
                                                  DataRow="<%# this.DataRow %>"
