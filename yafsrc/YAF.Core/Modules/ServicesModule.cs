@@ -100,6 +100,8 @@ namespace YAF.Core.Modules
                 .PreserveExistingDefaults();
             builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
+            builder.RegisterType<Search>().As<ISearch>().InstancePerLifetimeScope()
+                .PreserveExistingDefaults();
 
             builder.RegisterType<ReadTrackCurrentUser>().As<IReadTrackCurrentUser>().InstancePerBoardContext()
                 .PreserveExistingDefaults();
@@ -170,7 +172,6 @@ namespace YAF.Core.Modules
                 .PreserveExistingDefaults();
             builder.RegisterType<ThankYou>().As<IThankYou>().InstancePerBoardContext();
             builder.RegisterType<SpamCheck>().As<ISpamCheck>().InstancePerBoardContext();
-            builder.RegisterType<Search>().As<ISearch>().InstancePerBoardContext();
         }
 
         /// <summary>

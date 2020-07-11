@@ -49,8 +49,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#View10" data-toggle="tab" role="tab">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="USER_SETTINGS" LocalizedPage="ADMIN_EDITUSER" />
+                                <a class="nav-link" href="#View4" data-toggle="tab" role="tab">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="USER_AVATAR" LocalizedPage="ADMIN_EDITUSER" />
                                 </a>
                             </li>
                             <li class="nav-item">

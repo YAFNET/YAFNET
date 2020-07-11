@@ -66,9 +66,9 @@ namespace YAF.Core.URLBuilder
                 return newUrl;
             }
 
-            const string gsr = "getsearchresults";
-            scriptName = scriptName.Replace(gsr, scriptFile);
-            newUrl = newUrl.Replace(gsr, scriptFile);
+            //const string gsr = "getsearchresults";
+            //scriptName = scriptName.Replace(gsr, scriptFile);
+            //newUrl = newUrl.Replace(gsr, scriptFile);
 
             if (scriptName.EndsWith(scriptFile))
             {

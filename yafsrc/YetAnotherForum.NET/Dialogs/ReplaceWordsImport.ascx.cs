@@ -33,6 +33,7 @@ namespace YAF.Dialogs
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -61,6 +62,10 @@ namespace YAF.Dialogs
                 this.PageContext.AddLoadMessage(
                     this.GetTextFormatted("MSG_IMPORTED_FAILEDX", this.importFile.PostedFile.ContentType),
                     MessageTypes.danger);
+
+                this.PageContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("ImportDialog"));
 
                 return;
             }
@@ -102,6 +107,10 @@ namespace YAF.Dialogs
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILED"),
                         MessageTypes.warning);
+
+                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("ImportDialog"));
                 }
             }
             catch (Exception x)
@@ -109,6 +118,10 @@ namespace YAF.Dialogs
                 this.PageContext.AddLoadMessage(
                     string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX"), x.Message),
                     MessageTypes.danger);
+
+                this.PageContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("ImportDialog"));
             }
         }
 

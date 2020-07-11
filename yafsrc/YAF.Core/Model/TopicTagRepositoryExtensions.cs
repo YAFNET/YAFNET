@@ -91,8 +91,7 @@ namespace YAF.Core.Model
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
 
             expression.Join<Tag>((topicTag, tag) => tag.ID == topicTag.TagID)
-                .Where<TopicTag>(t => t.TopicID == topicId)
-                .Select();
+                .Where<TopicTag>(t => t.TopicID == topicId);
 
             return repository.DbAccess.Execute(
                 db => db.Connection.SelectMulti<TopicTag, Tag>(expression));

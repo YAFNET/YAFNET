@@ -20,13 +20,17 @@
         <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
         <div class="card mb-3">
             <div class="card-header">
-                <YAF:IconHeader runat="server"
-                                IconName="trash-restore"
-                                LocalizedPage="ADMIN_RESTORE"></YAF:IconHeader>
-                <div class="float-right">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        <YAF:IconHeader runat="server"
+                                        IconName="trash-restore"
+                                        LocalizedPage="ADMIN_RESTORE"></YAF:IconHeader>
+                    </div>
+                <div class="col-auto">
                     <YAF:ThemeButton runat="server"
                                      CssClass="dropdown-toggle"
                                      DataToggle="dropdown"
+                                     Size="Small"
                                      Type="Secondary"
                                      Icon="filter"
                                      TextLocalizedTag="FILTER_DROPDOWN"
@@ -52,6 +56,7 @@
                         </div>
                     </div>
                 </div>
+                    </div>
             </div>
                 <asp:Repeater runat="server" ID="DeletedTopics" OnItemCommand="List_ItemCommand">
                     <HeaderTemplate>
@@ -110,13 +115,13 @@
                         <div class="card-footer text-center">
                             <YAF:ThemeButton runat="server" 
                                              CommandName="delete_all" 
+                                             CssClass="mr-2"
                                              ID="Linkbutton4" 
                                              Type="Danger"
                                              Icon="dumpster" 
                                              TextLocalizedTag="DELETE_ALL"
                                              TextLocalizedPage="ADMIN_EVENTLOG">
                             </YAF:ThemeButton>
-                            &nbsp;
                             <YAF:ThemeButton runat="server" 
                                              CommandName="delete_zero" 
                                              ID="ThemeButton2" 

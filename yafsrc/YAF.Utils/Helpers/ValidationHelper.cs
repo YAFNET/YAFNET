@@ -29,6 +29,8 @@ namespace YAF.Utils.Helpers
     using System;
     using System.Text.RegularExpressions;
 
+    using YAF.Types.Extensions;
+
     #endregion
 
     /// <summary>
@@ -43,7 +45,7 @@ namespace YAF.Utils.Helpers
         /// The email string to check
         /// </param>
         /// <returns>
-        /// A bool value indicating whether the value is a valid email
+        /// Returns indicating whether the value is a valid email
         /// </returns>
         public static bool IsValidEmail(string email)
         {
@@ -52,13 +54,13 @@ namespace YAF.Utils.Helpers
         }
 
         /// <summary>
-        /// Checks if string is an valid email address (xmpp).
+        /// Checks if string is an valid email address (XMPP).
         /// </summary>
         /// <param name="xmpp">
-        /// The xmpp string to check
+        /// The XMPP string to check
         /// </param>
         /// <returns>
-        /// A bool value indicating whether the value is a valid xmpp
+        /// Returns indicating whether the value is a valid XMPP
         /// </returns>
         public static bool IsValidXmpp(string xmpp)
         {
@@ -72,7 +74,7 @@ namespace YAF.Utils.Helpers
         /// The url string to check
         /// </param>
         /// <returns>
-        /// A bool value indicating whether the value is a valid Url
+        /// Returns indicating whether the value is a valid Url
         /// </returns>
         public static bool IsValidURL(string url)
         {
@@ -90,15 +92,15 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// Checks if string is an valid integer
         /// </summary>
-        /// <param name="intstr">
+        /// <param name="input">
         /// The value to check.
         /// </param>
         /// <returns>
-        /// A bool value indicating whether the value is a valid  Integer
+        /// Returns indicating whether the value is a valid Integer
         /// </returns>
-        public static bool IsValidInt(string intstr)
+        public static bool IsValidInt(string input)
         {
-            return int.TryParse(intstr, out var value);
+            return int.TryParse(input, out _);
         }
 
         /// <summary>
@@ -106,7 +108,7 @@ namespace YAF.Utils.Helpers
         /// </summary>
         /// <param name="valueToCheck">The value to check.</param>
         /// <returns>
-        /// A bool value indicating whether the value is a valid Number
+        /// Returns indicating whether the value is a valid Number
         /// </returns>
         public static bool IsNumeric(string valueToCheck)
         {
@@ -116,8 +118,8 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// Checks if string is an valid integer
         /// </summary>
-        /// <param name="intstr">
-        /// The intstr.
+        /// <param name="input">
+        /// The input string to check.
         /// </param>
         /// <param name="lowerBound">
         /// The lower Bound.
@@ -126,11 +128,11 @@ namespace YAF.Utils.Helpers
         /// The upper Bound.
         /// </param>
         /// <returns>
-        /// A bool value indicating whether the value is a valid integer
+        /// Returns indicating whether the value is a valid integer
         /// </returns> 
-        public static bool IsValidInt(string intstr, int lowerBound, int upperBound)
+        public static bool IsValidInt(string input, int lowerBound, int upperBound)
         {
-            if (int.TryParse(intstr, out var value))
+            if (int.TryParse(input, out var value))
             {
                 return value >= lowerBound && value <= upperBound;
             }
@@ -139,17 +141,45 @@ namespace YAF.Utils.Helpers
         }
 
         /// <summary>
-        /// The value is a valid positive Int16.
+        /// The value is a valid positive short.
         /// </summary>
-        /// <param name="intstr">
-        /// The intstr.
+        /// <param name="input">
+        /// The input.
         /// </param>
         /// <returns>
-        /// A bool value indicating whether the value is a positive valid Int16.
+        /// Returns indicating whether the value is a positive valid short.
         /// </returns>
-        public static bool IsValidPosShort(string intstr)
+        public static bool IsValidPosShort(string input)
         {
-            return short.TryParse(intstr, out var value) && value >= 0;
+            return short.TryParse(input, out var value) && value >= 0;
+        }
+
+        /// <summary>
+        /// Check if pattern is a valid Regex
+        /// </summary>
+        /// <param name="pattern">
+        /// The pattern.
+        /// </param>
+        /// <returns>
+        /// Returns indicating whether the value is valid Regex String.
+        /// </returns>
+        public static bool IsValidRegex(string pattern)
+        {
+            if (pattern.IsNotSet())
+            {
+                return false;
+            }
+
+            try
+            {
+                var test = Regex.Match(string.Empty, pattern);
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -27,11 +27,9 @@ namespace YAF.Dialogs
     #region Using
 
     using System;
-    using System.Web;
-
+    
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -55,12 +53,7 @@ namespace YAF.Dialogs
         /// <value>
         /// The Definition identifier.
         /// </value>
-        public int? DefinitionId
-        {
-            get => this.ViewState["DefinitionId"].ToType<int?>();
-
-            set => this.ViewState["DefinitionId"] = value;
-        }
+        public int? DefinitionId { get; set; }
 
         /// <summary>
         /// Binds the data.

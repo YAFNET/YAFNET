@@ -32,7 +32,6 @@ namespace YAF.Controls
     using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Web.Controls;
@@ -119,104 +118,14 @@ namespace YAF.Controls
             }
 
             // If both disallowed
-            if (!isLoginAllowed && !isRegisterAllowed)
-            {
-                this.ConnectHolder.Controls.Clear();
-
-                this.ConnectHolder.Visible = false;
-
-                return;
-            }
-
-            if (!this.Get<BoardSettings>().AllowSingleSignOn || Config.FacebookAPIKey.IsNotSet() &&
-                Config.TwitterConsumerKey.IsNotSet() && Config.GoogleClientID.IsNotSet())
+            if (isLoginAllowed || isRegisterAllowed)
             {
                 return;
             }
 
-            this.ConnectHolder.Controls.Add(
-                new Literal { Text = $"&nbsp;{this.GetText("LOGIN", "CONNECT_VIA")}&nbsp;" });
+            this.ConnectHolder.Controls.Clear();
 
-            if (Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet())
-            {
-                var facebookLinkButton = new LinkButton
-                {
-                    Text = "Facebook",
-                    ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Facebook"),
-                    ID = "FacebookRegister",
-                    CssClass = "authLogin facebookLogin"
-                };
-
-                facebookLinkButton.Click += this.FacebookFormClick;
-
-                this.ConnectHolder.Controls.Add(facebookLinkButton);
-            }
-
-            this.ConnectHolder.Controls.Add(new Literal { Text = "&nbsp;" });
-
-            if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet())
-            {
-                var twitterLinkButton = new LinkButton
-                {
-                    Text = "Twitter",
-                    ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Twitter"),
-                    ID = "TwitterRegister",
-                    CssClass = "authLogin twitterLogin"
-                };
-
-                twitterLinkButton.Click += this.TwitterFormClick;
-
-                this.ConnectHolder.Controls.Add(twitterLinkButton);
-            }
-
-            this.ConnectHolder.Controls.Add(new Literal { Text = "&nbsp;" });
-
-            if (Config.GoogleClientID.IsNotSet() || Config.GoogleClientSecret.IsNotSet())
-            {
-                return;
-            }
-
-            var linkButton = new LinkButton
-            {
-                Text = "Google",
-                ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Google"),
-                ID = "GoogleRegister",
-                CssClass = "authLogin googleLogin"
-            };
-
-            linkButton.Click += this.GoogleFormClick;
-
-            this.ConnectHolder.Controls.Add(linkButton);
-        }
-
-        /// <summary>
-        /// Show the Facebook Login/Register Form
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void FacebookFormClick(object sender, EventArgs e)
-        {
-            BuildLink.Redirect(ForumPages.Account_Login, "auth={0}", "facebook");
-        }
-
-        /// <summary>
-        /// Show the Twitter Login/Register Form
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void TwitterFormClick(object sender, EventArgs e)
-        {
-            BuildLink.Redirect(ForumPages.Account_Login, "auth={0}", "twitter");
-        }
-
-        /// <summary>
-        /// Show the Google Login/Register Form
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void GoogleFormClick(object sender, EventArgs e)
-        {
-            BuildLink.Redirect(ForumPages.Account_Login, "auth={0}", "google");
+            this.ConnectHolder.Visible = false;
         }
 
         #endregion

@@ -16,14 +16,16 @@
                             </li>
                             <asp:PlaceHolder runat="server" ID="StatsLastPostHolder" Visible="False">
                                 <li class="list-group-item">
-                                    <asp:Label ID="StatsLastPost" runat="server" />&nbsp;<YAF:UserLink ID="LastPostUserLink" runat="server" />
+                                    <asp:Label ID="StatsLastPost" runat="server" 
+                                               CssClass="mr-2" /><YAF:UserLink ID="LastPostUserLink" runat="server" />
                                 </li>
                             </asp:PlaceHolder>
                             <li class="list-group-item">
                                 <asp:Label ID="StatsMembersCount" runat="server" />
                             </li>
                             <li class="list-group-item">
-                                <asp:Label ID="StatsNewestMember" runat="server" />:&nbsp;<YAF:UserLink ID="NewestMemberUserLink" runat="server" />
+                                <asp:Label ID="StatsNewestMember" runat="server" 
+                                           CssClass="m-2" />:<YAF:UserLink ID="NewestMemberUserLink" runat="server" />
                             </li>
                         </ul>
                     </div>

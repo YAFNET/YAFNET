@@ -268,6 +268,7 @@
   <page name="ADMIN_BANNEDEMAIL_EDIT">
     <Resource tag="MASK">Mask:</Resource>
     <Resource tag="MASK_HELP">آدرس ایمیل برای مسدود شدن. از REGX ها می توانید استفاده کنید</Resource>
+    <Resource tag="NEED_MASK">You must define an Email address.</Resource>
     <Resource tag="REASON">دلیل:</Resource>
     <Resource tag="REASON_HELP">دلیل مسدود شدن ایمیل</Resource>
     <Resource tag="TITLE">افزودن/ویرایش ایمیل های مسدود شده</Resource>
@@ -303,6 +304,7 @@
     <Resource tag="INVALID_VALUE">یکی از قسمت های آی پی معتبر نیست. مقدار معتبر بین 0 تا 255 است و از * به عنوان همه استفاده کنید</Resource>
     <Resource tag="MASK">قالب:</Resource>
     <Resource tag="MASK_HELP">آدرس آی پی برای ممنوعیت (می توانید از * استفاده کنید 127.0.0.*)</Resource>
+    <Resource tag="NEED_MASK">You must define an IP address.</Resource>
     <Resource tag="REASON">دلیل :</Resource>
     <Resource tag="REASON_HELP">دلیل اینکه آی پی ممنوع شده</Resource>
     <Resource tag="TITLE">افزودن/ویرایش IP های ممنوعه</Resource>
@@ -331,6 +333,7 @@
   <page name="ADMIN_BANNEDNAME_EDIT">
     <Resource tag="MASK">قالب:</Resource>
     <Resource tag="MASK_HELP">نام کاربری برای مسدود شدن. می توانید از REGX ها استفاده کنید</Resource>
+    <Resource tag="NEED_MASK">You must define a User Name.</Resource>
     <Resource tag="REASON">دلیل:</Resource>
     <Resource tag="REASON_HELP">دلیل مسدود شدن این نام کاربری را وارد کنید</Resource>
     <Resource tag="TITLE">افزودن/ویرایش نام‌های مسدود شده</Resource>
@@ -1827,6 +1830,7 @@
   </page>
   <page name="ADMIN_SPAMWORDS_EDIT">
     <Resource tag="MSG_REGEX_SPAM">The Regular expression statement you have entered is invalid.</Resource>
+    <Resource tag="NEED_SPAM">You must define a Spam word.</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression:</Resource>
     <Resource tag="SPAM_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
     <Resource tag="TITLE">Add New Spam Word</Resource>
@@ -2191,6 +2195,7 @@
     <Resource tag="BBCODE_QUOTEPOSTED">ارسال شده توسط : {0}</Resource>
     <Resource tag="BBCODE_QUOTEPOSTED_TT">رفتن به نقل قول</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} نوشته است:</Resource>
+    <Resource tag="BROWSE">Browse</Resource>
     <Resource tag="CAL_JQ_CULTURE">fa</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">YYYY/mm/dd</Resource>
     <Resource tag="CAL_JQ_TT">برای انتخاب تاریخ کلیک کنید.</Resource>

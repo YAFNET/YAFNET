@@ -24,7 +24,9 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Data;
+    using System.Collections.Generic;
+    
+    using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -39,26 +41,42 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// Lists medal(s) assigned to the group
+        /// Lists users assigned to the medal
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userID">
-        /// ID of user who was given medal.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
-        /// <param name="medalID">
-        /// ID of medal to list.
+        /// <param name="medalId">
+        /// The medal Id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="List"/>.
         /// </returns>
-        public static DataTable ListAsDataTable(
+        public static List<Tuple<Medal, UserMedal, User>> List(
             this IRepository<UserMedal> repository,
-            [NotNull] int? userID,
-            [NotNull] int? medalID)
+            [NotNull] int? userId,
+            [NotNull] int medalId)
         {
-            return repository.DbFunction.GetData.user_medal_list(UserID: userID, MedalID: medalID);
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
+
+            if (userId.HasValue)
+            {
+                expression.Join<UserMedal>((a, b) => b.MedalID == a.ID)
+                    .Join<UserMedal, User>((b, c) => c.ID == b.UserID)
+                    .Where<UserMedal>(b => b.MedalID == medalId && b.UserID == userId.Value).OrderBy<User>(x => x.Name)
+                    .ThenBy<UserMedal>(x => x.SortOrder);
+            }
+            else
+            {
+                expression.Join<UserMedal>((a, b) => b.MedalID == a.ID)
+                    .Join<UserMedal, User>((b, c) => c.ID == b.UserID)
+                    .Where(a => a.ID == medalId).OrderBy<User>(x => x.Name).ThenBy<UserMedal>(x => x.SortOrder);
+            }
+            
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Medal, UserMedal, User>(expression));
         }
 
         /// <summary>

@@ -22,13 +22,17 @@
             <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
             <div class="card mb-3">
                 <div class="card-header">
+                    <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
                     <YAF:IconHeader runat="server"
                                     IconName="hand-paper"
                                     LocalizedPage="ADMIN_BANNEDEMAIL"></YAF:IconHeader>
-                    <div class="float-right">
+                        </div>
+                    <div class="col-auto">
                         <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown"
+                                         Size="Small"
                                          Type="Secondary"
                                          Icon="filter"
                                          TextLocalizedTag="FILTER_DROPDOWN"
@@ -56,6 +60,7 @@
                         </div>
                     </div>
                 </div>
+                    </div>
                 <div class="card-body">
 
 		<asp:Repeater ID="list" runat="server" OnItemCommand="List_ItemCommand">

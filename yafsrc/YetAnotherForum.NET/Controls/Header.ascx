@@ -106,10 +106,9 @@
             </ul>
             <asp:Panel ID="quickSearch" runat="server" CssClass="d-flex" Visible="false">
                 <asp:TextBox ID="searchInput" Type="Search" runat="server" 
-                             CssClass="form-control"
-                             aria-label="Search"></asp:TextBox>&nbsp;
+                             CssClass="form-control mb-1 mr-2"
+                             aria-label="Search"></asp:TextBox>
                 <YAF:ThemeButton ID="doQuickSearch" runat="server"
-                                 CssClass="my-2 my-sm-0"
                                  Type="OutlineInfo"
                                  OnClick="QuickSearchClick"
                                  Icon="search">

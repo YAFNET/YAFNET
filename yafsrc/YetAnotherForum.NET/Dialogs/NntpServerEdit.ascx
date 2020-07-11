@@ -3,8 +3,7 @@
 
 <div class="modal fade" id="NntpServerEditDialog" tabindex="-1" role="dialog" aria-labelledby="NntpServerEditDialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
-
-                <div class="modal-content">
+        <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
                             <YAF:LocalizedLabel ID="Title" runat="server" 
@@ -14,20 +13,34 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body needs-validation">
                         <!-- Modal Content START !-->
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <YAF:HelpLabel ID="LocalizedLabel2" runat="server"
                                                AssociatedControlID="Name"
                                                LocalizedTag="NNTP_NAME" LocalizedPage="ADMIN_EDITNNTPSERVER" />
-                                <asp:TextBox CssClass="form-control" ID="Name" runat="server" />
+                                <asp:TextBox ID="Name" runat="server"
+                                             CssClass="form-control" 
+                                             required="required" />
+                                <div class="invalid-feedback">
+                                    <YAF:LocalizedLabel runat="server"
+                                                        LocalizedPage="ADMIN_EDITNNTPSERVER"
+                                                        LocalizedTag="MSG_SERVER_NAME" />
+                                </div>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <YAF:HelpLabel ID="LocalizedLabel3" runat="server"
                                                AssociatedControlID="Address"
                                                LocalizedTag="NNTP_ADRESS" LocalizedPage="ADMIN_EDITNNTPSERVER" />
-                                <asp:TextBox CssClass="form-control" ID="Address" runat="server" />
+                                <asp:TextBox ID="Address" runat="server"
+                                             CssClass="form-control" 
+                                             required="required" />
+                                <div class="invalid-feedback">
+                                    <YAF:LocalizedLabel runat="server"
+                                                        LocalizedPage="ADMIN_EDITNNTPSERVER"
+                                                        LocalizedTag="MSG_SERVER_ADR" />
+                                </div>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -62,7 +75,9 @@
                         <YAF:ThemeButton id="Save" runat="server"
                                          OnClick="Save_OnClick"
                                          TextLocalizedTag="ADMIN_EDITNNTPSERVER" TextLocalizedPage="TITLE"
-                                         Type="Primary" Icon="save">
+                                         Type="Primary" 
+                                         Icon="save" 
+                                         CausesValidation="True">
                         </YAF:ThemeButton>
                         <YAF:ThemeButton runat="server" ID="Cancel"
                                          DataDismiss="modal"

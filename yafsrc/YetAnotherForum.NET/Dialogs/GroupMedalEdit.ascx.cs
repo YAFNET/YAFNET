@@ -27,6 +27,7 @@ namespace YAF.Dialogs
     #region Using
 
     using System;
+    using System.Linq;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
@@ -36,8 +37,7 @@ namespace YAF.Dialogs
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
-
+    
     #endregion
 
     /// <summary>
@@ -110,8 +110,7 @@ namespace YAF.Dialogs
             {
                 // Edit
                 // load group-medal to the controls
-                var row = this.GetRepository<Medal>().GroupMedalListAsDataTable(this.GroupId, this.MedalId)
-                    .GetFirstRow();
+                var row = this.GetRepository<GroupMedal>().List(this.GroupId.Value, this.MedalId.Value).FirstOrDefault();
 
                 // tweak it for editing
                 this.GroupMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "EDIT_MEDAL_GROUP");
@@ -119,11 +118,12 @@ namespace YAF.Dialogs
 
                 // load data to controls
                 this.AvailableGroupList.SelectedIndex = -1;
-                this.AvailableGroupList.Items.FindByValue(row["GroupID"].ToString()).Selected = true;
-                this.GroupMessage.Text = row["Message"].ToString();
-                this.GroupSortOrder.Text = row["SortOrder"].ToString();
-                this.GroupOnlyRibbon.Checked = row["OnlyRibbon"].ToType<bool>();
-                this.GroupHide.Checked = row["Hide"].ToType<bool>();
+                this.AvailableGroupList.Items.FindByValue(row.Item2.GroupID.ToString()).Selected = true;
+                
+                this.GroupMessage.Text = row.Item2.Message.IsSet() ? row.Item2.Message : row.Item1.Message;
+                this.GroupSortOrder.Text = row.Item2.SortOrder.ToString();
+                this.GroupOnlyRibbon.Checked = row.Item2.OnlyRibbon;
+                this.GroupHide.Checked = row.Item2.Hide;
 
                 // remove all user medals...
                 this.Get<IDataCache>().Remove(
@@ -144,14 +144,6 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // test if there is specified user name/id
-            if (this.AvailableGroupList.SelectedIndex < 0)
-            {
-                // no group selected
-                this.PageContext.AddLoadMessage("Please select user group!", MessageTypes.warning);
-                return;
-            }
-
             if (this.GroupId.HasValue)
             {
                 // save group, if there is no message specified, pass null

@@ -30,6 +30,7 @@ namespace YAF.Dialogs
 
     using YAF.Core.BaseControls;
     using YAF.Core.Services.Import;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
@@ -59,6 +60,10 @@ namespace YAF.Dialogs
                         this.GetTextFormatted("MSG_IMPORTED_FAILEDX", this.importFile.PostedFile.ContentType),
                         MessageTypes.danger);
 
+                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("ImportDialog"));
+
                     return;
                 }
 
@@ -77,6 +82,10 @@ namespace YAF.Dialogs
                 this.PageContext.AddLoadMessage(
                     this.GetTextFormatted("MSG_IMPORTED_FAILEDX", x.Message),
                     MessageTypes.danger);
+
+                this.PageContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("ImportDialog"));
             }
         }
 

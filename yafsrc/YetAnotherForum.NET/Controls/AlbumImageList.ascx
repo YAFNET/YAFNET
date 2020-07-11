@@ -38,11 +38,10 @@
                              title='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>' />
                     </a>
                 </div>
-                <span runat="server" id="spnUser" visible='<%#
-    this.UserID != this.PageContext.PageUserID %>'>
+                <span runat="server" id="spnUser" visible="<%# this.UserID != this.PageContext.PageUserID %>">
                     <%# this.HtmlEncode(this.Eval("Caption"))%></span> <span runat="server" id="spnImageOwner"
-                                                                             visible='<%#
-    this.UserID == this.PageContext.PageUserID %>'><span id='<%# "spnTitle{0}".Fmt(this.Eval("ID")) %>'
+                                                                             visible="<%#
+    this.UserID == this.PageContext.PageUserID %>"><span id='<%# "spnTitle{0}".Fmt(this.Eval("ID")) %>'
                                                          onclick="showTexBox(this.id)" style="display: inline;"><%# this.Eval("Caption") == null ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.HtmlEncode(this.Eval("Caption"))%></span>
                     <input type="text" id='<%# "txtTitle{0}".Fmt(this.Eval("ID")) %>' onkeydown="checkKey(event, this,'<%#
     this.Eval("ID") %>',false)"
@@ -50,7 +49,7 @@
                     <YAF:ThemeButton ID="SetCover" runat="server" 
                                      CommandArgument='<%# this.Eval("ID") %>'
                                      Size="Small"
-                                     Visible='<%# this.UserID == this.PageContext.PageUserID %>'/>
+                                     Visible="<%# this.UserID == this.PageContext.PageUserID %>"/>
                 </span>
             </div>
         </div>

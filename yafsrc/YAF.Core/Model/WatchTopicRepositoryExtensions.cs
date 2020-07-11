@@ -97,9 +97,7 @@ namespace YAF.Core.Model
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
 
-            expression.Join<Topic>((a, b) => b.ID == a.TopicID)
-                .Where<WatchTopic>((b) => b.UserID == userId)
-                .Select();
+            expression.Join<Topic>((a, b) => b.ID == a.TopicID).Where<WatchTopic>((b) => b.UserID == userId);
 
             return repository.DbAccess.Execute(
                 db => db.Connection.SelectMulti<WatchTopic, Topic>(expression));

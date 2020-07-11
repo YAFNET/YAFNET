@@ -28,8 +28,6 @@ namespace YAF.Controls
     using System;
     using System.Collections.Generic;
 
-#if DEBUG
-#endif
     using System.Linq;
     using System.Text;
     using System.Web;

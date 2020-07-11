@@ -14,8 +14,8 @@
                 <ol class="mb-0">
             </HeaderTemplate>
             <ItemTemplate>
-                <li><YAF:UserLink runat="server" ID="UserLink">
-                </YAF:UserLink>(<%# DataBinder.Eval(Container.DataItem, "NumOfPosts") %>)</li>
+                <li><YAF:UserLink runat="server" ID="UserLink"/>
+                (<%# DataBinder.Eval(Container.DataItem, "NumOfPosts") %>)</li>
             </ItemTemplate>
             <FooterTemplate>
                 </ol>

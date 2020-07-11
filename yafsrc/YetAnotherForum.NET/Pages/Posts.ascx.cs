@@ -280,6 +280,7 @@ namespace YAF.Pages
                         "email", this.GetText("EMAILTOPIC"), "fa fa-paper-plane");
                 }
 
+                //TODO: Move to Utils
                 this.ShareMenu.AddClientScriptItem(
                     this.GetText("LINKBACK_TOPIC"),
                     $@"bootbox.prompt({{ 

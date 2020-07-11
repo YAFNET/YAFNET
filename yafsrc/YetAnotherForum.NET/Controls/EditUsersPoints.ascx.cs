@@ -65,13 +65,6 @@ namespace YAF.Controls
         /// </param>
         protected void AddPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Page.Validate(); 
-            
-            if (!this.Page.IsValid)
-            {
-                return;
-            }
-
             this.GetRepository<User>().AddPoints(this.CurrentUserID, null, this.txtAddPoints.Text.ToType<int>());
 
             this.BindData();
@@ -107,13 +100,6 @@ namespace YAF.Controls
         /// </param>
         protected void RemovePoints_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Page.Validate();
-
-            if (!this.Page.IsValid)
-            {
-                return;
-            }
-
             this.GetRepository<User>().RemovePoints(this.CurrentUserID, null, this.txtRemovePoints.Text.ToType<int>());
             this.BindData();
         }
@@ -129,13 +115,6 @@ namespace YAF.Controls
         /// </param>
         protected void SetUserPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Page.Validate();
-
-            if (!this.Page.IsValid)
-            {
-                return;
-            }
-
             this.GetRepository<User>().SetPoints(this.CurrentUserID, this.txtUserPoints.Text.ToType<int>());
 
             this.BindData();

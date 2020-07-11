@@ -14,7 +14,7 @@
     // Node, CommonJS-like
     module.exports = factory(require('jquery'));
   } else {
-    // Browser globals (root is window)
+    // Browser globals (root is window)v
     root.bootbox = factory(root.jQuery);
   }
 }(this, function init($, undefined) {

@@ -44,7 +44,7 @@ jQuery(document).ready(function () {
         $(this).select2({
             theme: "bootstrap4",
             dropdownAutoWidth: true,
-            width: "style",
+            width: "100%",
             placeholder: $(this).attr("placeholder")
         });
     });
@@ -54,7 +54,7 @@ jQuery(document).ready(function () {
         dropdownAutoWidth: true,
         templateResult: formatState,
         templateSelection: formatState,
-        width: "style"
+        width: "100%"
     });
 
     var popoverTriggerList = [].slice.call(document.querySelectorAll(".thanks-popover"));

@@ -149,8 +149,8 @@
 </div>
 <div class="text-lg-center">
     <YAF:ThemeButton ID="Save" runat="server" 
-                             Type="Primary"
-                             Icon="save" 
-                             TextLocalizedTag="SAVE"
-                             OnClick="Save_Click" />
-            </div>
+                     Type="Primary"
+                     Icon="save" 
+                     TextLocalizedTag="SAVE"
+                     OnClick="Save_Click" />
+</div>

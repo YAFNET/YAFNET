@@ -35,7 +35,6 @@ namespace YAF.Web.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core.BaseControls;
     using YAF.Core.BasePages;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
@@ -159,11 +158,6 @@ namespace YAF.Web.Controls
 
             set => ControlSettings.Current.LockedForum = value;
         }
-
-        /// <summary>
-        ///   Gets or sets The forum header control
-        /// </summary>
-        public BaseUserControl NotificationBox { get; set; }
 
         /// <summary>
         ///   Gets UserID for the current User (Read Only)
@@ -327,13 +321,6 @@ namespace YAF.Web.Controls
             {
                 this.Controls.Add(this.LoadControl($"{BoardInfo.ForumServerFileRoot}Dialogs/LoginBox.ascx"));
             }
-
-            this.NotificationBox = (BaseUserControl)this.LoadControl(
-                $"{BoardInfo.ForumServerFileRoot}Dialogs/DialogBox.ascx");
-
-            this.currentForumPage.Notification = this.NotificationBox;
-
-            this.Controls.Add(this.NotificationBox);
 
             this.Controls.Add(this.currentForumPage);
 

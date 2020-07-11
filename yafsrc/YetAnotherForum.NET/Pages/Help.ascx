@@ -25,21 +25,19 @@
                 <p class="card-text">
                     <asp:Label ID="HelpContent" runat="server" />
                 </p>
-                <div class="row">
-                    <asp:Label runat="server" AssociatedControlID="search"
-                        CssClass="col-lg-6">
+                <div class="g-3">
+                    <asp:Label runat="server" AssociatedControlID="search">
                         <YAF:LocalizedLabel ID="SearchFor" runat="server"
-                            LocalizedTag="searchfor" />
+                                            LocalizedTag="searchfor" />
                     </asp:Label>
-                    <div class="col-lg-6">
-                        <asp:TextBox runat="server" ID="search" CssClass="form-control" />
-                    </div>
+                    <asp:TextBox runat="server" ID="search" CssClass="form-control" />
                 </div>
-                <div class="row float-right">
-                    <YAF:ThemeButton runat="server" ID="DoSearch" CssClass="my-2 mr-1"
-                        TextLocalizedTag="BTNSEARCH"
-                        Type="Primary" Icon="search" />
-                </div>
+            </div>
+            <div class="card-footer text-center">
+                <YAF:ThemeButton runat="server" ID="DoSearch"
+                                 TextLocalizedTag="BTNSEARCH"
+                                 Type="Primary" 
+                                 Icon="search" />
             </div>
         </div>
     </asp:PlaceHolder>

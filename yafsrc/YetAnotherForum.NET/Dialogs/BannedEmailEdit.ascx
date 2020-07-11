@@ -3,8 +3,7 @@
 
 <div class="modal fade" id="EditDialog" tabindex="-1" role="dialog" aria-labelledby="EditDialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
-
-                <div class="modal-content">
+        <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
                             <YAF:LocalizedLabel ID="Title" runat="server" LocalizedTag="TITLE" 
@@ -14,19 +13,29 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body needs-validation">
                         <!-- Modal Content START !-->
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel1" runat="server" 
                                            AssociatedControlID="mask"
-                                           LocalizedTag="MASK" LocalizedPage="ADMIN_EDITACCESSMASKS" />
-                            <asp:TextBox CssClass="form-control" ID="mask" runat="server" TextMode="Email"></asp:TextBox>
+                                           LocalizedTag="MASK" 
+                                           LocalizedPage="ADMIN_EDITACCESSMASKS" />
+                            <asp:TextBox ID="mask" runat="server" 
+                                         CssClass="form-control" 
+                                         required="required"
+                                         TextMode="Email"></asp:TextBox>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedPage="ADMIN_BANNEDEMAIL_EDIT"
+                                                    LocalizedTag="NEED_MASK" />
+                            </div>
                         </div>
                             <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel2" runat="server" 
                                            AssociatedControlID="BanReason"
                                            LocalizedTag="REASON" LocalizedPage="ADMIN_EDITACCESSMASKS" />
-                                <asp:TextBox CssClass="form-control" ID="BanReason" runat="server" 
+                                <asp:TextBox ID="BanReason" runat="server" 
+                                             CssClass="form-control" 
                                              MaxLength="128"
                                              Height="100"
                                              TextMode="MultiLine"></asp:TextBox>
@@ -37,6 +46,7 @@
                         <YAF:ThemeButton id="Save" runat="server" 
                                          OnClick="Save_OnClick"
                                          TextLocalizedTag="ADMIN_BANNEDEMAIL_EDIT" TextLocalizedPage="SAVE"
+                                         CausesValidation="True"
                                          Type="Primary" 
                                          Icon="save">
                         </YAF:ThemeButton>

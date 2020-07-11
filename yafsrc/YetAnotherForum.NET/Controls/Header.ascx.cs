@@ -35,6 +35,7 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -246,8 +247,10 @@ namespace YAF.Controls
 
             this.quickSearch.Visible = true;
 
-            this.searchInput.Attributes["onkeydown"] =
-                $"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{this.doQuickSearch.ClientID}').click();return false;}}}} else {{return true}}; ";
+            this.searchInput.Attributes.Add(
+                "onkeydown",
+                JavaScriptBlocks.ClickOnEnterJs(this.doQuickSearch.ClientID));
+
             this.searchInput.Attributes["onfocus"] =
                 $"if (this.value == '{this.GetText("TOOLBAR", "SEARCHKEYWORD")}') {{this.value = '';}}";
             this.searchInput.Attributes["onblur"] =

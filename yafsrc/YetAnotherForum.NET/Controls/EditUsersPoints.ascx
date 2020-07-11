@@ -23,16 +23,6 @@
                      ValidationGroup="UserPoints" 
                      CssClass="form-control" 
                      TextMode="Number" />
-        <asp:RangeValidator ID="RangeValidator4" runat="server" 
-                            ErrorMessage="Please enter a number" 
-                            ControlToValidate="txtUserPoints"
-                            SetFocusOnError="true" 
-                            ValidationGroup="UserPoints" 
-                            MaximumValue="1000000" 
-                            MinimumValue="0" 
-                            Type="Integer" 
-                            Display="Dynamic">
-        </asp:RangeValidator>
         <YAF:ThemeButton runat="server" ID="btnUserPoints" 
                          TextLocalizedTag="GO"
                          Icon="check"
@@ -50,16 +40,6 @@
                      ValidationGroup="Add" 
                      CssClass="form-control" 
                      TextMode="Number" Text="0" />
-        <asp:RangeValidator ID="RangeValidator1" runat="server" 
-                            ErrorMessage="Number Please" 
-                            ControlToValidate="txtAddPoints" 
-                            SetFocusOnError="true"
-                            ValidationGroup="Add" 
-                            MaximumValue="1000000" 
-                            MinimumValue="0" 
-                            Type="Integer" 
-                            Display="Dynamic">
-        </asp:RangeValidator>
         <YAF:ThemeButton runat="server" ID="btnAddPoints"
                          TextLocalizedTag="GO"
                          Icon="check"
@@ -78,16 +58,6 @@
                      CssClass="form-control" 
                      TextMode="Number" 
                      Text="0" />
-        <asp:RangeValidator ID="RangeValidator2" runat="server" 
-                            ErrorMessage="Number Please" 
-                            ControlToValidate="txtRemovePoints" 
-                            SetFocusOnError="true"
-                            ValidationGroup="Remove" 
-                            MaximumValue="1000000" 
-                            MinimumValue="0" 
-                            Type="Integer" 
-                            Display="Dynamic">
-        </asp:RangeValidator>
         <YAF:ThemeButton runat="server" ID="Button1" 
                          Type="Secondary" 
                          TextLocalizedTag="GO"

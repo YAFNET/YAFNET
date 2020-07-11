@@ -7,13 +7,13 @@
     <HeaderTemplate>
         <div class="row">
             <div class="col">
-        <div class="card mb-3">
-        <div class="card-header">
-            <YAF:IconHeader runat="server"
-                            IconName="comment"
-                            LocalizedTag="LAST10" />
-        </div>
-        <div class="card-body p-2" style="overflow-y: auto; height: 400px;">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <YAF:IconHeader runat="server"
+                                        IconName="comment"
+                                        LocalizedTag="LAST10" />
+                    </div>
+                    <div class="card-body p-2" style="overflow-y: auto; height: 400px;">
     </HeaderTemplate>
     <FooterTemplate>
     </div>

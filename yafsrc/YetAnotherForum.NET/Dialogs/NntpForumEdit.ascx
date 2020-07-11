@@ -3,8 +3,7 @@
 
 <div class="modal fade" id="NntpForumEditDialog" tabindex="-1" role="dialog" aria-labelledby="NntpForumEditDialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
-
-                <div class="modal-content">
+        <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
                             <YAF:LocalizedLabel ID="Title" runat="server" 
@@ -14,7 +13,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body needs-validation">
                         <!-- Modal Content START !-->
                         <div class="row">
                             <div class="mb-3 col-md-6">
@@ -29,7 +28,13 @@
                                                AssociatedControlID="GroupName"
                                                LocalizedTag="GROUP" LocalizedPage="ADMIN_EDITNNTPFORUM" />
                                 <asp:TextBox ID="GroupName" runat="server"
+                                             required="required"
                                              CssClass="form-control" />
+                                <div class="invalid-feedback">
+                                    <YAF:LocalizedLabel runat="server" 
+                                                        LocalizedPage="ADMIN_EDITNNTPFORUM"
+                                                        LocalizedTag="MSG_VALID_GROUP" />
+                                </div>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -40,7 +45,7 @@
                                               CssClass="select2-image-select" />
                         </div>
                         <div class="row">
-                            <div class="mb-3 col-md-6">
+                            <div class="mb-3 col-auto">
                                 <YAF:HelpLabel ID="HelpLabel10" runat="server"
                                                AssociatedControlID="DateCutOff"
                                                LocalizedTag="DATECUTOFF" LocalizedPage="ADMIN_EDITNNTPFORUM" />
@@ -49,7 +54,7 @@
                                              Enabled="true" 
                                              TextMode="DateTime" />
                             </div>
-                            <div class="mb-3 col-md-6">
+                            <div class="mb-3 col-auto">
                                 <YAF:HelpLabel ID="LocalizedLabel5" runat="server"
                                                AssociatedControlID="Active"
                                                LocalizedTag="ACTIVE" LocalizedPage="ADMIN_EDITNNTPFORUM" />
@@ -64,7 +69,8 @@
                         <YAF:ThemeButton id="Save" runat="server" 
                                          OnClick="Save_OnClick"
                                          TextLocalizedTag="ADMIN_EDITNNTPFORUM" TextLocalizedPage="TITLE"
-                                         Type="Primary" 
+                                         Type="Primary"  
+                                         CausesValidation="True"
                                          Icon="save">
                         </YAF:ThemeButton>
                         <YAF:ThemeButton runat="server" ID="Cancel"

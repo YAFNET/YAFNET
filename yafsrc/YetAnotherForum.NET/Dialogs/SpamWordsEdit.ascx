@@ -14,17 +14,21 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body needs-validation">
                         <!-- Modal Content START !-->
-                        <h4>
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="LocalizedLabel2" runat="server" 
                                            LocalizedTag="SPAM" 
                                            LocalizedPage="ADMIN_SPAMWORDS_EDIT" />
-                        </h4>
-                        <p>
                             <asp:TextBox ID="spamword" runat="server" 
-                                         CssClass="form-control"></asp:TextBox>
-                        </p>
+                                         CssClass="form-control" 
+                                         required="required"/>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedPage="ADMIN_SPAMWORDS_EDIT"
+                                                    LocalizedTag="NEED_SPAM" />
+                            </div>
+                        </div>
                         <!-- Modal Content END !-->
                     </div>
                     <div class="modal-footer">
@@ -32,6 +36,7 @@
                                          OnClick="Save_OnClick"
                                          TextLocalizedTag="ADMIN_SPAMWORDS_EDIT" 
                                          TextLocalizedPage="TITLE"
+                                         CausesValidation="True"
                                          Type="Primary" 
                                          Icon="save">
                         </YAF:ThemeButton>

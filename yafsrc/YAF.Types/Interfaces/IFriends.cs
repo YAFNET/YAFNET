@@ -87,15 +87,12 @@ namespace YAF.Types.Interfaces
     void DenyAllRequests();
 
     /// <summary>
-    /// Denies a buddy request.
+    /// Denies a friend request.
     /// </summary>
-    /// <param name="toUserID">
-    /// The to user id.
+    /// <param name="fromUserId">
+    /// The from User Id.
     /// </param>
-    /// <returns>
-    /// the name of the second user.
-    /// </returns>
-    string DenyRequest(int toUserID);
+    void DenyRequest(int fromUserId);
 
     /// <summary>
     /// Gets all the buddies for the specified user.

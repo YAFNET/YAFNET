@@ -14,7 +14,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body needs-validation">
                         <!-- Modal Content START !-->
                         <div class="mb-3">
                             <YAF:HelpLabel ID="LocalizedLabel2" runat="server" 
@@ -22,8 +22,14 @@
                                            LocalizedTag="BAD" LocalizedPage="ADMIN_REPLACEWORDS_EDIT" />
                             <asp:TextBox ID="badword" runat="server" 
                                          CssClass="form-control"
+                                         required="required"
                                          Height="100"
                                          TextMode="MultiLine"></asp:TextBox>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server"
+                                                    LocalizedPage="ADMIN_REPLACEWORDS_EDIT"
+                                                    LocalizedTag="MSG_REGEX_BAD" />
+                            </div>
                         </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="LocalizedLabel3" runat="server"
@@ -41,7 +47,8 @@
                                          OnClick="Save_OnClick"
                                          TextLocalizedTag="ADMIN_REPLACEWORDS_EDIT" TextLocalizedPage="TITLE"
                                          Type="Primary" 
-                                         Icon="save">
+                                         Icon="save" 
+                                         CausesValidation="True">
                         </YAF:ThemeButton>
                         <YAF:ThemeButton runat="server" ID="Cancel"
                                          DataDismiss="modal"

@@ -74,9 +74,7 @@ namespace YAF.Controls
         ///   Gets AllPostsByUser.
         /// </summary>
         public IOrderedEnumerable<Message> AllPostsByUser =>
-            this.allPostsByUser ?? (this.allPostsByUser =
-                                        this.GetRepository<Message>()
-                                            .GetAllUserMessages(this.CurrentUserId));
+            this.allPostsByUser ??= this.GetRepository<Message>().GetAllUserMessages(this.CurrentUserId);
 
         /// <summary>
         ///   Gets IPAddresses.

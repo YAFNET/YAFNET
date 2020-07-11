@@ -90,7 +90,7 @@ namespace YAF.Core.Model
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<IgnoreUser>();
 
             expression.Join<User>((i, u) => u.ID == i.IgnoredUserID).Where<IgnoreUser>(
-                u => u.UserID == userId).Select();
+                u => u.UserID == userId);
 
             return repository.DbAccess.Execute(db => db.Connection.Select<User>(expression));
         }

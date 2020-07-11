@@ -87,24 +87,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox Description;
 
         /// <summary>
-        /// HelpLabel9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel9;
-
-        /// <summary>
-        /// SortOrder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SortOrder;
-
-        /// <summary>
         /// HelpLabel3 control.
         /// </summary>
         /// <remarks>
@@ -249,24 +231,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox AllowHiding;
 
         /// <summary>
-        /// HelpLabel13 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel13;
-
-        /// <summary>
-        /// AllowReOrdering control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowReOrdering;
-
-        /// <summary>
         /// Save control.
         /// </summary>
         /// <remarks>
@@ -283,6 +247,15 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Cancel;
+
+        /// <summary>
+        /// UserAndGroupsHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder UserAndGroupsHolder;
 
         /// <summary>
         /// GroupList control.

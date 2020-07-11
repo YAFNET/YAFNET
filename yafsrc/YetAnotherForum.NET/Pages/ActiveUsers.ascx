@@ -108,13 +108,12 @@
                         </div>
             <div class="card-footer">
             <div id="ActiveUsersPager" class="tableSorterPager d-flex">
-                <select class="pagesize form-select form-select-sm">
+                <select class="pagesize form-select form-select-sm mr-2">
                     <option selected="selected"  value="10">10</option>
                     <option value="20">20</option>
                     <option value="30">30</option>
                     <option  value="40">40</option>
                 </select>
-                &nbsp;
                 <div class="btn-group"  role="group">
                     <a href="#" class="first btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
                     <a href="#" class="prev btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>

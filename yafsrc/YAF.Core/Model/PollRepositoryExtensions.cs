@@ -66,9 +66,7 @@ namespace YAF.Core.Model
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Poll>();
 
-            expression.Join<Choice>((p, c) => c.PollID == p.ID)
-                .Where<Poll>(p => p.ID == pollId)
-                .Select();
+            expression.Join<Choice>((p, c) => c.PollID == p.ID).Where<Poll>(p => p.ID == pollId);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Poll, Choice>(expression));
         }

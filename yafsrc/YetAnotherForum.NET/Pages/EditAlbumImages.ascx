@@ -65,11 +65,17 @@
                     <div class="input-group">
                         <div class="form-file mb-3">
                             <input type="file" id="File" class="form-file-input" runat="server" />
-                            <asp:Label runat="server" CssClass="form-file-label text-truncate">
-                                <YAF:LocalizedLabel ID="LocalizedLabel3" 
-                                                    LocalizedTag="SELECT_FILE" 
-                                                    LocalizedPage="EDIT_ALBUMIMAGES" runat="server" />
-                            </asp:Label>
+                            <label for="<%# this.File.ClientID %>" class="form-file-label">
+                                <span class="form-file-text">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel3" 
+                                                        LocalizedTag="SELECT_FILE" 
+                                                        LocalizedPage="EDIT_ALBUMIMAGES" runat="server" />
+                                </span>
+                                <span class="form-file-button">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
+                                                        LocalizedTag="BROWSE" />
+                                </span>
+                            </label>
                         </div>
                         <YAF:ThemeButton runat="server" ID="Upload" 
                                          OnClick="Upload_Click" 

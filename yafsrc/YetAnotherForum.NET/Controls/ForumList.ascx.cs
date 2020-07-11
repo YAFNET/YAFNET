@@ -236,7 +236,7 @@ namespace YAF.Controls
                 var icon = new Literal
                                {
                                    Text =
-                                       $@"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
+                                       $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"" href=""#"">
                                                       {forumIconNew.RenderToString()}
                                                   </a>"
                                };
@@ -246,21 +246,21 @@ namespace YAF.Controls
                     if (flags.IsLocked)
                     {
                         icon.Text =
-                            $@"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
+                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"" href=""#"">
                                    {forumIconLocked}
                                </a>";
                     }
                     else if (lastPosted > lastRead && row.Field<int>("ReadAccess") > 0)
                     {
                         icon.Text =
-                            $@"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
+                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"" href=""#"">
                                     {forumIconNew.RenderToString()}
                                </a>";
                     }
                     else
                     {
                         icon.Text =
-                            $@"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
+                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"" href=""#"">
                                   <span class=""fa-stack"">
                                        {forumIconNormal.RenderToString()}
                                   </span>

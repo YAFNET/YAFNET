@@ -24,15 +24,6 @@ namespace YAF.Pages.Account
         protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
-        /// ContentBody control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel ContentBody;
-
-        /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
         /// <remarks>

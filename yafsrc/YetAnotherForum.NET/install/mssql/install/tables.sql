@@ -852,10 +852,6 @@ begin
 		[RibbonURL] [nvarchar](250) NULL,
 		[SmallMedalURL] [nvarchar](250) NOT NULL,
 		[SmallRibbonURL] [nvarchar](250) NULL,
-		[SmallMedalWidth] [smallint] NOT NULL,
-		[SmallMedalHeight] [smallint] NOT NULL,
-		[SmallRibbonWidth] [smallint] NULL,
-		[SmallRibbonHeight] [smallint] NULL,
 		[SortOrder] [tinyint] NOT NULL constraint [DF_{objectQualifier}Medal_defaultOrder]  default ((255)),
 		[Flags] [int] NOT NULL constraint [DF_{objectQualifier}Medal_Flags]  default ((0)),
 		constraint [PK_{objectQualifier}Medal] PRIMARY KEY CLUSTERED ([MedalID] ASC)

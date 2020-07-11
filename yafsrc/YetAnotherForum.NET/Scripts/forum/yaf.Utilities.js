@@ -38,9 +38,11 @@ $(document).on("click",
         e.preventDefault();
         var link = $(this).attr("href");
         var text = $(this).data("title");
+        var title = $(this).html();
         var blockUI = $(this).data("confirm-event");
         bootbox.confirm({
-                centerVertical: true,
+            centerVertical: true,
+                title: title,
                 message: text,
                 buttons: {
                     confirm: {

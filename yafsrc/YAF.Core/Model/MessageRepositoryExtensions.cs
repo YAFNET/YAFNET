@@ -98,7 +98,7 @@ namespace YAF.Core.Model
             expression.Join<Message>((t, m) => m.TopicID == t.ID)
                 .Join<Message, User>((m, u) => u.ID == m.UserID)
                 .Join<Forum>((t, f) => f.ID == t.ForumID)
-                .Where<Message>(m => m.ID == messageId).Select();
+                .Where<Message>(m => m.ID == messageId);
 
             return repository.DbAccess.Execute(
                 db => db.Connection.SelectMulti<Topic, Message, User, Forum>(expression)).FirstOrDefault();
@@ -128,12 +128,9 @@ namespace YAF.Core.Model
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
-            expression.Join<Message>((t, m) => m.TopicID == t.ID)
-                .Join<Message, User>((m, u) => u.ID == m.UserID)
-                .Join<Forum>((t, f) => f.ID == t.ForumID)
-                .LeftJoin<ActiveAccess>((t, x) => x.ForumID == t.ForumID)
-                .Where<Message, ActiveAccess>((m, x) => m.ID == messageId && x.UserID == userId && x.ReadAccess)
-                .Select();
+            expression.Join<Message>((t, m) => m.TopicID == t.ID).Join<Message, User>((m, u) => u.ID == m.UserID)
+                .Join<Forum>((t, f) => f.ID == t.ForumID).LeftJoin<ActiveAccess>((t, x) => x.ForumID == t.ForumID)
+                .Where<Message, ActiveAccess>((m, x) => m.ID == messageId && x.UserID == userId && x.ReadAccess);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Topic, Message, User, Forum>(expression))
                 .FirstOrDefault();
@@ -161,7 +158,7 @@ namespace YAF.Core.Model
 
             expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                 .Join<Topic>((f, t) => t.ForumID == f.ID).Join<Topic, Message>((t, m) => m.TopicID == t.ID)
-                .Where<Message, Category>((m, category) => category.BoardID == boardId && m.IsDeleted == true).Select();
+                .Where<Message, Category>((m, category) => category.BoardID == boardId && m.IsDeleted == true);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic, Message>(expression));
         }
@@ -293,7 +290,7 @@ namespace YAF.Core.Model
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
             expression.Join<Message, User>((m, u) => m.UserID == u.ID)
-                .Where<Message>(m => m.TopicID == topicId && (m.Flags & 24) == 16).OrderByDescending(m => m.Posted).Take(10).Select();
+                .Where<Message>(m => m.TopicID == topicId && (m.Flags & 24) == 16).OrderByDescending(m => m.Posted).Take(10);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, User>(expression));
         }
@@ -353,7 +350,7 @@ namespace YAF.Core.Model
                 .Where<Topic, Message, ActiveAccess, Category>(
                     (topic, message, x, e) => message.UserID == userId && x.UserID == pageUserId && x.ReadAccess &&
                                               e.BoardID == boardId && topic.IsDeleted == false &&
-                                              message.IsDeleted == false).Select()
+                                              message.IsDeleted == false)
                 .OrderByDescending<Message>(x => x.Posted).Take(count);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic, User>(expression));
@@ -377,9 +374,17 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction
-                .GetAsDataTable(cdb => cdb.message_list_search(ForumID: forumId))
-                .SelectTypedList(t => new SearchMessage(t));
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+            expression.Join<Topic>((forum, topic) => topic.ForumID == forum.ID)
+                .Join<Topic, Message>((topic, message) => message.TopicID == topic.ID)
+                .Join<Message, User>((message, user) => user.ID == message.UserID).Where<Forum, Topic, Message>(
+                    (forum, topic, message) => forum.ID == forumId && topic.IsDeleted == false &&
+                                               message.IsDeleted == false && message.IsApproved == true &&
+                                               topic.TopicMovedID == null).OrderByDescending<Message>(x => x.Posted);
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic, Message, User>(expression))
+                .ConvertAll(x => new SearchMessage(x));
         }
 
         /// <summary>
@@ -534,7 +539,7 @@ namespace YAF.Core.Model
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
             expression.Join<User>((message, user) => user.ID == message.UserID).Where<Message>(
-                    m => m.IsApproved.Value && m.ReplyTo == messageId).Select();
+                    m => m.IsApproved.Value && m.ReplyTo == messageId);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, User>(expression));
         }
@@ -817,7 +822,7 @@ namespace YAF.Core.Model
             expression.Join<Message>((topic, message) => message.TopicID == topic.ID)
                 .Join<Message, User>((message, user) => message.UserID == user.ID).Where<Topic, Message>(
                     (topic, message) => topic.ForumID == forumId && message.IsApproved == false &&
-                                        topic.IsDeleted == false && message.IsDeleted == false).Select();
+                                        topic.IsDeleted == false && message.IsDeleted == false);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Topic, Message, User>(expression));
         }

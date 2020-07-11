@@ -152,6 +152,9 @@ namespace YAF.Core.BasePages
         /// </summary>
         public string ForumURL => BuildLink.GetLink(ForumPages.Board, true);
 
+        /// <summary>
+        /// Gets or sets a value indicating whether is account page.
+        /// </summary>
         public virtual bool IsAccountPage { get; protected set; }
 
         /// <summary>
@@ -184,11 +187,6 @@ namespace YAF.Core.BasePages
         /// </summary>
         [Inject]
         public ILogger Logger { get; set; }
-
-        /// <summary>
-        ///   Gets or sets the Notification.
-        /// </summary>
-        public Control Notification { get; set; }
 
         /// <summary>
         ///   Gets cache associated with this page.

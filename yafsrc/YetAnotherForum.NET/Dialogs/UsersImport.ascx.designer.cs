@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Dialogs {
-    
-    
-    public partial class UsersImport {
-        
+namespace YAF.Dialogs
+{
+
+
+    public partial class UsersImport
+    {
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-        
+
         /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel LocalizedLabel2;
-        
+
         /// <summary>
         /// importFile control.
         /// </summary>
@@ -38,7 +40,16 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputFile importFile;
-        
+
+        /// <summary>
+        /// LocalizedLabel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
+
         /// <summary>
         /// Import control.
         /// </summary>
@@ -47,7 +58,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Import;
-        
+
         /// <summary>
         /// Cancel control.
         /// </summary>

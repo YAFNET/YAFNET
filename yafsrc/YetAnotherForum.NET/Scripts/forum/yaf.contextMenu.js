@@ -10,7 +10,6 @@ jQuery(document).ready(function () {
         if (window.matchMedia("only screen and (max-width: 760px)").matches) {
             delete Hammer.defaults.cssProps.userSelect;
 
-
             Hammer($(this)[0], { prevent_default: false, stop_browser_behavior: false }).on("press",
                 function(e) {
 
@@ -131,9 +130,11 @@ jQuery(document).ready(function () {
 
                 var link = $(this).attr("href");
                 var text = $(this).data("title");
+                var title = $(this).html();
                 var blockUI = $(this).data("confirm-event");
                 bootbox.confirm({
                         centerVertical: true,
+                        title: title,
                         message: text,
                         buttons: {
                             confirm: {
@@ -145,7 +146,7 @@ jQuery(document).ready(function () {
                                 className: "btn-danger"
                             }
                         },
-                        callback: function (confirmed) {
+                        callback: function(confirmed) {
                             if (confirmed) {
                                 document.location.href = link;
 

@@ -1156,7 +1156,7 @@ namespace YAF.Configuration
         /// </summary>
         public bool EmailVerification
         {
-            get => this.Registry.GetValue("EmailVerification", false);
+            get => this.Registry.GetValue("EmailVerification", true);
 
             set => this.Registry.SetValue("EmailVerification", value);
         }

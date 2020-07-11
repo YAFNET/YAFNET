@@ -24,7 +24,8 @@
                                  required="required"
                                  CssClass="form-control" />
                     <div class="invalid-feedback">
-                        <YAF:LocalizedLabel runat="server" LocalizedPage="ADMIN_EDIT_PROFILEDEFINITION"
+                        <YAF:LocalizedLabel runat="server" 
+                                            LocalizedPage="ADMIN_EDIT_PROFILEDEFINITION"
                                             LocalizedTag="NEED_NAME" />
                     </div>
                 </div>

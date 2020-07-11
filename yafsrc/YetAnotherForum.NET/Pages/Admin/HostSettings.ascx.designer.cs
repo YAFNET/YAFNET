@@ -897,24 +897,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox DisableRegistrations;
 
         /// <summary>
-        /// HelpLabel4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel4;
-
-        /// <summary>
-        /// EmailVerification control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox EmailVerification;
-
-        /// <summary>
         /// HelpLabel19 control.
         /// </summary>
         /// <remarks>

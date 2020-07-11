@@ -299,43 +299,28 @@ namespace YAF.Types.Extensions.Data
         /// <summary>
         /// Runs the update command.
         /// </summary>
-        /// <typeparam name="T">The type Parameter</typeparam>
-        /// <param name="dbAccess">The DB access.</param>
-        /// <param name="update">The update.</param>
-        /// <param name="transaction">The transaction.</param>
+        /// <typeparam name="T">
+        /// The type Parameter
+        /// </typeparam>
+        /// <param name="dbAccess">
+        /// The DB access.
+        /// </param>
+        /// <param name="update">
+        /// The update.
+        /// </param>
         /// <returns>
-        /// The <see cref="int" />.
+        /// The <see cref="int"/>.
         /// </returns>
         public static int Update<T>(
             [NotNull] this IDbAccess dbAccess,
-            [NotNull] T update,
-            [CanBeNull] IDbTransaction transaction = null)
+            [NotNull] T update)
             where T : IEntity
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
-            if (transaction?.Connection != null)
-            {
-                using (var command = transaction.Connection.CreateCommand())
-                {
-                    OrmLiteConfig.DialectProvider.PrepareParameterizedUpdateStatement<T>(command);
-                    OrmLiteConfig.DialectProvider.SetParameterValues<T>(command, update);
-
-                    return dbAccess.ExecuteNonQuery(command, transaction);
-                }
-            }
-
-            // no transaction
-            using (var connection = dbAccess.CreateConnectionOpen())
-            {
-                using (var command = connection.CreateCommand())
-                {
-                    OrmLiteConfig.DialectProvider.PrepareParameterizedUpdateStatement<T>(command);
-                    OrmLiteConfig.DialectProvider.SetParameterValues<T>(command, update);
-
-                    return dbAccess.ExecuteNonQuery(command, transaction);
-                }
-            }
+            return dbAccess.Execute(
+                db => db.Connection.Update(
+                    update));
         }
 
         /// <summary>

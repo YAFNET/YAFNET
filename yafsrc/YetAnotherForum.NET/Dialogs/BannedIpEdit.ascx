@@ -14,13 +14,20 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body needs-validation">
                         <!-- Modal Content START !-->
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel1" runat="server" 
                                            AssociatedControlID="mask"
                                            LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP_EDIT" />
-                            <asp:TextBox CssClass="form-control" ID="mask" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="mask" runat="server"
+                                         CssClass="form-control" 
+                                         required="required"/>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedPage="ADMIN_BANNEDIP_EDIT"
+                                                    LocalizedTag="NEED_MASK" />
+                            </div>
                         </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel2" runat="server" 
@@ -37,6 +44,7 @@
                         <YAF:ThemeButton id="Save" runat="server" 
                                          OnClick="Save_OnClick"
                                          TextLocalizedTag="ADMIN_BANNEDIP_EDIT" TextLocalizedPage="SAVE"
+                                         CausesValidation="True"
                                          Type="Primary" 
                                          Icon="save">
                         </YAF:ThemeButton>

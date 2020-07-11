@@ -260,17 +260,21 @@ namespace YAF.Core.Extensions
         /// <summary>
         /// Update or Insert entity.
         /// </summary>
-        /// <typeparam name="T">The type parameter.</typeparam>
-        /// <param name="repository">The repository.</param>
-        /// <param name="entity">The entity.</param>
-        /// <param name="transaction">The transaction.</param>
+        /// <typeparam name="T">
+        /// The type parameter.
+        /// </typeparam>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
         /// <returns>
-        /// The <see cref="bool" /> .
+        /// The <see cref="bool"/> .
         /// </returns>
         public static int Upsert<T>(
             [NotNull] this IRepository<T> repository,
-            [NotNull] T entity,
-            IDbTransaction transaction = null)
+            [NotNull] T entity)
             where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(entity, "entity");
@@ -300,7 +304,7 @@ namespace YAF.Core.Extensions
         /// The entity. 
         /// </param>
         /// <param name="transaction">
-        /// The transaction. 
+        /// The transaction.
         /// </param>
         /// <typeparam name="T">
         /// The type parameter.
@@ -317,12 +321,7 @@ namespace YAF.Core.Extensions
             CodeContracts.VerifyNotNull(entity, "entity");
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var success = repository.DbAccess.Update(entity, transaction) > 0;
-
-            /*if (success)
-            {
-                repository.FireUpdated(entity.ID, entity);
-            }*/
+            var success = repository.DbAccess.Update(entity) > 0;
 
             return success;
         }

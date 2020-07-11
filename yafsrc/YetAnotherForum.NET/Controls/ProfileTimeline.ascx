@@ -7,7 +7,7 @@
     <div class="col">
         <div class="card mb-3 mt-2" id="activity">
             <div class="card-header">
-                <div class="row justify-content-between">
+                <div class="row justify-content-between align-items-center">
                     <div class="col-auto">
                         <YAF:IconHeader runat="server"
                                         IconName="stream"
@@ -17,12 +17,13 @@
                     <div class="col-auto">
                         <div class="btn-group dropleft" role="group" aria-label="Filters">
                             <YAF:ThemeButton runat="server"
-                                     CssClass="dropdown-toggle"
-                                     DataToggle="dropdown"
-                                     Type="Secondary"
-                                     Icon="filter"
-                                     TextLocalizedTag="FILTER_DROPDOWN"
-                                     TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
+                                             CssClass="dropdown-toggle"
+                                             DataToggle="dropdown"
+                                             Type="Secondary"
+                                             Size="Small"
+                                             Icon="filter"
+                                             TextLocalizedTag="FILTER_DROPDOWN"
+                                             TextLocalizedPage="ADMIN_USERS"/>
                             <div class="dropdown-menu">
                                 <div class="px-3 py-1">
                                     <div class="mb-3">
@@ -118,7 +119,7 @@
                     <asp:DropDownList ID="PageSize" runat="server" 
                                       AutoPostBack="True"
                                       OnSelectedIndexChanged="PageSizeSelectedIndexChanged" 
-                                      CssClass="select2-select form-select">
+                                      CssClass="form-select">
                         <asp:ListItem Text="5" Value="5" Selected="True" />
                         <asp:ListItem Text="10" Value="10" />
                         <asp:ListItem Text="20" Value="20" />

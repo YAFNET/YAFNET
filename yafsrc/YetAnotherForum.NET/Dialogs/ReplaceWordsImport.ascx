@@ -21,11 +21,17 @@
                                        LocalizedTag="SELECT_IMPORT" LocalizedPage="ADMIN_REPLACEWORDS_IMPORT" />
                         <div class="form-file">
                             <input type="file" id="importFile" class="form-file-input" runat="server" />
-                            <asp:Label runat="server" CssClass="form-file-label" AssociatedControlID="importFile">
-                                <YAF:LocalizedLabel runat="server" 
-                                                    LocalizedTag="SELECT_IMPORT" 
-                                                    LocalizedPage="ADMIN_EXTENSIONS_IMPORT"></YAF:LocalizedLabel>
-                            </asp:Label>
+                            <label for="<%# this.importFile.ClientID %>" class="form-file-label">
+                                <span class="form-file-text">
+                                    <YAF:LocalizedLabel runat="server" 
+                                                        LocalizedTag="SELECT_IMPORT" 
+                                                        LocalizedPage="ADMIN_EXTENSIONS_IMPORT"/>
+                                </span>
+                                <span class="form-file-button">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
+                                                        LocalizedTag="BROWSE" />
+                                </span>
+                            </label>
                         </div>
                         <!-- Modal Content END !-->
                     </div>

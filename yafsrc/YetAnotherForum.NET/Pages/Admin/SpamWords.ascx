@@ -19,14 +19,18 @@
 <div class="row">
     <div class="col-xl-12">
         <div class="card mb-3">
-                <div class="card-header">
-                    <YAF:IconHeader runat="server"
-                                    IconName="shield-alt"
-                                    LocalizedPage="ADMIN_SPAMWORDS"></YAF:IconHeader>
-                    <div class="float-right">
+            <div class="card-header">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        <YAF:IconHeader runat="server"
+                                        IconName="shield-alt"
+                                        LocalizedPage="ADMIN_SPAMWORDS"></YAF:IconHeader>
+                    </div>
+                    <div class="col-auto">
                         <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown"
+                                         Size="Small"
                                          Type="Secondary"
                                          Icon="filter"
                                          TextLocalizedTag="FILTER_DROPDOWN"
@@ -53,7 +57,8 @@
                             </div>
                         </div>
                     </div>
-					</div>
+                    </div>
+            </div>
                 <div class="card-body">
     <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopChange" />
             <asp:Repeater ID="list" runat="server">

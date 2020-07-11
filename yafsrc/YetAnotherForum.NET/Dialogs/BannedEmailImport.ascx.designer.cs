@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Dialogs {
-    
-    
-    public partial class BannedEmailImport {
-        
+namespace YAF.Dialogs
+{
+
+
+    public partial class BannedEmailImport
+    {
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-        
+
         /// <summary>
         /// HelpLabel1 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel1;
-        
+
         /// <summary>
         /// LocalizedLabel3 control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
-        
+
         /// <summary>
         /// importFile control.
         /// </summary>
@@ -47,7 +49,16 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputFile importFile;
-        
+
+        /// <summary>
+        /// LocalizedLabel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
+
         /// <summary>
         /// Import control.
         /// </summary>
@@ -56,7 +67,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Import;
-        
+
         /// <summary>
         /// Cancel control.
         /// </summary>

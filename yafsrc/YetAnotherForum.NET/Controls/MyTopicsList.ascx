@@ -32,11 +32,11 @@
                     <asp:Label runat="server" AssociatedControlID="Since">
                         <YAF:LocalizedLabel ID="SinceLabel" runat="server"
                                             LocalizedTag="SINCE"/>
-                    </asp:Label>&nbsp;
+                    </asp:Label>
                     <asp:DropDownList ID="Since" runat="server" 
                                       AutoPostBack="True" 
                                       OnSelectedIndexChanged="Since_SelectedIndexChanged" 
-                                      CssClass="select2-select form-select" />
+                                      CssClass="form-select" />
                 </div>
             </asp:Panel>
     </div>

@@ -80,7 +80,7 @@ namespace YAF.Controls
                 return;
             }
 
-            this.Badge.CssClass = $"badge badge-{this.Get<BoardSettings>().BoardAnnouncementType} mr-1";
+            this.Badge.CssClass = $"badge bg-{this.Get<BoardSettings>().BoardAnnouncementType} mr-1";
 
             this.Announcement.CssClass = $"alert alert-{this.Get<BoardSettings>().BoardAnnouncementType} alert-dismissible";
             this.Message.Text = this.Get<BoardSettings>().BoardAnnouncement;

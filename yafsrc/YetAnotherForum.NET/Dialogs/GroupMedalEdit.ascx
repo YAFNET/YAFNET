@@ -1,10 +1,8 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="GroupMedalEdit.ascx.cs" Inherits="YAF.Dialogs.GroupMedalEdit" %>
 
-
 <div class="modal fade" id="GroupEditDialog" tabindex="-1" role="dialog" aria-labelledby="GroupEditDialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
-
-                <div class="modal-content">
+        <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
                             <asp:Label runat="server" ID="GroupMedalEditTitle" />
@@ -56,11 +54,11 @@
                     <div class="modal-footer">
                         <YAF:ThemeButton runat="server" 
                                          OnClick="Save_OnClick" 
+                                         CssClass="mr-2"
                                          ID="AddGroupSave" 
                                          Type="Primary"            
-                                         Icon="save" 
-                                         TextLocalizedTag="SAVE" />&nbsp;
-                        
+                                         Icon="save"
+                                         TextLocalizedTag="SAVE" />
                         <YAF:ThemeButton runat="server" ID="Cancel"
                                          DataDismiss="modal"
                                          TextLocalizedTag="CANCEL"

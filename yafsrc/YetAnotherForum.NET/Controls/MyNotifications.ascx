@@ -7,17 +7,18 @@
     <div class="col">
         <div class="card mb-3 mt-2" id="activity">
             <div class="card-header">
-                <div class="row justify-content-between">
-                    <div class="col-md-3">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
                         <YAF:IconHeader runat="server"
                                         IconName="bell"
                                         LocalizedTag="YOUR_NOTIFIY" />
                     </div>
-                    <div class="col-md-2 mt-1">
+                    <div class="col-auto">
                         <div class="btn-group dropleft" role="group" aria-label="Filters">
                             <YAF:ThemeButton runat="server"
                                              CssClass="dropdown-toggle"
                                              DataToggle="dropdown"
+                                             Size="Small"
                                              Type="Secondary"
                                              Icon="filter"
                                              TextLocalizedTag="FILTER_DROPDOWN"
@@ -46,10 +47,10 @@
                                     <YAF:ThemeButton runat="server" ID="Update"
                                                      OnClick="UpdateFilterClick"
                                                      TextLocalizedTag="UPDATE"
+                                                     CssClass="mr-2"
                                                      Size="Small"
                                                      Icon="sync">
                                     </YAF:ThemeButton>
-                                    &nbsp;
                                     <YAF:ThemeButton ID="Reset" runat="server"
                                                      OnClick="ResetClick"
                                                      TextLocalizedTag="CLEAR"
@@ -115,7 +116,7 @@
                             <asp:DropDownList ID="PageSize" runat="server" 
                                               AutoPostBack="True"
                                               OnSelectedIndexChanged="PageSizeSelectedIndexChanged" 
-                                              CssClass="select2-select form-select">
+                                              CssClass="form-select">
                                 <asp:ListItem Text="5" Value="5" />
                                 <asp:ListItem Text="10" Value="10" Selected="True" />
                                 <asp:ListItem Text="20" Value="20" />

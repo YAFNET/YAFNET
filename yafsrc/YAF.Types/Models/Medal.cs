@@ -74,16 +74,6 @@ namespace YAF.Types.Models
         public string SmallRibbonURL { get; set; }
 
         [Required]
-        public short SmallMedalWidth { get; set; }
-
-        [Required]
-        public short SmallMedalHeight { get; set; }
-
-        public short? SmallRibbonWidth { get; set; }
-
-        public short? SmallRibbonHeight { get; set; }
-
-        [Required]
         [Default(255)]
         public byte SortOrder { get; set; }
 

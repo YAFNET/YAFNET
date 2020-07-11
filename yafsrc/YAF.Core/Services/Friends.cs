@@ -175,25 +175,22 @@ namespace YAF.Core.Services
             dv.RowFilter = $"Approved = 0 AND UserID = {BoardContext.Current.PageUserID}";
 
             dv.Cast<DataRowView>().Where(drv => Convert.ToDateTime(drv["Requested"]).AddDays(14) < System.DateTime.UtcNow)
-                .ForEach(drv => this.DenyRequest((int)drv["FromUserID"]));
+                .ForEach(drv => this.DenyRequest(drv["FromUserID"].ToType<int>()));
         }
 
         /// <summary>
         /// Denies a buddy request.
         /// </summary>
-        /// <param name="toUserId">
-        /// The to user id.
+        /// <param name="fromUserId">
+        /// The from User Id.
         /// </param>
-        /// <returns>
-        /// the name of the second user.
-        /// </returns>
-        public string DenyRequest(int toUserId)
+        public void DenyRequest(int fromUserId)
         {
-            this.ClearCache(toUserId);
-            return this.GetRepository<Buddy>().DenyRequest(
-                toUserId,
-                BoardContext.Current.PageUserID,
-                BoardContext.Current.BoardSettings.EnableDisplayName);
+            this.ClearCache(fromUserId);
+
+            this.GetRepository<Buddy>().DenyRequest(
+                fromUserId,
+                BoardContext.Current.PageUserID);
         }
 
         /// <summary>
@@ -267,10 +264,10 @@ namespace YAF.Core.Services
         public string Remove(int toUserId)
         {
             this.ClearCache(toUserId);
-            return this.GetRepository<Buddy>().Remove(
-                BoardContext.Current.PageUserID,
-                toUserId,
-                BoardContext.Current.BoardSettings.EnableDisplayName);
+
+            this.GetRepository<Buddy>().Remove(BoardContext.Current.PageUserID, toUserId);
+
+            return this.Get<IUserDisplayName>().GetName(toUserId);
         }
 
         #endregion

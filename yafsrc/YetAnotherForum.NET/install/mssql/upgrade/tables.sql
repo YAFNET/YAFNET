@@ -859,10 +859,6 @@ begin
 		[RibbonURL] [nvarchar](250) NULL,
 		[SmallMedalURL] [nvarchar](250) NOT NULL,
 		[SmallRibbonURL] [nvarchar](250) NULL,
-		[SmallMedalWidth] [smallint] NOT NULL,
-		[SmallMedalHeight] [smallint] NOT NULL,
-		[SmallRibbonWidth] [smallint] NULL,
-		[SmallRibbonHeight] [smallint] NULL,
 		[SortOrder] [tinyint] NOT NULL constraint [DF_{objectQualifier}Medal_defaultOrder]  default ((255)),
 		[Flags] [int] NOT NULL constraint [DF_{objectQualifier}Medal_Flags]  default ((0)),
 		constraint [PK_{objectQualifier}Medal] PRIMARY KEY CLUSTERED ([MedalID] ASC)
@@ -2746,3 +2742,11 @@ begin
     drop table [{databaseOwner}].[{objectQualifier}PollGroupCluster]
 end
 go
+
+if exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Medal]') and name=N'SmallMedalWidth')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Medal] drop column SmallMedalWidth
+	alter table [{databaseOwner}].[{objectQualifier}Medal] drop column SmallMedalHeight
+	alter table [{databaseOwner}].[{objectQualifier}Medal] drop column SmallRibbonWidth
+	alter table [{databaseOwner}].[{objectQualifier}Medal] drop column SmallRibbonHeight
+end

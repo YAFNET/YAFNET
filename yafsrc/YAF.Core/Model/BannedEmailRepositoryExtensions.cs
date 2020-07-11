@@ -44,8 +44,8 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository. 
         /// </param>
-        /// <param name="id">
-        /// The id.
+        /// <param name="bannedId">
+        /// The banned Id.
         /// </param>
         /// <param name="mask">
         /// The mask. 
@@ -58,42 +58,30 @@ namespace YAF.Core.Model
         /// </param>
         public static void Save(
             this IRepository<BannedEmail> repository,
-            int? id,
+            int? bannedId,
             string mask,
             string reason,
             int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            if (id.HasValue)
-            {
-                repository.Upsert(
-                    new BannedEmail
-                        {
-                            BoardID = boardId ?? repository.BoardID,
-                            ID = id.Value,
-                            Mask = mask,
-                            Reason = reason,
-                            Since = DateTime.Now
-                        });
+            repository.Upsert(
+                new BannedEmail
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    ID = bannedId ?? 0,
+                    Mask = mask,
+                    Reason = reason,
+                    Since = DateTime.Now
+                });
 
-                repository.FireUpdated(id.Value);
+            if (bannedId.HasValue)
+            {
+                repository.FireUpdated(bannedId.Value);
             }
             else
             {
-                var banned = repository.GetSingle(b => b.BoardID == repository.BoardID && b.Mask == mask);
-
-                if (banned == null)
-                {
-                    repository.Upsert(
-                        new BannedEmail
-                            {
-                                BoardID = boardId ?? repository.BoardID,
-                                Mask = mask,
-                                Reason = reason,
-                                Since = DateTime.Now
-                            });
-                }
+                repository.FireNew();
             }
         }
 

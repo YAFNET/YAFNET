@@ -54,7 +54,7 @@
                                    LocalizedTag="COPYRIGHT_REMOVAL_KEY" LocalizedPage="ADMIN_BOARDSETTINGS"/>
                     <div class="input-group">
                         <asp:TextBox ID="CopyrightRemovalKey" runat="server" 
-                                     CssClass="form-control"></asp:TextBox>
+                                     CssClass="form-control mb-1"></asp:TextBox>
                         <YAF:ThemeButton runat="server" ID="GetRemovalKey"
                                              NavigateUrl="https://yetanotherforum.net/purchase.aspx"
                                              Type="Info"
@@ -80,9 +80,6 @@
                     <asp:DropDownList ID="ShowTopic" runat="server" CssClass="select2-select">
                     </asp:DropDownList>
                 </div>
-            </div>
-
-            <div class="row">
                 <div class="mb-3 col-md-6">
                     <YAF:HelpLabel ID="LocalizedLabel10" runat="server"
                                    AssociatedControlID="Culture"
@@ -163,7 +160,9 @@
                                LocalizedTag="CdvVersion"
                                LocalizedPage="ADMIN_BOARDSETTINGS"/>
                 <div class="input-group">
-                    <asp:TextBox ID="CdvVersion" runat="server" CssClass="form-control" Enabled="False"></asp:TextBox>
+                    <asp:TextBox ID="CdvVersion" runat="server" 
+                                 CssClass="form-control mb-1" 
+                                 Enabled="False"></asp:TextBox>
                     <YAF:ThemeButton runat="server"
                                      OnClick="IncreaseVersionOnClick"
                                      CssClass="float-right"

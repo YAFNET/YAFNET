@@ -196,10 +196,11 @@
                 </div>
                 <div class="card-footer text-center">
                 <YAF:ThemeButton ID="Save" runat="server" 
+                                 CssClass="mr-2"
                                  Type="Primary"
                                  Icon="save" 
                                  TextLocalizedTag="SAVE">
-                </YAF:ThemeButton>&nbsp;
+                </YAF:ThemeButton>
                 <YAF:ThemeButton ID="Cancel" runat="server" 
                                  Type="Secondary"
                                  Icon="times" 

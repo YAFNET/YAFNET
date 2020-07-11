@@ -34,7 +34,6 @@ namespace YAF.Pages.Admin
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -90,26 +89,23 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void MedalListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
+            var medalId = e.CommandArgument.ToType<int>();
+
             switch (e.CommandName)
             {
                 case "edit":
 
                     // edit medal
-                    BuildLink.Redirect(ForumPages.Admin_EditMedal, "medalid={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.Admin_EditMedal, "medalid={0}", medalId);
                     break;
                 case "delete":
                     // delete medal
-                    this.GetRepository<Medal>().Delete(e.CommandArgument.ToType<int>());
+                    this.GetRepository<UserMedal>().Delete(m => m.MedalID == medalId);
+                    this.GetRepository<GroupMedal>().Delete(m => m.MedalID == medalId);
+
+                    this.GetRepository<Medal>().Delete(m => m.ID == medalId);
 
                     // re-bind data
-                    this.BindData();
-                    break;
-                case "moveup":
-                    this.GetRepository<Medal>().Resort(e.CommandArgument.ToType<int>(), -1);
-                    this.BindData();
-                    break;
-                case "movedown":
-                    this.GetRepository<Medal>().Resort(e.CommandArgument.ToType<int>(), 1);
                     this.BindData();
                     break;
             }
@@ -155,17 +151,15 @@ namespace YAF.Pages.Admin
         [NotNull]
         protected string RenderImages([NotNull] object data)
         {
-            var output = new StringBuilder(250);
+            var output = new StringBuilder();
 
             var medal = (Medal)data;
 
             // image of medal
             output.AppendFormat(
-                "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />",
+                "<img src=\"{0}{3}/{1}\" width=\"{2}\" />",
                 BoardInfo.ForumClientFileRoot,
                 medal.SmallMedalURL,
-                medal.SmallMedalWidth,
-                medal.SmallMedalHeight,
                 this.GetText("ADMIN_MEDALS", "DISPLAY_BOX"),
                 BoardFolders.Current.Medals);
 
@@ -173,11 +167,9 @@ namespace YAF.Pages.Admin
             if (medal.SmallRibbonURL.IsSet())
             {
                 output.AppendFormat(
-                    " &nbsp; <img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />",
+                    " &nbsp; <img src=\"{0}{3}/{1}\" alt=\"{2}\" />",
                     BoardInfo.ForumClientFileRoot,
                     medal.SmallRibbonURL,
-                    medal.SmallRibbonWidth,
-                    medal.SmallRibbonHeight,
                     this.GetText("ADMIN_MEDALS", "DISPLAY_RIBBON"),
                     BoardFolders.Current.Medals);
             }

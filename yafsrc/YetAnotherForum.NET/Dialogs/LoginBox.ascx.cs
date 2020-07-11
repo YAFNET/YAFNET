@@ -75,14 +75,15 @@ namespace YAF.Dialogs
                 return;
             }
 
-            this.RememberMe.Text = this.GetText("auto");
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "loadLoginValidatorFormJs",
+                JavaScriptBlocks.FormValidatorJs(this.LoginButton.ClientID));
 
-            this.LoginButton.Text = this.GetText("FORUM_LOGIN");
+            this.RememberMe.Text = this.GetText("auto");
 
             this.Password.Attributes.Add(
                 "onkeydown",
-                $@"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{
-                              document.getElementById('{this.LoginButton.ClientID}').click();return false;}}}} else {{return true}}; ");
+                JavaScriptBlocks.ClickOnEnterJs(this.LoginButton.ClientID));
 
             if (this.PageContext.IsGuest && !this.Get<BoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
             {

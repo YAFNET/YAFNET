@@ -98,12 +98,12 @@ namespace YAF.Core.Model
             if (active.HasValue)
             {
                 expression.Join<NntpServer>((b, a) => a.ID == b.NntpServerID).Join<Forum>((b, f) => f.ID == b.ForumID)
-                    .Where<NntpForum, NntpServer>((b, a) => a.BoardID == boardId && b.Active == active.Value).Select();
+                    .Where<NntpForum, NntpServer>((b, a) => a.BoardID == boardId && b.Active == active.Value);
             }
             else
             {
                 expression.Join<NntpServer>((b, a) => a.ID == b.NntpServerID).Join<Forum>((b, f) => f.ID == b.ForumID)
-                    .Where<NntpForum, NntpServer>((b, a) => a.BoardID == boardId).Select();
+                    .Where<NntpForum, NntpServer>((b, a) => a.BoardID == boardId);
             }
 
             return repository.DbAccess.Execute(

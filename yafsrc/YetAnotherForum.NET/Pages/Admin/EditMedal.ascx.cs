@@ -28,14 +28,12 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
-    using System.Drawing;
     using System.IO;
     using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
@@ -48,8 +46,6 @@ namespace YAF.Pages.Admin
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
-
-    using Image = System.Drawing.Image;
 
     #endregion
 
@@ -162,12 +158,12 @@ namespace YAF.Pages.Admin
         /// </returns>
         protected string FormatGroupLink([NotNull] object data)
         {
-            var dr = (DataRowView)data;
+            var dr = (Tuple<Medal, GroupMedal, Group>)data;
 
             return string.Format(
                 "<a href=\"{1}\">{0}</a>",
-                dr["GroupName"],
-                BuildLink.GetLink(ForumPages.Admin_EditGroup, "i={0}", dr["GroupID"]));
+                dr.Item3.Name,
+                BuildLink.GetLink(ForumPages.Admin_EditGroup, "i={0}", dr.Item3.ID));
         }
 
         /// <summary>
@@ -181,13 +177,13 @@ namespace YAF.Pages.Admin
         /// </returns>
         protected string FormatUserLink([NotNull] object data)
         {
-            var dr = (DataRowView)data;
+            var dr = (Tuple<Medal, UserMedal, User>)data;
 
             return string.Format(
                 "<a href=\"{2}\">{0}&nbsp;({1})</a>",
-                this.HtmlEncode(dr["DisplayName"]),
-                this.HtmlEncode(dr["UserName"]),
-                BuildLink.GetLink(ForumPages.Admin_EditUser, "u={0}", dr["UserID"]));
+                this.HtmlEncode(dr.Item3.DisplayName),
+                this.HtmlEncode(dr.Item3.Name),
+                BuildLink.GetLink(ForumPages.Admin_EditUser, "u={0}", dr.Item3.ID));
         }
 
         /// <summary>
@@ -264,37 +260,15 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            if (this.SortOrder.Text.Trim().Length == 0)
-            {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_VALUE"), MessageTypes.warning);
-                return;
-            }
-
-            if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
-            {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITFORUM", "MSG_POSITIVE_VALUE"),
-                    MessageTypes.warning);
-                return;
-            }
-
-            if (!byte.TryParse(this.SortOrder.Text.Trim(), out var sortOrder))
-            {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"), MessageTypes.warning);
-                return;
-            }
-
             // data
             string ribbonUrl = null, smallRibbonUrl = null;
-            short? ribbonWidth = null, ribbonHeight = null;
-            Size imageSize;
-
+            
             // flags
             var flags = new MedalFlags(0)
                             {
                                 ShowMessage = this.ShowMessage.Checked,
                                 AllowRibbon = this.AllowRibbon.Checked,
-                                AllowReOrdering = this.AllowReOrdering.Checked,
+                                AllowReOrdering = false,
                                 AllowHiding = this.AllowHiding.Checked
                             };
 
@@ -309,14 +283,7 @@ namespace YAF.Pages.Admin
             if (this.SmallRibbonImage.SelectedIndex > 0)
             {
                 smallRibbonUrl = this.SmallRibbonImage.SelectedItem.Text;
-
-                imageSize = this.GetImageSize(smallRibbonUrl);
-                ribbonWidth = imageSize.Width.ToType<short>();
-                ribbonHeight = imageSize.Height.ToType<short>();
             }
-
-            // get size of small image
-            imageSize = this.GetImageSize(smallImageUrl);
 
             // save medal
             this.GetRepository<Medal>().Save(
@@ -329,11 +296,6 @@ namespace YAF.Pages.Admin
                 ribbonUrl,
                 smallImageUrl,
                 smallRibbonUrl,
-                (short)imageSize.Width,
-                (short)imageSize.Height,
-                ribbonWidth,
-                ribbonHeight,
-                sortOrder,
                 flags.BitValue);
 
             // go back to medals administration
@@ -453,15 +415,18 @@ namespace YAF.Pages.Admin
 
             if (!this.CurrentMedalId.HasValue)
             {
+                // Hide user & group
+                this.UserAndGroupsHolder.Visible = false;
+
                 return;
             }
 
             // load users and groups who has been assigned this medal
-            this.UserList.DataSource = this.GetRepository<UserMedal>().ListAsDataTable(null, this.CurrentMedalId);
+            this.UserList.DataSource = this.GetRepository<UserMedal>().List(null, this.CurrentMedalId.Value);
             this.UserList.DataBind();
 
             this.GroupList.DataSource =
-                this.GetRepository<Medal>().GroupMedalListAsDataTable(null, this.CurrentMedalId);
+                this.GetRepository<GroupMedal>().List(null, this.CurrentMedalId.Value);
             this.GroupList.DataBind();
 
             var medal = this.GetRepository<Medal>().GetSingle(m => m.ID == this.CurrentMedalId.Value);
@@ -471,35 +436,15 @@ namespace YAF.Pages.Admin
             this.Description.Text = medal.Description;
             this.Message.Text = medal.Message;
             this.Category.Text = medal.Category;
-            this.SortOrder.Text = medal.SortOrder.ToString();
             this.ShowMessage.Checked = medal.MedalFlags.ShowMessage;
             this.AllowRibbon.Checked = medal.MedalFlags.AllowRibbon;
             this.AllowHiding.Checked = medal.MedalFlags.AllowHiding;
-            this.AllowReOrdering.Checked = medal.MedalFlags.AllowReOrdering;
-
+            
             // select images
             SelectImage(this.MedalImage, medal.MedalURL);
             SelectImage(this.RibbonImage, medal.RibbonURL);
             SelectImage(this.SmallMedalImage, medal.SmallMedalURL);
             SelectImage(this.SmallRibbonImage, medal.SmallRibbonURL);
-        }
-
-        /// <summary>
-        /// Gets size of image located in medals directory.
-        /// </summary>
-        /// <param name="filename">
-        /// Name of file.
-        /// </param>
-        /// <returns>
-        /// Size of image.
-        /// </returns>
-        private Size GetImageSize([NotNull] string filename)
-        {
-            using (var img = Image.FromFile(
-                this.Server.MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Medals}/{filename}")))
-            {
-                return img.Size;
-            }
         }
 
         #endregion

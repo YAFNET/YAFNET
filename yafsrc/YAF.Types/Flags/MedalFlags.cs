@@ -74,13 +74,13 @@ namespace YAF.Types.Flags
     {
     }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MedalFlags"/> class.
-    /// </summary>
-    /// <param name="bits">
-    /// The bits.
-    /// </param>
-    public MedalFlags(params bool[] bits)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MedalFlags"/> class.
+        /// </summary>forum_topics
+        /// <param name="bits">
+        /// The bits.
+        /// </param>
+        public MedalFlags(params bool[] bits)
       : base(bits)
     {
     }

@@ -15,8 +15,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="container-fluid was-validated">
+            <div class="modal-body needs-validation">
+                <div class="container-fluid">
                     <div class="mb-3">
                         <asp:Label runat="server" 
                                    AssociatedControlID="UserName">
@@ -32,10 +32,10 @@
                             <asp:TextBox runat="server" ID="UserName"
                                          CssClass="form-control"
                                          required="required" />
-                            <YAF:LocalizedRequiredFieldValidator runat="server"
-                                                                 CssClass="invalid-feedback"
-                                                                 LocalizedTag="NEED_USERNAME" 
-                                                                 ControlToValidate="Username" />
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server"
+                                                    LocalizedTag="NEED_USERNAME" />
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -56,11 +56,11 @@
                             <a class="input-group-text" id="PasswordToggle" href="#">
                                     <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                 </a>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server"
+                                                    LocalizedTag="NEED_PASSWORD" />
+                            </div>
                         </div>
-                        <YAF:LocalizedRequiredFieldValidator runat="server"
-                                                             CssClass="invalid-feedback"
-                                                             LocalizedTag="NEED_PASSWORD"
-                                                             ControlToValidate="Password" />
                     </div>
                     <div class="row">
                         <div class="mb-3 col-md-6">
@@ -80,10 +80,13 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <asp:Button ID="LoginButton" runat="server"
-                                    CausesValidation="True"
-                                    CssClass="btn btn-primary btn-loading btn-block"
-                                    OnClick="SignIn"/>
+                        <YAF:ThemeButton ID="LoginButton" runat="server"
+                                         CausesValidation="True"
+                                         Icon="sign-in-alt"
+                                         Type="Primary"
+                                         CssClass="btn-loading btn-block"
+                                         TextLocalizedTag="FORUM_LOGIN"
+                                         OnClick="SignIn"/>
                     </div>
                     <section>
                         <YAF:OpenAuthProviders runat="server" ID="OpenAuthLogin" />

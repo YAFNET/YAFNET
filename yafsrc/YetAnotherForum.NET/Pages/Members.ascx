@@ -24,20 +24,21 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <div class="row justify-content-between">
-                    <div class="col-md-3">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
                         <YAF:IconHeader runat="server"
                                         IconName="users"></YAF:IconHeader>
                     </div>
-                    <div class="col-md-3 mt-1">
+                    <div class="col-auto">
                         <div class="btn-toolbar" role="toolbar">
-                            <div class="btn-group mr-2" role="group" aria-label="sort">
+                            <div class="btn-group btn-group-sm mr-2" role="group" aria-label="sort">
                                 <YAF:ThemeButton ID="Sort" runat="server"
-                                     CssClass="dropdown-toggle"
-                                     Type="Secondary"
-                                     DataToggle="dropdown"
-                                     TextLocalizedTag="SORT_BY"
-                                     Icon="sort" />
+                                                 CssClass="dropdown-toggle"
+                                                 Size="Small"
+                                                 Type="Secondary"
+                                                 DataToggle="dropdown"
+                                                 TextLocalizedTag="SORT_BY"
+                                                 Icon="sort" />
                     <div class="dropdown-menu">
                         <YAF:ThemeButton ID="SortUserNameAsc" runat="server"
                                          CssClass="dropdown-item"
@@ -99,6 +100,7 @@
                         <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown"
+                                         Size="Small"
                                          Type="Secondary"
                                          Icon="filter"
                                          TextLocalizedTag="FILTER_DROPDOWN"
@@ -154,11 +156,11 @@
                                 <div class="mb-3">
                                     <YAF:ThemeButton ID="SearchByUserName" runat="server"
                                                      OnClick="Search_Click"
+                                                     CssClass="mr-2"
                                                      TextLocalizedTag="BTNSEARCH"
                                                      Type="Primary"
                                                      Icon="search">
                                     </YAF:ThemeButton>
-                                    &nbsp;
                                     <YAF:ThemeButton ID="ResetUserSearch" runat="server"
                                                      OnClick="Reset_Click"
                                                      TextLocalizedTag="CLEAR"

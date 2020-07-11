@@ -104,10 +104,9 @@ namespace YAF.Controls
         /// </returns>
         protected string GetSuspendedTo()
         {
-            // is there suspension expiration in the view-state?
-            return this.ViewState["SuspendedUntil"] != null
-                ? this.ViewState["SuspendedUntil"].ToString()
-                : string.Empty;
+            return this.Get<IDateTime>().GetUserDateTime(
+                this.User.Suspended.Value,
+                this.User.TimeZoneInfo).ToString(CultureInfo.InvariantCulture); 
         }
 
         /// <summary>
@@ -296,11 +295,6 @@ namespace YAF.Controls
                 // if user is not suspended, hide row with suspend information and remove suspension button
                 return;
             }
-
-            // get time when his suspension expires to the view state
-            this.ViewState["SuspendedUntil"] = this.Get<IDateTime>().GetUserDateTime(
-                this.User.Suspended.Value,
-                this.User.TimeZoneInfo);
 
             this.CurrentSuspendedReason.Text = this.User.SuspendedReason;
 

@@ -560,24 +560,6 @@ namespace YAF.Core.Services
             return userList;
         }
 
-        /// <summary>
-        ///     The user medals.
-        /// </summary>
-        /// <param name="userId"> The user id. </param>
-        /// <returns> Returns the User Medals </returns>
-        public DataTable UserMedals(int userId)
-        {
-            var key = string.Format(Constants.Cache.UserMedals, userId);
-
-            // get the medals cached...
-            var dt = this.DataCache.GetOrSet(
-                key,
-                () => this.DbFunction.GetAsDataTable(cdb => cdb.user_listmedals(userId)),
-                TimeSpan.FromMinutes(10));
-
-            return dt;
-        }
-
         #endregion
 
         #region Methods

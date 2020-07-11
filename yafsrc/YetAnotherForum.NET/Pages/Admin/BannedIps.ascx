@@ -24,13 +24,18 @@
             <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
             <div class="card mb-3">
                 <div class="card-header">
-                    <YAF:IconHeader runat="server"
-                                    IconName="hand-paper"
-                                    LocalizedPage="ADMIN_BANNEDIP"></YAF:IconHeader>
-                    <div class="float-right">
+                    
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        <YAF:IconHeader runat="server"
+                                        IconName="hand-paper"
+                                        LocalizedPage="ADMIN_BANNEDIP"></YAF:IconHeader>
+                    </div>
+                        <div class="col-auto">
                         <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown"
+                                         Size="Small"
                                          Type="Secondary"
                                          Icon="filter"
                                          TextLocalizedTag="FILTER_DROPDOWN"
@@ -56,6 +61,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -90,7 +96,7 @@
                     </span>
                     <%# this.Eval("Reason") %>
                 </p>
-                <p class="mb-1" runat="server" Visible="<%# this.Eval("UserID").ToString().IsSet()%>">
+                <p class="mb-1" runat="server" Visible='<%# this.Eval("UserID").ToString().IsSet()%>'>
                     <span class="font-weight-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="BAN_BY" LocalizedPage="ADMIN_BANNEDIP" />
                     </span>

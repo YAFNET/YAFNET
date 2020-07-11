@@ -27,8 +27,8 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.Data.Linq.SqlClient;
+    using System.Linq;
     using System.Text;
     using System.Web;
     using System.Web.UI.WebControls;
@@ -38,7 +38,6 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -567,89 +566,70 @@ namespace YAF.Pages
         /// </summary>
         private void ShowUserMedals()
         {
-            var userMedalsTable = this.Get<DataBroker>().UserMedals(this.UserId);
+            var key = string.Format(Constants.Cache.UserMedals, this.UserId);
 
-            if (!userMedalsTable.HasRows())
+            // get the medals cached...
+            var userMedals = this.DataCache.GetOrSet(
+                key,
+                () => this.GetRepository<Medal>().ListUserMedals(this.UserId),
+                TimeSpan.FromMinutes(10));
+
+            if (!userMedals.Any())
             {
                 this.MedalsRow.Visible = false;
 
                 return;
             }
 
-            var ribbonBar = new StringBuilder(500);
-            var medals = new StringBuilder(500);
+            var ribbonBar = new StringBuilder();
+            var medals = new StringBuilder();
 
-            DataRow r;
-            MedalFlags f;
-
-            var i = 0;
-            var inRow = 0;
+           // var inRow = 0;
 
             // do ribbon bar first
-            while (userMedalsTable.Rows.Count > i)
-            {
-                r = userMedalsTable.Rows[i];
-                f = new MedalFlags(r["Flags"]);
-
-                // do only ribbon bar items first
-                if (!r["OnlyRibbon"].ToType<bool>())
+            userMedals.Where(x => x.OnlyRibbon).ForEach(
+                medal =>
                 {
-                    break;
-                }
+                    var flags = new MedalFlags(medal.Flags);
 
-                // skip hidden medals
-                if (!f.AllowHiding || !r["Hide"].ToType<bool>())
-                {
-                    if (inRow == 3)
+                    // skip hidden medals
+                    if (flags.AllowHiding && medal.Hide)
                     {
-                        // add break - only three ribbons in a row
-                        ribbonBar.Append("<br />");
-                        inRow = 0;
+                        return;
                     }
 
-                    var title = $"{r["Name"]}{(f.ShowMessage ? $": {r["Message"]}" : string.Empty)}";
+                    var title = $"{medal.Name}{(flags.ShowMessage ? $": {medal.Message}" : string.Empty)}";
 
                     ribbonBar.AppendFormat(
-                        "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" title=\"{4}\" class=\"mr-1\" />",
+                        "<li class=\"list-inline-item\"><img src=\"{0}{3}/{1}\" alt=\"{2}\" title=\"{2}\" data-toggle=\"tooltip\"></li>",
                         BoardInfo.ForumClientFileRoot,
-                        r["SmallRibbonURL"],
-                        r["SmallRibbonWidth"],
-                        r["SmallRibbonHeight"],
+                        medal.SmallRibbonURL,
                         title,
                         BoardFolders.Current.Medals);
-
-                    inRow++;
-                }
-
-                // move to next row
-                i++;
-            }
+                });
 
             // follow with the rest
-            while (userMedalsTable.Rows.Count > i)
-            {
-                r = userMedalsTable.Rows[i];
-                f = new MedalFlags(r["Flags"]);
-
-                // skip hidden medals
-                if (!f.AllowHiding || !r["Hide"].ToType<bool>())
+            userMedals.Where(x => !x.OnlyRibbon).ForEach(
+                medal =>
                 {
+                    var flags = new MedalFlags(medal.Flags);
+
+                    // skip hidden medals
+                    if (flags.AllowHiding && medal.Hide)
+                    {
+                        return;
+                    }
+
                     medals.AppendFormat(
-                        "<img src=\"{0}{6}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" title=\"{4}{5}\" class=\"mr-1\" />",
+                        "<li class=\"list-inline-item\"><img src=\"{0}{4}/{1}\" alt=\"{2}{3}\" title=\"{2}{3}\" data-toggle=\"tooltip\"></li>",
                         BoardInfo.ForumClientFileRoot,
-                        r["SmallMedalURL"],
-                        r["SmallMedalWidth"],
-                        r["SmallMedalHeight"],
-                        r["Name"],
-                        f.ShowMessage ? $": {r["Message"]}" : string.Empty,
+                        medal.SmallMedalURL,
+                        medal.Name,
+                        flags.ShowMessage ? $": {medal.Message}" : string.Empty,
                         BoardFolders.Current.Medals);
-                }
+                });
 
-                // move to next row
-                i++;
-            }
-
-            this.MedalsPlaceHolder.Text = $"{ribbonBar}<br />{medals}";
+            this.MedalsPlaceHolder.Text = $"<ul class=\"list-inline\">{ribbonBar}{medals}</ul>";
             this.MedalsRow.Visible = true;
         }
 

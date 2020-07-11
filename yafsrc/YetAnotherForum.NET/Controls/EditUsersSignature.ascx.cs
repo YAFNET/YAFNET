@@ -44,7 +44,6 @@ namespace YAF.Controls
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
     using YAF.Web.Editors;
 

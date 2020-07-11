@@ -63,6 +63,7 @@
                                      TextMode="Url" />
                     </div>
                     <YAF:Alert runat="server" Type="info">
+                        <YAF:Icon runat="server" IconName="info-circle"></YAF:Icon>
                         <asp:Label ID="noteRemote" runat="server"></asp:Label>
                     </YAF:Alert>
                     <div class="mb-3">
@@ -83,18 +84,23 @@
                                                     LocalizedTag="AVATARUPLOAD" />
                             </asp:Label>
                         </h4>
-                        <div class="input-group">
-                            <div class="form-file mb-3">
-                                <input type="file" id="File" runat="server" class="form-file-input" aria-describedby="File" />
-                                <asp:Label runat="server" AssociatedControlID="File" CssClass="form-file-label">
+                        <div class="form-file">
+                            <input type="file" id="File" runat="server" class="form-file-input" aria-describedby="File" />
+                            <label for="<%# this.File.ClientID %>" class="form-file-label">
+                                <span class="form-file-text">
                                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
                                                         LocalizedPage="EDIT_AVATAR"
                                                         LocalizedTag="AVATARUPLOAD" />
-                                </asp:Label>
-                            </div>
+                                </span>
+                                <span class="form-file-button">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
+                                                        LocalizedTag="BROWSE" />
+                                </span>
+                            </label>
                         </div>
                     </div>
                     <YAF:Alert runat="server" Type="info">
+                        <YAF:Icon runat="server" IconName="info-circle"></YAF:Icon>
                         <asp:Label ID="noteLocal" runat="server"></asp:Label>
                     </YAF:Alert>
                 </asp:PlaceHolder>

@@ -11,28 +11,28 @@
                     <YAF:IconHeader runat="server"
                                     IconName="sign-in-alt"></YAF:IconHeader>
                 </div>
-                <asp:Panel runat="server" ID="ContentBody" 
-                           CssClass="card-body">
+                <div class="card-body needs-validation">
                     <div class="mb-3">
                             <asp:Label runat="server" 
                                        AssociatedControlID="UserName">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                     LocalizedTag="username" />
                             </asp:Label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <YAF:Icon runat="server"
-                                      IconName="user"
-                                      IconType="text-secondary"></YAF:Icon>
-                        </span>
-                        <asp:TextBox runat="server" ID="UserName"
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <YAF:Icon runat="server"
+                                          IconName="user"
+                                          IconType="text-secondary"></YAF:Icon>
+                            </span>
+                            <asp:TextBox runat="server" ID="UserName"
                                          CssClass="form-control"
                                          required="required" />
-                        <YAF:LocalizedRequiredFieldValidator runat="server"
-                                                             CssClass="invalid-feedback"
-                                                             LocalizedTag="NEED_USERNAME" 
-                                                             ControlToValidate="Username"/>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server"
+                                                    LocalizedTag="NEED_USERNAME" />
+                            </div>
                         </div>
+                    </div>
                     </div>
                         <div class="mb-3">
                             <asp:Label runat="server" 
@@ -49,13 +49,13 @@
                                          CssClass="form-control"
                                          TextMode="Password"
                                          required="required"/>
-                            <YAF:LocalizedRequiredFieldValidator runat="server"
-                                                                 CssClass="invalid-feedback"
-                                                                 LocalizedTag="NEED_PASSWORD"
-                                                                 ControlToValidate="Password"/>
                             <a class="input-group-text" id="PasswordToggle" href="#">
                                     <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                 </a>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server"
+                                                    LocalizedTag="NEED_PASSWORD" />
+                            </div>
                         </div>
                            
                         </div>
@@ -81,13 +81,14 @@
                                          CausesValidation="True"
                                          Icon="sign-in-alt"
                                          Type="Primary"
+                                         TextLocalizedTag="FORUM_LOGIN"
                                          CssClass="btn-block btn-login"
                                          OnClick="SignIn"/>
                     </div>
                     <section>
                         <YAF:OpenAuthProviders runat="server" ID="OpenAuthLogin" />
                     </section>
-                </asp:Panel>
+                </div>
                 <div class="card-footer text-center">
                     <YAF:ThemeButton ID="RegisterLink" runat="server"
                                      CausesValidation="False"

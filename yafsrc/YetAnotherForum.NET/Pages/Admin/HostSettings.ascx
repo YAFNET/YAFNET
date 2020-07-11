@@ -421,7 +421,6 @@
                                                      Icon="sign-in-alt"
                                                      TextLocalizedTag="AKISMET_KEY_DOWN" />
                                 </div>
-                                </div>
                             </div>
                             <div class="mb-3">
                                 <YAF:HelpLabel ID="HelpLabel226" runat="server" 
@@ -449,14 +448,6 @@
                                                    LocalizedTag="DISABLE_REGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                     <div class="form-check form-switch">
                                         <asp:CheckBox Text="&nbsp;" ID="DisableRegistrations" runat="server"></asp:CheckBox>
-                                    </div>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <YAF:HelpLabel ID="HelpLabel4" runat="server" 
-                                                   AssociatedControlID="EmailVerification"
-                                                   LocalizedTag="EMAIL_VERIFICATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                    <div class="form-check form-switch">
-                                        <asp:CheckBox Text="&nbsp;" ID="EmailVerification" runat="server"></asp:CheckBox>
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">

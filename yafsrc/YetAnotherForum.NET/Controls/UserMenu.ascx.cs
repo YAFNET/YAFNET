@@ -35,7 +35,7 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
-    using YAF.Dialogs;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -43,10 +43,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
     using YAF.Utils;
-
-    using ButtonStyle = YAF.Types.Constants.ButtonStyle;
 
     #endregion
 
@@ -64,18 +61,14 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void LogOutClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var notification = this.PageContext.CurrentForumPage.Notification.ToType<DialogBox>();
-
-            notification.Show(
-                this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
-                "Logout?",
-                new DialogButton
-                    {
-                        Text = this.GetText("TOOLBAR", "LOGOUT"),
-                        CssClass = "btn btn-primary",
-                        ForumPageLink = new ForumLink { ForumPage = ForumPages.Account_Logout }
-                    },
-                new DialogButton { Text = this.GetText("COMMON", "CANCEL"), CssClass = "btn btn-secondary" });
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "logoutModalConfirmJs",
+                JavaScriptBlocks.BootBoxConfirmJs(
+                    this.GetText("TOOLBAR", "LOGOUT_TITLE"),
+                    this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
+                    this.GetText("TOOLBAR", "LOGOUT"),
+                    this.GetText("COMMON", "CANCEL"),
+                    BuildLink.GetLink(ForumPages.Account_Logout)));
         }
 
         /// <summary>

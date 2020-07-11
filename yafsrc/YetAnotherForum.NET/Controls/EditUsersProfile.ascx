@@ -238,10 +238,10 @@
     <YAF:ThemeButton ID="UpdateProfile" runat="server"
                      Type="Primary"
                      OnClick="UpdateProfileClick"
+                     CssClass="mr-2"
                      Icon="save"
                      TextLocalizedTag="SAVE"
                      TextLocalizedPage="COMMON" />
-    &nbsp;
     <YAF:ThemeButton ID="Cancel" runat="server"
                         Type="Secondary"
                         OnClick="CancelClick"

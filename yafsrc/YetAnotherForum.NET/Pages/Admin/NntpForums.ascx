@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.NntpForums"
     CodeBehind="NntpForums.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/NntpForumEdit.ascx" %>
 
 
@@ -33,7 +34,9 @@
                             <span class="font-weight-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Active" LocalizedPage="ADMIN_NNTPFORUMS" />
                             </span>
-                            <%# this.Eval("Item1.Active") %>
+                            <div class="badge bg-<%# this.Eval("Item1.Active").ToType<bool>() ? "success" : "secondary" %>">
+                                <%# this.Eval("Item1.Active") %>
+                            </div>
                         </small>
                     </div>
                     <p class="mb-1">

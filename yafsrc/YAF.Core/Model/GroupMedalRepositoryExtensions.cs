@@ -24,6 +24,11 @@
 
 namespace YAF.Core.Model
 {
+    using System;
+    using System.Collections.Generic;
+
+    using ServiceStack.OrmLite;
+
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces.Data;
@@ -35,6 +40,45 @@ namespace YAF.Core.Model
     public static class GroupMedalRepositoryExtensions
     {
         #region Public Methods and Operators
+
+        /// <summary>
+        /// Lists all Groups assigned to the medal
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="groupId">
+        /// The group Id.
+        /// </param>
+        /// <param name="medalId">
+        /// The medal Id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<Tuple<Medal, GroupMedal, Group>> List(
+            this IRepository<GroupMedal> repository,
+            [NotNull] int? groupId,
+            [NotNull] int medalId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
+
+            if (groupId.HasValue)
+            {
+                expression.Join<GroupMedal>((a, b) => b.MedalID == a.ID)
+                    .Join<GroupMedal, Group>((b, c) => c.ID == b.GroupID)
+                    .Where<GroupMedal>(b => b.MedalID == medalId && b.GroupID == groupId.Value).OrderBy<Group>(x => x.Name)
+                    .ThenBy<GroupMedal>(x => x.SortOrder);
+            }
+            else
+            {
+                expression.Join<GroupMedal>((a, b) => b.MedalID == a.ID)
+                    .Join<GroupMedal, Group>((b, c) => c.ID == b.GroupID)
+                    .Where(a => a.ID == medalId).OrderBy<Group>(x => x.Name).ThenBy<GroupMedal>(x => x.SortOrder);
+            }
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Medal, GroupMedal, Group>(expression));
+        }
 
         /// <summary>
         /// Update existing group-medal allocation.

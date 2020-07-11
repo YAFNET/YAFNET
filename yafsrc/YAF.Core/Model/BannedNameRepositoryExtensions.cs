@@ -69,13 +69,9 @@ namespace YAF.Core.Model
             {
                 repository.Update(
                     new BannedName
-                        {
-                            BoardID = boardId ?? repository.BoardID,
-                            ID = id.Value,
-                            Mask = mask,
-                            Reason = reason,
-                            Since = DateTime.Now
-                        });
+                    {
+                        BoardID = boardId ?? repository.BoardID, Mask = mask, Reason = reason, Since = DateTime.Now
+                    });
 
                 repository.FireUpdated(id.Value);
             }

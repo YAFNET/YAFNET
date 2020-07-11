@@ -217,6 +217,7 @@
  <page name="ADMIN_BANNEDEMAIL_EDIT">
   <Resource tag="MASK">Mask:</Resource>
   <Resource tag="MASK_HELP">The Email address to ban. You can use Regular Expressions.</Resource>
+   <Resource tag="NEED_MASK">You must define an Email address.</Resource>
   <Resource tag="REASON">Reason:</Resource>
   <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
   <Resource tag="TITLE">Add New Banned Email Address</Resource>
@@ -252,6 +253,7 @@
   <Resource tag="INVALID_VALUE">One of the IP section does not have a value. Valid values are 0-255 or "*" for a wildcard.</Resource>
   <Resource tag="MASK">Mask:</Resource>
   <Resource tag="MASK_HELP">The ip address to ban. You can use wild cards (127.0.0.*).</Resource>
+   <Resource tag="NEED_MASK">You must define an IP address.</Resource>
   <Resource tag="REASON">Reason:</Resource>
   <Resource tag="REASON_HELP">The reason why the ip was banned.</Resource>
   <Resource tag="TITLE">Add Banned IP Address</Resource>
@@ -280,6 +282,7 @@
  <page name="ADMIN_BANNEDNAME_EDIT">
   <Resource tag="MASK">Mask:</Resource>
   <Resource tag="MASK_HELP">The User Name to ban. You can use Regular Expressions.</Resource>
+   <Resource tag="NEED_MASK">You must define a User Name.</Resource>
   <Resource tag="REASON">Reason:</Resource>
   <Resource tag="REASON_HELP">The reason why the user name was banned.</Resource>
   <Resource tag="TITLE">Add Banned Name</Resource>
@@ -1737,6 +1740,7 @@
     <Resource tag="MSG_IMPORTED_FAILEDX">Failed to import: {0}</Resource>
   </page>
   <page name="ADMIN_SPAMWORDS_EDIT">
+    <Resource tag="NEED_SPAM">You must define a Spam word.</Resource>
     <Resource tag="TITLE">Add New Spam Word</Resource>
     <Resource tag="TITLE_EDIT">Edit Spam Word</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression:</Resource>
@@ -2062,6 +2066,7 @@
   <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
   <Resource tag="BBCODE_QUOTEPOSTED_TT">Go to Quoted Post</Resource>
   <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+   <Resource tag="BROWSE">Browse</Resource>
   <Resource tag="CAL_JQ_CULTURE"></Resource>
   <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YYYY</Resource>
   <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
@@ -2538,8 +2543,8 @@
   <Resource tag="AVATARUPLOAD">Upload Avatar from Your Computer:</Resource>
   <Resource tag="INVALID_FILE">The file uploaded is not a proper image file.</Resource>
   <Resource tag="NOAVATAR">[ No Avatar ]</Resource>
-  <Resource tag="NOTE_LOCAL">Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
-  <Resource tag="NOTE_REMOTE">Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized.</Resource>
+  <Resource tag="NOTE_LOCAL">If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
+  <Resource tag="NOTE_REMOTE">If the Image is larger than {0}x{1} pixels, it will be automatically resized.</Resource>
   <Resource tag="OURAVATAR">Select your Avatar from our Collection:</Resource>
   <Resource tag="OURAVATAR_SELECT">Open Gallery</Resource>
   <Resource tag="TITLE">Modify Avatar</Resource>

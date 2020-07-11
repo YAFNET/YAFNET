@@ -164,7 +164,8 @@ namespace YAF.Controls
                 NavigateUrl = BuildLink.GetTopicLink(activity.Item1.MessageID.Value, activity.Item3.TopicName),
                 Type = ButtonStyle.None,
                 Text = activity.Item3.TopicName,
-                Icon = "comment"
+                Icon = "comment",
+                IconCssClass = "far"
             };
 
             if (activity.Item1.ActivityFlags.ReceivedThanks)

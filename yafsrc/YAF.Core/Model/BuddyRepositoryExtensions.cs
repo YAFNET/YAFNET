@@ -25,12 +25,13 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Data;
-
+    
     using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions.Data;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -137,46 +138,26 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Denies a buddy request.
+        /// Denies a friend request.
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="fromUserID">
-        /// The from user id.
+        /// <param name="fromUserId">
+        /// The from User Id.
         /// </param>
-        /// <param name="toUserID">
-        /// The to user id.
+        /// <param name="toUserId">
+        /// The to User Id.
         /// </param>
-        /// <param name="useDisplayName">
-        /// Display name of the use.
-        /// </param>
-        /// <returns>
-        /// the name of the second user.
-        /// </returns>
         [NotNull]
-        public static string DenyRequest(
+        public static void DenyRequest(
             this IRepository<Buddy> repository,
-            [NotNull] int fromUserID,
-            [NotNull] int toUserID,
-            [NotNull] bool useDisplayName)
+            [NotNull] int fromUserId,
+            [NotNull] int toUserId)
         {
             IDbDataParameter parameterOutput = null;
 
-            repository.SqlList(
-                "buddy_denyrequest",
-                cmd =>
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.AddParam("FromUserID", fromUserID);
-                        cmd.AddParam("ToUserID", toUserID);
-                        cmd.AddParam("UseDisplayName", useDisplayName);
-
-                        parameterOutput = cmd.AddParam("paramOutput", direction: ParameterDirection.Output);
-                    });
-
-            return parameterOutput.Value.ToString();
+            repository.Delete(b => b.FromUserID == fromUserId && b.ToUserID == toUserId);
         }
 
         /// <summary>
@@ -185,41 +166,21 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="fromUserID">
+        /// <param name="fromUserId">
         /// The from user id.
         /// </param>
-        /// <param name="toUserID">
+        /// <param name="toUserId">
         /// The to user id.
         /// </param>
-        /// <param name="useDisplayName">
-        /// Display name of the use.
-        /// </param>
-        /// <returns>
-        /// The name of the second user.
-        /// </returns>
         [NotNull]
-        public static string Remove(
+        public static void Remove(
             this IRepository<Buddy> repository,
-            [NotNull] int fromUserID,
-            [NotNull] int toUserID,
-            [NotNull] bool useDisplayName)
+            [NotNull] int fromUserId,
+            [NotNull] int toUserId)
         {
-            IDbDataParameter parameterOutput = null;
-
-            repository.SqlList(
-                "buddy_remove",
-                cmd =>
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.AddParam("FromUserID", fromUserID);
-                        cmd.AddParam("ToUserID", toUserID);
-                        cmd.AddParam("UseDisplayName", useDisplayName);
-
-                        parameterOutput = cmd.AddParam("paramOutput", direction: ParameterDirection.Output);
-                    });
-
-            return parameterOutput.Value.ToString();
+            repository.Delete(x => x.FromUserID == fromUserId && x.ToUserID == toUserId);
+            
+            repository.FireDeleted();
         }
 
         /// <summary>

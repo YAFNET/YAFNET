@@ -31,12 +31,14 @@ namespace YAF.Dialogs
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -95,17 +97,24 @@ namespace YAF.Dialogs
         }
 
         /// <summary>
-        /// Check if Valid Expression
+        /// The page_ load.
         /// </summary>
-        /// <param name="newExpression">
-        /// The new Expression to Check.
+        /// <param name="sender">
+        /// The sender. 
         /// </param>
-        /// <returns>
-        /// Returns if Valid Expression
-        /// </returns>
-        protected bool IsValidWordExpression([NotNull] string newExpression)
+        /// <param name="e">
+        /// The e. 
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            return !newExpression.Equals("*");
+            if (!this.IsPostBack)
+            {
+                return;
+            }
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "loadValidatorFormJs",
+                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
         }
 
         /// <summary>
@@ -115,11 +124,20 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.IsValidWordExpression(this.spamword.Text.Trim()))
+            if (!this.Page.IsValid)
+            {
+                return;
+            }
+
+            if (!ValidationHelper.IsValidRegex(this.spamword.Text.Trim()))
             {
                 this.PageContext.AddLoadMessage(
                     this.GetText("ADMIN_SPAMWORDS_EDIT", "MSG_REGEX_SPAM"),
                     MessageTypes.danger);
+
+                this.PageContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
             }
             else
             {

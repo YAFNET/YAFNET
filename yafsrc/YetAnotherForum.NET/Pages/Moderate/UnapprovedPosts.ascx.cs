@@ -27,7 +27,6 @@ namespace YAF.Pages.Moderate
     #region Using
 
     using System;
-    using System.Data;
     using System.Linq;
     using System.Web.UI.WebControls;
 
@@ -37,7 +36,6 @@ namespace YAF.Pages.Moderate
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -85,8 +83,8 @@ namespace YAF.Pages.Moderate
         /// <summary>
         /// Format message.
         /// </summary>
-        /// <param name="row">
-        /// Message data row.
+        /// <param name="item">
+        /// The item.
         /// </param>
         /// <returns>
         /// Formatted string with escaped HTML markup and formatted.

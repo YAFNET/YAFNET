@@ -90,7 +90,7 @@ namespace YAF.Core.Model
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
-            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.ID == messageId).Select();
+            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.ID == messageId);
 
             string topicName;
 
@@ -1115,14 +1115,13 @@ namespace YAF.Core.Model
                 expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                     .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
                         (t, category) =>
-                            category.BoardID == boardId && t.IsDeleted == true && t.TopicName.Contains(filter))
-                    .Select();
+                            category.BoardID == boardId && t.IsDeleted == true && t.TopicName.Contains(filter));
             }
             else
             {
                 expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                     .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
-                        (t, category) => category.BoardID == boardId && t.IsDeleted == true).Select();
+                        (t, category) => category.BoardID == boardId && t.IsDeleted == true);
             }
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic>(expression));

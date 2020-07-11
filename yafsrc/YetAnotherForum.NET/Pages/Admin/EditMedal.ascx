@@ -5,6 +5,7 @@
 
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">
@@ -15,8 +16,8 @@
             </h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xl-12">
+<div class="row">
+    <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
@@ -62,15 +63,6 @@
                                                     ValidationGroup="Medal" 
                                                     Text="Required"
                                                     CssClass="form-text text-muted"/>
-                    </div>
-                    <div class="mb-3">
-                        <YAF:HelpLabel ID="HelpLabel9" runat="server"
-                                       AssociatedControlID="SortOrder"
-                                       LocalizedTag="SORT_ORDER" LocalizedPage="ADMIN_EDITMEDAL" />
-                        <asp:TextBox ID="SortOrder" runat="server" 
-                                     CssClass="form-control" 
-                                     TextMode="Number"
-                                     MaxLength="5"/>
                     </div>
                     <div class="row">
                         <div class="mb-3 col-md-6">
@@ -142,24 +134,15 @@
                                               Text="&nbsp;" />
                             </div> 
                         </div>
-                        <div class="mb-3 col-md-4">
-                            <YAF:HelpLabel ID="HelpLabel13" runat="server"
-                                           AssociatedControlID="AllowReOrdering"
-                                           LocalizedTag="ALLOW_REORDER" LocalizedPage="ADMIN_EDITMEDAL" />
-                            <div class="form-check form-switch">
-                                <asp:CheckBox ID="AllowReOrdering" runat="server" 
-                                              Checked="true" 
-                                              Text="&nbsp;" />
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="card-footer text-center">
                     <YAF:ThemeButton ID="Save" runat="server" 
+                                     CssClass="mr-2"
                                      OnClick="SaveClick" 
                                      Type="Primary" 
                                      Icon="save" 
-                                     TextLocalizedTag="SAVE" />&nbsp;
+                                     TextLocalizedTag="SAVE" />
                     <YAF:ThemeButton ID="Cancel" runat="server" 
                                      OnClick="CancelClick" 
                                      Type="Secondary"
@@ -167,9 +150,10 @@
                                      TextLocalizedTag="CANCEL" />
                 </div>
             </div>
-        </div>
     </div>
-    <div class="row">
+</div>
+<asp:PlaceHolder runat="server" ID="UserAndGroupsHolder">
+<div class="row">
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
@@ -197,7 +181,7 @@
                                             LocalizedTag="MESSAGE" 
                                             LocalizedPage="COMMON" />
                     </span>
-                    <%# this.Eval("Message") %>
+                    <%# this.Eval("Item2.Message").ToString().IsSet() ? this.Eval("Item2.Message") :  this.Eval("Item1.Message")%>
                 </p>
                 <small>
                     <div class="btn-group btn-group-sm">
@@ -205,7 +189,7 @@
                                          Type="Info" 
                                          Size="Small"
                                          CommandName="edit" 
-                                         CommandArgument='<%# this.Eval( "GroupID") %>'
+                                         CommandArgument='<%# this.Eval( "Item2.GroupID") %>'
                                          TitleLocalizedTag="EDIT"
                                          Icon="edit"
                                          TextLocalizedTag="EDIT">
@@ -214,7 +198,7 @@
                                          Type="Danger" 
                                          Size="Small"
                                          CommandName="delete" 
-                                         CommandArgument='<%# this.Eval( "GroupID") %>'
+                                         CommandArgument='<%# this.Eval( "Item2.GroupID") %>'
                                          TitleLocalizedTag="REMOVE"
                                          Icon="trash"
                                          TextLocalizedTag="REMOVE"
@@ -227,7 +211,7 @@
                                          Type="None" 
                                          CssClass="dropdown-item"
                                          CommandName="edit" 
-                                         CommandArgument='<%# this.Eval( "GroupID") %>'
+                                         CommandArgument='<%# this.Eval( "Item2.GroupID") %>'
                                          TitleLocalizedTag="EDIT"
                                          Icon="edit"
                                          TextLocalizedTag="EDIT">
@@ -236,7 +220,7 @@
                                          Type="None" 
                                          CssClass="dropdown-item"
                                          CommandName="delete" 
-                                         CommandArgument='<%# this.Eval( "GroupID") %>'
+                                         CommandArgument='<%# this.Eval( "Item2.GroupID") %>'
                                          TitleLocalizedTag="REMOVE"
                                          Icon="trash"
                                          TextLocalizedTag="REMOVE"
@@ -297,7 +281,7 @@
                                                 LocalizedTag="DATE_AWARDED" 
                                                 LocalizedPage="ADMIN_EDITMEDAL" />:
                         </span>
-                        <%# this.Get<IDateTime>().FormatDateTimeTopic((DateTime)this.Eval("DateAwarded")) %>
+                        <%# this.Get<IDateTime>().FormatDateTimeTopic((DateTime)this.Eval("Item2.DateAwarded")) %>
                     </small>
                 </div>
                 <p class="mb-1">
@@ -306,13 +290,13 @@
                                             LocalizedTag="MESSAGE" 
                                             LocalizedPage="COMMON" />
                     </span>
-                    <%# this.Eval("Message") %>
+                    <%# this.Eval("Item2.Message").ToString().IsSet() ? this.Eval("Item2.Message") :  this.Eval("Item1.Message")%>
                 </p>
                 <small>
                     <div class="btn-group btn-group-sm">
                         <YAF:ThemeButton runat="server" 
                                          CommandName="edit" 
-                                         CommandArgument='<%# this.Eval("UserID") %>' 
+                                         CommandArgument='<%# this.Eval("Item2.UserID") %>' 
                                          TextLocalizedTag="EDIT"
                                          Type="Info" 
                                          Size="Small"
@@ -320,7 +304,7 @@
                         </YAF:ThemeButton>
                         <YAF:ThemeButton runat="server" 
                                          CommandName="remove" 
-                                         CommandArgument='<%# this.Eval("UserID") %>' 
+                                         CommandArgument='<%# this.Eval("Item2.UserID") %>' 
                                          TextLocalizedTag="REMOVE"
                                          Type="Danger" 
                                          Size="Small"
@@ -331,7 +315,7 @@
                     <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                         <YAF:ThemeButton runat="server" 
                                          CommandName="edit" 
-                                         CommandArgument='<%# this.Eval("UserID") %>' 
+                                         CommandArgument='<%# this.Eval("Item2.UserID") %>' 
                                          TextLocalizedTag="EDIT"
                                          Type="None" 
                                          CssClass="dropdown-item"
@@ -339,7 +323,7 @@
                         </YAF:ThemeButton>
                         <YAF:ThemeButton runat="server" 
                                          CommandName="remove" 
-                                         CommandArgument='<%# this.Eval("UserID") %>' 
+                                         CommandArgument='<%# this.Eval("Item2.UserID") %>' 
                                          TextLocalizedTag="REMOVE"
                                          Type="None" 
                                          CssClass="dropdown-item"
@@ -378,3 +362,4 @@
 
 <modal:GroupEdit ID="GroupEditDialog" runat="server" />
 <modal:UserEdit ID="UserEditDialog" runat="server" />
+</asp:PlaceHolder>

@@ -16,17 +16,22 @@
 <asp:PlaceHolder runat="server" ID="SearchResults" Visible="False">
     <div class="row">
         <div class="col-xl-12">
-
-    <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopPageChange" UsePostBack="True" />
-    <div class="card mb-3">
-                <div class="card-header">
-                    <YAF:IconHeader runat="server"
-                                    IconName="users"
-                                    LocalizedPage="ADMIN_USERS"></YAF:IconHeader>
-                    <div class="float-right">
+        
+        <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopPageChange" UsePostBack="True" />
+        
+        <div class="card mb-3">
+            <div class="card-header">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        <YAF:IconHeader runat="server"
+                                        IconName="users"
+                                        LocalizedPage="ADMIN_USERS"></YAF:IconHeader>
+                    </div>
+                    <div class="col-auto">
                         <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown"
+                                         Size="Small"
                                          Type="Secondary"
                                          Icon="filter"
                                          TextLocalizedTag="FILTER_DROPDOWN"
@@ -100,10 +105,11 @@
                                 <div class="mb-3">
                                     <YAF:ThemeButton ID="search" runat="server" 
                                                      OnClick="SearchClick" 
+                                                     CssClass="mr-2"
                                                      Type="Primary"
                                                      Icon="search" 
                                                      TextLocalizedTag="SEARCH" 
-                                                     TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>&nbsp;
+                                                     TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                                     <YAF:ThemeButton ID="ResetUserSearch" runat="server"
                                                      OnClick="Reset_Click"
                                                      TextLocalizedTag="CLEAR"
@@ -115,6 +121,7 @@
                                 </div>
                             </div>
                         </div>
+                </div>
                 </div>
                 <div class="card-body">
                     <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserListItemCommand">

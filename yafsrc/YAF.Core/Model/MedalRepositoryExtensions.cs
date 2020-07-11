@@ -23,8 +23,13 @@
  */
 namespace YAF.Core.Model
 {
-    using System.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
+    using ServiceStack.OrmLite;
+
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -38,72 +43,76 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// The delete.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="medalID">
-        /// The medal id. 
-        /// </param>
-        /// <param name="category">
-        /// The category. 
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        public static void Delete(this IRepository<Medal> repository, int medalID, string category = null, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            repository.DbFunction.Query.medal_delete(BoardID: boardId ?? repository.BoardID, MedalID: medalID, Category: category);
-            repository.FireDeleted(medalID);
-        }
-
-        /// <summary>
-        /// Lists medal(s) assigned to the group
+        /// Lists users assigned to the medal
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="groupID">
-        /// ID of group of which to list medals.
-        /// </param>
-        /// <param name="medalID">
-        /// ID of medal to list.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="List"/>.
         /// </returns>
-        public static DataTable GroupMedalListAsDataTable(
-            this IRepository<Medal> repository,
-            [NotNull] object groupID,
-            [NotNull] object medalID)
+        public static
+            List<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string SmallMedalURL,
+                string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags, DateTime DateAwarded)>
+            ListUserMedals(this IRepository<Medal> repository, [NotNull] int userId)
         {
-            return repository.DbFunction.GetData.group_medal_list(GroupID: groupID, MedalID: medalID);
-        }
+            var expressionUser = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
-        /// <summary>
-        /// The resort.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="medalID">
-        /// The medal id. 
-        /// </param>
-        /// <param name="move">
-        /// The move. 
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        public static void Resort(this IRepository<Medal> repository, int medalID, int move, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            expressionUser.Join<UserMedal>((a, b) => b.MedalID == a.ID).Where<UserMedal>(b => b.UserID == userId)
+                .Select<Medal, UserMedal>(
+                    (a, b) => new
+                    {
+                        MedalID = a.ID,
+                        a.Name,
+                        Message = b.Message != null ? b.Message : a.Message,
+                        a.MedalURL,
+                        a.RibbonURL,
+                        a.SmallMedalURL,
+                        SmallRibbonURL = a.SmallRibbonURL != null ? a.SmallRibbonURL : a.SmallMedalURL,
+                        SortOrder = (a.Flags & 8) == 0 ? a.SortOrder : b.SortOrder,
+                        Hide = (a.Flags & 4) == 0 ? false : b.Hide,
+                        OnlyRibbon = (a.RibbonURL == null || (a.Flags & 2) == 0) ? false : b.OnlyRibbon,
+                        a.Flags,
+                        b.DateAwarded
+                    });
 
-            repository.DbFunction.Query.medal_resort(BoardID: boardId ?? repository.BoardID, MedalID: medalID, Move: move);
-            repository.FireUpdated(medalID);
+            var userMedals = repository.DbAccess.Execute(
+                db => db.Connection
+                    .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string
+                        SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags,
+                        DateTime DateAwarded)>(expressionUser));
+
+            var expressionUserGroup = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
+
+            expressionUserGroup.Join<GroupMedal>((a, b) => b.MedalID == a.ID)
+                .Join<GroupMedal, UserGroup>((b, c) => c.GroupID == b.GroupID).Where<UserGroup>(c => c.UserID == userId)
+                .Select<Medal, GroupMedal>(
+                    (a, b) => new
+                    {
+                        MedalID = a.ID,
+                        a.Name,
+                        Message = b.Message != null ? b.Message : a.Message,
+                        a.MedalURL,
+                        a.RibbonURL,
+                        a.SmallMedalURL,
+                        SmallRibbonURL = a.SmallRibbonURL != null ? a.SmallRibbonURL : a.SmallMedalURL,
+                        SortOrder = (a.Flags & 8) == 0 ? a.SortOrder : b.SortOrder,
+                        Hide = (a.Flags & 4) == 0 ? false : b.Hide,
+                        OnlyRibbon = (a.RibbonURL == null || (a.Flags & 2) == 0) ? false : b.OnlyRibbon,
+                        a.Flags,
+                        DateAwarded = default(DateTime)
+                    });
+
+            var userGroupMedals = repository.DbAccess.Execute(
+                db => db.Connection
+                    .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string
+                        SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags,
+                        DateTime DateAwarded)>(expressionUserGroup));
+
+            return userMedals.Union(userGroupMedals).Distinct().ToList();
         }
 
         /// <summary>
@@ -112,8 +121,8 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository. 
         /// </param>
-        /// <param name="medalID">
-        /// The medal id. 
+        /// <param name="medalId">
+        /// The medal Id.
         /// </param>
         /// <param name="name">
         /// The name. 
@@ -139,33 +148,15 @@ namespace YAF.Core.Model
         /// <param name="smallRibbonURL">
         /// The small ribbon url. 
         /// </param>
-        /// <param name="smallMedalWidth">
-        /// The small medal width. 
-        /// </param>
-        /// <param name="smallMedalHeight">
-        /// The small medal height. 
-        /// </param>
-        /// <param name="smallRibbonWidth">
-        /// The small ribbon width. 
-        /// </param>
-        /// <param name="smallRibbonHeight">
-        /// The small ribbon height. 
-        /// </param>
-        /// <param name="sortOrder">
-        /// The sort order. 
-        /// </param>
         /// <param name="flags">
         /// The flags. 
         /// </param>
         /// <param name="boardId">
         /// The board Id.
         /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool Save(
+        public static void Save(
             this IRepository<Medal> repository, 
-            int? medalID, 
+            int? medalId, 
             string name, 
             string description, 
             string message, 
@@ -174,49 +165,52 @@ namespace YAF.Core.Model
             string ribbonURL, 
             string smallMedalURL, 
             string smallRibbonURL, 
-            short smallMedalWidth, 
-            short smallMedalHeight, 
-            short? smallRibbonWidth, 
-            short? smallRibbonHeight, 
-            byte sortOrder, 
             int flags, 
             int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var success = (int)repository.DbFunction.Scalar.medal_save(
-                BoardID: boardId ?? repository.BoardID, 
-                MedalID: medalID, 
-                Name: name, 
-                Description: description, 
-                Message: message, 
-                Category: category, 
-                MedalURL: medalURL, 
-                RibbonURL: ribbonURL, 
-                SmallMedalURL: smallMedalURL, 
-                SmallRibbonURL: smallRibbonURL, 
-                SmallMedalWidth: smallMedalWidth, 
-                SmallMedalHeight: smallMedalHeight, 
-                SmallRibbonWidth: smallRibbonWidth, 
-                SmallRibbonHeight: smallRibbonHeight, 
-                SortOrder: sortOrder, 
-                Flags: flags);
-
-            if (success <= 0)
+            if (medalId.HasValue)
             {
-                return false;
-            }
-
-            if (medalID.HasValue)
-            {
-                repository.FireUpdated(medalID);
+                repository.UpdateOnly(
+                    () => new Medal
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        Name = name,
+                        Description = description,
+                        Message = message,
+                        Category = category,
+                        MedalURL = medalURL,
+                        RibbonURL = ribbonURL,
+                        SmallMedalURL = smallMedalURL,
+                        SmallRibbonURL = smallRibbonURL,
+                        SortOrder = 0,
+                        Flags = flags
+                    },
+                    medal => medal.ID == medalId.Value);
+                
+                repository.FireUpdated(medalId);
             }
             else
             {
-                repository.FireNew();
-            }
+               var newId = repository.Insert(
+                    new Medal
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        Name = name,
+                        Description = description,
+                        Message = message,
+                        Category = category,
+                        MedalURL = medalURL,
+                        RibbonURL = ribbonURL,
+                        SmallMedalURL = smallMedalURL,
+                        SmallRibbonURL = smallRibbonURL,
+                        SortOrder = 0,
+                        Flags = flags
+                    });
 
-            return true;
+                repository.FireNew(newId);
+            }
         }
 
         #endregion

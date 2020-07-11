@@ -32,6 +32,7 @@ namespace YAF.Pages.Account
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Identity.Owin;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -92,20 +93,20 @@ namespace YAF.Pages.Account
 
             if (this.IsPostBack)
             {
-                this.ContentBody.CssClass = "card-body was-validated";
                 return;
             }
-            
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "loadLoginValidatorFormJs",
+                JavaScriptBlocks.FormValidatorJs(this.LoginButton.ClientID));
+
             this.UserName.Focus();
 
             this.RememberMe.Text = this.GetText("auto");
 
-            this.LoginButton.Text = this.GetText("FORUM_LOGIN");
-
             this.Password.Attributes.Add(
                 "onkeydown",
-                $@"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{
-                              document.getElementById('{this.LoginButton.ClientID}').click();return false;}}}} else {{return true}}; ");
+                JavaScriptBlocks.ClickOnEnterJs(this.LoginButton.ClientID));
 
             if (this.PageContext.IsGuest && !this.Get<BoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
             {
