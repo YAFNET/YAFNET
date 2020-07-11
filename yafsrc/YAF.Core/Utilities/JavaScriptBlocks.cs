@@ -667,7 +667,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                               {Config.JQueryAlias}('#dvThankBox' + response.MessageID).html({removeThankBoxHtml});
 
                               {Config.JQueryAlias}('.thanks-popover').popover({{
-                                     template: '<div class=""popover"" role=""tooltip""><div class=""arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'}});
+                                     template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'}});
                     }},
                     error: function(x, e)  {{
                              console.log('An Error has occured!');
@@ -1196,7 +1196,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                            return new bootstrap.Popover(popoverTriggerEl,{{
                            html: true,
                            content: ""{content}"",
-                           trigger: ""focus hover""
+                           trigger: ""focus""
                            }});
                     }});";
         }
@@ -1252,7 +1252,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                            return new bootstrap.Popover(popoverTriggerEl,{{
                            title: '{title}',
                            html: true,
-                           trigger: 'focus hover',
+                           trigger: 'focus',
                            template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'
                            }});
                 }});";
@@ -1308,6 +1308,74 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                    
                 }}, false);
             }})();";
+        }
+
+        /// <summary>
+        /// Click Button on Enter Key JS.
+        /// </summary>
+        /// <param name="buttonClientId">
+        /// The button Client Id.
+        /// </param>
+        /// <returns>
+        /// Returns the JS String
+        /// </returns>
+        [NotNull]
+        public static string ClickOnEnterJs([NotNull] string buttonClientId)
+        {
+            return $@"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{
+                              document.getElementById('{buttonClientId}').click();return false;}}}} else {{return true}}; ";
+        }
+
+        /// <summary>
+        /// Opens the BootBox Confirm Dialog JS.
+        /// </summary>
+        /// <param name="title">
+        /// The title.
+        /// </param>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <param name="yes">
+        /// The yes.
+        /// </param>
+        /// <param name="no">
+        /// The no.
+        /// </param>
+        /// <param name="link">
+        /// The link.
+        /// </param>
+        /// <returns>
+        /// Returns the JS String
+        /// </returns>
+        [NotNull]
+        public static string BootBoxConfirmJs(
+            [NotNull] string title,
+            [NotNull] string text,
+            [NotNull] string yes,
+            [NotNull] string no,
+            [NotNull] string link)
+        {
+            return $@"bootbox.confirm({{
+                centerVertical: true,
+                title: '{title}',
+                message: '{text}',
+                buttons: {{
+                    confirm: {{
+                        label: '<i class=""fa fa-check""></i> ' + '{yes}',
+                        className: ""btn-success""
+                    }},
+                    cancel: {{
+                        label: '<i class=""fa fa-times""></i> ' + '{no}',
+                        className: ""btn-danger""
+                    }}
+                }},
+                callback: function (confirmed) {{
+                    if (confirmed) {{
+                        document.location.href = '{link}';
+                    }}
+                }}
+            }}
+        );";
         }
     }
 }
