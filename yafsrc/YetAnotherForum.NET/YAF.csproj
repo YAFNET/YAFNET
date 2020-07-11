@@ -456,13 +456,6 @@
     <Compile Include="Dialogs\AttachmentsUpload.ascx.designer.cs">
       <DependentUpon>AttachmentsUpload.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogBox.ascx.cs">
-      <DependentUpon>DialogBox.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dialogs\DialogBox.ascx.designer.cs">
-      <DependentUpon>DialogBox.ascx</DependentUpon>
-    </Compile>
     <Compile Include="controls\DisplayConnect.ascx.cs">
       <DependentUpon>DisplayConnect.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1929,7 +1922,6 @@
       <DependentUpon>jquery.fileupload.comb.css</DependentUpon>
     </Content>
     <Content Include="Content\prism.css" />
-    <Content Include="Content\select2\select2-bootstrap.css" />
     <Content Include="Content\tablesorter\theme.bootstrap_4.min.css" />
     <Content Include="Content\Themes\cyborg\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
@@ -1974,7 +1966,6 @@
     <Content Include="Dialogs\QuickReply.ascx" />
     <Content Include="Dialogs\AttachmentsUpload.ascx" />
     <Content Include="controls\BuddyList.ascx" />
-    <Content Include="Dialogs\DialogBox.ascx" />
     <Content Include="controls\DisplayConnect.ascx" />
     <Content Include="Dialogs\ImageGallery.ascx" />
     <Content Include="controls\PollChoiceList.ascx" />
@@ -3355,6 +3346,7 @@
     <Content Include="v1.9.1.upgrade.web.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Content\select2\select2-bootstrap.scss" />
     <None Include="web.config">
       <SubType>Designer</SubType>
     </None>
@@ -3678,7 +3670,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

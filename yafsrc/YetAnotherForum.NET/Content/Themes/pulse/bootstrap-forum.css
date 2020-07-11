@@ -5742,7 +5742,7 @@ button.close {
 .text-dark {
   color: #17141F !important; }
 
-.link-light {
+.text-white {
   color: #fff !important; }
 
 .text-body {
@@ -5754,7 +5754,7 @@ button.close {
 .text-black-50 {
   color: rgba(0, 0, 0, 0.5) !important; }
 
-.link-light-50 {
+.text-white-50 {
   color: rgba(255, 255, 255, 0.5) !important; }
 
 .text-reset {
@@ -8010,7 +8010,7 @@ button.close {
 
 .badge {
   padding-bottom: 0.4em; }
-  .bg-secondary, .bg-warning {
+  .badge-secondary, .badge-warning {
     color: #fff; }
 
 .progress {
@@ -8033,18 +8033,6 @@ button.close {
 
 .blockquote-custom {
   font-size: 0.875rem; }
-
-.dropdown-menu > .active > a {
-  color: #fff; }
-
-.dropdown-menu > li > a {
-  color: #17141F; }
-
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus {
-  color: #fff;
-  text-decoration: none;
-  background-color: #593196; }
 
 /* Help sidebar */
 .sidebar-sticky ul > li:nth-child(odd) {
