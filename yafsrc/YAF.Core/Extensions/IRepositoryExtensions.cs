@@ -254,7 +254,7 @@ namespace YAF.Core.Extensions
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbAccess.Execute(db => db.Connection.InsertAll(objs));
+            repository.DbAccess.Execute(db => db.Connection.InsertAll<T>(objs));
         }
 
         /// <summary>
