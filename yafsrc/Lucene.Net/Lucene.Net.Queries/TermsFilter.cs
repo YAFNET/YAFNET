@@ -4,7 +4,6 @@ using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace YAF.Lucene.Net.Queries
@@ -50,6 +49,14 @@ namespace YAF.Lucene.Net.Queries
         private readonly TermsAndField[] termsAndFields;
         private readonly int hashCode; // cached hashcode for fast cache lookups
         private const int PRIME = 31;
+
+        // LUCENENET specific - optimized empty array creation
+        private static readonly byte[] EMPTY_BYTES =
+#if FEATURE_ARRAYEMPTY
+            Array.Empty<byte>();
+#else
+            new byte[0];
+#endif
 
         /// <summary>
         /// Creates a new <see cref="TermsFilter"/> from the given list. The list
@@ -106,7 +113,7 @@ namespace YAF.Lucene.Net.Queries
             public FieldAndTermEnumAnonymousInnerClassHelper2(string field, IList<BytesRef> terms)
                 : base(field)
             {
-                if (!terms.Any())
+                if (terms.Count == 0)
                 {
                     throw new ArgumentException("no terms provided");
                 }
@@ -159,9 +166,9 @@ namespace YAF.Lucene.Net.Queries
 
             // TODO: yet another option is to build the union of the terms in
             // an automaton an call intersect on the termsenum if the density is high
-
+            
             int hash = 9;
-            var serializedTerms = new byte[0];
+            var serializedTerms = EMPTY_BYTES;
             this.offsets = new int[length + 1];
             int lastEndOffset = 0;
             int index = 0;
@@ -176,7 +183,7 @@ namespace YAF.Lucene.Net.Queries
                 currentField = iter.Field;
                 if (currentField == null)
                 {
-                    throw new System.ArgumentException("Field must not be null");
+                    throw new ArgumentException("Field must not be null");
                 }
                 if (previousField != null)
                 {

@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using JCG = J2N.Collections.Generic;
@@ -73,10 +72,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             args.Remove(CLASS_NAME); // consume the class arg
         }
 
-        public IDictionary<string, string> OriginalArgs
-        {
-            get { return originalArgs; }
-        }
+        public IDictionary<string, string> OriginalArgs => originalArgs;
 
         /// <summary>
         /// this method can be called in the <see cref="TokenizerFactory.Create(TextReader)"/>
@@ -90,21 +86,18 @@ namespace YAF.Lucene.Net.Analysis.Util
             // it is used throughout Lucene.
             //if (luceneMatchVersion == null)
             //{
-            //    throw new System.ArgumentException("Configuration Error: Factory '" + this.GetType().FullName + "' needs a 'luceneMatchVersion' parameter");
+            //    throw new ArgumentException("Configuration Error: Factory '" + this.GetType().FullName + "' needs a 'luceneMatchVersion' parameter");
             //}
         }
 
-        public LuceneVersion LuceneMatchVersion
-        {
-            get { return this.m_luceneMatchVersion; }
-        }
+        public LuceneVersion LuceneMatchVersion => this.m_luceneMatchVersion;
 
         public virtual string Require(IDictionary<string, string> args, string name)
         {
             string s;
             if (!args.TryGetValue(name, out s))
             {
-                throw new System.ArgumentException("Configuration Error: missing parameter '" + name + "'");
+                throw new ArgumentException("Configuration Error: missing parameter '" + name + "'");
             }
             args.Remove(name);
             return s;
@@ -190,7 +183,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                         }
                     }
                 }
-                throw new System.ArgumentException("Configuration Error: '" + name + "' value must be one of " +
+                throw new ArgumentException("Configuration Error: '" + name + "' value must be one of " +
                                                    allowedValues);
             }
         }
@@ -268,7 +261,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 args.Remove(name);
                 if (s.Length != 1)
                 {
-                    throw new System.ArgumentException(name + " should be a char. \"" + s + "\" is invalid");
+                    throw new ArgumentException(name + " should be a char. \"" + s + "\" is invalid");
                 }
                 else
                 {
@@ -319,7 +312,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             }
             catch (Exception e)
             {
-                throw new System.ArgumentException("Configuration Error: '" + name + "' can not be parsed in " + this.GetType().Name, e);
+                throw new ArgumentException("Configuration Error: '" + name + "' can not be parsed in " + this.GetType().Name, e);
             }
         }
 
@@ -346,7 +339,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 }
                 catch (Exception e)
                 {
-                    throw new System.ArgumentException("Configuration Error: '" + name + "' can not be parsed in " + this.GetType().Name, e);
+                    throw new ArgumentException("Configuration Error: '" + name + "' can not be parsed in " + this.GetType().Name, e);
                 }
             }
             return defaultVal;
@@ -361,7 +354,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             AssureMatchVersion();
             IList<string> files = SplitFileNames(wordFiles);
             CharArraySet words = null;
-            if (files.Count() > 0)
+            if (files.Count > 0)
             {
                 // default stopwords list has 35 or so words, but maybe don't make it that
                 // big to start
@@ -392,11 +385,11 @@ namespace YAF.Lucene.Net.Analysis.Util
             AssureMatchVersion();
             IList<string> files = SplitFileNames(wordFiles);
             CharArraySet words = null;
-            if (files.Count() > 0)
+            if (files.Count > 0)
             {
                 // default stopwords list has 35 or so words, but maybe don't make it that
                 // big to start
-                words = new CharArraySet(m_luceneMatchVersion, files.Count() * 10, ignoreCase);
+                words = new CharArraySet(m_luceneMatchVersion, files.Count * 10, ignoreCase);
                 foreach (string file in files)
                 {
                     using (Stream stream = loader.OpenResource(file.Trim()))
@@ -425,12 +418,19 @@ namespace YAF.Lucene.Net.Analysis.Util
             }
 
             IList<string> result = new List<string>();
-            foreach (string file in Regex.Split(fileNames, "(?<!\\\\),"))
+            foreach (string file in SplitFileNameHolder.FILE_SPLIT_PATTERN.Split(fileNames))
             {
-                result.Add(Regex.Replace(file, "\\\\(?=,)", ""));
+                result.Add(SplitFileNameHolder.FILE_REPLACE_PATTERN.Replace(file, string.Empty));
             }
 
             return result;
+        }
+
+        // LUCENENET specific - optimize compilation and lazy-load the regular expressions
+        private static class SplitFileNameHolder
+        {
+            public static readonly Regex FILE_SPLIT_PATTERN = new Regex("(?<!\\\\),", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+            public static readonly Regex FILE_REPLACE_PATTERN = new Regex("\\\\(?=,)", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         }
 
         private const string CLASS_NAME = "class";

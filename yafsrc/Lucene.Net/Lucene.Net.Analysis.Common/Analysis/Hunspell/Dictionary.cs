@@ -107,7 +107,8 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         internal bool needsOutputCleaning;
 
         // LUCENENET: Added so we can get better performance than creating the regex in every tight loop.
-        private static Regex whitespacePattern = new Regex("\\s+", RegexOptions.Compiled);
+        private static readonly Regex whitespacePattern = new Regex("\\s+", RegexOptions.Compiled);
+        private static readonly Regex leadingDigitPattern = new Regex("[^0-9]", RegexOptions.Compiled);
 
         /// <summary>
         /// Creates a new <see cref="Dictionary"/> containing the information read from the provided <see cref="Stream"/>s to hunspell affix
@@ -491,7 +492,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                     patternIndex = patterns.Count;
                     if (patternIndex > short.MaxValue)
                     {
-                        throw new System.NotSupportedException("Too many patterns, please report this to dev@lucene.apache.org");
+                        throw new NotSupportedException("Too many patterns, please report this to dev@lucene.apache.org");
                     }
                     seenPatterns[regex] = patternIndex;
                     CharacterRunAutomaton pattern = new CharacterRunAutomaton((new RegExp(regex, RegExpSyntax.NONE)).ToAutomaton());
@@ -504,7 +505,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                     seenStrips[strip] = stripOrd;
                     if (stripOrd > char.MaxValue)
                     {
-                        throw new System.NotSupportedException("Too many unique strips, please report this to dev@lucene.apache.org");
+                        throw new NotSupportedException("Too many unique strips, please report this to dev@lucene.apache.org");
                     }
                 }
 
@@ -523,7 +524,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 else if (appendFlagsOrd > short.MaxValue)
                 {
                     // this limit is probably flexible, but its a good sanity check too
-                    throw new System.NotSupportedException("Too many unique append flags, please report this to dev@lucene.apache.org");
+                    throw new NotSupportedException("Too many unique append flags, please report this to dev@lucene.apache.org");
                 }
 
                 affixWriter.WriteInt16((short)flag);
@@ -675,8 +676,8 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             return Encoding.GetEncoding(encoding);
         }
 
-        private static Regex windowsCodePagePattern = new Regex("^(?:microsoft-)?cp-?(125[0-8])$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
-        private static Regex thaiCodePagePattern = new Regex("^tis-?620(?:-?2533)?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+        private static readonly Regex windowsCodePagePattern = new Regex("^(?:microsoft-)?cp-?(125[0-8])$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+        private static readonly Regex thaiCodePagePattern = new Regex("^tis-?620(?:-?2533)?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
 
         /// <summary>
@@ -689,7 +690,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             string[] parts = whitespacePattern.Split(flagLine).TrimEnd();
             if (parts.Length != 2)
             {
-                throw new System.ArgumentException("Illegal FLAG specification: " + flagLine);
+                throw new ArgumentException("Illegal FLAG specification: " + flagLine);
             }
             string flagType = parts[1];
 
@@ -706,7 +707,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 return new DoubleASCIIFlagParsingStrategy();
             }
 
-            throw new System.ArgumentException("Unknown flag type: " + flagType);
+            throw new ArgumentException("Unknown flag type: " + flagType);
         }
 
         internal readonly char FLAG_SEPARATOR = (char)0x1f; // flag separator after escaping
@@ -896,7 +897,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                     int cmp = currentEntry == null ? 1 : entry.CompareToOrdinal(currentEntry);
                     if (cmp < 0)
                     {
-                        throw new System.ArgumentException("out of order: " + entry + " < " + currentEntry);
+                        throw new ArgumentException("out of order: " + entry + " < " + currentEntry);
                     }
                     else
                     {
@@ -994,7 +995,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             }
             catch (System.IndexOutOfRangeException ex)
             {
-                throw new System.ArgumentException("Bad flag alias number:" + id, ex);
+                throw new ArgumentException("Bad flag alias number:" + id, ex);
             }
         }
 
@@ -1013,7 +1014,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 char[] flags = ParseFlags(rawFlag);
                 if (flags.Length != 1)
                 {
-                    throw new System.ArgumentException("expected only one flag, got: " + rawFlag);
+                    throw new ArgumentException("expected only one flag, got: " + rawFlag);
                 }
                 return flags[0];
             }
@@ -1053,7 +1054,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 for (int i = 0; i < rawFlagParts.Length; i++)
                 {
                     // note, removing the trailing X/leading I for nepali... what is the rule here?! 
-                    string replacement = Regex.Replace(rawFlagParts[i], "[^0-9]", "");
+                    string replacement = leadingDigitPattern.Replace(rawFlagParts[i], "");
                     // note, ignoring empty flags (this happens in danish, for example)
                     if (replacement.Length == 0)
                     {
@@ -1078,17 +1079,25 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         /// </summary>
         private class DoubleASCIIFlagParsingStrategy : FlagParsingStrategy
         {
+            // LUCENENET specific - optimized empty array creation
+            private static readonly char[] EMPTY_CHARS =
+#if FEATURE_ARRAYEMPTY
+                Array.Empty<char>();
+#else
+                new char[0];
+#endif
+
             internal override char[] ParseFlags(string rawFlags)
             {
                 if (rawFlags.Length == 0)
                 {
-                    return new char[0];
+                    return EMPTY_CHARS; // LUCENENET: Optimized char[] creation
                 }
 
                 StringBuilder builder = new StringBuilder();
                 if (rawFlags.Length % 2 == 1)
                 {
-                    throw new System.ArgumentException("Invalid flags (should be even number of characters): " + rawFlags);
+                    throw new ArgumentException("Invalid flags (should be even number of characters): " + rawFlags);
                 }
                 for (int i = 0; i < rawFlags.Length; i += 2)
                 {

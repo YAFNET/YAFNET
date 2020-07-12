@@ -5,7 +5,9 @@ using YAF.Lucene.Net.Util;
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO;
+using System.Text;
 
 namespace YAF.Lucene.Net.Analysis.Util
 {
@@ -137,6 +139,18 @@ namespace YAF.Lucene.Net.Analysis.Util
         public abstract int CodePointCount(string seq);
 
         /// <summary>
+        /// Return the number of characters in <paramref name="seq"/>. </summary>
+        public abstract int CodePointCount(ICharSequence seq);
+
+        /// <summary>
+        /// Return the number of characters in <paramref name="seq"/>. </summary>
+        public abstract int CodePointCount(char[] seq);
+
+        /// <summary>
+        /// Return the number of characters in <paramref name="seq"/>. </summary>
+        public abstract int CodePointCount(StringBuilder seq);
+
+        /// <summary>
         /// Creates a new <see cref="CharacterBuffer"/> and allocates a <see cref="T:char[]"/>
         /// of the given bufferSize.
         /// </summary>
@@ -164,18 +178,23 @@ namespace YAF.Lucene.Net.Analysis.Util
             Debug.Assert(buffer.Length >= length);
             Debug.Assert(offset <= 0 && offset <= buffer.Length);
 
-            // Optimization provided by Vincent Van Den Berghe: 
-            // http://search-lucene.com/m/Lucene.Net/j1zMf1uckOzOYqsi?subj=Proposal+to+speed+up+implementation+of+LowercaseFilter+charUtils+ToLower
-            new string(buffer, offset, length)
-                .ToLowerInvariant()
+            // Slight optimization, eliminating a few method calls internally
+            CultureInfo.InvariantCulture.TextInfo
+                .ToLower(new string(buffer, offset, length))
                 .CopyTo(0, buffer, offset, length);
+
+            //// Optimization provided by Vincent Van Den Berghe: 
+            //// http://search-lucene.com/m/Lucene.Net/j1zMf1uckOzOYqsi?subj=Proposal+to+speed+up+implementation+of+LowercaseFilter+charUtils+ToLower
+            //new string(buffer, offset, length)
+            //    .ToLowerInvariant()
+            //    .CopyTo(0, buffer, offset, length);
 
             // Original (slow) Lucene implementation:
             //for (int i = offset; i < limit; )
             //{
             //    i += Character.ToChars(
             //        Character.ToLower(
-            //            CodePointAt(buffer, i, limit)), buffer, i);
+            //            CodePointAt(buffer, i, limit), CultureInfo.InvariantCulture), buffer, i);
             //}
         }
 
@@ -190,24 +209,29 @@ namespace YAF.Lucene.Net.Analysis.Util
             Debug.Assert(buffer.Length >= length);
             Debug.Assert(offset <= 0 && offset <= buffer.Length);
 
-            // Optimization provided by Vincent Van Den Berghe: 
-            // http://search-lucene.com/m/Lucene.Net/j1zMf1uckOzOYqsi?subj=Proposal+to+speed+up+implementation+of+LowercaseFilter+charUtils+ToLower
-            new string(buffer, offset, length)
-                .ToUpperInvariant()
+            // Slight optimization, eliminating a few method calls internally
+            CultureInfo.InvariantCulture.TextInfo
+                .ToUpper(new string(buffer, offset, length))
                 .CopyTo(0, buffer, offset, length);
+
+            //// Optimization provided by Vincent Van Den Berghe: 
+            //// http://search-lucene.com/m/Lucene.Net/j1zMf1uckOzOYqsi?subj=Proposal+to+speed+up+implementation+of+LowercaseFilter+charUtils+ToLower
+            //new string(buffer, offset, length)
+            //    .ToUpperInvariant()
+            //    .CopyTo(0, buffer, offset, length);
 
             // Original (slow) Lucene implementation:
             //for (int i = offset; i < limit; )
             //{
             //    i += Character.ToChars(
             //        Character.ToUpper(
-            //            CodePointAt(buffer, i, limit)), buffer, i);
+            //            CodePointAt(buffer, i, limit), CultureInfo.InvariantCulture), buffer, i);
             //}
         }
 
         /// <summary>
         /// Converts a sequence of .NET characters to a sequence of unicode code points. </summary>
-        ///  <returns> the number of code points written to the destination buffer  </returns>
+        ///  <returns> The number of code points written to the destination buffer.  </returns>
         public int ToCodePoints(char[] src, int srcOff, int srcLen, int[] dest, int destOff)
         {
             if (srcLen < 0)
@@ -365,6 +389,33 @@ namespace YAF.Lucene.Net.Analysis.Util
 
             public override int CodePointCount(string seq)
             {
+                if (seq is null)
+                    throw new ArgumentNullException(nameof(seq));
+
+                return Character.CodePointCount(seq, 0, seq.Length);
+            }
+
+            public override int CodePointCount(ICharSequence seq)
+            {
+                if (seq is null)
+                    throw new ArgumentNullException(nameof(seq));
+
+                return Character.CodePointCount(seq, 0, seq.Length);
+            }
+
+            public override int CodePointCount(char[] seq)
+            {
+                if (seq is null)
+                    throw new ArgumentNullException(nameof(seq));
+
+                return Character.CodePointCount(seq, 0, seq.Length);
+            }
+
+            public override int CodePointCount(StringBuilder seq)
+            {
+                if (seq is null)
+                    throw new ArgumentNullException(nameof(seq));
+
                 return Character.CodePointCount(seq, 0, seq.Length);
             }
 
@@ -432,6 +483,33 @@ namespace YAF.Lucene.Net.Analysis.Util
 
             public override int CodePointCount(string seq)
             {
+                if (seq is null)
+                    throw new ArgumentNullException(nameof(seq));
+
+                return seq.Length;
+            }
+
+            public override int CodePointCount(ICharSequence seq)
+            {
+                if (seq is null)
+                    throw new ArgumentNullException(nameof(seq));
+
+                return seq.Length;
+            }
+
+            public override int CodePointCount(char[] seq)
+            {
+                if (seq is null)
+                    throw new ArgumentNullException(nameof(seq));
+
+                return seq.Length;
+            }
+
+            public override int CodePointCount(StringBuilder seq)
+            {
+                if (seq is null)
+                    throw new ArgumentNullException(nameof(seq));
+
                 return seq.Length;
             }
 
@@ -459,9 +537,9 @@ namespace YAF.Lucene.Net.Analysis.Util
 
                 for (int i = offset; i < limit;)
                 {
-                    i += J2N.Character.ToChars(
-                        J2N.Character.ToLower(
-                            CodePointAt(buffer, i, limit)), buffer, i);
+                    i += Character.ToChars(
+                        Character.ToLower(
+                            CodePointAt(buffer, i, limit), CultureInfo.InvariantCulture), buffer, i);
                 }
             }
 
@@ -474,7 +552,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 {
                     i += Character.ToChars(
                         Character.ToUpper(
-                            CodePointAt(buffer, i, limit)), buffer, i);
+                            CodePointAt(buffer, i, limit), CultureInfo.InvariantCulture), buffer, i);
                 }
             }
         }

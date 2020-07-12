@@ -1,7 +1,6 @@
 ﻿using YAF.Lucene.Net.Search;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace YAF.Lucene.Net.QueryParsers.Surround.Query
 {

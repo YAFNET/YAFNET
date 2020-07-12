@@ -57,10 +57,7 @@ namespace YAF.Lucene.Net.Index
 
         private static readonly IndexingChain defaultIndexingChain = new IndexingChainAnonymousInnerClassHelper();
 
-        public static IndexingChain DefaultIndexingChain
-        {
-            get { return defaultIndexingChain; }
-        }
+        public static IndexingChain DefaultIndexingChain => defaultIndexingChain;
 
         private class IndexingChainAnonymousInnerClassHelper : IndexingChain
         {

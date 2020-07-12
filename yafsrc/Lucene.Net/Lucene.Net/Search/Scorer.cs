@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Support;
 using System.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search
@@ -68,13 +69,7 @@ namespace YAF.Lucene.Net.Search
         /// <para/>
         /// @lucene.experimental
         /// </summary>
-        public virtual Weight Weight
-        {
-            get
-            {
-                return m_weight;
-            }
-        }
+        public virtual Weight Weight => m_weight;
 
         /// <summary>
         /// Returns child sub-scorers
@@ -83,7 +78,7 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         public virtual ICollection<ChildScorer> GetChildren()
         {
-            return new List<ChildScorer>();
+            return Collections.EmptyList<ChildScorer>();
         }
 
         /// <summary>

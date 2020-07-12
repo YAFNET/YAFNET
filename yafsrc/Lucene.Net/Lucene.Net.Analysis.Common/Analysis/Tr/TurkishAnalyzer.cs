@@ -7,27 +7,25 @@ using YAF.Lucene.Net.Tartarus.Snowball.Ext;
 using YAF.Lucene.Net.Util;
 using System;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace YAF.Lucene.Net.Analysis.Tr
 {
     /*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
 
     /// <summary>
     /// <see cref="Analyzer"/> for Turkish.
@@ -48,13 +46,7 @@ namespace YAF.Lucene.Net.Analysis.Tr
         /// <summary>
         /// Returns an unmodifiable instance of the default stop words set. </summary>
         /// <returns> default stop words set. </returns>
-        public static CharArraySet DefaultStopSet
-        {
-            get
-            {
-                return DefaultSetHolder.DEFAULT_STOP_SET;
-            }
-        }
+        public static CharArraySet DefaultStopSet => DefaultSetHolder.DEFAULT_STOP_SET;
 
         /// <summary>
         /// Atomically loads the <see cref="DEFAULT_STOP_SET"/> in a lazy fashion once the outer class 
@@ -132,7 +124,7 @@ namespace YAF.Lucene.Net.Analysis.Tr
             }
             result = new TurkishLowerCaseFilter(result);
             result = new StopFilter(m_matchVersion, result, m_stopwords);
-            if (stemExclusionSet.Any())
+            if (stemExclusionSet.Count > 0)
             {
                 result = new SetKeywordMarkerFilter(result, stemExclusionSet);
             }

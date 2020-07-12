@@ -1,4 +1,6 @@
 using YAF.Lucene.Net.Util;
+using System;
+using System.IO;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -151,10 +153,7 @@ namespace YAF.Lucene.Net.Search
                 }
             }
 
-            public override bool AcceptsDocsOutOfOrder
-            {
-                get { return true; }
-            }
+            public override bool AcceptsDocsOutOfOrder => true;
         }
 
         /// <summary>
@@ -271,10 +270,7 @@ namespace YAF.Lucene.Net.Search
                 }
             }
 
-            public override bool AcceptsDocsOutOfOrder
-            {
-                get { return true; }
-            }
+            public override bool AcceptsDocsOutOfOrder => true;
         }
 
         /// <summary>
@@ -391,10 +387,7 @@ namespace YAF.Lucene.Net.Search
                 }
             }
 
-            public override bool AcceptsDocsOutOfOrder
-            {
-                get { return true; }
-            }
+            public override bool AcceptsDocsOutOfOrder => true;
         }
 
         /// <summary>
@@ -578,10 +571,7 @@ namespace YAF.Lucene.Net.Search
                 }
             }
 
-            public override bool AcceptsDocsOutOfOrder
-            {
-                get { return true; }
-            }
+            public override bool AcceptsDocsOutOfOrder => true;
         }
 
         /// <summary>
@@ -760,10 +750,7 @@ namespace YAF.Lucene.Net.Search
                 }
             }
 
-            public override bool AcceptsDocsOutOfOrder
-            {
-                get { return true; }
-            }
+            public override bool AcceptsDocsOutOfOrder => true;
         }
 
         /// <summary>
@@ -946,10 +933,7 @@ namespace YAF.Lucene.Net.Search
                 base.SetScorer(scorer);
             }
 
-            public override bool AcceptsDocsOutOfOrder
-            {
-                get { return true; }
-            }
+            public override bool AcceptsDocsOutOfOrder => true;
         }
 
         /// <summary>
@@ -1131,10 +1115,7 @@ namespace YAF.Lucene.Net.Search
                 }
             }
 
-            public override bool AcceptsDocsOutOfOrder
-            {
-                get { return true; }
-            }
+            public override bool AcceptsDocsOutOfOrder => true;
 
             public override void SetNextReader(AtomicReaderContext context)
             {
@@ -1147,7 +1128,12 @@ namespace YAF.Lucene.Net.Search
             }
         }
 
-        private static readonly ScoreDoc[] EMPTY_SCOREDOCS = new ScoreDoc[0];
+        private static readonly ScoreDoc[] EMPTY_SCOREDOCS =
+#if FEATURE_ARRAYEMPTY
+            Array.Empty<ScoreDoc>();
+#else
+            new ScoreDoc[0];
+#endif
 
         private readonly bool fillFields;
 
@@ -1208,7 +1194,7 @@ namespace YAF.Lucene.Net.Search
         ///          the given <see cref="Scorer"/> in <see cref="ICollector.SetScorer(Scorer)"/>. </param>
         /// <returns> A <see cref="TopFieldCollector"/> instance which will sort the results by
         ///         the sort criteria. </returns>
-        /// <exception cref="System.IO.IOException"> If there is a low-level I/O error </exception>
+        /// <exception cref="IOException"> If there is a low-level I/O error </exception>
         public static TopFieldCollector Create(Sort sort, int numHits, bool fillFields, bool trackDocScores, bool trackMaxScore, bool docsScoredInOrder)
         {
             return Create(sort, numHits, null, fillFields, trackDocScores, trackMaxScore, docsScoredInOrder);
@@ -1250,17 +1236,17 @@ namespace YAF.Lucene.Net.Search
         ///          the given <see cref="Scorer"/> in <see cref="ICollector.SetScorer(Scorer)"/>. </param>
         /// <returns> A <see cref="TopFieldCollector"/> instance which will sort the results by
         ///         the sort criteria. </returns>
-        /// <exception cref="System.IO.IOException"> If there is a low-level I/O error </exception>
+        /// <exception cref="IOException"> If there is a low-level I/O error </exception>
         public static TopFieldCollector Create(Sort sort, int numHits, FieldDoc after, bool fillFields, bool trackDocScores, bool trackMaxScore, bool docsScoredInOrder)
         {
             if (sort.fields.Length == 0)
             {
-                throw new System.ArgumentException("Sort must contain at least one field");
+                throw new ArgumentException("Sort must contain at least one field");
             }
 
             if (numHits <= 0)
             {
-                throw new System.ArgumentException("numHits must be > 0; please use TotalHitCountCollector if you just need the total hit count");
+                throw new ArgumentException("numHits must be > 0; please use TotalHitCountCollector if you just need the total hit count");
             }
 
             FieldValueHitQueue<Entry> queue = FieldValueHitQueue.Create<Entry>(sort.fields, numHits);
@@ -1337,12 +1323,12 @@ namespace YAF.Lucene.Net.Search
             {
                 if (after.Fields == null)
                 {
-                    throw new System.ArgumentException("after.fields wasn't set; you must pass fillFields=true for the previous search");
+                    throw new ArgumentException("after.fields wasn't set; you must pass fillFields=true for the previous search");
                 }
 
                 if (after.Fields.Length != sort.GetSort().Length)
                 {
-                    throw new System.ArgumentException("after.fields has " + after.Fields.Length + " values but sort has " + sort.GetSort().Length);
+                    throw new ArgumentException("after.fields has " + after.Fields.Length + " values but sort has " + sort.GetSort().Length);
                 }
 
                 return new PagingFieldCollector(queue, after, numHits, fillFields, trackDocScores, trackMaxScore);
@@ -1394,9 +1380,6 @@ namespace YAF.Lucene.Net.Search
             return new TopFieldDocs(m_totalHits, results, ((FieldValueHitQueue<Entry>)m_pq).Fields, maxScore);
         }
 
-        public override bool AcceptsDocsOutOfOrder
-        {
-            get { return false; }
-        }
+        public override bool AcceptsDocsOutOfOrder => false;
     }
 }

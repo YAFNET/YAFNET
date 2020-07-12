@@ -5,6 +5,7 @@ using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Processors;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
@@ -230,7 +231,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
                         else
                         {
                             // multiple positions
-                            IQueryNode q = new StandardBooleanQueryNode(new List<IQueryNode>(), false);
+                            IQueryNode q = new StandardBooleanQueryNode(Collections.EmptyList<IQueryNode>(), false);
                             IQueryNode currentQuery = null;
                             for (int i = 0; i < numTokens; i++)
                             {
@@ -252,7 +253,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
                                     if (!(currentQuery is BooleanQueryNode))
                                     {
                                         IQueryNode t = currentQuery;
-                                        currentQuery = new StandardBooleanQueryNode(new List<IQueryNode>(), true);
+                                        currentQuery = new StandardBooleanQueryNode(Collections.EmptyList<IQueryNode>(), true);
                                         ((BooleanQueryNode)currentQuery).Add(t);
                                     }
                                   ((BooleanQueryNode)currentQuery).Add(new FieldQueryNode(field, term, -1, -1));

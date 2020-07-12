@@ -1,7 +1,6 @@
-﻿using System;
+﻿using J2N.Collections.Generic.Extensions;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading;
 
 namespace YAF.Lucene.Net.Support
@@ -66,7 +65,7 @@ namespace YAF.Lucene.Net.Support
                 _lock.EnterReadLock();
                 try
                 {
-                    return new ReadOnlyCollection<TKey>(_dict.Keys.ToArray());
+                    return _dict.Keys.AsReadOnly();
                 }
                 finally
                 {
@@ -108,7 +107,7 @@ namespace YAF.Lucene.Net.Support
                 _lock.EnterReadLock();
                 try
                 {
-                    return new ReadOnlyCollection<TValue>(_dict.Values.ToArray());
+                    return _dict.Values.AsReadOnly();
                 }
                 finally
                 {
@@ -216,10 +215,7 @@ namespace YAF.Lucene.Net.Support
             }
         }
 
-        public bool IsReadOnly
-        {
-            get { return _dict.IsReadOnly; }
-        }
+        public bool IsReadOnly => _dict.IsReadOnly;
 
         public bool Remove(KeyValuePair<TKey, TValue> item)
         {

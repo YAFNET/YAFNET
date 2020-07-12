@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using YAF.Lucene.Net.Analysis.Util;
 
 namespace YAF.Lucene.Net.Analysis.Miscellaneous
@@ -36,7 +37,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         {
             if (args.Count > 0)
             {
-                throw new System.ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException("Unknown parameters: " + args);
             }
         }
 

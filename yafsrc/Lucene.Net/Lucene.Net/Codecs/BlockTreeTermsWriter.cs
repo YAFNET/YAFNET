@@ -4,6 +4,7 @@ using YAF.Lucene.Net.Util.Fst;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 
 namespace YAF.Lucene.Net.Codecs
@@ -283,19 +284,19 @@ namespace YAF.Lucene.Net.Codecs
         {
             if (minItemsInBlock <= 1)
             {
-                throw new System.ArgumentException("minItemsInBlock must be >= 2; got " + minItemsInBlock);
+                throw new ArgumentException("minItemsInBlock must be >= 2; got " + minItemsInBlock);
             }
             if (maxItemsInBlock <= 0)
             {
-                throw new System.ArgumentException("maxItemsInBlock must be >= 1; got " + maxItemsInBlock);
+                throw new ArgumentException("maxItemsInBlock must be >= 1; got " + maxItemsInBlock);
             }
             if (minItemsInBlock > maxItemsInBlock)
             {
-                throw new System.ArgumentException("maxItemsInBlock must be >= minItemsInBlock; got maxItemsInBlock=" + maxItemsInBlock + " minItemsInBlock=" + minItemsInBlock);
+                throw new ArgumentException("maxItemsInBlock must be >= minItemsInBlock; got maxItemsInBlock=" + maxItemsInBlock + " minItemsInBlock=" + minItemsInBlock);
             }
             if (2 * (minItemsInBlock - 1) > maxItemsInBlock)
             {
-                throw new System.ArgumentException("maxItemsInBlock must be at least 2*(minItemsInBlock-1); got maxItemsInBlock=" + maxItemsInBlock + " minItemsInBlock=" + minItemsInBlock);
+                throw new ArgumentException("maxItemsInBlock must be at least 2*(minItemsInBlock-1); got maxItemsInBlock=" + maxItemsInBlock + " minItemsInBlock=" + minItemsInBlock);
             }
 
             string termsFileName = IndexFileNames.SegmentFileName(state.SegmentInfo.Name, state.SegmentSuffix, TERMS_EXTENSION);
@@ -1157,13 +1158,7 @@ namespace YAF.Lucene.Net.Codecs
                 this.longsSize = outerInstance.postingsWriter.SetField(fieldInfo);
             }
 
-            public override IComparer<BytesRef> Comparer
-            {
-                get
-                {
-                    return BytesRef.UTF8SortedAsUnicodeComparer;
-                }
-            }
+            public override IComparer<BytesRef> Comparer => BytesRef.UTF8SortedAsUnicodeComparer;
 
             public override PostingsConsumer StartTerm(BytesRef text)
             {
@@ -1250,7 +1245,7 @@ namespace YAF.Lucene.Net.Codecs
         {
             if (disposing)
             {
-                System.IO.IOException ioe = null;
+                IOException ioe = null;
                 try
                 {
                     long dirStart = @out.GetFilePointer();
@@ -1279,7 +1274,7 @@ namespace YAF.Lucene.Net.Codecs
                     WriteIndexTrailer(indexOut, indexDirStart);
                     CodecUtil.WriteFooter(indexOut);
                 }
-                catch (System.IO.IOException ioe2)
+                catch (IOException ioe2)
                 {
                     ioe = ioe2;
                 }

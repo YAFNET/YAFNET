@@ -56,7 +56,12 @@ namespace YAF.Lucene.Net.Search
         /// <summary>
         /// NOTE: This was EMPTY_INT_ARRAY in Lucene
         /// </summary>
-        private static readonly int[] EMPTY_INT32_ARRAY = new int[0];
+        private static readonly int[] EMPTY_INT32_ARRAY =
+#if FEATURE_ARRAYEMPTY
+            Array.Empty<int>();
+#else
+            new int[0];
+#endif
 
         private class SegStart
         {
@@ -92,22 +97,16 @@ namespace YAF.Lucene.Net.Search
 
             public override int Advance(int target)
             {
-                throw new System.NotSupportedException();
+                throw new NotSupportedException();
             }
 
-            public override int DocID
-            {
-                get { return doc; }
-            }
+            public override int DocID => doc;
 
-            public override int Freq
-            {
-                get { throw new System.NotSupportedException(); }
-            }
+            public override int Freq => throw new NotSupportedException();
 
             public override int NextDoc()
             {
-                throw new System.NotSupportedException();
+                throw new NotSupportedException();
             }
 
             public override long GetCost()
@@ -392,10 +391,7 @@ namespace YAF.Lucene.Net.Search
                 this.acceptDocsOutOfOrder = acceptDocsOutOfOrder;
             }
 
-            public virtual bool AcceptsDocsOutOfOrder
-            {
-                get { return acceptDocsOutOfOrder; }
-            }
+            public virtual bool AcceptsDocsOutOfOrder => acceptDocsOutOfOrder;
 
             public virtual void SetScorer(Scorer scorer)
             {
@@ -473,18 +469,9 @@ namespace YAF.Lucene.Net.Search
             this.m_maxDocsToCache = maxDocsToCache;
         }
 
-        public virtual bool AcceptsDocsOutOfOrder
-        {
-            get { return m_other.AcceptsDocsOutOfOrder; }
-        }
+        public virtual bool AcceptsDocsOutOfOrder => m_other.AcceptsDocsOutOfOrder;
 
-        public virtual bool IsCached
-        {
-            get
-            {
-                return m_curDocs != null;
-            }
-        }
+        public virtual bool IsCached => m_curDocs != null;
 
         public virtual void SetNextReader(AtomicReaderContext context)
         {
@@ -532,7 +519,7 @@ namespace YAF.Lucene.Net.Search
 
             if (!other.AcceptsDocsOutOfOrder && this.m_other.AcceptsDocsOutOfOrder)
             {
-                throw new System.ArgumentException("cannot replay: given collector does not support " + "out-of-order collection, while the wrapped collector does. " + "Therefore cached documents may be out-of-order.");
+                throw new ArgumentException("cannot replay: given collector does not support " + "out-of-order collection, while the wrapped collector does. " + "Therefore cached documents may be out-of-order.");
             }
 
             //System.out.println("CC: replay totHits=" + (upto + base));

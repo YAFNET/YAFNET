@@ -36,6 +36,12 @@ namespace YAF.Lucene.Net.Analysis.Synonym
 
         private SynonymMap map;
 
+        // LUCENENET: Optimized by pre-comiling regex and lazy-loading
+        private class Holder
+        {
+            public static readonly Regex TOKENIZER_FACTORY_REPLACEMENT_PATTERN = new Regex("^tokenizerFactory\\.", RegexOptions.Compiled);
+        }
+
         [Obsolete(@"(3.4) use SynonymFilterFactory instead. this is only a backwards compatibility")]
         public FSTSynonymFilterFactory(IDictionary<string, string> args)
             : base(args)
@@ -54,13 +60,13 @@ namespace YAF.Lucene.Net.Analysis.Synonym
                 var keys = new List<string>(args.Keys);
                 foreach (string key in keys)
                 {
-                    tokArgs[Regex.Replace(key, "^tokenizerFactory\\.", "")] = args[key];
+                    tokArgs[Holder.TOKENIZER_FACTORY_REPLACEMENT_PATTERN.Replace(key, "")] = args[key];
                     args.Remove(key);
                 }
             }
             if (args.Count > 0)
             {
-                throw new System.ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException("Unknown parameters: " + args);
             }
         }
 

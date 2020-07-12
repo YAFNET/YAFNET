@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics;
-using System.Reflection;
+using System.IO;
 
 namespace YAF.Lucene.Net.Codecs.Lucene40
 {
@@ -136,7 +136,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// Closes the underlying <see cref="Lucene.Net.Store.IndexInput"/> streams.
         /// This means that the <see cref="Index.Fields"/> values will not be accessible.
         /// </summary>
-        /// <exception cref="System.IO.IOException"> If an I/O error occurs. </exception>
+        /// <exception cref="IOException"> If an I/O error occurs. </exception>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -154,10 +154,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// <para/>
         /// NOTE: This was size() in Lucene.
         /// </summary>
-        public int Count
-        {
-            get { return size; }
-        }
+        public int Count => size;
 
         private void SeekIndex(int docID)
         {

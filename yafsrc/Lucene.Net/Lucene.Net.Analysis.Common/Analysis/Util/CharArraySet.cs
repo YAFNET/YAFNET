@@ -210,10 +210,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// <summary>
         /// Gets the number of elements contained in the <see cref="CharArraySet"/>.
         /// </summary>
-        public virtual int Count
-        {
-            get { return map.Count; }
-        }
+        public virtual int Count => map.Count;
 
         /// <summary>
         /// <c>true</c> if the <see cref="CharArraySet"/> is read-only; otherwise <c>false</c>.
@@ -233,7 +230,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (set == null)
             {
-                throw new System.ArgumentNullException("Given set is null");
+                throw new ArgumentNullException("Given set is null");
             }
             if (set == EMPTY_SET)
             {
@@ -285,7 +282,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             string[] stringSet;
             using (var context = new CultureContext(CultureInfo.InvariantCulture))
             {
-                stringSet = set.Select(x => x.ToString()).ToArray();
+                stringSet = set.Select(x => x.ToString()).ToArray(); // LUCENENET TODO: Performance - this approach can probably be improved
             }
 
             return new CharArraySet(matchVersion, stringSet, false);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 
 namespace YAF.Lucene.Net.Search
@@ -63,7 +64,7 @@ namespace YAF.Lucene.Net.Search
                 {
                     if (value != STRING_FIRST && value != STRING_LAST)
                     {
-                        throw new System.ArgumentException("For STRING type, missing value must be either STRING_FIRST or STRING_LAST");
+                        throw new ArgumentException("For STRING type, missing value must be either STRING_FIRST or STRING_LAST");
                     }
                 }
 #pragma warning disable 612, 618
@@ -71,7 +72,7 @@ namespace YAF.Lucene.Net.Search
 #pragma warning restore 612, 618
                     && type != SortFieldType.INT32 && type != SortFieldType.SINGLE && type != SortFieldType.INT64 && type != SortFieldType.DOUBLE)
                 {
-                    throw new System.ArgumentException("Missing value only works for numeric or STRING types");
+                    throw new ArgumentException("Missing value only works for numeric or STRING types");
                 }
                 this.m_missingValue = value;
             }
@@ -158,7 +159,7 @@ namespace YAF.Lucene.Net.Search
             }
             else
             {
-                throw new System.ArgumentException("Parser instance does not subclass existing numeric parser from FieldCache (got " + parser + ")");
+                throw new ArgumentException("Parser instance does not subclass existing numeric parser from FieldCache (got " + parser + ")");
             }
 
             this.reverse = reverse;
@@ -208,12 +209,12 @@ namespace YAF.Lucene.Net.Search
         //    {
         //        if (value != STRING_FIRST && value != STRING_LAST)
         //        {
-        //            throw new System.ArgumentException("For STRING type, missing value must be either STRING_FIRST or STRING_LAST");
+        //            throw new ArgumentException("For STRING type, missing value must be either STRING_FIRST or STRING_LAST");
         //        }
         //    }
         //    else if (type != SortFieldType.BYTE && type != SortFieldType.SHORT && type != SortFieldType.INT && type != SortFieldType.FLOAT && type != SortFieldType.LONG && type != SortFieldType.DOUBLE)
         //    {
-        //        throw new System.ArgumentException("Missing value only works for numeric or STRING types");
+        //        throw new ArgumentException("Missing value only works for numeric or STRING types");
         //    }
         //    this.missingValue = value;
         //}
@@ -249,7 +250,7 @@ namespace YAF.Lucene.Net.Search
             {
                 if (type != SortFieldType.SCORE && type != SortFieldType.DOC)
                 {
-                    throw new System.ArgumentException("field can only be null when type is SCORE or DOC");
+                    throw new ArgumentException("field can only be null when type is SCORE or DOC");
                 }
             }
             else
@@ -262,60 +263,30 @@ namespace YAF.Lucene.Net.Search
         /// Returns the name of the field.  Could return <c>null</c>
         /// if the sort is by <see cref="SortFieldType.SCORE"/> or <see cref="SortFieldType.DOC"/>. </summary>
         /// <returns> Name of field, possibly <c>null</c>. </returns>
-        public virtual string Field
-        {
-            get
-            {
-                return field;
-            }
-        }
+        public virtual string Field => field;
 
         /// <summary>
         /// Returns the type of contents in the field. </summary>
         /// <returns> One of <see cref="SortFieldType.SCORE"/>, <see cref="SortFieldType.DOC"/>, 
         /// <see cref="SortFieldType.STRING"/>, <see cref="SortFieldType.INT32"/> or <see cref="SortFieldType.SINGLE"/>. </returns>
-        public virtual SortFieldType Type
-        {
-            get
-            {
-                return type;
-            }
-        }
+        public virtual SortFieldType Type => type;
 
         /// <summary>
         /// Returns the instance of a <see cref="IFieldCache"/> parser that fits to the given sort type.
         /// May return <c>null</c> if no parser was specified. Sorting is using the default parser then. </summary>
         /// <returns> An instance of a <see cref="IFieldCache"/> parser, or <c>null</c>. </returns>
-        public virtual FieldCache.IParser Parser
-        {
-            get
-            {
-                return parser;
-            }
-        }
+        public virtual FieldCache.IParser Parser => parser;
 
         /// <summary>
         /// Returns whether the sort should be reversed. </summary>
         /// <returns> <c>True</c> if natural order should be reversed. </returns>
-        public virtual bool IsReverse
-        {
-            get
-            {
-                return reverse;
-            }
-        }
+        public virtual bool IsReverse => reverse;
 
         /// <summary>
         /// Returns the <see cref="FieldComparerSource"/> used for
         /// custom sorting.
         /// </summary>
-        public virtual FieldComparerSource ComparerSource
-        {
-            get
-            {
-                return comparerSource;
-            }
-        }
+        public virtual FieldComparerSource ComparerSource => comparerSource;
 
         public override string ToString()
         {
@@ -438,14 +409,8 @@ namespace YAF.Lucene.Net.Search
 
         public virtual IComparer<BytesRef> BytesComparer
         {
-            set
-            {
-                bytesComparer = value;
-            }
-            get
-            {
-                return bytesComparer;
-            }
+            get => bytesComparer;
+            set => bytesComparer = value;
         }
 
         /// <summary>
@@ -518,7 +483,7 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         /// <param name="searcher"> <see cref="IndexSearcher"/> to use during rewriting </param>
         /// <returns> New rewritten <see cref="SortField"/>, or <c>this</c> if nothing has changed. </returns>
-        /// <exception cref="System.IO.IOException"> Can be thrown by the rewriting </exception>
+        /// <exception cref="IOException"> Can be thrown by the rewriting </exception>
         public virtual SortField Rewrite(IndexSearcher searcher)
         {
             return this;
@@ -526,10 +491,7 @@ namespace YAF.Lucene.Net.Search
 
         /// <summary>
         /// Whether the relevance score is needed to sort documents. </summary>
-        public virtual bool NeedsScores
-        {
-            get { return type == SortFieldType.SCORE; }
-        }
+        public virtual bool NeedsScores => type == SortFieldType.SCORE;
     }
 
     /// <summary>

@@ -6,7 +6,6 @@ using YAF.Lucene.Net.Util.Automaton;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.QueryParsers.Simple
@@ -674,7 +673,7 @@ namespace YAF.Lucene.Net.QueryParsers.Simple
         /// </summary>
         protected virtual Query Simplify(BooleanQuery bq)
         {
-            if (!bq.Clauses.Any())
+            if (bq.Clauses.Count == 0)
             {
                 return null;
             }
@@ -694,10 +693,7 @@ namespace YAF.Lucene.Net.QueryParsers.Simple
         /// </summary>
         public virtual Occur DefaultOperator
         {
-            get 
-            { 
-                return defaultOperator; 
-            }
+            get => defaultOperator;
             set 
             {
                 if (value != Occur.SHOULD && value != Occur.MUST)
@@ -737,10 +733,7 @@ namespace YAF.Lucene.Net.QueryParsers.Simple
 
             internal Occur CurrentOperation 
             {
-                get 
-                { 
-                    return currentOperation; 
-                }
+                get => currentOperation;
                 set
                 {
                     currentOperation = value;
@@ -750,10 +743,7 @@ namespace YAF.Lucene.Net.QueryParsers.Simple
 
             internal Occur PreviousOperation
             {
-                get
-                {
-                    return previousOperation;
-                }
+                get => previousOperation;
                 set
                 {
                     previousOperation = value;

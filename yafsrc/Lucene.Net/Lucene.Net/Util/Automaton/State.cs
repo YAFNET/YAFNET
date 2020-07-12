@@ -43,19 +43,22 @@ namespace YAF.Lucene.Net.Util.Automaton
     /// </summary>
     public class State : IComparable<State>, IEquatable<State> // LUCENENET specific: Implemented IEquatable, since this class is used in hashtables
     {
+        // LUCENENET specific - optimized empty array creation
+        private static readonly Transition[] EMPTY_TRANSITIONS =
+#if FEATURE_ARRAYEMPTY
+            Array.Empty<Transition>();
+#else
+            new Transition[0];
+#endif
+
         internal bool accept;
         [WritableArray]
         [SuppressMessage("Microsoft.Performance", "CA1819", Justification = "Lucene's design requires some writable array properties")]
-        public Transition[] TransitionsArray
-        {
-            get => transitionsArray;
-            // LUCENENET NOTE: Setter removed because it is apparently not in use outside of this class
-        }
-#if FEATURE_ARRAYEMPTY
-        private Transition[] transitionsArray = Array.Empty<Transition>();
-#else
-        private Transition[] transitionsArray = new Transition[0];
-#endif
+        public Transition[] TransitionsArray => transitionsArray;
+
+        // LUCENENET NOTE: Setter removed because it is apparently not in use outside of this class
+        private Transition[] transitionsArray = EMPTY_TRANSITIONS;
+
         internal int numTransitions = 0;// LUCENENET NOTE: Made internal because we already have a public property for access
 
         internal int number;
@@ -77,11 +80,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// </summary>
         internal void ResetTransitions()
         {
-#if FEATURE_ARRAYEMPTY
-            transitionsArray = Array.Empty<Transition>();
-#else
-            transitionsArray = new Transition[0];
-#endif
+            transitionsArray = EMPTY_TRANSITIONS;
             numTransitions = 0;
         }
 
@@ -153,10 +152,7 @@ namespace YAF.Lucene.Net.Util.Automaton
             return new TransitionsEnumerable(this);
         }
 
-        public virtual int NumTransitions
-        {
-            get { return numTransitions; }
-        }
+        public virtual int NumTransitions => numTransitions;
 
         public virtual void SetTransitions(Transition[] transitions)
         {

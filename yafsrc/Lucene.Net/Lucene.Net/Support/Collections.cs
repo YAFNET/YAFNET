@@ -1,13 +1,14 @@
 ﻿using J2N;
 using J2N.Collections.Generic.Extensions;
+using J2N.Collections.ObjectModel;
 using J2N.Globalization;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Reflection;
 using System.Text;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Support
 {
@@ -30,14 +31,34 @@ namespace YAF.Lucene.Net.Support
 
     internal static class Collections
     {
-        public static IList<T> EmptyList<T>()
+        private static class EmptyListHolder<T>
         {
-            return new List<T>(); // LUCENENET NOTE: Enumerable.Empty<T>() fails to cast to IList<T> on .NET Core 3.x, so we just create a new list
+            public static readonly ReadOnlyList<T> EMPTY_LIST = new JCG.List<T>().AsReadOnly();
         }
 
-        public static IDictionary<TKey, TValue> EmptyMap<TKey, TValue>()
+        private static class EmptyDictionaryHolder<TKey, TValue>
         {
-            return new Dictionary<TKey, TValue>();
+            public static readonly ReadOnlyDictionary<TKey, TValue> EMPTY_DICTIONARY = new JCG.Dictionary<TKey, TValue>().AsReadOnly(); // LUCENENET-615: Must support nullable keys
+        }
+
+        private static class EmptySetHolder<T>
+        {
+            public static readonly ReadOnlySet<T> EMPTY_SET = new JCG.HashSet<T>().AsReadOnly();
+        }
+
+        public static ReadOnlyList<T> EmptyList<T>()
+        {
+            return EmptyListHolder<T>.EMPTY_LIST; // LUCENENET NOTE: Enumerable.Empty<T>() fails to cast to IList<T> on .NET Core 3.x, so we just create a new list
+        }
+
+        public static ReadOnlyDictionary<TKey, TValue> EmptyMap<TKey, TValue>()
+        {
+            return EmptyDictionaryHolder<TKey, TValue>.EMPTY_DICTIONARY;
+        }
+
+        public static ReadOnlySet<T> EmptySet<T>()
+        {
+            return EmptySetHolder<T>.EMPTY_SET;
         }
 
         public static void Reverse<T>(IList<T> list)
@@ -67,7 +88,7 @@ namespace YAF.Lucene.Net.Support
 
         public static IDictionary<TKey, TValue> SingletonMap<TKey, TValue>(TKey key, TValue value)
         {
-            return new Dictionary<TKey, TValue> { { key, value } };
+            return new Dictionary<TKey, TValue> { { key, value } }.AsReadOnly();
         }
 
 

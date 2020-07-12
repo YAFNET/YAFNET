@@ -7,21 +7,21 @@ using System.Text;
 namespace YAF.Lucene.Net.Analysis.Synonym
 {
     /*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
 
     /// <summary>
     /// Parser for the Solr synonyms format.
@@ -85,7 +85,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
                     {
                         if (sides.Length != 2)
                         {
-                            throw new System.ArgumentException("more than one explicit mapping specified on the same line");
+                            throw new ArgumentException("more than one explicit mapping specified on the same line");
                         }
                         string[] inputStrings = Split(sides[0], ",");
                         inputs = new CharsRef[inputStrings.Length];
@@ -133,7 +133,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
                     }
                 }
             }
-            catch (System.ArgumentException e)
+            catch (ArgumentException e)
             {
                 throw new Exception("Invalid synonym rule at line " + lineNumber, e);
                 //ex.initCause(e);

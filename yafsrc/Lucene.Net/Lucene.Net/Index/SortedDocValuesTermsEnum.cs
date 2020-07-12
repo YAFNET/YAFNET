@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -109,43 +110,25 @@ namespace YAF.Lucene.Net.Index
             return term;
         }
 
-        public override BytesRef Term
-        {
-            get { return term; }
-        }
+        public override BytesRef Term => term;
 
-        public override long Ord
-        {
-            get { return currentOrd; }
-        }
+        public override long Ord => currentOrd;
 
-        public override int DocFreq
-        {
-            get { throw new System.NotSupportedException(); }
-        }
+        public override int DocFreq => throw new NotSupportedException();
 
-        public override long TotalTermFreq
-        {
-            get { return -1; }
-        }
+        public override long TotalTermFreq => -1;
 
         public override DocsEnum Docs(IBits liveDocs, DocsEnum reuse, DocsFlags flags)
         {
-            throw new System.NotSupportedException();
+            throw new NotSupportedException();
         }
 
         public override DocsAndPositionsEnum DocsAndPositions(IBits liveDocs, DocsAndPositionsEnum reuse, DocsAndPositionsFlags flags)
         {
-            throw new System.NotSupportedException();
+            throw new NotSupportedException();
         }
 
-        public override IComparer<BytesRef> Comparer
-        {
-            get
-            {
-                return BytesRef.UTF8SortedAsUnicodeComparer;
-            }
-        }
+        public override IComparer<BytesRef> Comparer => BytesRef.UTF8SortedAsUnicodeComparer;
 
         public override void SeekExact(BytesRef term, TermState state)
         {

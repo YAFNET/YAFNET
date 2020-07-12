@@ -149,12 +149,12 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (numValues < 0L)
             {
-                throw new System.ArgumentException("numValues should not be negative: " + numValues);
+                throw new ArgumentException("numValues should not be negative: " + numValues);
             }
             this.numValues = numValues;
             if ((numValues > 0L) && (upperBound < 0L))
             {
-                throw new System.ArgumentException("upperBound should not be negative: " + upperBound + " when numValues > 0");
+                throw new ArgumentException("upperBound should not be negative: " + upperBound + " when numValues > 0");
             }
             this.upperBound = numValues > 0 ? upperBound : -1L; // if there is no value, -1 is the best upper bound
             int nLowBits = 0;
@@ -172,7 +172,7 @@ namespace YAF.Lucene.Net.Util.Packed
             long numLongsForLowBits = NumInt64sForBits(numValues * numLowBits);
             if (numLongsForLowBits > int.MaxValue)
             {
-                throw new System.ArgumentException("numLongsForLowBits too large to index a long array: " + numLongsForLowBits);
+                throw new ArgumentException("numLongsForLowBits too large to index a long array: " + numLongsForLowBits);
             }
             this.lowerLongs = new long[(int)numLongsForLowBits];
 
@@ -183,12 +183,12 @@ namespace YAF.Lucene.Net.Util.Packed
             long numLongsForHighBits = NumInt64sForBits(numHighBitsClear + numHighBitsSet);
             if (numLongsForHighBits > int.MaxValue)
             {
-                throw new System.ArgumentException("numLongsForHighBits too large to index a long array: " + numLongsForHighBits);
+                throw new ArgumentException("numLongsForHighBits too large to index a long array: " + numLongsForHighBits);
             }
             this.upperLongs = new long[(int)numLongsForHighBits];
             if (indexInterval < 2)
             {
-                throw new System.ArgumentException("indexInterval should at least 2: " + indexInterval);
+                throw new ArgumentException("indexInterval should at least 2: " + indexInterval);
             }
             // For the index:
             long maxHighValue = (long)((ulong)upperBound >> this.numLowBits);
@@ -199,7 +199,7 @@ namespace YAF.Lucene.Net.Util.Packed
             long numLongsForIndexBits = NumInt64sForBits(numIndexEntries * nIndexEntryBits);
             if (numLongsForIndexBits > int.MaxValue)
             {
-                throw new System.ArgumentException("numLongsForIndexBits too large to index a long array: " + numLongsForIndexBits);
+                throw new ArgumentException("numLongsForIndexBits too large to index a long array: " + numLongsForIndexBits);
             }
             this.upperZeroBitPositionIndex = new long[(int)numLongsForIndexBits];
             this.currentEntryIndex = 0;
@@ -240,11 +240,11 @@ namespace YAF.Lucene.Net.Util.Packed
             }
             if (lastEncoded > x)
             {
-                throw new System.ArgumentException(x + " smaller than previous " + lastEncoded);
+                throw new ArgumentException(x + " smaller than previous " + lastEncoded);
             }
             if (x > upperBound)
             {
-                throw new System.ArgumentException(x + " larger than upperBound " + upperBound);
+                throw new ArgumentException(x + " larger than upperBound " + upperBound);
             }
             long highValue = (long)((ulong)x >> numLowBits);
             EncodeUpperBits(highValue);
@@ -327,28 +327,19 @@ namespace YAF.Lucene.Net.Util.Packed
         /// Expert. The low bits. </summary>
         [WritableArray]
         [SuppressMessage("Microsoft.Performance", "CA1819", Justification = "Lucene's design requires some writable array properties")]
-        public virtual long[] LowerBits
-        {
-            get { return lowerLongs; }
-        }
+        public virtual long[] LowerBits => lowerLongs;
 
         /// <summary>
         /// Expert. The high bits. </summary>
         [WritableArray]
         [SuppressMessage("Microsoft.Performance", "CA1819", Justification = "Lucene's design requires some writable array properties")]
-        public virtual long[] UpperBits
-        {
-            get { return upperLongs; }
-        }
+        public virtual long[] UpperBits => upperLongs;
 
         /// <summary>
         /// Expert. The index bits. </summary>
         [WritableArray]
         [SuppressMessage("Microsoft.Performance", "CA1819", Justification = "Lucene's design requires some writable array properties")]
-        public virtual long[] IndexBits
-        {
-            get { return upperZeroBitPositionIndex; }
-        }
+        public virtual long[] IndexBits => upperZeroBitPositionIndex;
 
         public override string ToString()
         {

@@ -6,21 +6,21 @@ using System;
 namespace YAF.Lucene.Net.Analysis.NGram
 {
     /*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
 
     /// <summary>
     /// Tokenizes the given token into n-grams of given size(s).
@@ -101,27 +101,27 @@ namespace YAF.Lucene.Net.Analysis.NGram
 
             //if (version == null)
             //{
-            //    throw new System.ArgumentException("version must not be null");
+            //    throw new ArgumentException("version must not be null");
             //}
 
             if (version.OnOrAfter(LuceneVersion.LUCENE_44) && side == Side.BACK)
             {
-                throw new System.ArgumentException("Side.BACK is not supported anymore as of Lucene 4.4, use ReverseStringFilter up-front and afterward");
+                throw new ArgumentException("Side.BACK is not supported anymore as of Lucene 4.4, use ReverseStringFilter up-front and afterward");
             }
 
             if (!Enum.IsDefined(typeof(Side), side))
             {
-                throw new System.ArgumentException("sideLabel must be either front or back");
+                throw new ArgumentException("sideLabel must be either front or back");
             }
 
             if (minGram < 1)
             {
-                throw new System.ArgumentException("minGram must be greater than zero");
+                throw new ArgumentException("minGram must be greater than zero");
             }
 
             if (minGram > maxGram)
             {
-                throw new System.ArgumentException("minGram must not be greater than maxGram");
+                throw new ArgumentException("minGram must not be greater than maxGram");
             }
 
             this.version = version;
@@ -178,7 +178,7 @@ namespace YAF.Lucene.Net.Analysis.NGram
                     {
                         curTermBuffer = (char[])termAtt.Buffer.Clone();
                         curTermLength = termAtt.Length;
-                        curCodePointCount = charUtils.CodePointCount(termAtt.ToString());
+                        curCodePointCount = charUtils.CodePointCount(termAtt);
                         curGramSize = minGram;
                         tokStart = offsetAtt.StartOffset;
                         tokEnd = offsetAtt.EndOffset;

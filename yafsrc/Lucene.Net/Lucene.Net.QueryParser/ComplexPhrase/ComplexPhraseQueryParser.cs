@@ -6,7 +6,6 @@ using YAF.Lucene.Net.Search.Spans;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
 {
@@ -221,10 +220,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
                 this.inOrder = inOrder;
             }
 
-            public string Field
-            {
-                get { return field; }
-            }
+            public string Field => field;
 
             // Called by ComplexPhraseQueryParser for each phrase after the main
             // parse

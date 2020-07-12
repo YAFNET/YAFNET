@@ -5,8 +5,6 @@ using YAF.Lucene.Net.Util.Packed;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
 {
@@ -123,56 +121,20 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             }
         }
 
-        internal CompressionMode CompressionMode
-        {
-            get
-            {
-                return compressionMode;
-            }
-        }
+        internal CompressionMode CompressionMode => compressionMode;
 
-        internal int ChunkSize
-        {
-            get
-            {
-                return chunkSize;
-            }
-        }
+        internal int ChunkSize => chunkSize;
 
         /// <summary>
         /// NOTE: This was getPackedIntsVersion() in Lucene
         /// </summary>
-        internal int PackedInt32sVersion
-        {
-            get
-            {
-                return packedIntsVersion;
-            }
-        }
+        internal int PackedInt32sVersion => packedIntsVersion;
 
-        internal int Version
-        {
-            get
-            {
-                return version;
-            }
-        }
+        internal int Version => version;
 
-        internal CompressingStoredFieldsIndexReader Index
-        {
-            get
-            {
-                return indexReader;
-            }
-        }
+        internal CompressingStoredFieldsIndexReader Index => indexReader;
 
-        internal IndexInput VectorsStream
-        {
-            get
-            {
-                return vectorsStream;
-            }
-        }
+        internal IndexInput VectorsStream => vectorsStream;
 
         /// <exception cref="ObjectDisposedException"> if this <see cref="TermVectorsReader"/> is disposed. </exception>
         private void EnsureOpen()
@@ -773,10 +735,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 return new TVTerms(outerInstance, numTerms[idx], fieldFlags[idx], prefixLengths[idx], suffixLengths[idx], termFreqs[idx], positionIndex[idx], positions[idx], startOffsets[idx], lengths[idx], payloadIndex[idx], payloadBytes, new BytesRef(suffixBytes.Bytes, suffixBytes.Offset + fieldOff, fieldLen));
             }
 
-            public override int Count
-            {
-                get { return fieldNumOffs.Length; }
-            }
+            public override int Count => fieldNumOffs.Length;
         }
 
         private class TVTerms : Terms
@@ -819,62 +778,23 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 return termsEnum;
             }
 
-            public override IComparer<BytesRef> Comparer 
-            {
-                get
-                {
-                    return BytesRef.UTF8SortedAsUnicodeComparer;
-                }
-            }
+            public override IComparer<BytesRef> Comparer => BytesRef.UTF8SortedAsUnicodeComparer;
 
-            public override long Count
-            {
-                get { return numTerms; }
-            }
+            public override long Count => numTerms;
 
-            public override long SumTotalTermFreq
-            {
-                get
-                {
-                    return -1L;
-                }
-            }
+            public override long SumTotalTermFreq => -1L;
 
-            public override long SumDocFreq
-            {
-                get
-                {
-                    return numTerms;
-                }
-            }
+            public override long SumDocFreq => numTerms;
 
-            public override int DocCount
-            {
-                get
-                {
-                    return 1;
-                }
-            }
+            public override int DocCount => 1;
 
-            public override bool HasFreqs
-            {
-                get { return true; }
-            }
+            public override bool HasFreqs => true;
 
-            public override bool HasOffsets
-            {
-                get { return (flags & CompressingTermVectorsWriter.OFFSETS) != 0; }
-            }
+            public override bool HasOffsets => (flags & CompressingTermVectorsWriter.OFFSETS) != 0;
 
-            public override bool HasPositions
-            {
-                get { return (flags & CompressingTermVectorsWriter.POSITIONS) != 0; }
-            }
+            public override bool HasPositions => (flags & CompressingTermVectorsWriter.POSITIONS) != 0;
 
-            public override bool HasPayloads
-            {
-                get { return (flags & CompressingTermVectorsWriter.PAYLOADS) != 0; }
-            }
+            public override bool HasPayloads => (flags & CompressingTermVectorsWriter.PAYLOADS) != 0;
         }
 
         private class TVTermsEnum : TermsEnum
@@ -938,13 +858,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 return term;
             }
 
-            public override IComparer<BytesRef> Comparer
-            {
-                get
-                {
-                    return BytesRef.UTF8SortedAsUnicodeComparer;
-                }
-            }
+            public override IComparer<BytesRef> Comparer => BytesRef.UTF8SortedAsUnicodeComparer;
 
             public override TermsEnum.SeekStatus SeekCeil(BytesRef text)
             {
@@ -982,28 +896,16 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
             public override void SeekExact(long ord)
             {
-                throw new System.NotSupportedException();
+                throw new NotSupportedException();
             }
 
-            public override BytesRef Term
-            {
-                get { return term; }
-            }
+            public override BytesRef Term => term;
 
-            public override long Ord
-            {
-                get { throw new System.NotSupportedException(); }
-            }
+            public override long Ord => throw new NotSupportedException();
 
-            public override int DocFreq
-            {
-                get { return 1; }
-            }
+            public override int DocFreq => 1;
 
-            public override long TotalTermFreq
-            {
-                get { return termFreqs[ord]; }
-            }
+            public override long TotalTermFreq => termFreqs[ord];
 
             public override sealed DocsEnum Docs(IBits liveDocs, DocsEnum reuse, DocsFlags flags)
             {
@@ -1175,10 +1077,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 }
             }
 
-            public override int DocID
-            {
-                get { return doc; }
-            }
+            public override int DocID => doc;
 
             public override int NextDoc()
             {
@@ -1205,7 +1104,10 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
         private static int Sum(int[] arr)
         {
-            return arr.Sum();
+            int sum = 0;
+            for (int i = 0; i < arr.Length; i++)
+                sum += arr[i];
+            return sum;
         }
 
         public override long RamBytesUsed()

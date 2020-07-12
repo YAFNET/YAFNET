@@ -37,9 +37,6 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes
             this.disableCoord = disableCoord;
         }
 
-        public virtual bool DisableCoord
-        {
-            get { return this.disableCoord; }
-        }
+        public virtual bool DisableCoord => this.disableCoord;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Search
@@ -65,10 +66,7 @@ namespace YAF.Lucene.Net.Search
                 pqTop = m_pq.UpdateTop();
             }
 
-            public override bool AcceptsDocsOutOfOrder
-            {
-                get { return false; }
-            }
+            public override bool AcceptsDocsOutOfOrder => false;
         }
 
         // Assumes docs are scored in order.
@@ -116,10 +114,7 @@ namespace YAF.Lucene.Net.Search
                 pqTop = m_pq.UpdateTop();
             }
 
-            public override bool AcceptsDocsOutOfOrder
-            {
-                get { return false; }
-            }
+            public override bool AcceptsDocsOutOfOrder => false;
 
             public override void SetNextReader(AtomicReaderContext context)
             {
@@ -127,16 +122,22 @@ namespace YAF.Lucene.Net.Search
                 afterDoc = after.Doc - docBase;
             }
 
-            protected override int TopDocsCount
-            {
-                get { return collectedHits < m_pq.Count ? collectedHits : m_pq.Count; }
-            }
+            protected override int TopDocsCount => collectedHits < m_pq.Count ? collectedHits : m_pq.Count;
 
             protected override TopDocs NewTopDocs(ScoreDoc[] results, int start)
             {
-                return results == null ? new TopDocs(m_totalHits, new ScoreDoc[0], float.NaN) : new TopDocs(m_totalHits, results);
+                // LUCENENET specific - optimized empty array creation
+                return results == null ? new TopDocs(m_totalHits, EMPTY_SCOREDOCS, float.NaN) : new TopDocs(m_totalHits, results);
             }
         }
+
+        // LUCENENET specific - optimized empty array creation
+        private static readonly ScoreDoc[] EMPTY_SCOREDOCS =
+#if FEATURE_ARRAYEMPTY
+            Array.Empty<ScoreDoc>();
+#else
+            new ScoreDoc[0];
+#endif
 
         // Assumes docs are scored out of order.
         private class OutOfOrderTopScoreDocCollector : TopScoreDocCollector
@@ -170,10 +171,7 @@ namespace YAF.Lucene.Net.Search
                 pqTop = m_pq.UpdateTop();
             }
 
-            public override bool AcceptsDocsOutOfOrder
-            {
-                get { return true; }
-            }
+            public override bool AcceptsDocsOutOfOrder => true;
         }
 
         // Assumes docs are scored out of order.
@@ -222,10 +220,7 @@ namespace YAF.Lucene.Net.Search
                 pqTop = m_pq.UpdateTop();
             }
 
-            public override bool AcceptsDocsOutOfOrder
-            {
-                get { return true; }
-            }
+            public override bool AcceptsDocsOutOfOrder => true;
 
             public override void SetNextReader(AtomicReaderContext context)
             {
@@ -233,14 +228,12 @@ namespace YAF.Lucene.Net.Search
                 afterDoc = after.Doc - docBase;
             }
 
-            protected override int TopDocsCount
-            {
-                get { return collectedHits < m_pq.Count ? collectedHits : m_pq.Count; }
-            }
+            protected override int TopDocsCount => collectedHits < m_pq.Count ? collectedHits : m_pq.Count;
 
             protected override TopDocs NewTopDocs(ScoreDoc[] results, int start)
             {
-                return results == null ? new TopDocs(m_totalHits, new ScoreDoc[0], float.NaN) : new TopDocs(m_totalHits, results);
+                // LUCENENET specific - optimized empty array creation
+                return results == null ? new TopDocs(m_totalHits, EMPTY_SCOREDOCS, float.NaN) : new TopDocs(m_totalHits, results);
             }
         }
 
@@ -273,7 +266,7 @@ namespace YAF.Lucene.Net.Search
         {
             if (numHits <= 0)
             {
-                throw new System.ArgumentException("numHits must be > 0; please use TotalHitCountCollector if you just need the total hit count");
+                throw new ArgumentException("numHits must be > 0; please use TotalHitCountCollector if you just need the total hit count");
             }
 
             if (docsScoredInOrder)

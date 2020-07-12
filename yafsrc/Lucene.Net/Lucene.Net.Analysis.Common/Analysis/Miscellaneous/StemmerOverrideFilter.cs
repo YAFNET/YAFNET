@@ -3,6 +3,7 @@ using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Fst;
 using System.Collections.Generic;
+using System.IO;
 
 namespace YAF.Lucene.Net.Analysis.Miscellaneous
 {
@@ -210,7 +211,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             /// <summary>
             /// Returns a <see cref="StemmerOverrideMap"/> to be used with the <see cref="StemmerOverrideFilter"/> </summary>
             /// <returns> a <see cref="StemmerOverrideMap"/> to be used with the <see cref="StemmerOverrideFilter"/> </returns>
-            /// <exception cref="System.IO.IOException"> if an <see cref="System.IO.IOException"/> occurs; </exception>
+            /// <exception cref="IOException"> if an <see cref="IOException"/> occurs; </exception>
             public virtual StemmerOverrideMap Build()
             {
                 ByteSequenceOutputs outputs = ByteSequenceOutputs.Singleton;

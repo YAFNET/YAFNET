@@ -386,8 +386,8 @@ namespace YAF.Lucene.Net.Sandbox.Queries
 
         public virtual bool IgnoreTF
         {
-            get { return ignoreTF; }
-            set { ignoreTF = value; }
+            get => ignoreTF;
+            set => ignoreTF = value;
         }
     }
 }

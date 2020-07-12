@@ -1,5 +1,4 @@
-using YAF.Lucene.Net.Support;
-using System.Collections;
+using BitSet = J2N.Collections.BitSet;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -24,13 +23,13 @@ namespace YAF.Lucene.Net.Util
     using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
 
     /// <summary>
-    /// Simple <see cref="DocIdSet"/> and <see cref="DocIdSetIterator"/> backed by a <see cref="BitArray"/> 
+    /// Simple <see cref="DocIdSet"/> and <see cref="DocIdSetIterator"/> backed by a <see cref="BitSet"/> 
     /// </summary>
     public class DocIdBitSet : DocIdSet, IBits
     {
-        private readonly BitArray bitSet;
+        private readonly BitSet bitSet;
 
-        public DocIdBitSet(BitArray bitSet)
+        public DocIdBitSet(BitSet bitSet)
         {
             this.bitSet = bitSet;
         }
@@ -40,61 +39,38 @@ namespace YAF.Lucene.Net.Util
             return new DocIdBitSetIterator(bitSet);
         }
 
-        public override IBits Bits
-        {
-            get { return this; }
-        }
+        public override IBits Bits => this;
 
         /// <summary>
         /// This DocIdSet implementation is cacheable. </summary>
-        public override bool IsCacheable
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool IsCacheable => true;
 
         /// <summary>
-        /// Returns the underlying <see cref="BitArray"/>.
+        /// Returns the underlying <see cref="BitSet"/>.
         /// </summary>
-        public virtual BitArray BitSet
-        {
-            get
-            {
-                return this.bitSet;
-            }
-        }
+        public virtual BitSet BitSet => this.bitSet;
 
         public bool Get(int index)
         {
-            return bitSet.SafeGet(index);
+            return bitSet.Get(index);
         }
 
-        public int Length
-        {
-            get
-            {
-                // the size may not be correct...
-                return bitSet.Length;
-            }
-        }
+        public int Length =>
+            // the size may not be correct...
+            bitSet.Length;
 
         private class DocIdBitSetIterator : DocIdSetIterator
         {
             private int docId;
-            private readonly BitArray bitSet;
+            private readonly BitSet bitSet;
 
-            internal DocIdBitSetIterator(BitArray bitSet)
+            internal DocIdBitSetIterator(BitSet bitSet)
             {
                 this.bitSet = bitSet;
                 this.docId = -1;
             }
 
-            public override int DocID
-            {
-                get { return docId; }
-            }
+            public override int DocID => docId;
 
             public override int NextDoc()
             {

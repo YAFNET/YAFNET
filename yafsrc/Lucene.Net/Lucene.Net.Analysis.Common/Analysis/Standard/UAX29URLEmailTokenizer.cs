@@ -4,6 +4,7 @@ using YAF.Lucene.Net.Analysis.Standard.Std36;
 using YAF.Lucene.Net.Analysis.Standard.Std40;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Util;
+using System;
 using System.IO;
 
 namespace YAF.Lucene.Net.Analysis.Standard
@@ -91,20 +92,16 @@ namespace YAF.Lucene.Net.Analysis.Standard
         /// </summary>
         public int MaxTokenLength
         {
+            get => maxTokenLength;
             set
             {
                 if (value < 1)
                 {
-                    throw new System.ArgumentException("maxTokenLength must be greater than zero");
+                    throw new ArgumentException("maxTokenLength must be greater than zero");
                 }
                 this.maxTokenLength = value;
             }
-            get
-            {
-                return maxTokenLength;
-            }
         }
-
 
         /// <summary>
         /// Creates a new instance of the <see cref="UAX29URLEmailTokenizer"/>.  Attaches

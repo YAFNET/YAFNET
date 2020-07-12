@@ -6,27 +6,26 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Analysis.Synonym
 {
     /*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
 
     /// <summary>
     /// A map of synonyms, keys and values are phrases.
@@ -39,26 +38,20 @@ namespace YAF.Lucene.Net.Analysis.Synonym
         public const char WORD_SEPARATOR = (char)0;
         /// <summary>
         /// map&lt;input word, list&lt;ord&gt;&gt; </summary>
-        public FST<BytesRef> Fst
-        {
-            get { return fst; }
-        }
+        public FST<BytesRef> Fst => fst;
+
         private readonly FST<BytesRef> fst;
 
         /// <summary>
         /// map&lt;ord, outputword&gt; </summary>
-        public BytesRefHash Words
-        {
-            get { return words; }
-        }
+        public BytesRefHash Words => words;
+
         private readonly BytesRefHash words;
 
         /// <summary>
         /// maxHorizontalContext: maximum context we need on the tokenstream </summary>
-        public int MaxHorizontalContext
-        {
-            get { return maxHorizontalContext; }
-        }
+        public int MaxHorizontalContext => maxHorizontalContext;
+
         private readonly int maxHorizontalContext;
 
         public SynonymMap(FST<BytesRef> fst, BytesRefHash words, int maxHorizontalContext)
@@ -164,19 +157,19 @@ namespace YAF.Lucene.Net.Analysis.Synonym
                 // first convert to UTF-8
                 if (numInputWords <= 0)
                 {
-                    throw new System.ArgumentException("numInputWords must be > 0 (got " + numInputWords + ")");
+                    throw new ArgumentException("numInputWords must be > 0 (got " + numInputWords + ")");
                 }
                 if (input.Length <= 0)
                 {
-                    throw new System.ArgumentException("input.length must be > 0 (got " + input.Length + ")");
+                    throw new ArgumentException("input.length must be > 0 (got " + input.Length + ")");
                 }
                 if (numOutputWords <= 0)
                 {
-                    throw new System.ArgumentException("numOutputWords must be > 0 (got " + numOutputWords + ")");
+                    throw new ArgumentException("numOutputWords must be > 0 (got " + numOutputWords + ")");
                 }
                 if (output.Length <= 0)
                 {
-                    throw new System.ArgumentException("output.length must be > 0 (got " + output.Length + ")");
+                    throw new ArgumentException("output.length must be > 0 (got " + output.Length + ")");
                 }
 
                 Debug.Assert(!HasHoles(input), "input has holes: " + input);
@@ -266,7 +259,8 @@ namespace YAF.Lucene.Net.Analysis.Synonym
                 var spare = new byte[5];
 
                 ICollection<CharsRef> keys = workingSet.Keys;
-                CharsRef[] sortedKeys = keys.ToArray();
+                CharsRef[] sortedKeys = new CharsRef[keys.Count];
+                keys.CopyTo(sortedKeys, 0);
 #pragma warning disable 612, 618
                 System.Array.Sort(sortedKeys, CharsRef.UTF16SortedAsUTF8Comparer);
 #pragma warning restore 612, 618
@@ -371,11 +365,11 @@ namespace YAF.Lucene.Net.Analysis.Synonym
                         int length = termAtt.Length;
                         if (length == 0)
                         {
-                            throw new System.ArgumentException("term: " + text + " analyzed to a zero-length token");
+                            throw new ArgumentException("term: " + text + " analyzed to a zero-length token");
                         }
                         if (posIncAtt.PositionIncrement != 1)
                         {
-                            throw new System.ArgumentException("term: " + text + " analyzed to a token with posinc != 1");
+                            throw new ArgumentException("term: " + text + " analyzed to a token with posinc != 1");
                         }
                         reuse.Grow(reuse.Length + length + 1); // current + word + separator
                         int end = reuse.Offset + reuse.Length;
@@ -399,7 +393,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
                 }
                 if (reuse.Length == 0)
                 {
-                    throw new System.ArgumentException("term: " + text + " was completely eliminated by analyzer");
+                    throw new ArgumentException("term: " + text + " was completely eliminated by analyzer");
                 }
                 return reuse;
             }

@@ -118,11 +118,17 @@ namespace YAF.Lucene.Net.Index
         private readonly IndexWriter writer;
 
         // called only from assert
-        private bool IsLocked
-        {
+        private bool IsLocked =>
             //LUCENENET TODO: This always returns true - probably incorrect
-            get { return writer == null || true /*Monitor. IsEntered(Writer)*/; }
-        }
+            writer == null || true /*Monitor.IsEntered(writer)*/;
+
+        // LUCENENET specific - optimized empty array creation
+        private static readonly string[] EMPTY_STRINGS =
+#if FEATURE_ARRAYEMPTY
+            Array.Empty<string>();
+#else
+            new string[0];
+#endif
 
         /// <summary>
         /// Initialize the deleter: find all previous commits in
@@ -160,7 +166,7 @@ namespace YAF.Lucene.Net.Index
 #pragma warning restore 168
             {
                 // it means the directory is empty, so ignore it.
-                files = new string[0];
+                files = EMPTY_STRINGS;
             }
 
             if (currentSegmentsFile != null)
@@ -223,7 +229,7 @@ namespace YAF.Lucene.Net.Index
                             //}
                             // LUCENENET specific - since NoSuchDirectoryException subclasses FileNotFoundException
                             // in Lucene, we need to catch it here to be on the safe side.
-                            catch (System.IO.DirectoryNotFoundException)
+                            catch (DirectoryNotFoundException)
                             {
                                 // LUCENE-948: on NFS (and maybe others), if
                                 // you have writers switching back and forth
@@ -344,13 +350,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        public SegmentInfos LastSegmentInfos
-        {
-            get
-            {
-                return lastSegmentInfos;
-            }
-        }
+        public SegmentInfos LastSegmentInfos => lastSegmentInfos;
 
         /// <summary>
         /// Remove the CommitPoints in the commitsToDelete List by
@@ -819,53 +819,17 @@ namespace YAF.Lucene.Net.Index
                 return "IndexFileDeleter.CommitPoint(" + segmentsFileName + ")";
             }
 
-            public override int SegmentCount
-            {
-                get
-                {
-                    return segmentCount;
-                }
-            }
+            public override int SegmentCount => segmentCount;
 
-            public override string SegmentsFileName
-            {
-                get
-                {
-                    return segmentsFileName;
-                }
-            }
+            public override string SegmentsFileName => segmentsFileName;
 
-            public override ICollection<string> FileNames
-            {
-                get
-                {
-                    return files;
-                }
-            }
+            public override ICollection<string> FileNames => files;
 
-            public override Directory Directory
-            {
-                get
-                {
-                    return directory;
-                }
-            }
+            public override Directory Directory => directory;
 
-            public override long Generation
-            {
-                get
-                {
-                    return generation;
-                }
-            }
+            public override long Generation => generation;
 
-            public override IDictionary<string, string> UserData
-            {
-                get
-                {
-                    return userData;
-                }
-            }
+            public override IDictionary<string, string> UserData => userData;
 
             /// <summary>
             /// Called only by the deletion policy, to remove this
@@ -880,13 +844,7 @@ namespace YAF.Lucene.Net.Index
                 }
             }
 
-            public override bool IsDeleted
-            {
-                get
-                {
-                    return deleted;
-                }
-            }
+            public override bool IsDeleted => deleted;
         }
     }
 }

@@ -64,14 +64,8 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
 
         public bool IsKeyword
         {
-            get
-            {
-                return keyword;
-            }
-            set
-            {
-                keyword = value;
-            }
+            get => keyword;
+            set => keyword = value;
         }
     }
 }

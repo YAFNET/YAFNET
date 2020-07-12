@@ -7,7 +7,6 @@ using J2N;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
@@ -273,7 +272,7 @@ namespace YAF.Lucene.Net.Index
             }
             else
             {
-                throw new System.ArgumentException("fileName \"" + fileName + "\" is not a segments file");
+                throw new ArgumentException("fileName \"" + fileName + "\" is not a segments file");
             }
         }
 
@@ -720,10 +719,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         // LUCENENET specific property for accessing segments private field
-        public IList<SegmentCommitInfo> Segments
-        {
-            get { return segments; }
-        }
+        public IList<SegmentCommitInfo> Segments => segments;
 
 
         /// <summary>
@@ -733,23 +729,11 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Returns current generation. </summary>
-        public long Generation
-        {
-            get
-            {
-                return generation;
-            }
-        }
+        public long Generation => generation;
 
         /// <summary>
         /// Returns last succesfully read or written generation. </summary>
-        public long LastGeneration
-        {
-            get
-            {
-                return lastGeneration;
-            }
-        }
+        public long LastGeneration => lastGeneration;
 
         /// <summary>
         /// If non-null, information about retries when loading
@@ -757,18 +741,13 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public static TextWriter InfoStream 
         {
-            set
-            {
+            set =>
                 // LUCENENET specific - use a SafeTextWriterWrapper to ensure that if the TextWriter
                 // is disposed by the caller (using block) we don't get any exceptions if we keep using it.
                 infoStream = value == null
                     ? null
                     : (value is SafeTextWriterWrapper ? value : new SafeTextWriterWrapper(value));
-            }
-            get
-            {
-                return infoStream;
-            }
+            get => infoStream;
         }
 
         /// <summary>
@@ -790,14 +769,8 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public static int DefaultGenLookaheadCount // LUCENENET specific: corrected spelling issue with the getter
         {
-            get
-            {
-                return defaultGenLookaheadCount;
-            }
-            set
-            {
-                defaultGenLookaheadCount = value;
-            }
+            get => defaultGenLookaheadCount;
+            set => defaultGenLookaheadCount = value;
         }
 
         /// <summary>
@@ -1308,10 +1281,7 @@ namespace YAF.Lucene.Net.Index
         /// <seealso cref="IndexWriter.Commit()"/>
         public IDictionary<string, string> UserData
         {
-            get
-            {
-                return userData;
-            }
+            get => userData;
             internal set
             {
                 if (value == null)
@@ -1342,7 +1312,15 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public int TotalDocCount
         {
-            get { return segments.Sum(info => info.Info.DocCount); }
+            get
+            {
+                int count = 0;
+                foreach (SegmentCommitInfo info in this)
+                {
+                    count += info.Info.DocCount;
+                }
+                return count;
+            }
         }
 
         /// <summary>
@@ -1437,10 +1415,7 @@ namespace YAF.Lucene.Net.Index
         /// <para/>
         /// NOTE: This was size() in Lucene.
         /// </summary>
-        public int Count
-        {
-            get { return segments.Count; }
-        }
+        public int Count => segments.Count;
 
         /// <summary>
         /// Appends the provided <see cref="SegmentCommitInfo"/>. </summary>

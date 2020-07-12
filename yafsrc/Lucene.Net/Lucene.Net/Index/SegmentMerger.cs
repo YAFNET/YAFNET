@@ -2,6 +2,7 @@ using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -76,16 +77,13 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// <c>True</c> if any merging should happen </summary>
-        internal bool ShouldMerge
-        {
-            get { return mergeState.SegmentInfo.DocCount > 0; }
-        }
+        internal bool ShouldMerge => mergeState.SegmentInfo.DocCount > 0;
 
         /// <summary>
         /// Merges the readers into the directory passed to the constructor </summary>
         /// <returns> The number of documents that were merged </returns>
         /// <exception cref="CorruptIndexException"> if the index is corrupt </exception>
-        /// <exception cref="System.IO.IOException"> if there is a low-level IO error </exception>
+        /// <exception cref="IOException"> if there is a low-level IO error </exception>
         [MethodImpl(MethodImplOptions.NoInlining)]
         internal MergeState Merge()
         {
@@ -380,7 +378,7 @@ namespace YAF.Lucene.Net.Index
         ///
         /// <returns> The number of documents in all of the readers </returns>
         /// <exception cref="CorruptIndexException"> if the index is corrupt </exception>
-        /// <exception cref="System.IO.IOException"> if there is a low-level IO error </exception>
+        /// <exception cref="IOException"> if there is a low-level IO error </exception>
         private int MergeFields()
         {
             StoredFieldsWriter fieldsWriter = codec.StoredFieldsFormat.FieldsWriter(directory, mergeState.SegmentInfo, context);
@@ -397,7 +395,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Merge the TermVectors from each of the segments into the new one. </summary>
-        /// <exception cref="System.IO.IOException"> if there is a low-level IO error </exception>
+        /// <exception cref="IOException"> if there is a low-level IO error </exception>
         private int MergeVectors()
         {
             TermVectorsWriter termVectorsWriter = codec.TermVectorsFormat.VectorsWriter(directory, mergeState.SegmentInfo, context);

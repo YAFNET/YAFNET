@@ -2,6 +2,7 @@ using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 
 namespace YAF.Lucene.Net.Util
@@ -87,12 +88,16 @@ namespace YAF.Lucene.Net.Util
         /// Default index interval. </summary>
         public const int DEFAULT_INDEX_INTERVAL = 24;
 
-        private static readonly MonotonicAppendingInt64Buffer SINGLE_ZERO_BUFFER = LoadSingleZeroBuffer();
+        // LUCENENET specific - optimized empty array creation
+        private static readonly byte[] EMPTY_BYTES =
 #if FEATURE_ARRAYEMPTY
-        private static WAH8DocIdSet EMPTY = new WAH8DocIdSet(Array.Empty<byte>(), 0, 1, SINGLE_ZERO_BUFFER, SINGLE_ZERO_BUFFER);
+            Array.Empty<byte>();
 #else
-        private static WAH8DocIdSet EMPTY = new WAH8DocIdSet(new byte[0],         0, 1, SINGLE_ZERO_BUFFER, SINGLE_ZERO_BUFFER);
+            new byte[0];
 #endif
+
+        private static readonly MonotonicAppendingInt64Buffer SINGLE_ZERO_BUFFER = LoadSingleZeroBuffer();
+        private static readonly WAH8DocIdSet EMPTY = new WAH8DocIdSet(EMPTY_BYTES, 0, 1, SINGLE_ZERO_BUFFER, SINGLE_ZERO_BUFFER);
         private static MonotonicAppendingInt64Buffer LoadSingleZeroBuffer() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
             var buffer = new MonotonicAppendingInt64Buffer(1, 64, PackedInt32s.COMPACT);
@@ -119,7 +124,7 @@ namespace YAF.Lucene.Net.Util
             switch (docIdSets.Count)
             {
                 case 0:
-                    throw new System.ArgumentException("There must be at least one set to intersect");
+                    throw new ArgumentException("There must be at least one set to intersect");
                 case 1:
                     return docIdSets.First();
             }
@@ -293,7 +298,7 @@ namespace YAF.Lucene.Net.Util
             {
                 if (indexInterval < MIN_INDEX_INTERVAL)
                 {
-                    throw new System.ArgumentException("indexInterval must be >= " + MIN_INDEX_INTERVAL);
+                    throw new ArgumentException("indexInterval must be >= " + MIN_INDEX_INTERVAL);
                 }
                 this.indexInterval = indexInterval;
                 return this;
@@ -345,7 +350,7 @@ namespace YAF.Lucene.Net.Util
                 {
                     WriteHeader(reverse, clean, dirtyWords.Length);
                 }
-                catch (System.IO.IOException cannotHappen)
+                catch (IOException cannotHappen)
                 {
                     throw new InvalidOperationException(cannotHappen.ToString(), cannotHappen); // LUCENENET NOTE: This was AssertionError in Lucene
                 }
@@ -521,7 +526,7 @@ namespace YAF.Lucene.Net.Util
             {
                 if (docID <= lastDocID)
                 {
-                    throw new System.ArgumentException("Doc ids must be added in-order, got " + docID + " which is <= lastDocID=" + lastDocID);
+                    throw new ArgumentException("Doc ids must be added in-order, got " + docID + " which is <= lastDocID=" + lastDocID);
                 }
                 int wordNum = WordNum(docID);
                 if (this.wordNum == -1)
@@ -587,13 +592,7 @@ namespace YAF.Lucene.Net.Util
             this.wordNums = wordNums;
         }
 
-        public override bool IsCacheable
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool IsCacheable => true;
 
         public override DocIdSetIterator GetIterator()
         {
@@ -839,10 +838,7 @@ namespace YAF.Lucene.Net.Util
                 NextWord();
             }
 
-            public override int DocID
-            {
-                get { return docID; }
-            }
+            public override int DocID => docID;
 
             public override int NextDoc()
             {

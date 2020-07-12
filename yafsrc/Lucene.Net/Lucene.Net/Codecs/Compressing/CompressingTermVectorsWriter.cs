@@ -2,7 +2,6 @@ using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using JCG = J2N.Collections.Generic;
 using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
@@ -129,14 +128,18 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         private DocData AddDocData(int numVectorFields)
         {
             FieldData last = null;
-            //for (IEnumerator<DocData> it = PendingDocs.Reverse(); it.MoveNext();)
-            foreach (DocData doc in pendingDocs.Reverse())
+            // LUCENENET specific - quicker just to use the linked list properties
+            // to walk backward, since we are only looking for the last element with
+            // fields.
+            var doc = pendingDocs.Last;
+            while (doc != null)
             {
-                if (!(doc.fields.Count == 0))
+                if (!(doc.Value.fields.Count == 0))
                 {
-                    last = doc.fields.Last.Value;
+                    last = doc.Value.fields.Last.Value;
                     break;
                 }
+                doc = doc.Previous;
             }
             DocData newDoc;
             if (last == null)
@@ -789,13 +792,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             CodecUtil.WriteFooter(vectorsStream);
         }
 
-        public override IComparer<BytesRef> Comparer
-        {
-            get
-            {
-                return BytesRef.UTF8SortedAsUnicodeComparer;
-            }
-        }
+        public override IComparer<BytesRef> Comparer => BytesRef.UTF8SortedAsUnicodeComparer;
 
         public override void AddProx(int numProx, DataInput positions, DataInput offsets)
         {

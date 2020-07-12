@@ -162,13 +162,7 @@ namespace YAF.Lucene.Net.Search
             {
             }
 
-            protected override int MaxSize
-            {
-                get
-                {
-                    return BooleanQuery.MaxClauseCount;
-                }
-            }
+            protected override int MaxSize => BooleanQuery.MaxClauseCount;
 
             protected override BooleanQuery GetTopLevelQuery()
             {
@@ -206,13 +200,7 @@ namespace YAF.Lucene.Net.Search
             {
             }
 
-            protected override int MaxSize
-            {
-                get
-                {
-                    return BooleanQuery.MaxClauseCount;
-                }
-            }
+            protected override int MaxSize => BooleanQuery.MaxClauseCount;
 
             protected override BooleanQuery GetTopLevelQuery()
             {
@@ -264,26 +252,14 @@ namespace YAF.Lucene.Net.Search
 
             public override int TermCountCutoff
             {
-                get // LUCENENET specific - adding getter for API consistency check
-                {
-                    return base.TermCountCutoff;
-                }
-                set
-                {
-                    throw new System.NotSupportedException("Please create a private instance");
-                }
+                get => base.TermCountCutoff; // LUCENENET specific - adding getter for API consistency check
+                set => throw new NotSupportedException("Please create a private instance");
             }
 
             public override double DocCountPercent
             {
-                get // LUCENENET specific - adding getter for API consistency check
-                {
-                    return base.DocCountPercent;
-                }
-                set
-                {
-                    throw new System.NotSupportedException("Please create a private instance");
-                }
+                get => base.DocCountPercent; // LUCENENET specific - adding getter for API consistency check
+                set => throw new NotSupportedException("Please create a private instance");
             }
         }
 
@@ -295,20 +271,14 @@ namespace YAF.Lucene.Net.Search
         {
             if (field == null)
             {
-                throw new System.ArgumentException("field must not be null");
+                throw new ArgumentException("field must not be null");
             }
             this.m_field = field;
         }
 
         /// <summary>
         /// Returns the field name for this query </summary>
-        public string Field
-        {
-            get
-            {
-                return m_field;
-            }
-        }
+        public string Field => m_field;
 
         /// <summary>
         /// Construct the enumeration to be used, expanding the
@@ -355,14 +325,8 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         public virtual RewriteMethod MultiTermRewriteMethod 
         {
-            get
-            {
-                return m_rewriteMethod;
-            }
-            set
-            {
-                m_rewriteMethod = value;
-            }
+            get => m_rewriteMethod;
+            set => m_rewriteMethod = value;
         }
 
         public override int GetHashCode()

@@ -1,3 +1,5 @@
+using System;
+
 namespace YAF.Lucene.Net.Search
 {
     /*
@@ -35,7 +37,7 @@ namespace YAF.Lucene.Net.Search
         {
             if (innerIter == null)
             {
-                throw new System.ArgumentException("null iterator");
+                throw new ArgumentException("null iterator");
             }
             m_innerIter = innerIter;
             doc = -1;
@@ -48,10 +50,7 @@ namespace YAF.Lucene.Net.Search
         /// <seealso cref="FilteredDocIdSetIterator(DocIdSetIterator)"/>
         protected abstract bool Match(int doc);
 
-        public override int DocID
-        {
-            get { return doc; }
-        }
+        public override int DocID => doc;
 
         public override int NextDoc()
         {

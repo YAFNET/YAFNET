@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace YAF.Lucene.Net.Codecs
 {
     /*
@@ -39,7 +41,7 @@ namespace YAF.Lucene.Net.Codecs
 
         /// <summary>
         /// Write <see cref="SegmentInfo"/> data. </summary>
-        /// <exception cref="System.IO.IOException"> If an I/O error occurs. </exception>
+        /// <exception cref="IOException"> If an I/O error occurs. </exception>
         public abstract void Write(Directory dir, SegmentInfo info, FieldInfos fis, IOContext ioContext);
     }
 }

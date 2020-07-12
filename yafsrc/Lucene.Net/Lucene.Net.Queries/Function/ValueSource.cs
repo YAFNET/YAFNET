@@ -34,7 +34,7 @@ namespace YAF.Lucene.Net.Queries.Function
         /// Gets the values for this reader and the context that was previously
         /// passed to <see cref="CreateWeight"/>
         /// </summary>
-        public abstract FunctionValues GetValues(IDictionary context, AtomicReaderContext readerContext);
+        public abstract FunctionValues GetValues(IDictionary context, AtomicReaderContext readerContext); // LUCENENET TODO: API - See if we can use generic IDictionary here instead
 
         public override abstract bool Equals(object o);
 
@@ -179,10 +179,7 @@ namespace YAF.Lucene.Net.Queries.Function
             }
 
             // LUCENENET NOTE: This was value(int) in Lucene.
-            public override IComparable this[int slot]
-            {
-                get => values[slot];
-            }
+            public override IComparable this[int slot] => values[slot];
 
             public override int CompareTop(int doc)
             {

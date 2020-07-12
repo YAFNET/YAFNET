@@ -2,6 +2,7 @@ using J2N.Numerics;
 using J2N.Text;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -162,7 +163,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         /// </summary>
         /// <param name="term">
         ///          The term to locate. </param>
-        /// <exception cref="System.IO.IOException"> If there is a low-level I/O error. </exception>
+        /// <exception cref="IOException"> If there is a low-level I/O error. </exception>
         internal virtual int GetIndexOffset(Term term)
         {
             int lo = 0;
@@ -195,7 +196,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         /// <param name="termIndex">
         ///          The position to read the term from the index. </param>
         /// <returns> The term. </returns>
-        /// <exception cref="System.IO.IOException"> If there is a low-level I/O error. </exception>
+        /// <exception cref="IOException"> If there is a low-level I/O error. </exception>
         internal virtual Term GetTerm(int termIndex)
         {
             PagedBytesDataInput input = (PagedBytesDataInput)dataInput.Clone();
@@ -211,10 +212,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         /// Returns the number of terms.
         /// </summary>
         /// <returns> int. </returns>
-        internal virtual int Length
-        {
-            get { return indexSize; }
-        }
+        internal virtual int Length => indexSize;
 
         /// <summary>
         /// The compares the given term against the term in the index specified by the
@@ -225,7 +223,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         /// <param name="termIndex">
         ///          The index of the of term to compare. </param>
         /// <returns> int. </returns>
-        /// <exception cref="System.IO.IOException"> If there is a low-level I/O error. </exception>
+        /// <exception cref="IOException"> If there is a low-level I/O error. </exception>
         internal virtual int CompareTo(Term term, int termIndex)
         {
             return CompareTo(term, termIndex, (PagedBytesDataInput)dataInput.Clone(), new BytesRef());
@@ -242,7 +240,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         /// <param name="input">
         ///          The input buffer. </param>
         /// <returns> int. </returns>
-        /// <exception cref="System.IO.IOException"> If there is a low-level I/O error. </exception>
+        /// <exception cref="IOException"> If there is a low-level I/O error. </exception>
         private int CompareTo(Term term, int termIndex, PagedBytesDataInput input, BytesRef reuse)
         {
             // if term field does not equal mid's field index, then compare fields
@@ -268,7 +266,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         /// <param name="input">
         ///          The data block. </param>
         /// <returns> int. </returns>
-        /// <exception cref="System.IO.IOException"> If there is a low-level I/O error. </exception>
+        /// <exception cref="IOException"> If there is a low-level I/O error. </exception>
         private int CompareField(Term term, int termIndex, PagedBytesDataInput input)
         {
             input.SetPosition(indexToDataOffset.Get(termIndex));

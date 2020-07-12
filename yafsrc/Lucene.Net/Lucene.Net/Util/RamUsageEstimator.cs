@@ -425,7 +425,7 @@ namespace YAF.Lucene.Net.Util
         {
             if (clazz.IsArray)
             {
-                throw new System.ArgumentException("this method does not work with array classes.");
+                throw new ArgumentException("this method does not work with array classes.");
             }
             if (clazz.IsPrimitive)
             {
@@ -731,8 +731,8 @@ namespace YAF.Lucene.Net.Util
             [SuppressMessage("Microsoft.Performance", "CA1819", Justification = "Lucene's design requires some writable array properties")]
             public object[] Keys
             {
-                get { return keys; }
-                set { keys = value; }
+                get => keys;
+                set => keys = value;
             }
             private object[] keys;
 
@@ -933,10 +933,7 @@ namespace YAF.Lucene.Net.Util
                 Array.Clear(keys, 0, keys.Length);
             }
 
-            public int Count // LUCENENET NOTE: This was size() in Lucene.
-            {
-                get { return Assigned; }
-            }
+            public int Count => Assigned; // LUCENENET NOTE: This was size() in Lucene.
 
             //public bool IsEmpty // LUCENENET NOTE: in .NET we can just use !Any() on IEnumerable<T>
             //{
@@ -984,15 +981,9 @@ namespace YAF.Lucene.Net.Util
                     return true;
                 }
 
-                public KType Current
-                {
-                    get { return current; }
-                }
+                public KType Current => current;
 
-                object System.Collections.IEnumerator.Current
-                {
-                    get { return Current; }
-                }
+                object System.Collections.IEnumerator.Current => Current;
 
                 private object FetchNext()
                 {

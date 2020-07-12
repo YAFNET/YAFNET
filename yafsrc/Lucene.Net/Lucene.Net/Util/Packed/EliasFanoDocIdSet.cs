@@ -1,3 +1,5 @@
+using System;
+
 namespace YAF.Lucene.Net.Util.Packed
 {
     /*
@@ -60,7 +62,7 @@ namespace YAF.Lucene.Net.Util.Packed
                 int x = disi.NextDoc();
                 if (x == DocIdSetIterator.NO_MORE_DOCS)
                 {
-                    throw new System.ArgumentException("disi: " + disi.ToString() + "\nhas " + efEncoder.numEncoded + " docs, but at least " + efEncoder.numValues + " are required.");
+                    throw new ArgumentException("disi: " + disi.ToString() + "\nhas " + efEncoder.numEncoded + " docs, but at least " + efEncoder.numValues + " are required.");
                 }
                 efEncoder.EncodeNext(x);
             }
@@ -73,7 +75,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (efEncoder.lastEncoded >= DocIdSetIterator.NO_MORE_DOCS)
             {
-                throw new System.NotSupportedException("Highest encoded value too high for DocIdSetIterator.NO_MORE_DOCS: " + efEncoder.lastEncoded);
+                throw new NotSupportedException("Highest encoded value too high for DocIdSetIterator.NO_MORE_DOCS: " + efEncoder.lastEncoded);
             }
             return new DocIdSetIteratorAnonymousInnerClassHelper(this);
         }
@@ -92,10 +94,7 @@ namespace YAF.Lucene.Net.Util.Packed
             private int curDocId;
             private readonly EliasFanoDecoder efDecoder;
 
-            public override int DocID
-            {
-                get { return curDocId; }
-            }
+            public override int DocID => curDocId;
 
             private int SetCurDocID(long value)
             {
@@ -122,13 +121,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <summary>
         /// This DocIdSet implementation is cacheable. </summary>
         /// <returns> <c>true</c> </returns>
-        public override bool IsCacheable
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool IsCacheable => true;
 
         public override bool Equals(object other)
         {

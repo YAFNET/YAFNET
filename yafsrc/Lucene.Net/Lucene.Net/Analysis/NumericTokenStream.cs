@@ -147,7 +147,7 @@ namespace YAF.Lucene.Net.Analysis
                 var attClass = typeof(T);
                 if (typeof(ICharTermAttribute).IsAssignableFrom(attClass))
                 {
-                    throw new System.ArgumentException("NumericTokenStream does not support CharTermAttribute.");
+                    throw new ArgumentException("NumericTokenStream does not support CharTermAttribute.");
                 }
                 return @delegate.CreateAttributeInstance<T>();
             }
@@ -173,13 +173,7 @@ namespace YAF.Lucene.Net.Analysis
                 ValueSize = 0;
             }
 
-            public BytesRef BytesRef
-            {
-                get
-                {
-                    return _bytes;
-                }
-            }
+            public BytesRef BytesRef => _bytes;
 
             public void FillBytesRef()
             {
@@ -201,13 +195,7 @@ namespace YAF.Lucene.Net.Analysis
                 return (Shift += _precisionStep);
             }
 
-            public long RawValue
-            {
-                get
-                {
-                    return _value & ~((1L << Shift) - 1L);
-                }
-            }
+            public long RawValue => _value & ~((1L << Shift) - 1L);
 
             public int ValueSize { get; private set; }
 
@@ -276,7 +264,7 @@ namespace YAF.Lucene.Net.Analysis
             InitializeInstanceFields();
             if (precisionStep < 1)
             {
-                throw new System.ArgumentException("precisionStep must be >=1");
+                throw new ArgumentException("precisionStep must be >=1");
             }
             this.precisionStep = precisionStep;
             numericAtt.Shift = -precisionStep;
@@ -362,13 +350,7 @@ namespace YAF.Lucene.Net.Analysis
 
         /// <summary>
         /// Returns the precision step. </summary>
-        public int PrecisionStep
-        {
-            get
-            {
-                return precisionStep;
-            }
-        }
+        public int PrecisionStep => precisionStep;
 
         // members
         private INumericTermAttribute numericAtt;

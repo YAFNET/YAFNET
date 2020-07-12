@@ -156,15 +156,12 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public virtual int MergeFactor
         {
-            get
-            {
-                return m_mergeFactor;
-            }
+            get => m_mergeFactor;
             set
             {
                 if (value < 2)
                 {
-                    throw new System.ArgumentException("mergeFactor cannot be less than 2");
+                    throw new ArgumentException("mergeFactor cannot be less than 2");
                 }
                 this.m_mergeFactor = value;
             }
@@ -176,14 +173,8 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public virtual bool CalibrateSizeByDeletes
         {
-            set
-            {
-                this.m_calibrateSizeByDeletes = value;
-            }
-            get
-            {
-                return m_calibrateSizeByDeletes;
-            }
+            get => m_calibrateSizeByDeletes;
+            set => this.m_calibrateSizeByDeletes = value;
         }
 
         protected override void Dispose(bool disposing)
@@ -742,14 +733,8 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public virtual int MaxMergeDocs
         {
-            set
-            {
-                this.m_maxMergeDocs = value;
-            }
-            get
-            {
-                return m_maxMergeDocs;
-            }
+            get => m_maxMergeDocs;
+            set => this.m_maxMergeDocs = value;
         }
 
         public override string ToString()

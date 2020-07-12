@@ -1,4 +1,5 @@
 using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Support;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -270,7 +271,7 @@ namespace YAF.Lucene.Net.Util
             }
             else
             {
-                return (new JCG.HashSet<Attribute>()).GetEnumerator();
+                return Collections.EmptySet<Attribute>().GetEnumerator();
             }
         }
 
@@ -319,14 +320,11 @@ namespace YAF.Lucene.Net.Util
 
             public Attribute Current
             {
-                get { return current; }
-                set { current = value; }
+                get => current;
+                set => current = value;
             }
 
-            object IEnumerator.Current
-            {
-                get { return Current; }
-            }
+            object IEnumerator.Current => Current;
         }
 
         /// <summary>
@@ -434,10 +432,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Returns <c>true</c>, if this <see cref="AttributeSource"/> has any attributes </summary>
-        public bool HasAttributes
-        {
-            get { return this.attributes.Count > 0; }
-        }
+        public bool HasAttributes => this.attributes.Count > 0;
 
         /// <summary>
         /// The caller must pass in an interface type that extends <see cref="IAttribute"/>.

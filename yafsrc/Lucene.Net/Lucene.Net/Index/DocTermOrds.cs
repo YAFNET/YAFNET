@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+using System.IO;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -198,7 +198,12 @@ namespace YAF.Lucene.Net.Index
             }
             if (m_tnums != null)
             {
-                sz = m_tnums.Where(arr => arr != null).Aggregate(sz, (current, arr) => current + arr.Length);
+                for (int i = 0; i < m_tnums.Length; i++)
+                {
+                    var arr = m_tnums[i];
+                    if (arr != null)
+                        sz += arr.Length;
+                }
             }
             memsz = sz;
             return sz;
@@ -296,21 +301,12 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// Returns the number of terms in this field
         /// </summary>
-        public virtual int NumTerms
-        {
-            get { return m_numTermsInField; }
-        }
+        public virtual int NumTerms => m_numTermsInField;
 
         /// <summary>
         /// Returns <c>true</c> if no terms were indexed.
         /// </summary>
-        public virtual bool IsEmpty
-        {
-            get
-            {
-                return m_index == null;
-            }
-        }
+        public virtual bool IsEmpty => m_index == null;
 
         /// <summary>
         /// Subclass can override this </summary>
@@ -416,7 +412,7 @@ namespace YAF.Lucene.Net.Index
                         //System.out.println("got ordBase=" + ordBase);
                     }
 #pragma warning disable 168
-                    catch (System.NotSupportedException uoe)
+                    catch (NotSupportedException uoe)
 #pragma warning restore 168
                     {
                         // Reader cannot provide ord support, so we wrap
@@ -666,7 +662,8 @@ namespace YAF.Lucene.Net.Index
             }
             if (indexedTerms != null)
             {
-                m_indexedTermsArray = indexedTerms.ToArray();
+                m_indexedTermsArray = new BytesRef[indexedTerms.Count];
+                indexedTerms.CopyTo(m_indexedTermsArray, 0);
             }
 
             long endTime = Environment.TickCount;
@@ -759,13 +756,7 @@ namespace YAF.Lucene.Net.Index
                 termsEnum = reader.Fields.GetTerms(outerInstance.m_field).GetIterator(null);
             }
 
-            public override IComparer<BytesRef> Comparer
-            {
-                get
-                {
-                    return termsEnum.Comparer;
-                }
-            }
+            public override IComparer<BytesRef> Comparer => termsEnum.Comparer;
 
             public override DocsEnum Docs(IBits liveDocs, DocsEnum reuse, DocsFlags flags)
             {
@@ -777,10 +768,7 @@ namespace YAF.Lucene.Net.Index
                 return termsEnum.DocsAndPositions(liveDocs, reuse, flags);
             }
 
-            public override BytesRef Term
-            {
-                get { return term; }
-            }
+            public override BytesRef Term => term;
 
             public override BytesRef Next()
             {
@@ -796,20 +784,11 @@ namespace YAF.Lucene.Net.Index
                 return SetTerm(); // this is extra work if we know we are in bounds...
             }
 
-            public override int DocFreq
-            {
-                get { return termsEnum.DocFreq; }
-            }
+            public override int DocFreq => termsEnum.DocFreq;
 
-            public override long TotalTermFreq
-            {
-                get { return termsEnum.TotalTermFreq; }
-            }
+            public override long TotalTermFreq => termsEnum.TotalTermFreq;
 
-            public override long Ord
-            {
-                get { return outerInstance.m_ordBase + ord; }
-            }
+            public override long Ord => outerInstance.m_ordBase + ord;
 
             public override SeekStatus SeekCeil(BytesRef target)
             {
@@ -1088,7 +1067,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     @ref = outerInstance.LookupTerm(te, (int)ord);
                 }
-                catch (System.IO.IOException e)
+                catch (IOException e)
                 {
                     throw new Exception(e.ToString(), e);
                 }
@@ -1097,13 +1076,7 @@ namespace YAF.Lucene.Net.Index
                 result.Length = @ref.Length;
             }
 
-            public override long ValueCount
-            {
-                get
-                {
-                    return outerInstance.NumTerms;
-                }
-            }
+            public override long ValueCount => outerInstance.NumTerms;
 
             public override long LookupTerm(BytesRef key)
             {
@@ -1118,7 +1091,7 @@ namespace YAF.Lucene.Net.Index
                         return -te.Ord - 1;
                     }
                 }
-                catch (System.IO.IOException e)
+                catch (IOException e)
                 {
                     throw new Exception(e.ToString(), e);
                 }
@@ -1131,7 +1104,7 @@ namespace YAF.Lucene.Net.Index
                     return outerInstance.GetOrdTermsEnum(reader);
                 }
 #pragma warning disable 168
-                catch (System.IO.IOException e)
+                catch (IOException e)
 #pragma warning restore 168
                 {
                     throw new Exception(e.ToString(), e);

@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -94,13 +95,7 @@ namespace YAF.Lucene.Net.Search
         /// <para/>
         /// @lucene.internal
         /// </summary>
-        public static Similarity DefaultSimilarity
-        {
-            get
-            {
-                return defaultSimilarity;
-            }
-        }
+        public static Similarity DefaultSimilarity => defaultSimilarity;
 
         /// <summary>
         /// The <see cref="Similarities.Similarity"/> implementation used by this searcher. </summary>
@@ -177,13 +172,7 @@ namespace YAF.Lucene.Net.Search
 
         /// <summary>
         /// Return the <see cref="Index.IndexReader"/> this searches. </summary>
-        public virtual IndexReader IndexReader
-        {
-            get
-            {
-                return reader;
-            }
-        }
+        public virtual IndexReader IndexReader => reader;
 
         /// <summary>
         /// Sugar for <code>.IndexReader.Document(docID)</code> </summary>
@@ -221,14 +210,8 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         public virtual Similarity Similarity
         {
-            set
-            {
-                this.similarity = value;
-            }
-            get
-            {
-                return similarity;
-            }
+            get => similarity;
+            set => this.similarity = value;
         }
 
         /// <summary>
@@ -373,7 +356,7 @@ namespace YAF.Lucene.Net.Search
             {
                 // TODO: if we fix type safety of TopFieldDocs we can
                 // remove this
-                throw new System.ArgumentException("after must be a FieldDoc; got " + after);
+                throw new ArgumentException("after must be a FieldDoc; got " + after);
             }
             return Search(CreateNormalizedWeight(WrapFilter(query, filter)), (FieldDoc)after, n, sort, true, false, false);
         }
@@ -384,7 +367,7 @@ namespace YAF.Lucene.Net.Search
         /// <param name="n"> Return only the top n results </param>
         /// <param name="sort"> The <see cref="Lucene.Net.Search.Sort"/> object </param>
         /// <returns> The top docs, sorted according to the supplied <see cref="Lucene.Net.Search.Sort"/> instance </returns>
-        /// <exception cref="System.IO.IOException"> if there is a low-level I/O error </exception>
+        /// <exception cref="IOException"> if there is a low-level I/O error </exception>
         public virtual TopFieldDocs Search(Query query, int n, Sort sort)
         {
             return Search(CreateNormalizedWeight(query), n, sort, false, false);
@@ -407,7 +390,7 @@ namespace YAF.Lucene.Net.Search
             {
                 // TODO: if we fix type safety of TopFieldDocs we can
                 // remove this
-                throw new System.ArgumentException("after must be a FieldDoc; got " + after);
+                throw new ArgumentException("after must be a FieldDoc; got " + after);
             }
             return Search(CreateNormalizedWeight(query), (FieldDoc)after, n, sort, true, false, false);
         }
@@ -434,7 +417,7 @@ namespace YAF.Lucene.Net.Search
             {
                 // TODO: if we fix type safety of TopFieldDocs we can
                 // remove this
-                throw new System.ArgumentException("after must be a FieldDoc; got " + after);
+                throw new ArgumentException("after must be a FieldDoc; got " + after);
             }
             return Search(CreateNormalizedWeight(WrapFilter(query, filter)), (FieldDoc)after, n, sort, true, doDocScores, doMaxScore);
         }
@@ -456,7 +439,7 @@ namespace YAF.Lucene.Net.Search
             }
             if (after != null && after.Doc >= limit)
             {
-                throw new System.ArgumentException("after.doc exceeds the number of documents in the reader: after.doc=" + after.Doc + " limit=" + limit);
+                throw new ArgumentException("after.doc exceeds the number of documents in the reader: after.doc=" + after.Doc + " limit=" + limit);
             }
             nDocs = Math.Min(nDocs, limit);
 
@@ -544,7 +527,7 @@ namespace YAF.Lucene.Net.Search
         {
             if (sort == null)
             {
-                throw new System.ArgumentNullException("Sort must not be null");
+                throw new ArgumentNullException("Sort must not be null");
             }
 
             int limit = reader.MaxDoc;
@@ -733,13 +716,7 @@ namespace YAF.Lucene.Net.Search
         /// <seealso cref="IndexReader.Context"/>
         /* sugar for #getReader().getTopReaderContext() */
 
-        public virtual IndexReaderContext TopReaderContext
-        {
-            get
-            {
-                return m_readerContext;
-            }
-        }
+        public virtual IndexReaderContext TopReaderContext => m_readerContext;
 
         /// <summary>
         /// A thread subclass for searching a single searchable
@@ -870,18 +847,9 @@ namespace YAF.Lucene.Net.Search
                 this.service = new TaskSchedulerCompletionService<T>(executor);
             }
 
-            public T Current
-            {
-                get
-                {
-                    return current;
-                }
-            }
+            public T Current => current;
 
-            object IEnumerator.Current
-            {
-                get { return current; }
-            }
+            object IEnumerator.Current => current;
 
             public void Dispose()
             {
@@ -935,7 +903,7 @@ namespace YAF.Lucene.Net.Search
             // LUCENENET NOTE: Not supported in .NET anyway
             //public override void Remove()
             //{
-            //  throw new System.NotSupportedException();
+            //  throw new NotSupportedException();
             //}
 
             public IEnumerator<T> GetEnumerator()

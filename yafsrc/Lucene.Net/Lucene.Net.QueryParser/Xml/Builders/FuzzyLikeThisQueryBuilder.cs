@@ -1,11 +1,6 @@
 ﻿using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Sandbox.Queries;
 using YAF.Lucene.Net.Search;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace YAF.Lucene.Net.QueryParsers.Xml.Builders

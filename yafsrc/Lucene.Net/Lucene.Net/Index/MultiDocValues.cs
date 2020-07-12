@@ -2,6 +2,7 @@ using YAF.Lucene.Net.Support;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -456,7 +457,7 @@ namespace YAF.Lucene.Net.Index
             /// <param name="owner"> a cache key </param>
             /// <param name="subs"> <see cref="TermsEnum"/>s that support <see cref="TermsEnum.Ord"/>. They need
             ///             not be dense (e.g. can be FilteredTermsEnums). </param>
-            /// <exception cref="System.IO.IOException"> if an I/O error occurred. </exception>
+            /// <exception cref="IOException"> if an I/O error occurred. </exception>
             public OrdinalMap(object owner, TermsEnum[] subs)
             {
                 // create the ordinal mappings by pulling a termsenum over each sub's
@@ -541,13 +542,7 @@ namespace YAF.Lucene.Net.Index
             /// <summary>
             /// Returns the total number of unique terms in global ord space.
             /// </summary>
-            public virtual long ValueCount
-            {
-                get
-                {
-                    return globalOrdDeltas.Count;
-                }
-            }
+            public virtual long ValueCount => globalOrdDeltas.Count;
 
             /// <summary>
             /// Returns total byte size used by this ordinal map.
@@ -574,28 +569,22 @@ namespace YAF.Lucene.Net.Index
             /// docbase for each leaf: parallel with <see cref="Values"/> </summary>
             [WritableArray]
             [SuppressMessage("Microsoft.Performance", "CA1819", Justification = "Lucene's design requires some writable array properties")]
-            public int[] DocStarts
-            {
-                get { return docStarts; }
-            }
+            public int[] DocStarts => docStarts;
+
             private readonly int[] docStarts;
 
             /// <summary>
             /// leaf values </summary>
             [WritableArray]
             [SuppressMessage("Microsoft.Performance", "CA1819", Justification = "Lucene's design requires some writable array properties")]
-            public SortedDocValues[] Values
-            {
-                get { return values; }
-            }
+            public SortedDocValues[] Values => values;
+
             private readonly SortedDocValues[] values;
 
             /// <summary>
             /// ordinal map mapping ords from <c>values</c> to global ord space </summary>
-            public OrdinalMap Mapping
-            {
-                get { return mapping; }
-            }
+            public OrdinalMap Mapping => mapping;
+
             private readonly OrdinalMap mapping;
 
             /// <summary>
@@ -623,13 +612,7 @@ namespace YAF.Lucene.Net.Index
                 values[subIndex].LookupOrd(segmentOrd, result);
             }
 
-            public override int ValueCount
-            {
-                get
-                {
-                    return (int)mapping.ValueCount;
-                }
-            }
+            public override int ValueCount => (int)mapping.ValueCount;
         }
 
         /// <summary>
@@ -643,28 +626,22 @@ namespace YAF.Lucene.Net.Index
             /// docbase for each leaf: parallel with <see cref="Values"/> </summary>
             [WritableArray]
             [SuppressMessage("Microsoft.Performance", "CA1819", Justification = "Lucene's design requires some writable array properties")]
-            public int[] DocStarts
-            {
-                get { return docStarts; }
-            }
+            public int[] DocStarts => docStarts;
+
             private readonly int[] docStarts;
 
             /// <summary>
             /// leaf values </summary>
             [WritableArray]
             [SuppressMessage("Microsoft.Performance", "CA1819", Justification = "Lucene's design requires some writable array properties")]
-            public SortedSetDocValues[] Values
-            {
-                get { return values; }
-            }
+            public SortedSetDocValues[] Values => values;
+
             private readonly SortedSetDocValues[] values;
 
             /// <summary>
             /// ordinal map mapping ords from <c>values</c> to global ord space </summary>
-            public OrdinalMap Mapping
-            {
-                get { return mapping; } 
-            }
+            public OrdinalMap Mapping => mapping;
+
             private readonly OrdinalMap mapping;
 
             internal int currentSubIndex;
@@ -706,13 +683,7 @@ namespace YAF.Lucene.Net.Index
                 values[subIndex].LookupOrd(segmentOrd, result);
             }
 
-            public override long ValueCount
-            {
-                get
-                {
-                    return mapping.ValueCount;
-                }
-            }
+            public override long ValueCount => mapping.ValueCount;
         }
     }
 }

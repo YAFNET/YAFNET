@@ -57,15 +57,9 @@ namespace YAF.Lucene.Net.Search
             return curScore;
         }
 
-        public override int Freq
-        {
-            get { return scorer.Freq; }
-        }
+        public override int Freq => scorer.Freq;
 
-        public override int DocID
-        {
-            get { return scorer.DocID; }
-        }
+        public override int DocID => scorer.DocID;
 
         public override int NextDoc()
         {

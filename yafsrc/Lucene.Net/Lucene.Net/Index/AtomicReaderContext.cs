@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -59,31 +60,19 @@ namespace YAF.Lucene.Net.Index
             {
                 if (!IsTopLevel)
                 {
-                    throw new System.NotSupportedException("this is not a top-level context.");
+                    throw new NotSupportedException("this is not a top-level context.");
                 }
                 Debug.Assert(leaves != null);
                 return leaves;
             }
         }
 
-        public override IList<IndexReaderContext> Children
-        {
-            get { return null; }
-        }
+        public override IList<IndexReaderContext> Children => null;
 
-        public override IndexReader Reader
-        {
-            get { return reader; }
-        }
+        public override IndexReader Reader => reader;
 
         // LUCENENET specific: Can't change return type on override like Java, so adding helper property
         // to avoid a bunch of casting.
-        public AtomicReader AtomicReader
-        {
-            get
-            {
-                return reader;
-            }
-        }
+        public AtomicReader AtomicReader => reader;
     }
 }

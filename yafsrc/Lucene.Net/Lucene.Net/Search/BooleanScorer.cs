@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -105,10 +106,7 @@ namespace YAF.Lucene.Net.Search
                 this.scorer = scorer;
             }
 
-            public bool AcceptsDocsOutOfOrder
-            {
-                get { return true; }
-            }
+            public bool AcceptsDocsOutOfOrder => true;
         }
 
         internal sealed class Bucket
@@ -156,10 +154,7 @@ namespace YAF.Lucene.Net.Search
                 return new BooleanScorerCollector(mask, this);
             }
 
-            public int Count // LUCENENET NOTE: This was size() in Lucene.
-            {
-                get { return SIZE; }
-            }
+            public int Count => SIZE; // LUCENENET NOTE: This was size() in Lucene.
         }
 
         internal sealed class SubScorer
@@ -178,7 +173,7 @@ namespace YAF.Lucene.Net.Search
             {
                 if (required)
                 {
-                    throw new System.ArgumentException("this scorer cannot handle required=true");
+                    throw new ArgumentException("this scorer cannot handle required=true");
                 }
                 this.Scorer = scorer;
                 this.More = true;

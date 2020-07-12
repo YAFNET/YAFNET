@@ -1,6 +1,7 @@
-﻿using System;
+﻿using YAF.Lucene.Net.Analysis.Util;
+using System;
 using System.Collections.Generic;
-using YAF.Lucene.Net.Analysis.Util;
+using System.IO;
 
 namespace YAF.Lucene.Net.Analysis.Core
 {
@@ -60,7 +61,7 @@ namespace YAF.Lucene.Net.Analysis.Core
     ///  <item><description><c>snowball</c> - This format allows for multiple words specified on each 
     ///      line, and trailing comments may be specified using the vertical line ("&#124;"). 
     ///      Blank lines are ignored.  See 
-    ///      <see cref="WordlistLoader.GetSnowballWordSet(System.IO.TextReader, Net.Util.LuceneVersion)"/> 
+    ///      <see cref="WordlistLoader.GetSnowballWordSet(TextReader, Net.Util.LuceneVersion)"/> 
     ///      for details.
     ///  </description></item>
     /// </list>
@@ -88,7 +89,7 @@ namespace YAF.Lucene.Net.Analysis.Core
             enablePositionIncrements = GetBoolean(args, "enablePositionIncrements", true);
             if (args.Count > 0)
             {
-                throw new System.ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException("Unknown parameters: " + args);
             }
         }
 
@@ -106,42 +107,24 @@ namespace YAF.Lucene.Net.Analysis.Core
                 }
                 else
                 {
-                    throw new System.ArgumentException("Unknown 'format' specified for 'words' file: " + format);
+                    throw new ArgumentException("Unknown 'format' specified for 'words' file: " + format);
                 }
             }
             else
             {
                 if (null != format)
                 {
-                    throw new System.ArgumentException("'format' can not be specified w/o an explicit 'words' file: " + format);
+                    throw new ArgumentException("'format' can not be specified w/o an explicit 'words' file: " + format);
                 }
                 stopWords = new CharArraySet(m_luceneMatchVersion, StopAnalyzer.ENGLISH_STOP_WORDS_SET, ignoreCase);
             }
         }
 
-        public virtual bool EnablePositionIncrements
-        {
-            get
-            {
-                return enablePositionIncrements;
-            }
-        }
+        public virtual bool EnablePositionIncrements => enablePositionIncrements;
 
-        public virtual bool IgnoreCase
-        {
-            get
-            {
-                return ignoreCase;
-            }
-        }
+        public virtual bool IgnoreCase => ignoreCase;
 
-        public virtual CharArraySet StopWords
-        {
-            get
-            {
-                return stopWords;
-            }
-        }
+        public virtual CharArraySet StopWords => stopWords;
 
         public override TokenStream Create(TokenStream input)
         {

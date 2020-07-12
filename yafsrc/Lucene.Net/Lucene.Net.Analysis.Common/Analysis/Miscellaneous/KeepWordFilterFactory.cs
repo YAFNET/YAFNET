@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using YAF.Lucene.Net.Analysis.Util;
+﻿using YAF.Lucene.Net.Analysis.Util;
+using System;
+using System.Collections.Generic;
 
 namespace YAF.Lucene.Net.Analysis.Miscellaneous
 {
@@ -48,7 +49,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             enablePositionIncrements = GetBoolean(args, "enablePositionIncrements", true);
             if (args.Count > 0)
             {
-                throw new System.ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException("Unknown parameters: " + args);
             }
         }
 
@@ -60,29 +61,11 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             }
         }
 
-        public virtual bool EnablePositionIncrements
-        {
-            get
-            {
-                return enablePositionIncrements;
-            }
-        }
+        public virtual bool EnablePositionIncrements => enablePositionIncrements;
 
-        public virtual bool IgnoreCase
-        {
-            get
-            {
-                return ignoreCase;
-            }
-        }
+        public virtual bool IgnoreCase => ignoreCase;
 
-        public virtual CharArraySet Words
-        {
-            get
-            {
-                return words;
-            }
-        }
+        public virtual CharArraySet Words => words;
 
         public override TokenStream Create(TokenStream input)
         {

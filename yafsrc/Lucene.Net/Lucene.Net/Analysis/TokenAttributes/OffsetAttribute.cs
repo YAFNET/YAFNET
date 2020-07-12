@@ -1,3 +1,5 @@
+using System;
+
 namespace YAF.Lucene.Net.Analysis.TokenAttributes
 {
     /*
@@ -36,10 +38,7 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
         {
         }
 
-        public virtual int StartOffset
-        {
-            get { return startOffset; }
-        }
+        public virtual int StartOffset => startOffset;
 
         public virtual void SetOffset(int startOffset, int endOffset)
         {
@@ -51,17 +50,14 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
 
             if (startOffset < 0 || endOffset < startOffset)
             {
-                throw new System.ArgumentException("startOffset must be non-negative, and endOffset must be >= startOffset, " + "startOffset=" + startOffset + ",endOffset=" + endOffset);
+                throw new ArgumentException("startOffset must be non-negative, and endOffset must be >= startOffset, " + "startOffset=" + startOffset + ",endOffset=" + endOffset);
             }
 
             this.startOffset = startOffset;
             this.endOffset = endOffset;
         }
 
-        public virtual int EndOffset
-        {
-            get { return endOffset; }
-        }
+        public virtual int EndOffset => endOffset;
 
         public override void Clear()
         {

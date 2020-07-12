@@ -2,7 +2,6 @@
 using YAF.Lucene.Net.Util;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace YAF.Lucene.Net.Queries.Function.ValueSources
 {
@@ -134,7 +133,12 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             public override bool Exists(int doc)
             {
                 // return true if any source is exists?
-                return valsArr.Any(vals => vals.Exists(doc));
+                foreach (FunctionValues vals in valsArr)
+                {
+                    if (vals.Exists(doc))
+                        return true;
+                }
+                return false;
             }
 
             public override ValueFiller GetValueFiller()

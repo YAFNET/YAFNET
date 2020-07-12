@@ -1,11 +1,10 @@
-﻿using System;
+﻿using YAF.Lucene.Net.Analysis.Util;
+using YAF.Lucene.Net.Util;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using YAF.Lucene.Net.Analysis.Util;
-using YAF.Lucene.Net.Support;
-using YAF.Lucene.Net.Util;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Analysis.Miscellaneous
@@ -100,7 +99,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             this.flags = flags;
             if (args.Count > 0)
             {
-                throw new System.ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException("Unknown parameters: " + args);
             }
         }
 
@@ -150,17 +149,17 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
                 Match m = typePattern.Match(rule);
                 if (!m.Success)
                 {
-                    throw new System.ArgumentException("Invalid Mapping Rule : [" + rule + "]");
+                    throw new ArgumentException("Invalid Mapping Rule : [" + rule + "]");
                 }
                 string lhs = ParseString(m.Groups[1].Value.Trim());
                 byte rhs = ParseType(m.Groups[2].Value.Trim());
                 if (lhs.Length != 1)
                 {
-                    throw new System.ArgumentException("Invalid Mapping Rule : [" + rule + "]. Only a single character is allowed.");
+                    throw new ArgumentException("Invalid Mapping Rule : [" + rule + "]. Only a single character is allowed.");
                 }
                 if (rhs == WordDelimiterFilter.NOT_SET)
                 {
-                    throw new System.ArgumentException("Invalid Mapping Rule : [" + rule + "]. Illegal type.");
+                    throw new ArgumentException("Invalid Mapping Rule : [" + rule + "]. Illegal type.");
                 }
                 typeMap[lhs[0]] = rhs;
             }
@@ -226,7 +225,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
                 {
                     if (readPos >= len)
                     {
-                        throw new System.ArgumentException("Invalid escaped char in [" + s + "]");
+                        throw new ArgumentException("Invalid escaped char in [" + s + "]");
                     }
                     c = s[readPos++];
                     switch (c)
@@ -252,7 +251,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
                         case 'u':
                             if (readPos + 3 >= len)
                             {
-                                throw new System.ArgumentException("Invalid escaped char in [" + s + "]");
+                                throw new ArgumentException("Invalid escaped char in [" + s + "]");
                             }
                             c = (char)int.Parse(s.Substring(readPos, 4), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
                             readPos += 4;

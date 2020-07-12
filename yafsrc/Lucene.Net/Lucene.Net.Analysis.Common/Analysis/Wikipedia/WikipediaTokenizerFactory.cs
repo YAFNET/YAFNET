@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -41,14 +42,14 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
         {
             if (args.Count > 0)
             {
-                throw new System.ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException("Unknown parameters: " + args);
             }
         }
 
         // TODO: add support for WikipediaTokenizer's advanced options.
         public override Tokenizer Create(AttributeSource.AttributeFactory factory, TextReader input)
         {
-            return new WikipediaTokenizer(factory, input, WikipediaTokenizer.TOKENS_ONLY, Collections.EmptyList<string>());
+            return new WikipediaTokenizer(factory, input, WikipediaTokenizer.TOKENS_ONLY, Collections.EmptySet<string>());
         }
     }
 }

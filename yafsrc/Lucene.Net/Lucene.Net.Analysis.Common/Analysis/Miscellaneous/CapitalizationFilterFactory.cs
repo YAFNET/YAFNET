@@ -1,5 +1,6 @@
 ﻿using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Analysis.Util;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -105,7 +106,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             culture = GetCulture(args, CULTURE, null);
             if (args.Count > 0)
             {
-                throw new System.ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException("Unknown parameters: " + args);
             }
         }
 

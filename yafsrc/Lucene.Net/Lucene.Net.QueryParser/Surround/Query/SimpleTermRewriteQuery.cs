@@ -1,7 +1,6 @@
 ﻿using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace YAF.Lucene.Net.QueryParsers.Surround.Query
 {
@@ -38,7 +37,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
             m_srndQuery.VisitMatchingTerms(reader, m_fieldName, 
                 new SimpleTermRewriteMatchingTermVisitor(luceneSubQueries, m_qf));
             return (luceneSubQueries.Count == 0) ? SrndQuery.TheEmptyLcnQuery
-                : (luceneSubQueries.Count == 1) ? luceneSubQueries.First()
+                : (luceneSubQueries.Count == 1) ? luceneSubQueries[0]
                 : SrndBooleanQuery.MakeBooleanQuery(
                 /* luceneSubQueries all have default weight */
                 luceneSubQueries, Occur.SHOULD); /* OR the subquery terms */

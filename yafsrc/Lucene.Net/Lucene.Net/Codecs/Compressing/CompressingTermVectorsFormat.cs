@@ -1,3 +1,4 @@
+using System;
 using Directory = YAF.Lucene.Net.Store.Directory;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
@@ -68,7 +69,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             this.compressionMode = compressionMode;
             if (chunkSize < 1)
             {
-                throw new System.ArgumentException("chunkSize must be >= 1");
+                throw new ArgumentException("chunkSize must be >= 1");
             }
             this.chunkSize = chunkSize;
         }
