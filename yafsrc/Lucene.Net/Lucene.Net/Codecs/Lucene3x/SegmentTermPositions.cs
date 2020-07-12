@@ -151,7 +151,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
         public sealed override int Read(int[] docs, int[] freqs)
         {
-            throw new System.NotSupportedException("TermPositions does not support processing multiple documents in one call. Use TermDocs instead.");
+            throw new NotSupportedException("TermPositions does not support processing multiple documents in one call. Use TermDocs instead.");
         }
 
         /// <summary>
@@ -220,13 +220,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             }
         }
 
-        public int PayloadLength
-        {
-            get
-            {
-                return payloadLength;
-            }
-        }
+        public int PayloadLength => payloadLength;
 
         public BytesRef GetPayload()
         {
@@ -254,12 +248,6 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             return payload;
         }
 
-        public bool IsPayloadAvailable
-        {
-            get
-            {
-                return needToLoadPayload && payloadLength > 0;
-            }
-        }
+        public bool IsPayloadAvailable => needToLoadPayload && payloadLength > 0;
     }
 }

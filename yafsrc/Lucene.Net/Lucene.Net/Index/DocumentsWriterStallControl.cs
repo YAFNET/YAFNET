@@ -138,13 +138,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        internal bool IsHealthy
-        {
-            get
-            {
-                return !stalled; // volatile read!
-            }
-        }
+        internal bool IsHealthy => !stalled; // volatile read!
 
         internal bool IsThreadQueued(ThreadJob t) // for tests
         {

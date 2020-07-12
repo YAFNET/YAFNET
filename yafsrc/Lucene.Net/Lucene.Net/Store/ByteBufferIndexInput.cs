@@ -245,10 +245,7 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
-        public override sealed long Length
-        {
-            get { return length; }
-        }
+        public override sealed long Length => length;
 
         public override sealed object Clone()
         {

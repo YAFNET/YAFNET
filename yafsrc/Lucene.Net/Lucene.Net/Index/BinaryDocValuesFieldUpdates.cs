@@ -108,10 +108,7 @@ namespace YAF.Lucene.Net.Index
                 return doc;
             }
 
-            public override int Doc
-            {
-                get { return doc; }
-            }
+            public override int Doc => doc;
 
             public override void Reset()
             {

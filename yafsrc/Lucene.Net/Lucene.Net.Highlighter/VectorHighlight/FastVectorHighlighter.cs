@@ -3,26 +3,25 @@ using YAF.Lucene.Net.Search.Highlight;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace YAF.Lucene.Net.Search.VectorHighlight
 {
     /*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
 
     /// <summary>
     /// Another highlighter implementation.
@@ -250,7 +249,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
             FieldQuery fieldQuery, IndexReader reader, int docId,
             ISet<string> matchedFields, int fragCharSize)
         {
-            if (!matchedFields.Any())
+            if (matchedFields.Count == 0)
             {
                 throw new ArgumentException("matchedFields must contain at least on field name.");
             }
@@ -268,12 +267,12 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
         /// <summary>
         /// return whether phraseHighlight or not.
         /// </summary>
-        public virtual bool IsPhraseHighlight { get { return phraseHighlight; } }
+        public virtual bool IsPhraseHighlight => phraseHighlight;
 
         /// <summary>
         /// return whether fieldMatch or not.
         /// </summary>
-        public virtual bool IsFieldMatch { get { return fieldMatch; } }
+        public virtual bool IsFieldMatch => fieldMatch;
 
         /// <summary>
         /// Gets or Sets the maximum number of phrases to analyze when searching for the highest-scoring phrase.
@@ -281,8 +280,8 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
         /// </summary>
         public virtual int PhraseLimit
         {
-            get { return phraseLimit; }
-            set { phraseLimit = value; }
+            get => phraseLimit;
+            set => phraseLimit = value;
         }
     }
 }

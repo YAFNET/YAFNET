@@ -72,14 +72,8 @@ namespace YAF.Lucene.Net.Search.Similarities
         /// <seealso cref="ComputeNorm(FieldInvertState)"/>
         public virtual bool DiscountOverlaps
         {
-            set
-            {
-                discountOverlaps = value;
-            }
-            get
-            {
-                return discountOverlaps;
-            }
+            get => discountOverlaps;
+            set => discountOverlaps = value;
         }
 
         public override sealed SimWeight ComputeWeight(float queryBoost, CollectionStatistics collectionStats, params TermStatistics[] termStats)

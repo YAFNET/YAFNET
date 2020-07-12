@@ -3,27 +3,27 @@ using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Text;
 
 namespace YAF.Lucene.Net.Search.Highlight
 {
     /*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
 
     /// <summary>
     /// Class used to markup highlighted terms found in the best sections of a
@@ -153,7 +153,7 @@ namespace YAF.Lucene.Net.Search.Highlight
         /// This method has been made public to allow visibility of score information held in <see cref="TextFragment"/> objects.
         /// Thanks to Jason Calabrese for help in redefining the interface.
         /// </summary>
-        /// <exception cref="System.IO.IOException">If there is a low-level I/O error</exception>
+        /// <exception cref="IOException">If there is a low-level I/O error</exception>
         /// <exception cref="InvalidTokenOffsetsException">thrown if any token's EndOffset exceeds the provided text's length</exception>
         public TextFragment[] GetBestTextFragments(
             TokenStream tokenStream,
@@ -305,7 +305,16 @@ namespace YAF.Lucene.Net.Search.Highlight
                 if (mergeContiguousFragments)
                 {
                     MergeContiguousFragments(frag);
-                    frag = frag.Where(t => (t != null) && (t.Score > 0)).ToArray();
+                    List<TextFragment> fragTexts = new List<TextFragment>();
+                    for (int i = 0; i < frag.Length; i++)
+                    {
+                        if ((frag[i] != null) && (frag[i].Score > 0))
+                        {
+                            fragTexts.Add(frag[i]);
+                        }
+                    }
+                    frag = new TextFragment[fragTexts.Count];
+                    fragTexts.CopyTo(frag);
                 }
 
                 return frag;
@@ -436,26 +445,26 @@ namespace YAF.Lucene.Net.Search.Highlight
 
         public virtual int MaxDocCharsToAnalyze
         {
-            get { return _maxDocCharsToAnalyze; }
-            set { this._maxDocCharsToAnalyze = value; }
+            get => _maxDocCharsToAnalyze;
+            set => this._maxDocCharsToAnalyze = value;
         }
 
         public virtual IFragmenter TextFragmenter
         {
-            get { return _textFragmenter; }
-            set { _textFragmenter = value; }
+            get => _textFragmenter;
+            set => _textFragmenter = value;
         }
 
         public virtual IScorer FragmentScorer
         {
-            get { return _fragmentScorer; }
-            set { _fragmentScorer = value; }
+            get => _fragmentScorer;
+            set => _fragmentScorer = value;
         }
 
         public virtual IEncoder Encoder
         {
-            get { return _encoder; }
-            set { this._encoder = value; }
+            get => _encoder;
+            set => this._encoder = value;
         }
     }
 

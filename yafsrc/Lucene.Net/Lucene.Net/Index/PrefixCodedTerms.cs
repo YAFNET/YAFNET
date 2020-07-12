@@ -76,25 +76,19 @@ namespace YAF.Lucene.Net.Index
                 {
                     input = new RAMInputStream("PrefixCodedTermsIterator", buffer);
                 }
-                catch (System.IO.IOException e)
+                catch (IOException e)
                 {
                     throw new Exception(e.ToString(), e);
                 }
             }
 
-            public virtual Term Current
-            {
-                get { return term; }
-            }
+            public virtual Term Current => term;
 
             public virtual void Dispose()
             {
             }
 
-            object IEnumerator.Current
-            {
-                get { return Current; }
-            }
+            object IEnumerator.Current => Current;
 
             public virtual bool MoveNext()
             {

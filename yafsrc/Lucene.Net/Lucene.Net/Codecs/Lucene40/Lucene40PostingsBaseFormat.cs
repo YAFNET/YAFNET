@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
         public override PostingsWriterBase PostingsWriterBase(SegmentWriteState state)
         {
-            throw new System.NotSupportedException("this codec can only be used for reading");
+            throw new NotSupportedException("this codec can only be used for reading");
         }
     }
 }

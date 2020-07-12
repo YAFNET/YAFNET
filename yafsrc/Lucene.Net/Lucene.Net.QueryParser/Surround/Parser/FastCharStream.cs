@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Console = YAF.Lucene.Net.Util.SystemConsole;
 
 namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
@@ -88,7 +89,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
 
             int charsRead = input.Read(buffer, newPosition, buffer.Length - newPosition);
             if (charsRead <= 0)
-                throw new System.IO.IOException("read past eof");
+                throw new IOException("read past eof");
             else
                 bufferLength += charsRead;
         }
@@ -104,16 +105,13 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
             bufferPosition -= amount;
         }
 
-        public string Image
-        {
-            get { return new string(buffer, tokenStart, bufferPosition - tokenStart); }
-        }
+        public string Image => new string(buffer, tokenStart, bufferPosition - tokenStart);
 
         public char[] GetSuffix(int len)
         {
-            char[] value_Renamed = new char[len];
-            Array.Copy(buffer, bufferPosition - len, value_Renamed, 0, len);
-            return value_Renamed;
+            char[] value = new char[len];
+            Array.Copy(buffer, bufferPosition - len, value, 0, len);
+            return value;
         }
 
         public void Done()
@@ -122,40 +120,22 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
             {
                 input.Dispose();
             }
-            catch (System.IO.IOException e)
+            catch (IOException e)
             {
                 Console.Error.WriteLine("Caught: " + e + "; ignoring.");
             }
         }
 
-        public int Column
-        {
-            get { return bufferStart + bufferPosition; }
-        }
+        public int Column => bufferStart + bufferPosition;
 
-        public int Line
-        {
-            get { return 1; }
-        }
+        public int Line => 1;
 
-        public int EndColumn
-        {
-            get { return bufferStart + bufferPosition; }
-        }
+        public int EndColumn => bufferStart + bufferPosition;
 
-        public int EndLine
-        {
-            get { return 1; }
-        }
+        public int EndLine => 1;
 
-        public int BeginColumn
-        {
-            get { return bufferStart + tokenStart; }
-        }
+        public int BeginColumn => bufferStart + tokenStart;
 
-        public int BeginLine
-        {
-            get { return 1; }
-        }
+        public int BeginLine => 1;
     }
 }

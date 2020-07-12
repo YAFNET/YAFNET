@@ -2,7 +2,6 @@ using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.IO;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;// Used only for WRITE_LOCK_NAME in deprecated create=true case:
@@ -40,7 +39,7 @@ namespace YAF.Lucene.Net.Store
     /// <list type="bullet">
     ///
     ///     <item><description> <see cref="SimpleFSDirectory"/> is a straightforward
-    ///         implementation using <see cref="System.IO.FileStream"/>.
+    ///         implementation using <see cref="FileStream"/>.
     ///         However, it has poor concurrent performance
     ///         (multiple threads will bottleneck) as it
     ///         synchronizes when multiple threads read from the
@@ -256,7 +255,7 @@ namespace YAF.Lucene.Net.Store
             // LUCENENET NOTE: this can never happen in .NET
             //if (result == null)
             //{
-            //    throw new System.IO.IOException("directory '" + dir + "' exists and is a directory, but cannot be listed: list() returned null");
+            //    throw new IOException("directory '" + dir + "' exists and is a directory, but cannot be listed: list() returned null");
             //}
 
             return result;
@@ -453,15 +452,14 @@ namespace YAF.Lucene.Net.Store
         [Obsolete("this is no longer used since Lucene 4.5.")]
         public int ReadChunkSize
         {
+            get => chunkSize;
             set
             {
                 if (value <= 0)
-                {
-                    throw new System.ArgumentException("chunkSize must be positive");
-                }
+                    throw new ArgumentException("chunkSize must be positive");
+
                 this.chunkSize = value;
             }
-            get { return chunkSize; }
         }
 
         /// <summary>

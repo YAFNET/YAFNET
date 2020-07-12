@@ -216,15 +216,14 @@ namespace YAF.Lucene.Net.Documents
         /// <see cref="IndexReader.Document(int)"/>.
         /// </para>
         /// </summary>
-        public IList<IIndexableField> Fields
-        {
-            get
-            {
-                return fields;
-            }
-        }
+        public IList<IIndexableField> Fields => fields;
 
-        private static readonly string[] NO_STRINGS = new string[0];
+        private static readonly string[] NO_STRINGS =
+#if FEATURE_ARRAYEMPTY
+            Array.Empty<string>();
+#else
+            new string[0];
+#endif
 
         /// <summary>
         /// Returns an array of values of the field specified as the method parameter.

@@ -6,21 +6,21 @@ using ICU4N.Support.Text;
 namespace YAF.Lucene.Net.Search.PostingsHighlight
 {
     /*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
 
     /// <summary>Just produces one single fragment for the entire text</summary>
     public sealed class WholeBreakIterator : BreakIterator
@@ -30,10 +30,7 @@ namespace YAF.Lucene.Net.Search.PostingsHighlight
         private int end; 
         private int current;
 
-        public override int Current
-        {
-            get { return current; }
-        }
+        public override int Current => current;
 
         public override int First()
         {
@@ -59,10 +56,7 @@ namespace YAF.Lucene.Net.Search.PostingsHighlight
             }
         }
 
-        public override CharacterIterator Text
-        {
-            get { return text; }
-        }
+        public override CharacterIterator Text => text;
 
         public override int Last()
         {

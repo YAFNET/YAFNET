@@ -152,7 +152,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
 
         public override DocValuesConsumer FieldsConsumer(SegmentWriteState state)
         {
-            throw new System.NotSupportedException("this codec can only be used for reading");
+            throw new NotSupportedException("this codec can only be used for reading");
         }
 
         public override DocValuesProducer FieldsProducer(SegmentReadState state)

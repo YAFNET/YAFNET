@@ -1,5 +1,6 @@
 ﻿using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
+using System;
 
 namespace YAF.Lucene.Net.Analysis.Compound
 {
@@ -56,7 +57,7 @@ namespace YAF.Lucene.Net.Analysis.Compound
         {
             if (dictionary == null)
             {
-                throw new System.ArgumentException("dictionary cannot be null");
+                throw new ArgumentException("dictionary cannot be null");
             }
         }
 
@@ -85,7 +86,7 @@ namespace YAF.Lucene.Net.Analysis.Compound
         {
             if (dictionary == null)
             {
-                throw new System.ArgumentException("dictionary cannot be null");
+                throw new ArgumentException("dictionary cannot be null");
             }
         }
 

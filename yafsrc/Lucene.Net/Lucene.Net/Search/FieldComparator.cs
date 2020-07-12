@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search
@@ -168,7 +169,7 @@ namespace YAF.Lucene.Net.Search
         /// <returns> The comparer to use for this segment; most
         ///   comparers can just return "this" to reuse the same
         ///   comparer across segments </returns>
-        /// <exception cref="System.IO.IOException"> If there is a low-level IO error </exception>
+        /// <exception cref="IOException"> If there is a low-level IO error </exception>
         public abstract override FieldComparer SetNextReader(AtomicReaderContext context);
 
         /// <summary>
@@ -295,7 +296,7 @@ namespace YAF.Lucene.Net.Search
         /// <returns> The comparer to use for this segment; most
         ///   comparers can just return "this" to reuse the same
         ///   comparer across segments </returns>
-        /// <exception cref="System.IO.IOException"> if there is a low-level IO error </exception>
+        /// <exception cref="IOException"> if there is a low-level IO error </exception>
         public abstract FieldComparer SetNextReader(AtomicReaderContext context);
 
         /// <summary>
@@ -422,10 +423,7 @@ namespace YAF.Lucene.Net.Search
                 topValue = (sbyte)value;
             }
 
-            public override IComparable this[int slot]
-            {
-                get { return values[slot]; }
-            }
+            public override IComparable this[int slot] => values[slot];
 
             public override int CompareTop(int doc)
             {
@@ -518,10 +516,7 @@ namespace YAF.Lucene.Net.Search
                 topValue = (double)value;
             }
 
-            public override IComparable this[int slot]
-            {
-                get { return values[slot]; }
-            }
+            public override IComparable this[int slot] => values[slot];
 
             public override int CompareTop(int doc)
             {
@@ -620,10 +615,7 @@ namespace YAF.Lucene.Net.Search
                 topValue = (float)value;
             }
 
-            public override IComparable this[int slot]
-            {
-                get { return values[slot]; }
-            }
+            public override IComparable this[int slot] => values[slot];
 
             public override int CompareTop(int doc)
             {
@@ -715,10 +707,7 @@ namespace YAF.Lucene.Net.Search
                 topValue = (short)value;
             }
 
-            public override IComparable this[int slot]
-            {
-                get { return values[slot]; }
-            }
+            public override IComparable this[int slot] => values[slot];
 
             public override int CompareTop(int doc)
             {
@@ -802,10 +791,7 @@ namespace YAF.Lucene.Net.Search
                 topValue = (int)value;
             }
 
-            public override IComparable this[int slot]
-            {
-                get { return values[slot]; }
-            }
+            public override IComparable this[int slot] => values[slot];
 
             public override int CompareTop(int doc)
             {
@@ -894,10 +880,7 @@ namespace YAF.Lucene.Net.Search
                 topValue = (long)value;
             }
 
-            public override IComparable this[int slot]
-            {
-                get { return values[slot]; }
-            }
+            public override IComparable this[int slot] => values[slot];
 
             public override int CompareTop(int doc)
             {
@@ -987,10 +970,7 @@ namespace YAF.Lucene.Net.Search
                 }
             }
 
-            public override IComparable this[int slot]
-            {
-                get { return scores[slot]; }
-            }
+            public override IComparable this[int slot] => scores[slot];
 
             // Override because we sort reverse of natural Float order:
             public override int CompareValues(float first, float second)
@@ -1066,10 +1046,7 @@ namespace YAF.Lucene.Net.Search
                 topValue = (int)value;
             }
 
-            public override IComparable this[int slot]
-            {
-                get { return docIDs[slot]; }
-            }
+            public override IComparable this[int slot] => docIDs[slot];
 
             public override int CompareTop(int doc)
             {
@@ -1374,10 +1351,7 @@ namespace YAF.Lucene.Net.Search
                 //System.out.println("setTopValue " + topValue);
             }
 
-            public override IComparable this[int slot]
-            {
-                get { return values[slot]; }
-            }
+            public override IComparable this[int slot] => values[slot];
 
             public override int CompareTop(int doc)
             {
@@ -1434,9 +1408,19 @@ namespace YAF.Lucene.Net.Search
         public sealed class TermValComparer : FieldComparer<BytesRef>
         {
             // sentinels, just used internally in this comparer
-            private static readonly byte[] MISSING_BYTES = new byte[0];
+            private static readonly byte[] MISSING_BYTES =
+#if FEATURE_ARRAYEMPTY
+                Array.Empty<byte>();
+#else
+                new byte[0];
+#endif
 
-            private static readonly byte[] NON_MISSING_BYTES = new byte[0];
+            private static readonly byte[] NON_MISSING_BYTES =
+#if FEATURE_ARRAYEMPTY
+                Array.Empty<byte>();
+#else
+                new byte[0];
+#endif
 
             private BytesRef[] values;
             private BinaryDocValues docTerms;
@@ -1514,10 +1498,7 @@ namespace YAF.Lucene.Net.Search
                 topValue = (BytesRef)value;
             }
 
-            public override IComparable this[int slot]
-            {
-                get { return values[slot]; }
-            }
+            public override IComparable this[int slot] => values[slot];
 
             public override int CompareValues(BytesRef val1, BytesRef val2)
             {

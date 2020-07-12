@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -51,13 +52,10 @@ namespace YAF.Lucene.Net.Search
         /// only need to implement this method if your <see cref="DocIdSet"/> can
         /// guarantee random access to every docid in O(1) time without
         /// external disk access (as <see cref="IBits"/> interface cannot throw
-        /// <see cref="System.IO.IOException"/>). This is generally true for bit sets
+        /// <see cref="IOException"/>). This is generally true for bit sets
         /// like <see cref="Lucene.Net.Util.FixedBitSet"/>, which return
         /// itself if they are used as <see cref="DocIdSet"/>. </returns>
-        public virtual IBits Bits // LUCENENET NOTE: This isn't a great candidate for a property, but it makes more sense to call this Bits than Bits(). GetBits() was already taken in the same context.
-        {
-            get { return null; }
-        }
+        public virtual IBits Bits => null; // LUCENENET NOTE: This isn't a great candidate for a property, but it makes more sense to call this Bits than Bits(). GetBits() was already taken in the same context.
 
         /// <summary>
         /// This method is a hint for <see cref="CachingWrapperFilter"/>, if this <see cref="DocIdSet"/>
@@ -66,13 +64,7 @@ namespace YAF.Lucene.Net.Search
         /// that does its iteration very effective and fast without doing disk I/O,
         /// override this property and return <c>true</c>.
         /// </summary>
-        public virtual bool IsCacheable
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public virtual bool IsCacheable => false;
 
         /// <summary>
         /// Creates a new instance with the ability to specify the body of the <see cref="GetIterator()"/>

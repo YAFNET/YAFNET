@@ -105,23 +105,13 @@ namespace YAF.Lucene.Net.Index
             return subReaders[i].GetTermVectors(docID - starts[i]); // dispatch to subreader
         }
 
-        public override sealed int NumDocs
-        {
-            get
-            {
-                // Don't call ensureOpen() here (it could affect performance)
-                return numDocs;
-            }
-        }
+        public override sealed int NumDocs =>
+            // Don't call ensureOpen() here (it could affect performance)
+            numDocs;
 
-        public override sealed int MaxDoc
-        {
-            get
-            {
-                // Don't call ensureOpen() here (it could affect performance)
-                return maxDoc;
-            }
-        }
+        public override sealed int MaxDoc =>
+            // Don't call ensureOpen() here (it could affect performance)
+            maxDoc;
 
         public override sealed void Document(int docID, StoredFieldVisitor visitor)
         {
@@ -211,7 +201,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (docID < 0 || docID >= maxDoc)
             {
-                throw new System.ArgumentException("docID must be >= 0 and < maxDoc=" + maxDoc + " (got docID=" + docID + ")");
+                throw new ArgumentException("docID must be >= 0 and < maxDoc=" + maxDoc + " (got docID=" + docID + ")");
             }
             return ReaderUtil.SubIndex(docID, this.starts);
         }
@@ -222,7 +212,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (readerIndex < 0 || readerIndex >= subReaders.Length)
             {
-                throw new System.ArgumentException("readerIndex must be >= 0 and < getSequentialSubReaders().size()");
+                throw new ArgumentException("readerIndex must be >= 0 and < getSequentialSubReaders().size()");
             }
             return this.starts[readerIndex];
         }

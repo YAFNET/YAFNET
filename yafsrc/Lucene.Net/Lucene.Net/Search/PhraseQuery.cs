@@ -95,17 +95,13 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         public virtual int Slop
         {
+            get => slop;
             set
             {
                 if (value < 0)
-                {
-                    throw new System.ArgumentException("slop value cannot be negative");
-                }
+                    throw new ArgumentException("slop value cannot be negative");
+
                 slop = value;
-            }
-            get
-            {
-                return slop;
             }
         }
 
@@ -138,7 +134,7 @@ namespace YAF.Lucene.Net.Search
             }
             else if (!term.Field.Equals(field, StringComparison.Ordinal))
             {
-                throw new System.ArgumentException("All phrase terms must be in the same field: " + term);
+                throw new ArgumentException("All phrase terms must be in the same field: " + term);
             }
 
             terms.Add(term);
@@ -327,13 +323,7 @@ namespace YAF.Lucene.Net.Search
                 return "weight(" + outerInstance + ")";
             }
 
-            public override Query Query
-            {
-                get
-                {
-                    return outerInstance;
-                }
-            }
+            public override Query Query => outerInstance;
 
             public override float GetValueForNormalization()
             {

@@ -2,6 +2,7 @@ using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search.Spans
@@ -124,21 +125,12 @@ namespace YAF.Lucene.Net.Search.Spans
                 return condition;
             }
 
-            public override int Doc
-            {
-                get { return spans.Doc; }
-            }
+            public override int Doc => spans.Doc;
 
-            public override int Start
-            {
-                get { return spans.Start; }
-            }
+            public override int Start => spans.Start;
 
             // TODO: Remove warning after API has been finalized
-            public override int End
-            {
-                get { return spans.End; }
-            }
+            public override int End => spans.End;
 
             public override ICollection<byte[]> GetPayload()
             {
@@ -146,13 +138,7 @@ namespace YAF.Lucene.Net.Search.Spans
             }
 
             // TODO: Remove warning after API has been finalized
-            public override bool IsPayloadAvailable
-            {
-                get
-                {
-                    return spans.IsPayloadAvailable;
-                }
-            }
+            public override bool IsPayloadAvailable => spans.IsPayloadAvailable;
 
             public override long GetCost()
             {
@@ -183,10 +169,7 @@ namespace YAF.Lucene.Net.Search.Spans
 
         [WritableArray]
         [SuppressMessage("Microsoft.Performance", "CA1819", Justification = "Lucene's design requires some writable array properties")]
-        public virtual Spans[] SubSpans
-        {
-            get { return subSpans; }
-        }
+        public virtual Spans[] SubSpans => subSpans;
 
         public override bool Next()
         {
@@ -286,32 +269,19 @@ namespace YAF.Lucene.Net.Search.Spans
             return more && (AtMatch || Next());
         }
 
-        private SpansCell Min
-        {
-            get { return queue.Top; }
-        }
+        private SpansCell Min => queue.Top;
 
-        public override int Doc
-        {
-            get { return Min.Doc; }
-        }
+        public override int Doc => Min.Doc;
 
-        public override int Start
-        {
-            get { return Min.Start; }
-        }
+        public override int Start => Min.Start;
 
-        public override int End
-        
-        {
-            get { return max.End; }
-        }
+        public override int End => max.End;
 
         // TODO: Remove warning after API has been finalized
         /// <summary>
         /// WARNING: The List is not necessarily in order of the the positions </summary>
         /// <returns> Collection of <see cref="T:byte[]"/> payloads </returns>
-        /// <exception cref="System.IO.IOException"> if there is a low-level I/O error </exception>
+        /// <exception cref="IOException"> if there is a low-level I/O error </exception>
         public override ICollection<byte[]> GetPayload()
         {
             var matchPayload = new JCG.HashSet<byte[]>();
@@ -415,9 +385,6 @@ namespace YAF.Lucene.Net.Search.Spans
             }
         }
 
-        private bool AtMatch
-        {
-            get { return (Min.Doc == max.Doc) && ((max.End - Min.Start - totalLength) <= slop); }
-        }
+        private bool AtMatch => (Min.Doc == max.Doc) && ((max.End - Min.Start - totalLength) <= slop);
     }
 }

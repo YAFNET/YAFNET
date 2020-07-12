@@ -3,7 +3,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -172,7 +171,7 @@ namespace YAF.Lucene.Net.Search
             // bug isolation if we assign our own private ID:
             var version = ((DirectoryReader)searcher.IndexReader).Version;
             var factoryMethodCalled = false;
-				var tracker = _searchers.GetOrAdd(version, l => new Lazy<SearcherTracker>(() => { factoryMethodCalled = true; return new SearcherTracker(searcher); })).Value;
+            var tracker = _searchers.GetOrAdd(version, l => new Lazy<SearcherTracker>(() => { factoryMethodCalled = true; return new SearcherTracker(searcher); })).Value;
             if (!factoryMethodCalled && tracker.Searcher != searcher)
             {
                 throw new ArgumentException("the provided searcher has the same underlying reader version yet the searcher instance differs from before (new=" + searcher + " vs old=" + tracker.Searcher);
@@ -243,7 +242,7 @@ namespace YAF.Lucene.Net.Search
             {
                 if (maxAgeSec < 0)
                 {
-                    throw new System.ArgumentException("maxAgeSec must be > 0 (got " + maxAgeSec + ")");
+                    throw new ArgumentException("maxAgeSec must be > 0 (got " + maxAgeSec + ")");
                 }
                 this.maxAgeSec = maxAgeSec;
             }

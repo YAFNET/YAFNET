@@ -3,6 +3,7 @@ using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Text;
 using JCG = J2N.Collections.Generic;
 
@@ -105,15 +106,12 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public virtual int MaxMergeAtOnce
         {
-            get
-            {
-                return maxMergeAtOnce;
-            }
+            get => maxMergeAtOnce;
             set
             {
                 if (value < 2)
                 {
-                    throw new System.ArgumentException("maxMergeAtOnce must be > 1 (got " + value + ")");
+                    throw new ArgumentException("maxMergeAtOnce must be > 1 (got " + value + ")");
                 }
                 maxMergeAtOnce = value;
             }
@@ -129,15 +127,12 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public virtual int MaxMergeAtOnceExplicit
         {
-            get
-            {
-                return maxMergeAtOnceExplicit;
-            }
+            get => maxMergeAtOnceExplicit;
             set
             {
                 if (value < 2)
                 {
-                    throw new System.ArgumentException("maxMergeAtOnceExplicit must be > 1 (got " + value + ")");
+                    throw new ArgumentException("maxMergeAtOnceExplicit must be > 1 (got " + value + ")");
                 }
                 maxMergeAtOnceExplicit = value;
             }
@@ -152,15 +147,12 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public virtual double MaxMergedSegmentMB
         {
-            get
-            {
-                return maxMergedSegmentBytes / 1024 / 1024.0;
-            }
+            get => maxMergedSegmentBytes / 1024 / 1024.0;
             set
             {
                 if (value < 0.0)
                 {
-                    throw new System.ArgumentException("maxMergedSegmentMB must be >=0 (got " + value.ToString("0.0") + ")");
+                    throw new ArgumentException("maxMergedSegmentMB must be >=0 (got " + value.ToString("0.0") + ")");
                 }
                 value *= 1024 * 1024;
                 maxMergedSegmentBytes = (value > long.MaxValue) ? long.MaxValue : (long)value;
@@ -178,15 +170,12 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public virtual double ReclaimDeletesWeight
         {
-            get
-            {
-                return reclaimDeletesWeight;
-            }
+            get => reclaimDeletesWeight;
             set
             {
                 if (value < 0.0)
                 {
-                    throw new System.ArgumentException("reclaimDeletesWeight must be >= 0.0 (got " + value.ToString("0.0") + ")");
+                    throw new ArgumentException("reclaimDeletesWeight must be >= 0.0 (got " + value.ToString("0.0") + ")");
                 }
                 reclaimDeletesWeight = value;
             }
@@ -201,15 +190,12 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public virtual double FloorSegmentMB
         {
-            get
-            {
-                return floorSegmentBytes / (1024 * 1024.0);
-            }
+            get => floorSegmentBytes / (1024 * 1024.0);
             set
             {
                 if (value <= 0.0)
                 {
-                    throw new System.ArgumentException("floorSegmentMB must be >= 0.0 (got " + value.ToString("0.0") + ")");
+                    throw new ArgumentException("floorSegmentMB must be >= 0.0 (got " + value.ToString("0.0") + ")");
                 }
                 value *= 1024 * 1024;
                 floorSegmentBytes = (value > long.MaxValue) ? long.MaxValue : (long)value;
@@ -223,15 +209,12 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public virtual double ForceMergeDeletesPctAllowed
         {
-            get
-            {
-                return forceMergeDeletesPctAllowed;
-            }
+            get => forceMergeDeletesPctAllowed;
             set
             {
                 if (value < 0.0 || value > 100.0)
                 {
-                    throw new System.ArgumentException("forceMergeDeletesPctAllowed must be between 0.0 and 100.0 inclusive (got " + value.ToString("0.0") + ")");
+                    throw new ArgumentException("forceMergeDeletesPctAllowed must be between 0.0 and 100.0 inclusive (got " + value.ToString("0.0") + ")");
                 }
                 forceMergeDeletesPctAllowed = value;
             }
@@ -249,15 +232,12 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public virtual double SegmentsPerTier
         {
-            get
-            {
-                return segsPerTier;
-            }
+            get => segsPerTier;
             set
             {
                 if (value < 2.0)
                 {
-                    throw new System.ArgumentException("segmentsPerTier must be >= 2.0 (got " + value.ToString("0.0") + ")");
+                    throw new ArgumentException("segmentsPerTier must be >= 2.0 (got " + value.ToString("0.0") + ")");
                 }
                 segsPerTier = value;
             }
@@ -291,7 +271,7 @@ namespace YAF.Lucene.Net.Index
                         return o1.Info.Name.CompareToOrdinal(o2.Info.Name);
                     }
                 }
-                catch (System.IO.IOException ioe)
+                catch (IOException ioe)
                 {
                     throw new Exception(ioe.ToString(), ioe);
                 }
@@ -584,21 +564,9 @@ namespace YAF.Lucene.Net.Index
                 this.finalMergeScore = finalMergeScore;
             }
 
-            public override double Score
-            {
-                get
-                {
-                    return finalMergeScore;
-                }
-            }
+            public override double Score => finalMergeScore;
 
-            public override string Explanation
-            {
-                get
-                {
-                    return "skew=" + string.Format(CultureInfo.InvariantCulture, "{0:F3}", skew) + " nonDelRatio=" + string.Format(CultureInfo.InvariantCulture, "{0:F3}", nonDelRatio);
-                }
-            }
+            public override string Explanation => "skew=" + string.Format(CultureInfo.InvariantCulture, "{0:F3}", skew) + " nonDelRatio=" + string.Format(CultureInfo.InvariantCulture, "{0:F3}", nonDelRatio);
         }
 
         public override MergeSpecification FindForcedMerges(SegmentInfos infos, int maxSegmentCount, IDictionary<SegmentCommitInfo, bool?> segmentsToMerge)

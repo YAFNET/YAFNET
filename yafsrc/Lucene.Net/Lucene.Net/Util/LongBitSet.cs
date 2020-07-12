@@ -92,7 +92,7 @@ namespace YAF.Lucene.Net.Util
             this.numWords = Bits2words(numBits);
             if (numWords > storedBits.Length)
             {
-                throw new System.ArgumentException("The given long array is too small  to hold " + numBits + " bits");
+                throw new ArgumentException("The given long array is too small  to hold " + numBits + " bits");
             }
             this.numBits = numBits;
             this.bits = storedBits;
@@ -100,10 +100,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Returns the number of bits stored in this bitset. </summary>
-        public long Length
-        {
-            get { return numBits; }
-        }
+        public long Length => numBits;
 
         /// <summary>
         /// Expert. </summary>

@@ -62,10 +62,7 @@ namespace YAF.Lucene.Net.Store
 
         public override long Length
         {
-            get
-            {
-                return @delegate.Length;
-            }
+            get => @delegate.Length;
             set
             {
             }

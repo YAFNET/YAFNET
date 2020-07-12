@@ -167,9 +167,9 @@ namespace YAF.Lucene.Net.Analysis.Util
                 if (usableLength < 0)
                 {
                     usableLength = length; /*
-	                                * more than IOBUFFER of text without breaks,
-	                                * gonna possibly truncate tokens
-	                                */
+                                    * more than IOBUFFER of text without breaks,
+                                    * gonna possibly truncate tokens
+                                    */
                 }
             }
 
@@ -220,14 +220,14 @@ namespace YAF.Lucene.Net.Analysis.Util
                 }
 
                 // find the next set of boundaries
-                int end_Renamed = iterator.Next();
+                int end = iterator.Next();
 
-                if (end_Renamed == BreakIterator.Done)
+                if (end == BreakIterator.Done)
                 {
                     return false; // BreakIterator exhausted
                 }
 
-                SetNextSentence(start, end_Renamed);
+                SetNextSentence(start, end);
                 if (IncrementWord())
                 {
                     return true;

@@ -224,18 +224,9 @@ namespace YAF.Lucene.Net.Index
                     return false;
                 }
 
-                public virtual QueryAndLimit Current
-                {
-                    get
-                    {
-                        return current;
-                    }
-                }
+                public virtual QueryAndLimit Current => current;
 
-                object System.Collections.IEnumerator.Current
-                {
-                    get { return Current; }
-                }
+                object System.Collections.IEnumerator.Current => Current;
 
                 public virtual void Reset()
                 {

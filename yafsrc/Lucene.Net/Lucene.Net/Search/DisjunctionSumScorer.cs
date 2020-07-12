@@ -1,3 +1,5 @@
+using System;
+
 namespace YAF.Lucene.Net.Search
 {
     /*
@@ -40,7 +42,7 @@ namespace YAF.Lucene.Net.Search
         {
             if (m_numScorers <= 1)
             {
-                throw new System.ArgumentException("There must be at least 2 subScorers");
+                throw new ArgumentException("There must be at least 2 subScorers");
             }
             this.coord = coord;
         }
@@ -82,9 +84,6 @@ namespace YAF.Lucene.Net.Search
             return (float)m_score * coord[m_nrMatchers];
         }
 
-        public override int Freq
-        {
-            get { return m_nrMatchers; }
-        }
+        public override int Freq => m_nrMatchers;
     }
 }

@@ -141,14 +141,8 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public static long DefaultWriteLockTimeout
         {
-            set
-            {
-                WRITE_LOCK_TIMEOUT = value;
-            }
-            get
-            {
-                return WRITE_LOCK_TIMEOUT;
-            }
+            get => WRITE_LOCK_TIMEOUT;
+            set => WRITE_LOCK_TIMEOUT = value;
         }
 
         // indicates whether this config instance is already attached to a writer.
@@ -215,19 +209,14 @@ namespace YAF.Lucene.Net.Index
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new public OpenMode OpenMode
         {
-            get
-            {
-                return openMode;
-            }
-            set
-            {
+            get => openMode;
+            set =>
                 // LUCENENET specific - making non-nullable, so we don't need to worry about this.
                 //if (value == null)
                 //{
-                //    throw new System.ArgumentException("openMode must not be null");
+                //    throw new ArgumentException("openMode must not be null");
                 //}
                 this.openMode = value;
-            }
         }
 
         /// <summary>
@@ -250,15 +239,12 @@ namespace YAF.Lucene.Net.Index
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new public IndexDeletionPolicy IndexDeletionPolicy
         {
-            get
-            {
-                return delPolicy;
-            }
+            get => delPolicy;
             set
             {
                 if (value == null)
                 {
-                    throw new System.ArgumentException("indexDeletionPolicy must not be null");
+                    throw new ArgumentException("indexDeletionPolicy must not be null");
                 }
                 this.delPolicy = value;
             }
@@ -274,14 +260,8 @@ namespace YAF.Lucene.Net.Index
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new public IndexCommit IndexCommit
         {
-            get
-            {
-                return commit;
-            }
-            set
-            {
-                this.commit = value;
-            }
+            get => commit;
+            set => this.commit = value;
         }
 
         /// <summary>
@@ -295,15 +275,12 @@ namespace YAF.Lucene.Net.Index
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new public Similarity Similarity
         {
-            get
-            {
-                return similarity;
-            }
+            get => similarity;
             set
             {
                 if (value == null)
                 {
-                    throw new System.ArgumentException("similarity must not be null");
+                    throw new ArgumentException("similarity must not be null");
                 }
                 this.similarity = value;
             }
@@ -341,7 +318,7 @@ namespace YAF.Lucene.Net.Index
             {
                 if (value == null)
                 {
-                    throw new System.ArgumentException("mergeScheduler must not be null");
+                    throw new ArgumentException("mergeScheduler must not be null");
                 }
                 this.mergeScheduler = value;
             }
@@ -358,14 +335,8 @@ namespace YAF.Lucene.Net.Index
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new public long WriteLockTimeout
         {
-            get
-            {
-                return writeLockTimeout;
-            }
-            set
-            {
-                this.writeLockTimeout = value;
-            }
+            get => writeLockTimeout;
+            set => this.writeLockTimeout = value;
         }
 
         /// <summary>
@@ -378,15 +349,12 @@ namespace YAF.Lucene.Net.Index
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new public Codec Codec
         {
-            get
-            {
-                return codec;
-            }
+            get => codec;
             set
             {
                 if (value == null)
                 {
-                    throw new System.ArgumentException("codec must not be null");
+                    throw new ArgumentException("codec must not be null");
                 }
                 this.codec = value;
             }
@@ -404,15 +372,12 @@ namespace YAF.Lucene.Net.Index
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new public MergePolicy MergePolicy
         {
-            get
-            {
-                return mergePolicy;
-            }
+            get => mergePolicy;
             set
             {
                 if (value == null)
                 {
-                    throw new System.ArgumentException("mergePolicy must not be null");
+                    throw new ArgumentException("mergePolicy must not be null");
                 }
                 this.mergePolicy = value;
             }
@@ -437,15 +402,12 @@ namespace YAF.Lucene.Net.Index
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new internal DocumentsWriterPerThreadPool IndexerThreadPool
         {
-            get
-            {
-                return indexerThreadPool;
-            }
+            get => indexerThreadPool;
             set
             {
                 if (value == null)
                 {
-                    throw new System.ArgumentException("threadPool must not be null");
+                    throw new ArgumentException("threadPool must not be null");
                 }
                 this.indexerThreadPool = value;
             }
@@ -474,10 +436,7 @@ namespace YAF.Lucene.Net.Index
                     throw new InvalidOperationException(cce.Message, cce);
                 }
             }
-            set
-            {
-                this.indexerThreadPool = new ThreadAffinityDocumentsWriterThreadPool(value);
-            }
+            set => this.indexerThreadPool = new ThreadAffinityDocumentsWriterThreadPool(value);
         }
 
         /// <summary>
@@ -496,14 +455,8 @@ namespace YAF.Lucene.Net.Index
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new public bool UseReaderPooling 
         {
-            get
-            {
-                return readerPooling;
-            }
-            set
-            {
-                this.readerPooling = value;
-            }
+            get => readerPooling;
+            set => this.readerPooling = value;
         }
 
         /// <summary>
@@ -515,15 +468,12 @@ namespace YAF.Lucene.Net.Index
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new internal IndexingChain IndexingChain
         {
-            get
-            {
-                return indexingChain;
-            }
+            get => indexingChain;
             set
             {
                 if (value == null)
                 {
-                    throw new System.ArgumentException("indexingChain must not be null");
+                    throw new ArgumentException("indexingChain must not be null");
                 }
                 this.indexingChain = value;
             }
@@ -543,15 +493,12 @@ namespace YAF.Lucene.Net.Index
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new public int RAMPerThreadHardLimitMB
         {
-            get
-            {
-                return perThreadHardLimitMB;
-            }
+            get => perThreadHardLimitMB;
             set
             {
                 if (value <= 0 || value >= 2048)
                 {
-                    throw new System.ArgumentException("PerThreadHardLimit must be greater than 0 and less than 2048MB");
+                    throw new ArgumentException("PerThreadHardLimit must be greater than 0 and less than 2048MB");
                 }
                 this.perThreadHardLimitMB = value;
             }
@@ -569,15 +516,12 @@ namespace YAF.Lucene.Net.Index
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new internal FlushPolicy FlushPolicy
         {
-            get
-            {
-                return flushPolicy;
-            }
+            get => flushPolicy;
             set
             {
                 if (value == null)
                 {
-                    throw new System.ArgumentException("flushPolicy must not be null");
+                    throw new ArgumentException("flushPolicy must not be null");
                 }
                 this.flushPolicy = value;
             }
@@ -659,7 +603,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (infoStream == null)
             {
-                throw new System.ArgumentException("Cannot set InfoStream implementation to null. " + 
+                throw new ArgumentException("Cannot set InfoStream implementation to null. " + 
                     "To disable logging use InfoStream.NO_OUTPUT");
             }
             this.infoStream = infoStream;
@@ -674,7 +618,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (printStream == null)
             {
-                throw new System.ArgumentException("printStream must not be null");
+                throw new ArgumentException("printStream must not be null");
             }
             return SetInfoStream(new TextWriterInfoStream(printStream));
         }

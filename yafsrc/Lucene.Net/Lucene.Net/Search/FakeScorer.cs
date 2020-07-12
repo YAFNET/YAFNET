@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search
@@ -36,22 +37,16 @@ namespace YAF.Lucene.Net.Search
 
         public override int Advance(int target)
         {
-            throw new System.NotSupportedException("FakeScorer doesn't support advance(int)");
+            throw new NotSupportedException("FakeScorer doesn't support advance(int)");
         }
 
-        public override int DocID
-        {
-            get { return doc; }
-        }
+        public override int DocID => doc;
 
-        public override int Freq
-        {
-            get { return freq; }
-        }
+        public override int Freq => freq;
 
         public override int NextDoc()
         {
-            throw new System.NotSupportedException("FakeScorer doesn't support nextDoc()");
+            throw new NotSupportedException("FakeScorer doesn't support nextDoc()");
         }
 
         public override float GetScore()
@@ -64,17 +59,11 @@ namespace YAF.Lucene.Net.Search
             return 1;
         }
 
-        public override Weight Weight
-        {
-            get
-            {
-                throw new System.NotSupportedException();
-            }
-        }
+        public override Weight Weight => throw new NotSupportedException();
 
         public override ICollection<ChildScorer> GetChildren()
         {
-            throw new System.NotSupportedException();
+            throw new NotSupportedException();
         }
     }
 }

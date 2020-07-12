@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 version.OnOrAfter(LuceneVersion.LUCENE_44))
 #pragma warning restore 612, 618
             {
-                throw new System.ArgumentException("enablePositionIncrements=false is not supported anymore as of Lucene 4.4 as it can create broken token streams");
+                throw new ArgumentException("enablePositionIncrements=false is not supported anymore as of Lucene 4.4 as it can create broken token streams");
             }
         }
 
@@ -129,13 +129,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             skippedPositions = 0;
         }
 
-        public virtual bool EnablePositionIncrements
-        {
-            get
-            {
-                return enablePositionIncrements;
-            }
-        }
+        public virtual bool EnablePositionIncrements => enablePositionIncrements;
 
         /// <summary>
         /// If <c>true</c>, this <see cref="TokenFilter"/> will preserve

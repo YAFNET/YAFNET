@@ -76,37 +76,19 @@ namespace YAF.Lucene.Net.Search.Spans
 
             if (include.Field != null && exclude.Field != null && !include.Field.Equals(exclude.Field, StringComparison.Ordinal))
             {
-                throw new System.ArgumentException("Clauses must have same field.");
+                throw new ArgumentException("Clauses must have same field.");
             }
         }
 
         /// <summary>
         /// Return the <see cref="SpanQuery"/> whose matches are filtered. </summary>
-        public virtual SpanQuery Include
-        {
-            get
-            {
-                return include;
-            }
-        }
+        public virtual SpanQuery Include => include;
 
         /// <summary>
         /// Return the <see cref="SpanQuery"/> whose matches must not overlap those returned. </summary>
-        public virtual SpanQuery Exclude
-        {
-            get
-            {
-                return exclude;
-            }
-        }
+        public virtual SpanQuery Exclude => exclude;
 
-        public override string Field
-        {
-            get
-            {
-                return include.Field;
-            }
-        }
+        public override string Field => include.Field;
 
         public override void ExtractTerms(ISet<Term> terms)
         {
@@ -226,21 +208,11 @@ namespace YAF.Lucene.Net.Search.Spans
                 return Next(); // scan to next match
             }
 
-            public override int Doc
-            {
-                get { return includeSpans.Doc; }
-            }
+            public override int Doc => includeSpans.Doc;
 
-            public override int Start
-            {
-                get { return includeSpans.Start; }
-            }
+            public override int Start => includeSpans.Start;
 
-            public override int End
-            // TODO: Remove warning after API has been finalized
-            {
-                get { return includeSpans.End; }
-            }
+            public override int End => includeSpans.End; // TODO: Remove warning after API has been finalized
 
             public override ICollection<byte[]> GetPayload()
             {
@@ -253,13 +225,7 @@ namespace YAF.Lucene.Net.Search.Spans
             }
 
             // TODO: Remove warning after API has been finalized
-            public override bool IsPayloadAvailable
-            {
-                get
-                {
-                    return includeSpans.IsPayloadAvailable;
-                }
-            }
+            public override bool IsPayloadAvailable => includeSpans.IsPayloadAvailable;
 
             public override long GetCost()
             {

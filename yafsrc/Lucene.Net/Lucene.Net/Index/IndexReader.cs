@@ -5,7 +5,7 @@ using YAF.Lucene.Net.Util;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
+using System.IO;
 using System.Runtime.CompilerServices;
 using JCG = J2N.Collections.Generic;
 
@@ -188,15 +188,10 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Expert: returns the current refCount for this reader </summary>
-        public int RefCount
-        {
-            get
-            {
-                // NOTE: don't ensureOpen, so that callers can see
-                // refCount is 0 (reader is closed)
-                return refCount;
-            }
-        }
+        public int RefCount =>
+            // NOTE: don't ensureOpen, so that callers can see
+            // refCount is 0 (reader is closed)
+            refCount;
 
         /// <summary>
         /// Expert: increments the <see cref="RefCount"/> of this <see cref="IndexReader"/>
@@ -261,7 +256,7 @@ namespace YAF.Lucene.Net.Index
         /// reader is disposed.  If an exception is hit, the <see cref="RefCount"/>
         /// is unchanged.
         /// </summary>
-        /// <exception cref="System.IO.IOException"> in case an <see cref="System.IO.IOException"/> occurs in <see cref="DoClose()"/>
+        /// <exception cref="IOException"> in case an <see cref="IOException"/> occurs in <see cref="DoClose()"/>
         /// </exception>
         /// <seealso cref="IncRef"/>
         public void DecRef()
@@ -350,7 +345,7 @@ namespace YAF.Lucene.Net.Index
         /// Returns a <see cref="IndexReader"/> reading the index in the given
         /// <see cref="Directory"/> </summary>
         /// <param name="directory"> the index directory </param>
-        /// <exception cref="System.IO.IOException"> if there is a low-level IO error </exception>
+        /// <exception cref="IOException"> if there is a low-level IO error </exception>
         [Obsolete("Use DirectoryReader.Open(Directory)")]
         public static DirectoryReader Open(Directory directory)
         {
@@ -372,7 +367,7 @@ namespace YAF.Lucene.Net.Index
         ///  memory usage, at the expense of higher latency when
         ///  loading a TermInfo.  The default value is 1.  Set this
         ///  to -1 to skip loading the terms index entirely. </param>
-        /// <exception cref="System.IO.IOException"> if there is a low-level IO error </exception>
+        /// <exception cref="IOException"> if there is a low-level IO error </exception>
         [Obsolete("Use DirectoryReader.Open(Directory, int)")]
         public static DirectoryReader Open(Directory directory, int termInfosIndexDivisor)
         {
@@ -391,7 +386,7 @@ namespace YAF.Lucene.Net.Index
         /// can tolerate deleted documents being returned you might
         /// gain some performance by passing false. </param>
         /// <returns> The new <see cref="IndexReader"/> </returns>
-        /// <exception cref="System.IO.IOException"> if there is a low-level IO error
+        /// <exception cref="IOException"> if there is a low-level IO error
         /// </exception>
         /// <seealso cref="DirectoryReader.OpenIfChanged(DirectoryReader, IndexWriter, bool)"/>
         ///
@@ -407,7 +402,7 @@ namespace YAF.Lucene.Net.Index
         /// <see cref="IndexCommit"/>. 
         /// </summary>
         /// <param name="commit"> the commit point to open </param>
-        /// <exception cref="System.IO.IOException"> if there is a low-level IO error </exception>
+        /// <exception cref="IOException"> if there is a low-level IO error </exception>
         [Obsolete("Use DirectoryReader.Open(IndexCommit)")]
         public static DirectoryReader Open(IndexCommit commit)
         {
@@ -429,7 +424,7 @@ namespace YAF.Lucene.Net.Index
         ///  memory usage, at the expense of higher latency when
         ///  loading a TermInfo.  The default value is 1.  Set this
         ///  to -1 to skip loading the terms index entirely. </param>
-        /// <exception cref="System.IO.IOException"> if there is a low-level IO error </exception>
+        /// <exception cref="IOException"> if there is a low-level IO error </exception>
         [Obsolete("Use DirectoryReader.Open(IndexCommit, int)/>")]
         public static DirectoryReader Open(IndexCommit commit, int termInfosIndexDivisor)
         {
@@ -473,10 +468,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Returns the number of deleted documents. </summary>
-        public int NumDeletedDocs
-        {
-            get { return MaxDoc - NumDocs; }
-        }
+        public int NumDeletedDocs => MaxDoc - NumDocs;
 
         /// <summary>
         /// Expert: visits the fields of a stored document, for
@@ -503,7 +495,7 @@ namespace YAF.Lucene.Net.Index
         /// like boost, omitNorm, IndexOptions, tokenized, etc.,
         /// are not preserved.
         /// </summary>
-        /// <exception cref="System.IO.IOException"> if there is a low-level IO error </exception>
+        /// <exception cref="IOException"> if there is a low-level IO error </exception>
         // TODO: we need a separate StoredField, so that the
         // Document returned here contains that class not
         // IndexableField
@@ -531,19 +523,13 @@ namespace YAF.Lucene.Net.Index
         /// consider overriding this property if <see cref="MaxDoc"/> or <see cref="NumDocs"/>
         /// are not constant-time operations.
         /// </summary>
-        public virtual bool HasDeletions
-        {
-            get
-            {
-                return NumDeletedDocs > 0;
-            }
-        }
+        public virtual bool HasDeletions => NumDeletedDocs > 0;
 
         /// <summary> Closes files associated with this index.
         /// Also saves any new deletions to disk.
         /// No other methods should be called after this has been called.
         /// </summary>
-        /// <exception cref="System.IO.IOException">If there is a low-level IO error</exception>
+        /// <exception cref="IOException">If there is a low-level IO error</exception>
         public void Dispose()
         {
             Dispose(true);
@@ -604,10 +590,7 @@ namespace YAF.Lucene.Net.Index
         /// This is a convenience method calling <c>this.Context.Leaves</c>.
         /// </summary>
         /// <seealso cref="IndexReaderContext.Leaves"/>
-        public IList<AtomicReaderContext> Leaves
-        {
-            get { return Context.Leaves; }
-        }
+        public IList<AtomicReaderContext> Leaves => Context.Leaves;
 
         /// <summary>
         /// Expert: Returns a key for this <see cref="IndexReader"/>, so 
@@ -616,15 +599,10 @@ namespace YAF.Lucene.Net.Index
         /// This key must not have Equals()/GetHashCode() methods, 
         /// so &quot;equals&quot; means &quot;identical&quot;.
         /// </summary>
-        public virtual object CoreCacheKey
-        {
-            get
-            {
-                // Don't call ensureOpen since FC calls this (to evict)
-                // on close
-                return this;
-            }
-        }
+        public virtual object CoreCacheKey =>
+            // Don't call ensureOpen since FC calls this (to evict)
+            // on close
+            this;
 
         /// <summary>
         /// Expert: Returns a key for this <see cref="IndexReader"/> that also includes deletions,
@@ -632,15 +610,10 @@ namespace YAF.Lucene.Net.Index
         /// This key must not have Equals()/GetHashCode() methods, 
         /// so &quot;equals&quot; means &quot;identical&quot;.
         /// </summary>
-        public virtual object CombinedCoreAndDeletesKey
-        {
-            get
-            {
-                // Don't call ensureOpen since FC calls this (to evict)
-                // on close
-                return this;
-            }
-        }
+        public virtual object CombinedCoreAndDeletesKey =>
+            // Don't call ensureOpen since FC calls this (to evict)
+            // on close
+            this;
 
         /// <summary>
         /// Returns the number of documents containing the

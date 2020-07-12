@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using YAF.Lucene.Net.Analysis.Util;
+﻿using YAF.Lucene.Net.Analysis.Util;
+using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Linq;
 
 namespace YAF.Lucene.Net.Analysis.Miscellaneous
 {
@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             ignoreCase = GetBoolean(args, "ignoreCase", false);
             if (args.Count > 0)
             {
-                throw new System.ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException("Unknown parameters: " + args);
             }
         }
 
@@ -57,7 +57,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             {
                 AssureMatchVersion();
                 IList<string> files = SplitFileNames(dictionaryFiles);
-                if (files.Count() > 0)
+                if (files.Count > 0)
                 {
                     StemmerOverrideFilter.Builder builder = new StemmerOverrideFilter.Builder(ignoreCase);
                     foreach (string file in files)
@@ -74,13 +74,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             }
         }
 
-        public virtual bool IgnoreCase
-        {
-            get
-            {
-                return ignoreCase;
-            }
-        }
+        public virtual bool IgnoreCase => ignoreCase;
 
         public override TokenStream Create(TokenStream input)
         {

@@ -8,8 +8,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
@@ -35,13 +33,13 @@ namespace YAF.Lucene.Net.Index
      */
 
     using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
     using Codec = YAF.Lucene.Net.Codecs.Codec;
     using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
     using Constants = YAF.Lucene.Net.Util.Constants;
     using Directory = YAF.Lucene.Net.Store.Directory;
     using FieldNumbers = YAF.Lucene.Net.Index.FieldInfos.FieldNumbers;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using InfoStream = YAF.Lucene.Net.Util.InfoStream;
     using IOContext = YAF.Lucene.Net.Store.IOContext;
     using IOUtils = YAF.Lucene.Net.Util.IOUtils;
@@ -1310,13 +1308,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Gets the <see cref="Store.Directory"/> used by this index. </summary>
-        public virtual Directory Directory
-        {
-            get
-            {
-                return directory;
-            }
-        }
+        public virtual Directory Directory => directory;
 
         /// <summary>
         /// Gets the analyzer used by this index. </summary>
@@ -1362,7 +1354,12 @@ namespace YAF.Lucene.Net.Index
                 lock (this)
                 {
                     EnsureOpen();
-                    return docWriter.NumDocs + segmentInfos.Segments.Sum(info => info.Info.DocCount - NumDeletedDocs(info));
+                    int count = docWriter.NumDocs;
+                    foreach (SegmentCommitInfo info in segmentInfos)
+                    {
+                        count += info.Info.DocCount - NumDeletedDocs(info);
+                    }
+                    return count;
                 }
             }
         }
@@ -1651,7 +1648,7 @@ namespace YAF.Lucene.Net.Index
 
                 if (!(reader is SegmentReader))
                 {
-                    throw new System.ArgumentException("the reader must be a SegmentReader or composite reader containing only SegmentReaders");
+                    throw new ArgumentException("the reader must be a SegmentReader or composite reader containing only SegmentReaders");
                 }
 
                 SegmentCommitInfo info = ((SegmentReader)reader).SegmentInfo;
@@ -1887,7 +1884,7 @@ namespace YAF.Lucene.Net.Index
             EnsureOpen();
             if (!globalFieldNumberMap.Contains(field, DocValuesType.NUMERIC))
             {
-                throw new System.ArgumentException("can only update existing numeric-docvalues fields!");
+                throw new ArgumentException("can only update existing numeric-docvalues fields!");
             }
             try
             {
@@ -1933,7 +1930,7 @@ namespace YAF.Lucene.Net.Index
             EnsureOpen();
             if (!globalFieldNumberMap.Contains(field, DocValuesType.BINARY))
             {
-                throw new System.ArgumentException("can only update existing binary-docvalues fields!");
+                throw new ArgumentException("can only update existing binary-docvalues fields!");
             }
             try
             {
@@ -2307,7 +2304,7 @@ namespace YAF.Lucene.Net.Index
                             Exception t = merge.Exception;
                             if (t != null)
                             {
-                                throw new System.IO.IOException("background merge hit exception: " + merge.SegString(directory), t);
+                                throw new IOException("background merge hit exception: " + merge.SegString(directory), t);
                             }
                         }
 
@@ -2943,11 +2940,11 @@ namespace YAF.Lucene.Net.Index
             {
                 if (dups.Contains(dirs[i]))
                 {
-                    throw new System.ArgumentException("Directory " + dirs[i] + " appears more than once");
+                    throw new ArgumentException("Directory " + dirs[i] + " appears more than once");
                 }
                 if (dirs[i] == directory)
                 {
-                    throw new System.ArgumentException("Cannot add directory to itself");
+                    throw new ArgumentException("Cannot add directory to itself");
                 }
                 dups.Add(dirs[i]);
             }
@@ -3406,7 +3403,7 @@ namespace YAF.Lucene.Net.Index
             {
                 currentCodec.SegmentInfoFormat.SegmentInfoWriter.Write(trackingDir, newInfo, fis, context);
             }
-            catch (System.NotSupportedException /*uoe*/)
+            catch (NotSupportedException /*uoe*/)
             {
 #pragma warning disable 612, 618
                 if (currentCodec is Lucene3xCodec)
@@ -5116,7 +5113,7 @@ namespace YAF.Lucene.Net.Index
                         filesToRemove = CreateCompoundFile(infoStream, directory, checkAbort, merge.info.Info, context);
                         success = true;
                     }
-                    catch (System.IO.IOException ioe)
+                    catch (IOException ioe)
                     {
                         lock (this)
                         {
@@ -5273,22 +5270,10 @@ namespace YAF.Lucene.Net.Index
         }
 
         // For test purposes.
-        internal int BufferedDeleteTermsSize
-        {
-            get
-            {
-                return docWriter.BufferedDeleteTermsSize;
-            }
-        }
+        internal int BufferedDeleteTermsSize => docWriter.BufferedDeleteTermsSize;
 
         // For test purposes.
-        internal int NumBufferedDeleteTerms
-        {
-            get
-            {
-                return docWriter.NumBufferedDeleteTerms;
-            }
-        }
+        internal int NumBufferedDeleteTerms => docWriter.NumBufferedDeleteTerms;
 
         // utility routines for tests
         internal virtual SegmentCommitInfo NewestSegment()
@@ -5384,14 +5369,8 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public virtual bool KeepFullyDeletedSegments
         {
-            set
-            {
-                keepFullyDeletedSegments = value;
-            }
-            get
-            {
-                return keepFullyDeletedSegments;
-            }
+            get => keepFullyDeletedSegments;
+            set => keepFullyDeletedSegments = value;
         }
 
         // called only from assert
@@ -5751,7 +5730,7 @@ namespace YAF.Lucene.Net.Index
                     checkAbort.Work(directory.FileLength(file));
                 }
             }
-            catch (System.IO.IOException ex)
+            catch (IOException ex)
             {
                 prior = ex;
             }
@@ -5933,7 +5912,7 @@ namespace YAF.Lucene.Net.Index
             //}
             // LUCENENET specific - since NoSuchDirectoryException subclasses FileNotFoundException
             // in Lucene, we need to catch it here to be on the safe side.
-            catch (System.IO.DirectoryNotFoundException)
+            catch (DirectoryNotFoundException)
             {
                 return false;
             }

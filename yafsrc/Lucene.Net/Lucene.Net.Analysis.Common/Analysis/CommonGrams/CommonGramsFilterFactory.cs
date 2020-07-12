@@ -51,7 +51,7 @@ namespace YAF.Lucene.Net.Analysis.CommonGrams
             ignoreCase = GetBoolean(args, "ignoreCase", false);
             if (args.Count > 0)
             {
-                throw new System.ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException("Unknown parameters: " + args);
             }
         }
 
@@ -74,21 +74,9 @@ namespace YAF.Lucene.Net.Analysis.CommonGrams
             }
         }
 
-        public virtual bool IgnoreCase
-        {
-            get
-            {
-                return ignoreCase;
-            }
-        }
+        public virtual bool IgnoreCase => ignoreCase;
 
-        public virtual CharArraySet CommonWords
-        {
-            get
-            {
-                return commonWords;
-            }
-        }
+        public virtual CharArraySet CommonWords => commonWords;
 
         public override TokenStream Create(TokenStream input)
         {

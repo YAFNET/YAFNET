@@ -3,28 +3,27 @@ using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
-using System.Threading.Tasks;
-using TermInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldTermStack.TermInfo;
 
 namespace YAF.Lucene.Net.Search.VectorHighlight
 {
     /*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
 
     /// <summary>
     /// <see cref="FieldTermStack"/> is a stack that keeps query terms in the specified field
@@ -65,7 +64,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
         /// <param name="docId">document id to be highlighted</param>
         /// <param name="fieldName">field of the document to be highlighted</param>
         /// <param name="fieldQuery"><see cref="FieldQuery"/> object</param>
-        /// <exception cref="System.IO.IOException">If there is a low-level I/O error</exception>
+        /// <exception cref="IOException">If there is a low-level I/O error</exception>
         public FieldTermStack(IndexReader reader, int docId, string fieldName, FieldQuery fieldQuery)
         {
             this.fieldName = fieldName;
@@ -171,10 +170,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
         /// <summary>
         /// field name
         /// </summary>
-        public virtual string FieldName
-        {
-            get { return fieldName; }
-        }
+        public virtual string FieldName => fieldName;
 
         /// <summary>
         /// Returns the top <see cref="TermInfo"/> object of the stack
@@ -203,10 +199,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
         /// <summary>
         /// to know whether the stack is empty. Returns true if the stack is empty, false if not
         /// </summary>
-        public virtual bool IsEmpty
-        {
-            get { return termList == null || termList.Count == 0; }
-        }
+        public virtual bool IsEmpty => termList == null || termList.Count == 0;
 
         /// <summary>
         /// Single term with its position/offsets in the document and IDF weight.
@@ -240,12 +233,13 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
             /// <summary>
             /// Returns the next TermInfo at this same position. This is a circular list!
             /// </summary>
-            public virtual TermInfo Next { get { return next; } }
-            public virtual string Text { get { return text; } }
-            public virtual int StartOffset { get { return startOffset; } }
-            public virtual int EndOffset { get { return endOffset; } }
-            public virtual int Position { get { return position; } }
-            public virtual float Weight { get { return weight; } }
+            public virtual TermInfo Next => next;
+
+            public virtual string Text => text;
+            public virtual int StartOffset => startOffset;
+            public virtual int EndOffset => endOffset;
+            public virtual int Position => position;
+            public virtual float Weight => weight;
 
             public override string ToString()
             {

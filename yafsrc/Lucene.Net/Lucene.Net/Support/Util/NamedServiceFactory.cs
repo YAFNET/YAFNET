@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 using System.Threading;
 
@@ -100,9 +99,9 @@ namespace YAF.Lucene.Net.Util
         {
             // Check for ServiceName attribute
             var nameAttributes = type.GetCustomAttributes(typeof(ServiceNameAttribute), inherit: true);
-            if (nameAttributes.Any())
+            if (nameAttributes.Length > 0)
             {
-                ServiceNameAttribute nameAttribute = nameAttributes.FirstOrDefault() as ServiceNameAttribute;
+                ServiceNameAttribute nameAttribute = nameAttributes[0] as ServiceNameAttribute;
                 if (nameAttribute != null)
                 {
                     string name = nameAttribute.Name;
@@ -147,14 +146,14 @@ namespace YAF.Lucene.Net.Util
             // based on harmony charset.java
             if (name.Length >= 128)
             {
-                throw new System.ArgumentException("Illegal service name: '" + name + "' is too long (must be < 128 chars).");
+                throw new ArgumentException("Illegal service name: '" + name + "' is too long (must be < 128 chars).");
             }
             for (int i = 0, len = name.Length; i < len; i++)
             {
                 char c = name[i];
                 if (!IsLetterOrDigit(c))
                 {
-                    throw new System.ArgumentException("Illegal service name: '" + name + "' must be simple ascii alphanumeric.");
+                    throw new ArgumentException("Illegal service name: '" + name + "' must be simple ascii alphanumeric.");
                 }
             }
         }

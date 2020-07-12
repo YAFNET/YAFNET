@@ -1,9 +1,9 @@
 using J2N.Runtime.CompilerServices;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
@@ -25,12 +25,12 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using Codec = YAF.Lucene.Net.Codecs.Codec;
     using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
     using Directory = YAF.Lucene.Net.Store.Directory;
     using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
     using DocValuesProducer = YAF.Lucene.Net.Codecs.DocValuesProducer;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using IOContext = YAF.Lucene.Net.Store.IOContext;
     using IOUtils = YAF.Lucene.Net.Util.IOUtils;
     using StoredFieldsReader = YAF.Lucene.Net.Codecs.StoredFieldsReader;
@@ -95,7 +95,7 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// Constructs a new <see cref="SegmentReader"/> with a new core. </summary>
         /// <exception cref="CorruptIndexException"> if the index is corrupt </exception>
-        /// <exception cref="System.IO.IOException"> if there is a low-level IO error </exception>
+        /// <exception cref="IOException"> if there is a low-level IO error </exception>
         // TODO: why is this public?
         public SegmentReader(SegmentCommitInfo si, int termInfosIndexDivisor, IOContext context)
         {
@@ -357,23 +357,13 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        public override int NumDocs
-        {
-            get
-            {
-                // Don't call ensureOpen() here (it could affect performance)
-                return numDocs;
-            }
-        }
+        public override int NumDocs =>
+            // Don't call ensureOpen() here (it could affect performance)
+            numDocs;
 
-        public override int MaxDoc
-        {
-            get
-            {
-                // Don't call ensureOpen() here (it could affect performance)
-                return si.Info.DocCount;
-            }
-        }
+        public override int MaxDoc =>
+            // Don't call ensureOpen() here (it could affect performance)
+            si.Info.DocCount;
 
         /// <summary>
         /// Expert: retrieve thread-private
@@ -419,71 +409,37 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// Return the name of the segment this reader is reading.
         /// </summary>
-        public string SegmentName
-        {
-            get
-            {
-                return si.Info.Name;
-            }
-        }
+        public string SegmentName => si.Info.Name;
 
         /// <summary>
         /// Return the <see cref="SegmentCommitInfo"/> of the segment this reader is reading.
         /// </summary>
-        public SegmentCommitInfo SegmentInfo
-        {
-            get
-            {
-                return si;
-            }
-        }
+        public SegmentCommitInfo SegmentInfo => si;
 
         /// <summary>
         /// Returns the directory this index resides in. </summary>
-        public Directory Directory
-        {
-            get
-            {
-                // Don't ensureOpen here -- in certain cases, when a
-                // cloned/reopened reader needs to commit, it may call
-                // this method on the closed original reader
-                return si.Info.Dir;
-            }
-        }
+        public Directory Directory =>
+            // Don't ensureOpen here -- in certain cases, when a
+            // cloned/reopened reader needs to commit, it may call
+            // this method on the closed original reader
+            si.Info.Dir;
 
         // this is necessary so that cloned SegmentReaders (which
         // share the underlying postings data) will map to the
         // same entry in the FieldCache.  See LUCENE-1579.
-        public override object CoreCacheKey
-        {
-            get
-            {
-                // NOTE: if this ever changes, be sure to fix
-                // SegmentCoreReader.notifyCoreClosedListeners to match!
-                // Today it passes "this" as its coreCacheKey:
-                return core;
-            }
-        }
+        public override object CoreCacheKey =>
+            // NOTE: if this ever changes, be sure to fix
+            // SegmentCoreReader.notifyCoreClosedListeners to match!
+            // Today it passes "this" as its coreCacheKey:
+            core;
 
-        public override object CombinedCoreAndDeletesKey
-        {
-            get
-            {
-                return this;
-            }
-        }
+        public override object CombinedCoreAndDeletesKey => this;
 
         /// <summary>
         /// Returns term infos index divisor originally passed to
         /// <see cref="SegmentReader(SegmentCommitInfo, int, IOContext)"/>.
         /// </summary>
-        public int TermInfosIndexDivisor
-        {
-            get
-            {
-                return core.termsIndexDivisor;
-            }
-        }
+        public int TermInfosIndexDivisor => core.termsIndexDivisor;
 
         // returns the FieldInfo that corresponds to the given field and type, or
         // null if the field does not exist, or not indexed as the requested

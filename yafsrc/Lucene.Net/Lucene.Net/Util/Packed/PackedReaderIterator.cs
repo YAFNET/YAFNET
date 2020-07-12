@@ -1,6 +1,7 @@
 using YAF.Lucene.Net.Support;
 using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -69,7 +70,7 @@ namespace YAF.Lucene.Net.Util.Packed
             int remaining = m_valueCount - position - 1;
             if (remaining <= 0)
             {
-                throw new System.IO.EndOfStreamException();
+                throw new EndOfStreamException();
             }
             count = Math.Min(remaining, count);
 
@@ -92,9 +93,6 @@ namespace YAF.Lucene.Net.Util.Packed
             return nextValues;
         }
 
-        public override int Ord
-        {
-            get { return position; }
-        }
+        public override int Ord => position;
     }
 }

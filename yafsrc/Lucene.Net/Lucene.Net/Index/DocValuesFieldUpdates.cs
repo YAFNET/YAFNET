@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -86,10 +86,7 @@ namespace YAF.Lucene.Net.Index
                 return false;
             }
 
-            internal virtual int Count // LUCENENET NOTE: This was size() in Lucene.
-            {
-                get { return numericDVUpdates.Count + binaryDVUpdates.Count; }
-            }
+            internal virtual int Count => numericDVUpdates.Count + binaryDVUpdates.Count; // LUCENENET NOTE: This was size() in Lucene.
 
             internal virtual DocValuesFieldUpdates GetUpdates(string field, DocValuesFieldUpdatesType type)
             {
@@ -106,7 +103,7 @@ namespace YAF.Lucene.Net.Index
                         return bin;
 
                     default:
-                        throw new System.ArgumentException("unsupported type: " + type);
+                        throw new ArgumentException("unsupported type: " + type);
                 }
             }
 
@@ -129,7 +126,7 @@ namespace YAF.Lucene.Net.Index
                         return binaryUpdates;
 
                     default:
-                        throw new System.ArgumentException("unsupported type: " + type);
+                        throw new ArgumentException("unsupported type: " + type);
                 }
             }
 

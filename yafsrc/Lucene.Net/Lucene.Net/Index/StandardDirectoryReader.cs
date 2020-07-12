@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -69,14 +70,14 @@ namespace YAF.Lucene.Net.Index
                 var readers = new SegmentReader[sis.Count];
                 for (int i = sis.Count - 1; i >= 0; i--)
                 {
-                    System.IO.IOException prior = null;
+                    IOException prior = null;
                     bool success = false;
                     try
                     {
                         readers[i] = new SegmentReader(sis.Info(i), termInfosIndexDivisor, IOContext.READ);
                         success = true;
                     }
-                    catch (System.IO.IOException ex)
+                    catch (IOException ex)
                     {
                         prior = ex;
                     }
@@ -388,7 +389,7 @@ namespace YAF.Lucene.Net.Index
             {
                 if (m_directory != commit.Directory)
                 {
-                    throw new System.IO.IOException("the specified commit does not match the specified Directory");
+                    throw new IOException("the specified commit does not match the specified Directory");
                 }
                 if (segmentInfos != null && commit.SegmentsFileName.Equals(segmentInfos.GetSegmentsFileName(), StringComparison.Ordinal))
                 {
@@ -532,61 +533,19 @@ namespace YAF.Lucene.Net.Index
                 return "DirectoryReader.ReaderCommit(" + segmentsFileName + ")";
             }
 
-            public override int SegmentCount
-            {
-                get
-                {
-                    return segmentCount;
-                }
-            }
+            public override int SegmentCount => segmentCount;
 
-            public override string SegmentsFileName
-            {
-                get
-                {
-                    return segmentsFileName;
-                }
-            }
+            public override string SegmentsFileName => segmentsFileName;
 
-            public override ICollection<string> FileNames
-            {
-                get
-                {
-                    return files;
-                }
-            }
+            public override ICollection<string> FileNames => files;
 
-            public override Directory Directory
-            {
-                get
-                {
-                    return dir;
-                }
-            }
+            public override Directory Directory => dir;
 
-            public override long Generation
-            {
-                get
-                {
-                    return generation;
-                }
-            }
+            public override long Generation => generation;
 
-            public override bool IsDeleted
-            {
-                get
-                {
-                    return false;
-                }
-            }
+            public override bool IsDeleted => false;
 
-            public override IDictionary<string, string> UserData
-            {
-                get
-                {
-                    return userData;
-                }
-            }
+            public override IDictionary<string, string> UserData => userData;
 
             public override void Delete()
             {

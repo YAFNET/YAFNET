@@ -108,7 +108,8 @@ namespace YAF.Lucene.Net.Search
 
             /// <summary>
             /// attributes used for communication with the enum </summary>
-            public AttributeSource Attributes { get { return attributes; } }
+            public AttributeSource Attributes => attributes;
+
             private readonly AttributeSource attributes = new AttributeSource();
 
             /// <summary>

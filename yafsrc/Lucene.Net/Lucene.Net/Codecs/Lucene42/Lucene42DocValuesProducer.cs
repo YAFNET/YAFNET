@@ -1,9 +1,9 @@
 using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Index;
-using YAF.Lucene.Net.Store;
 using YAF.Lucene.Net.Util.Fst;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace YAF.Lucene.Net.Codecs.Lucene42
 {
@@ -25,7 +25,6 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
      */
 
     using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using BlockPackedReader = YAF.Lucene.Net.Util.Packed.BlockPackedReader;
     using ByteArrayDataInput = YAF.Lucene.Net.Store.ByteArrayDataInput;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
@@ -37,6 +36,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
     using DocValuesType = YAF.Lucene.Net.Index.DocValuesType;
     using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
     using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
     using IndexInput = YAF.Lucene.Net.Store.IndexInput;
     using Int32sRef = YAF.Lucene.Net.Util.Int32sRef;
@@ -480,7 +480,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                     result.Length = 0;
                     Util.ToBytesRef(output, result);
                 }
-                catch (System.IO.IOException bogus)
+                catch (IOException bogus)
                 {
                     throw new Exception(bogus.ToString(), bogus);
                 }
@@ -504,19 +504,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                         return (int)-o.Output.GetValueOrDefault() - 1;
                     }
                 }
-                catch (System.IO.IOException bogus)
+                catch (IOException bogus)
                 {
                     throw new Exception(bogus.ToString(), bogus);
                 }
             }
 
-            public override int ValueCount
-            {
-                get
-                {
-                    return (int)entry.NumOrds;
-                }
-            }
+            public override int ValueCount => (int)entry.NumOrds;
 
             public override TermsEnum GetTermsEnum()
             {
@@ -617,7 +611,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                     result.Length = 0;
                     Lucene.Net.Util.Fst.Util.ToBytesRef(output, result);
                 }
-                catch (System.IO.IOException bogus)
+                catch (IOException bogus)
                 {
                     throw new Exception(bogus.ToString(), bogus);
                 }
@@ -641,19 +635,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                         return -o.Output.GetValueOrDefault() - 1;
                     }
                 }
-                catch (System.IO.IOException bogus)
+                catch (IOException bogus)
                 {
                     throw new Exception(bogus.ToString(), bogus);
                 }
             }
 
-            public override long ValueCount
-            {
-                get
-                {
-                    return entry.NumOrds;
-                }
-            }
+            public override long ValueCount => entry.NumOrds;
 
             public override TermsEnum GetTermsEnum()
             {
@@ -747,13 +735,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 }
             }
 
-            public override IComparer<BytesRef> Comparer
-            {
-                get
-                {
-                    return BytesRef.UTF8SortedAsUnicodeComparer;
-                }
-            }
+            public override IComparer<BytesRef> Comparer => BytesRef.UTF8SortedAsUnicodeComparer;
 
             public override SeekStatus SeekCeil(BytesRef text)
             {
@@ -800,34 +782,22 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 @in.SeekExact(scratchBytes);
             }
 
-            public override BytesRef Term
-            {
-                get { return @in.Current.Input; }
-            }
+            public override BytesRef Term => @in.Current.Input;
 
-            public override long Ord
-            {
-                get { return @in.Current.Output.GetValueOrDefault(); }
-            }
+            public override long Ord => @in.Current.Output.GetValueOrDefault();
 
-            public override int DocFreq
-            {
-                get { throw new System.NotSupportedException(); }
-            }
+            public override int DocFreq => throw new NotSupportedException();
 
-            public override long TotalTermFreq
-            {
-                get { throw new System.NotSupportedException(); }
-            }
+            public override long TotalTermFreq => throw new NotSupportedException();
 
             public override DocsEnum Docs(IBits liveDocs, DocsEnum reuse, DocsFlags flags)
             {
-                throw new System.NotSupportedException();
+                throw new NotSupportedException();
             }
 
             public override DocsAndPositionsEnum DocsAndPositions(IBits liveDocs, DocsAndPositionsEnum reuse, DocsAndPositionsFlags flags)
             {
-                throw new System.NotSupportedException();
+                throw new NotSupportedException();
             }
         }
     }

@@ -435,14 +435,8 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public virtual bool CrossCheckTermVectors
         {
-            set
-            {
-                crossCheckTermVectors = value;
-            }
-            get
-            {
-                return crossCheckTermVectors;
-            }
+            get => crossCheckTermVectors;
+            set => crossCheckTermVectors = value;
         }
 
         private bool verbose;
@@ -455,16 +449,11 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public virtual TextWriter InfoStream
         {
-            get
-            {
-                return infoStream;
-            }
-            set
-            {
+            get => infoStream;
+            set =>
                 infoStream = value == null
                     ? null
                     : (value is SafeTextWriterWrapper ? value : new SafeTextWriterWrapper(value));
-            }
         }
 
         /// <summary>
@@ -472,8 +461,8 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public virtual bool InfoStreamIsVerbose // LUCENENET specific (replaced overload of SetInfoStream with property)
         {
-            get { return this.verbose; }
-            set { this.verbose = value; }
+            get => this.verbose;
+            set => this.verbose = value;
         }
 
         public virtual void FlushInfoStream() // LUCENENET specific
@@ -1155,7 +1144,7 @@ namespace YAF.Lucene.Net.Index
                             ord = termsEnum.Ord;
                         }
 #pragma warning disable 168
-                        catch (System.NotSupportedException uoe)
+                        catch (NotSupportedException uoe)
 #pragma warning restore 168
                         {
                             hasOrd = false;
@@ -2360,7 +2349,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (result.Partial)
             {
-                throw new System.ArgumentException("can only fix an index that was fully checked (this status checked a subset of segments)");
+                throw new ArgumentException("can only fix an index that was fully checked (this status checked a subset of segments)");
             }
             result.NewSegments.Changed();
             result.NewSegments.Commit(result.Dir);

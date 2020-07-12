@@ -3,6 +3,7 @@ using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 namespace YAF.Lucene.Net.Queries.Function
 {
@@ -105,7 +106,7 @@ namespace YAF.Lucene.Net.Queries.Function
             private readonly FunctionValues vals;
             private readonly IBits acceptDocs;
 
-            /// <exception cref="System.IO.IOException"/>
+            /// <exception cref="IOException"/>
             public AllScorer(FunctionQuery outerInstance, AtomicReaderContext context, IBits acceptDocs, FunctionWeight w, float qWeight)
                 : base(w)
             {

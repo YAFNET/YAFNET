@@ -50,14 +50,8 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         public virtual float MaxScore
         {
-            get
-            {
-                return maxScore;
-            }
-            set
-            {
-                this.maxScore = value;
-            }
+            get => maxScore;
+            set => this.maxScore = value;
         }
 
         /// <summary>
@@ -172,12 +166,12 @@ namespace YAF.Lucene.Net.Search
                             ScoreDoc sd = shard[hitIDX];
                             if (!(sd is FieldDoc))
                             {
-                                throw new System.ArgumentException("shard " + shardIDX + " was not sorted by the provided Sort (expected FieldDoc but got ScoreDoc)");
+                                throw new ArgumentException("shard " + shardIDX + " was not sorted by the provided Sort (expected FieldDoc but got ScoreDoc)");
                             }
                             FieldDoc fd = (FieldDoc)sd;
                             if (fd.Fields == null)
                             {
-                                throw new System.ArgumentException("shard " + shardIDX + " did not set sort field values (FieldDoc.fields is null); you must pass fillFields=true to IndexSearcher.search on each shard");
+                                throw new ArgumentException("shard " + shardIDX + " did not set sort field values (FieldDoc.fields is null); you must pass fillFields=true to IndexSearcher.search on each shard");
                             }
                         }
                     }
@@ -301,7 +295,7 @@ namespace YAF.Lucene.Net.Search
             ScoreDoc[] hits;
             if (availHitCount <= start)
             {
-                hits = new ScoreDoc[0];
+                hits = EMPTY_SCOREDOCS;
             }
             else
             {
@@ -342,5 +336,13 @@ namespace YAF.Lucene.Net.Search
                 return new TopFieldDocs(totalHitCount, hits, sort.GetSort(), maxScore);
             }
         }
+
+        // LUCENENET specific - optimized empty array creation
+        private static readonly ScoreDoc[] EMPTY_SCOREDOCS =
+#if FEATURE_ARRAYEMPTY
+            Array.Empty<ScoreDoc>();
+#else
+            new ScoreDoc[0];
+#endif
     }
 }

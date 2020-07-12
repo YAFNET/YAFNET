@@ -187,21 +187,9 @@ namespace YAF.Lucene.Net.Analysis.Synonym
                 return result;
             }
 
-            public virtual int LastEndOffset
-            {
-                get
-                {
-                    return lastEndOffset;
-                }
-            }
+            public virtual int LastEndOffset => lastEndOffset;
 
-            public virtual int LastPosLength
-            {
-                get
-                {
-                    return lastPosLength;
-                }
-            }
+            public virtual int LastPosLength => lastPosLength;
 
             public virtual void Add(char[] output, int offset, int len, int endOffset, int posLength)
             {
@@ -281,7 +269,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
             this.fst = synonyms.Fst;
             if (fst == null)
             {
-                throw new System.ArgumentException("fst must be non-null");
+                throw new ArgumentException("fst must be non-null");
             }
             this.fstReader = fst.GetBytesReader();
 
@@ -575,13 +563,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
         }
 
         // for testing
-        internal int CaptureCount
-        {
-            get
-            {
-                return captureCount;
-            }
-        }
+        internal int CaptureCount => captureCount;
 
         public override bool IncrementToken()
         {

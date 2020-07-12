@@ -111,7 +111,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             if (indexDivisor < 1 && indexDivisor != -1)
             {
-                throw new System.ArgumentException("indexDivisor must be -1 (don't load terms index) or greater than 0: got " + indexDivisor);
+                throw new ArgumentException("indexDivisor must be -1 (don't load terms index) or greater than 0: got " + indexDivisor);
             }
 
             try
@@ -164,21 +164,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             }
         }
 
-        public int SkipInterval
-        {
-            get
-            {
-                return origEnum.skipInterval;
-            }
-        }
+        public int SkipInterval => origEnum.skipInterval;
 
-        public int MaxSkipLevels
-        {
-            get
-            {
-                return origEnum.maxSkipLevels;
-            }
-        }
+        public int MaxSkipLevels => origEnum.maxSkipLevels;
 
         public void Dispose()
         {
@@ -190,10 +178,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         /// <para/>
         /// NOTE: This was size() in Lucene.
         /// </summary>
-        internal long Count
-        {
-            get { return size; }
-        }
+        internal long Count => size;
 
         private ThreadResources GetThreadResources()
         {

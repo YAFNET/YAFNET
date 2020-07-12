@@ -1,3 +1,5 @@
+using System;
+
 namespace YAF.Lucene.Net.Util.Packed
 {
     /*
@@ -38,28 +40,16 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <summary>
         /// NOTE: This was longBlockCount() in Lucene.
         /// </summary>
-        public override sealed int Int64BlockCount
-        {
-            get { return BLOCK_COUNT; }
-        }
+        public override sealed int Int64BlockCount => BLOCK_COUNT;
 
-        public override sealed int ByteBlockCount
-        {
-            get { return BLOCK_COUNT * 8; }
-        }
+        public override sealed int ByteBlockCount => BLOCK_COUNT * 8;
 
         /// <summary>
         /// NOTE: This was longValueCount() in Lucene.
         /// </summary>
-        public override int Int64ValueCount
-        {
-            get { return valueCount; }
-        }
+        public override int Int64ValueCount => valueCount;
 
-        public override sealed int ByteValueCount
-        {
-            get { return valueCount; }
-        }
+        public override sealed int ByteValueCount => valueCount;
 
         /// <summary>
         /// NOTE: This was readLong() in Lucene.
@@ -137,7 +127,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (bitsPerValue > 32)
             {
-                throw new System.NotSupportedException("Cannot decode " + bitsPerValue + "-bits values into an int[]");
+                throw new NotSupportedException("Cannot decode " + bitsPerValue + "-bits values into an int[]");
             }
             for (int i = 0; i < iterations; ++i)
             {
@@ -150,7 +140,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (bitsPerValue > 32)
             {
-                throw new System.NotSupportedException("Cannot decode " + bitsPerValue + "-bits values into an int[]");
+                throw new NotSupportedException("Cannot decode " + bitsPerValue + "-bits values into an int[]");
             }
             for (int i = 0; i < iterations; ++i)
             {

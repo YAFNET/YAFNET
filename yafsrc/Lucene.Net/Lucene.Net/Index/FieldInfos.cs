@@ -60,7 +60,7 @@ namespace YAF.Lucene.Net.Index
             {
                 if (info.Number < 0)
                 {
-                    throw new System.ArgumentException("illegal field number: " + info.Number + " for field " + info.Name);
+                    throw new ArgumentException("illegal field number: " + info.Number + " for field " + info.Name);
                 }
 
                 FieldInfo previous;
@@ -100,52 +100,31 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Returns <c>true</c> if any fields have freqs </summary>
-        public virtual bool HasFreq
-        {
-            get { return hasFreq; }
-        }
+        public virtual bool HasFreq => hasFreq;
 
         /// <summary>
         /// Returns <c>true</c> if any fields have positions </summary>
-        public virtual bool HasProx
-        {
-            get { return hasProx; }
-        }
+        public virtual bool HasProx => hasProx;
 
         /// <summary>
         /// Returns <c>true</c> if any fields have payloads </summary>
-        public virtual bool HasPayloads
-        {
-            get { return hasPayloads; }
-        }
+        public virtual bool HasPayloads => hasPayloads;
 
         /// <summary>
         /// Returns <c>true</c> if any fields have offsets </summary>
-        public virtual bool HasOffsets
-        {
-            get { return hasOffsets; }
-        }
+        public virtual bool HasOffsets => hasOffsets;
 
         /// <summary>
         /// Returns <c>true</c> if any fields have vectors </summary>
-        public virtual bool HasVectors
-        {
-            get { return hasVectors; }
-        }
+        public virtual bool HasVectors => hasVectors;
 
         /// <summary>
         /// Returns <c>true</c> if any fields have norms </summary>
-        public virtual bool HasNorms
-        {
-            get { return hasNorms; }
-        }
+        public virtual bool HasNorms => hasNorms;
 
         /// <summary>
         /// Returns <c>true</c> if any fields have <see cref="DocValues"/> </summary>
-        public virtual bool HasDocValues
-        {
-            get { return hasDocValues; }
-        }
+        public virtual bool HasDocValues => hasDocValues;
 
         /// <summary>
         /// Returns the number of fields.
@@ -197,7 +176,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (fieldNumber < 0)
             {
-                throw new System.ArgumentException("Illegal field number: " + fieldNumber);
+                throw new ArgumentException("Illegal field number: " + fieldNumber);
             }
             Index.FieldInfo ret;
             byNumber.TryGetValue(fieldNumber, out ret);
@@ -246,7 +225,7 @@ namespace YAF.Lucene.Net.Index
                         }
                         else if (currentDVType != DocValuesType.NONE && currentDVType != dvType)
                         {
-                            throw new System.ArgumentException("cannot change DocValues type from " + currentDVType + " to " + dvType + " for field \"" + fieldName + "\"");
+                            throw new ArgumentException("cannot change DocValues type from " + currentDVType + " to " + dvType + " for field \"" + fieldName + "\"");
                         }
                     }
                     int? fieldNumber;

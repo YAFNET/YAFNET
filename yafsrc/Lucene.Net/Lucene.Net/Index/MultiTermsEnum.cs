@@ -52,7 +52,12 @@ namespace YAF.Lucene.Net.Index
 
         public class TermsEnumIndex
         {
-            public static readonly TermsEnumIndex[] EMPTY_ARRAY = new TermsEnumIndex[0];
+            public static readonly TermsEnumIndex[] EMPTY_ARRAY =
+#if FEATURE_ARRAYEMPTY
+                Array.Empty<TermsEnumIndex>();
+#else
+                new TermsEnumIndex[0];
+#endif
             internal int SubIndex { get; private set; }
             internal TermsEnum TermsEnum { get; private set; }
 
@@ -67,22 +72,13 @@ namespace YAF.Lucene.Net.Index
         /// Returns how many sub-reader slices contain the current 
         /// term.</summary> 
         /// <seealso cref="MatchArray"/>
-        public int MatchCount
-        {
-            get
-            {
-                return numTop;
-            }
-        }
+        public int MatchCount => numTop;
 
         /// <summary>
         /// Returns sub-reader slices positioned to the current term. </summary>
         [WritableArray]
         [SuppressMessage("Microsoft.Performance", "CA1819", Justification = "Lucene's design requires some writable array properties")]
-        public TermsEnumWithSlice[] MatchArray
-        {
-            get { return top; }
-        }
+        public TermsEnumWithSlice[] MatchArray => top;
 
         /// <summary>
         /// Sole constructor. </summary>
@@ -106,18 +102,9 @@ namespace YAF.Lucene.Net.Index
             currentSubs = new TermsEnumWithSlice[slices.Length];
         }
 
-        public override BytesRef Term
-        {
-            get { return current; }
-        }
+        public override BytesRef Term => current;
 
-        public override IComparer<BytesRef> Comparer
-        {
-            get
-            {
-                return termComp;
-            }
-        }
+        public override IComparer<BytesRef> Comparer => termComp;
 
         /// <summary>
         /// The terms array must be newly created <see cref="TermsEnum"/>, ie
@@ -335,13 +322,10 @@ namespace YAF.Lucene.Net.Index
 
         public override void SeekExact(long ord)
         {
-            throw new System.NotSupportedException();
+            throw new NotSupportedException();
         }
 
-        public override long Ord
-        {
-            get { throw new System.NotSupportedException(); }
-        }
+        public override long Ord => throw new NotSupportedException();
 
         private void PullTop()
         {

@@ -6,6 +6,7 @@ using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Search.Similarities;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -576,7 +577,7 @@ namespace YAF.Lucene.Net.Queries.Mlt
         {
             if (Analyzer == null)
             {
-                throw new System.NotSupportedException("To use MoreLikeThis without " + "term vectors, you must provide an Analyzer");
+                throw new NotSupportedException("To use MoreLikeThis without " + "term vectors, you must provide an Analyzer");
             }
             var ts = Analyzer.GetTokenStream(fieldName, r);
             try

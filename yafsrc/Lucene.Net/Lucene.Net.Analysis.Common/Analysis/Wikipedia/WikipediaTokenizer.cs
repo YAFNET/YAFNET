@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -25,12 +26,12 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
      */
 
     /// <summary>
-	/// Extension of <see cref="Standard.StandardTokenizer"/> that is aware of Wikipedia syntax.  It is based off of the
-	/// Wikipedia tutorial available at http://en.wikipedia.org/wiki/Wikipedia:Tutorial, but it may not be complete.
-	/// <para/>
-	/// @lucene.experimental
-	/// </summary>
-	public sealed class WikipediaTokenizer : Tokenizer
+    /// Extension of <see cref="Standard.StandardTokenizer"/> that is aware of Wikipedia syntax.  It is based off of the
+    /// Wikipedia tutorial available at http://en.wikipedia.org/wiki/Wikipedia:Tutorial, but it may not be complete.
+    /// <para/>
+    /// @lucene.experimental
+    /// </summary>
+    public sealed class WikipediaTokenizer : Tokenizer
     {
         public const string INTERNAL_LINK = "il";
         public const string EXTERNAL_LINK = "el";
@@ -108,7 +109,7 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
         private readonly WikipediaTokenizerImpl scanner;
 
         private int tokenOutput = TOKENS_ONLY;
-        private ICollection<string> untokenizedTypes = Collections.EmptyList<string>();
+        private ICollection<string> untokenizedTypes = Collections.EmptySet<string>();
         private IEnumerator<AttributeSource.State> tokens = null;
 
         private IOffsetAttribute offsetAtt;
@@ -125,7 +126,7 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
         /// </summary>
         /// <param name="input"> The Input <see cref="TextReader"/> </param>
         public WikipediaTokenizer(TextReader input)
-            : this(input, TOKENS_ONLY, Collections.EmptyList<string>())
+            : this(input, TOKENS_ONLY, Collections.EmptySet<string>())
         {
         }
 
@@ -163,7 +164,7 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
             // TODO: cutover to enum
             if (tokenOutput != TOKENS_ONLY && tokenOutput != UNTOKENIZED_ONLY && tokenOutput != BOTH)
             {
-                throw new System.ArgumentException("tokenOutput must be TOKENS_ONLY, UNTOKENIZED_ONLY or BOTH");
+                throw new ArgumentException("tokenOutput must be TOKENS_ONLY, UNTOKENIZED_ONLY or BOTH");
             }
             this.tokenOutput = tokenOutput;
             this.untokenizedTypes = untokenizedTypes;

@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
                 // as its wired to solr's synonyms format only.
                 if (args.TryGetValue("format", out string value) && !value.Equals("solr", StringComparison.Ordinal))
                 {
-                    throw new System.ArgumentException("You must specify luceneMatchVersion >= 3.4 to use alternate synonyms formats");
+                    throw new ArgumentException("You must specify luceneMatchVersion >= 3.4 to use alternate synonyms formats");
                 }
 #pragma warning disable 612, 618
                 delegator = new SlowSynonymFilterFactory(new Dictionary<string, string>(OriginalArgs));
@@ -99,12 +99,6 @@ namespace YAF.Lucene.Net.Analysis.Synonym
         /// @deprecated Method exists only for testing 4x, will be removed in 5.0
         /// @lucene.internal 
         [Obsolete("Method exists only for testing 4x, will be removed in 5.0")]
-        internal virtual TokenFilterFactory Delegator
-        {
-            get
-            {
-                return delegator;
-            }
-        }
+        internal virtual TokenFilterFactory Delegator => delegator;
     }
 }

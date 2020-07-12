@@ -534,7 +534,7 @@ namespace YAF.Lucene.Net.Search
             /// </summary>
             /// <param name="terms">The <see cref="Index.Terms"/> instance to create the <see cref="Index.TermsEnum"/> from.</param>
             /// <returns>A possibly filtered <see cref="Index.TermsEnum"/> instance, this method must not return <c>null</c>.</returns>
-            /// <exception cref="System.IO.IOException">If an <see cref="IOException"/> occurs</exception>
+            /// <exception cref="IOException">If an <see cref="IOException"/> occurs</exception>
             TermsEnum TermsEnum(Terms terms);
         }
 
@@ -989,30 +989,15 @@ namespace YAF.Lucene.Net.Search
                 this.value = value;
             }
 
-            public object ReaderKey
-            {
-                get { return readerKey; }
-            }
+            public object ReaderKey => readerKey;
 
-            public string FieldName
-            {
-                get { return fieldName; }
-            }
+            public string FieldName => fieldName;
 
-            public Type CacheType
-            {
-                get { return cacheType; }
-            }
+            public Type CacheType => cacheType;
 
-            public object Custom
-            {
-                get { return custom; }
-            }
+            public object Custom => custom;
 
-            public object Value
-            {
-                get { return value; }
-            }
+            public object Value => value;
 
             /// <summary>
             /// Computes (and stores) the estimated size of the cache <see cref="Value"/>
@@ -1028,10 +1013,7 @@ namespace YAF.Lucene.Net.Search
             /// The most recently estimated size of the value, <c>null</c> unless 
             /// <see cref="EstimateSize()"/> has been called.
             /// </summary>
-            public string EstimatedSize
-            {
-                get { return size; }
-            }
+            public string EstimatedSize => size;
 
             public override string ToString()
             {

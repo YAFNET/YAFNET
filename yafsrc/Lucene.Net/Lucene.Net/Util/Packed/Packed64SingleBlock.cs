@@ -216,13 +216,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
         }
 
-        internal override PackedInt32s.Format Format
-        {
-            get
-            {
-                return PackedInt32s.Format.PACKED_SINGLE_BLOCK;
-            }
-        }
+        internal override PackedInt32s.Format Format => PackedInt32s.Format.PACKED_SINGLE_BLOCK;
 
         public override string ToString()
         {
@@ -286,7 +280,7 @@ namespace YAF.Lucene.Net.Util.Packed
                     return new Packed64SingleBlock32(valueCount);
 
                 default:
-                    throw new System.ArgumentException("Unsupported number of bits per value: " + 32);
+                    throw new ArgumentException("Unsupported number of bits per value: " + 32);
             }
         }
 

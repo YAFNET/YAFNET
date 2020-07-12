@@ -86,12 +86,6 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        public int Address
-        {
-            get
-            {
-                return upto + (offset0 & DocumentsWriterPerThread.BYTE_BLOCK_NOT_MASK);
-            }
-        }
+        public int Address => upto + (offset0 & DocumentsWriterPerThread.BYTE_BLOCK_NOT_MASK);
     }
 }

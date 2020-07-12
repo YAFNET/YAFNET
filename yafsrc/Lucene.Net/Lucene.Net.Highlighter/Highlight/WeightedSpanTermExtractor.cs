@@ -8,6 +8,7 @@ using YAF.Lucene.Net.Util;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search.Highlight
@@ -61,7 +62,7 @@ namespace YAF.Lucene.Net.Search.Highlight
         /// </summary>
         /// <param name="query"><see cref="Query"/> to extract Terms from</param>
         /// <param name="terms">Map to place created <see cref="WeightedSpanTerm"/>s in</param>
-        /// <exception cref="System.IO.IOException">If there is a low-level I/O error</exception>
+        /// <exception cref="IOException">If there is a low-level I/O error</exception>
         protected virtual void Extract(Query query, IDictionary<string, WeightedSpanTerm> terms)
         {
             if (query is BooleanQuery)
@@ -242,7 +243,7 @@ namespace YAF.Lucene.Net.Search.Highlight
         /// </summary>
         /// <param name="terms"><see cref="T:IDictionary{string, WeightedSpanTerm}"/> to place created <see cref="WeightedSpanTerm"/>s in</param>
         /// <param name="spanQuery"><see cref="SpanQuery"/> to extract Terms from</param>
-        /// <exception cref="System.IO.IOException">If there is a low-level I/O error</exception>
+        /// <exception cref="IOException">If there is a low-level I/O error</exception>
         protected virtual void ExtractWeightedSpanTerms(IDictionary<string, WeightedSpanTerm> terms, SpanQuery spanQuery)
         {
             ISet<string> fieldNames;
@@ -343,7 +344,7 @@ namespace YAF.Lucene.Net.Search.Highlight
         /// </summary>
         /// <param name="terms"><see cref="T:IDictionary{string, WeightedSpanTerm}"/> to place created <see cref="WeightedSpanTerm"/>s in</param>
         /// <param name="query"><see cref="Query"/> to extract Terms from</param>
-        /// <exception cref="System.IO.IOException">If there is a low-level I/O error</exception>
+        /// <exception cref="IOException">If there is a low-level I/O error</exception>
         protected virtual void ExtractWeightedTerms(IDictionary<string, WeightedSpanTerm> terms, Query query)
         {
             var nonWeightedTerms = new JCG.HashSet<Term>();
@@ -401,21 +402,9 @@ namespace YAF.Lucene.Net.Search.Highlight
 
             internal DelegatingAtomicReader(AtomicReader reader) : base(reader) { }
 
-            public override FieldInfos FieldInfos
-            {
-                get
-                {
-                    throw new NotSupportedException();
-                }
-            }
+            public override FieldInfos FieldInfos => throw new NotSupportedException();
 
-            public override Fields Fields
-            {
-                get
-                {
-                    return new DelegatingFilterFields(base.Fields);
-                }
-            }
+            public override Fields Fields => new DelegatingFilterFields(base.Fields);
 
             private class DelegatingFilterFields : FilterFields
             {
@@ -432,10 +421,7 @@ namespace YAF.Lucene.Net.Search.Highlight
                     return list.GetEnumerator();
                 }
 
-                public override int Count
-                {
-                    get { return 1; }
-                }
+                public override int Count => 1;
             }
 
             public override NumericDocValues GetNumericDocValues(string field)
@@ -470,7 +456,7 @@ namespace YAF.Lucene.Net.Search.Highlight
         /// <param name="query"><see cref="Query"/> that caused hit</param>
         /// <param name="tokenStream"><see cref="Analysis.TokenStream"/> of text to be highlighted</param>
         /// <returns>Map containing <see cref="WeightedSpanTerm"/>s</returns>
-        /// <exception cref="System.IO.IOException">If there is a low-level I/O error</exception>
+        /// <exception cref="IOException">If there is a low-level I/O error</exception>
         public virtual IDictionary<string, WeightedSpanTerm> GetWeightedSpanTerms(Query query, TokenStream tokenStream)
         {
             return GetWeightedSpanTerms(query, tokenStream, null);
@@ -484,7 +470,7 @@ namespace YAF.Lucene.Net.Search.Highlight
         /// <param name="tokenStream"><see cref="Analysis.TokenStream"/> of text to be highlighted</param>
         /// <param name="fieldName">restricts Term's used based on field name</param>
         /// <returns>Map containing <see cref="WeightedSpanTerm"/>s</returns>
-        /// <exception cref="System.IO.IOException">If there is a low-level I/O error</exception>
+        /// <exception cref="IOException">If there is a low-level I/O error</exception>
         public virtual IDictionary<string, WeightedSpanTerm> GetWeightedSpanTerms(Query query, TokenStream tokenStream,
                                                                           string fieldName)
         {
@@ -520,7 +506,7 @@ namespace YAF.Lucene.Net.Search.Highlight
         /// <param name="fieldName">restricts Term's used based on field name</param>
         /// <param name="reader">to use for scoring</param>
         /// <returns>Map of <see cref="WeightedSpanTerm"/>s with quasi tf/idf scores</returns>
-        /// <exception cref="System.IO.IOException">If there is a low-level I/O error</exception>
+        /// <exception cref="IOException">If there is a low-level I/O error</exception>
         public virtual IDictionary<string, WeightedSpanTerm> GetWeightedSpanTermsWithScores(
             Query query, TokenStream tokenStream, string fieldName, IndexReader reader)
         {
@@ -653,10 +639,7 @@ namespace YAF.Lucene.Net.Search.Highlight
 
             public WeightedSpanTerm this[K key]
             {
-                get
-                {
-                    return wrapped[key];
-                }
+                get => wrapped[key];
 
                 set
                 {
@@ -675,37 +658,13 @@ namespace YAF.Lucene.Net.Search.Highlight
                 }
             }
 
-            public int Count
-            {
-                get
-                {
-                    return wrapped.Count;
-                }
-            }
+            public int Count => wrapped.Count;
 
-            public bool IsReadOnly
-            {
-                get
-                {
-                    return false;
-                }
-            }
+            public bool IsReadOnly => false;
 
-            public ICollection<K> Keys
-            {
-                get
-                {
-                    return wrapped.Keys;
-                }
-            }
+            public ICollection<K> Keys => wrapped.Keys;
 
-            public ICollection<WeightedSpanTerm> Values
-            {
-                get
-                {
-                    return wrapped.Values;
-                }
-            }
+            public ICollection<WeightedSpanTerm> Values => wrapped.Values;
 
             public void Add(KeyValuePair<K, WeightedSpanTerm> item)
             {
@@ -765,19 +724,13 @@ namespace YAF.Lucene.Net.Search.Highlight
 
         public virtual bool ExpandMultiTermQuery
         {
-            set { expandMultiTermQuery = value; }
-            get { return expandMultiTermQuery; }
+            set => expandMultiTermQuery = value;
+            get => expandMultiTermQuery;
         }
 
-        public virtual bool IsCachedTokenStream
-        {
-            get { return cachedTokenStream; }
-        }
+        public virtual bool IsCachedTokenStream => cachedTokenStream;
 
-        public virtual TokenStream TokenStream
-        {
-            get { return tokenStream; }
-        }
+        public virtual TokenStream TokenStream => tokenStream;
 
         /// <summary>
         /// By default, <see cref="Analysis.TokenStream"/>s that are not of the type

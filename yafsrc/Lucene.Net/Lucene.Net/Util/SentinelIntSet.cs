@@ -52,8 +52,8 @@ namespace YAF.Lucene.Net.Util
         [SuppressMessage("Microsoft.Performance", "CA1819", Justification = "Lucene's design requires some writable array properties")]
         public int[] Keys
         {
-            get { return keys; }
-            set { keys = value; }
+            get => keys;
+            set => keys = value;
         }
         private int[] keys;
 

@@ -1,5 +1,6 @@
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util;
+using System;
 
 namespace YAF.Lucene.Net.Documents
 {
@@ -57,7 +58,7 @@ namespace YAF.Lucene.Net.Documents
         /// Create a new sorted <see cref="DocValues"/> field. </summary>
         /// <param name="name"> field name </param>
         /// <param name="bytes"> binary content </param>
-        /// <exception cref="System.ArgumentNullException"> if the field <paramref name="name"/> is <c>null</c> </exception>
+        /// <exception cref="ArgumentNullException"> if the field <paramref name="name"/> is <c>null</c> </exception>
         public SortedSetDocValuesField(string name, BytesRef bytes)
             : base(name, TYPE)
         {

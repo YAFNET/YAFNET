@@ -3,6 +3,7 @@ using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
 using System.Runtime.Serialization;
@@ -122,8 +123,8 @@ namespace YAF.Lucene.Net.Index
 
             public int MaxNumSegments // used by IndexWriter
             {
-                get { return maxNumSegments; }
-                set { maxNumSegments = value; }
+                get => maxNumSegments;
+                set => maxNumSegments = value;
             }
             private int maxNumSegments = -1;
 
@@ -199,14 +200,8 @@ namespace YAF.Lucene.Net.Index
             /// </summary>
             public virtual SegmentCommitInfo Info
             {
-                set
-                {
-                    this.info = value;
-                }
-                get
-                {
-                    return info;
-                }
+                get => info;
+                set => this.info = value;
             }
 
             /// <summary>
@@ -393,10 +388,7 @@ namespace YAF.Lucene.Net.Index
             /// input total size. This is only set once the merge is
             /// initialized by <see cref="IndexWriter"/>.
             /// </summary>
-            public virtual long TotalBytesSize
-            {
-                get { return totalMergeBytes; }
-            }
+            public virtual long TotalBytesSize => totalMergeBytes;
 
             /// <summary>
             /// Returns the total number of documents that are included with this merge.
@@ -417,13 +409,7 @@ namespace YAF.Lucene.Net.Index
 
             /// <summary>
             /// Return <see cref="Store.MergeInfo"/> describing this merge. </summary>
-            public virtual MergeInfo MergeInfo
-            {
-                get
-                {
-                    return new MergeInfo(TotalDocCount, EstimatedMergeBytes, isExternal, maxNumSegments);
-                }
-            }
+            public virtual MergeInfo MergeInfo => new MergeInfo(TotalDocCount, EstimatedMergeBytes, isExternal, maxNumSegments);
         }
 
         /// <summary>
@@ -525,13 +511,7 @@ namespace YAF.Lucene.Net.Index
             /// Returns the <see cref="Store.Directory"/> of the index that hit
             /// the exception.
             /// </summary>
-            public virtual Directory Directory
-            {
-                get
-                {
-                    return dir;
-                }
-            }
+            public virtual Directory Directory => dir;
         }
 
         /// <summary>
@@ -545,7 +525,7 @@ namespace YAF.Lucene.Net.Index
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
         [Serializable]
 #endif
-        public class MergeAbortedException : System.IO.IOException
+        public class MergeAbortedException : IOException
         {
             /// <summary>
             /// Create a <see cref="MergeAbortedException"/>. </summary>
@@ -774,15 +754,12 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public double NoCFSRatio
         {
-            get
-            {
-                return m_noCFSRatio;
-            }
+            get => m_noCFSRatio;
             set
             {
                 if (value < 0.0 || value > 1.0)
                 {
-                    throw new System.ArgumentException("noCFSRatio must be 0.0 to 1.0 inclusive; got " + value);
+                    throw new ArgumentException("noCFSRatio must be 0.0 to 1.0 inclusive; got " + value);
                 }
                 this.m_noCFSRatio = value;
             }
@@ -799,15 +776,12 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public double MaxCFSSegmentSizeMB
         {
-            get
-            {
-                return m_maxCFSSegmentSize / 1024 / 1024.0;
-            }
+            get => m_maxCFSSegmentSize / 1024 / 1024.0;
             set
             {
                 if (value < 0.0)
                 {
-                    throw new System.ArgumentException("maxCFSSegmentSizeMB must be >=0 (got " + value + ")");
+                    throw new ArgumentException("maxCFSSegmentSizeMB must be >=0 (got " + value + ")");
                 }
                 value *= 1024 * 1024;
                 this.m_maxCFSSegmentSize = (value > long.MaxValue) ? long.MaxValue : (long)value;

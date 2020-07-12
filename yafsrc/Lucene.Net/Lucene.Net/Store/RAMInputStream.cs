@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Store
             length = file.length;
             if (length / BUFFER_SIZE >= int.MaxValue)
             {
-                throw new System.IO.IOException("RAMInputStream too large length=" + length + ": " + name);
+                throw new IOException("RAMInputStream too large length=" + length + ": " + name);
             }
 
             // make sure that we switch to the
@@ -63,10 +63,7 @@ namespace YAF.Lucene.Net.Store
             // nothing to do here
         }
 
-        public override long Length
-        {
-            get { return length; }
-        }
+        public override long Length => length;
 
         public override byte ReadByte()
         {

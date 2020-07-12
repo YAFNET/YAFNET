@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -52,7 +53,7 @@ namespace YAF.Lucene.Net.Search.Spans
         /// NOTE: This will set <see cref="MultiTermQuery.MultiTermRewriteMethod"/>
         /// on the wrapped <paramref name="query"/>, changing its rewrite method to a suitable one for spans.
         /// Be sure to not change the rewrite method on the wrapped query afterwards! Doing so will
-        /// throw <see cref="System.NotSupportedException"/> on rewriting this query! </param>
+        /// throw <see cref="NotSupportedException"/> on rewriting this query! </param>
         public SpanMultiTermQueryWrapper(Q query)
         {
             this.m_query = query;
@@ -80,38 +81,23 @@ namespace YAF.Lucene.Net.Search.Spans
                 MultiTermQuery.RewriteMethod m = m_query.MultiTermRewriteMethod;
                 if (!(m is SpanRewriteMethod))
                 {
-                    throw new System.NotSupportedException("You can only use SpanMultiTermQueryWrapper with a suitable SpanRewriteMethod.");
+                    throw new NotSupportedException("You can only use SpanMultiTermQueryWrapper with a suitable SpanRewriteMethod.");
                 }
                 return (SpanRewriteMethod)m;
             }
-            set
-            {
-                m_query.MultiTermRewriteMethod = value;
-            }
+            set => m_query.MultiTermRewriteMethod = value;
         }
 
         public override Spans GetSpans(AtomicReaderContext context, IBits acceptDocs, IDictionary<Term, TermContext> termContexts)
         {
-            throw new System.NotSupportedException("Query should have been rewritten");
+            throw new NotSupportedException("Query should have been rewritten");
         }
 
-        public override string Field
-        {
-            get
-            {
-                return m_query.Field;
-            }
-        }
+        public override string Field => m_query.Field;
 
         /// <summary>
         /// Returns the wrapped query </summary>
-        public virtual Query WrappedQuery
-        {
-            get
-            {
-                return m_query;
-            }
-        }
+        public virtual Query WrappedQuery => m_query;
 
         public override string ToString(string field)
         {
@@ -132,7 +118,7 @@ namespace YAF.Lucene.Net.Search.Spans
             Query q = m_query.Rewrite(reader);
             if (!(q is SpanQuery))
             {
-                throw new System.NotSupportedException("You can only use SpanMultiTermQueryWrapper with a suitable SpanRewriteMethod.");
+                throw new NotSupportedException("You can only use SpanMultiTermQueryWrapper with a suitable SpanRewriteMethod.");
             }
             q.Boost = q.Boost * Boost; // multiply boost
             return q;
@@ -252,13 +238,7 @@ namespace YAF.Lucene.Net.Search.Spans
                     this.outerInstance = outerInstance;
                 }
 
-                protected override int MaxSize
-                {
-                    get
-                    {
-                        return int.MaxValue;
-                    }
-                }
+                protected override int MaxSize => int.MaxValue;
 
                 protected override SpanOrQuery GetTopLevelQuery()
                 {
@@ -278,13 +258,7 @@ namespace YAF.Lucene.Net.Search.Spans
             /// <para/>
             /// NOTE: This was size() in Lucene.
             /// </summary>
-            public int Count
-            {
-                get
-                {
-                    return @delegate.Count;
-                }
-            }
+            public int Count => @delegate.Count;
 
             public override Query Rewrite(IndexReader reader, MultiTermQuery query)
             {

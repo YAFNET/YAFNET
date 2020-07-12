@@ -98,21 +98,9 @@ namespace YAF.Lucene.Net.Util
             return true;
         }
 
-        public T Current
-        {
-            get
-            {
-                return current;
-            }
-        }
+        public T Current => current;
 
-        object System.Collections.IEnumerator.Current
-        {
-            get
-            {
-                return Current;
-            }
-        }
+        object System.Collections.IEnumerator.Current => Current;
 
         public void Reset()
         {

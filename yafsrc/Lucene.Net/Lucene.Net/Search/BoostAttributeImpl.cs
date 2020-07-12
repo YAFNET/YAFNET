@@ -34,8 +34,8 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         public float Boost
         {
-            get { return boost; }
-            set { boost = value; }
+            get => boost;
+            set => boost = value;
         }
 
         public override void Clear()

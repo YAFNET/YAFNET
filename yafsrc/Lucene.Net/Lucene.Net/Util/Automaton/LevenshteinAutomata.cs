@@ -76,7 +76,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                 int v = word[i];
                 if (v > alphaMax)
                 {
-                    throw new System.ArgumentException("alphaMax exceeded by symbol " + v + " in word");
+                    throw new ArgumentException("alphaMax exceeded by symbol " + v + " in word");
                 }
                 set.Add(v);
             }
@@ -261,10 +261,7 @@ namespace YAF.Lucene.Net.Util.Automaton
             /// <para/>
             /// NOTE: This was size() in Lucene.
             /// </summary>
-            internal virtual int Count
-            {
-                get { return minErrors.Length * (m_w + 1); }
-            }
+            internal virtual int Count => minErrors.Length * (m_w + 1);
 
             /// <summary>
             /// Returns <c>true</c> if the <c>state</c> in any Levenshtein DFA is an accept state (final state).

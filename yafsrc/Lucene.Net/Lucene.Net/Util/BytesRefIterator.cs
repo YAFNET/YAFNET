@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -33,7 +34,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         /// <returns> The next <see cref="BytesRef"/> in the iterator or <c>null</c> if
         ///         the end of the iterator is reached. </returns>
-        /// <exception cref="System.IO.IOException"> If there is a low-level I/O error. </exception>
+        /// <exception cref="IOException"> If there is a low-level I/O error. </exception>
         BytesRef Next();
 
         /// <summary>
@@ -68,10 +69,7 @@ namespace YAF.Lucene.Net.Util
                 return null;
             }
 
-            public IComparer<BytesRef> Comparer
-            {
-                get { return null; }
-            }
+            public IComparer<BytesRef> Comparer => null;
         }
     }
 }

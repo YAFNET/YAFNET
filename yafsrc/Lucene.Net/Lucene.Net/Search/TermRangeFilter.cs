@@ -1,3 +1,5 @@
+using System;
+
 namespace YAF.Lucene.Net.Search
 {
     /*
@@ -40,7 +42,7 @@ namespace YAF.Lucene.Net.Search
         /// <param name="upperTerm"> The upper bound on this range </param>
         /// <param name="includeLower"> Does this range include the lower bound? </param>
         /// <param name="includeUpper"> Does this range include the upper bound? </param>
-        /// <exception cref="System.ArgumentException"> if both terms are <c>null</c> or if
+        /// <exception cref="ArgumentException"> if both terms are <c>null</c> or if
         ///  lowerTerm is <c>null</c> and includeLower is <c>true</c> (similar for upperTerm
         ///  and includeUpper) </exception>
         public TermRangeFilter(string fieldName, BytesRef lowerTerm, BytesRef upperTerm, bool includeLower, bool includeUpper)
@@ -78,36 +80,18 @@ namespace YAF.Lucene.Net.Search
 
         /// <summary>
         /// Returns the lower value of this range filter </summary>
-        public virtual BytesRef LowerTerm
-        {
-            get
-            {
-                return m_query.LowerTerm;
-            }
-        }
+        public virtual BytesRef LowerTerm => m_query.LowerTerm;
 
         /// <summary>
         /// Returns the upper value of this range filter </summary>
-        public virtual BytesRef UpperTerm
-        {
-            get
-            {
-                return m_query.UpperTerm;
-            }
-        }
+        public virtual BytesRef UpperTerm => m_query.UpperTerm;
 
         /// <summary>
         /// Returns <c>true</c> if the lower endpoint is inclusive </summary>
-        public virtual bool IncludesLower
-        {
-            get { return m_query.IncludesLower; }
-        }
+        public virtual bool IncludesLower => m_query.IncludesLower;
 
         /// <summary>
         /// Returns <c>true</c> if the upper endpoint is inclusive </summary>
-        public virtual bool IncludesUpper
-        {
-            get { return m_query.IncludesUpper; }
-        }
+        public virtual bool IncludesUpper => m_query.IncludesUpper;
     }
 }

@@ -2,6 +2,7 @@
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -88,17 +89,17 @@ namespace YAF.Lucene.Net.Analysis.Compound
             this.m_tokens = new LinkedList<CompoundToken>();
             if (minWordSize < 0)
             {
-                throw new System.ArgumentException("minWordSize cannot be negative");
+                throw new ArgumentException("minWordSize cannot be negative");
             }
             this.m_minWordSize = minWordSize;
             if (minSubwordSize < 0)
             {
-                throw new System.ArgumentException("minSubwordSize cannot be negative");
+                throw new ArgumentException("minSubwordSize cannot be negative");
             }
             this.m_minSubwordSize = minSubwordSize;
             if (maxSubwordSize < 0)
             {
-                throw new System.ArgumentException("maxSubwordSize cannot be negative");
+                throw new ArgumentException("maxSubwordSize cannot be negative");
             }
             this.m_maxSubwordSize = maxSubwordSize;
             this.m_onlyLongestMatch = onlyLongestMatch;
@@ -162,20 +163,11 @@ namespace YAF.Lucene.Net.Analysis.Compound
             private readonly ICharSequence txt;
             private readonly int startOffset, endOffset;
 
-            public ICharSequence Text // LUCENENET specific: changed public field into property backed by private field
-            {
-                get { return txt; }
-            }
+            public ICharSequence Text => txt; // LUCENENET specific: changed public field into property backed by private field
 
-            public int StartOffset // LUCENENET specific: changed public field into property backed by private field
-            {
-                get { return startOffset; }
-            }
+            public int StartOffset => startOffset; // LUCENENET specific: changed public field into property backed by private field
 
-            public int EndOffset // LUCENENET specific: changed public field into property backed by private field
-            {
-                get { return endOffset; }
-            }
+            public int EndOffset => endOffset; // LUCENENET specific: changed public field into property backed by private field
 
             /// <summary>
             /// Construct the compound token based on a slice of the current <see cref="CompoundWordTokenFilterBase.m_termAtt"/>. </summary>

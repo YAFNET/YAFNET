@@ -1,6 +1,6 @@
 ﻿using YAF.Lucene.Net.Analysis.Util;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Analysis.Core
@@ -51,14 +51,14 @@ namespace YAF.Lucene.Net.Analysis.Core
             useWhitelist = GetBoolean(args, "useWhitelist", false);
             if (args.Count > 0)
             {
-                throw new System.ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException("Unknown parameters: " + args);
             }
         }
 
         public virtual void Inform(IResourceLoader loader)
         {
             IList<string> files = SplitFileNames(stopTypesFiles);
-            if (files.Count() > 0)
+            if (files.Count > 0)
             {
                 stopTypes = new JCG.HashSet<string>();
                 foreach (string file in files)

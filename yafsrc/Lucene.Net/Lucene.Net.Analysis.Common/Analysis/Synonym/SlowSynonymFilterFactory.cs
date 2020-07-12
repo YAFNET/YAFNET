@@ -9,21 +9,21 @@ using System.Text.RegularExpressions;
 namespace YAF.Lucene.Net.Analysis.Synonym
 {
     /*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
 
     /// <summary>
     /// Factory for <see cref="SlowSynonymFilter"/> (only used with luceneMatchVersion &lt; 3.4)
@@ -46,6 +46,12 @@ namespace YAF.Lucene.Net.Analysis.Synonym
         private readonly string tf;
         private readonly IDictionary<string, string> tokArgs = new Dictionary<string, string>();
 
+        // LUCENENET: Optimized by pre-comiling regex and lazy-loading
+        private class Holder
+        {
+            public static readonly Regex TOKENIZER_FACTORY_REPLACEMENT_PATTERN = new Regex("^tokenizerFactory\\.", RegexOptions.Compiled);
+        }
+
         public SlowSynonymFilterFactory(IDictionary<string, string> args) 
             : base(args)
         {
@@ -62,13 +68,13 @@ namespace YAF.Lucene.Net.Analysis.Synonym
                 var keys = new List<string>(args.Keys);
                 foreach (string key in keys)
                 {
-                    tokArgs[Regex.Replace(key, "^tokenizerFactory\\.", "")] = args[key];
+                    tokArgs[Holder.TOKENIZER_FACTORY_REPLACEMENT_PATTERN.Replace(key, "")] = args[key];
                     args.Remove(key);
                 }
             }
             if (args.Count > 0)
             {
-                throw new System.ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException("Unknown parameters: " + args);
             }
         }
 
@@ -126,7 +132,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
 
                 if (mapping.Count > 2)
                 {
-                    throw new System.ArgumentException("Invalid Synonym Rule:" + rule);
+                    throw new ArgumentException("Invalid Synonym Rule:" + rule);
                 }
                 else if (mapping.Count == 2)
                 {
@@ -223,13 +229,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
             return tokFactory.Create(reader);
         }
 
-        public SlowSynonymMap SynonymMap
-        {
-            get
-            {
-                return synMap;
-            }
-        }
+        public SlowSynonymMap SynonymMap => synMap;
 
         public override TokenStream Create(TokenStream input)
         {

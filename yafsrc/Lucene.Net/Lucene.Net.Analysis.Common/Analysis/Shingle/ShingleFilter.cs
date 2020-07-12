@@ -8,21 +8,21 @@ using System.Text;
 namespace YAF.Lucene.Net.Analysis.Shingle
 {
     /*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
 
     /// <summary>
     /// <para>A <see cref="ShingleFilter"/> constructs shingles (token n-grams) from a token stream.
@@ -260,7 +260,7 @@ namespace YAF.Lucene.Net.Analysis.Shingle
         {
             if (maxShingleSize < 2)
             {
-                throw new System.ArgumentException("Max shingle size must be >= 2");
+                throw new ArgumentException("Max shingle size must be >= 2");
             }
             this.maxShingleSize = maxShingleSize;
         }
@@ -281,11 +281,11 @@ namespace YAF.Lucene.Net.Analysis.Shingle
         {
             if (minShingleSize < 2)
             {
-                throw new System.ArgumentException("Min shingle size must be >= 2");
+                throw new ArgumentException("Min shingle size must be >= 2");
             }
             if (minShingleSize > maxShingleSize)
             {
-                throw new System.ArgumentException("Min shingle size must be <= max shingle size");
+                throw new ArgumentException("Min shingle size must be <= max shingle size");
             }
             this.minShingleSize = minShingleSize;
             gramSize = new CircularSequence(this);
@@ -306,8 +306,16 @@ namespace YAF.Lucene.Net.Analysis.Shingle
         /// <param name="fillerToken"> string to insert at each position where there is no token </param>
         public void SetFillerToken(string fillerToken)
         {
-            this.fillerToken = null == fillerToken ? new char[0] : fillerToken.ToCharArray();
+            this.fillerToken = null == fillerToken ? EMPTY_CHARS : fillerToken.ToCharArray();
         }
+
+        // LUCENENET specific - optimized empty array creation
+        private static readonly char[] EMPTY_CHARS =
+#if FEATURE_ARRAYEMPTY
+                Array.Empty<char>();
+#else
+                new char[0];
+#endif
 
         public override bool IncrementToken()
         {
@@ -597,13 +605,7 @@ namespace YAF.Lucene.Net.Analysis.Shingle
 
             /// <returns> the current value. </returns>
             /// <seealso cref="Advance()"/>
-            public virtual int Value
-            {
-                get
-                {
-                    return value;
-                }
-            }
+            public virtual int Value => value;
 
             /// <summary>
             /// <para>Increments this circular number's value to the next member in the
@@ -665,18 +667,12 @@ namespace YAF.Lucene.Net.Analysis.Shingle
             }
 
             /// <returns> the value this instance had before the last <see cref="Advance()"/> call </returns>
-            public virtual int PreviousValue
-            {
-                get
-                {
-                    return previousValue;
-                }
-            }
+            public virtual int PreviousValue => previousValue;
 
             internal virtual int MinValue // LUCENENET specific - added to encapsulate minValue field
             {
-                get { return minValue; }
-                set { minValue = value; }
+                get => minValue;
+                set => minValue = value;
             }
         }
 

@@ -1,5 +1,6 @@
 using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Support;
+using System;
 using System.Collections.Generic;
 using JCG = J2N.Collections.Generic;
 
@@ -98,13 +99,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Returns the per generation updates files. </summary>
-        public virtual IDictionary<long, ISet<string>> UpdatesFiles
-        {
-            get
-            {
-                return genUpdatesFiles.AsReadOnly();
-            }
-        }
+        public virtual IDictionary<long, ISet<string>> UpdatesFiles => genUpdatesFiles.AsReadOnly();
 
         /// <summary>
         /// Sets the updates file names per generation. Does not deep clone the map. </summary>
@@ -198,13 +193,7 @@ namespace YAF.Lucene.Net.Index
         // this is never written to/read from the Directory
         private long bufferedDeletesGen;
 
-        internal virtual long BufferedDeletesGen
-        {
-            get
-            {
-                return bufferedDeletesGen;
-            }
-        }
+        internal virtual long BufferedDeletesGen => bufferedDeletesGen;
 
         internal void SetBufferedDeletesGen(long value)
         {
@@ -216,78 +205,45 @@ namespace YAF.Lucene.Net.Index
         /// Returns <c>true</c> if there are any deletions for the
         /// segment at this commit.
         /// </summary>
-        public virtual bool HasDeletions
-        {
-            get { return delGen != -1; }
-        }
+        public virtual bool HasDeletions => delGen != -1;
 
         /// <summary>
         /// Returns <c>true</c> if there are any field updates for the segment in this commit. </summary>
-        public virtual bool HasFieldUpdates
-        {
-            get { return fieldInfosGen != -1; }
-        }
+        public virtual bool HasFieldUpdates => fieldInfosGen != -1;
 
         /// <summary>
         /// Returns the next available generation number of the <see cref="FieldInfos"/> files. </summary>
-        public virtual long NextFieldInfosGen
-        {
-            get
-            {
-                return nextWriteFieldInfosGen;
-            }
-        }
+        public virtual long NextFieldInfosGen => nextWriteFieldInfosGen;
 
         /// <summary>
         /// Returns the generation number of the field infos file or -1 if there are no
         /// field updates yet.
         /// </summary>
-        public virtual long FieldInfosGen
-        {
-            get
-            {
-                return fieldInfosGen;
-            }
-        }
+        public virtual long FieldInfosGen => fieldInfosGen;
 
         /// <summary>
         /// Returns the next available generation number
         /// of the live docs file.
         /// </summary>
-        public virtual long NextDelGen
-        {
-            get
-            {
-                return nextWriteDelGen;
-            }
-        }
+        public virtual long NextDelGen => nextWriteDelGen;
 
         /// <summary>
         /// Returns generation number of the live docs file
         /// or -1 if there are no deletes yet.
         /// </summary>
-        public virtual long DelGen
-        {
-            get
-            {
-                return delGen;
-            }
-        }
+        public virtual long DelGen => delGen;
 
         /// <summary>
         /// Returns the number of deleted docs in the segment.
         /// </summary>
         public virtual int DelCount
         {
-            get
-            {
-                return delCount;
-            }
+            get => delCount;
             internal set
             {
                 if (value < 0 || value > Info.DocCount)
                 {
-                    throw new System.ArgumentException("invalid delCount=" + value + " (docCount=" + Info.DocCount + ")");
+                    throw new ArgumentException("invalid delCount=" + value + " (docCount=" + Info.DocCount + ")");
                 }
                 this.delCount = value;
             }
