@@ -78,15 +78,6 @@ namespace YAF.Pages.Profile
         protected global::System.Web.UI.WebControls.PlaceHolder IgnoredUserHolder;
 
         /// <summary>
-        /// LocalizedLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-
-        /// <summary>
         /// UserIgnoredList control.
         /// </summary>
         /// <remarks>

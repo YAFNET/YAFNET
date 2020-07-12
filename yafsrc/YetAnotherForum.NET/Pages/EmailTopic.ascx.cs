@@ -33,6 +33,7 @@ namespace YAF.Pages
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -79,18 +80,9 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.PageContext.Settings.LockedForum == 0)
-            {
-                this.PageLinks.AddRoot();
-
-                this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
-            }
-
-            this.PageLinks.AddForum(this.PageContext.PageForumID);
-
-            this.PageLinks.AddLink(
-                this.PageContext.PageTopicName,
-                BuildLink.GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopicName));
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.SendEmail.ClientID));
 
             this.Subject.Text = this.PageContext.PageTopicName;
 
@@ -104,11 +96,32 @@ namespace YAF.Pages
                         "t={0}&name={1}",
                         this.PageContext.PageTopicID,
                         this.PageContext.PageTopicName),
-                    ["{user}"] = this.PageContext.PageUserName
+                    ["{user}"] = this.PageContext.BoardSettings.EnableDisplayName
+                        ? this.PageContext.CurrentUser.DisplayName
+                        : this.PageContext.CurrentUser.Name
                 }
             };
 
             this.Message.Text = emailTopic.ProcessTemplate("EMAILTOPIC");
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            if (this.PageContext.Settings.LockedForum == 0)
+            {
+                this.PageLinks.AddRoot();
+
+                this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
+            }
+
+            this.PageLinks.AddForum(this.PageContext.PageForumID);
+
+            this.PageLinks.AddLink(
+                this.PageContext.PageTopicName,
+                BuildLink.GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopicName));
         }
 
         /// <summary>
@@ -118,12 +131,6 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void SendEmail_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.EmailAddress.Text.Length == 0)
-            {
-                this.PageContext.AddLoadMessage(this.GetText("need_email"), MessageTypes.warning);
-                return;
-            }
-
             try
             {
                 var emailTopic = new TemplateEmail("EMAILTOPIC")

@@ -4,14 +4,14 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-    <div class="row">
-        <div class="col">
-            <div class="card mx-auto" style="max-width:450px">
-                <div class="card-header">
-                    <YAF:IconHeader runat="server"
-                                    IconName="sign-in-alt"></YAF:IconHeader>
-                </div>
-                <div class="card-body needs-validation">
+<div class="row">
+    <div class="col">
+        <div class="card mx-auto" style="max-width:450px">
+            <div class="card-header">
+                <YAF:IconHeader runat="server"
+                                IconName="sign-in-alt"></YAF:IconHeader>
+            </div>
+            <div class="card-body">
                     <div class="mb-3">
                             <asp:Label runat="server" 
                                        AssociatedControlID="UserName">
@@ -33,7 +33,6 @@
                             </div>
                         </div>
                     </div>
-                    </div>
                         <div class="mb-3">
                             <asp:Label runat="server" 
                                        AssociatedControlID="Password">
@@ -43,21 +42,20 @@
                             <span class="input-group-text">
                                 <YAF:Icon runat="server"
                                           IconName="key"
-                                          IconType="text-secondary"></YAF:Icon>
+                                          IconType="text-secondary"/>
                             </span>
                             <asp:TextBox runat="server" ID="Password" 
                                          CssClass="form-control"
                                          TextMode="Password"
                                          required="required"/>
-                            <a class="input-group-text" id="PasswordToggle" href="#">
-                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
-                                </a>
                             <div class="invalid-feedback">
                                 <YAF:LocalizedLabel runat="server"
                                                     LocalizedTag="NEED_PASSWORD" />
                             </div>
+                            <span class="input-group-text" id="PasswordToggle">
+                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                            </span>
                         </div>
-                           
                         </div>
                         <div class="row">
                             <div class="mb-3 col-md-6">
@@ -89,15 +87,15 @@
                         <YAF:OpenAuthProviders runat="server" ID="OpenAuthLogin" />
                     </section>
                 </div>
-                <div class="card-footer text-center">
-                    <YAF:ThemeButton ID="RegisterLink" runat="server"
-                                     CausesValidation="False"
-                                     OnClick="RegisterLinkClick"
-                                     Type="OutlineSecondary"
-                                     Icon="user-plus"
-                                     Size="Small"
-                                     TextLocalizedTag="REGISTER_INSTEAD" />
-                </div>
+            <div class="card-footer text-center">
+                <YAF:ThemeButton ID="RegisterLink" runat="server"
+                                 CausesValidation="False"
+                                 OnClick="RegisterLinkClick"
+                                 Type="OutlineSecondary"
+                                 Icon="user-plus"
+                                 Size="Small"
+                                 TextLocalizedTag="REGISTER_INSTEAD" />
             </div>
         </div>
     </div>
+</div>

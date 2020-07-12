@@ -83,26 +83,6 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// Gets or sets the _membership app name.
-        /// </summary>
-        /*protected override string membershipAppName
-        {
-            get => base.membershipAppName ?? (base.membershipAppName = this.LegacySettings.MembershipAppName);
-
-            set => base.membershipAppName = value;
-        }
-
-        /// <summary>
-        /// Gets or sets the _roles app name.
-        /// </summary>
-        protected override string rolesAppName
-        {
-            get => base.rolesAppName ?? (base.rolesAppName = this.LegacySettings.RolesAppName);
-
-            set => base.rolesAppName = value;
-        }*/
-
-        /// <summary>
         /// Gets the current board.
         /// </summary>
         private Board CurrentBoard
@@ -155,18 +135,8 @@ namespace YAF.Core
         {
             CodeContracts.VerifyNotNull(board, "board");
 
-            /*var membershipAppName = board.MembershipAppName.IsNotSet()
-                                        ? BoardContext.Current.Get<IAspNetUsersManager>().ApplicationName
-                                        : board.MembershipAppName;
-
-            var rolesAppName = board.RolesAppName.IsNotSet()
-                                   ? BoardContext.Current.Get<IAspNetUsersManager>().ApplicationName
-                                   : board.RolesAppName;*/
-
             return new LegacyBoardSettings(
-                board.Name/*,
-                membershipAppName,
-                rolesAppName*/);
+                board.Name);
         }
 
         /// <summary>

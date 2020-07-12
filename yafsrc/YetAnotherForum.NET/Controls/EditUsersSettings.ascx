@@ -79,15 +79,15 @@
 <div class="text-lg-center">
     <YAF:ThemeButton ID="UpdateProfile" runat="server" 
                      Type="Primary" 
+                     CssClass="mr-2"
                      OnClick="UpdateProfileClick"
                      Icon="save" 
                      TextLocalizedTag="SAVE" 
                      TextLocalizedPage="COMMON" />
-    &nbsp;
     <YAF:ThemeButton ID="Cancel" runat="server" 
                      Type="Secondary" 
                      OnClick="CancelClick"
-                     Icon="trash" 
+                     Icon="reply" 
                      TextLocalizedTag="CANCEL" 
                      TextLocalizedPage="COMMON" />
 </div>

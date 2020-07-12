@@ -19,7 +19,9 @@
                                 LocalizedPage="RULES"/>
             </div>
             <div class="card-body">
-                <YAF:LocalizedLabel runat="server" LocalizedTag="RULES_TEXT" EnableBBCode="true" ID="RulesText" />
+                <YAF:LocalizedLabel runat="server" 
+                                    LocalizedTag="RULES_TEXT" 
+                                    EnableBBCode="true" ID="RulesText" />
             </div>
             <asp:Panel runat="server" ID="Footer" 
                        CssClass="card-footer text-center">

@@ -1152,16 +1152,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether EmailVerification.
-        /// </summary>
-        public bool EmailVerification
-        {
-            get => this.Registry.GetValue("EmailVerification", true);
-
-            set => this.Registry.SetValue("EmailVerification", value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether [allow notification all posts all topics].
         /// </summary>
         public bool AllowNotificationAllPostsAllTopics

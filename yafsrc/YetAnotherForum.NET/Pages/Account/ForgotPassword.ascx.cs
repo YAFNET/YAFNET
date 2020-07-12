@@ -29,6 +29,7 @@ namespace YAF.Pages.Account
     using System.Web;
 
     using YAF.Core.BasePages;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
@@ -75,9 +76,12 @@ namespace YAF.Pages.Account
         {
             if (this.IsPostBack)
             {
-                this.ContentBody.CssClass = "card-body was-validated";
                 return;
             }
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Forgot.ClientID));
 
             this.DataBind();
 
@@ -110,7 +114,7 @@ namespace YAF.Pages.Account
                 ? this.Get<IAspNetUsersHelper>().GetUserByEmail(this.UserName.Text)
                 : this.Get<IAspNetUsersHelper>().GetUserByName(this.UserName.Text);
 
-            if (user == null/* || !this.Get<IAspNetUsersManager>().IsEmailConfirmed(user.Id)*/)
+            if (user == null)
             {
                 this.PageContext.AddLoadMessage(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
                 return;

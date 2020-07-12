@@ -8,7 +8,9 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" /></h2>
+        <h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                                LocalizedTag="TITLE" />
+        </h2>
     </div>
 </div>
 
@@ -20,7 +22,8 @@
                                 IconName="history"/>
             </div>
             <div class="card-body">
-                <asp:Repeater ID="RevisionsList" runat="server"  OnItemCommand="RevisionsList_ItemCommand">
+                <asp:Repeater ID="RevisionsList" runat="server"
+                              OnItemCommand="RevisionsList_ItemCommand">
                     <HeaderTemplate>
                         <ul class="list-group">
                     </HeaderTemplate>
@@ -119,10 +122,12 @@
             </div>
             <div class="card-body">
                 <h6 class="card-subtitle mb-2 text-muted">
-                    <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="TEXT_CHANGES" />
+                    <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
+                                        LocalizedTag="TEXT_CHANGES" />
                 </h6>
                 <div id="diffContent">
                     <YAF:Alert runat="server" Type="info">
+                        <YAF:Icon runat="server" IconName="info-circle" />
                         <%# this.GetText("MESSAGEHISTORY","SELECT_DIFFERENT") %>
                     </YAF:Alert>
                 </div>

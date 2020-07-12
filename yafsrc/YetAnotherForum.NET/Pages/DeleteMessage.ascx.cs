@@ -34,6 +34,7 @@ namespace YAF.Pages
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -175,10 +176,6 @@ namespace YAF.Pages
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            /* get the forum editor based on the settings
-      Message = yaf.editor.EditorHelper.CreateEditorFromType(PageContext.BoardSettings.ForumEditor);
-      EditorLine.Controls.Add(Message); 
-       */
             this.LinkedPosts.ItemDataBound += this.LinkedPosts_ItemDataBound;
 
             base.OnInit(e);
@@ -191,6 +188,10 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Delete.ClientID));
+
             this.message = null;
 
             if (this.Get<HttpRequestBase>().QueryString.Exists("m"))

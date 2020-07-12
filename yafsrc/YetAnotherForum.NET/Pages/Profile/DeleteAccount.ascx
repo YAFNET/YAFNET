@@ -27,17 +27,18 @@
                                                      CssClass="list-unstyled" />
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer text-center">
-                        <YAF:ThemeButton ID="DeleteUser" runat="server"
-                                         OnClick="DeleteUserClick"
-                                         TextLocalizedTag="CONTINUE"
-                                         Type="Danger"
-                                         Icon="user-alt-slash"/>
-                        <YAF:ThemeButton ID="Cancel" runat="server"
-                                         TextLocalizedTag="CANCEL"
-                                         Type="Secondary"
-                                         Icon="reply"/>
+                        <div class="text-lg-center">
+                            <YAF:ThemeButton ID="DeleteUser" runat="server"
+                                             OnClick="DeleteUserClick"
+                                             CssClass="mr-2"
+                                             TextLocalizedTag="CONTINUE"
+                                             Type="Danger"
+                                             Icon="user-alt-slash"/>
+                            <YAF:ThemeButton ID="Cancel" runat="server"
+                                             TextLocalizedTag="CANCEL"
+                                             Type="Secondary"
+                                             Icon="reply"/>
+                        </div>
                     </div>
                 </div>
             </div>

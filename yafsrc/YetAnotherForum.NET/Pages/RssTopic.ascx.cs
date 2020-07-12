@@ -552,7 +552,7 @@ namespace YAF.Pages
 
                             syndicationItems.AddSyndicationItem(
                                 row["Subject"].ToString(),
-                                GetPostLatestContent(
+                                this.GetPostLatestContent(
                                     BuildLink.GetLink(
                                         ForumPages.Posts,
                                         true,
@@ -852,7 +852,7 @@ namespace YAF.Pages
 
                             syndicationItems.AddSyndicationItem(
                                 row["Topic"].ToString(),
-                                GetPostLatestContent(
+                                this.GetPostLatestContent(
                                     messageLink,
                                     lastPostName,
                                     row["LastMessage"].ToString(),
@@ -1082,7 +1082,7 @@ namespace YAF.Pages
 
                             syndicationItems.AddSyndicationItem(
                                 row["Topic"].ToString(),
-                                GetPostLatestContent(
+                                this.GetPostLatestContent(
                                     BuildLink.GetLink(
                                         ForumPages.Posts,
                                         true,

@@ -32,6 +32,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -96,6 +97,10 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+
             // bind data
             this.BindData();
         }
@@ -113,14 +118,6 @@ namespace YAF.Pages.Admin
             if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
             {
                 accessMaskId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i");
-            }
-
-            if (this.Name.Text.Trim().Length <= 0)
-            {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITACCESSMASKS", "MSG_MASK_NAME"),
-                    MessageTypes.warning);
-                return;
             }
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))

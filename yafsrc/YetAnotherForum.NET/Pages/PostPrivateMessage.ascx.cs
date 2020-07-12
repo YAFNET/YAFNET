@@ -311,7 +311,7 @@ namespace YAF.Pages
             this.AllBuddies.Visible = this.PageContext.UserHasBuddies;
 
             // Is Reply
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p").IsSet())
+            if (this.Get<HttpRequestBase>().QueryString.Exists("p"))
             {
                 // PM is a reply or quoted reply (isQuoting)
                 // to the given message id "p"
@@ -408,34 +408,28 @@ namespace YAF.Pages
                     BuildLink.AccessDenied();
                 }
             }
-            else if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").IsSet()
-                     && this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r").IsSet())
+            else if (this.Get<HttpRequestBase>().QueryString.Exists("u")
+                     && this.Get<HttpRequestBase>().QueryString.Exists("r"))
             {
+                // PM is being send as a quoted reply to a reported post
                 // We check here if the user have access to the option
                 if (!this.PageContext.IsModeratorInAnyForum && !this.PageContext.IsForumModerator)
                 {
                     return;
                 }
 
-                // PM is being sent to a predefined user
-                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out _)
-                    || !int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r"), out _))
-                {
-                    return;
-                }
-
                 // get quoted message
-                var messagesRow =
-                        this.GetRepository<Message>().ListReportersAsDataTable(
+                var reporter =
+                        this.GetRepository<User>().MessageReporter(
                             Security.StringToIntOrRedirect(
                                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")),
                             Security.StringToIntOrRedirect(
                                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")))
-                        .GetFirstRow();
+                        .FirstOrDefault();
 
                 // there is such a message
                 // message info should be always returned as 1 row 
-                if (messagesRow == null)
+                if (reporter == null)
                 {
                     return;
                 }
@@ -444,7 +438,7 @@ namespace YAF.Pages
                 this.PmSubjectTextBox.Text = this.GetText("REPORTED_SUBJECT");
 
                 var displayName =
-                    this.Get<IUserDisplayName>().GetName(messagesRow.Field<int>("UserID"));
+                    this.Get<IUserDisplayName>().GetName(reporter.Item1.ID);
 
                 // set "To" user and disable changing...
                 this.To.Text = displayName;
@@ -454,7 +448,7 @@ namespace YAF.Pages
                 this.AllBuddies.Visible = false;
 
                 // Parse content with delimiter '|'  
-                var quoteList = messagesRow.Field<string>("ReportText").Split('|');
+                var quoteList = reporter.Item2.ReportText.Split('|');
 
                 // Quoted replies should have bad words in them
                 // Reply to report PM is always a quoted reply
@@ -462,14 +456,14 @@ namespace YAF.Pages
                 for (var i = 0; i < quoteList.Length; i++)
                 {
                     // Add quote codes
-                    quoteList[i] = $"[QUOTE={displayName}]{quoteList[i]}[/QUOTE]";
+                    quoteList[i] = $"[QUOTE={displayName}]{quoteList[i]}[/QUOTE]\r\n";
 
                     // Replace DateTime delimiter '??' by ': ' 
                     // we don't want any whitespaces at the beginning of message
                     this.editor.Text = quoteList[i].Replace("??", ": ") + this.editor.Text.TrimStart();
                 }
             }
-            else if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").IsSet())
+            else if (this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
                 // PM is being send as a reply to a reported post
 
@@ -805,73 +799,73 @@ namespace YAF.Pages
                 }
 
                 // Check posts for urls if the user has only x posts
-                if (this.PageContext.CurrentUser.NumPosts
-                    <= this.PageContext.Get<BoardSettings>().IgnoreSpamWordCheckPostCount &&
-                    !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
+                if (this.PageContext.CurrentUser.NumPosts >
+                    this.PageContext.Get<BoardSettings>().IgnoreSpamWordCheckPostCount || this.PageContext.IsAdmin ||
+                    this.PageContext.ForumModeratorAccess)
                 {
-                    var urlCount = UrlHelper.CountUrls(message);
-
-                    if (urlCount <= this.PageContext.BoardSettings.AllowedNumberOfUrls)
-                    {
-                        return true;
-                    }
-
-                    spamResult =
-                        $"The user posted {urlCount} urls but allowed only {this.PageContext.BoardSettings.AllowedNumberOfUrls}";
-
-                    switch (this.Get<BoardSettings>().SpamMessageHandling)
-                    {
-                        case 0:
-                            this.Logger.Log(
-                                this.PageContext.PageUserID,
-                                "Spam Message Detected",
-                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}",
-                                EventLogTypes.SpamMessageDetected);
-                            break;
-                        case 1:
-                            this.Logger.Log(
-                                this.PageContext.PageUserID,
-                                "Spam Message Detected",
-                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}, it was flagged as unapproved post",
-                                EventLogTypes.SpamMessageDetected);
-                            break;
-                        case 2:
-                            this.Logger.Log(
-                                this.PageContext.PageUserID,
-                                "Spam Message Detected",
-                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}, post was rejected",
-                                EventLogTypes.SpamMessageDetected);
-
-                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
-
-                            break;
-                        case 3:
-                            this.Logger.Log(
-                                this.PageContext.PageUserID,
-                                "Spam Message Detected",
-                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}, user was deleted and bannded",
-                                EventLogTypes.SpamMessageDetected);
-
-                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                this.PageContext.PageUserID,
-                                this.PageContext.MembershipUser,
-                                this.PageContext.CurrentUser.IP);
-                            break;
-                    }
-
-                    return false;
+                    return true;
                 }
 
-                return true;
+                var urlCount = UrlHelper.CountUrls(message);
+
+                if (urlCount <= this.PageContext.BoardSettings.AllowedNumberOfUrls)
+                {
+                    return true;
+                }
+
+                spamResult =
+                    $"The user posted {urlCount} urls but allowed only {this.PageContext.BoardSettings.AllowedNumberOfUrls}";
+
+                switch (this.Get<BoardSettings>().SpamMessageHandling)
+                {
+                    case 0:
+                        this.Logger.Log(
+                            this.PageContext.PageUserID,
+                            "Spam Message Detected",
+                            $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}",
+                            EventLogTypes.SpamMessageDetected);
+                        break;
+                    case 1:
+                        this.Logger.Log(
+                            this.PageContext.PageUserID,
+                            "Spam Message Detected",
+                            $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}, it was flagged as unapproved post",
+                            EventLogTypes.SpamMessageDetected);
+                        break;
+                    case 2:
+                        this.Logger.Log(
+                            this.PageContext.PageUserID,
+                            "Spam Message Detected",
+                            $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}, post was rejected",
+                            EventLogTypes.SpamMessageDetected);
+
+                        this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+
+                        break;
+                    case 3:
+                        this.Logger.Log(
+                            this.PageContext.PageUserID,
+                            "Spam Message Detected",
+                            $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}, user was deleted and bannded",
+                            EventLogTypes.SpamMessageDetected);
+
+                        this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                            this.PageContext.PageUserID,
+                            this.PageContext.MembershipUser,
+                            this.PageContext.CurrentUser.IP);
+                        break;
+                }
+
+                return false;
             }
 
             ///////////////////////////////
 
             // test sending user's PM count
             // get user's name
-            var drPMInfo = this.GetRepository<PMessage>().UserMessageCount(this.PageContext.PageUserID).Rows[0];
+            var info = this.GetRepository<PMessage>().UserMessageCount(this.PageContext.PageUserID).Rows[0];
 
-            if (drPMInfo["NumberTotal"].ToType<int>() + count <= drPMInfo["NumberAllowed"].ToType<int>()
+            if (info["NumberTotal"].ToType<int>() + count <= info["NumberAllowed"].ToType<int>()
                 || this.PageContext.IsAdmin)
             {
                 return true;
@@ -879,7 +873,7 @@ namespace YAF.Pages
 
             // user has full PM box
             this.PageContext.AddLoadMessage(
-                this.GetTextFormatted("OWN_PMBOX_FULL", drPMInfo["NumberAllowed"]),
+                this.GetTextFormatted("OWN_PMBOX_FULL", info["NumberAllowed"]),
                 MessageTypes.danger);
 
             return false;

@@ -51,6 +51,15 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.Pager PagerTop;
 
         /// <summary>
+        /// YearsOld control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox YearsOld;
+
+        /// <summary>
         /// LocalizedLabel16 control.
         /// </summary>
         /// <remarks>
@@ -256,15 +265,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.Pager PagerBottom;
-
-        /// <summary>
-        /// YearsOld control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox YearsOld;
 
         /// <summary>
         /// UpdatePanel1 control.

@@ -83,12 +83,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            // setup their initial profile information
-            var userProfile = new ProfileInfo
-            {
-                Location = this.Location.Text.Trim(), Homepage = this.HomePage.Text.Trim()
-            };
-
             var user = new AspNetUsers
             {
                 Id = Guid.NewGuid().ToString(),
@@ -96,29 +90,8 @@ namespace YAF.Pages.Admin
                 UserName = newUsername,
                 LoweredUserName = newUsername,
                 Email = newEmail,
-                IsApproved = !this.Get<BoardSettings>().EmailVerification,
-                EmailConfirmed = !this.Get<BoardSettings>().EmailVerification,
-                Profile_Birthday = userProfile.Birthday,
-                Profile_Blog = userProfile.Blog,
-                Profile_Gender = userProfile.Gender,
-                Profile_GoogleId = userProfile.GoogleId,
-                Profile_GitHubId = userProfile.GitHubId,
-                Profile_Homepage = userProfile.Homepage,
-                Profile_ICQ = userProfile.ICQ,
-                Profile_Facebook = userProfile.Facebook,
-                Profile_FacebookId = userProfile.FacebookId,
-                Profile_Twitter = userProfile.Twitter,
-                Profile_TwitterId = userProfile.TwitterId,
-                Profile_Interests = userProfile.Interests,
-                Profile_Location = userProfile.Location,
-                Profile_Country = userProfile.Country,
-                Profile_Region = userProfile.Region,
-                Profile_City = userProfile.City,
-                Profile_Occupation = userProfile.Occupation,
-                Profile_RealName = userProfile.RealName,
-                Profile_Skype = userProfile.Skype,
-                Profile_XMPP = userProfile.XMPP,
-                Profile_LastSyncedWithDNN = userProfile.LastSyncedWithDNN
+                IsApproved = false,
+                EmailConfirmed = false
             };
 
             var result = this.Get<IAspNetUsersHelper>().Create(user, this.Password.Text.Trim());
@@ -139,23 +112,7 @@ namespace YAF.Pages.Admin
             var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
                 .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
 
-            // save the time zone...
-            this.GetRepository<User>().Save(
-                this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id),
-                this.PageContext.PageBoardID,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                false);
-
-            if (this.Get<BoardSettings>().EmailVerification)
-            {
-                this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userId, newUsername);
-            }
+            this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userId, newUsername);
 
             this.GetRepository<User>().SaveNotification(
                 this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id),
@@ -165,11 +122,11 @@ namespace YAF.Pages.Admin
                 this.Get<BoardSettings>().DefaultSendDigestEmail);
 
             // success
-            this.PageContext.AddLoadMessage(
+            this.PageContext.LoadMessage.AddSession(
                 this.GetTextFormatted("MSG_CREATED", this.UserName.Text.Trim()),
                 MessageTypes.success);
 
-            BuildLink.Redirect(ForumPages.Admin_RegisterUser);
+            BuildLink.Redirect(ForumPages.Admin_Users);
         }
 
         /// <summary>

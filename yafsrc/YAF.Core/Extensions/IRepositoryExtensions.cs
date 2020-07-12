@@ -233,31 +233,6 @@ namespace YAF.Core.Extensions
         }
 
         /// <summary>
-        /// The insert all.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="objs">
-        /// The objs.
-        /// </param>
-        /// <param name="transaction">
-        /// The transaction.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        public static void InsertAll<T>(
-            [NotNull] this IRepository<T> repository,
-            [NotNull] IEnumerable<T> objs,
-            IDbTransaction transaction = null)
-            where T : class, IEntity, new()
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            repository.DbAccess.Execute(db => db.Connection.InsertAll<T>(objs));
-        }
-
-        /// <summary>
         /// Update or Insert entity.
         /// </summary>
         /// <typeparam name="T">

@@ -734,6 +734,13 @@
     <Compile Include="Pages\Admin\Restore.ascx.designer.cs">
       <DependentUpon>Restore.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Admin\BoardAnnouncement.ascx.cs">
+      <DependentUpon>BoardAnnouncement.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\BoardAnnouncement.ascx.designer.cs">
+      <DependentUpon>BoardAnnouncement.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Admin\Settings.ascx.designer.cs">
       <DependentUpon>Settings.ascx</DependentUpon>
     </Compile>
@@ -1008,9 +1015,6 @@
     </Compile>
     <Compile Include="controls\EmailDigest.ascx.designer.cs">
       <DependentUpon>EmailDigest.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Error.ascx.designer.cs">
-      <DependentUpon>Error.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Board.ascx.designer.cs">
       <DependentUpon>Board.ascx</DependentUpon>
@@ -1999,7 +2003,6 @@
     <Content Include="controls\PollList.ascx" />
     <Content Include="controls\PostOptions.ascx" />
     <Content Include="controls\ProfileYourAccount.ascx" />
-    <Content Include="controls\ReportedPosts.ascx" />
     <Content Include="controls\SimilarTopics.ascx" />
     <Content Include="controls\Header.ascx" />
     <Content Include="Dialogs\BannedIpEdit.ascx" />
@@ -2065,6 +2068,7 @@
     <Content Include="Pages\Admin\BannedNames.ascx" />
     <Content Include="Pages\Admin\Profiler.ascx" />
     <Content Include="Pages\Admin\Restore.ascx" />
+    <Content Include="Pages\Admin\BoardAnnouncement.ascx" />
     <Content Include="Pages\Admin\SpamLog.ascx" />
     <Content Include="Pages\Admin\PageAccessEdit.ascx" />
     <Content Include="Pages\Admin\PageAccessList.ascx" />
@@ -2178,7 +2182,6 @@
     <Content Include="Pages\DeleteMessage.ascx" />
     <Content Include="Pages\EmailTopic.ascx" />
     <Content Include="controls\EmailDigest.ascx" />
-    <Content Include="Pages\Error.ascx" />
     <Content Include="Pages\Board.ascx" />
     <Content Include="Pages\Help.ascx" />
     <Content Include="Pages\Email.ascx" />
@@ -2929,13 +2932,6 @@
       <DependentUpon>ProfileYourAccount.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\ReportedPosts.ascx.cs">
-      <DependentUpon>ReportedPosts.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\ReportedPosts.ascx.designer.cs">
-      <DependentUpon>ReportedPosts.ascx</DependentUpon>
-    </Compile>
     <Compile Include="error.aspx.cs">
       <DependentUpon>error.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3122,10 +3118,6 @@
     </Compile>
     <Compile Include="Pages\EmailTopic.ascx.cs">
       <DependentUpon>EmailTopic.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\Error.ascx.cs">
-      <DependentUpon>Error.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\Board.ascx.cs">
@@ -3670,7 +3662,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

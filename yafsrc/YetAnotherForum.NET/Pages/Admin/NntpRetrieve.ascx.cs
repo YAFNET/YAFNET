@@ -35,7 +35,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -48,17 +47,17 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// Gets the last message no.
+        /// Gets the last message number
         /// </summary>
-        /// <param name="_o">
-        /// The _o.
+        /// <param name="forum">
+        /// The forum.
         /// </param>
         /// <returns>
         /// The last message no.
         /// </returns>
-        protected string LastMessageNo([NotNull] object _o)
+        protected string LastMessageNo([NotNull] object forum)
         {
-            var row = (Tuple<NntpForum, NntpServer, Forum>)_o;
+            var row = (Tuple<NntpForum, NntpServer, Forum>)forum;
             return $"{row.Item1.LastMessageNo:N0}";
         }
 
@@ -130,7 +129,8 @@ namespace YAF.Pages.Admin
 
             if (this.List.Items.Count == 0)
             {
-                this.Retrieve.Visible = false;
+                this.RetrievePanel.Visible = false;
+                this.Footer.Visible = false;
             }
         }
 

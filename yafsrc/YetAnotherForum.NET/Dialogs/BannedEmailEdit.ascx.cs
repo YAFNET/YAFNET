@@ -114,7 +114,7 @@ namespace YAF.Dialogs
             }
 
             this.PageContext.PageElements.RegisterJsBlockStartup(
-                "loadValidatorFormJs",
+                nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
         }
 

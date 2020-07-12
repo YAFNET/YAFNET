@@ -33,6 +33,7 @@ namespace YAF.Pages
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -102,12 +103,17 @@ namespace YAF.Pages
         /// </param>
         protected void ReportClick([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (!this.Page.IsValid)
+            {
+                return;
+            }
+
             if (this.Report.Text.Length > this.Get<BoardSettings>().MaxReportPostChars)
             {
-                this.IncorrectReportLabel.Text = this.GetTextFormatted(
-                    "REPORTTEXT_TOOLONG",
-                    this.Get<BoardSettings>().MaxReportPostChars);
-                this.IncorrectReportLabel.DataBind();
+                this.PageContext.AddLoadMessage(
+                    this.GetTextFormatted("REPORTTEXT_TOOLONG", this.Get<BoardSettings>().MaxReportPostChars),
+                    MessageTypes.danger);
+
                 return;
             }
 
@@ -151,6 +157,10 @@ namespace YAF.Pages
                 this.messageID =
                     Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
             }
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.btnReport.ClientID));
 
             if (this.IsPostBack)
             {

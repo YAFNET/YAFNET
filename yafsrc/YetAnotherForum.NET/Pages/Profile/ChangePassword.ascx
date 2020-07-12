@@ -77,22 +77,22 @@
                                           Operator="NotEqual"
                                           ValidationGroup="ctl00$ChangePassword1" runat="Server" CssClass="invalid-feedback" />
                 </div>
+                <div class="text-lg-center">
+                    <YAF:ThemeButton ID="ChangePasswordPushButton" runat="server"
+                                     CausesValidation="True"
+                                     Type="Primary"
+                                     TextLocalizedTag="CHANGE_BUTTON"
+                                     ValidationGroup="ctl00$ChangePassword1"
+                                     Icon="key"
+                                     OnClick="ChangePasswordClick"/>
+                    <YAF:ThemeButton ID="CancelPushButton" runat="server"
+                                     CausesValidation="False"
+                                     TextLocalizedTag="CANCEL"
+                                     Icon="times"
+                                     OnClick="CancelPushButtonClick"
+                                     Type="Secondary" />
+                </div>
             </asp:Panel>
-            <div class="card-footer text-center">
-                <YAF:ThemeButton ID="ChangePasswordPushButton" runat="server"
-                                 CausesValidation="True"
-                                 Type="Primary"
-                                 TextLocalizedTag="CHANGE_BUTTON"
-                                 ValidationGroup="ctl00$ChangePassword1"
-                                 Icon="key"
-                                 OnClick="ChangePasswordClick"/>
-                <YAF:ThemeButton ID="CancelPushButton" runat="server"
-                                 CausesValidation="False"
-                                 TextLocalizedTag="CANCEL"
-                                 Icon="times"
-                                 OnClick="CancelPushButtonClick"
-                                 Type="Secondary" />
-            </div>
         </div>
     </div>
 </div>

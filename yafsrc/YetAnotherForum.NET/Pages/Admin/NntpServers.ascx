@@ -7,7 +7,10 @@
 
     <div class="row">
     <div class="col-xl-12">
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPSERVERS" /></h1>
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
+                                LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPSERVERS" />
+
+        </h1>
     </div>
     </div>
     <div class="row">
@@ -19,7 +22,7 @@
                                     LocalizedPage="ADMIN_NNTPSERVERS"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
-                    <asp:Repeater ID="RankList" runat="server">
+                    <asp:Repeater ID="RankList" runat="server" OnItemCommand="RankListItemCommand">
             <HeaderTemplate>
                 <ul class="list-group">
             </HeaderTemplate>

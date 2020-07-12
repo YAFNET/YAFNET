@@ -30,7 +30,6 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Core.BasePages;
-    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -121,7 +120,7 @@ namespace YAF.Pages
             else
             {
                 // get full user data...
-                var userDataHe = this.Get<AspNetUsersHelper>().GetMembershipUserById(this.UserID);
+                var userDataHe = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.UserID);
 
                 var serverHe = userDataHe.Profile_XMPP
                     .Substring(userDataHe.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();

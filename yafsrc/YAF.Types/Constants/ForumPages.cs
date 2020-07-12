@@ -189,11 +189,6 @@ namespace YAF.Types.Constants
         Moderate_UnapprovedPosts,
 
         /// <summary>
-        /// The Error page.
-        /// </summary>
-        Error,
-
-        /// <summary>
         /// The Jabber page.
         /// </summary>
         Jabber,
@@ -272,6 +267,11 @@ namespace YAF.Types.Constants
         /// The Admin boards.
         /// </summary>
         Admin_Boards,
+
+        /// <summary>
+        /// The Admin Announcement page.
+        /// </summary>
+        Admin_BoardAnnouncement,
 
         /// <summary>
         /// The Admin board settings page.

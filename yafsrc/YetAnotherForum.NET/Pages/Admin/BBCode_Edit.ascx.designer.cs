@@ -294,21 +294,21 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox txtDisplayCSS;
 
         /// <summary>
-        /// save control.
+        /// Save control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton save;
+        protected global::YAF.Web.Controls.ThemeButton Save;
 
         /// <summary>
-        /// cancel control.
+        /// Cancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton cancel;
+        protected global::YAF.Web.Controls.ThemeButton Cancel;
     }
 }

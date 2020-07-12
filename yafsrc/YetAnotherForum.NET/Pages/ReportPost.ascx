@@ -1,8 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.ReportPost" CodeBehind="ReportPost.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
-
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
@@ -55,18 +53,19 @@
                                             LocalizedTag="ENTER_TEXT" />
                     </h6>
                     <asp:PlaceHolder id="EditorLine" runat="server">
-                        <asp:Label ID="IncorrectReportLabel" runat="server"></asp:Label>
                         <asp:TextBox runat="server" ID="Report"
-                                     CssClass="form-control"></asp:TextBox>
+                                     CssClass="form-control"
+                                     required="required" />
+                        <div class="invalid-feedback">
+                            <YAF:LocalizedLabel runat="server"
+                                                LocalizedTag="NEED_REASON" />
+                        </div>
                     </asp:PlaceHolder>
                 </div>
                 <div class="d-sm-none d-md-block">
                     <YAF:Alert runat="server" Type="info">
-                        <strong>
-                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
-                                                LocalizedTag="NOTE" 
-                                                LocalizedPage="COMMON" />
-                        </strong>
+                        <YAF:Icon runat="server" 
+                                  IconName="info-circle" />
                         <YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" 
                                             LocalizedTag="MAXNUMBEROF"/>
                     </YAF:Alert>
@@ -75,6 +74,7 @@
             <div class="card-footer text-center">
                 <YAF:ThemeButton ID="btnReport" runat="server"
                                  TextLocalizedTag="SEND" TitleLocalizedTag="SEND_TITLE" 
+                                 CausesValidation="True"
                                  OnClick="ReportClick"
                                  Icon="paper-plane" ReturnConfirmText='<%#this.GetText("CONFIRM_REPORTPOST") %>'/>
                 <YAF:ThemeButton ID="btnCancel" runat="server"

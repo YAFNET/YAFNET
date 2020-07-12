@@ -96,36 +96,34 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The bit set.
         /// </summary>
-        /// <param name="_o">
-        /// The _o.
+        /// <param name="flags">
+        /// The flags.
         /// </param>
         /// <param name="bitmask">
         /// The bitmask.
         /// </param>
         /// <returns>
-        /// The bit set.
+        /// The <see cref="bool"/>.
         /// </returns>
-        protected bool BitSet([NotNull] object _o, int bitmask)
+        protected bool BitSet([NotNull] object flags, int bitmask)
         {
-            var i = (int)_o;
+            var i = (int)flags;
             return (i & bitmask) != 0;
         }
 
         /// <summary>
-        /// The ladder info.
+        /// Is Rank Ladder?
         /// </summary>
-        /// <param name="_o">
-        /// The _o.
+        /// <param name="rank">
+        /// The rank.
         /// </param>
         /// <returns>
-        /// The ladder info.
+        /// The <see cref="string"/>.
         /// </returns>
-        protected string LadderInfo([NotNull] object _o)
+        protected string LadderInfo([NotNull] object rank)
         {
-            var dr = (Rank)_o;
+            var dr = (Rank)rank;
 
-            // object IsLadder,object MinPosts
-            // this.Eval( "IsLadder"),Eval( "MinPosts")
             var isLadder = dr.Flags.BinaryAnd(RankFlags.Flags.IsLadder);
 
             return isLadder

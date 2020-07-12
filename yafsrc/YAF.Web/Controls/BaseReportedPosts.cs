@@ -26,7 +26,7 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
-    using System.Data;
+    using System.Linq;
     using System.Web.UI;
 
     using YAF.Configuration;
@@ -52,45 +52,25 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Gets or sets MessageID.
         /// </summary>
-        public virtual int MessageID
-        {
-            get => this.ViewState["MessageID"]?.ToType<int>() ?? 0;
-
-            set => this.ViewState["MessageID"] = value;
-        }
+        public virtual int MessageID { get; set; }
 
         /// <summary>
         ///   Gets or sets Resolved.
         /// </summary>
         [NotNull]
-        public virtual string Resolved
-        {
-            get => this.ViewState["Resolved"].ToString();
-
-            set => this.ViewState["Resolved"] = value;
-        }
+        public virtual string Resolved { get; set; }
 
         /// <summary>
         ///   Gets or sets ResolvedBy. It returns UserID as string value
         /// </summary>
         [NotNull]
-        public virtual int ResolvedBy
-        {
-            get => this.ViewState["ResolvedBy"].ToType<int>();
-
-            set => this.ViewState["ResolvedBy"] = value;
-        }
+        public virtual int ResolvedBy { get; set; }
 
         /// <summary>
         ///   Gets or sets ResolvedDate.
         /// </summary>
         [NotNull]
-        public virtual string ResolvedDate
-        {
-            get => this.ViewState["ResolvedDate"].ToString();
-
-            set => this.ViewState["ResolvedDate"] = value;
-        }
+        public virtual string ResolvedDate { get; set; }
 
         #endregion
 
@@ -104,32 +84,29 @@ namespace YAF.Web.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            var reportersList = this.GetRepository<Message>().ListReportersAsDataTable(this.MessageID);
+            var reportersList = this.GetRepository<User>().MessageReporters(this.MessageID);
 
-            if (!reportersList.HasRows())
+            if (!reportersList.Any())
             {
                 return;
             }
 
             writer.BeginRender();
-            reportersList.AsEnumerable().ForEach(
+
+            reportersList.ForEach(
                 reporter =>
                     {
                         writer.WriteLine(@"<div class=""alert alert-secondary"" role=""alert"">");
 
                         string howMany = null;
-                        if (reporter["ReportedNumber"].ToType<int>() > 1)
+                        if (reporter.Item1.ReportedNumber > 1)
                         {
-                            howMany = $"({reporter["ReportedNumber"]})";
+                            howMany = $"({this.GetTextFormatted("REPORTED_TIMES", reporter.Item1.ReportedNumber)})";
                         }
 
-                        var resolvedByName = string.Empty;
-
-                        var reporterUser = this.GetRepository<User>().GetById(reporter["UserID"].ToType<int>());
-
                         var reporterName = this.Get<BoardSettings>().EnableDisplayName
-                            ? reporterUser.DisplayName
-                            : reporterUser.Name;
+                            ? reporter.Item2.DisplayName
+                            : reporter.Item2.Name;
 
                         // If the message was previously resolved we have not null string
                         // and can add an info about last user who resolved the message
@@ -138,12 +115,12 @@ namespace YAF.Web.Controls
                             var resolvedBy = this.GetRepository<User>().GetById(
                                 this.ResolvedBy.ToType<int>());
 
-                            resolvedByName = this.Get<BoardSettings>().EnableDisplayName
+                            var resolvedByName = this.Get<BoardSettings>().EnableDisplayName
                                 ? resolvedBy.DisplayName
                                 : resolvedBy.Name;
 
                             writer.Write(
-                                @"<span class=""font-weight-bold"">{0}</span><a href=""{1}""> {2}</a> : {3}",
+                                @"<span class=""font-weight-bold mr-2"">{0}</span><a href=""{1}"">{2}</a> : {3}",
                                 this.GetText("RESOLVEDBY"),
                                 BuildLink.GetUserProfileLink(this.ResolvedBy.ToType<int>(), resolvedByName),
                                 resolvedByName,
@@ -151,23 +128,23 @@ namespace YAF.Web.Controls
                         }
 
                         writer.Write(
-                            @"<span class=""font-weight-bold"">{3}</span><a href=""{1}""> {0}{2} </a>",
-                            resolvedByName,
-                            BuildLink.GetUserProfileLink(reporter["UserID"].ToType<int>(), reporterName),
+                            @"<span class=""font-weight-bold mx-2"">{3}</span><a href=""{1}"" class=""mr-2"">{0}</a><em>{2}</em>",
+                            reporterName,
+                            BuildLink.GetUserProfileLink(reporter.Item2.ID, reporterName),
                             howMany,
                             this.GetText("REPORTEDBY"));
 
                         writer.Write(
-                            @"<a class=""btn btn-secondary btn-sm"" href=""{1}""><i class=""fa fa-envelope fa-fw""></i>&nbsp;{2} {0}</a>",
+                            @"<a class=""btn btn-secondary btn-sm ml-2"" href=""{1}""><i class=""fa fa-envelope fa-fw""></i>&nbsp;{2} {0}</a>",
                             reporterName,
                             BuildLink.GetLink(
                                 ForumPages.PostPrivateMessage,
                                 "u={0}&r={1}",
-                                reporter["UserID"].ToType<int>(),
+                                reporter.Item2.ID,
                                 this.MessageID),
                             this.GetText("REPLYTO"));
 
-                        var reportString = reporter["ReportText"].ToString().Trim().Split('|');
+                        var reportString = reporter.Item1.ReportText.Trim().Split('|');
 
                         reportString.ForEach(
                             t =>
@@ -175,31 +152,12 @@ namespace YAF.Web.Controls
                                     var textString = t.Split("??".ToCharArray());
 
                                     writer.Write(
-                                        @"<span class=""font-weight-bold pl-1"">@</span><span class=""pl-1"">{0}</span>",
+                                        @"<p class=""card-text"">@</span><span class=""pl-1"">{0}</p>",
                                         this.Get<IDateTime>().FormatDateTimeTopic(textString[0]));
-
-                                    // Apply style if a post was previously resolved
-                                    var resStyle = "post_res";
-                                    try
-                                    {
-                                        if (!(textString[0].IsNotSet()
-                                              && this.ResolvedDate.IsNotSet()))
-                                        {
-                                            if (Convert.ToDateTime(textString[0])
-                                                < Convert.ToDateTime(this.ResolvedDate))
-                                            {
-                                                resStyle = "post";
-                                            }
-                                        }
-                                    }
-                                    catch (Exception)
-                                    {
-                                        resStyle = "post_res";
-                                    }
 
                                     if (textString.Length > 2)
                                     {
-                                        writer.Write(@"<p class=""card-text {0}"">", resStyle);
+                                        writer.Write(@"<p class=""card-text"">");
                                         writer.Write(textString[2]);
                                         writer.WriteLine(@"</p>");
                                     }

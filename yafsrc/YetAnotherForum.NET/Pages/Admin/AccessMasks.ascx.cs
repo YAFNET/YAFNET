@@ -51,18 +51,18 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The bit set.
         /// </summary>
-        /// <param name="_o">
-        /// The _o.
+        /// <param name="flag">
+        /// The flag.
         /// </param>
         /// <param name="bitmask">
         /// The bitmask.
         /// </param>
         /// <returns>
-        /// The bit set.
+        /// The <see cref="bool"/>.
         /// </returns>
-        protected bool BitSet([NotNull] object _o, int bitmask)
+        protected bool BitSet([NotNull] object flag, int bitmask)
         {
-            var i = (int)_o;
+            var i = (int)flag;
             return (i & bitmask) != 0;
         }
 

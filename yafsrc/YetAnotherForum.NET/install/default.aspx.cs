@@ -759,13 +759,13 @@ namespace YAF.Install
                 return false;
             }
 
-            if (this.TheForumName.Text.Length == 0)
+            if (this.TheForumName.Text.IsNotSet())
             {
                 this.ShowErrorMessage(Install.ErrorBoardName);
                 return false;
             }
 
-            if (this.ForumEmailAddress.Text.Length == 0)
+            if (this.ForumEmailAddress.Text.IsNotSet())
             {
                 this.ShowErrorMessage(Install.ErrorForumEmail);
                 return false;
@@ -776,19 +776,19 @@ namespace YAF.Install
 
             if (this.UserChoice.SelectedValue == "create")
             {
-                if (this.UserName.Text.Length == 0)
+                if (this.UserName.Text.IsNotSet())
                 {
                     this.ShowErrorMessage(Install.ErrorUserName);
                     return false;
                 }
 
-                if (this.AdminEmail.Text.Length == 0)
+                if (this.AdminEmail.Text.IsNotSet())
                 {
                     this.ShowErrorMessage(Install.ErrorUserEmail);
                     return false;
                 }
 
-                if (this.Password1.Text.Length == 0)
+                if (this.Password1.Text.IsNotSet())
                 {
                     this.ShowErrorMessage(Install.ErrorPassword);
                     return false;

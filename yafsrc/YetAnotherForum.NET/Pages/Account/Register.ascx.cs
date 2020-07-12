@@ -133,7 +133,6 @@ namespace YAF.Pages.Account
             if (this.PageContext.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
                 this.LoginButton.Visible = true;
-                this.LoginButton.Text = this.GetText("LOGIN_INSTEAD");
                 this.LoginButton.NavigateUrl = BuildLink.GetLink(ForumPages.Account_Login);
             }
 
@@ -175,8 +174,8 @@ namespace YAF.Pages.Account
                 UserName = this.UserName.Text,
                 LoweredUserName = this.UserName.Text,
                 Email = this.Email.Text,
-                IsApproved = !this.Get<BoardSettings>().EmailVerification,
-                EmailConfirmed = !this.Get<BoardSettings>().EmailVerification
+                IsApproved = false,
+                EmailConfirmed = false
             };
 
             var result = this.Get<IAspNetUsersHelper>().Create(user, this.Password.Text.Trim());
@@ -211,19 +210,10 @@ namespace YAF.Pages.Account
                 }
                 else
                 {
-                    // handle e-mail verification if needed
-                    if (this.Get<BoardSettings>().EmailVerification)
-                    {
-                        // get the user email
-                        var email = this.Email.Text.Trim();
+                    // handle e-mail verification
+                    var email = this.Email.Text.Trim();
 
-                        this.Get<ISendNotification>().SendVerificationEmail(user, email, userID);
-                    }
-                    else
-                    {
-                        // Send welcome mail/pm to user
-                        this.Get<ISendNotification>().SendUserWelcomeNotification(user, userID.Value);
-                    }
+                    this.Get<ISendNotification>().SendVerificationEmail(user, email, userID);
 
                     if (this.Get<BoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
                     {
@@ -232,29 +222,15 @@ namespace YAF.Pages.Account
                     }
                 }
 
-                if (!this.Get<BoardSettings>().EmailVerification)
-                {
-                    // vzrus: to clear the cache to show user in the list at once
-                    this.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
-                    this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
+                this.BodyRegister.Visible = false;
+                this.Footer.Visible = false;
 
-                    // automatically log in created users
-                    this.Get<IAspNetUsersHelper>().SignIn(user);
-
-                    BuildLink.Redirect(ForumPages.Board);
-                }
-                else
-                {
-                    this.BodyRegister.Visible = false;
-                    this.Footer.Visible = false;
-                    
-                    // success notification localization
-                    this.Message.Visible = true;
-                    this.AccountCreated.Text = this.Get<IBBCode>().MakeHtml(
-                        this.GetText("ACCOUNT_CREATED_VERIFICATION"),
-                        true,
-                        true);
-                }
+                // success notification localization
+                this.Message.Visible = true;
+                this.AccountCreated.Text = this.Get<IBBCode>().MakeHtml(
+                    this.GetText("ACCOUNT_CREATED_VERIFICATION"),
+                    true,
+                    true);
             }
         }
 
@@ -297,8 +273,6 @@ namespace YAF.Pages.Account
         /// </summary>
         private void SetupCreateUserStep()
         {
-            this.CreateUser.Text = this.GetText("CREATE_USER");
-
             var captchaPlaceHolder = this.YafCaptchaHolder;
             var recaptchaPlaceHolder = this.RecaptchaPlaceHolder;
 

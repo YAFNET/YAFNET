@@ -104,18 +104,18 @@
                         <asp:Label ID="noteLocal" runat="server"></asp:Label>
                     </YAF:Alert>
                 </asp:PlaceHolder>
-            </div>
-            <div class="card-footer text-center">
-                <YAF:ThemeButton ID="UpdateUpload" runat="server"
-                                 OnClick="UploadUpdate_Click"
-                                 Type="Primary"
-                                 TextLocalizedTag="SAVE"
-                                 Icon="save" />
-                <YAF:ThemeButton ID="Back"
-                                 Type="Secondary" runat="server"
-                                 OnClick="Back_Click"
-                                 Icon="reply"
-                                 TextLocalizedTag="BACK" />
+                <div class="text-lg-center">
+                    <YAF:ThemeButton ID="UpdateUpload" runat="server"
+                                     OnClick="UploadUpdate_Click"
+                                     Type="Primary"
+                                     TextLocalizedTag="SAVE"
+                                     Icon="save" />
+                    <YAF:ThemeButton ID="Back"
+                                     Type="Secondary" runat="server"
+                                     OnClick="Back_Click"
+                                     Icon="reply"
+                                     TextLocalizedTag="BACK" />
+                </div>
             </div>
         </div>
     </div>

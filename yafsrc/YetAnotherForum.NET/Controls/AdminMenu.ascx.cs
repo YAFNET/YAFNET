@@ -146,9 +146,9 @@ namespace YAF.Controls
 
             // Admin - Settings Menu
             if (this.PageContext.IsHostAdmin || pagesAccess.Any(
-                x => x.PageName == "Admin_Settings" || x.PageName == "Admin_Forums" ||
-                     x.PageName == "Admin_ReplaceWords" || x.PageName == "Admin_BBCodes" ||
-                     x.PageName == "Admin_Languages"))
+                x => x.PageName == "Admin_BoardAnnouncement" || x.PageName == "Admin_Settings" ||
+                     x.PageName == "Admin_Forums" || x.PageName == "Admin_ReplaceWords" ||
+                     x.PageName == "Admin_BBCodes" || x.PageName == "Admin_Languages"))
             {
                 this.RenderAdminSettings(pagesAccess);
             }
@@ -224,6 +224,7 @@ namespace YAF.Controls
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "SETTINGS"),
                 "#",
+                this.PageContext.ForumPageType == ForumPages.Admin_BoardAnnouncement ||
                 this.PageContext.ForumPageType == ForumPages.Admin_Settings ||
                 this.PageContext.ForumPageType == ForumPages.Admin_Forums ||
                 this.PageContext.ForumPageType == ForumPages.Admin_EditForum ||
@@ -239,6 +240,20 @@ namespace YAF.Controls
             var list = new HtmlGenericControl("ul");
 
             list.Attributes.Add("class", "dropdown-menu dropdown-submenu");
+
+            // Admin Board Announcement
+            if (this.PageContext.IsHostAdmin || pagesAccess.Any(
+                x => x.PageName == "Admin_BoardAnnouncement"))
+            {
+                RenderMenuItem(
+                    list,
+                    "dropdown-item dropdown",
+                    this.GetText("ADMINMENU", "admin_BoardAnnouncement"),
+                    BuildLink.GetLink(ForumPages.Admin_BoardAnnouncement),
+                    this.PageContext.ForumPageType == ForumPages.Admin_BoardAnnouncement,
+                    false,
+                    "bullhorn");
+            }
 
             // Admin Settings
             if (this.PageContext.IsHostAdmin || pagesAccess.Any(

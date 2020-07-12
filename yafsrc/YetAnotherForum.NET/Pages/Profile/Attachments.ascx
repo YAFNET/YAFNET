@@ -25,17 +25,17 @@
                         <ul class="list-group list-group-flush mt-3">
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li class="list-group-item">
-                            
-                                <asp:CheckBox ID="Selected" runat="server"
+                        <li class="list-group-item d-inline-flex align-items-center">
+                            <asp:CheckBox ID="Selected" runat="server"
                                               Text="&nbsp;"
-                                              CssClass="form-check d-inline-flex" />
+                                              CssClass="form-check" />
                                 <%# this.GetPreviewImage(Container.DataItem) %>
                                 <%# this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
-                            
-                                <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
+                            <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
                                                  CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>' 
+                                                 CssClass="ml-2"
                                                  TitleLocalizedTag="DELETE" 
+                                                 Size="Small"
                                                  TextLocalizedTag="DELETE"
                                                  Icon="trash"
                                                  Type="Danger"
@@ -57,12 +57,6 @@
                                  Visible="<%# this.List.Items.Count > 0 %>"
                                  CssClass="m-3"/>
                 <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
-            </div>
-            <div class="card-footer text-center">
-               <YAF:ThemeButton runat="server" ID="Back" 
-                                OnClick="Back_Click"
-                                Type="Secondary"
-                                Icon="reply"/>
             </div>
         </div>
     </div>

@@ -65,8 +65,10 @@
                                     <YAF:ThemeButton ID="AdminUserButton" runat="server" 
                                                      TitleLocalizedPage="PROFILE" TitleLocalizedTag="ADMIN_USER"
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE" 
-                                                     Size="Small" Visible="false"
-                                                     Icon="user-cog" Type="Secondary"
+                                                     Size="Small" 
+                                                     Visible="false"
+                                                     Icon="user-cog" 
+                                                     Type="Danger"
                                                      NavigateUrl='<%# BuildLink.GetLink(ForumPages.Admin_EditUser,"u={0}", this.Eval("ID").ToType<int>() ) %>'>
                                     </YAF:ThemeButton>
                                 </div>
@@ -123,7 +125,7 @@
                                                          Type="Secondary"
                                                          TextLocalizedTag="GO" 
                                                          OnClick="GoToForum"></YAF:ThemeButton>
-                                        <asp:DropDownList ID="ModForums" runat="server" CssClass="select2-select form-control">
+                                        <asp:DropDownList ID="ModForums" runat="server" CssClass="form-control mb-1">
                                         </asp:DropDownList>
                                     </div>
                                 </p>
@@ -140,10 +142,12 @@
                                                      TitleLocalizedPage="POSTS" TitleLocalizedTag="EMAIL_TITLE"
                                                      Icon="at" Type="Secondary" />
                                     <YAF:ThemeButton ID="AdminUserButton" runat="server" 
-                                                     Size="Small" Visible="false"
+                                                     Size="Small" 
+                                                     Visible="false"
                                                      TitleLocalizedPage="PROFILE" TitleLocalizedTag="ADMIN_USER"
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
-                                                     Icon="user-cog" Type="Secondary"
+                                                     Icon="user-cog" 
+                                                     Type="Danger"
                                                      NavigateUrl='<%# BuildLink.GetLink( ForumPages.Admin_EditUser,"u={0}", this.Eval("ModeratorID").ToType<int>() ) %>'>
                                     </YAF:ThemeButton>
                                 </div>

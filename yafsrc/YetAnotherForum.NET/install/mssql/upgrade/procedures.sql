@@ -2882,31 +2882,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_listreporters](@MessageID int, @UserID int = null) AS
-BEGIN
-    IF ( @UserID > 0 )
-    BEGIN
-    SELECT b.UserID, UserName = a.Name,UserDisplayName = a.DisplayName, b.ReportedNumber, b.ReportText,
-    a.Suspended, 
-    a.UserStyle
-    FROM [{databaseOwner}].[{objectQualifier}User] a,
-    [{databaseOwner}].[{objectQualifier}MessageReportedAudit] b
-    WHERE   a.UserID = b.UserID  AND b.MessageID = @MessageID AND b.UserID = @UserID
-    END
-    ELSE
-    BEGIN
-    SELECT b.UserID, UserName = a.Name,UserDisplayName = a.DisplayName, b.ReportedNumber, b.ReportText,
-    a.Suspended, 
-    a.UserStyle
-    FROM [{databaseOwner}].[{objectQualifier}User] a,
-    [{databaseOwner}].[{objectQualifier}MessageReportedAudit] b
-    WHERE   a.UserID = b.UserID  AND b.MessageID = @MessageID
-    END
-
-
-END
-GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_report](@MessageID int, @ReporterID int, @ReportedDate datetime, @ReportText nvarchar(4000),@UTCTIMESTAMP datetime) AS
 BEGIN
     IF @ReportText IS NULL SET @ReportText = '';

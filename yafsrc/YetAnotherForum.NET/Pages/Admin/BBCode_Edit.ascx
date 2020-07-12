@@ -29,18 +29,27 @@
                                            AssociatedControlID="txtName"
                                            LocalizedTag="BBCODE_NAME" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
                             <asp:TextBox id="txtName" runat="server" 
+                                         required="required"
                                          CssClass="form-control"></asp:TextBox>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedTag="MSG_NAME" />
+                            </div>
                         </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel2" runat="server" 
                                            AssociatedControlID="txtExecOrder"
                                            LocalizedTag="EXEC_ORDER" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
-
                             <asp:TextBox ID="txtExecOrder" runat="server" 
                                          Text="1" 
+                                         required="required"
                                          CssClass="form-control" 
                                          TextMode="Number"
                                          MaxLength="5"></asp:TextBox>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedTag="MSG_NUMBER" />
+                            </div>
                         </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel3" runat="server" 
@@ -148,13 +157,14 @@
                     </div>
                 </div>
                 <div class="card-footer text-center">
-				<YAF:ThemeButton id="save" runat="server" 
+				<YAF:ThemeButton id="Save" runat="server" 
+                                 CausesValidation="True"
                                  OnClick="Add_Click" 
                                  Type="Primary"
 				                 Icon="save" 
                                  TextLocalizedTag="SAVE">
                 </YAF:ThemeButton>
-				<YAF:ThemeButton id="cancel" runat="server"
+				<YAF:ThemeButton id="Cancel" runat="server"
                                  OnClick="Cancel_Click"
                                  Type="Secondary"
 				                 Icon="times"

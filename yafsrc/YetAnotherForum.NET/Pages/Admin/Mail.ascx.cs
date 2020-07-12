@@ -34,12 +34,12 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -62,6 +62,10 @@ namespace YAF.Pages.Admin
             {
                 return;
             }
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Send.ClientID));
 
             this.BindData();
         }
@@ -93,39 +97,30 @@ namespace YAF.Pages.Admin
                 groupId = this.ToList.SelectedValue.ToType<int>();
             }
 
-            var subject = this.Subject.Text.Trim();
+            var emails = this.GetRepository<User>().GroupEmails(groupId.Value);
 
-            if (subject.IsNotSet())
-            {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_SUBJECT"), MessageTypes.danger);
-            }
-            else
-            {
-                var emails = this.GetRepository<User>().GroupEmails(groupId.Value);
+            Parallel.ForEach(
+                emails,
+                email =>
+                {
+                    var from = new MailAddress(
+                        this.Get<BoardSettings>().ForumEmail,
+                        this.Get<BoardSettings>().Name);
 
-                Parallel.ForEach(
-                    emails,
-                    email =>
-                    {
-                        var from = new MailAddress(
-                            this.Get<BoardSettings>().ForumEmail,
-                            this.Get<BoardSettings>().Name);
+                    var to = new MailAddress(email);
 
-                        var to = new MailAddress(email);
+                    this.Get<ISendMail>().Send(
+                        from,
+                        to,
+                        from,
+                        this.Subject.Text.Trim(),
+                        this.Body.Text.Trim(),
+                        null);
+                });
 
-                        this.Get<ISendMail>().Send(
-                            from,
-                            to,
-                            from,
-                            this.Subject.Text.Trim(),
-                            this.Body.Text.Trim(),
-                            null);
-                    });
-
-                this.Subject.Text = string.Empty;
-                this.Body.Text = string.Empty;
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_QUEUED"), MessageTypes.success);
-            }
+            this.Subject.Text = string.Empty;
+            this.Body.Text = string.Empty;
+            this.PageContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_QUEUED"), MessageTypes.success);
         }
 
         /// <summary>

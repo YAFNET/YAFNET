@@ -33,7 +33,6 @@ namespace YAF.Pages.Admin
     using System.Xml.Linq;
 
     using YAF.Core.BasePages;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -41,7 +40,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -147,11 +145,11 @@ namespace YAF.Pages.Admin
                 "content-disposition",
                 "attachment; filename=ReplaceWordsExport.xml");
 
-            var spamwordList = this.GetRepository<Replace_Words>().GetByBoardId();
+            var spamWordList = this.GetRepository<Replace_Words>().GetByBoardId();
 
             var element = new XElement(
                 "YafReplaceWordsList",
-                from spamWord in spamwordList
+                from spamWord in spamWordList
                 select new XElement(
                     "YafReplaceWords",
                     new XElement("BadWord", spamWord.BadWord),

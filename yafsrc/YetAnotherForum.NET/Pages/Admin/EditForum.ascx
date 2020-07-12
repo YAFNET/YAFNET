@@ -26,14 +26,25 @@
                             <YAF:HelpLabel ID="HelpLabel3" runat="server" 
                                            AssociatedControlID="Name"
                                            LocalizedTag="NAME" LocalizedPage="ADMIN_EDITFORUM" />
-                            <asp:TextBox ID="Name" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="Name" runat="server" 
+                                         required="required"
+                                         CssClass="form-control"></asp:TextBox>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server"
+                                                    LocalizedTag="MSG_NAME_FORUM" />
+                            </div>
                         </div>
                         <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel4" runat="server" 
                                            AssociatedControlID="Description"
                                            LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_EDITFORUM" />
                             <asp:TextBox ID="Description" runat="server" 
-                                         CssClass="form-control"></asp:TextBox>
+                                         CssClass="form-control"
+                                         required="required"></asp:TextBox>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server"
+                                                    LocalizedTag="MSG_VALUE" />
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -197,6 +208,7 @@
                 <div class="card-footer text-center">
                 <YAF:ThemeButton ID="Save" runat="server" 
                                  CssClass="mr-2"
+                                 CausesValidation="True"
                                  Type="Primary"
                                  Icon="save" 
                                  TextLocalizedTag="SAVE">

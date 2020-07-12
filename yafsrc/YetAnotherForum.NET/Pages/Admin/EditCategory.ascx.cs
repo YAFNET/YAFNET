@@ -36,6 +36,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -116,6 +117,10 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+
             // Populate Category Table
             this.CreateImagesDataTable();
 
@@ -144,7 +149,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var name = this.Name.Text.Trim();
             string categoryImage = null;
 
             if (this.CategoryImages.SelectedIndex > 0)
@@ -160,21 +164,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            if (!short.TryParse(this.SortOrder.Text.Trim(), out var sortOrder))
-            {
-                // error...
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_NUMBER"), MessageTypes.danger);
-                return;
-            }
-
-            if (name.IsNotSet())
-            {
-                // error...
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_VALUE"), MessageTypes.danger);
-                return;
-            }
-
-            var category = this.GetRepository<Category>().GetSingle(c => c.Name == name);
+            var category = this.GetRepository<Category>().GetSingle(c => c.Name == this.Name.Text);
 
             // Check Name duplicate only if new Category
             if (category != null && this.CategoryId == 0)
@@ -186,7 +176,7 @@ namespace YAF.Pages.Admin
             }
 
             // save category
-            this.GetRepository<Category>().Save(this.CategoryId, name, categoryImage, sortOrder);
+            this.GetRepository<Category>().Save(this.CategoryId, this.Name.Text, categoryImage, this.SortOrder.Text.ToType<short>());
 
             // remove category cache...
             this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);

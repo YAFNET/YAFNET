@@ -38,7 +38,8 @@
                                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
                                                     LocalizedTag="EMAIL" LocalizedPage="REGISTER"></YAF:LocalizedLabel>:
                             </asp:Label>
-                            <asp:TextBox CssClass="form-control" id="Email" runat="server" 
+                            <asp:TextBox id="Email" runat="server" 
+                                         CssClass="form-control"
                                          TextMode="Email"></asp:TextBox>
                             <asp:RequiredFieldValidator id="Requiredfieldvalidator5" runat="server" 
                                                         ControlToValidate="Email" 
@@ -76,38 +77,17 @@
                                                   CssClass="form-text text-danger"></asp:CompareValidator>
                         </div>
                     </div>
-                    <h3>
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
-                                            LocalizedTag="HEADER3" 
-                                            LocalizedPage="ADMIN_REGUSER" />:
-                    </h3>
-                    <div class="mb-3">
-                        <asp:Label runat="server" AssociatedControlID="Location">
-                            <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" 
-                                                LocalizedTag="LOCATION" 
-                                                LocalizedPage="ADMIN_REGUSER"></YAF:LocalizedLabel>:
-                        </asp:Label>
-                        <asp:TextBox id="Location" runat="server"
-                                     CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="mb-3">
-                        <asp:Label runat="server" AssociatedControlID="HomePage">
-                            <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" 
-                                                LocalizedTag="HOMEPAGE" 
-                                                LocalizedPage="ADMIN_REGUSER"></YAF:LocalizedLabel>:
-                        </asp:Label>
-                        <asp:TextBox id="HomePage" runat="server"
-                                     CssClass="form-control"></asp:TextBox>
-                    </div>
                 </div>
                 <div class="card-footer text-center">
                     <YAF:ThemeButton id="ForumRegister" runat="server" 
                                      Onclick="ForumRegisterClick" 
+                                     CausesValidation="True"
+                                     CssClass="mr-2"
                                      Type="Primary"
                                      Icon="user-plus" 
-                                     TextLocalizedTag="REGISTER" TextLocalizedPage="ADMIN_REGUSER">
+                                     TextLocalizedTag="REGISTER" 
+                                     TextLocalizedPage="ADMIN_REGUSER">
                     </YAF:ThemeButton>
-                    &nbsp;
                     <YAF:ThemeButton id="cancel" runat="server" 
                                      Onclick="CancelClick" 
                                      Type="Secondary"

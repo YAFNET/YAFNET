@@ -51,18 +51,6 @@ namespace YAF.Types.Models
         [StringLength(50)]
         public string Name { get; set; }
 
-        /// <summary>
-        /// Gets or sets the membership app name.
-        /// </summary>
-        [StringLength(255)]
-        public string MembershipAppName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the roles app name.
-        /// </summary>
-        [StringLength(255)]
-        public string RolesAppName { get; set; }
-
         #endregion
     }
 }

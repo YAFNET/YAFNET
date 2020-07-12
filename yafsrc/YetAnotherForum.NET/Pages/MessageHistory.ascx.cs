@@ -128,8 +128,7 @@ namespace YAF.Pages
 
             if (this.originalMessage == null)
             {
-                this.Get<HttpResponseBase>().Redirect(
-                    BuildLink.GetLink(ForumPages.Error, "Incorrect message value: {0}", this.messageID));
+                BuildLink.RedirectInfoPage(InfoMessage.Invalid);
             }
 
             this.PageLinks.AddForum(this.originalMessage.Item4.ID);

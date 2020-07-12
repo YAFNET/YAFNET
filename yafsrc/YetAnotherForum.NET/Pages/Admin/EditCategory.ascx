@@ -24,11 +24,17 @@
                     <div class="row">
                         <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel1" runat="server"
-                             AssociatedControlID="Name"
-                             LocalizedTag="CATEGORY_NAME" LocalizedPage="ADMIN_EDITCATEGORY" />
+                                           AssociatedControlID="Name"
+                                           LocalizedTag="CATEGORY_NAME" 
+                                           LocalizedPage="ADMIN_EDITCATEGORY" />
                             <asp:TextBox ID="Name" runat="server" 
-                                         MaxLength="50" 
+                                         MaxLength="50"
+                                         required="required" 
                                          CssClass="form-control"></asp:TextBox>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server"
+                                                    LocalizedTag="MSG_VALUE" />
+                            </div>
                         </div>
                         <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel3" runat="server"
@@ -36,8 +42,13 @@
                                            LocalizedTag="SORT_ORDER" LocalizedPage="ADMIN_EDITCATEGORY" />
                             <asp:TextBox ID="SortOrder" runat="server" 
                                          MaxLength="5" 
+                                         required="required" 
                                          CssClass="form-control" 
                                          TextMode="Number"></asp:TextBox>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server"
+                                                    LocalizedTag="MSG_VALUE" />
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -51,6 +62,7 @@
                 <div class="card-footer text-center">
                     <YAF:ThemeButton ID="Save" runat="server" 
                                      OnClick="SaveClick" 
+                                     CausesValidation="True"
                                      Type="Primary"
                                      Icon="save" 
                                      TextLocalizedTag="Save">

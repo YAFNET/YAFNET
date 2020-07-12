@@ -462,17 +462,18 @@ namespace YAF.Pages
             // get the user list...
             var selectedLetter = this.UserSearchName.Text.IsSet() ? this.UserSearchName.Text.Trim() : selectedCharLetter.ToString();
 
-            if (this.NumPostsTB.Text.Trim().IsSet() &&
-                (!int.TryParse(this.NumPostsTB.Text.Trim(), out var numpostsTb) || numpostsTb < 0 || numpostsTb > int.MaxValue))
-            {
-                this.PageContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
-                return;
-            }
+            var numberOfPosts = this.NumPostsTB.Text.ToType<int>();
 
-            if (this.NumPostsTB.Text.Trim().IsNotSet())
+            if (this.NumPostsTB.Text.IsNotSet())
             {
                 this.NumPostsTB.Text = "0";
                 this.NumPostDDL.SelectedValue = "3";
+            }
+
+            if (numberOfPosts < 0)
+            {
+                this.PageContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
+                return;
             }
 
             // get the user list...

@@ -7,7 +7,8 @@
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <div class="row">
     <div class="col-xl-12">
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_ADMIN" /></h1>
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" 
+                                LocalizedTag="TITLE" LocalizedPage="ADMIN_ADMIN" /></h1>
     </div>
 </div>
     <asp:PlaceHolder ID="UpdateHightlight" runat="server" Visible="false">
@@ -24,18 +25,23 @@
     <div class="row">
              <div class="col-xl-12">
                     <div class="card mb-3">
-                        <div class="card-header d-flex">
-                            <YAF:IconHeader runat="server"
-                                            IconName="tachometer-alt"
-                                            LocalizedTag="HEADER3"
-                                            LocalizedPage="ADMIN_ADMIN"></YAF:IconHeader>
-                            <asp:DropDownList ID="BoardStatsSelect" runat="server" 
-                                              DataTextField="Name" 
-                                              DataValueField="ID"
-                                              OnSelectedIndexChanged="BoardStatsSelectChanged" 
-                                              AutoPostBack="true" 
-                                              CssClass="form-select" 
-                                              Width="300" />
+                        <div class="card-header">
+                            <div class="row row-cols-md-auto">
+                                <div class="col-12">
+                                    <YAF:IconHeader runat="server"
+                                                    IconName="tachometer-alt"
+                                                    LocalizedTag="HEADER3"
+                                                    LocalizedPage="ADMIN_ADMIN"></YAF:IconHeader>
+                                </div>
+                                <div class="col-12">
+                                    <asp:DropDownList ID="BoardStatsSelect" runat="server" 
+                                                      DataTextField="Name" 
+                                                      DataValueField="ID"
+                                                      OnSelectedIndexChanged="BoardStatsSelectChanged" 
+                                                      AutoPostBack="true" 
+                                                      CssClass="select2-select" />
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -265,7 +271,7 @@
                             </tbody>
                         </table>
                         </div>
-                        <div id="ActiveUsersPager" class=" tableSorterPager d-flex">
+                        <div id="ActiveUsersPager" class="tableSorterPager d-flex">
                             <select class="pagesize form-select form-select-sm mr-2">
 		                        <option selected="selected" value="10">10</option>
 		                        <option value="20">20</option>
@@ -404,7 +410,6 @@
                                      TextLocalizedTag="APROVE_ALL" 
                                      CssClass="mr-1"
                                      ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'/>
-                    
                     <YAF:ThemeButton runat="server"
                                      CommandName="deleteall" 
                                      Type="Danger" 

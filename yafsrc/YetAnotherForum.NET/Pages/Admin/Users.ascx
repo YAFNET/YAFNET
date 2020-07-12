@@ -28,7 +28,47 @@
                                         LocalizedPage="ADMIN_USERS"></YAF:IconHeader>
                     </div>
                     <div class="col-auto">
-                        <YAF:ThemeButton runat="server"
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group btn-group-sm mr-2 dropleft" role="group" aria-label="tools">
+                                <YAF:ThemeButton runat="server"
+                                                 CssClass="dropdown-toggle"
+                                                 DataToggle="dropdown"
+                                                 Size="Small"
+                                                 Type="Secondary"
+                                                 Icon="tools"
+                                                 TextLocalizedTag="TOOLS" />
+                                <div class="dropdown-menu">
+                                    <div class="px-3 py-1">
+                                        <div class="mb-3">
+                                            <YAF:HelpLabel runat="server" 
+                                                           AssociatedControlID="YearsOld"
+                                                           LocalizedTag="LOCK_INACTIVE"></YAF:HelpLabel>
+                                            <div class="input-group">
+                                                <asp:TextBox ID="YearsOld" runat="server" 
+                                                             MaxLength="5" 
+                                                             Text="5" 
+                                                             CssClass="form-control"
+                                                             TextMode="Number">
+                                                </asp:TextBox>
+                                                <div class="input-group-text">
+                                                    <YAF:LocalizedLabel runat="server" LocalizedTag="YEARS"></YAF:LocalizedLabel>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <YAF:ThemeButton runat="server"
+                                                             Type="Danger" 
+                                                             Icon="trash" 
+                                                             CssClass="btn-block"
+                                                             TextLocalizedTag="LOCK_INACTIVE" 
+                                                             TitleLocalizedTag="LOCK_INACTIVE_HELP"
+                                                             OnClick="LockAccountsClick"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-group btn-group-sm dropleft" role="group" aria-label="sort">
+                                <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown"
                                          Size="Small"
@@ -36,8 +76,8 @@
                                          Icon="filter"
                                          TextLocalizedTag="FILTER_DROPDOWN"
                                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
-                        <div class="dropdown-menu">
-                            <div class="px-3 py-1">
+                                <div class="dropdown-menu">
+                                    <div class="px-3 py-1">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="name">
@@ -117,13 +157,14 @@
                                                      Icon="trash">
                                     </YAF:ThemeButton>
                                 </div>
-                                
+                            </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
-                </div>
-                <div class="card-body">
+            </div>
+            <div class="card-body">
                     <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserListItemCommand">
                         <HeaderTemplate>
                             <ul class="list-group">
@@ -304,43 +345,6 @@
     </div>
     <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" UsePostBack="True" />
     </asp:PlaceHolder>
-
-<div class="row">
-    <div class="col">
-        <div class="card">
-            <div class="card-header">
-                <i class="fas fa-tools text-secondary mr-1"></i>
-                <YAF:LocalizedLabel runat="server"
-                                    LocalizedTag="TOOLS"></YAF:LocalizedLabel>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <YAF:HelpLabel runat="server" 
-                                   AssociatedControlID="YearsOld"
-                                   LocalizedTag="LOCK_INACTIVE"></YAF:HelpLabel>
-                    <div class="input-group">
-                        <asp:TextBox ID="YearsOld" runat="server" 
-                                     MaxLength="5" 
-                                     Text="5" 
-                                     CssClass="form-control"
-                                     TextMode="Number">
-                        </asp:TextBox>
-                        <div class="input-group-text">
-                            <YAF:LocalizedLabel runat="server" LocalizedTag="YEARS"></YAF:LocalizedLabel>
-                        </div>
-                    </div>
-                </div>
-                <YAF:ThemeButton runat="server"
-                                 Type="Danger" 
-                                 Icon="trash" 
-                                 TextLocalizedTag="LOCK_INACTIVE" 
-                                 TitleLocalizedTag="LOCK_INACTIVE_HELP"
-                                 OnClick="LockAccountsClick"/>
-                
-            </div>
-        </div>
-    </div>
-</div>
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>

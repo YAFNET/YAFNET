@@ -13,7 +13,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body needs-validation">
+            <div class="modal-body">
                 <!-- Modal Content START !-->
                 <div class="mb-3">
                     <YAF:HelpLabel ID="HelpLabel1" runat="server"

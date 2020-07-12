@@ -90,7 +90,7 @@
             <ItemTemplate>
                 <li class="list-group-item list-group-item-action list-group-item-menu">
                     <div class="d-flex w-100 justify-content-between text-break" 
-                         onclick="javascript:$('<%#  ".btn-toggle-{0}".Fmt(this.Eval("EventLogID")) %>').click();">
+                         onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".Fmt(this.Eval("EventLogID")) %>').click();">
                         <h5 class="mb-1">
                             <asp:HiddenField ID="EventTypeID" Value='<%# this.Eval("Type")%>' runat="server"/>
                             <%# this.EventIcon(Container.DataItem) %>
@@ -106,7 +106,8 @@
                             <%# this.Get<IDateTime>().FormatDateTimeTopic(Container.DataItemToField<DateTime>("EventTime")) %>
                         </small>
                     </div>
-                    <p class="mb-1">
+                    <p class="mb-1" 
+                       onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".Fmt(this.Eval("EventLogID")) %>').click();">
                         <span class="font-weight-bold"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                                            LocalizedTag="NAME" 
                                                                            LocalizedPage="ADMIN_EVENTLOG" />:</span>&nbsp;

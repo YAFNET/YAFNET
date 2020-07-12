@@ -32,7 +32,6 @@ namespace YAF.Pages.Profile
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
-    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;

@@ -20,33 +20,33 @@
                                         IconName="envelope" />
                     </div>
                     <div class="card-body">
-                        
-                            <h5 class="card-title">
+                        <h5 class="card-title">
                                 <YAF:LocalizedLabel ID="LocalizedLabel200" runat="server" LocalizedTag="NOTIFICATIONSELECTION" />
                             </h5>
                         <div class="form-check">
-                            <asp:RadioButtonList ID="rblNotificationType" runat="server" AutoPostBack="true"
-                                                     OnSelectedIndexChanged="rblNotificationType_SelectionChanged"
-                                                     RepeatLayout="UnorderedList"
-                                                     CssClass="list-unstyled">
+                            <asp:RadioButtonList ID="rblNotificationType" runat="server" 
+                                                 AutoPostBack="true"
+                                                 OnSelectedIndexChanged="rblNotificationType_SelectionChanged"
+                                                 RepeatLayout="UnorderedList"
+                                                 CssClass="list-unstyled">
                                 </asp:RadioButtonList>
-                            </div>
-                            <asp:PlaceHolder runat="server" id="DailyDigestRow">
-                                <asp:CheckBox ID="DailyDigestEnabled" runat="server" 
-                                              CssClass="form-check"
-                                              Text='<%# this.GetText("DAILY_DIGEST") %>'/>
-                            </asp:PlaceHolder>
-                            <asp:PlaceHolder runat="server" id="PMNotificationRow">
-                                <asp:CheckBox ID="PMNotificationEnabled" runat="server" 
-                                              CssClass="form-check" 
-                                              Text='<%# this.GetText("EDIT_PROFILE","PM_EMAIL_NOTIFICATION") %>' />
-                            </asp:PlaceHolder>
-                    </div>
-                    <div class="card-footer text-center">
-                        <YAF:ThemeButton ID="SaveUser" runat="server" OnClick="SaveUser_Click"
-                                         TextLocalizedTag="SAVE"
-                                         Type="Primary"
-                                         Icon="save"/>
+                        </div>
+                        <asp:PlaceHolder runat="server" id="DailyDigestRow">
+                            <asp:CheckBox ID="DailyDigestEnabled" runat="server" 
+                                          CssClass="form-check"
+                                          Text='<%# this.GetText("DAILY_DIGEST") %>'/>
+                        </asp:PlaceHolder>
+                        <asp:PlaceHolder runat="server" id="PMNotificationRow">
+                            <asp:CheckBox ID="PMNotificationEnabled" runat="server" 
+                                          CssClass="form-check" 
+                                          Text='<%# this.GetText("EDIT_PROFILE","PM_EMAIL_NOTIFICATION") %>' />
+                        </asp:PlaceHolder>
+                        <div class="text-lg-center mt-3">
+                            <YAF:ThemeButton ID="SaveUser" runat="server" OnClick="SaveUser_Click"
+                                             TextLocalizedTag="SAVE"
+                                             Type="Primary"
+                                             Icon="save"/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                         <div class="card-header">
                             <i class="fa fa-comments fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="forums" />
                         </div>
-                        <div class="card-body">
+                        <div class="card-body p-0">
                             <asp:Repeater ID="ForumList" runat="server">
                                 <HeaderTemplate>
                                     <ul class="list-group list-group-flush">
@@ -101,7 +101,7 @@
                         <div class="card-header">
                             <i class="fa fa-comments fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="topics" />
                         </div>
-                        <div class="card-body">
+                        <div class="card-body p-0">
                             <YAF:Pager ID="PagerTop" runat="server" PageSize="25" OnPageChange="PagerTop_PageChange"
                                        UsePostBack="True" />
                             <asp:Repeater ID="TopicList" runat="server">

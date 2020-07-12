@@ -12,21 +12,26 @@
 
 <div class="row">
     <div class="col">
-        <div class="card mb-3">
-            <div class="card-header">
-                <YAF:IconHeader runat="server"
-                                IconName="check-double"></YAF:IconHeader>
-            </div>
-            <div class="card-body text-center">
+        <div class="card w-25 mx-auto">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <YAF:LocalizedLabel runat="server"
+                                        LocalizedTag="TITLE"
+                                        LocalizedPage="APPROVE" />
+                </h5>
                 <YAF:Alert runat="server" ID="Approved"
                            Type="success" 
                            Visible="False">
+                    <YAF:Icon runat="server"
+                              IconName="info-circle" />
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                         LocalizedTag="email_verified" />
                 </YAF:Alert>
                 <YAF:Alert runat="server" ID="ErrorAlert" 
                            Type="danger" 
                            Visible="False">
+                    <YAF:Icon runat="server"
+                              IconName="info-circle" />
                     <asp:Literal runat="server" ID="ErrorMessage"></asp:Literal>
                 </YAF:Alert>
                 <div class="mb-3">
@@ -36,13 +41,14 @@
                     </asp:Label>
                     <asp:TextBox ID="key" runat="server" CssClass="form-control" />
                 </div>
-            </div>
-            <div class="card-footer text-center">
-                <YAF:ThemeButton ID="ValidateKey" runat="server" 
-                                 OnClick="ValidateKey_Click" 
-                                 Type="Primary"
-                                 TextLocalizedTag="VALIDATE"
-                                 Icon="check"/>
+                <div class="mb-3">
+                    <YAF:ThemeButton ID="ValidateKey" runat="server" 
+                                     OnClick="ValidateKey_Click" 
+                                     CssClass="btn-block"
+                                     Type="Primary"
+                                     TextLocalizedTag="VALIDATE"
+                                     Icon="check"/>
+                </div>
             </div>
         </div>
     </div>

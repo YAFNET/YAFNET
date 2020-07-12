@@ -24,7 +24,12 @@
                                              TextMode="MultiLine" 
                                              Width="100%" 
                                              Height="100px" 
-                                             CssClass="form-control"></asp:TextBox>
+                                             CssClass="form-control"
+                                             required="required" />
+                                <div class="invalid-feedback">
+                                    <YAF:LocalizedLabel runat="server"
+                                                        LocalizedTag="NEED_QUERY" />
+                                </div>
                             </div>
                             <div class="form-check form-switch">
                                 <asp:Checkbox ID="chkRunInTransaction" runat="server" 
@@ -35,6 +40,7 @@
                         <div class="card-footer text-center">
                             <YAF:ThemeButton ID="RunQuery" runat="server" 
                                              Type="Primary" 
+                                             CausesValidation="True"
                                              OnClick="RunQueryClick"
                                              Icon="rocket"
                                              TextLocalizedTag="RUN_QUERY" 

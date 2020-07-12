@@ -25,7 +25,12 @@
                                            AssociatedControlID="Name"
                                            LocalizedTag="RANK_NAME" LocalizedPage="ADMIN_EDITRANK" />
                             <asp:TextBox ID="Name" runat="server" 
-                                          CssClass="form-control" />
+                                          CssClass="form-control"
+                                         required="required" />
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server"
+                                                    LocalizedTag="NEED_NAME" />
+                            </div>
                         </div>
                         <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel6" runat="server"
@@ -43,6 +48,7 @@
                             <asp:TextBox ID="RankPriority" runat="server" 
                                          Text="0" 
                                          CssClass="form-control" 
+                                         required="required"
                                          TextMode="Number" />
                         </div>
                         <div class="mb-3 col-md-4">
@@ -137,6 +143,7 @@
                 <div class="card-footer text-center">
 				    <YAF:ThemeButton ID="Save" runat="server" 
                                      OnClick="Save_Click" 
+                                     CausesValidation="True"
                                      CssClass="mr-2"
                                      Type="Primary"            
 				                     Icon="save" 

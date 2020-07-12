@@ -32,13 +32,12 @@
                                            LocalizedTag="MEDAL_NAME" LocalizedPage="ADMIN_EDITMEDAL" />
                             <asp:TextBox ID="Name" runat="server" 
                                          MaxLength="100" 
-                                         CssClass="form-control"  />
-                            <YAF:LocalizedRequiredFieldValidator runat="server" 
-                                                        ControlToValidate="Name" 
-                                                        Display="Dynamic"
-                                                        ValidationGroup="Medal" 
-                                                        Text="Required"
-                                                        CssClass="form-text text-muted"/>
+                                         CssClass="form-control"
+                                         required="required" />
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server"
+                                                    LocalizedTag="MSG_NAME" />
+                            </div>
                         </div>
                         <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel4" runat="server"
@@ -57,12 +56,6 @@
                                      TextMode="MultiLine" 
                                      CssClass="form-control"
                                      Height="100" />
-                        <YAF:LocalizedRequiredFieldValidator runat="server" 
-                                                    ControlToValidate="Description" 
-                                                    Display="Dynamic"
-                                                    ValidationGroup="Medal" 
-                                                    Text="Required"
-                                                    CssClass="form-text text-muted"/>
                     </div>
                     <div class="row">
                         <div class="mb-3 col-md-6">
@@ -71,12 +64,7 @@
                                            LocalizedTag="MEDAL_MESSAGE" LocalizedPage="ADMIN_EDITMEDAL" />
                             <asp:TextBox  ID="Message" runat="server" 
                                           MaxLength="100" 
-                                          CssClass="form-control"  />
-                            <YAF:LocalizedRequiredFieldValidator runat="server" 
-                                                        ControlToValidate="Message" 
-                                                        Display="Dynamic"
-                                                        ValidationGroup="Medal" 
-                                                        Text="Required" />
+                                          CssClass="form-control" />
                         </div>
                         <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel10" runat="server"
@@ -140,6 +128,7 @@
                     <YAF:ThemeButton ID="Save" runat="server" 
                                      CssClass="mr-2"
                                      OnClick="SaveClick" 
+                                     CausesValidation="True"
                                      Type="Primary" 
                                      Icon="save" 
                                      TextLocalizedTag="SAVE" />

@@ -60,7 +60,7 @@
                         <span class="float-right">
                         <YAF:ThemeButton ID="btnEdit"
                             Type="Info" Size="Small"
-                            CommandName='edit'
+                            CommandName="edit"
                             CommandArgument='<%# this.Eval("CultureFile")%>'
                             TitleLocalizedTag="EDIT"
                             Icon="edit"

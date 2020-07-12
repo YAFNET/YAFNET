@@ -693,8 +693,6 @@ begin
 	create table [{databaseOwner}].[{objectQualifier}Board](
 		BoardID			int IDENTITY (1,1) NOT NULL,
 		Name			nvarchar(50) NOT NULL,
-		MembershipAppName nvarchar(255) NULL,
-		RolesAppName nvarchar(255) NULL,
  constraint [PK_{objectQualifier}Board] PRIMARY KEY CLUSTERED 
 (
 	[BoardID] ASC
@@ -987,21 +985,15 @@ if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{datab
 GO
 
 -- Board Table
-if not exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Board] add MembershipAppName nvarchar(255)
+	alter table [{databaseOwner}].[{objectQualifier}Board] drop column MembershipAppName
 end
 GO
 
-if not exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='RolesAppName')
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='RolesAppName')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Board] add RolesAppName nvarchar(255)
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Board] add MembershipAppName nvarchar(255)
+	alter table [{databaseOwner}].[{objectQualifier}Board] drop column RolesAppName
 end
 GO
 

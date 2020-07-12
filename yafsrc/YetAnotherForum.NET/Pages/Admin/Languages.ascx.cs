@@ -31,7 +31,6 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Core.BasePages;
-    using YAF.Core.Context;
     using YAF.Core.Helpers;
     using YAF.Core.Utilities;
     using YAF.Types;

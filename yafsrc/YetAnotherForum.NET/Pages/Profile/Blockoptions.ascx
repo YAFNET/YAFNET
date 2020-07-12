@@ -34,15 +34,17 @@
                                           CssClass="form-check"/>
                         </div>
                         <YAF:Alert runat="server" Type="info">
+                            <YAF:Icon runat="server"
+                                      IconName="info-circle"/>
                             <YAF:LocalizedLabel runat="server" LocalizedTag="NOTE_BLOCK"></YAF:LocalizedLabel>
                         </YAF:Alert>
-                    </div>
-                    <div class="card-footer text-center">
-                        <YAF:ThemeButton ID="SaveUser" runat="server"
-                                         OnClick="SaveUser_OnClick"
-                                         TextLocalizedTag="SAVE"
-                                         Type="Primary"
-                                         Icon="save"/>
+                        <div class="text-lg-center">
+                            <YAF:ThemeButton ID="SaveUser" runat="server"
+                                             OnClick="SaveUser_OnClick"
+                                             TextLocalizedTag="SAVE"
+                                             Type="Primary"
+                                             Icon="save"/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -52,8 +54,9 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fas fa-users fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                                                              LocalizedTag="IGNORED_USERS" />
+                <YAF:IconHeader runat="server"
+                                IconName="users"
+                                LocalizedTag="IGNORED_USERS" />
             </div>
             <div class="card-body">
                 <asp:Repeater ID="UserIgnoredList" runat="server" OnItemCommand="IgnoredItemCommand">

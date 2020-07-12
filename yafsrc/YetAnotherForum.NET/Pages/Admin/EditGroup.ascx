@@ -26,12 +26,12 @@
                                            AssociatedControlID="Name"
                                            LocalizedTag="ROLE_NAME" LocalizedPage="ADMIN_EDITGROUP" />
                             <asp:TextBox ID="Name" runat="server"
+                                         required="required"
                                          CssClass="form-control" />
-                            <asp:RequiredFieldValidator ID="postNameRequired" runat="server" 
-                                                        Display="Dynamic" 
-                                                        ControlToValidate="Name" 
-                                                        ErrorMessage="Role name is required."
-                                                        CssClass="form-text text-muted"></asp:RequiredFieldValidator>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server"
+                                                    LocalizedTag="MSG_NAME" />
+                            </div>
                         </div>
                         <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel6" runat="server"
@@ -186,6 +186,7 @@
                 </div>
                 <div class="card-footer text-center">
                     <YAF:ThemeButton ID="Save" runat="server" 
+                                     CausesValidation="True"
                                      OnClick="SaveClick" 
                                      CssClass="mr-2"
                                      Type="Primary"

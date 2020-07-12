@@ -13,7 +13,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body needs-validation">
+                    <div class="modal-body">
                         <!-- Modal Content START !-->
                         <div class="row">
                             <div class="mb-3 col-md-6">

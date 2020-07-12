@@ -41,8 +41,8 @@ BEGIN TRY
 
 	-- PRINT N'Create YAF.Net Board:';
 	INSERT INTO  [{databaseOwner}].[{objectQualifier}Board]
-		   (Name, MembershipAppName, RolesAppName, oModuleID)
-	SELECT ModuleTitle, N'', N'', ModuleID
+		   (Name, oModuleID)
+	SELECT ModuleTitle,ModuleID
 	 FROM  dbo.TabModules
 	 WHERE TabModuleID IN (SELECT Min(TabModuleID) FROM dbo.TabModules WHERE ModuleID = @oModuleID)
 

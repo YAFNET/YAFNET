@@ -42,12 +42,18 @@
                         <asp:Label runat="server" AssociatedControlID="ReasonEditor">
                             <% = this.GetReasonText() %>
                         </asp:Label>
-                        <asp:TextBox ID="ReasonEditor" runat="server" CssClass="form-control" MaxLength="100" />
+                        <asp:TextBox ID="ReasonEditor" runat="server" 
+                                     CssClass="form-control" 
+                                     MaxLength="100"
+                                     required="required" />
+                        <div class="invalid-feedback">
+                            <YAF:LocalizedLabel runat="server"
+                                                LocalizedTag="NEED_REASON" />
+                        </div>
                     </div>
                     </asp:PlaceHolder>
                     <asp:PlaceHolder id="EraseRow" runat="server" visible="false">
                         <div class="mb-3">
-                            
                             <asp:CheckBox ID="EraseMessage" runat="server" 
                                           Checked="false"
                                           CssClass="form-check"/>
@@ -58,6 +64,7 @@
             <div class="card-footer text-center">
                 <YAF:ThemeButton ID="Delete" runat="server" 
                                  OnClick="ToggleDeleteStatus_Click"
+                                 CausesValidation="True"
                                  Type="Danger"
                                  Icon="trash"/>
                 <YAF:ThemeButton ID="Cancel" runat="server" 

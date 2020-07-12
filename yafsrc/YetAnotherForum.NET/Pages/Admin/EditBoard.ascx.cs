@@ -38,6 +38,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -60,23 +61,10 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///   Gets BoardID.
         /// </summary>
-        protected int? BoardId
-        {
-            get
-            {
-                if (!this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("b").IsSet())
-                {
-                    return null;
-                }
-
-                if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("b"), out var boardId))
-                {
-                    return boardId;
-                }
-
-                return null;
-            }
-        }
+        protected int? BoardId =>
+            this.Get<HttpRequestBase>().QueryString.Exists("b")
+                ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("b")
+                : null;
 
         #endregion
 
@@ -210,6 +198,10 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+
             if (this.IsPostBack)
             {
                 return;
@@ -269,38 +261,8 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Name.Text.Trim().Length == 0)
-            {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITBOARD", "MSG_NAME_BOARD"), MessageTypes.warning);
-                return;
-            }
-
             if (this.BoardId == null && this.CreateAdminUser.Checked)
             {
-                if (this.UserName.Text.Trim().Length == 0)
-                {
-                    this.PageContext.AddLoadMessage(
-                        this.GetText("ADMIN_EDITBOARD", "MSG_NAME_ADMIN"),
-                        MessageTypes.warning);
-                    return;
-                }
-
-                if (this.UserEmail.Text.Trim().Length == 0)
-                {
-                    this.PageContext.AddLoadMessage(
-                        this.GetText("ADMIN_EDITBOARD", "MSG_EMAIL_ADMIN"),
-                        MessageTypes.warning);
-                    return;
-                }
-
-                if (this.UserPass1.Text.Trim().Length == 0)
-                {
-                    this.PageContext.AddLoadMessage(
-                        this.GetText("ADMIN_EDITBOARD", "MSG_PASS_ADMIN"),
-                        MessageTypes.warning);
-                    return;
-                }
-
                 if (this.UserPass1.Text != this.UserPass2.Text)
                 {
                     this.PageContext.AddLoadMessage(
@@ -352,6 +314,7 @@ namespace YAF.Pages.Admin
 
             // Done
             this.PageContext.BoardSettings = null;
+
             BuildLink.Redirect(ForumPages.Admin_Boards);
         }
 

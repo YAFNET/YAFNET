@@ -147,7 +147,6 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-
         }
 
         /// <summary>

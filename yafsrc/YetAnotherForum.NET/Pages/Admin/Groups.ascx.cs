@@ -33,7 +33,6 @@ namespace YAF.Pages.Admin
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -278,23 +277,19 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // list roles of this board
-            var dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
+            var groups = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
 
             // set repeater data-source
-            this.RoleListYaf.DataSource = dt;
+            this.RoleListYaf.DataSource = groups;
 
             // clear cached list of roles
             this.availableRoles.Clear();
 
             // get all provider roles
-            foreach (var role in from role in AspNetRolesHelper.GetAllRoles()
-                                 let rows = dt.Select(g => g.Name == role)
-                                 where dt.Count == 0
-                                 select role)
-            {
-                // doesn't exist in the Yaf Groups
-                this.availableRoles.Add(role);
-            }
+            (from role in AspNetRolesHelper.GetAllRoles()
+                                 let rows = groups.Select(g => g.Name == role)
+                                 where groups.Count == 0
+                                 select role).ForEach(role1 => this.availableRoles.Add(role1));
 
             // check if there are any roles for syncing
             if (this.availableRoles.Count > 0 && !Config.IsDotNetNuke)

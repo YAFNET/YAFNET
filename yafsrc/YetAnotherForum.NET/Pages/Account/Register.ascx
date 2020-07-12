@@ -8,7 +8,8 @@
         <div class="card">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
-                                IconName="user"/>
+                                LocalizedTag="CREATE_USER"
+                                IconName="user-plus"/>
             </div>
             <asp:Panel runat="server" ID="Message" CssClass="card-body text-center" Visible="False">
                 <YAF:Alert runat="server" Type="success">
@@ -83,8 +84,10 @@
                                                                  CssClass="invalid-feedback"/>
                             </div>
                             <div class="mb-3 col-md-6">
-								<asp:Label ID="ConfirmPasswordLabel" runat="server" AssociatedControlID="ConfirmPassword">
-									<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="CONFIRM_PASSWORD" />
+								<asp:Label ID="ConfirmPasswordLabel" runat="server" 
+                                           AssociatedControlID="ConfirmPassword">
+									<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                                                        LocalizedTag="CONFIRM_PASSWORD" />
 									</asp:Label>
 								<asp:TextBox ID="ConfirmPassword" runat="server" 
                                              TextMode="Password"
@@ -101,16 +104,17 @@
                
 						<asp:PlaceHolder runat="server" ID="YafCaptchaHolder" Visible="false">
 							<div class="mb-3">
-								<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="Captcha_Image" />
+								<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" 
+                                                    LocalizedTag="Captcha_Image" />
 							
 								<asp:Image ID="imgCaptcha" runat="server" />
                                 <br />
                                 <asp:LinkButton id="RefreshCaptcha" runat="server"></asp:LinkButton>
                             </div>
 							<div class="mb-3">
-								<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="Captcha_Enter" />
-							
-								<asp:TextBox CssClass="form-control" ID="tbCaptcha" runat="server" />
+								<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" 
+                                                    LocalizedTag="Captcha_Enter" />
+                                <asp:TextBox CssClass="form-control" ID="tbCaptcha" runat="server" />
                             </div>
 						</asp:PlaceHolder>
 						<asp:PlaceHolder runat="server" ID="RecaptchaPlaceHolder" Visible="false">
@@ -123,15 +127,17 @@
                        CssClass="card-footer text-center">
                 <YAF:ThemeButton ID="CreateUser" runat="server"
                                  CausesValidation="True"
+                                 TextLocalizedTag="CREATE_USER"
                                  Icon="user-plus"
                                  Type="Primary"
                                  CssClass="btn-loading"
-                                 OnClick="RegisterClick"/>
+                                 OnClick="RegisterClick" />
                 <YAF:ThemeButton runat="server" ID="LoginButton"
                                  CausesValidation="False"
+                                 TextLocalizedTag="LOGIN_INSTEAD"
                                  Type="OutlineSecondary"
                                  Visible="False"
-                                 Icon="sign-in-alt"></YAF:ThemeButton>
+                                 Icon="sign-in-alt" />
             </asp:Panel>
         </div>
     </div>

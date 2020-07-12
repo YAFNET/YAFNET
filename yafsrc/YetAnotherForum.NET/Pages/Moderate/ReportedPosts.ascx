@@ -6,8 +6,6 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-<%@ Register TagPrefix="YAF" TagName="ReportedPosts" Src="../../controls/ReportedPosts.ascx" %>
-
 
 <div class="row">
     <div class="col-xl-12">
@@ -64,18 +62,20 @@
                                       visible='<%# General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'>
                                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MODIFIED" />
                                 </span>
-                                <div class="mb-3">
-                                    <YAF:MessagePostData ID="MessagePostPrimary" runat="server" 
-                                                         DataRow="<%# ((System.Data.DataRowView)Container.DataItem).Row %>"
-                                                         ShowAttachments="false" 
-                                                         ShowEditMessage="False" ShowSignature="False">
-                                    </YAF:MessagePostData>
+                                <div class="card bg-light mb-3">
+                                    <div class="card-body">
+                                        <YAF:MessagePostData ID="MessagePostPrimary" runat="server" 
+                                                             DataRow="<%# ((System.Data.DataRowView)Container.DataItem).Row %>"
+                                                             ShowAttachments="false" 
+                                                             ShowEditMessage="False" ShowSignature="False">
+                                        </YAF:MessagePostData>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <YAF:ReportedPosts ID="ReportersList" runat="server" 
+                                <YAF:BaseReportedPosts ID="ReportersList" runat="server" 
                                                    MessageID='<%# Container.DataItemToField<int>("MessageID") %>'
                                                    ResolvedBy='<%# Container.DataItemToField<int>("ResolvedBy") %>' 
                                                    Resolved='<%# DataBinder.Eval(Container.DataItem, "[\"Resolved\"]") %>'

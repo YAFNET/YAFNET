@@ -27,6 +27,8 @@
                                      TextLocalizedTag="LOAD_PAGE" TextLocalizedPage="ADMIN_EDITLANGUAGE" />
                 </div>
                 <YAF:Alert ID="Info" runat="server" Type="danger">
+                    <YAF:Icon runat="server" 
+                              IconName="info-circle" />
                     <asp:Label runat="server" id="lblInfo"></asp:Label>
                 </YAF:Alert>
                 <hr />

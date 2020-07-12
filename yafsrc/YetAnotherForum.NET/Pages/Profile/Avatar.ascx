@@ -5,7 +5,10 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" /></h2>
+        <h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                                LocalizedTag="TITLE"
+                                LocalizedPage="AVATAR"/>
+        </h2>
     </div>
 </div>
 
@@ -14,7 +17,9 @@
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
-                                IconName="user-tie"></YAF:IconHeader>
+                                IconName="user-tie"
+                                LocalizedTag="TITLE"
+                                LocalizedPage="AVATAR" />
             </div>
             <div class="card-body">
                 <asp:DataList runat="server" ID="directories" Width="100%" RepeatColumns="5" OnItemDataBound="Directories_Bind"

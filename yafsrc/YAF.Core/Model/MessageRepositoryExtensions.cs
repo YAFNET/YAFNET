@@ -609,46 +609,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Here we get reporters list for a reported message
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <returns>
-        /// Returns reporters DataTable for a reported message.
-        /// </returns>
-        public static DataTable ListReportersAsDataTable(this IRepository<Message> repository, int messageId)
-        {
-            return repository.ListReportersAsDataTable(messageId, 0);
-        }
-
-        /// <summary>
-        /// List the reporters as data table.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable ListReportersAsDataTable(
-            this IRepository<Message> repository,
-            int messageId,
-            [NotNull] int userId)
-        {
-            return repository.DbFunction.GetData.message_listreporters(MessageID: messageId, UserID: userId);
-        }
-
-        /// <summary>
         /// Save reported message back to the database.
         /// </summary>
         /// <param name="repository">

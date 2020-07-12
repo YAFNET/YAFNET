@@ -20,8 +20,7 @@
 <asp:PlaceHolder id="EditorLine" runat="server">
             <!-- editor goes here -->
 </asp:PlaceHolder>
-<hr />
-<div class="text-lg-center">
+<div class="text-lg-center mt-3">
     <YAF:ThemeButton ID="preview" runat="server"
                      Type="Secondary"
                      Icon="image"

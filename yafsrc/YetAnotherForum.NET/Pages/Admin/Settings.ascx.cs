@@ -28,7 +28,6 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
-    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Web;
@@ -40,6 +39,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -67,123 +67,16 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+
             if (this.IsPostBack)
             {
                 return;
             }
 
-            var boardSettings = this.Get<BoardSettings>();
-
-            this.CdvVersion.Text = boardSettings.CdvVersion.ToString();
-
-            // create list boxes by populating data sources from Data class
-            var themeData = StaticDataHelper.Themes();
-
-            if (themeData.Any())
-            {
-                this.Theme.DataSource = themeData;
-            }
-
-            this.Culture.DataSource = StaticDataHelper.Cultures().OrderBy(x => x.CultureNativeName);
-
-            this.Culture.DataTextField = "CultureNativeName";
-            this.Culture.DataValueField = "CultureTag";
-
-            this.ShowTopic.DataSource = StaticDataHelper.TopicTimes();
-            this.ShowTopic.DataTextField = "Name";
-            this.ShowTopic.DataValueField = "Value";
-
             this.BindData();
-
-            // population default notification setting options...
-            var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
-
-            if (!boardSettings.AllowNotificationAllPostsAllTopics)
-            {
-                // remove it...
-                items.Remove(UserNotificationSetting.AllTopics.ToInt());
-            }
-
-            var notificationItems = items.Select(
-                    x => new ListItem(
-                        HtmlHelper.StripHtml(this.GetText("SUBSCRIPTIONS", x.Value)),
-                        x.Key.ToString()))
-                .ToArray();
-
-            this.DefaultNotificationSetting.Items.AddRange(notificationItems);
-
-            // Get first default full culture from a language file tag.
-            var langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language) ?? "en-US";
-
-            if (boardSettings.Theme.Contains(".xml"))
-            {
-                SetSelectedOnList(ref this.Theme, "yaf");
-            }
-            else
-            {
-                SetSelectedOnList(ref this.Theme, boardSettings.Theme);
-            }
-
-            SetSelectedOnList(ref this.Culture, boardSettings.Culture);
-            if (this.Culture.SelectedIndex == 0)
-            {
-                // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
-                SetSelectedOnList(
-                    ref this.Culture,
-                    langFileCulture.Substring(0, 2) == boardSettings.Culture ? boardSettings.Culture : langFileCulture);
-            }
-
-            SetSelectedOnList(ref this.ShowTopic, boardSettings.ShowTopicsDefault.ToString());
-            SetSelectedOnList(
-                ref this.DefaultNotificationSetting,
-                boardSettings.DefaultNotificationSetting.ToInt().ToString());
-
-            this.NotificationOnUserRegisterEmailList.Text = boardSettings.NotificationOnUserRegisterEmailList;
-            this.EmailModeratorsOnModeratedPost.Checked = boardSettings.EmailModeratorsOnModeratedPost;
-            this.EmailModeratorsOnReportedPost.Checked = boardSettings.EmailModeratorsOnReportedPost;
-            this.AllowDigestEmail.Checked = boardSettings.AllowDigestEmail;
-            this.DefaultSendDigestEmail.Checked = boardSettings.DefaultSendDigestEmail;
-            this.ForumEmail.Text = boardSettings.ForumEmail;
-            this.ForumBaseUrlMask.Text = boardSettings.BaseUrlMask;
-
-            var item = this.BoardLogo.Items.FindByText(boardSettings.ForumLogo);
-
-            if (item != null)
-            {
-                item.Selected = true;
-            }
-
-            this.CopyrightRemovalKey.Text = boardSettings.CopyrightRemovalDomainKey;
-
-            this.DigestSendEveryXHours.Text = boardSettings.DigestSendEveryXHours.ToString();
-
-            // Copyright Link-back Algorithm
-            // Please keep if you haven't purchased a removal or commercial license.
-            this.CopyrightHolder.Visible = true;
-
-            // Render board Announcement
-
-            // add items to the dropdown
-            this.BoardAnnouncementUntilUnit.Items.Add(new ListItem(this.GetText("PROFILE", "MONTH"), "3"));
-            this.BoardAnnouncementUntilUnit.Items.Add(new ListItem(this.GetText("PROFILE", "DAYS"), "1"));
-            this.BoardAnnouncementUntilUnit.Items.Add(new ListItem(this.GetText("PROFILE", "HOURS"), "2"));
-
-            // select hours
-            this.BoardAnnouncementUntilUnit.SelectedIndex = 0;
-
-            // default number of hours to suspend user for
-            this.BoardAnnouncementUntil.Text = "1";
-
-            if (boardSettings.BoardAnnouncement.IsNotSet())
-            {
-                return;
-            }
-
-            this.CurrentAnnouncement.Visible = true;
-            this.CurrentMessage.Text =
-                $"{this.GetText("ANNOUNCEMENT_CURRENT")}:&nbsp;{boardSettings.BoardAnnouncementUntil}";
-            this.BoardAnnouncementType.SelectedValue = boardSettings.BoardAnnouncementType;
-            this.BoardAnnouncement.Text = boardSettings.BoardAnnouncement;
         }
 
         /// <summary>
@@ -249,13 +142,7 @@ namespace YAF.Pages.Admin
 
             boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
             boardSettings.CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
-
-            if (!int.TryParse(this.DigestSendEveryXHours.Text, out var hours))
-            {
-                hours = 24;
-            }
-
-            boardSettings.DigestSendEveryXHours = hours;
+            boardSettings.DigestSendEveryXHours = this.DigestSendEveryXHours.Text.ToType<int>();
 
             // save the settings to the database
             ((LoadBoardSettings)boardSettings).SaveRegistry();
@@ -267,75 +154,6 @@ namespace YAF.Pages.Admin
             this.Get<IDataCache>().Remove(x => x.StartsWith(Constants.Cache.ActiveUserLazyData));
 
             BuildLink.Redirect(ForumPages.Admin_Admin);
-        }
-
-        /// <summary>
-        /// Saves the Board Announcement
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void SaveAnnouncementClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var boardAnnouncementUntil = DateTime.Now;
-
-            // number inserted by suspending user
-            var count = int.Parse(this.BoardAnnouncementUntil.Text);
-
-            // what time units are used for suspending
-            boardAnnouncementUntil = this.BoardAnnouncementUntilUnit.SelectedValue switch
-                {
-                    // days
-                    "1" => boardAnnouncementUntil.AddDays(count),
-                    // hours
-                    "2" => boardAnnouncementUntil.AddHours(count),
-                    // month
-                    "3" => boardAnnouncementUntil.AddMonths(count),
-                    _ => boardAnnouncementUntil
-                };
-
-            var boardSettings = this.Get<BoardSettings>();
-
-            boardSettings.BoardAnnouncementUntil = boardAnnouncementUntil.ToString(CultureInfo.InvariantCulture);
-            boardSettings.BoardAnnouncement = this.BoardAnnouncement.Text;
-            boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
-
-            // save the settings to the database
-            ((LoadBoardSettings)boardSettings).SaveRegistry();
-
-            // Reload forum settings
-            this.PageContext.BoardSettings = null;
-
-            BuildLink.Redirect(ForumPages.Admin_Settings);
-        }
-
-        /// <summary>
-        /// Deletes the Announcement
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void DeleteClick(object sender, EventArgs e)
-        {
-            var boardSettings = this.Get<BoardSettings>();
-
-            boardSettings.BoardAnnouncementUntil = DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
-            boardSettings.BoardAnnouncement = this.BoardAnnouncement.Text;
-            boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
-
-            // save the settings to the database
-            ((LoadBoardSettings)boardSettings).SaveRegistry();
-
-            // Reload forum settings
-            this.PageContext.BoardSettings = null;
-
-            BuildLink.Redirect(ForumPages.Admin_Settings);
         }
 
         /// <summary>
@@ -405,6 +223,93 @@ namespace YAF.Pages.Admin
 
             this.DataBind();
             this.Name.Text = board.Name;
+
+            var boardSettings = this.Get<BoardSettings>();
+
+            this.CdvVersion.Text = boardSettings.CdvVersion.ToString();
+
+            // create list boxes by populating data sources from Data class
+            var themeData = StaticDataHelper.Themes();
+
+            if (themeData.Any())
+            {
+                this.Theme.DataSource = themeData;
+            }
+
+            this.Culture.DataSource = StaticDataHelper.Cultures().OrderBy(x => x.CultureNativeName);
+
+            this.Culture.DataTextField = "CultureNativeName";
+            this.Culture.DataValueField = "CultureTag";
+
+            this.ShowTopic.DataSource = StaticDataHelper.TopicTimes();
+            this.ShowTopic.DataTextField = "Name";
+            this.ShowTopic.DataValueField = "Value";
+
+            // population default notification setting options...
+            var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
+
+            if (!boardSettings.AllowNotificationAllPostsAllTopics)
+            {
+                // remove it...
+                items.Remove(UserNotificationSetting.AllTopics.ToInt());
+            }
+
+            var notificationItems = items.Select(
+                    x => new ListItem(
+                        HtmlHelper.StripHtml(this.GetText("SUBSCRIPTIONS", x.Value)),
+                        x.Key.ToString()))
+                .ToArray();
+
+            this.DefaultNotificationSetting.Items.AddRange(notificationItems);
+
+            // Get first default full culture from a language file tag.
+            var langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language) ?? "en-US";
+
+            if (boardSettings.Theme.Contains(".xml"))
+            {
+                SetSelectedOnList(ref this.Theme, "yaf");
+            }
+            else
+            {
+                SetSelectedOnList(ref this.Theme, boardSettings.Theme);
+            }
+
+            SetSelectedOnList(ref this.Culture, boardSettings.Culture);
+            if (this.Culture.SelectedIndex == 0)
+            {
+                // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
+                SetSelectedOnList(
+                    ref this.Culture,
+                    langFileCulture.Substring(0, 2) == boardSettings.Culture ? boardSettings.Culture : langFileCulture);
+            }
+
+            SetSelectedOnList(ref this.ShowTopic, boardSettings.ShowTopicsDefault.ToString());
+            SetSelectedOnList(
+                ref this.DefaultNotificationSetting,
+                boardSettings.DefaultNotificationSetting.ToInt().ToString());
+
+            this.NotificationOnUserRegisterEmailList.Text = boardSettings.NotificationOnUserRegisterEmailList;
+            this.EmailModeratorsOnModeratedPost.Checked = boardSettings.EmailModeratorsOnModeratedPost;
+            this.EmailModeratorsOnReportedPost.Checked = boardSettings.EmailModeratorsOnReportedPost;
+            this.AllowDigestEmail.Checked = boardSettings.AllowDigestEmail;
+            this.DefaultSendDigestEmail.Checked = boardSettings.DefaultSendDigestEmail;
+            this.ForumEmail.Text = boardSettings.ForumEmail;
+            this.ForumBaseUrlMask.Text = boardSettings.BaseUrlMask;
+
+            var item = this.BoardLogo.Items.FindByText(boardSettings.ForumLogo);
+
+            if (item != null)
+            {
+                item.Selected = true;
+            }
+
+            this.CopyrightRemovalKey.Text = boardSettings.CopyrightRemovalDomainKey;
+
+            this.DigestSendEveryXHours.Text = boardSettings.DigestSendEveryXHours.ToString();
+
+            // Copyright Link-back Algorithm
+            // Please keep if you haven't purchased a removal or commercial license.
+            this.CopyrightHolder.Visible = true;
         }
 
         #endregion

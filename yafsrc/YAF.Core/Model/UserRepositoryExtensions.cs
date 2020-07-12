@@ -48,6 +48,58 @@ namespace YAF.Core.Model
     public static class UserRepositoryExtensions
     {
         /// <summary>
+        /// List the reporters as data table.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
+        public static List<Tuple<MessageReportedAudit, User>> MessageReporters(
+            this IRepository<User> repository,
+            [NotNull] int messageId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageReportedAudit>();
+
+            expression.Join<User>((m, u) => u.ID == m.UserID)
+                .Where<MessageReportedAudit>(m => m.MessageID == messageId);
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<MessageReportedAudit, User>(expression));
+        }
+
+        /// <summary>
+        /// List the reporters as data table.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
+        public static List<Tuple<User, MessageReportedAudit>> MessageReporter(
+            this IRepository<User> repository,
+            [NotNull] int messageId,
+            [NotNull] int userId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            expression.Join<MessageReportedAudit>((user, m) => m.UserID == userId && m.MessageID == messageId)
+                .Where<User>(user => user.ID == userId);
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<User, MessageReportedAudit>(expression));
+        }
+
+        /// <summary>
         /// The user_activity_rank.
         /// </summary>
         /// <param name="repository">

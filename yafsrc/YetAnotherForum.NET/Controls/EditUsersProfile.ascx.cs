@@ -465,15 +465,13 @@ namespace YAF.Controls
 
                         var type = profileDef.DataType.ToEnum<DataType>();
 
-                        var userCustomProfile = new List<ProfileCustom>();
-
                         switch (type)
                         {
                             case DataType.Text:
                             {
                                 if (textBox.Text.IsSet())
                                 {
-                                    userCustomProfile.Add(
+                                    this.GetRepository<ProfileCustom>().Insert(
                                         new ProfileCustom
                                         {
                                             UserID = this.currentUserId,
@@ -488,8 +486,8 @@ namespace YAF.Controls
                             {
                                 if (textBox.Text.IsSet())
                                 {
-                                    userCustomProfile.Add(
-                                        new ProfileCustom
+                                    this.GetRepository<ProfileCustom>().Insert(
+                                           new ProfileCustom
                                         {
                                             UserID = this.currentUserId,
                                             ProfileDefinitionID = profileDef.ID,
@@ -501,8 +499,8 @@ namespace YAF.Controls
                             }
                             case DataType.Check:
                             {
-                                userCustomProfile.Add(
-                                    new ProfileCustom
+                                this.GetRepository<ProfileCustom>().Insert(
+                                       new ProfileCustom
                                     {
                                         UserID = this.currentUserId,
                                         ProfileDefinitionID = profileDef.ID,
@@ -512,12 +510,6 @@ namespace YAF.Controls
                                 break;
                             }
                         }
-
-                        if (userCustomProfile.Any())
-                        {
-                            this.GetRepository<ProfileCustom>().InsertAll(userCustomProfile);
-                        }
-
                     });
             }
 

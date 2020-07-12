@@ -36,7 +36,6 @@ namespace YAF.Pages.Profile
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -65,16 +64,6 @@ namespace YAF.Pages.Profile
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Handles the Click event of the Back control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            BuildLink.Redirect(ForumPages.MyAccount);
-        }
 
         /// <summary>
         /// Handles the ItemCommand event of the List control.
@@ -120,10 +109,6 @@ namespace YAF.Pages.Profile
                 return;
             }
 
-            this.Back.TextLocalizedTag = !this.Get<HttpRequestBase>().QueryString.Exists("t")
-                                 ? "BACK"
-                                 : "CONTINUE";
-
             this.BindData();
         }
 
@@ -156,8 +141,8 @@ namespace YAF.Pages.Profile
                 $"{BoardInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={this.PageContext.PageBoardID}&editor=true";
 
             return isImage
-                       ? $"<img src=\"{url}\" alt=\"{fileName}\" title=\"{fileName}\" data-url=\"{url}\"style=\"max-width:30px\" />"
-                       : "<i class=\"far fa-file-alt attachment-icon\"></i>";
+                       ? $"<img src=\"{url}\" alt=\"{fileName}\" title=\"{fileName}\" data-url=\"{url}\"style=\"max-width:30px\" class=\"mr-2\" />"
+                       : "<i class=\"far fa-file-alt attachment-icon mr-2\"></i>";
         }
 
         /// <summary>

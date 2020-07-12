@@ -33,6 +33,7 @@ namespace YAF.Pages
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -89,6 +90,10 @@ namespace YAF.Pages
                 return;
             }
 
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Send.ClientID));
+
             // get user data...
             var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.UserId);
 
@@ -119,7 +124,6 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-
         }
 
         /// <summary>
