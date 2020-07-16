@@ -1,3 +1,5 @@
+using System;
+
 namespace YAF.Lucene.Net.Index
 {
     /*
@@ -115,14 +117,14 @@ namespace YAF.Lucene.Net.Index
 
             public override void LookupOrd(long ord, BytesRef result)
             {
-                throw new System.IndexOutOfRangeException();
+                throw new IndexOutOfRangeException();
             }
 
             public override long ValueCount => 0;
 
             public override long OrdAt(int index)
             {
-                throw new System.IndexOutOfRangeException();
+                throw new IndexOutOfRangeException();
             }
 
             public override int Cardinality()

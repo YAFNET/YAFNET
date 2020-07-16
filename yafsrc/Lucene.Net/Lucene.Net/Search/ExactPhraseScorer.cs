@@ -1,3 +1,5 @@
+using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Support;
 using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Search
@@ -19,8 +21,6 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using YAF.Lucene.Net.Index;
-    using YAF.Lucene.Net.Support;
     using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
 
     internal sealed class ExactPhraseScorer : Scorer
