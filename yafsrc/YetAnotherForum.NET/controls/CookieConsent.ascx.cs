@@ -67,6 +67,8 @@ namespace YAF.Controls
         {
             this.PageContext.Get<HttpResponseBase>().SetCookie(
                 new HttpCookie("YAF-AcceptCookies", "true") { Expires = DateTime.UtcNow.AddYears(1) });
+
+            this.Response.Redirect(this.Request.RawUrl);
         }
     }
 }
