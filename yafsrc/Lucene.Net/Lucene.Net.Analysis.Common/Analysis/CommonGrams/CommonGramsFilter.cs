@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
+using System;
 using System.Text;
 
 namespace YAF.Lucene.Net.Analysis.CommonGrams
@@ -136,7 +137,7 @@ namespace YAF.Lucene.Net.Analysis.CommonGrams
         /// <para/>
         /// If you override this method, always call <c>base.Reset()</c>, otherwise
         /// some internal state will not be correctly reset (e.g., <see cref="Tokenizer"/> will
-        /// throw <see cref="System.InvalidOperationException"/> on further usage).
+        /// throw <see cref="InvalidOperationException"/> on further usage).
         /// </summary>
         /// <remarks>
         /// <b>NOTE:</b>

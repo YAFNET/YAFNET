@@ -49,9 +49,9 @@ namespace YAF.Lucene.Net.Index
     /// </code>
     /// 
     /// However, if you prefer to match the syntax of Lucene using chained setter methods, 
-    /// there are extension methods in the Lucene.Net.Support namespace. Example usage:
+    /// there are extension methods in the Lucene.Net.Index.Extensions namespace. Example usage:
     /// <code>
-    ///     using YAF.Lucene.Net.Support;
+    ///     using YAF.Lucene.Net.Index.Extensions;
     ///     
     ///     ..
     ///     
@@ -431,7 +431,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     return ((ThreadAffinityDocumentsWriterThreadPool)indexerThreadPool).MaxThreadStates;
                 }
-                catch (System.InvalidCastException cce)
+                catch (InvalidCastException cce)
                 {
                     throw new InvalidOperationException(cce.Message, cce);
                 }
