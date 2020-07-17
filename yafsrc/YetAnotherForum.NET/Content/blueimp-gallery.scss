@@ -231,6 +231,7 @@ $border_color_1: #fff;
 
         > li {
             display: inline-block;
+            position: relative;
             width: 9px;
             height: 9px;
             margin: 6px 3px 0 3px;
@@ -264,6 +265,7 @@ $border_color_1: #fff;
                 position: absolute;
                 content: '';
                 top: -5em;
+                left: 4px;
                 width: 75px;
                 height: 75px;
                 transition: transform 600ms ease-out, opacity 400ms ease-out;

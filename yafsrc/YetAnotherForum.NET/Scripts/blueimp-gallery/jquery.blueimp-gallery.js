@@ -30,10 +30,10 @@
     var container =
       (widget.length && widget) || $(Gallery.prototype.options.container);
     var callbacks = {
-        onopen: function () {
+      onopen: function () {
             $("#blueimp-gallery").removeClass("d-none");
             container.data("gallery", this).trigger("open");
-        },
+      },
       onopened: function () {
         container.trigger("opened");
       },
@@ -47,12 +47,12 @@
         container.trigger("slidecomplete", arguments);
       },
       onclose: function () {
-        container.trigger("close");
+          $("#blueimp-gallery").addClass("d-none");
+          container.trigger("close");
       },
-        onclosed: function () {
-            $("#blueimp-gallery").addClass("d-none");
-            container.trigger("closed").removeData("gallery");
-        }
+      onclosed: function () {
+        container.trigger("closed").removeData("gallery");
+      }
     };
     var options = $.extend(
       // Retrieve custom options from data-attributes

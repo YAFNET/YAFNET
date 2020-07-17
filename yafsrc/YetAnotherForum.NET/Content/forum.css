@@ -7779,6 +7779,7 @@ readers do not read off random characters that represent icons */
     user-select: none; }
     .blueimp-gallery > .indicator > li {
       display: inline-block;
+      position: relative;
       width: 9px;
       height: 9px;
       margin: 6px 3px 0 3px;
@@ -7808,6 +7809,7 @@ readers do not read off random characters that represent icons */
         position: absolute;
         content: '';
         top: -5em;
+        left: 4px;
         width: 75px;
         height: 75px;
         -webkit-transition: opacity 400ms ease-out, -webkit-transform 600ms ease-out;
