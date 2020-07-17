@@ -98,7 +98,8 @@
                             <%# this.Get<IDateTime>().FormatDateTimeTopic(Container.DataItemToField<DateTime>("EventTime")) %>
                         </small>
                     </div>
-                    <p class="mb-1">
+                    <p class="mb-1" 
+                       onclick="javascript:$('<%#  ".btn-toggle-{0}".Fmt(this.Eval("EventLogID")) %>').click();">
                         <span class="font-weight-bold"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_EVENTLOG" />:</span>&nbsp;
                         <%# this.HtmlEncode(this.Eval( "UserName")).IsSet() ? this.HtmlEncode(this.Eval( "UserName")) : "N/A" %>&nbsp;
                         <span><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TYPE" LocalizedPage="ADMIN_EVENTLOG" />:</span>&nbsp;
