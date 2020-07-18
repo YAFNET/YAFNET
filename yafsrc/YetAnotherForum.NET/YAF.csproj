@@ -2699,8 +2699,7 @@
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.blueimp-gallery.js" />
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
-    <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.min.js" />
-    <Content Include="Scripts\jquery.FileUpload\cors\jquery.ui.widget.js" />
+    <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-audio.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-image.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-process.js" />
@@ -2714,7 +2713,8 @@
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.iframe-transport.js" />
     <Content Include="Scripts\jquery.FileUpload\load-image.all.min.js" />
-    <Content Include="Scripts\jquery.FileUpload\tmpl.min.js" />
+    <Content Include="Scripts\jquery.FileUpload\tmpl.js" />
+    <Content Include="Scripts\jquery.FileUpload\vendor\jquery.ui.widget.js" />
     <Content Include="Scripts\jquery.ForumAdminExtensions.js" />
     <Content Include="Scripts\jquery.ForumAdminExtensions.min.js">
       <DependentUpon>jquery.ForumAdminExtensions.js</DependentUpon>
@@ -3634,7 +3634,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
