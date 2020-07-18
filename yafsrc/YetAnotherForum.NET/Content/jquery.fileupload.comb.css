@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
  * jQuery File Upload UI Plugin CSS
  * https://github.com/blueimp/jQuery-File-Upload
@@ -10,47 +11,49 @@
  */
 
 .fileupload-process {
-    float: right;
-    display: none;
+  float: right;
+  display: none;
 }
-
 .files audio,
 .files video {
-    max-width: 300px;
+  max-width: 300px;
 }
-
+.files .name {
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+.files button {
+  margin-bottom: 5px;
+}
 .toggle[type='checkbox'] {
-    transform: scale(2);
-    margin-left: 10px;
+  transform: scale(2);
+  margin-left: 10px;
 }
 
 @media (max-width: 767px) {
-    .fileupload-buttonbar .btn {
-        margin-bottom: 5px;
-    }
-
-    .fileupload-buttonbar .delete,
-    .fileupload-buttonbar .toggle,
-    .files .toggle,
-    .files .btn span {
-        display: none;
-    }
-
-    .files .name {
-        width: 80px;
-        word-wrap: break-word;
-    }
-
-    .files audio,
-    .files video {
-        max-width: 80px;
-    }
-
-    .files img,
-    .files canvas {
-        max-width: 100%;
-    }
+  .fileupload-buttonbar .btn {
+    margin-bottom: 5px;
+  }
+  .fileupload-buttonbar .delete,
+  .fileupload-buttonbar .toggle,
+  .files .toggle,
+  .files .btn span {
+    display: none;
+  }
+  .files audio,
+  .files video {
+    max-width: 80px;
+  }
 }
+
+@media (max-width: 480px) {
+  .files .image td:nth-child(2) {
+    display: none;
+  }
+}
+
 @charset "UTF-8";
 /*
  * jQuery File Upload Plugin CSS
