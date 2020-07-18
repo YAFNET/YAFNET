@@ -23,7 +23,7 @@
         <div class="card mb-3">
             <div class="card-header py-1 px-2">
                 <div class="d-flex">
-                    <div class="mr-2">
+                    <div class="mr-2" style="flex:0 0 2.33333%">
                         <asp:Image runat="server" ID="Avatar" 
                                    CssClass="img-avatar-sm mt-2" />
                     </div>
