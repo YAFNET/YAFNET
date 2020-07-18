@@ -110,7 +110,7 @@
         that._transition(data.context);
         data
           .process(function () {
-            return $this.yafFileUpload('process', data);
+              return $this.yafFileUpload('process', data);
           })
           .always(function () {
             data.context

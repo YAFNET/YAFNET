@@ -43,8 +43,8 @@
       ],
       add: function (e, data) {
         var $this = $(this);
-          data.process(function () {
-              return $this.yafFileUpload('process', data);
+        data.process(function () {
+          return $this.yafFileUpload('process', data);
         });
         originalAdd.call(this, e, data);
       }
