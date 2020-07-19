@@ -3339,6 +3339,27 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Content\select2\select2-bootstrap.scss" />
+    <Content Include="Content\Themes\cerulean\LICENSE.md" />
+    <Content Include="Content\Themes\cosmo\LICENSE.md" />
+    <Content Include="Content\Themes\cyborg\LICENSE.md" />
+    <Content Include="Content\Themes\darkly\LICENSE.md" />
+    <Content Include="Content\Themes\flatly\LICENSE.md" />
+    <Content Include="Content\Themes\journal\LICENSE.md" />
+    <Content Include="Content\Themes\litera\LICENSE.md" />
+    <Content Include="Content\Themes\lumen\LICENSE.md" />
+    <Content Include="Content\Themes\lux\LICENSE.md" />
+    <Content Include="Content\Themes\materia\LICENSE.md" />
+    <Content Include="Content\Themes\minty\LICENSE.md" />
+    <Content Include="Content\Themes\pulse\LICENSE.md" />
+    <Content Include="Content\Themes\sandstone\LICENSE.md" />
+    <Content Include="Content\Themes\simplex\LICENSE.md" />
+    <Content Include="Content\Themes\sketchy\LICENSE.md" />
+    <Content Include="Content\Themes\slate\LICENSE.md" />
+    <Content Include="Content\Themes\solar\LICENSE.md" />
+    <Content Include="Content\Themes\spacelab\LICENSE.md" />
+    <Content Include="Content\Themes\superhero\LICENSE.md" />
+    <Content Include="Content\Themes\united\LICENSE.md" />
+    <Content Include="Content\Themes\yeti\LICENSE.md" />
     <None Include="web.config">
       <SubType>Designer</SubType>
     </None>
@@ -3662,7 +3683,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
