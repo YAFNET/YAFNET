@@ -226,10 +226,8 @@ namespace YAF.Core.Services
             thanks.ForEach(
                 dr =>
                     {
-                        var name = this.Get<BoardSettings>().EnableDisplayName
-                                       ? this.Get<HttpServerUtilityBase>()
-                                           .HtmlEncode(dr.Item2.DisplayName)
-                                       : this.Get<HttpServerUtilityBase>().HtmlEncode(dr.Item2.Name);
+                        var name = this.Get<HttpServerUtilityBase>()
+                                           .HtmlEncode(this.Get<IUserDisplayName>().GetName(dr.Item2));
 
                         // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
                         filler.AppendFormat(

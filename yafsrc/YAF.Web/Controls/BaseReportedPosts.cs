@@ -29,7 +29,6 @@ namespace YAF.Web.Controls
     using System.Linq;
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -104,9 +103,7 @@ namespace YAF.Web.Controls
                             howMany = $"({this.GetTextFormatted("REPORTED_TIMES", reporter.Item1.ReportedNumber)})";
                         }
 
-                        var reporterName = this.Get<BoardSettings>().EnableDisplayName
-                            ? reporter.Item2.DisplayName
-                            : reporter.Item2.Name;
+                        var reporterName = this.Get<IUserDisplayName>().GetName(reporter.Item2);
 
                         // If the message was previously resolved we have not null string
                         // and can add an info about last user who resolved the message
@@ -115,9 +112,7 @@ namespace YAF.Web.Controls
                             var resolvedBy = this.GetRepository<User>().GetById(
                                 this.ResolvedBy.ToType<int>());
 
-                            var resolvedByName = this.Get<BoardSettings>().EnableDisplayName
-                                ? resolvedBy.DisplayName
-                                : resolvedBy.Name;
+                            var resolvedByName = this.Get<IUserDisplayName>().GetName(resolvedBy);
 
                             writer.Write(
                                 @"<span class=""font-weight-bold mr-2"">{0}</span><a href=""{1}"">{2}</a> : {3}",

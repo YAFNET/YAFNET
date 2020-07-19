@@ -219,7 +219,7 @@ namespace YAF.Pages
             }
 
             var userNameOrDisplayName = this.HtmlEncode(
-                this.Get<BoardSettings>().EnableDisplayName ? user.Item1.DisplayName : user.Item1.Name);
+                this.Get<IUserDisplayName>().GetName(user.Item1));
 
             this.SetupUserProfileInfo(user);
 

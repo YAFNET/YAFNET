@@ -128,9 +128,7 @@ namespace YAF.Dialogs
             }
 
             // set username and disable its editing
-            this.UserName.Text = this.PageContext.BoardSettings.EnableDisplayName
-                ? userForum.Item1.DisplayName
-                : userForum.Item1.Name;
+            this.UserName.Text = this.Get<IUserDisplayName>().GetName(userForum.Item1);
             this.UserName.Enabled = false;
 
             // we don't need to find users now

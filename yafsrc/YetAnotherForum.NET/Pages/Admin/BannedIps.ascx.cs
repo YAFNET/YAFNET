@@ -151,7 +151,7 @@ namespace YAF.Pages.Admin
                                 .Log(
                                     this.PageContext.PageUserID,
                                     " YAF.Pages.Admin.bannedip",
-                                    $"IP or mask {ipAddress} was deleted by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUser.DisplayName : this.PageContext.CurrentUser.Name)}.",
+                                    $"IP or mask {ipAddress} was deleted by {this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser)}.",
                                     EventLogTypes.IpBanLifted);
                         }
                     }

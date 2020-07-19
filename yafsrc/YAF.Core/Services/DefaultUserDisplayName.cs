@@ -222,6 +222,22 @@ namespace YAF.Core.Services
             return displayName;
         }
 
+        /// <summary>
+        /// The Gets Name from user
+        /// </summary>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string GetName(User user)
+        {
+            return this.Get<BoardSettings>().EnableDisplayName
+                ? user.DisplayName
+                : user.Name;
+        }
+
         #endregion
 
         #endregion

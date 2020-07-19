@@ -154,9 +154,7 @@ namespace YAF.Pages
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<BoardSettings>().EnableDisplayName
-                    ? this.PageContext.CurrentUser.DisplayName
-                    : this.PageContext.PageUserName,
+                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
                 BuildLink.GetLink(ForumPages.MyAccount));
         }
 

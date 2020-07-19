@@ -277,7 +277,7 @@ namespace YAF.Pages
             var adminAvatar = e.Item.FindControlAs<Image>("AdminAvatar");
 
             var user = (User)e.Item.DataItem;
-            var displayName = this.Get<BoardSettings>().EnableDisplayName ? user.DisplayName : user.Name;
+            var displayName = this.Get<IUserDisplayName>().GetName(user);
 
             adminAvatar.ImageUrl = this.GetAvatarUrlFileName(
                 user.ID,

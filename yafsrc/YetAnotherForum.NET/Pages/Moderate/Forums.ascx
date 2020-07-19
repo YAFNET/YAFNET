@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Moderate.Forums" CodeBehind="Forums.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Types.Models" %>
 
 
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/ModForumUser.ascx" %>
@@ -27,7 +29,7 @@
                 <span class="font-weight-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="USER" LocalizedPage="MODERATE" />:
                 </span>
-                <%#  this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "Item1.Name" : "Item1.DisplayName") %>
+                <%#  this.Get<IUserDisplayName>().GetName(this.Eval("Item1").ToType<User>()) %>
                 <span class="font-weight-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ACCEPTED" LocalizedPage="MODERATE" />:
                 </span>

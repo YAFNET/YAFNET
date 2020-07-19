@@ -138,7 +138,7 @@ namespace YAF.Core.Services
                     activeUsers.AsEnumerable().Any(
                         x => x.Field<int>("UserId").Equals(userId) && !x.Field<bool>("IsHidden"));
 
-                var userName = this.Get<BoardSettings>().EnableDisplayName ? user.Item1.DisplayName : user.Item1.Name;
+                var userName = this.Get<IUserDisplayName>().GetName(user.Item1);
 
                 userName = HttpUtility.HtmlEncode(userName);
 
@@ -254,7 +254,7 @@ namespace YAF.Core.Services
                                 : user.Name.StartsWith(searchQuery));
 
                 var users = usersList.AsEnumerable().Where(u => !this.Get<IUserIgnored>().IsIgnored(u.ID)).Select(
-                    u => new { id = u.ID, name = this.Get<BoardSettings>().EnableDisplayName ? u.DisplayName : u.Name });
+                    u => new { id = u.ID, name = this.Get<IUserDisplayName>().GetName(u) });
 
                 context.Response.Clear();
 

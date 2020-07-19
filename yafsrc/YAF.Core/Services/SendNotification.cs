@@ -318,7 +318,7 @@ namespace YAF.Core.Services
 
                 var languageFile = UserHelper.GetUserLanguageFile(toUserId);
 
-                var displayName = this.Get<IUserDisplayName>().GetName(BoardContext.Current.PageUserID);
+                var displayName = this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser);
 
                 // send this user a PM notification e-mail
                 var notificationTemplate = new TemplateEmail("PMNOTIFICATION")
@@ -331,9 +331,7 @@ namespace YAF.Core.Services
                                                                $"{BuildLink.GetLink(ForumPages.PrivateMessage, true, "pm={0}", userPMessageId)}\r\n\r\n",
                                                            ["{subject}"] = subject,
                                                            ["{username}"] =
-                                                               this.BoardSettings.EnableDisplayName
-                                                                   ? toUser.DisplayName
-                                                                   : toUser.Name
+                                                               this.Get<IUserDisplayName>().GetName(toUser)
                                                        }
                                                };
 
@@ -473,7 +471,7 @@ namespace YAF.Core.Services
                                     new MailAddress(forumEmail, boardName),
                                     new MailAddress(
                                         user.Email,
-                                        this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name),
+                                        this.Get<IUserDisplayName>().GetName(user)),
                                     subject));
                         }
                         finally
@@ -559,15 +557,13 @@ namespace YAF.Core.Services
                                      TemplateParams =
                                          {
                                              ["{user}"] =
-                                                 this.BoardSettings.EnableDisplayName
-                                                     ? toUser.DisplayName
-                                                     : toUser.Name,
+                                                 this.Get<IUserDisplayName>().GetName(toUser),
                                              ["{medalname}"] = medalName
                                          }
                                  };
 
             notifyUser.SendEmail(
-                new MailAddress(toUser.Email, this.BoardSettings.EnableDisplayName ? toUser.DisplayName : toUser.Name),
+                new MailAddress(toUser.Email, this.Get<IUserDisplayName>().GetName(toUser)),
                 subject);
         }
 

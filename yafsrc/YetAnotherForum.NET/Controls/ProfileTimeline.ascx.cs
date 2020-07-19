@@ -195,7 +195,7 @@ namespace YAF.Controls
                     UserID = activity.Item1.FromUserID.Value,
                     Suspended = user.Suspended,
                     Style = user.UserStyle,
-                    ReplaceName = this.PageContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name
+                    ReplaceName = this.Get<IUserDisplayName>().GetName(user)
                 };
 
                 title.Text = this.GetText("ACCOUNT", "GIVEN_THANKS");

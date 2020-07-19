@@ -48,25 +48,6 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="albumId">
-        /// The album Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static List<UserAlbum> List(
-            [NotNull] this IRepository<UserAlbum> repository, int albumId)
-        {
-            return repository.Get(userAlbum => userAlbum.ID == albumId);
-        }
-
-        /// <summary>
-        /// Lists all the albums associated with the UserID or gets all the
-        ///   specifications for the specified album id.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
         /// <param name="userId">
         /// The user Id.
         /// </param>

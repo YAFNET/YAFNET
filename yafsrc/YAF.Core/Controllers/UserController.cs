@@ -27,7 +27,6 @@ namespace YAF.Core.Controllers
     using System.Linq;
     using System.Web.Http;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
@@ -76,7 +75,7 @@ namespace YAF.Core.Controllers
                 .Select(
                     user => new SelectOptions
                     {
-                        text = this.Get<BoardSettings>().EnableDisplayName ? user.DisplayName : user.Name,
+                        text = this.Get<IUserDisplayName>().GetName(user),
                         id = user.ID.ToString()
                     }).ToList();
 

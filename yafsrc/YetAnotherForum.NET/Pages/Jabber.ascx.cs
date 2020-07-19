@@ -30,11 +30,13 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -91,7 +93,7 @@ namespace YAF.Pages
             }
 
             // get user data...
-            var userHe = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.UserID);
+            var userHe = this.GetRepository<User>().GetById(this.UserID);
 
             if (userHe == null)
             {
@@ -104,12 +106,10 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            var displayNameHe = this.Get<IUserDisplayName>().GetName(this.UserID);
-
             this.PageLinks.AddRoot();
             this.PageLinks.AddUser(
                 this.UserID,
-                this.PageContext.BoardSettings.EnableDisplayName ? displayNameHe : userHe.UserName);
+                this.Get<IUserDisplayName>().GetName(userHe));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             if (this.UserID == this.PageContext.PageUserID)

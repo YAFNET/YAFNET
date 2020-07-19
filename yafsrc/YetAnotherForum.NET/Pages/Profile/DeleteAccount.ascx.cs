@@ -68,9 +68,7 @@ namespace YAF.Pages.Profile
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<BoardSettings>().EnableDisplayName
-                    ? this.PageContext.CurrentUser.DisplayName
-                    : this.PageContext.PageUserName,
+                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
                 BuildLink.GetLink(ForumPages.MyAccount));
 
             this.PageLinks.AddLink(
@@ -139,15 +137,15 @@ namespace YAF.Pages.Profile
                             "User Suspended his own account",
                             this.PageContext.PageUserID);
 
-                        var usr = this.GetRepository<User>().GetById(
+                        var user = this.GetRepository<User>().GetById(
                             this.PageContext.PageUserID);
 
-                        if (usr != null)
+                        if (user != null)
                         {
                             this.Get<ILogger>().Log(
                                 this.PageContext.PageUserID,
                                 this,
-                                $"User {(this.Get<BoardSettings>().EnableDisplayName ? usr.DisplayName : usr.Name)} Suspended his own account until: {suspend} (UTC)",
+                                $"User {this.Get<IUserDisplayName>().GetName(user)} Suspended his own account until: {suspend} (UTC)",
                                 EventLogTypes.UserSuspended);
 
                             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));

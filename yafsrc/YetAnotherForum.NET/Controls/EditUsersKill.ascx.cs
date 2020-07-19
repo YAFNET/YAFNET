@@ -131,7 +131,7 @@ namespace YAF.Controls
                 this.GetRepository<BannedEmail>().Save(
                     null,
                     this.User.Item1.Email,
-                    $"Email was reported by: {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUser.DisplayName : this.PageContext.CurrentUser.Name)}");
+                    $"Email was reported by: {this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser)}");
             }
 
             // Ban User IP?
@@ -146,7 +146,7 @@ namespace YAF.Controls
                 this.GetRepository<BannedName>().Save(
                     null,
                     this.User.Item1.Name,
-                    $"Name was reported by: {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUser.DisplayName : this.PageContext.CurrentUser.Name)}");
+                    $"Name was reported by: {this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser)}");
             }
 
             this.DeleteAllUserMessages();
@@ -165,7 +165,7 @@ namespace YAF.Controls
                         this.Logger.Log(
                             this.PageContext.PageUserID,
                             "User Reported to StopForumSpam.com",
-                            $"User (Name:{this.User.Item1.Name}/ID:{this.CurrentUserId}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUser.DisplayName : this.PageContext.CurrentUser.Name)}",
+                            $"User (Name:{this.User.Item1.Name}/ID:{this.CurrentUserId}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser)}",
                             EventLogTypes.SpamBotReported);
                     }
                 }
@@ -277,7 +277,7 @@ namespace YAF.Controls
                 .Select(x => x.Mask).ToList();
 
             // ban user ips...
-            var name = this.Get<BoardSettings>().EnableDisplayName ? this.User.Item1.DisplayName : this.User.Item1.Name;
+            var name = this.Get<IUserDisplayName>().GetName(this.User.Item1);
 
             this.IPAddresses.Except(allIps).ToList().Where(i => i.IsSet()).ForEach(
                 ip =>
@@ -305,7 +305,7 @@ namespace YAF.Controls
                 ForumPages.Search,
                 "postedby={0}",
                 !this.User.Item1.IsGuest.Value
-                    ? this.Get<BoardSettings>().EnableDisplayName ? this.User.Item1.DisplayName : this.User.Item1.Name
+                    ? this.Get<IUserDisplayName>().GetName(this.User.Item1)
                     : this.Get<IAspNetUsersHelper>().GuestUserName);
 
             this.ReportUserRow.Visible = this.Get<BoardSettings>().StopForumSpamApiKey.IsSet();

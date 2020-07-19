@@ -71,9 +71,7 @@
                             <YAF:UserLink runat="server" 
                                           Suspended="<%# ((User)Container.DataItem).Suspended %>"
                                           Style="<%# ((User)Container.DataItem).UserStyle %>"
-                                          ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? 
-                                                               ((User)Container.DataItem).DisplayName : 
-                                                               ((User)Container.DataItem).Name %>"
+                                          ReplaceName="<%# this.Get<IUserDisplayName>().GetName((User)Container.DataItem) %>"
                                           UserID="<%# ((User)Container.DataItem).ID %>"/>
                             <YAF:ThemeButton runat="server"
                                              Type="Secondary"

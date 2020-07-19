@@ -25,7 +25,6 @@ namespace YAF.Web.BBCodes
 {
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.BBCode;
     using YAF.Core.Extensions;
     using YAF.Types.Extensions;
@@ -77,7 +76,7 @@ namespace YAF.Web.BBCodes
                     UserID = boardUser.ID,
                     Style = boardUser.UserStyle,
                     ReplaceName =
-                        this.Get<BoardSettings>().EnableDisplayName ? boardUser.DisplayName : boardUser.Name,
+                        this.Get<IUserDisplayName>().GetName(boardUser),
                     CssClass = "btn btn-outline-primary",
                     BlankTarget = true,
                     ID = $"UserLinkBBCodeFor{boardUser.ID}"

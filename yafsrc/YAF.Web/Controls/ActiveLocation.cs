@@ -25,7 +25,6 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
-    using System.Linq;
     using System.Text;
     using System.Web;
     using System.Web.UI;
@@ -35,7 +34,6 @@ namespace YAF.Web.Controls
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -419,10 +417,10 @@ namespace YAF.Web.Controls
                 var userId = userID.ToType<int>();
 
                 // The DataRow should not be missing in the case
-                var dr = this.GetRepository<UserAlbum>().List(albumID.Trim().ToType<int>()).FirstOrDefault();
+                var userAlbum = this.GetRepository<UserAlbum>().GetById(albumID.Trim().ToType<int>());
 
                 // If album doesn't have a Title, use his ID.
-                var albumName = dr.Title.IsNotSet() ? dr.Title : dr.ID.ToString();
+                var albumName = userAlbum.Title.IsNotSet() ? userAlbum.Title : userAlbum.ID.ToString();
 
                 // Render
                 if (userId != this.UserID)
@@ -472,7 +470,7 @@ namespace YAF.Web.Controls
         /// </returns>
         private string Albums([NotNull] string forumPageAttributes)
         {
-            var outstring = new StringBuilder();
+            var outString = new StringBuilder();
 
             var userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2)
                 .Substring(0).Trim();
@@ -483,14 +481,14 @@ namespace YAF.Web.Controls
 
                 if (userId.ToType<int>() == this.UserID)
                 {
-                    outstring.Append(this.GetText("ACTIVELOCATION", "ALBUMS_OWN"));
+                    outString.Append(this.GetText("ACTIVELOCATION", "ALBUMS_OWN"));
                 }
                 else
                 {
                     var displayName =
                         HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetName(userId.ToType<int>()));
 
-                    outstring.AppendFormat(
+                    outString.AppendFormat(
                         @"{3}<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>",
                         BuildLink.GetUserProfileLink(userId, displayName),
                         userId + this.PageContext.PageUserID,
@@ -500,10 +498,10 @@ namespace YAF.Web.Controls
             }
             else
             {
-                outstring.Append(this.GetTextFormatted("ACTIVELOCATION", "ALBUMS"));
+                outString.Append(this.GetTextFormatted("ACTIVELOCATION", "ALBUMS"));
             }
 
-            return outstring.ToString();
+            return outString.ToString();
         }
 
         /// <summary>
@@ -517,7 +515,7 @@ namespace YAF.Web.Controls
         /// </returns>
         private string Profile([NotNull] string forumPageAttributes)
         {
-            var outstring = new StringBuilder();
+            var outString = new StringBuilder();
             var userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2);
 
             userID = userID.Contains("&")
@@ -533,8 +531,8 @@ namespace YAF.Web.Controls
                     var displayName =
                         HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetName(userId));
 
-                    outstring.Append(this.GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
-                    outstring.AppendFormat(
+                    outString.Append(this.GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
+                    outString.AppendFormat(
                         @"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>",
                         BuildLink.GetUserProfileLink(userId, displayName),
                         userId + this.PageContext.PageUserID,
@@ -543,15 +541,15 @@ namespace YAF.Web.Controls
                 }
                 else
                 {
-                    outstring.Append(this.GetText("ACTIVELOCATION", "PROFILE_OWN"));
+                    outString.Append(this.GetText("ACTIVELOCATION", "PROFILE_OWN"));
                 }
             }
             else
             {
-                outstring.Append(this.GetText("ACTIVELOCATION", "PROFILE"));
+                outString.Append(this.GetText("ACTIVELOCATION", "PROFILE"));
             }
 
-            return outstring.ToString();
+            return outString.ToString();
         }
 
         #endregion

@@ -205,9 +205,7 @@ namespace YAF.Pages
 
             // users control panel
             this.PageLinks.AddLink(
-                this.Get<BoardSettings>().EnableDisplayName
-                    ? this.PageContext.CurrentUser.DisplayName
-                    : this.PageContext.PageUserName,
+                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
                 BuildLink.GetLink(ForumPages.MyAccount));
 
             // private messages
@@ -389,9 +387,7 @@ namespace YAF.Pages
 
                 if (hostUser != null)
                 {
-                    this.To.Text = this.Get<BoardSettings>().EnableDisplayName
-                                       ? hostUser.DisplayName
-                                       : hostUser.Name;
+                    this.To.Text = this.Get<IUserDisplayName>().GetName(hostUser);
 
                     this.PmSubjectTextBox.Text = this.GetTextFormatted("REPORT_SUBJECT", displayName);
 
@@ -480,9 +476,7 @@ namespace YAF.Pages
                     return;
                 }
 
-                this.To.Text = this.PageContext.BoardSettings.EnableDisplayName
-                    ? foundUser.DisplayName
-                    : foundUser.Name;
+                this.To.Text = this.Get<IUserDisplayName>().GetName(foundUser);
 
                 this.To.Enabled = false;
 

@@ -35,7 +35,6 @@ namespace YAF.Dialogs
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
-    using YAF.Pages.Admin;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -189,11 +188,11 @@ namespace YAF.Dialogs
             if (this.PageContext.Get<BoardSettings>().LogBannedIP)
             {
                 this.Logger.Log(
-                    $"IP or mask {this.mask.Text.Trim()} was saved by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUser.DisplayName : this.PageContext.CurrentUser.Name)}.",
+                    $"IP or mask {this.mask.Text.Trim()} was saved by {this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser)}.",
                     EventLogTypes.IpBanSet);
             }
 
-            // go back to banned IP's administration page
+            // go back to banned IPs administration page
             BuildLink.Redirect(ForumPages.Admin_BannedIps);
         }
 

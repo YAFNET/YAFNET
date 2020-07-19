@@ -27,7 +27,6 @@ namespace YAF.Pages
 
     using System;
 
-    using YAF.Configuration;
     using YAF.Controls;
     using YAF.Core.BasePages;
     using YAF.Core.Utilities;
@@ -91,9 +90,7 @@ namespace YAF.Pages
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<BoardSettings>().EnableDisplayName
-                    ? this.PageContext.CurrentUser.DisplayName
-                    : this.PageContext.PageUserName,
+                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
                 BuildLink.GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("BUDDYLIST_TT"), string.Empty);
         }

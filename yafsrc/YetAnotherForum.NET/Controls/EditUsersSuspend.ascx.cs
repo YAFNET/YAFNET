@@ -179,7 +179,7 @@ namespace YAF.Controls
                 this.Get<ILogger>().Log(
                     this.PageContext.PageUserID,
                     "YAF.Controls.EditUsersSuspend",
-                    $"User {(this.Get<BoardSettings>().EnableDisplayName ? this.User.DisplayName : this.User.Name)} was unsuspended by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUser.DisplayName : this.PageContext.CurrentUser.Name)}.",
+                    $"User {this.Get<IUserDisplayName>().GetName(this.User)} was unsuspended by {this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser)}.",
                     EventLogTypes.UserUnsuspended);
             }
 
@@ -187,7 +187,7 @@ namespace YAF.Controls
 
             this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
                 this.User.Email,
-                this.PageContext.BoardSettings.EnableDisplayName ? this.User.DisplayName : this.User.Name);
+                this.Get<IUserDisplayName>().GetName(this.User));
 
             // re-bind data
             this.BindData();
@@ -264,7 +264,7 @@ namespace YAF.Controls
             this.Get<ILogger>().Log(
                 this.PageContext.PageUserID,
                 "YAF.Controls.EditUsersSuspend",
-                $"User {(this.Get<BoardSettings>().EnableDisplayName ? this.User.DisplayName : this.User.Name)} was suspended by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUser.DisplayName : this.PageContext.CurrentUser.Name)} until: {suspend} (UTC)",
+                $"User {this.Get<IUserDisplayName>().GetName(this.User)} was suspended by {this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser)} until: {suspend} (UTC)",
                 EventLogTypes.UserSuspended);
 
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
@@ -273,7 +273,7 @@ namespace YAF.Controls
                 suspend,
                 this.SuspendedReason.Text.Trim(),
                 this.User.Email,
-                this.PageContext.BoardSettings.EnableDisplayName ? this.User.DisplayName : this.User.Name);
+                this.Get<IUserDisplayName>().GetName(this.User));
 
 
             this.SuspendedReason.Text = string.Empty;

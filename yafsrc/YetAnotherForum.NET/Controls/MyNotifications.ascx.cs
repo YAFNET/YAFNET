@@ -175,9 +175,7 @@ namespace YAF.Controls
                     UserID = activity.Item1.FromUserID.Value,
                     Suspended = activity.Item2.Suspended,
                     Style = activity.Item2.UserStyle,
-                    ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
-                        ? activity.Item2.DisplayName
-                        : activity.Item2.Name
+                    ReplaceName = this.Get<IUserDisplayName>().GetName(activity.Item2)
                 };
 
                 icon = "heart";
@@ -194,9 +192,7 @@ namespace YAF.Controls
                     UserID = activity.Item1.FromUserID.Value,
                     Suspended = activity.Item2.Suspended,
                     Style = activity.Item2.UserStyle,
-                    ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
-                        ? activity.Item2.DisplayName
-                        : activity.Item2.Name
+                    ReplaceName = this.Get<IUserDisplayName>().GetName(activity.Item2)
                 };
 
                 icon = "at";
@@ -213,9 +209,7 @@ namespace YAF.Controls
                     UserID = activity.Item1.FromUserID.Value,
                     Suspended = activity.Item2.Suspended,
                     Style = activity.Item2.UserStyle,
-                    ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
-                        ? activity.Item2.DisplayName
-                        : activity.Item2.Name
+                    ReplaceName = this.Get<IUserDisplayName>().GetName(activity.Item2)
                 };
 
                 icon = "quote-left";

@@ -39,6 +39,7 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -95,7 +96,7 @@ namespace YAF.Pages
                 JavaScriptBlocks.FormValidatorJs(this.Send.ClientID));
 
             // get user data...
-            var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.UserId);
+            var user = this.GetRepository<User>().GetById(this.UserId);
 
             if (user == null)
             {
@@ -109,12 +110,8 @@ namespace YAF.Pages
                     BuildLink.AccessDenied();
                 }
 
-                var displayName = this.Get<IUserDisplayName>().GetName(this.UserId);
-
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddUser(
-                    this.UserId,
-                    this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName);
+                this.PageLinks.AddUser(this.UserId, this.Get<IUserDisplayName>().GetName(user));
                 this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
             }
         }

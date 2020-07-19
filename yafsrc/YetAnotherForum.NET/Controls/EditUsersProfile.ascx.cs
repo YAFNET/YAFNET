@@ -299,9 +299,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void UpdateProfileClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var userName = this.Get<BoardSettings>().EnableDisplayName
-                ? this.User.Item1.DisplayName
-                : this.User.Item1.Name;
+            var userName = this.Get<IUserDisplayName>().GetName(this.User.Item1);
 
             if (this.HomePage.Text.IsSet())
             {

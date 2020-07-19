@@ -110,7 +110,7 @@
                                   Suspended="<%# ((Tuple<Message, User>)Container.DataItem).Item2.Suspended %>"
                                   Style="<%# ((Tuple<Message, User>)Container.DataItem).Item2.UserStyle %>"
                                   UserID="<%# ((Tuple<Message, User>)Container.DataItem).Item1.UserID %>"
-                                  ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ?  ((Tuple<Message, User>)Container.DataItem).Item2.DisplayName : ((Tuple<Message, User>)Container.DataItem).Item2.Name %>"
+                                  ReplaceName="<%# this.Get<IUserDisplayName>().GetName(((Tuple<Message, User>)Container.DataItem).Item2) %>"
                                   BlankTarget="true" />
                     <small class="text-muted">
                         <YAF:Icon runat="server" 
