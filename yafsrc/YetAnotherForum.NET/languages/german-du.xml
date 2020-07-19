@@ -1974,6 +1974,7 @@
   <page name="ALBUM">
     <Resource tag="ALBUM_CHANGE_TITLE">Titel hinzufügen</Resource>
     <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">Bildunterschrift hinzufügen</Resource>
+    <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION2">Change Caption</Resource>
     <Resource tag="ALBUM_IMAGES_NUMBER">{0} Bild(er)</Resource>
     <Resource tag="ALBUM_VIEW">Anklicken um Album anzusehen</Resource>
     <Resource tag="ALBUMS">Alben</Resource>
@@ -2711,10 +2712,13 @@
     <Resource tag="ASK_DELETEIMAGE">Dieses Bild löschen?</Resource>
     <Resource tag="ERROR_MAXALBUMS">Sie können keine weiteren Bilder diesem Konto hinzufügen.</Resource>
     <Resource tag="ERROR_TOOBIG">Sie können Solche großen Bilder nicht Hochladen.</Resource>
+    <Resource tag="IMAGES">Album Image(s)</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Sie haben ihr Limit erreicht. Sie können nicht mehr als {0} Bilder hinzufügen.</Resource>
     <Resource tag="IMAGES_INFO">Notiz: Aktuell enthält das Album {0} Bilder sie sind berechtigt {1} Bilder pro Album hochzuladen. Die max. Dateigröße für ein Bild ist  {2} kb</Resource>
+    <Resource tag="NEED_TITLE">You need to specify a title.</Resource>
     <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Hinzufügen/Bearbeiten Album</Resource>
+    <Resource tag="TITLE_NEW">Create New Album</Resource>
   </page>
   <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">Avatar</Resource>

@@ -2002,6 +2002,7 @@
   <page name="ALBUM">
     <Resource tag="ALBUM_CHANGE_TITLE">افزودن عنوان</Resource>
     <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">افزودن برچسب</Resource>
+    <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION2">Change Caption</Resource>
     <Resource tag="ALBUM_IMAGES_NUMBER">{0} عکس</Resource>
     <Resource tag="ALBUM_VIEW">برای مشاهده آلبوم کلیک کنید</Resource>
     <Resource tag="ALBUMS">آلبوم</Resource>
@@ -2747,10 +2748,13 @@
     <Resource tag="ASK_DELETEIMAGE">عکس حذف شود؟</Resource>
     <Resource tag="ERROR_MAXALBUMS">شما مجاز به ایجاد آلبوم بیشتر به این حساب نمی باشید.</Resource>
     <Resource tag="ERROR_TOOBIG">شما مجاز به ارسال تصویری با این حجم نمی باشید.</Resource>
+    <Resource tag="IMAGES">Album Image(s)</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">تعداد عکس‌های مجاز شما به اتمام رسید. شما می توانید حداکثر {0} عکس را ارسال کنید.</Resource>
     <Resource tag="IMAGES_INFO">توجه: هم‌اکنون این آلبوم {0} تصویر دارد و شما مجاز به داشتن {1} تصویر در هر آلبوم هستید. بیشترین حجم برای تصویر {2} کیلوبایت است</Resource>
+    <Resource tag="NEED_TITLE">You need to specify a title.</Resource>
     <Resource tag="SELECT_FILE">یک فایل تصویر ('.jpg', '.gif', '.png' or '.bmp') که می خواهید آپلود کنید را انتخاب کنید</Resource>
     <Resource tag="TITLE">افزودن/ ویرایش آلبوم</Resource>
+    <Resource tag="TITLE_NEW">Create New Album</Resource>
   </page>
   <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">تصویر پروفایل</Resource>

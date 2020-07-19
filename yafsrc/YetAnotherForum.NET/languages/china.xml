@@ -1989,6 +1989,7 @@
   <page name="ALBUM">
     <Resource tag="ALBUM_CHANGE_TITLE">添加标题</Resource>
     <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">Add Caption</Resource>
+    <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION2">Change Caption</Resource>
     <Resource tag="ALBUM_IMAGES_NUMBER">{0} 图片</Resource>
     <Resource tag="ALBUM_VIEW">点击查看相册</Resource>
     <Resource tag="ALBUMS">相册</Resource>
@@ -2733,10 +2734,13 @@
     <Resource tag="ASK_DELETEIMAGE">删除此图片?</Resource>
     <Resource tag="ERROR_MAXALBUMS">此用户不能再创建相册了.</Resource>
     <Resource tag="ERROR_TOOBIG">您不能上传此大小的图片.</Resource>
+    <Resource tag="IMAGES">Album Image(s)</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more then {0} images.</Resource>
     <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
+    <Resource tag="NEED_TITLE">You need to specify a title.</Resource>
     <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">添加/删除相册</Resource>
+    <Resource tag="TITLE_NEW">Create New Album</Resource>
   </page>
   <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">头像</Resource>

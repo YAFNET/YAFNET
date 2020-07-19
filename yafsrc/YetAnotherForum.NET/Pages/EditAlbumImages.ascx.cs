@@ -37,6 +37,7 @@ namespace YAF.Pages
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -108,19 +109,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var path = this.Get<HttpRequestBase>()
-                .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
-
-            this.Get<IAlbum>().AlbumImageDelete(
-                path,
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("a"),
-                this.PageContext.PageUserID,
-                null);
-
-            // clear the cache for this user to update albums|images stats...
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
-
-            BuildLink.Redirect(ForumPages.Albums, "u={0}", this.PageContext.PageUserID);
+            this.DeleteAlbum();
         }
 
         /// <summary>
@@ -152,20 +141,17 @@ namespace YAF.Pages
 
                     var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
 
+                    // Check if user album is empty
+                    if (usrAlbumImagesAllowed == 0)
+                    {
+                        this.DeleteAlbum();
+                    }
+
                     // Has the user uploaded maximum number of images?   
                     // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
                     if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
                     {
-                        if (this.List.Items.Count >= usrAlbumImagesAllowed)
-                        {
-                            this.uploadtitletr.Visible = false;
-                            this.selectfiletr.Visible = false;
-                        }
-                        else
-                        {
-                            this.uploadtitletr.Visible = true;
-                            this.selectfiletr.Visible = true;
-                        }
+                        this.UploadHolder.Visible = !(this.List.Items.Count >= usrAlbumImagesAllowed);
 
                         this.imagesInfo.Text = this.GetTextFormatted(
                             "IMAGES_INFO",
@@ -175,8 +161,7 @@ namespace YAF.Pages
                     }
                     else
                     {
-                        this.uploadtitletr.Visible = false;
-                        this.selectfiletr.Visible = false;
+                        this.UploadHolder.Visible = false;
                     }
 
                     break;
@@ -194,6 +179,10 @@ namespace YAF.Pages
             {
                 BuildLink.AccessDenied();
             }
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Upload.ClientID));
 
             if (this.IsPostBack)
             {
@@ -213,12 +202,6 @@ namespace YAF.Pages
                 // A new album is being created. check the permissions.
                 case "new":
 
-                    // Is album feature enabled?
-                    if (!this.Get<BoardSettings>().EnableAlbum)
-                    {
-                        BuildLink.AccessDenied();
-                    }
-
                     // Has the user created maximum number of albums?
                     if (usrAlbumsAllowed.HasValue && usrAlbumsAllowed > 0)
                     {
@@ -229,11 +212,9 @@ namespace YAF.Pages
                         }
                     }
 
-                    /* if (this.Get<BoardSettings>().AlbumsMax > 0 &&
-                                        albumSize[0] > this.Get<BoardSettings>().AlbumsMax - 1)
-                              {
-                                  BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
-                              }*/
+                    this.UpdateTitle.Visible = false;
+
+                    this.Header.LocalizedTag = "TITLE_NEW";
                     
                     break;
             }
@@ -246,16 +227,7 @@ namespace YAF.Pages
             // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
             if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
             {
-                if (this.List.Items.Count >= usrAlbumImagesAllowed)
-                {
-                    this.uploadtitletr.Visible = false;
-                    this.selectfiletr.Visible = false;
-                }
-                else
-                {
-                    this.uploadtitletr.Visible = true;
-                    this.selectfiletr.Visible = true;
-                }
+                this.UploadHolder.Visible = !(this.List.Items.Count >= usrAlbumImagesAllowed);
 
                 this.imagesInfo.Text = this.GetTextFormatted(
                     "IMAGES_INFO",
@@ -265,8 +237,7 @@ namespace YAF.Pages
             }
             else
             {
-                this.uploadtitletr.Visible = false;
-                this.selectfiletr.Visible = false;
+                this.UploadHolder.Visible = false;
             }
         }
 
@@ -275,7 +246,7 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-            var displayName = this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID);
+            var displayName = this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser);
 
             // Add the page links.
             this.PageLinks.AddRoot();
@@ -293,22 +264,14 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void UpdateTitle_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var albumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a");
+            var albumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("a");
             this.txtTitle.Text = HttpUtility.HtmlEncode(this.txtTitle.Text);
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == "new")
-            {
-                albumId = this.GetRepository<UserAlbum>().Save(this.PageContext.PageUserID, this.txtTitle.Text, null)
-                    .ToString();
-            }
-            else
-            {
-                this.GetRepository<UserAlbum>().UpdateTitle(
-                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("a"),
-                    this.txtTitle.Text);
-            }
+            this.GetRepository<UserAlbum>().UpdateTitle(
+                albumId.Value,
+                this.txtTitle.Text);
 
-            BuildLink.Redirect(ForumPages.EditAlbumImages, "a={0}", albumId);
+            BuildLink.Redirect(ForumPages.EditAlbumImages, "a={0}", albumId.Value);
         }
 
         /// <summary>
@@ -337,16 +300,7 @@ namespace YAF.Pages
                 // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
                 if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
                 {
-                    if (this.List.Items.Count >= usrAlbumImagesAllowed)
-                    {
-                        this.uploadtitletr.Visible = false;
-                        this.selectfiletr.Visible = false;
-                    }
-                    else
-                    {
-                        this.uploadtitletr.Visible = true;
-                        this.selectfiletr.Visible = true;
-                    }
+                    this.UploadHolder.Visible = !(this.List.Items.Count >= usrAlbumImagesAllowed);
 
                     this.imagesInfo.Text = this.GetTextFormatted(
                         "IMAGES_INFO",
@@ -356,8 +310,7 @@ namespace YAF.Pages
                 }
                 else
                 {
-                    this.uploadtitletr.Visible = false;
-                    this.selectfiletr.Visible = false;
+                    this.UploadHolder.Visible = false;
                 }
             }
             catch (Exception x)
@@ -549,6 +502,26 @@ namespace YAF.Pages
                     file.PostedFile.ContentLength,
                     file.PostedFile.ContentType);
             }
+        }
+
+        /// <summary>
+        /// Deletes the Entire Album
+        /// </summary>
+        private void DeleteAlbum()
+        {
+            var path = this.Get<HttpRequestBase>()
+                .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
+
+            this.Get<IAlbum>().AlbumImageDelete(
+                path,
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("a"),
+                this.PageContext.PageUserID,
+                null);
+
+            // clear the cache for this user to update albums|images stats...
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
+
+            BuildLink.Redirect(ForumPages.Albums, "u={0}", this.PageContext.PageUserID);
         }
 
         #endregion

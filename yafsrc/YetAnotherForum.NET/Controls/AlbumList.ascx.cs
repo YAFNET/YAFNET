@@ -55,7 +55,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets the User ID.
         /// </summary>
-        public int UserID { get; set; }
+        public User User { get; set; }
 
         #endregion
 
@@ -68,7 +68,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void AddAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.EditAlbumImages, "u={0}&a=new", this.UserID);
+            BuildLink.Redirect(ForumPages.EditAlbumImages, "a=new");
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            if (this.UserID == this.PageContext.PageUserID)
+            if (this.User.ID == this.PageContext.PageUserID)
             {
                 // Register Js Blocks.
                 this.PageContext.PageElements.RegisterJsBlockStartup(
@@ -116,14 +116,14 @@ namespace YAF.Controls
                 return;
             }
 
-            this.IconHeader.Param0 = this.HtmlEncode(this.Get<IUserDisplayName>().GetName(this.UserID));
+            this.Header.Param0 = this.HtmlEncode(this.Get<IUserDisplayName>().GetName(this.User));
 
             this.BindData();
 
             HttpContext.Current.Session["localizationFile"] = this.Get<ILocalization>().LanguageFileName;
 
             // Show Albums Max Info
-            if (this.UserID == this.PageContext.PageUserID)
+            if (this.User.ID == this.PageContext.PageUserID)
             {
                 this.albumsInfo.Text = this.Get<ILocalization>().GetTextFormatted(
                     "ALBUMS_INFO", this.PageContext.NumAlbums, this.PageContext.UsrAlbums);
@@ -167,7 +167,7 @@ namespace YAF.Controls
             this.PagerTop.PageSize = this.Get<BoardSettings>().AlbumsPerPage;
 
             // set the Data table
-            var albumListDT = this.GetRepository<UserAlbum>().ListByUser(this.UserID);
+            var albumListDT = this.GetRepository<UserAlbum>().ListByUser(this.User.ID);
 
             if (albumListDT == null || !albumListDT.Any())
             {

@@ -1989,6 +1989,7 @@
   <page name="ALBUM">
     <Resource tag="ALBUM_CHANGE_TITLE">Lisa pealkiri</Resource>
     <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">Lisa allkiri</Resource>
+    <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION2">Change Caption</Resource>
     <Resource tag="ALBUM_IMAGES_NUMBER">{0} Pilt/Pildid</Resource>
     <Resource tag="ALBUM_VIEW">Vajutage albumi avamiseks</Resource>
     <Resource tag="ALBUMS">Albumid</Resource>
@@ -2730,10 +2731,13 @@
     <Resource tag="ASK_DELETEIMAGE">Kas kustutan selle pildi?</Resource>
     <Resource tag="ERROR_MAXALBUMS">Sellele kontole albumeid enam ei saa lisada.</Resource>
     <Resource tag="ERROR_TOOBIG">Pilt on liiga suur üles laadimiseks.</Resource>
+    <Resource tag="IMAGES">Album Image(s)</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Teie piltide limiit on saavutatud. Te saate lisada kuni {0} pilti igasse albumisse.</Resource>
     <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
+    <Resource tag="NEED_TITLE">You need to specify a title.</Resource>
     <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Lisa/muuda albumit</Resource>
+    <Resource tag="TITLE_NEW">Create New Album</Resource>
   </page>
   <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">Avatar</Resource>

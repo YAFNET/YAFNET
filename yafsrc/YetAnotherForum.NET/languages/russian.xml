@@ -1972,6 +1972,7 @@
   <page name="ALBUM">
     <Resource tag="ALBUM_CHANGE_TITLE">Изменить название</Resource>
     <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">Изменить заголовок</Resource>
+    <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION2">Change Caption</Resource>
     <Resource tag="ALBUM_IMAGES_NUMBER">Изображений:{0}</Resource>
     <Resource tag="ALBUM_VIEW">Просмотр</Resource>
     <Resource tag="ALBUMS">Альбомы</Resource>
@@ -2714,10 +2715,13 @@
     <Resource tag="ASK_DELETEIMAGE">Удалить это изображение?</Resource>
     <Resource tag="ERROR_MAXALBUMS">Вы больше не можете добавлять альбомы для вашей учётной записи.</Resource>
     <Resource tag="ERROR_TOOBIG">Размер изображения слишком большой.</Resource>
+    <Resource tag="IMAGES">Album Image(s)</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Предельное количество разрешённых изображений достигнуто. Вы можете добавить не более чем {0} изображений в каждый альбом.</Resource>
     <Resource tag="IMAGES_INFO">Примечание: В данный момент у Вас {0} изображений, Вам разрешены {1} изображений в каждом альбоме. Максимальный размер файла - {2} КБ</Resource>
+    <Resource tag="NEED_TITLE">You need to specify a title.</Resource>
     <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Добавить/изменить альбом</Resource>
+    <Resource tag="TITLE_NEW">Create New Album</Resource>
   </page>
   <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">Аватар</Resource>

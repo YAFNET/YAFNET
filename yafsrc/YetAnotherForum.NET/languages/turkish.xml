@@ -1989,6 +1989,7 @@
   <page name="ALBUM">
     <Resource tag="ALBUM_CHANGE_TITLE">Başlık Ekle</Resource>
     <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">Açıklama Ekle</Resource>
+    <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION2">Change Caption</Resource>
     <Resource tag="ALBUM_IMAGES_NUMBER">{0} Resim</Resource>
     <Resource tag="ALBUM_VIEW">Albümü görüntülemek için tıklayın</Resource>
     <Resource tag="ALBUMS">Albümler</Resource>
@@ -2733,10 +2734,13 @@
     <Resource tag="ASK_DELETEIMAGE">Bu resimi silmek istiyor musunuz?</Resource>
     <Resource tag="ERROR_MAXALBUMS">Bu hesabınıza daha fazla albüm eklemeyezsiniz.</Resource>
     <Resource tag="ERROR_TOOBIG">Bu büyüklükteki resmi ekleyemezsiniz.</Resource>
+    <Resource tag="IMAGES">Album Image(s)</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Resim limitine ulaşıldı. {0} 'den fazla resim ekleyemezsiniz.</Resource>
     <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
+    <Resource tag="NEED_TITLE">You need to specify a title.</Resource>
     <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Albüm Ekle/Düzenle</Resource>
+    <Resource tag="TITLE_NEW">Create New Album</Resource>
   </page>
   <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">Avatar</Resource>

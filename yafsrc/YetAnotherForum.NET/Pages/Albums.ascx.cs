@@ -32,10 +32,11 @@ namespace YAF.Pages
     using YAF.Configuration;
     
     using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -58,6 +59,12 @@ namespace YAF.Pages
 
         #endregion
 
+        /// <summary>
+        ///   Gets user ID of edited user.
+        /// </summary>
+        protected int CurrentUserID =>
+            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+
         #region Methods
 
         /// <summary>
@@ -77,10 +84,7 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            var userId =
-                Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-            var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(userId);
+            var user = this.GetRepository<User>().GetById(this.CurrentUserID);
 
             if (user == null)
             {
@@ -93,8 +97,13 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
+            this.PageLinks.Clear();
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddUser(this.CurrentUserID, this.Get<IUserDisplayName>().GetName(user));
+            this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
+
             // Initialize the Album List control.
-            this.AlbumList1.UserID = userId.ToType<int>();
+            this.AlbumList1.User = user;
         }
 
         /// <summary>
@@ -102,13 +111,6 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-            var userId =
-                Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-            this.PageLinks.Clear();
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddUser(userId, null);
-            this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
         }
 
         #endregion

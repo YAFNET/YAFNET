@@ -15,13 +15,22 @@ namespace YAF.Controls
     {
 
         /// <summary>
-        /// IconHeader control.
+        /// Header control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.IconHeader IconHeader;
+        protected global::YAF.Web.Controls.LocalizedLabel Header;
+
+        /// <summary>
+        /// albumsInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label albumsInfo;
 
         /// <summary>
         /// AddAlbum control.
@@ -58,14 +67,5 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.Pager PagerBottom;
-
-        /// <summary>
-        /// albumsInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label albumsInfo;
     }
 }

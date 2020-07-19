@@ -1984,6 +1984,7 @@
   <page name="ALBUM">
     <Resource tag="ALBUM_CHANGE_TITLE">Voeg titel toe</Resource>
     <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">Voeg bijschrift toe</Resource>
+    <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION2">Change Caption</Resource>
     <Resource tag="ALBUM_IMAGES_NUMBER">{0} Plaatje(s)</Resource>
     <Resource tag="ALBUM_VIEW">Klik om het album te bekijken</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
@@ -2726,10 +2727,13 @@
     <Resource tag="ASK_DELETEIMAGE">Verwijder dit plaatje?</Resource>
     <Resource tag="ERROR_MAXALBUMS">Je kunt geen albums meer toevoegen.</Resource>
     <Resource tag="ERROR_TOOBIG">Je kunt geen plaatjes uploaden met deze grootte.</Resource>
+    <Resource tag="IMAGES">Album Image(s)</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Het maxmimum van {0} plaatjes is bereikt.</Resource>
     <Resource tag="IMAGES_INFO">Let op: Dit Album bevat {0} Plaatje(s). Je mag {1} plaatjes in elk album hebben. The max. filesize for an Image is {2} kb</Resource>
+    <Resource tag="NEED_TITLE">You need to specify a title.</Resource>
     <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Album toevoegen/bewerken</Resource>
+    <Resource tag="TITLE_NEW">Create New Album</Resource>
   </page>
   <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">Avatar</Resource>

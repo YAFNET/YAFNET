@@ -24,13 +24,13 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
-        /// TitleRow control.
+        /// Header control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder TitleRow;
+        protected global::YAF.Web.Controls.IconHeader Header;
 
         /// <summary>
         /// LocalizedLabel1 control.
@@ -69,13 +69,13 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.Repeater List;
 
         /// <summary>
-        /// uploadtitletr control.
+        /// UploadHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder uploadtitletr;
+        protected global::System.Web.UI.WebControls.PlaceHolder UploadHolder;
 
         /// <summary>
         /// UploadTitle control.
@@ -85,15 +85,6 @@ namespace YAF.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel UploadTitle;
-
-        /// <summary>
-        /// selectfiletr control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder selectfiletr;
 
         /// <summary>
         /// File control.

@@ -32,7 +32,7 @@ namespace YAF.Pages
     using YAF.Configuration;
     
     using YAF.Core.BasePages;
-    using YAF.Core.Model;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -60,6 +60,18 @@ namespace YAF.Pages
 
         #endregion
 
+        /// <summary>
+        ///   Gets user ID of edited user.
+        /// </summary>
+        protected int CurrentUserID =>
+            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+
+        /// <summary>
+        /// The album id.
+        /// </summary>
+        protected int AlbumID =>
+            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
+
         #region Methods
 
         /// <summary>
@@ -80,28 +92,27 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            var userId =
-                Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-            var albumId = Security.StringToLongOrRedirect(
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
+            var displayName = this.Get<IUserDisplayName>().GetName(this.CurrentUserID);
 
-            var displayName = this.Get<IUserDisplayName>().GetName((int)userId);
+            var album = this.GetRepository<UserAlbum>().GetById(this.AlbumID);
 
             // Generate the page links.
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
-            this.PageLinks.AddUser(userId, displayName);
-            this.PageLinks.AddLink(this.GetText("ALBUMS"), BuildLink.GetLink(ForumPages.Albums, "u={0}", userId));
+            this.PageLinks.AddUser(this.CurrentUserID, displayName);
+            this.PageLinks.AddLink(this.GetText("ALBUMS"), BuildLink.GetLink(ForumPages.Albums, "u={0}", this.CurrentUserID));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             // Set the title text.
             this.LocalizedLabel1.Param0 = this.Server.HtmlEncode(displayName);
             this.LocalizedLabel1.Param1 =
-                this.Server.HtmlEncode(this.GetRepository<UserAlbum>().GetTitle(albumId.ToType<int>()));
+                this.Server.HtmlEncode(album.Title);
 
             // Initialize the Album Image List control.
-            this.AlbumImageList1.UserID = (int)userId;
-            this.AlbumImageList1.AlbumID = (int)albumId;
+            this.AlbumImageList1.UserID = this.CurrentUserID;
+            this.AlbumImageList1.UserAlbum = album;
+
+            this.EditAlbums.Visible = this.PageContext.PageUserID == this.CurrentUserID;
         }
 
         /// <summary>
@@ -109,7 +120,6 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-
         }
 
         /// <summary>
@@ -123,6 +133,19 @@ namespace YAF.Pages
                 ForumPages.Albums,
                 "u={0}",
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+        }
+
+        /// <summary>
+        /// Redirect to the edit album page.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void EditAlbums_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            BuildLink.Redirect(
+                ForumPages.EditAlbumImages,
+                "a={0}",
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
         }
 
         #endregion
