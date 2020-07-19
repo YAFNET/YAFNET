@@ -258,65 +258,9 @@ namespace YAF.Dialogs
                         }
                     }
 
-                    // Check posts for urls if the user has only x posts
-                    if (this.PageContext.CurrentUser.NumPosts
-                        <= this.PageContext.Get<BoardSettings>().IgnoreSpamWordCheckPostCount
-                        && !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
+                    if (this.Get<ISpamCheck>().ContainsSpamUrls(this.quickReplyEditor.Text))
                     {
-                        var urlCount = UrlHelper.CountUrls(this.quickReplyEditor.Text);
-
-                        if (urlCount > this.PageContext.BoardSettings.AllowedNumberOfUrls)
-                        {
-                            spamResult =
-                                $"The user posted {urlCount} urls but allowed only {this.PageContext.BoardSettings.AllowedNumberOfUrls}";
-
-                            switch (this.Get<BoardSettings>().SpamMessageHandling)
-                            {
-                                case 0:
-                                    this.Logger.Log(
-                                        this.PageContext.PageUserID,
-                                        "Spam Message Detected",
-                                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}",
-                                        EventLogTypes.SpamMessageDetected);
-                                    break;
-                                case 1:
-                                    spamApproved = false;
-                                    isPossibleSpamMessage = true;
-                                    this.Logger.Log(
-                                        this.PageContext.PageUserID,
-                                        "Spam Message Detected",
-                                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}, it was flagged as unapproved post",
-                                        EventLogTypes.SpamMessageDetected);
-                                    break;
-                                case 2:
-                                    this.Logger.Log(
-                                        this.PageContext.PageUserID,
-                                        "Spam Message Detected",
-                                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}, post was rejected",
-                                        EventLogTypes.SpamMessageDetected);
-
-                                    this.PageContext.PageElements.RegisterJsBlockStartup(
-                                        "openModalJs",
-                                        JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
-
-                                    this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
-
-                                    return;
-                                case 3:
-                                    this.Logger.Log(
-                                        this.PageContext.PageUserID,
-                                        "Spam Message Detected",
-                                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}, user was deleted and bannded",
-                                        EventLogTypes.SpamMessageDetected);
-
-                                    this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                        this.PageContext.PageUserID,
-                                        this.PageContext.MembershipUser,
-                                        this.PageContext.CurrentUser.IP);
-
-                                    return;
-                            }
-                        }
+                        return;
                     }
 
                     if (!this.PageContext.IsGuest)

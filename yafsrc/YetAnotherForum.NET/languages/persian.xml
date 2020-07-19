@@ -379,6 +379,7 @@
     <Resource tag="HEADER1">نام و توضیحات (تمام فیلد ها اجباری است)</Resource>
     <Resource tag="HEADER2">REGEX</Resource>
     <Resource tag="HEADER3"> جاوااسکریپت و CSS (تمام فیلدها اختیاری است)</Resource>
+    <Resource tag="MSG_NAME">You must enter a name.</Resource>
     <Resource tag="MSG_NUMBER">برای ترتیب مرتب سازی می بایست عددی بین 0 تا 32767 وارد کنید.</Resource>
     <Resource tag="MSG_POSITIVE_VALUE">ترتیب مرتب سازی عددی است صحیح و مثبت بین 0 تا 32767.</Resource>
     <Resource tag="ONCLICK_JS">OnClick JS:</Resource>
@@ -456,6 +457,7 @@
     <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">حذف نام و عنوان YAF از زیر انجمن موجود در لینک : &lt;a href="https://yetanotherforum.net/purchase.aspx"&gt;سایت YAF&lt;/a&gt;. </Resource>
     <Resource tag="HEADER">تنظیمات فعلی تابلو</Resource>
+    <Resource tag="NEED_MESSAGE">You need to enter an Announcement Message.</Resource>
     <Resource tag="TITLE">تنظیمات تابلو</Resource>
   </page>
   <page name="ADMIN_COMMON">
@@ -681,6 +683,7 @@
     <Resource tag="IS_START_HELP">در صورت علامت زدن تمامی کابران عضو این انجمن خواهند شد.</Resource>
     <Resource tag="MSG_ALBUM_NUMBER">شما می بایست یک عدد صحیح را برای تعداد آلبوم های کاربر انتخاب کنید.</Resource>
     <Resource tag="MSG_INTEGER">شما می بایست عددی صحیح را برای اولیوت آلبوم وارد کنید.</Resource>
+    <Resource tag="MSG_NAME">You need to enter a Role name.</Resource>
     <Resource tag="MSG_SIG_NUMBER">تعداد کاراکتر های مجاز برای امضا کاربران را وارد کنید.</Resource>
     <Resource tag="MSG_TOTAL_NUMBER">شما می بایست تعداد کل تصاویر در تمام آلبوم ها را مشخص کنید.</Resource>
     <Resource tag="MSG_VALID_NUMBER">می بایست مقدار صحیحی برای تعداد پیام های خصوصی وارد کنید. </Resource>
@@ -746,6 +749,7 @@
     <Resource tag="MEDAL_USER_HELP">یک نام کاربری را وارد کرده و یا روی "جستجوی کاربران" کلیک کنید و کاربر را از لیست کاربران انتخاب کنید.</Resource>
     <Resource tag="MSG_AMBIGOUS_USER">نام کاربری مبهمی تعریف شده!</Resource>
     <Resource tag="MSG_IMAGE">تصویر نشان باید مشخص شود!</Resource>
+    <Resource tag="MSG_NAME">You must enter a medal name!</Resource>
     <Resource tag="MSG_SMALL_IMAGE">تصویر کوچک نشان باید مشخص شود!</Resource>
     <Resource tag="MSG_VALID_USER">لطفا کاربر معتبری را انتخاب کنید.</Resource>
     <Resource tag="ONLY_RIBBON">فقط نمایش نوار روبان:</Resource>
@@ -811,6 +815,7 @@
     <Resource tag="MIN_POSTS">حداقل ارسال‌ها:</Resource>
     <Resource tag="MIN_POSTS_HELP">حداقل ارسال ها که لازمه دریافت این رتبه است.</Resource>
     <Resource tag="MSG_RANK_INTEGER">اولویت رتبه می بایست عددی صحیح و کوچک باشد.</Resource>
+    <Resource tag="NEED_NAME">You must define a rank name.</Resource>
     <Resource tag="PRIVATE_MESSAGES">پیام خصوصی:</Resource>
     <Resource tag="PRIVATE_MESSAGES_HELP">حداکثر تعداد پیام های خصوصی مرتبط با این رتبه.</Resource>
     <Resource tag="RANK_DESC">توضیحات</Resource>
@@ -1637,6 +1642,7 @@
     <Resource tag="HEADER">بازیابی مقالات NNTP</Resource>
     <Resource tag="LAST_MESSAGE">آخرین پیام</Resource>
     <Resource tag="LAST_UPDATE">آخرین بروز رسانی</Resource>
+    <Resource tag="NO_GROUPS">No Groups ready for retrieval</Resource>
     <Resource tag="RETRIEVE">بازیابی</Resource>
     <Resource tag="Retrieved">بازیابی {0} مقاله.{1:N2} مقاله در ثانیه.</Resource>
     <Resource tag="SECONDS">ثانیه</Resource>
@@ -1810,6 +1816,7 @@
   </page>
   <page name="ADMIN_RUNSQL">
     <Resource tag="HEADER">اجرای کوئری اس کیو ال</Resource>
+    <Resource tag="NEED_QUERY">You need to enter a Query.</Resource>
     <Resource tag="RUN_QUERY">اجرای کوئری</Resource>
     <Resource tag="RUN_TRANSCATION">اجرا در تراکنش</Resource>
     <Resource tag="SQL_COMMAND">دستور اس کیو ال:</Resource>
@@ -1948,6 +1955,7 @@
     <Resource tag="admin_bannedip">IP های مسدود شده</Resource>
     <Resource tag="admin_bannedname">نام های مسدود شده</Resource>
     <Resource tag="admin_bbcode">افزونه های بی بی کد</Resource>
+    <Resource tag="ADMIN_BoardAnnouncement">Board Announcement</Resource>
     <Resource tag="admin_boards">تابلو ها</Resource>
     <Resource tag="admin_boardsettings">تنظیمات تابلو</Resource>
     <Resource tag="admin_digest">خلاصه</Resource>
@@ -2711,6 +2719,7 @@
     <Resource tag="FROM">از طرف</Resource>
     <Resource tag="LAST10">10 ارسال آخر (نزولی)</Resource>
     <Resource tag="MESSAGE">پیغام:</Resource>
+    <Resource tag="NEED_REASON">You need to enter a Reason why the message is deleted.</Resource>
     <Resource tag="POSTED">ارسال شده:</Resource>
     <Resource tag="PREVIEWTITLE">پیغام:</Resource>
     <Resource tag="PRIORITY">اولویت:</Resource>
@@ -2848,6 +2857,8 @@
     <Resource tag="FAILED">خطا در ارسال ایمیل.\n\n{0}</Resource>
     <Resource tag="MESSAGE">پیغام:</Resource>
     <Resource tag="NEED_EMAIL">شما باید آدرس پست الکترونیک را وارد کنید.</Resource>
+    <Resource tag="NEED_MESSAGE">You must enter a Message.</Resource>
+    <Resource tag="NEED_SUBJECT">You must enter an email subject.</Resource>
     <Resource tag="SEND">ارسال پست الکترونیک</Resource>
     <Resource tag="SUBJECT">موضوع:</Resource>
     <Resource tag="TITLE">ارسال صفحه به یک دوست</Resource>
@@ -4515,6 +4526,7 @@
     <Resource tag="REPLYTO">پاسخ از طریق پیام خصوصی به:</Resource>
     <Resource tag="REPORT_SPAM">گزارش به عنوان اسپم</Resource>
     <Resource tag="REPORTED">ارسال های گزارش شده:</Resource>
+    <Resource tag="REPORTED_TIMES">{0} Reports</Resource>
     <Resource tag="REPORTEDBY">گزارش شده توسط:</Resource>
     <Resource tag="RESOLVE">بررسی کپی های ارسال</Resource>
     <Resource tag="RESOLVED">بررسی شد</Resource>
@@ -5150,6 +5162,7 @@
     <Resource tag="CANCEL_TITLE">انصراف از گزارش پیام</Resource>
     <Resource tag="ENTER_TEXT">متن مورد نظر برای گزارش را اینجا وارد کنید</Resource>
     <Resource tag="HEADER">گزارش ارسال</Resource>
+    <Resource tag="NEED_REASON">You need to provide a Report Reason.</Resource>
     <Resource tag="POSTEDBY">ارسال شده توسط:</Resource>
     <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">تگ ها در گزارشات غیر مجاز هستند.</Resource>
     <Resource tag="REPORTTEXT_FORBIDDENTAG">تگ [{0}] در گزارش مجاز نیست.</Resource>

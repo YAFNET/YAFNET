@@ -566,7 +566,7 @@ namespace YAF.Core.Helpers
 
             this.Get<AspNetUsersManager>().Update(user);
 
-            this.GetRepository<User>().Aspnet(
+            this.GetRepository<User>().AspNet(
                 BoardContext.Current.PageBoardID,
                 user.UserName,
                 null,

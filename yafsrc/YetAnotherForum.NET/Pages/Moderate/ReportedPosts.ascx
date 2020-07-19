@@ -1,5 +1,4 @@
-﻿
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Moderate.ReportedPosts"CodeBehind="ReportedPosts.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Moderate.ReportedPosts" CodeBehind="ReportedPosts.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
@@ -18,13 +17,11 @@
             <div class="col-xl-12">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <YAF:IconHeader runat="server"
-                                        IconName="comment"
-                                        LocalizedTag="TOPIC"></YAF:IconHeader>
+                        <YAF:Icon runat="server" IconName="comment" IconType="text-secondary" />
                         <a id="TopicLink" 
                            href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}&name={1}", this.Eval("TopicID"), this.Eval("Topic")) %>'
                            runat="server"><%# this.Eval("Topic") %></a>
-                        <div class="float-right text-muted">
+                        <div class="float-right">
                             <span class="font-weight-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
                             </span>

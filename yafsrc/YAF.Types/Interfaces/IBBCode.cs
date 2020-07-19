@@ -26,10 +26,12 @@ namespace YAF.Types.Interfaces
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Web.UI;
 
     using YAF.Types;
     using YAF.Types.Flags;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -170,6 +172,12 @@ namespace YAF.Types.Interfaces
             [NotNull] Page currentPage,
             [NotNull] Type currentType,
             [NotNull] string editorID);
+
+        /// <summary>
+        ///     The get custom bb code.
+        /// </summary>
+        /// <returns> Returns List with Custom BBCodes </returns>
+        IEnumerable<BBCode> GetCustomBBCode();
 
         #endregion
     }

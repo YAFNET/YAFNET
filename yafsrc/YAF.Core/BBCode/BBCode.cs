@@ -37,8 +37,9 @@ namespace YAF.Core.BBCode
     using YAF.Configuration;
     using YAF.Core.BBCode.ReplaceRules;
     using YAF.Core.Context;
-    using YAF.Core.Services;
+    using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
@@ -108,7 +109,7 @@ namespace YAF.Core.BBCode
                     "CustomBBCodeRegExDictionary",
                     () =>
                         {
-                            var bbcodeTable = this.Get<DataBroker>().GetCustomBBCode();
+                            var bbcodeTable = this.GetCustomBBCode();
                             return bbcodeTable
                                 .Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
                                 .ToDictionary(codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
@@ -963,7 +964,7 @@ namespace YAF.Core.BBCode
         /// </param>
         public void RegisterCustomBBCodePageElements(Page currentPage, Type currentType, string editorID)
         {
-            var codes = this.Get<DataBroker>().GetCustomBBCode();
+            var codes = this.GetCustomBBCode();
             const string ScriptID = "custombbcode";
             var javaScriptScriptBuilder = new StringBuilder();
             var cssBuilder = new StringBuilder();
@@ -1018,6 +1019,17 @@ namespace YAF.Core.BBCode
             }
         }
 
+        /// <summary>
+        ///     The get custom bb code.
+        /// </summary>
+        /// <returns> Returns List with Custom BBCodes </returns>
+        public IEnumerable<Types.Models.BBCode> GetCustomBBCode()
+        {
+            return this.Get<IDataCache>().GetOrSet(
+                Constants.Cache.CustomBBCode,
+                () => this.GetRepository<Types.Models.BBCode>().GetByBoardId());
+        }
+
         #endregion
 
         #endregion
@@ -1032,7 +1044,7 @@ namespace YAF.Core.BBCode
         /// </param>
         protected void AddCustomBBCodeRules(IProcessReplaceRules rulesEngine)
         {
-            var bbcodeTable = this.Get<DataBroker>().GetCustomBBCode();
+            var bbcodeTable = this.GetCustomBBCode();
 
             // handle custom bbcodes row by row...
             bbcodeTable.Where(codeRow => !(codeRow.UseModule ?? false) && codeRow.SearchRegex.IsSet()).ForEach(

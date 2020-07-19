@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages
+namespace YAF.Pages.Moderate
 {
 
 
-    public partial class PostPrivateMessage
+    public partial class Forums
     {
 
         /// <summary>
@@ -24,201 +24,147 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
-        /// LocalizedLabel6 control.
+        /// ModerateUsersHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
+        protected global::System.Web.UI.WebControls.PlaceHolder ModerateUsersHolder;
 
         /// <summary>
-        /// PreviewRow control.
+        /// UserList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PreviewRow;
+        protected global::System.Web.UI.WebControls.Repeater UserList;
 
         /// <summary>
-        /// LocalizedLabel3 control.
+        /// AddUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Web.Controls.ThemeButton AddUser;
 
         /// <summary>
-        /// PreviewMessagePost control.
+        /// PagerTop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.MessagePost PreviewMessagePost;
+        protected global::YAF.Web.Controls.Pager PagerTop;
 
         /// <summary>
-        /// ToRow control.
+        /// topiclist control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ToRow;
+        protected global::System.Web.UI.WebControls.Repeater topiclist;
 
         /// <summary>
-        /// LocalizedLabel2 control.
+        /// LocalizedLabel7 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel7;
 
         /// <summary>
-        /// To control.
+        /// ForumList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox To;
+        protected global::System.Web.UI.WebControls.DropDownList ForumList;
 
         /// <summary>
-        /// ToList control.
+        /// trLeaveLink control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ToList;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl trLeaveLink;
 
         /// <summary>
-        /// FindUsers control.
+        /// LeavePointer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton FindUsers;
+        protected global::System.Web.UI.WebControls.CheckBox LeavePointer;
 
         /// <summary>
-        /// AllUsers control.
+        /// trLeaveLinkDays control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton AllUsers;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl trLeaveLinkDays;
 
         /// <summary>
-        /// AllBuddies control.
+        /// LocalizedLabel12 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton AllBuddies;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel12;
 
         /// <summary>
-        /// Clear control.
+        /// LinkDays control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton Clear;
+        protected global::System.Web.UI.WebControls.TextBox LinkDays;
 
         /// <summary>
-        /// MultiReceiverAlert control.
+        /// Move control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Alert MultiReceiverAlert;
+        protected global::YAF.Web.Controls.ThemeButton Move;
 
         /// <summary>
-        /// MultiReceiverInfo control.
+        /// DeleteTopic control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MultiReceiverInfo;
+        protected global::YAF.Web.Controls.ThemeButton DeleteTopic;
 
         /// <summary>
-        /// LocalizedLabel4 control.
+        /// PagerBottom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Web.Controls.Pager PagerBottom;
 
         /// <summary>
-        /// PmSubjectTextBox control.
+        /// ModForumUserDialog control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PmSubjectTextBox;
-
-        /// <summary>
-        /// LocalizedLabel5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
-
-        /// <summary>
-        /// EditorLine control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder EditorLine;
-
-        /// <summary>
-        /// Preview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton Preview;
-
-        /// <summary>
-        /// Save control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton Save;
-
-        /// <summary>
-        /// Cancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton Cancel;
-
-        /// <summary>
-        /// UploadDialog control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Dialogs.AttachmentsUpload UploadDialog;
+        protected global::YAF.Dialogs.ModForumUser ModForumUserDialog;
     }
 }

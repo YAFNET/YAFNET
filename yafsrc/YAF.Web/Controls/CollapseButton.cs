@@ -80,23 +80,6 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        ///   Gets PageContext.
-        /// </summary>
-        public BoardContext PageContext
-        {
-            get
-            {
-                if (this.Site != null && this.Site.DesignMode)
-                {
-                    // design-time, return null...
-                    return null;
-                }
-
-                return BoardContext.Current;
-            }
-        }
-
-        /// <summary>
         ///   Gets or sets PanelID.
         /// </summary>
         [CanBeNull]

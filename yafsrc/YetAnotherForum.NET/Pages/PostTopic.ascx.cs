@@ -505,59 +505,9 @@ namespace YAF.Pages
                 }
             }
 
-            // Check posts for urls if the user has only x posts
-            if (this.PageContext.CurrentUser.NumPosts
-                <= this.PageContext.Get<BoardSettings>().IgnoreSpamWordCheckPostCount &&
-                !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
+            if (this.Get<ISpamCheck>().ContainsSpamUrls(this.forumEditor.Text))
             {
-                var urlCount = UrlHelper.CountUrls(this.forumEditor.Text);
-
-                if (urlCount > this.PageContext.BoardSettings.AllowedNumberOfUrls)
-                {
-                    var spamResult =
-                        $"The user posted {urlCount} urls but allowed only {this.PageContext.BoardSettings.AllowedNumberOfUrls}";
-
-                    switch (this.PageContext.BoardSettings.SpamMessageHandling)
-                    {
-                        case 0:
-                            this.Logger.Log(
-                                this.PageContext.PageUserID,
-                                "Spam Message Detected",
-                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName)}",
-                                EventLogTypes.SpamMessageDetected);
-                            break;
-                        case 1:
-                            this.spamApproved = false;
-                            isPossibleSpamMessage = true;
-                            this.Logger.Log(
-                                this.PageContext.PageUserID,
-                                "Spam Message Detected",
-                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName)}, it was flagged as unapproved post.",
-                                EventLogTypes.SpamMessageDetected);
-                            break;
-                        case 2:
-                            this.Logger.Log(
-                                this.PageContext.PageUserID,
-                                "Spam Message Detected",
-                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName)}, post was rejected",
-                                EventLogTypes.SpamMessageDetected);
-                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
-                            return;
-                        case 3:
-                            this.Logger.Log(
-                                this.PageContext.PageUserID,
-                                "Spam Message Detected",
-                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName)}, user was deleted and banned",
-                                EventLogTypes.SpamMessageDetected);
-
-                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                this.PageContext.PageUserID,
-                                this.PageContext.MembershipUser,
-                                this.PageContext.CurrentUser.IP);
-
-                            return;
-                    }
-                }
+                return;
             }
 
             // update the last post time...

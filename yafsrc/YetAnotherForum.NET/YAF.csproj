@@ -359,8 +359,8 @@
       <DependentUpon>AlbumImageList.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\AlbumList.ascx.cs">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>AlbumList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\AlbumList.ascx.designer.cs">
       <DependentUpon>AlbumList.ascx</DependentUpon>
@@ -420,6 +420,13 @@
     </Compile>
     <Compile Include="Dialogs\EditProfileDefinition.ascx.designer.cs">
       <DependentUpon>EditProfileDefinition.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ModForumUser.ascx.cs">
+      <DependentUpon>ModForumUser.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ModForumUser.ascx.designer.cs">
+      <DependentUpon>ModForumUser.ascx</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\MoveTopic.ascx.cs">
       <DependentUpon>MoveTopic.ascx</DependentUpon>
@@ -916,6 +923,13 @@
     <Compile Include="Pages\Account\Approve.ascx.designer.cs">
       <DependentUpon>Approve.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Moderate\Forums.ascx.cs">
+      <DependentUpon>Forums.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Moderate\Forums.ascx.designer.cs">
+      <DependentUpon>Forums.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Profile\Attachments.ascx.designer.cs">
       <DependentUpon>Attachments.ascx</DependentUpon>
     </Compile>
@@ -973,8 +987,8 @@
     <Compile Include="Pages\PrivateMessage.ascx.designer.cs">
       <DependentUpon>PrivateMessage.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PM.ascx.designer.cs">
-      <DependentUpon>PM.ascx</DependentUpon>
+    <Compile Include="Pages\MyMessages.ascx.designer.cs">
+      <DependentUpon>MyMessages.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Notification.ascx.cs">
       <DependentUpon>Notification.ascx</DependentUpon>
@@ -1059,9 +1073,6 @@
     <Compile Include="Pages\MessageHistory.ascx.designer.cs">
       <DependentUpon>MessageHistory.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\moderating.ascx.designer.cs">
-      <DependentUpon>moderating.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Moderate\Index.ascx.designer.cs">
       <DependentUpon>Index.ascx</DependentUpon>
     </Compile>
@@ -1070,9 +1081,6 @@
     </Compile>
     <Compile Include="Pages\Moderate\UnapprovedPosts.ascx.designer.cs">
       <DependentUpon>UnapprovedPosts.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\ModForumUser.ascx.designer.cs">
-      <DependentUpon>ModForumUser.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\MoveMessage.ascx.designer.cs">
       <DependentUpon>MoveMessage.ascx</DependentUpon>
@@ -1964,6 +1972,7 @@
     <Content Include="controls\EditUsersSettings.ascx" />
     <Content Include="controls\ProfileTimeline.ascx" />
     <Content Include="Dialogs\EditProfileDefinition.ascx" />
+    <Content Include="Dialogs\ModForumUser.ascx" />
     <Content Include="Dialogs\MoveTopic.ascx" />
     <Content Include="Dialogs\UserMedalEdit.ascx" />
     <Content Include="Dialogs\GroupMedalEdit.ascx" />
@@ -2162,6 +2171,7 @@
     <Content Include="Pages\Album.ascx" />
     <Content Include="Pages\Albums.ascx" />
     <Content Include="Pages\Account\Approve.ascx" />
+    <Content Include="Pages\Moderate\Forums.ascx" />
     <Content Include="Pages\Profile\Attachments.ascx" />
     <Content Include="Pages\Profile\Avatar.ascx" />
     <Content Include="Pages\Profile\DeleteAccount.ascx" />
@@ -2173,7 +2183,7 @@
     <Content Include="Pages\Profile\EditProfile.ascx" />
     <Content Include="Pages\PostTopic.ascx" />
     <Content Include="Pages\PrivateMessage.ascx" />
-    <Content Include="Pages\PM.ascx" />
+    <Content Include="Pages\MyMessages.ascx" />
     <Content Include="Pages\Notification.ascx" />
     <Content Include="Pages\MyAccount.ascx" />
     <Content Include="Pages\Profile\BlockOptions.ascx" />
@@ -2191,11 +2201,9 @@
     <Content Include="Pages\Account\Logout.ascx" />
     <Content Include="Pages\Members.ascx" />
     <Content Include="Pages\MessageHistory.ascx" />
-    <Content Include="Pages\moderating.ascx" />
     <Content Include="Pages\Moderate\Index.ascx" />
     <Content Include="Pages\Moderate\ReportedPosts.ascx" />
     <Content Include="Pages\Moderate\UnapprovedPosts.ascx" />
-    <Content Include="Pages\ModForumUser.ascx" />
     <Content Include="Pages\MoveMessage.ascx" />
     <Content Include="Pages\MyTopics.ascx" />
     <Content Include="Pages\PostPrivateMessage.ascx" />
@@ -3100,8 +3108,8 @@
       <DependentUpon>PrivateMessage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\PM.ascx.cs">
-      <DependentUpon>PM.ascx</DependentUpon>
+    <Compile Include="Pages\MyMessages.ascx.cs">
+      <DependentUpon>MyMessages.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\MyAccount.ascx.cs">
@@ -3140,10 +3148,6 @@
       <DependentUpon>Members.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\moderating.ascx.cs">
-      <DependentUpon>moderating.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Pages\Moderate\Index.ascx.cs">
       <DependentUpon>Index.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3154,10 +3158,6 @@
     </Compile>
     <Compile Include="Pages\Moderate\UnapprovedPosts.ascx.cs">
       <DependentUpon>UnapprovedPosts.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\ModForumUser.ascx.cs">
-      <DependentUpon>ModForumUser.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\MoveMessage.ascx.cs">

@@ -108,7 +108,7 @@ namespace YAF.Core.Helpers
 
             try
             {
-                userID = BoardContext.Current.GetRepository<User>().Aspnet(
+                userID = BoardContext.Current.GetRepository<User>().AspNet(
                     pageBoardID,
                     user.UserName,
                     displayName,
@@ -371,7 +371,7 @@ namespace YAF.Core.Helpers
             // is this a new user?
             var isNewUser = userId <= 0;
 
-            userId = BoardContext.Current.GetRepository<User>().Aspnet(
+            userId = BoardContext.Current.GetRepository<User>().AspNet(
                 pageBoardID,
                 user.UserName,
                 null,

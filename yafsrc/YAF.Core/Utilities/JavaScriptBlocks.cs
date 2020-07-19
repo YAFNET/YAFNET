@@ -1017,17 +1017,25 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <summary>
         /// select2 topics load JS.
         /// </summary>
-        /// <param name="forumDropDownId">The forum drop down identifier.</param>
-        /// <returns>Returns the select2 topics load JS.</returns>
+        /// <param name="topicsId">
+        /// The topics Id.
+        /// </param>
+        /// <param name="forumDropDownId">
+        /// The forum drop down identifier.
+        /// </param>
+        /// <returns>
+        /// Returns the select2 topics load JS.
+        /// </returns>
         [NotNull]
-        public static string SelectTopicsLoadJs([NotNull] string forumDropDownId)
+        public static string SelectTopicsLoadJs([NotNull] string topicsId, [NotNull] string forumDropDownId)
         {
-            return $@"{Config.JQueryAlias}('.TopicsSelect2Menu').select2({{
+            return $@"{Config.JQueryAlias}('#{topicsId}').select2({{
             ajax: {{
                 url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Topic/GetTopics',
                 type: 'POST',
                 dataType: 'json',
                 minimumInputLength: 0,
+                allowClear: false,
                 data: function(params) {{
                       var query = {{
                           ForumId : {Config.JQueryAlias}('#{forumDropDownId}').val(),
@@ -1058,9 +1066,8 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     }}
                 }}
             }},
-            width: 'style',
+            width: '100%',
             theme: 'bootstrap4',
-            allowClear: true,
             cache: true,
             {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
         }});";
@@ -1376,6 +1383,112 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 }}
             }}
         );";
+        }
+
+        /// <summary>
+        /// Opens the BootBox Prompt Dialog JS.
+        /// </summary>
+        /// <param name="title">
+        /// The title.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="cancel">
+        /// The cancel.
+        /// </param>
+        /// <param name="ok">
+        /// The ok.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <returns>
+        /// Returns the JS String
+        /// </returns>
+        [NotNull]
+        public static string BootBoxPromptJs(
+            [NotNull] string title,
+            [NotNull] string message,
+            [NotNull] string cancel,
+            [NotNull] string ok,
+            [NotNull] string value)
+        {
+            return $@"bootbox.prompt({{ 
+                                      title: '{title}',
+                                      message: '{message}',
+	                                  value: '{value}',
+                                      buttons: {{cancel:{{label:'{cancel}'}}, confirm:{{label:'{ok}'}}}},
+                                      callback: function(){{}}
+	                              }});";
+        }
+
+        /// <summary>
+        /// select2 user load JS.
+        /// </summary>
+        /// <param name="selectClientId">
+        /// The select Client Id.
+        /// </param>
+        /// <param name="findUserClientId">
+        /// The find User Client Id.
+        /// </param>
+        /// <param name="userClientId">
+        /// The user Client Id.
+        /// </param>
+        /// <returns>
+        /// Returns the select2 user load JS.
+        /// </returns>
+        [NotNull]
+        public static string SelectUsersLoadJs([NotNull] string selectClientId, [NotNull] string findUserClientId, [NotNull] string userClientId)
+        {
+            return $@"{Config.JQueryAlias}('#{findUserClientId}').click(function() {{ 
+                              if ({Config.JQueryAlias}('#{userClientId}').val().lenth < 3)
+                              {{
+                                   return;
+                              }}
+
+                             {Config.JQueryAlias}('#{selectClientId}').show();
+                             {Config.JQueryAlias}('#{userClientId}').hide();
+                             {Config.JQueryAlias}('#{findUserClientId}').hide();
+                          
+                          {Config.JQueryAlias}('#{selectClientId}').select2({{
+            ajax: {{
+                url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/User/GetUsers',
+                type: 'POST',
+                dataType: 'json',
+                allowClear: false,
+                minimumInputLength: 3,
+                data: function(params) {{
+                      var query = {{
+                          ForumId : 0,
+                          UserId: 0,
+                          SearchTerm : {Config.JQueryAlias}('#{userClientId}').val()
+                      }}
+                      return query;
+                }},
+                error: function(x, e)  {{
+                       console.log('An Error has occured!');
+                       console.log(x.responseText);
+                       console.log(x.status);
+                }},
+                processResults: function(data) {{
+                    return {{
+                        results: data.Results
+                    }}
+                }}
+            }},
+            width: '100%',
+            theme: 'bootstrap4',
+            allowClear: true,
+            cache: true,
+            {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
+        }});
+              
+             {Config.JQueryAlias}('#{selectClientId}').on('select2:select', function (e) {{
+                 var data = e.params.data;
+                 {Config.JQueryAlias}('#{userClientId}').val(data.text);
+                }});
+            }});";
         }
     }
 }

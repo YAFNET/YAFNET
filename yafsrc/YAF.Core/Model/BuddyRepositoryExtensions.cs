@@ -191,7 +191,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable" /> containing the buddy list.
         /// </returns>
-        public static DataTable List(this IRepository<Buddy> repository, int fromUserID)
+        public static DataTable ListAllAsDataTable(this IRepository<Buddy> repository, int fromUserID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 

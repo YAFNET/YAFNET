@@ -30,8 +30,7 @@ namespace YAF.Core.Services
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using System.Web;
-
+    
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
@@ -39,9 +38,7 @@ namespace YAF.Core.Services
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils.Helpers;
@@ -56,25 +53,25 @@ namespace YAF.Core.Services
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataBroker" /> class.
+        /// Initializes a new instance of the <see cref="DataBroker"/> class.
         /// </summary>
-        /// <param name="serviceLocator">The service locator.</param>
-        /// <param name="boardSettings">The board settings.</param>
-        /// <param name="httpSessionState">The http session state.</param>
-        /// <param name="dataCache">The data cache.</param>
-        /// <param name="dbFunction">The database function.</param>
+        /// <param name="serviceLocator">
+        /// The service locator.
+        /// </param>
+        /// <param name="boardSettings">
+        /// The board settings.
+        /// </param>
+        /// <param name="dataCache">
+        /// The data cache.
+        /// </param>
         public DataBroker(
             IServiceLocator serviceLocator,
             BoardSettings boardSettings,
-            HttpSessionStateBase httpSessionState,
-            IDataCache dataCache,
-            IDbFunction dbFunction)
+            IDataCache dataCache)
         {
             this.ServiceLocator = serviceLocator;
             this.BoardSettings = boardSettings;
-            this.HttpSessionState = httpSessionState;
             this.DataCache = dataCache;
-            this.DbFunction = dbFunction;
         }
 
         #endregion
@@ -93,19 +90,6 @@ namespace YAF.Core.Services
         ///     Gets or sets DataCache.
         /// </summary>
         public IDataCache DataCache { get; set; }
-
-        /// <summary>
-        /// Gets or sets the database function.
-        /// </summary>
-        /// <value>
-        /// The database function.
-        /// </value>
-        public IDbFunction DbFunction { get; set; }
-
-        /// <summary>
-        ///     Gets or sets HttpSessionState.
-        /// </summary>
-        public HttpSessionStateBase HttpSessionState { get; set; }
 
         /// <summary>
         ///     Gets or sets ServiceLocator.
@@ -136,66 +120,6 @@ namespace YAF.Core.Services
                         this.BoardSettings.EnableAlbum,
                         this.BoardSettings.UseStyledNicks).Table,
                     TimeSpan.FromMinutes(this.BoardSettings.ActiveUserLazyDataCacheTimeout)).Rows[0];
-        }
-
-        /// <summary>
-        ///     Adds the Thanks info to a dataTable
-        /// </summary>
-        /// <param name="dataRows"> The data Rows. </param>
-        public void AddThanksInfo(IEnumerable<DataRow> dataRows)
-        {
-            var messageIds = dataRows.Select(x => x.Field<int>("MessageID"));
-
-            // Initialize the "IsthankedByUser" column.
-            dataRows.ForEach(x => x["IsThankedByUser"] = false);
-
-            // Initialize the "Thank Info" column.
-            dataRows.ForEach(x => x["ThanksInfo"] = string.Empty);
-
-            // Iterate through all the thanks relating to this topic and make appropriate
-            // changes in columns.
-            var allThanks = this.GetRepository<Thanks>().MessageGetAllThanks(messageIds.ToDelimitedString(",")).ToList();
-
-            foreach (var f in
-                allThanks.Where(t => t.FromUserID != null && t.FromUserID == BoardContext.Current.PageUserID)
-                    .SelectMany(thanks => dataRows.Where(x => x.Field<int>("MessageID") == thanks.MessageID)))
-            {
-                f["IsThankedByUser"] = "true";
-                f.AcceptChanges();
-            }
-
-            var thanksFieldNames = new[] { "ThanksFromUserNumber", "ThanksToUserNumber", "ThanksToUserPostsNumber" };
-
-            foreach (var postRow in dataRows)
-            {
-                var messageId = postRow.Field<int>("MessageID");
-
-                postRow["MessageThanksNumber"] = allThanks.Count(t => t.FromUserID != null && t.MessageID == messageId);
-
-                var thanksFiltered = allThanks.Where(t => t.MessageID == messageId);
-
-                if (thanksFiltered.Any())
-                {
-                    var thanksItem = thanksFiltered.First();
-
-                    postRow["ThanksFromUserNumber"] = thanksItem.ThanksFromUserNumber ?? 0;
-                    postRow["ThanksToUserNumber"] = thanksItem.ThanksToUserNumber ?? 0;
-                    postRow["ThanksToUserPostsNumber"] = thanksItem.ThanksToUserPostsNumber ?? 0;
-                }
-                else
-                {
-                    var row = postRow;
-                    thanksFieldNames.ForEach(f => row[f] = 0);
-                }
-
-                // load all all thanks info into a special column...
-                postRow["ThanksInfo"] =
-                    thanksFiltered.Where(t => t.FromUserID != null)
-                        .Select(x => $"{x.FromUserID.Value}|{x.ThanksDate}")
-                        .ToDelimitedString(",");
-
-                postRow.AcceptChanges();
-            }
         }
 
         /// <summary>
@@ -247,9 +171,9 @@ namespace YAF.Core.Services
                     Constants.Cache.ForumCategory,
                     () =>
                         {
-                            var catDt = this.DbFunction.GetAsDataTable(cdb => cdb.category_list(boardID, null));
-                            catDt.TableName = "Category";
-                            return catDt;
+                            var categories = this.GetRepository<Category>().ListAsDataTable();
+                            categories.TableName = "Category";
+                            return categories;
                         },
                     TimeSpan.FromMinutes(this.BoardSettings.BoardCategoriesCacheTimeout));
 
@@ -313,35 +237,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        ///     The favorite topic list.
-        /// </summary>
-        /// <param name="userID"> The user ID. </param>
-        /// <returns> Returns The favorite topic list. </returns>
-        public List<int> FavoriteTopicList(int userID)
-        {
-            var key = this.Get<ITreatCacheKey>().Treat(string.Format(Constants.Cache.FavoriteTopicList, userID));
-
-            // stored in the user session...
-
-            // was it in the cache?
-            if (this.HttpSessionState[key] is List<int> favoriteTopicList)
-            {
-                return favoriteTopicList;
-            }
-
-            // get fresh values
-            var favoriteTopics = this.GetRepository<YAF.Types.Models.FavoriteTopic>().Get(f => f.UserID == userID).Select(f => f.TopicID);
-
-            // convert to list...
-            favoriteTopicList = favoriteTopics.ToList();
-
-            // store it in the user session...
-            this.HttpSessionState.Add(key, favoriteTopicList);
-
-            return favoriteTopicList;
-        }
-
-        /// <summary>
         ///     The get all moderators.
         /// </summary>
         /// <returns> Returns List with all moderators </returns>
@@ -366,53 +261,6 @@ namespace YAF.Core.Services
                         row.Field<string>("Style"),
                         row["IsGroup"].ToType<bool>(),
                         row.Field<System.DateTime?>("Suspended"))).ToList();
-        }
-
-        /// <summary>
-        ///     The get custom bb code.
-        /// </summary>
-        /// <returns> Returns List with Custom BBCodes </returns>
-        public IEnumerable<BBCode> GetCustomBBCode()
-        {
-            return this.DataCache.GetOrSet(Constants.Cache.CustomBBCode, () => this.GetRepository<BBCode>().GetByBoardId());
-        }
-
-        /// <summary>
-        ///     Get all moderators by Groups and User
-        /// </summary>
-        /// <returns> Returns the Moderator List </returns>
-        public DataTable GetModerators()
-        {
-            return this.DataCache.GetOrSet(
-                Constants.Cache.ForumModerators,
-                () =>
-                    {
-                        var moderator =
-                            this.DbFunction.GetAsDataTable(
-                                cdb => cdb.forum_moderators(BoardContext.Current.PageBoardID, this.BoardSettings.UseStyledNicks));
-                        moderator.TableName = "Moderator";
-                        return moderator;
-                    },
-                TimeSpan.FromMinutes(this.Get<BoardSettings>().BoardModeratorsCacheTimeout));
-        }
-
-        /// <summary>
-        /// Get the list of recently logged in users.
-        /// </summary>
-        /// <param name="timeSinceLastLogin">The time since last login in minutes.</param>
-        /// <returns>
-        /// The list of users in Data table format.
-        /// </returns>
-        public DataTable GetRecentUsers(int timeSinceLastLogin)
-        {
-            return
-                this.StyleTransformDataTable(
-                    this.DbFunction.GetAsDataTable(
-                        cdb =>
-                        cdb.recent_users(
-                            BoardContext.Current.PageBoardID,
-                            timeSinceLastLogin,
-                            this.BoardSettings.UseStyledNicks)));
         }
 
         /// <summary>
@@ -465,104 +313,27 @@ namespace YAF.Core.Services
             return forumData;
         }
 
-        /// <summary>
-        ///     Loads the message text into the paged data if "Message" and
-        ///     "MessageID" exists.
-        /// </summary>
-        /// <param name="searchResults"> The data Rows. </param>
-        public void LoadMessageText(IEnumerable<SearchResult> searchResults)
-        {
-            var results = searchResults as SearchResult[] ?? searchResults.ToArray();
-
-            var messageIds = results.Where(x => x.Message.IsNotSet()).Select(x => x.MessageID);
-
-            var messageTextTable =
-                this.DbFunction.GetAsDataTable(cdb => cdb.message_GetTextByIds(messageIds.ToDelimitedString(",")));
-
-            if (messageTextTable == null)
-            {
-                return;
-            }
-
-            // load them into the page data...
-            results.ForEach(
-                r =>
-                    {
-                        // find the message id in the results...
-                        var message = messageTextTable.AsEnumerable()
-                            .FirstOrDefault(x => x.Field<int>("MessageID") == r.MessageID);
-
-                        if (message != null)
-                        {
-                            r.Message = message.Field<string>("Message");
-                        }
-                    });
-        }
-
-        /// <summary>
-        ///     The style transform function wrap.
-        /// </summary>
-        /// <param name="dt"> The DateTable </param>
-        /// <returns> The style transform wrap. </returns>
-        public DataTable StyleTransformDataTable(DataTable dt)
-        {
-            if (!this.BoardSettings.UseStyledNicks)
-            {
-                return dt;
-            }
-
-            var styleTransform = this.Get<IStyleTransform>();
-            styleTransform.DecodeStyleByTable(dt, true);
-
-            return dt;
-        }
-
-        /// <summary>
-        ///     The Buddy list for the user with the specified UserID.
-        /// </summary>
-        /// <param name="userID"> The User ID. </param>
-        /// <returns> The user buddy list. </returns>
-        public DataTable UserBuddyList(int userID)
-        {
-            return this.DataCache.GetOrSet(
-                string.Format(Constants.Cache.UserBuddies, userID),
-                () => this.DbFunction.GetAsDataTable(cdb => cdb.buddy_list(userID)),
-                TimeSpan.FromMinutes(10));
-        }
-
-        /// <summary>
-        ///     The user ignored list.
-        /// </summary>
-        /// <param name="userId"> The user id. </param>
-        /// <returns> Returns the user ignored list. </returns>
-        public List<int> UserIgnoredList(int userId)
-        {
-            var key = string.Format(Constants.Cache.UserIgnoreList, userId);
-
-            // stored in the user session...
-
-            // was it in the cache?
-            if (this.HttpSessionState[key] is List<int> userList)
-            {
-                return userList;
-            }
-            else
-            {
-                userList = new List<int>();
-            }
-
-            // get fresh values
-            this.GetRepository<IgnoreUser>().Get(i => i.UserID == userId).ForEach(user => userList.Add(user.IgnoredUserID));
-
-            // store it in the user session...
-            this.HttpSessionState.Add(key, userList);
-
-            return userList;
-        }
-
         #endregion
 
         #region Methods
+
+        /// <summary>
+        ///     Get all moderators by Groups and User
+        /// </summary>
+        /// <returns> Returns the Moderator List </returns>
+        private DataTable GetModerators()
+        {
+            return this.DataCache.GetOrSet(
+                Constants.Cache.ForumModerators,
+                () =>
+                {
+                    var moderator =
+                        this.GetRepository<User>().GetForumModeratorsAsDataTable(this.BoardSettings.UseStyledNicks);
+                    moderator.TableName = "Moderator";
+                    return moderator;
+                },
+                TimeSpan.FromMinutes(this.Get<BoardSettings>().BoardModeratorsCacheTimeout));
+        }
 
         /// <summary>
         ///     The load simple topic.

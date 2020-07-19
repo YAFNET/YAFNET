@@ -18,7 +18,9 @@
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
-                                IconName="envelope-open-text"/>
+                                IconName="envelope-open-text"
+                                LocalizedTag="TITLE" 
+                                LocalizedPage="PMESSAGE"/>
             </div>
             <div class="card-body">
                 <asp:PlaceHolder id="PreviewRow" runat="server" visible="false">
@@ -32,36 +34,43 @@
                         <asp:Label runat="server" AssociatedControlID="To">
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="to" />
                         </asp:Label>
-                        <asp:TextBox ID="To" runat="server" CssClass="form-control" />
-                        <asp:DropDownList runat="server" ID="ToList" Visible="false" CssClass="select2-select" />
+                        <asp:TextBox ID="To" runat="server" 
+                                     CssClass="form-control" />
+                        <asp:DropDownList runat="server" ID="ToList" 
+                                          Visible="false" 
+                                          CssClass="select2-select" />
                         <div class="btn-group mt-3">
-                        <YAF:ThemeButton runat="server" ID="FindUsers" 
-                                         Size="Small" 
-                                         OnClick="FindUsers_Click"
-                                         TextLocalizedTag="FINDUSERS"
-                                         Type="Secondary"
-                                         Icon="search"/>
-                        <YAF:ThemeButton runat="server" ID="AllUsers" 
-                                         Size="Small" 
-                                         OnClick="AllUsers_Click"
-                                         TextLocalizedTag="ALLUSERS"
-                                         Type="Secondary"
-                                         Icon="users"/>
-                        <YAF:ThemeButton runat="server" ID="AllBuddies" 
-                                         Size="Small" 
-                                         OnClick="AllBuddies_Click"
-                                         TextLocalizedTag="ALLBUDDIES"
-                                         Type="Secondary"
-                                         Icon="user-friends"/>
-                        <YAF:ThemeButton runat="server" ID="Clear" 
-                                         Size="Small" 
-                                         OnClick="Clear_Click" 
-                                         Visible="false"
-                                         TextLocalizedTag="CLEAR"
-                                         Type="Secondary"
-                                         Icon="times"/>
+                            <YAF:ThemeButton runat="server" ID="FindUsers" 
+                                             Size="Small" 
+                                             OnClick="FindUsers_Click"
+                                             TextLocalizedTag="FINDUSERS"
+                                             Type="Secondary"
+                                             Icon="search"/>
+                            <YAF:ThemeButton runat="server" ID="AllUsers" 
+                                             Size="Small" 
+                                             OnClick="AllUsers_Click"
+                                             TextLocalizedTag="ALLUSERS"
+                                             Type="Secondary"
+                                             Icon="users"/>
+                            <YAF:ThemeButton runat="server" ID="AllBuddies" 
+                                             Size="Small" 
+                                             OnClick="AllBuddies_Click"
+                                             TextLocalizedTag="ALLBUDDIES"
+                                             Type="Secondary"
+                                             Icon="user-friends"/>
+                            <YAF:ThemeButton runat="server" ID="Clear" 
+                                             Size="Small" 
+                                             OnClick="Clear_Click" 
+                                             Visible="false"
+                                             TextLocalizedTag="CLEAR"
+                                             Type="Secondary"
+                                             Icon="times"/>
                         </div>
-                        <asp:Label ID="MultiReceiverInfo" runat="server" Visible="false" />
+                        <YAF:Alert runat="server" Type="info" ID="MultiReceiverAlert" Visible="False">
+                            <YAF:Icon runat="server" 
+                                      IconName="info-circle" />
+                            <asp:Label ID="MultiReceiverInfo" runat="server" />
+                        </YAF:Alert>
                     </div>
                 </asp:PlaceHolder>
                 <div class="mb-3">

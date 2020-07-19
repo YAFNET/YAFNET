@@ -33,10 +33,12 @@ namespace YAF.Core.Model
 
     using ServiceStack.OrmLite;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Extensions.Data;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
@@ -264,7 +266,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The user_aspnet.
+        /// The user_AspNet.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -290,7 +292,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="int"/>.
         /// </returns>
-        public static int Aspnet(
+        public static int AspNet(
             this IRepository<User> repository,
             int boardID,
             [NotNull] string userName,
@@ -731,7 +733,7 @@ namespace YAF.Core.Model
                 NumPostsCompare: numPostCompare);
 
         /// <summary>
-        /// The user_nntp.
+        /// Create NNTP User
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -749,9 +751,9 @@ namespace YAF.Core.Model
         /// The time Zone.
         /// </param>
         /// <returns>
-        /// The user_nntp.
+        /// Returns the User ID of the created user.
         /// </returns>
-        public static int Nntp(
+        public static int CreateNntpUser(
             this IRepository<User> repository,
             [NotNull] int boardID,
             [NotNull] string userName,
@@ -1119,31 +1121,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets if User is Suspended
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="User"/>.
-        /// </returns>
-        [Obsolete("Avoid DB Calls")]
-        public static DateTime? GetSuspended(this IRepository<User> repository, int userId)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
-
-            expression.Where<User>(u => u.ID == userId).Select(u => u.Suspended);
-
-            return repository.DbAccess.Execute(
-                db => db.Connection.ColumnDistinct<DateTime?>(expression).FirstOrDefault());
-        }
-
-        /// <summary>
         /// The get board user.
         /// </summary>
         /// <param name="repository">
@@ -1172,6 +1149,65 @@ namespace YAF.Core.Model
                     (v, u) => u.ID == userId && u.BoardID == (boardId ?? repository.BoardID) && (u.Flags & 2) == 2 && v.ForumID == 0);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<User, AspNetUsers, Rank, vaccess>(expression)).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Get the list of recently logged in users.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="timeSinceLastLogin">
+        /// The time since last login in minutes.
+        /// </param>
+        /// <param name="useStyledNicks">
+        /// The use Styled Nicks.
+        /// </param>
+        /// <returns>
+        /// The list of users in Data table format.
+        /// </returns>
+        public static DataTable GetRecentUsersAsDataTable(
+            this IRepository<User> repository,
+            [NotNull] int timeSinceLastLogin,
+            [NotNull] bool useStyledNicks)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var users = repository.DbFunction.GetData.recent_users(
+                BoardID: repository.BoardID,
+                TimeSinceLastLogin: timeSinceLastLogin,
+                StyledNicks: useStyledNicks);
+
+            if (!useStyledNicks)
+            {
+                return users;
+            }
+
+            BoardContext.Current.Get<IStyleTransform>().DecodeStyleByTable(users, true);
+
+            return users;
+        }
+
+        /// <summary>
+        /// Gets the forum moderators as data table.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="useStyledNicks">
+        /// The use styled nicks.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
+        public static DataTable GetForumModeratorsAsDataTable(
+            this IRepository<User> repository,
+            [NotNull] bool useStyledNicks)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbFunction.GetAsDataTable(
+                x => x.forum_moderators(repository.BoardID, useStyledNicks));
         }
     }
 }

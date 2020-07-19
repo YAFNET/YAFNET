@@ -29,6 +29,7 @@ namespace YAF.Core.Services
     using System.Web;
 
     using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -40,14 +41,9 @@ namespace YAF.Core.Services
     /// <summary>
     /// User Ignored Service for the current user.
     /// </summary>
-    public class UserIgnored : IUserIgnored
+    public class UserIgnored : IUserIgnored, IHaveServiceLocator
     {
         #region Constants and Fields
-
-        /// <summary>
-        /// The _db broker.
-        /// </summary>
-        private readonly DataBroker _dbBroker;
 
         /// <summary>
         ///   The _user ignore list.
@@ -67,10 +63,10 @@ namespace YAF.Core.Services
         /// <param name="dbBroker">
         /// The db broker.
         /// </param>
-        public UserIgnored([NotNull] HttpSessionStateBase sessionStateBase, [NotNull] DataBroker dbBroker)
+        public UserIgnored([NotNull] HttpSessionStateBase sessionStateBase, IServiceLocator serviceLocator)
         {
             this.SessionStateBase = sessionStateBase;
-            this._dbBroker = dbBroker;
+            this.ServiceLocator = serviceLocator;
         }
 
         #endregion
@@ -81,6 +77,11 @@ namespace YAF.Core.Services
         /// Gets or sets SessionStateBase.
         /// </summary>
         public HttpSessionStateBase SessionStateBase { get; set; }
+
+        /// <summary>
+        ///     Gets or sets ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator { get; set; }
 
         #endregion
 
@@ -96,7 +97,7 @@ namespace YAF.Core.Services
         /// </param>
         public void AddIgnored(int ignoredUserId)
         {
-            BoardContext.Current.GetRepository<IgnoreUser>().AddIgnoredUser(BoardContext.Current.PageUserID, ignoredUserId);
+            this.GetRepository<IgnoreUser>().AddIgnoredUser(BoardContext.Current.PageUserID, ignoredUserId);
             this.ClearIgnoreCache();
         }
 
@@ -120,7 +121,7 @@ namespace YAF.Core.Services
         /// </returns>
         public bool IsIgnored(int ignoredUserId)
         {
-            this._userIgnoreList ??= this._dbBroker.UserIgnoredList(BoardContext.Current.PageUserID);
+            this._userIgnoreList ??= this.UserIgnoredList(BoardContext.Current.PageUserID);
 
             return this._userIgnoreList.Count > 0 && this._userIgnoreList.Contains(ignoredUserId);
         }
@@ -133,11 +134,41 @@ namespace YAF.Core.Services
         /// </param>
         public void RemoveIgnored(int ignoredUserId)
         {
-            BoardContext.Current.GetRepository<IgnoreUser>().Delete(BoardContext.Current.PageUserID, ignoredUserId);
+            this.GetRepository<IgnoreUser>().Delete(BoardContext.Current.PageUserID, ignoredUserId);
             this.ClearIgnoreCache();
         }
 
         #endregion
+
+        /// <summary>
+        ///     The user ignored list.
+        /// </summary>
+        /// <param name="userId"> The user id. </param>
+        /// <returns> Returns the user ignored list. </returns>
+        private List<int> UserIgnoredList(int userId)
+        {
+            var key = string.Format(Constants.Cache.UserIgnoreList, userId);
+
+            // stored in the user session...
+
+            // was it in the cache?
+            if (this.SessionStateBase[key] is List<int> userList)
+            {
+                return userList;
+            }
+            else
+            {
+                userList = new List<int>();
+            }
+
+            // get fresh values
+            this.GetRepository<IgnoreUser>().Get(i => i.UserID == userId).ForEach(user => userList.Add(user.IgnoredUserID));
+
+            // store it in the user session...
+            this.SessionStateBase.Add(key, userList);
+
+            return userList;
+        }
 
         #endregion
     }

@@ -30463,7 +30463,7 @@ S2.define('jquery.select2',[
 }));
 
 /*
- * blueimp Gallery JS
+ * blueimp Gallery JS v3.1.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -32200,10 +32200,10 @@ S2.define('jquery.select2',[
     var container =
       (widget.length && widget) || $(Gallery.prototype.options.container);
     var callbacks = {
-        onopen: function () {
+      onopen: function () {
             $("#blueimp-gallery").removeClass("d-none");
             container.data("gallery", this).trigger("open");
-        },
+      },
       onopened: function () {
         container.trigger("opened");
       },
@@ -32217,12 +32217,12 @@ S2.define('jquery.select2',[
         container.trigger("slidecomplete", arguments);
       },
       onclose: function () {
-        container.trigger("close");
+          $("#blueimp-gallery").addClass("d-none");
+          container.trigger("close");
       },
-        onclosed: function () {
-            $("#blueimp-gallery").addClass("d-none");
-            container.trigger("closed").removeData("gallery");
-        }
+      onclosed: function () {
+        container.trigger("closed").removeData("gallery");
+      }
     };
     var options = $.extend(
       // Retrieve custom options from data-attributes
@@ -44889,8 +44889,26 @@ jQuery(document).ready(function () {
         });
     });
 
+    if ($(".select2-image-select").length) {
+        var selected = $(".select2-image-select").val();
+
+        var groups = {};
+        $(".yafnet .select2-image-select option[data-category]").each(function () {
+            var sGroup = $.trim($(this).attr("data-category"));
+            groups[sGroup] = true;
+        });
+        $.each(groups, function (c) {
+            $(".yafnet .select2-image-select").each(function () {
+                $(this).find("option[data-category='" + c + "']").wrapAll('<optgroup label="' + c + '">');
+            });
+        });
+
+        $(".select2-image-select").val(selected);
+    }
+
     jQuery(".yafnet .select2-image-select").select2({
         theme: "bootstrap4",
+        allowClear: false,
         dropdownAutoWidth: true,
         templateResult: formatState,
         templateSelection: formatState,
@@ -44898,7 +44916,7 @@ jQuery(document).ready(function () {
     });
 
     var popoverTriggerList = [].slice.call(document.querySelectorAll(".thanks-popover"));
-    var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+    popoverTriggerList.map(function(popoverTriggerEl) {
         return new new bootstrap.Popover(popoverTriggerEl,
             {
                 template:
@@ -44907,7 +44925,7 @@ jQuery(document).ready(function () {
     });
 
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+    tooltipTriggerList.map(function(tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 

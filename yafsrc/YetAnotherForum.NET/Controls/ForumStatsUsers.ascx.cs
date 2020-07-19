@@ -34,7 +34,6 @@ namespace YAF.Controls
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -188,14 +187,16 @@ namespace YAF.Controls
             if (this.Get<BoardSettings>().ShowRecentUsers)
             {
                 var activeUsers30Day = this.Get<IDataCache>().GetOrSet(
-                    Constants.Cache.VisitorsInTheLast30Days,
-                    () => this.Get<DataBroker>().GetRecentUsers(60 * 24 * 30),
-                    TimeSpan.FromMinutes(this.Get<BoardSettings>().ForumStatisticsCacheTimeout));
+                     Constants.Cache.VisitorsInTheLast30Days,
+                     () => this.GetRepository<User>().GetRecentUsersAsDataTable(
+                         60 * 24 * 30,
+                         this.Get<BoardSettings>().UseStyledNicks),
+                     TimeSpan.FromMinutes(this.Get<BoardSettings>().ForumStatisticsCacheTimeout));
 
                 if (activeUsers30Day != null && activeUsers30Day.HasRows())
                 {
                     var activeUsers1Day1 = activeUsers30Day.Select(
-                        $"LastVisit >= #{System.DateTime.UtcNow.AddDays(-1).ToString(CultureInfo.InvariantCulture)}#");
+                        $"LastVisit >= #{DateTime.UtcNow.AddDays(-1).ToString(CultureInfo.InvariantCulture)}#");
 
                     this.RecentUsersCount.Text = this.GetTextFormatted(
                         "RECENT_ONLINE_USERS",
@@ -242,7 +243,7 @@ namespace YAF.Controls
                 this.MostUsersCount.Text = this.GetTextFormatted(
                     "MAX_ONLINE",
                     activeStats["ActiveUsers"],
-                    this.Get<IDateTime>().FormatDateTimeTopic(System.DateTime.UtcNow));
+                    this.Get<IDateTime>().FormatDateTimeTopic(DateTime.UtcNow));
             }
         }
 

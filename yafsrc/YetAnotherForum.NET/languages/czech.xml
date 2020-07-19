@@ -379,6 +379,7 @@
     <Resource tag="HEADER1">Name &amp; Description (all fields are required)</Resource>
     <Resource tag="HEADER2">Regular Expression</Resource>
     <Resource tag="HEADER3">Javascript &amp; CSS (all fields are optional)</Resource>
+    <Resource tag="MSG_NAME">You must enter a name.</Resource>
     <Resource tag="MSG_NUMBER">You must enter an number value from 0 to 32767 for sort order.</Resource>
     <Resource tag="MSG_POSITIVE_VALUE">The sort order value should be a positive integer from 0 to 32767.</Resource>
     <Resource tag="ONCLICK_JS">OnClick JS:</Resource>
@@ -456,6 +457,7 @@
     <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available&lt;a href="https://yetanotherforum.net/purchase.aspx"&gt;from YAF.NET site&lt;/a&gt;. </Resource>
     <Resource tag="HEADER">Current Board Settings</Resource>
+    <Resource tag="NEED_MESSAGE">You need to enter an Announcement Message.</Resource>
     <Resource tag="TITLE">Board Settings</Resource>
   </page>
   <page name="ADMIN_COMMON">
@@ -682,6 +684,7 @@
     <Resource tag="IS_START_HELP">If this is checked, all new users will be a member of this role. &lt;br /&gt;&lt;span style="color:red"&gt;[b]Warning:[/b] at least one Group need to have this Check box enabled or new users wont be able to register.[/b]&lt;/span&gt;</Resource>
     <Resource tag="MSG_ALBUM_NUMBER">You should enter integer value for the number of user albums.</Resource>
     <Resource tag="MSG_INTEGER">You should enter integer value for priority.</Resource>
+    <Resource tag="MSG_NAME">You need to enter a Role name.</Resource>
     <Resource tag="MSG_SIG_NUMBER">You should enter integer value for the number of chars in user signature.</Resource>
     <Resource tag="MSG_TOTAL_NUMBER">You should enter integer value for the total number of images in all albums.</Resource>
     <Resource tag="MSG_VALID_NUMBER">You should enter integer value for pmessage number.</Resource>
@@ -747,6 +750,7 @@
     <Resource tag="MEDAL_USER_HELP">Enter a Username or Click on "Find Users" to select a User from the User List</Resource>
     <Resource tag="MSG_AMBIGOUS_USER">Ambiguous user name specified!</Resource>
     <Resource tag="MSG_IMAGE">Medal image must be specified!</Resource>
+    <Resource tag="MSG_NAME">You must enter a medal name!</Resource>
     <Resource tag="MSG_SMALL_IMAGE">Small medal image must be specified!</Resource>
     <Resource tag="MSG_VALID_USER">Please specify valid user!</Resource>
     <Resource tag="MSG_VALID_USER">Please specify valid user!</Resource>
@@ -813,6 +817,7 @@
     <Resource tag="MIN_POSTS">Minimum Posts:</Resource>
     <Resource tag="MIN_POSTS_HELP">Minimum number of posts before users are advanced to this rank.</Resource>
     <Resource tag="MSG_RANK_INTEGER">Rank Priority should be small integer.</Resource>
+    <Resource tag="NEED_NAME">You must define a rank name.</Resource>
     <Resource tag="PRIVATE_MESSAGES">Private Messages:</Resource>
     <Resource tag="PRIVATE_MESSAGES_HELP">Max. Private Messages allowed to Rank members.</Resource>
     <Resource tag="RANK_DESC">Description:</Resource>
@@ -1640,6 +1645,7 @@
     <Resource tag="HEADER">Retrieve NNTP Articles</Resource>
     <Resource tag="LAST_MESSAGE">Last Message</Resource>
     <Resource tag="LAST_UPDATE">Last Update</Resource>
+    <Resource tag="NO_GROUPS">No Groups ready for retrieval</Resource>
     <Resource tag="RETRIEVE">Retrieve</Resource>
     <Resource tag="Retrieved">Retrieved {0} articles. {1:N2} articles per second.</Resource>
     <Resource tag="SECONDS">seconds</Resource>
@@ -1798,6 +1804,7 @@
   </page>
   <page name="ADMIN_RUNSQL">
     <Resource tag="HEADER">Run SQL Query</Resource>
+    <Resource tag="NEED_QUERY">You need to enter a Query.</Resource>
     <Resource tag="RUN_QUERY">Run Query</Resource>
     <Resource tag="RUN_TRANSCATION">Run In Transaction</Resource>
     <Resource tag="SQL_COMMAND">SQL Command:</Resource>
@@ -1935,6 +1942,7 @@
     <Resource tag="admin_bannedip">Banned IPs</Resource>
     <Resource tag="admin_bannedname">Banned Names</Resource>
     <Resource tag="admin_bbcode">BBCode Extensions</Resource>
+    <Resource tag="ADMIN_BoardAnnouncement">Board Announcement</Resource>
     <Resource tag="admin_boards">Boards</Resource>
     <Resource tag="admin_boardsettings">Board Settings</Resource>
     <Resource tag="admin_digest">Digest</Resource>
@@ -2698,6 +2706,7 @@
     <Resource tag="FROM">Od:</Resource>
     <Resource tag="LAST10">Posledních 10 zpráv (v obráceném pořadí)</Resource>
     <Resource tag="MESSAGE">Zpráva:</Resource>
+    <Resource tag="NEED_REASON">You need to enter a Reason why the message is deleted.</Resource>
     <Resource tag="POSTED">Odeslané:</Resource>
     <Resource tag="PREVIEWTITLE">Zpráva:</Resource>
     <Resource tag="PRIORITY">Priorita:</Resource>
@@ -2833,6 +2842,8 @@
     <Resource tag="FAILED">E-mail se nepodařilo odeslat.\n\n{0}</Resource>
     <Resource tag="MESSAGE">Zpráva:</Resource>
     <Resource tag="NEED_EMAIL">Musíte zadat e-mailovou adresu.</Resource>
+    <Resource tag="NEED_MESSAGE">You must enter a Message.</Resource>
+    <Resource tag="NEED_SUBJECT">You must enter an email subject.</Resource>
     <Resource tag="SEND">Odeslat e-mail</Resource>
     <Resource tag="SUBJECT">Předmět:</Resource>
     <Resource tag="TITLE">Odeslat stránku příteli</Resource>
@@ -4478,6 +4489,7 @@ Spoiler Content
     <Resource tag="REPLYTO">Reply by private message to</Resource>
     <Resource tag="REPORT_SPAM">Report as SPAM</Resource>
     <Resource tag="REPORTED">Reported posts</Resource>
+    <Resource tag="REPORTED_TIMES">{0} Reports</Resource>
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Resolve Post Copies</Resource>
     <Resource tag="RESOLVED">Mark as resolved</Resource>
@@ -5122,6 +5134,7 @@ Spoiler Content
     <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
     <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
     <Resource tag="HEADER">Report post</Resource>
+    <Resource tag="NEED_REASON">You need to provide a Report Reason.</Resource>
     <Resource tag="POSTEDBY">Posted by:</Resource>
     <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">Tags are not allowed in reports.</Resource>
     <Resource tag="REPORTTEXT_FORBIDDENTAG">The tag [{0}] is not allowed in reports.</Resource>

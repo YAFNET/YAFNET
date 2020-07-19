@@ -138,7 +138,7 @@ namespace YAF.Pages
         protected void AllBuddies_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // try to find users by user name
-            var usersFound = this.Get<IFriends>().All();
+            var usersFound = this.Get<IFriends>().ListAllAsDataTable();
 
             var friendsString = new StringBuilder();
 
@@ -168,7 +168,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.PM);
+            BuildLink.Redirect(ForumPages.MyMessages);
         }
 
         /// <summary>
@@ -212,8 +212,8 @@ namespace YAF.Pages
 
             // private messages
             this.PageLinks.AddLink(
-                this.GetText(ForumPages.PM.ToString(), "TITLE"),
-                BuildLink.GetLink(ForumPages.PM));
+                this.GetText(ForumPages.MyMessages.ToString(), "TITLE"),
+                BuildLink.GetLink(ForumPages.MyMessages));
 
             // post new message
             this.PageLinks.AddLink(this.GetText("TITLE"));
@@ -234,10 +234,10 @@ namespace YAF.Pages
             }
 
             // try to find users by user name
-            var usersFound = this.Get<IUserDisplayName>().Find(this.To.Text.Trim())
-                .Where(u => !u.Block.BlockPMs && u.IsApproved == true).ToList();
+            var usersFound = this.Get<IUserDisplayName>().Find(this.To.Text.Trim()).Where(
+                u => !u.Block.BlockPMs && u.IsApproved == true && u.ID != this.PageContext.PageUserID).ToList();
 
-            if (usersFound.Count > 0)
+            if (usersFound.Any())
             {
                 // we found a user(s)
                 this.ToList.DataSource = usersFound;
@@ -465,23 +465,25 @@ namespace YAF.Pages
             }
             else if (this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
-                // PM is being send as a reply to a reported post
-
                 // find user
-                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out var toUserId))
+                var foundUser =
+                    this.GetRepository<User>().GetById(Security.StringToIntOrRedirect(
+                        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
+
+                if (foundUser == null)
                 {
                     return;
                 }
 
-                var currentRow =
-                    this.GetRepository<User>().GetById(toUserId);
-
-                if (currentRow == null)
+                if (foundUser.ID == this.PageContext.PageUserID)
                 {
                     return;
                 }
 
-                this.To.Text = this.Get<IUserDisplayName>().GetName(currentRow.ID);
+                this.To.Text = this.PageContext.BoardSettings.EnableDisplayName
+                    ? foundUser.DisplayName
+                    : foundUser.Name;
+
                 this.To.Enabled = false;
 
                 // hide find user/all users buttons
@@ -494,17 +496,17 @@ namespace YAF.Pages
                 // Blank PM
 
                 // multi-receiver info is relevant only when sending blank PM
-                if (this.Get<BoardSettings>().PrivateMessageMaxRecipients <= 1)
+                if (this.Get<BoardSettings>().PrivateMessageMaxRecipients < 1 || this.PageContext.IsAdmin)
                 {
                     return;
                 }
 
                 // format localized string
                 this.MultiReceiverInfo.Text =
-                    $"<br />{string.Format(this.GetText("MAX_RECIPIENT_INFO"), this.Get<BoardSettings>().PrivateMessageMaxRecipients)}<br />{this.GetText("MULTI_RECEIVER_INFO")}";
+                    $"{string.Format(this.GetText("MAX_RECIPIENT_INFO"), this.Get<BoardSettings>().PrivateMessageMaxRecipients)} {this.GetText("MULTI_RECEIVER_INFO")}";
 
                 // display info
-                this.MultiReceiverInfo.Visible = true;
+                this.MultiReceiverAlert.Visible = true;
             }
         }
 
@@ -598,7 +600,7 @@ namespace YAF.Pages
                     replyTo);
 
                 // redirect to outbox (sent items), not control panel
-                BuildLink.Redirect(ForumPages.PM, "v={0}", "out");
+                BuildLink.Redirect(ForumPages.MyMessages, "v={0}", "out");
             }
             else
             {
@@ -721,7 +723,7 @@ namespace YAF.Pages
                         });
 
                 // redirect to outbox (sent items), not control panel
-                BuildLink.Redirect(ForumPages.PM, "v={0}", "out");
+                BuildLink.Redirect(ForumPages.MyMessages, "v={0}", "out");
             }
         }
 
@@ -739,82 +741,15 @@ namespace YAF.Pages
             if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess && !this.Get<BoardSettings>().SpamServiceType.Equals(0))
             {
                 // Check content for spam
-                if (this.Get<ISpamCheck>().CheckPostForSpam(
+                if (!this.Get<ISpamCheck>().CheckPostForSpam(
                     this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
                     this.PageContext.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     message,
                     this.PageContext.MembershipUser.Email,
                     out var spamResult))
                 {
-                    switch (this.Get<BoardSettings>().SpamMessageHandling)
-                    {
-                        case 0:
-                            this.Logger.Log(
-                                this.PageContext.PageUserID,
-                                "Spam Message Detected",
-                                string
-                                    .Format(
-                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}",
-                                        this.PageContext.PageUserName,
-                                            spamResult),
-                                EventLogTypes.SpamMessageDetected);
-                            break;
-                        case 1:
-                            this.Logger.Log(
-                                this.PageContext.PageUserID,
-                                "Spam Message Detected",
-                                string
-                                    .Format(
-                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post",
-                                        this.PageContext.PageUserName,
-                                            spamResult),
-                                EventLogTypes.SpamMessageDetected);
-                            break;
-                        case 2:
-                            this.Logger.Log(
-                                this.PageContext.PageUserID,
-                                "Spam Message Detected",
-                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}, post was rejected",
-                                EventLogTypes.SpamMessageDetected);
-
-                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
-
-                            break;
-                        case 3:
-                            this.Logger.Log(
-                                this.PageContext.PageUserID,
-                                "Spam Message Detected",
-                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}, user was deleted and bannded",
-                                EventLogTypes.SpamMessageDetected);
-
-                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                this.PageContext.PageUserID,
-                                this.PageContext.MembershipUser,
-                                this.PageContext.CurrentUser.IP);
-
-                            break;
-                    }
-
-                    return false;
+                    return !this.Get<ISpamCheck>().ContainsSpamUrls(message);
                 }
-
-                // Check posts for urls if the user has only x posts
-                if (this.PageContext.CurrentUser.NumPosts >
-                    this.PageContext.Get<BoardSettings>().IgnoreSpamWordCheckPostCount || this.PageContext.IsAdmin ||
-                    this.PageContext.ForumModeratorAccess)
-                {
-                    return true;
-                }
-
-                var urlCount = UrlHelper.CountUrls(message);
-
-                if (urlCount <= this.PageContext.BoardSettings.AllowedNumberOfUrls)
-                {
-                    return true;
-                }
-
-                spamResult =
-                    $"The user posted {urlCount} urls but allowed only {this.PageContext.BoardSettings.AllowedNumberOfUrls}";
 
                 switch (this.Get<BoardSettings>().SpamMessageHandling)
                 {
@@ -822,14 +757,22 @@ namespace YAF.Pages
                         this.Logger.Log(
                             this.PageContext.PageUserID,
                             "Spam Message Detected",
-                            $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}",
+                            string
+                                .Format(
+                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}",
+                                    this.PageContext.PageUserName,
+                                    spamResult),
                             EventLogTypes.SpamMessageDetected);
                         break;
                     case 1:
                         this.Logger.Log(
                             this.PageContext.PageUserID,
                             "Spam Message Detected",
-                            $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}, it was flagged as unapproved post",
+                            string
+                                .Format(
+                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post",
+                                    this.PageContext.PageUserName,
+                                    spamResult),
                             EventLogTypes.SpamMessageDetected);
                         break;
                     case 2:
@@ -853,9 +796,10 @@ namespace YAF.Pages
                             this.PageContext.PageUserID,
                             this.PageContext.MembershipUser,
                             this.PageContext.CurrentUser.IP);
+
                         break;
                 }
-
+                    
                 return false;
             }
 

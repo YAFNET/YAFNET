@@ -170,7 +170,10 @@
 </div>
 
 <YAF:Alert runat="server" ID="NoMessage" Type="info">
-    <YAF:LocalizedLabel runat="server" LocalizedTag="NO_MESSAGES"></YAF:LocalizedLabel>
+    <YAF:Icon runat="server" 
+              IconName="info-circle" />
+    <YAF:LocalizedLabel runat="server" 
+                        LocalizedTag="NO_MESSAGES" />
 </YAF:Alert>
 
 </div>

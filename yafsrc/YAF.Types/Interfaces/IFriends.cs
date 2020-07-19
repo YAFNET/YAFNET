@@ -71,7 +71,7 @@ namespace YAF.Types.Interfaces
     /// <returns>
     /// A <see cref="DataTable"/> of all buddies.
     /// </returns>
-    DataTable All();
+    DataTable ListAllAsDataTable();
 
     /// <summary>
     /// Clears the buddies cache for the current user.

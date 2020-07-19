@@ -105,7 +105,7 @@
                     <div class="col-sm-9">
                         <asp:DropDownList ID="ShowList" runat="server" 
                                           AutoPostBack="True" 
-                                          CssClass="form-select" />                            
+                                          CssClass="select2-select" />                            
                     </div>
                 </div>
                 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">

@@ -90,7 +90,7 @@ namespace YAF.Core.Context
         /// </summary>
         /// <param name="event">The @event.</param>
         public void Handle([NotNull] InitPageLoadEvent @event)
-        {
+        { 
             DataRow activeUserLazyData = this._dbBroker.ActiveUserLazyData(@event.Data.UserID);
 
             if (activeUserLazyData != null)

@@ -30,10 +30,10 @@
                 </div>
                 <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="TopicsList">
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="select_topic_moveto" />
+                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                                            LocalizedTag="select_topic_moveto" />
                     </asp:Label>
                     <asp:DropDownList ID="TopicsList" runat="server" 
-                                      CssClass="TopicsSelect2Menu" 
                                       OnSelectedIndexChanged="TopicsList_SelectedIndexChanged" />
                 </div>
             </div>
@@ -46,9 +46,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="row">
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">

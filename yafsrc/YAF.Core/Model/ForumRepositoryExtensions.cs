@@ -667,6 +667,7 @@ namespace YAF.Core.Model
 
             listDestination.Columns.Add("ForumID", typeof(int));
             listDestination.Columns.Add("Title", typeof(string));
+            listDestination.Columns.Add("Category", typeof(string));
             listDestination.Columns.Add("Icon", typeof(string));
 
             if (emptyFirstRow)
@@ -674,6 +675,7 @@ namespace YAF.Core.Model
                 var blankRow = listDestination.NewRow();
                 blankRow["ForumID"] = 0;
                 blankRow["Title"] = BoardContext.Current.Get<ILocalization>().GetText("NONE");
+                blankRow["Category"] = string.Empty;
                 blankRow["Icon"] = string.Empty;
                 listDestination.Rows.Add(blankRow);
             }
@@ -730,6 +732,7 @@ namespace YAF.Core.Model
                     newRow = listDestination.NewRow();
                     newRow["ForumID"] = -categoryID;
                     newRow["Title"] = $"{item2.Name}";
+                    newRow["Category"] = $"{item2.Name}";
                     newRow["Icon"] = "folder";
                     listDestination.Rows.Add(newRow);
                 }
@@ -738,14 +741,15 @@ namespace YAF.Core.Model
 
                 for (var j = 0; j < currentIndent; j++)
                 {
-                    indent += "--";
+                    indent += "-";
                 }
 
                 // import the row into the destination
                 newRow = listDestination.NewRow();
 
                 newRow["ForumID"] = item1.ID;
-                newRow["Title"] = $" -{indent} {item1.Name}";
+                newRow["Title"] = $" {indent} {item1.Name}";
+                newRow["Category"] = $"{item2.Name}";
                 newRow["Icon"] = "comments";
 
                 listDestination.Rows.Add(newRow);

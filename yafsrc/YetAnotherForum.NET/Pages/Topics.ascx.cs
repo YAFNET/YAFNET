@@ -223,7 +223,7 @@ namespace YAF.Pages
 
                 this.moderate1.NavigateUrl =
                     this.moderate2.NavigateUrl =
-                    BuildLink.GetLink(ForumPages.Moderating, "f={0}", this.PageContext.PageForumID);
+                    BuildLink.GetLink(ForumPages.Moderate_Forums, "f={0}", this.PageContext.PageForumID);
 
                 this.NewTopic1.NavigateUrl =
                     this.NewTopic2.NavigateUrl =
@@ -360,6 +360,7 @@ namespace YAF.Pages
                 this.PageContext.PageUserID,
                 this.PageContext.PageCategoryID,
                 this.PageContext.PageForumID);
+
             if (ds.Tables["Forum"].HasRows())
             {
                 this.ForumList.DataSource = ds.Tables["Forum"].Rows;

@@ -31,7 +31,6 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Core.BasePages;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -39,7 +38,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 

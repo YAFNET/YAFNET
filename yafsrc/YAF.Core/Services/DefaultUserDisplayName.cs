@@ -31,7 +31,6 @@ namespace YAF.Core.Services
     using System.Linq;
 
     using YAF.Configuration;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -115,9 +114,12 @@ namespace YAF.Core.Services
         [NotNull]
         public IList<User> Find([NotNull] string contains)
         {
-            return BoardContext.Current.Get<BoardSettings>().EnableDisplayName
-                       ? this.GetRepository<User>().Get(u => u.DisplayName.Contains(contains))
-                       : this.GetRepository<User>().Get(u => u.Name.Contains(contains));
+            return this.Get<BoardSettings>().EnableDisplayName
+                ? this.GetRepository<User>().Get(
+                    u => u.DisplayName.Contains(contains) &&
+                         u.BoardID == this.Get<BoardSettings>().BoardID)
+                : this.GetRepository<User>().Get(
+                    u => u.Name.Contains(contains) && u.BoardID == this.Get<BoardSettings>().BoardID);
         }
 
         /// <summary>
@@ -150,7 +152,7 @@ namespace YAF.Core.Services
             else
             {
                 // find the username...
-                if (BoardContext.Current.Get<BoardSettings>().EnableDisplayName)
+                if (this.Get<BoardSettings>().EnableDisplayName)
                 {
                     var user =
                       this.GetRepository<User>().FindUserTyped(true, displayName: name).FirstOrDefault();
@@ -197,14 +199,14 @@ namespace YAF.Core.Services
                 return displayName;
             }
 
-            var row = BoardContext.Current.GetRepository<User>().GetById(userId);
+            var row = this.GetRepository<User>().GetById(userId);
 
             if (row == null)
             {
                 return null;
             }
 
-            if (BoardContext.Current.Get<BoardSettings>().EnableDisplayName)
+            if (this.Get<BoardSettings>().EnableDisplayName)
             {
                 displayName = row.DisplayName;
             }

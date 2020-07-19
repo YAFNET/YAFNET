@@ -54,11 +54,6 @@ namespace YAF.Types.Constants
         ActiveUsers,
 
         /// <summary>
-        /// The moderating.
-        /// </summary>
-        Moderating,
-
-        /// <summary>
         /// The post topic page.
         /// </summary>
         PostTopic,
@@ -82,11 +77,6 @@ namespace YAF.Types.Constants
         /// The MessageHistory page displays a user message changes.
         /// </summary>
         MessageHistory,
-
-        /// <summary>
-        /// The ModForumUser page.
-        /// </summary>
-        ModForumUser,
 
         /// <summary>
         /// The PostMessage.
@@ -114,9 +104,9 @@ namespace YAF.Types.Constants
         ReportPost,
 
         /// <summary>
-        /// The PM.
+        /// The MyMessages Page.
         /// </summary>
-        PM,
+        MyMessages,
 
         /// <summary>
         /// The Notification.
@@ -177,6 +167,11 @@ namespace YAF.Types.Constants
         /// The moderate index page.
         /// </summary>
         Moderate_Index,
+
+        /// <summary>
+        /// The moderate forum page.
+        /// </summary>
+        Moderate_Forums,
 
         /// <summary>
         /// The moderate reported posts page.

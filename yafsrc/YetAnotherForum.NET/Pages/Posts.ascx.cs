@@ -40,7 +40,6 @@ namespace YAF.Pages
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -280,16 +279,14 @@ namespace YAF.Pages
                         "email", this.GetText("EMAILTOPIC"), "fa fa-paper-plane");
                 }
 
-                //TODO: Move to Utils
                 this.ShareMenu.AddClientScriptItem(
                     this.GetText("LINKBACK_TOPIC"),
-                    $@"bootbox.prompt({{ 
-                                      title: '{this.GetText("LINKBACK_TOPIC")}',
-                                      message: '{this.GetText("LINKBACK_TOPIC_PROMT")}',
-	                                  value: '{topicUrl}',
-                                      buttons: {{cancel:{{label:'{this.GetText("CANCEL")}'}}, confirm:{{label:'{this.GetText("OK")}'}}}},
-                                      callback: function(){{}}
-	                              }});",
+                    JavaScriptBlocks.BootBoxPromptJs(
+                        this.GetText("LINKBACK_TOPIC"),
+                        this.GetText("LINKBACK_TOPIC_PROMT"),
+                        this.GetText("CANCEL"),
+                        this.GetText("OK"),
+                        topicUrl),
                     "fa fa-link");
                 this.ShareMenu.AddPostBackItem("retweet", this.GetText("RETWEET_TOPIC"), "fab fa-twitter");
 
@@ -831,9 +828,9 @@ namespace YAF.Pages
                 this.Get<BoardSettings>().UseStyledNicks,
                 !this.PageContext.IsGuest && this.Get<BoardSettings>().EnableUserReputation,
                 DateTimeHelper.SqlDbMinTime(),
-                System.DateTime.UtcNow,
+                DateTime.UtcNow,
                 DateTimeHelper.SqlDbMinTime(),
-                System.DateTime.UtcNow,
+                DateTime.UtcNow,
                 this.Pager.CurrentPageIndex,
                 this.Pager.PageSize,
                 1,
@@ -889,9 +886,9 @@ namespace YAF.Pages
                     this.Get<BoardSettings>().UseStyledNicks,
                     !this.PageContext.IsGuest && this.Get<BoardSettings>().EnableUserReputation,
                     DateTimeHelper.SqlDbMinTime(),
-                    System.DateTime.UtcNow,
+                    DateTime.UtcNow,
                     DateTimeHelper.SqlDbMinTime(),
-                    System.DateTime.UtcNow,
+                    DateTime.UtcNow,
                     this.Pager.CurrentPageIndex,
                     this.Pager.PageSize,
                     1,
@@ -937,7 +934,7 @@ namespace YAF.Pages
             // Add thanks info and styled nicks if they are enabled
             if (this.Get<BoardSettings>().EnableThanksMod)
             {
-                this.Get<DataBroker>().AddThanksInfo(pagedData);
+                this.Get<IThankYou>().AddThanksInfo(pagedData);
             }
 
             // if current index is 0 we are on the first page and the metadata can be added.
@@ -974,7 +971,6 @@ namespace YAF.Pages
 
             try
             {
-                // temporary find=lastpost code until all last/unread post links are find=lastpost and find=unread
                 if (!this.Get<HttpRequestBase>().QueryString.Exists("find"))
                 {
                     if (this.Get<HttpRequestBase>().QueryString.Exists("m") && int.TryParse(
@@ -1020,7 +1016,7 @@ namespace YAF.Pages
                                                    ? this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                                                        this.PageContext.PageForumID,
                                                        this.PageContext.PageTopicID)
-                                                   : System.DateTime.UtcNow;
+                                                   : DateTime.UtcNow;
 
                                 using (var unread = this.GetRepository<Message>().FindUnreadAsDataTable(
                                     this.PageContext.PageTopicID,
@@ -1055,7 +1051,7 @@ namespace YAF.Pages
                             using (var unread = this.GetRepository<Message>().FindUnreadAsDataTable(
                                 this.PageContext.PageTopicID,
                                 0,
-                                System.DateTime.UtcNow,
+                                DateTime.UtcNow,
                                 showDeleted,
                                 userId))
                             {

@@ -30,6 +30,7 @@ namespace YAF.Core.Controllers
     using System.Web.Http;
 
     using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -67,32 +68,23 @@ namespace YAF.Core.Controllers
         {
             if (!BoardContext.Current.IsAdmin && !BoardContext.Current.IsForumModerator)
             {
-                return null;
+                return this.NotFound();
             }
 
             if (searchTopic.SearchTerm.IsSet())
             {
                 var topics = this.Get<IDataCache>().GetOrSet(
                     $"TopicsList_{searchTopic.ForumId}",
-                    () => this.GetRepository<Topic>().ListAsDataTable(
-                        searchTopic.ForumId,
-                        null,
-                        DateTimeHelper.SqlDbMinTime(),
-                        DateTime.UtcNow,
-                        0,
-                        30000,
-                        false,
-                        false,
-                        false),
+                    () => this.GetRepository<Topic>().Get(t => t.ForumID == searchTopic.ForumId),
                     TimeSpan.FromMinutes(5));
 
-                var topicsList = (from DataRow topic in topics.Rows
-                                  where topic["Subject"].ToString().ToLower().Contains(searchTopic.SearchTerm.ToLower())
-                                  select new SelectOptions
-                                  {
-                                      text = topic["Subject"].ToString(),
-                                      id = topic["TopicID"].ToString()
-                                  }).ToList();
+                var topicsList = topics
+                    .Where(topic => topic.TopicName.ToLower().Contains(searchTopic.SearchTerm.ToLower()))
+                    .Select(
+                        topic => new SelectOptions
+                        {
+                            text = topic.TopicName, id = topic.ID.ToString()
+                        }).ToList();
 
                 var pagedTopics = new SelectPagedOptions { Total = 0, Results = topicsList };
 

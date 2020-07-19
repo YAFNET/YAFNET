@@ -96,7 +96,7 @@ namespace YAF.Modules
         private void GeneratePopUp()
         {
             // This happens when user logs in
-            if (this.DisplayPmPopup() && (!this.PageContext.ForumPageType.Equals(ForumPages.PM)
+            if (this.DisplayPmPopup() && (!this.PageContext.ForumPageType.Equals(ForumPages.MyMessages)
                                           || !this.PageContext.ForumPageType.Equals(ForumPages.Friends)))
             {
                 this.PageContext.PageElements.RegisterJsBlockStartup(
@@ -106,7 +106,7 @@ namespace YAF.Modules
                         this.GetTextFormatted("UNREAD_MSG2", this.PageContext.UnreadPrivate),
                         this.GetText("COMMON", "YES"),
                         this.GetText("COMMON", "NO"),
-                        BuildLink.GetLink(ForumPages.PM)));
+                        BuildLink.GetLink(ForumPages.MyMessages)));
 
                 this.Get<ISession>().LastPm = this.PageContext.LastUnreadPm;
 
@@ -114,7 +114,7 @@ namespace YAF.Modules
                 return;
             }
 
-            if (!this.DisplayPendingBuddies() || this.PageContext.ForumPageType.Equals(ForumPages.Friends) || this.PageContext.ForumPageType.Equals(ForumPages.PM))
+            if (!this.DisplayPendingBuddies() || this.PageContext.ForumPageType.Equals(ForumPages.Friends) || this.PageContext.ForumPageType.Equals(ForumPages.MyMessages))
             {
                 return;
             }

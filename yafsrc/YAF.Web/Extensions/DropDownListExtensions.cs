@@ -53,15 +53,23 @@ namespace YAF.Web.Extensions
 
             forumList.Rows.Cast<DataRow>().ForEach(
                 row =>
+                {
+                    // don't render categories
+                    if (row["Icon"].ToString() == "folder")
                     {
-                        var item = new ListItem { Value = row["ForumID"].ToString(), Text = row["Title"].ToString() };
+                        return;
+                    }
 
-                        item.Attributes.Add(
-                            "data-content",
-                            $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{row["Icon"]} fa-fw text-secondary\"></i>&nbsp;{row["Title"]}</span>");
+                    var item = new ListItem { Value = row["ForumID"].ToString(), Text = row["Title"].ToString() };
 
-                        dropDownList.Items.Add(item);
-                    });
+                    item.Attributes.Add("data-category", row["Category"].ToString());
+
+                    item.Attributes.Add(
+                        "data-content",
+                        $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{row["Icon"]} fa-fw text-secondary mr-2\"></i>{row["Title"]}</span>");
+
+                    dropDownList.Items.Add(item);
+                });
         }
     }
 }

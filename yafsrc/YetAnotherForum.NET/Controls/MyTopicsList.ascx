@@ -28,8 +28,9 @@
             </div>
             <asp:Panel runat="server" ID="Footer" 
                        CssClass="card-footer">
-                <div class="mb-1 d-flex">
-                    <asp:Label runat="server" AssociatedControlID="Since">
+                <div class="input-group align-items-center">
+                    <asp:Label runat="server" AssociatedControlID="Since"
+                               CssClass="input-group-text">
                         <YAF:LocalizedLabel ID="SinceLabel" runat="server"
                                             LocalizedTag="SINCE"/>
                     </asp:Label>

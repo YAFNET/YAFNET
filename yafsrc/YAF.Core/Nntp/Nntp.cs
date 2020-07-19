@@ -242,7 +242,7 @@ namespace YAF.Core.Nntp
 
                                 if (createUsers)
                                 {
-                                    guestUserId = BoardContext.Current.GetRepository<User>().Nntp(
+                                    guestUserId = BoardContext.Current.GetRepository<User>().CreateNntpUser(
                                         boardID,
                                         fromName,
                                         string.Empty,

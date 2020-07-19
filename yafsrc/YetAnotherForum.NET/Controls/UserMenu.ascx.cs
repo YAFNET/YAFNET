@@ -379,12 +379,12 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("TOOLBAR", "INBOX"),
                     this.GetText("TOOLBAR", "INBOX_TITLE"),
-                    BuildLink.GetLink(ForumPages.PM),
+                    BuildLink.GetLink(ForumPages.MyMessages),
                     false,
                     this.PageContext.UnreadPrivate > 0,
                     this.PageContext.UnreadPrivate.ToString(),
                     this.GetTextFormatted("NEWPM", this.PageContext.UnreadPrivate),
-                    this.PageContext.ForumPageType == ForumPages.PM,
+                    this.PageContext.ForumPageType == ForumPages.MyMessages,
                     "inbox");
             }
 
@@ -453,7 +453,7 @@ namespace YAF.Controls
 
             if (this.PageContext.ForumPageType == ForumPages.MyAccount
                 || this.PageContext.ForumPageType == ForumPages.Profile_EditProfile
-                || this.PageContext.ForumPageType == ForumPages.PM
+                || this.PageContext.ForumPageType == ForumPages.MyMessages
                 || this.PageContext.ForumPageType == ForumPages.Friends
                 || this.PageContext.ForumPageType == ForumPages.MyTopics
                 || this.PageContext.ForumPageType == ForumPages.Profile_EditProfile

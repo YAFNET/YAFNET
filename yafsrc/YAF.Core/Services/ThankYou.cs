@@ -24,13 +24,18 @@
 
 namespace YAF.Core.Services
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
     using System.Text;
     using System.Web;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
@@ -135,6 +140,67 @@ namespace YAF.Core.Services
                            title=""{thanksText}"" 
                            data-content=""{thanks.Replace("\"", "'")}"">
                                <i class=""fa fa-heart"" style= ""color:#e74c3c""></i>&nbsp;+{thanksNumber}</a>";
+        }
+
+        /// <summary>
+        ///     Adds the Thanks info to a dataTable
+        /// </summary>
+        /// <param name="dataRows"> The data Rows. </param>
+        public void AddThanksInfo(IEnumerable<DataRow> dataRows)
+        {
+            var postRows = dataRows.ToList();
+            var messageIds = postRows.Select(x => x.Field<int>("MessageID"));
+
+            // Initialize the "IsThankedByUser" column.
+            postRows.ForEach(x => x["IsThankedByUser"] = false);
+
+            // Initialize the "Thank Info" column.
+            postRows.ForEach(x => x["ThanksInfo"] = string.Empty);
+
+            // Iterate through all the thanks relating to this topic and make appropriate
+            // changes in columns.
+            var allThanks = this.GetRepository<Thanks>().MessageGetAllThanks(messageIds.ToDelimitedString(",")).ToList();
+
+            allThanks.Where(t => t.FromUserID != null && t.FromUserID == BoardContext.Current.PageUserID)
+                .SelectMany(thanks => postRows.Where(x => x.Field<int>("MessageID") == thanks.MessageID)).ForEach(
+                    f =>
+                    {
+                        f["IsThankedByUser"] = "true";
+                        f.AcceptChanges();
+                    });
+
+            var thanksFieldNames = new[] { "ThanksFromUserNumber", "ThanksToUserNumber", "ThanksToUserPostsNumber" };
+
+            postRows.ForEach(
+                postRow =>
+                {
+                    var messageId = postRow.Field<int>("MessageID");
+
+                    postRow["MessageThanksNumber"] =
+                        allThanks.Count(t => t.FromUserID != null && t.MessageID == messageId);
+
+                    var thanksFiltered = allThanks.Where(t => t.MessageID == messageId).ToList();
+
+                    if (thanksFiltered.Any())
+                    {
+                        var thanksItem = thanksFiltered.First();
+
+                        postRow["ThanksFromUserNumber"] = thanksItem.ThanksFromUserNumber ?? 0;
+                        postRow["ThanksToUserNumber"] = thanksItem.ThanksToUserNumber ?? 0;
+                        postRow["ThanksToUserPostsNumber"] = thanksItem.ThanksToUserPostsNumber ?? 0;
+                    }
+                    else
+                    {
+                        var row = postRow;
+                        thanksFieldNames.ForEach(f => row[f] = 0);
+                    }
+
+                    // load all all thanks info into a special column...
+                    postRow["ThanksInfo"] = thanksFiltered.Where(t => t.FromUserID != null)
+                        .Select(x => $"{x.FromUserID.Value}|{x.ThanksDate}").ToDelimitedString(",");
+
+                    postRow.AcceptChanges();
+                });
         }
 
         /// <summary>

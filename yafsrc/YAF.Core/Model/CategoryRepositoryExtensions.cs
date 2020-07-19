@@ -80,6 +80,28 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
+        /// Get Categories as data table.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="categoryId">
+        /// The category id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
+        public static DataTable ListAsDataTable(
+            this IRepository<Category> repository,
+            [CanBeNull] int? categoryId = null)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbFunction.GetAsDataTable(
+                x => x.category_list(repository.BoardID, categoryId));
+        }
+
+        /// <summary>
         /// Save a Category
         /// </summary>
         /// <param name="repository">The repository.</param>

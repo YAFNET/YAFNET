@@ -203,7 +203,7 @@ namespace YAF.Core.Services
                     return;
                 }
 
-                var customBbCode = this.Get<DataBroker>().GetCustomBBCode()
+                var customBbCode = this.GetRepository<BBCode>().GetByBoardId()
                     .Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH").Select(e => e.Name).ToList();
 
                 context.Response.Clear();

@@ -32,6 +32,7 @@ namespace YAF.Core.Services
     using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -45,15 +46,6 @@ namespace YAF.Core.Services
     /// </summary>
     public class Friends : IFriends, IHaveServiceLocator
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The DB broker.
-        /// </summary>
-        private readonly DataBroker dbBroker;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -62,13 +54,9 @@ namespace YAF.Core.Services
         /// <param name="serviceLocator">
         /// The service locator.
         /// </param>
-        /// <param name="dbBroker">
-        /// The DB broker.
-        /// </param>
-        public Friends([NotNull] IServiceLocator serviceLocator, [NotNull] DataBroker dbBroker)
+        public Friends([NotNull] IServiceLocator serviceLocator)
         {
             this.ServiceLocator = serviceLocator;
-            this.dbBroker = dbBroker;
         }
 
         #endregion
@@ -115,7 +103,7 @@ namespace YAF.Core.Services
         /// </param>
         public void ApproveAllRequests(bool mutual)
         {
-            var dt = this.All();
+            var dt = this.ListAllAsDataTable();
             var dv = dt.DefaultView;
             dv.RowFilter = $"Approved = 0 AND UserID = {BoardContext.Current.PageUserID}";
 
@@ -150,9 +138,12 @@ namespace YAF.Core.Services
         /// <returns>
         /// A <see cref="DataTable"/> of all buddies.
         /// </returns>
-        public DataTable All()
+        public DataTable ListAllAsDataTable()
         {
-            return this.dbBroker.UserBuddyList(BoardContext.Current.PageUserID);
+            return this.Get<IDataCache>().GetOrSet(
+                string.Format(Constants.Cache.UserBuddies, BoardContext.Current.PageUserID),
+                () => this.GetRepository<Buddy>().ListAllAsDataTable(BoardContext.Current.PageUserID),
+                TimeSpan.FromMinutes(10));
         }
 
         /// <summary>
@@ -170,7 +161,7 @@ namespace YAF.Core.Services
         /// </summary>
         public void DenyAllRequests()
         {
-            var dt = this.All();
+            var dt = this.ListAllAsDataTable();
             var dv = dt.DefaultView;
             dv.RowFilter = $"Approved = 0 AND UserID = {BoardContext.Current.PageUserID}";
 
@@ -204,7 +195,7 @@ namespace YAF.Core.Services
         /// </returns>
         public DataTable GetForUser(int userId)
         {
-            return this.dbBroker.UserBuddyList(userId);
+            return this.GetRepository<Buddy>().ListAllAsDataTable(userId);
         }
 
         /// <summary>
@@ -226,7 +217,7 @@ namespace YAF.Core.Services
                 return true;
             }
 
-            var userBuddyList = this.dbBroker.UserBuddyList(BoardContext.Current.PageUserID);
+            var userBuddyList = this.GetRepository<Buddy>().ListAllAsDataTable(BoardContext.Current.PageUserID);
 
             if (userBuddyList == null || !userBuddyList.HasRows())
             {

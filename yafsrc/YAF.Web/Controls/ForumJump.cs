@@ -163,14 +163,23 @@ namespace YAF.Web.Controls
                     {
                         var title = this.HtmlEncode(row["Title"]);
 
-                        writer.WriteLine(
-                            @"<option {2}value=""{0}"" data-content=""{3}"">&nbsp;&nbsp;{1}</option>",
-                            row["ForumID"],
-                            title,
-                            row["ForumID"].ToString() == forumId.ToString()
-                                ? @"selected=""selected"" "
-                                : string.Empty,
-                            $"<span class='select2-image-select-icon'><i class='fas fa-{row["Icon"]} fa-fw text-secondary'></i>&nbsp;{title}</span>");
+                        if (row["Icon"].ToString() == "folder")
+                        {
+                            writer.WriteLine(
+                                @"<optgroup label=""{0}"">",
+                                title);
+                        }
+                        else
+                        {
+                            writer.WriteLine(
+                                @"<option {2}value=""{0}"" data-content=""{3}"">&nbsp;&nbsp;{1}</option>",
+                                row["ForumID"],
+                                title,
+                                row["ForumID"].ToString() == forumId.ToString()
+                                    ? @"selected=""selected"" "
+                                    : string.Empty,
+                                $"<span class='select2-image-select-icon'><i class='fas fa-{row["Icon"]} fa-fw text-secondary'></i>&nbsp;{title}</span>");
+                        }
                     });
 
             writer.WriteLine("</select>");

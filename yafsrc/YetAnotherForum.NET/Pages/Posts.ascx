@@ -93,8 +93,9 @@
 </div>
 <div class="row mb-3">
     <div class="col">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border rounded border-light">
-            <asp:HyperLink ID="TopicLink" runat="server" 
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <asp:HyperLink ID="TopicLink" runat="server" 
                            CssClass="navbar-brand pt-0">
                 <asp:Label ID="TopicTitle" runat="server" 
                            CssClass="topic-title" />
@@ -145,6 +146,7 @@
                                      AlignRight="true" />
                     </li>
                 </ul>
+            </div>
             </div>
         </nav>
     </div>

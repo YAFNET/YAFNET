@@ -24,6 +24,9 @@
 
 namespace YAF.Types.Interfaces
 {
+    using System.Collections.Generic;
+    using System.Data;
+
     using YAF.Types.Objects;
 
     /// <summary>
@@ -70,5 +73,11 @@ namespace YAF.Types.Interfaces
         /// The thanks number.
         /// </returns>
         string ThanksInfo([NotNull] string username, int messageID);
+
+        /// <summary>
+        ///     Adds the Thanks info to a dataTable
+        /// </summary>
+        /// <param name="dataRows"> The data Rows. </param>
+        void AddThanksInfo(IEnumerable<DataRow> dataRows);
     }
 }
