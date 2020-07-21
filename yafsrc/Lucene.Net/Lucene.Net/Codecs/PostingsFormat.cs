@@ -1,4 +1,5 @@
 using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
@@ -69,12 +70,7 @@ namespace YAF.Lucene.Net.Codecs
 
         /// <summary>
         /// Zero-length <see cref="PostingsFormat"/> array. </summary>
-        public static readonly PostingsFormat[] EMPTY =
-#if FEATURE_ARRAYEMPTY
-            Array.Empty<PostingsFormat>();
-#else
-            new PostingsFormat[0];
-#endif
+        public static readonly PostingsFormat[] EMPTY = Arrays.Empty<PostingsFormat>();
 
         /// <summary>
         /// Unique name that's used to retrieve this format when
