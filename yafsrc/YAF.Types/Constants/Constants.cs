@@ -196,6 +196,11 @@ namespace YAF.Types.Constants
             /// </summary>
             public const string VisitorsInTheLast30Days = "VisitorsInTheLast30Days";
 
+            /// <summary>
+            /// The version.
+            /// </summary>
+            public const string Version = "DBVersion";
+
             #endregion
         }
 
