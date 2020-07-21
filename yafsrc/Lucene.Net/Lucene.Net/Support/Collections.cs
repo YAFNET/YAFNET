@@ -248,7 +248,7 @@ namespace YAF.Lucene.Net.Support
 
             public int Compare(T x, T y)
             {
-                return (new CaseInsensitiveComparer()).Compare(y, x);
+                return CaseInsensitiveComparer.Default.Compare(y, x);
             }
         }
 
