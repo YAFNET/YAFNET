@@ -27,7 +27,7 @@ namespace YAF.Types.Constants
     /// <summary>
     ///     The DB function type.
     /// </summary>
-    public enum DBFunctionType
+    public enum DatabaseFunctionType
     {
         /// <summary>
         ///     The query.
