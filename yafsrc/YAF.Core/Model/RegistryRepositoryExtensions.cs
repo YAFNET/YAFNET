@@ -32,6 +32,7 @@ namespace YAF.Core.Model
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -207,9 +208,9 @@ namespace YAF.Core.Model
 
             try
             {
-                var registry = repository.GetSingle(r => r.Name.ToLower() == "version");
-
-                var registryVersion = registry.Value.ToType<int>();
+                var registryVersion = BoardContext.Current.Get<IDataCache>().GetOrSet(
+                    Constants.Cache.Version,
+                    () => repository.GetSingle(r => r.Name.ToLower() == "version").Value.ToType<int>());
 
                 if (registryVersion < appVersion)
                 {

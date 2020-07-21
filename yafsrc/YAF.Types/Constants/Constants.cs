@@ -191,6 +191,16 @@ namespace YAF.Types.Constants
             /// </summary>
             public const string YafCacheKey = "YAFCACHE";
 
+            /// <summary>
+            /// The version.
+            /// </summary>
+            public const string Version = "DBVersion";
+
+            /// <summary>
+            ///   Admin Page Access List.
+            /// </summary>
+            public const string AdminPageAccess = "AdminPageAccess{0}";
+
             #endregion
         }
 
