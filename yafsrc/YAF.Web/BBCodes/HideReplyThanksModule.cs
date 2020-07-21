@@ -22,10 +22,11 @@
  * under the License.
  */
 
-namespace YAF.Modules.BBCode
+namespace YAF.Web.BBCodes
 {
     using System.Web.UI;
 
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BBCode;
     using YAF.Core.Model;
@@ -34,9 +35,9 @@ namespace YAF.Modules.BBCode
     using YAF.Types.Models;
 
     /// <summary>
-    /// Hide Reply BBCode Module
+    /// Hide Reply Thanks BBCode Module
     /// </summary>
-    public class HideReplyModule : BBCodeControl
+    public class HideReplyThanksModule : BBCodeControl
     {
         /// <summary>
         /// The render.
@@ -56,8 +57,8 @@ namespace YAF.Modules.BBCode
             }
 
             var description = this.LocalizedString(
-                    "HIDEMOD_REPLY",
-                    "Hidden Content (You must be registered and reply to the message to see the hidden Content)");
+                     "HIDEMOD_REPLYTHANKS",
+                     "Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content)");
 
             var descriptionGuest = this.LocalizedString(
                 "HIDDENMOD_GUEST",
@@ -75,6 +76,13 @@ namespace YAF.Modules.BBCode
 
             var userId = BoardContext.Current.CurrentUserData.UserID;
 
+            // Handle Hide Thanks
+            if (!this.Get<BoardSettings>().EnableThanksMod)
+            {
+                writer.Write(hiddenContent);
+                return;
+            }
+
             if (BoardContext.Current.IsGuest)
             {
                 writer.Write(shownContentGuest);
@@ -82,6 +90,7 @@ namespace YAF.Modules.BBCode
             }
 
             if (this.DisplayUserID == userId ||
+                this.GetRepository<Thanks>().ThankedMessage(messageId.ToType<int>(), userId) ||
                 this.GetRepository<User>().RepliedTopic(messageId.ToType<int>(), userId))
             {
                 // Show hidden content if user is the poster or have thanked the poster.

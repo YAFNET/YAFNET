@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Modules.BBCode
+namespace YAF.Web.BBCodes
 {
     using System.Web.UI;
 

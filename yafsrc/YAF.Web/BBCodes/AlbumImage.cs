@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Modules.BBCode
+namespace YAF.Web.BBCodes
 {
     using System.Text;
     using System.Web.UI;

@@ -21,13 +21,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Modules
+namespace YAF.Web.BBCodes
 {
-  using System.Web.UI;
+    using System.Web.UI;
 
-  using YAF.Core.BBCode;
+    using YAF.Core.BBCode;
 
-  /// <summary>
+    /// <summary>
   /// The example bb code module.
   /// </summary>
   public class ExampleBBCodeModule : BBCodeControl
