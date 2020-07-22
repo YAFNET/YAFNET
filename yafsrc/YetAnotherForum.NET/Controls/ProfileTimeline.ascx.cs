@@ -35,10 +35,8 @@ namespace YAF.Controls
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -234,24 +232,6 @@ namespace YAF.Controls
         protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             // rebind
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Mark all Activity as read
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void MarkAll_Click(object sender, EventArgs e)
-        {
-            this.GetRepository<Activity>().MarkAllAsRead(this.PageContext.PageUserID);
-
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
-
             this.BindData();
         }
 

@@ -261,8 +261,8 @@ namespace YAF.Core.Services
 
                 var ms = GetAlbumOrAttachmentImageResized(
                     data,
-                    this.Get<BoardSettings>().ImageAttachmentResizeWidth,
-                    this.Get<BoardSettings>().ImageAttachmentResizeHeight,
+                    this.Get<BoardSettings>().ImageThumbnailMaxWidth,
+                    this.Get<BoardSettings>().ImageThumbnailMaxHeight,
                     previewCropped,
                     image.Item1.Downloads.ToType<int>(),
                     localizationFile,
@@ -283,10 +283,11 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 this.Get<ILogger>().Log(
-                    BoardContext.Current.PageUserID,
+                    this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                     EventLogTypes.Information);
+
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -357,12 +358,14 @@ namespace YAF.Core.Services
 
                 // reset position...
                 data.Position = 0;
+
                 var imagesNumber = this.GetRepository<UserAlbumImage>()
                     .CountAlbumImages(context.Request.QueryString.GetFirstOrDefaultAs<int>("album"));
+
                 var ms = GetAlbumOrAttachmentImageResized(
                     data,
-                    this.Get<BoardSettings>().ImageAttachmentResizeWidth,
-                    this.Get<BoardSettings>().ImageAttachmentResizeHeight,
+                    this.Get<BoardSettings>().ImageThumbnailMaxWidth,
+                    this.Get<BoardSettings>().ImageThumbnailMaxHeight,
                     previewCropped,
                     imagesNumber.ToType<int>(),
                     localizationFile,
@@ -382,7 +385,11 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(
+                    this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
+                    this,
+                    x,
+                    EventLogTypes.Information);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -440,7 +447,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 this.Get<ILogger>().Log(
-                    BoardContext.Current.PageUserID,
+                    this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                     EventLogTypes.Information);
@@ -495,7 +502,7 @@ namespace YAF.Core.Services
                     var newFileName = context.Server.MapPath(
                         $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload");
 
-                    var fileName = oldFileName;
+                    string fileName;
 
                     if (File.Exists(oldFileName))
                     {
@@ -560,7 +567,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 this.Get<ILogger>().Log(
-                    BoardContext.Current.PageUserID,
+                    this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                     EventLogTypes.Information);
@@ -666,8 +673,8 @@ namespace YAF.Core.Services
                     }
 
                     var destRect = new Rectangle(3, 3, dst.Width - PixelPadding, dst.Height - PixelPadding - BottomSize);
-                    var rDstTxt1 = new Rectangle(3, destRect.Height + 3, newImgSize.Width, BottomSize - 13);
-                    var rDstTxt2 = new Rectangle(3, destRect.Height + 16, newImgSize.Width, BottomSize - 13);
+                    var enlargeRect = new Rectangle(3, destRect.Height + 3, newImgSize.Width, BottomSize - 13);
+                    var viewsRect = new Rectangle(3, destRect.Height + 16, newImgSize.Width, BottomSize - 13);
 
                     using (var g = Graphics.FromImage(dst))
                     {
@@ -693,14 +700,14 @@ namespace YAF.Core.Services
                                                  LineAlignment = StringAlignment.Center
                                              };
 
-                                g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt1, sf);
+                                g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, enlargeRect, sf);
 
                                 sf.Alignment = StringAlignment.Far;
                                 g.DrawString(
                                     string.Format(localization.GetText("IMAGE_RESIZE_VIEWS"), downloads),
                                     f,
                                     brush,
-                                    rDstTxt2,
+                                    viewsRect,
                                     sf);
                             }
                         }

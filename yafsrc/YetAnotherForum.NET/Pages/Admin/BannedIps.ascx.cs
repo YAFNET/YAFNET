@@ -149,7 +149,7 @@ namespace YAF.Pages.Admin
                         {
                             this.Get<ILogger>()
                                 .Log(
-                                    this.PageContext.PageUserID,
+                                    this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
                                     " YAF.Pages.Admin.bannedip",
                                     $"IP or mask {ipAddress} was deleted by {this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser)}.",
                                     EventLogTypes.IpBanLifted);

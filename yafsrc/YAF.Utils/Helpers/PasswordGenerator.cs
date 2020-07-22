@@ -14,19 +14,19 @@ namespace YAF.Utils.Helpers
         /// Generates a random password based on the rules passed in the parameters
         /// </summary>
         /// <param name="includeLowercase">
-        /// Bool to say if lowercase are required
+        /// Boolean to say if lowercase are required
         /// </param>
         /// <param name="includeUppercase">
-        /// Bool to say if uppercase are required
+        /// Boolean to say if uppercase are required
         /// </param>
         /// <param name="includeNumeric">
-        /// Bool to say if numerics are required
+        /// Boolean to say if numeric are required
         /// </param>
         /// <param name="includeSpecial">
-        /// Bool to say if special characters are required
+        /// Boolean to say if special characters are required
         /// </param>
         /// <param name="includeSpaces">
-        /// Bool to say if spaces are required
+        /// Boolean to say if spaces are required
         /// </param>
         /// <param name="lengthOfPassword">
         /// Length of password required. Should be between 8 and 128
@@ -114,11 +114,11 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// Checks if the password created is valid
         /// </summary>
-        /// <param name="includeLowercase">Bool to say if lowercase are required</param>
-        /// <param name="includeUppercase">Bool to say if uppercase are required</param>
-        /// <param name="includeNumeric">Bool to say if numerics are required</param>
-        /// <param name="includeSpecial">Bool to say if special characters are required</param>
-        /// <param name="includeSpaces">Bool to say if spaces are required</param>
+        /// <param name="includeLowercase">Boolean to say if lowercase are required</param>
+        /// <param name="includeUppercase">Boolean to say if uppercase are required</param>
+        /// <param name="includeNumeric">Boolean to say if numeric are required</param>
+        /// <param name="includeSpecial">Boolean to say if special characters are required</param>
+        /// <param name="includeSpaces">Boolean to say if spaces are required</param>
         /// <param name="password">Generated password</param>
         /// <returns>True or False to say if the password is valid or not</returns>
         public static bool PasswordIsValid(
@@ -135,11 +135,11 @@ namespace YAF.Utils.Helpers
             const string REGEX_SPECIAL = @"([!#$%&*@\\])+";
             const string REGEX_SPACE = @"([ ])+";
 
-            var lowerCaseIsValid = !includeLowercase || includeLowercase && Regex.IsMatch(password, REGEX_LOWERCASE);
-            var upperCaseIsValid = !includeUppercase || includeUppercase && Regex.IsMatch(password, REGEX_UPPERCASE);
-            var numericIsValid = !includeNumeric || includeNumeric && Regex.IsMatch(password, REGEX_NUMERIC);
-            var symbolsAreValid = !includeSpecial || includeSpecial && Regex.IsMatch(password, REGEX_SPECIAL);
-            var spacesAreValid = !includeSpaces || includeSpaces && Regex.IsMatch(password, REGEX_SPACE);
+            var lowerCaseIsValid = !includeLowercase || Regex.IsMatch(password, REGEX_LOWERCASE);
+            var upperCaseIsValid = !includeUppercase || Regex.IsMatch(password, REGEX_UPPERCASE);
+            var numericIsValid = !includeNumeric || Regex.IsMatch(password, REGEX_NUMERIC);
+            var symbolsAreValid = !includeSpecial || Regex.IsMatch(password, REGEX_SPECIAL);
+            var spacesAreValid = !includeSpaces || Regex.IsMatch(password, REGEX_SPACE);
 
             return lowerCaseIsValid && upperCaseIsValid && numericIsValid && symbolsAreValid && spacesAreValid;
         }

@@ -45,7 +45,10 @@ namespace YAF.Core
     {
         #region Static Fields
 
-        protected static ConcurrentDictionary<string, IBackgroundTask> _taskManager = new ConcurrentDictionary<string, IBackgroundTask>();
+        /// <summary>
+        /// The task manager.
+        /// </summary>
+        protected static ConcurrentDictionary<string, IBackgroundTask> taskManager = new ConcurrentDictionary<string, IBackgroundTask>();
 
         #endregion
 
@@ -54,13 +57,13 @@ namespace YAF.Core
         /// <summary>
         ///     Gets TaskCount.
         /// </summary>
-        public virtual int TaskCount => _taskManager.Count;
+        public virtual int TaskCount => taskManager.Count;
 
         /// <summary>
         ///     All the names of tasks running.
         /// </summary>
         [NotNull]
-        public virtual IList<string> TaskManagerInstances => _taskManager.Keys.ToList();
+        public virtual IList<string> TaskManagerInstances => taskManager.Keys.ToList();
 
         /// <summary>
         ///     Gets TaskManagerSnapshot.
@@ -70,7 +73,7 @@ namespace YAF.Core
         {
             get
             {
-                return _taskManager.ToDictionary(k => k.Key, v => v.Value);
+                return taskManager.ToDictionary(k => k.Key, v => v.Value);
             }
         }
 
@@ -79,12 +82,13 @@ namespace YAF.Core
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Check if Tasks are Running.
+        /// Check if Tasks are Running.
         /// </summary>
         /// <param name="instanceNames">
+        /// The instance Names.
         /// </param>
         /// <returns>
-        ///     The tasks are running.
+        /// The tasks are running.
         /// </returns>
         public virtual bool AreTasksRunning([NotNull] string[] instanceNames)
         {
@@ -117,20 +121,24 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///     Start a non-running task -- will set the <see cref="HttpApplication" /> instance.
+        /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
         /// </summary>
         /// <param name="instanceName">
-        ///     Unique name of this task
+        /// Unique name of this task
         /// </param>
         /// <param name="start">
-        ///     Task to run
+        /// Task to run
         /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         public abstract bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> start);
 
         /// <summary>
-        ///     Stops a task from running if it's not critical
+        /// Stops a task from running if it's not critical
         /// </summary>
         /// <param name="instanceName">
+        /// The instance Name.
         /// </param>
         public virtual void StopTask([NotNull] string instanceName)
         {
@@ -161,7 +169,7 @@ namespace YAF.Core
         /// </returns>
         public virtual bool TaskExists([NotNull] string instanceName)
         {
-            return _taskManager.ContainsKey(instanceName);
+            return taskManager.ContainsKey(instanceName);
         }
 
         /// <summary>
@@ -174,21 +182,22 @@ namespace YAF.Core
         /// The task.
         /// </param>
         /// <returns>
+        /// The <see cref="bool"/>.
         /// </returns>
-        public virtual bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task) => _taskManager.TryGetValue(instanceName, out task);
+        public virtual bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task) => taskManager.TryGetValue(instanceName, out task);
 
         /// <summary>
-        ///     The try remove task.
+        /// The try remove task.
         /// </summary>
         /// <param name="instanceName">
-        ///     The instance name.
+        /// The instance name.
         /// </param>
         /// <returns>
-        ///     The try remove task.
+        /// The <see cref="bool"/>.
         /// </returns>
         public virtual bool TryRemoveTask([NotNull] string instanceName)
         {
-            return _taskManager.TryRemove(instanceName, out _);
+            return taskManager.TryRemove(instanceName, out _);
         }
 
         #endregion

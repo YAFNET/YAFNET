@@ -107,6 +107,7 @@ namespace YAF.Pages.Moderate
             {
                 // fully format message (YafBBCode)
                 msg = this.Get<IFormatMessage>().Format(
+                    item.Item2.ID,
                     item.Item2.MessageText,
                     messageFlags,
                     item.Item2.IsModeratorChanged.Value);

@@ -42,6 +42,18 @@ namespace YAF.Core.Model
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// The add or update.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <param name="forumID">
+        /// The forum id.
+        /// </param>
         public static void AddOrUpdate(this IRepository<ForumReadTracking> repository, int userID, int forumID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -49,6 +61,18 @@ namespace YAF.Core.Model
             repository.DbFunction.Query.readforum_addorupdate(UserID: userID, ForumID: forumID, UTCTIMESTAMP: DateTime.UtcNow);
         }
 
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         public static bool Delete(this IRepository<ForumReadTracking> repository, int userID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -63,7 +87,22 @@ namespace YAF.Core.Model
             return success;
         }
 
-        public static DateTime? Lastread(this IRepository<ForumReadTracking> repository, int userId, int forumId)
+        /// <summary>
+        /// The last read.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DateTime?"/>.
+        /// </returns>
+        public static DateTime? LastRead(this IRepository<ForumReadTracking> repository, int userId, int forumId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 

@@ -93,6 +93,11 @@ namespace YAF.Pages
         public bool CanUnDeletePost => this.message.Item2.MessageFlags.IsDeleted && this.CanDeletePost;
 
         /// <summary>
+        /// The message id.
+        /// </summary>
+        protected int MessageId => Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
+
+        /// <summary>
         ///   Gets a value indicating whether PostLocked.
         /// </summary>
         private bool PostLocked
@@ -121,25 +126,12 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Get<HttpRequestBase>().QueryString.Exists("t")
-                || this.Get<HttpRequestBase>().QueryString.Exists("m"))
-            {
-                // reply to existing topic or editing of existing topic
-                BuildLink.Redirect(
-                    ForumPages.Posts,
-                    "t={0}&name={1}",
-                    this.PageContext.PageTopicID,
-                    this.PageContext.PageTopicName);
-            }
-            else
-            {
-                // new topic -- cancel back to forum
-                BuildLink.Redirect(
-                    ForumPages.Topics,
-                    "f={0}&name={1}",
-                    this.PageContext.PageForumID,
-                    this.PageContext.PageForumName);
-            }
+            // new topic -- cancel back to forum
+            BuildLink.Redirect(
+                ForumPages.Topics,
+                "f={0}&name={1}",
+                this.PageContext.PageForumID,
+                this.PageContext.PageForumName);
         }
 
         /// <summary>
@@ -194,33 +186,17 @@ namespace YAF.Pages
 
             this.message = null;
 
-            if (this.Get<HttpRequestBase>().QueryString.Exists("m"))
+            this.message = this.GetRepository<Message>().GetMessage(this.MessageId);
+
+            this.isModeratorChanged = this.PageContext.PageUserID != this.message.Item1.UserID;
+
+            if (!this.PageContext.ForumModeratorAccess
+                && this.isModeratorChanged)
             {
-                this.message = this.GetRepository<Message>().GetMessage(
-                        Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m")));
-
-                this.isModeratorChanged = this.PageContext.PageUserID != this.message.Item1.UserID;
-
-                if (!this.PageContext.ForumModeratorAccess
-                    && this.isModeratorChanged)
-                {
-                    BuildLink.AccessDenied();
-                }
+                BuildLink.AccessDenied();
             }
 
             if (this.PageContext.PageForumID == 0)
-            {
-                BuildLink.AccessDenied();
-            }
-
-            if (!this.Get<HttpRequestBase>().QueryString.Exists("t")
-                && !this.PageContext.ForumPostAccess)
-            {
-                BuildLink.AccessDenied();
-            }
-
-            if (this.Get<HttpRequestBase>().QueryString.Exists("t")
-                && !this.PageContext.ForumReplyAccess)
             {
                 BuildLink.AccessDenied();
             }
@@ -235,17 +211,12 @@ namespace YAF.Pages
             this.EraseRow.Visible = false;
             this.DeleteReasonRow.Visible = false;
             this.LinkedPosts.Visible = false;
-            
-            if (!this.Get<HttpRequestBase>().QueryString.Exists("m"))
-            {
-                return;
-            }
 
             // delete message...
             this.PreviewRow.Visible = true;
 
             var replies = this.GetRepository<Message>().Replies(
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").ToType<int>());
+                this.MessageId);
 
             if (replies.Any() && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
             {
@@ -277,7 +248,7 @@ namespace YAF.Pages
 
             // populate the message preview with the message data-row...
             this.MessagePreview.Message = this.message.Item2.MessageText;
-
+            this.MessagePreview.MessageID = this.message.Item2.ID;
             this.MessagePreview.MessageFlags = this.message.Item2.MessageFlags;
         }
 

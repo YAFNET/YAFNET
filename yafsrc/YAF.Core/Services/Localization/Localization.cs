@@ -339,7 +339,7 @@ namespace YAF.Core.Services.Localization
 #endif
                 BoardContext.Current.Get<ILogger>()
                     .Log(
-                        BoardContext.Current.PageUserID,
+                        BoardContext.Current.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
                         $"{page.ToLower()}.ascx",
                         $"Missing Translation For {page.ToUpper()}.{tag.ToUpper()}");
 
@@ -432,11 +432,10 @@ namespace YAF.Core.Services.Localization
 
                 BoardContext.Current.Get<IDataCache>().Remove($"Localizer.{filename}");
 #endif
-                BoardContext.Current.Get<ILogger>()
-                    .Log(
-                        BoardContext.Current.PageUserID,
-                        $"{page.ToLower()}.ascx",
-                        $"Missing Translation For {page.ToUpper()}.{tag.ToUpper()}");
+                BoardContext.Current.Get<ILogger>().Log(
+                    BoardContext.Current.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
+                    $"{page.ToLower()}.ascx",
+                    $"Missing Translation For {page.ToUpper()}.{tag.ToUpper()}");
 
                 return $"[{page.ToUpper()}.{tag.ToUpper()}]";
             }

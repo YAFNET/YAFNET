@@ -176,6 +176,9 @@ namespace YAF.Core.Services
         /// <summary>
         /// The format message.
         /// </summary>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
         /// <param name="message">
         /// The message.
         /// </param>
@@ -192,6 +195,7 @@ namespace YAF.Core.Services
         /// The formatted message.
         /// </returns>
         public string Format(
+            [NotNull] int messageId,
             [NotNull] string message,
             [NotNull] MessageFlags messageFlags,
             bool targetBlankOverride,
@@ -224,6 +228,7 @@ namespace YAF.Core.Services
             {
                 // get rules for YafBBCode
                 this.Get<IBBCode>().CreateBBCodeRules(
+                    messageId,
                     ruleEngine,
                     true,
                     targetBlankOverride,
@@ -268,7 +273,7 @@ namespace YAF.Core.Services
             int charsToFetch)
         {
             message =
-                $@"<table class=""{(altItem ? "content postContainer" : "content postContainer_Alt")}"" width=""100%""><tr><td>{this.Format(message, messageFlags, false)}</td></tr></table>";
+                $@"<table class=""{(altItem ? "content postContainer" : "content postContainer_Alt")}"" width=""100%""><tr><td>{this.Format(0, message, messageFlags, false)}</td></tr></table>";
 
             message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
 

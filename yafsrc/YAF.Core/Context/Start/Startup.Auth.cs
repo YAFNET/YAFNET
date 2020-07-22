@@ -42,7 +42,6 @@ namespace YAF.Core.Context.Start
     using YAF.Configuration;
     using YAF.Core.Identity;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Types.Models.Identity;
 
     /// <summary>
@@ -198,6 +197,7 @@ namespace YAF.Core.Context.Start
 
             app.UseGoogleAuthentication(options);
         }
+        
         /*
         
         /// <summary>

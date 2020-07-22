@@ -104,7 +104,7 @@ namespace YAF.Data.MsSql
         /// The execute.
         /// </returns>
         public virtual bool Execute(
-            DBFunctionType dbfunctionType,
+            DatabaseFunctionType dbfunctionType,
             [NotNull] string operationName,
             [NotNull] IEnumerable<KeyValuePair<string, object>> parameters,
             [CanBeNull] out object result,
@@ -197,7 +197,7 @@ namespace YAF.Data.MsSql
         protected abstract bool RunOperation(
             [NotNull] SqlConnection sqlConnection,
             [NotNull] IDbTransaction dbTransaction,
-            DBFunctionType dbfunctionType,
+            DatabaseFunctionType dbfunctionType,
             [NotNull] string operationName,
             [NotNull] IEnumerable<KeyValuePair<string, object>> parameters,
             [CanBeNull] out object result);

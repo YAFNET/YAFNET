@@ -68,14 +68,16 @@
                                           ControlToCompare="NewPassword"
                                           ControlToValidate="ConfirmNewPassword"
                                           Display="Dynamic"
-                                          ValidationGroup="ctl00$ChangePassword1" CssClass="invalid-feedback"></asp:CompareValidator>
+                                          ValidationGroup="ctl00$ChangePassword1" 
+                                          CssClass="invalid-feedback" />
                     <asp:CompareValidator ID="NewOldPasswordCompare"
                                           ControlToValidate="NewPassword"
                                           ControlToCompare="CurrentPassword"
                                           Display="Dynamic"
                                           Type="String"
                                           Operator="NotEqual"
-                                          ValidationGroup="ctl00$ChangePassword1" runat="Server" CssClass="invalid-feedback" />
+                                          ValidationGroup="ctl00$ChangePassword1" runat="Server" 
+                                          CssClass="invalid-feedback" />
                 </div>
                 <div class="text-lg-center">
                     <YAF:ThemeButton ID="ChangePasswordPushButton" runat="server"

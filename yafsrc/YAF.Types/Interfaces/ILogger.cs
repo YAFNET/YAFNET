@@ -39,17 +39,6 @@ namespace YAF.Types.Interfaces
         #region Public Methods and Operators
 
         /// <summary>
-        /// The is log type enabled.
-        /// </summary>
-        /// <param name="type">
-        /// The type.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        bool IsLogTypeEnabled(EventLogTypes type);
-
-        /// <summary>
         /// The log.
         /// </summary>
         /// <param name="message">
@@ -68,7 +57,11 @@ namespace YAF.Types.Interfaces
         /// The exception.
         /// </param>
         void Log(
-            string message, EventLogTypes eventType = EventLogTypes.Error, string username = null, string source = null, Exception exception = null);
+            string message,
+            EventLogTypes eventType = EventLogTypes.Error,
+            string username = null,
+            string source = null,
+            Exception exception = null);
 
         #endregion
     }

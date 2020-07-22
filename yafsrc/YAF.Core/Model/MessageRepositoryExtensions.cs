@@ -972,7 +972,7 @@ namespace YAF.Core.Model
                 BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByMessageId(messageID);
 
                 BoardContext.Current.Get<ILogger>().Log(
-                    BoardContext.Current.PageUserName,
+                    BoardContext.Current.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
                     "YAF",
                     BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", messageID),
                     EventLogTypes.Information);

@@ -23,69 +23,81 @@
  */
 namespace YAF.Core.Extensions
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Types;
-  using YAF.Types.Flags;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// The i format message extensions.
-  /// </summary>
-  public static class IFormatMessageExtensions
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The format message.
-    /// </summary>
-    /// <param name="formatMessage">
-    /// The format Message.
-    /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <param name="messageFlags">
-    /// The message flags.
-    /// </param>
-    /// <returns>
-    /// The formatted message.
-    /// </returns>
-    public static string Format([NotNull] this IFormatMessage formatMessage, [NotNull] string message, [NotNull] MessageFlags messageFlags)
-    {
-      return formatMessage.Format(message, messageFlags, false, DateTime.UtcNow);
-    }
-
-    /// <summary>
-    /// The format message.
-    /// </summary>
-    /// <param name="formatMessage">
-    /// The format Message.
-    /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <param name="messageFlags">
-    /// The message flags.
-    /// </param>
-    /// <param name="targetBlankOverride">
-    /// The target blank override.
-    /// </param>
-    /// <returns>
-    /// The formatted message.
-    /// </returns>
-    public static string Format([NotNull] this IFormatMessage formatMessage, 
-      [NotNull] string message, 
-      [NotNull] MessageFlags messageFlags, 
-      bool targetBlankOverride)
-    {
-      return formatMessage.Format(message, messageFlags, targetBlankOverride, DateTime.UtcNow);
-    }
+    using YAF.Types;
+    using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
 
     #endregion
-  }
+
+    /// <summary>
+    /// The i format message extensions.
+    /// </summary>
+    public static class IFormatMessageExtensions
+    {
+        #region Public Methods
+
+        /// <summary>
+        /// The format message.
+        /// </summary>
+        /// <param name="formatMessage">
+        /// The format Message.
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="messageFlags">
+        /// The message flags.
+        /// </param>
+        /// <returns>
+        /// The formatted message.
+        /// </returns>
+        public static string Format(
+            [NotNull] this IFormatMessage formatMessage,
+            [NotNull] int messageId,
+            [NotNull] string message,
+            [NotNull] MessageFlags messageFlags)
+        {
+            return formatMessage.Format(messageId, message, messageFlags, false, DateTime.UtcNow);
+        }
+
+        /// <summary>
+        /// The format message.
+        /// </summary>
+        /// <param name="formatMessage">
+        /// The format Message.
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="messageFlags">
+        /// The message flags.
+        /// </param>
+        /// <param name="targetBlankOverride">
+        /// The target blank override.
+        /// </param>
+        /// <returns>
+        /// The formatted message.
+        /// </returns>
+        public static string Format(
+            [NotNull] this IFormatMessage formatMessage,
+            [NotNull] int messageId,
+            [NotNull] string message,
+            [NotNull] MessageFlags messageFlags,
+            bool targetBlankOverride)
+        {
+            return formatMessage.Format(messageId, message, messageFlags, targetBlankOverride, DateTime.UtcNow);
+        }
+
+        #endregion
+    }
 }

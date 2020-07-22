@@ -147,7 +147,7 @@ namespace YAF.Pages
             }
             catch (Exception x)
             {
-                this.Logger.Log(this.PageContext.PageUserID, this, x);
+                this.Logger.Log(this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser), this, x);
                 this.PageContext.AddLoadMessage(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
             }
         }

@@ -97,7 +97,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Gets Message Id.
         /// </summary>
-        public int? MessageId => this.CurrentMessage.ID == 0 ? null : this.CurrentMessage.ID.ToType<int?>();
+        public override int? MessageID => this.CurrentMessage.ID;
 
         /// <summary>
         ///   Gets or sets a value indicating whether Show the Edit Message if needed.
@@ -166,8 +166,6 @@ namespace YAF.Web.Controls
         {
             CodeContracts.VerifyNotNull(this.MessageFlags, "MessageFlags");
 
-            this.MessageID = this.CurrentMessage.ID;
-
             if (!this.MessageFlags.IsDeleted)
             {
                 // populate DisplayUserID
@@ -219,6 +217,7 @@ namespace YAF.Web.Controls
                 }
 
                 var formattedMessage = this.Get<IFormatMessage>().Format(
+                    this.CurrentMessage.ID,
                     this.HighlightMessage(this.Message, true),
                     this.MessageFlags,
                     false,
@@ -229,13 +228,13 @@ namespace YAF.Web.Controls
                     formattedMessage,
                     this.MessageFlags,
                     this.DisplayUserID,
-                    this.MessageId);
+                    this.MessageID);
 
                 // Render Edit Message
                 if (this.ShowEditMessage
                     && this.Edited > this.CurrentMessage.Posted.AddSeconds(this.Get<BoardSettings>().EditTimeOut))
                 {
-                    this.RenderEditedMessage(writer, this.Edited, this.CurrentMessage.EditReason, this.MessageId);
+                    this.RenderEditedMessage(writer, this.Edited, this.CurrentMessage.EditReason, this.MessageID);
                 }
 
                 // Render Go to Answer Message
@@ -247,6 +246,7 @@ namespace YAF.Web.Controls
             else
             {
                 var formattedMessage = this.Get<IFormatMessage>().Format(
+                    this.CurrentMessage.ID,
                     this.HighlightMessage(this.Message, true),
                     this.MessageFlags);
 

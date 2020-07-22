@@ -132,7 +132,9 @@ namespace YAF.Controls
         /// </summary>
         private void RenderMenuItems()
         {
-            var pagesAccess = this.GetRepository<AdminPageUserAccess>().List(this.PageContext.PageUserID).ToList();
+            var pagesAccess = this.Get<IDataCache>().GetOrSet(
+                string.Format(Constants.Cache.AdminPageAccess, this.PageContext.PageUserID),
+                () => this.GetRepository<AdminPageUserAccess>().List(this.PageContext.PageUserID).ToList());
 
             // Admin Admin
             RenderMenuItem(

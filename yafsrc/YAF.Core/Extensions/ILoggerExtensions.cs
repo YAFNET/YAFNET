@@ -45,51 +45,8 @@ namespace YAF.Core.Extensions
         /// <param name="logger">
         /// The logger.
         /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="eventType">
-        /// The event type.
-        /// </param>
-        public static void Log(
-            [NotNull] this ILogger logger, 
-            int userId, 
-            [CanBeNull] object source, 
-            [NotNull] string description, 
-            EventLogTypes eventType = EventLogTypes.Error)
-        {
-            CodeContracts.VerifyNotNull(logger, "logger");
-
-            var username = BoardContext.Current.Get<IUserDisplayName>().GetName(userId);
-
-            var sourceDescription = "unknown";
-
-            if (source is Type)
-            {
-                sourceDescription = source.GetType().FullName;
-            }
-            else if (source != null)
-            {
-                sourceDescription = source.ToString().Truncate(50);
-            }
-
-            logger.Log(description, eventType, username.IsNotSet() ? "N/A" : username, sourceDescription);
-        }
-
-        /// <summary>
-        /// The log.
-        /// </summary>
-        /// <param name="logger">
-        /// The logger.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
+        /// <param name="userName">
+        /// The user Name.
         /// </param>
         /// <param name="source">
         /// The source.
@@ -102,19 +59,12 @@ namespace YAF.Core.Extensions
         /// </param>
         public static void Log(
             [NotNull] this ILogger logger, 
-            [CanBeNull] int? userId, 
+            [CanBeNull] string userName, 
             [CanBeNull] object source, 
             [NotNull] Exception exception, 
             EventLogTypes eventType = EventLogTypes.Error)
         {
             CodeContracts.VerifyNotNull(logger, "logger");
-
-            string username = null;
-
-            if (userId.HasValue && userId > 0)
-            {
-                username = BoardContext.Current.Get<IUserDisplayName>().GetName(userId.Value);
-            }
 
             var sourceDescription = "unknown";
 
@@ -141,7 +91,7 @@ namespace YAF.Core.Extensions
             logger.Log(
                 message,
                 eventType,
-                username,
+                userName,
                 sourceDescription,
                 exception);
         }

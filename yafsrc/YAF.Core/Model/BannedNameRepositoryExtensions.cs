@@ -82,8 +82,8 @@ namespace YAF.Core.Model
                 if (banned == null)
                 {
                     repository.Insert(
-                        new BannedName()
-                            {
+                        new BannedName
+                        {
                                 BoardID = boardId ?? repository.BoardID,
                                 Mask = mask,
                                 Reason = reason,

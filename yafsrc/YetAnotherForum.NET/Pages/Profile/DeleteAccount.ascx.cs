@@ -37,6 +37,7 @@ namespace YAF.Pages.Profile
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
@@ -143,7 +144,7 @@ namespace YAF.Pages.Profile
                         if (user != null)
                         {
                             this.Get<ILogger>().Log(
-                                this.PageContext.PageUserID,
+                                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
                                 this,
                                 $"User {this.Get<IUserDisplayName>().GetName(user)} Suspended his own account until: {suspend} (UTC)",
                                 EventLogTypes.UserSuspended);
@@ -171,11 +172,9 @@ namespace YAF.Pages.Profile
                         messageIds.ForEach(
                             x => this.GetRepository<Message>().Delete(x, true, string.Empty, 1, true, false));
 
-                        this.Get<ILogger>().Log(
-                            this.PageContext.PageUserID,
-                            this,
-                            $"User {this.PageContext.PageUserName} Deleted his own account",
-                            EventLogTypes.UserDeleted);
+                        this.Get<ILogger>().UserDeleted(
+                            this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                            $"User {this.PageContext.PageUserName} Deleted his own account");
                     }
 
                     break;

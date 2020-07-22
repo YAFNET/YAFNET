@@ -121,8 +121,11 @@
                 </footer>
             </div>
             <div class="card-text">
-                <YAF:MessagePostData ID="MessagePost1" runat="server" CurrentMessage="<%# ((Tuple<Message, User>)Container.DataItem).Item1 %>"
-                                     ShowAttachments="false" ShowSignature="false">
+                <YAF:MessagePostData ID="MessagePost1" runat="server" 
+                                     MessageId=""
+                                     CurrentMessage="<%# ((Tuple<Message, User>)Container.DataItem).Item1 %>"
+                                     ShowAttachments="false" 
+                                     ShowSignature="false">
                 </YAF:MessagePostData>
             </div>
         </div>

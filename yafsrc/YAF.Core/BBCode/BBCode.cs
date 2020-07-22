@@ -217,7 +217,7 @@ namespace YAF.Core.BBCode
         /// The converted text
         /// </returns>
         [Obsolete]
-        public string ConvertBBCodeToHtmlForEdit(string message)
+        /*public string ConvertBBCodeToHtmlForEdit(string message)
         {
             // get the rules engine from the creator...
             var ruleEngine = this.ProcessReplaceRulesFactory(
@@ -232,7 +232,7 @@ namespace YAF.Core.BBCode
             ruleEngine.Process(ref message);
 
             return message;
-        }
+        }*/
 
         /// <summary>
         /// Converts a message containing HTML to YAF BBCode for editing in a rich BBCode editor.
@@ -532,6 +532,9 @@ namespace YAF.Core.BBCode
         /// <summary>
         /// Creates the rules that convert <see cref="BBCode"/> to HTML
         /// </summary>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
         /// <param name="ruleEngine">
         /// The rule Engine.
         /// </param>
@@ -548,6 +551,7 @@ namespace YAF.Core.BBCode
         /// Indicates if the formatting is for the Editor.
         /// </param>
         public void CreateBBCodeRules(
+            [NotNull] int messageId,
             IProcessReplaceRules ruleEngine,
             bool doFormatting,
             bool targetBlankOverride,
@@ -744,28 +748,47 @@ namespace YAF.Core.BBCode
                         "<div style=\"margin-left:40px\">${inner}</div>",
                         Options));
 
+                string imageHtml;
+                string imageHtmlWithDesc;
+
+                if (messageId > 0)
+                {
+                    imageHtml = "<a href=\"${http}${inner}\" data-gallery=\"#blueimp-gallery-" + 
+                                    messageId +
+                                    "\"><img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-height:${height}px;\"></a>";
+                    imageHtmlWithDesc = "<a href=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" data-gallery=\"#blueimp-gallery-" + 
+                                messageId +
+                                "\"><img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-height:${height}px;\"></a>";
+                }
+                else
+                {
+                    imageHtml = "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-height:${height}px;\">";
+                    imageHtmlWithDesc =
+                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" class=\"img-user-posted img-thumbnail\" style=\"max-height:${height}px;\">";
+                }
+
                 // image
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         new Regex(
                             @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\[]*)|(jpeg[^\[]*)|(bmp[^\[]*)|(png[^\[]*)|(gif[^\[]*)|(tif[^\[]*)|(ashx[^\[]*)|(php[^\[]*)|(aspx[^\[]*))))\[/img\]",
                             Options | RegexOptions.Compiled),
-                        "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-width:auto;max-height:${height}px;\" />",
+                        imageHtml,
                         new[]
-                            {
-                                "http", "height"
-                            },
-                        new[] { "http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() })
                         {
-                            RuleRank = 70
-                        });
+                            "http", "height"
+                        },
+                        new[] { "http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() })
+                    {
+                        RuleRank = 70
+                    });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         new Regex(
                             @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\]\[/img\]]*)|(jpeg[^\[\[/img\]]*)|(bmp[^\[\[/img\]]*)|(png[^\]\[/img\]]*)|(gif[^\]\[/img\]]*)|(tif[^\]\[/img\]]*)|(ashx[^\]\[/img\]]*)|(php[^\]\[/img\]]*)|(aspx[^\]\[/img\]]*))))\]\[/img\]",
                             Options | RegexOptions.Compiled),
-                        "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-width:auto;max-height:${height}px;\" />",
+                        imageHtml,
                         new[]
                             {
                                 "http", "height"
@@ -780,7 +803,7 @@ namespace YAF.Core.BBCode
                         new Regex(
                             @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\]]*)|(jpeg[^\]]*)|(bmp[^\]]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*)|(aspx[^\]]*))))\](?<description>[^\[]*)\[/img\]",
                             Options | RegexOptions.Compiled),
-                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" class=\"img-user-posted img-thumbnail\" style=\"max-width:auto;max-height:${height}px;\" />",
+                        imageHtmlWithDesc,
                         new[]
                             {
                                 "http", "description", "height"
@@ -923,6 +946,7 @@ namespace YAF.Core.BBCode
             if (!ruleEngine.HasRules)
             {
                 this.CreateBBCodeRules(
+                    0,
                     ruleEngine,
                     doFormatting,
                     targetBlankOverride,

@@ -187,30 +187,7 @@ namespace YAF.Utils.Helpers
         }
 
         /// <summary>
-        /// The IP String to long.
-        /// </summary>
-        /// <param name="ipAddress">
-        /// The IP address.
-        /// </param>
-        /// <returns>
-        /// The IP as long.
-        /// </returns>
-        public static ulong IPStringToLong([NotNull] string ipAddress)
-        {
-            // not sure why it gives me this for local users on firefox--but it does...
-            CodeContracts.VerifyNotNull(ipAddress, "ipAddress");
-
-            if (ipAddress == "::1")
-            {
-                ipAddress = "127.0.0.1";
-            }
-
-            var ip = ipAddress.Split('.');
-            return StringToIP(ip);
-        }
-
-        /// <summary>
-        /// Verifies that an ip and mask aren't banned
+        /// Verifies that an IP and mask aren't banned
         /// </summary>
         /// <param name="ban">
         /// Banned IP
@@ -242,27 +219,27 @@ namespace YAF.Utils.Helpers
             var splitCharBannedIp = bannedIP.Contains(".") ? '.' : ':';
             var splitCharChk = chk.Contains(".") ? '.' : ':';
 
-            var ipmask = bannedIP.Split(splitCharBannedIp);
+            var ipMask = bannedIP.Split(splitCharBannedIp);
             var ip = bannedIP.Split(splitCharBannedIp);
 
-            for (var i = 0; i < ipmask.Length; i++)
+            for (var i = 0; i < ipMask.Length; i++)
             {
-                if (ipmask[i] == "*")
+                if (ipMask[i] == "*")
                 {
-                    ipmask[i] = "0";
+                    ipMask[i] = "0";
                     ip[i] = "0";
                 }
                 else
                 {
-                    ipmask[i] = "255";
+                    ipMask[i] = "255";
                 }
             }
 
-            var banmask = StringToIP(ip);
-            var banchk = StringToIP(ipmask);
-            var ipchk = StringToIP(chk.Split(splitCharChk));
+            var banMask = StringToIP(ip);
+            var banCheck = StringToIP(ipMask);
+            var ipCheck = StringToIP(chk.Split(splitCharChk));
 
-            return (ipchk & banchk) == banmask;
+            return (ipCheck & banCheck) == banMask;
         }
 
         /// <summary>
@@ -288,14 +265,14 @@ namespace YAF.Utils.Helpers
 
             ulong num = 0;
 
-            foreach (var section in ip)
+            ip.ForEach(section =>
             {
                 num <<= 8;
                 if (ulong.TryParse(section, out var result))
                 {
                     num |= result;
                 }
-            }
+            });
 
             return num;
         }
@@ -426,17 +403,14 @@ namespace YAF.Utils.Helpers
             // Reference: http://en.wikipedia.org/wiki/Reserved_IP_addresses
             var ipAddressBytes = ipAddress.GetAddressBytes();
 
-            if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
+            return ipAddress.AddressFamily switch
             {
-                return !NonRoutableIPv4Networks.Any(network => IsIpAddressInRange(ipAddressBytes, network));
-            }
-
-            if (ipAddress.AddressFamily == AddressFamily.InterNetworkV6)
-            {
-                return !NonRoutableIPv6Networks.Any(network => IsIpAddressInRange(ipAddressBytes, network));
-            }
-
-            return false;
+                AddressFamily.InterNetwork => !NonRoutableIPv4Networks.Any(
+                    network => IsIpAddressInRange(ipAddressBytes, network)),
+                AddressFamily.InterNetworkV6 => !NonRoutableIPv6Networks.Any(
+                    network => IsIpAddressInRange(ipAddressBytes, network)),
+                _ => false
+            };
         }
 
         /// <summary>

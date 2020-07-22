@@ -106,8 +106,8 @@
                 </YAF:Alert>
             </asp:Panel>
             <div class="card-footer">
-                <div class="row justify-content-between">
-                    <div class="col-md-3">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
                         <div class="input-group mb-1">
                             <div class="input-group-text">
                                 <YAF:LocalizedLabel ID="SinceLabel" runat="server"
@@ -127,9 +127,10 @@
                             
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-auto">
                         <div class="btn-group" role="group" aria-label="Tools">
-                            <YAF:ThemeButton runat="server" OnClick="MarkAll_Click" ID="MarkAll"
+                            <YAF:ThemeButton runat="server" ID="MarkAll"
+                                             OnClick="MarkAll_Click"
                                              TextLocalizedTag="MARK_ALL_ASREAD" TextLocalizedPage="DEFAULT"
                                              Type="Secondary"
                                              Size="Small"

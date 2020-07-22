@@ -255,9 +255,10 @@ namespace YAF.Core.Nntp
       }
       catch (Exception ex)
       {
-          BoardContext.Current.Get<ILogger>()
-                    .Log(BoardContext.Current.PageUserID, "NntpUtil",
-                        $"Unhandled NNTP DateTime nntpDateTime '{nntpDateTime}': {ex}");
+          BoardContext.Current.Get<ILogger>().Log(
+              BoardContext.Current.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
+              "NntpUtil",
+              $"Unhandled NNTP DateTime nntpDateTime '{nntpDateTime}': {ex}");
       }
 
       tzi = 0;
@@ -353,14 +354,14 @@ namespace YAF.Core.Nntp
                   QuotedPrintableDecode(line, ms);
                   break;
                 case "BASE64":
-                  if (line != null && line != string.Empty)
+                  if (line != string.Empty)
                   {
                     Base64Decode(line, ms);
                   }
 
                   break;
                 case "UU":
-                  if (line != null && line != string.Empty)
+                  if (line != string.Empty)
                   {
                     UUDecode(line, ms);
                   }
@@ -390,7 +391,6 @@ namespace YAF.Core.Nntp
           break;
         default:
           ms = new MemoryStream();
-          bytes = null;
           while ((line = sr.ReadLine()) != null && line != seperator && line != $"{seperator}--")
           {
             if (line != string.Empty)
@@ -401,14 +401,14 @@ namespace YAF.Core.Nntp
                   QuotedPrintableDecode(line, ms);
                   break;
                 case "BASE64":
-                  if (line != null && line != string.Empty)
+                  if (line != string.Empty)
                   {
                     Base64Decode(line, ms);
                   }
 
                   break;
                 case "UU":
-                  if (line != null && line != string.Empty)
+                  if (line != string.Empty)
                   {
                     UUDecode(line, ms);
                   }

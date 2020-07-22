@@ -124,7 +124,7 @@ namespace YAF.Core.Events
 
             var injectServices = this.Get<IInjectServices>();
 
-            _taskManager.AddOrUpdate(
+            taskManager.AddOrUpdate(
                 instanceName,
                 s =>
                     {

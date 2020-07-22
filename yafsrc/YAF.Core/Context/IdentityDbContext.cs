@@ -33,13 +33,6 @@ namespace YAF.Core.Context
     /// </summary>
     public class IdentityDbContext : IdentityDbContext<AspNetUsers<string>, AspNetRoles<string>>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IdentityDbContext"/> class.
-        /// </summary>
-        public IdentityDbContext()
-            : base()
-        {
-        }
     }
 
     /// <summary>
@@ -53,9 +46,6 @@ namespace YAF.Core.Context
         where TUser : AspNetUsers<string>
         where TRole : AspNetRoles<string>
     {
-        public IdentityDbContext() : base()
-        {
-        }
     }
 
     /// <summary>
@@ -73,13 +63,6 @@ namespace YAF.Core.Context
         where TUser : AspNetUsers<TKey>
         where TRole : AspNetRoles<TRoleKey>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IdentityDbContext{TUser,TRole,TKey,TRoleKey}"/> class.
-        /// </summary>
-        public IdentityDbContext()
-        {
-        }
-
         /// <summary>
         /// The dispose.
         /// </summary>

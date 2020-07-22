@@ -118,7 +118,7 @@ namespace YAF.Data.MsSql.Functions
         protected override bool RunOperation(
             SqlConnection sqlConnection,
             IDbTransaction transaction,
-            DBFunctionType functionType,
+            DatabaseFunctionType functionType,
             string operationName,
             IEnumerable<KeyValuePair<string, object>> parameters,
             out object result)
@@ -140,7 +140,7 @@ namespace YAF.Data.MsSql.Functions
             {
                 { typeof(IDbTransaction), transaction },
                 { typeof(SqlConnection), sqlConnection },
-                { typeof(DBFunctionType), functionType },
+                { typeof(DatabaseFunctionType), functionType },
                 { typeof(IDbAccess), this.DbAccess }
             };
 

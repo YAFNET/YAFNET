@@ -25,6 +25,7 @@
 namespace YAF.Core.Membership
 {
     using System;
+    using System.Collections.Generic;
     using System.Runtime.CompilerServices;
     using System.Web.Security;
 
@@ -71,23 +72,35 @@ namespace YAF.Core.Membership
             return new string(hex);
         }
 
+        /// <summary>
+        /// The byte arrays equal.
+        /// </summary>
+        /// <param name="a">
+        /// The a.
+        /// </param>
+        /// <param name="b">
+        /// The b.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         [MethodImpl(MethodImplOptions.NoOptimization)]
-        private static bool ByteArraysEqual(byte[] a, byte[] b)
+        private static bool ByteArraysEqual(IReadOnlyList<byte> a, IReadOnlyList<byte> b)
         {
             if (ReferenceEquals(a, b))
             {
                 return true;
             }
 
-            if (a == null || b == null || a.Length != b.Length)
+            if (a == null || b == null || a.Count != b.Count)
             {
                 return false;
             }
 
             var areSame = true;
-            for (var i = 0; i < a.Length; i++)
+            for (var i = 0; i < a.Count; i++)
             {
-                areSame &= (a[i] == b[i]);
+                areSame &= a[i] == b[i];
             }
 
             return areSame;
@@ -107,7 +120,7 @@ namespace YAF.Core.Membership
                 var salt = passwordProperties[2];
 
                 return string.Equals(
-                    this.EncryptPassword(providedPassword, MembershipPasswordFormat.Hashed, salt),
+                    EncryptPassword(providedPassword, MembershipPasswordFormat.Hashed, salt),
                     passwordHash,
                     StringComparison.CurrentCultureIgnoreCase)
                     ? PasswordVerificationResult.SuccessRehashNeeded
@@ -116,7 +129,7 @@ namespace YAF.Core.Membership
         }
 
 
-        private string EncryptPassword(string pass, MembershipPasswordFormat passwordFormat, string salt)
+        private static string EncryptPassword(string pass, MembershipPasswordFormat passwordFormat, string salt)
         {
             switch (passwordFormat)
             {

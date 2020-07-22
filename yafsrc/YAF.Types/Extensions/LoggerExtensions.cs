@@ -66,7 +66,7 @@ namespace YAF.Types.Extensions
         /// </param>
         public static void Error(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(string.Format(format, args), EventLogTypes.Error);
+            logger.Log(string.Format(format, args));
         }
 
         /// <summary>
@@ -87,23 +87,6 @@ namespace YAF.Types.Extensions
         public static void Error(this ILogger logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
         {
             logger.Log(string.Format(format, args), EventLogTypes.Error, exception: ex);
-        }
-
-        /// <summary>
-        /// The fatal.
-        /// </summary>
-        /// <param name="logger">
-        /// The logger.
-        /// </param>
-        /// <param name="format">
-        /// The format.
-        /// </param>
-        /// <param name="args">
-        /// The args.
-        /// </param>
-        public static void Fatal(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
-        {
-            logger.Log(string.Format(format, args), EventLogTypes.Error);
         }
 
         /// <summary>
@@ -143,6 +126,26 @@ namespace YAF.Types.Extensions
             logger.Log(string.Format(format, args), EventLogTypes.Information);
         }
 
+        public static void UserDeleted(
+            [NotNull] this ILogger logger,
+            [CanBeNull] string username,
+            [NotNull] string description)
+        {
+            CodeContracts.VerifyNotNull(logger, "logger");
+
+            logger.Log(description, EventLogTypes.UserDeleted, username, "User Deleted");
+        }
+
+        public static void SpamMessageDetected(
+            [NotNull] this ILogger logger,
+            [CanBeNull] string username,
+            [NotNull] string description)
+        {
+            CodeContracts.VerifyNotNull(logger, "logger");
+
+            logger.Log(description, EventLogTypes.SpamMessageDetected, username, "Spam Message Detected");
+        }
+
         /// <summary>
         /// The log.
         /// </summary>
@@ -161,6 +164,7 @@ namespace YAF.Types.Extensions
         /// <param name="eventType">
         /// The event type.
         /// </param>
+        [Obsolete("Remove")]
         public static void Log(
             [NotNull] this ILogger logger, 
             [CanBeNull] string username, 

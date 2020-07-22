@@ -70,7 +70,7 @@ namespace YAF.Types.Interfaces.Data
         /// The <see cref="bool"/>.
         /// </returns>
         bool Execute(
-            DBFunctionType functionType,
+            DatabaseFunctionType functionType,
             string operationName,
             IEnumerable<KeyValuePair<string, object>> parameters,
             out object result,

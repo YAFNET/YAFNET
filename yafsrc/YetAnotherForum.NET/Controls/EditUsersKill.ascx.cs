@@ -163,7 +163,7 @@ namespace YAF.Controls
                         this.GetRepository<Registry>().IncrementReportedSpammers();
 
                         this.Logger.Log(
-                            this.PageContext.PageUserID,
+                            this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
                             "User Reported to StopForumSpam.com",
                             $"User (Name:{this.User.Item1.Name}/ID:{this.CurrentUserId}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser)}",
                             EventLogTypes.SpamBotReported);
@@ -176,7 +176,7 @@ namespace YAF.Controls
                         MessageTypes.danger);
 
                     this.Logger.Log(
-                        this.PageContext.PageUserID,
+                        this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
                         $"User (Name{this.User.Item1.Name}/ID:{this.CurrentUserId}) Report to StopForumSpam.com Failed",
                         exception);
                 }

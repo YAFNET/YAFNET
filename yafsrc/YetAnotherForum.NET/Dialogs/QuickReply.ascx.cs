@@ -210,30 +210,27 @@ namespace YAF.Dialogs
                         this.PageContext.IsGuest ? null : this.PageContext.MembershipUser.Email,
                         out var spamResult))
                     {
+                        var description =
+                            $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}";
+
                         switch (this.Get<BoardSettings>().SpamMessageHandling)
                         {
                             case 0:
-                                this.Logger.Log(
-                                    this.PageContext.PageUserID,
-                                    "Spam Message Detected",
-                                    $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}",
-                                    EventLogTypes.SpamMessageDetected);
+                                this.Logger.SpamMessageDetected(
+                                    this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                    description);
                                 break;
                             case 1:
                                 spamApproved = false;
                                 isPossibleSpamMessage = true;
-                                this.Logger.Log(
-                                    this.PageContext.PageUserID,
-                                    "Spam Message Detected",
-                                    $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}, it was flagged as unapproved post",
-                                    EventLogTypes.SpamMessageDetected);
+                                this.Logger.SpamMessageDetected(
+                                    this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                    $"{description}, it was flagged as unapproved post");
                                 break;
                             case 2:
-                                this.Logger.Log(
-                                    this.PageContext.PageUserID,
-                                    "Spam Message Detected",
-                                    $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}, post was rejected",
-                                    EventLogTypes.SpamMessageDetected);
+                                this.Logger.SpamMessageDetected(
+                                    this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                    $"{description}, post was rejected");
 
                                 this.PageContext.PageElements.RegisterJsBlockStartup(
                                     "openModalJs",
@@ -243,11 +240,9 @@ namespace YAF.Dialogs
 
                                 return;
                             case 3:
-                                this.Logger.Log(
-                                    this.PageContext.PageUserID,
-                                    "Spam Message Detected",
-                                    $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}, user was deleted and bannded",
-                                    EventLogTypes.SpamMessageDetected);
+                                this.Logger.SpamMessageDetected(
+                                    this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                    $"{description}, user was deleted and bannded");
 
                                 this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                     this.PageContext.PageUserID,
@@ -355,7 +350,7 @@ namespace YAF.Dialogs
             {
                 if (exception.GetType() != typeof(ThreadAbortException))
                 {
-                    this.Logger.Log(this.PageContext.PageUserID, this, exception);
+                    this.Logger.Log(this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser), this, exception);
                 }
             }
         }

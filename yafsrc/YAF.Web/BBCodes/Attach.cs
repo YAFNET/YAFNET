@@ -94,9 +94,9 @@ namespace YAF.Web.BBCodes
                 // user has rights to download, show him image
                 writer.Write(
                     !this.Get<BoardSettings>().EnableImageAttachmentResize
-                                ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-width:auto;max-height:{4}px"" />"
+                                ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-height:{4}px"">"
                                 : @"<a href=""{0}resource.ashx?i={1}&b={3}"" class=""attachedImage"" title=""{2}""  data-gallery>
-                                            <img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-width:auto;max-height:{4}px"" />
+                                            <img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-height:{4}px"" />
                                         </a>",
                     BoardInfo.ForumClientFileRoot,
                     attachment.ID,
@@ -111,8 +111,8 @@ namespace YAF.Web.BBCodes
 
                 writer.Write(
                     @"<i class=""fa fa-file fa-fw""></i>&nbsp;
-                         <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{0}resource.ashx?a={1}&b={4}"">{2}</a> 
-                         <span class=""attachmentinfo"">{3}</span>",
+                         <a href=""{0}resource.ashx?a={1}&b={4}"">{2}</a> 
+                         <span>{3}</span>",
                     BoardInfo.ForumClientFileRoot,
                     attachment.ID,
                     attachment.FileName,

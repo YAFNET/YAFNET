@@ -44,9 +44,9 @@ namespace YAF.Core.Data.Filters
         #region Fields
 
         /// <summary>
-        ///     The _styled nick operations.
+        ///     The styled nick operations.
         /// </summary>
-        private readonly string[] _styledNickOperations =
+        private readonly string[] styledNickOperations =
         {
             "active_list", "active_listtopic", "active_listforum", "forum_moderators", "topic_latest",
             "topic_latest", "active_list_user"
@@ -106,14 +106,14 @@ namespace YAF.Core.Data.Filters
         /// </returns>
         public bool IsSupportedOperation(string operationName)
         {
-            return this._styledNickOperations.Contains(operationName.ToLower());
+            return this.styledNickOperations.Contains(operationName.ToLower());
         }
 
         /// <summary>
         /// The run.
         /// </summary>
-        /// <param name="dbfunctionType">
-        /// The dbfunction type.
+        /// <param name="functionType">
+        /// The function Type.
         /// </param>
         /// <param name="operationName">
         /// The operation name.
@@ -124,9 +124,9 @@ namespace YAF.Core.Data.Filters
         /// <param name="data">
         /// The data.
         /// </param>
-        public void Run(DBFunctionType dbfunctionType, string operationName, IEnumerable<KeyValuePair<string, object>> parameters, object data)
+        public void Run(DatabaseFunctionType functionType, string operationName, IEnumerable<KeyValuePair<string, object>> parameters, object data)
         {
-            if (!this.ServiceLocator.IsBoardContext() || !this._styledNickOperations.Contains(operationName.ToLower()) || dbfunctionType != DBFunctionType.DataTable)
+            if (!this.ServiceLocator.IsBoardContext() || !this.styledNickOperations.Contains(operationName.ToLower()) || functionType != DatabaseFunctionType.DataTable)
             {
                 return;
             }

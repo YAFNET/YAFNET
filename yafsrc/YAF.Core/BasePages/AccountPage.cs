@@ -26,18 +26,13 @@ namespace YAF.Core.BasePages
 {
     #region Using
 
-    using System;
-
-    using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
+    /// <summary>
+    /// The account page.
+    /// </summary>
     public class AccountPage : ForumPage
     {
         #region Constructors and Destructors

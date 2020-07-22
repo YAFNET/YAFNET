@@ -77,7 +77,7 @@ namespace YAF.Pages
 
             var message = row["Message"].ToString();
 
-            message = this.Get<IFormatMessage>().Format(message, new MessageFlags(row["Flags"].ToType<int>()));
+            message = this.Get<IFormatMessage>().Format(row["MessageID"].ToType<int>(), message, new MessageFlags(row["Flags"].ToType<int>()));
 
             // Remove HIDDEN Text
             message = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message);

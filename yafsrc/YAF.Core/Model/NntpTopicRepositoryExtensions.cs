@@ -65,7 +65,7 @@ namespace YAF.Core.Model
                 Posted: posted,
                 ExternalMessageId: externalMessageId,
                 ReferenceMessageId: referenceMessageId,
-                @UTCTIMESTAMP: DateTime.UtcNow);
+                UTCTIMESTAMP: DateTime.UtcNow);
         }
 
         #endregion

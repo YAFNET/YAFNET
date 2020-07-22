@@ -18,6 +18,18 @@ namespace YAF.Core.Model
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// The add or update.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <param name="topicID">
+        /// The topic id.
+        /// </param>
         public static void AddOrUpdate(this IRepository<TopicReadTracking> repository, int userID, int topicID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -25,6 +37,18 @@ namespace YAF.Core.Model
             repository.DbFunction.Query.readtopic_addorupdate(UserID: userID, TopicID: topicID, UTCTIMESTAMP: DateTime.UtcNow);
         }
 
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         public static bool Delete(this IRepository<TopicReadTracking> repository, int userID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -39,14 +63,28 @@ namespace YAF.Core.Model
             return success;
         }
 
-        public static DateTime? Lastread(this IRepository<TopicReadTracking> repository, int userId, int topicId)
+        /// <summary>
+        /// The last read.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DateTime?"/>.
+        /// </returns>
+        public static DateTime? LastRead(this IRepository<TopicReadTracking> repository, int userId, int topicId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             var topic = repository.Get(t => t.UserID == userId && t.TopicID == topicId);
 
             return topic.FirstOrDefault()?.LastAccessDate;
-
         }
 
         #endregion

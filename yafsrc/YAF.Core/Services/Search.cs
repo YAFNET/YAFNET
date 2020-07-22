@@ -672,7 +672,10 @@ namespace YAF.Core.Services
             var flags = doc.Get("Flags").ToType<int>();
             var messageFlags = new MessageFlags(flags);
 
-            var formattedMessage = this.Get<IFormatMessage>().Format(doc.Get("Message"), messageFlags);
+            var formattedMessage = this.Get<IFormatMessage>().Format(
+                doc.Get("MessageId").ToType<int>(),
+                doc.Get("Message"),
+                messageFlags);
 
             formattedMessage = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
                 formattedMessage,

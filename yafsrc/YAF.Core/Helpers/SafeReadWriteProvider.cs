@@ -25,6 +25,12 @@ namespace YAF.Core.Helpers
 
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SafeReadWriteProvider{T}"/> class.
+        /// </summary>
+        /// <param name="create">
+        /// The create.
+        /// </param>
         public SafeReadWriteProvider(Func<T> create)
         {
             this._create = create;
@@ -38,12 +44,11 @@ namespace YAF.Core.Helpers
         {
             get
             {
-                T returnInstance = null;
+                T returnInstance;
 
                 this._slimLock.EnterUpgradeableReadLock();
                 try
                 {
-                    
                     returnInstance = this._instance;
                     if (returnInstance == null)
                     {

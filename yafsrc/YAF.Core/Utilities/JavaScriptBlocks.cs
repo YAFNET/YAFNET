@@ -99,7 +99,6 @@ namespace YAF.Core.Utilities
 		     moment.locale('{(BoardContext.Current.CultureUser.IsSet()
                                   ? BoardContext.Current.CultureUser.Substring(0, 2)
                                   : BoardContext.Current.Get<BoardSettings>().Culture.Substring(0, 2))}');
-
              {Config.JQueryAlias}('abbr.timeago').each(function() {{
                   {Config.JQueryAlias}(this).html(function(index, value) {{
                                           return moment(value).fromNow();
@@ -1308,7 +1307,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                         if (form.checkValidity() === false)
                         {{
                             event.preventDefault();
-                                event.stopPropagation();
+                            event.stopPropagation();
                         }}
                         form.classList.add('was-validated');
                     }}, false);

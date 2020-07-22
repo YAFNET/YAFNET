@@ -27,7 +27,6 @@ namespace YAF.Core.Handlers
 
     using YAF.Core.Context;
     using YAF.Core.Services;
-    using YAF.Types.Exceptions;
     using YAF.Types.Interfaces;
 
     #endregion

@@ -769,7 +769,7 @@ namespace YAF.Core.Nntp
                     // reference ids
                     article.Header.ReferenceIds = values[5].Trim().Length == 0 ? new string[0] : values[5].Split(' ');
 
-                    if (values.Length < 8 || values[7] == null || values[7].Trim() == string.Empty)
+                    if (values.Length < 8 || values[7].Trim() == string.Empty)
                     {
                         article.Header.LineCount = 0;
                     }

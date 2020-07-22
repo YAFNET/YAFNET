@@ -298,9 +298,10 @@ namespace YAF.Web.Controls
             }
             else
             {
-                var formattedMessage =
-                    this.Get<IFormatMessage>().Format(
-                        this.HighlightMessage(this.Message, true), this.MessageFlags);
+                var formattedMessage = this.Get<IFormatMessage>().Format(
+                    this.MessageID.Value,
+                    this.HighlightMessage(this.Message, true),
+                    this.MessageFlags);
 
                 // tha_watcha : Since HTML message and BBCode can be mixed now, message should be always replace BBCode
                 this.RenderModulesInBBCode(

@@ -41,8 +41,8 @@ namespace YAF.Types.Interfaces.Data
         /// <summary>
         /// The run.
         /// </summary>
-        /// <param name="dbfunctionType">
-        /// The dbfunction type.
+        /// <param name="functionType">
+        /// The function Type.
         /// </param>
         /// <param name="operationName">
         /// The operation name.
@@ -54,7 +54,7 @@ namespace YAF.Types.Interfaces.Data
         /// The data.
         /// </param>
         void Run(
-            DBFunctionType dbfunctionType,
+            DatabaseFunctionType functionType,
             string operationName,
             IEnumerable<KeyValuePair<string, object>> parameters,
             object data);

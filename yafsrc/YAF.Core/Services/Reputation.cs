@@ -103,7 +103,7 @@ namespace YAF.Core.Services
                            style=""width:{percentage.ToString(formatInfo)}%;"" 
                            aria-valuenow=""{percentage.ToString(formatInfo)}"" 
                            aria-valuemax=""100"">
-                      {percentage.ToString(formatInfo)}% ({GetReputationBarText(percentage)})
+                      {percentage.ToString(formatInfo)}% ({this.GetReputationBarText(percentage)})
                       </div>
                   </div>";
         }

@@ -74,6 +74,9 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// The format message.
         /// </summary>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
         /// <param name="message">
         /// The message.
         /// </param>
@@ -89,7 +92,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The formatted message.
         /// </returns>
-        string Format([NotNull] string message, [NotNull] MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited);
+        string Format([NotNull] int messageId, [NotNull] string message, [NotNull] MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited);
 
         /// <summary>
         /// The format syndication message.

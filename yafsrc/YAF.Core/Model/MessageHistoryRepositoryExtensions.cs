@@ -23,27 +23,9 @@
  */
 namespace YAF.Core.Model
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Globalization;
-    using System.Linq;
-
-    using ServiceStack.OrmLite;
-
-    using YAF.Configuration;
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Extensions.Data;
-    using YAF.Types.Flags;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     ///     The MessageHistory repository extensions.

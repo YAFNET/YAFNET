@@ -361,7 +361,7 @@ namespace YAF.Core.Helpers
             {
                 // problem -- log and move on...
                 BoardContext.Current.Get<ILogger>().Log(
-                    userId,
+                    BoardContext.Current.Get<IUserDisplayName>().GetName(userId),
                     "UpdateForumUser",
                     $"Null User Provider Key for UserName {user.UserName}. Please check your provider key settings for your ASP.NET membership provider.");
 
@@ -433,7 +433,7 @@ namespace YAF.Core.Helpers
             catch (Exception ex)
             {
                 BoardContext.Current.Get<ILogger>().Log(
-                    userId,
+                    BoardContext.Current.Get<IUserDisplayName>().GetName(userId),
                     "UpdateForumUser",
                     $"Failed to save default notifications for new user: {ex}");
             }

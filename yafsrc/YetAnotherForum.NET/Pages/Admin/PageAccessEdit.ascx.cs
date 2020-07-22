@@ -129,6 +129,8 @@ namespace YAF.Pages.Admin
                     }
                 });
 
+            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.CurrentUserID));
+
             BuildLink.Redirect(ForumPages.Admin_PageAccessList);
         }
 
@@ -144,6 +146,8 @@ namespace YAF.Pages.Admin
                 ri => this.GetRepository<AdminPageUserAccess>().Save(
                     this.CurrentUserID,
                     ri.FindControlAs<Label>("PageName").Text.Trim()));
+
+            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.CurrentUserID));
 
             BuildLink.Redirect(ForumPages.Admin_PageAccessList);
         }
@@ -168,6 +172,8 @@ namespace YAF.Pages.Admin
                             ri.FindControlAs<Label>("PageName").Text.Trim());
                     }
                 });
+
+            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.CurrentUserID));
 
             BuildLink.Redirect(ForumPages.Admin_PageAccessList);
         }

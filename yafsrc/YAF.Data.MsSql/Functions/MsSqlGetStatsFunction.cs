@@ -150,7 +150,7 @@ namespace YAF.Data.MsSql.Functions
         protected override bool RunOperation(
             SqlConnection sqlConnection,
             IDbTransaction dbTransaction,
-            DBFunctionType dbfunctionType,
+            DatabaseFunctionType dbfunctionType,
             string operationName,
             IEnumerable<KeyValuePair<string, object>> parameters,
             out object result)
