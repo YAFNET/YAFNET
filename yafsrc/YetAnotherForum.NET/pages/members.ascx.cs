@@ -229,6 +229,18 @@ namespace YAF.Pages
             this.Ranks.DataTextField = "Name";
             this.Ranks.DataValueField = "ID";
             this.Ranks.DataBind();
+			
+			// get list of user ranks for filtering
+            var groups = this.GetRepository<Group>().GetByBoardId().OrderBy(r => r.SortOrder).ToList();
+
+            groups.Insert(0, new Group { Name = this.GetText("ALL"), ID = 0 });
+
+            groups.RemoveAll(r => r.Name == "Guests");
+
+            this.Group.DataSource = groups;
+            this.Group.DataTextField = "Name";
+            this.Group.DataValueField = "ID";
+            this.Group.DataBind();
 
             this.BindData();
         }
