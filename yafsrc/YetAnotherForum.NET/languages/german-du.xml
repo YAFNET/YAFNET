@@ -2863,15 +2863,15 @@
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;Ankündigungen sind spezielle Beiträge, die von einem Administrator oder  Moderator geschrieben werden. Sie sind eine einfache Ein-Wege-Kommunikation mit dem Benutzer und Sie können nicht antworten. Wenn Sie eine Ankündigung diskutieren möchten, müssen Sie ein neues Thema  im Forum erstellen.&lt;/p&gt;
 &lt;p&gt;Ankündigungen sind Themen die ganz am Anfang der Forenlisten angezeigt werden, oberhalb den normalen und gepinnten Themen.&lt;/p&gt;</Resource>
     <Resource tag="ANOUNCETITLE">Ankündigungen</Resource>
-    <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;Um eine Datei an einem Beitrag anzuhängen klicken müssen Sie  auf &amp;bdquo;Antwort erstellen&amp;ldquo; oder &amp;bdquo;Neues Thema&amp;ldquo; klicken, oder klicken Sie auf  &amp;bdquo;Bearbeiten&amp;ldquo; innerhalb eines existierenden  Beitrags.&lt;/p&gt;
-&lt;p&gt;Auf dieser Seite finden Sie dann unterhalb des  Eingabefeldes, die Option &amp;ldquo; Bilder oder Dateien an diesen Beitrag anhängen?&amp;ldquo;  diese Option Muss aktiviert werden. Wenn Sie ihren Beitrag verfasst haben  klicken Sie auf &amp;bdquo;Senden&amp;ldquo; und Sie gelangen zur Seite &amp;bdquo;Anhänge&amp;ldquo; wo Sie Dateien zum  Anhängen hochladen, oder bestehende Anhänge verwalten können.&lt;/p&gt;
-&lt;p&gt;Um eine Datei Hochzuladen klicken Sie auf &amp;bdquo;Auswählen&amp;ldquo; wählen  Sie eine Datei auf ihrem Computer, Anschließend klicken Sie auf &amp;bdquo;Hochladen&amp;ldquo; um  die Datei hochzuladen.&lt;/p&gt;
-&lt;p&gt;Wenn das Hochladen erfolgreich war erscheint die Datei  oberhalb in der Liste von Dateianhängen. Sie können wenn Sie fertig Sind auf &amp;bdquo;Zurück&amp;ldquo;  klicken um zurück zur Themenansicht zu gelangen.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Welche Dateitypen können verwendet werden? Wie Groß können die Dateianhänge sein?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Auf der Anhänge Seite finden Sie auch eine Liste mit &amp;bdquo;Erlaubten  Dateitypen&amp;ldquo; die Sie verwenden können.  Es  gibt auch ein Limit wie viele Dateien Sie hochladen dürfen, und wie groß die  Dateien dabei Sein dürfen.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Wie hänge ich ein Bild an einen Beitrag an?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Wenn Sie ein Bild Hochgeladen haben, wird automatisch ein  Vorschaubild erstellt das im Beitrag angezeigt wird. Ein Klick darauf Zeigt das  Original Bild in Voller Größe.&lt;/p&gt;
-&lt;p&gt;Um ein Bild das Sie nicht hochgeladen haben, sondern Sich  auf einer anderen Webseite befindet. Können Sie dies wenn Sie die URL kopieren  und entweder über den &amp;bdquo;Bild einfügen&amp;ldquo; Button im Editor oder direkt durch  Eingabe des BB Code [IMG] vor der URL und [/IMG] nach der URL einfügen.&lt;/p&gt;</Resource>
+    <Resource tag="ATTACHMENTSCONTENT">
+      &lt;p&gt;To attach a file to a post, simply copy and paste the file, in to the editor. &lt;/p&gt;
+      &lt;p&gt;From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;What files types can be used? How large can attachments be?&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;How to add an image to a post?&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
+      &lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;
+    </Resource>
     <Resource tag="ATTACHMENTSTITLE">Anhänge und Bilder</Resource>
     <Resource tag="BBCODESCONTENT">&lt;p&gt;Auf dieser Seite finden Sie eine Liste mit allen BB Code tags die Sie verwenden können, um ihren Beitrag zu formatieren.&lt;/p&gt;
 &lt;table class="content" width="90%"&gt;

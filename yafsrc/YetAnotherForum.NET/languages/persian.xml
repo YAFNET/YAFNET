@@ -2901,15 +2901,15 @@
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;اطلاعیه ها، پیام هایی هستند که توسط مدیران و ناظران ارسال می شوند. آنها وسیله یک طرفه ای برای ارتباط با کاربران هستند که قادر به پاسخگویی آن نیستید. در صورتیکه تمایل به صحبت در مورد اطلاعیه دارید می توانید مبحث جدیدی را برای آن در انجمن باز کنید. &lt;/p&gt;
  &lt;p&gt;اطلاعیه در بالای صفحات فهرست انجمن نمایش داده می شود، بالاتر از مباحث عادی و مهم.&lt;/p&gt;</Resource>
     <Resource tag="ANOUNCETITLE">اطلاعیه</Resource>
-    <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;برای الصاق فایل یا عکس به پیامی، باید از دکمه "ارسال پاسخ" یا "موضوع جدید" استفاده نمایید و یا دکمه "الصاق" پیام مربوطه را کلیک نمایید.&lt;/p&gt;
-&lt;p&gt;در صفحه ارسال پیام، در زیر محوطه پیام نویسی، گزینۀ "الصاق فایل یا عکس" را تیک بزنید. هنگامیکه دکمه "ارسال" را بفشارید، به صفحه الصاق فایل برده خواهید شد که در آنجا می توانید فایل های خود را آپلود و الصاق نمایید.  &lt;/p&gt;
-&lt;p&gt;برای آپلود کردن یک فایل از رایانه خود، برروی دکمه "Browse" کلیک نمایید و فایل مورد نظر خود را انتخاب کنید. سپس دکمه "الصاق فایل" را بزنید.&lt;/p&gt;
- &lt;p&gt;وقتی آپلود فایل کامل شود، نام و مشخصات فایل در بالای بخش آپلود نمایش داده می شود. برای بازگشت به مبحث دکمه "برگشت" را بفشارید.&lt;/p&gt;
-      &lt;p&gt;&lt;strong&gt;چه نوع فایل هایی را می توان آپلود کرد؟ حداکثر اندازه فایل چه میزان می تواند باشد؟&lt;/strong&gt;&lt;/p&gt;
-      &lt;p&gt;درصفحه الصاق فایل، انواع فایل هایی که می توانید آپلود کنید، فهرست شده اند. همچنین ممکن است محدودیتی در تعداد فایلهایی که می توانید در انجمن ارسال کنید وجود داشته باشد. &lt;/p&gt;
-      &lt;p&gt;&lt;strong&gt;چگونه تصویری را به پیامم اضافه کنم؟&lt;/strong&gt;&lt;/p&gt;
-      &lt;p&gt;اگر تصویری را به عنوان ضمیمه به پیامتان الصاق کرده اید، بصورت تصویر کوچک (با پیوندی به اصل تصویر) در زیر پیامتان نمایش داده خواهد شد.&lt;/p&gt;
-      &lt;p&gt;برای اضافه کردن عکسی که در سایت دیگری آپلود شده است، می توانید نشانی آن عکس را، نه نشانی صفحه حاوی عکس، که معمولا با کلماتی همچون ".jpg" یا "png" یا ".bmp" و امثالهم ختم میشود کپی کنید و سپس دکمه "وارد کردن عکس" را بزنید و در پنجره باز شده نشانی عکس را وارد کنید. روش دیگر این است که به طور دستی نشانی عکس را در بین بی بی کد تصویر ([img][/img]) قرار دهید. دقت کنید که بین بی بی کدها و نشانی فاصله نباشد.&lt;/p&gt;</Resource>
+    <Resource tag="ATTACHMENTSCONTENT">
+      &lt;p&gt;To attach a file to a post, simply copy and paste the file, in to the editor. &lt;/p&gt;
+      &lt;p&gt;From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;What files types can be used? How large can attachments be?&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;How to add an image to a post?&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
+      &lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;
+    </Resource>
     <Resource tag="ATTACHMENTSTITLE">الصاق فایل یا عکس</Resource>
     <Resource tag="BBCODESCONTENT">&lt;p&gt;در این صفحه فهرست BB Codes هایی را که در پیامهای خود می توانید استفاده کنید را مشاهده می نمایید.&lt;/p&gt;
  &lt;div id="bbcodesList"&gt;

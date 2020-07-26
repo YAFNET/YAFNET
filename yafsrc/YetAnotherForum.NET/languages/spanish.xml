@@ -2891,15 +2891,15 @@
 &lt;p&gt;Los avisos son mostrados en las primeras posiciones de la lista del foro, por encima de los temas normales.&lt;/p&gt;
         </Resource>
     <Resource tag="ANOUNCETITLE">Avisos</Resource>
-    <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;Para adjuntar un archivo a una publicación, necesitas usar 'Publicar respuesta' o 'Nuevo tema' y no 'Respuesta rápida' o hacer click en el botón de adjuntar de un mensaje existente.&lt;/p&gt;
-&lt;p&gt;En esta página, debajo del recuadro del mensaje, encontrarás un check box que pone '¿Adjuntar archivos a esta publicación?'. Cuando haces click en el botón 'Publicar' eres redirigido automáticamente a la página en la que podrás adjuntar el archivo.&lt;/p&gt;
-&lt;p&gt;Para subir un archivo desde tu ordenador, haz click en el botón de 'Navegar' y localiza el fichero. Una vez has seleccionado el fichero haz click en 'Subir'.&lt;/p&gt;
-&lt;p&gt;Una vez la subida se haya completado, el nombre del fichero aparecerá en la sección de subidas. Puedes hacer click en 'Volver' para regresar al tema.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;¿Qué tipos de ficheros pueden ser subidos? ¿Cómo pueden ser de grandes?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;En la ventana de adjuntos encontrarás una lista con los tipos de fichero que puedes subir. También puede haber un tamaño máximo para el total de archivos que puedes subir.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;¿Como puedo añadir una imagen a una publicación?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Si has subido una imagen como adjunto, automáticamente se generará un thumbnail que puede ser mostrado en tu mensaje, con un enlace a la imagen a tamaño completo.&lt;/p&gt;
-&lt;p&gt;Para incluir una imagen que no está subida como un adjunto y que está en otro sitio web, puedes hacerlo copiando la URL completa de la imagen, (no la de la página en la que está localizada), y después presionar en el icono de 'Insertar imagen' o tecleando [img] antes de la URL y [/img] después de ella, asegurándote de no dejar espacios antes o después de la URL.&lt;/p&gt;</Resource>
+    <Resource tag="ATTACHMENTSCONTENT">
+      &lt;p&gt;To attach a file to a post, simply copy and paste the file, in to the editor. &lt;/p&gt;
+      &lt;p&gt;From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;What files types can be used? How large can attachments be?&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;How to add an image to a post?&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
+      &lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;
+    </Resource>
     <Resource tag="ATTACHMENTSTITLE">Adjuntos e imágenes</Resource>
     <Resource tag="BBCODESCONTENT">&lt;p&gt;
     En esta página encontrarás la lista de etiquetas BBCode que puedes usar para dar
@@ -4322,7 +4322,7 @@ public class Hello1
     100% escrito en C#. YAF es una combinación única de software libre, .NET de 
     Microsoft y una colaboración internación de la comunidad de desarrolladores de 
     .NET. Creciendo y cambiando diariamente, el proyecto YAF está liderado por Ingo Herbote. YAF funciona en cualquier servidor web que soporte 
-    ASP.NET v4.0 o superior y SQL Server. YAF está licenciado bajo Apache 2.0.&lt;/p&gt;
+    ASP.NET v4.8 o superior y SQL Server. YAF está licenciado bajo Apache 2.0.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;¿Cómo está todo esto estructurado?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;El foro contiene varias áreas, las cuales contienen foros (áreas de asuntos más 
     específicos) que contienen temas compuestos de mensajes individuales (cuando un 

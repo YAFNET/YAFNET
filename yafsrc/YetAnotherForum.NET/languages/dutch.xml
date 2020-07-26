@@ -2882,15 +2882,15 @@
 &lt;p&gt;Aankondigingen staan altijd bovenaan, ook boven sticky topics.&lt;/p&gt;
 		</Resource>
     <Resource tag="ANOUNCETITLE">Aankondigingen</Resource>
-    <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;OM een bestand bij een bericht te voegen, moet je de normale 'Plaats Antwoord', of 'Nieuw Topic' pagina's gebruiken en niet 'Snel Antwoord', of 'Voeg bijlage bij' knop bij een bestaand bericht.&lt;/p&gt;
-&lt;p&gt;Op deze pagina, onder het berichtvak, staat een aankruisvakje 'Bestanden bijvoegen bij dit bericht?'. Als je klikt op de 'Plaats Bericht' knop, wordt je gestuurd naar de Bijlagen-pagina, waar je bestanden kunt uploaden.&lt;/p&gt;
-&lt;p&gt;Om een bestand van je computer te uploaden, klik je op de 'Selecteer' knop en zoek je het bestand op. Als je het bestand gevonden hebt, klik je op 'Upload'.&lt;/p&gt;
-&lt;p&gt;Als het bestand is geupload, verschijnt de bestandsnaam in de Upload-sectie. Je kunt dan op 'Terug' klikken om terug naar het topic te gaan.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Wat voor bestanden kan ik uploaden? Hoe groot mogen deze bestanden zijn?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;In het Bijlagen-scherm vind je een lijst met toegestane bestandstypen. Er kan een quotum ingesteld zijn aan het aantal bestanden dan je mag uploaden.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Hoe kan in een afbeelding bij een bericht voegen?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Als je een afbeelding hebt geupload als bijlage, wordt er automatisch een pictogram van gemaakt en getoond in het bericht, met een link naar het volledige formaat.&lt;/p&gt;
-&lt;p&gt;Als je een afbeelding wilt gebruiken, die op een andere server staat, dan kun je de volledige URL naar de afbeelding in het bericht plakken (dus niet de URL naar de website, of pagina waar de afbeelding op getoond wordt), en vervolgens klik je op 'Voeg afbeelding toe'-icoon of je zet [img] voor de URL en [/img] erachter. Let erop, dat je geen spaties aan het begin of aan het eind van de URL hebt, want anders wordt de afbeelding niet goed getoond.&lt;/p&gt;</Resource>
+    <Resource tag="ATTACHMENTSCONTENT">
+      &lt;p&gt;To attach a file to a post, simply copy and paste the file, in to the editor. &lt;/p&gt;
+      &lt;p&gt;From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;What files types can be used? How large can attachments be?&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;How to add an image to a post?&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
+      &lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;
+    </Resource>
     <Resource tag="ATTACHMENTSTITLE">Bijlagen en afbeeldingen</Resource>
     <Resource tag="BBCODESCONTENT">&lt;p&gt;Op deze pagina vind je een lijst met de BB-Codes die je kunt gebruiken om je berichten op te maken.&lt;/p&gt;
 &lt;table class="content" width="90%"&gt;
