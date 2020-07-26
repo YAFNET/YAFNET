@@ -18,6 +18,7 @@
     </div>
 <div class="row">
     <div class="col-xl-12">
+        <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopChange" />
         <div class="card mb-3">
             <div class="card-header">
                 <div class="row justify-content-between align-items-center">
@@ -60,8 +61,7 @@
                     </div>
             </div>
                 <div class="card-body">
-    <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopChange" />
-            <asp:Repeater ID="list" runat="server">
+                    <asp:Repeater ID="list" runat="server">
                 <HeaderTemplate>
                     <ul class="list-group">
 		</HeaderTemplate>
