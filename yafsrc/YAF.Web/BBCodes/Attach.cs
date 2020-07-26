@@ -92,17 +92,50 @@ namespace YAF.Web.BBCodes
             if (showImage)
             {
                 // user has rights to download, show him image
-                writer.Write(
-                    !this.Get<BoardSettings>().EnableImageAttachmentResize
-                                ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-height:{4}px"">"
-                                : @"<a href=""{0}resource.ashx?i={1}&b={3}"" class=""attachedImage"" title=""{2}""  data-gallery>
-                                            <img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-height:{4}px"" />
-                                        </a>",
-                    BoardInfo.ForumClientFileRoot,
-                    attachment.ID,
-                    this.HtmlEncode(attachment.FileName),
-                    this.PageContext.PageBoardID,
-                    this.Get<BoardSettings>().ImageThumbnailMaxHeight);
+                if (this.Get<BoardSettings>().EnableImageAttachmentResize)
+                {
+                    writer.Write(
+                        @"<div class=""card bg-dark text-white"" style=""max-width:{0}px"">",
+                        this.Get<BoardSettings>().ImageThumbnailMaxWidth);
+
+                    writer.Write(
+                        @"<a href=""{0}resource.ashx?i={1}&b={3}"" title=""{2}""  data-gallery=""#blueimp-gallery-{4}"">",
+                        BoardInfo.ForumClientFileRoot,
+                        attachment.ID,
+                        this.HtmlEncode(attachment.FileName),
+                        this.PageContext.PageBoardID,
+                        this.MessageID.Value);
+
+                    writer.Write(
+                        @"<img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" class=""img-user-posted card-img-top"" style=""max-height:{4}px"">",
+                        BoardInfo.ForumClientFileRoot,
+                        attachment.ID,
+                        this.HtmlEncode(attachment.FileName),
+                        this.PageContext.PageBoardID,
+                        this.Get<BoardSettings>().ImageThumbnailMaxHeight);
+
+                    writer.Write(@"</a>");
+
+                    writer.Write(
+                        @"<div class=""card-body py-1""><p class=""card-text small"">{0}",
+                        this.GetText("IMAGE_RESIZE_ENLARGE"));
+
+                    writer.Write(
+                        @"<span class=""text-muted float-right"">{0}</span></p>",
+                        this.GetTextFormatted("IMAGE_RESIZE_VIEWS", attachment.Downloads));
+
+                    writer.Write(@"</div></div>");
+                }
+                else
+                {
+                    writer.Write(
+                        @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-height:{4}px"">",
+                        BoardInfo.ForumClientFileRoot,
+                        attachment.ID,
+                        this.HtmlEncode(attachment.FileName),
+                        this.PageContext.PageBoardID,
+                        this.Get<BoardSettings>().ImageThumbnailMaxHeight);
+                }
             }
             else
             {

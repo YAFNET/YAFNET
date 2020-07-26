@@ -27,10 +27,6 @@ namespace YAF.Core.Services
     #region Using
 
     using System;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Imaging;
-    using System.Drawing.Text;
     using System.IO;
     using System.Linq;
     using System.Web;
@@ -236,8 +232,6 @@ namespace YAF.Core.Services
                 var image = this.GetRepository<UserAlbumImage>()
                     .GetImage(context.Request.QueryString.GetFirstOrDefaultAs<int>("imgprv"));
 
-                var data = new MemoryStream();
-
                 var uploadFolder = BoardFolders.Current.Uploads;
 
                 var oldFileName = context.Server.MapPath(
@@ -248,25 +242,12 @@ namespace YAF.Core.Services
                 // use the new fileName (with extension) if it exists...
                 var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
 
+                var ms = new MemoryStream();
+
                 using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    var buffer = new byte[input.Length];
-                    input.Read(buffer, 0, buffer.Length);
-                    data.Write(buffer, 0, buffer.Length);
-                    input.Close();
+                    input.CopyTo(ms);
                 }
-
-                // reset position...
-                data.Position = 0;
-
-                var ms = GetAlbumOrAttachmentImageResized(
-                    data,
-                    this.Get<BoardSettings>().ImageThumbnailMaxWidth,
-                    this.Get<BoardSettings>().ImageThumbnailMaxHeight,
-                    previewCropped,
-                    image.Item1.Downloads.ToType<int>(),
-                    localizationFile,
-                    "POSTS");
 
                 context.Response.ContentType = "image/png";
 
@@ -277,7 +258,6 @@ namespace YAF.Core.Services
                 context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 
-                data.Dispose();
                 ms.Dispose();
             }
             catch (Exception x)
@@ -350,38 +330,19 @@ namespace YAF.Core.Services
 
                 using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    var buffer = new byte[input.Length];
-                    input.Read(buffer, 0, buffer.Length);
-                    data.Write(buffer, 0, buffer.Length);
-                    input.Close();
+                    input.CopyTo(data);
                 }
-
-                // reset position...
-                data.Position = 0;
-
-                var imagesNumber = this.GetRepository<UserAlbumImage>()
-                    .CountAlbumImages(context.Request.QueryString.GetFirstOrDefaultAs<int>("album"));
-
-                var ms = GetAlbumOrAttachmentImageResized(
-                    data,
-                    this.Get<BoardSettings>().ImageThumbnailMaxWidth,
-                    this.Get<BoardSettings>().ImageThumbnailMaxHeight,
-                    previewCropped,
-                    imagesNumber.ToType<int>(),
-                    localizationFile,
-                    "ALBUM");
 
                 context.Response.ContentType = "image/png";
 
                 // output stream...
-                context.Response.OutputStream.Write(ms.ToArray(), 0, ms.Length.ToType<int>());
+                context.Response.OutputStream.Write(data.ToArray(), 0, data.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
                 context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
                 context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 
                 data.Dispose();
-                ms.Dispose();
             }
             catch (Exception x)
             {
@@ -467,10 +428,6 @@ namespace YAF.Core.Services
         {
             var etag = $@"""{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}""";
 
-            // defaults
-            var previewMaxWidth = this.Get<BoardSettings>().ImageThumbnailMaxWidth;
-            var previewMaxHeight = this.Get<BoardSettings>().ImageThumbnailMaxHeight;
-
             try
             {
                 // AttachmentID
@@ -528,10 +485,7 @@ namespace YAF.Core.Services
 
                     using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
-                        var buffer = new byte[input.Length];
-                        input.Read(buffer, 0, buffer.Length);
-                        data.Write(buffer, 0, buffer.Length);
-                        input.Close();
+                        input.CopyTo(data);
                     }
                 }
                 else
@@ -543,26 +497,16 @@ namespace YAF.Core.Services
                 // reset position...
                 data.Position = 0;
 
-                var ms = GetAlbumOrAttachmentImageResized(
-                    data,
-                    previewMaxWidth,
-                    previewMaxHeight,
-                    previewCropped,
-                    attachment.Downloads,
-                    localizationFile,
-                    "POSTS");
-
                 context.Response.ContentType = "image/png";
 
                 // output stream...
-                context.Response.OutputStream.Write(ms.ToArray(), 0, ms.Length.ToType<int>());
+                context.Response.OutputStream.Write(data.ToArray(), 0, data.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
                 context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
                 context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 
                 data.Dispose();
-                ms.Dispose();
             }
             catch (Exception x)
             {
@@ -574,151 +518,6 @@ namespace YAF.Core.Services
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
-            }
-        }
-
-        /// <summary>
-        /// Get the Album Or Image Attachment Preview
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <param name="previewWidth">The preview width.</param>
-        /// <param name="previewHeight">The preview height.</param>
-        /// <param name="previewCropped">The preview Cropped</param>
-        /// <param name="downloads">The downloads.</param>
-        /// <param name="localizationFile">The localization file.</param>
-        /// <param name="localizationPage">The localization page.</param>
-        /// <returns>
-        /// Resized Image Stream
-        /// </returns>
-        [NotNull]
-        private static MemoryStream GetAlbumOrAttachmentImageResized(
-            [NotNull] Stream data,
-            int previewWidth,
-            int previewHeight,
-            bool previewCropped,
-            int downloads,
-            [NotNull] string localizationFile,
-            string localizationPage)
-        {
-            const int PixelPadding = 6;
-            const int BottomSize = 26;
-
-            var localization = new Localization.Localization(localizationPage);
-            localization.LoadTranslation(localizationFile);
-
-            using (var src = new Bitmap(data))
-            {
-                var ms = new MemoryStream();
-
-                var newImgSize = new Size(previewWidth, previewHeight);
-
-                if (previewCropped)
-                {
-                    var width = (float)newImgSize.Width;
-                    var height = (float)newImgSize.Height;
-
-                    var xRatio = width / src.Width;
-                    var yRatio = height / src.Height;
-
-                    var ratio = Math.Min(xRatio, yRatio);
-
-                    newImgSize = new Size(
-                        Math.Min(
-                            newImgSize.Width,
-                            Math.Round(src.Width * ratio, MidpointRounding.AwayFromZero).ToType<int>()),
-                        Math.Min(
-                            newImgSize.Height,
-                            Math.Round(src.Height * ratio, MidpointRounding.AwayFromZero).ToType<int>()));
-
-                    newImgSize.Width = newImgSize.Width - PixelPadding;
-                    newImgSize.Height = newImgSize.Height - BottomSize - PixelPadding;
-                }
-                else
-                {
-                    var finalHeight = Math.Abs(src.Height * newImgSize.Width / src.Width);
-
-                    // Height resize if necessary
-                    if (finalHeight > newImgSize.Height)
-                    {
-                        newImgSize.Width = src.Width * newImgSize.Height / src.Height;
-                        finalHeight = newImgSize.Height;
-                    }
-
-                    newImgSize.Height = finalHeight;
-                    newImgSize.Width = newImgSize.Width - PixelPadding;
-                    newImgSize.Height = newImgSize.Height - BottomSize - PixelPadding;
-
-                    if (newImgSize.Height <= BottomSize + PixelPadding)
-                    {
-                        newImgSize.Height = finalHeight;
-                    }
-                }
-
-                var heightToSmallFix = newImgSize.Height <= BottomSize + PixelPadding;
-
-                using (var dst = new Bitmap(
-                    newImgSize.Width + PixelPadding,
-                    newImgSize.Height + BottomSize + PixelPadding,
-                    PixelFormat.Format24bppRgb))
-                {
-                    var srcImg = new Rectangle(
-                        0,
-                        0,
-                        src.Width,
-                        src.Height + (heightToSmallFix ? BottomSize + PixelPadding : 0));
-
-                    if (previewCropped)
-                    {
-                        srcImg = new Rectangle(0, 0, newImgSize.Width, newImgSize.Height);
-                    }
-
-                    var destRect = new Rectangle(3, 3, dst.Width - PixelPadding, dst.Height - PixelPadding - BottomSize);
-                    var enlargeRect = new Rectangle(3, destRect.Height + 3, newImgSize.Width, BottomSize - 13);
-                    var viewsRect = new Rectangle(3, destRect.Height + 16, newImgSize.Width, BottomSize - 13);
-
-                    using (var g = Graphics.FromImage(dst))
-                    {
-                        g.Clear(Color.FromArgb(64, 64, 64));
-                        g.FillRectangle(Brushes.White, destRect);
-
-                        g.CompositingMode = CompositingMode.SourceOver;
-                        g.CompositingQuality = CompositingQuality.GammaCorrected;
-                        g.SmoothingMode = SmoothingMode.HighQuality;
-                        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-                        g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-
-                        g.DrawImage(src, destRect, srcImg, GraphicsUnit.Pixel);
-
-                        using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
-                        {
-                            using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
-                            {
-                                var sf = new StringFormat
-                                             {
-                                                 Alignment = StringAlignment.Near,
-                                                 LineAlignment = StringAlignment.Center
-                                             };
-
-                                g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, enlargeRect, sf);
-
-                                sf.Alignment = StringAlignment.Far;
-                                g.DrawString(
-                                    string.Format(localization.GetText("IMAGE_RESIZE_VIEWS"), downloads),
-                                    f,
-                                    brush,
-                                    viewsRect,
-                                    sf);
-                            }
-                        }
-                    }
-
-                    // save the bitmap to the stream...
-                    dst.Save(ms, ImageFormat.Png);
-                    ms.Position = 0;
-
-                    return ms;
-                }
             }
         }
 
