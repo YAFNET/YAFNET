@@ -53,7 +53,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// Returns the DateTime object from the Forum ID.
         /// </returns>
-        DateTime GetForumRead(int forumID, DateTime? readTimeOverride = null);
+        DateTime GetForumRead(int forumID, DateTime? readTimeOverride);
 
         /// <summary>
         /// Returns the last time that the Topic was read.
@@ -63,7 +63,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// Returns the DateTime object from the topicID.
         /// </returns>
-        DateTime GetTopicRead(int topicID, DateTime? readTimeOverride = null);
+        DateTime GetTopicRead(int topicID, DateTime? readTimeOverride);
 
         /// <summary>
         /// Add Or Update The Forum Read DateTime

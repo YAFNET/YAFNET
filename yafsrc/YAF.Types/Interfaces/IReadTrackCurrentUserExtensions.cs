@@ -28,8 +28,7 @@ namespace YAF.Types.Interfaces
 
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-
+    
     using YAF.Types.Extensions;
 
     #endregion
@@ -66,8 +65,8 @@ namespace YAF.Types.Interfaces
             this IReadTrackCurrentUser readTrackCurrentUser,
             int forumId,
             int topicId,
-            DateTime? forumReadOverride = null,
-            DateTime? topicReadOverride = null)
+            DateTime? forumReadOverride,
+            DateTime? topicReadOverride)
         {
             CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
 
