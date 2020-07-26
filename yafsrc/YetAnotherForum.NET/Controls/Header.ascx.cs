@@ -289,7 +289,7 @@ namespace YAF.Controls
 
             // Admin
             RenderMenuItem(
-                this.menuAdminItems,
+                this.menuModerateItems,
                 "nav-link",
                 this.GetText("TOOLBAR", "MODERATE"),
                 "MODERATE_TITLE",
