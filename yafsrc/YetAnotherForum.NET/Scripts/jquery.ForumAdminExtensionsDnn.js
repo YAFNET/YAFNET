@@ -40956,32 +40956,13 @@ function formatState(state) {
     if (!state.id) {
         return state.text;
     }
+
     if ($($(state.element).data("content")).length === 0) {
         return state.text;
     }
 
     var $state = $($(state.element).data("content"));
     return $state;
-}
-
-// --
-function doClick(buttonName, e) {
-    var key;
-
-    if (window.event) {
-        key = window.event.keyCode;
-    } else {
-        key = e.which;
-    }
-
-    if (key == 13) {
-        var btn = document.getElementById(buttonName);
-        if (btn != null) {
-            e.preventDefault();
-            btn.click();
-            event.keyCode = 0;
-        }
-    }
 }
 
 // Confirm Dialog
@@ -41036,21 +41017,26 @@ $(function () {
 });
 
 // Toggle password visibility 
-$(document).ready(function () {
-    $("#PasswordToggle").on("click", function (event) {
-        event.preventDefault();
-        var pass = $("input[id*='Password']");
-        if (pass.attr("type") === "text") {
-            pass.attr("type", "password");
-            $("#PasswordToggle i").addClass("fa-eye-slash");
-            $("#PasswordToggle i").removeClass("fa-eye");
-        } else if (pass.attr("type") === "password") {
-            pass.attr("type", "text");
-            $("#PasswordToggle i").removeClass("fa-eye-slash");
-            $("#PasswordToggle i").addClass("fa-eye");
-        }
-    });
-});
+document.addEventListener("DOMContentLoaded", function () {
+
+    if (document.body.contains(document.getElementById("PasswordToggle"))) {
+        var passwordToggle = document.getElementById("PasswordToggle");
+        var icon = passwordToggle.querySelector("i");
+        var pass = document.querySelector("input[id*='Password']");
+        passwordToggle.addEventListener("click", function (event) {
+            event.preventDefault();
+            if (pass.getAttribute("type") === "text") {
+                pass.setAttribute("type", "password");
+                icon.classList.add("fa-eye-slash");
+                icon.classList.remove("fa-eye");
+            } else if (pass.getAttribute("type") === "password") {
+                pass.setAttribute("type", "text");
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        });
+    }
+})
 function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
     var yafUserID = $("#PostAlbumsListPlaceholder").data("userid");
 
@@ -41347,21 +41333,29 @@ jQuery(document).ready(function () {
         var $subMenu = $(this).next(".dropdown-menu");
         var $parent = $el.parents(".dropdown-menu").first();
 
+        //$('.dropdown-submenu .dropdown-menu').removeClass('show');
+
         //$el.parents(".dropdown-menu .show").removeClass("show");
+
+        if (!$subMenu.hasClass("show")) {
+            $parent.find(".show").removeClass("show");
+        }
 
         $subMenu.toggleClass("show");
 
         $parent.toggleClass("show");
 
-        $(this).parents(".dropdown").on("hidden.bs.dropdown",
-            function() {
-                //$(".dropdown-menu .show").removeClass("show");
-            });
+        $(this).parents(".dropdown.show").on("hidden.bs.dropdown", function () {
+
+            console.log("t");
+            $(".dropdown-menu .show").removeClass("show");
+        });
 
         $subMenu.css({ "top": $el[0].offsetTop - 10, "left": $parent.outerWidth() - 4 });
 
 		return false;
     });
+
 
     // Numeric Spinner Inputs
     jQuery("input[type='number']").TouchSpin({
@@ -41375,9 +41369,8 @@ jQuery(document).ready(function () {
 
     $(".yafnet .select2-select").each(function () {
         $(this).select2({
-            theme: "bootstrap4",
-            dropdownAutoWidth: true,
             width: "100%",
+            theme: "bootstrap4",
             placeholder: $(this).attr("placeholder")
         });
     });
@@ -41400,60 +41393,15 @@ jQuery(document).ready(function () {
     }
 
     jQuery(".yafnet .select2-image-select").select2({
+        width: "100%",
         theme: "bootstrap4",
         allowClear: false,
         dropdownAutoWidth: true,
         templateResult: formatState,
         templateSelection: formatState,
-        width: "100%"
     });
 
-    var popoverTriggerList = [].slice.call(document.querySelectorAll(".thanks-popover"));
-    popoverTriggerList.map(function(popoverTriggerEl) {
-        return new new bootstrap.Popover(popoverTriggerEl,
-            {
-                template:
-                    '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
-            });
-    });
-
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
-    tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-
-    // Convert user posted image to modal images
-    jQuery(".img-user-posted").each(function () {
-        var image = jQuery(this);
-
-        if (image.parents(".selectionQuoteable").length && image.parent().attr("class") !== "card-body py-0") {
-
-            var messageId = image.parents(".selectionQuoteable")[0].id;
-
-            if (!image.parents("a").length) {
-                image.wrap('<a href="' + image.attr("src") + '" title="' + image.attr("alt") + '" data-gallery="#blueimp-gallery-' + messageId + '" />');
-            }
-        }
-    });
-
-    jQuery(".attachedImage").each(function () {
-        var imageLink = jQuery(this);
-
-        var messageId = imageLink.parents(".selectionQuoteable")[0].id;
-
-        imageLink.attr("data-gallery", "#blueimp-gallery-" + messageId);
-    });
-
-    // Show caps lock info on password fields
-    jQuery("input[type='password']").keypress(function (e) {
-        var s = String.fromCharCode(e.which);
-        if (s.toUpperCase() === s && s.toLowerCase() !== s && !e.shiftKey) {
-            jQuery(".CapsLockWarning").show();
-        }
-        else {
-            jQuery(".CapsLockWarning").hide();
-        }
-    });
+    
 
     if (jQuery("#PostAttachmentListPlaceholder").length) {
         var pageSize = 5;
@@ -41483,6 +41431,35 @@ jQuery(document).ready(function () {
             var pageSize = 5;
             var pageNumber = 0;
             getNotifyData(pageSize, pageNumber, false);
+        });
+
+    $(".form-check > input").addClass("form-check-input");
+    $(".form-check li > input").addClass("form-check-input");
+
+    $(".form-check > label").addClass("form-check-label");
+    $(".form-check li > label").addClass("form-check-label");
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    var popoverTriggerList = [].slice.call(document.querySelectorAll(".thanks-popover"));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl,
+            {
+                template:
+                    '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
+            });
+    });
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    [].forEach.call(document.querySelectorAll(".attachedImage"),
+        function(imageLink) {
+            var messageId = imageLink.parentNode.id;
+
+            imageLink.setAttribute("data-gallery", "#blueimp-gallery-" + messageId);
         });
 });
 jQuery(document).ready(function () {

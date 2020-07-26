@@ -36,7 +36,6 @@ namespace YAF.Pages
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -231,7 +230,14 @@ namespace YAF.Pages
 
             this.SetupAvatar(user.Item1);
 
-            this.Groups.DataSource = AspNetRolesHelper.GetRolesForUser(user.Item2);
+            var groups = this.GetRepository<UserGroup>().List(user.Item1.ID);
+
+            if (this.PageContext.BoardSettings.UseStyledNicks)
+            {
+                this.Get<IStyleTransform>().DecodeStyleByGroupList(groups);
+            }
+
+            this.Groups.DataSource = groups;
 
             this.ModerateTab.Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
 
@@ -367,7 +373,7 @@ namespace YAF.Pages
                 return;
             }
 
-            var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, user.Item1.ID);
+            var isFriend = this.Get<IFriends>().IsBuddy(user.Item1.ID, true);
 
             this.PM.Visible = !user.Item1.IsGuest.Value && this.Get<BoardSettings>().AllowPrivateMessages;
 

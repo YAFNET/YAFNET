@@ -76,7 +76,7 @@
                     </span>
                     <asp:Repeater ID="Groups" runat="server">
                         <ItemTemplate>
-                            <%# Container.DataItem %>
+                            <%# this.Eval("Name") %>
                         </ItemTemplate>
                         <SeparatorTemplate>
                             ,

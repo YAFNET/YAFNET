@@ -73,7 +73,8 @@
                     </h5>
                     <small class="d-none d-md-block">
                         <span class="font-weight-bold">
-                            <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DATE" />
+                            <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                                                LocalizedTag="DATE" />
                         </span>
                         <YAF:DisplayDateTime ID="PostedDateTime" runat="server" 
                                              DateTime='<%# Container.DataItemToField<DateTime>("Created") %>'></YAF:DisplayDateTime>
@@ -81,7 +82,8 @@
                 </div>
                 <p class="mb-1">
                     <span class="font-weight-bold">
-                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag='<%# this.View == PmView.Outbox ? "TO" : "FROM" %>' />:
+                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                                            LocalizedTag='<%# this.View == PmView.Outbox ? "TO" : "FROM" %>' />:
                     </span>
                     <YAF:UserLink ID="UserLink1" runat="server" 
                                   Suspended='<%# this.Eval(this.View == PmView.Outbox ? "ToSuspended" : "FromSuspended").ToType<DateTime?>()  %>'
@@ -175,13 +177,3 @@
     <YAF:LocalizedLabel runat="server" 
                         LocalizedTag="NO_MESSAGES" />
 </YAF:Alert>
-
-</div>
-
-
-
-<div class="card-footer">
-    <small class="text-muted">
-        <asp:Label ID="PMInfoLink" runat="server"></asp:Label>
-    </small>
-</div>

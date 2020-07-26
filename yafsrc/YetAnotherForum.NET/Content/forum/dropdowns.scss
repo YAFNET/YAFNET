@@ -1,10 +1,10 @@
-﻿.dropdown-toggle {
-    margin-right: 0.30rem;
-}
-
-.dropdown-menu {
+﻿.dropdown-menu {
     max-height: max-content;
     min-width: max-content;
+}
+
+.dropdown-sm {
+    width: 250px;
 }
 
 /* Select Drop downs */

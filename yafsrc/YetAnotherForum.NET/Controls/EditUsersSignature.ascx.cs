@@ -33,6 +33,7 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.BaseModules;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -42,7 +43,6 @@ namespace YAF.Controls
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Types.Models.Identity;
     using YAF.Utils;
     using YAF.Web.Controls;
     using YAF.Web.Editors;
@@ -77,9 +77,10 @@ namespace YAF.Controls
         private SignaturePreview signaturePreview;
 
         /// <summary>
-        /// The user.
+        /// Gets the User Data.
         /// </summary>
-        private Tuple<User, AspNetUsers, Rank, vaccess> user;
+        [NotNull]
+        private User user;
 
         #endregion
 
@@ -125,12 +126,6 @@ namespace YAF.Controls
             }
         }
 
-        /// <summary>
-        /// Gets the User Data.
-        /// </summary>
-        [NotNull]
-        private Tuple<User, AspNetUsers, Rank, vaccess> User => this.user ??= this.GetRepository<User>().GetBoardUser(this.CurrentUserID);
-
         #endregion
 
         #region Methods
@@ -140,7 +135,11 @@ namespace YAF.Controls
         /// </summary>
         protected void BindData()
         {
-            this.signatureEditor.Text = this.GetRepository<User>().GetSignature(this.CurrentUserID);
+            this.user = this.PageContext.CurrentForumPage.IsAdminPage
+                ? this.GetRepository<User>().GetById(this.CurrentUserID)
+                : this.PageContext.CurrentUser;
+
+            this.signatureEditor.Text = this.user.Signature;
 
             this.signaturePreview.Signature = this.signatureEditor.Text;
             this.signaturePreview.DisplayUserID = this.CurrentUserID;
@@ -260,12 +259,11 @@ namespace YAF.Controls
                 }
             }
 
-            // body = this.Get<IFormatMessage>().RepairHtml(this,body,false);
             if (this.signatureEditor.Text.Length > 0)
             {
                 if (this.signatureEditor.Text.Length <= this.allowedNumberOfCharacters)
                 {
-                    if (this.User.Item1.NumPosts < this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
+                    if (this.user.NumPosts < this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
                     {
                         // Check for spam
                         if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out var result))
@@ -273,30 +271,31 @@ namespace YAF.Controls
                             // Log and Send Message to Admins
                             if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
                             {
-                                this.Logger.Log(
-                                    null,
-                                    "Bot Detected",
+                                this.Logger.SpamBotDetected(
+                                    this.Get<IUserDisplayName>().GetName(this.user),
                                     $@"Internal Spam Word Check detected a SPAM BOT: (
-                                                      user name : '{this.User.Item1.Name}', 
+                                                      user name : '{this.user.Name}', 
                                                       user id : '{this.CurrentUserID}') 
-                                                 after the user included a spam word in his/her signature: {result}",
-                                    EventLogTypes.SpamBotDetected);
+                                                 after the user included a spam word in his/her signature: {result}");
                             }
                             else if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
                             {
-                                this.Logger.Log(
-                                    null,
-                                    "Bot Detected",
+                                this.Logger.SpamBotDetected(
+                                    this.Get<IUserDisplayName>().GetName(this.user),
                                     $@"Internal Spam Word Check detected a SPAM BOT: (
-                                                       user name : '{this.User.Item1.Name}', 
+                                                       user name : '{this.user.Name}', 
                                                        user id : '{this.CurrentUserID}') 
-                                                 after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.",
-                                    EventLogTypes.SpamBotDetected);
+                                                 after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.");
 
                                 // Kill user
                                 if (!this.PageContext.CurrentForumPage.IsAdminPage)
                                 {
-                                    this.Get<IAspNetUsersHelper>().DeleteAndBanUser(this.CurrentUserID, this.User.Item2, this.User.Item1.IP);
+                                    var membershipUser = this.Get<IAspNetUsersHelper>()
+                                        .GetMembershipUserById(this.user.ID);
+                                    this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                                        this.CurrentUserID,
+                                        membershipUser,
+                                        this.user.IP);
                                 }
                             }
                         }

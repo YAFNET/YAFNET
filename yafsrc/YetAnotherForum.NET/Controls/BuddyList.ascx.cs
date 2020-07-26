@@ -27,6 +27,7 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Data;
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
@@ -65,6 +66,11 @@ namespace YAF.Controls
         /// Gets or sets the count.
         /// </summary>
         public int Count { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Friends Table.
+        /// </summary>
+        public DataTable FriendsTable { get; set; }
 
         #endregion
 
@@ -154,7 +160,7 @@ namespace YAF.Controls
                     break;
             }
 
-            // Update all buddy list controls in cp_editbuddies.ascx page.
+            // Update all buddy list controls in Friends.ascx page.
             this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("BuddyList1"), 2);
             this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("PendingBuddyList"), 3);
             this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("BuddyRequested"), 4);
@@ -218,7 +224,7 @@ namespace YAF.Controls
             this.Pager.PageSize = 20;
 
             // set the Data table
-            var buddyListDataTable = this.Get<IFriends>().GetForUser(this.CurrentUserID);
+            var buddyListDataTable = this.FriendsTable;
 
             if (buddyListDataTable != null && buddyListDataTable.HasRows())
             {

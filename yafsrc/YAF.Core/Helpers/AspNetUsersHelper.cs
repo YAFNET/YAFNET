@@ -415,23 +415,8 @@ namespace YAF.Core.Helpers
             var providerUserKey = this.Get<IAspNetUsersHelper>().GetUserProviderKeyFromUserID(userID);
 
             return providerUserKey != null
-                ? this.Get<IAspNetUsersHelper>().GetMembershipUserByKey(providerUserKey)
+                ? this.Get<IAspNetUsersHelper>().GetUser(providerUserKey)
                 : null;
-        }
-
-        /// <summary>
-        /// get the membership user from the providerUserKey
-        /// </summary>
-        /// <param name="providerUserKey">
-        /// The provider user key.
-        /// </param>
-        /// <returns>
-        /// The get membership user by key.
-        /// </returns>
-        public AspNetUsers GetMembershipUserByKey(object providerUserKey)
-        {
-            // convert to provider type...
-            return this.Get<IAspNetUsersHelper>().GetUser(providerUserKey);
         }
 
         /// <summary>

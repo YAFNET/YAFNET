@@ -198,30 +198,6 @@ namespace YAF.Core.Model
             return repository.DbFunction.GetData.buddy_list(FromUserID: fromUserID);
         }
 
-        /// <summary>
-        /// The check is friend.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="fromUserId">
-        /// The from user id.
-        /// </param>
-        /// <param name="toUserId">
-        /// The to user id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool CheckIsFriend(this IRepository<Buddy> repository, int fromUserId, int toUserId)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            var buddy = repository.GetSingle(b => b.Approved && b.FromUserID == fromUserId && b.ToUserID == toUserId);
-
-            return buddy != null;
-        }
-
         #endregion
     }
 }

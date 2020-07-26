@@ -48,11 +48,47 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable" /> .
         /// </returns>
-        public static DataTable ListForum(this IRepository<Active> repository, int forumID, bool styledNicks)
+        public static DataTable ListForum(this IRepository<Active> repository, int forumId, bool styledNicks)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.active_listforum(ForumID: forumID, StyledNicks: styledNicks);
+           /* var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
+
+            expression.Join<User>((a, u) => u.ID == a.UserID).Where(a => a.ForumID == forumId).Select<Active, User>(
+                (a, b) => new
+                {
+                    UserID = a.UserID,
+                    UserName = b.Name,
+                    UserDisplayName = b.DisplayName,
+                    IsHidden = b.IsActiveExcluded,
+                    IsCrawler = a.Flags & 8,
+                    Style = styledNicks ? b.UserStyle : string.Empty,
+                    b.Suspended,
+                    UserCount = (SELECT COUNT(ac.UserID) from
+                     [{ databaseOwner}].[{ objectQualifier}
+         Active] ac where ac.UserID = a.UserID and ac.ForumID = @ForumID),
+                    Browser = a.Browser
+                }).GroupBy<Active, User>(
+                (a, b) => new
+                {
+                    a.UserID,
+                    b.DisplayName,
+                    b.Name,
+                    b.IsActiveExcluded,
+                    b.ID,
+                    b.UserStyle,
+                    b.Suspended,
+                    a.Flags,
+                    a.Browser
+                }).OrderBy<User>(u => u.Name);
+
+            return repository.DbAccess.Execute(
+                db => db.Connection
+                    .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string
+                        SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags,
+                        DateTime DateAwarded)>(expression));*/
+
+            return repository.DbFunction.GetData.active_listforum(ForumID: forumId, StyledNicks: styledNicks);
         }
 
         /// <summary>

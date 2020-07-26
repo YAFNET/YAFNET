@@ -26,7 +26,7 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0-preview.6.20305.6" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0-preview.7.20364.11" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />

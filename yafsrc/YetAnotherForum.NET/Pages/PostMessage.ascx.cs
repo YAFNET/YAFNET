@@ -119,7 +119,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets TopicID.
         /// </summary>
-        protected int? TopicId => this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("t");
+        protected int TopicId => this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("t");
 
         #endregion
 
@@ -132,35 +132,12 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.TopicId != null || this.EditMessageId.HasValue)
-            {
-                // reply to existing topic or editing of existing topic
-                BuildLink.Redirect(
-                    ForumPages.Posts,
-                    "t={0}&name={1}",
-                    this.PageContext.PageTopicID,
-                    this.PageContext.PageTopicName);
-            }
-            else
-            {
-                // new topic -- cancel back to forum
-                BuildLink.Redirect(
-                    ForumPages.Topics,
-                    "f={0}&name={1}",
-                    this.PageContext.PageForumID,
-                    this.PageContext.PageForumName);
-            }
-        }
-
-        /// <summary>
-        /// The get poll id.
-        /// </summary>
-        /// <returns>
-        /// Returns the Poll Id
-        /// </returns>
-        protected int? GetPollID()
-        {
-            return this.PollId;
+            // reply to existing topic or editing of existing topic
+            BuildLink.Redirect(
+                ForumPages.Posts,
+                "t={0}&name={1}",
+                this.PageContext.PageTopicID,
+                this.PageContext.PageTopicName);
         }
 
         /// <summary>
@@ -236,7 +213,7 @@ namespace YAF.Pages
             }
 
             if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.AllowCreateTopicsSameName)
-                && this.GetRepository<Topic>().CheckForDuplicateTopic(this.TopicSubjectTextBox.Text.Trim()) && this.TopicId == null
+                && this.GetRepository<Topic>().CheckForDuplicateTopic(this.TopicSubjectTextBox.Text.Trim())
                 && !this.EditMessageId.HasValue)
             {
                 this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
@@ -368,9 +345,6 @@ namespace YAF.Pages
                 this.PollList.EditMessageId = this.EditMessageId.Value;
             }
 
-            this.PollId = this.topic.PollID;
-            this.PollList.TopicId = this.topic.ID;
-
             this.HandleUploadControls();
 
             if (!this.IsPostBack)
@@ -447,12 +421,7 @@ namespace YAF.Pages
                 this.PageLinks.AddForum(this.PageContext.PageForumID);
 
                 // check if it's a reply to a topic...
-                if (this.TopicId != null)
-                {
-                    this.InitReplyToTopic();
-
-                    this.PollList.TopicId = this.TopicId.ToType<int>();
-                }
+                this.InitReplyToTopic();
 
                 if (this.editOrQuotedMessage != null)
                 {
@@ -484,8 +453,6 @@ namespace YAF.Pages
                         {
                             this.InitQuotedReply(this.editOrQuotedMessage.Item2);
                         }
-
-                        this.PollList.TopicId = this.TopicId.ToType<int>();
                     }
                     else if (this.EditMessageId.HasValue)
                     {
@@ -496,13 +463,16 @@ namespace YAF.Pages
                 }
 
                 // form user is only for "Guest"
-                this.From.Text = this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID);
-                if (!this.PageContext.IsGuest)
+                if (this.PageContext.IsGuest)
                 {
+                    this.From.Text = this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID);
                     this.FromRow.Visible = false;
                 }
             }
 
+            // Set Poll
+            this.PollId = this.topic.PollID;
+            this.PollList.TopicId = this.TopicId;
             this.PollList.PollId = this.PollId;
         }
 
@@ -674,7 +644,7 @@ namespace YAF.Pages
             };
 
             var messageId = this.GetRepository<Message>().SaveNew(
-                this.TopicId.Value,
+                this.TopicId,
                 this.PageContext.PageUserID,
                 this.forumEditor.Text,
                 this.User != null ? null : this.From.Text,
@@ -780,18 +750,11 @@ namespace YAF.Pages
             // update the last post time...
             this.Get<ISession>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
-            int? messageId = null;
+            int? messageId;
 
-            var isApproved = true;
+            bool isApproved;
 
-            if (this.TopicId != null)
-            {
-                // Reply to topic
-                messageId = this.PostReplyHandleReplyToTopic(this.spamApproved);
-
-                isApproved = this.spamApproved;
-            }
-            else if (this.EditMessageId.HasValue)
+            if (this.EditMessageId.HasValue)
             {
                 // Edit existing post
                 var editMessage = this.PostReplyHandleEditPost();
@@ -801,12 +764,19 @@ namespace YAF.Pages
 
                 messageId = editMessage.ID;
             }
+            else
+            {
+                // Reply to topic
+                messageId = this.PostReplyHandleReplyToTopic(this.spamApproved);
+
+                isApproved = this.spamApproved;
+            }
 
             // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
             var attachPollParameter = string.Empty;
             var returnForum = string.Empty;
 
-            if (this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible && this.TopicId != null)
+            if (this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible)
             {
                 // new topic poll token
                 attachPollParameter = $"&t={this.TopicId}";
@@ -835,7 +805,7 @@ namespace YAF.Pages
                                 {
                                     this.Get<IActivityStream>().AddMentionToStream(
                                         userId,
-                                        this.TopicId.Value,
+                                        this.TopicId,
                                         messageId.ToType<int>(),
                                         this.PageContext.PageUserID);
                                 }
@@ -851,7 +821,7 @@ namespace YAF.Pages
                                 {
                                     this.Get<IActivityStream>().AddQuotingToStream(
                                         userId,
-                                        this.TopicId.Value,
+                                        this.TopicId,
                                         messageId.ToType<int>(),
                                         this.PageContext.PageUserID);
                                 }
@@ -859,7 +829,7 @@ namespace YAF.Pages
 
                     this.Get<IActivityStream>().AddReplyToStream(
                         Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
-                        this.TopicId.Value,
+                        this.TopicId,
                         messageId.ToType<int>(),
                         this.PageContext.PageTopicName,
                         this.forumEditor.Text);
@@ -1168,7 +1138,7 @@ namespace YAF.Pages
 
             // show the last posts AJAX frame...
             this.LastPosts1.Visible = true;
-            this.LastPosts1.TopicID = this.TopicId.Value.ToType<int>();
+            this.LastPosts1.TopicID = this.TopicId;
         }
 
         /// <summary>

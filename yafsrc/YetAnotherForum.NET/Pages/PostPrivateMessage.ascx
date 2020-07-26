@@ -7,7 +7,10 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" /></h2>
+        <h2>
+            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                                LocalizedTag="TITLE" />
+        </h2>
     </div>
 </div>
 
@@ -32,7 +35,8 @@
                 <asp:PlaceHolder id="ToRow" runat="server">
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="To">
-                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="to" />
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                                LocalizedTag="to" />
                         </asp:Label>
                         <asp:TextBox ID="To" runat="server" 
                                      CssClass="form-control" />
@@ -66,7 +70,9 @@
                                              Type="Secondary"
                                              Icon="times"/>
                         </div>
-                        <YAF:Alert runat="server" Type="info" ID="MultiReceiverAlert" Visible="False">
+                        <YAF:Alert runat="server" ID="MultiReceiverAlert" 
+                                   Type="info" 
+                                   Visible="False">
                             <YAF:Icon runat="server" 
                                       IconName="info-circle" />
                             <asp:Label ID="MultiReceiverInfo" runat="server" />
@@ -75,13 +81,16 @@
                 </asp:PlaceHolder>
                 <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="PmSubjectTextBox">
-                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="subject" />
+                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                            LocalizedTag="subject" />
                     </asp:Label>
-                    <asp:TextBox ID="PmSubjectTextBox" runat="server" CssClass="form-control" />
+                    <asp:TextBox ID="PmSubjectTextBox" runat="server" 
+                                 CssClass="form-control" />
                 </div>
                 <div class="mb-3">
                     <asp:Label runat="server">
-                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="message" />
+                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                                            LocalizedTag="message" />
                     </asp:Label>
                     <asp:PlaceHolder id="EditorLine" runat="server">
                         <!-- editor goes here -->

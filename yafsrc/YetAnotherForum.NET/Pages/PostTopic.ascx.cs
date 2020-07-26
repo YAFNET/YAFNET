@@ -317,8 +317,14 @@ namespace YAF.Pages
             // enable similar topics search
             this.TopicSubjectTextBox.CssClass += " searchSimilarTopics";
 
+            if (!this.PageContext.IsGuest)
+            {
+                return;
+            }
+
             // form user is only for "Guest"
             this.From.Text = this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID);
+
             if (this.User != null)
             {
                 this.FromRow.Visible = false;

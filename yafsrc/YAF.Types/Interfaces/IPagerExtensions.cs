@@ -46,6 +46,7 @@ namespace YAF.Types.Interfaces
         /// The pager.
         /// </param>
         /// <typeparam name="T">
+        /// The Typed Parameter
         /// </typeparam>
         /// <returns>
         /// The <see cref="IEnumerable{T}"/>.

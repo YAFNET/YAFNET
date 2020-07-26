@@ -44,7 +44,6 @@ namespace YAF.Controls
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Types.Models.Identity;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -65,7 +64,7 @@ namespace YAF.Controls
         /// <summary>
         /// The user.
         /// </summary>
-        private Tuple<User, AspNetUsers, Rank, vaccess> user;
+        private User user;
 
         #endregion
 
@@ -85,7 +84,7 @@ namespace YAF.Controls
         /// Gets the User Data.
         /// </summary>
         [NotNull]
-        private Tuple<User, AspNetUsers, Rank, vaccess> User => this.user ??= this.GetRepository<User>().GetBoardUser(this.currentUserId);
+        private User User => this.user ??= this.GetRepository<User>().GetById(this.currentUserId);
 
         #endregion
 
@@ -187,7 +186,7 @@ namespace YAF.Controls
 
                 var userFromEmail = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text.Trim());
 
-                if (userFromEmail != null && userFromEmail.Email != this.User.Item1.Name)
+                if (userFromEmail != null && userFromEmail.Email != this.User.Name)
                 {
                     this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                     return;
@@ -234,7 +233,7 @@ namespace YAF.Controls
                 this.currentUserId,
                 this.PageContext.PageBoardID,
                 null,
-                this.User.Item1.DisplayName,
+                this.User.DisplayName,
                 null,
                 this.TimeZones.SelectedValue,
                 language,
@@ -246,7 +245,7 @@ namespace YAF.Controls
                 () => new User { Activity = this.Activity.Checked },
                 u => u.ID == this.currentUserId);
 
-            if (this.User.Item1.IsGuest.Value)
+            if (this.User.IsGuest.Value)
             {
                 this.GetRepository<Registry>().Save(
                     "timezone",
@@ -290,9 +289,9 @@ namespace YAF.Controls
 
             this.DataBind();
 
-            this.Email.Text = this.User.Item1.Email;
+            this.Email.Text = this.User.Email;
 
-            var timeZoneItem = this.TimeZones.Items.FindByValue(this.User.Item1.TimeZoneInfo.Id);
+            var timeZoneItem = this.TimeZones.Items.FindByValue(this.User.TimeZoneInfo.Id);
 
             if (timeZoneItem != null)
             {
@@ -305,9 +304,9 @@ namespace YAF.Controls
                 // While "Allow User Change Theme" option in the host settings is true
                 var themeFile = this.Get<BoardSettings>().Theme;
 
-                if (this.User.Item1.ThemeFile.IsSet())
+                if (this.User.ThemeFile.IsSet())
                 {
-                    themeFile = this.User.Item1.ThemeFile;
+                    themeFile = this.User.ThemeFile;
                 }
 
                 var themeItem = this.Theme.Items.FindByValue(themeFile);
@@ -327,10 +326,10 @@ namespace YAF.Controls
                 }
             }
 
-            this.HideMe.Checked = this.User.Item1.IsActiveExcluded.Value
+            this.HideMe.Checked = this.User.IsActiveExcluded.Value
                                   && (this.Get<BoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
 
-            this.Activity.Checked = this.User.Item1.Activity;
+            this.Activity.Checked = this.User.Activity;
 
             if (!this.Get<BoardSettings>().AllowUserLanguage || this.Culture.Items.Count <= 0)
             {
@@ -375,14 +374,14 @@ namespace YAF.Controls
             }
             else
             {
-                if (this.User.Item1.LanguageFile.IsSet())
+                if (this.User.LanguageFile.IsSet())
                 {
-                    languageFile = this.User.Item1.LanguageFile;
+                    languageFile = this.User.LanguageFile;
                 }
 
-                if (this.User.Item1.Culture.IsSet())
+                if (this.User.Culture.IsSet())
                 {
-                    culture4Tag = this.User.Item1.Culture;
+                    culture4Tag = this.User.Culture;
                 }
             }
 

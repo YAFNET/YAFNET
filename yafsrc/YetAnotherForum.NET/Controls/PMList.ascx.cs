@@ -39,7 +39,6 @@ namespace YAF.Controls
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
-    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -373,41 +372,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Gets the message text.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="total">The total.</param>
-        /// <param name="inbox">The inbox.</param>
-        /// <param name="outbox">The outbox.</param>
-        /// <param name="archive">The archive.</param>
-        /// <param name="limit">The limit.</param>
-        /// <returns>Returns the Message Text</returns>
-        protected string GetPMessageText(
-            [NotNull] string text,
-            [NotNull] object total,
-            [NotNull] object inbox,
-            [NotNull] object outbox,
-            [NotNull] object archive,
-            [NotNull] object limit)
-        {
-            object percentage = 0;
-            if (limit.ToType<int>() != 0)
-            {
-                percentage = decimal.Round(total.ToType<decimal>() / limit.ToType<decimal>() * 100, 2);
-            }
-
-            if (!this.PageContext.IsAdmin)
-            {
-                return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, limit, percentage));
-            }
-
-            limit = "\u221E";
-            percentage = 0;
-
-            return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, limit, percentage));
-        }
-
-        /// <summary>
         /// The mark as read_ click.
         /// </summary>
         /// <param name="source">
@@ -476,25 +440,6 @@ namespace YAF.Controls
         {
             // rebind
             this.BindData();
-        }
-
-        /// <summary>
-        /// The stats_ renew.
-        /// </summary>
-        protected void Stats_Renew()
-        {
-            // Renew PM Statistics
-            var dt = this.GetRepository<PMessage>().UserMessageCount(this.PageContext.PageUserID);
-            if (dt.HasRows())
-            {
-                this.PMInfoLink.Text = this.GetPMessageText(
-                    "PMLIMIT_ALL",
-                    dt.Rows[0]["NumberTotal"],
-                    dt.Rows[0]["NumberIn"],
-                    dt.Rows[0]["NumberOut"],
-                    dt.Rows[0]["NumberArchived"],
-                    dt.Rows[0]["NumberAllowed"]);
-            }
         }
 
         /// <summary>
@@ -657,8 +602,6 @@ namespace YAF.Controls
                 this.Messages.DataSource = dataRows;
                 this.Messages.DataBind();
             }
-
-            this.Stats_Renew();
         }
 
         /// <summary>

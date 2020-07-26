@@ -8,7 +8,8 @@
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
-<YAF:PollList ID="PollList" ShowButtons="true" PollId="<%# this.GetPollID() %>" runat="server" />
+<YAF:PollList ID="PollList" runat="server"
+              ShowButtons="true" />
 
 <div class="row">
     <div class="col-xl-12">
@@ -63,7 +64,7 @@
                             autocomplete="off" />
                     </div>
                 </asp:PlaceHolder>
-                <asp:PlaceHolder ID="FromRow" runat="server">
+                <asp:PlaceHolder ID="FromRow" runat="server" Visible="False">
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="From">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="from" />

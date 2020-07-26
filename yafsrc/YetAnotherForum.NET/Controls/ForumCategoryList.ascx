@@ -35,9 +35,9 @@
                     </div>
                 </ItemTemplate>
                 <FooterTemplate>
-                    <div class="row mb-3">
-                        <div class="col">
-                           <div class="btn-group float-right" role="group" aria-label="Tools">
+                    <div class="d-flex flex-row-reverse">
+                        <div>
+                           <div class="btn-group" role="group" aria-label="Tools">
                                 <YAF:ThemeButton runat="server" ID="WatchForum"
                                                  OnClick="WatchAllClick" 
                                                  Type="Secondary" 

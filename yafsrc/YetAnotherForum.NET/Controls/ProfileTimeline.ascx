@@ -15,7 +15,7 @@
                                         LocalizedPage="ACCOUNT" />
                     </div>
                     <div class="col-auto">
-                        <div class="btn-group dropleft" role="group" aria-label="Filters">
+                        <div class="btn-group" role="group" aria-label="Filters">
                             <YAF:ThemeButton runat="server"
                                              CssClass="dropdown-toggle"
                                              DataToggle="dropdown"
@@ -24,7 +24,7 @@
                                              Icon="filter"
                                              TextLocalizedTag="FILTER_DROPDOWN"
                                              TextLocalizedPage="ADMIN_USERS"/>
-                            <div class="dropdown-menu">
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
                                 <div class="px-3 py-1">
                                     <div class="mb-3">
                                         <div class="form-check form-switch">

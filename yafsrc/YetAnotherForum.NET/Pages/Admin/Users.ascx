@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-auto">
                         <div class="btn-toolbar" role="toolbar">
-                            <div class="btn-group btn-group-sm mr-2 dropleft" role="group" aria-label="tools">
+                            <div class="btn-group btn-group-sm mr-2" role="group" aria-label="tools">
                                 <YAF:ThemeButton runat="server"
                                                  CssClass="dropdown-toggle"
                                                  DataToggle="dropdown"
@@ -37,8 +37,8 @@
                                                  Type="Secondary"
                                                  Icon="tools"
                                                  TextLocalizedTag="TOOLS" />
-                                <div class="dropdown-menu">
-                                    <div class="px-3 py-1">
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                    <div class="px-3 py-1 dropdown-sm">
                                         <div class="mb-3">
                                             <YAF:HelpLabel runat="server" 
                                                            AssociatedControlID="YearsOld"
@@ -67,7 +67,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="btn-group btn-group-sm dropleft" role="group" aria-label="sort">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="sort">
                                 <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown"
@@ -76,8 +76,8 @@
                                          Icon="filter"
                                          TextLocalizedTag="FILTER_DROPDOWN"
                                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
-                                <div class="dropdown-menu">
-                                    <div class="px-3 py-1">
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                    <div class="px-3 py-1 dropdown-sm">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="name">

@@ -903,6 +903,8 @@ namespace YAF.Pages
 
             var firstPost = rowList.First();
 
+            this.Pager.Count = firstPost.Field<int>("TotalRows");
+
             if (findMessageId > 0)
             {
                 this.Pager.CurrentPageIndex = firstPost.Field<int>("PageIndex");

@@ -126,6 +126,18 @@ namespace YAF.Types.Extensions
             logger.Log(string.Format(format, args), EventLogTypes.Information);
         }
 
+        /// <summary>
+        /// Log user deleted.
+        /// </summary>
+        /// <param name="logger">
+        /// The logger.
+        /// </param>
+        /// <param name="username">
+        /// The username.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
         public static void UserDeleted(
             [NotNull] this ILogger logger,
             [CanBeNull] string username,
@@ -136,6 +148,18 @@ namespace YAF.Types.Extensions
             logger.Log(description, EventLogTypes.UserDeleted, username, "User Deleted");
         }
 
+        /// <summary>
+        /// Log spam message detected.
+        /// </summary>
+        /// <param name="logger">
+        /// The logger.
+        /// </param>
+        /// <param name="username">
+        /// The username.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
         public static void SpamMessageDetected(
             [NotNull] this ILogger logger,
             [CanBeNull] string username,
@@ -144,6 +168,28 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(logger, "logger");
 
             logger.Log(description, EventLogTypes.SpamMessageDetected, username, "Spam Message Detected");
+        }
+
+        /// <summary>
+        /// Log spam bot detected.
+        /// </summary>
+        /// <param name="logger">
+        /// The logger.
+        /// </param>
+        /// <param name="username">
+        /// The username.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
+        public static void SpamBotDetected(
+            [NotNull] this ILogger logger,
+            [CanBeNull] string username,
+            [NotNull] string description)
+        {
+            CodeContracts.VerifyNotNull(logger, "logger");
+
+            logger.Log(description, EventLogTypes.SpamBotDetected, username, "Bot Detected");
         }
 
         /// <summary>

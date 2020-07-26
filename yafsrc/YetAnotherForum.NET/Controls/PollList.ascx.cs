@@ -81,16 +81,6 @@ namespace YAF.Controls
         /// </summary>
         private bool showResults;
 
-        /// <summary>
-        ///   The topic User.
-        /// </summary>
-        private int? topicCreator;
-
-        /// <summary>
-        /// The topic.
-        /// </summary>
-        private Topic topic;
-
         #endregion
 
         #region Properties
@@ -114,6 +104,11 @@ namespace YAF.Controls
         ///   Gets or sets TopicId
         /// </summary>
         public int TopicId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the topic creator.
+        /// </summary>
+        public int TopicCreator { get; set; }
 
         #endregion
 
@@ -546,7 +541,7 @@ namespace YAF.Controls
             // if topic id > 0 it can be every member
             if (this.TopicId > 0)
             {
-                return this.topicCreator == this.PageContext.PageUserID || this.PageContext.IsAdmin ||
+                return this.TopicCreator == this.PageContext.PageUserID || this.PageContext.IsAdmin ||
                        this.PageContext.ForumModeratorAccess;
             }
 
@@ -577,19 +572,6 @@ namespace YAF.Controls
         /// </summary>
         private void LoadData()
         {
-            // Only if this control is in a topic we find the topic creator
-            if (this.TopicId > 0)
-            {
-                this.topic = this.GetRepository<Topic>().GetById(this.TopicId);
-
-                this.topicCreator = this.topic.UserID;
-
-                if (this.topic.PollID.HasValue)
-                {
-                    this.PollId = this.topic.PollID;
-                }
-            }
-
             // if this is > 0 then we already have a poll and will display all buttons
             if (this.PollId > 0)
             {
@@ -670,7 +652,7 @@ namespace YAF.Controls
             {
                 if (this.TopicId > 0)
                 {
-                    BuildLink.Redirect(ForumPages.Posts, "t={0}&name={1}", this.TopicId, this.topic.TopicName);
+                    BuildLink.Redirect(ForumPages.Posts, "t={0}&name={1}", this.TopicId, this.PageContext.PageTopicName);
                 }
             }
             else

@@ -7967,9 +7967,6 @@ div#UploadDialog {
 #fileupload .error {
   color: red; }
 
-.dropdown-toggle {
-  margin-right: 0.30rem; }
-
 .dropdown-menu {
   max-height: -webkit-max-content;
   max-height: -moz-max-content;
@@ -7977,6 +7974,9 @@ div#UploadDialog {
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
   min-width: max-content; }
+
+.dropdown-sm {
+  width: 250px; }
 
 /* Select Drop downs */
 .select2-image-select-icon {

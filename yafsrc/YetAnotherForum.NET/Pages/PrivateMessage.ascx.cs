@@ -69,22 +69,12 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets or sets a value indicating whether IsArchived.
         /// </summary>
-        protected bool IsArchived
-        {
-            get => this.ViewState["IsArchived"] != null && (bool)this.ViewState["IsArchived"];
-
-            set => this.ViewState["IsArchived"] = value;
-        }
+        protected bool IsArchived { get; set; }
 
         /// <summary>
         ///   Gets or sets a value indicating whether IsOutbox.
         /// </summary>
-        protected bool IsOutbox
-        {
-            get => this.ViewState["IsOutbox"] != null && (bool)this.ViewState["IsOutbox"];
-
-            set => this.ViewState["IsOutbox"] = value;
-        }
+        protected bool IsOutbox { get; set; }
 
         #endregion
 

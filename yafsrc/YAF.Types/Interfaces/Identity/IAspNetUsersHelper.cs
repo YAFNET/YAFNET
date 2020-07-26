@@ -152,17 +152,6 @@ namespace YAF.Types.Interfaces.Identity
         AspNetUsers GetMembershipUserById(int userID);
 
         /// <summary>
-        /// get the membership user from the providerUserKey
-        /// </summary>
-        /// <param name="providerUserKey">
-        /// The provider user key.
-        /// </param>
-        /// <returns>
-        /// The get membership user by key.
-        /// </returns>
-        AspNetUsers GetMembershipUserByKey(object providerUserKey);
-
-        /// <summary>
         /// Method returns MembershipUser
         /// </summary>
         /// <returns>

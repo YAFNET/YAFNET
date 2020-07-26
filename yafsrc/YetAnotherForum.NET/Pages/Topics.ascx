@@ -128,12 +128,13 @@
                     </label>
                     <div class="col-sm-9">
 						<div class="input-group">
-                            <asp:TextBox id="forumSearch" 
-                                         CssClass="form-control mb-1" runat="server"></asp:TextBox>
+                            <asp:TextBox id="forumSearch" runat="server"
+                                         CssClass="form-control mb-1"/>
                             <YAF:ThemeButton ID="forumSearchOK" runat="server" 
-                                             Size="Small"
                                              Type="Secondary"
-                                             TextLocalizedTag="OK" TitleLocalizedTag="OK_TT" 
+                                             Icon="search"
+                                             TextLocalizedTag="OK"
+                                             TitleLocalizedTag="OK_TT" 
                                              OnClick="ForumSearch_Click" />
 						</div>
                     </div>

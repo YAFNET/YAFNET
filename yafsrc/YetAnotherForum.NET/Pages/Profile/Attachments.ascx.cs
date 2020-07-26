@@ -28,7 +28,6 @@ namespace YAF.Pages.Profile
 
     using System;
     using System.Linq;
-    using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;

@@ -15,7 +15,8 @@
                                 LocalizedTag="ACTIVITY" />
         </asp:Label>
         <div class="form-check form-switch">
-            <asp:CheckBox Text="&nbsp;" ID="Activity" runat="server" Checked="false" />
+            <asp:CheckBox ID="Activity" runat="server" 
+                          Checked="false" />
         </div>
     </div>
 </asp:PlaceHolder>
@@ -24,7 +25,8 @@
                         LocalizedTag="HIDEME" />
 </asp:Label>
 <div class="form-check form-switch">
-    <asp:CheckBox Text="&nbsp;" ID="HideMe" runat="server" Checked="false" />
+    <asp:CheckBox ID="HideMe" runat="server" 
+                  Checked="false" />
 </div>
 <div class="mb-3">
     <asp:Label runat="server" AssociatedControlID="TimeZones">

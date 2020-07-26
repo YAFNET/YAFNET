@@ -217,7 +217,7 @@ namespace YAF.Core.Services
                 return true;
             }
 
-            var userBuddyList = this.GetRepository<Buddy>().ListAllAsDataTable(BoardContext.Current.PageUserID);
+            var userBuddyList = this.Get<IFriends>().ListAllAsDataTable();
 
             if (userBuddyList == null || !userBuddyList.HasRows())
             {

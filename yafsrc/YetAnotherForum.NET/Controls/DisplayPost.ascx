@@ -65,7 +65,8 @@
                                         </asp:Label> 
                                     </li>
                                 </asp:PlaceHolder>
-                                <asp:PlaceHolder runat="server" ID="UserReputation" Visible='<%#this.Get<BoardSettings>().DisplayPoints && !this.DataRow.Field<bool>("IsGuest") %>'>
+                                <asp:PlaceHolder runat="server" ID="UserReputation" 
+                                                 Visible='<%#this.Get<BoardSettings>().DisplayPoints && !this.DataRow.Field<bool>("IsGuest") %>'>
                                     <li class="list-inline-item d-none d-md-inline-block" style="width:150px">
                                         <%# this.Get<IReputation>().GenerateReputationBar(this.DataRow.Field<int>("Points"), this.PostData.UserId) %>
                                     </li>
@@ -90,7 +91,7 @@
                             </ul>
                         </asp:PlaceHolder>
                     </div>
-                    <asp:Panel runat="server" CssClass="ml-auto dropleft" id="ToolsHolder">
+                    <asp:Panel runat="server" CssClass="ml-auto" id="ToolsHolder">
                         <YAF:ThemeButton ID="Tools1" runat="server"
                                          Type="Link"
                                          DataToggle="dropdown"

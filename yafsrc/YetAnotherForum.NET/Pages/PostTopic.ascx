@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.PostTopic" CodeBehind="PostTopic.ascx.cs" %>
-<%@ Import Namespace="YAF.Core.Context" %>
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../Dialogs/AttachmentsUpload.ascx" %>
 
@@ -26,7 +25,8 @@
                 <asp:PlaceHolder ID="SubjectRow" runat="server">
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="TopicSubjectTextBox">
-                            <YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server" LocalizedTag="subject" />
+                            <YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server" 
+                                                LocalizedTag="subject" />
                         </asp:Label>
                         <asp:TextBox ID="TopicSubjectTextBox" runat="server"
                             CssClass="form-control"
@@ -40,14 +40,15 @@
                 </asp:PlaceHolder>
                 <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="TopicDescriptionTextBox">
-                        <YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server" LocalizedTag="description" />
+                        <YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server" 
+                                            LocalizedTag="description" />
                     </asp:Label>
                     <asp:TextBox ID="TopicDescriptionTextBox" runat="server"
                                  CssClass="form-control"
                                  MaxLength="100"
                                  autocomplete="off" />
                 </div>
-                <asp:PlaceHolder ID="FromRow" runat="server">
+                <asp:PlaceHolder ID="FromRow" runat="server" Visible="False">
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="From">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="from" />
@@ -66,9 +67,11 @@
                 <asp:PlaceHolder ID="StyleRow" runat="server">
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="TopicStylesTextBox">
-                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="STYLES" />
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                                LocalizedTag="STYLES" />
                         </asp:Label>
-                        <asp:TextBox ID="TopicStylesTextBox" runat="server" CssClass="form-control" />
+                        <asp:TextBox ID="TopicStylesTextBox" runat="server" 
+                                     CssClass="form-control" />
                     </div>
                 </asp:PlaceHolder>
                 <div class="mb-3">

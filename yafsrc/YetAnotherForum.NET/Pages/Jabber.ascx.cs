@@ -120,7 +120,7 @@ namespace YAF.Pages
             else
             {
                 // get full user data...
-                var userDataHe = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.UserID);
+                var userDataHe = this.Get<IAspNetUsersHelper>().GetUser(userHe.ProviderUserKey);
 
                 var serverHe = userDataHe.Profile_XMPP
                     .Substring(userDataHe.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();

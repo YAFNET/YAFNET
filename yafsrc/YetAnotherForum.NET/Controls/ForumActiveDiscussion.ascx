@@ -51,7 +51,8 @@
                 </ul>
             </FooterTemplate>
         </asp:Repeater>
-        <asp:Panel runat="server" ID="Footer" CssClass="card-footer" >
+        <asp:Panel runat="server" ID="Footer" 
+                   CssClass="card-footer">
             <div class="btn-group float-right" role="group" aria-label="Tools">
                 <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts" />
             </div>

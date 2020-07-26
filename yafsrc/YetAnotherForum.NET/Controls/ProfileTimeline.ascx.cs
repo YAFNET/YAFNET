@@ -335,17 +335,7 @@ namespace YAF.Controls
 
             this.ActivityStream.DataSource = paged;
 
-            if (paged.Any())
-            {
-                this.PagerTop.Count = stream.Count;
-
-                this.ItemCount = paged.Count;
-            }
-            else
-            {
-                this.PagerTop.Count = 0;
-                this.ItemCount = 0;
-            }
+            this.ItemCount = paged.Any() ? paged.Count : 0;
 
             this.DataBind();
         }

@@ -736,7 +736,8 @@ namespace YAF.Pages
                                 ForumPages.Posts,
                                 true,
                                 "t={0}&name={1}",
-                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"), row["Topic"].ToString()),
+                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"),
+                                row["Topic"].ToString()),
                             $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? SyndicationFormats.Atom.ToInt() : SyndicationFormats.Rss.ToInt())}:tid{this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t")}:lmid{row["LastMessageID"]}:{this.PageContext.PageBoardID}"
                                 .Unidecode(),
                             lastPosted,

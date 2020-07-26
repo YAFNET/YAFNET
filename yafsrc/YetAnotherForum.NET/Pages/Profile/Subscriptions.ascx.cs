@@ -169,34 +169,7 @@ namespace YAF.Pages.Profile
         }
 
         /// <summary>
-        /// Gets the checked ids.
-        /// </summary>
-        /// <param name="repeater">
-        /// The repeater.
-        /// </param>
-        /// <param name="checkBoxId">
-        /// The check box id.
-        /// </param>
-        /// <param name="idLabelId">
-        /// The id label id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        private static List<int> GetCheckedIds(Repeater repeater, string checkBoxId, string idLabelId)
-        {
-            return (from item in repeater.Items.OfType<RepeaterItem>()
-                let checkBox = item.FindControlAs<CheckBox>(checkBoxId)
-                let idLabel = item.FindControlAs<Label>(idLabelId)
-                where checkBox.Checked
-                select idLabel.Text.ToTypeOrDefault<int?>(null)
-                into id
-                where id.HasValue
-                select id.Value).ToList();
-        }
-
-        /// <summary>
-        /// Unwatch Forums
+        /// Un-watch Forums
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -216,7 +189,7 @@ namespace YAF.Pages.Profile
         }
 
         /// <summary>
-        /// Unwatch Topics
+        /// Un-watch Topics
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -248,10 +221,38 @@ namespace YAF.Pages.Profile
         }
 
         /// <summary>
+        /// Gets the checked ids.
+        /// </summary>
+        /// <param name="repeater">
+        /// The repeater.
+        /// </param>
+        /// <param name="checkBoxId">
+        /// The check box id.
+        /// </param>
+        /// <param name="idLabelId">
+        /// The id label id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        private static List<int> GetCheckedIds(Repeater repeater, string checkBoxId, string idLabelId)
+        {
+            return (from item in repeater.Items.OfType<RepeaterItem>()
+                let checkBox = item.FindControlAs<CheckBox>(checkBoxId)
+                let idLabel = item.FindControlAs<Label>(idLabelId)
+                where checkBox.Checked
+                select idLabel.Text.ToTypeOrDefault<int?>(null)
+                into id
+                where id.HasValue
+                select id.Value).ToList();
+        }
+
+        /// <summary>
         /// The bind data.
         /// </summary>
         private void BindData()
         {
+            //TODO: PAGING
             var watchForums = this.GetRepository<WatchForum>().List(this.PageContext.PageUserID);
 
             this.ForumList.DataSource = watchForums;
@@ -276,13 +277,14 @@ namespace YAF.Pages.Profile
             }
 
             // bind list
-            var topicList = dt.AsEnumerable().Skip(currentPageIndex * this.PagerTop.PageSize).Take(this.PagerTop.PageSize);
+            //TODO:Paging
+            var topicList = dt.AsEnumerable().Skip(currentPageIndex * this.PagerTop.PageSize).Take(this.PagerTop.PageSize).ToList();
 
             this.TopicList.DataSource = topicList;
 
-            this.UnsubscribeTopics.Visible = topicList.Count() != 0;
+            this.UnsubscribeTopics.Visible = topicList.Count != 0;
 
-            this.TopicsHolder.Visible = topicList.Count() != 0;
+            this.TopicsHolder.Visible = topicList.Count != 0;
 
             this.PMNotificationEnabled.Checked = this.PageContext.CurrentUser.PMNotification;
             this.DailyDigestEnabled.Checked = this.PageContext.CurrentUser.DailyDigest;

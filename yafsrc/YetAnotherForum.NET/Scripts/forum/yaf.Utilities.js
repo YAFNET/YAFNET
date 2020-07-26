@@ -3,32 +3,13 @@ function formatState(state) {
     if (!state.id) {
         return state.text;
     }
+
     if ($($(state.element).data("content")).length === 0) {
         return state.text;
     }
 
     var $state = $($(state.element).data("content"));
     return $state;
-}
-
-// --
-function doClick(buttonName, e) {
-    var key;
-
-    if (window.event) {
-        key = window.event.keyCode;
-    } else {
-        key = e.which;
-    }
-
-    if (key == 13) {
-        var btn = document.getElementById(buttonName);
-        if (btn != null) {
-            e.preventDefault();
-            btn.click();
-            event.keyCode = 0;
-        }
-    }
 }
 
 // Confirm Dialog
@@ -83,18 +64,23 @@ $(function () {
 });
 
 // Toggle password visibility 
-$(document).ready(function () {
-    $("#PasswordToggle").on("click", function (event) {
-        event.preventDefault();
-        var pass = $("input[id*='Password']");
-        if (pass.attr("type") === "text") {
-            pass.attr("type", "password");
-            $("#PasswordToggle i").addClass("fa-eye-slash");
-            $("#PasswordToggle i").removeClass("fa-eye");
-        } else if (pass.attr("type") === "password") {
-            pass.attr("type", "text");
-            $("#PasswordToggle i").removeClass("fa-eye-slash");
-            $("#PasswordToggle i").addClass("fa-eye");
-        }
-    });
-});
+document.addEventListener("DOMContentLoaded", function () {
+
+    if (document.body.contains(document.getElementById("PasswordToggle"))) {
+        var passwordToggle = document.getElementById("PasswordToggle");
+        var icon = passwordToggle.querySelector("i");
+        var pass = document.querySelector("input[id*='Password']");
+        passwordToggle.addEventListener("click", function (event) {
+            event.preventDefault();
+            if (pass.getAttribute("type") === "text") {
+                pass.setAttribute("type", "password");
+                icon.classList.add("fa-eye-slash");
+                icon.classList.remove("fa-eye");
+            } else if (pass.getAttribute("type") === "password") {
+                pass.setAttribute("type", "text");
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        });
+    }
+})

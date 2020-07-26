@@ -106,7 +106,8 @@ abbr[data-original-title] {
   -webkit-text-decoration: underline dotted;
           text-decoration: underline dotted;
   cursor: help;
-  text-decoration-skip-ink: none; }
+  -webkit-text-decoration-skip-ink: none;
+          text-decoration-skip-ink: none; }
 
 address {
   margin-bottom: 1rem;
@@ -1786,6 +1787,9 @@ progress {
   .form-control::-moz-placeholder, .bootstrap-tagsinput::-moz-placeholder {
     color: #868e96;
     opacity: 1; }
+  .form-control:-ms-input-placeholder, .bootstrap-tagsinput:-ms-input-placeholder {
+    color: #868e96;
+    opacity: 1; }
   .form-control::-ms-input-placeholder, .bootstrap-tagsinput::-ms-input-placeholder {
     color: #868e96;
     opacity: 1; }
@@ -1882,11 +1886,11 @@ progress {
   min-height: 1.3125rem;
   padding-left: 1.75em;
   margin-bottom: 0.125rem; }
-  .form-check .form-check-input, .form-check input, .form-check .form-switch input, .form-switch .form-check input {
+  .form-check .form-check-input {
     float: left;
     margin-left: -1.75em; }
 
-.form-check-input, .form-check input, .form-switch input {
+.form-check-input {
   width: 1.25em;
   height: 1.25em;
   margin-top: 0.125em;
@@ -1906,48 +1910,48 @@ progress {
   transition: background-color 0.15s ease-in-out, background-position 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: background-color 0.15s ease-in-out, background-position 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; }
   @media (prefers-reduced-motion: reduce) {
-    .form-check-input, .form-check input, .form-switch input {
+    .form-check-input {
       -webkit-transition: none;
       transition: none; } }
-  .form-check-input[type="radio"], .form-check input[type="radio"], .form-switch input[type="radio"] {
+  .form-check-input[type="radio"] {
     border-radius: 50%; }
-  .form-check-input:active, .form-check input:active, .form-switch input:active {
+  .form-check-input:active {
     -webkit-filter: brightness(90%);
             filter: brightness(90%); }
-  .form-check-input:focus, .form-check input:focus, .form-switch input:focus {
+  .form-check-input:focus {
     border-color: #593196;
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(89, 49, 150, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(89, 49, 150, 0.25); }
-  .form-check-input:checked, .form-check input:checked, .form-switch input:checked {
+  .form-check-input:checked {
     background-color: #593196;
     border-color: #593196; }
-    .form-check-input:checked[type="checkbox"], .form-check input:checked[type="checkbox"], .form-switch input:checked[type="checkbox"] {
+    .form-check-input:checked[type="checkbox"] {
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e"); }
-    .form-check-input:checked[type="radio"], .form-check input:checked[type="radio"], .form-switch input:checked[type="radio"] {
+    .form-check-input:checked[type="radio"] {
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e"); }
-  .form-check-input[type="checkbox"]:indeterminate, .form-check input[type="checkbox"]:indeterminate, .form-switch input[type="checkbox"]:indeterminate {
+  .form-check-input[type="checkbox"]:indeterminate {
     background-color: #593196;
     border-color: #593196;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e"); }
-  .form-check-input:disabled, .form-check input:disabled, .form-switch input:disabled {
+  .form-check-input:disabled {
     pointer-events: none;
     -webkit-filter: none;
             filter: none;
     opacity: .5; }
-  .form-check-input[disabled] ~ .form-check-label, .form-check input[disabled] ~ .form-check-label, .form-switch input[disabled] ~ .form-check-label, .form-check .form-check-input[disabled] ~ label, .form-check input[disabled] ~ label, .form-switch .form-check-input[disabled] ~ label, .form-switch input[disabled] ~ label, .form-check-input:disabled ~ .form-check-label, .form-check input:disabled ~ .form-check-label, .form-switch input:disabled ~ .form-check-label, .form-check .form-check-input:disabled ~ label, .form-check input:disabled ~ label, .form-switch .form-check-input:disabled ~ label, .form-switch input:disabled ~ label {
+  .form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label {
     opacity: .5; }
 
 .form-switch {
   padding-left: 2.5em; }
-  .form-switch .form-check-input, .form-switch .form-check input, .form-check .form-switch input, .form-switch input {
+  .form-switch .form-check-input {
     width: 2em;
     margin-left: -2.5em;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e");
     background-position: left center; }
-    .form-switch .form-check-input:focus, .form-switch .form-check input:focus, .form-check .form-switch input:focus, .form-switch input:focus {
+    .form-switch .form-check-input:focus {
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23593196'/%3e%3c/svg%3e"); }
-    .form-switch .form-check-input:checked, .form-switch .form-check input:checked, .form-check .form-switch input:checked, .form-switch input:checked {
+    .form-switch .form-check-input:checked {
       background-position: right center;
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e"); }
 
@@ -2084,15 +2088,13 @@ progress {
     height: 1rem;
     background-color: #593196;
     border: 0;
-    -webkit-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    -moz-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
     -moz-appearance: none;
          appearance: none; }
     @media (prefers-reduced-motion: reduce) {
       .form-range::-moz-range-thumb {
-        -webkit-transition: none;
+        -moz-transition: none;
         transition: none; } }
     .form-range::-moz-range-thumb:active {
       background-color: #b69bde; }
@@ -2111,14 +2113,12 @@ progress {
     margin-left: 0.2rem;
     background-color: #593196;
     border: 0;
-    -webkit-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    -ms-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
     appearance: none; }
     @media (prefers-reduced-motion: reduce) {
       .form-range::-ms-thumb {
-        -webkit-transition: none;
+        -ms-transition: none;
         transition: none; } }
     .form-range::-ms-thumb:active {
       background-color: #b69bde; }
@@ -2278,17 +2278,17 @@ progress {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(19, 185, 85, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(19, 185, 85, 0.25); }
 
-.was-validated .form-check-input:valid, .was-validated .form-check input:valid, .form-check .was-validated input:valid, .was-validated .form-switch input:valid, .form-switch .was-validated input:valid, .form-check-input.is-valid, .form-check input.is-valid, .form-switch input.is-valid {
+.was-validated .form-check-input:valid, .form-check-input.is-valid {
   border-color: #13B955; }
-  .was-validated .form-check-input:valid:checked, .was-validated .form-check input:valid:checked, .form-check .was-validated input:valid:checked, .was-validated .form-switch input:valid:checked, .form-switch .was-validated input:valid:checked, .form-check-input.is-valid:checked, .form-check input.is-valid:checked, .form-switch input.is-valid:checked {
+  .was-validated .form-check-input:valid:checked, .form-check-input.is-valid:checked {
     background-color: #13B955; }
-  .was-validated .form-check-input:valid:focus, .was-validated .form-check input:valid:focus, .form-check .was-validated input:valid:focus, .was-validated .form-switch input:valid:focus, .form-switch .was-validated input:valid:focus, .form-check-input.is-valid:focus, .form-check input.is-valid:focus, .form-switch input.is-valid:focus {
+  .was-validated .form-check-input:valid:focus, .form-check-input.is-valid:focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(19, 185, 85, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(19, 185, 85, 0.25); }
-  .was-validated .form-check-input:valid ~ .form-check-label, .was-validated .form-check input:valid ~ .form-check-label, .form-check .was-validated input:valid ~ .form-check-label, .was-validated .form-switch input:valid ~ .form-check-label, .form-switch .was-validated input:valid ~ .form-check-label, .was-validated .form-check .form-check-input:valid ~ label, .form-check .was-validated .form-check-input:valid ~ label, .was-validated .form-check input:valid ~ label, .form-check .was-validated input:valid ~ label, .was-validated .form-switch .form-check input:valid ~ label, .form-check .form-switch .was-validated input:valid ~ label, .was-validated .form-switch .form-check-input:valid ~ label, .form-switch .was-validated .form-check-input:valid ~ label, .was-validated .form-check .form-switch input:valid ~ label, .form-switch .was-validated .form-check input:valid ~ label, .form-check .was-validated .form-switch input:valid ~ label, .form-switch .form-check .was-validated input:valid ~ label, .was-validated .form-switch input:valid ~ label, .form-switch .was-validated input:valid ~ label, .form-check-input.is-valid ~ .form-check-label, .form-check input.is-valid ~ .form-check-label, .form-switch input.is-valid ~ .form-check-label, .form-check .form-check-input.is-valid ~ label, .form-check input.is-valid ~ label, .form-switch .form-check-input.is-valid ~ label, .form-switch input.is-valid ~ label {
+  .was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
     color: #13B955; }
 
-.form-check-inline .form-check-input ~ .valid-feedback, .form-check-inline li .form-check-input ~ .valid-feedback, .form-check-inline .form-check input ~ .valid-feedback, .form-check .form-check-inline input ~ .valid-feedback, .form-check .form-check-inline li input ~ .valid-feedback, .form-check-inline .form-switch input ~ .valid-feedback, .form-switch .form-check-inline input ~ .valid-feedback, .form-switch .form-check-inline li input ~ .valid-feedback {
+.form-check-inline .form-check-input ~ .valid-feedback, .form-check-inline li .form-check-input ~ .valid-feedback {
   margin-left: .5em; }
 
 .was-validated .form-file-input:valid ~ .form-file-label, .form-file-input.is-valid ~ .form-file-label {
@@ -2351,17 +2351,17 @@ progress {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(252, 57, 57, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(252, 57, 57, 0.25); }
 
-.was-validated .form-check-input:invalid, .was-validated .form-check input:invalid, .form-check .was-validated input:invalid, .was-validated .form-switch input:invalid, .form-switch .was-validated input:invalid, .form-check-input.is-invalid, .form-check input.is-invalid, .form-switch input.is-invalid {
+.was-validated .form-check-input:invalid, .form-check-input.is-invalid {
   border-color: #FC3939; }
-  .was-validated .form-check-input:invalid:checked, .was-validated .form-check input:invalid:checked, .form-check .was-validated input:invalid:checked, .was-validated .form-switch input:invalid:checked, .form-switch .was-validated input:invalid:checked, .form-check-input.is-invalid:checked, .form-check input.is-invalid:checked, .form-switch input.is-invalid:checked {
+  .was-validated .form-check-input:invalid:checked, .form-check-input.is-invalid:checked {
     background-color: #FC3939; }
-  .was-validated .form-check-input:invalid:focus, .was-validated .form-check input:invalid:focus, .form-check .was-validated input:invalid:focus, .was-validated .form-switch input:invalid:focus, .form-switch .was-validated input:invalid:focus, .form-check-input.is-invalid:focus, .form-check input.is-invalid:focus, .form-switch input.is-invalid:focus {
+  .was-validated .form-check-input:invalid:focus, .form-check-input.is-invalid:focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(252, 57, 57, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(252, 57, 57, 0.25); }
-  .was-validated .form-check-input:invalid ~ .form-check-label, .was-validated .form-check input:invalid ~ .form-check-label, .form-check .was-validated input:invalid ~ .form-check-label, .was-validated .form-switch input:invalid ~ .form-check-label, .form-switch .was-validated input:invalid ~ .form-check-label, .was-validated .form-check .form-check-input:invalid ~ label, .form-check .was-validated .form-check-input:invalid ~ label, .was-validated .form-check input:invalid ~ label, .form-check .was-validated input:invalid ~ label, .was-validated .form-switch .form-check input:invalid ~ label, .form-check .form-switch .was-validated input:invalid ~ label, .was-validated .form-switch .form-check-input:invalid ~ label, .form-switch .was-validated .form-check-input:invalid ~ label, .was-validated .form-check .form-switch input:invalid ~ label, .form-switch .was-validated .form-check input:invalid ~ label, .form-check .was-validated .form-switch input:invalid ~ label, .form-switch .form-check .was-validated input:invalid ~ label, .was-validated .form-switch input:invalid ~ label, .form-switch .was-validated input:invalid ~ label, .form-check-input.is-invalid ~ .form-check-label, .form-check input.is-invalid ~ .form-check-label, .form-switch input.is-invalid ~ .form-check-label, .form-check .form-check-input.is-invalid ~ label, .form-check input.is-invalid ~ label, .form-switch .form-check-input.is-invalid ~ label, .form-switch input.is-invalid ~ label {
+  .was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.is-invalid ~ .form-check-label {
     color: #FC3939; }
 
-.form-check-inline .form-check-input ~ .invalid-feedback, .form-check-inline li .form-check-input ~ .invalid-feedback, .form-check-inline .form-check input ~ .invalid-feedback, .form-check .form-check-inline input ~ .invalid-feedback, .form-check .form-check-inline li input ~ .invalid-feedback, .form-check-inline .form-switch input ~ .invalid-feedback, .form-switch .form-check-inline input ~ .invalid-feedback, .form-switch .form-check-inline li input ~ .invalid-feedback {
+.form-check-inline .form-check-input ~ .invalid-feedback, .form-check-inline li .form-check-input ~ .invalid-feedback {
   margin-left: .5em; }
 
 .was-validated .form-file-input:invalid ~ .form-file-label, .form-file-input.is-invalid ~ .form-file-label {

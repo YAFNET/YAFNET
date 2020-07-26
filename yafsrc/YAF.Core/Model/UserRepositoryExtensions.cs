@@ -1025,19 +1025,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets the user signature.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns>Returns the user points</returns>
-        public static string GetSignature(this IRepository<User> repository, int userId)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.GetById(userId).Signature;
-        }
-
-        /// <summary>
         /// Saves the signature.
         /// </summary>
         /// <param name="repository">The repository.</param>

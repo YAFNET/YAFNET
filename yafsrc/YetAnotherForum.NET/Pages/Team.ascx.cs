@@ -96,14 +96,11 @@ namespace YAF.Pages
 
             var modForums = gridItem.FindControlAs<DropDownList>("ModForums");
 
-            if (int.TryParse(modForums.SelectedValue, out var redirectForum))
-            {
-                BuildLink.Redirect(
-                    ForumPages.Topics,
-                    "f={0}&name={1}",
-                    modForums.SelectedValue,
-                    modForums.SelectedItem.Text);
-            }
+            BuildLink.Redirect(
+                ForumPages.Topics,
+                "f={0}&name={1}",
+                modForums.SelectedValue,
+                modForums.SelectedItem.Text);
         }
 
         #endregion
@@ -201,22 +198,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The on init.
-        /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected override void OnInit([NotNull] EventArgs e)
-        {
-            base.OnInit(e);
-
-            if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowTeamTo))
-            {
-                BuildLink.AccessDenied();
-            }
-        }
-
-        /// <summary>
         /// Called when the page loads
         /// </summary>
         /// <param name="sender">
@@ -227,6 +208,11 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowTeamTo))
+            {
+                BuildLink.AccessDenied();
+            }
+
             if (this.IsPostBack)
             {
                 return;
@@ -300,7 +286,7 @@ namespace YAF.Pages
                 return;
             }
 
-            var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, user.ID);
+            var isFriend = this.Get<IFriends>().IsBuddy(user.ID, true);
 
             pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowPrivateMessages;
 
@@ -404,7 +390,7 @@ namespace YAF.Pages
                 return;
             }
 
-            var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, userid);
+            var isFriend = this.Get<IFriends>().IsBuddy(userid, true);
 
             pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowPrivateMessages;
 

@@ -1065,6 +1065,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     }}
                 }}
             }},
+
             width: '100%',
             theme: 'bootstrap4',
             cache: true,
