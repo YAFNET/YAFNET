@@ -23,11 +23,11 @@
  */
 namespace YAF.Web.BBCodes
 {
-    using System.Text;
     using System.Web.UI;
 
     using YAF.Configuration;
     using YAF.Core.BBCode;
+    using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -42,24 +42,31 @@ namespace YAF.Web.BBCodes
         /// <param name="writer">
         /// The writer.
         /// </param>
-        protected override void Render(HtmlTextWriter writer)
+        protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            var sb = new StringBuilder();
+            writer.Write(
+                @"<div class=""card bg-dark text-white"" style=""max-width:{0}px"">",
+                this.Get<BoardSettings>().ImageThumbnailMaxWidth);
 
-            sb.AppendFormat(
-                @"<a href=""{0}resource.ashx?image={1}"" class=""attachedImage"" data-gallery title=""{1}"">",
+            writer.Write(
+                @"<a href=""{0}resource.ashx?image={1}"" data-gallery=""#blueimp-gallery-{2}"" title=""{1}"">",
                 BoardInfo.ForumClientFileRoot,
-                this.Parameters["inner"]);
+                this.Parameters["inner"],
+                this.MessageID.Value);
 
-            sb.AppendFormat(
-                @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted img-thumbnail"" style=""max-width:auto;max-height:{2}px"" alt=""{1}"" />",
+            writer.Write(
+                @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted card-img-top"" style=""max-height:{2}px"" alt=""{1}"">",
                 BoardInfo.ForumClientFileRoot,
                 this.Parameters["inner"],
                 this.Get<BoardSettings>().ImageThumbnailMaxHeight);
 
-            sb.Append("</a>");
+            writer.Write("</a>");
 
-            writer.Write(sb.ToString());
+            writer.Write(@"<div class=""card-body py-1"">");
+
+            writer.Write(@"<p class=""card-text text-center small"">{0}</p>", this.GetText("IMAGE_RESIZE_ENLARGE"));
+
+            writer.Write(@"</div></div>");
         }
     }
 }
