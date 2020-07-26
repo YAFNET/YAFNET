@@ -6,9 +6,7 @@
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="BuddyList" Src="../controls/BuddyList.ascx" %>
 
-
 <YAF:PageLinks runat="server" ID="PageLinks" />
-
 
 <div class="row justify-content-between">
     <div class="col-auto">

@@ -219,9 +219,9 @@ namespace YAF.Pages.Admin
                 this.BoardLogo.DataSource = dt;
                 this.BoardLogo.DataValueField = "FileName";
                 this.BoardLogo.DataTextField = "Description";
+                this.BoardLogo.DataBind();
             }
 
-            this.DataBind();
             this.Name.Text = board.Name;
 
             var boardSettings = this.Get<BoardSettings>();
@@ -234,16 +234,19 @@ namespace YAF.Pages.Admin
             if (themeData.Any())
             {
                 this.Theme.DataSource = themeData;
+                this.Theme.DataBind();
             }
 
             this.Culture.DataSource = StaticDataHelper.Cultures().OrderBy(x => x.CultureNativeName);
 
             this.Culture.DataTextField = "CultureNativeName";
             this.Culture.DataValueField = "CultureTag";
+            this.Culture.DataBind();
 
             this.ShowTopic.DataSource = StaticDataHelper.TopicTimes();
             this.ShowTopic.DataTextField = "Name";
             this.ShowTopic.DataValueField = "Value";
+            this.ShowTopic.DataBind();
 
             // population default notification setting options...
             var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
