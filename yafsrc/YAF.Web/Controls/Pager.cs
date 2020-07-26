@@ -263,10 +263,10 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            output.Write(@"<div class=""btn-toolbar pagination mt-1"" role=""toolbar"">");
+            output.Write(@"<div class=""btn-toolbar pagination"" role=""toolbar"">");
 
             output.WriteLine(
-                @"<div class=""btn-group mt-1 mr-2"" role=""group"">
+                @"<div class=""btn-group mr-2"" role=""group"">
                       <button type=""button"" title=""{0}"" class=""btn btn-secondary dropdown-toggle mb-1"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
                           <i class=""fas fa-copy""></i>&nbsp;{1:N0} {2}
                       </button>",
@@ -288,7 +288,7 @@ namespace YAF.Web.Controls
             output.Write("</div>");
             output.Write("</div>");
 
-            output.Write(@"<div class=""btn-group mt-1"" role=""group"">");
+            output.Write(@"<div class=""btn-group"" role=""group"">");
 
             this.OutputLinks(output, this.UsePostBack);
 

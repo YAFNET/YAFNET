@@ -10,9 +10,9 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 
-<div class="row">
-    <div class="col-md-10">
-        <h1 class="">
+<div class="row justify-content-between">
+    <div class="col-auto">
+        <h1>
             <YAF:UserLabel ID="UserLabel1" runat="server" />
         </h1>
         <YAF:ThemeButton ID="lnkBuddy" runat="server"
@@ -34,9 +34,9 @@
             Type="Danger">
         </YAF:ThemeButton>
     </div>
-    <div class="col-md-2">
+    <div class="col-auto">
         <asp:Image ID="Avatar" runat="server"
-            CssClass="img-fluid float-right rounded"
+            CssClass="img-fluid rounded"
             AlternateText="avatar" />
     </div>
 </div>

@@ -29,25 +29,24 @@
         </div>
     </div>
 </asp:PlaceHolder>
-<div class="row mb-3 align-items-center justify-content-between">
-    <div class="col-md-6">
+<div class="row justify-content-between">
+    <div class="col-auto">
         <YAF:Pager runat="server" ID="Pager" UsePostBack="False" />
     </div>
-    <div class="col-md-6 mt-1 mt-md-0">
+    <div class="col-auto">
         <YAF:ThemeButton ID="moderate1" runat="server"
-                         CssClass="float-right mr-1"
+                         CssClass="mr-1"
                          TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT"
                          Type="Secondary"
                          Icon="tasks"/>
         <YAF:ThemeButton ID="NewTopic1" runat="server" 
-                         CssClass="float-right mr-1"
                          TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" 
                          Icon="plus"/>
     </div>
 </div>
 <div class="row">
     <div class="col">
-        <div class="card mb-3 mt-3">
+        <div class="card mb-3">
             <div class="card-header">
                 <YAF:Icon runat="server"
                           IconName="comments"
@@ -144,9 +143,9 @@
         </div>
     </div>
 </div>
-<div class="row mb-3">
-    <div class="col">
-        <div class="btn-group float-right" role="group" aria-label="Tools">
+<div class="d-flex flex-row-reverse mb-3">
+    <div>
+        <div class="btn-group" role="group" aria-label="Tools">
             <YAF:ThemeButton runat="server" ID="WatchForum"
                              Type="Secondary" 
                              Size="Small"
@@ -171,18 +170,17 @@
     </div>
 </div>
 
-<div class="row mb-3 align-items-center justify-content-between">
-    <div class="col-md-6">
+<div class="row justify-content-between">
+    <div class="col-auto">
             <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="Pager" UsePostBack="False" />
     </div>
-    <div class="col-md-6 mt-1 mt-md-0">
+    <div class="col-auto">
             <YAF:ThemeButton ID="moderate2" runat="server" 
-                             CssClass="float-right mr-1"
+                             CssClass="mr-1"
                              TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT"
                              Type="Secondary"
                              Icon="tasks"/>
             <YAF:ThemeButton ID="NewTopic2" runat="server" 
-                             CssClass="float-right mr-1"
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" 
                              Icon="plus"/>
     </div>
