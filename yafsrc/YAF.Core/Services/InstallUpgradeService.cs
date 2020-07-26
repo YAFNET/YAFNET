@@ -38,6 +38,7 @@ namespace YAF.Core.Services
     using YAF.Core.Model;
     using YAF.Core.Services.Import;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -283,6 +284,8 @@ namespace YAF.Core.Services
                 }
 
                 this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
+
+                this.Get<IDataCache>().Remove(Constants.Cache.Version);
             }
 
             if (this.IsForumInstalled)
