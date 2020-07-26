@@ -402,7 +402,7 @@ namespace YAF.Web.Controls
 
             writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
 
-            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "btn-group btn-group-sm mb-1");
+            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "btn-group btn-group-sm");
 
             writer.WriteAttribute("role", "group");
 

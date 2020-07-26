@@ -61,7 +61,7 @@
                                    LocalizedTag="COPYRIGHT_REMOVAL_KEY" LocalizedPage="ADMIN_BOARDSETTINGS"/>
                     <div class="input-group">
                         <asp:TextBox ID="CopyrightRemovalKey" runat="server" 
-                                     CssClass="form-control mb-1"></asp:TextBox>
+                                     CssClass="form-control"></asp:TextBox>
                         <YAF:ThemeButton runat="server" ID="GetRemovalKey"
                                              NavigateUrl="https://yetanotherforum.net/purchase.aspx"
                                              Type="Info"
@@ -168,7 +168,7 @@
                                LocalizedPage="ADMIN_BOARDSETTINGS"/>
                 <div class="input-group">
                     <asp:TextBox ID="CdvVersion" runat="server" 
-                                 CssClass="form-control mb-1" 
+                                 CssClass="form-control" 
                                  Enabled="False"></asp:TextBox>
                     <YAF:ThemeButton runat="server"
                                      OnClick="IncreaseVersionOnClick"

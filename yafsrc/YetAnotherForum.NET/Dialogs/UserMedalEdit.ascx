@@ -25,7 +25,7 @@
                                                   CssClass="form-select"/>
                                 <asp:TextBox ID="UserName" runat="server"
                                              required="required"
-                                             CssClass="form-control mb-1"/>
+                                             CssClass="form-control"/>
                                 <YAF:ThemeButton runat="server" ID="FindUsers"
                                                  Icon="search"
                                                  OnClick="FindUsersClick"

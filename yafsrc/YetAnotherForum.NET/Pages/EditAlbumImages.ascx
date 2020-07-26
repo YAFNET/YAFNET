@@ -27,7 +27,7 @@
                     <div class="input-group">
                         <asp:TextBox ID="txtTitle" runat="server" 
                                      required="required"
-                                     CssClass="form-control mb-1"
+                                     CssClass="form-control"
                                      MaxLength="255" />
                         <div class="invalid-feedback">
                             <YAF:LocalizedLabel runat="server"

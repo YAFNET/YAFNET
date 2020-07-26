@@ -90,7 +90,7 @@ namespace YAF.Web.Controls
 
             // write button
             output.WriteBeginTag("button");
-            output.WriteAttribute("class", "btn btn-warning btn-sm dropdown-toggle mb-1");
+            output.WriteAttribute("class", "btn btn-warning btn-sm dropdown-toggle");
             output.WriteAttribute("id", this.ClientID);
             output.WriteAttribute("data-toggle", "dropdown");
             output.WriteAttribute("aria-haspopup", "true");

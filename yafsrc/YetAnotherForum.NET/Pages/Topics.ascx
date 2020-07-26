@@ -29,7 +29,7 @@
         </div>
     </div>
 </asp:PlaceHolder>
-<div class="row justify-content-between">
+<div class="row justify-content-between mb-2">
     <div class="col-auto">
         <YAF:Pager runat="server" ID="Pager" UsePostBack="False" />
     </div>
@@ -128,7 +128,7 @@
                     <div class="col-sm-9">
 						<div class="input-group">
                             <asp:TextBox id="forumSearch" runat="server"
-                                         CssClass="form-control mb-1"/>
+                                         CssClass="form-control"/>
                             <YAF:ThemeButton ID="forumSearchOK" runat="server" 
                                              Type="Secondary"
                                              Icon="search"

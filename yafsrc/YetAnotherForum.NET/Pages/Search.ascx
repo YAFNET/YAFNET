@@ -3,7 +3,7 @@
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
 <div class="input-group">
-    <asp:TextBox runat="server" CssClass="form-control mb-1 searchInput" ID="searchInput"></asp:TextBox>
+    <asp:TextBox runat="server" CssClass="form-control searchInput" ID="searchInput"></asp:TextBox>
     <YAF:ThemeButton runat="server"
             ID="GoSearch"
             Type="Primary"

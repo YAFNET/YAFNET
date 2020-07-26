@@ -125,7 +125,7 @@
                                                          Type="Secondary"
                                                          TextLocalizedTag="GO" 
                                                          OnClick="GoToForum"></YAF:ThemeButton>
-                                        <asp:DropDownList ID="ModForums" runat="server" CssClass="form-control mb-1">
+                                        <asp:DropDownList ID="ModForums" runat="server" CssClass="form-control">
                                         </asp:DropDownList>
                                     </div>
                                 </p>

@@ -18,7 +18,7 @@
              <!-- Modal Content START !-->
                 <div class="input-group mb-3">
                     <asp:TextBox runat="server" ID="UserName" 
-                                 CssClass="form-control mb-1" 
+                                 CssClass="form-control" 
                                  PlaceHolder='<%# this.GetText("USER") %>' />
                     <YAF:ThemeButton runat="server" ID="FindUsers" 
                                      TextLocalizedTag="FIND"

@@ -72,13 +72,9 @@
                     <ItemTemplate>
                         <div class="row">
                             <div class="col-auto text-center flex-column d-none d-sm-flex">
-                                <div class="row h-50">
-                                    <div class="col <%# this.GetFirstItemClass(Container.ItemIndex) %>">&nbsp;</div>
-                                    <div class="col">&nbsp;</div>
-                                </div>
                                 <h5 class="m-2">
                                     <asp:Label runat="server" ID="Icon"
-                                               CssClass="fa-stack fa-1x" ></asp:Label>
+                                               CssClass="fa-stack fa-1x pt-3"></asp:Label>
                                 </h5>
                                 <div class="row h-50">
                                     <div class="col <%# this.GetLastItemClass(Container.ItemIndex) %>">&nbsp;</div>

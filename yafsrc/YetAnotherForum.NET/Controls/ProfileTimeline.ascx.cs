@@ -105,20 +105,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The get first item class.
-        /// </summary>
-        /// <param name="itemIndex">
-        /// The item index.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        protected string GetFirstItemClass(int itemIndex)
-        {
-            return itemIndex > 0 ? "border-right" : string.Empty;
-        }
-
-        /// <summary>
         /// The get last item class.
         /// </summary>
         /// <param name="itemIndex">
@@ -209,7 +195,7 @@ namespace YAF.Controls
             card.CssClass = activity.Item1.Notification ? "card shadow" : "card";
 
             iconLabel.Text = $@"<i class=""fas fa-circle fa-stack-2x {notify}""></i>
-               <i class=""fas fa-{icon} fa-stack-1x fa-inverse""></i>;";
+               <i class=""fas fa-{icon} fa-stack-1x fa-inverse""></i>";
 
             displayDateTime.DateTime = activity.Item1.Created;
 
