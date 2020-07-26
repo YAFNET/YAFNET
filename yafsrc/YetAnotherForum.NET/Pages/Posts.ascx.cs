@@ -1012,10 +1012,12 @@ namespace YAF.Pages
                             {
                                 // find first unread message
                                 var lastRead = !this.PageContext.IsCrawler
-                                                   ? this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                                                       this.PageContext.PageForumID,
-                                                       this.PageContext.PageTopicID)
-                                                   : DateTime.UtcNow;
+                                    ? this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                                        this.PageContext.PageForumID,
+                                        this.PageContext.PageTopicID,
+                                        null,
+                                        null)
+                                    : DateTime.UtcNow;
 
                                 using (var unread = this.GetRepository<Message>().FindUnreadAsDataTable(
                                     this.PageContext.PageTopicID,
