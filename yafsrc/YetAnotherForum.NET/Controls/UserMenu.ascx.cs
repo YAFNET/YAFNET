@@ -493,7 +493,7 @@ namespace YAF.Controls
                     this.UnreadIcon.Visible = false;
 
                     this.NotifyItem.DataToggle = "tooltip";
-                    this.NotifyItem.CssClass = "nav-link mb-1";
+                    this.NotifyItem.CssClass = "nav-link";
                     this.NotifyItem.NavigateUrl = BuildLink.GetLink(ForumPages.Notification);
                 }
             }

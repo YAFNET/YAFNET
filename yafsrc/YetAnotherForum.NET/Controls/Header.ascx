@@ -80,7 +80,7 @@
             </ul>
             <asp:Panel ID="quickSearch" runat="server" CssClass="d-flex" Visible="false">
                 <asp:TextBox ID="searchInput" Type="Search" runat="server" 
-                             CssClass="form-control mb-1 mr-2"
+                             CssClass="form-control mr-2"
                              aria-label="Search"></asp:TextBox>
                 <YAF:ThemeButton ID="doQuickSearch" runat="server"
                                  Type="OutlineInfo"

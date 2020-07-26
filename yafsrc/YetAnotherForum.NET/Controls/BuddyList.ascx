@@ -81,7 +81,8 @@
         </asp:PlaceHolder>
     </FooterTemplate>
 </asp:Repeater>
-<YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" OnPageChange="Pager_PageChange" />
+<YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" 
+           OnPageChange="Pager_PageChange" />
 <asp:PlaceHolder runat="server" Visible="<%# this.rptBuddy.Items.Count == 0 %>">
     <div class="card-body">
         <YAF:Alert runat="server" Type="info" ID="Info"></YAF:Alert>

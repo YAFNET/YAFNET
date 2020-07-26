@@ -17,7 +17,8 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
-                                        IconName="envelope" />
+                                        IconName="envelope"
+                                        LocalizedPage="SUBSCRIPTIONS"/>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">
