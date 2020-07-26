@@ -402,27 +402,37 @@
                         </div>
                     </div>
                </div>
-                <div class="card-footer d-flex">
-                    <YAF:ThemeButton runat="server" 
-                                     CommandName="approveall" 
-                                     Type="Primary" 
-                                     Icon="check" 
-                                     TextLocalizedTag="APROVE_ALL" 
-                                     CssClass="mr-1"
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'/>
-                    <YAF:ThemeButton runat="server"
-                                     CommandName="deleteall" 
-                                     Type="Danger" 
-                                     Icon="trash" 
-                                     TextLocalizedTag="DELETE_ALL" 
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
-                                     CssClass="mr-1"/>
-                    <asp:TextBox ID="DaysOld" runat="server" 
-                                 MaxLength="5" 
-                                 Text="14" 
-                                 CssClass="form-control"
-                                 TextMode="Number">
-                    </asp:TextBox>
+                <div class="card-footer">
+                    <div class="d-lg-flex">
+                        <div>
+                            <YAF:ThemeButton runat="server" 
+                                             CommandName="approveall" 
+                                             Type="Primary" 
+                                             Icon="check" 
+                                             TextLocalizedTag="APROVE_ALL" 
+                                             CssClass="mb-1"
+                                             ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'/>
+                            <YAF:ThemeButton runat="server"
+                                             CommandName="deleteall" 
+                                             Type="Danger" 
+                                             Icon="trash" 
+                                             TextLocalizedTag="DELETE_ALL" 
+                                             ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
+                                             CssClass="mr-1 mb-1"/>
+                        </div>
+                        <div>
+                            <div class="input-group">
+                            <asp:TextBox ID="DaysOld" runat="server" 
+                                         MaxLength="5" 
+                                         Text="14" 
+                                         CssClass="form-control"
+                                         TextMode="Number">
+                            </asp:TextBox>
+                        </div>
+                        </div>
+                    </div>
+                   
+                    
                 </div>
             </FooterTemplate>
         </asp:Repeater>

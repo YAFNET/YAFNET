@@ -26,17 +26,6 @@
     margin-left: auto;
 }
 
-// -- Main Menu
-.dropdown-submenu {
-    position: relative;
-}
-
-.dropdown-submenu .dropdown-menu {
-    top: 0;
-    left: 100%;
-    margin-top: -1px;
-}
-
 .list-inline {
     margin: 0;
 }
@@ -49,23 +38,6 @@
 // --Spinner Input
 .bootstrap-touchspin {
     width: 250px;
-}
-
-// user search
-.user-search-dropdown {
-    .form-control {
-        width: inherit;
-    }
-}
-
-// pagination
-.pagination {
-    margin-bottom: 0.30rem;
-}
-
-// menu dropdown
-.dropdown-menu > li > span > a {
-    color: #333;
 }
 
 // --Event log

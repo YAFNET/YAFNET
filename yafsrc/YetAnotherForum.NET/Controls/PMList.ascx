@@ -97,7 +97,7 @@
 <asp:UpdatePanel ID="upPanExport" runat="server">
     <ContentTemplate>
         <div class="btn-toolbar mt-3" role="toolbar">
-            <div class="btn-group mr-2" role="group">
+            <div class="btn-group mr-2 mb-1" role="group">
                 <YAF:ThemeButton runat="server" ID="MarkAsRead" 
                                  Size="Small"
                                  TextLocalizedTag="MARK_ALL_ASREAD" 
@@ -105,7 +105,7 @@
                                  Type="Secondary" 
                                  Icon="eye"/>
             </div>
-            <div class="btn-group mr-2" role="group">
+            <div class="btn-group mr-2 mb-1" role="group">
                 <YAF:ThemeButton runat="server" ID="ArchiveSelected" 
                                  Size="Small"
                                  TextLocalizedTag="ARCHIVESELECTED" 
@@ -119,7 +119,7 @@
                                  OnClick="ArchiveAll_Click"
                                  Type="Secondary" Icon="archive" />
             </div>
-            <div class="btn-group mr-2" role="group">
+            <div class="btn-group mr-2 mb-1" role="group">
                 <YAF:ThemeButton runat="server" ID="ExportSelected" 
                                  Size="Small"
                                  TextLocalizedTag="EXPORTSELECTED" 
@@ -133,7 +133,7 @@
                                  Type="Secondary" 
                                  Icon="file-export" />
             </div>
-            <div class="btn-group" role="group">
+            <div class="btn-group mb-1" role="group">
                 <YAF:ThemeButton runat="server" ID="DeleteSelected" 
                              Size="Small"
                              TextLocalizedTag="DELETESELECTED" 

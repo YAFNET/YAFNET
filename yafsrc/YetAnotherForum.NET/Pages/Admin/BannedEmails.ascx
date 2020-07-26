@@ -155,20 +155,24 @@
         </ul>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton runat="server" 
+                    <YAF:ThemeButton runat="server"  
+                                     CssClass="mb-1"
                                      Icon="plus-square" 
                                      Type="Primary"
                                      TextLocalizedTag="ADD_IP" TextLocalizedPage="ADMIN_BANNEDEMAIL" 
                                      CommandName="add">
                     </YAF:ThemeButton>
-                    <YAF:ThemeButton runat="server" 
+                    <YAF:ThemeButton runat="server"  
+                                     CssClass="mb-1"
                                      Icon="upload"
                                      DataTarget="ImportDialog"
                                      DataToggle="modal"
                                      Type="Info"
                                      TextLocalizedTag="IMPORT_IPS" TextLocalizedPage="ADMIN_BANNEDEMAIL">
                     </YAF:ThemeButton>
-                    <YAF:ThemeButton runat="server" CommandName="export" ID="Linkbutton4" 
+                    <YAF:ThemeButton runat="server" ID="Linkbutton4"
+                                     CommandName="export" 
+                                     CssClass="mb-1"
                                      Type="Warning" 
                                      Icon="download"
                                      TextLocalizedPage="ADMIN_BANNEDIP" TextLocalizedTag="EXPORT">

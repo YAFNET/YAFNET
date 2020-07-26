@@ -140,17 +140,20 @@
             </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton runat="server" 
+                                 CssClass="mb-1"
                                  Icon="plus-square" 
                                  Type="Primary"
                                  TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_SPAMWORDS"
                                  OnClick="AddClick"></YAF:ThemeButton>
-                <YAF:ThemeButton runat="server" 
+                <YAF:ThemeButton runat="server"  
+                                 CssClass="mb-1"
                                  Icon="upload"   
                                  DataToggle="modal" 
                                  DataTarget="SpamWordsImportDialog" 
                                  Type="Info"
                                  TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_SPAMWORDS"></YAF:ThemeButton>
-                <YAF:ThemeButton runat="server" ID="Linkbutton4"
+                <YAF:ThemeButton runat="server" ID="Linkbutton4" 
+                                 CssClass="mb-1"
                                  OnClick="ExportClick"
                                  Type="Warning" 
                                  Icon="download" 

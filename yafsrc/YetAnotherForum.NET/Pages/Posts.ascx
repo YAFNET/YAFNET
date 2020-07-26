@@ -30,12 +30,13 @@
             <span id="dvFavorite1">
                 <YAF:ThemeButton ID="TagFavorite1" runat="server"
                                  Type="Secondary"
+                                 CssClass="mb-1"
                                  TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
                                  Icon="star"
                                  IconColor="text-warning" />
             </span>
             <YAF:ThemeButton ID="Tools1" runat="server"
-                             CssClass="dropdown-toggle ml-1"
+                             CssClass="dropdown-toggle ml-1 mb-1"
                              Type="Danger"
                              DataToggle="dropdown"
                              TextLocalizedTag="MANAGE_TOPIC"
@@ -73,17 +74,17 @@
             <YAF:ThemeButton ID="NewTopic1" runat="server"
                              Type="Secondary"
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
-                             CssClass="ml-1"
+                             CssClass="ml-1 mb-1"
                              Icon="plus" />
             <YAF:ThemeButton ID="PostReplyLink1" runat="server"
                              Type="Primary"
-                             CssClass="ml-1"
+                             CssClass="ml-1 mb-1"
                              OnClick="PostReplyLink_Click"
                              TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                              Icon="reply" />
             <YAF:ThemeButton ID="QuickReplyLink1" runat="server"
                              Type="Primary"
-                             CssClass="ml-1"
+                             CssClass="ml-1 mb-1"
                              TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                              Icon="reply"
                              DataToggle="modal"
@@ -183,13 +184,14 @@
         <div class="d-flex justify-content-end flex-wrap">
             <span id="dvFavorite2">
                 <YAF:ThemeButton ID="TagFavorite2" runat="server"
+                                 CssClass="mb-1"
                                  Type="Secondary"
                                  TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
                                  Icon="star"
                                  IconColor="text-warning" />
             </span>
             <YAF:ThemeButton ID="Tools2" runat="server"
-                             CssClass="dropdown-toggle ml-1"
+                             CssClass="dropdown-toggle ml-1 mb-1"
                              Type="Danger"
                              DataToggle="dropdown"
                              TextLocalizedTag="MANAGE_TOPIC"
@@ -226,17 +228,17 @@
             <YAF:ThemeButton ID="NewTopic2" runat="server"
                              Type="Secondary"
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
-                             CssClass="ml-1"
+                             CssClass="ml-1 mb-1"
                              Icon="comment" />
             <YAF:ThemeButton ID="PostReplyLink2" runat="server"
                              Type="Primary"
-                             CssClass="ml-1"
+                             CssClass="ml-1 mb-1"
                              OnClick="PostReplyLink_Click"
                              TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                              Icon="reply" />
             <YAF:ThemeButton ID="QuickReplyLink2" runat="server"
                              Type="Primary"
-                             CssClass="ml-1"
+                             CssClass="ml-1 mb-1"
                              TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                              Icon="reply"
                              DataToggle="modal"

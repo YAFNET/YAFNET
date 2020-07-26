@@ -6405,10 +6405,15 @@ readers do not read off random characters that represent icons */
   .flag-icon-zw.flag-icon-squared {
     background-image: url(flags/1x1/zw.svg); }
 
-.flag-icon-es-ct {
-  background-image: url(flags/4x3/es-ct.svg); }
-  .flag-icon-es-ct.flag-icon-squared {
-    background-image: url(flags/1x1/es-ct.svg); }
+.flag-icon-es-ca {
+  background-image: url(flags/4x3/es-ca.svg); }
+  .flag-icon-es-ca.flag-icon-squared {
+    background-image: url(flags/1x1/es-ca.svg); }
+
+.flag-icon-es-ga {
+  background-image: url(flags/4x3/es-ga.svg); }
+  .flag-icon-es-ga.flag-icon-squared {
+    background-image: url(flags/1x1/es-ga.svg); }
 
 .flag-icon-eu {
   background-image: url(flags/4x3/eu.svg); }
@@ -8020,6 +8025,14 @@ div#UploadDialog {
 .select2-image-select {
   width: 100%; }
 
+.dropdown-submenu {
+  position: relative; }
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px; }
+
 .list-group-albums img {
   cursor: pointer;
   max-width: 60px;
@@ -8260,14 +8273,6 @@ div#UploadDialog {
 
 .list-inline {
   margin: 0; }
-
-.dropdown-submenu {
-  position: relative; }
-
-.dropdown-submenu .dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -1px; }
 
 .list-similar {
   height: 200px;

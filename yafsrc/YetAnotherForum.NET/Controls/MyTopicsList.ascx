@@ -4,7 +4,8 @@
 <div class="row">
     <div class="col">
         <YAF:Pager runat="server" ID="PagerTop" OnPageChange="Pager_PageChange" />
-        <div class="card mb-3">
+
+        <div class="card my-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server" ID="IconHeader"
                                 IconName="comments"

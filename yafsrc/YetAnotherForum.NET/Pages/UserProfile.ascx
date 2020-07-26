@@ -14,28 +14,35 @@
             <YAF:UserLabel ID="UserLabel1" runat="server" />
         </h1>
         <YAF:ThemeButton ID="lnkBuddy" runat="server"
-            OnCommand="lnk_AddBuddy" />
-        <YAF:ThemeButton ID="PM" runat="server" Visible="false"
-            TextLocalizedPage="POSTS" TextLocalizedTag="PM"
-            TitleLocalizedTag="PM_TITLE" TitleLocalizedPage="POSTS"
-            Icon="envelope-open-text"
-            Type="Info" />
-        <YAF:ThemeButton ID="Email" runat="server" Visible="false"
-            TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL"
-            TitleLocalizedTag="EMAIL_TITLE" TitleLocalizedPage="POSTS"
-            Icon="at"
-            Type="Info" />
-        <YAF:ThemeButton ID="AdminUserButton" runat="server" Visible="false"
-            TextLocalizedTag="ADMIN_USER"
-            NavigateUrl='<%# BuildLink.GetLink(ForumPages.Admin_EditUser,"u={0}", this.UserId) %>'
-            Icon="user-cog"
-            Type="Danger">
-        </YAF:ThemeButton>
+                         OnCommand="lnk_AddBuddy"
+                         CssClass="mb-1"/>
+        <YAF:ThemeButton ID="PM" runat="server" 
+                         Visible="false"
+                         TextLocalizedPage="POSTS" TextLocalizedTag="PM"
+                         TitleLocalizedTag="PM_TITLE" TitleLocalizedPage="POSTS"
+                         CssClass="mb-1"
+                         Icon="envelope-open-text"
+                         Type="Info" />
+        <YAF:ThemeButton ID="Email" runat="server" 
+                         Visible="false"
+                         TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL"
+                         TitleLocalizedTag="EMAIL_TITLE" TitleLocalizedPage="POSTS"
+                         CssClass="mb-1"
+                         Icon="at"
+                         Type="Info" />
+        <YAF:ThemeButton ID="AdminUserButton" runat="server" 
+                         Visible="false"
+                         TextLocalizedTag="ADMIN_USER"
+                         NavigateUrl='<%# BuildLink.GetLink(ForumPages.Admin_EditUser,"u={0}", this.UserId) %>'
+                         CssClass="mb-1"
+                         Icon="user-cog"
+                         Type="Danger"/>
+        
     </div>
     <div class="col-auto">
         <asp:Image ID="Avatar" runat="server"
-            CssClass="img-fluid rounded"
-            AlternateText="avatar" />
+                   CssClass="img-fluid rounded"
+                   AlternateText="avatar" />
     </div>
 </div>
 <br>

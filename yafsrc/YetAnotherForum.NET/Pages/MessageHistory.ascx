@@ -88,10 +88,11 @@
             </div>
             <div class="card-footer text-center">
                         <a onclick="RenderMessageDiff('<%# this.GetText("MESSAGEHISTORY","NOTHING_SELECTED") %>','<%# this.GetText("MESSAGEHISTORY","SELECT_BOTH") %>');" 
-                           class="btn btn-primary" role="button" href="#diffContent">
+                           class="btn btn-primary mb-1" role="button" href="#diffContent">
                             <i class="fas fa-equals"></i>&nbsp;<%# this.GetText("MESSAGEHISTORY","COMPARE_VERSIONS") %>
                         </a>            
                         <YAF:ThemeButton ID="ReturnBtn" 
+                                         CssClass="mb-1"
                                          OnClick="ReturnBtn_OnClick"
                                          TextLocalizedTag="TOMESSAGE" 
                                          Visible="false" 
@@ -100,6 +101,7 @@
                                          runat="server">
                         </YAF:ThemeButton>
                         <YAF:ThemeButton ID="ReturnModBtn"  
+                                         CssClass="mb-1"
                                          OnClick="ReturnModBtn_OnClick"
                                          TextLocalizedTag="GOMODERATE" 
                                          Visible="false" 

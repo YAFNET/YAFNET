@@ -82,7 +82,7 @@
                     <YAF:ThemeButton id="ForumRegister" runat="server" 
                                      Onclick="ForumRegisterClick" 
                                      CausesValidation="True"
-                                     CssClass="mr-2"
+                                     CssClass="mr-1"
                                      Type="Primary"
                                      Icon="user-plus" 
                                      TextLocalizedTag="REGISTER" 

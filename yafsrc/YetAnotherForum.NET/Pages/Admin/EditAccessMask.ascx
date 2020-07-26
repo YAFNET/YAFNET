@@ -153,7 +153,7 @@
                                      OnClick="CancelClick"
                                      Type="Secondary" 
                                      Icon="reply" 
-                                     extLocalizedTag="CANCEL" />
+                                     TextLocalizedTag="CANCEL" />
                 </div>
             </div>
         </div>

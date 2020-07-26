@@ -124,6 +124,7 @@
                 <div class="card-footer text-center">
 					<YAF:ThemeButton runat="server" 
                                      CommandName="add" 
+                                     CssClass="mb-1"
                                      ID="Linkbutton3" 
                                      Type="Primary"
 					                 Icon="plus-square" 
@@ -131,6 +132,7 @@
                                      TextLocalizedPage="ADMIN_REPLACEWORDS">
                     </YAF:ThemeButton>
 					<YAF:ThemeButton runat="server" 
+                                     CssClass="mb-1"
                                      Icon="upload"   
                                      DataToggle="modal" 
                                      DataTarget="ReplaceWordsImportDialog" 
@@ -140,6 +142,7 @@
                                      TextLocalizedPage="ADMIN_REPACEWORDS">
                     </YAF:ThemeButton>
 					<YAF:ThemeButton runat="server" 
+                                     CssClass="mb-1"
                                      CommandName="export" 
                                      ID="Linkbutton4" 
                                      Type="Warning"

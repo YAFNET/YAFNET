@@ -108,7 +108,7 @@
             <div class="card-footer">
                 <div class="row justify-content-between align-items-center">
                     <div class="col-auto">
-                        <div class="input-group">
+                        <div class="input-group mb-1">
                             <div class="input-group-text">
                                 <YAF:LocalizedLabel ID="SinceLabel" runat="server"
                                                     LocalizedTag="ITEMS"/>:

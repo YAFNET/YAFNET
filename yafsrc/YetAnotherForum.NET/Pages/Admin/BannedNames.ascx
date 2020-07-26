@@ -144,17 +144,20 @@
                 </div>
                 <div class="card-footer text-center">
                     <YAF:ThemeButton runat="server" 
+                                     CssClass="mb-1"
                                      Icon="plus-square" 
                                      Type="Primary"
                                      TextLocalizedTag="ADD_IP" TextLocalizedPage="ADMIN_BANNEDNAME" 
                                      CommandName="add"></YAF:ThemeButton>
-                    <YAF:ThemeButton runat="server" 
+                    <YAF:ThemeButton runat="server"  
+                                     CssClass="mb-1"
                                      Icon="upload" 
                                      DataToggle="modal" 
                                      DataTarget="ImportDialog" 
                                      Type="Info"
                                      TextLocalizedTag="IMPORT_IPS" TextLocalizedPage="ADMIN_BANNEDNAME"></YAF:ThemeButton>
-                    <YAF:ThemeButton runat="server" 
+                    <YAF:ThemeButton runat="server"  
+                                     CssClass="mb-1"
                                      CommandName="export" 
                                      ID="Linkbutton4" 
                                      Type="Warning" 

@@ -35,7 +35,7 @@
                     </div>
                 </ItemTemplate>
                 <FooterTemplate>
-                    <div class="d-flex flex-row-reverse">
+                    <div class="d-flex flex-row-reverse mb-3">
                         <div>
                            <div class="btn-group" role="group" aria-label="Tools">
                                 <YAF:ThemeButton runat="server" ID="WatchForum"
