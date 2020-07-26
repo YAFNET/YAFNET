@@ -8174,16 +8174,12 @@ button.close {
   font-size: 1rem; }
 
 /* Help sidebar */
-.sidebar-sticky ul > li:nth-child(odd) {
+.sidebar-sticky li {
   background: #e9ecef; }
+  .sidebar-sticky li:hover {
+    background-color: #f8f9fa; }
 
-.sidebar-sticky ul > li:hover {
-  background-color: #f8f9fa; }
-
-.sidebar-sticky ul > li.active {
-  background-color: #E95420; }
-
-.sidebar-sticky ul > li a.nav-link {
+.sidebar-sticky .a.nav-link {
   display: block;
   color: #333; }
 

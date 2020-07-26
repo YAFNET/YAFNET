@@ -8520,16 +8520,12 @@ legend {
   font-size: 0.9375rem; }
 
 /* Help sidebar */
-.sidebar-sticky ul > li:nth-child(odd) {
+.sidebar-sticky li {
   background: #e9ecef; }
+  .sidebar-sticky li:hover {
+    background-color: #272B30; }
 
-.sidebar-sticky ul > li:hover {
-  background-color: #272B30; }
-
-.sidebar-sticky ul > li.active {
-  background-color: #272B30; }
-
-.sidebar-sticky ul > li a.nav-link {
+.sidebar-sticky .a.nav-link {
   display: block;
   color: #3A3F44; }
 

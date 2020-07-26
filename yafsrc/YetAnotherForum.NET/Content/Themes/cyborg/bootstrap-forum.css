@@ -8369,16 +8369,12 @@ legend {
   font-size: 0.875rem; }
 
 /* Help sidebar */
-.sidebar-sticky ul > li:nth-child(odd) {
+.sidebar-sticky li {
   background: #222; }
+  .sidebar-sticky li:hover {
+    background-color: #2A9FD6; }
 
-.sidebar-sticky ul > li:hover {
-  background-color: #2A9FD6; }
-
-.sidebar-sticky ul > li.active {
-  background-color: #2A9FD6; }
-
-.sidebar-sticky ul > li a.nav-link {
+.sidebar-sticky .a.nav-link {
   display: block;
   color: #222; }
 

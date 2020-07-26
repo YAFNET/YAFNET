@@ -8282,16 +8282,12 @@ button.close {
   font-size: 1rem; }
 
 /* Help sidebar */
-.sidebar-sticky ul > li:nth-child(odd) {
+.sidebar-sticky li {
   background: #fff; }
+  .sidebar-sticky li:hover {
+    background-color: #D9230F; }
 
-.sidebar-sticky ul > li:hover {
-  background-color: #D9230F; }
-
-.sidebar-sticky ul > li.active {
-  background-color: #D9230F; }
-
-.sidebar-sticky ul > li a.nav-link {
+.sidebar-sticky .a.nav-link {
   display: block;
   color: #373a3c; }
 

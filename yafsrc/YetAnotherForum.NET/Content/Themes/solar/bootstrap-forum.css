@@ -8385,16 +8385,12 @@ button.close {
   font-size: 1rem; }
 
 /* Help sidebar */
-.sidebar-sticky ul > li:nth-child(odd) {
+.sidebar-sticky li {
   background: #FDF6E3; }
+  .sidebar-sticky li:hover {
+    background-color: #002B36; }
 
-.sidebar-sticky ul > li:hover {
-  background-color: #002B36; }
-
-.sidebar-sticky ul > li.active {
-  background-color: #073642; }
-
-.sidebar-sticky ul > li a.nav-link {
+.sidebar-sticky .a.nav-link {
   display: block;
   color: #073642; }
 

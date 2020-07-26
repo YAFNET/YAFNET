@@ -8481,16 +8481,12 @@ pre {
   font-size: 1rem; }
 
 /* Help sidebar */
-.sidebar-sticky ul > li:nth-child(odd) {
+.sidebar-sticky li {
   background: #fff; }
+  .sidebar-sticky li:hover {
+    background-color: #333; }
 
-.sidebar-sticky ul > li:hover {
-  background-color: #333; }
-
-.sidebar-sticky ul > li.active {
-  background-color: #333; }
-
-.sidebar-sticky ul > li a.nav-link {
+.sidebar-sticky .a.nav-link {
   display: block;
   color: #333; }
 

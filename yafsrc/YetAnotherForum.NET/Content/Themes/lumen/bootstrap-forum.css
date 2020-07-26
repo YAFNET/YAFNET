@@ -8469,16 +8469,12 @@ a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
   font-size: 0.875rem; }
 
 /* Help sidebar */
-.sidebar-sticky ul > li:nth-child(odd) {
+.sidebar-sticky li {
   background: #f6f6f6; }
+  .sidebar-sticky li:hover {
+    background-color: #f6f6f6; }
 
-.sidebar-sticky ul > li:hover {
-  background-color: #f6f6f6; }
-
-.sidebar-sticky ul > li.active {
-  background-color: #158CBA; }
-
-.sidebar-sticky ul > li a.nav-link {
+.sidebar-sticky .a.nav-link {
   display: block;
   color: #333; }
 

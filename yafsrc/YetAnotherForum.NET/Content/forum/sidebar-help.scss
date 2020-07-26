@@ -1,0 +1,15 @@
+﻿/* Help sidebar */
+.sidebar-sticky {
+    li {
+        background: $light;
+
+        &:hover {
+            background-color: $dropdown-link-hover-bg
+        }
+    }
+    .a.nav-link {
+        display: block;
+        color: $gray-800;
+    }
+}
+

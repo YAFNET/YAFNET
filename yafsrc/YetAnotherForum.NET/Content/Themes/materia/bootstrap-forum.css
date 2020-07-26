@@ -9399,16 +9399,12 @@ select.bootstrap-tagsinput {
   font-size: 0.8125rem; }
 
 /* Help sidebar */
-.sidebar-sticky ul > li:nth-child(odd) {
+.sidebar-sticky li {
   background: #fff; }
+  .sidebar-sticky li:hover {
+    background-color: #f8f9fa; }
 
-.sidebar-sticky ul > li:hover {
-  background-color: #f8f9fa; }
-
-.sidebar-sticky ul > li.active {
-  background-color: #2196F3; }
-
-.sidebar-sticky ul > li a.nav-link {
+.sidebar-sticky .a.nav-link {
   display: block;
   color: #222; }
 
