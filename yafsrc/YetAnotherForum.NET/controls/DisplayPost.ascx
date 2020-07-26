@@ -89,13 +89,13 @@
                             </ul>
                         </asp:PlaceHolder>
                     </div>
-                    <asp:Panel runat="server" CssClass="ml-auto dropleft" id="ToolsHolder">
+                    <asp:Panel runat="server" CssClass="ml-auto" id="ToolsHolder">
                         <YAF:ThemeButton ID="Tools1" runat="server"
                                          Type="Link"
                                          DataToggle="dropdown"
                                          TitleLocalizedTag="TOOLS"
                                          Icon="ellipsis-h" />
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
                             <YAF:ThemeButton ID="MarkAsAnswer" runat="server" 
                                              Visible="false" 
                                              Type="None" 

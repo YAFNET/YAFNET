@@ -79,11 +79,6 @@ namespace YAF.Web.Controls
         /// </summary>
         public string ButtonId { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether Right-Alignment (default: left).
-        /// </summary>
-        public bool AlignRight { get; set; } = false;
-
         #endregion
 
         #region Public Methods
@@ -207,10 +202,9 @@ namespace YAF.Web.Controls
             }
 
             writer.Write(
-                @"<div class=""dropdown-menu{2}"" id=""{0}"" aria-labelledby=""{1}"">",
+                @"<div class=""dropdown-menu dropdown-menu-right"" id=""{0}"" aria-labelledby=""{1}"">",
                 this.ClientID,
-                this.ButtonId,
-                this.AlignRight ? " dropdown-menu-right" : string.Empty);
+                this.ButtonId);
 
             // add the items
             this.items.ForEach(

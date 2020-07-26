@@ -132,7 +132,6 @@
                                      DataToggle="dropdown">
                     </YAF:ThemeButton>
                     <YAF:PopMenu ID="ShareMenu" runat="server" 
-                                 AlignRight="true" 
                                  Control="ShareLink" />
                 </li>
                 <li class="nav-item dropdown">
@@ -149,7 +148,6 @@
                         </ContentTemplate>
                     </asp:UpdatePanel>
                     <YAF:PopMenu runat="server" ID="OptionsMenu"
-                                 AlignRight="true" 
                                  Control="OptionsLink" />
                 </li>
             </ul>

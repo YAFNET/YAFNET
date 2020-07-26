@@ -16,7 +16,7 @@
                                             LocalizedTag="YOUR_NOTIFIY" />
                     </div>
                     <div class="col-md-2 mt-1">
-                        <div class="btn-group dropleft" role="group" aria-label="Filters">
+                        <div class="btn-group" role="group" aria-label="Filters">
                             <YAF:ThemeButton runat="server"
                                              CssClass="dropdown-toggle"
                                              DataToggle="dropdown"
@@ -25,7 +25,7 @@
                                              TextLocalizedTag="FILTER_DROPDOWN"
                                              TextLocalizedPage="ADMIN_USERS">
                             </YAF:ThemeButton>
-                            <div class="dropdown-menu">
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
                                 <div class="px-3 py-1">
                                     <div class="form-group">
                                         <div class="custom-control custom-switch">

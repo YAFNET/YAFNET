@@ -33,7 +33,7 @@
                                          Icon="filter"
                                          TextLocalizedTag="FILTER_DROPDOWN"
                                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
                             <div class="px-3 py-1">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">

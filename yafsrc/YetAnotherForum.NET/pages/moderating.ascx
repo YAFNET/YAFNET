@@ -97,7 +97,7 @@
                          Icon="arrows-alt"
                          Type="Primary"></YAF:ThemeButton>
         <div class="dropdown-menu">
-            <div class="px-4 py-3">
+            <div class="px-4 py-3 dropdown-sm">
                 <div class="form-group">
                     <asp:Label AssociatedControlID="ForumList" runat="server">
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="select_forum" />
