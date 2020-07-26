@@ -28,7 +28,8 @@ namespace YAF.Types.Interfaces
 
     using System;
     using System.Collections.Generic;
-    using System.Linq;
+    
+    using YAF.Types.Extensions;
 
     #endregion
 
@@ -42,24 +43,35 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// The get forum topic read.
         /// </summary>
-        /// <param name="readTrackCurrentUser">The read track current user.</param>
-        /// <param name="forumId">The forum id.</param>
-        /// <param name="topicId">The topic id.</param>
-        /// <param name="forumReadOverride">The forum read override.</param>
-        /// <param name="topicReadOverride">The topic read override.</param>
-        /// <returns></returns>
+        /// <param name="readTrackCurrentUser">
+        /// The read track current user.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="forumReadOverride">
+        /// The forum read override.
+        /// </param>
+        /// <param name="topicReadOverride">
+        /// The topic read override.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DateTime"/>.
+        /// </returns>
         public static DateTime GetForumTopicRead(
             this IReadTrackCurrentUser readTrackCurrentUser,
             int forumId,
             int topicId,
-            DateTime? forumReadOverride = null,
-            DateTime? topicReadOverride = null)
+            DateTime? forumReadOverride,
+            DateTime? topicReadOverride)
         {
             CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
 
             var lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
             var lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
-
 
             if (lastReadForum > lastRead)
             {
@@ -81,10 +93,8 @@ namespace YAF.Types.Interfaces
         public static void SetForumRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> forumIds)
         {
             CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
-            var enumerable = forumIds.ToList();
-            CodeContracts.VerifyNotNull(enumerable, "forumIds");
 
-            enumerable.ForEach(readTrackCurrentUser.SetForumRead);
+            forumIds.ForEach(readTrackCurrentUser.SetForumRead);
         }
 
         /// <summary>
@@ -99,12 +109,8 @@ namespace YAF.Types.Interfaces
         public static void SetTopicRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> topicIds)
         {
             CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
-            CodeContracts.VerifyNotNull(topicIds, "topicIds");
 
-            foreach (var id in topicIds)
-            {
-                readTrackCurrentUser.SetTopicRead(id);
-            }
+            topicIds.ForEach(readTrackCurrentUser.SetTopicRead);
         }
 
         #endregion

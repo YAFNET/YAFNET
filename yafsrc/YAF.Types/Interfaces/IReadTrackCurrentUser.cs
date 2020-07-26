@@ -35,6 +35,14 @@ namespace YAF.Types.Interfaces
     /// </summary>
     public interface IReadTrackCurrentUser
     {
+        /// <summary>
+        /// Gets the Global Last Read DateTime a user Reads a topic or marks a forum as read
+        /// </summary>
+        /// <value>
+        /// The last read.
+        /// </value>
+        DateTime LastRead { get; }
+
         #region Public Methods
 
         /// <summary>
@@ -45,7 +53,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// Returns the DateTime object from the Forum ID.
         /// </returns>
-        DateTime GetForumRead(int forumID, DateTime? readTimeOverride = null);
+        DateTime GetForumRead(int forumID, DateTime? readTimeOverride);
 
         /// <summary>
         /// Returns the last time that the Topic was read.
@@ -55,15 +63,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// Returns the DateTime object from the topicID.
         /// </returns>
-        DateTime GetTopicRead(int topicID, DateTime? readTimeOverride = null);
-
-        /// <summary>
-        /// Get the Global Last Read DateTime a user Reads a topic or marks a forum as read
-        /// </summary>
-        /// <value>
-        /// The last read.
-        /// </value>
-        DateTime LastRead { get; }
+        DateTime GetTopicRead(int topicID, DateTime? readTimeOverride);
 
         /// <summary>
         /// Add Or Update The Forum Read DateTime
