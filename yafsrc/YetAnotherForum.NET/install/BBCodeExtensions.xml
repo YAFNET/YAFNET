@@ -74,7 +74,7 @@
     <Variables></Variables>
     <UseModule>true</UseModule>
     <UseToolbar>false</UseToolbar>
-    <ModuleClass>YAF.Web.BBCodes.UserLinkModule</ModuleClass>
+    <ModuleClass>YAF.Web.BBCodes.UserLinkBBCodeModule</ModuleClass>
     <ExecOrder>75</ExecOrder>
   </YafBBCode>
   <YafBBCode>
