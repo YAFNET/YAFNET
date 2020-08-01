@@ -1,8 +1,8 @@
+using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Util;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index

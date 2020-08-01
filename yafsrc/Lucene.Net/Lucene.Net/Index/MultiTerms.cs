@@ -1,7 +1,7 @@
+using J2N.Collections.Generic.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 namespace YAF.Lucene.Net.Index
 {

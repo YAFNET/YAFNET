@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Support.Threading;
+﻿using J2N.Collections.Generic.Extensions;
+using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;

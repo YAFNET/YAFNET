@@ -97,17 +97,17 @@ namespace YAF.Lucene.Net.Util
             int minRadix = 2, maxRadix = 36;
             if (chars == null || radix < minRadix || radix > maxRadix)
             {
-                throw new System.FormatException();
+                throw new FormatException();
             }
             int i = 0;
             if (len == 0)
             {
-                throw new System.FormatException("chars length is 0");
+                throw new FormatException("chars length is 0");
             }
             bool negative = chars[offset + i] == '-';
             if (negative && ++i == len)
             {
-                throw new System.FormatException("can't convert to an int");
+                throw new FormatException("can't convert to an int");
             }
             if (negative == true)
             {
@@ -123,19 +123,19 @@ namespace YAF.Lucene.Net.Util
             int result = 0;
             for (int i = 0; i < len; i++)
             {
-                int digit = (int)System.Char.GetNumericValue(chars[i + offset]);
+                int digit = (int)char.GetNumericValue(chars[i + offset]);
                 if (digit == -1)
                 {
-                    throw new System.FormatException("Unable to parse");
+                    throw new FormatException("Unable to parse");
                 }
                 if (max > result)
                 {
-                    throw new System.FormatException("Unable to parse");
+                    throw new FormatException("Unable to parse");
                 }
                 int next = result * radix - digit;
                 if (next > result)
                 {
-                    throw new System.FormatException("Unable to parse");
+                    throw new FormatException("Unable to parse");
                 }
                 result = next;
             }
@@ -146,7 +146,7 @@ namespace YAF.Lucene.Net.Util
                 result = -result;
                 if (result < 0)
                 {
-                    throw new System.FormatException("Unable to parse");
+                    throw new FormatException("Unable to parse");
                 }
             }
             return result;
@@ -797,9 +797,11 @@ namespace YAF.Lucene.Net.Util
 #endif
         private class NaturalComparer<T> : IComparer<T> //where T : IComparable<T>
         {
-            internal NaturalComparer()
+            private NaturalComparer()
             {
             }
+
+            public static NaturalComparer<T> Default { get; } = new NaturalComparer<T>();
 
             public virtual int Compare(T o1, T o2)
             {
@@ -841,7 +843,7 @@ namespace YAF.Lucene.Net.Util
             // to implement IComparable<T>.
             else if (typeof(IComparable<T>).IsAssignableFrom(genericClosingType))
             {
-                return new NaturalComparer<T>();
+                return NaturalComparer<T>.Default;
             }
 
             return Comparer<T>.Default;

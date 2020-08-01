@@ -1,9 +1,9 @@
+using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Index

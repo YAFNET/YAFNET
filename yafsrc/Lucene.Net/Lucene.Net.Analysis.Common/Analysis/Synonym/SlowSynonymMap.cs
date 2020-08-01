@@ -1,10 +1,10 @@
-﻿using YAF.Lucene.Net.Analysis.Util;
+﻿using J2N.Collections.Generic.Extensions;
+using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Text;
 
 namespace YAF.Lucene.Net.Analysis.Synonym

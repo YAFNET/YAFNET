@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis;
+﻿using J2N.Collections.Generic.Extensions;
+using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Index;
@@ -10,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace YAF.Lucene.Net.Queries.Mlt
