@@ -1,11 +1,11 @@
-﻿using YAF.Lucene.Net.Analysis.Core;
+﻿using J2N.Collections.Generic.Extensions;
+using YAF.Lucene.Net.Analysis.Core;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Analysis.Query

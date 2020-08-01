@@ -1,3 +1,4 @@
+using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.IO;
@@ -6,7 +7,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Search
@@ -146,7 +146,7 @@ namespace YAF.Lucene.Net.Search
 
         private class CoreClosedListenerAnonymousInnerClassHelper : SegmentReader.ICoreDisposedListener
         {
-            private FieldCacheImpl outerInstance;
+            private readonly FieldCacheImpl outerInstance;
 
             public CoreClosedListenerAnonymousInnerClassHelper(FieldCacheImpl outerInstance)
             {
@@ -164,7 +164,7 @@ namespace YAF.Lucene.Net.Search
 
         private class ReaderClosedListenerAnonymousInnerClassHelper : IndexReader.IReaderClosedListener
         {
-            private FieldCacheImpl outerInstance;
+            private readonly FieldCacheImpl outerInstance;
 
             public ReaderClosedListenerAnonymousInnerClassHelper(FieldCacheImpl outerInstance)
             {
