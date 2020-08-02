@@ -31,7 +31,6 @@ namespace YAF.Pages.Admin
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
-    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -104,10 +103,10 @@ namespace YAF.Pages.Admin
             }
 
             // setup initial roles (if any) for this user
-            AspNetRolesHelper.SetupUserRoles(this.PageContext.PageBoardID, user);
+            this.Get<IAspNetRolesHelper>().SetupUserRoles(this.PageContext.PageBoardID, user);
 
             // create the user in the YAF DB as well as sync roles...
-            var userId = AspNetRolesHelper.CreateForumUser(user, this.PageContext.PageBoardID);
+            var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, this.PageContext.PageBoardID);
 
             var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
                 .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);

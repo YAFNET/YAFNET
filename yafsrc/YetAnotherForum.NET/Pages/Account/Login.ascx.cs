@@ -224,7 +224,7 @@ namespace YAF.Pages.Account
         }
 
         /// <summary>
-        ///  handle external login if provider exist in Querystring
+        ///  handle external login if provider exist in Query String
         /// </summary>
         private void HandleExternalLogin()
         {

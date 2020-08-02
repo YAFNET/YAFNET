@@ -31,7 +31,6 @@ namespace YAF.Core.Identity.Owin
 
     using YAF.Configuration;
     using YAF.Core.Context;
-    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
@@ -161,10 +160,10 @@ namespace YAF.Core.Identity.Owin
             }
 
             // setup initial roles (if any) for this user
-            AspNetRolesHelper.SetupUserRoles(BoardContext.Current.PageBoardID, user);
+            this.Get<IAspNetRolesHelper>().SetupUserRoles(BoardContext.Current.PageBoardID, user);
 
             // create the user in the YAF DB as well as sync roles...
-            var userID = AspNetRolesHelper.CreateForumUser(user, displayName, BoardContext.Current.PageBoardID);
+            var userID = this.Get<IAspNetRolesHelper>().CreateForumUser(user, displayName, BoardContext.Current.PageBoardID);
 
             if (userID == null)
             {

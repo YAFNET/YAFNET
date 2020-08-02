@@ -40,6 +40,39 @@ namespace YAF.Core.Model
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// The save message.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="nntpForumId">
+        /// The nntp forum id.
+        /// </param>
+        /// <param name="topic">
+        /// The topic.
+        /// </param>
+        /// <param name="body">
+        /// The body.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="userName">
+        /// The user name.
+        /// </param>
+        /// <param name="ip">
+        /// The IP Address.
+        /// </param>
+        /// <param name="posted">
+        /// The posted.
+        /// </param>
+        /// <param name="externalMessageId">
+        /// The external message id.
+        /// </param>
+        /// <param name="referenceMessageId">
+        /// The reference message id.
+        /// </param>
         public static void SaveMessage(
             this IRepository<NntpTopic> repository,
             [NotNull] int nntpForumId,
@@ -52,7 +85,6 @@ namespace YAF.Core.Model
             [NotNull] string externalMessageId,
             [NotNull] string referenceMessageId)
         {
-
             CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Scalar.nntptopic_savemessage(

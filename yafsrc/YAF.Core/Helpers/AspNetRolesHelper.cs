@@ -33,7 +33,6 @@ namespace YAF.Core.Helpers
     using System.Threading.Tasks;
 
     using YAF.Configuration;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -50,8 +49,28 @@ namespace YAF.Core.Helpers
     /// <summary>
     /// The role membership helper.
     /// </summary>
-    public static class AspNetRolesHelper
+    public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AspNetRolesHelper"/> class. 
+        /// </summary>
+        /// <param name="serviceLocator">
+        /// The service locator.
+        /// </param>
+        public AspNetRolesHelper([NotNull] IServiceLocator serviceLocator)
+        {
+            this.ServiceLocator = serviceLocator;
+        }
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator { get; protected set; }
+
+        #endregion
+
         #region Public Methods
 
         /// <summary>
@@ -63,9 +82,9 @@ namespace YAF.Core.Helpers
         /// <param name="role">
         /// The role.
         /// </param>
-        public static void AddUserToRole([NotNull] AspNetUsers user, [NotNull] string role)
+        public void AddUserToRole([NotNull] AspNetUsers user, [NotNull] string role)
         {
-            BoardContext.Current.Get<IAspNetUsersHelper>().AddToRole(user, role);
+            this.Get<IAspNetUsersHelper>().AddToRole(user, role);
         }
 
         /// <summary>
@@ -81,9 +100,9 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// Returns the UserID of the user if everything was successful. Otherwise, null.
         /// </returns>
-        public static int? CreateForumUser([NotNull] AspNetUsers user, int pageBoardID)
+        public int? CreateForumUser([NotNull] AspNetUsers user, int pageBoardID)
         {
-            return CreateForumUser(user, user.UserName, pageBoardID);
+            return this.Get<IAspNetRolesHelper>().CreateForumUser(user, user.UserName, pageBoardID);
         }
 
         /// <summary>
@@ -102,13 +121,13 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// Returns the UserID of the user if everything was successful. Otherwise, null.
         /// </returns>
-        public static int? CreateForumUser([NotNull] AspNetUsers user, [NotNull] string displayName, int pageBoardID)
+        public int? CreateForumUser([NotNull] AspNetUsers user, [NotNull] string displayName, int pageBoardID)
         {
             int? userID = null;
 
             try
             {
-                userID = BoardContext.Current.GetRepository<User>().AspNet(
+                userID = this.GetRepository<User>().AspNet(
                     pageBoardID,
                     user.UserName,
                     displayName,
@@ -116,15 +135,12 @@ namespace YAF.Core.Helpers
                     user.Id,
                     user.IsApproved);
 
-                GetRolesForUser(user).ForEach(
-                    role => BoardContext.Current.GetRepository<User>().SetRole(
-                        pageBoardID,
-                        user.Id,
-                        role));
+                this.Get<IAspNetRolesHelper>().GetRolesForUser(user).ForEach(
+                    role => this.GetRepository<User>().SetRole(pageBoardID, user.Id, role));
             }
             catch (Exception x)
             {
-                BoardContext.Current.Get<ILogger>().Error(x, "Error in CreateForumUser");
+                this.Get<ILogger>().Error(x, "Error in CreateForumUser");
             }
 
             return userID;
@@ -136,11 +152,11 @@ namespace YAF.Core.Helpers
         /// <param name="roleName">
         /// The role name.
         /// </param>
-        public static void CreateRole([NotNull] string roleName)
+        public void CreateRole([NotNull] string roleName)
         {
             var role = new AspNetRoles { Name = roleName };
 
-            BoardContext.Current.Get<IAspNetRoleManager>().Create(role);
+            this.Get<IAspNetRoleManager>().Create(role);
         }
 
         /// <summary>
@@ -149,11 +165,11 @@ namespace YAF.Core.Helpers
         /// <param name="roleName">
         /// The role name.
         /// </param>
-        public static void DeleteRole([NotNull] string roleName)
+        public void DeleteRole([NotNull] string roleName)
         {
-            var role = BoardContext.Current.Get<IAspNetRoleManager>().FindByName(roleName);
+            var role = this.Get<IAspNetRoleManager>().FindByName(roleName);
 
-            BoardContext.Current.Get<IAspNetRoleManager>().Delete(role);
+            this.Get<IAspNetRoleManager>().Delete(role);
         }
 
         /// <summary>
@@ -164,9 +180,9 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// The did create forum user.
         /// </returns>
-        public static bool DidCreateForumUser([NotNull] AspNetUsers user, int pageBoardID)
+        public bool DidCreateForumUser([NotNull] AspNetUsers user, int pageBoardID)
         {
-            var userID = CreateForumUser(user, pageBoardID);
+            var userID = this.Get<IAspNetRolesHelper>().CreateForumUser(user, pageBoardID);
             return userID != null;
         }
 
@@ -176,9 +192,9 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// Returns all Roles
         /// </returns>
-        public static List<string> GetAllRoles()
+        public List<string> GetAllRoles()
         {
-            return BoardContext.Current.Get<IAspNetRoleManager>().Roles.Select(r => r.Name).ToList();
+            return this.Get<IAspNetRoleManager>().Roles.Select(r => r.Name).ToList();
         }
 
         /// <summary>
@@ -190,9 +206,9 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// Returns all Roles
         /// </returns>
-        public static IList<string> GetRolesForUser([NotNull] AspNetUsers user)
+        public IList<string> GetRolesForUser([NotNull] AspNetUsers user)
         {
-            return BoardContext.Current.Get<IAspNetRoleManager>().GetRoles(user);
+            return this.Get<IAspNetRoleManager>().GetRoles(user);
         }
 
         /// <summary>
@@ -204,21 +220,22 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<AspNetUsers> GetUsersInRole(string roleName)
+        public List<AspNetUsers> GetUsersInRole(string roleName)
         {
-            var role = BoardContext.Current.Get<IAspNetRoleManager>().FindByName(roleName);
+            var role = this.Get<IAspNetRoleManager>().FindByName(roleName);
 
-            var users = BoardContext.Current.GetRepository<AspNetUserRoles>().Get(r => r.RoleId == role.Id);
+            var users = this.GetRepository<AspNetUserRoles>().Get(r => r.RoleId == role.Id);
 
             var userList = new List<AspNetUsers>();
 
-            BoardContext.Current.Get<IAspNetUsersHelper>().Users.ForEach(user =>
-            {
-                if (users.Any(u => u.UserId == user.Id))
+            this.Get<IAspNetUsersHelper>().Users.ForEach(
+                user =>
                 {
-                    userList.Add(user);
-                }
-            });
+                    if (users.Any(u => u.UserId == user.Id))
+                    {
+                        userList.Add(user);
+                    }
+                });
 
             return userList;
         }
@@ -231,7 +248,7 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// The group in group table.
         /// </returns>
-        public static bool GroupInGroupTable([NotNull] string groupName, [NotNull] DataTable groupTable)
+        public bool GroupInGroupTable([NotNull] string groupName, [NotNull] DataTable groupTable)
         {
             return groupTable.AsEnumerable().Any(
                 row => row["Member"].ToType<int>() == 1 && row["Name"].ToType<string>() == groupName);
@@ -249,9 +266,9 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// The is user in role.
         /// </returns>
-        public static bool IsUserInRole([NotNull] AspNetUsers user, [NotNull] string role)
+        public bool IsUserInRole([NotNull] AspNetUsers user, [NotNull] string role)
         {
-            return BoardContext.Current.Get<IAspNetUsersHelper>().IsInRole(user, role);
+            return this.Get<IAspNetUsersHelper>().IsInRole(user, role);
         }
 
         /// <summary>
@@ -263,9 +280,9 @@ namespace YAF.Core.Helpers
         /// <param name="role">
         /// The role.
         /// </param>
-        public static void RemoveUserFromRole([NotNull] string userProviderKey, [NotNull] string role)
+        public void RemoveUserFromRole([NotNull] string userProviderKey, [NotNull] string role)
         {
-            BoardContext.Current.Get<IAspNetUsersHelper>().RemoveFromRole(userProviderKey, role);
+            this.Get<IAspNetUsersHelper>().RemoveFromRole(userProviderKey, role);
         }
 
         /// <summary>
@@ -275,9 +292,9 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// The role exists.
         /// </returns>
-        public static bool RoleExists([NotNull] string roleName)
+        public bool RoleExists([NotNull] string roleName)
         {
-            return BoardContext.Current.Get<IAspNetRoleManager>().RoleExists(roleName);
+            return this.Get<IAspNetRoleManager>().RoleExists(roleName);
         }
 
         /// <summary>
@@ -289,16 +306,16 @@ namespace YAF.Core.Helpers
         /// <param name="user">
         /// The user.
         /// </param>
-        public static void SetupUserRoles(int pageBoardID, [NotNull] AspNetUsers user)
+        public void SetupUserRoles(int pageBoardID, [NotNull] AspNetUsers user)
         {
-            (from @group in BoardContext.Current.GetRepository<Group>().List(boardId: pageBoardID)
-             let roleFlags = new GroupFlags(@group.Flags)
-             where roleFlags.IsStart && !roleFlags.IsGuest
-             select @group.Name
-             into roleName
-             where roleName.IsSet()
-             where !IsUserInRole(user, roleName)
-             select roleName).ForEach(roleName => AddUserToRole(user, roleName));
+            (from @group in this.GetRepository<Group>().List(boardId: pageBoardID)
+                let roleFlags = new GroupFlags(@group.Flags)
+                where roleFlags.IsStart && !roleFlags.IsGuest
+                select @group.Name
+                into roleName
+                where roleName.IsSet()
+                where !this.Get<IAspNetRolesHelper>().IsUserInRole(user, roleName)
+                select roleName).ForEach(roleName => this.Get<IAspNetRolesHelper>().AddUserToRole(user, roleName));
         }
 
         /// <summary>
@@ -309,27 +326,27 @@ namespace YAF.Core.Helpers
         /// <param name="pageBoardId">
         /// The page Board Id.
         /// </param>
-        public static void SyncAllMembershipUsers(int pageBoardId)
+        public void SyncAllMembershipUsers(int pageBoardId)
         {
             // get all users in membership...
-            var users = BoardContext.Current.Get<IAspNetUsersHelper>().Users.Where(u => u != null && u.Email.IsSet());
+            var users = this.Get<IAspNetUsersHelper>().Users.Where(u => u != null && u.Email.IsSet());
 
             // create/update users...
-            Parallel.ForEach(users, user => UpdateForumUser(user, pageBoardId));
+            Parallel.ForEach(users, user => this.Get<IAspNetRolesHelper>().UpdateForumUser(user, pageBoardId));
         }
 
         /// <summary>
         /// Syncs the ASP.NET roles with YAF group based on YAF (not bi-directional)
         /// </summary>
         /// <param name="pageBoardID">The page board ID.</param>
-        public static void SyncRoles(int pageBoardID)
+        public void SyncRoles(int pageBoardID)
         {
             // get all the groups in YAF DB and create them if they do not exist as a role in membership
-            (from @group in BoardContext.Current.GetRepository<Group>().List(boardId: pageBoardID)
-             let name = @group.Name
-             let roleFlags = new GroupFlags(@group.Flags)
-             where name.IsSet() && !roleFlags.IsGuest && !RoleExists(name)
-             select name).ForEach(CreateRole);
+            (from @group in this.GetRepository<Group>().List(boardId: pageBoardID)
+                let name = @group.Name
+                let roleFlags = new GroupFlags(@group.Flags)
+                where name.IsSet() && !roleFlags.IsGuest && !this.Get<IAspNetRolesHelper>().RoleExists(name)
+                select name).ForEach(this.Get<IAspNetRolesHelper>().CreateRole);
         }
 
         /// <summary>
@@ -342,7 +359,7 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// The update forum user.
         /// </returns>
-        public static int? UpdateForumUser([NotNull] AspNetUsers user, int pageBoardID, string[] roles = null)
+        public int? UpdateForumUser([NotNull] AspNetUsers user, int pageBoardID, string[] roles = null)
         {
             if (user == null)
             {
@@ -350,9 +367,9 @@ namespace YAF.Core.Helpers
                 return null;
             }
 
-            var userId = BoardContext.Current.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id);
+            var userId = this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id);
 
-            if (userId == BoardContext.Current.Get<IAspNetUsersHelper>().GuestUserId)
+            if (userId == this.Get<IAspNetUsersHelper>().GuestUserId)
             {
                 return userId;
             }
@@ -360,8 +377,8 @@ namespace YAF.Core.Helpers
             if (user.Id == null)
             {
                 // problem -- log and move on...
-                BoardContext.Current.Get<ILogger>().Log(
-                    BoardContext.Current.Get<IUserDisplayName>().GetName(userId),
+                this.Get<ILogger>().Log(
+                    this.Get<IUserDisplayName>().GetName(userId),
                     "UpdateForumUser",
                     $"Null User Provider Key for UserName {user.UserName}. Please check your provider key settings for your ASP.NET membership provider.");
 
@@ -371,7 +388,7 @@ namespace YAF.Core.Helpers
             // is this a new user?
             var isNewUser = userId <= 0;
 
-            userId = BoardContext.Current.GetRepository<User>().AspNet(
+            userId = this.GetRepository<User>().AspNet(
                 pageBoardID,
                 user.UserName,
                 null,
@@ -380,8 +397,8 @@ namespace YAF.Core.Helpers
                 user.IsApproved);
 
             // get user groups...
-            var groupTable = BoardContext.Current.GetRepository<Group>().MemberAsDataTable(pageBoardID, userId);
-            var userRoles = GetRolesForUser(user);
+            var groupTable = this.GetRepository<Group>().MemberAsDataTable(pageBoardID, userId);
+            var userRoles = this.Get<IAspNetRolesHelper>().GetRolesForUser(user);
 
             if (Config.IsDotNetNuke && roles != null)
             {
@@ -397,15 +414,12 @@ namespace YAF.Core.Helpers
             }
 
             // add groups...
-            userRoles.Where(role => !GroupInGroupTable(role, groupTable)).ForEach(
-                role => BoardContext.Current.GetRepository<User>().SetRole(
-                    pageBoardID,
-                    user.Id,
-                    role));
+            userRoles.Where(role => !this.Get<IAspNetRolesHelper>().GroupInGroupTable(role, groupTable)).ForEach(
+                role => this.GetRepository<User>().SetRole(pageBoardID, user.Id, role));
 
             // remove groups...remove since there is no longer an association in the membership...
             groupTable.AsEnumerable().Where(row => !userRoles.Contains(row["Name"].ToString())).ForEach(
-                row => BoardContext.Current.GetRepository<UserGroup>().Save(userId, row["GroupID"], 0));
+                row => this.GetRepository<UserGroup>().Save(userId, row["GroupID"], 0));
 
             if (!isNewUser || userId <= 0)
             {
@@ -414,16 +428,16 @@ namespace YAF.Core.Helpers
 
             try
             {
-                var defaultNotificationSetting = BoardContext.Current.Get<BoardSettings>().DefaultNotificationSetting;
+                var defaultNotificationSetting = this.Get<BoardSettings>().DefaultNotificationSetting;
 
-                var defaultSendDigestEmail = BoardContext.Current.Get<BoardSettings>().DefaultSendDigestEmail;
+                var defaultSendDigestEmail = this.Get<BoardSettings>().DefaultSendDigestEmail;
 
                 // setup default notifications...
                 var autoWatchTopicsEnabled =
                     defaultNotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
                 // save the settings...
-                BoardContext.Current.GetRepository<User>().SaveNotification(
+                this.GetRepository<User>().SaveNotification(
                     userId,
                     true,
                     autoWatchTopicsEnabled,
@@ -432,8 +446,8 @@ namespace YAF.Core.Helpers
             }
             catch (Exception ex)
             {
-                BoardContext.Current.Get<ILogger>().Log(
-                    BoardContext.Current.Get<IUserDisplayName>().GetName(userId),
+                this.Get<ILogger>().Log(
+                    this.Get<IUserDisplayName>().GetName(userId),
                     "UpdateForumUser",
                     $"Failed to save default notifications for new user: {ex}");
             }

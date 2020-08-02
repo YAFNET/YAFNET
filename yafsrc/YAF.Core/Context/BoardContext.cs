@@ -299,7 +299,7 @@ namespace YAF.Core.Context
                                       || this.Get<HttpSessionStateBase>()["UserUpdated"].ToString()
                                       != this.MembershipUser.UserName))
             {
-                AspNetRolesHelper.UpdateForumUser(this.MembershipUser, this.PageBoardID);
+                this.Get<IAspNetRolesHelper>().UpdateForumUser(this.MembershipUser, this.PageBoardID);
                 this.Get<HttpSessionStateBase>()["UserUpdated"] = this.MembershipUser.UserName;
             }
 

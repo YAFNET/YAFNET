@@ -673,6 +673,8 @@ namespace YAF.Pages
                                                            IsBBCode = this.forumEditor.UsesBBCode
                                                        };
 
+            this.PreviewMessagePost.MessageID = null;
+
             this.PreviewMessagePost.Message = this.forumEditor.Text;
         }
 

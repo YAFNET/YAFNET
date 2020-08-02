@@ -31,7 +31,6 @@ namespace YAF.Pages.Admin
 
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -126,7 +125,7 @@ namespace YAF.Pages.Admin
             // update if the user is not Guest
             if (!this.IsGuestUser)
             {
-                AspNetRolesHelper.UpdateForumUser(aspNetUser, this.PageContext.PageBoardID);
+                this.Get<IAspNetRolesHelper>().UpdateForumUser(aspNetUser, this.PageContext.PageBoardID);
             }
 
             this.EditUserTabs.DataBind();

@@ -40,6 +40,33 @@ namespace YAF.Core.Model
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// Save Server.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="nntpServerId">
+        /// The nntp server id.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="address">
+        /// The address.
+        /// </param>
+        /// <param name="port">
+        /// The port.
+        /// </param>
+        /// <param name="userName">
+        /// The user name.
+        /// </param>
+        /// <param name="userPass">
+        /// The user pass.
+        /// </param>
         public static void Save(
             this IRepository<NntpServer> repository,
             [NotNull] int? nntpServerId,

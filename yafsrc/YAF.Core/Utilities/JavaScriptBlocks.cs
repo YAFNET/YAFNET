@@ -747,7 +747,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
                           extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,attachments,quote,codemirror"",
                           removePlugins: 'bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
-		                  toolbar: [{toolbar}],
+                          toolbar: [{toolbar}],
 		                  entities_greek: false,
                           entities_latin: false,
                           language: '{editorLanguage}',
@@ -778,6 +778,9 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                   CKEDITOR.on('instanceReady', function (ev) {{
                      ev.editor.document.on('drop', function (event) {{
                        {Config.JQueryAlias}('.EditorDiv').yafFileUpload(""send"", {{files: event.data.$.dataTransfer.files}});
+                     }});
+                     ev.editor.on('paste', function (event) {{
+                       {Config.JQueryAlias}('.EditorDiv').yafFileUpload(""send"", {{files: event.data.dataTransfer._.files}});
                      }});
                   }});";
         }

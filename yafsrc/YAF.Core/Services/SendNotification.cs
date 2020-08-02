@@ -109,7 +109,7 @@ namespace YAF.Core.Services
                     {
                         if (moderator.IsGroup)
                         {
-                            moderatorUserNames.AddRange(AspNetRolesHelper.GetUsersInRole(moderator.Name).Select(u => u.UserName));
+                            moderatorUserNames.AddRange(this.Get<IAspNetRolesHelper>().GetUsersInRole(moderator.Name).Select(u => u.UserName));
                         }
                         else
                         {
@@ -210,7 +210,7 @@ namespace YAF.Core.Services
                             if (moderator.IsGroup)
                             {
                                 moderatorUserNames.AddRange(
-                                    AspNetRolesHelper.GetUsersInRole(moderator.Name).Select(u => u.UserName));
+                                    this.Get<IAspNetRolesHelper>().GetUsersInRole(moderator.Name).Select(u => u.UserName));
                             }
                             else
                             {

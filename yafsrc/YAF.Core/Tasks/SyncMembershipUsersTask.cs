@@ -28,10 +28,10 @@ namespace YAF.Core.Tasks
   using System;
 
   using YAF.Core.Context;
-  using YAF.Core.Helpers;
   using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Identity;
 
   #endregion
 
@@ -84,8 +84,8 @@ namespace YAF.Core.Tasks
     {
       try
       {
-        // attempt to run the sync code...
-        AspNetRolesHelper.SyncAllMembershipUsers((int)this.Data);
+                // attempt to run the sync code...
+                this.Get<IAspNetRolesHelper>().SyncAllMembershipUsers((int)this.Data);
       }
       catch (Exception x)
       {

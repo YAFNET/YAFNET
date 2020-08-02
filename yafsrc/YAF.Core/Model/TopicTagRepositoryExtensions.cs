@@ -112,8 +112,8 @@ namespace YAF.Core.Model
         public static string ListAsDelimitedString(this IRepository<TopicTag> repository, int topicId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
-            
-            return  repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");
+
+            return repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");
         }
 
         #endregion

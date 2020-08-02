@@ -25,10 +25,7 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Linq;
-
-    using ServiceStack.OrmLite;
-
+    
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
@@ -77,7 +74,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var success = repository.DbAccess.Execute(db => db.Connection.Delete<ForumReadTracking>(x => x.UserID == userID)) == 1;
+            var success = repository.Delete(x => x.UserID == userID) == 1;
 
             if (success)
             {
@@ -106,9 +103,9 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var forum = repository.Get(t => t.UserID == userId && t.ForumID == forumId);
+            var forum = repository.GetSingle(t => t.UserID == userId && t.ForumID == forumId);
 
-            return forum.FirstOrDefault()?.LastAccessDate;
+            return forum?.LastAccessDate;
         }
 
         #endregion

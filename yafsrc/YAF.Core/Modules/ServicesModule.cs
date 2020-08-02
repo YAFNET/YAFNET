@@ -166,6 +166,7 @@ namespace YAF.Core.Modules
             builder.RegisterType<AspNetRoleManager>().As<IAspNetRoleManager>().InstancePerBoardContext();
 
             builder.RegisterType<AspNetUsersHelper>().As<IAspNetUsersHelper>().InstancePerBoardContext();
+            builder.RegisterType<AspNetRolesHelper>().As<IAspNetRolesHelper>().InstancePerBoardContext();
 
             // based on BoardContext
             builder.RegisterType<FavoriteTopic>().As<IFavoriteTopic>().InstancePerBoardContext()

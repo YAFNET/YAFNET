@@ -29,8 +29,9 @@ namespace YAF.Web.BBCodes
 
     using YAF.Core.BBCode;
     using YAF.Core.Context;
-    using YAF.Core.Helpers;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
 
     /// <summary>
     /// Hide Group BBCode Module
@@ -105,7 +106,7 @@ namespace YAF.Web.BBCodes
                 }*/
 
                 // Check For Role Hiding
-                if (AspNetRolesHelper.GetRolesForUser(
+                if (this.Get<IAspNetRolesHelper>().GetRolesForUser(
                             BoardContext.Current.MembershipUser).Any(role => !groups.Any(role.Equals)))
                 {
                     shownContentGuest = hiddenContent;

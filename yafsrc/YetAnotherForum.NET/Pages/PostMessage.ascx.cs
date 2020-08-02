@@ -903,6 +903,8 @@ namespace YAF.Pages
                                                            IsBBCode = this.forumEditor.UsesBBCode
                                                        };
 
+            this.PreviewMessagePost.MessageID = 0;
+
             this.PreviewMessagePost.Message = this.forumEditor.Text;
         }
 

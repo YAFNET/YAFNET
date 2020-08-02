@@ -28,7 +28,6 @@ namespace YAF.Core.Context
     using System.Data;
     using System.Web;
 
-    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Attributes;
@@ -37,6 +36,7 @@ namespace YAF.Core.Context
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -152,7 +152,7 @@ namespace YAF.Core.Context
                     {
                         // create the user...
                         if (
-                            !AspNetRolesHelper.DidCreateForumUser(
+                            !this.Get<IAspNetRolesHelper>().DidCreateForumUser(
                                 BoardContext.Current.MembershipUser, BoardContext.Current.PageBoardID))
                         {
                             throw new ApplicationException("Failed to create new user.");

@@ -162,19 +162,21 @@ namespace YAF.Configuration
         /// </summary>
         public static bool EnableURLRewriting => GetConfigValueAsBool("YAF.EnableUrlRewriting", true);
 
+        /* FOR FUTURE USE
         /// <summary>
-        /// The GitHub client id.
+        /// TODO: The GitHub client id.
         /// </summary>
         public static string GitHubClientID => GetConfigValueAsString("YAF.GithubClientID");
 
         /// <summary>
-        /// The GitHub client secret.
+        /// TODO: The GitHub client secret.
         /// </summary>
         public static string GitHubClientSecret => GetConfigValueAsString("YAF.GithubClientSecret");
 
-        // public static string MicrosoftAccountClientID => GetConfigValueAsString("YAF.MicrosoftAccountClientID");
+        public static string MicrosoftAccountClientID => GetConfigValueAsString("YAF.MicrosoftAccountClientID");
 
-        // public static string MicrosoftAccountClientSecret => GetConfigValueAsString("YAF.MicrosoftAccountClientSecret");
+        public static string MicrosoftAccountClientSecret => GetConfigValueAsString("YAF.MicrosoftAccountClientSecret");
+        */
 
         /// <summary>
         /// Gets the google client ID.
