@@ -1516,7 +1516,8 @@
       } else {
         this.handleOpen();
       }
-      if (this.options.hidePageScrollbars) {
+        if (this.options.hidePageScrollbars
+            ) {
         // Hide the page scrollbars:
         this.bodyOverflowStyle = document.body.style.overflow;
         document.body.style.overflow = "hidden";

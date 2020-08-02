@@ -2640,11 +2640,11 @@
       });
     },
 
-    _onPaste: function (e) {
-      var items =
-          e.originalEvent &&
-          e.originalEvent.clipboardData &&
-          e.originalEvent.clipboardData.items,
+      _onPaste: function (e) {
+          var items =
+                  e.originalEvent &&
+                      e.originalEvent.clipboardData &&
+                      e.originalEvent.clipboardData.items,
         data = { files: [] };
       if (items && items.length) {
         $.each(items, function (index, item) {
@@ -2703,8 +2703,8 @@
           // dragleave is not required, but added for completeness:
           dragleave: this._onDragLeave
         });
-        this._on(this.options.pasteZone, {
-          paste: this._onPaste
+          this._on(this.options.pasteZone, {
+              paste: this._onPaste
         });
       }
       if ($.support.fileInput) {

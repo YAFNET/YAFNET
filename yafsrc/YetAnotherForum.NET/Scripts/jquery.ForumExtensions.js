@@ -39659,7 +39659,8 @@ S2.define('jquery.select2',[
       } else {
         this.handleOpen();
       }
-      if (this.options.hidePageScrollbars) {
+        if (this.options.hidePageScrollbars
+            ) {
         // Hide the page scrollbars:
         this.bodyOverflowStyle = document.body.style.overflow;
         document.body.style.overflow = "hidden";
@@ -39898,9 +39899,10 @@ S2.define('jquery.select2',[
       onclose: function () {
           $("#blueimp-gallery").addClass("d-none");
           container.trigger("close");
+          document.body.style.overflow = null;
       },
       onclosed: function () {
-        container.trigger("closed").removeData("gallery");
+          container.trigger("closed").removeData("gallery");
       }
     };
     var options = $.extend(

@@ -49,9 +49,10 @@
       onclose: function () {
           $("#blueimp-gallery").addClass("d-none");
           container.trigger("close");
+          document.body.style.overflow = null;
       },
       onclosed: function () {
-        container.trigger("closed").removeData("gallery");
+          container.trigger("closed").removeData("gallery");
       }
     };
     var options = $.extend(
