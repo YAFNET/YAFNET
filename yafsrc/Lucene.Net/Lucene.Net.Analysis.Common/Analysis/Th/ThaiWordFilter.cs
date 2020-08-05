@@ -3,7 +3,6 @@ using ICU4N.Text;
 using YAF.Lucene.Net.Analysis.Core;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Globalization;
