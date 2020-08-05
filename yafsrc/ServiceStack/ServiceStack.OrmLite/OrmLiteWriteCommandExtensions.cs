@@ -782,6 +782,8 @@ namespace ServiceStack.OrmLite
 
         private static long InsertInternal<T>(IOrmLiteDialectProvider dialectProvider, IDbCommand dbCmd, object obj, Action<IDbCommand> commandFilter, bool selectIdentity)
         {
+            OrmLiteUtils.AssertNotAnonType<T>();
+
             dialectProvider.SetParameterValues<T>(dbCmd, obj);
 
             commandFilter?.Invoke(dbCmd); //dbCmd.OnConflictInsert() needs to be applied before last insert id
@@ -1004,6 +1006,7 @@ namespace ServiceStack.OrmLite
 
             try
             {
+                var dialect = dbCmd.Dialect();
                 foreach (var row in saveRows)
                 {
                     var id = modelDef.GetPrimaryKey(row);
@@ -1015,9 +1018,8 @@ namespace ServiceStack.OrmLite
                     {
                         if (modelDef.HasAutoIncrementId)
                         {
-                            var dialectProvider = dbCmd.GetDialectProvider();
                             var newId = dbCmd.Insert(row, commandFilter: null, selectIdentity: true);
-                            var safeId = dialectProvider.FromDbValue(newId, modelDef.PrimaryKey.FieldType);
+                            var safeId = dialect.FromDbValue(newId, modelDef.PrimaryKey.FieldType);
                             modelDef.PrimaryKey.SetValue(row, safeId);
                             id = newId;
                         }

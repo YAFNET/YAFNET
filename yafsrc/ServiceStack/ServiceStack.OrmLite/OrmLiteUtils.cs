@@ -31,7 +31,7 @@ namespace ServiceStack.OrmLite
 
     public static class OrmLiteUtils
     {
-        internal const string AsyncRequiresNet45Error = "Async support is only available in .NET 4.5 builds";
+        internal const string AsyncRequiresNET48Error = "Async support is only available in .NET 4.5 builds";
 
         const int maxCachedIndexFields = 10000;
         private static readonly Dictionary<IndexFieldsCacheKey, Tuple<FieldDefinition, int, IOrmLiteConverter>[]> indexFieldsCache 

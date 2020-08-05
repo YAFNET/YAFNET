@@ -39,7 +39,7 @@ namespace ServiceStack
         /// <param name="relativePath">the relative path</param>
         /// <returns>the absolute path</returns>
         /// <remarks>Assumes static content is two directories above the /bin/ directory,
-        /// eg. in a unit test scenario  the assembly would be in /bin/Debug/net45</remarks>
+        /// eg. in a unit test scenario  the assembly would be in /bin/Debug/NET48</remarks>
         public static string MapProjectPlatformPath(this string relativePath)
         {
             var sep = PclExport.Instance.DirSep;

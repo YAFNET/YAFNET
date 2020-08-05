@@ -1668,7 +1668,9 @@ namespace ServiceStack.OrmLite
         
         public virtual string SqlCast(object fieldOrValue, string castAs) => $"CAST({fieldOrValue} AS {castAs})";
 
-        //Async API's, should be overrided by Dialect Providers to use .ConfigureAwait(false)
+        public virtual string SqlRandom => "RAND()";
+
+        //Async API's, should be overriden by Dialect Providers to use .ConfigureAwait(false)
         //Default impl below uses TaskAwaiter shim in async.cs
 
         public virtual Task OpenAsync(IDbConnection db, CancellationToken token = default)
@@ -1760,22 +1762,22 @@ namespace ServiceStack.OrmLite
 #else
         public Task<List<T>> ReaderEach<T>(IDataReader reader, Func<T> fn, CancellationToken token = new CancellationToken())
         {
-            throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNet45Error);
+            throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNET48Error);
         }
 
         public Task<Return> ReaderEach<Return>(IDataReader reader, Action fn, Return source, CancellationToken token = new CancellationToken())
         {
-            throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNet45Error);
+            throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNET48Error);
         }
 
         public Task<T> ReaderRead<T>(IDataReader reader, Func<T> fn, CancellationToken token = new CancellationToken())
         {
-            throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNet45Error);
+            throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNET48Error);
         }
 
         public Task<long> InsertAndGetLastInsertIdAsync<T>(IDbCommand dbCmd, CancellationToken token)
         {
-            throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNet45Error);
+            throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNET48Error);
         }
 #endif
     }
