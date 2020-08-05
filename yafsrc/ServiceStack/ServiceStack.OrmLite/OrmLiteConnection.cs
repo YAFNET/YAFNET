@@ -27,7 +27,7 @@ namespace ServiceStack.OrmLite
             this.DialectProvider = factory.DialectProvider;
         }
 
-        public IDbConnection DbConnection => dbConnection ?? (dbConnection = ConnectionString.ToDbConnection(Factory.DialectProvider));
+        public IDbConnection DbConnection => dbConnection ??= ConnectionString.ToDbConnection(Factory.DialectProvider);
 
         public void Dispose()
         {
@@ -90,7 +90,7 @@ namespace ServiceStack.OrmLite
             }
         }
 
-        public async Task OpenAsync(CancellationToken token = default(CancellationToken))
+        public async Task OpenAsync(CancellationToken token = default)
         {
             if (DbConnection.State == ConnectionState.Broken)
                 DbConnection.Close();

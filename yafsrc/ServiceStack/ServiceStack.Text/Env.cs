@@ -31,7 +31,7 @@ namespace ServiceStack.Text
             IsUnix = IsOSX || IsLinux;
             HasMultiplePlatformTargets = true;
             IsUWP = IsRunningAsUwp();
-#elif NET472
+#elif NET48
             IsNetFramework = true;
             switch (Environment.OSVersion.Platform)
             {
@@ -110,7 +110,7 @@ namespace ServiceStack.Text
 
         public static string VersionString { get; set; }
 
-        public static decimal ServiceStackVersion = 5.7m;
+        public static decimal ServiceStackVersion = 5.9m;
 
         public static bool IsLinux { get; set; }
 
@@ -202,7 +202,7 @@ namespace ServiceStack.Text
                         {
                             throw new FileNotFoundException(
                                 "Could not infer .NET Reference Assemblies path, e.g '{0}'.\n".Fmt(netFxReferenceBasePath + @"v4.0\") +
-                                "Provide path manually 'Env.ReferenceAssembyPath'.");
+                                "Provide path manually 'Env.ReferenceAssemblyPath'.");
                         }
                     }
                 }

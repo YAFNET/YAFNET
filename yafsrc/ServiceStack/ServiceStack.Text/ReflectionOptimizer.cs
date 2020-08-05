@@ -8,7 +8,7 @@ namespace ServiceStack.Text
     public abstract class ReflectionOptimizer
     {
         public static ReflectionOptimizer Instance =
-#if NET472 || NETCORE2_1
+#if NET48 || NETCORE2_1
             EmitReflectionOptimizer.Provider
 #else
             ExpressionReflectionOptimizer.Provider
@@ -36,7 +36,7 @@ namespace ServiceStack.Text
     public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
     {
         private static RuntimeReflectionOptimizer provider; 
-        public static RuntimeReflectionOptimizer Provider => provider ?? (provider = new RuntimeReflectionOptimizer());
+        public static RuntimeReflectionOptimizer Provider => provider ??= new RuntimeReflectionOptimizer();
         private RuntimeReflectionOptimizer(){}
 
         public override Type UseType(Type type) => type;

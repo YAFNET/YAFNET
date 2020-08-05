@@ -16,7 +16,7 @@ namespace ServiceStack.OrmLite
     {
         internal static ILog Log = LogManager.GetLogger(typeof(OrmLiteResultsFilterExtensionsAsync));
 
-        public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token = default(CancellationToken))
+        public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token = default)
         {
             if (anonType != null)
                 dbCmd.SetParameters(anonType.ToObjectDictionary(), (bool)false, sql:ref sql);
@@ -34,7 +34,7 @@ namespace ServiceStack.OrmLite
             return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
         }
 
-        public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict, CancellationToken token = default(CancellationToken))
+        public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict, CancellationToken token = default)
         {
             if (dict != null)
                 dbCmd.SetParameters(dict, (bool)false, sql:ref sql);
@@ -52,12 +52,12 @@ namespace ServiceStack.OrmLite
             return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
         }
 
-        public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, CancellationToken token = default(CancellationToken))
+        public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, CancellationToken token = default)
         {
+            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+
             if (OrmLiteConfig.ResultsFilter != null)
                 return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd).InTask();
-
-            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
             if (Log.IsDebugEnabled)
                 Log.DebugCommand(dbCmd);
@@ -213,13 +213,18 @@ namespace ServiceStack.OrmLite
 
         public static Task<long> ExecLongScalarAsync(this IDbCommand dbCmd)
         {
-            return dbCmd.ExecLongScalarAsync(null, default(CancellationToken));
+            return dbCmd.ExecLongScalarAsync(null, default);
         }
 
         public static Task<long> ExecLongScalarAsync(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
                 dbCmd.CommandText = sql;
+
+            if (Log.IsDebugEnabled)
+                Log.DebugCommand(dbCmd);
+
+            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
                 return OrmLiteConfig.ResultsFilter.GetLongScalar(dbCmd).InTask();

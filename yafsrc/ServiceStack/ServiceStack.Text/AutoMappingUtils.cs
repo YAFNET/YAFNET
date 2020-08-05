@@ -416,7 +416,8 @@ namespace ServiceStack
 
         public static object GetDefaultValue(this Type type)
         {
-            if (!type.IsValueType) return null;
+            if (!type.IsValueType) 
+                return null;
 
             if (DefaultValueTypes.TryGetValue(type, out var defaultValue))
                 return defaultValue;
@@ -435,6 +436,10 @@ namespace ServiceStack
             return defaultValue;
         }
 
+        public static bool IsDefaultValue(object value) => IsDefaultValue(value, value?.GetType());
+        public static bool IsDefaultValue(object value, Type valueType) => value == null 
+            || (valueType.IsValueType && value.Equals(valueType.GetDefaultValue()));
+
         private static readonly ConcurrentDictionary<string, AssignmentDefinition> AssignmentDefinitionCache
             = new ConcurrentDictionary<string, AssignmentDefinition>();
 
@@ -444,7 +449,6 @@ namespace ServiceStack
 
             return AssignmentDefinitionCache.GetOrAdd(cacheKey, delegate
             {
-
                 var definition = new AssignmentDefinition
                 {
                     ToType = toType,
@@ -508,38 +512,7 @@ namespace ServiceStack
                     map[info.Name] = new AssignmentMember(fieldInfo.FieldType, fieldInfo);
                     continue;
                 }
-
-                var methodInfo = info as MethodInfo;
-                if (methodInfo != null)
-                {
-                    var parameterInfos = methodInfo.GetParameters();
-                    if (isReadable)
-                    {
-                        if (parameterInfos.Length == 0)
-                        {
-                            var name = info.Name.StartsWith("get_") ? info.Name.Substring(4) : info.Name;
-                            if (!map.ContainsKey(name))
-                            {
-                                map[name] = new AssignmentMember(methodInfo.ReturnType, methodInfo);
-                                continue;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (parameterInfos.Length == 1 && methodInfo.ReturnType == typeof(void))
-                        {
-                            var name = info.Name.StartsWith("set_") ? info.Name.Substring(4) : info.Name;
-                            if (!map.ContainsKey(name))
-                            {
-                                map[name] = new AssignmentMember(parameterInfos[0].ParameterType, methodInfo);
-                                continue;
-                            }
-                        }
-                    }
-                }
             }
-
             return map;
         }
 
