@@ -210,7 +210,6 @@ namespace YAF.Types.Extensions
         /// <param name="eventType">
         /// The event type.
         /// </param>
-        [Obsolete("Remove")]
         public static void Log(
             [NotNull] this ILogger logger, 
             [CanBeNull] string username, 

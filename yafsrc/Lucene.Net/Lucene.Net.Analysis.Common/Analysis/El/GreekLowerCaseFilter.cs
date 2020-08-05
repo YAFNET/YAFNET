@@ -2,6 +2,7 @@
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
+using System.Globalization;
 
 namespace YAF.Lucene.Net.Analysis.El
 {
@@ -36,6 +37,8 @@ namespace YAF.Lucene.Net.Analysis.El
     {
         private readonly ICharTermAttribute termAtt;
         private readonly CharacterUtils charUtils;
+
+        private static readonly CultureInfo culture = new CultureInfo("el"); // LUCENENET specific - use Greek culture when lowercasing.
 
         /// <summary>
         /// Create a <see cref="GreekLowerCaseFilter"/> that normalizes Greek token text.
@@ -127,7 +130,7 @@ namespace YAF.Lucene.Net.Analysis.El
                     return '\u03C2'; // small final sigma
 
                 default:
-                    return Character.ToLower(codepoint);
+                    return Character.ToLower(codepoint, culture); // LUCENENET specific - need to use specific culture to override current thread
             }
         }
     }

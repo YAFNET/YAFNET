@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.Util;
+﻿using J2N;
+using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
 using System.IO;
 
@@ -65,7 +66,7 @@ namespace YAF.Lucene.Net.Analysis.Core
         /// </summary>
         protected override bool IsTokenChar(int c)
         {
-            return !char.IsWhiteSpace((char)c);
+            return !Character.IsWhiteSpace(c);
         }
     }
 }
