@@ -570,7 +570,7 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[IsDirty]	AS (CONVERT([bit],sign([Flags]&(64)),(0))),
 		[Moderated]	AS (CONVERT([bit],sign([Flags]&(128)),(0))),
 		[Activity] [bit] NOT NULL constraint [DF_{objectQualifier}User_Activity] default (1),
-		[Culture] varchar (10) default (10),
+		[Culture] varchar (10) null,
 		[IsFacebookUser][bit] NOT NULL constraint [DF_{objectQualifier}User_IsFacebookUser] default (0),
 		[IsTwitterUser][bit] NOT NULL constraint [DF_{objectQualifier}User_IsTwitterUser] default (0),
 		[UserStyle] [varchar](510) NULL,
