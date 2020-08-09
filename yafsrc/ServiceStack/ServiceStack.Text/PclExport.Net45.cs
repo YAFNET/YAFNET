@@ -1,4 +1,4 @@
-﻿#if NET48
+﻿#if NET472
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -23,11 +23,11 @@ using System.Reflection.Emit;
 
 namespace ServiceStack
 {
-    public class NET48PclExport : PclExport
+    public class NET472PclExport : PclExport
     {
-        public static NET48PclExport Provider = new NET48PclExport();
+        public static NET472PclExport Provider = new NET472PclExport();
 
-        public NET48PclExport()
+        public NET472PclExport()
         {
             this.DirSep = Path.DirectorySeparatorChar;
             this.AltDirSep = Path.DirectorySeparatorChar == '/' ? '\\' : '/';
@@ -37,7 +37,7 @@ namespace ServiceStack
             this.InvariantComparer = StringComparer.InvariantCulture;
             this.InvariantComparerIgnoreCase = StringComparer.InvariantCultureIgnoreCase;
 
-            this.PlatformName = Platforms.NET48;
+            this.PlatformName = Platforms.NET472;
             ReflectionOptimizer.Instance = EmitReflectionOptimizer.Provider;
         }
 

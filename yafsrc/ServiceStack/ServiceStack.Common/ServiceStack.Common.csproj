@@ -2,7 +2,7 @@
   <PropertyGroup>
     <PackageId>ServiceStack.Common</PackageId>
     <AssemblyName>ServiceStack.Common</AssemblyName>
-    <TargetFrameworks>net48</TargetFrameworks>
+    <TargetFrameworks>net472</TargetFrameworks>
     <RootNamespace>ServiceStack</RootNamespace>
     <Title>Common libraries for ServiceStack projects</Title>
     <PackageDescription>

@@ -8,7 +8,7 @@ namespace ServiceStack.Text
     public abstract class ReflectionOptimizer
     {
         public static ReflectionOptimizer Instance =
-#if NET48 || NETCORE2_1
+#if NET472 || NETCORE2_1
             EmitReflectionOptimizer.Provider
 #else
             ExpressionReflectionOptimizer.Provider

@@ -1599,7 +1599,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <returns>Always returns true.</returns>
         /// <remarks>GetBuffer has no failure modes (it always returns something, even if it's an empty buffer), therefore this method
         /// always returns a valid ArraySegment to the same buffer returned by GetBuffer.</remarks>
-#if NET40 || NET48
+#if NET40 || NET472
         public bool TryGetBuffer(out ArraySegment<byte> buffer)  
 #else
         public override bool TryGetBuffer(out ArraySegment<byte> buffer)

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <PackageId>ServiceStack.OrmLite.SqlServer</PackageId>
     <AssemblyName>ServiceStack.OrmLite.SqlServer</AssemblyName>
-    <TargetFrameworks>net48</TargetFrameworks>
+    <TargetFrameworks>net472</TargetFrameworks>
     <Title>OrmLite.SqlServer - Fast, code-first, config-free POCO ORM</Title>
     <PackageDescription>
       Light, simple and fast convention-based code-first POCO ORM for Sql Server.

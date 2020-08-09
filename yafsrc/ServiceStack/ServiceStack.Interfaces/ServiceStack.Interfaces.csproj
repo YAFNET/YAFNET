@@ -4,7 +4,7 @@
         <PackageId>ServiceStack.Interfaces</PackageId>
         <AssemblyName>ServiceStack.Interfaces</AssemblyName>
         <RootNamespace>ServiceStack</RootNamespace>
-        <TargetFrameworks>net48</TargetFrameworks>
+        <TargetFrameworks>net472</TargetFrameworks>
         <Title>Lightweight and implementation-free interfaces for ServiceStack</Title>
         <PackageDescription>
             Lightweight and implementation-free interfaces for DTO's, providers and adapters.
