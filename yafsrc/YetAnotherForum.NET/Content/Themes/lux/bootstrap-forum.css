@@ -1,10 +1,10 @@
 ﻿/*!
- * Bootstrap v4.5.0 (https://getbootstrap.com/)
+ * Bootstrap v4.5.2 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
  * Copyright 2011-2020 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-@import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap");
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -13,16 +13,16 @@
   --red: #d9534f;
   --orange: #fd7e14;
   --yellow: #f0ad4e;
-  --green: #4BBF73;
+  --green: #4bbf73;
   --teal: #20c997;
-  --cyan: #1F9BCF;
+  --cyan: #1f9bcf;
   --white: #fff;
   --gray: #919aa1;
   --gray-dark: #343a40;
   --primary: #1a1a1a;
   --secondary: #fff;
-  --success: #4BBF73;
-  --info: #1F9BCF;
+  --success: #4bbf73;
+  --info: #1f9bcf;
   --warning: #f0ad4e;
   --danger: #d9534f;
   --light: #fff;
@@ -142,10 +142,10 @@ a {
     color: black;
     text-decoration: underline; }
 
-a:not([href]) {
+a:not([href]):not([class]) {
   color: inherit;
   text-decoration: none; }
-  a:not([href]):hover {
+  a:not([href]):not([class]):hover {
     color: inherit;
     text-decoration: none; }
 
@@ -266,9 +266,6 @@ legend {
   line-height: inherit;
   color: inherit;
   white-space: normal; }
-  @media (max-width: 1200px) {
-    legend {
-      font-size: calc(1.275rem + 0.3vw) ; } }
 
 progress {
   vertical-align: baseline; }
@@ -310,21 +307,12 @@ h1, h2, h3, h4, h5, h6,
 
 h1, .h1 {
   font-size: 2rem; }
-  @media (max-width: 1200px) {
-    h1, .h1 {
-      font-size: calc(1.325rem + 0.9vw) ; } }
 
 h2, .h2 {
   font-size: 1.75rem; }
-  @media (max-width: 1200px) {
-    h2, .h2 {
-      font-size: calc(1.3rem + 0.6vw) ; } }
 
 h3, .h3 {
   font-size: 1.5rem; }
-  @media (max-width: 1200px) {
-    h3, .h3 {
-      font-size: calc(1.275rem + 0.3vw) ; } }
 
 h4, .h4 {
   font-size: 1.25rem; }
@@ -343,33 +331,21 @@ h6, .h6 {
   font-size: 6rem;
   font-weight: 300;
   line-height: 1.2; }
-  @media (max-width: 1200px) {
-    .display-1 {
-      font-size: calc(1.725rem + 5.7vw) ; } }
 
 .display-2 {
   font-size: 5.5rem;
   font-weight: 300;
   line-height: 1.2; }
-  @media (max-width: 1200px) {
-    .display-2 {
-      font-size: calc(1.675rem + 5.1vw) ; } }
 
 .display-3 {
   font-size: 4.5rem;
   font-weight: 300;
   line-height: 1.2; }
-  @media (max-width: 1200px) {
-    .display-3 {
-      font-size: calc(1.575rem + 3.9vw) ; } }
 
 .display-4 {
   font-size: 3.5rem;
   font-weight: 300;
   line-height: 1.2; }
-  @media (max-width: 1200px) {
-    .display-4 {
-      font-size: calc(1.475rem + 2.7vw) ; } }
 
 hr {
   margin-top: 1rem;
@@ -467,26 +443,12 @@ pre {
   max-height: 340px;
   overflow-y: scroll; }
 
-.container {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto; }
-  @media (min-width: 576px) {
-    .container {
-      max-width: 540px; } }
-  @media (min-width: 768px) {
-    .container {
-      max-width: 720px; } }
-  @media (min-width: 992px) {
-    .container {
-      max-width: 960px; } }
-  @media (min-width: 1200px) {
-    .container {
-      max-width: 1140px; } }
-
-.container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
+.container,
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
@@ -543,7 +505,6 @@ pre {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-  min-width: 0;
   max-width: 100%; }
 
 .row-cols-1 > * {
@@ -776,7 +737,6 @@ pre {
     -webkit-box-flex: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
-    min-width: 0;
     max-width: 100%; }
   .row-cols-sm-1 > * {
     -webkit-box-flex: 0;
@@ -966,7 +926,6 @@ pre {
     -webkit-box-flex: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
-    min-width: 0;
     max-width: 100%; }
   .row-cols-md-1 > * {
     -webkit-box-flex: 0;
@@ -1156,7 +1115,6 @@ pre {
     -webkit-box-flex: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
-    min-width: 0;
     max-width: 100%; }
   .row-cols-lg-1 > * {
     -webkit-box-flex: 0;
@@ -1346,7 +1304,6 @@ pre {
     -webkit-box-flex: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
-    min-width: 0;
     max-width: 100%; }
   .row-cols-xl-1 > * {
     -webkit-box-flex: 0;
@@ -1967,11 +1924,12 @@ textarea.form-control, textarea.bootstrap-tagsinput {
   width: 100%;
   margin-top: 0.25rem;
   font-size: 80%;
-  color: #4BBF73; }
+  color: #4bbf73; }
 
 .valid-tooltip {
   position: absolute;
   top: 100%;
+  left: 0;
   z-index: 5;
   display: none;
   max-width: 100%;
@@ -1989,14 +1947,14 @@ textarea.form-control, textarea.bootstrap-tagsinput {
   display: block; }
 
 .was-validated .form-control:valid, .was-validated .bootstrap-tagsinput:valid, .form-control.is-valid, .is-valid.bootstrap-tagsinput {
-  border-color: #4BBF73;
+  border-color: #4bbf73;
   padding-right: calc(1.5em + 1.5rem);
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%234BBF73' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%234bbf73' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right calc(0.375em + 0.375rem) center;
   background-size: calc(0.75em + 0.75rem) calc(0.75em + 0.75rem); }
   .was-validated .form-control:valid:focus, .was-validated .bootstrap-tagsinput:valid:focus, .form-control.is-valid:focus, .is-valid.bootstrap-tagsinput:focus {
-    border-color: #4BBF73;
+    border-color: #4bbf73;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(75, 191, 115, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(75, 191, 115, 0.25); }
 
@@ -2005,16 +1963,16 @@ textarea.form-control, textarea.bootstrap-tagsinput {
   background-position: top calc(0.375em + 0.375rem) right calc(0.375em + 0.375rem); }
 
 .was-validated .custom-select:valid, .custom-select.is-valid {
-  border-color: #4BBF73;
+  border-color: #4bbf73;
   padding-right: calc(0.75em + 3.625rem);
-  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 1.5rem center/8px 10px, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%234BBF73' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e") #f7f7f9 no-repeat center right 2.5rem/calc(0.75em + 0.75rem) calc(0.75em + 0.75rem); }
+  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 1.5rem center/8px 10px, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%234bbf73' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e") #f7f7f9 no-repeat center right 2.5rem/calc(0.75em + 0.75rem) calc(0.75em + 0.75rem); }
   .was-validated .custom-select:valid:focus, .custom-select.is-valid:focus {
-    border-color: #4BBF73;
+    border-color: #4bbf73;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(75, 191, 115, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(75, 191, 115, 0.25); }
 
 .was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
-  color: #4BBF73; }
+  color: #4bbf73; }
 
 .was-validated .form-check-input:valid ~ .valid-feedback,
 .was-validated .form-check-input:valid ~ .valid-tooltip, .form-check-input.is-valid ~ .valid-feedback,
@@ -2022,9 +1980,9 @@ textarea.form-control, textarea.bootstrap-tagsinput {
   display: block; }
 
 .was-validated .custom-control-input:valid ~ .custom-control-label, .was-validated .custom-radio input:valid ~ .custom-control-label, .custom-radio .was-validated input:valid ~ .custom-control-label, .was-validated .custom-checkbox input:valid ~ .custom-control-label, .custom-checkbox .was-validated input:valid ~ .custom-control-label, .was-validated .custom-switch input:valid ~ .custom-control-label, .custom-switch .was-validated input:valid ~ .custom-control-label, .was-validated .custom-radio .custom-control-input:valid ~ label, .custom-radio .was-validated .custom-control-input:valid ~ label, .was-validated .custom-radio input:valid ~ label, .custom-radio .was-validated input:valid ~ label, .was-validated .custom-checkbox .custom-radio input:valid ~ label, .custom-radio .custom-checkbox .was-validated input:valid ~ label, .was-validated .custom-switch .custom-radio input:valid ~ label, .custom-radio .custom-switch .was-validated input:valid ~ label, .was-validated .custom-checkbox .custom-control-input:valid ~ label, .custom-checkbox .was-validated .custom-control-input:valid ~ label, .was-validated .custom-radio .custom-checkbox input:valid ~ label, .custom-checkbox .was-validated .custom-radio input:valid ~ label, .custom-radio .was-validated .custom-checkbox input:valid ~ label, .custom-checkbox .custom-radio .was-validated input:valid ~ label, .was-validated .custom-checkbox input:valid ~ label, .custom-checkbox .was-validated input:valid ~ label, .was-validated .custom-switch .custom-checkbox input:valid ~ label, .custom-checkbox .custom-switch .was-validated input:valid ~ label, .was-validated .custom-switch .custom-control-input:valid ~ label, .custom-switch .was-validated .custom-control-input:valid ~ label, .was-validated .custom-radio .custom-switch input:valid ~ label, .custom-switch .was-validated .custom-radio input:valid ~ label, .custom-radio .was-validated .custom-switch input:valid ~ label, .custom-switch .custom-radio .was-validated input:valid ~ label, .was-validated .custom-checkbox .custom-switch input:valid ~ label, .custom-switch .was-validated .custom-checkbox input:valid ~ label, .custom-checkbox .was-validated .custom-switch input:valid ~ label, .custom-switch .custom-checkbox .was-validated input:valid ~ label, .was-validated .custom-switch input:valid ~ label, .custom-switch .was-validated input:valid ~ label, .custom-control-input.is-valid ~ .custom-control-label, .custom-radio input.is-valid ~ .custom-control-label, .custom-checkbox input.is-valid ~ .custom-control-label, .custom-switch input.is-valid ~ .custom-control-label, .custom-radio .custom-control-input.is-valid ~ label, .custom-radio input.is-valid ~ label, .custom-checkbox .custom-control-input.is-valid ~ label, .custom-checkbox input.is-valid ~ label, .custom-switch .custom-control-input.is-valid ~ label, .custom-switch input.is-valid ~ label {
-  color: #4BBF73; }
+  color: #4bbf73; }
   .was-validated .custom-control-input:valid ~ .custom-control-label::before, .was-validated .custom-radio input:valid ~ .custom-control-label::before, .custom-radio .was-validated input:valid ~ .custom-control-label::before, .was-validated .custom-checkbox input:valid ~ .custom-control-label::before, .custom-checkbox .was-validated input:valid ~ .custom-control-label::before, .was-validated .custom-switch input:valid ~ .custom-control-label::before, .custom-switch .was-validated input:valid ~ .custom-control-label::before, .was-validated .custom-radio .custom-control-input:valid ~ label::before, .custom-radio .was-validated .custom-control-input:valid ~ label::before, .was-validated .custom-radio input:valid ~ label::before, .custom-radio .was-validated input:valid ~ label::before, .was-validated .custom-checkbox .custom-radio input:valid ~ label::before, .custom-radio .custom-checkbox .was-validated input:valid ~ label::before, .was-validated .custom-switch .custom-radio input:valid ~ label::before, .custom-radio .custom-switch .was-validated input:valid ~ label::before, .was-validated .custom-checkbox .custom-control-input:valid ~ label::before, .custom-checkbox .was-validated .custom-control-input:valid ~ label::before, .was-validated .custom-radio .custom-checkbox input:valid ~ label::before, .custom-checkbox .was-validated .custom-radio input:valid ~ label::before, .custom-radio .was-validated .custom-checkbox input:valid ~ label::before, .custom-checkbox .custom-radio .was-validated input:valid ~ label::before, .was-validated .custom-checkbox input:valid ~ label::before, .custom-checkbox .was-validated input:valid ~ label::before, .was-validated .custom-switch .custom-checkbox input:valid ~ label::before, .custom-checkbox .custom-switch .was-validated input:valid ~ label::before, .was-validated .custom-switch .custom-control-input:valid ~ label::before, .custom-switch .was-validated .custom-control-input:valid ~ label::before, .was-validated .custom-radio .custom-switch input:valid ~ label::before, .custom-switch .was-validated .custom-radio input:valid ~ label::before, .custom-radio .was-validated .custom-switch input:valid ~ label::before, .custom-switch .custom-radio .was-validated input:valid ~ label::before, .was-validated .custom-checkbox .custom-switch input:valid ~ label::before, .custom-switch .was-validated .custom-checkbox input:valid ~ label::before, .custom-checkbox .was-validated .custom-switch input:valid ~ label::before, .custom-switch .custom-checkbox .was-validated input:valid ~ label::before, .was-validated .custom-switch input:valid ~ label::before, .custom-switch .was-validated input:valid ~ label::before, .custom-control-input.is-valid ~ .custom-control-label::before, .custom-radio input.is-valid ~ .custom-control-label::before, .custom-checkbox input.is-valid ~ .custom-control-label::before, .custom-switch input.is-valid ~ .custom-control-label::before, .custom-radio .custom-control-input.is-valid ~ label::before, .custom-radio input.is-valid ~ label::before, .custom-checkbox .custom-control-input.is-valid ~ label::before, .custom-checkbox input.is-valid ~ label::before, .custom-switch .custom-control-input.is-valid ~ label::before, .custom-switch input.is-valid ~ label::before {
-    border-color: #4BBF73; }
+    border-color: #4bbf73; }
 
 .was-validated .custom-control-input:valid:checked ~ .custom-control-label::before, .was-validated .custom-radio input:valid:checked ~ .custom-control-label::before, .custom-radio .was-validated input:valid:checked ~ .custom-control-label::before, .was-validated .custom-checkbox input:valid:checked ~ .custom-control-label::before, .custom-checkbox .was-validated input:valid:checked ~ .custom-control-label::before, .was-validated .custom-switch input:valid:checked ~ .custom-control-label::before, .custom-switch .was-validated input:valid:checked ~ .custom-control-label::before, .was-validated .custom-radio .custom-control-input:valid:checked ~ label::before, .custom-radio .was-validated .custom-control-input:valid:checked ~ label::before, .was-validated .custom-radio input:valid:checked ~ label::before, .custom-radio .was-validated input:valid:checked ~ label::before, .was-validated .custom-checkbox .custom-radio input:valid:checked ~ label::before, .custom-radio .custom-checkbox .was-validated input:valid:checked ~ label::before, .was-validated .custom-switch .custom-radio input:valid:checked ~ label::before, .custom-radio .custom-switch .was-validated input:valid:checked ~ label::before, .was-validated .custom-checkbox .custom-control-input:valid:checked ~ label::before, .custom-checkbox .was-validated .custom-control-input:valid:checked ~ label::before, .was-validated .custom-radio .custom-checkbox input:valid:checked ~ label::before, .custom-checkbox .was-validated .custom-radio input:valid:checked ~ label::before, .custom-radio .was-validated .custom-checkbox input:valid:checked ~ label::before, .custom-checkbox .custom-radio .was-validated input:valid:checked ~ label::before, .was-validated .custom-checkbox input:valid:checked ~ label::before, .custom-checkbox .was-validated input:valid:checked ~ label::before, .was-validated .custom-switch .custom-checkbox input:valid:checked ~ label::before, .custom-checkbox .custom-switch .was-validated input:valid:checked ~ label::before, .was-validated .custom-switch .custom-control-input:valid:checked ~ label::before, .custom-switch .was-validated .custom-control-input:valid:checked ~ label::before, .was-validated .custom-radio .custom-switch input:valid:checked ~ label::before, .custom-switch .was-validated .custom-radio input:valid:checked ~ label::before, .custom-radio .was-validated .custom-switch input:valid:checked ~ label::before, .custom-switch .custom-radio .was-validated input:valid:checked ~ label::before, .was-validated .custom-checkbox .custom-switch input:valid:checked ~ label::before, .custom-switch .was-validated .custom-checkbox input:valid:checked ~ label::before, .custom-checkbox .was-validated .custom-switch input:valid:checked ~ label::before, .custom-switch .custom-checkbox .was-validated input:valid:checked ~ label::before, .was-validated .custom-switch input:valid:checked ~ label::before, .custom-switch .was-validated input:valid:checked ~ label::before, .custom-control-input.is-valid:checked ~ .custom-control-label::before, .custom-radio input.is-valid:checked ~ .custom-control-label::before, .custom-checkbox input.is-valid:checked ~ .custom-control-label::before, .custom-switch input.is-valid:checked ~ .custom-control-label::before, .custom-radio .custom-control-input.is-valid:checked ~ label::before, .custom-radio input.is-valid:checked ~ label::before, .custom-checkbox .custom-control-input.is-valid:checked ~ label::before, .custom-checkbox input.is-valid:checked ~ label::before, .custom-switch .custom-control-input.is-valid:checked ~ label::before, .custom-switch input.is-valid:checked ~ label::before {
   border-color: #71cc90;
@@ -2035,13 +1993,13 @@ textarea.form-control, textarea.bootstrap-tagsinput {
           box-shadow: 0 0 0 0.2rem rgba(75, 191, 115, 0.25); }
 
 .was-validated .custom-control-input:valid:focus:not(:checked) ~ .custom-control-label::before, .was-validated .custom-radio input:valid:focus:not(:checked) ~ .custom-control-label::before, .custom-radio .was-validated input:valid:focus:not(:checked) ~ .custom-control-label::before, .was-validated .custom-checkbox input:valid:focus:not(:checked) ~ .custom-control-label::before, .custom-checkbox .was-validated input:valid:focus:not(:checked) ~ .custom-control-label::before, .was-validated .custom-switch input:valid:focus:not(:checked) ~ .custom-control-label::before, .custom-switch .was-validated input:valid:focus:not(:checked) ~ .custom-control-label::before, .was-validated .custom-radio .custom-control-input:valid:focus:not(:checked) ~ label::before, .custom-radio .was-validated .custom-control-input:valid:focus:not(:checked) ~ label::before, .was-validated .custom-radio input:valid:focus:not(:checked) ~ label::before, .custom-radio .was-validated input:valid:focus:not(:checked) ~ label::before, .was-validated .custom-checkbox .custom-radio input:valid:focus:not(:checked) ~ label::before, .custom-radio .custom-checkbox .was-validated input:valid:focus:not(:checked) ~ label::before, .was-validated .custom-switch .custom-radio input:valid:focus:not(:checked) ~ label::before, .custom-radio .custom-switch .was-validated input:valid:focus:not(:checked) ~ label::before, .was-validated .custom-checkbox .custom-control-input:valid:focus:not(:checked) ~ label::before, .custom-checkbox .was-validated .custom-control-input:valid:focus:not(:checked) ~ label::before, .was-validated .custom-radio .custom-checkbox input:valid:focus:not(:checked) ~ label::before, .custom-checkbox .was-validated .custom-radio input:valid:focus:not(:checked) ~ label::before, .custom-radio .was-validated .custom-checkbox input:valid:focus:not(:checked) ~ label::before, .custom-checkbox .custom-radio .was-validated input:valid:focus:not(:checked) ~ label::before, .was-validated .custom-checkbox input:valid:focus:not(:checked) ~ label::before, .custom-checkbox .was-validated input:valid:focus:not(:checked) ~ label::before, .was-validated .custom-switch .custom-checkbox input:valid:focus:not(:checked) ~ label::before, .custom-checkbox .custom-switch .was-validated input:valid:focus:not(:checked) ~ label::before, .was-validated .custom-switch .custom-control-input:valid:focus:not(:checked) ~ label::before, .custom-switch .was-validated .custom-control-input:valid:focus:not(:checked) ~ label::before, .was-validated .custom-radio .custom-switch input:valid:focus:not(:checked) ~ label::before, .custom-switch .was-validated .custom-radio input:valid:focus:not(:checked) ~ label::before, .custom-radio .was-validated .custom-switch input:valid:focus:not(:checked) ~ label::before, .custom-switch .custom-radio .was-validated input:valid:focus:not(:checked) ~ label::before, .was-validated .custom-checkbox .custom-switch input:valid:focus:not(:checked) ~ label::before, .custom-switch .was-validated .custom-checkbox input:valid:focus:not(:checked) ~ label::before, .custom-checkbox .was-validated .custom-switch input:valid:focus:not(:checked) ~ label::before, .custom-switch .custom-checkbox .was-validated input:valid:focus:not(:checked) ~ label::before, .was-validated .custom-switch input:valid:focus:not(:checked) ~ label::before, .custom-switch .was-validated input:valid:focus:not(:checked) ~ label::before, .custom-control-input.is-valid:focus:not(:checked) ~ .custom-control-label::before, .custom-radio input.is-valid:focus:not(:checked) ~ .custom-control-label::before, .custom-checkbox input.is-valid:focus:not(:checked) ~ .custom-control-label::before, .custom-switch input.is-valid:focus:not(:checked) ~ .custom-control-label::before, .custom-radio .custom-control-input.is-valid:focus:not(:checked) ~ label::before, .custom-radio input.is-valid:focus:not(:checked) ~ label::before, .custom-checkbox .custom-control-input.is-valid:focus:not(:checked) ~ label::before, .custom-checkbox input.is-valid:focus:not(:checked) ~ label::before, .custom-switch .custom-control-input.is-valid:focus:not(:checked) ~ label::before, .custom-switch input.is-valid:focus:not(:checked) ~ label::before {
-  border-color: #4BBF73; }
+  border-color: #4bbf73; }
 
 .was-validated .custom-file-input:valid ~ .custom-file-label, .custom-file-input.is-valid ~ .custom-file-label {
-  border-color: #4BBF73; }
+  border-color: #4bbf73; }
 
 .was-validated .custom-file-input:valid:focus ~ .custom-file-label, .custom-file-input.is-valid:focus ~ .custom-file-label {
-  border-color: #4BBF73;
+  border-color: #4bbf73;
   -webkit-box-shadow: 0 0 0 0.2rem rgba(75, 191, 115, 0.25);
           box-shadow: 0 0 0 0.2rem rgba(75, 191, 115, 0.25); }
 
@@ -2055,6 +2013,7 @@ textarea.form-control, textarea.bootstrap-tagsinput {
 .invalid-tooltip {
   position: absolute;
   top: 100%;
+  left: 0;
   z-index: 5;
   display: none;
   max-width: 100%;
@@ -2304,8 +2263,8 @@ fieldset:disabled a.btn {
 
 .btn-success {
   color: #fff;
-  background-color: #4BBF73;
-  border-color: #4BBF73; }
+  background-color: #4bbf73;
+  border-color: #4bbf73; }
   .btn-success:hover {
     color: #fff;
     background-color: #3ca861;
@@ -2318,8 +2277,8 @@ fieldset:disabled a.btn {
             box-shadow: 0 0 0 0.2rem rgba(102, 201, 136, 0.5); }
   .btn-success.disabled, .btn-success:disabled {
     color: #fff;
-    background-color: #4BBF73;
-    border-color: #4BBF73; }
+    background-color: #4bbf73;
+    border-color: #4bbf73; }
   .btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active,
   .show > .btn-success.dropdown-toggle {
     color: #fff;
@@ -2332,8 +2291,8 @@ fieldset:disabled a.btn {
 
 .btn-info {
   color: #fff;
-  background-color: #1F9BCF;
-  border-color: #1F9BCF; }
+  background-color: #1f9bcf;
+  border-color: #1f9bcf; }
   .btn-info:hover {
     color: #fff;
     background-color: #1a82ae;
@@ -2346,8 +2305,8 @@ fieldset:disabled a.btn {
             box-shadow: 0 0 0 0.2rem rgba(65, 170, 214, 0.5); }
   .btn-info.disabled, .btn-info:disabled {
     color: #fff;
-    background-color: #1F9BCF;
-    border-color: #1F9BCF; }
+    background-color: #1f9bcf;
+    border-color: #1f9bcf; }
   .btn-info:not(:disabled):not(.disabled):active, .btn-info:not(:disabled):not(.disabled).active,
   .show > .btn-info.dropdown-toggle {
     color: #fff;
@@ -2517,46 +2476,46 @@ fieldset:disabled a.btn {
               box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5); }
 
 .btn-outline-success {
-  color: #4BBF73;
-  border-color: #4BBF73; }
+  color: #4bbf73;
+  border-color: #4bbf73; }
   .btn-outline-success:hover {
     color: #fff;
-    background-color: #4BBF73;
-    border-color: #4BBF73; }
+    background-color: #4bbf73;
+    border-color: #4bbf73; }
   .btn-outline-success:focus, .btn-outline-success.focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(75, 191, 115, 0.5);
             box-shadow: 0 0 0 0.2rem rgba(75, 191, 115, 0.5); }
   .btn-outline-success.disabled, .btn-outline-success:disabled {
-    color: #4BBF73;
+    color: #4bbf73;
     background-color: transparent; }
   .btn-outline-success:not(:disabled):not(.disabled):active, .btn-outline-success:not(:disabled):not(.disabled).active,
   .show > .btn-outline-success.dropdown-toggle {
     color: #fff;
-    background-color: #4BBF73;
-    border-color: #4BBF73; }
+    background-color: #4bbf73;
+    border-color: #4bbf73; }
     .btn-outline-success:not(:disabled):not(.disabled):active:focus, .btn-outline-success:not(:disabled):not(.disabled).active:focus,
     .show > .btn-outline-success.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(75, 191, 115, 0.5);
               box-shadow: 0 0 0 0.2rem rgba(75, 191, 115, 0.5); }
 
 .btn-outline-info {
-  color: #1F9BCF;
-  border-color: #1F9BCF; }
+  color: #1f9bcf;
+  border-color: #1f9bcf; }
   .btn-outline-info:hover {
     color: #fff;
-    background-color: #1F9BCF;
-    border-color: #1F9BCF; }
+    background-color: #1f9bcf;
+    border-color: #1f9bcf; }
   .btn-outline-info:focus, .btn-outline-info.focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(31, 155, 207, 0.5);
             box-shadow: 0 0 0 0.2rem rgba(31, 155, 207, 0.5); }
   .btn-outline-info.disabled, .btn-outline-info:disabled {
-    color: #1F9BCF;
+    color: #1f9bcf;
     background-color: transparent; }
   .btn-outline-info:not(:disabled):not(.disabled):active, .btn-outline-info:not(:disabled):not(.disabled).active,
   .show > .btn-outline-info.dropdown-toggle {
     color: #fff;
-    background-color: #1F9BCF;
-    border-color: #1F9BCF; }
+    background-color: #1f9bcf;
+    border-color: #1f9bcf; }
     .btn-outline-info:not(:disabled):not(.disabled):active:focus, .btn-outline-info:not(:disabled):not(.disabled).active:focus,
     .show > .btn-outline-info.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(31, 155, 207, 0.5);
@@ -3137,6 +3096,7 @@ input[type="button"].btn-block {
 
 .custom-control {
   position: relative;
+  z-index: 1;
   display: block;
   min-height: 1.3125rem;
   padding-left: 1.5rem; }
@@ -3522,12 +3482,14 @@ input[type="button"].btn-block {
   color: #fff;
   background-color: #1a1a1a; }
 
+.nav-fill > .nav-link,
 .nav-fill .nav-item {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
   text-align: center; }
 
+.nav-justified > .nav-link,
 .nav-justified .nav-item {
   -ms-flex-preferred-size: 0;
       flex-basis: 0;
@@ -3946,6 +3908,9 @@ input[type="button"].btn-block {
       border-top-width: 0; }
     .card > .list-group:last-child {
       border-bottom-width: 0; }
+  .card > .card-header + .list-group,
+  .card > .list-group + .card-footer {
+    border-top: 0; }
 
 .card-body {
   -webkit-box-flex: 1;
@@ -3975,8 +3940,6 @@ input[type="button"].btn-block {
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0.03);
   border-bottom: 1px solid rgba(0, 0, 0, 0.125); }
-  .card-header + .list-group .list-group-item:first-child {
-    border-top: 0; }
 
 .card-footer {
   padding: 0.75rem 1.25rem;
@@ -4068,12 +4031,14 @@ input[type="button"].btn-block {
       display: inline-block;
       width: 100%; } }
 
-.accordion > .card {
-  overflow: hidden; }
-  .accordion > .card:not(:last-of-type) {
-    border-bottom: 0; }
-  .accordion > .card > .card-header {
-    margin-bottom: -1px; }
+.accordion {
+  overflow-anchor: none; }
+  .accordion > .card {
+    overflow: hidden; }
+    .accordion > .card:not(:last-of-type) {
+      border-bottom: 0; }
+    .accordion > .card > .card-header {
+      margin-bottom: -1px; }
 
 .breadcrumb {
   display: -webkit-box;
@@ -4212,7 +4177,7 @@ input[type="button"].btn-block {
 
 .badge-success {
   color: #fff;
-  background-color: #4BBF73; }
+  background-color: #4bbf73; }
   a.badge-success:hover, a.badge-success:focus {
     color: #fff;
     background-color: #389f5c; }
@@ -4223,7 +4188,7 @@ input[type="button"].btn-block {
 
 .badge-info {
   color: #fff;
-  background-color: #1F9BCF; }
+  background-color: #1f9bcf; }
   a.badge-info:hover, a.badge-info:focus {
     color: #fff;
     background-color: #187aa3; }
@@ -4671,9 +4636,6 @@ input[type="button"].btn-block {
   color: #000;
   text-shadow: 0 1px 0 #fff;
   opacity: .5; }
-  @media (max-width: 1200px) {
-    .close {
-      font-size: calc(1.25625rem + 0.075vw) ; } }
   .close:hover {
     color: #000;
     text-decoration: none; }
@@ -4689,16 +4651,15 @@ a.close.disabled {
   pointer-events: none; }
 
 .toast {
+  -ms-flex-preferred-size: 350px;
+      flex-basis: 350px;
   max-width: 350px;
-  overflow: hidden;
   font-size: 0.875rem;
   background-color: rgba(255, 255, 255, 0.85);
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
   opacity: 0; }
   .toast:not(:last-child) {
     margin-bottom: 0.75rem; }
@@ -5392,7 +5353,7 @@ button.bg-secondary:focus {
   background-color: #e6e6e6 !important; }
 
 .bg-success {
-  background-color: #4BBF73 !important; }
+  background-color: #4bbf73 !important; }
 
 a.bg-success:hover, a.bg-success:focus,
 button.bg-success:hover,
@@ -5400,7 +5361,7 @@ button.bg-success:focus {
   background-color: #389f5c !important; }
 
 .bg-info {
-  background-color: #1F9BCF !important; }
+  background-color: #1f9bcf !important; }
 
 a.bg-info:hover, a.bg-info:focus,
 button.bg-info:hover,
@@ -5482,10 +5443,10 @@ button.bg-dark:focus {
   border-color: #fff !important; }
 
 .border-success {
-  border-color: #4BBF73 !important; }
+  border-color: #4bbf73 !important; }
 
 .border-info {
-  border-color: #1F9BCF !important; }
+  border-color: #1f9bcf !important; }
 
 .border-warning {
   border-color: #f0ad4e !important; }
@@ -8031,13 +7992,13 @@ a.text-secondary:hover, a.text-secondary:focus {
   color: #d9d9d9 !important; }
 
 .text-success {
-  color: #4BBF73 !important; }
+  color: #4bbf73 !important; }
 
 a.text-success:hover, a.text-success:focus {
   color: #328c51 !important; }
 
 .text-info {
-  color: #1F9BCF !important; }
+  color: #1f9bcf !important; }
 
 a.text-info:hover, a.text-info:focus {
   color: #15698c !important; }
@@ -8089,7 +8050,8 @@ a.text-dark:hover, a.text-dark:focus {
   text-decoration: none !important; }
 
 .text-break {
-  word-wrap: break-word !important; }
+  word-break: break-word !important;
+  overflow-wrap: break-word !important; }
 
 .text-reset {
   color: inherit !important; }
