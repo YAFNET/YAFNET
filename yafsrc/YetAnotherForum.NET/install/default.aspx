@@ -56,6 +56,9 @@
                     </p>
                    
                     <div class="alert alert-warning">
+                        <YAF:Icon runat="server" 
+                                  IconType="text-warning"
+                                  IconName="exclamation-triangle" />
                         <%# YAF.App_GlobalResources.Install.WarningUpgrade %>
                     </div>
                     
@@ -85,7 +88,8 @@
                             <%# YAF.App_GlobalResources.Install.PermissionUpload %>
                         </li>
                     </ul>
-                    <YAF:ThemeButton ID="btnTestPermissions" runat="server" 
+                    <YAF:ThemeButton ID="btnTestPermissions" runat="server"
+                                     Icon="clipboard-check"
                                      Type="Info"
                                      Text="<%# YAF.App_GlobalResources.Install.TestPermission %>" 
                                      OnClick="TestPermissions_Click" />
@@ -123,7 +127,7 @@
                         <%# YAF.App_GlobalResources.Install.EnterConfigPasswordDesc %>
                     </p>
                     <div class="alert alert-info">
-                        <span class="badge bg-info"><%# YAF.App_GlobalResources.Install.Note %></span> 
+                        <YAF:Icon runat="server" IconName="info-circle" IconType="text-info" />
                         <%# YAF.App_GlobalResources.Install.UpgradeNote %>
                     </div>
                     <asp:TextBox ID="txtEnteredPassword" runat="server" TextMode="Password" Type="Password"
@@ -178,7 +182,7 @@
                             <%# YAF.App_GlobalResources.Install.ConnectionNew %>
                         </h4>
                         <div class="alert alert-info">
-                            <span class="font-weight-bold"><%# YAF.App_GlobalResources.Install.Note %></span> 
+                            <YAF:Icon runat="server" IconName="info-circle" />
                             <%# YAF.App_GlobalResources.Install.ConnectionNewNote %>"<asp:Label ID="lblConnStringAppSettingName"
                             runat="server" Text="yafnet" />".
                         </div>

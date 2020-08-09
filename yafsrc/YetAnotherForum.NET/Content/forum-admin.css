@@ -7403,6 +7403,10 @@ div#UploadDialog {
   bottom: 20px;
   z-index: 999; }
 
+.cke_button__attachments_icon,
+.cke_button__bbcodeselector_icon {
+  background-size: auto !important; }
+
 #YafBody {
   padding-right: 15px;
   padding-left: 15px;

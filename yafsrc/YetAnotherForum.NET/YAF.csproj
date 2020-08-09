@@ -3242,6 +3242,7 @@
     <Content Include="Content\forum\logo.scss" />
     <Content Include="Content\forum\quotes.scss" />
     <Content Include="Content\forum\sidebar-help.scss" />
+    <Content Include="Content\forum\editor.scss" />
     <None Include="Content\forum\user-albums.scss" />
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
@@ -3683,7 +3684,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

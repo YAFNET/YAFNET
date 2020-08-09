@@ -45,6 +45,7 @@ namespace YAF.Install
     using YAF.Core.Membership;
     using YAF.Core.Model;
     using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -691,7 +692,7 @@ namespace YAF.Install
             infoHolder.Visible = true;
 
             detailsLiteral.Text =
-                $"<div class=\"alert alert-{cssClass}\"><span class=\"badge badge-{cssClass}\">{detailsTitle}</span> {info}</div>";
+                $"<div class=\"alert alert-{cssClass}\"><span class=\"badge bg-{cssClass}\">{detailsTitle}</span> {info}</div>";
         }
 
         /// <summary>
@@ -961,6 +962,12 @@ namespace YAF.Install
                 {
                     // fake the board settings
                     BoardContext.Current.BoardSettings = new BoardSettings();
+                }
+                else
+                {
+                    this.txtEnteredPassword.Attributes.Add(
+                        "onkeydown",
+                        JavaScriptBlocks.ClickOnEnterJs("InstallWizard_StepNavigationTemplateContainerID_StepNextButton"));
                 }
 
                 this.TimeZones.DataSource = StaticDataHelper.TimeZones();
