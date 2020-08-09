@@ -1,6 +1,12 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.1.08
+* Upgraded to Bootstrap 4.5.2
+* [FIXED] Cookie Alert 
+* [FIXED] Dropdowns for small devices
+* [FIXED] Attachments
+
 # YetAnotherForum.NET v2.3.1.07
 * Upgraded to jQuery 3.5.1
 * Upgraded to Bootstrap 4.5.0
