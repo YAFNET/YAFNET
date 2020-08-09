@@ -493,14 +493,14 @@ namespace YAF.Pages
                             this.Server.HtmlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("d"))),
                         out toFavDate))
                 {
-                    toFavDate = this.PageContext.CurrentUser.Joined/*
+                    toFavDate = this.PageContext.User.Joined/*
                                 ?? DateTimeHelper.SqlDbMinTime() + TimeSpan.FromDays(2)*/;
                     toFavText = this.GetText("MYTOPICS", "SHOW_ALL");
                 }
             }
             else
             {
-                toFavDate = this.PageContext.CurrentUser.Joined/* ?? DateTimeHelper.SqlDbMinTime() + TimeSpan.FromDays(2)*/;
+                toFavDate = this.PageContext.User.Joined/* ?? DateTimeHelper.SqlDbMinTime() + TimeSpan.FromDays(2)*/;
                 toFavText = this.GetText("MYTOPICS", "SHOW_ALL");
             }
 

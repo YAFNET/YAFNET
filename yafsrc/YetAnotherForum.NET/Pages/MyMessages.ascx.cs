@@ -172,7 +172,7 @@ namespace YAF.Pages
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                this.Get<IUserDisplayName>().GetName(this.PageContext.User),
                 BuildLink.GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"));
         }

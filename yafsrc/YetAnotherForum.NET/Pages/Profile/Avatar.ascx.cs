@@ -305,7 +305,7 @@ namespace YAF.Pages.Profile
             else
             {
                 this.PageLinks.AddLink(
-                    this.HtmlEncode(this.PageContext.PageUserName),
+                    this.HtmlEncode(this.Get<IUserDisplayName>().GetName(this.PageContext.User)),
                     BuildLink.GetLink(ForumPages.MyAccount));
                 this.PageLinks.AddLink(
                     this.GetText("EDIT_AVATAR", "TITLE"),

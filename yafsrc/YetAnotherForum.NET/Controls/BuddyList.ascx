@@ -15,6 +15,7 @@
     <ItemTemplate>
         <li class="list-group-item">
             <YAF:UserLink ID="UserProfileLink" runat="server" 
+                          ReplaceName='<%# this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name") %>'
                           Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
                           Style='<%# this.Eval("UserStyle") %>'
                           UserID='<%#  this.Eval(this.CurrentUserID == this.Eval("UserID").ToType<int>() ? "FromUserID": "UserID").ToType<int>() %>' />

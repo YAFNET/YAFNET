@@ -836,8 +836,8 @@ namespace YAF.Core.Model
                 Flags = flags,
                 Posted = posted.ToString(CultureInfo.InvariantCulture),
                 UserName = BoardContext.Current.MembershipUser.UserName,
-                UserDisplayName = BoardContext.Current.CurrentUser.DisplayName,
-                UserStyle = BoardContext.Current.UserStyle,
+                UserDisplayName = BoardContext.Current.User.DisplayName,
+                UserStyle = BoardContext.Current.User.UserStyle,
                 UserId = BoardContext.Current.PageUserID,
                 TopicId = topicId.ToType<int>(),
                 Topic = subject,
@@ -954,7 +954,7 @@ namespace YAF.Core.Model
             BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByTopicId(topicId);
 
             BoardContext.Current.Get<ILogger>().Log(
-                BoardContext.Current.PageUserName,
+                BoardContext.Current.PageUserID,
                 "YAF",
                 BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_TOPIC", topicId),
                 EventLogTypes.Information);

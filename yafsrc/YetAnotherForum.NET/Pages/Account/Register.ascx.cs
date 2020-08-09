@@ -308,7 +308,7 @@ namespace YAF.Pages.Account
                 return;
             }
 
-            this.Logger.Log(this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser), this, "secret or site key is required for reCAPTCHA!");
+            this.Logger.Log(this.PageContext.PageUserID, this, "secret or site key is required for reCAPTCHA!");
             BuildLink.AccessDenied();
         }
 
@@ -426,7 +426,7 @@ namespace YAF.Pages.Account
                         if (this.PageContext.Get<BoardSettings>().LogBannedIP)
                         {
                             this.Logger.Log(
-                                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                this.PageContext.PageUserID,
                                 "IP BAN of Bot During Registration",
                                 $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
                                 EventLogTypes.IpBanSet);

@@ -795,14 +795,14 @@ namespace YAF.Controls
 
             if (overrideByPageUserCulture)
             {
-                if (this.PageContext.CurrentUser.LanguageFile.IsSet())
+                if (this.PageContext.User.LanguageFile.IsSet())
                 {
-                    languageFile = this.PageContext.CurrentUser.LanguageFile;
+                    languageFile = this.PageContext.User.LanguageFile;
                 }
 
-                if (this.PageContext.CurrentUser.Culture.IsSet())
+                if (this.PageContext.User.Culture.IsSet())
                 {
-                    culture4Tag = this.PageContext.CurrentUser.Culture;
+                    culture4Tag = this.PageContext.User.Culture;
                 }
             }
             else

@@ -836,19 +836,19 @@ namespace YAF.Install
                 var prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
 
                 // add administrators and registered if they don't already exist...
-                if (!AspNetRolesHelper.RoleExists($"{prefix}Administrators"))
+                if (!this.Get<IAspNetRolesHelper>().RoleExists($"{prefix}Administrators"))
                 {
-                    AspNetRolesHelper.CreateRole($"{prefix}Administrators");
+                    this.Get<IAspNetRolesHelper>().CreateRole($"{prefix}Administrators");
                 }
 
-                if (!AspNetRolesHelper.RoleExists($"{prefix}Registered"))
+                if (!this.Get<IAspNetRolesHelper>().RoleExists($"{prefix}Registered"))
                 {
-                    AspNetRolesHelper.CreateRole($"{prefix}Registered");
+                    this.Get<IAspNetRolesHelper>().CreateRole($"{prefix}Registered");
                 }
 
-                if (!AspNetRolesHelper.IsUserInRole(user, $"{prefix}Administrators"))
+                if (!this.Get<IAspNetRolesHelper>().IsUserInRole(user, $"{prefix}Administrators"))
                 {
-                    AspNetRolesHelper.AddUserToRole(user, $"{prefix}Administrators");
+                    this.Get<IAspNetRolesHelper>().AddUserToRole(user, $"{prefix}Administrators");
                 }
 
                 // logout administrator...

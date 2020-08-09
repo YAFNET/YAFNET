@@ -47,8 +47,8 @@ namespace YAF.Types.Interfaces
         /// <param name="eventType">
         /// The event type.
         /// </param>
-        /// <param name="username">
-        /// The username.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <param name="source">
         /// The source.
@@ -59,7 +59,7 @@ namespace YAF.Types.Interfaces
         void Log(
             string message,
             EventLogTypes eventType = EventLogTypes.Error,
-            string username = null,
+            int? userId = null,
             string source = null,
             Exception exception = null);
 

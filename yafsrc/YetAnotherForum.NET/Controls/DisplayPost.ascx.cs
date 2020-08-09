@@ -457,6 +457,8 @@ namespace YAF.Controls
                                                    : string.Empty;
             this.UserProfileLink.Style = this.DataRow.Field<string>("Style");
 
+            this.UserProfileLink.Suspended = this.DataRow.Field<DateTime?>("Suspended");
+
             if (this.IsGuest)
             {
                 return;
@@ -743,13 +745,13 @@ namespace YAF.Controls
                 }
 
                 // Check if the User matches minimal requirements for voting up
-                if (this.PageContext.Reputation >= this.Get<BoardSettings>().ReputationMinUpVoting)
+                if (this.PageContext.User.Points >= this.Get<BoardSettings>().ReputationMinUpVoting)
                 {
                     this.AddReputation.Visible = true;
                 }
 
                 // Check if the User matches minimal requirements for voting down
-                if (this.PageContext.Reputation < this.Get<BoardSettings>().ReputationMinDownVoting)
+                if (this.PageContext.User.Points < this.Get<BoardSettings>().ReputationMinDownVoting)
                 {
                     return;
                 }

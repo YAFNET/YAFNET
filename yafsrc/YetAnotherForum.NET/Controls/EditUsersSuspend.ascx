@@ -12,9 +12,9 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_CURRENT" />
             </h4>
             <p><strong><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_REASON" /></strong> 
-                <asp:Label runat="server" ID="CurrentSuspendedReason"></asp:Label>
+                <asp:Label runat="server" ID="CurrentSuspendedReason" />
                 <strong><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_BY" /></strong>
-                <YAF:UserLink runat="server" ID="SuspendedBy"></YAF:UserLink>
+                <YAF:UserLink runat="server" ID="SuspendedBy" />
                 <strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="PROFILE" LocalizedTag="ENDS" /></strong>
                 <%= this.GetSuspendedTo() %>
             </p>

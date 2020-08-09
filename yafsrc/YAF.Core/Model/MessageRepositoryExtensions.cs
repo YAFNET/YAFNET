@@ -745,8 +745,8 @@ namespace YAF.Core.Model
                                         Flags = flags.BitValue,
                                         Posted = posted.ToString(CultureInfo.InvariantCulture),
                                         UserName = BoardContext.Current.MembershipUser.UserName,
-                                        UserDisplayName = BoardContext.Current.CurrentUser.DisplayName,
-                                        UserStyle = BoardContext.Current.UserStyle,
+                                        UserDisplayName = BoardContext.Current.User.DisplayName,
+                                        UserStyle = BoardContext.Current.User.UserStyle,
                                         UserId = BoardContext.Current.PageUserID,
                                         TopicId = BoardContext.Current.PageTopicID,
                                         Topic = BoardContext.Current.PageTopicName,
@@ -972,7 +972,7 @@ namespace YAF.Core.Model
                 BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByMessageId(messageID);
 
                 BoardContext.Current.Get<ILogger>().Log(
-                    BoardContext.Current.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
+                    BoardContext.Current.PageUserID,
                     "YAF",
                     BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", messageID),
                     EventLogTypes.Information);

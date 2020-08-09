@@ -109,7 +109,7 @@ namespace YAF.Web.BBCodes
                 }
 
                 if (this.DisplayUserID == userId ||
-                    BoardContext.Current.CurrentUser.NumPosts >= postsCount)
+                    BoardContext.Current.User.NumPosts >= postsCount)
                 {
                     shownContent = hiddenContent;
                 }

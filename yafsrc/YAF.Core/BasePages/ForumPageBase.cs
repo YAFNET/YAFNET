@@ -109,14 +109,14 @@ namespace YAF.Core.BasePages
                 if (this.Get<BoardSettings>().LogViewStateError)
                 {
                     this.Get<ILogger>()
-                        .Log(this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser), error.Source, error, EventLogTypes.Information);
+                        .Log(BoardContext.Current.User.ID, error.Source, error, EventLogTypes.Information);
                 }
             }
             else
             {
                 this.Get<ILogger>()
                     .Log(
-                        this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
+                        BoardContext.Current.User.ID,
                         error.Source,
                         error);
             }

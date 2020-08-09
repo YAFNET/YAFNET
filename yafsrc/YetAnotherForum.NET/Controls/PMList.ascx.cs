@@ -628,7 +628,7 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().ContentType = "application/vnd.csv";
             this.Get<HttpResponseBase>().AppendHeader(
                 "content-disposition",
-                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now:yyyy'-'MM'-'dd'-'HHmm}.csv")}");
+                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.Get<IUserDisplayName>().GetName(this.PageContext.User)}-{DateTime.Now:yyyy'-'MM'-'dd'-'HHmm}.csv")}");
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
@@ -686,13 +686,13 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().ContentType = "application/vnd.text";
             this.Get<HttpResponseBase>().AppendHeader(
                 "content-disposition",
-                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now:yyyy'-'MM'-'dd'-'HHmm}.txt")}");
+                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.Get<IUserDisplayName>().GetName(this.PageContext.User)}-{DateTime.Now:yyyy'-'MM'-'dd'-'HHmm}.txt")}");
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
             sw.Write($"{this.Get<BoardSettings>().Name};{BoardInfo.ForumURL}");
             sw.Write(sw.NewLine);
-            sw.Write($"Private Message Dump for User {this.PageContext.PageUserName}; {DateTime.Now}");
+            sw.Write($"Private Message Dump for User {this.Get<IUserDisplayName>().GetName(this.PageContext.User)}; {DateTime.Now}");
             sw.Write(sw.NewLine);
 
             for (var i = 0; i <= messageList.Table.DataSet.Tables[0].Rows.Count - 1; i++)
@@ -728,7 +728,7 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().ContentType = "text/xml";
             this.Get<HttpResponseBase>().AppendHeader(
                 "content-disposition",
-                $"attachment; filename=PrivateMessages-{this.PageContext.PageUserName}-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.xml");
+                $"attachment; filename=PrivateMessages-{this.Get<IUserDisplayName>().GetName(this.PageContext.User)}-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.xml");
 
             messageList.Table.TableName = "PrivateMessage";
 
@@ -746,7 +746,7 @@ namespace YAF.Controls
             messageList.Table.DataSet.DataSetName = "PrivateMessages";
 
             xw.WriteComment($" {this.Get<BoardSettings>().Name};{BoardInfo.ForumURL} ");
-            xw.WriteComment($" Private Message Dump for User {this.PageContext.PageUserName}; {DateTime.Now} ");
+            xw.WriteComment($" Private Message Dump for User {this.Get<IUserDisplayName>().GetName(this.PageContext.User)}; {DateTime.Now} ");
 
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(messageList.Table.DataSet.GetXml());

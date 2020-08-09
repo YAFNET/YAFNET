@@ -115,7 +115,7 @@ namespace YAF.Web.BBCodes
                 // TODO : Check for Rank Hiding 
                 /*if (ranks.Any())
                 {
-                    var yafUserData = new CombinedUserDataHelper(BoardContext.Current.CurrentUserData.PageUserID);
+                    var yafUserData = new CombinedUserDataHelper(BoardContext.Current.UserData.PageUserID);
 
                     if (!ranks.Where(rank => yafUserData.RankName.Equals(rank)).Any())
                     {

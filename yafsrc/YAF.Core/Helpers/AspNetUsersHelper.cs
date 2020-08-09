@@ -198,7 +198,7 @@ namespace YAF.Core.Helpers
                     if (this.Get<BoardSettings>().LogUserDeleted)
                     {
                         this.Get<ILogger>().UserDeleted(
-                            this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
+                            BoardContext.Current.User.ID,
                             $"User {user.UserName} was deleted by user id {BoardContext.Current.PageUserID} as unapproved.");
                     }
                 });
@@ -272,8 +272,8 @@ namespace YAF.Core.Helpers
             if (this.Get<BoardSettings>().LogUserDeleted)
             {
                 this.Get<ILogger>().UserDeleted(
-                    BoardContext.Current.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
-                    $"User {user.UserName} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.PageUserName)}.");
+                    BoardContext.Current.User.ID,
+                    $"User {user.UserName} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : this.Get<IUserDisplayName>().GetName(BoardContext.Current.User))}.");
             }
 
             // clear the cache
@@ -311,7 +311,7 @@ namespace YAF.Core.Helpers
                 if (this.Get<BoardSettings>().LogBannedIP)
                 {
                     this.Get<ILogger>().Log(
-                        this.Get<IUserDisplayName>().GetName(userID),
+                        userID,
                         "IP BAN of Bot",
                         $"A spam Bot who was banned by IP {userIpAddress}",
                         EventLogTypes.IpBanSet);
@@ -350,7 +350,7 @@ namespace YAF.Core.Helpers
             if (this.Get<BoardSettings>().LogUserDeleted)
             {
                 this.Get<ILogger>().UserDeleted(
-                    this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
+                    BoardContext.Current.User.ID,
                     $"User {user.UserName} was deleted by the automatic spam check system.");
             }
 

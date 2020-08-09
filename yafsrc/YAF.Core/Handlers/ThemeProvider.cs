@@ -27,6 +27,7 @@ namespace YAF.Core.Handlers
 
     using YAF.Core.Context;
     using YAF.Core.Services;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -107,11 +108,11 @@ namespace YAF.Core.Handlers
 
             string themeFile;
 
-            if (BoardContext.Current.Page != null && BoardContext.Current.Page["ThemeFile"] != null &&
+            if (BoardContext.Current.Page != null && BoardContext.Current.User.ThemeFile.IsSet() &&
                 BoardContext.Current.BoardSettings.AllowUserTheme)
             {
                 // use user-selected theme
-                themeFile = BoardContext.Current.Page["ThemeFile"].ToString();
+                themeFile = BoardContext.Current.User.ThemeFile;
             }
             else if (BoardContext.Current.Page != null && BoardContext.Current.Page["ForumTheme"] != null)
             {

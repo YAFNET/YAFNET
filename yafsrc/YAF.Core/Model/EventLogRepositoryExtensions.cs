@@ -73,7 +73,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataTable List(
+        public static DataTable ListAsDataTable(
             this IRepository<EventLog> repository, 
             int userId, 
             int maxRows, 

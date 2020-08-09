@@ -29,7 +29,6 @@ namespace YAF.Web.Extensions
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
     using YAF.Utils;
@@ -93,14 +92,10 @@ namespace YAF.Web.Extensions
         public static PageLinks AddUser(
             this PageLinks pageLinks,
             [NotNull] int userId,
-            [CanBeNull] string name)
+            [NotNull] string name)
         {
-            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
-
-            if (name.IsNotSet())
-            {
-                name = BoardContext.Current.Get<IUserDisplayName>().GetName(userId);
-            }
+            CodeContracts.VerifyNotNull(pageLinks);
+            CodeContracts.VerifyNotNull(name);
 
             pageLinks.AddLink(
                 name,

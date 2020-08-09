@@ -186,9 +186,9 @@ namespace YAF.Web.Controls
                                 Style = this.Get<BoardSettings>().UseStyledNicks
                                     ? this.Get<IStyleTransform>().DecodeStyleByString(row["Style"].ToString())
                                     : string.Empty,
-                                ReplaceName = this.Get<BoardSettings>().EnableDisplayName
-                                    ? row["UserDisplayName"].ToString()
-                                    : row["UserName"].ToString()
+                                ReplaceName = row[this.Get<BoardSettings>().EnableDisplayName
+                                    ? "UserDisplayName"
+                                    : "UserName"].ToString()
                             };
                             userLink.ID = $"UserLink{this.InstantId}{userLink.UserID}";
                         }

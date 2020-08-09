@@ -32,7 +32,6 @@ namespace YAF.Core.Context
 
     using YAF.Configuration;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -54,11 +53,6 @@ namespace YAF.Core.Context
         /// </summary>
         private IDictionary<string, object> page;
 
-        /// <summary>
-        ///   The user flags.
-        /// </summary>
-        private UserFlags userFlags;
-
         #endregion
 
         #region Properties
@@ -67,11 +61,6 @@ namespace YAF.Core.Context
         ///   Gets a value indicating whether the current user has access to vote on polls in the current BoardVoteAccess (True).
         /// </summary>
         public bool BoardVoteAccess => this.AccessNotNull("BoardVoteAccess");
-
-        /// <summary>
-        ///   Gets the culture code for the user
-        /// </summary>
-        public string CultureUser => this.PageValueAsString("CultureUser");
 
         /// <summary>
         ///   Gets a value indicating whether the current user can delete own messages in the current forum (True).
@@ -131,17 +120,7 @@ namespace YAF.Core.Context
         /// <summary>
         ///   Gets a value indicating whether the  current user is an administrator (True).
         /// </summary>
-        public bool IsAdmin => this.IsHostAdmin || this.PageValueAsBool("IsAdmin");
-
-        /// <summary>
-        ///   Gets a value indicating whether the user is excluded from CAPTCHA check (True).
-        /// </summary>
-        public bool IsCaptchaExcluded => this.userFlags != null && this.userFlags.IsCaptchaExcluded;
-
-        /// <summary>
-        /// The moderated.
-        /// </summary>
-        public bool Moderated => this.userFlags != null && this.userFlags.Moderated;
+        public bool IsForumAdmin => this.PageValueAsBool("IsAdmin");
 
         /// <summary>
         ///   Gets a value indicating whether the current user IsCrawler (True).
@@ -159,11 +138,6 @@ namespace YAF.Core.Context
         public bool IsGuest => this.PageValueAsBool("IsGuest");
 
         /// <summary>
-        ///   Gets a value indicating whether the current user host admin (True).
-        /// </summary>
-        public bool IsHostAdmin => this.userFlags != null && this.userFlags.IsHostAdmin;
-
-        /// <summary>
         ///   Gets a value indicating whether the current user uses a mobile device (True).
         /// </summary>
         public bool IsMobileDevice => this.AccessNotNull("IsMobileDevice");
@@ -175,19 +149,9 @@ namespace YAF.Core.Context
             this.PageValueAsBool("IsModerator") || this.PageValueAsBool("IsModeratorAny");
 
         /// <summary>
-        ///   Gets a value indicating whether the current user personal data was changed and not handled by a code;
-        /// </summary>
-        public bool IsDirty => this.PageValueAsBool("IsDirty");
-
-        /// <summary>
         ///   Gets a value indicating whether the current user is suspended (True).
         /// </summary>
         public bool IsSuspended => this.Page?["Suspended"] is DateTime;
-
-        /// <summary>
-        ///   Gets the language file name for the user
-        /// </summary>
-        public string LanguageFile => this.PageValueAsString("LanguageFile");
 
         /// <summary>
         ///   Gets the number of pending buddy requests.
@@ -244,9 +208,6 @@ namespace YAF.Core.Context
             {
                 this.page = value;
                 this.InitUserPage = value != null;
-
-                // get user flags
-                this.userFlags = this.page != null ? new UserFlags(this.page["UserFlags"]) : null;
             }
         }
 
@@ -314,19 +275,9 @@ namespace YAF.Core.Context
         public int PageUserID => this.PageValueAsInt("UserID");
 
         /// <summary>
-        ///   Gets PageUserName.
-        /// </summary>
-        public string PageUserName => this.PageValueAsString("UserName");
-
-        /// <summary>
         ///   Gets the number of pending buddy requests
         /// </summary>
         public int PendingBuddies => this.Page["PendingBuddies"].ToType<int>();
-
-        /// <summary>
-        ///   Gets the number of Reputation Points
-        /// </summary>
-        public int Reputation => this.Page["Reputation"].ToType<int>();
 
         /// <summary>
         ///   Gets the DateTime the user is suspended until
@@ -389,11 +340,6 @@ namespace YAF.Core.Context
         ///   Gets a value indicating whether a user has buddies
         /// </summary>
         public bool UserHasBuddies => this.PageValueAsBool("UserHasBuddies");
-
-        /// <summary>
-        ///   Gets the UserStyle for the user
-        /// </summary>
-        public string UserStyle => this.PageValueAsString("UserStyle");
 
         /// <summary>
         ///   Gets the number of albums which a user can have

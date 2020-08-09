@@ -180,7 +180,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser), this, x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -221,7 +221,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser), this, x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -267,7 +267,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser), this, x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -312,7 +312,7 @@ namespace YAF.Core.Services
             {
                 this.Get<ILogger>()
                    .Log(
-                       this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
+                       BoardContext.Current.PageUserID,
                        this,
                        $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                        EventLogTypes.Information);
@@ -348,7 +348,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser), this, x);
+                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -449,7 +449,7 @@ namespace YAF.Core.Services
             {
                 // issue getting access to the avatar...
                 this.Get<ILogger>().Log(
-                    this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
+                    BoardContext.Current.PageUserID,
                     this,
                     $"URL: {avatarUrl}<br />Referer URL: {context.Request.UrlReferrer?.AbsoluteUri ?? string.Empty}<br />Exception: {exception}");
 

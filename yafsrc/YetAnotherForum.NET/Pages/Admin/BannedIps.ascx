@@ -96,13 +96,6 @@
                     </span>
                     <%# this.Eval("Reason") %>
                 </p>
-                <p class="mb-1" runat="server" Visible='<%# this.Eval("UserID").ToString().IsSet()%>'>
-                    <span class="font-weight-bold">
-                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="BAN_BY" LocalizedPage="ADMIN_BANNEDIP" />
-                    </span>
-                    <YAF:UserLink ID="UserLink1" runat="server" 
-                                  UserID='<%# this.Eval("UserID").ToString().IsNotSet() ? -1 : this.Eval("UserID").ToType<int>() %>' />
-                </p>
                 <small>
                     <div class="btn-group btn-group-sm">
                         <YAF:ThemeButton ID="ThemeButtonEdit" 

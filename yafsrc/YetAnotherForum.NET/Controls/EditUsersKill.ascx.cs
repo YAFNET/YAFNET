@@ -131,7 +131,7 @@ namespace YAF.Controls
                 this.GetRepository<BannedEmail>().Save(
                     null,
                     this.User.Item1.Email,
-                    $"Email was reported by: {this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser)}");
+                    $"Email was reported by: {this.Get<IUserDisplayName>().GetName(this.PageContext.User)}");
             }
 
             // Ban User IP?
@@ -146,7 +146,7 @@ namespace YAF.Controls
                 this.GetRepository<BannedName>().Save(
                     null,
                     this.User.Item1.Name,
-                    $"Name was reported by: {this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser)}");
+                    $"Name was reported by: {this.Get<IUserDisplayName>().GetName(this.PageContext.User)}");
             }
 
             this.DeleteAllUserMessages();
@@ -163,9 +163,9 @@ namespace YAF.Controls
                         this.GetRepository<Registry>().IncrementReportedSpammers();
 
                         this.Logger.Log(
-                            this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                            this.PageContext.PageUserID,
                             "User Reported to StopForumSpam.com",
-                            $"User (Name:{this.User.Item1.Name}/ID:{this.CurrentUserId}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser)}",
+                            $"User (Name:{this.User.Item1.Name}/ID:{this.CurrentUserId}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {this.Get<IUserDisplayName>().GetName(this.PageContext.User)}",
                             EventLogTypes.SpamBotReported);
                     }
                 }
@@ -176,7 +176,7 @@ namespace YAF.Controls
                         MessageTypes.danger);
 
                     this.Logger.Log(
-                        this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                        this.PageContext.PageUserID,
                         $"User (Name{this.User.Item1.Name}/ID:{this.CurrentUserId}) Report to StopForumSpam.com Failed",
                         exception);
                 }

@@ -43,6 +43,8 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
@@ -213,6 +215,33 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Renders the UserLink
+        /// </summary>
+        /// <param name="dataRow">The data row.</param>
+        /// <returns></returns>
+        protected string UserLink([NotNull] object dataRow)
+        {
+            // cast object to the DataRowView
+            var row = (DataRowView)dataRow;
+
+
+            if (row["UserID"].IsNullOrEmptyDBField())
+            {
+                return row["Name"].ToString();
+            }
+
+            var userLink = new UserLink
+            {
+                UserID = row["UserID"].ToType<int>(),
+                Suspended = row["Suspended"].ToType<DateTime?>(),
+                Style = row["Style"].ToString(),
+                ReplaceName = row[this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name"].ToString()
+            };
+
+            return userLink.RenderToString();
+        }
+
+        /// <summary>
         /// Populates data source and binds data to controls.
         /// </summary>
         private void BindData()
@@ -256,7 +285,7 @@ namespace YAF.Pages.Admin
 
             // list event for this board
             var dt = this.GetRepository<Types.Models.EventLog>()
-                               .List(
+                               .ListAsDataTable(
                                    this.PageContext.PageUserID,
                                    this.Get<BoardSettings>().EventLogMaxMessages,
                                    this.Get<BoardSettings>().EventLogMaxDays,

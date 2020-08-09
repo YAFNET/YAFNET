@@ -262,7 +262,7 @@ namespace YAF.Web.Controls
                     "lock");
             }
 
-            if (!Config.IsDotNetNuke && !this.PageContext.IsHostAdmin)
+            if (!Config.IsDotNetNuke && !this.PageContext.User.UserFlags.IsHostAdmin)
             {
                 // Render Delete Account Item
                 this.RenderMenuItem(

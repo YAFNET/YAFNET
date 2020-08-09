@@ -256,7 +256,7 @@ namespace YAF.Core.Nntp
       catch (Exception ex)
       {
           BoardContext.Current.Get<ILogger>().Log(
-              BoardContext.Current.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser),
+              BoardContext.Current.PageUserID,
               "NntpUtil",
               $"Unhandled NNTP DateTime nntpDateTime '{nntpDateTime}': {ex}");
       }

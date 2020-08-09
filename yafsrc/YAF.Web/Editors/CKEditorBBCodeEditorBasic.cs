@@ -77,8 +77,8 @@ namespace YAF.Web.Editors
                 "ckeditorinitbbcodebasic",
                 JavaScriptBlocks.CKEditorBasicLoadJs(
                     this.TextAreaControl.ClientID,
-                    BoardContext.Current.CultureUser.IsSet()
-                        ? BoardContext.Current.CultureUser.Substring(0, 2)
+                    BoardContext.Current.User.Culture.IsSet()
+                        ? BoardContext.Current.User.Culture.Substring(0, 2)
                         : this.Get<BoardSettings>().Culture.Substring(0, 2),
                     this.MaxCharacters,
                     this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"),

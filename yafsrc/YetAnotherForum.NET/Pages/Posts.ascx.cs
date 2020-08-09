@@ -365,7 +365,7 @@ namespace YAF.Pages
         {
             if (!this.PageContext.IsGuest)
             {
-                if (this.PageContext.CurrentUser.Activity)
+                if (this.PageContext.User.Activity)
                 {
                     this.GetRepository<Activity>().UpdateTopicNotification(
                         this.PageContext.PageUserID,
@@ -1039,7 +1039,7 @@ namespace YAF.Pages
                                         findMessageId = unreadFirst.Field<int>("MessageID");
                                         messagePosition = unreadFirst.Field<int>("MessagePosition");
 
-                                        if (this.Get<HttpRequestBase>().QueryString.Exists("m") && this.PageContext.CurrentUser.Activity)
+                                        if (this.Get<HttpRequestBase>().QueryString.Exists("m") && this.PageContext.User.Activity)
                                         {
                                             this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, findMessageId);
                                         }
@@ -1077,7 +1077,7 @@ namespace YAF.Pages
             }
             catch (Exception x)
             {
-                this.Logger.Log(this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser), this, x);
+                this.Logger.Log(this.PageContext.PageUserID, this, x);
             }
 
             return findMessageId;

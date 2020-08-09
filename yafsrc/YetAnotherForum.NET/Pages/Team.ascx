@@ -37,6 +37,7 @@
                                                 CssClass="rounded img-fluid"/>
                                      <YAF:UserLink ID="AdminLink" runat="server" 
                                                    IsGuest="False" 
+                                                   ReplaceName='<%#  this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name").ToString() %>' 
                                                    Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
                                                    UserID='<%# this.Eval("ID").ToType<int>() %>' 
                                                    Style='<%# this.Eval("UserStyle") %>'  />

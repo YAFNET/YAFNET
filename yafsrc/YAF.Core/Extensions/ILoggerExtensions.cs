@@ -45,8 +45,8 @@ namespace YAF.Core.Extensions
         /// <param name="logger">
         /// The logger.
         /// </param>
-        /// <param name="userName">
-        /// The user Name.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <param name="source">
         /// The source.
@@ -59,7 +59,7 @@ namespace YAF.Core.Extensions
         /// </param>
         public static void Log(
             [NotNull] this ILogger logger, 
-            [CanBeNull] string userName, 
+            [CanBeNull] int? userId, 
             [CanBeNull] object source, 
             [NotNull] Exception exception, 
             EventLogTypes eventType = EventLogTypes.Error)
@@ -91,7 +91,7 @@ namespace YAF.Core.Extensions
             logger.Log(
                 message,
                 eventType,
-                userName,
+                userId,
                 sourceDescription,
                 exception);
         }

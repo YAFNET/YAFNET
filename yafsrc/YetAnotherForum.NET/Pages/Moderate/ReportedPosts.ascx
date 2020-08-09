@@ -35,6 +35,7 @@
                                                     LocalizedTag="POSTEDBY" LocalizedPage="REPORTPOST" />
                             </span>
                             <YAF:UserLink ID="UserLink1" runat="server" 
+                                          ReplaceName='<%# this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "UserDisplayName" : "UserName") %>'
                                           Suspended='<%# Container.DataItemToField<DateTime?>("Suspended") %>'
                                           Style='<%# Container.DataItemToField<string>("UserStyle") %>'
                                           UserID='<%# this.Eval("UserID").ToType<int>() %>' />

@@ -149,9 +149,9 @@ namespace YAF.Pages.Admin
                         {
                             this.Get<ILogger>()
                                 .Log(
-                                    this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                    this.PageContext.PageUserID,
                                     " YAF.Pages.Admin.bannedip",
-                                    $"IP or mask {ipAddress} was deleted by {this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser)}.",
+                                    $"IP or mask {ipAddress} was deleted by {this.Get<IUserDisplayName>().GetName(this.PageContext.User)}.",
                                     EventLogTypes.IpBanLifted);
                         }
                     }

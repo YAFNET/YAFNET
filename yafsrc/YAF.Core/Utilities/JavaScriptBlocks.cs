@@ -96,8 +96,8 @@ namespace YAF.Core.Utilities
         public static string MomentLoadJs =>
             $@"function loadTimeAgo() {{
             
-		     moment.locale('{(BoardContext.Current.CultureUser.IsSet()
-                                  ? BoardContext.Current.CultureUser.Substring(0, 2)
+		     moment.locale('{(BoardContext.Current.User.Culture.IsSet()
+                                  ? BoardContext.Current.User.Culture.Substring(0, 2)
                                   : BoardContext.Current.Get<BoardSettings>().Culture.Substring(0, 2))}');
              {Config.JQueryAlias}('abbr.timeago').each(function() {{
                   {Config.JQueryAlias}(this).html(function(index, value) {{

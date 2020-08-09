@@ -96,7 +96,7 @@ namespace YAF.Pages
                         "t={0}&name={1}",
                         this.PageContext.PageTopicID,
                         this.PageContext.PageTopicName),
-                    ["{user}"] = this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser)
+                    ["{user}"] = this.Get<IUserDisplayName>().GetName(this.PageContext.User)
                 }
             };
 
@@ -147,7 +147,7 @@ namespace YAF.Pages
             }
             catch (Exception x)
             {
-                this.Logger.Log(this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser), this, x);
+                this.Logger.Log(this.PageContext.PageUserID, this, x);
                 this.PageContext.AddLoadMessage(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
             }
         }

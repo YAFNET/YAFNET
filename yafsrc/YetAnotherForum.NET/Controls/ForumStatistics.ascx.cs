@@ -205,9 +205,9 @@ namespace YAF.Controls
                 this.StatsLastPostHolder.Visible = true;
 
                 this.LastPostUserLink.UserID = postsStatisticsDataRow["LastUserID"].ToType<int>();
-                this.LastPostUserLink.ReplaceName = this.Get<BoardSettings>().EnableDisplayName
-                                                        ? postsStatisticsDataRow["LastUserDisplayName"].ToString()
-                                                        : postsStatisticsDataRow["LastUser"].ToString();
+                this.LastPostUserLink.ReplaceName = postsStatisticsDataRow[this.Get<BoardSettings>().EnableDisplayName
+                    ? "LastUserDisplayName"
+                    : "LastUser"].ToString();
                 this.LastPostUserLink.Suspended = postsStatisticsDataRow.Field<DateTime?>("LastUserSuspended");
                 this.LastPostUserLink.Style = postsStatisticsDataRow["LastUserStyle"].ToString();
                 this.StatsLastPost.Text = this.GetTextFormatted(
@@ -228,9 +228,9 @@ namespace YAF.Controls
             // Newest Member
             this.StatsNewestMember.Text = this.GetText("stats_lastmember");
             this.NewestMemberUserLink.UserID = userStatisticsDataRow["LastMemberID"].ToType<int>();
-            this.NewestMemberUserLink.ReplaceName = this.Get<BoardSettings>().EnableDisplayName
-                                                        ? userStatisticsDataRow["LastMemberDisplayName"].ToString()
-                                                        : userStatisticsDataRow["LastMember"].ToString();
+            this.NewestMemberUserLink.ReplaceName = userStatisticsDataRow[this.Get<BoardSettings>().EnableDisplayName
+                ? "LastMemberDisplayName"
+                : "LastMember"].ToString();
             this.NewestMemberUserLink.Style = userStatisticsDataRow["LastMemberStyle"].ToString();
             this.NewestMemberUserLink.Suspended = userStatisticsDataRow.Field<DateTime?>("LastMemberSuspended");
 

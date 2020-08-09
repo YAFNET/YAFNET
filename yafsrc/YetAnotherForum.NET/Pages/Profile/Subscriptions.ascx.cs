@@ -97,7 +97,7 @@ namespace YAF.Pages.Profile
 
             var setting =
                 this.rblNotificationType.Items.FindByValue(
-                    this.PageContext.CurrentUser.NotificationSetting.ToInt().ToString())
+                    this.PageContext.User.NotificationSetting.ToInt().ToString())
                 ?? this.rblNotificationType.Items.FindByValue(0.ToString());
 
             if (setting != null)
@@ -106,7 +106,7 @@ namespace YAF.Pages.Profile
             }
 
             // update the ui...
-            this.UpdateSubscribeUi(this.PageContext.CurrentUser.NotificationSetting);
+            this.UpdateSubscribeUi(this.PageContext.User.NotificationSetting);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace YAF.Pages.Profile
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                this.Get<IUserDisplayName>().GetName(this.PageContext.User),
                 BuildLink.GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
@@ -286,8 +286,8 @@ namespace YAF.Pages.Profile
 
             this.TopicsHolder.Visible = topicList.Count != 0;
 
-            this.PMNotificationEnabled.Checked = this.PageContext.CurrentUser.PMNotification;
-            this.DailyDigestEnabled.Checked = this.PageContext.CurrentUser.DailyDigest;
+            this.PMNotificationEnabled.Checked = this.PageContext.User.PMNotification;
+            this.DailyDigestEnabled.Checked = this.PageContext.User.DailyDigest;
 
             this.DataBind();
         }

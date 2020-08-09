@@ -435,6 +435,8 @@ namespace YAF.Pages
         private void SetupUserProfileInfo([NotNull] Tuple<User, AspNetUsers, Rank, vaccess> user)
         {
             this.UserLabel1.UserID = user.Item1.ID;
+            this.UserLabel1.ReplaceName = this.Get<IUserDisplayName>().GetName(user.Item1);
+            this.UserLabel1.Style = user.Item1.UserStyle;
 
             this.Joined.Text = $"{this.Get<IDateTime>().FormatDateLong(Convert.ToDateTime(user.Item1.Joined))}";
 

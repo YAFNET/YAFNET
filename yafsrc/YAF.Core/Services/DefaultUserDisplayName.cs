@@ -192,6 +192,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
+        [Obsolete("Use GetName(username) instead")]
         public string GetName(int userId)
         {
             if (this.UserDisplayNameCollection.TryGetValue(userId, out var displayName))

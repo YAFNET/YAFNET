@@ -354,7 +354,7 @@ namespace YAF.Controls
                     "lock");
             }
 
-            if (!Config.IsDotNetNuke && !this.PageContext.IsHostAdmin)
+            if (!Config.IsDotNetNuke && !this.PageContext.User.UserFlags.IsHostAdmin)
             {
                 // Render Delete Account Item
                 RenderMenuItem(
@@ -479,7 +479,7 @@ namespace YAF.Controls
 
             var unreadNotify = this.PageContext.Mention + this.PageContext.Quoted + this.PageContext.ReceivedThanks;
 
-            if (!this.PageContext.CurrentUser.Activity)
+            if (!this.PageContext.User.Activity)
             {
                 this.MyNotifications.Visible = false;
             }

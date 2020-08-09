@@ -137,7 +137,7 @@ namespace YAF.Controls
         {
             this.user = this.PageContext.CurrentForumPage.IsAdminPage
                 ? this.GetRepository<User>().GetById(this.CurrentUserID)
-                : this.PageContext.CurrentUser;
+                : this.PageContext.User;
 
             this.signatureEditor.Text = this.user.Signature;
 
@@ -272,7 +272,7 @@ namespace YAF.Controls
                             if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
                             {
                                 this.Logger.SpamBotDetected(
-                                    this.Get<IUserDisplayName>().GetName(this.user),
+                                    this.user.ID,
                                     $@"Internal Spam Word Check detected a SPAM BOT: (
                                                       user name : '{this.user.Name}', 
                                                       user id : '{this.CurrentUserID}') 
@@ -281,7 +281,7 @@ namespace YAF.Controls
                             else if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
                             {
                                 this.Logger.SpamBotDetected(
-                                    this.Get<IUserDisplayName>().GetName(this.user),
+                                    this.user.ID,
                                     $@"Internal Spam Word Check detected a SPAM BOT: (
                                                        user name : '{this.user.Name}', 
                                                        user id : '{this.CurrentUserID}') 

@@ -221,7 +221,7 @@ namespace YAF.Pages
             }
 
             if ((!this.PageContext.IsGuest || !this.PageContext.BoardSettings.EnableCaptchaForGuests)
-                && (!this.PageContext.BoardSettings.EnableCaptchaForPost || this.PageContext.IsCaptchaExcluded)
+                && (!this.PageContext.BoardSettings.EnableCaptchaForPost || this.PageContext.User.UserFlags.IsCaptchaExcluded)
                 || CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
             {
                 return true;
@@ -401,11 +401,11 @@ namespace YAF.Pages
                 {
                     this.PostOptions1.WatchChecked = this.PageContext.PageTopicID > 0
                         ? this.GetRepository<WatchTopic>().Check(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue
-                        : this.PageContext.CurrentUser.AutoWatchTopics;
+                        : this.PageContext.User.AutoWatchTopics;
                 }
 
                 if (this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests
-                    || this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded)
+                    || this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.User.UserFlags.IsCaptchaExcluded)
                 {
                     this.imgCaptcha.ImageUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?c=1";
                     this.tr_captcha1.Visible = true;
@@ -465,7 +465,7 @@ namespace YAF.Pages
                 // form user is only for "Guest"
                 if (this.PageContext.IsGuest)
                 {
-                    this.From.Text = this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID);
+                    this.From.Text = this.Get<IUserDisplayName>().GetName(this.PageContext.User);
                     this.FromRow.Visible = false;
                 }
             }
@@ -696,7 +696,7 @@ namespace YAF.Pages
                 // Check content for spam
                 if (
                     this.Get<ISpamCheck>().CheckPostForSpam(
-                        this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
+                        this.PageContext.IsGuest ? this.From.Text : this.Get<IUserDisplayName>().GetName(this.PageContext.User),
                         this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         BBCodeHelper.StripBBCode(
                             HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.forumEditor.Text)))
@@ -705,37 +705,37 @@ namespace YAF.Pages
                         out var spamResult))
                 {
                     var description =
-                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}";
+                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.Get<IUserDisplayName>().GetName(this.PageContext.User))}";
 
                     switch (this.PageContext.BoardSettings.SpamMessageHandling)
                     {
                         case 0:
                             this.Logger.SpamMessageDetected(
-                                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                this.PageContext.PageUserID,
                                 description);
                             break;
                         case 1:
                             this.spamApproved = false;
                             isPossibleSpamMessage = true;
                             this.Logger.SpamMessageDetected(
-                                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                this.PageContext.PageUserID,
                                 $"{description}, it was flagged as unapproved post.");
                             break;
                         case 2:
                             this.Logger.SpamMessageDetected(
-                                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                this.PageContext.PageUserID,
                                 $"{description}, post was rejected");
                             this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
                             return;
                         case 3:
                             this.Logger.SpamMessageDetected(
-                                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                this.PageContext.PageUserID,
                                 $"{description}, user was deleted and banned");
 
                             this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                 this.PageContext.PageUserID,
                                 this.PageContext.MembershipUser,
-                                this.PageContext.CurrentUser.IP);
+                                this.PageContext.User.IP);
 
                             return;
                     }
@@ -793,7 +793,7 @@ namespace YAF.Pages
                     this.Get<ISendNotification>().ToWatchingUsers(messageId.Value);
                 }
 
-                if (this.EditMessageId == null && !this.PageContext.IsGuest && this.PageContext.CurrentUser.Activity)
+                if (this.EditMessageId == null && !this.PageContext.IsGuest && this.PageContext.User.Activity)
                 {
                     // Handle Mentions
                     BBCodeHelper.FindMentions(this.forumEditor.Text).ForEach(
@@ -1179,7 +1179,7 @@ namespace YAF.Pages
         private bool CheckForumModerateStatus(Forum forumInfo, bool isNewTopic)
         {
             // User Moderate override
-            if (this.PageContext.Moderated)
+            if (this.PageContext.User.UserFlags.Moderated)
             {
                 return true;
             }
@@ -1203,7 +1203,7 @@ namespace YAF.Pages
 
             var moderatedPostCount = forumInfo.ModeratedPostCount;
 
-            return !(this.PageContext.CurrentUser.NumPosts >= moderatedPostCount);
+            return !(this.PageContext.User.NumPosts >= moderatedPostCount);
         }
 
         /// <summary>

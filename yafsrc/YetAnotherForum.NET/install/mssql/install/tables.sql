@@ -538,7 +538,7 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[IsDirty]	AS (CONVERT([bit],sign([Flags]&(64)),(0))),
 		[Moderated]	AS (CONVERT([bit],sign([Flags]&(128)),(0))),
 		[Activity] [bit] NOT NULL constraint [DF_{objectQualifier}User_Activity] default (1),
-		[Culture] varchar (10) default (10),
+		[Culture] varchar (10) null,
 		[UserStyle] [varchar](510) NULL,
 	    [StyleFlags] [int] NOT NULL constraint [DF_{objectQualifier}User_StyleFlags] default (0),
 	    [IsUserStyle]  AS (CONVERT([bit],sign([StyleFlags]&(1)),(0))),
@@ -803,8 +803,7 @@ begin
 	create table [{databaseOwner}].[{objectQualifier}EventLog](
 		EventLogID	int identity(1,1) not null,
 		EventTime	datetime not null constraint [DF_{objectQualifier}EventLog_EventTime] default GETUTCDATE() ,
-		UserID		int, -- deprecated
-		UserName	nvarchar(100) null,
+		UserID		int,
 		[Source]	nvarchar(50) not null,
 		Description	nvarchar(max) not null,
 		[Type] [int] NOT NULL constraint [DF_{objectQualifier}EventLog_Type] default (0),

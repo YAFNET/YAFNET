@@ -36,7 +36,8 @@
                                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                                 LocalizedTag="FROM" />:
                                         </span>
-                                        <YAF:UserLink ID="FromUserLink" runat="server" 
+                                        <YAF:UserLink ID="FromUserLink" runat="server"
+                                                      ReplaceName='<%# this.PageContext.BoardSettings.EnableDisplayName ? this.Eval("FromUserDisplayName").ToString() : this.Eval("FromUser").ToString()  %>'
                                                       Suspended='<%# this.Eval("FromSuspended").ToType<DateTime?>() %>'
                                                       Style='<%# this.Eval("FromStyle") %>'
                                                       UserID='<%# this.Eval("FromUserID").ToType<int>() %>' />

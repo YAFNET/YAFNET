@@ -55,6 +55,28 @@ namespace YAF.Types
             }
         }
 
+        /// <summary>
+        ///     Validates argument (obj) is not <see langword="null" />. Throws exception
+        ///     if it is.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     type of the argument that's being verified
+        /// </typeparam>
+        /// <param name="obj">value of argument to verify not null</param>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="obj" /> is
+        ///     <c>null</c>.
+        /// </exception>
+        [ContractAnnotation("obj:null => halt")]
+        public static void VerifyNotNull<T>([CanBeNull] T obj) where T : class
+        {
+            var argumentName = nameof(obj);
+            if (obj == null)
+            {
+                throw new ArgumentNullException(argumentName, $"{argumentName} cannot be null");
+            }
+        }
+
         #endregion
     }
 }

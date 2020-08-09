@@ -23,6 +23,7 @@
  */
 namespace YAF.Types.Interfaces
 {
+    using System;
     using System.Collections.Generic;
 
     using YAF.Types.Models;
@@ -41,6 +42,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
+        [Obsolete("Use GetName(username) instead")]
         string GetName(int userId);
 
         /// <summary>

@@ -102,6 +102,9 @@ namespace YAF.Controls
 
             // render UserLink...
             userLink.UserID = row["ID"].ToType<int>();
+            userLink.Suspended = row["Suspended"].ToType<DateTime?>();
+            userLink.Style = row["UserStyle"].ToString();
+            userLink.ReplaceName = row[this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name"].ToString();
         }
 
         /// <summary>

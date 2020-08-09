@@ -70,7 +70,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.ActivityPlaceHolder.Visible = this.PageContext.CurrentUser.Activity;
+            this.ActivityPlaceHolder.Visible = this.PageContext.User.Activity;
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace YAF.Pages
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                this.Get<IUserDisplayName>().GetName(this.PageContext.User),
                 BuildLink.GetLink(ForumPages.MyAccount));
         }
 

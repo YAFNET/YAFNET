@@ -85,7 +85,8 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
                                             LocalizedTag='<%# this.View == PmView.Outbox ? "TO" : "FROM" %>' />:
                     </span>
-                    <YAF:UserLink ID="UserLink1" runat="server" 
+                    <YAF:UserLink ID="UserLink1" runat="server"
+                                  ReplaceName='<%# this.View == PmView.Outbox ? this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "ToUserDisplayName" : "ToUser") : this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "FromUserDisplayName" : "FromUser") %>'
                                   Suspended='<%# this.Eval(this.View == PmView.Outbox ? "ToSuspended" : "FromSuspended").ToType<DateTime?>()  %>'
                                   Style='<%# this.Eval(this.View == PmView.Outbox ? "ToStyle" : "FromStyle") %>'
                                   UserID='<%# this.Eval(this.View == PmView.Outbox ? "ToUserID" : "FromUserID").ToType<int>() %>' />

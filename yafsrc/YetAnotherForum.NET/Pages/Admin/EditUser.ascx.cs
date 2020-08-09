@@ -94,7 +94,7 @@ namespace YAF.Pages.Admin
             }
 
             // do admin permission check...
-            if (!this.PageContext.IsHostAdmin && user.UserFlags.IsHostAdmin)
+            if (!this.PageContext.User.UserFlags.IsHostAdmin && user.UserFlags.IsHostAdmin)
             {
                 // user is not host admin and is attempted to edit host admin account...
                 BuildLink.AccessDenied();

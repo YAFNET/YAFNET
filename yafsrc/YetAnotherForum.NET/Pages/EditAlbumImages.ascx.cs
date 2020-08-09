@@ -246,7 +246,7 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-            var displayName = this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser);
+            var displayName = this.Get<IUserDisplayName>().GetName(this.PageContext.User);
 
             // Add the page links.
             this.PageLinks.AddRoot();
@@ -317,7 +317,7 @@ namespace YAF.Pages
             {
                 if (x.GetType() != typeof(ThreadAbortException))
                 {
-                    this.Logger.Log(this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser), this, x);
+                    this.Logger.Log(this.PageContext.PageUserID, this, x);
                     this.PageContext.AddLoadMessage(x.Message, MessageTypes.danger);
                 }
             }

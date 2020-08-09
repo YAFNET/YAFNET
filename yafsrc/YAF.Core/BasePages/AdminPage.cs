@@ -94,7 +94,7 @@ namespace YAF.Core.BasePages
             }
 
             // host admins are not checked
-            if (this.PageContext.IsHostAdmin)
+            if (this.PageContext.User.UserFlags.IsHostAdmin)
             {
                 return;
             }

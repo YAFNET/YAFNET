@@ -69,7 +69,7 @@ namespace YAF.Pages.Profile
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                this.Get<IUserDisplayName>().GetName(this.PageContext.User),
                 BuildLink.GetLink(ForumPages.MyAccount));
 
             this.PageLinks.AddLink(
@@ -84,7 +84,7 @@ namespace YAF.Pages.Profile
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (Config.IsDotNetNuke || this.PageContext.IsHostAdmin)
+            if (Config.IsDotNetNuke || this.PageContext.User.UserFlags.IsHostAdmin)
             {
                 BuildLink.AccessDenied();
             }
@@ -144,7 +144,7 @@ namespace YAF.Pages.Profile
                         if (user != null)
                         {
                             this.Get<ILogger>().Log(
-                                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                this.PageContext.PageUserID,
                                 this,
                                 $"User {this.Get<IUserDisplayName>().GetName(user)} Suspended his own account until: {suspend} (UTC)",
                                 EventLogTypes.UserSuspended);
@@ -173,8 +173,8 @@ namespace YAF.Pages.Profile
                             x => this.GetRepository<Message>().Delete(x, true, string.Empty, 1, true, false));
 
                         this.Get<ILogger>().UserDeleted(
-                            this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
-                            $"User {this.PageContext.PageUserName} Deleted his own account");
+                            this.PageContext.PageUserID,
+                            $"User {this.Get<IUserDisplayName>().GetName(this.PageContext.User)} Deleted his own account");
                     }
 
                     break;

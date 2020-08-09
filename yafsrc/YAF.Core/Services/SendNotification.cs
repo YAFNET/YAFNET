@@ -318,7 +318,7 @@ namespace YAF.Core.Services
 
                 var languageFile = UserHelper.GetUserLanguageFile(toUserId);
 
-                var displayName = this.Get<IUserDisplayName>().GetName(BoardContext.Current.CurrentUser);
+                var displayName = this.Get<IUserDisplayName>().GetName(BoardContext.Current.User);
 
                 // send this user a PM notification e-mail
                 var notificationTemplate = new TemplateEmail("PMNOTIFICATION")
@@ -489,7 +489,7 @@ namespace YAF.Core.Services
                     (mailMessage, exception) => this.Get<ILogger>().Log(
                         "Mail Error",
                         EventLogTypes.Error,
-                        "SYSTEM",
+                        null,
                         null,
                         exception));
             }

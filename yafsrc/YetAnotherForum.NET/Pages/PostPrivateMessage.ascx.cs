@@ -205,7 +205,7 @@ namespace YAF.Pages
 
             // users control panel
             this.PageLinks.AddLink(
-                this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                this.Get<IUserDisplayName>().GetName(this.PageContext.User),
                 BuildLink.GetLink(ForumPages.MyAccount));
 
             // private messages
@@ -736,7 +736,7 @@ namespace YAF.Pages
             {
                 // Check content for spam
                 if (!this.Get<ISpamCheck>().CheckPostForSpam(
-                    this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                    this.PageContext.IsGuest ? "Guest" : this.Get<IUserDisplayName>().GetName(this.PageContext.User),
                     this.PageContext.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     message,
                     this.PageContext.MembershipUser.Email,
@@ -746,23 +746,24 @@ namespace YAF.Pages
                 }
 
                 var description =
-                    $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}";
+                    $@"Spam Check detected possible SPAM ({spamResult}) 
+                       posted by User: {(this.PageContext.IsGuest ? "Guest" : this.Get<IUserDisplayName>().GetName(this.PageContext.User))}";
 
                 switch (this.Get<BoardSettings>().SpamMessageHandling)
                 {
                     case 0:
                         this.Logger.SpamMessageDetected(
-                            this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                            this.PageContext.PageUserID,
                             description);
                         break;
                     case 1:
                         this.Logger.SpamMessageDetected(
-                            this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                            this.PageContext.PageUserID,
                             $"{description}, it was flagged as unapproved post");
                         break;
                     case 2:
                         this.Logger.SpamMessageDetected(
-                            this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                            this.PageContext.PageUserID,
                             $"{description}, post was rejected");
 
                         this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
@@ -770,13 +771,13 @@ namespace YAF.Pages
                         break;
                     case 3:
                         this.Logger.SpamMessageDetected(
-                            this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                            this.PageContext.PageUserID,
                             $"{description}, user was deleted and bannded");
 
                         this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                             this.PageContext.PageUserID,
                             this.PageContext.MembershipUser,
-                            this.PageContext.CurrentUser.IP);
+                            this.PageContext.User.IP);
 
                         break;
                 }

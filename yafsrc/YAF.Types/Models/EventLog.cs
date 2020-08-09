@@ -41,28 +41,47 @@ namespace YAF.Types.Models
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [Alias("EventLogID")]
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the event time.
+        /// </summary>
         [Default(OrmLiteVariables.SystemUtc)]
         public DateTime EventTime { get; set; }
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         public int? UserID { get; set; }
 
-        [StringLength(100)]
-        public string UserName { get; set; }
-
+        /// <summary>
+        /// Gets or sets the source.
+        /// </summary>
         [Required]
         [StringLength(50)]
         public string Source { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
         [Required]
         [Default(0)]
         public int Type { get; set; }
 
+        /// <summary>
+        /// Gets or sets the event type.
+        /// </summary>
         [Ignore]
         public EventLogTypes EventType
         {

@@ -245,6 +245,7 @@
                             <tr>
                     <td>
                         <YAF:UserLink ID="ActiveUserLink" 
+                                      ReplaceName='<%# this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "UserDisplayName" : "UserName") %>'
                                       Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
                                       UserID='<%# this.Eval("UserID") %>' 
                                       CrawlerName='<%# this.Eval("IsCrawler").ToType<int>() > 0 ? this.Eval("Browser").ToString() : string.Empty %>'
@@ -333,6 +334,7 @@
                 <tr>
                     <td>
                         <YAF:UserLink ID="UnverifiedUserLink" 
+                                      ReplaceName='<%# this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name") %>'
                                       Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
                                       UserID='<%# this.Eval("ID") %>' 
                                       Style='<%# this.Eval("UserStyle") %>'

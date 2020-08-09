@@ -101,7 +101,7 @@ namespace YAF.Dialogs
                                               ? this.GetRepository<WatchTopic>().Check(
                                                   this.PageContext.PageUserID,
                                                   this.PageContext.PageTopicID).HasValue
-                                              : this.PageContext.CurrentUser.AutoWatchTopics;
+                                              : this.PageContext.User.AutoWatchTopics;
             }
 
             this.QuickReplyLine.Controls.Add(this.quickReplyEditor);
@@ -204,32 +204,33 @@ namespace YAF.Dialogs
                 {
                     // Check content for spam
                     if (this.Get<ISpamCheck>().CheckPostForSpam(
-                        this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                        this.PageContext.IsGuest ? "Guest" : this.Get<IUserDisplayName>().GetName(this.PageContext.User),
                         this.PageContext.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         this.quickReplyEditor.Text,
                         this.PageContext.IsGuest ? null : this.PageContext.MembershipUser.Email,
                         out var spamResult))
                     {
                         var description =
-                            $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}";
+                            $@"Spam Check detected possible SPAM ({spamResult}) 
+                               posted by User: {(this.PageContext.IsGuest ? "Guest" : this.Get<IUserDisplayName>().GetName(this.PageContext.User))}";
 
                         switch (this.Get<BoardSettings>().SpamMessageHandling)
                         {
                             case 0:
                                 this.Logger.SpamMessageDetected(
-                                    this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                    this.PageContext.PageUserID,
                                     description);
                                 break;
                             case 1:
                                 spamApproved = false;
                                 isPossibleSpamMessage = true;
                                 this.Logger.SpamMessageDetected(
-                                    this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                    this.PageContext.PageUserID,
                                     $"{description}, it was flagged as unapproved post");
                                 break;
                             case 2:
                                 this.Logger.SpamMessageDetected(
-                                    this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                    this.PageContext.PageUserID,
                                     $"{description}, post was rejected");
 
                                 this.PageContext.PageElements.RegisterJsBlockStartup(
@@ -241,13 +242,13 @@ namespace YAF.Dialogs
                                 return;
                             case 3:
                                 this.Logger.SpamMessageDetected(
-                                    this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser),
+                                    this.PageContext.PageUserID,
                                     $"{description}, user was deleted and bannded");
 
                                 this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                     this.PageContext.PageUserID,
                                     this.PageContext.MembershipUser,
-                                    this.PageContext.CurrentUser.IP);
+                                    this.PageContext.User.IP);
 
                                 return;
                         }
@@ -295,7 +296,7 @@ namespace YAF.Dialogs
                     messageFlags);
 
                 // Check to see if the user has enabled "auto watch topic" option in his/her profile.
-                if (this.PageContext.CurrentUser.AutoWatchTopics)
+                if (this.PageContext.User.AutoWatchTopics)
                 {
                     var watchTopicId = this.GetRepository<WatchTopic>().Check(
                         this.PageContext.PageUserID,
@@ -313,7 +314,7 @@ namespace YAF.Dialogs
                     // send new post notification to users watching this topic/forum
                     this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
-                    if (!this.PageContext.IsGuest && this.PageContext.CurrentUser.Activity)
+                    if (!this.PageContext.IsGuest && this.PageContext.User.Activity)
                     {
                         this.Get<IActivityStream>().AddReplyToStream(
                             this.PageContext.PageForumID,
@@ -350,7 +351,7 @@ namespace YAF.Dialogs
             {
                 if (exception.GetType() != typeof(ThreadAbortException))
                 {
-                    this.Logger.Log(this.Get<IUserDisplayName>().GetName(this.PageContext.CurrentUser), this, exception);
+                    this.Logger.Log(this.PageContext.PageUserID, this, exception);
                 }
             }
         }
@@ -388,7 +389,7 @@ namespace YAF.Dialogs
         private bool CheckForumModerateStatus(Forum forumInfo)
         {
             // User Moderate override
-            if (this.PageContext.Moderated)
+            if (this.PageContext.User.UserFlags.Moderated)
             {
                 return true;
             }
@@ -412,7 +413,7 @@ namespace YAF.Dialogs
 
             var moderatedPostCount = forumInfo.ModeratedPostCount.Value;
 
-            return !(this.PageContext.CurrentUser.NumPosts >= moderatedPostCount);
+            return !(this.PageContext.User.NumPosts >= moderatedPostCount);
         }
 
         /// <summary>
@@ -426,7 +427,7 @@ namespace YAF.Dialogs
                 return true;
             }
 
-            return this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded;
+            return this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.User.UserFlags.IsCaptchaExcluded;
         }
 
         #endregion

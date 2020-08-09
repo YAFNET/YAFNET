@@ -55,28 +55,6 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        ///   Gets or sets the OnClick value for the profile link
-        /// </summary>
-        [NotNull]
-        public string OnClick
-        {
-            get => this.ViewState["OnClick"] != null ? this.ViewState["OnClick"].ToString() : string.Empty;
-
-            set => this.ViewState["OnClick"] = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets The OnMouseOver value for the profile link
-        /// </summary>
-        [NotNull]
-        public string OnMouseOver
-        {
-            get => this.ViewState["OnMouseOver"] != null ? this.ViewState["OnMouseOver"].ToString() : string.Empty;
-
-            set => this.ViewState["OnMouseOver"] = value;
-        }
-
-        /// <summary>
         ///   Gets or sets The name of the user for this profile link
         /// </summary>
         [NotNull]
@@ -150,11 +128,9 @@ namespace YAF.Web.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter output)
         {
-            var displayName = this.ReplaceName.IsNotSet()
-                              ? this.Get<IUserDisplayName>().GetName(this.UserID)
-                              : this.ReplaceName;
+            var displayName = this.ReplaceName;
 
-            if (this.UserID == -1 || displayName.IsNotSet())
+            if (this.UserID == -1)
             {
                 return;
             }
@@ -182,7 +158,7 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        /// Renders "id", "style", "onclick", "onmouseover" and "class"
+        /// Renders "id", "style" and "class"
         /// </summary>
         /// <param name="output">
         /// The output.
@@ -197,16 +173,6 @@ namespace YAF.Web.Controls
             if (this.Style.IsSet() && this.Get<BoardSettings>().UseStyledNicks)
             {
                 output.WriteAttribute(HtmlTextWriterAttribute.Style.ToString(), this.HtmlEncode(this.Style));
-            }
-
-            if (this.OnClick.IsSet())
-            {
-                output.WriteAttribute(HtmlTextWriterAttribute.Onclick.ToString(), this.OnClick);
-            }
-
-            if (this.OnMouseOver.IsSet())
-            {
-                output.WriteAttribute("onmouseover", this.OnMouseOver);
             }
 
             if (this.CssClass.IsSet())

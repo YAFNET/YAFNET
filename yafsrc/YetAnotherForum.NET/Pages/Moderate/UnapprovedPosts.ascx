@@ -37,6 +37,7 @@
                                                     LocalizedTag="POSTEDBY" LocalizedPage="REPORTPOST" />
                             </span>
                             <YAF:UserLink ID="UserName" runat="server" 
+                                          ReplaceName="<%# this.Get<IUserDisplayName>().GetName(((Tuple<Topic, Message, User>)Container.DataItem).Item3) %>"
                                           Suspended="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item3.Suspended %>"
                                           Style="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item3.UserStyle %>"
                                           UserID="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item2.UserID %>" />
