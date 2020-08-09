@@ -2195,6 +2195,9 @@ begin
       select
       a.*,
         ISNULL(b.[Name],'System') as [Name],
+        ISNULL(b.DisplayName,'System') as DisplayName,
+        b.Suspended,
+        ISNULL(b.UserStyle,'') as Style,
         TotalRows = @TotalRows
          from
         [{databaseOwner}].[{objectQualifier}EventLog] a
