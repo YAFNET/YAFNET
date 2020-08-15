@@ -147,10 +147,10 @@ namespace YAF.Pages
             }
 
             // we found a user(s)
-            usersFound.Rows.Cast<DataRow>().ForEach(row =>
-            {
-                friendsString.AppendFormat("{0};", row["Name"]);
-            });
+            usersFound.Rows.Cast<DataRow>().ForEach(
+                row => friendsString.AppendFormat(
+                    "{0};",
+                    this.PageContext.BoardSettings.EnableDisplayName ? row["DisplayName"] : row["Name"]));
 
             this.To.Text = friendsString.ToString();
 
@@ -541,6 +541,7 @@ namespace YAF.Pages
             this.PreviewMessagePost.MessageFlags.IsHtml = this._editor.UsesHTML;
             this.PreviewMessagePost.MessageFlags.IsBBCode = this._editor.UsesBBCode;
             this.PreviewMessagePost.Message = this._editor.Text;
+            this.PreviewMessagePost.MessageID = 0;
 
             if (!this.Get<BoardSettings>().AllowSignatures)
             {

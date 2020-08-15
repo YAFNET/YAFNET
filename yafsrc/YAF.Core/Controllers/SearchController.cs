@@ -57,7 +57,11 @@ namespace YAF.Core.Controllers
         [HttpPost]
         public IHttpActionResult GetSimilarTitles(SearchTopic searchTopic)
         {
-            var results = this.Get<ISearch>().SearchSimilar(searchTopic.UserId, searchTopic.SearchTerm, "Topic");
+            var results = this.Get<ISearch>().SearchSimilar(
+                searchTopic.UserId,
+                string.Empty,
+                searchTopic.SearchTerm,
+                "Topic");
 
             if (results == null)
             {

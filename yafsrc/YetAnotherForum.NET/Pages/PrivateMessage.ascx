@@ -37,8 +37,9 @@
                     </div>
                     <div class="card-body">
             <YAF:MessagePost ID="Message" runat="server" 
-            MessageFlags='<%# new MessageFlags(this.Eval("Flags")) %>' 
-            Message='<%# this.Eval("Body").ToType<string>()%>' />
+                             MessageFlags='<%# new MessageFlags(this.Eval("Flags")) %>' 
+                             Message='<%# this.Eval("Body").ToType<string>()%>'
+                             MessageID='<%# this.Eval("UserPMessageID") %>'/>
                     </div>
                 <div class="card-footer">
                     <div class="row">
