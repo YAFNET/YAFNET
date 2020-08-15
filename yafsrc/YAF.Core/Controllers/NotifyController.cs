@@ -100,7 +100,7 @@ namespace YAF.Core.Controllers
                             Text = $"<i class=\"fas fa-comment fa-fw mr-1\"></i>{topic.TopicName}"
                         };
 
-                        var name = this.Get<IUserDisplayName>().GetName(activity.FromUserID.Value);
+                        var name = this.Get<IUserDisplayName>().GetNameById(activity.FromUserID.Value);
 
                         if (activity.ActivityFlags.ReceivedThanks)
                         {

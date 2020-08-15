@@ -404,7 +404,7 @@ namespace YAF.Controls
                         var thanksDate = DateTime.Parse(subChunks[1]);
 
                         // Get the username related to this User ID
-                        var displayName = this.Get<IUserDisplayName>().GetName(userId);
+                        var displayName = this.Get<IUserDisplayName>().GetNameById(userId);
 
                         sb.AppendFormat(
                             @"<li><a id=""{0}"" href=""{1}""><u>{2}</u></a>",

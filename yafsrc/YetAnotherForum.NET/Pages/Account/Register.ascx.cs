@@ -379,7 +379,7 @@ namespace YAF.Pages.Account
                     return false;
                 }
 
-                if (this.Get<IUserDisplayName>().GetId(displayName.Trim()).HasValue)
+                if (this.Get<IUserDisplayName>().FindUserByName(displayName.Trim()) != null)
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ALREADY_REGISTERED_DISPLAYNAME"),

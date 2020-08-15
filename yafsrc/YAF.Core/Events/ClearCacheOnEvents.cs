@@ -119,7 +119,6 @@ namespace YAF.Core.Events
       // clear the cache for this user...
       var userId = @event.UserId;
 
-      this.Get<IUserDisplayName>().Clear(userId);
       this.DataCache.Remove(string.Format(Constants.Cache.UserListForID, userId));
       this.DataCache.Remove(string.Format(Constants.Cache.UserBuddies, userId));
 

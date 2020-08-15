@@ -64,7 +64,7 @@ namespace YAF.Core.Controllers
                 return this.NotFound();
             }
 
-            var users = this.Get<IUserDisplayName>().Find(searchTopic.SearchTerm);
+            var users = this.Get<IUserDisplayName>().FindUserContainsName(searchTopic.SearchTerm);
 
             if (!users.Any())
             {

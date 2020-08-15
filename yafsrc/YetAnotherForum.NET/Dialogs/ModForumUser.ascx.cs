@@ -180,16 +180,16 @@ namespace YAF.Dialogs
             }
 
             // we need to verify user exists
-            var userId = this.Get<IUserDisplayName>().GetId(this.UserName.Text.Trim());
+            var user = this.Get<IUserDisplayName>().FindUserByName(this.UserName.Text.Trim());
 
             // there is no such user or reference is ambiguous
-            if (!userId.HasValue)
+            if (user == null)
             {
                 this.PageContext.AddLoadMessage(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
                 return;
             }
 
-            if (this.Get<IAspNetUsersHelper>().IsGuestUser(userId))
+            if (user.IsGuest.Value)
             {
                 this.PageContext.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.warning);
                 return;
@@ -197,7 +197,7 @@ namespace YAF.Dialogs
 
             // save permission
             this.GetRepository<UserForum>().Save(
-                userId.Value,
+                user.ID,
                 this.PageContext.PageForumID,
                 this.AccessMaskID.SelectedValue.ToType<int>());
 

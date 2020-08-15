@@ -259,7 +259,7 @@ namespace YAF.Pages.Admin
                 });
 
             this.IconHeader.Text =
-                $"{this.GetText("ADMIN_PAGEACCESSEDIT", "HEADER")}: <strong>{this.HtmlEncode(this.Get<IUserDisplayName>().GetName(this.CurrentUserID))}</strong>";
+                $"{this.GetText("ADMIN_PAGEACCESSEDIT", "HEADER")}: <strong>{this.HtmlEncode(this.Get<IUserDisplayName>().GetNameById(this.CurrentUserID))}</strong>";
 
             // get admin pages list with access flags.
             this.AccessList.DataSource = pagesAll;

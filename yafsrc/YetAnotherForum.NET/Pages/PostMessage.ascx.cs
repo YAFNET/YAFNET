@@ -799,7 +799,7 @@ namespace YAF.Pages
                     BBCodeHelper.FindMentions(this.forumEditor.Text).ForEach(
                         user =>
                             {
-                                var userId = this.Get<IUserDisplayName>().GetId(user).Value;
+                                var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
 
                                 if (userId != this.PageContext.PageUserID)
                                 {
@@ -815,7 +815,7 @@ namespace YAF.Pages
                     BBCodeHelper.FindUserQuoting(this.forumEditor.Text).ForEach(
                         user =>
                             {
-                                var userId = this.Get<IUserDisplayName>().GetId(user).Value;
+                                var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
 
                                 if (userId != this.PageContext.PageUserID)
                                 {
@@ -1090,7 +1090,7 @@ namespace YAF.Pages
 
             // Quote the original message
             this.forumEditor.Text +=
-                $"[quote={this.Get<IUserDisplayName>().GetName(message.UserID.ToType<int>())};{message.ID}]{messageContent}[/quote]\r\n"
+                $"[quote={this.Get<IUserDisplayName>().GetNameById(message.UserID.ToType<int>())};{message.ID}]{messageContent}[/quote]\r\n"
                     .TrimStart();
 
             /*if (this.forumEditor.UsesHTML && message.Flags.IsBBCode)

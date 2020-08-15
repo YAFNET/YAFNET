@@ -836,7 +836,7 @@ END
         a.*,
         ISNULL(b.[Name],'System') as [Name],
         ISNULL(b.DisplayName,'System') as DisplayName,
-        b.Suspended,
+        ISNULL(b.Suspended,null) as Suspended,
         ISNULL(b.UserStyle,'') as Style,
         TotalRows = @TotalRows
     from
@@ -877,7 +877,7 @@ begin
       a.*,
         ISNULL(b.[Name],'System') as [Name],
         ISNULL(b.DisplayName,'System') as DisplayName,
-        b.Suspended,
+        ISNULL(b.Suspended,null) as Suspended,
         ISNULL(b.UserStyle,'') as Style,
         TotalRows = @TotalRows
          from

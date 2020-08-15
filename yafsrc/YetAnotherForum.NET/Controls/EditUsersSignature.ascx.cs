@@ -219,7 +219,7 @@ namespace YAF.Controls
                     ForumPages.UserProfile,
                     "u={0}&name={1}",
                     this.CurrentUserID,
-                    this.Get<IUserDisplayName>().GetName(this.CurrentUserID));
+                    this.Get<IUserDisplayName>().GetNameById(this.CurrentUserID));
             }
             else
             {

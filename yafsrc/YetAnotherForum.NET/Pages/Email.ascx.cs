@@ -149,7 +149,7 @@ namespace YAF.Pages
                     false,
                     "u={0}&name={1}",
                     this.UserId,
-                    this.Get<IUserDisplayName>().GetName(this.UserId));
+                    this.Get<IUserDisplayName>().GetNameById(this.UserId));
             }
             catch (Exception x)
             {

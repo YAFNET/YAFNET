@@ -92,7 +92,7 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            var displayName = this.Get<IUserDisplayName>().GetName(this.CurrentUserID);
+            var displayName = this.Get<IUserDisplayName>().GetNameById(this.CurrentUserID);
 
             var album = this.GetRepository<UserAlbum>().GetById(this.AlbumID);
 

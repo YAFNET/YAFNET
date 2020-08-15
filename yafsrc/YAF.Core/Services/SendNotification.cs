@@ -252,7 +252,7 @@ namespace YAF.Core.Services
                                                                        ["{reason}"] = reportText,
                                                                        ["{reporter}"] =
                                                                            this.Get<IUserDisplayName>()
-                                                                               .GetName(reporter),
+                                                                               .GetNameById(reporter),
                                                                        ["{adminlink}"] = BuildLink.GetLink(
                                                                            ForumPages.Moderate_ReportedPosts,
                                                                            true,
@@ -389,7 +389,7 @@ namespace YAF.Core.Services
                                                  HttpUtility.HtmlDecode(
                                                      this.Get<IBadWordReplace>().Replace(message.Topic)),
                                              ["{postedby}"] =
-                                                 this.Get<IUserDisplayName>().GetName(messageAuthorUserID),
+                                                 this.Get<IUserDisplayName>().GetNameById(messageAuthorUserID),
                                              ["{body}"] = bodyText,
                                              ["{bodytruncated}"] = bodyText.Truncate(160),
                                              ["{link}"] = BuildLink.GetLink(

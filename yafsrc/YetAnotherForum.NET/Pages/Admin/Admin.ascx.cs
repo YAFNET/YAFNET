@@ -115,7 +115,7 @@ namespace YAF.Pages.Admin
                     }
                     else
                     {
-                        var userFound = this.Get<IUserDisplayName>().Find(commandArgument[1]).FirstOrDefault();
+                        var userFound = this.Get<IUserDisplayName>().FindUserContainsName(commandArgument[1]).FirstOrDefault();
 
                         var user = this.Get<IAspNetUsersHelper>().GetUserByName(userFound.Name);
 

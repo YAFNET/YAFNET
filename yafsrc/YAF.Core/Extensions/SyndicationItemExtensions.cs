@@ -170,12 +170,12 @@ namespace YAF.Core.Extensions
             if (BoardContext.Current.BoardSettings.EnableDisplayName)
             {
                 userNameToShow = userDisplayName.IsNotSet()
-                                     ? BoardContext.Current.Get<IUserDisplayName>().GetName(userId)
+                                     ? BoardContext.Current.Get<IUserDisplayName>().GetNameById(userId)
                                      : userDisplayName;
             }
             else
             {
-                userNameToShow = userName.IsNotSet() ? BoardContext.Current.Get<IUserDisplayName>().GetName(userId) : userName;
+                userNameToShow = userName.IsNotSet() ? BoardContext.Current.Get<IUserDisplayName>().GetNameById(userId) : userName;
             }
 
             return new SyndicationPerson(

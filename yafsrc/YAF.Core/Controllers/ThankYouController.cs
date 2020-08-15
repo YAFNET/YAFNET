@@ -76,7 +76,7 @@ namespace YAF.Core.Controllers
 
             var message = this.GetRepository<Message>().GetById(messageId);
 
-            var userName = this.Get<IUserDisplayName>().GetName(message.UserID);
+            var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
             this.GetRepository<Thanks>().AddMessageThanks(fromUserId, message.UserID, messageId);
 
@@ -109,7 +109,7 @@ namespace YAF.Core.Controllers
         {
             var message = this.GetRepository<Message>().GetById(messageId);
 
-            var userName = this.Get<IUserDisplayName>().GetName(message.UserID);
+            var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
            this.GetRepository<Thanks>().RemoveMessageThanks(
                 BoardContext.Current.PageUserID,

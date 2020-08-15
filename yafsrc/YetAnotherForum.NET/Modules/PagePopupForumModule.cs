@@ -100,7 +100,7 @@ namespace YAF.Modules
                 "modalNotification",
                 string
                     .Format(
-                        "var fpModal = function() {{ {2}('{0}', '{1}','{3}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);",
+                        "var fpModal = function() {{ {2}(\"{0}\", \"{1}\",\"{3}\"); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);",
                         message.Message,
                             message.MessageType.ToString().ToLower(),
                             this.errorPopup.ShowModalFunction,

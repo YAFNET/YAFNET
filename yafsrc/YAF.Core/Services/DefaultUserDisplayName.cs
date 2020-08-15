@@ -25,17 +25,11 @@ namespace YAF.Core.Services
 {
     #region Using
 
-    using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
-    using System.Linq;
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
 
@@ -66,43 +60,11 @@ namespace YAF.Core.Services
         /// </summary>
         public IServiceLocator ServiceLocator { get; set; }
 
-        /// <summary>
-        ///   Gets UserDisplayNameCollection.
-        /// </summary>
-        private ConcurrentDictionary<int, string> UserDisplayNameCollection
-        {
-            get
-            {
-                return
-                  this.Get<IObjectStore>().GetOrSet(
-                    Constants.Cache.UsersDisplayNameCollection, () => new ConcurrentDictionary<int, string>());
-            }
-        }
-
         #endregion
 
         #region Implemented Interfaces
 
         #region IUserDisplayName
-
-        /// <summary>
-        /// Remove the item from collection
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        public void Clear(int userId)
-        {
-            // update collection...
-            this.UserDisplayNameCollection.TryRemove(userId, out _);
-        }
-
-        /// <summary>
-        /// Remove all the items from the collection
-        /// </summary>
-        public void Clear()
-        {
-            // update collection...
-            this.UserDisplayNameCollection.Clear();
-        }
 
         /// <summary>
         /// Find user
@@ -112,7 +74,7 @@ namespace YAF.Core.Services
         /// Returns the Found User
         /// </returns>
         [NotNull]
-        public IList<User> Find([NotNull] string contains)
+        public IList<User> FindUserContainsName([NotNull] string contains)
         {
             return this.Get<BoardSettings>().EnableDisplayName
                 ? this.GetRepository<User>().Get(
@@ -123,64 +85,23 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Get the UserID from the user name.
+        /// Find User By (Display) Name
         /// </summary>
         /// <param name="name">
         /// The name.
         /// </param>
         /// <returns>
-        /// The <see cref="int?"/>.
+        /// The <see cref="User"/>.
         /// </returns>
-        public int? GetId([NotNull] string name)
+        [NotNull]
+        public User FindUserByName([NotNull] string name)
         {
-            int? userId;
-
-            if (name.IsNotSet())
-            {
-                return null;
-            }
-
-            var keyValue =
-                this.UserDisplayNameCollection
-                .ToList()
-                .FirstOrDefault(x => x.Value.IsSet() && x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-
-            if (keyValue.IsNotDefault())
-            {
-                userId = keyValue.Key;
-            }
-            else
-            {
-                // find the username...
-                if (this.Get<BoardSettings>().EnableDisplayName)
-                {
-                    var user =
-                      this.GetRepository<User>().FindUserTyped(true, displayName: name).FirstOrDefault();
-
-                    if (user == null)
-                    {
-                        return null;
-                    }
-
-                    userId = user.ID;
-                    this.UserDisplayNameCollection.AddOrUpdate(userId.Value, k => user.DisplayName, (k, v) => user.DisplayName);
-                }
-                else
-                {
-                    var user =
-                      this.GetRepository<User>().FindUserTyped(true, userName: name).FirstOrDefault();
-
-                    if (user == null)
-                    {
-                        return null;
-                    }
-
-                    userId = user.ID;
-                    this.UserDisplayNameCollection.AddOrUpdate(userId.Value, k => user.DisplayName, (k, v) => user.DisplayName);
-                }
-            }
-
-            return userId;
+            return this.Get<BoardSettings>().EnableDisplayName
+                ? this.GetRepository<User>().GetSingle(
+                    u => u.DisplayName == name &&
+                         u.BoardID == this.Get<BoardSettings>().BoardID)
+                : this.GetRepository<User>().GetSingle(
+                    u => u.Name == name && u.BoardID == this.Get<BoardSettings>().BoardID);
         }
 
         /// <summary>
@@ -192,35 +113,11 @@ namespace YAF.Core.Services
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        [Obsolete("Use GetName(username) instead")]
-        public string GetName(int userId)
+        public string GetNameById(int userId)
         {
-            if (this.UserDisplayNameCollection.TryGetValue(userId, out var displayName))
-            {
-                return displayName;
-            }
+            var user = this.GetRepository<User>().GetById(userId);
 
-            var row = this.GetRepository<User>().GetById(userId);
-
-            if (row == null)
-            {
-                return null;
-            }
-
-            if (this.Get<BoardSettings>().EnableDisplayName)
-            {
-                displayName = row.DisplayName;
-            }
-
-            if (displayName.IsNotSet())
-            {
-                // revert to their user name...
-                displayName = row.Name;
-            }
-
-            this.UserDisplayNameCollection.AddOrUpdate(userId, k => displayName, (k, v) => displayName);
-
-            return displayName;
+            return user == null ? null : this.GetName(user);
         }
 
         /// <summary>

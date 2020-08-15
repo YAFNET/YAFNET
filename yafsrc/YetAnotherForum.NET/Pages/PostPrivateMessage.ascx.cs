@@ -148,7 +148,10 @@ namespace YAF.Pages
             }
 
             // we found a user(s)
-            usersFound.Rows.Cast<DataRow>().ForEach(row => friendsString.AppendFormat("{0};", row["Name"]));
+            usersFound.Rows.Cast<DataRow>().ForEach(
+                row => friendsString.AppendFormat(
+                    "{0};",
+                    this.PageContext.BoardSettings.EnableDisplayName ? row["DisplayName"] : row["Name"]));
 
             this.To.Text = friendsString.ToString();
 
@@ -232,7 +235,7 @@ namespace YAF.Pages
             }
 
             // try to find users by user name
-            var usersFound = this.Get<IUserDisplayName>().Find(this.To.Text.Trim()).Where(
+            var usersFound = this.Get<IUserDisplayName>().FindUserContainsName(this.To.Text.Trim()).Where(
                 u => !u.Block.BlockPMs && u.IsApproved == true && u.ID != this.PageContext.PageUserID).ToList();
 
             if (usersFound.Any())
@@ -347,7 +350,7 @@ namespace YAF.Pages
 
                 this.PmSubjectTextBox.Text = subject;
 
-                var displayName = this.Get<IUserDisplayName>().GetName(fromUserId);
+                var displayName = this.Get<IUserDisplayName>().GetNameById(fromUserId);
 
                 // set "To" user and disable changing...
                 this.To.Text = displayName;
@@ -434,7 +437,7 @@ namespace YAF.Pages
                 this.PmSubjectTextBox.Text = this.GetText("REPORTED_SUBJECT");
 
                 var displayName =
-                    this.Get<IUserDisplayName>().GetName(reporter.Item1.ID);
+                    this.Get<IUserDisplayName>().GetNameById(reporter.Item1.ID);
 
                 // set "To" user and disable changing...
                 this.To.Text = displayName;
@@ -517,6 +520,7 @@ namespace YAF.Pages
             this.PreviewMessagePost.MessageFlags.IsHtml = this.editor.UsesHTML;
             this.PreviewMessagePost.MessageFlags.IsBBCode = this.editor.UsesBBCode;
             this.PreviewMessagePost.Message = this.editor.Text;
+            this.PreviewMessagePost.MessageID = 0;
 
             if (!this.Get<BoardSettings>().AllowSignatures)
             {
@@ -642,9 +646,9 @@ namespace YAF.Pages
                 // get recipients' IDs
                 foreach (var recipient in recipients)
                 {
-                    var userId = this.Get<IUserDisplayName>().GetId(recipient);
+                    var user = this.Get<IUserDisplayName>().FindUserByName(recipient);
 
-                    if (!userId.HasValue)
+                    if (user == null)
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetTextFormatted("NO_SUCH_USER", recipient),
@@ -652,26 +656,26 @@ namespace YAF.Pages
                         return;
                     }
 
-                    if (this.Get<IAspNetUsersHelper>().IsGuestUser(userId.Value))
+                    if (user.IsGuest.Value)
                     {
                         this.PageContext.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.danger);
                         return;
                     }
 
                     // get recipient's ID from the database
-                    if (!recipientIds.Contains(userId.Value))
+                    if (!recipientIds.Contains(user.ID))
                     {
-                        recipientIds.Add(userId.Value);
+                        recipientIds.Add(user.ID);
                     }
 
-                    var receivingPMInfo = this.GetRepository<PMessage>().UserMessageCount(userId.Value).Rows[0];
+                    var receivingPMInfo = this.GetRepository<PMessage>().UserMessageCount(user.ID).Rows[0];
 
                     // test receiving user's PM count
                     if (receivingPMInfo["NumberTotal"].ToType<int>() + 1
                         < receivingPMInfo["NumberAllowed"].ToType<int>() || this.PageContext.IsAdmin
                         || (bool)
                            Convert.ChangeType(
-                               this.PageContext.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, userId.Value, true).GetFirstRow()["IsAdmin"],
+                               this.PageContext.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, user.ID, true).GetFirstRow()["IsAdmin"],
                                typeof(bool)))
                     {
                         continue;

@@ -426,7 +426,7 @@ namespace YAF.Web.Controls
                 if (userId != this.UserID)
                 {
                     var displayName =
-                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetName(userId));
+                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetNameById(userId));
 
                     outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
                     outstring.AppendFormat(
@@ -486,7 +486,7 @@ namespace YAF.Web.Controls
                 else
                 {
                     var displayName =
-                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetName(userId.ToType<int>()));
+                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetNameById(userId.ToType<int>()));
 
                     outString.AppendFormat(
                         @"{3}<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>",
@@ -529,7 +529,7 @@ namespace YAF.Web.Controls
                 if (userId != this.UserID)
                 {
                     var displayName =
-                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetName(userId));
+                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetNameById(userId));
 
                     outString.Append(this.GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
                     outString.AppendFormat(

@@ -918,16 +918,14 @@ namespace YAF.Core.Helpers
             }
 
             // Display name login
-            var id = this.Get<IUserDisplayName>().GetId(userName);
+            var realUsername = this.GetRepository<User>().GetSingle(u => u.DisplayName == userName);
 
-            if (!id.HasValue)
+            if (realUsername == null)
             {
                 return null;
             }
 
             // get the username associated with this id...
-            var realUsername = this.GetRepository<User>().GetSingle(u => u.DisplayName == id.Value.ToString());
-
             user = this.Get<IAspNetUsersHelper>().GetUserByName(realUsername.Name);
 
             // validate again...

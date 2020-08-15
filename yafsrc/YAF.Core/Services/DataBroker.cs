@@ -354,12 +354,12 @@ namespace YAF.Core.Services
                            Subject = row.Field<string>("Subject"),
                            StartedUserID = row.Field<int>("UserID"),
                            StartedUserName =
-                               this.Get<IUserDisplayName>().GetName(row.Field<int>("UserID")),
+                               this.Get<IUserDisplayName>().GetNameById(row.Field<int>("UserID")),
                            Replies = row.Field<int>("Replies"),
                            LastPostDate = row.Field<System.DateTime>("LastPosted"),
                            LastUserID = row.Field<int>("LastUserID"),
                            LastUserName =
-                               this.Get<IUserDisplayName>().GetName(row.Field<int>("LastUserID")),
+                               this.Get<IUserDisplayName>().GetNameById(row.Field<int>("LastUserID")),
                            LastMessageID = row.Field<int>("LastMessageID"),
                            FirstMessage = row.Field<string>("FirstMessage"),
                            LastMessage = this.GetRepository<Message>().GetById(row.Field<int>("LastMessageID")).MessageText,

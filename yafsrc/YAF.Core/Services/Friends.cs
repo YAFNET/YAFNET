@@ -258,7 +258,7 @@ namespace YAF.Core.Services
 
             this.GetRepository<Buddy>().Remove(BoardContext.Current.PageUserID, toUserId);
 
-            return this.Get<IUserDisplayName>().GetName(toUserId);
+            return this.Get<IUserDisplayName>().GetNameById(toUserId);
         }
 
         #endregion

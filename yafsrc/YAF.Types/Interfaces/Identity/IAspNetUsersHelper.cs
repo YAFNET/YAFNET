@@ -32,6 +32,7 @@ namespace YAF.Types.Interfaces.Identity
     using Microsoft.AspNet.Identity;
 
     using YAF.Types.Exceptions;
+    using YAF.Types.Models;
     using YAF.Types.Models.Identity;
 
     /// <summary>
@@ -464,7 +465,7 @@ namespace YAF.Types.Interfaces.Identity
         /// Finds the user.
         /// </summary>
         /// <param name="userName">
-        /// The user Name.
+        ///     The user Name.
         /// </param>
         /// <returns>
         /// The <see cref="AspNetUsers"/>.
