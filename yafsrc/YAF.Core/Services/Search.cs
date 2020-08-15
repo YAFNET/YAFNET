@@ -951,7 +951,9 @@ namespace YAF.Core.Services
             var parser = new QueryParser(MatchVersion, searchField, this.standardAnalyzer);
             var query = ParseQuery(searchQuery, parser);
 
-            var hits = searcher.Search(query, booleanFilter, hitsLimit).ScoreDocs;
+            var hits = filter.IsSet()
+                ? searcher.Search(query, booleanFilter, hitsLimit).ScoreDocs
+                : searcher.Search(query, hitsLimit).ScoreDocs;
 
             var results = MapSearchToDataList(searcher, hits, userAccessList);
 
