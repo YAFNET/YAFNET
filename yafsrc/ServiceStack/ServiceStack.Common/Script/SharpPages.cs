@@ -217,10 +217,6 @@ namespace ServiceStack.Script
             }
             catch (AggregateException e)
             {
-#if DEBUG
-                var logEx = e.InnerExceptions[0].GetInnerMostException();
-                Logging.LogManager.GetLogger(typeof(SharpPages)).Error(logEx.Message + "\n" + logEx.StackTrace, logEx);
-#endif
                 throw e.UnwrapIfSingleException();
             }
         }
