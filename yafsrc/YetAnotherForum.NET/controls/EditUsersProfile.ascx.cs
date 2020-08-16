@@ -534,7 +534,7 @@ namespace YAF.Controls
             {
                 try
                 {
-                    var persianDate = new PersianDate(this.Birthday.Text);
+                    var persianDate = new PersianDate(this.Birthday.Text.PersianNumberToEnglish());
 
                     userBirthdate = PersianDateConverter.ToGregorianDateTime(persianDate);
                 }
