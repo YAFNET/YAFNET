@@ -112,21 +112,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.PreRender" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-                "DatePickerJs",
-                JavaScriptBlocks.DatePickerLoadJs(
-                    this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
-                    this.GetText("COMMON", "CAL_JQ_CULTURE")));
-
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>

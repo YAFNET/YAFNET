@@ -55,20 +55,24 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// Do Logout Dialog
+        /// Raises the <see cref="E:System.Web.UI.Control.PreRender" /> event.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void LogOutClick([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-                "logoutModalConfirmJs",
-                JavaScriptBlocks.BootBoxConfirmJs(
-                    this.GetText("TOOLBAR", "LOGOUT_TITLE"),
-                    this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
-                    this.GetText("TOOLBAR", "LOGOUT"),
-                    this.GetText("COMMON", "CANCEL"),
-                    BuildLink.GetLink(ForumPages.Account_Logout)));
+            if (!this.PageContext.IsGuest)
+            {
+                this.PageContext.PageElements.RegisterJsBlockStartup(
+                    nameof(JavaScriptBlocks.LogOutJs),
+                    JavaScriptBlocks.LogOutJs(
+                        this.GetText("TOOLBAR", "LOGOUT_TITLE"),
+                        this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
+                        this.GetText("TOOLBAR", "LOGOUT"),
+                        this.GetText("COMMON", "CANCEL"),
+                        BuildLink.GetLink(ForumPages.Account_Logout)));
+            }
+            
+            base.OnPreRender(e);
         }
 
         /// <summary>
@@ -441,9 +445,7 @@ namespace YAF.Controls
             if (!Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
                 this.LogutItem.Visible = true;
-                this.LogOutButton.Text =
-                    $"<i class=\"fa fa-sign-out-alt fa-fw\"></i>&nbsp;{this.GetText("TOOLBAR", "LOGOUT")}";
-                this.LogOutButton.ToolTip = this.GetText("TOOLBAR", "LOGOUT");
+                this.LogOutButton.NavigateUrl = "javascript:LogOutClick()";
             }
 
             this.UserAvatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();

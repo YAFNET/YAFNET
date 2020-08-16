@@ -1493,5 +1493,58 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 }});
             }});";
         }
+
+        /// <summary>
+        /// The Logout Dialog Load JS.
+        /// </summary>
+        /// <param name="title">
+        /// The title.
+        /// </param>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <param name="yes">
+        /// The yes.
+        /// </param>
+        /// <param name="no">
+        /// The no.
+        /// </param>
+        /// <param name="link">
+        /// The link.
+        /// </param>
+        /// <returns>
+        /// Returns the JS String
+        /// </returns>
+        [NotNull]
+        public static string LogOutJs(
+            [NotNull] string title,
+            [NotNull] string text,
+            [NotNull] string yes,
+            [NotNull] string no,
+            [NotNull] string link)
+        {
+            return $@"function LogOutClick() {{
+                bootbox.confirm({{
+                centerVertical: true,
+                title: '{title}',
+                message: '{text}',
+                buttons: {{
+                    confirm: {{
+                        label: '<i class=""fa fa-check""></i> ' + '{yes}',
+                        className: ""btn-success""
+                    }},
+                    cancel: {{
+                        label: '<i class=""fa fa-times""></i> ' + '{no}',
+                        className: ""btn-danger""
+                    }}
+                }},
+                callback: function (confirmed) {{
+                    if (confirmed) {{
+                        document.location.href = '{link}';
+                    }}
+                }}
+            }}
+        );}}";
+        }
     }
 }
