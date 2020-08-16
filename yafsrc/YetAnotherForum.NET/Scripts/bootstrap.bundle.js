@@ -6225,7 +6225,11 @@
     };
 
     _proto.hide = function hide() {
-      var _this2 = this;
+        var _this2 = this;
+
+        if (!this._popper) {
+            return;
+        }
 
       var tip = this.getTipElement();
 

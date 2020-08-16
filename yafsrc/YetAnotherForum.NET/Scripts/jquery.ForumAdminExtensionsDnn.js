@@ -21492,7 +21492,7 @@
         calendarWeeks: false,
         viewMode: 'days',
         toolbarPlacement: 'default',
-        showTodayButton: false,
+        showTodayButton: true,
         showClear: false,
         showClose: false,
         widgetPositioning: {

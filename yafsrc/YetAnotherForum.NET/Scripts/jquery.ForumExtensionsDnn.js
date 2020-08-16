@@ -21492,7 +21492,7 @@
         calendarWeeks: false,
         viewMode: 'days',
         toolbarPlacement: 'default',
-        showTodayButton: false,
+        showTodayButton: true,
         showClear: false,
         showClose: false,
         widgetPositioning: {
@@ -45486,14 +45486,10 @@ jQuery(document).ready(function () {
                     beforeSend: function() {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");
-                        // show loading screen 
-                        $("#loadModal").modal("show");
                     },
                     complete: function() {
-                        // show loading screen 
-                        $("#loadModal").modal("hide");
                     },
-                    success: function(data) {
+                    success: function (data) {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");
 
@@ -45512,7 +45508,7 @@ jQuery(document).ready(function () {
                                 });
                         }
                     },
-                    error: function(request) {
+                    error: function (request) {
                         searchPlaceHolder.html(request.statusText).fadeIn(1000);
                     }
                 });
