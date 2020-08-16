@@ -430,7 +430,7 @@ namespace YAF.Dialogs
                 {
                     if (this.Get<BoardSettings>().EmailModeratorsOnModeratedPost)
                     {
-                        // not approved, notifiy moderators
+                        // not approved, notify moderators
                         this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(
                             this.PageContext.PageForumID,
                             messageId.ToType<int>(),

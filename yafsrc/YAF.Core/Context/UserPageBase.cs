@@ -71,7 +71,8 @@ namespace YAF.Core
         /// <summary>
         ///   Gets the culture code for the user
         /// </summary>
-        public string CultureUser => this.PageValueAsString("CultureUser");
+        public string CultureUser =>
+            this.PageValueAsString("CultureUser") == "10" ? string.Empty : this.PageValueAsString("CultureUser");
 
         /// <summary>
         ///   Gets a value indicating whether the time zone offset for the user
