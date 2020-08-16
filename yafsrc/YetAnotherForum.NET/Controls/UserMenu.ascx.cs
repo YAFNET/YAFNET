@@ -35,6 +35,7 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Dialogs;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -56,24 +57,24 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// Do Logout Dialog
+        /// Raises the <see cref="E:System.Web.UI.Control.PreRender" /> event.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void LogOutClick([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
         {
-            var notification = this.PageContext.CurrentForumPage.Notification.ToType<DialogBox>();
+            if (!this.PageContext.IsGuest)
+            {
+                this.PageContext.PageElements.RegisterJsBlockStartup(
+                    nameof(JavaScriptBlocks.LogOutJs),
+                    JavaScriptBlocks.LogOutJs(
+                        this.GetText("TOOLBAR", "LOGOUT_TITLE"),
+                        this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
+                        this.GetText("TOOLBAR", "LOGOUT"),
+                        this.GetText("COMMON", "CANCEL"),
+                        BuildLink.GetLink(ForumPages.Logout)));
+            }
 
-            notification.Show(
-                this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
-                "Logout?",
-                new DialogButton
-                    {
-                        Text = this.GetText("TOOLBAR", "LOGOUT"),
-                        CssClass = "btn btn-primary",
-                        ForumPageLink = new ForumLink { ForumPage = ForumPages.Logout }
-                    },
-                new DialogButton { Text = this.GetText("COMMON", "CANCEL"), CssClass = "btn btn-secondary" });
+            base.OnPreRender(e);
         }
 
         /// <summary>
@@ -446,9 +447,7 @@ namespace YAF.Controls
             if (!Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
                 this.LogutItem.Visible = true;
-                this.LogOutButton.Text =
-                    $"<i class=\"fa fa-sign-out-alt fa-fw\"></i>&nbsp;{this.GetText("TOOLBAR", "LOGOUT")}";
-                this.LogOutButton.ToolTip = this.GetText("TOOLBAR", "LOGOUT");
+                this.LogOutButton.NavigateUrl = "javascript:LogOutClick()";
             }
 
             this.UserAvatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();

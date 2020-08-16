@@ -40,10 +40,13 @@
         <asp:PlaceHolder ID="MyTopicItem" runat="server"></asp:PlaceHolder>
         <asp:PlaceHolder ID="LogutItem" runat="server" Visible="false">
             <div class="dropdown-divider"></div>
-            <asp:LinkButton ID="LogOutButton" runat="server" 
-                            CssClass="dropdown-item"
-                            OnClick="LogOutClick">
-            </asp:LinkButton>
+            <YAF:ThemeButton ID="LogOutButton" runat="server" 
+                             TextLocalizedTag="LOGOUT"
+                             TextLocalizedPage="TOOLBAR"
+                             TitleLocalizedTag="LOGOUT"
+                             Icon="sign-out-alt"
+                             CssClass="dropdown-item">
+            </YAF:ThemeButton>
         </asp:PlaceHolder>
     </div>
 </li>
