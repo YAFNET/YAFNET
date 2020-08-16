@@ -179,8 +179,6 @@ namespace YAF.Pages.Admin
                 this.txtIndexStatistics.Text = this.GetTextFormatted(
                     "INDEX_SHRINK",
                     this.Get<IDbFunction>().GetDBSize());
-
-                BuildLink.Redirect(ForumPages.admin_reindex);
             }
             catch (Exception error)
             {
