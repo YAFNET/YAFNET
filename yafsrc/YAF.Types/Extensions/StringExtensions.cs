@@ -80,14 +80,12 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(source, "source");
             CodeContracts.VerifyNotNull(pattern, "pattern");
 
-            if (pattern.Length == 0)
+            switch (pattern.Length)
             {
-                return 0;
-            }
-
-            if (pattern.Length == 1)
-            {
-                return source.IndexOf(pattern[0]);
+                case 0:
+                    return 0;
+                case 1:
+                    return source.IndexOf(pattern[0]);
             }
 
             var limit = source.Length - pattern.Length + 1;
@@ -201,11 +199,17 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        /// Removes strings that are smaller then <paramref name="minSize" />
+        /// Removes strings that are smaller then <paramref name="minSize"/>
         /// </summary>
-        /// <param name="inputList">The input list.</param>
-        /// <param name="minSize">The minimum size.</param>
-        /// <returns></returns>
+        /// <param name="inputList">
+        /// The input list.
+        /// </param>
+        /// <param name="minSize">
+        /// The minimum size.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
         [NotNull]
         public static List<string> GetNewNoSmallStrings([NotNull] this IEnumerable<string> inputList, int minSize)
         {
@@ -387,14 +391,12 @@ namespace YAF.Types.Extensions
         /// <summary>
         /// Creates a delimited string an enumerable list of T.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The typed Parameter</typeparam>
         /// <param name="objList">The object list.</param>
         /// <param name="delimiter">The delimiter.</param>
         /// <returns>
         /// The list to string.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">objList;objList is null.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="objList" /> is <c>null</c>.</exception>
         public static string ToDelimitedString<T>(this IEnumerable<T> objList, string delimiter) where T : IConvertible
         {
             if (objList == null)
@@ -421,14 +423,15 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        /// Cleans a string into a proper RegEx statement. 
+        /// Cleans a string into a proper Regular Expression statement. 
         ///   E.g. "[b]Whatever[/b]" will be converted to:
         ///   "\[b\]Whatever\[\/b\]"
         /// </summary>
         /// <param name="input">
+        /// The input.
         /// </param>
         /// <returns>
-        /// The to reg ex string.
+        /// The <see cref="string"/>.
         /// </returns>
         [NotNull]
         public static string ToRegExString([NotNull] this string input)
@@ -454,24 +457,36 @@ namespace YAF.Types.Extensions
         /// <summary>
         /// Converts a String to a MemoryStream.
         /// </summary>
-        /// <param name="str">
+        /// <param name="inputString">
+        /// The input String.
         /// </param>
         /// <returns>
+        /// The <see cref="Stream"/>.
         /// </returns>
         [NotNull]
-        public static Stream ToStream([NotNull] this string str)
+        public static Stream ToStream([NotNull] this string inputString)
         {
-            CodeContracts.VerifyNotNull(str, "str");
+            CodeContracts.VerifyNotNull(inputString);
 
-            var byteArray = Encoding.ASCII.GetBytes(str);
+            var byteArray = Encoding.ASCII.GetBytes(inputString);
             return new MemoryStream(byteArray);
         }
 
-        /// <summary>Truncates a string with the specified limits and adds (...) to the end if truncated</summary>
-        /// <param name="input">input string</param>
-        /// <param name="inputLimit"></param>
-        /// <param name="cutOfString"></param>
-        /// <returns>truncated string</returns>
+        /// <summary>
+        /// Truncates a string with the specified limits and adds (...) to the end if truncated
+        /// </summary>
+        /// <param name="input">
+        /// input string
+        /// </param>
+        /// <param name="inputLimit">
+        /// The input Limit.
+        /// </param>
+        /// <param name="cutOfString">
+        /// The cut Of String.
+        /// </param>
+        /// <returns>
+        /// truncated string
+        /// </returns>
         public static string Truncate(
             [CanBeNull] this string input,
             int inputLimit,
@@ -584,6 +599,34 @@ namespace YAF.Types.Extensions
                    || inputString.EndsWith("jpeg", StringComparison.InvariantCultureIgnoreCase)
                    || inputString.EndsWith("jpg", StringComparison.InvariantCultureIgnoreCase)
                    || inputString.EndsWith("bmp", StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        /// <summary>
+        /// Converts persian Numbers to english.
+        /// </summary>
+        /// <param name="persianString">
+        /// The persian string.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string PersianNumberToEnglish(this string persianString)
+        {
+            var lettersDictionary = new Dictionary<string, string>
+            {
+                ["۰"] = "0",
+                ["۱"] = "1",
+                ["۲"] = "2",
+                ["۳"] = "3",
+                ["۴"] = "4",
+                ["۵"] = "5",
+                ["۶"] = "6",
+                ["۷"] = "7",
+                ["۸"] = "8",
+                ["۹"] = "9"
+            };
+
+            return lettersDictionary.Aggregate(persianString, (current, item) => current.Replace(item.Key, item.Value));
         }
 
         #endregion
