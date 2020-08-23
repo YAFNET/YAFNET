@@ -178,9 +178,6 @@ namespace YAF.Pages.Admin
             // save category
             this.GetRepository<Category>().Save(this.CategoryId, this.Name.Text, categoryImage, this.SortOrder.Text.ToType<short>());
 
-            // remove category cache...
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);
-
             // redirect
             BuildLink.Redirect(ForumPages.Admin_Forums);
         }

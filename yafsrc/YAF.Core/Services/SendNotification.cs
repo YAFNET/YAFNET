@@ -318,22 +318,21 @@ namespace YAF.Core.Services
 
                 var languageFile = UserHelper.GetUserLanguageFile(toUserId);
 
-                var displayName = this.Get<IUserDisplayName>().GetName(BoardContext.Current.User);
+                var displayName = BoardContext.Current.User.DisplayOrUserName();
 
                 // send this user a PM notification e-mail
                 var notificationTemplate = new TemplateEmail("PMNOTIFICATION")
-                                               {
-                                                   TemplateLanguageFile = languageFile,
-                                                   TemplateParams =
-                                                       {
-                                                           ["{fromuser}"] = displayName,
-                                                           ["{link}"] =
-                                                               $"{BuildLink.GetLink(ForumPages.PrivateMessage, true, "pm={0}", userPMessageId)}\r\n\r\n",
-                                                           ["{subject}"] = subject,
-                                                           ["{username}"] =
-                                                               this.Get<IUserDisplayName>().GetName(toUser)
-                                                       }
-                                               };
+                {
+                    TemplateLanguageFile = languageFile,
+                    TemplateParams =
+                    {
+                        ["{fromuser}"] = displayName,
+                        ["{link}"] =
+                            $"{BuildLink.GetLink(ForumPages.PrivateMessage, true, "pm={0}", userPMessageId)}\r\n\r\n",
+                        ["{subject}"] = subject,
+                        ["{username}"] = toUser.DisplayOrUserName()
+                    }
+                };
 
                 // create notification email subject
                 var emailSubject = string.Format(
@@ -469,9 +468,7 @@ namespace YAF.Core.Services
                             mailMessages.Add(
                                 watchEmail.CreateEmail(
                                     new MailAddress(forumEmail, boardName),
-                                    new MailAddress(
-                                        user.Email,
-                                        this.Get<IUserDisplayName>().GetName(user)),
+                                    new MailAddress(user.Email, user.DisplayOrUserName()),
                                     subject));
                         }
                         finally
@@ -552,18 +549,13 @@ namespace YAF.Core.Services
                 this.BoardSettings.Name);
 
             var notifyUser = new TemplateEmail("NOTIFICATION_ON_MEDAL_AWARDED")
-                                 {
-                                     TemplateLanguageFile = languageFile,
-                                     TemplateParams =
-                                         {
-                                             ["{user}"] =
-                                                 this.Get<IUserDisplayName>().GetName(toUser),
-                                             ["{medalname}"] = medalName
-                                         }
-                                 };
+            {
+                TemplateLanguageFile = languageFile,
+                TemplateParams = { ["{user}"] = toUser.DisplayOrUserName(), ["{medalname}"] = medalName }
+            };
 
             notifyUser.SendEmail(
-                new MailAddress(toUser.Email, this.Get<IUserDisplayName>().GetName(toUser)),
+                new MailAddress(toUser.Email, toUser.DisplayOrUserName()),
                 subject);
         }
 

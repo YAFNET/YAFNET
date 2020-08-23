@@ -204,7 +204,7 @@ namespace YAF.Dialogs
                 {
                     // Check content for spam
                     if (this.Get<ISpamCheck>().CheckPostForSpam(
-                        this.PageContext.IsGuest ? "Guest" : this.Get<IUserDisplayName>().GetName(this.PageContext.User),
+                        this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName(),
                         this.PageContext.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         this.quickReplyEditor.Text,
                         this.PageContext.IsGuest ? null : this.PageContext.MembershipUser.Email,
@@ -212,7 +212,7 @@ namespace YAF.Dialogs
                     {
                         var description =
                             $@"Spam Check detected possible SPAM ({spamResult}) 
-                               posted by User: {(this.PageContext.IsGuest ? "Guest" : this.Get<IUserDisplayName>().GetName(this.PageContext.User))}";
+                               posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
 
                         switch (this.Get<BoardSettings>().SpamMessageHandling)
                         {

@@ -234,7 +234,7 @@ namespace YAF.Controls
                 this.Voters.Where(i => i.Item1.ChoiceID == choice.Item2.ID).ForEach(
                     itemTuple => voterNames.AppendFormat(
                         "{0}, ",
-                        this.Get<IUserDisplayName>().GetName(itemTuple.Item2)));
+                        itemTuple.Item2.DisplayOrUserName()));
 
                 voterNames.Remove(voterNames.Length - 2, 2);
 

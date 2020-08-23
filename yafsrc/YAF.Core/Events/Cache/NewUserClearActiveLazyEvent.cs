@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2003-2005 BjÃ¸rnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -21,42 +21,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-namespace YAF.Core.Services.Cache
+namespace YAF.Core.Events.Cache
 {
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
-    using YAF.Types.Models;
 
     /// <summary>
-    /// The banned ip event cache invalidate.
+    ///     The attachment event handle file delete.
     /// </summary>
     [ExportService(ServiceLifetimeScope.OwnedByContainer)]
-    public class BannedIPEventCacheInvalidate : IHandleEvent<RepositoryEvent<BannedIP>>
+    public class NewUserClearActiveLazyEvent : IHandleEvent<NewUserRegisteredEvent>
     {
-        #region Fields
-
-        /// <summary>
-        /// The _data cache.
-        /// </summary>
-        private readonly IDataCache _dataCache;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BannedIPEventCacheInvalidate"/> class.
+        /// Initializes a new instance of the <see cref="NewUserClearActiveLazyEvent"/> class.
         /// </summary>
         /// <param name="dataCache">
         /// The data cache.
         /// </param>
-        public BannedIPEventCacheInvalidate(IDataCache dataCache)
+        public NewUserClearActiveLazyEvent(IDataCache dataCache)
         {
-            this._dataCache = dataCache;
+            this.DataCache = dataCache;
         }
 
         #endregion
@@ -64,9 +53,14 @@ namespace YAF.Core.Services.Cache
         #region Public Properties
 
         /// <summary>
-        /// Gets the order.
+        /// Gets or sets the data cache.
         /// </summary>
-        public int Order => 1000;
+        public IDataCache DataCache { get; set; }
+
+        /// <summary>
+        ///     Gets the order.
+        /// </summary>
+        public int Order => 10000;
 
         #endregion
 
@@ -78,9 +72,10 @@ namespace YAF.Core.Services.Cache
         /// <param name="event">
         /// The event.
         /// </param>
-        public void Handle(RepositoryEvent<BannedIP> @event)
+        public void Handle(NewUserRegisteredEvent @event)
         {
-            this._dataCache.Remove(Constants.Cache.BannedIP);
+            this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
+            this.DataCache.Remove(Constants.Cache.ForumActiveDiscussions);
         }
 
         #endregion

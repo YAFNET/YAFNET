@@ -24,6 +24,7 @@
 namespace YAF.Core.Model
 {
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -85,7 +86,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Save(
             this IRepository<Rank> repository,
-            [NotNull] object rankID,
+            [NotNull] int rankID,
             [NotNull] object boardID,
             [NotNull] object name,
             [NotNull] object isStart,
@@ -117,6 +118,9 @@ namespace YAF.Core.Model
                 UsrSigHTMLTags: usrSigHTMLTags,
                 UsrAlbums: usrAlbums,
                 UsrAlbumImages: usrAlbumImages);
+
+            repository.FireUpdated(rankID);
+
         }
     }
 }

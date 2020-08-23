@@ -96,7 +96,7 @@ namespace YAF.Pages
                         "t={0}&name={1}",
                         this.PageContext.PageTopicID,
                         this.PageContext.PageTopicName),
-                    ["{user}"] = this.Get<IUserDisplayName>().GetName(this.PageContext.User)
+                    ["{user}"] = this.PageContext.User.DisplayOrUserName()
                 }
             };
 

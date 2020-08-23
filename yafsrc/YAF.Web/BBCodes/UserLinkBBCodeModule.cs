@@ -75,8 +75,7 @@ namespace YAF.Web.BBCodes
                     Suspended = boardUser.Suspended,
                     UserID = boardUser.ID,
                     Style = boardUser.UserStyle,
-                    ReplaceName =
-                        this.Get<IUserDisplayName>().GetName(boardUser),
+                    ReplaceName = boardUser.DisplayOrUserName(),
                     CssClass = "btn btn-outline-primary",
                     BlankTarget = true,
                     ID = $"UserLinkBBCodeFor{boardUser.ID}"

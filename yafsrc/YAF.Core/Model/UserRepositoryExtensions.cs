@@ -65,6 +65,8 @@ namespace YAF.Core.Model
             this IRepository<User> repository,
             [NotNull] int messageId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageReportedAudit>();
 
             expression.Join<User>((m, u) => u.ID == m.UserID)
@@ -93,6 +95,8 @@ namespace YAF.Core.Model
             [NotNull] int messageId,
             [NotNull] int userId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
             expression.Join<MessageReportedAudit>((user, m) => m.UserID == userId && m.MessageID == messageId)
@@ -125,6 +129,8 @@ namespace YAF.Core.Model
             [NotNull] DateTime startDate,
             [NotNull] int displayNumber)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbFunction.GetData.user_activity_rank(
                 BoardID: boardId,
                 StartDate: startDate,
@@ -152,6 +158,8 @@ namespace YAF.Core.Model
             [CanBeNull] int? fromUserID,
             [NotNull] int points)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.DbFunction.Scalar.user_addpoints(
                 UserID: userID,
                 FromUserID: fromUserID,
@@ -180,6 +188,8 @@ namespace YAF.Core.Model
             [CanBeNull] int? fromUserID,
             [NotNull] int points)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.DbFunction.Scalar.user_removepoints(
                 UserID: userID,
                 FromUserID: fromUserID,
@@ -224,6 +234,8 @@ namespace YAF.Core.Model
             [NotNull] int flags,
             [NotNull] int rankID)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.UpdateOnly(
                 () => new User
                 {
@@ -248,6 +260,8 @@ namespace YAF.Core.Model
         /// </param>
         public static void Approve(this IRepository<User> repository, [NotNull] int userID)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.DbFunction.Scalar.user_approve(UserID: userID);
         }
 
@@ -262,6 +276,8 @@ namespace YAF.Core.Model
         /// </param>
         public static void ApproveAll(this IRepository<User> repository, [NotNull] int boardID)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.DbFunction.Scalar.user_approveall(BoardID: boardID);
         }
 
@@ -301,6 +317,8 @@ namespace YAF.Core.Model
             [NotNull] object providerUserKey,
             [NotNull] bool isApproved)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             try
             {
                 return repository.DbFunction.Scalar.user_aspnet(
@@ -329,7 +347,11 @@ namespace YAF.Core.Model
         /// </param>
         public static void Delete(this IRepository<User> repository, [NotNull] int userID)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.DbFunction.Scalar.user_delete(UserID: userID);
+
+            repository.FireDeleted(userID);
         }
 
         /// <summary>
@@ -341,14 +363,20 @@ namespace YAF.Core.Model
         /// <param name="userId">
         /// The user id.
         /// </param>
-        public static void DeleteAvatar(this IRepository<User> repository, [NotNull] int userId) =>
+        public static void DeleteAvatar(this IRepository<User> repository, [NotNull] int userId)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.UpdateOnly(
-                () => 
+                () =>
                     new User
                     {
-                        AvatarImage = null, Avatar = null, AvatarImageType = null
+                        AvatarImage = null,
+                        Avatar = null,
+                        AvatarImageType = null
                     },
                 u => u.ID == userId);
+        }
 
         /// <summary>
         /// Deletes all unapproved users older than x days
@@ -364,6 +392,8 @@ namespace YAF.Core.Model
         /// </param>
         public static void DeleteOld(this IRepository<User> repository, [NotNull] int boardID, [NotNull] int days)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.DbFunction.Scalar.user_deleteold(BoardID: boardID, Days: days, UTCTIMESTAMP: DateTime.UtcNow);
         }
 
@@ -385,8 +415,13 @@ namespace YAF.Core.Model
         public static DataTable WatchMailListAsDataTable(
             this IRepository<User> repository,
             [NotNull] int topicId,
-            [NotNull] int userId) =>
-            repository.DbFunction.GetData.mail_list(TopicID: topicId, UserID: userId, UTCTIMESTAMP: DateTime.UtcNow);
+            [NotNull] int userId)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            return repository.DbFunction.GetData.mail_list(TopicID: topicId, UserID: userId, UTCTIMESTAMP: DateTime.UtcNow);
+        }
+
 
         /// <summary>
         /// Gets all Emails from User in Group
@@ -404,12 +439,14 @@ namespace YAF.Core.Model
             this IRepository<User> repository,
             [NotNull] int groupID)
         {
-             var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+            CodeContracts.VerifyNotNull(repository);
 
-             expression.Join<UserGroup>((u, b) => b.UserID == u.ID).Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
-                 .Where<User, UserGroup, Group>(
-                     (a, b, c) => b.GroupID == groupID && (c.Flags & 2) == 0 && a.Email != null)
-                 .Select(u => new { u.Email });
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            expression.Join<UserGroup>((u, b) => b.UserID == u.ID).Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
+                .Where<User, UserGroup, Group>(
+                    (a, b, c) => b.GroupID == groupID && (c.Flags & 2) == 0 && a.Email != null)
+                .Select(u => new { u.Email });
 
             return repository.DbAccess.Execute(db => db.Connection.SqlList<string>(expression));
         }
@@ -431,6 +468,8 @@ namespace YAF.Core.Model
         /// </returns>
         public static int GetUserId(this IRepository<User> repository, int boardID, [NotNull] string providerUserKey)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var user = repository.GetSingle(u => u.BoardID == boardID && u.ProviderUserKey == providerUserKey);
 
             return user?.ID ?? 0;
@@ -475,9 +514,13 @@ namespace YAF.Core.Model
         public static DataRow SignatureDataAsDataRow(
             this IRepository<User> repository,
             [NotNull] int userID,
-            [NotNull] int boardID) =>
-            repository.DbFunction.GetAsDataTable(t => t.user_getsignaturedata(BoardID: boardID, UserID: userID))
-                .GetFirstRow();
+            [NotNull] int boardID)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            return repository.DbFunction.GetAsDataTable(t => t.user_getsignaturedata(BoardID: boardID, UserID: userID))
+                    .GetFirstRow();
+        }
 
         /// <summary>
         /// Gets the Guest User
@@ -960,7 +1003,7 @@ namespace YAF.Core.Model
             bool? useStyledNicks = null,
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
@@ -1035,7 +1078,7 @@ namespace YAF.Core.Model
             [NotNull] int userId,
             [CanBeNull] string signature)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(() => new User { Signature = signature }, u => u.ID == userId);
         }
@@ -1048,7 +1091,7 @@ namespace YAF.Core.Model
         /// <returns>Returns the user points</returns>
         public static int GetPoints(this IRepository<User> repository, int userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.GetById(userId).Points;
         }
@@ -1061,7 +1104,7 @@ namespace YAF.Core.Model
         /// <param name="points">The points.</param>
         public static void SetPoints(this IRepository<User> repository, [NotNull] int userId, [NotNull] int points)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(() => new User { Points = points }, u => u.ID == userId);
         }
@@ -1081,7 +1124,7 @@ namespace YAF.Core.Model
             string suspendReason = null,
             [NotNull] int suspendBy = 0)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(
                 () => new User { Suspended = suspend, SuspendedReason = suspendReason, SuspendedBy = suspendBy },
@@ -1102,7 +1145,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void UpdateBlockFlags(this IRepository<User> repository, int userId, int flags)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(() => new User { BlockFlags = flags }, u => u.ID == userId);
         }
@@ -1127,7 +1170,7 @@ namespace YAF.Core.Model
             int userId,
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
@@ -1158,7 +1201,7 @@ namespace YAF.Core.Model
             [NotNull] int timeSinceLastLogin,
             [NotNull] bool useStyledNicks)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var users = repository.DbFunction.GetData.recent_users(
                 BoardID: repository.BoardID,
@@ -1191,7 +1234,7 @@ namespace YAF.Core.Model
             this IRepository<User> repository,
             [NotNull] bool useStyledNicks)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.DbFunction.GetAsDataTable(
                 x => x.forum_moderators(repository.BoardID, useStyledNicks));

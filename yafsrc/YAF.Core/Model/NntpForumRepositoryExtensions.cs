@@ -62,7 +62,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Update(this IRepository<NntpForum> repository, [NotNull] object nntpForumId, [NotNull] object lastMessageNo, [NotNull] object userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.DbFunction.Scalar.nntpforum_update(
                 NntpForumID: nntpForumId,
@@ -91,7 +91,7 @@ namespace YAF.Core.Model
             int boardId,
             bool? active)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<NntpForum>();
 

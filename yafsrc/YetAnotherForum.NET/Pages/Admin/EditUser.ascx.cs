@@ -105,7 +105,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var userName = this.HtmlEncode(this.Get<IUserDisplayName>().GetName(user));
+            var userName = this.HtmlEncode(user.DisplayOrUserName());
 
             var header = string.Format(this.GetText("ADMIN_EDITUSER", "TITLE"), userName);
 

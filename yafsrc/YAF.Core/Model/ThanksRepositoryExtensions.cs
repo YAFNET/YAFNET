@@ -67,7 +67,7 @@ namespace YAF.Core.Model
             this IRepository<Thanks> repository,
             [NotNull] string messageIdsSeparatedWithColon)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.DbFunction
                 .GetAsDataTable(cdb => cdb.message_getallthanks(MessageIDs: messageIdsSeparatedWithColon))
@@ -88,7 +88,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static long ThanksFromUser(this IRepository<Thanks> repository, int thanksFromUserId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.Count(thanks => thanks.ThanksFromUserID == thanksFromUserId);
         }
@@ -109,7 +109,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static dynamic ThanksToUser(this IRepository<Thanks> repository, int thanksToUserId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
 
@@ -170,7 +170,7 @@ namespace YAF.Core.Model
         public static List<Tuple<Thanks, User>> MessageGetThanksList(
             this IRepository<Thanks> repository, [NotNull] int messageId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
 
@@ -201,7 +201,7 @@ namespace YAF.Core.Model
         public static void RemoveMessageThanks(
             this IRepository<Thanks> repository, [NotNull] int fromUserId, [NotNull] int messageId, [NotNull] bool useDisplayName)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.Delete(t => t.ThanksFromUserID == fromUserId && t.MessageID == messageId);
         }

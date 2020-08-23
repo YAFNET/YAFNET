@@ -136,15 +136,19 @@ namespace YAF.Controls
                 string.Format(Constants.Cache.AdminPageAccess, this.PageContext.PageUserID),
                 () => this.GetRepository<AdminPageUserAccess>().List(this.PageContext.PageUserID).ToList());
 
+            var mainListItem = new HtmlGenericControl("li");
+
             // Admin Admin
             RenderMenuItem(
-                this.MenuHolder,
+                mainListItem,
                 "dropdown-item",
                 this.GetText("ADMINMENU", "ADMIN_ADMIN"),
                 BuildLink.GetLink(ForumPages.Admin_Admin),
                 this.PageContext.ForumPageType == ForumPages.Admin_Admin,
                 false,
                 "tachometer-alt");
+
+            this.MenuHolder.Controls.Add(mainListItem);
 
             // Admin - Settings Menu
             if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(
@@ -221,8 +225,12 @@ namespace YAF.Controls
         /// </param>
         private void RenderAdminSettings(IReadOnlyCollection<AdminPageUserAccess> pagesAccess)
         {
+            var listItem = new HtmlGenericControl("li");
+
+            listItem.Attributes.Add("class", "dropdown");
+
             RenderMenuItem(
-                this.MenuHolder,
+                listItem,
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "SETTINGS"),
                 "#",
@@ -331,7 +339,9 @@ namespace YAF.Controls
                     "language");
             }
 
-            this.MenuHolder.Controls.Add(list);
+            listItem.Controls.Add(list);
+
+            this.MenuHolder.Controls.Add(listItem);
         }
 
         /// <summary>
@@ -342,8 +352,12 @@ namespace YAF.Controls
         /// </param>
         private void RenderAdminSpamProtection(IReadOnlyCollection<AdminPageUserAccess> pagesAccess)
         {
+            var listItem = new HtmlGenericControl("li");
+
+            listItem.Attributes.Add("class", "dropdown");
+
             RenderMenuItem(
-                this.MenuHolder,
+                listItem,
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "Spam_Protection"),
                 "#",
@@ -429,7 +443,9 @@ namespace YAF.Controls
                     "hand-paper");
             }
 
-            this.MenuHolder.Controls.Add(list);
+            listItem.Controls.Add(list);
+
+            this.MenuHolder.Controls.Add(listItem);
         }
 
         /// <summary>
@@ -440,8 +456,12 @@ namespace YAF.Controls
         /// </param>
         private void RenderAdminUsersAndRoles(IReadOnlyCollection<AdminPageUserAccess> pagesAccess)
         {
+            var listItem = new HtmlGenericControl("li");
+
+            listItem.Attributes.Add("class", "dropdown");
+
             RenderMenuItem(
-                this.MenuHolder,
+                listItem,
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "UsersandRoles"),
                 "#",
@@ -582,7 +602,9 @@ namespace YAF.Controls
                     "envelope");
             }
 
-            this.MenuHolder.Controls.Add(list);
+            listItem.Controls.Add(list);
+
+            this.MenuHolder.Controls.Add(listItem);
         }
 
         /// <summary>
@@ -593,8 +615,12 @@ namespace YAF.Controls
         /// </param>
         private void RenderAdminMaintenance(IReadOnlyCollection<AdminPageUserAccess> pagesAccess)
         {
+            var listItem = new HtmlGenericControl("li");
+
+            listItem.Attributes.Add("class", "dropdown");
+
             RenderMenuItem(
-                this.MenuHolder,
+                listItem,
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "Maintenance"),
                 "#",
@@ -694,7 +720,9 @@ namespace YAF.Controls
                     "sync");
             }
 
-            this.MenuHolder.Controls.Add(list);
+            listItem.Controls.Add(list);
+
+            this.MenuHolder.Controls.Add(listItem);
         }
 
         /// <summary>
@@ -705,8 +733,12 @@ namespace YAF.Controls
         /// </param>
         private void RenderAdminDatabase(IReadOnlyCollection<AdminPageUserAccess> pagesAccess)
         {
+            var listItem = new HtmlGenericControl("li");
+
+            listItem.Attributes.Add("class", "dropdown");
+
             RenderMenuItem(
-                this.MenuHolder,
+                listItem,
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "Database"),
                 "#",
@@ -747,7 +779,9 @@ namespace YAF.Controls
                     "database");
             }
 
-            this.MenuHolder.Controls.Add(list);
+            listItem.Controls.Add(list);
+
+            this.MenuHolder.Controls.Add(listItem);
         }
 
         /// <summary>
@@ -758,8 +792,12 @@ namespace YAF.Controls
         /// </param>
         private void RenderAdminNntp(IReadOnlyCollection<AdminPageUserAccess> pagesAccess)
         {
+            var listItem = new HtmlGenericControl("li");
+
+            listItem.Attributes.Add("class", "dropdown");
+
             RenderMenuItem(
-                this.MenuHolder,
+                listItem,
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "NNTP"),
                 "#",
@@ -815,7 +853,9 @@ namespace YAF.Controls
                     "newspaper");
             }
 
-            this.MenuHolder.Controls.Add(list);
+            listItem.Controls.Add(list);
+
+            this.MenuHolder.Controls.Add(listItem);
         }
 
         /// <summary>
@@ -824,10 +864,14 @@ namespace YAF.Controls
         /// <param name="pagesAccess">
         /// The pages access.
         /// </param>
-        private void RenderAdminUpgrade(IReadOnlyCollection<AdminPageUserAccess> pagesAccess)
+        private void RenderAdminUpgrade(IEnumerable<AdminPageUserAccess> pagesAccess)
         {
+            var listItem = new HtmlGenericControl("li");
+
+            listItem.Attributes.Add("class", "dropdown");
+
             RenderMenuItem(
-                this.MenuHolder,
+                listItem,
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "Upgrade"),
                 "#",
@@ -866,7 +910,9 @@ namespace YAF.Controls
                     "download");
             }
 
-            this.MenuHolder.Controls.Add(list);
+            listItem.Controls.Add(list);
+
+            this.MenuHolder.Controls.Add(listItem);
         }
 
         #endregion

@@ -116,7 +116,7 @@ namespace YAF.Pages.Profile
         /// </summary>
         protected override void CreatePageLinks()
         {
-            var displayName = this.Get<IUserDisplayName>().GetName(this.PageContext.User);
+            var displayName = this.PageContext.User.DisplayOrUserName();
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
             this.PageLinks.AddUser(this.PageContext.PageUserID, displayName);

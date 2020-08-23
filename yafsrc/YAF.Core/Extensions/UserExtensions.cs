@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2020 Ingo Herbote
@@ -21,60 +21,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Events
+
+namespace YAF.Core.Extensions
 {
-  #region Using
-
-  using System;
-
-  using YAF.Types.Interfaces.Events;
-
-  #endregion
-
-  /// <summary>
-  /// The event converter.
-  /// </summary>
-  /// <typeparam name="T">
-  /// The Typed Parameter
-  /// </typeparam>
-  public class FireEvent<T> : IFireEvent<T>
-    where T : IAmEvent
-  {
-    #region Events
+    using YAF.Configuration;
+    using YAF.Core.Context;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     /// <summary>
-    /// Handle the event with this delegate
+    /// The user extensions.
     /// </summary>
-    public event EventHandler<EventConverterArgs<T>> HandleEvent;
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    ///   Gets Order.
-    /// </summary>
-    public int Order => 10000;
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IHandleEvent<T>
-
-    /// <summary>
-    /// The handle.
-    /// </summary>
-    /// <param name="event">
-    /// The event.
-    /// </param>
-    public void Handle(T @event)
+    public static class UserExtensions
     {
-        this.HandleEvent?.Invoke(this, new EventConverterArgs<T>(@event));
+        /// <summary>
+        /// Gets The Display Name or User Name,
+        /// depending in Display Name feature is enabled or not
+        /// </summary>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string DisplayOrUserName(this User user)
+        {
+            return BoardContext.Current.Get<BoardSettings>().EnableDisplayName
+                ? user.DisplayName
+                : user.Name;
+        }
     }
-
-    #endregion
-
-    #endregion
-  }
 }

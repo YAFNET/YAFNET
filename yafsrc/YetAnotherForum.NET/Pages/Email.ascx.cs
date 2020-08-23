@@ -111,7 +111,7 @@ namespace YAF.Pages
                 }
 
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddUser(this.UserId, this.Get<IUserDisplayName>().GetName(user));
+                this.PageLinks.AddUser(this.UserId, user.DisplayOrUserName());
                 this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
             }
         }

@@ -48,7 +48,7 @@ namespace YAF.Core.Model
             string spamWord,
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.Upsert(
                 new Spam_Words

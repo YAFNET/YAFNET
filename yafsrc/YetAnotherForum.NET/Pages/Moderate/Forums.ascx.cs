@@ -321,8 +321,6 @@ namespace YAF.Pages.Moderate
 
                     this.BindData();
 
-                    // clear moderators cache
-                    this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
                     break;
             }
         }

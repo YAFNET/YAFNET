@@ -188,7 +188,7 @@ namespace YAF.Dialogs
             if (this.PageContext.Get<BoardSettings>().LogBannedIP)
             {
                 this.Logger.Log(
-                    $"IP or mask {this.mask.Text.Trim()} was saved by {this.Get<IUserDisplayName>().GetName(this.PageContext.User)}.",
+                    $"IP or mask {this.mask.Text.Trim()} was saved by {this.PageContext.User.DisplayOrUserName()}.",
                     EventLogTypes.IpBanSet);
             }
 

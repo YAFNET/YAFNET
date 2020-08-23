@@ -85,7 +85,7 @@ namespace YAF.Core.Model
             string eventIDs, 
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.DbFunction.GetData.eventlog_list(
                 BoardID: boardId ?? repository.BoardID, 

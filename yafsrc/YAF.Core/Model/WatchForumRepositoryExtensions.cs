@@ -54,13 +54,15 @@ namespace YAF.Core.Model
         /// <param name="forumId">
         /// The forum id.
         /// </param>
-        public static void Add(this IRepository<WatchForum> repository, int userId, int forumId)
+        public static void Add(this IRepository<WatchForum> repository, [NotNull] int userId, [NotNull] int forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
-            repository.Insert(new WatchForum { ForumID = forumId, UserID = userId, Created = DateTime.UtcNow });
+            var watchForum = new WatchForum { ForumID = forumId, UserID = userId, Created = DateTime.UtcNow };
 
-            repository.FireNew();
+            repository.Insert(watchForum);
+
+            repository.FireNew(watchForum);
         }
 
         /// <summary>
@@ -78,9 +80,9 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="int?"/>.
         /// </returns>
-        public static int? Check(this IRepository<WatchForum> repository, int userId, int forumId)
+        public static int? Check(this IRepository<WatchForum> repository, [NotNull] int userId, [NotNull] int forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var forum = repository.GetSingle(w => w.UserID == userId && w.ForumID == forumId);
 
@@ -99,9 +101,9 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Tuple<WatchForum, Forum>> List(this IRepository<WatchForum> repository, int userId)
+        public static List<Tuple<WatchForum, Forum>> List(this IRepository<WatchForum> repository, [NotNull] int userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchForum>();
 

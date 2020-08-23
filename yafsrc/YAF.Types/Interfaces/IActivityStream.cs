@@ -39,7 +39,7 @@ namespace YAF.Types.Interfaces
         /// <param name="messageID">The message unique identifier.</param>
         /// <param name="topicTitle">The topic title.</param>
         /// <param name="message">The message.</param>
-        void AddTopicToStream(int forumID, long topicID, int messageID, string topicTitle, string message);
+        void AddTopicToStream(int forumID, int topicID, int messageID, string topicTitle, string message);
 
         /// <summary>
         /// Adds the Reply to the User's ActivityStream
@@ -49,7 +49,7 @@ namespace YAF.Types.Interfaces
         /// <param name="messageID">The message unique identifier.</param>
         /// <param name="topicTitle">The topic title.</param>
         /// <param name="message">The message.</param>
-        void AddReplyToStream(int forumID, long topicID, int messageID, string topicTitle, string message);
+        void AddReplyToStream(int forumID, int topicID, int messageID, string topicTitle, string message);
 
         /// <summary>
         /// Add Mention to Users Stream

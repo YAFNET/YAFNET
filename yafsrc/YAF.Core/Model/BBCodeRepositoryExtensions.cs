@@ -104,7 +104,7 @@ namespace YAF.Core.Model
             int execOrder, 
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.Upsert(
                 new BBCode

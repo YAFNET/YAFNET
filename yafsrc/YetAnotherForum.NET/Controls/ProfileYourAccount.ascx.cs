@@ -88,7 +88,7 @@ namespace YAF.Controls
       if (this.PageContext.BoardSettings.EnableDisplayName)
       {
         this.DisplayName.Text =
-          this.HtmlEncode(this.Get<IUserDisplayName>().GetName(this.PageContext.User));
+          this.HtmlEncode(this.PageContext.User.DisplayOrUserName());
       }
 
       var avatarImg = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();

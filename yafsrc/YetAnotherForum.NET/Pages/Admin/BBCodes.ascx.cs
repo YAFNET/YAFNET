@@ -113,7 +113,6 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete":
                     this.GetRepository<Types.Models.BBCode>().DeleteById(e.CommandArgument.ToType<int>());
-                    this.Get<IDataCache>().Remove(Constants.Cache.CustomBBCode);
                     this.BindData();
                     break;
                 case "export":

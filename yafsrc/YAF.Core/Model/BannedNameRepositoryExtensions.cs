@@ -63,7 +63,7 @@ namespace YAF.Core.Model
             string reason,
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             if (id.HasValue)
             {

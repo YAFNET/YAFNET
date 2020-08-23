@@ -172,11 +172,6 @@ namespace YAF.Types.Constants
             public const string UserSignatureCache = "UserSignatureCache";
 
             /// <summary>
-            ///   The users display name collection.
-            /// </summary>
-            public const string UsersDisplayNameCollection = "UsersDisplayNameCollection";
-
-            /// <summary>
             ///   The users online status.
             /// </summary>
             public const string UsersOnlineStatus = "UsersOnlineStatus";

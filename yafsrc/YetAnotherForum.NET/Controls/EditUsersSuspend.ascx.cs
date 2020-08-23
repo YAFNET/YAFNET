@@ -179,7 +179,7 @@ namespace YAF.Controls
                 this.Get<ILogger>().Log(
                     this.PageContext.PageUserID,
                     "YAF.Controls.EditUsersSuspend",
-                    $"User {this.Get<IUserDisplayName>().GetName(this.User)} was unsuspended by {this.Get<IUserDisplayName>().GetName(this.PageContext.User)}.",
+                    $"User {this.User.DisplayOrUserName()} was unsuspended by {this.PageContext.User.DisplayOrUserName()}.",
                     EventLogTypes.UserUnsuspended);
             }
 
@@ -187,7 +187,7 @@ namespace YAF.Controls
 
             this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
                 this.User.Email,
-                this.Get<IUserDisplayName>().GetName(this.User));
+                this.User.DisplayOrUserName());
 
             // re-bind data
             this.BindData();
@@ -264,7 +264,7 @@ namespace YAF.Controls
             this.Get<ILogger>().Log(
                 this.PageContext.PageUserID,
                 "YAF.Controls.EditUsersSuspend",
-                $"User {this.Get<IUserDisplayName>().GetName(this.User)} was suspended by {this.Get<IUserDisplayName>().GetName(this.PageContext.User)} until: {suspend} (UTC)",
+                $"User {this.User.DisplayOrUserName()} was suspended by {this.PageContext.User.DisplayOrUserName()} until: {suspend} (UTC)",
                 EventLogTypes.UserSuspended);
 
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
@@ -273,7 +273,7 @@ namespace YAF.Controls
                 suspend,
                 this.SuspendedReason.Text.Trim(),
                 this.User.Email,
-                this.Get<IUserDisplayName>().GetName(this.User));
+                this.User.DisplayOrUserName());
 
 
             this.SuspendedReason.Text = string.Empty;
@@ -303,7 +303,7 @@ namespace YAF.Controls
             this.SuspendedBy.UserID = suspendedByUser.ID;
             this.SuspendedBy.Suspended = suspendedByUser.Suspended;
             this.SuspendedBy.Style = suspendedByUser.UserStyle;
-            this.SuspendedBy.ReplaceName = this.Get<IUserDisplayName>().GetName(suspendedByUser);
+            this.SuspendedBy.ReplaceName = suspendedByUser.DisplayOrUserName();
         }
 
         #endregion

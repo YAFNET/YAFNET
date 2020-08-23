@@ -39,7 +39,6 @@ namespace YAF.Dialogs
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     
@@ -128,7 +127,7 @@ namespace YAF.Dialogs
             }
 
             // set username and disable its editing
-            this.UserName.Text = this.Get<IUserDisplayName>().GetName(userForum.Item1);
+            this.UserName.Text = userForum.Item1.DisplayOrUserName();
             this.UserName.Enabled = false;
 
             // we don't need to find users now
@@ -200,10 +199,6 @@ namespace YAF.Dialogs
                 user.ID,
                 this.PageContext.PageForumID,
                 this.AccessMaskID.SelectedValue.ToType<int>());
-
-            // clear moderators cache
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
-            this.Get<IDataCache>().Remove(Constants.Cache.BoardModerators);
 
             // redirect to forum moderation page
             BuildLink.Redirect(ForumPages.Moderate_Forums, "f={0}", this.PageContext.PageForumID);

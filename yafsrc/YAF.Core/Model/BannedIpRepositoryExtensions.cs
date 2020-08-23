@@ -67,7 +67,7 @@ namespace YAF.Core.Model
             int userId,
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             if (id.HasValue)
             {
@@ -81,25 +81,27 @@ namespace YAF.Core.Model
                             UserID = userId,
                             Since = DateTime.Now
                         });
-
-                repository.FireUpdated(id.Value);
             }
             else
             {
                 var banned = repository.GetSingle(b => b.BoardID == repository.BoardID && b.Mask == mask);
 
-                if (banned == null)
+                if (banned != null)
                 {
-                    repository.Upsert(
-                        new BannedIP
-                            {
-                                BoardID = boardId ?? repository.BoardID,
-                                Mask = mask,
-                                Reason = reason,
-                                UserID = userId,
-                                Since = DateTime.Now
-                            });
+                    return;
                 }
+
+                var newId = repository.Upsert(
+                    new BannedIP
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        Mask = mask,
+                        Reason = reason,
+                        UserID = userId,
+                        Since = DateTime.Now
+                    });
+
+                repository.FireNew(newId);
             }
         }
 

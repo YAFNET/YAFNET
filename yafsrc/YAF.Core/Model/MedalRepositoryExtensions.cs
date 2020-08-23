@@ -168,7 +168,7 @@ namespace YAF.Core.Model
             int flags, 
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             if (medalId.HasValue)
             {

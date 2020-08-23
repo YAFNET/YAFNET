@@ -420,9 +420,6 @@ namespace YAF.Pages.Account
                             $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
                             this.PageContext.PageUserID);
 
-                        // Clear cache
-                        this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
-
                         if (this.PageContext.Get<BoardSettings>().LogBannedIP)
                         {
                             this.Logger.Log(

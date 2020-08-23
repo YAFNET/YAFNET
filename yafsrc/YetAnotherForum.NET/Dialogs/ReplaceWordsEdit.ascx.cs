@@ -147,8 +147,6 @@ namespace YAF.Dialogs
                     this.badword.Text,
                     this.goodword.Text);
 
-            this.Get<IDataCache>().Remove(Constants.Cache.ReplaceWords);
-
             BuildLink.Redirect(ForumPages.Admin_ReplaceWords);
         }
 

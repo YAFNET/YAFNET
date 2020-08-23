@@ -193,7 +193,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable ListAllAsDataTable(this IRepository<Buddy> repository, int fromUserID)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.DbFunction.GetData.buddy_list(FromUserID: fromUserID);
         }

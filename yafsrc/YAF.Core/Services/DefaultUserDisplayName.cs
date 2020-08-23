@@ -117,23 +117,7 @@ namespace YAF.Core.Services
         {
             var user = this.GetRepository<User>().GetById(userId);
 
-            return user == null ? null : this.GetName(user);
-        }
-
-        /// <summary>
-        /// The Gets Name from user
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public string GetName(User user)
-        {
-            return this.Get<BoardSettings>().EnableDisplayName
-                ? user.DisplayName
-                : user.Name;
+            return user?.DisplayOrUserName();
         }
 
         #endregion

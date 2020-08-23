@@ -91,7 +91,7 @@ namespace YAF.Core.Model
             this IRepository<Message> repository,
             [NotNull] int messageId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
@@ -124,7 +124,7 @@ namespace YAF.Core.Model
             [NotNull] int messageId,
             [NotNull] int userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
@@ -152,7 +152,7 @@ namespace YAF.Core.Model
             this IRepository<Message> repository,
             [NotNull] int boardId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
@@ -340,7 +340,7 @@ namespace YAF.Core.Model
             [NotNull] int pageUserId,
             [NotNull] int count)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
@@ -372,7 +372,7 @@ namespace YAF.Core.Model
             this IRepository<Message> repository,
             [NotNull]int forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
@@ -394,9 +394,11 @@ namespace YAF.Core.Model
         /// <param name="messageId">The message identifier.</param>
         public static void ApproveMessage(this IRepository<Message> repository, int messageId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.DbFunction.Query.message_approve(MessageID: messageId);
+
+            repository.FireUpdated(messageId);
         }
 
         /// <summary>
@@ -407,7 +409,7 @@ namespace YAF.Core.Model
         /// <param name="flags">The flags.</param>
         public static void UpdateFlags(this IRepository<Message> repository, int messageId, int flags)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(() => new Message { Flags = flags }, u => u.ID == messageId);
         }
@@ -442,6 +444,8 @@ namespace YAF.Core.Model
             bool deleteLinked)
         {
             repository.Delete(messageID, isModeratorChanged, deleteReason, isDeleteAction, deleteLinked, false);
+
+            repository.FireDeleted(messageID);
         }
 
         /// <summary>
@@ -758,6 +762,8 @@ namespace YAF.Core.Model
 
             BoardContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
 
+            repository.FireNew(messageId);
+
             return messageId;
         }
 
@@ -775,7 +781,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static List<Tuple<Topic, Message, User>> Unapproved(this IRepository<Message> repository, [NotNull] int forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 

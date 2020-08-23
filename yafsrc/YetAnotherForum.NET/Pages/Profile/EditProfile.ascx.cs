@@ -25,8 +25,8 @@ namespace YAF.Pages.Profile
 {
     #region Using
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -59,9 +59,7 @@ namespace YAF.Pages.Profile
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.Get<IUserDisplayName>().GetName(this.PageContext.User),
-                BuildLink.GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), BuildLink.GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 

@@ -26,7 +26,7 @@ namespace YAF.Core.Model
         /// <returns>Returns if deleting was successfully or not</returns>
         public static bool Delete(this IRepository<IgnoreUser> repository, int userId, int ignoreUserId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var success = repository.DbAccess.Execute(
                               db => db.Connection.Delete<IgnoreUser>(
@@ -57,7 +57,7 @@ namespace YAF.Core.Model
             [NotNull] int userId,
             [NotNull] int ignoredUserId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var ignoreUser = repository.GetSingle(i => i.UserID == userId && i.IgnoredUserID == ignoredUserId);
 

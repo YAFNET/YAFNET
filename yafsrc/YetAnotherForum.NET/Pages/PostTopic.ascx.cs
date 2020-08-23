@@ -323,7 +323,7 @@ namespace YAF.Pages
             }
 
             // form user is only for "Guest"
-            this.From.Text = this.Get<IUserDisplayName>().GetName(this.PageContext.User);
+            this.From.Text = this.PageContext.User.DisplayOrUserName();
 
             if (this.User != null)
             {
@@ -357,10 +357,8 @@ namespace YAF.Pages
         /// <returns>
         /// Returns the Message Id.
         /// </returns>
-        protected long PostReplyHandleNewPost(out long topicId)
+        protected int PostReplyHandleNewTopic(out int topicId)
         {
-            long messageId = 0;
-
             if (!this.PageContext.ForumPostAccess)
             {
                 BuildLink.AccessDenied();
@@ -412,20 +410,11 @@ namespace YAF.Pages
                 this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                 DateTime.UtcNow,
                 string.Empty,
-                messageFlags.BitValue,
+                messageFlags,
                 this.Tags.Text,
-                ref messageId);
+                out var messageId);
 
-            this.UpdateWatchTopic(this.PageContext.PageUserID, (int)topicId);
-
-            // clear caches as stats changed
-            if (!messageFlags.IsApproved)
-            {
-                return messageId;
-            }
-
-            this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
-            this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
+            this.UpdateWatchTopic(this.PageContext.PageUserID, topicId);
 
             return messageId;
         }
@@ -460,7 +449,7 @@ namespace YAF.Pages
                 // Check content for spam
                 if (
                     this.Get<ISpamCheck>().CheckPostForSpam(
-                        this.PageContext.IsGuest ? this.From.Text : this.Get<IUserDisplayName>().GetName(this.PageContext.User),
+                        this.PageContext.IsGuest ? this.From.Text : this.PageContext.User.DisplayOrUserName(),
                         this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         BBCodeHelper.StripBBCode(
                             HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.forumEditor.Text)))
@@ -470,7 +459,7 @@ namespace YAF.Pages
                 {
                     var description =
                         $@"Spam Check detected possible SPAM ({spamResult}) 
-                           posted by User: {(this.PageContext.IsGuest ? "Guest" : this.Get<IUserDisplayName>().GetName(this.PageContext.User))}";
+                           posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
 
                     switch (this.PageContext.BoardSettings.SpamMessageHandling)
                     {
@@ -516,10 +505,10 @@ namespace YAF.Pages
             this.Get<ISession>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
             // New Topic
-            var messageId = this.PostReplyHandleNewPost(out var newTopic);
+            var newMessageId = this.PostReplyHandleNewTopic(out var newTopicId);
 
             // Check if message is approved
-            var isApproved = this.GetRepository<Message>().GetById(messageId.ToType<int>()).MessageFlags.IsApproved;
+            var isApproved = this.GetRepository<Message>().GetById(newMessageId).MessageFlags.IsApproved;
 
             // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
             var attachPollParameter = string.Empty;
@@ -528,7 +517,7 @@ namespace YAF.Pages
             if (this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible)
             {
                 // new topic poll token
-                attachPollParameter = $"&t={newTopic}";
+                attachPollParameter = $"&t={newTopicId}";
 
                 // new return forum poll token
                 returnForum = $"&f={this.PageContext.PageForumID}";
@@ -537,7 +526,7 @@ namespace YAF.Pages
             // Create notification emails
             if (isApproved)
             {
-                this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
+                this.Get<ISendNotification>().ToWatchingUsers(newMessageId);
 
                 if (!this.PageContext.IsGuest && this.PageContext.User.Activity)
                 {
@@ -551,8 +540,8 @@ namespace YAF.Pages
                                 {
                                     this.Get<IActivityStream>().AddMentionToStream(
                                         userId,
-                                        newTopic.ToType<int>(),
-                                        messageId.ToType<int>(),
+                                        newTopicId,
+                                        newMessageId,
                                         this.PageContext.PageUserID);
                                 }
                             });
@@ -567,16 +556,16 @@ namespace YAF.Pages
                                 {
                                     this.Get<IActivityStream>().AddQuotingToStream(
                                         userId,
-                                        newTopic.ToType<int>(),
-                                        messageId.ToType<int>(),
+                                        newTopicId,
+                                        newMessageId,
                                         this.PageContext.PageUserID);
                                 }
                             });
 
                     this.Get<IActivityStream>().AddTopicToStream(
                         Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
-                        newTopic,
-                        messageId.ToType<int>(),
+                        newTopicId,
+                        newMessageId,
                         this.TopicSubjectTextBox.Text,
                         this.forumEditor.Text);
 
@@ -597,7 +586,7 @@ namespace YAF.Pages
                                         // add to topic
                                         this.GetRepository<TopicTag>().Add(
                                             existTag.ID,
-                                            newTopic.ToType<int>());
+                                            newTopicId);
                                     }
                                     else
                                     {
@@ -605,7 +594,7 @@ namespace YAF.Pages
                                         var newTagId = this.GetRepository<Tag>().Add(tag);
 
                                         // add to topic
-                                        this.GetRepository<TopicTag>().Add(newTagId, newTopic.ToType<int>());
+                                        this.GetRepository<TopicTag>().Add(newTagId, newTopicId);
                                     }
                                 });
                     }
@@ -614,7 +603,7 @@ namespace YAF.Pages
                 if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)
                 {
                     // regular redirect...
-                    BuildLink.Redirect(ForumPages.Posts, "m={0}&name={1}#post{0}", messageId, newTopic.ToType<int>());
+                    BuildLink.Redirect(ForumPages.Posts, "m={0}&name={1}#post{0}", newMessageId, newTopicId);
                 }
                 else
                 {
@@ -631,7 +620,7 @@ namespace YAF.Pages
                     this.Get<ISendNotification>()
                         .ToModeratorsThatMessageNeedsApproval(
                             this.PageContext.PageForumID,
-                            messageId.ToType<int>(),
+                            newMessageId,
                             isPossibleSpamMessage);
                 }
 

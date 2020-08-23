@@ -93,9 +93,6 @@ namespace YAF.Pages.Admin
                 this.txtModuleClass.Text,
                 this.txtExecOrder.Text.ToType<short>());
 
-            this.Get<IDataCache>().Remove(Constants.Cache.CustomBBCode);
-            this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
-
             BuildLink.Redirect(ForumPages.Admin_BBCodes);
         }
 

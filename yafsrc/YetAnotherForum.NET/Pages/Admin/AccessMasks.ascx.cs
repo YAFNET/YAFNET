@@ -146,8 +146,6 @@ namespace YAF.Pages.Admin
                     {
                         this.GetRepository<AccessMask>().DeleteById(maskId);
 
-                        // remove cache of forum moderators
-                        this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
                         this.BindData();
                     }
 

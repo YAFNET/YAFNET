@@ -56,7 +56,7 @@ namespace YAF.Core.Model
             string tagName,
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var newId = repository.Insert(
                 new Tag

@@ -51,7 +51,7 @@ namespace YAF.Core.Model
         /// <returns>Returns if deleting was successful or not</returns>
         public static bool Delete(this IRepository<UserForum> repository, int? userId, int? forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var success = repository.DbAccess.Execute(
                               db => db.Connection.Delete<UserForum>(x => x.UserID == userId && x.ForumID == forumId))
@@ -85,7 +85,7 @@ namespace YAF.Core.Model
             [NotNull] int? userId,
             [NotNull] int forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
@@ -136,6 +136,8 @@ namespace YAF.Core.Model
                 repository.UpdateOnly(
                     () => new UserForum { AccessMaskID = accessMaskId },
                     x => x.UserID == userId && x.ForumID == forumId);
+
+                repository.FireUpdated(forumId);
             }
             else
             {
@@ -149,6 +151,8 @@ namespace YAF.Core.Model
                             Invited = DateTime.UtcNow,
                             Accepted = true
                         });
+
+                repository.FireNew(forumId);
             }
         }
 

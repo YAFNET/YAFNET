@@ -151,7 +151,7 @@ namespace YAF.Pages.Admin
                                 .Log(
                                     this.PageContext.PageUserID,
                                     " YAF.Pages.Admin.bannedip",
-                                    $"IP or mask {ipAddress} was deleted by {this.Get<IUserDisplayName>().GetName(this.PageContext.User)}.",
+                                    $"IP or mask {ipAddress} was deleted by {this.PageContext.User.DisplayOrUserName()}.",
                                     EventLogTypes.IpBanLifted);
                         }
                     }
@@ -198,7 +198,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.Get<BoardSettings>().MemberListPageSize;
+            this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
             var searchText = this.SearchInput.Text.Trim();
 

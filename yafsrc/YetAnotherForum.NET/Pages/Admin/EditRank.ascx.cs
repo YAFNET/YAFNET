@@ -170,7 +170,7 @@ namespace YAF.Pages.Admin
             var rankID = 0;
             if (this.Get<HttpRequestBase>().QueryString.Exists("r"))
             {
-                rankID = int.Parse(this.Request.QueryString.GetFirstOrDefault("r"));
+                rankID = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
             }
 
             this.GetRepository<Rank>().Save(
@@ -189,13 +189,6 @@ namespace YAF.Pages.Admin
                 this.UsrSigHTMLTags.Text.Trim(),
                 this.UsrAlbums.Text.Trim().ToType<int>(),
                 this.UsrAlbumImages.Text.Trim().ToType<int>());
-
-            // Clearing cache with old permissions data...
-            this.Get<IDataCache>().RemoveOf<object>(
-                k => k.Key.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
-
-            // Clear Styling Caching
-            this.Get<IDataCache>().Remove(Constants.Cache.GroupRankStyles);
 
             BuildLink.Redirect(ForumPages.Admin_Ranks);
         }

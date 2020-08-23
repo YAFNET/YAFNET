@@ -45,8 +45,6 @@ namespace YAF.Pages.Admin
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
-    using Constants = YAF.Types.Constants.Constants;
-
     #endregion
 
     /// <summary>
@@ -253,12 +251,12 @@ namespace YAF.Pages.Admin
             }
 
             // Role
-            long roleId = 0;
+            var roleId = 0;
 
             // get role ID from page's parameter
             if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
             {
-                roleId = long.Parse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("i"));
+                roleId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i");
             }
 
             // get new and old name
@@ -346,16 +344,6 @@ namespace YAF.Pages.Admin
 
                 BuildLink.Redirect(ForumPages.Admin_Groups);
             }
-
-            // remove caching in case something got updated...
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
-
-            // Clearing cache with old permissions data...
-            this.Get<IDataCache>().Remove(
-                k => k.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
-
-            // Clear Styling Caching
-            this.Get<IDataCache>().Remove(Constants.Cache.GroupRankStyles);
 
             // Done, redirect to role editing page
             BuildLink.Redirect(ForumPages.Admin_EditGroup, "i={0}", roleId);

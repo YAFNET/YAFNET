@@ -82,7 +82,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void PruneAll(this IRepository<PMessage> repository, int daysRead, int daysUnread)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.DbFunction.Query.pmessage_prune(
                 DaysRead: daysRead,
@@ -118,7 +118,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void ArchiveMessage(this IRepository<PMessage> repository, [NotNull] object userPMessageID)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.DbFunction.Scalar.pmessage_archive(UserPMessageID: userPMessageID);
         }
@@ -137,7 +137,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void DeleteMessage(this IRepository<PMessage> repository, int messageId, bool deleteFromOutbox)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.DbFunction.Scalar.pmessage_delete(UserPMessageID: messageId, FromOutbox: deleteFromOutbox);
         }
@@ -175,7 +175,7 @@ namespace YAF.Core.Model
             [NotNull] int flags,
             [CanBeNull] int? replyTo)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.DbFunction.Scalar.pmessage_save(
                 FromUserID: fromUserID,

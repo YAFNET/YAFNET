@@ -99,7 +99,7 @@ namespace YAF.Pages
 
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
-            this.PageLinks.AddUser(this.CurrentUserID, this.Get<IUserDisplayName>().GetName(user));
+            this.PageLinks.AddUser(this.CurrentUserID, user.DisplayOrUserName());
             this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
 
             // Initialize the Album List control.

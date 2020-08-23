@@ -31,6 +31,7 @@ namespace YAF.Pages
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -171,9 +172,7 @@ namespace YAF.Pages
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.Get<IUserDisplayName>().GetName(this.PageContext.User),
-                BuildLink.GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), BuildLink.GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"));
         }
 

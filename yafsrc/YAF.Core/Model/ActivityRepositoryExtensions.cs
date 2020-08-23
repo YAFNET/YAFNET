@@ -60,7 +60,7 @@ namespace YAF.Core.Model
             this IRepository<Activity> repository,
             int userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
@@ -86,7 +86,7 @@ namespace YAF.Core.Model
             this IRepository<Activity> repository,
             int userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
@@ -114,7 +114,7 @@ namespace YAF.Core.Model
             int userId,
             int messageId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
@@ -140,7 +140,7 @@ namespace YAF.Core.Model
             int userId,
             int topicId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
@@ -162,7 +162,7 @@ namespace YAF.Core.Model
             this IRepository<Activity> repository,
             int userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(
                 () => new Activity { Notification = false },

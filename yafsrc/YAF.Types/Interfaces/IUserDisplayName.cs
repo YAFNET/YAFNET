@@ -44,17 +44,6 @@ namespace YAF.Types.Interfaces
         string GetNameById(int userId);
 
         /// <summary>
-        /// The Gets Name from user.
-        /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        string GetName(User user);
-
-        /// <summary>
         /// Find user
         /// </summary>
         /// <param name="contains">The contains.</param>

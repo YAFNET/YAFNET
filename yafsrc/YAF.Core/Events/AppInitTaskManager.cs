@@ -144,7 +144,6 @@ namespace YAF.Core.Events
                     });
 
             return true;
-
         }
 
         #endregion

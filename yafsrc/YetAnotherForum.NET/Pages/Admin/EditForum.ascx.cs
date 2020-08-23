@@ -413,18 +413,6 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Clears the caches.
-        /// </summary>
-        private void ClearCaches()
-        {
-            // clear moderators cache
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
-
-            // clear category cache...
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);
-        }
-
-        /// <summary>
         /// Handles the Click event of the Save control.
         /// </summary>
         /// <param name="sender">
@@ -562,8 +550,6 @@ namespace YAF.Pages.Admin
                                 item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue.ToType<int>());
                         });
             }
-
-            this.ClearCaches();
 
             BuildLink.Redirect(ForumPages.Admin_Forums);
         }

@@ -227,7 +227,7 @@ namespace YAF.Core.Services
                 dr =>
                     {
                         var name = this.Get<HttpServerUtilityBase>()
-                                           .HtmlEncode(this.Get<IUserDisplayName>().GetName(dr.Item2));
+                                           .HtmlEncode(dr.Item2.DisplayOrUserName());
 
                         // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
                         filler.AppendFormat(

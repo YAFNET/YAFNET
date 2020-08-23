@@ -109,7 +109,7 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddUser(
                 this.UserID,
-                this.Get<IUserDisplayName>().GetName(userHe));
+                userHe.DisplayOrUserName());
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             if (this.UserID == this.PageContext.PageUserID)

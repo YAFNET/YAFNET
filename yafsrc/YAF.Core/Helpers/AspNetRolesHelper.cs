@@ -419,7 +419,7 @@ namespace YAF.Core.Helpers
 
             // remove groups...remove since there is no longer an association in the membership...
             groupTable.AsEnumerable().Where(row => !userRoles.Contains(row["Name"].ToString())).ForEach(
-                row => this.GetRepository<UserGroup>().Save(userId, row["GroupID"], 0));
+                row => this.GetRepository<UserGroup>().Save(userId, row["GroupID"].ToType<int>(), 0));
 
             if (!isNewUser || userId <= 0)
             {

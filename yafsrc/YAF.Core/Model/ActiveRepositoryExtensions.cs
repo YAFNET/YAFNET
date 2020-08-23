@@ -42,15 +42,21 @@ namespace YAF.Core.Model
         /// <summary>
         /// Lists the forum.
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="forumID">The forum id.</param>
-        /// <param name="styledNicks">The styled nicks.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum Id.
+        /// </param>
+        /// <param name="styledNicks">
+        /// The styled nicks.
+        /// </param>
         /// <returns>
-        /// The <see cref="DataTable" /> .
+        /// The <see cref="DataTable"/> .
         /// </returns>
         public static DataTable ListForum(this IRepository<Active> repository, int forumId, bool styledNicks)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
            /* var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
 
@@ -102,7 +108,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable ListTopic(this IRepository<Active> repository, int topicID, bool styledNicks)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.DbFunction.GetData.active_listtopic(TopicID: topicID, StyledNicks: styledNicks);
         }
@@ -139,7 +145,7 @@ namespace YAF.Core.Model
             bool styledNicks,
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.DbFunction.GetData.active_list(
                 BoardID: boardId ?? repository.BoardID,
@@ -172,7 +178,7 @@ namespace YAF.Core.Model
             bool styledNicks,
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.DbFunction.GetData.active_list_user(
                 BoardID: boardId ?? repository.BoardID,
@@ -197,7 +203,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataRow Stats(this IRepository<Active> repository, int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.DbFunction.GetAsDataTable(
                 f => f.active_stats(BoardID: boardId ?? repository.BoardID)).GetFirstRow();
@@ -213,7 +219,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable UpdateMaxStats(this IRepository<Active> repository, int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.DbFunction.GetData.active_updatemaxstats(
                 BoardID: boardId ?? repository.BoardID,

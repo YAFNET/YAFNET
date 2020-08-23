@@ -179,7 +179,7 @@ namespace YAF.Controls
                     UserID = activity.Item1.FromUserID.Value,
                     Suspended = user.Suspended,
                     Style = user.UserStyle,
-                    ReplaceName = this.Get<IUserDisplayName>().GetName(user)
+                    ReplaceName = user.DisplayOrUserName()
                 };
 
                 title.Text = this.GetText("ACCOUNT", "GIVEN_THANKS");

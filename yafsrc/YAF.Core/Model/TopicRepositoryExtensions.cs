@@ -39,6 +39,7 @@ namespace YAF.Core.Model
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -67,7 +68,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void AttachPoll(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] int pollId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(() => new Topic { PollID = pollId }, t => t.ID == topicId);
         }
@@ -86,7 +87,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static string GetNameFromMessage(this IRepository<Topic> repository, [NotNull] int messageId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
@@ -118,7 +119,7 @@ namespace YAF.Core.Model
             [NotNull] int topicId,
             [NotNull] int messageId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(() => new Topic { AnswerMessageId = messageId }, t => t.ID == topicId);
         }
@@ -130,7 +131,7 @@ namespace YAF.Core.Model
         /// <param name="topicId">The topic identifier.</param>
         public static void RemoveAnswerMessage(this IRepository<Topic> repository, [NotNull] int topicId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(() => new Topic { AnswerMessageId = null }, t => t.ID == topicId);
         }
@@ -143,7 +144,7 @@ namespace YAF.Core.Model
         /// <returns>Returns the Answer Message identifier</returns>
         public static int? GetAnswerMessage(this IRepository<Topic> repository, [NotNull] int topicId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var topic = repository.GetById(topicId);
 
@@ -158,7 +159,7 @@ namespace YAF.Core.Model
         /// <param name="flags">The topic flags.</param>
         public static void LockTopic(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] int flags)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(() => new Topic { Flags = flags }, t => t.ID == topicId);
         }
@@ -790,7 +791,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns the Topic ID
         /// </returns>
-        public static long Save(
+        public static int Save(
             this IRepository<Topic> repository,
             [NotNull] int forumId,
             [NotNull] string subject,
@@ -804,9 +805,9 @@ namespace YAF.Core.Model
             [NotNull] string ip,
             [NotNull] DateTime posted,
             [NotNull] string blogPostId,
-            [NotNull] int flags,
+            [NotNull] MessageFlags flags,
             [CanBeNull] string topicTags,
-            ref long messageId)
+            out int messageId)
         {
             var dt = repository.DbFunction.GetData.topic_save(
                 ForumID: forumId,
@@ -821,19 +822,19 @@ namespace YAF.Core.Model
                 IP: ip,
                 Posted: posted,
                 BlogPostID: blogPostId,
-                Flags: flags,
+                Flags: flags.BitValue,
                 UTCTIMESTAMP: DateTime.UtcNow);
 
-            messageId = long.Parse(dt.Rows[0]["MessageID"].ToString());
+            messageId = dt.Rows[0]["MessageID"].ToString();
 
-            long topicId = long.Parse(dt.Rows[0]["TopicID"].ToString());
+            int topicId = dt.Rows[0]["TopicID"].ToString();
 
             // Add to search index
             var newMessage = new SearchMessage
             {
                 MessageId = messageId.ToType<int>(),
                 Message = message,
-                Flags = flags,
+                Flags = flags.BitValue,
                 Posted = posted.ToString(CultureInfo.InvariantCulture),
                 UserName = BoardContext.Current.MembershipUser.UserName,
                 UserDisplayName = BoardContext.Current.User.DisplayName,
@@ -846,6 +847,11 @@ namespace YAF.Core.Model
                 ForumName = BoardContext.Current.PageForumName,
                 Description = string.Empty
             };
+
+            if (flags.IsApproved)
+            {
+                repository.FireNew(topicId);
+            }
 
             BoardContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
 
@@ -976,7 +982,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static bool CheckForDuplicateTopic(this IRepository<Topic> repository, [NotNull] string topicSubject)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var topic = repository.GetSingle(t => t.TopicName.Contains(topicSubject) && t.TopicMovedID == null);
 
@@ -997,7 +1003,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static Topic FindNextTopic(this IRepository<Topic> repository, [NotNull] Topic currentTopic)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.Get(
                 t => t.LastPosted > currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
@@ -1018,7 +1024,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static Topic FindPreviousTopic(this IRepository<Topic> repository, [NotNull] Topic currentTopic)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.Get(
                     t => t.LastPosted < currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
@@ -1046,7 +1052,7 @@ namespace YAF.Core.Model
             [CanBeNull] int startId = 0,
             [CanBeNull] int limit = 500)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.Get(t => t.ID >= limit && t.ID < startId + limit).OrderBy(t => t.ID).ToList();
         }
@@ -1106,7 +1112,7 @@ namespace YAF.Core.Model
             [NotNull] int boardId,
             [CanBeNull] string filter)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 

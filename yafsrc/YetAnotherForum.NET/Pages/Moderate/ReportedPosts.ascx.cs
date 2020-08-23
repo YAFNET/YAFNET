@@ -133,9 +133,6 @@ namespace YAF.Pages.Moderate
                     // delete message
                     this.GetRepository<Message>().Delete(e.CommandArgument.ToType<int>(), true, string.Empty, 1, true);
 
-                    // Update statistics
-                    this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
-
                     // re-bind data
                     this.BindData();
 

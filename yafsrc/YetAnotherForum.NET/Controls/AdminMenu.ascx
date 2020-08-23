@@ -8,7 +8,7 @@
                      TextLocalizedPage="ADMINMENU"
                      NavigateUrl="#">
     </YAF:ThemeButton>
-    <div class="dropdown-menu" aria-labelledby="adminDropdown">
+    <ul class="dropdown-menu" aria-labelledby="adminDropdown">
         <asp:PlaceHolder runat="Server" ID="MenuHolder"></asp:PlaceHolder>
-    </div>
+    </ul>
 </li>

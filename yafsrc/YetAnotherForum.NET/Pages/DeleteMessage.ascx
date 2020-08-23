@@ -2,6 +2,7 @@
     Inherits="YAF.Pages.DeleteMessage" Codebehind="DeleteMessage.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Models" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
@@ -110,7 +111,7 @@
                                   Suspended="<%# ((Tuple<Message, User>)Container.DataItem).Item2.Suspended %>"
                                   Style="<%# ((Tuple<Message, User>)Container.DataItem).Item2.UserStyle %>"
                                   UserID="<%# ((Tuple<Message, User>)Container.DataItem).Item1.UserID %>"
-                                  ReplaceName="<%# this.Get<IUserDisplayName>().GetName(((Tuple<Message, User>)Container.DataItem).Item2) %>"
+                                  ReplaceName="<%# ((Tuple<Message, User>)Container.DataItem).Item2.DisplayOrUserName() %>"
                                   BlankTarget="true" />
                     <small class="text-muted">
                         <YAF:Icon runat="server" 

@@ -1,12 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserMenu.ascx.cs" Inherits="YAF.Controls.UserMenu" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
 
 <li class="nav-item dropdown">
     <YAF:Themebutton runat="server" ID="UserDropDown">
         <span class="badge bg-light text-dark p-0 border border-light mr-1">
             <asp:Image runat="server" ID="UserAvatar" CssClass="img-navbar-avatar rounded"/>
         </span>
-        <%= this.Get<IUserDisplayName>().GetName(this.PageContext.User) %>
+        <%= this.PageContext.User.DisplayOrUserName() %>
         <asp:PlaceHolder runat="server" id="UnreadPlaceHolder">
             <asp:Label runat="server" ID="UnreadLabel" 
                        CssClass="ml-1 badge bg-danger">

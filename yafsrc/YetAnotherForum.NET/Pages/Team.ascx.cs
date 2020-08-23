@@ -263,7 +263,7 @@ namespace YAF.Pages
             var adminAvatar = e.Item.FindControlAs<Image>("AdminAvatar");
 
             var user = (User)e.Item.DataItem;
-            var displayName = this.Get<IUserDisplayName>().GetName(user);
+            var displayName = user.DisplayOrUserName();
 
             adminAvatar.ImageUrl = this.GetAvatarUrlFileName(
                 user.ID,

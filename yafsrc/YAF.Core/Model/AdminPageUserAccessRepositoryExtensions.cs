@@ -52,7 +52,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static IEnumerable<AdminPageUserAccess> List(this IRepository<AdminPageUserAccess> repository, int userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.Get(a => a.UserID == userId).Select(
                 a => new AdminPageUserAccess { PageName = a.PageName, UserID = a.UserID, ReadAccess = true });
@@ -75,7 +75,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static bool HasAccess(this IRepository<AdminPageUserAccess> repository, int userId, string pageName)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var access = repository.GetSingle(a => a.UserID == userId && a.PageName == pageName);
 
@@ -96,7 +96,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Save(this IRepository<AdminPageUserAccess> repository, int userId, string pageName)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             if (!repository.Get(a => a.UserID == userId && a.PageName == pageName).Any())
             {
@@ -118,7 +118,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Delete(this IRepository<AdminPageUserAccess> repository, int userId, string pageName)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.Delete(u => u.UserID == userId && u.PageName == pageName);
         }

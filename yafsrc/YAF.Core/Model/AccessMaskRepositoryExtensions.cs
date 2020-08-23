@@ -73,7 +73,7 @@ namespace YAF.Core.Model
             short sortOrder,
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var flags = new AccessFlags
                             {

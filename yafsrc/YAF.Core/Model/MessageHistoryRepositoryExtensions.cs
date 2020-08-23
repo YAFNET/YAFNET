@@ -51,7 +51,7 @@ namespace YAF.Core.Model
             [NotNull] int messageId,
             [NotNull] int daysToClean)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             //repository.Delete(m => DateTime.UtcNow.AddDays(m.Edited.AddDays()) > DateTime.UtcNow.AddDays(daysToClean));
         }

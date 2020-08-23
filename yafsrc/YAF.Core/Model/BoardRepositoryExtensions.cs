@@ -160,7 +160,7 @@ namespace YAF.Core.Model
             bool isHostAdmin, 
             string rolePrefix)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var boardId =
                 (int)
@@ -192,7 +192,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataRow PostStats(this IRepository<Board> repository, int boardID, bool styledNicks, bool showNoCountPosts)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var dt =
                 (DataTable)
@@ -223,7 +223,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void ReSync(this IRepository<Board> repository, int? boardID = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.DbFunction.Query.board_resync(BoardID: boardID);
         }
@@ -243,7 +243,7 @@ namespace YAF.Core.Model
             string languageFile,
             string culture)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             BoardContext.Current.GetRepository<Registry>().Save("culture", culture, boardId);
             BoardContext.Current.GetRepository<Registry>().Save("language", languageFile, boardId);
@@ -267,7 +267,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataRow Stats(this IRepository<Board> repository, int? boardID)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.DbFunction.GetAsDataTable(f => f.board_stats(BoardID: boardID)).GetFirstRow();
         }
@@ -286,7 +286,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataRow UserStats(this IRepository<Board> repository, int? boardID)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.DbFunction.GetAsDataTable(f => f.board_userstats(BoardID: boardID)).GetFirstRow();
         }
@@ -302,7 +302,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void DeleteBoard(this IRepository<Board> repository, int boardId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.DbFunction.Query.board_delete(BoardID: boardId);
         }

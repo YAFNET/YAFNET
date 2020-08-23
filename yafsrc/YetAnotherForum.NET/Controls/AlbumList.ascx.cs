@@ -116,7 +116,7 @@ namespace YAF.Controls
                 return;
             }
 
-            this.Header.Param0 = this.HtmlEncode(this.Get<IUserDisplayName>().GetName(this.User));
+            this.Header.Param0 = this.HtmlEncode(this.User.DisplayOrUserName());
 
             this.BindData();
 

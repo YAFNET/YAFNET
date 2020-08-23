@@ -30,6 +30,7 @@ namespace YAF.Core.Services
 
     using YAF.Configuration;
     using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Core.Services.CheckForSpam;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -239,21 +240,21 @@ namespace YAF.Core.Services
                     this.Get<ILogger>().Log(
                         BoardContext.Current.PageUserID,
                         "Spam Message Detected",
-                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.Get<IUserDisplayName>().GetName(BoardContext.Current.User)}",
+                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {BoardContext.Current.User.DisplayOrUserName()}",
                         EventLogTypes.SpamMessageDetected);
                     break;
                 case 1:
                     this.Get<ILogger>().Log(
                         BoardContext.Current.PageUserID,
                         "Spam Message Detected",
-                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(BoardContext.Current.IsGuest ? "Guest" : this.Get<IUserDisplayName>().GetName(BoardContext.Current.User))}, it was flagged as unapproved post",
+                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(BoardContext.Current.IsGuest ? "Guest" : BoardContext.Current.User.DisplayOrUserName())}, it was flagged as unapproved post",
                         EventLogTypes.SpamMessageDetected);
                     break;
                 case 2:
                     this.Get<ILogger>().Log(
                         BoardContext.Current.PageUserID,
                         "Spam Message Detected",
-                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.Get<IUserDisplayName>().GetName(BoardContext.Current.User)}, post was rejected",
+                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {BoardContext.Current.User.DisplayOrUserName()}, post was rejected",
                         EventLogTypes.SpamMessageDetected);
 
                     BoardContext.Current.AddLoadMessage(this.Get<ILocalization>().GetText("SPAM_MESSAGE"), MessageTypes.danger);
@@ -263,7 +264,7 @@ namespace YAF.Core.Services
                     this.Get<ILogger>().Log(
                         BoardContext.Current.PageUserID,
                         "Spam Message Detected",
-                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.Get<IUserDisplayName>().GetName(BoardContext.Current.User)}, user was deleted and bannded",
+                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {BoardContext.Current.User.DisplayOrUserName()}, user was deleted and bannded",
                         EventLogTypes.SpamMessageDetected);
 
                     this.Get<IAspNetUsersHelper>().DeleteAndBanUser(

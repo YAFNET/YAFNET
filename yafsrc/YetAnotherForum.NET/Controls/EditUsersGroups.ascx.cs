@@ -194,9 +194,6 @@ namespace YAF.Controls
                 }
             }
 
-            // update forum moderators cache just in case something was changed...
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
-
             // clear the cache for this user...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 

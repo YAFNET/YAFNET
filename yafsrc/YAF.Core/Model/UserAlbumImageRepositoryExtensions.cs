@@ -57,7 +57,7 @@ namespace YAF.Core.Model
         [NotNull]
         public static long CountAlbumImages([NotNull] this IRepository<UserAlbumImage> repository, [NotNull] int albumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.Count(albumImage => albumImage.AlbumID == albumId);
         }
@@ -78,7 +78,7 @@ namespace YAF.Core.Model
             [NotNull] this IRepository<UserAlbumImage> repository,
             int albumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.Get(albumImage => albumImage.AlbumID == albumId).OrderByDescending(a => a.Uploaded)
                 .ToList();
@@ -101,7 +101,7 @@ namespace YAF.Core.Model
             [NotNull] this IRepository<UserAlbumImage> repository,
             int imageId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
 
@@ -127,7 +127,7 @@ namespace YAF.Core.Model
             int? pageIndex = 0,
             int? pageSize = 10000000)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
 
@@ -148,7 +148,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static int GetUserAlbumImageCount([NotNull] this IRepository<UserAlbumImage> repository, int userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
 

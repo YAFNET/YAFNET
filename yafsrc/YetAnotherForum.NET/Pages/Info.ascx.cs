@@ -29,6 +29,7 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -166,7 +167,7 @@ namespace YAF.Pages
                 this.Title.Text = this.GetText("title_exception");
 
                 // exception message
-                this.InfoLabel.Text = $"{this.GetText("exception")} <strong>{this.Get<IUserDisplayName>().GetName(this.PageContext.User)}</strong>.";
+                this.InfoLabel.Text = $"{this.GetText("exception")} <strong>{this.PageContext.User.DisplayOrUserName()}</strong>.";
 
                 // redirect to forum main after 2 seconds
                 this.RefreshTime = 2;

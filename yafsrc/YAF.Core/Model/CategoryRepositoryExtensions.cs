@@ -49,7 +49,7 @@ namespace YAF.Core.Model
         /// <returns>Returns the highest sort order.</returns>
         public static int GetHighestSortOrder(this IRepository<Category> repository)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.DbAccess.Execute(
                 cmd => cmd.Connection.Scalar<int>(
@@ -70,7 +70,7 @@ namespace YAF.Core.Model
             int? categoryId = null,
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return categoryId.HasValue
                        ? repository.Get(
@@ -95,7 +95,7 @@ namespace YAF.Core.Model
             this IRepository<Category> repository,
             [CanBeNull] int? categoryId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.DbFunction.GetAsDataTable(
                 x => x.category_list(repository.BoardID, categoryId));
@@ -118,17 +118,17 @@ namespace YAF.Core.Model
             short sortOrder,
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.Upsert(
                 new Category
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        ID = categoryId ?? 0,
-                        Name = name,
-                        SortOrder = sortOrder,
-                        CategoryImage = categoryImage
-                    });
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    ID = categoryId ?? 0,
+                    Name = name,
+                    SortOrder = sortOrder,
+                    CategoryImage = categoryImage
+                });
         }
 
         #endregion

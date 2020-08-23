@@ -26,10 +26,9 @@ namespace YAF.Pages
 {
     #region Using
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
     using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -61,7 +60,7 @@ namespace YAF.Pages
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<IUserDisplayName>().GetName(this.PageContext.User),
+                this.PageContext.User.DisplayOrUserName(),
                 BuildLink.GetLink(ForumPages.Notification));
         }
 

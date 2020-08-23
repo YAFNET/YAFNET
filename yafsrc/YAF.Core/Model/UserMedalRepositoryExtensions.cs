@@ -30,6 +30,7 @@ namespace YAF.Core.Model
 
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -60,6 +61,8 @@ namespace YAF.Core.Model
             [NotNull] int? userId,
             [NotNull] int medalId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
             if (userId.HasValue)
@@ -112,6 +115,8 @@ namespace YAF.Core.Model
             [NotNull] bool onlyRibbon,
             [NotNull] byte sortOrder)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.UpdateOnly(
                 () => new UserMedal
                           {
@@ -121,6 +126,8 @@ namespace YAF.Core.Model
                               SortOrder = sortOrder
                           },
                 m => m.UserID == userID && m.MedalID == medalID);
+
+            repository.FireUpdated(medalID);
         }
 
         /// <summary>
@@ -156,7 +163,9 @@ namespace YAF.Core.Model
             [NotNull] bool onlyRibbon,
             [NotNull] byte sortOrder)
         {
-            repository.Insert(
+            CodeContracts.VerifyNotNull(repository);
+
+            var newId = repository.Insert(
                 new UserMedal
                     {
                         UserID = userID,
@@ -167,6 +176,8 @@ namespace YAF.Core.Model
                         SortOrder = sortOrder,
                         DateAwarded = DateTime.UtcNow
                     });
+
+            repository.FireNew(newId);
         }
 
         #endregion

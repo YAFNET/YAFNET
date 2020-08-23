@@ -131,7 +131,7 @@ namespace YAF.Controls
                 this.GetRepository<BannedEmail>().Save(
                     null,
                     this.User.Item1.Email,
-                    $"Email was reported by: {this.Get<IUserDisplayName>().GetName(this.PageContext.User)}");
+                    $"Email was reported by: {this.PageContext.User.DisplayOrUserName()}");
             }
 
             // Ban User IP?
@@ -146,7 +146,7 @@ namespace YAF.Controls
                 this.GetRepository<BannedName>().Save(
                     null,
                     this.User.Item1.Name,
-                    $"Name was reported by: {this.Get<IUserDisplayName>().GetName(this.PageContext.User)}");
+                    $"Name was reported by: {this.PageContext.User.DisplayOrUserName()}");
             }
 
             this.DeleteAllUserMessages();
@@ -165,7 +165,7 @@ namespace YAF.Controls
                         this.Logger.Log(
                             this.PageContext.PageUserID,
                             "User Reported to StopForumSpam.com",
-                            $"User (Name:{this.User.Item1.Name}/ID:{this.CurrentUserId}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {this.Get<IUserDisplayName>().GetName(this.PageContext.User)}",
+                            $"User (Name:{this.User.Item1.Name}/ID:{this.CurrentUserId}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {this.PageContext.User.DisplayOrUserName()}",
                             EventLogTypes.SpamBotReported);
                     }
                 }
@@ -277,7 +277,7 @@ namespace YAF.Controls
                 .Select(x => x.Mask).ToList();
 
             // ban user ips...
-            var name = this.Get<IUserDisplayName>().GetName(this.User.Item1);
+            var name = this.User.Item1.DisplayOrUserName();
 
             this.IPAddresses.Except(allIps).ToList().Where(i => i.IsSet()).ForEach(
                 ip =>
@@ -291,9 +291,6 @@ namespace YAF.Controls
 
                     this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
                 });
-
-            // Clear cache
-            this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
         }
 
         /// <summary>
@@ -305,7 +302,7 @@ namespace YAF.Controls
                 ForumPages.Search,
                 "postedby={0}",
                 !this.User.Item1.IsGuest.Value
-                    ? this.Get<IUserDisplayName>().GetName(this.User.Item1)
+                    ? this.User.Item1.DisplayOrUserName()
                     : this.Get<IAspNetUsersHelper>().GuestUserName);
 
             this.ReportUserRow.Visible = this.Get<BoardSettings>().StopForumSpamApiKey.IsSet();

@@ -41,8 +41,6 @@ namespace YAF.Pages.Account
     using YAF.Utils;
     using YAF.Web.Extensions;
 
-    using Constants = YAF.Types.Constants.Constants;
-
     #endregion
 
     /// <summary>
@@ -114,9 +112,6 @@ namespace YAF.Pages.Account
 
                 // Send welcome mail/pm to user
                 this.Get<ISendNotification>().SendUserWelcomeNotification(user, userEmail.UserID);
-
-                this.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
-                this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
 
                 // automatically log in created users
                 this.Get<IAspNetUsersHelper>().SignIn(user);

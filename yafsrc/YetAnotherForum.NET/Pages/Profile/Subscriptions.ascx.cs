@@ -115,9 +115,7 @@ namespace YAF.Pages.Profile
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.Get<IUserDisplayName>().GetName(this.PageContext.User),
-                BuildLink.GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), BuildLink.GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 

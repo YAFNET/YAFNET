@@ -2,6 +2,7 @@
     CodeBehind="LastPosts.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Models" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
 
 <asp:Repeater ID="repLastPosts" runat="server">
     <HeaderTemplate>
@@ -27,7 +28,7 @@
                 <div class="card-title h5">
                     <footer class="blockquote-footer">
                         <YAF:UserLink ID="ProfileLink" runat="server" 
-                                      ReplaceName="<%# this.Get<IUserDisplayName>().GetName(((Tuple<Message, User>)Container.DataItem).Item2) %>"
+                                      ReplaceName="<%# ((Tuple<Message, User>)Container.DataItem).Item2.DisplayOrUserName() %>"
                                       UserID="<%# ((Tuple<Message, User>)Container.DataItem).Item2.ID %>"
                                       Suspended="<%# ((Tuple<Message, User>)Container.DataItem).Item2.Suspended %>"
                                       Style="<%# ((Tuple<Message, User>)Container.DataItem).Item2.UserStyle %>"

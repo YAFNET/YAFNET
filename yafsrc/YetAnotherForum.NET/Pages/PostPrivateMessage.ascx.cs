@@ -207,9 +207,7 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
 
             // users control panel
-            this.PageLinks.AddLink(
-                this.Get<IUserDisplayName>().GetName(this.PageContext.User),
-                BuildLink.GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), BuildLink.GetLink(ForumPages.MyAccount));
 
             // private messages
             this.PageLinks.AddLink(
@@ -390,7 +388,7 @@ namespace YAF.Pages
 
                 if (hostUser != null)
                 {
-                    this.To.Text = this.Get<IUserDisplayName>().GetName(hostUser);
+                    this.To.Text = hostUser.DisplayOrUserName();
 
                     this.PmSubjectTextBox.Text = this.GetTextFormatted("REPORT_SUBJECT", displayName);
 
@@ -479,7 +477,7 @@ namespace YAF.Pages
                     return;
                 }
 
-                this.To.Text = this.Get<IUserDisplayName>().GetName(foundUser);
+                this.To.Text = foundUser.DisplayOrUserName();
 
                 this.To.Enabled = false;
 
@@ -740,7 +738,7 @@ namespace YAF.Pages
             {
                 // Check content for spam
                 if (!this.Get<ISpamCheck>().CheckPostForSpam(
-                    this.PageContext.IsGuest ? "Guest" : this.Get<IUserDisplayName>().GetName(this.PageContext.User),
+                    this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName(),
                     this.PageContext.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     message,
                     this.PageContext.MembershipUser.Email,
@@ -751,7 +749,7 @@ namespace YAF.Pages
 
                 var description =
                     $@"Spam Check detected possible SPAM ({spamResult}) 
-                       posted by User: {(this.PageContext.IsGuest ? "Guest" : this.Get<IUserDisplayName>().GetName(this.PageContext.User))}";
+                       posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
 
                 switch (this.Get<BoardSettings>().SpamMessageHandling)
                 {

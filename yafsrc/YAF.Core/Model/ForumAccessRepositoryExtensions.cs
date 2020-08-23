@@ -83,7 +83,7 @@ namespace YAF.Core.Model
             [NotNull] int groupId,
             [NotNull] int accessMaskId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(
                 () => new ForumAccess { AccessMaskID = accessMaskId },
@@ -111,7 +111,7 @@ namespace YAF.Core.Model
             [NotNull] int groupId,
             [NotNull] int accessMaskId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.Insert(new ForumAccess { AccessMaskID = accessMaskId, GroupID = groupId, ForumID = forumId });
         }
@@ -132,7 +132,7 @@ namespace YAF.Core.Model
             [NotNull] this IRepository<ForumAccess> repository,
             [NotNull] int forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
 

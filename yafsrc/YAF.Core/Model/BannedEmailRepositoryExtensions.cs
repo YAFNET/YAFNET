@@ -63,7 +63,7 @@ namespace YAF.Core.Model
             string reason,
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.Upsert(
                 new BannedEmail
@@ -74,15 +74,6 @@ namespace YAF.Core.Model
                     Reason = reason,
                     Since = DateTime.Now
                 });
-
-            if (bannedId.HasValue)
-            {
-                repository.FireUpdated(bannedId.Value);
-            }
-            else
-            {
-                repository.FireNew();
-            }
         }
 
         #endregion

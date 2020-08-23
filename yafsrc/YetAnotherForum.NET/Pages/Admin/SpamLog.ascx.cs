@@ -259,7 +259,7 @@ namespace YAF.Pages.Admin
             {
                 if (this.Get<BoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
                 {
-                    var persianDate = new PersianDate(this.SinceDate.Text);
+                    var persianDate = new PersianDate(this.SinceDate.Text.PersianNumberToEnglish());
 
                     sinceDate = PersianDateConverter.ToGregorianDateTime(persianDate);
                 }
@@ -273,7 +273,7 @@ namespace YAF.Pages.Admin
             {
                 if (this.Get<BoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
                 {
-                    var persianDate = new PersianDate(this.ToDate.Text);
+                    var persianDate = new PersianDate(this.ToDate.Text.PersianNumberToEnglish());
 
                     toDate = PersianDateConverter.ToGregorianDateTime(persianDate);
                 }

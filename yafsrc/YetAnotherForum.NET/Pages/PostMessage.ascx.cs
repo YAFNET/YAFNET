@@ -465,7 +465,7 @@ namespace YAF.Pages
                 // form user is only for "Guest"
                 if (this.PageContext.IsGuest)
                 {
-                    this.From.Text = this.Get<IUserDisplayName>().GetName(this.PageContext.User);
+                    this.From.Text = this.PageContext.User.DisplayOrUserName();
                     this.FromRow.Visible = false;
                 }
             }
@@ -655,14 +655,6 @@ namespace YAF.Pages
 
             this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
 
-            if (!messageFlags.IsApproved)
-            {
-                return messageId;
-            }
-
-            this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
-            this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
-
             return messageId;
         }
 
@@ -696,7 +688,7 @@ namespace YAF.Pages
                 // Check content for spam
                 if (
                     this.Get<ISpamCheck>().CheckPostForSpam(
-                        this.PageContext.IsGuest ? this.From.Text : this.Get<IUserDisplayName>().GetName(this.PageContext.User),
+                        this.PageContext.IsGuest ? this.From.Text : this.PageContext.User.DisplayOrUserName(),
                         this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         BBCodeHelper.StripBBCode(
                             HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.forumEditor.Text)))
@@ -705,7 +697,7 @@ namespace YAF.Pages
                         out var spamResult))
                 {
                     var description =
-                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.Get<IUserDisplayName>().GetName(this.PageContext.User))}";
+                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
 
                     switch (this.PageContext.BoardSettings.SpamMessageHandling)
                     {

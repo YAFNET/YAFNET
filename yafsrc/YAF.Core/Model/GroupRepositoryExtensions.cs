@@ -30,6 +30,7 @@ namespace YAF.Core.Model
 
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -57,7 +58,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static IList<Group> List(this IRepository<Group> repository, int? groupId = null, int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return groupId.HasValue
                        ? repository.Get(g => g.BoardID == boardId && g.ID == groupId.Value)
@@ -147,9 +148,9 @@ namespace YAF.Core.Model
         /// <returns>
         /// The group_save.
         /// </returns>
-        public static long Save(
+        public static int Save(
             this IRepository<Group> repository,
-            [NotNull] object groupID,
+            [NotNull] int groupID,
             [NotNull] object boardID,
             [NotNull] object name,
             [NotNull] object isAdmin,
@@ -167,7 +168,7 @@ namespace YAF.Core.Model
             [NotNull] object usrAlbums,
             [NotNull] object usrAlbumImages)
         {
-            return repository.DbFunction.Scalar.group_save(
+            var groupId = (int)repository.DbFunction.Scalar.group_save(
                 GroupID: groupID,
                 BoardID: boardID,
                 Name: name,
@@ -185,6 +186,10 @@ namespace YAF.Core.Model
                 UsrSigHTMLTags: usrSigHTMLTags,
                 UsrAlbums: usrAlbums,
                 UsrAlbumImages: usrAlbumImages);
+
+            repository.FireUpdated(groupId);
+
+            return groupID;
         }
 
         #endregion

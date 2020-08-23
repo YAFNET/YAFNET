@@ -106,7 +106,7 @@ namespace YAF.Core.Model
         [NotNull]
         public static long CountUserAlbum([NotNull] this IRepository<UserAlbum> repository, [NotNull] int userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.Count(album => album.UserID == userId);
         }

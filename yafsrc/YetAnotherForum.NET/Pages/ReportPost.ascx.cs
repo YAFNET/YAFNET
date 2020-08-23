@@ -178,7 +178,7 @@ namespace YAF.Pages
                 this.MessagePreview.CurrentMessage = message.Item2;
 
                 this.UserLink1.Suspended = message.Item3.Suspended;
-                this.UserLink1.ReplaceName = this.Get<IUserDisplayName>().GetName(message.Item3);
+                this.UserLink1.ReplaceName = message.Item3.DisplayOrUserName();
                 this.UserLink1.Style = message.Item3.UserStyle;
                 this.UserLink1.UserID = message.Item3.ID;
 

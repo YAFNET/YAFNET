@@ -108,7 +108,7 @@ namespace YAF.Install
         /// Gets a value indicating whether is forum installed.
         /// </summary>
         public bool IsForumInstalled =>
-            (this.isForumInstalled ?? (this.isForumInstalled = this.InstallUpgradeService.IsForumInstalled)).Value;
+            (isForumInstalled ?? (this.isForumInstalled = this.InstallUpgradeService.IsForumInstalled)).Value;
 
         /// <summary>
         ///     Gets ServiceLocator.

@@ -54,7 +54,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static IList<CheckEmail> ListTyped(this IRepository<CheckEmail> repository, string email = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
            return email.IsSet() ? repository.Get(mail => mail.Email == email) : repository.Get(null);
         }
@@ -78,7 +78,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(hash, "hash");
             CodeContracts.VerifyNotNull(email, "email");
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.Insert(
                 new CheckEmail
@@ -105,7 +105,7 @@ namespace YAF.Core.Model
         public static CheckEmail Update(this IRepository<CheckEmail> repository, [NotNull] string hash)
         {
             CodeContracts.VerifyNotNull(hash, "hash");
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var mail = repository.GetSingle(c => c.Hash == hash);
 

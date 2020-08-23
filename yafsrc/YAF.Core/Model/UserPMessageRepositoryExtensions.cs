@@ -24,9 +24,25 @@
 
 namespace YAF.Core.Model
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.IO;
+    using System.Linq;
+
+    using ServiceStack.OrmLite;
+
+    using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Types.Models.Identity;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     /// The UserPMessage Repository Extensions
@@ -46,7 +62,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void MarkAsRead(this IRepository<UserPMessage> repository, [NotNull] int userPMessageId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.DbFunction.Scalar.pmessage_markread(UserPMessageID: userPMessageId);
         }

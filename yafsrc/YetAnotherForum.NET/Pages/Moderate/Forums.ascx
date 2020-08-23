@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Types.Models" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
 
 
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/ModForumUser.ascx" %>
@@ -29,7 +30,7 @@
                 <span class="font-weight-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="USER" LocalizedPage="MODERATE" />:
                 </span>
-                <%#  this.Get<IUserDisplayName>().GetName(this.Eval("Item1").ToType<User>()) %>
+                <%#  this.Eval("Item1").ToType<User>().DisplayOrUserName() %>
                 <span class="font-weight-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ACCEPTED" LocalizedPage="MODERATE" />:
                 </span>

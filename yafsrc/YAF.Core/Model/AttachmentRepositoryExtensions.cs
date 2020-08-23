@@ -108,7 +108,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Delete(this IRepository<Attachment> repository, int attachmentId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var attachment = repository.GetById(attachmentId);
 
@@ -139,7 +139,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void DeleteByMessageId(this IRepository<Attachment> repository, int messageId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var attachments = repository.Get(a => a.MessageID == messageId);
 
@@ -173,7 +173,7 @@ namespace YAF.Core.Model
         /// <param name="attachmentId">The attachment identifier.</param>
         public static void IncrementDownloadCounter(this IRepository<Attachment> repository, int attachmentId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateAdd(() => new Attachment { Downloads = 1 }, a => a.ID == attachmentId);
         }
@@ -198,7 +198,7 @@ namespace YAF.Core.Model
             string contentType,
             byte[] fileData = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var entity = new Attachment
                              {

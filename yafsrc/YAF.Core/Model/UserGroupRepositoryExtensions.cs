@@ -28,6 +28,7 @@ namespace YAF.Core.Model
     using ServiceStack.OrmLite;
 
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -53,7 +54,7 @@ namespace YAF.Core.Model
         public static List<Group> List(
             this IRepository<UserGroup> repository, [NotNull] int userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserGroup>();
 
@@ -81,9 +82,13 @@ namespace YAF.Core.Model
         /// The member.
         /// </param>
         public static void Save(
-            this IRepository<UserGroup> repository, [NotNull] object userID, [NotNull] object groupID, [NotNull] object member)
+            this IRepository<UserGroup> repository, [NotNull] object userID, [NotNull] int groupID, [NotNull] object member)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.DbFunction.Scalar.usergroup_save(UserID: userID, GroupID: groupID, Member: member);
+
+            repository.FireNew(groupID);
         }
 
         #endregion

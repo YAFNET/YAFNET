@@ -202,7 +202,7 @@ namespace YAF.Pages.Admin
                     const int InitialPMessages = 0;
 
                     var groupId = this.GetRepository<Group>().Save(
-                        DBNull.Value,
+                        0,
                         this.PageContext.PageBoardID,
                         e.CommandArgument.ToString(),
                         false,
@@ -262,9 +262,6 @@ namespace YAF.Pages.Admin
                     this.GetRepository<ForumAccess>().Delete(g => g.GroupID == groupId);
                     this.GetRepository<UserGroup>().Delete(g => g.GroupID == groupId);
                     this.GetRepository<Group>().Delete(g => g.ID == groupId);
-
-                    // remove cache of forum moderators
-                    this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
                     // re-bind data
                     this.BindData();

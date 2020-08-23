@@ -273,11 +273,8 @@ namespace YAF.Core.Helpers
             {
                 this.Get<ILogger>().UserDeleted(
                     BoardContext.Current.User.ID,
-                    $"User {user.UserName} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : this.Get<IUserDisplayName>().GetName(BoardContext.Current.User))}.");
+                    $"User {user.UserName} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.User.DisplayOrUserName())}.");
             }
-
-            // clear the cache
-            this.Get<IDataCache>().Clear();
 
             return true;
         }
@@ -304,9 +301,6 @@ namespace YAF.Core.Helpers
                     userIpAddress,
                     $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
                     userID);
-
-                // Clear cache
-                this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
 
                 if (this.Get<BoardSettings>().LogBannedIP)
                 {
@@ -353,11 +347,6 @@ namespace YAF.Core.Helpers
                     BoardContext.Current.User.ID,
                     $"User {user.UserName} was deleted by the automatic spam check system.");
             }
-
-            // clear the cache
-            this.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
-            this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
-            this.Get<IDataCache>().Remove(Constants.Cache.UsersDisplayNameCollection);
 
             return true;
         }
@@ -619,9 +608,6 @@ namespace YAF.Core.Helpers
             user.LockoutEndDateUtc = null;
 
             this.Get<IAspNetUsersHelper>().Update(user);
-
-            this.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
-            this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
 
             this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(BoardContext.Current.PageUserID));
         }

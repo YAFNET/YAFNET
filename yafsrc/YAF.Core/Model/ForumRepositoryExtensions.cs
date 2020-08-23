@@ -137,7 +137,7 @@ namespace YAF.Core.Model
 
             if (!forumID.HasValue)
             {
-                return repository.Insert(
+                var newForumId=  repository.Insert(
                     new Forum
                         {
                             Name = name,
@@ -152,6 +152,10 @@ namespace YAF.Core.Model
                             ModeratedPostCount = moderatedPostCount,
                             IsModeratedNewTopicOnly = isModeratedNewTopicOnly
                         });
+
+                repository.FireNew(newForumId);
+
+                return newForumId;
             }
 
             repository.UpdateOnly(
@@ -171,6 +175,8 @@ namespace YAF.Core.Model
                               IsModeratedNewTopicOnly = isModeratedNewTopicOnly
                           },
                 f => f.ID == forumID);
+
+            repository.FireUpdated(forumID.Value);
 
             return forumID.Value;
         }
@@ -416,7 +422,7 @@ namespace YAF.Core.Model
             [NotNull] int boardId,
             [CanBeNull] int? forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             if (forumId.HasValue)
             {
@@ -467,6 +473,8 @@ namespace YAF.Core.Model
             }
 
             repository.DbFunction.Scalar.forum_delete(ForumID: forumID);
+
+            repository.FireDeleted(forumID);
 
             return true;
         }

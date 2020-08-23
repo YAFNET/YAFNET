@@ -158,9 +158,6 @@ namespace YAF.Pages.Admin
             this.GetRepository<Active>().DeleteAll();
             this.GetRepository<ActiveAccess>().DeleteAll();
 
-            // clear cache
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
-
             // get back to access masks administration
             BuildLink.Redirect(ForumPages.Admin_AccessMasks);
         }

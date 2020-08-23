@@ -145,9 +145,7 @@ namespace YAF.Dialogs
                      this.SpamWordId,
                      this.spamword.Text);
 
-                 this.Get<IDataCache>().Remove(Constants.Cache.SpamWords);
-
-                 BuildLink.Redirect(ForumPages.Admin_SpamWords);
+                BuildLink.Redirect(ForumPages.Admin_SpamWords);
             }
         }
 

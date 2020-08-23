@@ -85,7 +85,7 @@ namespace YAF.Core.Model
             [NotNull] string externalMessageId,
             [NotNull] string referenceMessageId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.DbFunction.Scalar.nntptopic_savemessage(
                 NntpForumID: nntpForumId,

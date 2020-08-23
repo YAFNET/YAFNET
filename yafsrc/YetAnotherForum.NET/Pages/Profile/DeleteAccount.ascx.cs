@@ -68,9 +68,7 @@ namespace YAF.Pages.Profile
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.Get<IUserDisplayName>().GetName(this.PageContext.User),
-                BuildLink.GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), BuildLink.GetLink(ForumPages.MyAccount));
 
             this.PageLinks.AddLink(
                 string.Format(this.GetText("DELETE_ACCOUNT", "TITLE"), this.Get<BoardSettings>().Name),
@@ -146,7 +144,7 @@ namespace YAF.Pages.Profile
                             this.Get<ILogger>().Log(
                                 this.PageContext.PageUserID,
                                 this,
-                                $"User {this.Get<IUserDisplayName>().GetName(user)} Suspended his own account until: {suspend} (UTC)",
+                                $"User {user.DisplayOrUserName()} Suspended his own account until: {suspend} (UTC)",
                                 EventLogTypes.UserSuspended);
 
                             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
@@ -174,7 +172,7 @@ namespace YAF.Pages.Profile
 
                         this.Get<ILogger>().UserDeleted(
                             this.PageContext.PageUserID,
-                            $"User {this.Get<IUserDisplayName>().GetName(this.PageContext.User)} Deleted his own account");
+                            $"User {this.PageContext.User.DisplayOrUserName()} Deleted his own account");
                     }
 
                     break;

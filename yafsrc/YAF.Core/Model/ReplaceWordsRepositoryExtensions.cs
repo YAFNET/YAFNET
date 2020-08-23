@@ -25,6 +25,7 @@ namespace YAF.Core.Model
 {
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -50,15 +51,15 @@ namespace YAF.Core.Model
             string goodWord,
             int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.Upsert(
                 new Replace_Words
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        ID = replaceWordId ?? 0,
-                        BadWord = badWord,
-                        GoodWord = goodWord
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    ID = replaceWordId ?? 0,
+                    BadWord = badWord,
+                    GoodWord = goodWord
                 });
         }
 
