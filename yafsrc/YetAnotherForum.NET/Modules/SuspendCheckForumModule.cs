@@ -27,6 +27,7 @@ namespace YAF.Modules
 
     using System;
 
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Attributes;
@@ -89,7 +90,7 @@ namespace YAF.Modules
 
                 this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
                     this.PageContext.User.Email,
-                    this.Get<IUserDisplayName>().GetName(this.PageContext.User));
+                    this.PageContext.User.DisplayOrUserName());
 
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
             }
