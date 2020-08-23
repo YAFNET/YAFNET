@@ -39,10 +39,11 @@ namespace YAF.Lucene.Net.Util.Mutable
 
         public override MutableValue Duplicate()
         {
-            MutableValueBool v = new MutableValueBool();
-            v.Value = this.Value;
-            v.Exists = this.Exists;
-            return v;
+            return new MutableValueBool
+            {
+                Value = this.Value,
+                Exists = this.Exists
+            };
         }
 
         public override bool EqualsSameType(object other)

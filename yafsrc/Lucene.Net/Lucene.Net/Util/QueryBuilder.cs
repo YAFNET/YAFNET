@@ -252,7 +252,7 @@ namespace YAF.Lucene.Net.Util
             // rewind the buffer stream
             buffer.Reset();
 
-            BytesRef bytes = termAtt == null ? null : termAtt.BytesRef;
+            BytesRef bytes = termAtt?.BytesRef;
 
             if (numTokens == 0)
             {

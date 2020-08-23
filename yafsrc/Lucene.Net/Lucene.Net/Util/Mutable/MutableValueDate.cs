@@ -32,10 +32,11 @@ namespace YAF.Lucene.Net.Util.Mutable
 
         public override MutableValue Duplicate()
         {
-            MutableValueDate v = new MutableValueDate();
-            v.Value = this.Value;
-            v.Exists = this.Exists;
-            return v;
+            return new MutableValueDate
+            {
+                Value = this.Value,
+                Exists = this.Exists
+            };
         }
     }
 }
