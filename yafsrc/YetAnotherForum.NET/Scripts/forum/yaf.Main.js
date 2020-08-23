@@ -9,32 +9,24 @@ jQuery(document).ready(function () {
 
     // Main Menu
     $(".dropdown-menu a.dropdown-toggle").on("show.bs.dropdown", function () {
-
         var $el = $(this);
-        var $subMenu = $(this).next(".dropdown-menu");
-        var $parent = $el.parents(".dropdown-menu").first();
-
-        //$('.dropdown-submenu .dropdown-menu').removeClass('show');
-
-        //$el.parents(".dropdown-menu .show").removeClass("show");
+        var $parent = $el.parents(".dropdown-menu");
+        var parentDropDown = $parent.prev();
+        var $subMenu = $el.next();
 
         if (!$subMenu.hasClass("show")) {
-            $parent.find(".show").removeClass("show");
+            $(".dropdown-menu").find(".show").removeClass("show");
+        } 
+
+        if (!$parent.hasClass("show")) {
+            parentDropDown.dropdown("show");
         }
 
         $subMenu.toggleClass("show");
 
-        $parent.toggleClass("show");
+        $subMenu.css({ "top": $el[0].offsetTop - 10, "left": $el.outerWidth() - 4 });
 
-        $(this).parents(".dropdown.show").on("hidden.bs.dropdown", function () {
-
-            console.log("t");
-            $(".dropdown-menu .show").removeClass("show");
-        });
-
-        $subMenu.css({ "top": $el[0].offsetTop - 10, "left": $parent.outerWidth() - 4 });
-
-		return false;
+        return false;
     });
 
 

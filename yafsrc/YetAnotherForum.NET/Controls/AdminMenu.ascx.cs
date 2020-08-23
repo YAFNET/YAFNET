@@ -31,8 +31,7 @@ namespace YAF.Controls
     using System.Linq;
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
-
+    
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
     using YAF.Types;
@@ -40,7 +39,6 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
 
     #endregion
@@ -108,23 +106,26 @@ namespace YAF.Controls
             [NotNull] bool isDropDownToggle,
             [NotNull] string iconName)
         {
-            var icon = new Icon { IconName = iconName };
-
-            var link = new HyperLink
+            var link = new ThemeButton
             {
-                Target = "_top",
-                ToolTip = linkText,
-                Text = $"{icon.RenderToString()}{linkText}",
-                CssClass = isActive ? $"{cssClass} active" : cssClass
+                Text = linkText,
+                Icon = iconName,
+                Type = ButtonStyle.None,
+                CssClass = isActive ? $"{cssClass} active" : cssClass,
+                NavigateUrl = linkUrl,
+                DataToggle = isDropDownToggle ? "dropdown" : "tooltip"
             };
 
-            link.Attributes.Add("href", linkUrl);
-
-            link.Attributes.Add("rel", "nofollow");
-
-            link.Attributes.Add("data-toggle", isDropDownToggle ? "dropdown" : "tooltip");
-
-            holder.Controls.Add(link);
+            if (isDropDownToggle)
+            {
+                holder.Controls.Add(link);
+            }
+            else
+            {
+                var listItem = new HtmlGenericControl("li");
+                listItem.Controls.Add(link);
+                holder.Controls.Add(listItem);
+            }
         }
 
         /// <summary>
@@ -136,19 +137,15 @@ namespace YAF.Controls
                 string.Format(Constants.Cache.AdminPageAccess, this.PageContext.PageUserID),
                 () => this.GetRepository<AdminPageUserAccess>().List(this.PageContext.PageUserID).ToList());
 
-            var mainListItem = new HtmlGenericControl("li");
-
             // Admin Admin
             RenderMenuItem(
-                mainListItem,
+                this.MenuHolder,
                 "dropdown-item",
                 this.GetText("ADMINMENU", "ADMIN_ADMIN"),
                 BuildLink.GetLink(ForumPages.Admin_Admin),
                 this.PageContext.ForumPageType == ForumPages.Admin_Admin,
                 false,
                 "tachometer-alt");
-
-            this.MenuHolder.Controls.Add(mainListItem);
 
             // Admin - Settings Menu
             if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(
@@ -257,7 +254,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_BoardAnnouncement"),
                     BuildLink.GetLink(ForumPages.Admin_BoardAnnouncement),
                     this.PageContext.ForumPageType == ForumPages.Admin_BoardAnnouncement,
@@ -285,7 +282,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_forums"),
                     BuildLink.GetLink(ForumPages.Admin_Forums),
                     this.PageContext.ForumPageType == ForumPages.Admin_Forums ||
@@ -301,7 +298,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_replacewords"),
                     BuildLink.GetLink(ForumPages.Admin_ReplaceWords),
                     this.PageContext.ForumPageType == ForumPages.Admin_ReplaceWords,
@@ -315,7 +312,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_bbcode"),
                     BuildLink.GetLink(ForumPages.Admin_BBCodes),
                     this.PageContext.ForumPageType == ForumPages.Admin_BBCodes ||
@@ -330,7 +327,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Languages"),
                     BuildLink.GetLink(ForumPages.Admin_Languages),
                     this.PageContext.ForumPageType == ForumPages.Admin_Languages ||
@@ -379,7 +376,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_spamlog"),
                     BuildLink.GetLink(ForumPages.Admin_SpamLog),
                     this.PageContext.ForumPageType == ForumPages.Admin_SpamLog,
@@ -393,7 +390,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_SpamWords"),
                     BuildLink.GetLink(ForumPages.Admin_SpamWords),
                     this.PageContext.ForumPageType == ForumPages.Admin_SpamWords,
@@ -407,7 +404,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_BannedEmail"),
                     BuildLink.GetLink(ForumPages.Admin_BannedEmails),
                     this.PageContext.ForumPageType == ForumPages.Admin_BannedEmails,
@@ -421,7 +418,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_BannedIp"),
                     BuildLink.GetLink(ForumPages.Admin_BannedIps),
                     this.PageContext.ForumPageType == ForumPages.Admin_BannedIps,
@@ -435,7 +432,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_BannedName"),
                     BuildLink.GetLink(ForumPages.Admin_BannedNames),
                     this.PageContext.ForumPageType == ForumPages.Admin_BannedNames,
@@ -491,7 +488,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_ProfileDefinitions"),
                     BuildLink.GetLink(ForumPages.Admin_ProfileDefinitions),
                     this.PageContext.ForumPageType == ForumPages.Admin_ProfileDefinitions,
@@ -505,7 +502,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_AccessMasks"),
                     BuildLink.GetLink(ForumPages.Admin_AccessMasks),
                     this.PageContext.ForumPageType == ForumPages.Admin_AccessMasks ||
@@ -520,7 +517,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Groups"),
                     BuildLink.GetLink(ForumPages.Admin_Groups),
                     this.PageContext.ForumPageType == ForumPages.Admin_Groups ||
@@ -535,7 +532,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Users"),
                     BuildLink.GetLink(ForumPages.Admin_Users),
                     this.PageContext.ForumPageType == ForumPages.Admin_EditUser ||
@@ -550,7 +547,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Ranks"),
                     BuildLink.GetLink(ForumPages.Admin_Ranks),
                     this.PageContext.ForumPageType == ForumPages.Admin_Ranks ||
@@ -565,7 +562,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Medals"),
                     BuildLink.GetLink(ForumPages.Admin_Medals),
                     this.PageContext.ForumPageType == ForumPages.Admin_Medals ||
@@ -580,7 +577,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Mail"),
                     BuildLink.GetLink(ForumPages.Admin_Mail),
                     this.PageContext.ForumPageType == ForumPages.Admin_Mail,
@@ -594,7 +591,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Digest"),
                     BuildLink.GetLink(ForumPages.Admin_Digest),
                     this.PageContext.ForumPageType == ForumPages.Admin_Digest,
@@ -642,7 +639,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Prune"),
                     BuildLink.GetLink(ForumPages.Admin_Prune),
                     this.PageContext.ForumPageType == ForumPages.Admin_Prune,
@@ -656,7 +653,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Restore"),
                     BuildLink.GetLink(ForumPages.Admin_Restore),
                     this.PageContext.ForumPageType == ForumPages.Admin_Restore,
@@ -670,7 +667,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Pm"),
                     BuildLink.GetLink(ForumPages.Admin_Pm),
                     this.PageContext.ForumPageType == ForumPages.Admin_Pm,
@@ -684,7 +681,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_TaskManager"),
                     BuildLink.GetLink(ForumPages.Admin_TaskManager),
                     this.PageContext.ForumPageType == ForumPages.Admin_TaskManager,
@@ -698,7 +695,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_EventLog"),
                     BuildLink.GetLink(ForumPages.Admin_EventLog),
                     this.PageContext.ForumPageType == ForumPages.Admin_EventLog,
@@ -712,7 +709,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_RestartApp"),
                     BuildLink.GetLink(ForumPages.Admin_RestartApp),
                     this.PageContext.ForumPageType == ForumPages.Admin_RestartApp,
@@ -757,7 +754,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_ReIndex"),
                     BuildLink.GetLink(ForumPages.Admin_ReIndex),
                     this.PageContext.ForumPageType == ForumPages.Admin_ReIndex,
@@ -771,7 +768,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_RunSql"),
                     BuildLink.GetLink(ForumPages.Admin_RunSql),
                     this.PageContext.ForumPageType == ForumPages.Admin_RunSql,
@@ -817,7 +814,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_NntpServers"),
                     BuildLink.GetLink(ForumPages.Admin_NntpServers),
                     this.PageContext.ForumPageType == ForumPages.Admin_NntpServers,
@@ -831,7 +828,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_NntpForums"),
                     BuildLink.GetLink(ForumPages.Admin_NntpForums),
                     this.PageContext.ForumPageType == ForumPages.Admin_NntpForums,
@@ -845,7 +842,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     list,
-                    "dropdown-item dropdown",
+                    "dropdown-item",
                     this.GetText("ADMINMENU", "admin_NntpRetrieve"),
                     BuildLink.GetLink(ForumPages.Admin_NntpRetrieve),
                     this.PageContext.ForumPageType == ForumPages.Admin_NntpRetrieve,

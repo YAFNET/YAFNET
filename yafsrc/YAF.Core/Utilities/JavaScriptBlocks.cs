@@ -440,13 +440,15 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             return $@"document.addEventListener('DOMContentLoaded', (event) => {{
                 {Config.JQueryAlias}(function() {{
                 {Config.JQueryAlias}('.dropdown-menu').on('click', function(e) {{
-                    if (e.target.type == 'button')
-                        {Config.JQueryAlias}().dropdown('toggle')
-                    else
-                        e.stopPropagation();
+                    if (e.target.type == 'button') {{
+                           {Config.JQueryAlias}().dropdown('toggle')
+                    }}
+                    else {{ 
+                         e.stopPropagation();
+                    }}
                 }});
                 {Config.JQueryAlias}(window).on('click', function() {{
-                    if (!{Config.JQueryAlias}('.dropdown-menu').is (':hidden')) {{
+                    if (!{Config.JQueryAlias}('.dropdown-menu').is(':hidden')) {{
                         {Config.JQueryAlias}().dropdown('toggle')
                      }}
                  }});

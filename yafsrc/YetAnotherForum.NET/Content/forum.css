@@ -72,7 +72,7 @@ ins {
   background-color: #99EE99 !important;
   text-decoration: underline !important; }
 
-/* PrismJS 1.20.0
+/* PrismJS 1.21.0
 https://prismjs.com/download.html?#themes=prism-okaidia&languages=markup+css+clike+javascript+aspnet+bash+basic+c+csharp+cpp+css-extras+git+java+python+scss+sql+vbnet+visual-basic&plugins=line-highlight+line-numbers+autolinker+normalize-whitespace+toolbar+copy-to-clipboard */
 /**
  * okaidia theme for JavaScript, CSS and HTML
@@ -120,7 +120,7 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: slategray; }
+  color: #8292a2; }
 
 .token.punctuation {
   color: #f8f8f2; }
@@ -223,6 +223,15 @@ pre[data-line] {
 .line-numbers .line-highlight:after {
   content: none; }
 
+pre[id].linkable-line-numbers span.line-numbers-rows {
+  pointer-events: all; }
+
+pre[id].linkable-line-numbers span.line-numbers-rows > span:before {
+  cursor: pointer; }
+
+pre[id].linkable-line-numbers span.line-numbers-rows > span:hover:before {
+  background-color: rgba(128, 128, 128, 0.2); }
+
 pre[class*="language-"].line-numbers {
   position: relative;
   padding-left: 3.8em;
@@ -248,7 +257,6 @@ pre[class*="language-"].line-numbers > code {
   user-select: none; }
 
 .line-numbers-rows > span {
-  pointer-events: none;
   display: block;
   counter-increment: linenumber; }
 
@@ -8028,11 +8036,6 @@ div#UploadDialog {
 .dropdown-submenu {
   position: relative; }
 
-.dropdown-submenu .dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -1px; }
-
 .list-group-albums img {
   cursor: pointer;
   max-width: 60px;
@@ -8232,27 +8235,9 @@ div#UploadDialog {
   background: #212327;
   color: #ecf0f1; }
 
-.scrolltop {
-  display: none;
-  width: 100%;
-  margin: 0 auto;
-  position: fixed;
-  bottom: 20px;
-  right: 10px; }
-
-.scroll-top {
-  display: none;
-  width: 100%;
-  margin: 0 auto;
-  position: fixed;
-  bottom: 20px;
-  right: 10px; }
-
-.btn-scroll {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 999; }
+.cke_button__attachments_icon,
+.cke_button__bbcodeselector_icon {
+  background-size: auto !important; }
 
 #YafBody {
   padding-right: 15px;

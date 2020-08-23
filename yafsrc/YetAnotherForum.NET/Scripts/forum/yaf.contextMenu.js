@@ -38,13 +38,13 @@ jQuery(document).ready(function () {
                             if (contextMenu.data("url").length) {
                                 contextMenu.prepend('<a href="javascript:goToURL(\'' +
                                     messageID +
-                                    '\',\'' +
+                                    "','" +
                                     selectedText +
-                                    '\',\'' +
+                                    "','" +
                                     contextMenu.data("url") +
                                     '\')" class="dropdown-item item-selected-quoting"><i class="fas fa-quote-left fa-fw"></i>&nbsp;' +
                                     contextMenu.data("quote") +
-                                    '</a>');
+                                    "</a>");
                             }
 
                             contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
@@ -92,13 +92,13 @@ jQuery(document).ready(function () {
                     if (contextMenu.data("url").length) {
                         contextMenu.prepend('<a href="javascript:goToURL(\'' +
                             messageID +
-                            '\',\'' +
+                            "','" +
                             selectedText +
-                            '\',\'' +
+                            "','" +
                             contextMenu.data("url") +
                             '\')" class="dropdown-item item-selected-quoting"><i class="fas fa-quote-left fa-fw"></i>&nbsp;' +
                             contextMenu.data("quote") +
-                            '</a>');
+                            "</a>");
                     }
 
                     contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
