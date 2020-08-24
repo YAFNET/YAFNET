@@ -2,7 +2,7 @@
 
 <asp:UpdatePanel ID="UpdateLoginPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
-        <asp:Login ID="Login1" runat="server" 
+        <asp:Login ID="Login1" runat="server"
                    RememberMeSet="True" 
                    OnLoginError="Login1_LoginError" 
                    OnLoggedIn="Login1_LoggedIn"

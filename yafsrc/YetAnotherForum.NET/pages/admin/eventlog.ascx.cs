@@ -137,6 +137,10 @@ namespace YAF.Pages.Admin
                     icon = "user-alt-slash";
                     cssClass = "danger";
                     break;
+                case EventLogTypes.LoginFailure:
+                    icon = "user-injured";
+                    cssClass = "warning";
+                    break;
                 case EventLogTypes.IpBanSet:
                     icon = "hand-paper";
                     cssClass = "warning";
@@ -245,6 +249,7 @@ namespace YAF.Pages.Admin
                         EventLogTypes.SqlError => "exclamation-triangle",
                         EventLogTypes.UserSuspended => "user-clock",
                         EventLogTypes.UserUnsuspended => "user-check",
+                        EventLogTypes.LoginFailure =>  "user-injured",
                         EventLogTypes.UserDeleted => "user-alt-slash",
                         EventLogTypes.IpBanSet => "hand-paper",
                         EventLogTypes.IpBanLifted => "slash",
@@ -344,7 +349,7 @@ namespace YAF.Pages.Admin
             {
                 if (this.Get<BoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
                 {
-                    var persianDate = new PersianDate(this.SinceDate.Text);
+                    var persianDate = new PersianDate(this.SinceDate.Text.PersianNumberToEnglish());
 
                     sinceDate = PersianDateConverter.ToGregorianDateTime(persianDate);
                 }
@@ -358,7 +363,7 @@ namespace YAF.Pages.Admin
             {
                 if (this.Get<BoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
                 {
-                    var persianDate = new PersianDate(this.ToDate.Text);
+                    var persianDate = new PersianDate(this.ToDate.Text.PersianNumberToEnglish());
 
                     toDate = PersianDateConverter.ToGregorianDateTime(persianDate);
                 }

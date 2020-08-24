@@ -27,6 +27,7 @@ namespace YAF.Dialogs
     #region Using
 
     using System;
+    using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
@@ -161,6 +162,12 @@ namespace YAF.Dialogs
 
             if (!emptyFields)
             {
+                this.Logger.Log(
+                    $"Login Failure: {userName.Text}",
+                    this,
+                    $"Login Failure for User {userName.Text} with the IP Address {this.Get<HttpRequestBase>().GetUserRealIPAddress()}",
+                    EventLogTypes.LoginFailure);
+
                 this.PageContext.AddLoadMessage(
                     this.Login1.FailureText,
                     "LoginBox",

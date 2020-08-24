@@ -204,6 +204,12 @@ namespace YAF.Pages
 
             if (!emptyFields)
             {
+                this.Logger.Log(
+                    $"Login Failure: {userName.Text}",
+                    this,
+                    $"Login Failure for User {userName.Text} with the IP Address {this.Get<HttpRequestBase>().GetUserRealIPAddress()}",
+                    EventLogTypes.LoginFailure);
+
                 this.PageContext.AddLoadMessage(this.Login1.FailureText, MessageTypes.danger);
             }
         }

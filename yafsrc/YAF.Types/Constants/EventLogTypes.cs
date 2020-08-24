@@ -56,7 +56,12 @@ namespace YAF.Types.Constants
         /// <summary>
         ///     The SQL error.
         /// </summary>
-        SqlError = 3, 
+        SqlError = 3,
+
+        /// <summary>
+        /// The login failure.
+        /// </summary>
+        LoginFailure = 4,
 
         /// <summary>
         ///     The user suspended.
