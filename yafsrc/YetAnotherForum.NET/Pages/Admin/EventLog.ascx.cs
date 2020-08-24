@@ -131,6 +131,10 @@ namespace YAF.Pages.Admin
                     icon = "user-check";
                     cssClass = "info";
                     break;
+                case EventLogTypes.LoginFailure:
+                    icon = "user-injured";
+                    cssClass = "warning";
+                    break;
                 case EventLogTypes.UserDeleted:
                     icon = "user-alt-slash";
                     cssClass = "danger";
@@ -270,6 +274,7 @@ namespace YAF.Pages.Admin
                                 EventLogTypes.SqlError => "exclamation-triangle",
                                 EventLogTypes.UserSuspended => "user-clock",
                                 EventLogTypes.UserUnsuspended => "user-check",
+                                EventLogTypes.LoginFailure => "user-injured",
                                 EventLogTypes.UserDeleted => "user-alt-slash",
                                 EventLogTypes.IpBanSet => "hand-paper",
                                 EventLogTypes.IpBanLifted => "slash",

@@ -27,6 +27,7 @@ namespace YAF.Dialogs
     #region Using
 
     using System;
+    using System.Web;
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
@@ -37,6 +38,7 @@ namespace YAF.Dialogs
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models.Identity;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -167,6 +169,12 @@ namespace YAF.Dialogs
                         }
 
                         this.Get<IAspNetUsersHelper>().Update(user);
+
+                        this.Logger.Log(
+                            $"Login Failure for User {this.UserName.Text.Trim()} with the IP Address {this.Get<HttpRequestBase>().GetUserRealIPAddress()}",
+                            EventLogTypes.LoginFailure,
+                            null,
+                            $"Login Failure: {this.UserName.Text.Trim()}");
 
                         this.PageContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
                         break;

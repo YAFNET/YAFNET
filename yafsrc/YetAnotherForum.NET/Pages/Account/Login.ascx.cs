@@ -40,6 +40,7 @@ namespace YAF.Pages.Account
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models.Identity;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     using Config = YAF.Configuration.Config;
@@ -200,7 +201,13 @@ namespace YAF.Pages.Account
 
                     this.Get<IAspNetUsersHelper>().Update(user);
 
-                    this.PageContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+                    this.Logger.Log(
+                        $"Login Failure for User {this.UserName.Text.Trim()} with the IP Address {this.Get<HttpRequestBase>().GetUserRealIPAddress()}",
+                        EventLogTypes.LoginFailure,
+                        null,
+                        $"Login Failure: {this.UserName.Text.Trim()}");
+
+                        this.PageContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
                     break;
                 }
             }
