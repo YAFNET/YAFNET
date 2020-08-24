@@ -8235,6 +8235,28 @@ div#UploadDialog {
   background: #212327;
   color: #ecf0f1; }
 
+.scrolltop {
+  display: none;
+  width: 100%;
+  margin: 0 auto;
+  position: fixed;
+  bottom: 20px;
+  right: 10px; }
+
+.scroll-top {
+  display: none;
+  width: 100%;
+  margin: 0 auto;
+  position: fixed;
+  bottom: 20px;
+  right: 10px; }
+
+.btn-scroll {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 999; }
+
 .cke_button__attachments_icon,
 .cke_button__bbcodeselector_icon {
   background-size: auto !important; }
