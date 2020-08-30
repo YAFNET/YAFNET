@@ -44,6 +44,7 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Types.Objects;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -809,7 +810,7 @@ namespace YAF.Core.Model
             [CanBeNull] string topicTags,
             out int messageId)
         {
-            var dt = repository.DbFunction.GetData.topic_save(
+            var dt = (DataTable)repository.DbFunction.GetData.topic_save(
                 ForumID: forumId,
                 Subject: subject,
                 Description: description,
@@ -825,14 +826,16 @@ namespace YAF.Core.Model
                 Flags: flags.BitValue,
                 UTCTIMESTAMP: DateTime.UtcNow);
 
-            messageId = dt.Rows[0]["MessageID"].ToString();
+            var topicRow = dt.GetFirstRow();
 
-            int topicId = dt.Rows[0]["TopicID"].ToString();
+            messageId = topicRow.Field<int>("MessageID");
+
+            var topicId = topicRow.Field<int>("TopicID");
 
             // Add to search index
             var newMessage = new SearchMessage
             {
-                MessageId = messageId.ToType<int>(),
+                MessageId = messageId,
                 Message = message,
                 Flags = flags.BitValue,
                 Posted = posted.ToString(CultureInfo.InvariantCulture),
