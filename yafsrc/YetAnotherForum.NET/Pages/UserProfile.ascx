@@ -88,6 +88,7 @@
                         </SeparatorTemplate>
                     </asp:Repeater>
                 </li>
+            </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="RankTR" Visible="false">
                     <li class="list-group-item text-right">
                         <span class="float-left font-weight-bold">
@@ -165,7 +166,6 @@
                         </li>
                     </ItemTemplate>
                 </asp:Repeater>
-            </asp:PlaceHolder>
         </ul>
         <asp:PlaceHolder runat="server" ID="HomePlaceHolder">
             <div class="card mb-3">
