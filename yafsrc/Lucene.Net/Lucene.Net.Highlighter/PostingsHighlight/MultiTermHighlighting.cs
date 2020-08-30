@@ -2,6 +2,7 @@
 using J2N;
 using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search.Spans;
 using YAF.Lucene.Net.Util;
@@ -291,7 +292,7 @@ namespace YAF.Lucene.Net.Search.PostingsHighlight
             {
                 get
                 {
-                    Debug.Assert(currentStartOffset >= 0);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(currentStartOffset >= 0);
                     return currentStartOffset;
                 }
             }
@@ -300,7 +301,7 @@ namespace YAF.Lucene.Net.Search.PostingsHighlight
             {
                 get
                 {
-                    Debug.Assert(currentEndOffset >= 0);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(currentEndOffset >= 0);
                     return currentEndOffset;
                 }
             }

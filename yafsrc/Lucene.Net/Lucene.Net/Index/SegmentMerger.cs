@@ -1,8 +1,8 @@
 using J2N.Collections.Generic.Extensions;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 
@@ -25,12 +25,12 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using Codec = YAF.Lucene.Net.Codecs.Codec;
     using Directory = YAF.Lucene.Net.Store.Directory;
     using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
     using FieldInfosWriter = YAF.Lucene.Net.Codecs.FieldInfosWriter;
     using FieldsConsumer = YAF.Lucene.Net.Codecs.FieldsConsumer;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using InfoStream = YAF.Lucene.Net.Util.InfoStream;
     using IOContext = YAF.Lucene.Net.Store.IOContext;
     using IOUtils = YAF.Lucene.Net.Util.IOUtils;
@@ -110,7 +110,7 @@ namespace YAF.Lucene.Net.Index
                 long t1 = Time.NanoTime();
                 mergeState.InfoStream.Message("SM", ((t1 - t0) / 1000000) + " msec to merge stored fields [" + numMerged + " docs]");
             }
-            Debug.Assert(numMerged == mergeState.SegmentInfo.DocCount);
+            if (Debugging.AssertsEnabled) Debugging.Assert(numMerged == mergeState.SegmentInfo.DocCount);
 
             SegmentWriteState segmentWriteState = new SegmentWriteState(mergeState.InfoStream, directory, mergeState.SegmentInfo, mergeState.FieldInfos, termIndexInterval, null, context);
             if (mergeState.InfoStream.IsEnabled("SM"))
@@ -164,7 +164,7 @@ namespace YAF.Lucene.Net.Index
                     long t1 = Time.NanoTime();
                     mergeState.InfoStream.Message("SM", ((t1 - t0) / 1000000) + " msec to merge vectors [" + numMerged + " docs]");
                 }
-                Debug.Assert(numMerged == mergeState.SegmentInfo.DocCount);
+                if (Debugging.AssertsEnabled) Debugging.Assert(numMerged == mergeState.SegmentInfo.DocCount);
             }
 
             // write the merged infos

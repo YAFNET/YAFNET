@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
@@ -139,7 +140,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
                 TermInfo current = termList[i];
                 if (current.Position == currentPos)
                 {
-                    Debug.Assert(previous != null);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(previous != null);
                     previous.SetNext(current);
                     previous = current;
                     //iterator.Remove();

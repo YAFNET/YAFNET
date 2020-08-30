@@ -41,13 +41,27 @@ namespace YAF.Lucene.Net.Analysis.Th
     /// </summary>
     public class ThaiTokenizer : SegmentingTokenizerBase
     {
+        private static readonly object syncLock = new object(); // LUCENENET specific - workaround until BreakIterator is made thread safe  (LUCENENET TODO: TO REVERT)
+
         // LUCENENET specific - DBBI_AVAILABLE removed because ICU always has a dictionary-based BreakIterator
-        private static readonly BreakIterator proto = (BreakIterator)BreakIterator.GetWordInstance(new CultureInfo("th")).Clone();
+        private static readonly BreakIterator proto = LoadProto();
 
         /// <summary>
         /// used for breaking the text into sentences
         /// </summary>
-        private static readonly BreakIterator sentenceProto = (BreakIterator)BreakIterator.GetSentenceInstance(CultureInfo.InvariantCulture).Clone();
+        private static readonly BreakIterator sentenceProto = LoadSentenceProto();
+
+        private static BreakIterator LoadProto()
+        {
+            lock (syncLock)
+                return BreakIterator.GetWordInstance(new CultureInfo("th"));
+        }
+
+        private static BreakIterator LoadSentenceProto()
+        {
+            lock (syncLock)
+                return BreakIterator.GetSentenceInstance(CultureInfo.InvariantCulture);
+        }
 
         private readonly ThaiWordBreaker wordBreaker;
         private readonly CharArrayIterator wrapper = Analysis.Util.CharArrayIterator.NewWordInstance();
@@ -57,8 +71,6 @@ namespace YAF.Lucene.Net.Analysis.Th
 
         private readonly ICharTermAttribute termAtt;
         private readonly IOffsetAttribute offsetAtt;
-
-        private readonly object syncLock = new object();
 
         /// <summary>
         /// Creates a new <see cref="ThaiTokenizer"/> </summary>
@@ -70,20 +82,36 @@ namespace YAF.Lucene.Net.Analysis.Th
         /// <summary>
         /// Creates a new <see cref="ThaiTokenizer"/>, supplying the <see cref="Lucene.Net.Util.AttributeSource.AttributeFactory"/> </summary>
         public ThaiTokenizer(AttributeFactory factory, TextReader reader)
-            : base(factory, reader, (BreakIterator)sentenceProto.Clone())
+            : base(factory, reader, CreateSentenceClone())
         {
             // LUCENENET specific - DBBI_AVAILABLE removed because ICU always has a dictionary-based BreakIterator
 
-            wordBreaker = new ThaiWordBreaker((BreakIterator)proto.Clone());
+            lock (syncLock)
+                wordBreaker = new ThaiWordBreaker((BreakIterator)proto.Clone());
             termAtt = AddAttribute<ICharTermAttribute>();
             offsetAtt = AddAttribute<IOffsetAttribute>();
         }
 
+        private static BreakIterator CreateSentenceClone()
+        {
+            lock (syncLock)
+                return (BreakIterator)sentenceProto.Clone();
+        }
+
+        public override void Reset()
+        {
+            lock (syncLock)
+                base.Reset();
+        }
+
+        public override State CaptureState()
+        {
+            lock (syncLock)
+                return base.CaptureState();
+        }
+
         protected override void SetNextSentence(int sentenceStart, int sentenceEnd)
         {
-            // LUCENENET TODO: This class isn't passing thread safety checks.
-            // Adding locking and extra cloning of BreakIterator seems to help, but
-            // it is not a complete fix.
             lock (syncLock)
             {
                 this.sentenceStart = sentenceStart;
@@ -95,19 +123,17 @@ namespace YAF.Lucene.Net.Analysis.Th
 
         protected override bool IncrementWord()
         {
-            // LUCENENET TODO: This class isn't passing thread safety checks.
-            // Adding locking and extra cloning of BreakIterator seems to help, but
-            // it is not a complete fix.
+            int start, end;
             lock (syncLock)
             {
-                int start = wordBreaker.Current;
+                start = wordBreaker.Current;
                 if (start == BreakIterator.Done)
                 {
                     return false; // BreakIterator exhausted
                 }
 
                 // find the next set of boundaries, skipping over non-tokens
-                int end = wordBreaker.Next();
+                end = wordBreaker.Next();
                 while (end != BreakIterator.Done && !Character.IsLetterOrDigit(Character.CodePointAt(m_buffer, sentenceStart + start, sentenceEnd)))
                 {
                     start = end;

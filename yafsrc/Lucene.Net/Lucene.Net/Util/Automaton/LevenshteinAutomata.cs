@@ -1,7 +1,7 @@
 using J2N;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util.Automaton
@@ -276,7 +276,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                 // decode absState -> state, offset
                 int state = absState / (m_w + 1);
                 int offset = absState % (m_w + 1);
-                Debug.Assert(offset >= 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(offset >= 0);
                 return m_w - offset + minErrors[state] <= m_n;
             }
 

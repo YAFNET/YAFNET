@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -76,7 +76,7 @@ namespace YAF.Lucene.Net.Util.Packed
                 return;
             }
             int bitsRequired = value < 0 ? 64 : PackedInt32s.BitsRequired(value);
-            Debug.Assert(bitsRequired > current.BitsPerValue);
+            if (Debugging.AssertsEnabled) Debugging.Assert(bitsRequired > current.BitsPerValue);
             int valueCount = Count;
             PackedInt32s.Mutable next = PackedInt32s.GetMutable(valueCount, bitsRequired, acceptableOverheadRatio);
             PackedInt32s.Copy(current, 0, next, 0, valueCount, PackedInt32s.DEFAULT_BUFFER_SIZE);

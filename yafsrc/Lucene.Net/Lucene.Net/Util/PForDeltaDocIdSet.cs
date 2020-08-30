@@ -1,7 +1,7 @@
 using J2N.Numerics;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -63,7 +63,7 @@ namespace YAF.Lucene.Net.Util
             for (int i = 1; i < ITERATIONS.Length; ++i)
             {
                 DECODERS[i] = PackedInt32s.GetDecoder(PackedInt32s.Format.PACKED, PackedInt32s.VERSION_CURRENT, i);
-                Debug.Assert(BLOCK_SIZE % DECODERS[i].ByteValueCount == 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(BLOCK_SIZE % DECODERS[i].ByteValueCount == 0);
                 ITERATIONS[i] = BLOCK_SIZE / DECODERS[i].ByteValueCount;
                 BYTE_BLOCK_COUNTS[i] = ITERATIONS[i] * DECODERS[i].ByteBlockCount;
                 maxByteBLockCount = Math.Max(maxByteBLockCount, DECODERS[i].ByteBlockCount);
@@ -212,7 +212,7 @@ namespace YAF.Lucene.Net.Util
                     }
                 }
                 this.bitsPerException = actualBitsPerValue - bitsPerValue;
-                Debug.Assert(bufferSize < BLOCK_SIZE || numExceptions < bufferSize);
+                if (Debugging.AssertsEnabled) Debugging.Assert(bufferSize < BLOCK_SIZE || numExceptions < bufferSize);
                 return blockSize;
             }
 
@@ -231,7 +231,7 @@ namespace YAF.Lucene.Net.Util
                             buffer[i] &= mask;
                         }
                     }
-                    Debug.Assert(ex == numExceptions);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(ex == numExceptions);
                     Arrays.Fill(exceptions, numExceptions, BLOCK_SIZE, 0);
                 }
 
@@ -245,7 +245,7 @@ namespace YAF.Lucene.Net.Util
 
                 if (numExceptions > 0)
                 {
-                    Debug.Assert(bitsPerException > 0);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(bitsPerException > 0);
                     data.WriteByte((byte)(sbyte)numExceptions);
                     data.WriteByte((byte)(sbyte)bitsPerException);
                     PackedInt32s.IEncoder encoder = PackedInt32s.GetEncoder(PackedInt32s.Format.PACKED, PackedInt32s.VERSION_CURRENT, bitsPerException);
@@ -316,18 +316,18 @@ namespace YAF.Lucene.Net.Util
 
                 ++numBlocks;
 
-                Debug.Assert(data.Length - originalLength == blockSize, (data.Length - originalLength) + " <> " + blockSize);
+                if (Debugging.AssertsEnabled) Debugging.Assert(data.Length - originalLength == blockSize, () => (data.Length - originalLength) + " <> " + blockSize);
             }
 
             /// <summary>
             /// Build the <see cref="PForDeltaDocIdSet"/> instance. </summary>
             public virtual PForDeltaDocIdSet Build()
             {
-                Debug.Assert(bufferSize < BLOCK_SIZE);
+                if (Debugging.AssertsEnabled) Debugging.Assert(bufferSize < BLOCK_SIZE);
 
                 if (cardinality == 0)
                 {
-                    Debug.Assert(previousDoc == -1);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(previousDoc == -1);
                     return EMPTY;
                 }
 
@@ -469,7 +469,7 @@ namespace YAF.Lucene.Net.Util
 
             internal virtual void UnaryDecompress(byte token)
             {
-                Debug.Assert((token & HAS_EXCEPTIONS) == 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert((token & HAS_EXCEPTIONS) == 0);
                 int docID = this.docID;
                 for (int i = 0; i < BLOCK_SIZE; )
                 {
@@ -505,7 +505,7 @@ namespace YAF.Lucene.Net.Util
 
             internal virtual void SkipBlock()
             {
-                Debug.Assert(i == BLOCK_SIZE);
+                if (Debugging.AssertsEnabled) Debugging.Assert(i == BLOCK_SIZE);
                 DecompressBlock();
                 docID = nextDocs[BLOCK_SIZE - 1];
             }
@@ -525,8 +525,11 @@ namespace YAF.Lucene.Net.Util
                 // advance forward and double the window at each step
                 int indexSize = (int)docIDs.Count;
                 int lo = Math.Max(blockIdx / indexInterval, 0), hi = lo + 1;
-                Debug.Assert(blockIdx == -1 || docIDs.Get(lo) <= docID);
-                Debug.Assert(lo + 1 == docIDs.Count || docIDs.Get(lo + 1) > docID);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(blockIdx == -1 || docIDs.Get(lo) <= docID);
+                    Debugging.Assert(lo + 1 == docIDs.Count || docIDs.Get(lo + 1) > docID);
+                }
                 while (true)
                 {
                     if (hi >= indexSize)
@@ -557,14 +560,17 @@ namespace YAF.Lucene.Net.Util
                         hi = mid - 1;
                     }
                 }
-                Debug.Assert(docIDs.Get(hi) <= target);
-                Debug.Assert(hi + 1 == docIDs.Count || docIDs.Get(hi + 1) > target);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(docIDs.Get(hi) <= target);
+                    Debugging.Assert(hi + 1 == docIDs.Count || docIDs.Get(hi + 1) > target);
+                }
                 return hi;
             }
 
             public override int Advance(int target)
             {
-                Debug.Assert(target > docID);
+                if (Debugging.AssertsEnabled) Debugging.Assert(target > docID);
                 if (nextDocs[BLOCK_SIZE - 1] < target)
                 {
                     // not in the next block, now use the index

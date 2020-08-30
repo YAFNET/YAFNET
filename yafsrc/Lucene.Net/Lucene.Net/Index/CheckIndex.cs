@@ -1,4 +1,5 @@
 using J2N.Text;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.IO;
@@ -948,7 +949,7 @@ namespace YAF.Lucene.Net.Index
                     if (info.HasNorms)
                     {
 #pragma warning disable 612, 618
-                        Debug.Assert(reader.HasNorms(info.Name)); // deprecated path
+                        if (Debugging.AssertsEnabled) Debugging.Assert(reader.HasNorms(info.Name)); // deprecated path
 #pragma warning restore 612, 618
                         CheckNorms(info, reader, infoStream);
                         ++status.TotFields;
@@ -956,7 +957,7 @@ namespace YAF.Lucene.Net.Index
                     else
                     {
 #pragma warning disable 612, 618
-                        Debug.Assert(!reader.HasNorms(info.Name)); // deprecated path
+                        if (Debugging.AssertsEnabled) Debugging.Assert(!reader.HasNorms(info.Name)); // deprecated path
 #pragma warning restore 612, 618
                         if (reader.GetNormValues(info.Name) != null)
                         {
@@ -1101,7 +1102,7 @@ namespace YAF.Lucene.Net.Index
                         break;
                     }
 
-                    Debug.Assert(term.IsValid());
+                    if (Debugging.AssertsEnabled) Debugging.Assert(term.IsValid());
 
                     // make sure terms arrive in order according to
                     // the comp
@@ -1234,13 +1235,14 @@ namespace YAF.Lucene.Net.Index
                                 }
                                 lastPos = pos;
                                 BytesRef payload = postings.GetPayload();
-                                if (payload != null)
+                                // LUCENENET specific - restructured to reduce number of checks in production
+                                if (!(payload is null))
                                 {
-                                    Debug.Assert(payload.IsValid());
-                                }
-                                if (payload != null && payload.Length < 1)
-                                {
-                                    throw new Exception("term " + term + ": doc " + doc + ": pos " + pos + " payload length is out of bounds " + payload.Length);
+                                    if (Debugging.AssertsEnabled) Debugging.Assert(payload.IsValid());
+                                    if (payload.Length < 1)
+                                    {
+                                        throw new Exception("term " + term + ": doc " + doc + ": pos " + pos + " payload length is out of bounds " + payload.Length);
+                                    }
                                 }
                                 if (hasOffsets)
                                 {
@@ -1454,7 +1456,7 @@ namespace YAF.Lucene.Net.Index
                     if (fieldTerms is BlockTreeTermsReader.FieldReader)
                     {
                         BlockTreeTermsReader.Stats stats = ((BlockTreeTermsReader.FieldReader)fieldTerms).ComputeStats();
-                        Debug.Assert(stats != null);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(stats != null);
                         if (status.BlockTreeStats == null)
                         {
                             status.BlockTreeStats = new Dictionary<string, BlockTreeTermsReader.Stats>();
@@ -1809,7 +1811,7 @@ namespace YAF.Lucene.Net.Index
             for (int i = 0; i < reader.MaxDoc; i++)
             {
                 dv.Get(i, scratch);
-                Debug.Assert(scratch.IsValid());
+                if (Debugging.AssertsEnabled) Debugging.Assert(scratch.IsValid());
                 if (docsWithField.Get(i) == false && scratch.Length > 0)
                 {
                     throw new Exception("dv for field: " + fieldName + " is missing but has value=" + scratch + " for doc: " + i);
@@ -1860,7 +1862,7 @@ namespace YAF.Lucene.Net.Index
             for (int i = 0; i <= maxOrd; i++)
             {
                 dv.LookupOrd(i, scratch);
-                Debug.Assert(scratch.IsValid());
+                if (Debugging.AssertsEnabled) Debugging.Assert(scratch.IsValid());
                 if (lastValue != null)
                 {
                     if (scratch.CompareTo(lastValue) <= 0)
@@ -1952,7 +1954,7 @@ namespace YAF.Lucene.Net.Index
             for (long i = 0; i <= maxOrd; i++)
             {
                 dv.LookupOrd(i, scratch);
-                Debug.Assert(scratch.IsValid());
+                if (Debugging.AssertsEnabled) Debugging.Assert(scratch.IsValid());
                 if (lastValue != null)
                 {
                     if (scratch.CompareTo(lastValue) <= 0)
@@ -2155,25 +2157,25 @@ namespace YAF.Lucene.Net.Index
                                     if (hasProx)
                                     {
                                         postings = termsEnum.DocsAndPositions(null, postings);
-                                        Debug.Assert(postings != null);
+                                        if (Debugging.AssertsEnabled) Debugging.Assert(postings != null);
                                         docs = null;
                                     }
                                     else
                                     {
                                         docs = termsEnum.Docs(null, docs);
-                                        Debug.Assert(docs != null);
+                                        if (Debugging.AssertsEnabled) Debugging.Assert(docs != null);
                                         postings = null;
                                     }
 
                                     DocsEnum docs2;
                                     if (hasProx)
                                     {
-                                        Debug.Assert(postings != null);
+                                        if (Debugging.AssertsEnabled) Debugging.Assert(postings != null);
                                         docs2 = postings;
                                     }
                                     else
                                     {
-                                        Debug.Assert(docs != null);
+                                        if (Debugging.AssertsEnabled) Debugging.Assert(docs != null);
                                         docs2 = docs;
                                     }
 
@@ -2271,12 +2273,12 @@ namespace YAF.Lucene.Net.Index
 
                                                 if (payload != null)
                                                 {
-                                                    Debug.Assert(vectorsHasPayload);
+                                                    if (Debugging.AssertsEnabled) Debugging.Assert(vectorsHasPayload);
                                                 }
 
                                                 if (postingsHasPayload && vectorsHasPayload)
                                                 {
-                                                    Debug.Assert(postingsPostings != null);
+                                                    if (Debugging.AssertsEnabled) Debugging.Assert(postingsPostings != null);
 
                                                     if (payload == null)
                                                     {
@@ -2355,19 +2357,20 @@ namespace YAF.Lucene.Net.Index
             result.NewSegments.Commit(result.Dir);
         }
 
-        private static bool assertsOn;
+        // LUCENENET: Not used
+        //private static bool assertsOn;
 
-        private static bool TestAsserts()
-        {
-            assertsOn = true;
-            return true;
-        }
+        //private static bool TestAsserts()
+        //{
+        //    assertsOn = true;
+        //    return true;
+        //}
 
-        private static bool AssertsOn()
-        {
-            Debug.Assert(TestAsserts());
-            return assertsOn;
-        }
+        //private static bool AssertsOn()
+        //{
+        //    if (Debugging.AssertsEnabled) Debugging.Assert(TestAsserts);
+        //    return assertsOn;
+        //}
 
         ///// Command-line interface to check and fix an index.
         /////
@@ -2472,11 +2475,13 @@ namespace YAF.Lucene.Net.Index
                 //Environment.Exit(1);
             }
 
-            // LUCENENET specific - doesn't apply
+            // LUCENENET specific - rather than having the user specify whether to enable asserts, we always run with them enabled.
+            Debugging.AssertsEnabled = true;
             //if (!AssertsOn())
             //{
             //    Console.WriteLine("\nNOTE: testing will be more thorough if you run java with '-ea:org.apache.lucene...', so assertions are enabled");
             //}
+
 
             if (onlySegments.Count == 0)
             {

@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Store
 {
@@ -67,7 +67,7 @@ namespace YAF.Lucene.Net.Store
 
         public IOContext(FlushInfo flushInfo)
         {
-            Debug.Assert(flushInfo != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(flushInfo != null);
             this.Context = UsageContext.FLUSH;
             this.MergeInfo = null;
             this.ReadOnce = false;
@@ -94,8 +94,11 @@ namespace YAF.Lucene.Net.Store
 
         private IOContext(UsageContext context, MergeInfo mergeInfo)
         {
-            Debug.Assert(context != UsageContext.MERGE || mergeInfo != null, "MergeInfo must not be null if context is MERGE");
-            Debug.Assert(context != UsageContext.FLUSH, "Use IOContext(FlushInfo) to create a FLUSH IOContext");
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(context != UsageContext.MERGE || mergeInfo != null, "MergeInfo must not be null if context is MERGE");
+                Debugging.Assert(context != UsageContext.FLUSH, "Use IOContext(FlushInfo) to create a FLUSH IOContext");
+            }
             this.Context = context;
             this.ReadOnce = false;
             this.MergeInfo = mergeInfo;

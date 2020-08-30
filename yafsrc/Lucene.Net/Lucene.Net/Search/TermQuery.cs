@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 
 namespace YAF.Lucene.Net.Search
@@ -24,8 +24,8 @@ namespace YAF.Lucene.Net.Search
 
     using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
     using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using IndexReaderContext = YAF.Lucene.Net.Index.IndexReaderContext;
     using ReaderUtil = YAF.Lucene.Net.Index.ReaderUtil;
     using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
@@ -60,7 +60,7 @@ namespace YAF.Lucene.Net.Search
             public TermWeight(TermQuery outerInstance, IndexSearcher searcher, TermContext termStates)
             {
                 this.outerInstance = outerInstance;
-                Debug.Assert(termStates != null, "TermContext must not be null");
+                if (Debugging.AssertsEnabled) Debugging.Assert(termStates != null, "TermContext must not be null");
                 this.termStates = termStates;
                 this.similarity = searcher.Similarity;
                 this.stats = similarity.ComputeWeight(outerInstance.Boost, searcher.CollectionStatistics(outerInstance.term.Field), searcher.TermStatistics(outerInstance.term, termStates));
@@ -85,14 +85,14 @@ namespace YAF.Lucene.Net.Search
 
             public override Scorer GetScorer(AtomicReaderContext context, IBits acceptDocs)
             {
-                Debug.Assert(termStates.TopReaderContext == ReaderUtil.GetTopLevelContext(context), "The top-reader used to create Weight (" + termStates.TopReaderContext + ") is not the same as the current reader's top-reader (" + ReaderUtil.GetTopLevelContext(context));
+                if (Debugging.AssertsEnabled) Debugging.Assert(termStates.TopReaderContext == ReaderUtil.GetTopLevelContext(context), () => "The top-reader used to create Weight (" + termStates.TopReaderContext + ") is not the same as the current reader's top-reader (" + ReaderUtil.GetTopLevelContext(context));
                 TermsEnum termsEnum = GetTermsEnum(context);
                 if (termsEnum == null)
                 {
                     return null;
                 }
                 DocsEnum docs = termsEnum.Docs(acceptDocs, null);
-                Debug.Assert(docs != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(docs != null);
                 return new TermScorer(this, docs, similarity.GetSimScorer(stats, context));
             }
 
@@ -105,7 +105,7 @@ namespace YAF.Lucene.Net.Search
                 TermState state = termStates.Get(context.Ord);
                 if (state == null) // term is not present in that reader
                 {
-                    Debug.Assert(TermNotInReader(context.AtomicReader, outerInstance.term), "no termstate found but term exists in reader term=" + outerInstance.term);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(TermNotInReader(context.AtomicReader, outerInstance.term), () => "no termstate found but term exists in reader term=" + outerInstance.term);
                     return null;
                 }
                 //System.out.println("LD=" + reader.getLiveDocs() + " set?=" + (reader.getLiveDocs() != null ? reader.getLiveDocs().get(0) : "null"));
@@ -170,7 +170,7 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         public TermQuery(Term t, TermContext states)
         {
-            Debug.Assert(states != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(states != null);
             term = t;
             docFreq = states.DocFreq;
             perReaderTermState = states;

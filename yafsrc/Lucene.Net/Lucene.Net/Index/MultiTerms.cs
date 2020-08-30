@@ -1,7 +1,7 @@
 using J2N.Collections.Generic.Extensions;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -54,7 +54,7 @@ namespace YAF.Lucene.Net.Index
             this.subSlices = subSlices;
 
             IComparer<BytesRef> _termComp = null;
-            Debug.Assert(subs.Length > 0, "inefficient: don't use MultiTerms over one sub");
+            if (Debugging.AssertsEnabled) Debugging.Assert(subs.Length > 0, "inefficient: don't use MultiTerms over one sub");
             bool _hasFreqs = true;
             bool _hasOffsets = true;
             bool _hasPositions = true;

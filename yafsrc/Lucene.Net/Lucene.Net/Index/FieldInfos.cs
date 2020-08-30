@@ -1,4 +1,5 @@
 using J2N.Collections.Generic.Extensions;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -135,7 +136,7 @@ namespace YAF.Lucene.Net.Index
         {
             get
             {
-                Debug.Assert(byNumber.Count == byName.Count);
+                if (Debugging.AssertsEnabled) Debugging.Assert(byNumber.Count == byName.Count);
                 return byNumber.Count;
             }
         }
@@ -313,7 +314,7 @@ namespace YAF.Lucene.Net.Index
             {
                 lock (this)
                 {
-                    Debug.Assert(ContainsConsistent(number, name, dvType));
+                    if (Debugging.AssertsEnabled) Debugging.Assert(ContainsConsistent(number, name, dvType));
                     docValuesType[name] = dvType;
                 }
             }
@@ -334,7 +335,7 @@ namespace YAF.Lucene.Net.Index
             /// </summary>
             internal Builder(FieldNumbers globalFieldNumbers)
             {
-                Debug.Assert(globalFieldNumbers != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(globalFieldNumbers != null);
                 this.globalFieldNumbers = globalFieldNumbers;
             }
 
@@ -375,8 +376,11 @@ namespace YAF.Lucene.Net.Index
                     // else we'll allocate a new one:
                     int fieldNumber = globalFieldNumbers.AddOrGet(name, preferredFieldNumber, docValues);
                     fi = new FieldInfo(name, isIndexed, fieldNumber, storeTermVector, omitNorms, storePayloads, indexOptions, docValues, normType, null);
-                    Debug.Assert(!byName.ContainsKey(fi.Name));
-                    Debug.Assert(globalFieldNumbers.ContainsConsistent(fi.Number, fi.Name, fi.DocValuesType));
+                    if (Debugging.AssertsEnabled)
+                    {
+                        Debugging.Assert(!byName.ContainsKey(fi.Name));
+                        Debugging.Assert(globalFieldNumbers.ContainsConsistent(fi.Number, fi.Name, fi.DocValuesType));
+                    }
                     byName[fi.Name] = fi;
                 }
                 else

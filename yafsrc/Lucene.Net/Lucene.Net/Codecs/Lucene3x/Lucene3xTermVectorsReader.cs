@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using System;
 using System.Collections;
@@ -139,8 +140,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 tvf = d.OpenInput(fn, context);
                 int tvfFormat = CheckValidFormat(tvf);
 
-                Debug.Assert(format == tvdFormat);
-                Debug.Assert(format == tvfFormat);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(format == tvdFormat);
+                    Debugging.Assert(format == tvfFormat);
+                }
 
                 numTotalDocs = (int)(tvx.Length >> 4);
 
@@ -148,7 +152,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 {
                     this.docStoreOffset = 0;
                     this.size = numTotalDocs;
-                    Debug.Assert(size == 0 || numTotalDocs == size);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(size == 0 || numTotalDocs == size);
                 }
                 else
                 {
@@ -156,7 +160,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                     this.size = size;
                     // Verify the file is long enough to hold all of our
                     // docs
-                    Debug.Assert(numTotalDocs >= size + docStoreOffset, "numTotalDocs=" + numTotalDocs + " size=" + size + " docStoreOffset=" + docStoreOffset);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(numTotalDocs >= size + docStoreOffset, () => "numTotalDocs=" + numTotalDocs + " size=" + size + " docStoreOffset=" + docStoreOffset);
                 }
 
                 this.fieldInfos = fieldInfos;
@@ -232,7 +236,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 outerInstance.tvd.Seek(outerInstance.tvx.ReadInt64());
 
                 int fieldCount = outerInstance.tvd.ReadVInt32();
-                Debug.Assert(fieldCount >= 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(fieldCount >= 0);
                 if (fieldCount != 0)
                 {
                     fieldNumbers = new int[fieldCount];
@@ -685,7 +689,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                     }
                     else
                     {
-                        Debug.Assert(startOffsets != null);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(startOffsets != null);
                         return startOffsets.Length;
                     }
                 }
@@ -736,14 +740,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             public override int NextPosition()
             {
-                //Debug.Assert((positions != null && nextPos < positions.Length) || startOffsets != null && nextPos < startOffsets.Length);
+                //if (Debugging.AssertsEnabled) Debugging.Assert((positions != null && nextPos < positions.Length) || startOffsets != null && nextPos < startOffsets.Length);
 
                 // LUCENENET: The above assertion was for control flow when testing. In Java, it would throw an AssertionError, which is
                 // caught by the BaseTermVectorsFormatTestCase.assertEquals(RandomTokenStream tk, FieldType ft, Terms terms) method in the
                 // part that is checking for an error after reading to the end of the enumerator.
 
-                // Since there is no way to turn on assertions in a release build in .NET, we are throwing an InvalidOperationException
-                // in this case, which matches the behavior of Lucene 8. See #267.
+                // In .NET it is more natural to throw an InvalidOperationException in this case, since we would potentially get an
+                // IndexOutOfRangeException if we didn't, which doesn't really provide good feedback as to what the cause is.
+                // This matches the behavior of Lucene 8.x. See #267.
                 if (((positions != null && nextPos < positions.Length) || startOffsets != null && nextPos < startOffsets.Length) == false)
                     throw new InvalidOperationException("Read past last position");
 

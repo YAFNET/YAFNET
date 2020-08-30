@@ -1,5 +1,6 @@
 using J2N.Numerics;
-using System.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
+using System.Globalization;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -70,7 +71,7 @@ namespace YAF.Lucene.Net.Util
             long b = (long)((ulong)(((long)((ulong)SmallerUpTo7_8(s, (r * L8_L)) >> 7)) * L8_L) >> 53); // & (~7L); // Step 3, side ways addition for byte number times 8
 
             long l = r - (((long)((ulong)(s << 8) >> (int)b)) & 0xFFL); // Step 4, byte wise rank, subtract the rank with byte at b-8, or zero for b=0;
-            Debug.Assert(0L <= 1);
+            if (Debugging.AssertsEnabled) Debugging.Assert(0L <= 1, () => l.ToString(CultureInfo.InvariantCulture));
             //assert l < 8 : l; //fails when bit r is not available.
 
             // Select bit l from byte (x >>> b):
@@ -149,7 +150,7 @@ namespace YAF.Lucene.Net.Util
         /// <returns> The index of the r-th 1 bit in x, or if no such bit exists, 72. </returns>
         public static int SelectNaive(long x, int r)
         {
-            Debug.Assert(r >= 1);
+            if (Debugging.AssertsEnabled) Debugging.Assert(r >= 1);
             int s = -1;
             while ((x != 0L) && (r > 0))
             {

@@ -1,11 +1,12 @@
 using J2N.Threading.Atomic;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -27,16 +28,16 @@ namespace YAF.Lucene.Net.Index
      */
 
     using BinaryDocValuesField = BinaryDocValuesField;
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
     using Codec = YAF.Lucene.Net.Codecs.Codec;
     using Directory = YAF.Lucene.Net.Store.Directory;
     using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
     using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
     using IOContext = YAF.Lucene.Net.Store.IOContext;
     using IOUtils = YAF.Lucene.Net.Util.IOUtils;
     using LiveDocsFormat = YAF.Lucene.Net.Codecs.LiveDocsFormat;
-    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
     using NumericDocValuesField = NumericDocValuesField;
     using TrackingDirectoryWrapper = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
 
@@ -104,19 +105,19 @@ namespace YAF.Lucene.Net.Index
         public virtual void IncRef()
         {
             int rc = refCount.IncrementAndGet();
-            Debug.Assert(rc > 1);
+            if (Debugging.AssertsEnabled) Debugging.Assert(rc > 1);
         }
 
         public virtual void DecRef()
         {
             int rc = refCount.DecrementAndGet();
-            Debug.Assert(rc >= 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(rc >= 0);
         }
 
         public virtual int RefCount()
         {
             int rc = refCount;
-            Debug.Assert(rc >= 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(rc >= 0);
             return rc;
         }
 
@@ -153,7 +154,7 @@ namespace YAF.Lucene.Net.Index
                     count = Info.Info.DocCount;
                 }
 
-                Debug.Assert(Info.Info.DocCount - Info.DelCount - pendingDeleteCount == count, "info.docCount=" + Info.Info.DocCount + " info.DelCount=" + Info.DelCount + " pendingDeleteCount=" + pendingDeleteCount + " count=" + count);
+                if (Debugging.AssertsEnabled) Debugging.Assert(Info.Info.DocCount - Info.DelCount - pendingDeleteCount == count, () => "info.docCount=" + Info.Info.DocCount + " info.DelCount=" + Info.DelCount + " pendingDeleteCount=" + pendingDeleteCount + " count=" + count);
                 return true;
             }
         }
@@ -220,7 +221,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                Debug.Assert(Info == sr.SegmentInfo);
+                if (Debugging.AssertsEnabled) Debugging.Assert(Info == sr.SegmentInfo);
                 sr.DecRef();
             }
         }
@@ -229,10 +230,13 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                Debug.Assert(liveDocs != null);
-                //Debug.Assert(Thread.holdsLock(Writer));
-                Debug.Assert(docID >= 0 && docID < liveDocs.Length, "out of bounds: docid=" + docID + " liveDocsLength=" + liveDocs.Length + " seg=" + Info.Info.Name + " docCount=" + Info.Info.DocCount);
-                Debug.Assert(!liveDocsShared);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(liveDocs != null);
+                    Debugging.Assert(Monitor.IsEntered(writer));
+                    Debugging.Assert(docID >= 0 && docID < liveDocs.Length, () => "out of bounds: docid=" + docID + " liveDocsLength=" + liveDocs.Length + " seg=" + Info.Info.Name + " docCount=" + Info.Info.DocCount);
+                    Debugging.Assert(!liveDocsShared);
+                }
                 bool didDelete = liveDocs.Get(docID);
                 if (didDelete)
                 {
@@ -298,7 +302,7 @@ namespace YAF.Lucene.Net.Index
                 if (reader == null)
                 {
                     GetReader(context).DecRef();
-                    Debug.Assert(reader != null);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(reader != null);
                 }
                 liveDocsShared = true;
                 if (liveDocs != null)
@@ -307,7 +311,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 else
                 {
-                    Debug.Assert(reader.LiveDocs == liveDocs);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(reader.LiveDocs == liveDocs);
                     reader.IncRef();
                     return reader;
                 }
@@ -318,8 +322,11 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                //Debug.Assert(Thread.holdsLock(Writer));
-                Debug.Assert(Info.Info.DocCount > 0);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(Monitor.IsEntered(writer));
+                    Debugging.Assert(Info.Info.DocCount > 0);
+                }
                 //System.out.println("initWritableLivedocs seg=" + info + " liveDocs=" + liveDocs + " shared=" + shared);
                 if (liveDocsShared)
                 {
@@ -348,7 +355,7 @@ namespace YAF.Lucene.Net.Index
             {
                 lock (this)
                 {
-                    //Debug.Assert(Thread.holdsLock(Writer));
+                    if (Debugging.AssertsEnabled) Debugging.Assert(Monitor.IsEntered(writer));
                     return liveDocs;
                 }
             }
@@ -359,7 +366,7 @@ namespace YAF.Lucene.Net.Index
             lock (this)
             {
                 //System.out.println("getROLiveDocs seg=" + info);
-                //Debug.Assert(Thread.holdsLock(Writer));
+                if (Debugging.AssertsEnabled) Debugging.Assert(Monitor.IsEntered(writer));
                 liveDocsShared = true;
                 //if (liveDocs != null) {
                 //System.out.println("  liveCount=" + liveDocs.count());
@@ -393,7 +400,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                //Debug.Assert(Thread.holdsLock(Writer));
+                if (Debugging.AssertsEnabled) Debugging.Assert(Monitor.IsEntered(writer));
                 //System.out.println("rld.writeLiveDocs seg=" + info + " pendingDelCount=" + pendingDeleteCount + " numericUpdates=" + numericUpdates);
                 if (pendingDeleteCount == 0)
                 {
@@ -401,7 +408,7 @@ namespace YAF.Lucene.Net.Index
                 }
 
                 // We have new deletes
-                Debug.Assert(liveDocs.Length == Info.Info.DocCount);
+                if (Debugging.AssertsEnabled) Debugging.Assert(liveDocs.Length == Info.Info.DocCount);
 
                 // Do this so we can delete any created files on
                 // exception; this saves all codecs from having to do
@@ -458,10 +465,10 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                //Debug.Assert(Thread.holdsLock(Writer));
+                if (Debugging.AssertsEnabled) Debugging.Assert(Monitor.IsEntered(writer));
                 //System.out.println("rld.writeFieldUpdates: seg=" + info + " numericFieldUpdates=" + numericFieldUpdates);
 
-                Debug.Assert(dvUpdates.Any());
+                if (Debugging.AssertsEnabled) Debugging.Assert(dvUpdates.Any());
 
                 // Do this so we can delete any created files on
                 // exception; this saves all codecs from having to do
@@ -523,7 +530,7 @@ namespace YAF.Lucene.Net.Index
                                 string field = e.Key;
                                 NumericDocValuesFieldUpdates fieldUpdates = e.Value;
                                 FieldInfo fieldInfo = fieldInfos.FieldInfo(field);
-                                Debug.Assert(fieldInfo != null);
+                                if (Debugging.AssertsEnabled) Debugging.Assert(fieldInfo != null);
 
                                 fieldInfo.DocValuesGen = nextFieldInfosGen;
                                 // write the numeric updates to a new gen'd docvalues file
@@ -536,7 +543,7 @@ namespace YAF.Lucene.Net.Index
                                 string field = e.Key;
                                 BinaryDocValuesFieldUpdates dvFieldUpdates = e.Value;
                                 FieldInfo fieldInfo = fieldInfos.FieldInfo(field);
-                                Debug.Assert(fieldInfo != null);
+                                if (Debugging.AssertsEnabled) Debugging.Assert(fieldInfo != null);
 
                                 //          System.out.println("[" + Thread.currentThread().getName() + "] RAU.writeFieldUpdates: applying binary updates; seg=" + info + " f=" + dvFieldUpdates + ", updates=" + dvFieldUpdates);
 
@@ -692,6 +699,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 else
                 {   // no update for this document
+                    if (Debugging.AssertsEnabled) Debugging.Assert(curDoc < updateDoc);
                     if (currentValues != null && DocsWithField.Get(curDoc))
                     {
                         // only read the current value if the document had a value before
@@ -724,6 +732,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 else
                 {   // no update for this document
+                    if (Debugging.AssertsEnabled) Debugging.Assert(curDoc < updateDoc);
                     if (currentValues != null && DocsWithField.Get(curDoc))
                     {
                         // only read the current value if the document had a value before
@@ -746,7 +755,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                //Debug.Assert(Thread.holdsLock(Writer));
+                if (Debugging.AssertsEnabled) Debugging.Assert(Monitor.IsEntered(writer));
                 // must execute these two statements as atomic operation, otherwise we
                 // could lose updates if e.g. another thread calls writeFieldUpdates in
                 // between, or the updates are applied to the obtained reader, but then

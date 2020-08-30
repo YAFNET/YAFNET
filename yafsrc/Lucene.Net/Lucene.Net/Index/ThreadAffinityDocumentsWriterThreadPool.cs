@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -44,14 +45,12 @@ namespace YAF.Lucene.Net.Index
         public ThreadAffinityDocumentsWriterThreadPool(int maxNumPerThreads)
             : base(maxNumPerThreads)
         {
-            Debug.Assert(MaxThreadStates >= 1);
+            if (Debugging.AssertsEnabled) Debugging.Assert(MaxThreadStates >= 1);
         }
 
         public override ThreadState GetAndLock(Thread requestingThread, DocumentsWriter documentsWriter)
         {
-            ThreadState threadState;
-            threadBindings.TryGetValue(requestingThread, out threadState);
-            if (threadState != null && threadState.TryLock())
+            if (threadBindings.TryGetValue(requestingThread, out ThreadState threadState) && threadState.TryLock())
             {
                 return threadState;
             }
@@ -66,7 +65,7 @@ namespace YAF.Lucene.Net.Index
                 ThreadState newState = NewThreadState(); // state is already locked if non-null
                 if (newState != null)
                 {
-                    //Debug.Assert(newState.HeldByCurrentThread);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(newState.IsHeldByCurrentThread);
                     threadBindings[requestingThread] = newState;
                     return newState;
                 }
@@ -80,7 +79,7 @@ namespace YAF.Lucene.Net.Index
                     minThreadState = MinContendedThreadState();
                 }
             }
-            Debug.Assert(minThreadState != null, "ThreadState is null");
+            if (Debugging.AssertsEnabled) Debugging.Assert(minThreadState != null, () => "ThreadState is null");
 
             minThreadState.@Lock();
             return minThreadState;

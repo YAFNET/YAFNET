@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using YAF.Lucene.Net.Analysis.TokenAttributes;
+﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 
 namespace YAF.Lucene.Net.Analysis.Miscellaneous
@@ -92,7 +92,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         {
             if (state != null)
             {
-                Debug.Assert(preserveOriginal, "state should only be captured if preserveOriginal is true");
+                if (Debugging.AssertsEnabled) Debugging.Assert(preserveOriginal, "state should only be captured if preserveOriginal is true");
                 RestoreState(state);
                 posIncAttr.PositionIncrement = 0;
                 state = null;

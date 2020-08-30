@@ -1,6 +1,7 @@
 ﻿using J2N;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Diagnostics;
@@ -231,7 +232,7 @@ namespace YAF.Lucene.Net.Analysis.NGram
                 {
                     if (bufferStart + 1 + minGram > bufferEnd)
                     {
-                        Debug.Assert(exhausted);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(exhausted);
                         return false;
                     }
                     Consume();
@@ -294,7 +295,7 @@ namespace YAF.Lucene.Net.Analysis.NGram
         public override sealed void End()
         {
             base.End();
-            Debug.Assert(bufferStart <= bufferEnd);
+            if (Debugging.AssertsEnabled) Debugging.Assert(bufferStart <= bufferEnd);
             int endOffset = offset;
             for (int i = bufferStart; i < bufferEnd; ++i)
             {

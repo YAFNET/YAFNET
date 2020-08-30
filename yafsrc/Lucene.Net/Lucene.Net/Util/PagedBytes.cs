@@ -1,7 +1,8 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Globalization;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -95,8 +96,11 @@ namespace YAF.Lucene.Net.Util
             /// </summary>
             public void FillSlice(BytesRef b, long start, int length)
             {
-                Debug.Assert(length >= 0, "length=" + length);
-                Debug.Assert(length <= blockSize + 1, "length=" + length);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(length >= 0, () => "length=" + length);
+                    Debugging.Assert(length <= blockSize + 1, () => "length=" + length);
+                }
                 b.Length = length;
                 if (length == 0)
                 {
@@ -144,7 +148,7 @@ namespace YAF.Lucene.Net.Util
                 {
                     b.Length = ((block[offset] & 0x7f) << 8) | (block[1 + offset] & 0xff);
                     b.Offset = offset + 2;
-                    Debug.Assert(b.Length > 0);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(b.Length > 0);
                 }
             }
 
@@ -162,7 +166,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public PagedBytes(int blockBits)
         {
-            Debug.Assert(blockBits > 0 && blockBits <= 31, blockBits.ToString());
+            if (Debugging.AssertsEnabled) Debugging.Assert(blockBits > 0 && blockBits <= 31, () => blockBits.ToString(CultureInfo.InvariantCulture));
             this.blockSize = 1 << blockBits;
             this.blockBits = blockBits;
             blockMask = blockSize - 1;
@@ -222,7 +226,7 @@ namespace YAF.Lucene.Net.Util
                 currentBlock = new byte[blockSize];
                 upto = 0;
                 //left = blockSize; // LUCENENET: Unnecessary assignment
-                Debug.Assert(bytes.Length <= blockSize);
+                if (Debugging.AssertsEnabled) Debugging.Assert(bytes.Length <= blockSize);
                 // TODO: we could also support variable block sizes
             }
 
@@ -376,7 +380,7 @@ namespace YAF.Lucene.Net.Util
 
             public override void ReadBytes(byte[] b, int offset, int len)
             {
-                Debug.Assert(b.Length >= offset + len);
+                if (Debugging.AssertsEnabled) Debugging.Assert(b.Length >= offset + len);
                 int offsetEnd = offset + len;
                 while (true)
                 {
@@ -432,7 +436,7 @@ namespace YAF.Lucene.Net.Util
 
             public override void WriteBytes(byte[] b, int offset, int length)
             {
-                Debug.Assert(b.Length >= offset + length);
+                if (Debugging.AssertsEnabled) Debugging.Assert(b.Length >= offset + length);
                 if (length == 0)
                 {
                     return;

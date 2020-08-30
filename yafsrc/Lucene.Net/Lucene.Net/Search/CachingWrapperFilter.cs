@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Search
@@ -120,7 +120,7 @@ namespace YAF.Lucene.Net.Search
             {
                 missCount++;
                 docIdSet = DocIdSetToCache(_filter.GetDocIdSet(context, null), reader);
-                Debug.Assert(docIdSet.IsCacheable);
+                if (Debugging.AssertsEnabled) Debugging.Assert(docIdSet.IsCacheable);
 #if FEATURE_CONDITIONALWEAKTABLE_ADDORUPDATE
                 _cache.AddOrUpdate(key, docIdSet);
 #else

@@ -1,7 +1,7 @@
 using J2N.IO;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support.IO;
 using System;
-using System.Diagnostics;
 using System.IO;
 
 namespace YAF.Lucene.Net.Store
@@ -234,7 +234,7 @@ namespace YAF.Lucene.Net.Store
                 if (b == m_buffer && 0 == offset)
                 {
                     // Use our own pre-wrapped byteBuf:
-                    Debug.Assert(byteBuf != null);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(byteBuf != null);
                     byteBuf.Clear();
                     byteBuf.Limit = len;
                     bb = byteBuf;
@@ -257,16 +257,9 @@ namespace YAF.Lucene.Net.Store
                 {
                     while (readLength > 0)
                     {
-                        int limit;
-                        if (readLength > CHUNK_SIZE)
-                        {
-                            limit = readOffset + CHUNK_SIZE;
-                        }
-                        else
-                        {
-                            limit = readOffset + readLength;
-                        }
-                        bb.Limit = limit;
+                        int toRead = Math.Min(CHUNK_SIZE, readLength);
+                        bb.Limit = readOffset + toRead;
+                        if (Debugging.AssertsEnabled) Debugging.Assert(bb.Remaining == toRead);
                         int i = m_channel.Read(bb, pos);
                         if (i <= 0) // be defensive here, even though we checked before hand, something could have changed
                         {
@@ -276,7 +269,7 @@ namespace YAF.Lucene.Net.Store
                         readOffset += i;
                         readLength -= i;
                     }
-                    Debug.Assert(readLength == 0);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(readLength == 0);
                 }
                 catch (IOException ioe)
                 {

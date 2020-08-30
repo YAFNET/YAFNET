@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 using System.IO;
 
 namespace YAF.Lucene.Net.Analysis
@@ -115,7 +115,7 @@ namespace YAF.Lucene.Net.Analysis
                 throw new InvalidOperationException("TokenStream contract violation: Close() call missing");
             }
             this.inputPending = input;
-            if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) SetReaderTestPoint();
+            if (Debugging.AssertsEnabled) Debugging.Assert(SetReaderTestPoint());
         }
 
         public override void Reset()

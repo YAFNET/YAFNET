@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Diagnostics;
 using IBits = YAF.Lucene.Net.Util.IBits;
@@ -170,7 +171,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                     else
                     {
                         freq = m_freqStream.ReadVInt32(); // else read freq
-                        Debug.Assert(freq != 1);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(freq != 1);
                     }
                 }
 

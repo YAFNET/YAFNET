@@ -1,7 +1,7 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 
@@ -192,7 +192,7 @@ namespace YAF.Lucene.Net.Index
             if (m_calibrateSizeByDeletes)
             {
                 int delCount = m_writer.Get().NumDeletedDocs(info);
-                Debug.Assert(delCount <= info.Info.DocCount);
+                if (Debugging.AssertsEnabled) Debugging.Assert(delCount <= info.Info.DocCount);
                 return (info.Info.DocCount - (long)delCount);
             }
             else
@@ -378,7 +378,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public override MergeSpecification FindForcedMerges(SegmentInfos infos, int maxNumSegments, IDictionary<SegmentCommitInfo, bool?> segmentsToMerge)
         {
-            Debug.Assert(maxNumSegments > 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(maxNumSegments > 0);
             if (IsVerbose)
             {
                 Message("findForcedMerges: maxNumSegs=" + maxNumSegments + " segsToMerge=" + 
@@ -469,7 +469,7 @@ namespace YAF.Lucene.Net.Index
             var spec = new MergeSpecification();
             int firstSegmentWithDeletions = -1;
             IndexWriter w = m_writer.Get();
-            Debug.Assert(w != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(w != null);
             for (int i = 0; i < numSegments; i++)
             {
                 SegmentCommitInfo info = segmentInfos.Info(i);
@@ -692,7 +692,7 @@ namespace YAF.Lucene.Net.Index
                         for (int i = start; i < end; i++)
                         {
                             mergeInfos.Add(levels[i].info);
-                            Debug.Assert(infos.Contains(levels[i].info));
+                            if (Debugging.AssertsEnabled) Debugging.Assert(infos.Contains(levels[i].info));
                         }
                         if (IsVerbose)
                         {

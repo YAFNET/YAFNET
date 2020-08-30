@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
 using YAF.Lucene.Net.Support.IO;
 using System;
@@ -368,7 +369,7 @@ namespace YAF.Lucene.Net.Util
                 IBytesRefIterator iter = buffer.GetIterator(comparer);
                 while ((spare = iter.Next()) != null)
                 {
-                    Debug.Assert(spare.Length <= ushort.MaxValue);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(spare.Length <= ushort.MaxValue);
                     @out.Write(spare);
                 }
             }
@@ -533,7 +534,7 @@ namespace YAF.Lucene.Net.Util
             /// <seealso cref="Write(byte[], int, int)"/>
             public virtual void Write(BytesRef @ref)
             {
-                Debug.Assert(@ref != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(@ref != null);
                 Write(@ref.Bytes, @ref.Offset, @ref.Length);
             }
 
@@ -553,9 +554,12 @@ namespace YAF.Lucene.Net.Util
             /// </summary>
             public virtual void Write(byte[] bytes, int off, int len)
             {
-                Debug.Assert(bytes != null);
-                Debug.Assert(off >= 0 && off + len <= bytes.Length);
-                Debug.Assert(len >= 0);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(bytes != null);
+                    Debugging.Assert(off >= 0 && off + len <= bytes.Length);
+                    Debugging.Assert(len >= 0);
+                }
                 os.WriteInt16((short)len);
                 os.WriteBytes(bytes, off, len); // LUCENENET NOTE: We call WriteBytes, since there is no Write() on Lucene's version of DataOutput
             }
@@ -650,7 +654,7 @@ namespace YAF.Lucene.Net.Util
                 }
 #pragma warning restore CA1031 // Do not catch general exception types
 
-                Debug.Assert(length >= 0, "Sanity: sequence length < 0: " + length);
+                if (Debugging.AssertsEnabled) Debugging.Assert(length >= 0, () => "Sanity: sequence length < 0: " + length);
                 byte[] result = new byte[length];
                 inputStream.ReadBytes(result, 0, length);
                 return result;

@@ -1,9 +1,9 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -135,7 +135,7 @@ namespace YAF.Lucene.Net.Search
         /// <seealso cref="IndexReader.Context"/>
         public IndexSearcher(IndexReaderContext context, TaskScheduler executor)
         {
-            Debug.Assert(context.IsTopLevel, "IndexSearcher's ReaderContext must be topLevel for reader" + context.Reader);
+            if (Debugging.AssertsEnabled) Debugging.Assert(context.IsTopLevel, () => "IndexSearcher's ReaderContext must be topLevel for reader" + context.Reader);
             reader = context.Reader;
             this.executor = executor;
             this.m_readerContext = context;
@@ -801,7 +801,7 @@ namespace YAF.Lucene.Net.Search
 
             public TopFieldDocs Call()
             {
-                Debug.Assert(slice.Leaves.Length == 1);
+                if (Debugging.AssertsEnabled) Debugging.Assert(slice.Leaves.Length == 1);
                 TopFieldDocs docs = searcher.Search(slice.Leaves, weight, after, nDocs, sort, true, doDocScores || sort.NeedsScores, doMaxScore);
                 @lock.Lock();
                 try
@@ -966,7 +966,7 @@ namespace YAF.Lucene.Net.Search
             long sumTotalTermFreq;
             long sumDocFreq;
 
-            Debug.Assert(field != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(field != null);
 
             Terms terms = MultiFields.GetTerms(reader, field);
             if (terms == null)

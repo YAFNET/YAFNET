@@ -1,4 +1,5 @@
 using J2N.Collections.Generic.Extensions;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -485,7 +486,7 @@ namespace YAF.Lucene.Net.Codecs
 
                 if (currentLiveDocs == null || currentLiveDocs.Get(docIDUpto))
                 {
-                    Debug.Assert(docIDUpto < currentReader.MaxDoc);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(docIDUpto < currentReader.MaxDoc);
                     SortedSetDocValues dv = dvs[readerUpto];
                     dv.SetDocument(docIDUpto);
                     ordUpto = ordLength = 0;
@@ -515,7 +516,7 @@ namespace YAF.Lucene.Net.Codecs
             internal BitsFilteredTermsEnum(TermsEnum @in, Int64BitSet liveTerms)
                 : base(@in, false)
             {
-                Debug.Assert(liveTerms != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(liveTerms != null);
                 this.liveTerms = liveTerms;
             }
 

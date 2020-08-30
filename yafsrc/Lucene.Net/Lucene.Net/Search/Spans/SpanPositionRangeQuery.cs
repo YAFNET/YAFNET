@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 using System.Text;
 
 namespace YAF.Lucene.Net.Search.Spans
@@ -40,7 +40,7 @@ namespace YAF.Lucene.Net.Search.Spans
 
         protected override AcceptStatus AcceptPosition(Spans spans)
         {
-            Debug.Assert(spans.Start != spans.End);
+            if (Debugging.AssertsEnabled) Debugging.Assert(spans.Start != spans.End);
             if (spans.Start >= m_end)
             {
                 return AcceptStatus.NO_AND_ADVANCE;

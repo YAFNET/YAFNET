@@ -1,7 +1,7 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
@@ -184,7 +184,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// <seealso cref="Step(int, ICollection{State})"/>
         public virtual State Step(int c)
         {
-            Debug.Assert(c >= 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(c >= 0);
             for (int i = 0; i < numTransitions; i++)
             {
                 Transition t = transitionsArray[i];

@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -80,7 +80,7 @@ namespace YAF.Lucene.Net.Index
                             break;
 
                         default:
-                            Debug.Assert(false); // unknown dv type
+                            if (Debugging.AssertsEnabled) Debugging.Assert(false); // unknown dv type
                             break;
                     }
                     docValuesCount++;

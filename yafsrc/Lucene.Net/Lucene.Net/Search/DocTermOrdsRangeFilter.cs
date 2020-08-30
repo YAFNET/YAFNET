@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 using System.Text;
 
 namespace YAF.Lucene.Net.Search
@@ -22,8 +22,8 @@ namespace YAF.Lucene.Net.Search
      */
 
     using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
 
     /// <summary>
@@ -123,7 +123,7 @@ namespace YAF.Lucene.Net.Search
                     return null;
                 }
 
-                Debug.Assert(inclusiveLowerPoint >= 0 && inclusiveUpperPoint >= 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(inclusiveLowerPoint >= 0 && inclusiveUpperPoint >= 0);
 
                 return new FieldCacheDocIdSetAnonymousInnerClassHelper(this, context.AtomicReader.MaxDoc, acceptDocs, docTermOrds, inclusiveLowerPoint, inclusiveUpperPoint);
             }

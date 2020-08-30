@@ -1,13 +1,13 @@
+using J2N.Numerics;
 using J2N.Runtime.CompilerServices;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using J2N.Numerics;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util
@@ -507,7 +507,7 @@ namespace YAF.Lucene.Net.Util
                 seen.Add(ob);
 
                 Type obClazz = ob.GetType();
-
+                // LUCENENET specific - .NET cannot return a null type for an object, so no need to assert it
                 if (obClazz.Equals(typeof(string)))
                 {
                     // LUCENENET specific - we can get a closer estimate of a string
@@ -779,8 +779,11 @@ namespace YAF.Lucene.Net.Util
             {
                 initialCapacity = Math.Max(MIN_CAPACITY, initialCapacity);
 
-                Debug.Assert(initialCapacity > 0, "Initial capacity must be between (0, " + int.MaxValue + "].");
-                Debug.Assert(loadFactor > 0 && loadFactor < 1, "Load factor must be between (0, 1).");
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(initialCapacity > 0, () => "Initial capacity must be between (0, " + int.MaxValue + "].");
+                    Debugging.Assert(loadFactor > 0 && loadFactor < 1, "Load factor must be between (0, 1).");
+                }
                 this.LoadFactor = loadFactor;
                 AllocateBuffers(RoundCapacity(initialCapacity));
             }
@@ -790,7 +793,7 @@ namespace YAF.Lucene.Net.Util
             /// </summary>
             public bool Add(KType e)
             {
-                Debug.Assert(e != null, "Null keys not allowed.");
+                if (Debugging.AssertsEnabled) Debugging.Assert(e != null, "Null keys not allowed.");
 
                 if (Assigned >= resizeThreshold)
                 {
@@ -864,7 +867,7 @@ namespace YAF.Lucene.Net.Util
             {
                 object[] oldKeys = this.keys;
 
-                Debug.Assert(Assigned >= resizeThreshold);
+                if (Debugging.AssertsEnabled) Debugging.Assert(Assigned >= resizeThreshold);
                 AllocateBuffers(NextCapacity(keys.Length));
 
                 /*
@@ -903,8 +906,11 @@ namespace YAF.Lucene.Net.Util
             /// </summary>
             private int NextCapacity(int current) // LUCENENET NOTE: made private, since protected is not valid in a sealed class
             {
-                Debug.Assert(current > 0 && ((current & (current - 1)) == 0), "Capacity must be a power of two.");
-                Debug.Assert((current << 1) > 0, "Maximum capacity exceeded (" + ((int)((uint)0x80000000 >> 1)) + ").");
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(current > 0 && ((current & (current - 1)) == 0), "Capacity must be a power of two.");
+                    Debugging.Assert((current << 1) > 0, () => "Maximum capacity exceeded (" + ((int)((uint)0x80000000 >> 1)) + ").");
+                }
 
                 if (current < MIN_CAPACITY / 2)
                 {

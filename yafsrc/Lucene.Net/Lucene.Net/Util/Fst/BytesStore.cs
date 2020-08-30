@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util.Fst
@@ -131,7 +131,7 @@ namespace YAF.Lucene.Net.Util.Fst
         internal virtual void WriteBytes(long dest, byte[] b, int offset, int len)
         {
             //System.out.println("  BS.writeBytes dest=" + dest + " offset=" + offset + " len=" + len);
-            Debug.Assert(dest + len <= Position, "dest=" + dest + " pos=" + Position + " len=" + len);
+            if (Debugging.AssertsEnabled) Debugging.Assert(dest + len <= Position, () => "dest=" + dest + " pos=" + Position + " len=" + len);
 
             // Note: weird: must go "backwards" because copyBytes
             // calls us with overlapping src/dest.  If we
@@ -198,7 +198,7 @@ namespace YAF.Lucene.Net.Util.Fst
         public virtual void CopyBytes(long src, long dest, int len)
         {
             //System.out.println("BS.copyBytes src=" + src + " dest=" + dest + " len=" + len);
-            Debug.Assert(src < dest);
+            if (Debugging.AssertsEnabled) Debugging.Assert(src < dest);
 
             // Note: weird: must go "backwards" because copyBytes
             // calls us with overlapping src/dest.  If we
@@ -287,8 +287,11 @@ namespace YAF.Lucene.Net.Util.Fst
         /// Reverse from <paramref name="srcPos"/>, inclusive, to <paramref name="destPos"/>, inclusive. </summary>
         public virtual void Reverse(long srcPos, long destPos)
         {
-            Debug.Assert(srcPos < destPos);
-            Debug.Assert(destPos < Position);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(srcPos < destPos);
+                Debugging.Assert(destPos < Position);
+            }
             //System.out.println("reverse src=" + srcPos + " dest=" + destPos);
 
             int srcBlockIndex = (int)(srcPos >> blockBits);
@@ -355,8 +358,11 @@ namespace YAF.Lucene.Net.Util.Fst
         /// </summary>
         public virtual void Truncate(long newLen)
         {
-            Debug.Assert(newLen <= Position);
-            Debug.Assert(newLen >= 0);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(newLen <= Position);
+                Debugging.Assert(newLen >= 0);
+            }
             int blockIndex = (int)(newLen >> blockBits);
             nextWrite = (int)(newLen & blockMask);
             if (nextWrite == 0)
@@ -373,7 +379,7 @@ namespace YAF.Lucene.Net.Util.Fst
             {
                 current = blocks[blockIndex];
             }
-            Debug.Assert(newLen == Position);
+            if (Debugging.AssertsEnabled) Debugging.Assert(newLen == Position);
         }
 
         public virtual void Finish()
@@ -469,7 +475,7 @@ namespace YAF.Lucene.Net.Util.Fst
                     nextBuffer = bufferIndex + 1;
                     current = outerInstance.blocks[bufferIndex];
                     nextRead = (int)(value & outerInstance.blockMask);
-                    Debug.Assert(this.Position == value, "pos=" + value + " Position=" + this.Position);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(this.Position == value, () => "pos=" + value + " Position=" + this.Position);
                 }
             }
 
@@ -542,7 +548,7 @@ namespace YAF.Lucene.Net.Util.Fst
                     nextBuffer = bufferIndex - 1;
                     current = outerInstance.blocks[bufferIndex];
                     nextRead = (int)(value & outerInstance.blockMask);
-                    Debug.Assert(this.Position == value, "value=" + value + " this.Position=" + this.Position);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(this.Position == value, () => "value=" + value + " this.Position=" + this.Position);
                 }
             }
 

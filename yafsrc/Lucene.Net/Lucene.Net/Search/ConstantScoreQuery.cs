@@ -1,7 +1,7 @@
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 using System.Text;
 
 namespace YAF.Lucene.Net.Search
@@ -84,7 +84,7 @@ namespace YAF.Lucene.Net.Search
             }
             else
             {
-                Debug.Assert(m_filter != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(m_filter != null);
                 // Fix outdated usage pattern from Lucene 2.x/early-3.x:
                 // because ConstantScoreQuery only accepted filters,
                 // QueryWrapperFilter was used to wrap queries.
@@ -154,12 +154,12 @@ namespace YAF.Lucene.Net.Search
                 //DocIdSetIterator disi;
                 if (outerInstance.m_filter != null)
                 {
-                    Debug.Assert(outerInstance.m_query == null);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.m_query == null);
                     return base.GetBulkScorer(context, scoreDocsInOrder, acceptDocs);
                 }
                 else
                 {
-                    Debug.Assert(outerInstance.m_query != null && innerWeight != null);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.m_query != null && innerWeight != null);
                     BulkScorer bulkScorer = innerWeight.GetBulkScorer(context, scoreDocsInOrder, acceptDocs);
                     if (bulkScorer == null)
                     {
@@ -174,7 +174,7 @@ namespace YAF.Lucene.Net.Search
                 DocIdSetIterator disi;
                 if (outerInstance.m_filter != null)
                 {
-                    Debug.Assert(outerInstance.m_query == null);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.m_query == null);
                     DocIdSet dis = outerInstance.m_filter.GetDocIdSet(context, acceptDocs);
                     if (dis == null)
                     {
@@ -184,7 +184,7 @@ namespace YAF.Lucene.Net.Search
                 }
                 else
                 {
-                    Debug.Assert(outerInstance.m_query != null && innerWeight != null);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.m_query != null && innerWeight != null);
                     disi = innerWeight.GetScorer(context, acceptDocs);
                 }
 
@@ -310,7 +310,7 @@ namespace YAF.Lucene.Net.Search
 
             public override float GetScore()
             {
-                Debug.Assert(docIdSetIterator.DocID != NO_MORE_DOCS);
+                if (Debugging.AssertsEnabled) Debugging.Assert(docIdSetIterator.DocID != NO_MORE_DOCS);
                 return theScore;
             }
 

@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -138,8 +138,10 @@ namespace YAF.Lucene.Net.Util
                 nextPos++;
                 count++;
             }
-            Debug.Assert(InBounds(pos));
+            if (Debugging.AssertsEnabled) Debugging.Assert(InBounds(pos));
             int index = GetIndex(pos);
+            //System.out.println("  pos=" + pos + " nextPos=" + nextPos + " -> index=" + index);
+            //assert buffer[index].pos == pos;
             return buffer[index];
         }
 
@@ -152,8 +154,11 @@ namespace YAF.Lucene.Net.Util
         public virtual void FreeBefore(int pos)
         {
             int toFree = count - (nextPos - pos);
-            Debug.Assert(toFree >= 0);
-            Debug.Assert(toFree <= count, "toFree=" + toFree + " count=" + count);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(toFree >= 0);
+                Debugging.Assert(toFree <= count, () => "toFree=" + toFree + " count=" + count);
+            }
             int index = nextWrite - count;
             if (index < 0)
             {

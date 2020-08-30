@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -62,7 +62,7 @@ namespace YAF.Lucene.Net.Search
 
         public override float GetScore()
         {
-            Debug.Assert(DocID != NO_MORE_DOCS);
+            if (Debugging.AssertsEnabled) Debugging.Assert(DocID != NO_MORE_DOCS);
             return docScorer.Score(docsEnum.DocID, docsEnum.Freq);
         }
 

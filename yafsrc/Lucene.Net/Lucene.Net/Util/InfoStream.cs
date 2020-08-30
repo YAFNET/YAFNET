@@ -1,5 +1,5 @@
 using System;
-using System.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -42,7 +42,7 @@ namespace YAF.Lucene.Net.Util
         {
             public override void Message(string component, string message)
             {
-                Debug.Assert(false, "message() should not be called when isEnabled returns false");
+                if (Debugging.AssertsEnabled) Debugging.Assert(false, "Message() should not be called when IsEnabled returns false");
             }
 
             public override bool IsEnabled(string component)

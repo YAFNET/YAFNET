@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using System.Collections;
@@ -77,7 +78,7 @@ namespace YAF.Lucene.Net.Queries
                 {
                     if (res == null)
                     {
-                        Debug.Assert(!hasShouldClauses);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(!hasShouldClauses);
                         res = new FixedBitSet(reader.MaxDoc);
                         res.Set(0, reader.MaxDoc); // NOTE: may set bits on deleted docs
                     }

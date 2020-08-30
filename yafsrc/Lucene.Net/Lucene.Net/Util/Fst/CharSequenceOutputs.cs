@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Util.Fst
 {
@@ -42,8 +42,11 @@ namespace YAF.Lucene.Net.Util.Fst
 
         public override CharsRef Common(CharsRef output1, CharsRef output2)
         {
-            Debug.Assert(output1 != null);
-            Debug.Assert(output2 != null);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(output1 != null);
+                Debugging.Assert(output2 != null);
+            }
 
             int pos1 = output1.Offset;
             int pos2 = output2.Offset;
@@ -81,8 +84,11 @@ namespace YAF.Lucene.Net.Util.Fst
 
         public override CharsRef Subtract(CharsRef output, CharsRef inc)
         {
-            Debug.Assert(output != null);
-            Debug.Assert(inc != null);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(output != null);
+                Debugging.Assert(inc != null);
+            }
             if (inc == NO_OUTPUT)
             {
                 // no prefix removed
@@ -95,16 +101,22 @@ namespace YAF.Lucene.Net.Util.Fst
             }
             else
             {
-                Debug.Assert(inc.Length < output.Length, "inc.Length=" + inc.Length + " vs output.Length=" + output.Length);
-                Debug.Assert(inc.Length > 0);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(inc.Length < output.Length, () => "inc.Length=" + inc.Length + " vs output.Length=" + output.Length);
+                    Debugging.Assert(inc.Length > 0);
+                }
                 return new CharsRef(output.Chars, output.Offset + inc.Length, output.Length - inc.Length);
             }
         }
 
         public override CharsRef Add(CharsRef prefix, CharsRef output)
         {
-            Debug.Assert(prefix != null);
-            Debug.Assert(output != null);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(prefix != null);
+                Debugging.Assert(output != null);
+            }
             if (prefix == NO_OUTPUT)
             {
                 return output;
@@ -115,8 +127,11 @@ namespace YAF.Lucene.Net.Util.Fst
             }
             else
             {
-                Debug.Assert(prefix.Length > 0);
-                Debug.Assert(output.Length > 0);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(prefix.Length > 0);
+                    Debugging.Assert(output.Length > 0);
+                }
                 var result = new CharsRef(prefix.Length + output.Length);
                 Array.Copy(prefix.Chars, prefix.Offset, result.Chars, 0, prefix.Length);
                 Array.Copy(output.Chars, output.Offset, result.Chars, prefix.Length, output.Length);
@@ -127,7 +142,7 @@ namespace YAF.Lucene.Net.Util.Fst
 
         public override void Write(CharsRef prefix, DataOutput @out)
         {
-            Debug.Assert(prefix != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(prefix != null);
             @out.WriteVInt32(prefix.Length);
             // TODO: maybe UTF8?
             for (int idx = 0; idx < prefix.Length; idx++)

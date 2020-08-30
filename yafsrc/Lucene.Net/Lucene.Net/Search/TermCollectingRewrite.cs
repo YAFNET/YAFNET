@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -68,7 +68,7 @@ namespace YAF.Lucene.Net.Search
                 }
 
                 TermsEnum termsEnum = GetTermsEnum(query, terms, collector.Attributes);
-                Debug.Assert(termsEnum != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(termsEnum != null);
 
                 if (termsEnum == TermsEnum.EMPTY)
                 {

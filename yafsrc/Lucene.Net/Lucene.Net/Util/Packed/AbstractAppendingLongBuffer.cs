@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -110,7 +110,7 @@ namespace YAF.Lucene.Net.Util.Packed
 
         public override sealed long Get(long index)
         {
-            Debug.Assert(index >= 0 && index < Count);
+            if (Debugging.AssertsEnabled) Debugging.Assert(index >= 0 && index < Count);
             int block = (int)(index >> pageShift);
             int element = (int)(index & pageMask);
             return Get(block, element);
@@ -123,9 +123,12 @@ namespace YAF.Lucene.Net.Util.Packed
         /// </summary>
         public int Get(long index, long[] arr, int off, int len)
         {
-            Debug.Assert(len > 0, "len must be > 0 (got " + len + ")");
-            Debug.Assert(index >= 0 && index < Count);
-            Debug.Assert(off + len <= arr.Length);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(len > 0, () => "len must be > 0 (got " + len + ")");
+                Debugging.Assert(index >= 0 && index < Count);
+                Debugging.Assert(off + len <= arr.Length);
+            }
 
             int block = (int)(index >> pageShift);
             int element = (int)(index & pageMask);
@@ -193,7 +196,7 @@ namespace YAF.Lucene.Net.Util.Packed
             /// Return the next long in the buffer. </summary>
             public long Next()
             {
-                Debug.Assert(HasNext);
+                if (Debugging.AssertsEnabled) Debugging.Assert(HasNext);
                 long result = currentValues[pOff++];
                 if (pOff == currentCount)
                 {

@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
 using YAF.Lucene.Net.Util;
 using System;
@@ -267,7 +268,7 @@ namespace YAF.Lucene.Net.Codecs
             IndexInput clone = (IndexInput)input.Clone();
             clone.Seek(0);
             ChecksumIndexInput @in = new BufferedChecksumIndexInput(clone);
-            Debug.Assert(@in.GetFilePointer() == 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(@in.GetFilePointer() == 0);
             @in.Seek(@in.Length - FooterLength());
             return CheckFooter(@in);
         }

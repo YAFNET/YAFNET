@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Index
@@ -164,7 +164,7 @@ namespace YAF.Lucene.Net.Index
         {
             int maxDoc = state.SegmentInfo.DocCount;
             int maxCountPerDoc = maxCount;
-            Debug.Assert(pendingCounts.Count == maxDoc);
+            if (Debugging.AssertsEnabled) Debugging.Assert(pendingCounts.Count == maxDoc);
             int valueCount = hash.Count;
 
             int[] sortedValues = hash.Sort(BytesRef.UTF8SortedAsUnicodeComparer);
@@ -203,7 +203,7 @@ namespace YAF.Lucene.Net.Index
         {
             AppendingDeltaPackedInt64Buffer.Iterator iter = pendingCounts.GetIterator();
 
-            Debug.Assert(maxDoc == pendingCounts.Count, "MaxDoc: " + maxDoc + ", pending.Count: " + pending.Count);
+            if (Debugging.AssertsEnabled) Debugging.Assert(pendingCounts.Count == maxDoc, () => "MaxDoc: " + maxDoc + ", pending.Count: " + pending.Count);
 
             for (int i = 0; i < maxDoc; ++i)
             {

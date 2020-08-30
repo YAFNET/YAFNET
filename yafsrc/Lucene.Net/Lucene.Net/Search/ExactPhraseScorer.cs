@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Support;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -263,7 +263,7 @@ namespace YAF.Lucene.Net.Search
                             cs.LastPos = cs.Pos;
                             int posIndex = cs.Pos - chunkStart;
                             counts[posIndex] = 1;
-                            Debug.Assert(gens[posIndex] != gen);
+                            if (Debugging.AssertsEnabled) Debugging.Assert(gens[posIndex] != gen);
                             gens[posIndex] = gen;
                         }
 

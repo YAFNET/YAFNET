@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using System.Diagnostics;
 using System;
 
@@ -210,8 +211,11 @@ namespace YAF.Lucene.Net.Index
         /// <seealso cref="TermsEnum.Docs(IBits, DocsEnum)"/>
         public DocsEnum GetTermDocsEnum(Term term) // LUCENENET specific: Renamed from TermDocsEnum()
         {
-            Debug.Assert(term.Field != null);
-            Debug.Assert(term.Bytes != null);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(term.Field != null);
+                Debugging.Assert(term.Bytes != null);
+            }
             Fields fields = Fields;
             if (fields != null)
             {
@@ -235,8 +239,8 @@ namespace YAF.Lucene.Net.Index
         /// <seealso cref="TermsEnum.DocsAndPositions(IBits, DocsAndPositionsEnum)"/>
         public DocsAndPositionsEnum GetTermPositionsEnum(Term term) // LUCENENET specific: Renamed from TermPositionsEnum()
         {
-            Debug.Assert(term.Field != null);
-            Debug.Assert(term.Bytes != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(term.Field != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(term.Bytes != null);
             Fields fields = Fields;
             if (fields != null)
             {

@@ -1,4 +1,5 @@
 ﻿using J2N.Collections.Generic.Extensions;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
@@ -278,7 +279,7 @@ namespace YAF.Lucene.Net.Queries
                         continue;
                     }
                     termsEnum = terms.GetIterator(termsEnum);
-                    Debug.Assert(termsEnum != null);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(termsEnum != null);
 
                     if (termsEnum == TermsEnum.EMPTY)
                     {

@@ -1,4 +1,5 @@
 using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Diagnostics;
@@ -177,7 +178,7 @@ namespace YAF.Lucene.Net.Analysis
 
             public void FillBytesRef()
             {
-                Debug.Assert(ValueSize == 64 || ValueSize == 32);
+                if (Debugging.AssertsEnabled) Debugging.Assert(ValueSize == 64 || ValueSize == 32);
                 if (ValueSize == 64)
                 {
                     NumericUtils.Int64ToPrefixCoded(_value, Shift, _bytes);

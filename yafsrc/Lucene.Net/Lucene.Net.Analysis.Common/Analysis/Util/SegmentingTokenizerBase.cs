@@ -1,6 +1,7 @@
 ﻿#if FEATURE_BREAKITERATOR
 using ICU4N.Text;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -183,7 +184,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// commons-io's readFully, but without bugs if offset != 0 </summary>
         private static int Read(TextReader input, char[] buffer, int offset, int length)
         {
-            Debug.Assert(length >= 0, "length must not be negative: " + length);
+            if (Debugging.AssertsEnabled) Debugging.Assert(length >= 0, () => "length must not be negative: " + length);
 
             int remaining = length;
             while (remaining > 0)

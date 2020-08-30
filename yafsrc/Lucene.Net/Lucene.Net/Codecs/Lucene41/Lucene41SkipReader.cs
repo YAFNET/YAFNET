@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System.Diagnostics;
 
@@ -128,7 +129,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             }
             else
             {
-                Debug.Assert(posBasePointer == 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(posBasePointer == 0);
             }
         }
 

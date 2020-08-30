@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 namespace YAF.Lucene.Net.Index
@@ -22,8 +22,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using Directory = YAF.Lucene.Net.Store.Directory;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using InfoStream = YAF.Lucene.Net.Util.InfoStream;
     using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
 
@@ -82,7 +82,7 @@ namespace YAF.Lucene.Net.Index
 
             internal static DocMap Build(int maxDoc, IBits liveDocs)
             {
-                Debug.Assert(liveDocs != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(liveDocs != null);
                 MonotonicAppendingInt64Buffer docMap = new MonotonicAppendingInt64Buffer();
                 int del = 0;
                 for (int i = 0; i < maxDoc; ++i)
@@ -95,7 +95,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 docMap.Freeze();
                 int numDeletedDocs = del;
-                Debug.Assert(docMap.Count == maxDoc);
+                if (Debugging.AssertsEnabled) Debugging.Assert(docMap.Count == maxDoc);
                 return new DocMapAnonymousInnerClassHelper(maxDoc, liveDocs, docMap, numDeletedDocs);
             }
 

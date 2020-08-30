@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Diagnostics;
 
@@ -47,9 +48,12 @@ namespace YAF.Lucene.Net.Index
 
         public void Init(ByteBlockPool pool, int startIndex, int endIndex)
         {
-            Debug.Assert(endIndex - startIndex >= 0);
-            Debug.Assert(startIndex >= 0);
-            Debug.Assert(endIndex >= 0);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(endIndex - startIndex >= 0);
+                Debugging.Assert(startIndex >= 0);
+                Debugging.Assert(endIndex >= 0);
+            }
 
             this.pool = pool;
             this.EndIndex = endIndex;
@@ -75,14 +79,17 @@ namespace YAF.Lucene.Net.Index
 
         public bool Eof()
         {
-            Debug.Assert(upto + BufferOffset <= EndIndex);
+            if (Debugging.AssertsEnabled) Debugging.Assert(upto + BufferOffset <= EndIndex);
             return upto + BufferOffset == EndIndex;
         }
 
         public override byte ReadByte()
         {
-            Debug.Assert(!Eof());
-            Debug.Assert(upto <= limit);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(!Eof());
+                Debugging.Assert(upto <= limit);
+            }
             if (upto == limit)
             {
                 NextSlice();
@@ -97,7 +104,7 @@ namespace YAF.Lucene.Net.Index
             {
                 if (limit + BufferOffset == EndIndex)
                 {
-                    Debug.Assert(EndIndex - BufferOffset >= upto);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(EndIndex - BufferOffset >= upto);
                     @out.WriteBytes(buffer, upto, limit - upto);
                     size += limit - upto;
                     break;
@@ -130,7 +137,7 @@ namespace YAF.Lucene.Net.Index
             if (nextIndex + newSize >= EndIndex)
             {
                 // We are advancing to the final slice
-                Debug.Assert(EndIndex - nextIndex > 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(EndIndex - nextIndex > 0);
                 limit = EndIndex - BufferOffset;
             }
             else

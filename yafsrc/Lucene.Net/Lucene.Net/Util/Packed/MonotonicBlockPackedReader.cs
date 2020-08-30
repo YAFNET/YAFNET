@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
 using System;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -78,7 +78,7 @@ namespace YAF.Lucene.Net.Util.Packed
 
         public override long Get(long index)
         {
-            Debug.Assert(index >= 0 && index < valueCount);
+            if (Debugging.AssertsEnabled) Debugging.Assert(index >= 0 && index < valueCount);
             int block = (int)((long)((ulong)index >> blockShift));
             int idx = (int)(index & blockMask);
             // LUCENENET NOTE: IMPORTANT: The cast to float is critical here for it to work in x86

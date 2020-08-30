@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using System;
@@ -190,7 +191,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
                         case Selector.MIDDLE_MAX: return new MiddleMaxValue(randomOrds);
                         case Selector.MIN:
                         default:
-                            Debug.Assert(false);
+                            if (Debugging.AssertsEnabled) Debugging.Assert(false);
                             return null;
                     }
                 }

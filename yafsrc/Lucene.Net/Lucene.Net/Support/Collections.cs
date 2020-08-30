@@ -2,10 +2,10 @@
 using J2N.Collections.Generic.Extensions;
 using J2N.Collections.ObjectModel;
 using J2N.Globalization;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using JCG = J2N.Collections.Generic;
@@ -270,7 +270,7 @@ namespace YAF.Lucene.Net.Support
 
             public ReverseComparer2(IComparer<T> cmp)
             {
-                Debug.Assert(cmp != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(cmp != null);
                 this.cmp = cmp;
             }
 

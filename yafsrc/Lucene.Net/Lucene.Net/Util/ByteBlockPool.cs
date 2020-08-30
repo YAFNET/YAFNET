@@ -1,9 +1,9 @@
 using J2N.Collections.Generic.Extensions;
 using J2N.Numerics;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 namespace YAF.Lucene.Net.Util
@@ -354,7 +354,7 @@ namespace YAF.Lucene.Net.Util
                 term.Length = (bytes[pos] & 0x7f) + ((bytes[pos + 1] & 0xff) << 7);
                 term.Offset = pos + 2;
             }
-            Debug.Assert(term.Length >= 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(term.Length >= 0);
         }
 
         /// <summary>

@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Search
      */
 
     using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using IndexReader = YAF.Lucene.Net.Index.IndexReader;
     using Int64BitSet = YAF.Lucene.Net.Util.Int64BitSet;
     using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
@@ -100,7 +100,7 @@ namespace YAF.Lucene.Net.Search
                 Int64BitSet termSet = new Int64BitSet(fcsi.ValueCount);
                 TermsEnum termsEnum = m_query.GetTermsEnum(new TermsAnonymousInnerClassHelper(this, fcsi));
 
-                Debug.Assert(termsEnum != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(termsEnum != null);
                 if (termsEnum.Next() != null)
                 {
                     // fill into a bitset

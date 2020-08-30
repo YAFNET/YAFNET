@@ -1,9 +1,9 @@
 using J2N.Text;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Index
@@ -28,8 +28,6 @@ namespace YAF.Lucene.Net.Index
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
     using FieldsConsumer = YAF.Lucene.Net.Codecs.FieldsConsumer;
     using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using OffsetAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.OffsetAttribute;
-    using PayloadAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.PayloadAttribute;
     using PostingsConsumer = YAF.Lucene.Net.Codecs.PostingsConsumer;
     using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
     using TermsConsumer = YAF.Lucene.Net.Codecs.TermsConsumer;
@@ -155,7 +153,7 @@ namespace YAF.Lucene.Net.Index
         internal void WriteProx(int termID, int proxCode)
         {
             //System.out.println("writeProx termID=" + termID + " proxCode=" + proxCode);
-            Debug.Assert(hasProx);
+            if (Debugging.AssertsEnabled) Debugging.Assert(hasProx);
             BytesRef payload;
             if (payloadAttribute == null)
             {
@@ -184,11 +182,11 @@ namespace YAF.Lucene.Net.Index
 
         internal void WriteOffsets(int termID, int offsetAccum)
         {
-            Debug.Assert(hasOffsets);
+            if (Debugging.AssertsEnabled) Debugging.Assert(hasOffsets);
             int startOffset = offsetAccum + offsetAttribute.StartOffset;
             int endOffset = offsetAccum + offsetAttribute.EndOffset;
             FreqProxPostingsArray postings = (FreqProxPostingsArray)termsHashPerField.postingsArray;
-            Debug.Assert(startOffset - postings.lastOffsets[termID] >= 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(startOffset - postings.lastOffsets[termID] >= 0);
             termsHashPerField.WriteVInt32(1, startOffset - postings.lastOffsets[termID]);
             termsHashPerField.WriteVInt32(1, endOffset - startOffset);
 
@@ -199,8 +197,7 @@ namespace YAF.Lucene.Net.Index
         {
             // First time we're seeing this term since the last
             // flush
-            // LUCENENET: .NET doesn't support asserts in release mode
-            if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) docState.TestPoint("FreqProxTermsWriterPerField.newTerm start");
+            if (Debugging.AssertsEnabled) Debugging.Assert(docState.TestPoint("FreqProxTermsWriterPerField.newTerm start"));
 
             FreqProxPostingsArray postings = (FreqProxPostingsArray)termsHashPerField.postingsArray;
             postings.lastDocIDs[termID] = docState.docID;
@@ -222,7 +219,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 else
                 {
-                    Debug.Assert(!hasOffsets);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(!hasOffsets);
                 }
             }
             fieldState.MaxTermFrequency = Math.Max(1, fieldState.MaxTermFrequency);
@@ -231,19 +228,18 @@ namespace YAF.Lucene.Net.Index
 
         internal override void AddTerm(int termID)
         {
-            // LUCENENET: .NET doesn't support asserts in release mode
-            if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) docState.TestPoint("FreqProxTermsWriterPerField.addTerm start");
+            if (Debugging.AssertsEnabled) Debugging.Assert(docState.TestPoint("FreqProxTermsWriterPerField.addTerm start"));
 
             FreqProxPostingsArray postings = (FreqProxPostingsArray)termsHashPerField.postingsArray;
 
-            Debug.Assert(!hasFreq || postings.termFreqs[termID] > 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(!hasFreq || postings.termFreqs[termID] > 0);
 
             if (!hasFreq)
             {
-                Debug.Assert(postings.termFreqs == null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(postings.termFreqs == null);
                 if (docState.docID != postings.lastDocIDs[termID])
                 {
-                    Debug.Assert(docState.docID > postings.lastDocIDs[termID]);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(docState.docID > postings.lastDocIDs[termID]);
                     termsHashPerField.WriteVInt32(0, postings.lastDocCodes[termID]);
                     postings.lastDocCodes[termID] = docState.docID - postings.lastDocIDs[termID];
                     postings.lastDocIDs[termID] = docState.docID;
@@ -252,7 +248,7 @@ namespace YAF.Lucene.Net.Index
             }
             else if (docState.docID != postings.lastDocIDs[termID])
             {
-                Debug.Assert(docState.docID > postings.lastDocIDs[termID], "id: " + docState.docID + " postings ID: " + postings.lastDocIDs[termID] + " termID: " + termID);
+                if (Debugging.AssertsEnabled) Debugging.Assert(docState.docID > postings.lastDocIDs[termID], () => "id: " + docState.docID + " postings ID: " + postings.lastDocIDs[termID] + " termID: " + termID);
                 // Term not yet seen in the current doc but previously
                 // seen in other doc(s) since the last flush
 
@@ -282,7 +278,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 else
                 {
-                    Debug.Assert(!hasOffsets);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(!hasOffsets);
                 }
                 fieldState.UniqueTermCount++;
             }
@@ -326,7 +322,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 else
                 {
-                    Debug.Assert(!writeOffsets);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(!writeOffsets);
                 }
                 //System.out.println("PA init freqs=" + writeFreqs + " pos=" + writeProx + " offs=" + writeOffsets);
             }
@@ -344,7 +340,7 @@ namespace YAF.Lucene.Net.Index
 
             internal override void CopyTo(ParallelPostingsArray toArray, int numToCopy)
             {
-                Debug.Assert(toArray is FreqProxPostingsArray);
+                if (Debugging.AssertsEnabled) Debugging.Assert(toArray is FreqProxPostingsArray);
                 FreqProxPostingsArray to = (FreqProxPostingsArray)toArray;
 
                 base.CopyTo(toArray, numToCopy);
@@ -353,17 +349,17 @@ namespace YAF.Lucene.Net.Index
                 Array.Copy(lastDocCodes, 0, to.lastDocCodes, 0, numToCopy);
                 if (lastPositions != null)
                 {
-                    Debug.Assert(to.lastPositions != null);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(to.lastPositions != null);
                     Array.Copy(lastPositions, 0, to.lastPositions, 0, numToCopy);
                 }
                 if (lastOffsets != null)
                 {
-                    Debug.Assert(to.lastOffsets != null);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(to.lastOffsets != null);
                     Array.Copy(lastOffsets, 0, to.lastOffsets, 0, numToCopy);
                 }
                 if (termFreqs != null)
                 {
-                    Debug.Assert(to.termFreqs != null);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(to.termFreqs != null);
                     Array.Copy(termFreqs, 0, to.termFreqs, 0, numToCopy);
                 }
             }
@@ -420,7 +416,7 @@ namespace YAF.Lucene.Net.Index
             // new segment to the directory according to
             // currentFieldIndexOptions:
             IndexOptions currentFieldIndexOptions = fieldInfo.IndexOptions;
-            Debug.Assert(currentFieldIndexOptions != IndexOptions.NONE);
+            if (Debugging.AssertsEnabled) Debugging.Assert(currentFieldIndexOptions != IndexOptions.NONE);
 
             bool writeTermFreq = currentFieldIndexOptions.CompareTo(IndexOptions.DOCS_AND_FREQS) >= 0;
             bool writePositions = currentFieldIndexOptions.CompareTo(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS) >= 0;
@@ -433,11 +429,14 @@ namespace YAF.Lucene.Net.Index
             //System.out.println("flush readTF=" + readTermFreq + " readPos=" + readPositions + " readOffs=" + readOffsets);
 
             // Make sure FieldInfo.update is working correctly!:
-            Debug.Assert(!writeTermFreq || readTermFreq);
-            Debug.Assert(!writePositions || readPositions);
-            Debug.Assert(!writeOffsets || readOffsets);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(!writeTermFreq || readTermFreq);
+                Debugging.Assert(!writePositions || readPositions);
+                Debugging.Assert(!writeOffsets || readOffsets);
 
-            Debug.Assert(!writeOffsets || writePositions);
+                Debugging.Assert(!writeOffsets || writePositions);
+            }
 
             IDictionary<Term, int?> segDeletes;
             if (state.SegUpdates != null && state.SegUpdates.terms.Count > 0)
@@ -556,11 +555,11 @@ namespace YAF.Lucene.Net.Index
                             }
                         }
 
-                        Debug.Assert(docID != postings.lastDocIDs[termID]);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(docID != postings.lastDocIDs[termID]);
                     }
 
                     docFreq++;
-                    Debug.Assert(docID < state.SegmentInfo.DocCount, "doc=" + docID + " maxDoc=" + state.SegmentInfo.DocCount);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(docID < state.SegmentInfo.DocCount, () => "doc=" + docID + " maxDoc=" + state.SegmentInfo.DocCount);
 
                     // NOTE: we could check here if the docID was
                     // deleted, and skip it.  However, this is somewhat
@@ -645,7 +644,7 @@ namespace YAF.Lucene.Net.Index
                                     {
                                         if (writeOffsets)
                                         {
-                                            Debug.Assert(startOffset >= 0 && endOffset >= startOffset, "startOffset=" + startOffset + ",endOffset=" + endOffset + ",offset=" + offset);
+                                            if (Debugging.AssertsEnabled) Debugging.Assert(startOffset >= 0 && endOffset >= startOffset, () => "startOffset=" + startOffset + ",endOffset=" + endOffset + ",offset=" + offset);
                                             postingsConsumer.AddPosition(position, thisPayload, startOffset, endOffset);
                                         }
                                         else

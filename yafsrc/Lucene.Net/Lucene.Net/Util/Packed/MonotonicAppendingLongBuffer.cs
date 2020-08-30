@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -137,7 +137,7 @@ namespace YAF.Lucene.Net.Util.Packed
 
         internal override void PackPendingValues()
         {
-            Debug.Assert(pendingOff > 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(pendingOff > 0);
             minValues[valuesOff] = pending[0];
             averages[valuesOff] = pendingOff == 1 ? 0 : (float)(pending[pendingOff - 1] - pending[0]) / (pendingOff - 1);
 

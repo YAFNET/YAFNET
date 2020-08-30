@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -51,8 +51,11 @@ namespace YAF.Lucene.Net.Search
                 float score = scorer.GetScore();
 
                 // this collector cannot handle these scores:
-                Debug.Assert(score != float.NegativeInfinity);
-                Debug.Assert(!float.IsNaN(score));
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(!float.IsNegativeInfinity(score));
+                    Debugging.Assert(!float.IsNaN(score));
+                }
 
                 m_totalHits++;
                 if (score <= pqTop.Score)
@@ -90,9 +93,12 @@ namespace YAF.Lucene.Net.Search
             {
                 float score = scorer.GetScore();
 
-                // this collector cannot handle these scores:
-                Debug.Assert(score != float.NegativeInfinity);
-                Debug.Assert(!float.IsNaN(score));
+                if (Debugging.AssertsEnabled)
+                {
+                    // this collector cannot handle these scores:
+                    Debugging.Assert(!float.IsNegativeInfinity(score));
+                    Debugging.Assert(!float.IsNaN(score));
+                }
 
                 m_totalHits++;
 
@@ -145,7 +151,7 @@ namespace YAF.Lucene.Net.Search
                 float score = scorer.GetScore();
 
                 // this collector cannot handle NaN
-                Debug.Assert(!float.IsNaN(score));
+                if (Debugging.AssertsEnabled) Debugging.Assert(!float.IsNaN(score));
 
                 m_totalHits++;
                 if (score < pqTop.Score)
@@ -188,7 +194,7 @@ namespace YAF.Lucene.Net.Search
                 float score = scorer.GetScore();
 
                 // this collector cannot handle NaN
-                Debug.Assert(!float.IsNaN(score));
+                if (Debugging.AssertsEnabled) Debugging.Assert(!float.IsNaN(score));
 
                 m_totalHits++;
                 if (score > after.Score || (score == after.Score && doc <= afterDoc))

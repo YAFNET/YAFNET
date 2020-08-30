@@ -1,5 +1,4 @@
-using System;
-using System.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 
 namespace YAF.Lucene.Net.Store
 {
@@ -67,13 +66,13 @@ namespace YAF.Lucene.Net.Store
 
         public override void WriteByte(byte b)
         {
-            Debug.Assert(pos < limit);
+            if (Debugging.AssertsEnabled) Debugging.Assert(pos < limit);
             bytes[pos++] = b;
         }
 
         public override void WriteBytes(byte[] b, int offset, int length)
         {
-            Debug.Assert(pos + length <= limit);
+            if (Debugging.AssertsEnabled) Debugging.Assert(pos + length <= limit);
             System.Buffer.BlockCopy(b, offset, bytes, pos, length);
             pos += length;
         }

@@ -1,11 +1,11 @@
 using J2N;
 using J2N.Threading;
 using J2N.Threading.Atomic;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -462,8 +462,8 @@ namespace YAF.Lucene.Net.Index
                 lock (this)
                 {
                     int idx = outerInstance.segmentInfos.IndexOf(info);
-                    Debug.Assert(idx != -1, "info=" + info + " isn't live");
-                    Debug.Assert(outerInstance.segmentInfos.Info(idx) == info, "info=" + info + " doesn't match live info in segmentInfos");
+                    Debugging.Assert(idx != -1, () => "info=" + info + " isn't live");
+                    Debugging.Assert(outerInstance.segmentInfos.Info(idx) == info, () => "info=" + info + " doesn't match live info in segmentInfos");
                     return true;
                 }
             }
@@ -476,7 +476,7 @@ namespace YAF.Lucene.Net.Index
                     readerMap.TryGetValue(info, out rld);
                     if (rld != null)
                     {
-                        Debug.Assert(info == rld.Info);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(info == rld.Info);
                         //        System.out.println("[" + Thread.currentThread().getName() + "] ReaderPool.drop: " + info);
                         readerMap.Remove(info);
                         rld.DropReaders();
@@ -516,7 +516,7 @@ namespace YAF.Lucene.Net.Index
                     rld.DecRef();
 
                     // Pool still holds a ref:
-                    Debug.Assert(rld.RefCount() >= 1);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(rld.RefCount() >= 1);
 
                     if (!outerInstance.poolReaders && rld.RefCount() == 1)
                     {
@@ -526,7 +526,7 @@ namespace YAF.Lucene.Net.Index
                         if (rld.WriteLiveDocs(outerInstance.directory))
                         {
                             // Make sure we only write del docs for a live segment:
-                            Debug.Assert(assertInfoLive == false || InfoIsLive(rld.Info));
+                            if (Debugging.AssertsEnabled) Debugging.Assert(assertInfoLive == false || InfoIsLive(rld.Info));
                             // Must checkpoint because we just
                             // created new _X_N.del and field updates files;
                             // don't call IW.checkpoint because that also
@@ -575,7 +575,7 @@ namespace YAF.Lucene.Net.Index
                             if (doSave && rld.WriteLiveDocs(outerInstance.directory)) // Throws IOException
                             {
                                 // Make sure we only write del docs and field updates for a live segment:
-                                Debug.Assert(InfoIsLive(rld.Info));
+                                if (Debugging.AssertsEnabled) Debugging.Assert(InfoIsLive(rld.Info));
                                 // Must checkpoint because we just
                                 // created new _X_N.del and field updates files;
                                 // don't call IW.checkpoint because that also
@@ -644,7 +644,7 @@ namespace YAF.Lucene.Net.Index
                     // before possibly throwing an exception.
                     readerMap.RemoveAll(toDelete);
 
-                    Debug.Assert(readerMap.Count == 0);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(readerMap.Count == 0);
                     IOUtils.ReThrow(priorE);
                 }
             }
@@ -663,11 +663,11 @@ namespace YAF.Lucene.Net.Index
                         ReadersAndUpdates rld;
                         if (readerMap.TryGetValue(info, out rld))
                         {
-                            Debug.Assert(rld.Info == info);
+                            if (Debugging.AssertsEnabled) Debugging.Assert(rld.Info == info);
                             if (rld.WriteLiveDocs(outerInstance.directory))
                             {
                                 // Make sure we only write del docs for a live segment:
-                                Debug.Assert(InfoIsLive(info));
+                                if (Debugging.AssertsEnabled) Debugging.Assert(InfoIsLive(info));
                                 // Must checkpoint because we just
                                 // created new _X_N.del and field updates files;
                                 // don't call IW.checkpoint because that also
@@ -691,7 +691,7 @@ namespace YAF.Lucene.Net.Index
             {
                 lock (this)
                 {
-                    Debug.Assert(info.Info.Dir == outerInstance.directory, "info.dir=" + info.Info.Dir + " vs " + outerInstance.directory);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(info.Info.Dir == outerInstance.directory, () => "info.dir=" + info.Info.Dir + " vs " + outerInstance.directory);
 
                     ReadersAndUpdates rld;
                     readerMap.TryGetValue(info, out rld);
@@ -707,7 +707,7 @@ namespace YAF.Lucene.Net.Index
                     }
                     else
                     {
-                        Debug.Assert(rld.Info == info, "Infos are not equal");//, "rld.info=" + rld.Info + " info=" + info + " isLive?=" + InfoIsLive(rld.Info) + " vs " + InfoIsLive(info));
+                        if (Debugging.AssertsEnabled) Debugging.Assert(rld.Info == info, () => "rld.info=" + rld.Info + " info=" + info + " isLive?=" + InfoIsLive(rld.Info) + " vs " + InfoIsLive(info));
                     }
 
                     if (create)
@@ -716,7 +716,7 @@ namespace YAF.Lucene.Net.Index
                         rld.IncRef();
                     }
 
-                    Debug.Assert(NoDups());
+                    if (Debugging.AssertsEnabled) Debugging.Assert(NoDups());
 
                     return rld;
                 }
@@ -731,7 +731,7 @@ namespace YAF.Lucene.Net.Index
                 JCG.HashSet<string> seen = new JCG.HashSet<string>();
                 foreach (SegmentCommitInfo info in readerMap.Keys)
                 {
-                    Debug.Assert(!seen.Contains(info.Info.Name));
+                    if (Debugging.AssertsEnabled) Debugging.Assert(!seen.Contains(info.Info.Name));
                     seen.Add(info.Info.Name);
                 }
                 return true;
@@ -1095,7 +1095,7 @@ namespace YAF.Lucene.Net.Index
                     else
                     {
                         CloseInternal(waitForMerges, true);
-                        Debug.Assert(AssertEventQueueAfterClose());
+                        if (Debugging.AssertsEnabled) Debugging.Assert(AssertEventQueueAfterClose());
                     }
                 }
             }
@@ -1109,7 +1109,7 @@ namespace YAF.Lucene.Net.Index
             }
             foreach (IEvent e in eventQueue)
             {
-                Debug.Assert(e is DocumentsWriter.MergePendingEvent, e.ToString());
+                if (Debugging.AssertsEnabled) Debugging.Assert(e is DocumentsWriter.MergePendingEvent, () => e.ToString());
             }
             return true;
         }
@@ -1276,7 +1276,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     closed = true;
                 }
-                Debug.Assert(docWriter.perThreadPool.NumDeactivatedThreadStates() == docWriter.perThreadPool.MaxThreadStates, "" + docWriter.perThreadPool.NumDeactivatedThreadStates() + " " + docWriter.perThreadPool.MaxThreadStates);
+                if (Debugging.AssertsEnabled) Debugging.Assert(docWriter.perThreadPool.NumDeactivatedThreadStates() == docWriter.perThreadPool.MaxThreadStates, () => "" + docWriter.perThreadPool.NumDeactivatedThreadStates() + " " + docWriter.perThreadPool.MaxThreadStates);
             }
             catch (OutOfMemoryException oom)
             {
@@ -1642,8 +1642,11 @@ namespace YAF.Lucene.Net.Index
                     int subIndex = ReaderUtil.SubIndex(docID, leaves);
                     reader = leaves[subIndex].AtomicReader;
                     docID -= leaves[subIndex].DocBase;
-                    Debug.Assert(docID >= 0);
-                    Debug.Assert(docID < reader.MaxDoc);
+                    if (Debugging.AssertsEnabled)
+                    {
+                        Debugging.Assert(docID >= 0);
+                        Debugging.Assert(docID < reader.MaxDoc);
+                    }
                 }
 
                 if (!(reader is SegmentReader))
@@ -2383,8 +2386,8 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                Debug.Assert(maxNumSegments == -1 || maxNumSegments > 0);
-                //Debug.Assert(trigger != null); // LUCENENET NOTE: Enum cannot be null in .NET
+                if (Debugging.AssertsEnabled) Debugging.Assert(maxNumSegments == -1 || maxNumSegments > 0);
+                //if (Debugging.AssertsEnabled) Debugging.Assert(trigger != null); // LUCENENET NOTE: Enum cannot be null in .NET
                 if (stopMerges)
                 {
                     return false;
@@ -2399,7 +2402,7 @@ namespace YAF.Lucene.Net.Index
                 MergePolicy.MergeSpecification spec;
                 if (maxNumSegments != UNBOUNDED_MAX_MERGE_SEGMENTS)
                 {
-                    Debug.Assert(trigger == MergeTrigger.EXPLICIT || trigger == MergeTrigger.MERGE_FINISHED, "Expected EXPLICT or MERGE_FINISHED as trigger even with maxNumSegments set but was: " + trigger.ToString());
+                    if (Debugging.AssertsEnabled) Debugging.Assert(trigger == MergeTrigger.EXPLICIT || trigger == MergeTrigger.MERGE_FINISHED, () => "Expected EXPLICT or MERGE_FINISHED as trigger even with maxNumSegments set but was: " + trigger.ToString());
                     spec = mergePolicy.FindForcedMerges(segmentInfos, maxNumSegments, segmentsToMerge);
                     newMergesFound = spec != null;
                     if (newMergesFound)
@@ -2569,8 +2572,7 @@ namespace YAF.Lucene.Net.Index
                         infoStream.Message("IW", "rollback: infos=" + SegString(segmentInfos.Segments));
                     }
 
-                    // LUCENENET: .NET doesn't support asserts in release mode
-                    if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) TestPoint("rollback before checkpoint");
+                    if (Debugging.AssertsEnabled) Debugging.Assert(TestPoint("rollback before checkpoint"));
 
                     // Ask deleter to locate unreferenced files & remove
                     // them:
@@ -2585,7 +2587,7 @@ namespace YAF.Lucene.Net.Index
                     IOUtils.Dispose(writeLock); // release write lock
                     writeLock = null;
 
-                    Debug.Assert(docWriter.perThreadPool.NumDeactivatedThreadStates() == docWriter.perThreadPool.MaxThreadStates, "" + docWriter.perThreadPool.NumDeactivatedThreadStates() + " " + docWriter.perThreadPool.MaxThreadStates);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(docWriter.perThreadPool.NumDeactivatedThreadStates() == docWriter.perThreadPool.MaxThreadStates, () => "" + docWriter.perThreadPool.NumDeactivatedThreadStates() + " " + docWriter.perThreadPool.MaxThreadStates);
                 }
 
                 success = true;
@@ -2770,7 +2772,7 @@ namespace YAF.Lucene.Net.Index
                     stopMerges = false;
                     Monitor.PulseAll(this);
 
-                    Debug.Assert(0 == mergingSegments.Count);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(0 == mergingSegments.Count);
 
                     if (infoStream.IsEnabled("IW"))
                     {
@@ -2810,7 +2812,7 @@ namespace YAF.Lucene.Net.Index
                 }
 
                 // sanity check
-                Debug.Assert(0 == mergingSegments.Count);
+                if (Debugging.AssertsEnabled) Debugging.Assert(0 == mergingSegments.Count);
 
                 if (infoStream.IsEnabled("IW"))
                 {
@@ -2863,7 +2865,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                Debug.Assert(packet != null && packet.Any());
+                if (Debugging.AssertsEnabled) Debugging.Assert(packet != null && packet.Any());
                 lock (bufferedUpdatesStream)
                 {
                     bufferedUpdatesStream.Push(packet);
@@ -3059,7 +3061,7 @@ namespace YAF.Lucene.Net.Index
                         JCG.HashSet<string> copiedFiles = new JCG.HashSet<string>();
                         foreach (SegmentCommitInfo info in sis.Segments)
                         {
-                            Debug.Assert(!infos.Contains(info), "dup info dir=" + info.Info.Dir + " name=" + info.Info.Name);
+                            if (Debugging.AssertsEnabled) Debugging.Assert(!infos.Contains(info), () => "dup info dir=" + info.Info.Dir + " name=" + info.Info.Name);
 
                             string newSegName = NewSegmentName();
 
@@ -3334,7 +3336,7 @@ namespace YAF.Lucene.Net.Index
             // because the DS might have been copied already, in which case we
             // just want to update the DS name of this SegmentInfo.
             string dsName = Lucene3xSegmentInfoFormat.GetDocStoreSegment(info.Info);
-            Debug.Assert(dsName != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(dsName != null);
             // LUCENENET: Eliminated extra lookup by using TryGetValue instead of ContainsKey
             if (!dsNames.TryGetValue(dsName, out string newDsName))
             {
@@ -3446,8 +3448,11 @@ namespace YAF.Lucene.Net.Index
                         continue;
                     }
 
-                    Debug.Assert(!SlowFileExists(directory, newFileName), "file \"" + newFileName + "\" already exists; siFiles=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", siFiles));
-                    Debug.Assert(!copiedFiles.Contains(file), "file \"" + file + "\" is being copied more than once");
+                    if (Debugging.AssertsEnabled)
+                    {
+                        Debugging.Assert(!SlowFileExists(directory, newFileName), () => "file \"" + newFileName + "\" already exists; siFiles=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", siFiles));
+                        Debugging.Assert(!copiedFiles.Contains(file), () => "file \"" + file + "\" is being copied more than once");
+                    }
                     copiedFiles.Add(file);
                     info.Info.Dir.Copy(directory, file, newFileName, context);
                 }
@@ -3815,12 +3820,8 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         private readonly object fullFlushLock = new object();
 
-        // LUCENENET NOTE: Not possible in .NET
-        //// for assert
-        //internal virtual bool HoldsFullFlushLock()
-        //{
-        //  return Thread.holdsLock(FullFlushLock);
-        //}
+        // for assert
+        internal virtual bool HoldsFullFlushLock => Monitor.IsEntered(fullFlushLock);
 
         /// <summary>
         /// Flush all in-memory buffered updates (adds and deletes)
@@ -3977,16 +3978,7 @@ namespace YAF.Lucene.Net.Index
 
         // for testing only
         internal virtual DocumentsWriter DocsWriter
-        {
-            get
-            {
-                bool test = false;
-                // LUCENENET NOTE: Must set test outside of Debug.Assert!!
-                bool isTest = test = true;
-                Debug.Assert(isTest);
-                return test ? docWriter : null;
-            }
-        }
+            => Debugging.AssertsEnabled ? docWriter : null; // LUCENENET specific - just read the status, simpler than using Assert() to set a local variable
 
         /// <summary>
         /// Expert:  Return the number of documents currently
@@ -4026,7 +4018,7 @@ namespace YAF.Lucene.Net.Index
                 // when entering the method, all iterators must already be beyond the
                 // deleted document, or right on it, in which case we advance them over
                 // and they must be beyond it now.
-                Debug.Assert(iter.Doc > deletedDoc, "updateDoc=" + iter.Doc + " deletedDoc=" + deletedDoc);
+                if (Debugging.AssertsEnabled) Debugging.Assert(iter.Doc > deletedDoc, () => "updateDoc=" + iter.Doc + " deletedDoc=" + deletedDoc);
             }
         }
 
@@ -4046,7 +4038,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     mergedDeletesAndUpdates = readerPool.Get(merge.info, true);
                     docMap = merge.GetDocMap(mergeState);
-                    Debug.Assert(docMap.IsConsistent(merge.info.Info.DocCount));
+                    if (Debugging.AssertsEnabled) Debugging.Assert(docMap.IsConsistent(merge.info.Info.DocCount));
                 }
                 if (initWritableLiveDocs && !initializedWritableLiveDocs)
                 {
@@ -4078,7 +4070,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 else
                 {
-                    Debug.Assert(updatesIter.Doc > curDoc, "field=" + mergingFields[idx] + " updateDoc=" + updatesIter.Doc + " curDoc=" + curDoc);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(updatesIter.Doc > curDoc, () => "field=" + mergingFields[idx] + " updateDoc=" + updatesIter.Doc + " curDoc=" + curDoc);
                 }
             }
         }
@@ -4097,8 +4089,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                // LUCENENET: .NET doesn't support asserts in release mode
-                if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) TestPoint("startCommitMergeDeletes");
+                if (Debugging.AssertsEnabled) Debugging.Assert(TestPoint("startCommitMergeDeletes"));
 
                 IList<SegmentCommitInfo> sourceSegments = merge.Segments;
 
@@ -4124,7 +4115,7 @@ namespace YAF.Lucene.Net.Index
                     IBits prevLiveDocs = merge.readers[i].LiveDocs;
                     ReadersAndUpdates rld = readerPool.Get(info, false);
                     // We hold a ref so it should still be in the pool:
-                    Debug.Assert(rld != null, "seg=" + info.Info.Name);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(rld != null, () => "seg=" + info.Info.Name);
                     IBits currentLiveDocs = rld.LiveDocs;
                     IDictionary<string, DocValuesFieldUpdates> mergingFieldUpdates = rld.MergingFieldUpdates;
                     string[] mergingFields;
@@ -4163,9 +4154,12 @@ namespace YAF.Lucene.Net.Index
                     {
                         // If we had deletions on starting the merge we must
                         // still have deletions now:
-                        Debug.Assert(currentLiveDocs != null);
-                        Debug.Assert(prevLiveDocs.Length == docCount);
-                        Debug.Assert(currentLiveDocs.Length == docCount);
+                        if (Debugging.AssertsEnabled)
+                        {
+                            Debugging.Assert(currentLiveDocs != null);
+                            Debugging.Assert(prevLiveDocs.Length == docCount);
+                            Debugging.Assert(currentLiveDocs.Length == docCount);
+                        }
 
                         // There were deletes on this segment when the merge
                         // started.  The merge has collapsed away those
@@ -4188,7 +4182,7 @@ namespace YAF.Lucene.Net.Index
                             {
                                 if (!prevLiveDocs.Get(j))
                                 {
-                                    Debug.Assert(!currentLiveDocs.Get(j));
+                                    if (Debugging.AssertsEnabled) Debugging.Assert(!currentLiveDocs.Get(j));
                                 }
                                 else
                                 {
@@ -4238,7 +4232,7 @@ namespace YAF.Lucene.Net.Index
                     }
                     else if (currentLiveDocs != null)
                     {
-                        Debug.Assert(currentLiveDocs.Length == docCount);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(currentLiveDocs.Length == docCount);
                         // this segment had no deletes before but now it
                         // does:
                         for (int j = 0; j < docCount; j++)
@@ -4279,7 +4273,7 @@ namespace YAF.Lucene.Net.Index
                     }
                 }
 
-                Debug.Assert(docUpto == merge.info.Info.DocCount);
+                if (Debugging.AssertsEnabled) Debugging.Assert(docUpto == merge.info.Info.DocCount);
 
                 if (mergedDVUpdates.Any())
                 {
@@ -4334,8 +4328,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                // LUCENENET: .NET doesn't support asserts in release mode
-                if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) TestPoint("startCommitMerge");
+                if (Debugging.AssertsEnabled) Debugging.Assert(TestPoint("startCommitMerge"));
 
                 if (hitOOM)
                 {
@@ -4347,7 +4340,7 @@ namespace YAF.Lucene.Net.Index
                     infoStream.Message("IW", "commitMerge: " + SegString(merge.Segments) + " index=" + SegString());
                 }
 
-                Debug.Assert(merge.registerDone);
+                if (Debugging.AssertsEnabled) Debugging.Assert(merge.registerDone);
 
                 // If merge was explicitly aborted, or, if rollback() or
                 // rollbackTransaction() had been called since our merge
@@ -4383,7 +4376,7 @@ namespace YAF.Lucene.Net.Index
                 // started), then we will switch to the compound
                 // format as well:
 
-                Debug.Assert(!segmentInfos.Contains(merge.info));
+                if (Debugging.AssertsEnabled) Debugging.Assert(!segmentInfos.Contains(merge.info));
 
                 bool allDeleted = merge.Segments.Count == 0 || merge.info.Info.DocCount == 0 || (mergedUpdates != null && mergedUpdates.PendingDeleteCount == merge.info.Info.DocCount);
 
@@ -4399,9 +4392,9 @@ namespace YAF.Lucene.Net.Index
 
                 // If we merged no segments then we better be dropping
                 // the new segment:
-                Debug.Assert(merge.Segments.Count > 0 || dropSegment);
+                if (Debugging.AssertsEnabled) Debugging.Assert(merge.Segments.Count > 0 || dropSegment);
 
-                Debug.Assert(merge.info.Info.DocCount != 0 || keepFullyDeletedSegments || dropSegment);
+                if (Debugging.AssertsEnabled) Debugging.Assert(merge.info.Info.DocCount != 0 || keepFullyDeletedSegments || dropSegment);
 
                 if (mergedUpdates != null)
                 {
@@ -4436,7 +4429,7 @@ namespace YAF.Lucene.Net.Index
 
                 if (dropSegment)
                 {
-                    Debug.Assert(!segmentInfos.Contains(merge.info));
+                    if (Debugging.AssertsEnabled) Debugging.Assert(!segmentInfos.Contains(merge.info));
                     readerPool.Drop(merge.info);
                     deleter.DeleteNewFiles(merge.info.GetFiles());
                 }
@@ -4625,7 +4618,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     return true;
                 }
-                Debug.Assert(merge.Segments.Count > 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(merge.Segments.Count > 0);
 
                 if (stopMerges)
                 {
@@ -4702,14 +4695,17 @@ namespace YAF.Lucene.Net.Index
                     mergingSegments.Add(info);
                 }
 
-                Debug.Assert(merge.EstimatedMergeBytes == 0);
-                Debug.Assert(merge.totalMergeBytes == 0);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(merge.EstimatedMergeBytes == 0);
+                    Debugging.Assert(merge.totalMergeBytes == 0);
+                }
                 foreach (SegmentCommitInfo info in merge.Segments)
                 {
                     if (info.Info.DocCount > 0)
                     {
                         int delCount = NumDeletedDocs(info);
-                        Debug.Assert(delCount <= info.Info.DocCount);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(delCount <= info.Info.DocCount);
                         double delRatio = ((double)delCount) / info.Info.DocCount;
                         merge.EstimatedMergeBytes += (long)(info.GetSizeInBytes() * (1.0 - delRatio));
                         merge.totalMergeBytes += info.GetSizeInBytes();
@@ -4755,11 +4751,13 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                // LUCENENET: .NET doesn't support asserts in release mode
-                if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) TestPoint("startMergeInit");
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(TestPoint("startMergeInit"));
 
-                Debug.Assert(merge.registerDone);
-                Debug.Assert(merge.MaxNumSegments == -1 || merge.MaxNumSegments > 0);
+                    Debugging.Assert(merge.registerDone);
+                    Debugging.Assert(merge.MaxNumSegments == -1 || merge.MaxNumSegments > 0);
+                }
 
                 if (hitOOM)
                 {
@@ -4901,7 +4899,7 @@ namespace YAF.Lucene.Net.Index
                         {
                             ReadersAndUpdates rld = readerPool.Get(sr.SegmentInfo, false);
                             // We still hold a ref so it should not have been removed:
-                            Debug.Assert(rld != null);
+                            if (Debugging.AssertsEnabled) Debugging.Assert(rld != null);
                             if (drop)
                             {
                                 rld.DropChanges();
@@ -4988,8 +4986,11 @@ namespace YAF.Lucene.Net.Index
                         liveDocs = rld.GetReadOnlyLiveDocs();
                         delCount = rld.PendingDeleteCount + info.DelCount;
 
-                        Debug.Assert(reader != null);
-                        Debug.Assert(rld.VerifyDocCounts());
+                        if (Debugging.AssertsEnabled)
+                        {
+                            Debugging.Assert(reader != null);
+                            Debugging.Assert(rld.VerifyDocCounts());
+                        }
 
                         if (infoStream.IsEnabled("IW"))
                         {
@@ -5015,7 +5016,7 @@ namespace YAF.Lucene.Net.Index
                     if (reader.NumDeletedDocs != delCount)
                     {
                         // fix the reader's live docs and del count
-                        Debug.Assert(delCount > reader.NumDeletedDocs); // beware of zombies
+                        if (Debugging.AssertsEnabled) Debugging.Assert(delCount > reader.NumDeletedDocs); // beware of zombies
 
                         SegmentReader newReader = new SegmentReader(info, reader, liveDocs, info.Info.DocCount - delCount);
                         bool released = false;
@@ -5036,7 +5037,7 @@ namespace YAF.Lucene.Net.Index
                     }
 
                     merge.readers.Add(reader);
-                    Debug.Assert(delCount <= info.Info.DocCount, "delCount=" + delCount + " info.docCount=" + info.Info.DocCount + " rld.pendingDeleteCount=" + rld.PendingDeleteCount + " info.getDelCount()=" + info.DelCount);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(delCount <= info.Info.DocCount, () => "delCount=" + delCount + " info.docCount=" + info.Info.DocCount + " rld.pendingDeleteCount=" + rld.PendingDeleteCount + " info.getDelCount()=" + info.DelCount);
                     segUpto++;
                 }
 
@@ -5074,7 +5075,7 @@ namespace YAF.Lucene.Net.Index
                         }
                     }
                 }
-                Debug.Assert(mergeState.SegmentInfo == merge.info.Info);
+                if (Debugging.AssertsEnabled) Debugging.Assert(mergeState.SegmentInfo == merge.info.Info);
                 merge.info.Info.SetFiles(new JCG.HashSet<string>(dirWrapper.CreatedFiles));
 
                 // Record which codec was used to write the segment
@@ -5260,7 +5261,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                Debug.Assert(merge.Exception != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(merge.Exception != null);
                 if (!mergeExceptions.Contains(merge) && mergeGen == merge.mergeGen)
                 {
                     mergeExceptions.Add(merge);
@@ -5378,13 +5379,13 @@ namespace YAF.Lucene.Net.Index
             ICollection<string> files = toSync.GetFiles(directory, false);
             foreach (string fileName in files)
             {
-                Debug.Assert(SlowFileExists(directory, fileName), "file " + fileName + " does not exist; files=" + Arrays.ToString(directory.ListAll()));
+                if (Debugging.AssertsEnabled) Debugging.Assert(SlowFileExists(directory, fileName), () => "file " + fileName + " does not exist; files=" + Arrays.ToString(directory.ListAll()));
                 // If this trips it means we are missing a call to
                 // .checkpoint somewhere, because by the time we
                 // are called, deleter should know about every
                 // file referenced by the current head
                 // segmentInfos:
-                Debug.Assert(deleter.Exists(fileName), "IndexFileDeleter doesn't know about file " + fileName);
+                if (Debugging.AssertsEnabled) Debugging.Assert(deleter.Exists(fileName), () => "IndexFileDeleter doesn't know about file " + fileName);
             }
             return true;
         }
@@ -5424,9 +5425,11 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         private void StartCommit(SegmentInfos toSync)
         {
-            // LUCENENET: .NET doesn't support asserts in release mode
-            if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) TestPoint("startStartCommit");
-            Debug.Assert(pendingCommit == null);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(TestPoint("startStartCommit"));
+                Debugging.Assert(pendingCommit == null);
+            }
 
             if (hitOOM)
             {
@@ -5442,7 +5445,7 @@ namespace YAF.Lucene.Net.Index
 
                 lock (this)
                 {
-                    Debug.Assert(lastCommitChangeCount <= changeCount, "lastCommitChangeCount=" + lastCommitChangeCount + " changeCount=" + changeCount);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(lastCommitChangeCount <= changeCount, () => "lastCommitChangeCount=" + lastCommitChangeCount + " changeCount=" + changeCount);
 
                     if (pendingCommitChangeCount == lastCommitChangeCount)
                     {
@@ -5460,24 +5463,22 @@ namespace YAF.Lucene.Net.Index
                         infoStream.Message("IW", "startCommit index=" + SegString(ToLiveInfos(toSync).Segments) + " changeCount=" + changeCount);
                     }
 
-                    Debug.Assert(FilesExist(toSync));
+                    if (Debugging.AssertsEnabled) Debugging.Assert(FilesExist(toSync));
                 }
 
-                // LUCENENET: .NET doesn't support asserts in release mode
-                if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) TestPoint("midStartCommit");
+                if (Debugging.AssertsEnabled) Debugging.Assert(TestPoint("midStartCommit"));
 
                 bool pendingCommitSet = false;
 
                 try
                 {
-                    // LUCENENET: .NET doesn't support asserts in release mode
-                    if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) TestPoint("midStartCommit2");
+                    if (Debugging.AssertsEnabled) Debugging.Assert(TestPoint("midStartCommit2"));
 
                     lock (this)
                     {
-                        Debug.Assert(pendingCommit == null);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(pendingCommit == null);
 
-                        Debug.Assert(segmentInfos.Generation == toSync.Generation);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(segmentInfos.Generation == toSync.Generation);
 
                         // Exception here means nothing is prepared
                         // (this method unwinds everything it did on
@@ -5514,8 +5515,7 @@ namespace YAF.Lucene.Net.Index
                         infoStream.Message("IW", "done all syncs: " + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", filesToSync));
                     }
 
-                    // LUCENENET: .NET doesn't support asserts in release mode
-                    if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) TestPoint("midStartCommitSuccess");
+                    if (Debugging.AssertsEnabled) Debugging.Assert(TestPoint("midStartCommitSuccess"));
                 }
                 finally
                 {
@@ -5545,8 +5545,7 @@ namespace YAF.Lucene.Net.Index
             {
                 HandleOOM(oom, "startCommit");
             }
-            // LUCENENET: .NET doesn't support asserts in release mode
-            if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) TestPoint("finishStartCommit");
+            if (Debugging.AssertsEnabled) Debugging.Assert(TestPoint("finishStartCommit"));
         }
 
         /// <summary>
@@ -5716,7 +5715,7 @@ namespace YAF.Lucene.Net.Index
             {
                 infoStream.Message("IW", "create compound file " + fileName);
             }
-            Debug.Assert(Lucene3xSegmentInfoFormat.GetDocStoreOffset(info) == -1);
+            if (Debugging.AssertsEnabled) Debugging.Assert(Lucene3xSegmentInfoFormat.GetDocStoreOffset(info) == -1);
             // Now merge all added files
             ICollection<string> files = info.GetFiles();
             CompoundFileDirectory cfsDir = new CompoundFileDirectory(directory, fileName, context, true);

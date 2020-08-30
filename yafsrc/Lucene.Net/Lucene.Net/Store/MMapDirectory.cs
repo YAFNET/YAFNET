@@ -1,9 +1,8 @@
 using J2N.IO;
 using J2N.IO.MemoryMappedFiles;
 using J2N.Numerics;
-using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.IO.MemoryMappedFiles;
 
@@ -112,7 +111,7 @@ namespace YAF.Lucene.Net.Store
                 throw new ArgumentException("Maximum chunk size for mmap must be >0");
             }
             this.chunkSizePower = 31 - maxChunkSize.LeadingZeroCount();
-            Debug.Assert(this.chunkSizePower >= 0 && this.chunkSizePower <= 30);
+            if (Debugging.AssertsEnabled) Debugging.Assert(this.chunkSizePower >= 0 && this.chunkSizePower <= 30);
         }
 
         /// <summary>

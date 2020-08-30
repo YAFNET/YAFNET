@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 using System.IO;
 
 namespace YAF.Lucene.Net.Store
@@ -226,7 +226,7 @@ namespace YAF.Lucene.Net.Store
                         //    {
                         //        throw new EndOfStreamException("read past EOF: " + this + " off: " + offset + " len: " + len + " total: " + total + " chunkLen: " + toRead + " end: " + m_end);
                         //    }
-                        //    Debug.Assert(i > 0, "RandomAccessFile.read with non zero-length toRead must always read at least one byte");
+                        //    if (Debugging.AssertsEnabled) Debugging.Assert(i > 0, "RandomAccessFile.read with non zero-length toRead must always read at least one byte");
                         //    total += i;
                         //}
 
@@ -235,7 +235,7 @@ namespace YAF.Lucene.Net.Store
                         // all we need to do is Read().
                         total = m_file.Read(b, offset, len);
 
-                        //Debug.Assert(total == len);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(total == len);
                     }
                     catch (IOException ioe)
                     {

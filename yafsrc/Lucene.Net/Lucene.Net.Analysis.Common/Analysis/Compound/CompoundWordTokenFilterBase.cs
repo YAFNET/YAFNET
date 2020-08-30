@@ -1,10 +1,10 @@
 ﻿using J2N.Text;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Analysis.Compound
 {
@@ -110,7 +110,7 @@ namespace YAF.Lucene.Net.Analysis.Compound
         {
             if (m_tokens.Count > 0)
             {
-                Debug.Assert(current != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(current != null);
                 CompoundToken token = m_tokens.Dequeue();
                 RestoreState(current); // keep all other attributes untouched
                 m_termAtt.SetEmpty().Append(token.Text);

@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
 using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 using FieldInvertState = YAF.Lucene.Net.Index.FieldInvertState;
@@ -101,7 +101,7 @@ namespace YAF.Lucene.Net.Search.Similarities
         protected internal virtual void FillBasicStats(BasicStats stats, CollectionStatistics collectionStats, TermStatistics termStats)
         {
             // #positions(field) must be >= #positions(term)
-            Debug.Assert(collectionStats.SumTotalTermFreq == -1 || collectionStats.SumTotalTermFreq >= termStats.TotalTermFreq);
+            if (Debugging.AssertsEnabled) Debugging.Assert(collectionStats.SumTotalTermFreq == -1 || collectionStats.SumTotalTermFreq >= termStats.TotalTermFreq);
             long numberOfDocuments = collectionStats.MaxDoc;
 
             long docFreq = termStats.DocFreq;

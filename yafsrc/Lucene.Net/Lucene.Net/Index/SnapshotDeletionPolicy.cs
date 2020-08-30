@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -130,7 +130,7 @@ namespace YAF.Lucene.Net.Index
                 throw new ArgumentException("commit gen=" + gen + " is not currently snapshotted");
             }
             int refCountInt = (int)refCount;
-            Debug.Assert(refCountInt > 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(refCountInt > 0);
             refCountInt--;
             if (refCountInt == 0)
             {

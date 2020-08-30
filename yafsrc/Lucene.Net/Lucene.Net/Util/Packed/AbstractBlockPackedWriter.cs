@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Packed
@@ -72,7 +72,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// Reset this writer to wrap <paramref name="out"/>. The block size remains unchanged. </summary>
         public virtual void Reset(DataOutput @out)
         {
-            Debug.Assert(@out != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(@out != null);
             this.m_out = @out;
             m_off = 0;
             m_ord = 0L;

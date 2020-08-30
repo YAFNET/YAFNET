@@ -1,4 +1,5 @@
 ﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Diagnostics;
 using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Analysis.Miscellaneous
@@ -34,11 +35,11 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         public SingleTokenTokenStream(Token token) 
             : base(Token.TOKEN_ATTRIBUTE_FACTORY)
         {
-            Debug.Assert(token != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(token != null);
             this.singleToken = (Token)token.Clone();
 
             tokenAtt = AddAttribute<ICharTermAttribute>();
-            Debug.Assert(tokenAtt is Token);
+            if (Debugging.AssertsEnabled) Debugging.Assert(tokenAtt is Token);
         }
 
         public override sealed bool IncrementToken()

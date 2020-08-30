@@ -1,8 +1,8 @@
 using J2N.Numerics;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 namespace YAF.Lucene.Net.Index
@@ -92,6 +92,9 @@ namespace YAF.Lucene.Net.Index
 
             public virtual bool MoveNext()
             {
+                // LUCENENET specific - Since there is no way to check for a next element
+                // without calling this method in .NET, the assert is redundant and ineffective.
+                //if (Debugging.AssertsEnabled) Debugging.Assert(input.GetFilePointer() < input.Length); // Has next
                 if (input.GetFilePointer() < input.Length)
                 {
                     try
@@ -146,7 +149,7 @@ namespace YAF.Lucene.Net.Index
             /// add a term </summary>
             public virtual void Add(Term term)
             {
-                Debug.Assert(lastTerm.Equals(new Term("")) || term.CompareTo(lastTerm) > 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(lastTerm.Equals(new Term("")) || term.CompareTo(lastTerm) > 0);
 
                 try
                 {
