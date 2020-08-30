@@ -116,19 +116,19 @@ namespace YAF.Pages.Moderate
         {
             this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
-            var baseSize = this.Get<BoardSettings>().TopicsPerPage;
+            var baseSize = this.PagerTop.PageSize;
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
 
             var topicList = this.GetRepository<Topic>().ListAsDataTable(
                 this.PageContext.PageForumID,
-                null,
+                this.PageContext.PageUserID,
                 DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
                 currentPageIndex,
                 baseSize,
                 false,
                 true,
-                false);
+                true);
 
             this.topiclist.DataSource = topicList;
             this.UserList.DataSource = this.GetRepository<UserForum>().List(null, this.PageContext.PageForumID);
