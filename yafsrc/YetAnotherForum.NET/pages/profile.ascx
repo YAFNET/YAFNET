@@ -71,7 +71,7 @@
                 </li>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" id="userGroupsRow" visible="false">
-                <li class="list-group-item text-right">
+                    <li class="list-group-item text-right">
                     <span class="float-left font-weight-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="groups" />
                     </span>
@@ -84,6 +84,7 @@
                         </SeparatorTemplate>
                     </asp:Repeater>
                 </li>
+                </asp:PlaceHolder>
                     <asp:PlaceHolder runat="server" id="RankTR" visible="false">
                         <li class="list-group-item text-right">
                         <span class="float-left font-weight-bold">
@@ -150,7 +151,6 @@
 								<asp:Literal runat="server" id="Gender" />
                                 </li>
 							</asp:PlaceHolder>
-                </asp:PlaceHolder>
             </ul>
             <asp:PlaceHolder runat="server" ID="HomePlaceHolder">
             <div class="card mb-3">
