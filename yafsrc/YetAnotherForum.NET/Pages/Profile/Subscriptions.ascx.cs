@@ -34,6 +34,7 @@ namespace YAF.Pages.Profile
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -78,6 +79,16 @@ namespace YAF.Pages.Profile
             {
                 return;
             }
+
+            this.PageSizeTopics.DataSource = StaticDataHelper.PageEntries();
+            this.PageSizeTopics.DataTextField = "Name";
+            this.PageSizeTopics.DataValueField = "Value";
+            this.PageSizeTopics.DataBind();
+
+            this.PageSizeForums.DataSource = StaticDataHelper.PageEntries();
+            this.PageSizeForums.DataTextField = "Name";
+            this.PageSizeForums.DataValueField = "Value";
+            this.PageSizeForums.DataBind();
 
             this.BindData();
 
@@ -124,10 +135,21 @@ namespace YAF.Pages.Profile
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+        protected void PagerTopics_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             // rebind
-            this.BindData();
+            this.BindDataTopics();
+        }
+
+        /// <summary>
+        /// Rebinds the Data After a Page Change
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void PagerForums_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // rebind
+            this.BindDataForums();
         }
 
         /// <summary>
@@ -207,6 +229,34 @@ namespace YAF.Pages.Profile
         }
 
         /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeForumsSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindDataForums();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeTopicsSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindDataTopics();
+        }
+
+        /// <summary>
         /// Handles the SelectionChanged event of the Notification Type control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -231,7 +281,7 @@ namespace YAF.Pages.Profile
         /// The id label id.
         /// </param>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// Returns the List with the Checked IDs
         /// </returns>
         private static List<int> GetCheckedIds(Repeater repeater, string checkBoxId, string idLabelId)
         {
@@ -250,44 +300,78 @@ namespace YAF.Pages.Profile
         /// </summary>
         private void BindData()
         {
-            //TODO: PAGING
-            var watchForums = this.GetRepository<WatchForum>().List(this.PageContext.PageUserID);
+           this.BindDataForums();
 
-            this.ForumList.DataSource = watchForums;
+           this.BindDataTopics();
 
-            this.ForumsHolder.Visible = watchForums.Any();
-
-            // we are going to page results
-            var dt = this.GetRepository<WatchTopic>().List(this.PageContext.PageUserID);
-
-            // set pager and data source
-            this.PagerTop.Count = dt.Count;
-
-            // page to render
-            var currentPageIndex = this.PagerTop.CurrentPageIndex;
-
-            var pageCount = this.PagerTop.Count / this.PagerTop.PageSize;
-
-            // if we are above total number of pages, select last
-            if (currentPageIndex >= pageCount)
-            {
-                currentPageIndex = pageCount - 1;
-            }
-
-            // bind list
-            //TODO:Paging
-            var topicList = dt.AsEnumerable().Skip(currentPageIndex * this.PagerTop.PageSize).Take(this.PagerTop.PageSize).ToList();
-
-            this.TopicList.DataSource = topicList;
-
-            this.UnsubscribeTopics.Visible = topicList.Count != 0;
-
-            this.TopicsHolder.Visible = topicList.Count != 0;
-
-            this.PMNotificationEnabled.Checked = this.PageContext.User.PMNotification;
+           this.PMNotificationEnabled.Checked = this.PageContext.User.PMNotification;
             this.DailyDigestEnabled.Checked = this.PageContext.User.DailyDigest;
 
             this.DataBind();
+        }
+
+        /// <summary>
+        /// The bind data forums.
+        /// </summary>
+        private void BindDataForums()
+        {
+            this.PagerForums.PageSize = this.PageSizeForums.SelectedValue.ToType<int>();
+
+            var list = this.GetRepository<WatchForum>().List(
+                this.PageContext.PageUserID,
+                this.PagerForums.CurrentPageIndex,
+                this.PagerForums.PageSize);
+
+            if (list == null)
+            {
+                this.UnsubscribeForums.Visible = false;
+
+                this.ForumsHolder.Visible = false;
+
+                return;
+            }
+
+            this.ForumList.DataSource = list;
+
+            this.PagerForums.Count = list.Any()
+                ? this.GetRepository<WatchForum>()
+                    .Count(x => x.UserID == this.PageContext.PageUserID).ToType<int>()
+                : 0;
+
+            this.ForumList.DataBind();
+            this.PagerForums.DataBind();
+        }
+
+        /// <summary>
+        /// The bind data topics.
+        /// </summary>
+        private void BindDataTopics()
+        {
+            this.PagerTopics.PageSize = this.PageSizeTopics.SelectedValue.ToType<int>();
+
+            var list = this.GetRepository<WatchTopic>().List(
+                this.PageContext.PageUserID,
+                this.PagerTopics.CurrentPageIndex,
+                this.PagerTopics.PageSize);
+
+            if (list == null)
+            {
+                this.UnsubscribeTopics.Visible = false;
+
+                this.TopicsHolder.Visible = false;
+
+                return;
+            }
+
+            this.TopicList.DataSource = list;
+
+            this.PagerTopics.Count = list.Any()
+                ? this.GetRepository<WatchTopic>()
+                    .Count(x => x.UserID == this.PageContext.PageUserID).ToType<int>()
+                : 0;
+
+            this.TopicList.DataBind();
+            this.PagerTopics.DataBind();
         }
 
         /// <summary>

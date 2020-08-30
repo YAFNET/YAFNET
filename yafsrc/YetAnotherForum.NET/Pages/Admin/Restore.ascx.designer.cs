@@ -30,16 +30,16 @@ namespace YAF.Pages.Admin
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel1;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
-        /// PagerTop control.
+        /// PageSize control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerTop;
+        protected global::System.Web.UI.WebControls.DropDownList PageSize;
 
         /// <summary>
         /// HelpLabel2 control.
@@ -69,22 +69,31 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.Repeater DeletedTopics;
 
         /// <summary>
-        /// PagerBottom control.
+        /// PagerTop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerBottom;
+        protected global::YAF.Web.Controls.Pager PagerTop;
 
         /// <summary>
-        /// PagerMessages control.
+        /// LocalizedLabel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerMessages;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
+
+        /// <summary>
+        /// PageSizeMessages control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PageSizeMessages;
 
         /// <summary>
         /// DeletedMessages control.
@@ -96,12 +105,12 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.Repeater DeletedMessages;
 
         /// <summary>
-        /// PagerMessagesBottom control.
+        /// PagerMessages control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerMessagesBottom;
+        protected global::YAF.Web.Controls.Pager PagerMessages;
     }
 }

@@ -32,6 +32,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -57,10 +58,36 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.IsPostBack)
+            if (this.IsPostBack)
             {
-                this.BindData();
+                return;
             }
+
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSizeMessages.DataSource = StaticDataHelper.PageEntries();
+            this.PageSizeMessages.DataTextField = "Name";
+            this.PageSizeMessages.DataValueField = "Value";
+            this.PageSizeMessages.DataBind();
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
         }
 
         /// <summary>
@@ -273,8 +300,8 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.PageContext.BoardSettings.TopicsPerPage;
-            this.PagerMessages.PageSize = this.PageContext.BoardSettings.TopicsPerPage;
+            this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
+            this.PagerMessages.PageSize = this.PageSizeMessages.SelectedValue.ToType<int>();
 
             var deletedTopics = this.GetRepository<Topic>()
                 .GetDeletedTopics(this.PageContext.PageBoardID, this.Filter.Text);

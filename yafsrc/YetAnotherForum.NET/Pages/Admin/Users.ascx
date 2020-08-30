@@ -8,17 +8,10 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-<div class="row">
-    <div class="col-xl-12">
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="ADMIN_USERS" LocalizedPage="ADMINMENU" /></h1>
-    </div>
-    </div>
 <asp:PlaceHolder runat="server" ID="SearchResults" Visible="False">
     <div class="row">
         <div class="col-xl-12">
-        
-        <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopPageChange" UsePostBack="True" />
-        
+
         <div class="card mb-3">
             <div class="card-header">
                 <div class="row justify-content-between align-items-center">
@@ -29,7 +22,17 @@
                     </div>
                     <div class="col-auto">
                         <div class="btn-toolbar" role="toolbar">
-                            <div class="btn-group btn-group-sm mr-2" role="group" aria-label="tools">
+                            <div class="input-group input-group-sm mr-2 mb-1" role="group">
+                                <div class="input-group-text">
+                                    <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
+                                </div>
+                                <asp:DropDownList runat="server" ID="PageSize"
+                                                  AutoPostBack="True"
+                                                  OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+                                                  CssClass="form-select">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="btn-group btn-group-sm mr-2 mb-1" role="group" aria-label="tools">
                                 <YAF:ThemeButton runat="server"
                                                  CssClass="dropdown-toggle"
                                                  DataToggle="dropdown"
@@ -67,7 +70,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="btn-group btn-group-sm" role="group" aria-label="sort">
+                            <div class="btn-group btn-group-sm mb-1" role="group" aria-label="sort">
                                 <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown"
@@ -343,8 +346,15 @@
             </div>
         </div>
     </div>
-    <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" UsePostBack="True" />
+<div class="row justify-content-end">
+<div class="col-auto">
+    <YAF:Pager ID="PagerTop" runat="server"
+               OnPageChange="PagerTopPageChange" 
+               UsePostBack="True" />
+    </div>
+</div>
     </asp:PlaceHolder>
+
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>

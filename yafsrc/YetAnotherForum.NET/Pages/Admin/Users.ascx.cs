@@ -37,6 +37,7 @@ namespace YAF.Pages.Admin
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Tasks;
     using YAF.Core.Utilities;
@@ -329,12 +330,30 @@ namespace YAF.Pages.Admin
             this.rank.DataValueField = "ID";
             this.rank.DataBind();
 
-            // TODO : page size definable?
-            this.PagerTop.PageSize = 25;
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
             // Hide "New User" & Sync Button on DotNetNuke
             this.ImportAndSyncHolder.Visible = !Config.IsDotNetNuke;
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
             this.BindData();
         }
 

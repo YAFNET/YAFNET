@@ -36,6 +36,7 @@ namespace YAF.Pages.Admin
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -253,6 +254,11 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
             var allItem = new ListItem(this.GetText("ALL"), "-1");
 
             allItem.Attributes.Add(
@@ -330,8 +336,6 @@ namespace YAF.Pages.Admin
 
             this.Page.Header.Title =
                 $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_EVENTLOG", "TITLE")}";
-
-            this.PagerTop.PageSize = 25;
         }
 
         /// <summary>
@@ -356,11 +360,25 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
+        }
+
+        /// <summary>
         /// Populates data source and binds data to controls.
         /// </summary>
         private void BindData()
         {
-            var baseSize = this.Get<BoardSettings>().MemberListPageSize;
+            var baseSize = this.PageSize.SelectedValue.ToType<int>();
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
             this.PagerTop.PageSize = baseSize;
 

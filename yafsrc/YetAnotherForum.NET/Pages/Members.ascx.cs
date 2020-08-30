@@ -35,6 +35,7 @@ namespace YAF.Pages
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -198,6 +199,11 @@ namespace YAF.Pages
                 return;
             }
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
             this.ViewState["SortNameField"] = 1;
             this.ViewState["SortRankNameField"] = 0;
             this.ViewState["SortJoinedField"] = 0;
@@ -236,6 +242,20 @@ namespace YAF.Pages
             this.Group.DataValueField = "ID";
             this.Group.DataBind();
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
             this.BindData();
         }
 
@@ -468,7 +488,7 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            this.Pager.PageSize = this.Get<BoardSettings>().MemberListPageSize;
+            this.Pager.PageSize = this.PageSize.SelectedValue.ToType<int>();
             var selectedCharLetter = this.AlphaSort1.CurrentLetter;
 
             // get the user list...

@@ -15,13 +15,22 @@ namespace YAF.Controls
     {
 
         /// <summary>
-        /// PagerTop control.
+        /// HelpLabel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerTop;
+        protected global::YAF.Web.Controls.LocalizedLabel HelpLabel2;
+
+        /// <summary>
+        /// PageSize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PageSize;
 
         /// <summary>
         /// WasMentioned control.
@@ -87,24 +96,6 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.Panel NoItems;
 
         /// <summary>
-        /// SinceLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel SinceLabel;
-
-        /// <summary>
-        /// PageSize control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList PageSize;
-
-        /// <summary>
         /// MarkAll control.
         /// </summary>
         /// <remarks>
@@ -114,12 +105,12 @@ namespace YAF.Controls
         protected global::YAF.Web.Controls.ThemeButton MarkAll;
 
         /// <summary>
-        /// PagerBottom control.
+        /// PagerTop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerBottom;
+        protected global::YAF.Web.Controls.Pager PagerTop;
     }
 }

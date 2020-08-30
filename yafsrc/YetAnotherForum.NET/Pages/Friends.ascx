@@ -31,34 +31,13 @@
         </ul>
         <div class="tab-content">
             <div id="BuddyListTab" class="tab-pane" role="tabpanel">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <YAF:IconHeader runat="server"
-                                        IconName="user-friends"
-                                        LocalizedTag="BUDDYLIST" />
-                    </div>
-                    <YAF:BuddyList runat="server" ID="BuddyList1" />
-                </div>
+                <YAF:BuddyList runat="server" ID="BuddyList1" />
             </div>
             <div id="PendingRequestsTab" class="tab-pane" role="tabpanel">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <YAF:IconHeader runat="server"
-                                        IconName="user-friends"
-                                        LocalizedTag="PENDING_REQUESTS" />
-                    </div>
-                    <YAF:BuddyList runat="server" ID="PendingBuddyList" />
-                </div>
+                <YAF:BuddyList runat="server" ID="PendingBuddyList" />
             </div>
             <div id="YourRequestsTab" class="tab-pane" role="tabpanel">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <YAF:IconHeader runat="server"
-                                        IconName="user-friends"
-                                        LocalizedTag="YOUR_REQUESTS" />
-                    </div>
-                    <YAF:BuddyList runat="server" ID="BuddyRequested" />
-                </div>
+                <YAF:BuddyList runat="server" ID="BuddyRequested" />
             </div>
         </div>
     </asp:Panel>

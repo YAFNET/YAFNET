@@ -38,70 +38,37 @@
             </ul>
             <div class="tab-content">
                 <div id="View0" class="tab-pane" role="tabpanel">
-                    <asp:UpdatePanel ID="InboxTabUpdatePanel" runat="server">
-                        <ContentTemplate>
-                            <div class="card mb-3">
-                            <div class="card-header">
-                                <YAF:IconHeader runat="server"
-                                                IconName="inbox"
-                                                LocalizedTag="INBOX"/>
-                            </div>
-                            <div class="card-body">
-                                <YAF:PMList runat="server" ID="InboxPMList"
-                                            View="Inbox" />
-                            </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">
-                                        <asp:Label ID="InfoInbox" runat="server"/>
-                                    </small>
-                                </div>
-                            </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                    <div class="card mb-3">
+                        <YAF:PMList runat="server" ID="InboxPMList"
+                                    View="Inbox" />
+                        <div class="card-footer">
+                            <small class="text-muted">
+                                <asp:Label ID="InfoInbox" runat="server"/>
+                            </small>
+                        </div>
+                    </div>
                 </div>
                 <div id="View1" class="tab-pane" role="tabpanel">
-                    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                        <ContentTemplate>
-                            <div class="card mb-3">
-                            <div class="card-header">
-                                <YAF:IconHeader runat="server"
-                                                IconName="inbox"
-                                                LocalizedTag="SENTITEMS"/>
-                            </div>
-                            <div class="card-body">
-                                <YAF:PMList runat="server" ID="OutboxPMList" 
-                                            View="Outbox" />
-                            </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">
-                                        <asp:Label ID="InfoOutbox" runat="server"/>
-                                    </small>
-                                </div>
-                            </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                    <div class="card mb-3">
+                        <YAF:PMList runat="server" ID="OutboxPMList" 
+                                    View="Outbox" />
+                        <div class="card-footer">
+                            <small class="text-muted">
+                                <asp:Label ID="InfoOutbox" runat="server"/>
+                            </small>
+                        </div>
+                    </div>
                 </div>
                 <div id="View2" class="tab-pane" role="tabpanel">
-                    <asp:UpdatePanel ID="ArchiveTabUpdatePanel" runat="server">
-                        <ContentTemplate>
-                            <div class="card mb-3">
-                                <div class="card-header">
-                                    <YAF:IconHeader runat="server"
-                                                    IconName="inbox"
-                                                    LocalizedTag="ARCHIVE"/>
-                                </div>
-                                <div class="card-body">
-                                    <YAF:PMList runat="server" ID="ArchivePMList"
-                                                View="Archive"  />
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">
-                                        <asp:Label ID="InfoArchive" runat="server"/>
-                                    </small>
-                                </div>
-                            </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                    <div class="card mb-3">
+                        <YAF:PMList runat="server" ID="ArchivePMList"
+                                    View="Archive"  />
+                        <div class="card-footer">
+                            <small class="text-muted">
+                                <asp:Label ID="InfoArchive" runat="server"/>
+                            </small>
+                        </div>
+                    </div>
                 </div>
             </div>
         </asp:Panel>

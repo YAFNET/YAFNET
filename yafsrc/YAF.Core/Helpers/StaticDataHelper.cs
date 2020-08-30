@@ -474,6 +474,40 @@ namespace YAF.Core.Helpers
             return list;
         }
 
+        /// <summary>
+        /// Gets the List with Page Entries to Show
+        /// </summary>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<ListItem> PageEntries()
+        {
+            var list = new List<ListItem>();
+
+            string[] textArray =
+            {
+                "ENTRIES_5",
+                "ENTRIES_10",
+                "ENTRIES_20",
+                "ENTRIES_25",
+                "ENTRIES_50",
+            };
+
+            textArray.ForEach(
+                text =>
+                {
+                    var item = new ListItem
+                    {
+                        Name = BoardContext.Current.Get<ILocalization>().GetText("COMMON", text),
+                        Value = text.Replace("ENTRIES_", string.Empty)
+                    };
+
+                    list.Add(item);
+                });
+
+            return list;
+        }
+
         #endregion
     }
 }

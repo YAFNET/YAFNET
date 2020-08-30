@@ -29,10 +29,7 @@
         </div>
     </div>
 </asp:PlaceHolder>
-<div class="row justify-content-between">
-    <div class="col-auto mb-1">
-        <YAF:Pager runat="server" ID="Pager" UsePostBack="False" />
-    </div>
+<div class="row justify-content-end">
     <div class="col-auto mb-1">
         <YAF:ThemeButton ID="moderate1" runat="server"
                          CssClass="mr-1"
@@ -172,7 +169,8 @@
 
 <div class="row justify-content-between">
     <div class="col-auto mb-1">
-            <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="Pager" UsePostBack="False" />
+            <YAF:Pager ID="Pager" runat="server"
+                       UsePostBack="False" />
     </div>
     <div class="col-auto mb-1">
             <YAF:ThemeButton ID="moderate2" runat="server" 

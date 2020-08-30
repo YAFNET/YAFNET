@@ -452,7 +452,7 @@ namespace YAF.Controls
             {
                 this.GetRepository<ProfileCustom>().Delete(x => x.UserID == this.currentUserId);
 
-                this.CustomProfile.Items.Cast<RepeaterItem>().Where(x => x.ItemType == ListItemType.Item).ForEach(
+                this.CustomProfile.Items.Cast<RepeaterItem>().Where(x => x.ItemType == ListItemType.Item || x.ItemType == ListItemType.AlternatingItem).ForEach(
                     item =>
                     {
                         var id = item.FindControlAs<HiddenField>("DefID").Value.ToType<int>();

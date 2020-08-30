@@ -189,8 +189,6 @@ namespace YAF.Pages.Admin
         {
             if (!this.Get<HttpRequestBase>().QueryString.Exists("c"))
             {
-                this.LocalizedLabel2.LocalizedTag = "NEW_CATEGORY";
-
                 this.IconHeader.Text = this.GetText("NEW_CATEGORY");
                     
                 // Currently creating a New Category, and auto fill the Category Sort Order + 1
@@ -222,8 +220,6 @@ namespace YAF.Pages.Admin
             this.SortOrder.Text = category.SortOrder.ToString();
 
             this.IconHeader.Text = $"{this.GetText("ADMIN_EDITCATEGORY", "HEADER")} <strong>{this.Name.Text}</strong>";
-
-            this.Label1.Text = this.Name.Text;
 
             var item = this.CategoryImages.Items.FindByText(category.CategoryImage);
 

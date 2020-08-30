@@ -40,6 +40,7 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -427,6 +428,39 @@ namespace YAF.Controls
 
             this.lblExportType.Text = this.GetText("EXPORTFORMAT");
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Renders the Icon Header Text
+        /// </summary>
+        protected string GetHeaderText()
+        {
+            return this.View switch
+            {
+                PmView.Inbox => this.GetText("PM","INBOX"),
+                PmView.Outbox => this.GetText("PM", "SENTITEMS"),
+                PmView.Archive => this.GetText("PM", "ARCHIV"),
+                _ => this.GetText("PM", "INBOX")
+            };
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
             this.BindData();
         }
 
@@ -560,6 +594,8 @@ namespace YAF.Controls
                     break;
             }
 
+            this.IconHeader.Text = this.GetHeaderText();
+
             using (var dv = this.GetRepository<PMessage>().ListAsDataTable(toUserId, fromUserId, null).DefaultView)
             {
                 dv.RowFilter = this.View switch
@@ -598,7 +634,7 @@ namespace YAF.Controls
                     this.upPanExport.Visible = false;
                 }
 
-                this.PagerTop.PageSize = 10;
+                this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
                 this.Messages.DataSource = dataRows;
                 this.Messages.DataBind();

@@ -35,6 +35,7 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -147,8 +148,8 @@ namespace YAF.Controls
             // we'll hold topics in this table
             DataTable topicList = null;
 
-            // set the page size here
-            var basePageSize = this.Get<BoardSettings>().MyTopicsListPageSize;
+            var basePageSize = this.PageSize.SelectedValue.ToType<int>();
+
             this.PagerTop.PageSize = basePageSize;
 
             // page index in db which is returned back  is +1 based!
@@ -354,11 +355,16 @@ namespace YAF.Controls
         {
             if (!this.IsPostBack)
             {
+                this.PageSize.DataSource = StaticDataHelper.PageEntries();
+                this.PageSize.DataTextField = "Name";
+                this.PageSize.DataValueField = "Value";
+                this.PageSize.DataBind();
+
                 this.InitSinceDropdown();
 
                 int? previousSince = null;
 
-                this.Footer.Visible = true;
+                this.FilterHolder.Visible = true;
 
                 switch (this.CurrentMode)
                 {
@@ -373,7 +379,7 @@ namespace YAF.Controls
                         this.Since.Items.Add(new ListItem(this.GetText("SHOW_UNREAD_ONLY"), "0"));
                         this.Since.SelectedIndex = 0;
 
-                        this.Footer.Visible = false;
+                        this.FilterHolder.Visible = false;
                         break;
                     case TopicListMode.Active:
                         previousSince = this.Get<ISession>().ActiveTopicSince;
@@ -409,6 +415,20 @@ namespace YAF.Controls
             {
                 this.BindData();
             }
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
         }
 
         /// <summary>

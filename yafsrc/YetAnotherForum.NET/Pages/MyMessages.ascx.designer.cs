@@ -69,15 +69,6 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
 
         /// <summary>
-        /// InboxTabUpdatePanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel InboxTabUpdatePanel;
-
-        /// <summary>
         /// InboxPMList control.
         /// </summary>
         /// <remarks>
@@ -96,15 +87,6 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.Label InfoInbox;
 
         /// <summary>
-        /// UpdatePanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-
-        /// <summary>
         /// OutboxPMList control.
         /// </summary>
         /// <remarks>
@@ -121,15 +103,6 @@ namespace YAF.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label InfoOutbox;
-
-        /// <summary>
-        /// ArchiveTabUpdatePanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel ArchiveTabUpdatePanel;
 
         /// <summary>
         /// ArchivePMList control.

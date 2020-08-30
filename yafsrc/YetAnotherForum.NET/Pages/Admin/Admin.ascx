@@ -25,21 +25,26 @@
     <div class="row">
              <div class="col-xl-12">
                     <div class="card mb-3">
-                        <div class="card-header">
-                            <div class="row row-cols-md-auto">
+                        <div class="card-header ">
+                            <div class="row row-cols-md-auto align-items-center">
                                 <div class="col-12">
-                                    <YAF:IconHeader runat="server"
-                                                    IconName="tachometer-alt"
-                                                    LocalizedTag="HEADER3"
-                                                    LocalizedPage="ADMIN_ADMIN"></YAF:IconHeader>
+                                    <YAF:Icon runat="server"
+                                              IconName="tachometer-alt"/>
                                 </div>
                                 <div class="col-12">
-                                    <asp:DropDownList ID="BoardStatsSelect" runat="server" 
-                                                      DataTextField="Name" 
-                                                      DataValueField="ID"
-                                                      OnSelectedIndexChanged="BoardStatsSelectChanged" 
-                                                      AutoPostBack="true" 
-                                                      CssClass="select2-select" />
+                                    <div class="input-group">
+                                        <div class="input-group-text" id="btnGroupAddon">
+                                            <YAF:LocalizedLabel runat="server"
+                                                                LocalizedTag="HEADER3"
+                                                                LocalizedPage="ADMIN_ADMIN" />
+                                        </div>
+                                        <asp:DropDownList ID="BoardStatsSelect" runat="server" 
+                                                          DataTextField="Name" 
+                                                          DataValueField="ID"
+                                                          OnSelectedIndexChanged="BoardStatsSelectChanged" 
+                                                          AutoPostBack="true" 
+                                                          CssClass="form-select" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -272,21 +277,50 @@
                             </tbody>
                         </table>
                         </div>
-                        <div id="ActiveUsersPager" class="tableSorterPager d-flex">
-                            <select class="pagesize form-select form-select-sm mr-2">
-		                        <option selected="selected" value="10">10</option>
-		                        <option value="20">20</option>
-                        	    <option value="30">30</option>
-                        	    <option value="40">40</option>
-                            </select>
-                            <div class="btn-group"  role="group">
-                                <a href="#" class="first btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
-                                <a href="#" class="prev btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
-                                <input type="button" class="pagedisplay  btn btn-secondary btn-sm disabled"  style="width:150px" />
-                                <a href="#" class="next btn btn-secondary btn-sm"><span><i class="fas fa-angle-right"></i></span></a>
-                                <a href="#" class="last btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
-                            </div>
+                        <div id="ActiveUsersPager" class="row justify-content-between align-items-center">
+                <div class="col-auto mb-1">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-text">
+                            <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
                         </div>
+                        <select class="pagesize form-select form-select-sm w-25">
+                            <option selected="selected" value="5">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedPage="COMMON" LocalizedTag="ENTRIES_5" />
+                            </option>
+                            <option value="10">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedPage="COMMON" LocalizedTag="ENTRIES_10" />
+
+                            </option>
+                            <option value="20">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedPage="COMMON" LocalizedTag="ENTRIES_20" />
+
+                            </option>
+                            <option value="25">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedPage="COMMON" LocalizedTag="ENTRIES_25" />
+
+                            </option>
+                            <option value="50">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedPage="COMMON" LocalizedTag="ENTRIES_50" />
+
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-auto mb-1">
+                    <div class="btn-group" role="group">
+                        <a href="#" class="first  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
+                        <a href="#" class="prev  btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
+                        <input type="button" class="pagedisplay  btn btn-secondary btn-sm disabled"  style="width:150px" />
+                        <a href="#" class="next btn btn-secondary btn-sm"><span><i class="fas fa-angle-right"></i></span></a>
+                        <a href="#" class="last  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
+                    </div>
+                </div>
+            </div>
                     </FooterTemplate>
                 </asp:Repeater>
     </div>
@@ -388,21 +422,50 @@
                 </tbody>
                 </table>
                 </div>
-                    <div id="UnverifiedUsersPager" class=" tableSorterPager d-flex">
-                        <select class="pagesize form-select form-select-sm mr-2">
-		                        <option selected="selected" value="10">10</option>
-		                        <option value="20">20</option>
-                        	    <option value="30">30</option>
-                        	    <option value="40">40</option>
-                            </select>
-                        <div class="btn-group"  role="group">
-                            <a href="#" class="first  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
-                            <a href="#" class="prev  btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
-                            <input type="button" class="pagedisplay  btn btn-secondary btn-sm disabled"  style="width:150px" />
-                            <a href="#" class="next btn btn-secondary btn-sm"><span><i class="fas fa-angle-right"></i></span></a>
-                            <a href="#" class="last  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
+            <div id="UnverifiedUsersPager" class="row justify-content-between align-items-center">
+                <div class="col-auto mb-1">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-text">
+                            <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
                         </div>
+                        <select class="pagesize form-select form-select-sm w-25">
+                            <option selected="selected" value="5">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedPage="COMMON" LocalizedTag="ENTRIES_5" />
+                            </option>
+                            <option value="10">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedPage="COMMON" LocalizedTag="ENTRIES_10" />
+
+                            </option>
+                            <option value="20">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedPage="COMMON" LocalizedTag="ENTRIES_20" />
+
+                            </option>
+                            <option value="25">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedPage="COMMON" LocalizedTag="ENTRIES_25" />
+
+                            </option>
+                            <option value="50">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedPage="COMMON" LocalizedTag="ENTRIES_50" />
+
+                            </option>
+                        </select>
                     </div>
+                </div>
+                <div class="col-auto mb-1">
+                    <div class="btn-group" role="group">
+                        <a href="#" class="first  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
+                        <a href="#" class="prev  btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
+                        <input type="button" class="pagedisplay  btn btn-secondary btn-sm disabled"  style="width:150px" />
+                        <a href="#" class="next btn btn-secondary btn-sm"><span><i class="fas fa-angle-right"></i></span></a>
+                        <a href="#" class="last  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
+                    </div>
+                </div>
+            </div>
                </div>
                 <div class="card-footer">
                     <div class="d-lg-flex">

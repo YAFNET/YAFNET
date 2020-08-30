@@ -4,14 +4,6 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
-    <div class="col-xl-12">
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" 
-                                LocalizedTag="TITLE" 
-                                LocalizedPage="ADMIN_HOSTSETTINGS" /></h1>
-    </div>
-</div>
-
-<div class="row">
     <div class="col flex-grow-1 ml-lg-3 d-lg-none">
         <div class="dropdown">
             <YAF:ThemeButton runat="server" 
@@ -827,21 +819,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel98" runat="server" 
-                                               AssociatedControlID="MemberListPageSize"
-                                               LocalizedTag="MEMBERLIST_PAGE_SIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <asp:TextBox CssClass="form-control" runat="server" ID="MemberListPageSize" />
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel139" runat="server" 
-                                               AssociatedControlID="MyTopicsListPageSize"
-                                               LocalizedTag="MYTOPICSLIST_PAGE_SIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <asp:TextBox CssClass="form-control" runat="server" ID="MyTopicsListPageSize" />
-                            </div>
-                        </div>
-                        <div class="row">
+                            <div class="row">
                             <div class="mb-3 col-md-6">
                                 <YAF:HelpLabel ID="HelpLabel100" runat="server"
                                                AssociatedControlID="EnableThanksMod"

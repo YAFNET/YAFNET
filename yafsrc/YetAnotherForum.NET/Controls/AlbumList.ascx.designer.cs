@@ -42,15 +42,6 @@ namespace YAF.Controls
         protected global::YAF.Web.Controls.ThemeButton AddAlbum;
 
         /// <summary>
-        /// PagerTop control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerTop;
-
-        /// <summary>
         /// Albums control.
         /// </summary>
         /// <remarks>
@@ -60,12 +51,12 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.Repeater Albums;
 
         /// <summary>
-        /// PagerBottom control.
+        /// PagerTop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerBottom;
+        protected global::YAF.Web.Controls.Pager PagerTop;
     }
 }

@@ -193,8 +193,6 @@ namespace YAF.Pages.Admin
             if (!this.Get<HttpRequestBase>().QueryString.Exists("fa")
                 && this.Get<HttpRequestBase>().QueryString.Exists("copy") || !forumId.HasValue)
             {
-                this.LocalizedLabel1.LocalizedTag = "NEW_FORUM";
-
                 this.IconHeader.Text = this.GetText("NEW_FORUM");
 
                 var sortOrder = 1;

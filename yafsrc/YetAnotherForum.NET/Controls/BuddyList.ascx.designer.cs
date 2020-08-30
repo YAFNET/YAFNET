@@ -15,22 +15,22 @@ namespace YAF.Controls
     {
 
         /// <summary>
-        /// PageLinks control.
+        /// HelpLabel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.PageLinks PageLinks;
+        protected global::YAF.Web.Controls.LocalizedLabel HelpLabel2;
 
         /// <summary>
-        /// Pager control.
+        /// PageSize control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager Pager;
+        protected global::System.Web.UI.WebControls.DropDownList PageSize;
 
         /// <summary>
         /// rptBuddy control.
@@ -42,13 +42,13 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.Repeater rptBuddy;
 
         /// <summary>
-        /// Pager1 control.
+        /// Pager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager Pager1;
+        protected global::YAF.Web.Controls.Pager Pager;
 
         /// <summary>
         /// Info control.

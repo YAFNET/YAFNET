@@ -2,13 +2,7 @@
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-    <div class="row">
-        <div class="col-xl-12">
-            <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                    LocalizedTag="TITLE" LocalizedPage="ADMIN_RESTARTAPP" /></h1>
-        </div>
-    </div>
-    <div class="row">
+<div class="row">
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">

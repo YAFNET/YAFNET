@@ -6,20 +6,11 @@
 <%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/BannedNameImport.ascx" %>
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/BannedNameEdit.ascx" %>
 
-
-
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
     <div class="col-xl-12">
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
-                                LocalizedTag="TITLE" LocalizedPage="ADMIN_BANNEDNAME" /></h1>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xl-12">
-        <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
-            <div class="card mb-3">
+        <div class="card mb-3">
                 <div class="card-header">
                     <div class="row justify-content-between align-items-center">
                     <div class="col-auto">
@@ -28,6 +19,18 @@
                                         LocalizedPage="ADMIN_BANNEDNAME"></YAF:IconHeader>
                     </div>
                     <div class="col-auto">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="input-group input-group-sm mr-2" role="group">
+                                <div class="input-group-text">
+                                    <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
+                                </div>
+                                <asp:DropDownList runat="server" ID="PageSize"
+                                                  AutoPostBack="True"
+                                                  OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+                                                  CssClass="form-select">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="btn-group btn-group-sm" role="group">
                         <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown"
@@ -36,7 +39,7 @@
                                          Icon="filter"
                                          TextLocalizedTag="FILTER_DROPDOWN"
                                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
                             <div class="px-3 py-1">
                                 <div class="mb-3">
                                     <YAF:HelpLabel ID="HelpLabel1" runat="server"
@@ -55,6 +58,8 @@
                                                      OnClick="Search_Click">
                                     </YAF:ThemeButton>
                                 </div>
+                            </div>
+                        </div>
                             </div>
                         </div>
                     </div>
@@ -168,9 +173,13 @@
 
 			</FooterTemplate>
 		</asp:Repeater>
-	 <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
             </div>
         </div>
+    </div>
+</div>
+<div class="row justify-content-end">
+    <div class="col-auto">
+        <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
     </div>
 </div>
 

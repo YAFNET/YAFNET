@@ -3,53 +3,74 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 
-<YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
-
-<div class="btn-group mb-2">
-    <YAF:ThemeButton ID="Sort" runat="server"
-                     CssClass="dropdown-toggle"
-                     Type="Secondary"
-                     DataToggle="dropdown"
-                     TextLocalizedTag="SORT_BY"
-                     Icon="sort"
-                     Visible="<%# this.Messages.Items.Count > 0 %>"/>
-    <div class="dropdown-menu">
-        <YAF:ThemeButton ID="SortFromAsc" runat="server"
-                         CssClass="dropdown-item"
-                         Type="None" 
-                         OnClick="FromLinkAsc_Click"
-                         TextLocalizedTag='<%# this.View == PmView.Outbox ? "TO_ASC" : "FROM_ASC" %>'/>
-        <YAF:ThemeButton ID="SortFromDesc" runat="server"
-                         CssClass="dropdown-item"
-                         Type="None" 
-                         OnClick="FromLinkDesc_Click"
-                         TextLocalizedTag='<%# this.View == PmView.Outbox ? "TO_DESC" : "FROM_DESC" %>'/>
-        <div class="dropdown-divider"></div>
-        <YAF:ThemeButton ID="SortSubjectAsc" runat="server"
-                         CssClass="dropdown-item"
-                         Type="None" 
-                         OnClick="SubjectLinkAsc_Click"
-                         TextLocalizedTag="SUBJECT_ASC" />
-        <YAF:ThemeButton ID="SortSubjectDesc" runat="server"
-                         CssClass="dropdown-item"
-                         Type="None" 
-                         OnClick="SubjectLinkDesc_Click"
-                         TextLocalizedTag="SUBJECT_DESC" />
-        <div class="dropdown-divider"></div>
-        <YAF:ThemeButton ID="SortDatedAsc" runat="server"
-                         CssClass="dropdown-item"
-                         Type="None" 
-                         OnClick="DateLinkAsc_Click"
-                         TextLocalizedTag="DATE_ASC" />
-        <YAF:ThemeButton ID="SortDateDesc" runat="server"
-                         CssClass="dropdown-item"
-                         Type="None" 
-                         OnClick="DateLinkDesc_Click"
-                         TextLocalizedTag="DATE_DESC" />
+<div class="card-header">
+    <div class="row justify-content-between align-items-center">
+        <div class="col-auto">
+            <YAF:IconHeader runat="server"
+                            IconName="inbox"
+                            ID="IconHeader"/>
+        </div>
+        <div class="col-auto">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="input-group input-group-sm mr-2" role="group">
+                    <div class="input-group-text">
+                        <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
+                    </div>
+                    <asp:DropDownList runat="server" ID="PageSize"
+                                      AutoPostBack="True"
+                                      OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+                                      CssClass="form-select">
+                    </asp:DropDownList>
+                </div>
+                <div class="btn-group btn-group-sm">
+                    <YAF:ThemeButton ID="Sort" runat="server"
+                                     CssClass="dropdown-toggle"
+                                     Type="Secondary"
+                                     DataToggle="dropdown"
+                                     TextLocalizedTag="SORT_BY"
+                                     Icon="sort"
+                                     Visible="<%# this.Messages.Items.Count > 0 %>"/>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                        <YAF:ThemeButton ID="SortFromAsc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="FromLinkAsc_Click"
+                                         TextLocalizedTag='<%# this.View == PmView.Outbox ? "TO_ASC" : "FROM_ASC" %>'/>
+                        <YAF:ThemeButton ID="SortFromDesc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="FromLinkDesc_Click"
+                                         TextLocalizedTag='<%# this.View == PmView.Outbox ? "TO_DESC" : "FROM_DESC" %>'/>
+                        <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton ID="SortSubjectAsc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="SubjectLinkAsc_Click"
+                                         TextLocalizedTag="SUBJECT_ASC" />
+                        <YAF:ThemeButton ID="SortSubjectDesc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="SubjectLinkDesc_Click"
+                                         TextLocalizedTag="SUBJECT_DESC" />
+                        <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton ID="SortDatedAsc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="DateLinkAsc_Click"
+                                         TextLocalizedTag="DATE_ASC" />
+                        <YAF:ThemeButton ID="SortDateDesc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="DateLinkDesc_Click"
+                                         TextLocalizedTag="DATE_DESC" />
+                    </div>
+                    </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<asp:Repeater runat="server" ID="Messages">
+<div class="card-body">
+    <asp:Repeater runat="server" ID="Messages">
     <HeaderTemplate>
         <ul class="list-group">
     </HeaderTemplate>
@@ -158,8 +179,13 @@
         <asp:PostBackTrigger ControlID="ExportAll" />
     </Triggers>
 </asp:UpdatePanel>
-
-<YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
+    
+<div class="row justify-content-end">
+    <div class="col-auto">
+        <YAF:Pager ID="PagerTop" runat="server" 
+                   OnPageChange="PagerTop_PageChange" />
+    </div>
+</div>
 
 <asp:Label id="lblExportType" runat="server"></asp:Label>
 <div class="form-check form-check-inline">
@@ -178,3 +204,4 @@
     <YAF:LocalizedLabel runat="server" 
                         LocalizedTag="NO_MESSAGES" />
 </YAF:Alert>
+</div>

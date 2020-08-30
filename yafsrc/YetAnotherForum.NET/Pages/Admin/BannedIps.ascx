@@ -11,64 +11,63 @@
 
 <div class="row">
     <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-auto">
-                            <YAF:IconHeader runat="server"
-                                            IconName="hand-paper"
-                                            LocalizedPage="ADMIN_BANNEDIP"></YAF:IconHeader>
-                        </div>
-                        <div class="col-auto">
-                            <div class="btn-toolbar" role="toolbar">
-                                <div class="input-group input-group-sm mr-2">
-                                    <div class="input-group-text">Entries to Show:</div>
-                                    <asp:DropDownList runat="server" ID="PageSize"
-                                                      CssClass="form-select">
-                                        <asp:ListItem Text="10" Value="10" Selected="True"/>
-                                        <asp:ListItem Text="20" Value="20" Selected="True"/>
-                                        <asp:ListItem Text="30" Value="30" Selected="True"/>
-                                        <asp:ListItem Text="40" Value="40" Selected="True"/>
-                                        <asp:ListItem Text="50" Value="50" Selected="True"/>
-                                    </asp:DropDownList>
+        <div class="card mb-3">
+            <div class="card-header">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        <YAF:IconHeader runat="server"
+                                        IconName="hand-paper"
+                                        LocalizedPage="ADMIN_BANNEDIP"></YAF:IconHeader>
+                    </div>
+                    <div class="col-auto">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="input-group input-group-sm mr-2" role="group">
+                                <div class="input-group-text">
+                                    <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
                                 </div>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <YAF:ThemeButton runat="server"
-                                             CssClass="dropdown-toggle"
-                                             DataToggle="dropdown"
-                                             Size="Small"
-                                             Type="Secondary"
-                                             Icon="filter"
-                                             TextLocalizedTag="FILTER_DROPDOWN"
-                                             TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                <div class="px-3 py-1">
-                                    <div class="mb-3">
-                                        <YAF:HelpLabel ID="HelpLabel1" runat="server"
-                                                       AssociatedControlID="SearchInput"
-                                                       LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP" />
-                                        <asp:TextBox ID="SearchInput" runat="server" 
-                                                     CssClass="form-control"></asp:TextBox>
-                                    </div>
-                                    <div class="mb-3">
-                                        <YAF:ThemeButton ID="search" runat="server"  
-                                                         Type="Primary"
-                                                         CssClass="btn-block"
-                                                         TextLocalizedTag="BTNSEARCH" 
-                                                         TextLocalizedPage="SEARCH" 
-                                                         Icon="search"
-                                                         OnClick="Search_Click">
-                                        </YAF:ThemeButton>
+                                <asp:DropDownList runat="server" ID="PageSize"
+                                                  AutoPostBack="True"
+                                                  OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+                                                  CssClass="form-select">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <YAF:ThemeButton runat="server"
+                                                 CssClass="dropdown-toggle"
+                                                 DataToggle="dropdown"
+                                                 Size="Small"
+                                                 Type="Secondary"
+                                                 Icon="filter"
+                                                 TextLocalizedTag="FILTER_DROPDOWN"
+                                                 TextLocalizedPage="ADMIN_USERS" />
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                    <div class="px-3 py-1">
+                                        <div class="mb-3">
+                                            <YAF:HelpLabel ID="HelpLabel1" runat="server"
+                                                           AssociatedControlID="SearchInput"
+                                                           LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP" />
+                                            <asp:TextBox ID="SearchInput" runat="server" 
+                                                         CssClass="form-control"></asp:TextBox>
+                                        </div>
+                                        <div class="mb-3">
+                                            <YAF:ThemeButton ID="search" runat="server"  
+                                                             Type="Primary"
+                                                             CssClass="btn-block"
+                                                             TextLocalizedTag="BTNSEARCH" 
+                                                             TextLocalizedPage="SEARCH" 
+                                                             Icon="search"
+                                                             OnClick="Search_Click">
+                                            </YAF:ThemeButton>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                                </div>
-                                </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <asp:Repeater ID="list" runat="server" OnItemCommand="List_ItemCommand">
+            </div>
+            <div class="card-body">
+                <asp:Repeater ID="list" runat="server" OnItemCommand="List_ItemCommand">
 		<HeaderTemplate>
             <ul class="list-group">
 			</HeaderTemplate>
@@ -183,7 +182,7 @@
             </div>
         </FooterTemplate>
 		</asp:Repeater>
-                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -36,7 +36,6 @@ namespace YAF.Web.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.EventsArgs;
 
     #endregion
@@ -88,16 +87,6 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        ///   Gets or sets LinkedPager.
-        /// </summary>
-        public string LinkedPager
-        {
-            get => (string)this.ViewState["LinkedPager"];
-
-            set => this.ViewState["LinkedPager"] = value;
-        }
-
-        /// <summary>
         ///   Gets or sets PageSize.
         /// </summary>
         public int PageSize
@@ -111,30 +100,6 @@ namespace YAF.Web.Controls
         ///   Gets or sets a value indicating whether UsePostBack.
         /// </summary>
         public bool UsePostBack { get; set; } = true;
-
-        /// <summary>
-        ///   Gets the Current Linked Pager.
-        /// </summary>
-        [CanBeNull]
-        protected Pager CurrentLinkedPager
-        {
-            get
-            {
-                if (this.LinkedPager == null)
-                {
-                    return null;
-                }
-
-                var linkedPager = this.Parent.FindControlAs<Pager>(this.LinkedPager);
-
-                if (linkedPager == null)
-                {
-                    throw new Exception($"Failed to link pager to '{this.LinkedPager}'.");
-                }
-
-                return linkedPager;
-            }
-        }
 
         #endregion
 
@@ -150,17 +115,14 @@ namespace YAF.Web.Controls
         /// </param>
         public void RaisePostBackEvent([NotNull] string eventArgument)
         {
-            if (this.LinkedPager != null)
+            if (this.PageChange == null)
             {
-                // raise post back event on the linked pager...
-                this.CurrentLinkedPager.RaisePostBackEvent(eventArgument);
+                return;
             }
-            else if (this.PageChange != null)
-            {
-                this.CurrentPageIndex = int.Parse(eventArgument) - 1;
-                this.ignorePageIndex = true;
-                this.PageChange(this, new EventArgs());
-            }
+
+            this.CurrentPageIndex = int.Parse(eventArgument) - 1;
+            this.ignorePageIndex = true;
+            this.PageChange(this, new EventArgs());
         }
 
         #endregion
@@ -168,17 +130,6 @@ namespace YAF.Web.Controls
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Copies the pager settings.
-        /// </summary>
-        /// <param name="toPager">To pager.</param>
-        protected void CopyPagerSettings([NotNull] Pager toPager)
-        {
-            toPager.Count = this.Count;
-            toPager.CurrentPageIndex = this.CurrentPageIndex;
-            toPager.PageSize = this.PageSize;
-        }
 
         /// <summary>
         /// Gets the page URL.
@@ -252,12 +203,6 @@ namespace YAF.Web.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter output)
         {
-            if (this.LinkedPager != null)
-            {
-                // just copy the linked pager settings but still render in this function...
-                this.CurrentLinkedPager.CopyPagerSettings(this);
-            }
-
             if (this.PageCount() < 2)
             {
                 return;
@@ -426,15 +371,7 @@ namespace YAF.Web.Controls
                 this.ignorePageIndex = true;
             }
 
-            if (this.LinkedPager != null)
-            {
-                // raise post back event on the linked pager...
-                this.CurrentLinkedPager.GotoPageClick(sender, e);
-            }
-            else
-            {
-                this.PageChange?.Invoke(this, new EventArgs());
-            }
+            this.PageChange?.Invoke(this, new EventArgs());
         }
 
         #endregion

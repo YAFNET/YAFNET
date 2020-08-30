@@ -9,8 +9,6 @@
 
 <div class="bg-light">
     <div class="container">
-        <YAF:Pager runat="server" ID="PagerTop" 
-                   OnPageChange="Pager_PageChange" />
         <asp:Repeater runat="server" ID="AlbumImages" 
                   OnItemDataBound="AlbumImages_ItemDataBound"
                   OnItemCommand="AlbumImages_ItemCommand">
@@ -66,8 +64,11 @@
                   </div>
              </ItemTemplate>
         </asp:Repeater>
-        <YAF:Pager runat="server" ID="PagerBottom" 
-                   LinkedPager="PagerTop" 
+    <div class="row justify-content-end">
+        <div class="col-auto">
+        <YAF:Pager runat="server" ID="PagerTop" 
                    OnPageChange="Pager_PageChange" />
+            </div>
+        </div>
     </div>
 </div>

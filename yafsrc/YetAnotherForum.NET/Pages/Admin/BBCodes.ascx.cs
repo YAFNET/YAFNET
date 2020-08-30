@@ -34,10 +34,12 @@ namespace YAF.Pages.Admin
 
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
@@ -80,6 +82,11 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
             this.BindData();
         }
 
@@ -112,7 +119,7 @@ namespace YAF.Pages.Admin
                     BuildLink.Redirect(ForumPages.Admin_BBCode_Edit, "b={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    this.GetRepository<Types.Models.BBCode>().DeleteById(e.CommandArgument.ToType<int>());
+                    this.GetRepository<BBCode>().DeleteById(e.CommandArgument.ToType<int>());
                     this.BindData();
                     break;
                 case "export":
@@ -122,6 +129,31 @@ namespace YAF.Pages.Admin
 
                     break;
             }
+        }
+
+        /// <summary>
+        /// The pager top_ page change.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // rebind
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
         }
 
         /// <summary>
@@ -144,9 +176,9 @@ namespace YAF.Pages.Admin
 
                 // export this list as XML...
                 var list =
-                    this.GetRepository<Types.Models.BBCode>().GetByBoardId();
+                    this.GetRepository<BBCode>().GetByBoardId();
 
-                var selectedList = new List<Types.Models.BBCode>();
+                var selectedList = new List<BBCode>();
 
                 codeIDs.ForEach(id =>
                 {
@@ -192,7 +224,20 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.bbCodeList.DataSource = this.GetRepository<Types.Models.BBCode>().GetByBoardId();
+            this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
+
+            var list = this.GetRepository<BBCode>().GetPaged(
+                x => x.BoardID == this.PageContext.PageBoardID,
+                this.PagerTop.CurrentPageIndex,
+                this.PagerTop.PageSize);
+
+            this.bbCodeList.DataSource = list;
+
+            this.PagerTop.Count = list != null && list.Any()
+                ? this.GetRepository<BBCode>()
+                    .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
+                : 0;
+
             this.DataBind();
         }
 

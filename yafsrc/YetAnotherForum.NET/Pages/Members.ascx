@@ -7,20 +7,6 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
-    <div class="col-xl-12">
-        <h2>
-            <YAF:LocalizedLabel runat="server" LocalizedTag="TITLE" />
-        </h2>
-    </div>
-</div>
-
-<div class="row mb-3">
-    <div class="col-xl-12">
-        <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
-    </div>
-</div>
-
-<div class="row">
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
@@ -31,7 +17,17 @@
                     </div>
                     <div class="col-auto">
                         <div class="btn-toolbar" role="toolbar">
-                            <div class="btn-group mr-2" role="group" aria-label="Filters">
+                            <div class="input-group input-group-sm mr-2 mb-1" role="group">
+                                <div class="input-group-text">
+                                    <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
+                                </div>
+                                <asp:DropDownList runat="server" ID="PageSize"
+                                                  AutoPostBack="True"
+                                                  OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+                                                  CssClass="form-select">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="btn-group mr-2 mb-1" role="group" aria-label="Filters">
                         <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown"
@@ -100,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="btn-group btn-group-sm" role="group" aria-label="sort">
+                            <div class="btn-group btn-group-sm mb-1" role="group" aria-label="sort">
                                 <YAF:ThemeButton ID="Sort" runat="server"
                                                  CssClass="dropdown-toggle"
                                                  Size="Small"
@@ -222,5 +218,9 @@
         </div>
     </div>
 </div>
-
-<YAF:Pager runat="server" LinkedPager="Pager" OnPageChange="Pager_PageChange" />
+<div class="row justify-content-end">
+    <div class="col-auto">
+        <YAF:Pager runat="server" ID="Pager"
+                   OnPageChange="Pager_PageChange" />
+    </div>
+</div>

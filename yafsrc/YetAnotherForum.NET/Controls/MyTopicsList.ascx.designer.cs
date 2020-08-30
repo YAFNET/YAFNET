@@ -15,15 +15,6 @@ namespace YAF.Controls
     {
 
         /// <summary>
-        /// PagerTop control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerTop;
-
-        /// <summary>
         /// IconHeader control.
         /// </summary>
         /// <remarks>
@@ -33,31 +24,31 @@ namespace YAF.Controls
         protected global::YAF.Web.Controls.IconHeader IconHeader;
 
         /// <summary>
-        /// TopicList control.
+        /// HelpLabel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater TopicList;
+        protected global::YAF.Web.Controls.LocalizedLabel HelpLabel2;
 
         /// <summary>
-        /// Info control.
+        /// PageSize control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Alert Info;
+        protected global::System.Web.UI.WebControls.DropDownList PageSize;
 
         /// <summary>
-        /// Footer control.
+        /// FilterHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Footer;
+        protected global::System.Web.UI.WebControls.PlaceHolder FilterHolder;
 
         /// <summary>
         /// SinceLabel control.
@@ -78,13 +69,22 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.DropDownList Since;
 
         /// <summary>
-        /// PagerBottom control.
+        /// TopicList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerBottom;
+        protected global::System.Web.UI.WebControls.Repeater TopicList;
+
+        /// <summary>
+        /// Info control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.Alert Info;
 
         /// <summary>
         /// MarkAll control.
@@ -103,5 +103,14 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.RssFeedLink RssFeed;
+
+        /// <summary>
+        /// PagerTop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.Pager PagerTop;
     }
 }

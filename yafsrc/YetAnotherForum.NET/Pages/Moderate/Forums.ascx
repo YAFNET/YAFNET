@@ -70,18 +70,30 @@
 </div>
 </asp:PlaceHolder>
 
-<YAF:Pager ID="PagerTop" runat="server" 
-           OnPageChange="PagerTop_PageChange" 
-           UsePostBack="True" />
-
 <div class="row">
     <div class="col">
         <div class="card mb-3 mt-3">
             <div class="card-header">
-                <YAF:IconHeader runat="server"
-                                IconName="tasks"
-                                LocalizedTag="title" 
-                                LocalizedPage="MODERATE"/>
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        <YAF:IconHeader runat="server"
+                                        IconName="tasks"
+                                        LocalizedTag="title" 
+                                        LocalizedPage="MODERATE"/>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group input-group-sm mr-2" role="group">
+                            <div class="input-group-text">
+                                <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
+                            </div>
+                            <asp:DropDownList runat="server" ID="PageSize"
+                                              AutoPostBack="True"
+                                              OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+                                              CssClass="form-select">
+                            </asp:DropDownList>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <asp:Repeater ID="topiclist" runat="server">
@@ -156,6 +168,12 @@
     </div>
 </div>
 
-<YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" UsePostBack="True" />
+<div class="row justify-content-end">
+    <div class="col-auto">
+        <YAF:Pager ID="PagerTop" runat="server"
+                   OnPageChange="PagerTop_PageChange" 
+                   UsePostBack="True" />
+    </div>
+</div>
 
 <modal:Edit ID="ModForumUserDialog" runat="server" />

@@ -34,6 +34,7 @@ namespace YAF.Pages.Moderate
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -113,7 +114,7 @@ namespace YAF.Pages.Moderate
         /// </summary>
         protected void BindData()
         {
-            this.PagerTop.PageSize = this.Get<BoardSettings>().TopicsPerPage;
+            this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
             var baseSize = this.Get<BoardSettings>().TopicsPerPage;
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
@@ -255,8 +256,6 @@ namespace YAF.Pages.Moderate
 
             if (!this.IsPostBack)
             {
-                this.PagerTop.PageSize = 25;
-
                 var showMoved = this.Get<BoardSettings>().ShowMoved;
 
                 // Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
@@ -271,6 +270,25 @@ namespace YAF.Pages.Moderate
                 }
             }
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
             this.BindData();
         }
 

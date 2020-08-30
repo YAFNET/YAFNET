@@ -2,11 +2,29 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 
-<YAF:PageLinks runat="server" ID="PageLinks" />
-
-<YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
-
-<asp:Repeater ID="rptBuddy" runat="server" OnItemCreated="rptBuddy_ItemCreated" OnItemCommand="rptBuddy_ItemCommand">
+<div class="card mb-3">
+    <div class="card-header">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-auto">
+                <YAF:IconHeader runat="server"
+                                Text="<%# this.GetHeaderText() %>"
+                                IconName="user-friends"/>
+            </div>
+            <div class="col-auto">
+                <div class="input-group input-group-sm mr-2" role="group">
+                    <div class="input-group-text">
+                        <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
+                    </div>
+                    <asp:DropDownList runat="server" ID="PageSize"
+                                      AutoPostBack="True"
+                                      OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+                                      CssClass="form-select">
+                    </asp:DropDownList>
+                </div>
+            </div>
+        </div>
+    </div>
+    <asp:Repeater ID="rptBuddy" runat="server" OnItemCreated="rptBuddy_ItemCreated" OnItemCommand="rptBuddy_ItemCommand">
     <HeaderTemplate>
         <asp:PlaceHolder runat="server" ID="HeaderHolder">
             <ul class="list-group list-group-flush">
@@ -82,10 +100,11 @@
         </asp:PlaceHolder>
     </FooterTemplate>
 </asp:Repeater>
-<YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" 
+<YAF:Pager ID="Pager" runat="server"
            OnPageChange="Pager_PageChange" />
 <asp:PlaceHolder runat="server" Visible="<%# this.rptBuddy.Items.Count == 0 %>">
     <div class="card-body">
         <YAF:Alert runat="server" Type="info" ID="Info"></YAF:Alert>
     </div>
 </asp:PlaceHolder>
+</div>

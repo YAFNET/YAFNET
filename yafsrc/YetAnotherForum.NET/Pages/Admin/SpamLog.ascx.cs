@@ -37,6 +37,7 @@ namespace YAF.Pages.Admin
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -155,7 +156,10 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PagerTop.PageSize = 25;
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
 
             var ci = this.Get<ILocalization>().Culture;
 
@@ -215,6 +219,20 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
+        }
+
+        /// <summary>
         /// Renders the UserLink
         /// </summary>
         /// <param name="dataRow">The data row.</param>
@@ -246,7 +264,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            var baseSize = this.Get<BoardSettings>().MemberListPageSize;
+            var baseSize = this.PageSize.SelectedValue.ToType<int>();
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
             this.PagerTop.PageSize = baseSize;
 

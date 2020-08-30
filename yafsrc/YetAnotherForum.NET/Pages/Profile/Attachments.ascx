@@ -13,16 +13,31 @@
             <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <YAF:IconHeader runat="server"
-                                LocalizedTag="TITLE"
-                                LocalizedPage="ATTACHMENTS"
-                                IconName="paperclip"></YAF:IconHeader>
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        <YAF:IconHeader runat="server"
+                                        LocalizedTag="TITLE"
+                                        LocalizedPage="ATTACHMENTS"
+                                        IconName="paperclip"></YAF:IconHeader>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group input-group-sm mr-2" role="group">
+                            <div class="input-group-text">
+                                <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
+                            </div>
+                            <asp:DropDownList runat="server" ID="PageSize"
+                                              AutoPostBack="True"
+                                              OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+                                              CssClass="form-select">
+                            </asp:DropDownList>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
-                <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
                 <asp:Repeater runat="server" ID="List" OnItemCommand="List_ItemCommand">
                     <HeaderTemplate>
-                        <ul class="list-group list-group-flush mt-3">
+                        <ul class="list-group list-group-flush">
                     </HeaderTemplate>
                     <ItemTemplate>
                         <li class="list-group-item d-inline-flex align-items-center">
@@ -56,7 +71,8 @@
                                  Type="Danger"
                                  Visible="<%# this.List.Items.Count > 0 %>"
                                  CssClass="m-3"/>
-                <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
+                <YAF:Pager ID="PagerTop" runat="server" 
+                           OnPageChange="PagerTop_PageChange" />
             </div>
         </div>
     </div>

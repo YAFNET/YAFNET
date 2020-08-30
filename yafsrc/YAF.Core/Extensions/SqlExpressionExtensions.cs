@@ -29,7 +29,7 @@ namespace YAF.Core.Extensions
     using ServiceStack.OrmLite;
 
     /// <summary>
-    /// The  SqlExpression Extensions
+    /// The SQL Expression Extensions
     /// </summary>
     public static class SqlExpressionExtensions
     {
