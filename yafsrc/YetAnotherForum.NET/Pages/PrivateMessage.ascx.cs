@@ -292,6 +292,10 @@ namespace YAF.Pages
                 this.IsArchived = messageIsArchived;
                 this.IsOutbox = false;
             }
+            else
+            {
+                BuildLink.AccessDenied();
+            }
         }
 
         #endregion
