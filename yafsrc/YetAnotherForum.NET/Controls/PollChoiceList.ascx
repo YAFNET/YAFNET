@@ -29,6 +29,7 @@
                     </small>
                 </div>
                 <YAF:ThemeButton ID="VoteButton"  runat="server" 
+                                 CssClass="mb-2"
                                  Type="Success"
                                  Size="Small"
                                  Enabled="false"
