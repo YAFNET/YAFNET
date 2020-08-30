@@ -49,7 +49,7 @@ namespace YAF.Core.Services
         /// </summary>
         public LoadMessage()
         {
-            if (this.SessionLoadString.Any())
+            if (this.SessionLoadString != null && this.SessionLoadString.Any())
             {
                 this.LoadStringList.AddRange(this.SessionLoadString);
 

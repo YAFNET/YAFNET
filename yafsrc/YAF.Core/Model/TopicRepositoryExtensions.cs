@@ -28,7 +28,6 @@ namespace YAF.Core.Model
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Globalization;
     using System.Linq;
 
     using ServiceStack.OrmLite;
@@ -43,8 +42,6 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -771,6 +768,9 @@ namespace YAF.Core.Model
         /// <param name="userName">
         /// The user name.
         /// </param>
+        /// <param name="userDisplayName">
+        /// The user Display Name.
+        /// </param>
         /// <param name="ip">
         /// The IP Address.
         /// </param>
@@ -792,7 +792,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns the Topic ID
         /// </returns>
-        public static int Save(
+        public static int SaveNew(
             this IRepository<Topic> repository,
             [NotNull] int forumId,
             [NotNull] string subject,
@@ -801,8 +801,9 @@ namespace YAF.Core.Model
             [CanBeNull] string description,
             [NotNull] string message,
             [NotNull] int userId,
-            [NotNull] int priority,
-            [NotNull] string userName,
+            [NotNull] short priority,
+            [CanBeNull] string userName,
+            [NotNull] string userDisplayName,
             [NotNull] string ip,
             [NotNull] DateTime posted,
             [NotNull] string blogPostId,
@@ -810,55 +811,40 @@ namespace YAF.Core.Model
             [CanBeNull] string topicTags,
             out int messageId)
         {
-            var dt = (DataTable)repository.DbFunction.GetData.topic_save(
-                ForumID: forumId,
-                Subject: subject,
-                Description: description,
-                Status: status,
-                Styles: styles,
-                UserID: userId,
-                Message: message,
-                Priority: priority,
-                UserName: userName,
-                IP: ip,
-                Posted: posted,
-                BlogPostID: blogPostId,
-                Flags: flags.BitValue,
-                UTCTIMESTAMP: DateTime.UtcNow);
-
-            var topicRow = dt.GetFirstRow();
-
-            messageId = topicRow.Field<int>("MessageID");
-
-            var topicId = topicRow.Field<int>("TopicID");
-
-            // Add to search index
-            var newMessage = new SearchMessage
+            var topic = new Topic
             {
-                MessageId = messageId,
-                Message = message,
-                Flags = flags.BitValue,
-                Posted = posted.ToString(CultureInfo.InvariantCulture),
-                UserName = BoardContext.Current.MembershipUser.UserName,
-                UserDisplayName = BoardContext.Current.User.DisplayName,
-                UserStyle = BoardContext.Current.User.UserStyle,
-                UserId = BoardContext.Current.PageUserID,
-                TopicId = topicId.ToType<int>(),
-                Topic = subject,
-                TopicTags = topicTags,
-                ForumId = BoardContext.Current.PageForumID,
-                ForumName = BoardContext.Current.PageForumName,
-                Description = string.Empty
+                ForumID = forumId,
+                TopicName = subject,
+                UserID = userId,
+                Posted = posted,
+                Views = 0,
+                Priority = priority,
+                UserName = userName,
+                UserDisplayName = userDisplayName,
+                NumPosts = 0,
+                Description = description,
+                Status = status,
+                Styles = styles
             };
+
+            var newTopicId = repository.Insert(topic);
+
+            messageId = BoardContext.Current.GetRepository<Message>().SaveNew(
+                newTopicId,
+                userId,
+                message,
+                userName,
+                ip,
+                posted,
+                null,
+                flags);
 
             if (flags.IsApproved)
             {
-                repository.FireNew(topicId);
+                repository.FireNew(newTopicId);
             }
 
-            BoardContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
-
-            return topicId;
+            return newTopicId;
         }
 
         /// <summary>

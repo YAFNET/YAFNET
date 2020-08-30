@@ -418,6 +418,7 @@ namespace YAF.Pages
                     this.Get<BoardSettings>().UseStyledNicks,
                     true,
                     this.Get<BoardSettings>().UseReadTrackingByDatabase);
+
                 if (topicList != null)
                 {
                     topicList = this.StyleTransformDataTable(topicList);

@@ -714,7 +714,7 @@ namespace YAF.Core.Model
             [NotNull] string guestUserName,
             [NotNull] string ipAddress,
             [NotNull] DateTime posted,
-            [NotNull] int replyTo,
+            [CanBeNull] int? replyTo,
             [NotNull] MessageFlags flags)
         {
             IDbDataParameter parameterMessage = null;

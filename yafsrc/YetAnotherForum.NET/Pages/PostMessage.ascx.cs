@@ -632,7 +632,7 @@ namespace YAF.Pages
                 isSpamApproved = true;
             }
 
-            object replyTo = this.QuotedMessageId ?? -1;
+            var replyTo = this.QuotedMessageId;
 
             // make message flags
             var messageFlags = new MessageFlags
@@ -650,7 +650,7 @@ namespace YAF.Pages
                 this.User != null ? null : this.From.Text,
                 this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                 DateTime.UtcNow,
-                replyTo.ToType<int>(),
+                replyTo,
                 messageFlags);
 
             this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);

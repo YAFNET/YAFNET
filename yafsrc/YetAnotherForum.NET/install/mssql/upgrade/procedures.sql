@@ -5058,47 +5058,6 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}topic_save](
-    @ForumID	int,
-    @Subject	nvarchar(100),
-    @UserID		int,
-    @Message	ntext,
-    @Description	nvarchar(255)=null,
-    @Status 	nvarchar(255)=null,
-    @Styles 	nvarchar(255)=null,
-    @Priority	smallint,
-    @UserName	nvarchar(255)=null,
-    @IP			varchar(39),
-    @Posted		datetime=null,
-    @BlogPostID	nvarchar(50),
-    @Flags		int,
-    @UTCTIMESTAMP datetime
-) as
-begin
-        declare @TopicID int
-    declare @MessageID int, @OverrideDisplayName BIT, @ReplaceName nvarchar(255)
-
-    if @Posted is null set @Posted = @UTCTIMESTAMP
-        -- this check is for guest user only to not override replace name
-    if (SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) != @UserName
-    begin
-    SET @OverrideDisplayName = 1
-    end
-    SET @ReplaceName = (CASE WHEN @OverrideDisplayName = 1 THEN @UserName ELSE (SELECT DisplayName FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) END);
-    -- create the topic
-    insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,[Views],[Priority],UserName,UserDisplayName,NumPosts, [Description], [Status], [Styles])
-    values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@UserName,@ReplaceName, 0,@Description, @Status, @Styles)
-
-    -- get its id
-    set @TopicID = SCOPE_IDENTITY()
-
-    -- add message to the topic
-    exec [{databaseOwner}].[{objectQualifier}message_save] @TopicID,@UserID,@Message,@UserName,@IP,@Posted,null,@BlogPostID,null,null,@Flags,@UTCTIMESTAMP,@MessageID output
-
-    select TopicID = @TopicID, MessageID = @MessageID
-end
-GO
-
 CREATE procedure [{databaseOwner}].[{objectQualifier}topic_updatelastpost]
 (@ForumID int=null,@TopicID int=null) as
 begin

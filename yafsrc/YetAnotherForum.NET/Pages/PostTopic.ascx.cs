@@ -397,7 +397,7 @@ namespace YAF.Pages
                                };
 
             // Save to Db
-            topicId = this.GetRepository<Topic>().Save(
+            topicId = this.GetRepository<Topic>().SaveNew(
                 this.PageContext.PageForumID,
                 this.TopicSubjectTextBox.Text.Trim(),
                 string.Empty,
@@ -405,8 +405,9 @@ namespace YAF.Pages
                 this.TopicDescriptionTextBox.Text.Trim(),
                 this.forumEditor.Text,
                 this.PageContext.PageUserID,
-                this.Priority.SelectedValue.ToType<int>(),
-                this.User != null ? null : this.From.Text,
+                this.Priority.SelectedValue.ToType<short>(),
+                this.PageContext.IsGuest ? this.From.Text : this.PageContext.User.Name,
+                this.PageContext.IsGuest ? this.From.Text : this.PageContext.User.DisplayName,
                 this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                 DateTime.UtcNow,
                 string.Empty,
