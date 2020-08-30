@@ -56,6 +56,7 @@ namespace YAF.Types.Models
 
         [Alias("MedalID")]
         [AutoIncrement]
+        [PrimaryKey]
         public int ID { get; set; }
 
         [Required]
