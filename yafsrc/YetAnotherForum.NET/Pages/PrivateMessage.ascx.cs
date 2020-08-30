@@ -122,14 +122,14 @@ namespace YAF.Pages
                 BuildLink.RedirectInfoPage(InfoMessage.Disabled);
             }
 
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("pm"))
+            {
+                BuildLink.AccessDenied();
+            }
+
             if (this.IsPostBack)
             {
                 return;
-            }
-
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm").IsNotSet())
-            {
-                BuildLink.AccessDenied();
             }
 
             // handle custom YafBBCode javascript or CSS...
@@ -282,6 +282,10 @@ namespace YAF.Pages
                 // get the status for the receiver
                 this.IsArchived = messageIsArchived;
                 this.IsOutbox = false;
+            }
+            else
+            {
+                BuildLink.AccessDenied();
             }
         }
 
