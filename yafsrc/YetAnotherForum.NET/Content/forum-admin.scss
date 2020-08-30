@@ -19,7 +19,7 @@
 @import "forum/button-scroll.scss";
 @import "forum/editor.scss";
 
-// -- Main
+// Main
 #YafBody {
     padding-right: 15px;
     padding-left: 15px;
@@ -31,17 +31,17 @@
     margin: 0;
 }
 
-// --Pager
+// Pager
 .gotoPageForm {
     z-index: 99999;
 }
 
-// --Spinner Input
+// Spinner Input
 .bootstrap-touchspin {
     width: 250px;
 }
 
-// --Event log
+// Event log
 .pre-scrollable {
     overflow: auto;
     white-space: pre-line;
@@ -65,7 +65,7 @@
     left: 16px;
 }
 
-/* TABS */
+// Tabs
 .tab-content {
     padding-top: 10px;
 }

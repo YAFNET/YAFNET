@@ -6,17 +6,17 @@
 @import "fontawesome/fontawesome-all";
 @import "flag-icons/flag-icon.scss";
 
-// -- TableSorter Plugin
+// TableSorter Plugin
 @import "tablesorter/theme.bootstrap_4.min";
 
-// --Bootstrap extensions
+// Bootstrap extensions
 @import "select2/select2";
 @import "bootstrap-tagsinput";
 @import "bootstrap-datetimepicker";
 
 @import "blueimp-gallery.scss";
 
-// --Forum imports
+// Forum imports
 @import "forum/attachments-upload.scss";
 @import "forum/dropdowns.scss";
 @import "forum/user-albums.scss";
@@ -25,7 +25,7 @@
 @import "forum/button-scroll.scss";
 @import "forum/editor.scss";
 
-// -- Main
+// Main
 #YafBody {
     padding-right: 15px;
     padding-left: 15px;
@@ -33,12 +33,12 @@
     margin-left: auto;
 }
 
-// -- Topic Title
+// Topic Title
 .topic-title {
     white-space: pre-wrap;
 }
 
-// -- MultiQuote Button
+// MultiQuote Button
 .btn-multiquote {
     display: inline-block;
     margin-left: 10px !important;
@@ -56,14 +56,14 @@
     margin: 0;
 }
 
-// -- Similar topic lists
+// Similar topic lists
 .list-similar {
     height: 200px;
     overflow: hidden;
     overflow-y: scroll;
 }
 
-// -- Scrollable Mobile Dropdowns
+// Scrollable Mobile Dropdowns
 .scrollable-dropdown {
     height: auto;
     max-height: 200px;
@@ -125,7 +125,7 @@
     left:16px;
 }
 
-/* TABS */
+// Tabs
 .tab-content {
     padding-top: 10px;
 }

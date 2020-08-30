@@ -4801,8 +4801,8 @@ readers do not read off random characters that represent icons */
 /* Extensions */
 .fa-badge-bg {
   position: absolute;
-  right: 0%;
-  bottom: -5%;
+  right: 1%;
+  bottom: -2%;
   font-size: 91%;
   height: 60%;
   width: 60%;
@@ -4818,9 +4818,6 @@ readers do not read off random characters that represent icons */
   width: 30%;
   line-height: 120%;
   text-align: center; }
-
-.fa-outline-inverse {
-  text-shadow: -0.12ex 0 #FFF,-0.1ex -0.1ex #FFF, 0 -0.12ex #FFF, 0.1ex -0.1ex #FFF, 0.12ex 0 #FFF, 0.1ex 0.1ex #FFF, 0 0.12ex #FFF, -0.1ex 0.1ex #FFF; }
 
 .flag-icon-background, .flag-icon {
   background-size: contain;
@@ -7436,6 +7433,5 @@ div#UploadDialog {
   top: 8px;
   left: 16px; }
 
-/* TABS */
 .tab-content {
   padding-top: 10px; }
