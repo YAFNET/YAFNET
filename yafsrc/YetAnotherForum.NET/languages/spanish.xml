@@ -2230,6 +2230,12 @@
     <Resource tag="DOWNLOAD">Descargar</Resource>
     <Resource tag="EDIT">Editar</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Verificacion de Email</Resource>
+    <Resource tag="ENTRIES_10">10 Entries</Resource>
+    <Resource tag="ENTRIES_15">15 Entries</Resource>
+    <Resource tag="ENTRIES_20">20 Entries</Resource>
+    <Resource tag="ENTRIES_25">25 Entries</Resource>
+    <Resource tag="ENTRIES_5">5 Entries</Resource>
+    <Resource tag="ENTRIES_50">50 Entries</Resource>
     <Resource tag="EXTERNALUSER">(Usuario externo)</Resource>
     <Resource tag="FONT_COLOR">Color de fuente:</Resource>
     <Resource tag="FONT_SIZE">Tamaño de fuente:</Resource>
@@ -2677,8 +2683,8 @@
     <Resource tag="SHOW_UNREAD_ONLY">Mostrar solo los temas no leídos.</Resource>
     <Resource tag="STATS">Estadísticas</Resource>
     <Resource tag="STATS_BIRTHDAYS">Cumpleaños de hoy:</Resource>
-    <Resource tag="STATS_LASTMEMBER">El miembro más nuevo es </Resource>
-    <Resource tag="STATS_LASTPOST">Última publicación {0} por</Resource>
+    <Resource tag="STATS_LASTMEMBER">El miembro más nuevo es:</Resource>
+    <Resource tag="STATS_LASTPOST">Última publicación {0} por:</Resource>
     <Resource tag="STATS_MEMBERS">Tenemos {0:N0} usuarios registrados.</Resource>
     <Resource tag="STATS_POSTS">Hay {0:N0} publicaciones en {1:N0} temas en {2:N0} foros.</Resource>
     <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>

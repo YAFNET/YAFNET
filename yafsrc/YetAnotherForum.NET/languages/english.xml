@@ -2110,6 +2110,12 @@
   <Resource tag="DOWNLOAD">Download</Resource>
   <Resource tag="EDIT">Edit</Resource>
   <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
+   <Resource tag="ENTRIES_5">5 Entries</Resource>
+   <Resource tag="ENTRIES_10">10 Entries</Resource>
+   <Resource tag="ENTRIES_15">15 Entries</Resource>
+   <Resource tag="ENTRIES_20">20 Entries</Resource>
+   <Resource tag="ENTRIES_25">25 Entries</Resource>
+   <Resource tag="ENTRIES_50">50 Entries</Resource>
   <Resource tag="EXTERNALUSER">(External User)</Resource>
   <Resource tag="FONT_COLOR">Font Color</Resource>
   <Resource tag="FONT_SIZE">Font Size</Resource>
@@ -2823,8 +2829,8 @@
   <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
   <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
   <Resource tag="STATS">Statistics</Resource>
-  <Resource tag="STATS_LASTMEMBER">The newest member is</Resource>
-  <Resource tag="STATS_LASTPOST">Last post {0} by</Resource>
+  <Resource tag="STATS_LASTMEMBER">The newest member is:</Resource>
+  <Resource tag="STATS_LASTPOST">Last post {0} by:</Resource>
   <Resource tag="STATS_MEMBERS">We have {0:N0} registered members.</Resource>
   <Resource tag="STATS_POSTS">There are {0:N0} posts in {1:N0} topics in {2:N0} forums.</Resource>
   <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
@@ -4360,7 +4366,7 @@
   <Resource tag="NEED_MORE_LETTERS">Please enter, at least, the first two letters of the user you wish to find.</Resource>
   <Resource tag="NEED_SUBJECT">Please specify the Subject of the message to continue.</Resource>
   <Resource tag="NEED_TO">Please specify the Recipient of the message to continue.</Resource>
-  <Resource tag="NO_SUCH_USER">Sorry, user "{0}" is not a registered on this forum.</Resource>
+  <Resource tag="NO_SUCH_USER">Sorry, user {0} is not a registered on this forum.</Resource>
   <Resource tag="NOT_GUEST">Cannot send a Private Message to the Guest user.</Resource>
   <Resource tag="OWN_PMBOX_FULL">Your Private Message box is full. Maximum allowed is {0}. Please delete messages to free up space.</Resource>
   <Resource tag="PMLIMIT_ALL">

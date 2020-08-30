@@ -2218,6 +2218,12 @@
     <Resource tag="DOWNLOAD">Downloaden</Resource>
     <Resource tag="EDIT">Bewerk</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Controle</Resource>
+    <Resource tag="ENTRIES_10">10 Entries</Resource>
+    <Resource tag="ENTRIES_15">15 Entries</Resource>
+    <Resource tag="ENTRIES_20">20 Entries</Resource>
+    <Resource tag="ENTRIES_25">25 Entries</Resource>
+    <Resource tag="ENTRIES_5">5 Entries</Resource>
+    <Resource tag="ENTRIES_50">50 Entries</Resource>
     <Resource tag="EXTERNALUSER">(Externe Gebruiker)</Resource>
     <Resource tag="FONT_COLOR">Tekstkleur:</Resource>
     <Resource tag="FONT_SIZE">Lettergrootte:</Resource>
@@ -2665,8 +2671,8 @@
     <Resource tag="SHOW_UNREAD_ONLY">Laat alleen ongelezen topics zien.</Resource>
     <Resource tag="STATS">Statistieken</Resource>
     <Resource tag="STATS_BIRTHDAYS">De verjaardagen van vandaag: </Resource>
-    <Resource tag="STATS_LASTMEMBER">Het nieuwste lid is</Resource>
-    <Resource tag="STATS_LASTPOST">Laatste bericht geplaatst door {0}.</Resource>
+    <Resource tag="STATS_LASTMEMBER">Het nieuwste lid is:</Resource>
+    <Resource tag="STATS_LASTPOST">Laatste bericht geplaatst door {0}:</Resource>
     <Resource tag="STATS_MEMBERS">Er zijn {0:N0} geregistreerde leden.</Resource>
     <Resource tag="STATS_POSTS">Er zijn {0:N0} berichten in {1:N0} topics in {2:N0} fora.</Resource>
     <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>

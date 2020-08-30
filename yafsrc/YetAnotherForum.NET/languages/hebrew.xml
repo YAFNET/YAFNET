@@ -2247,6 +2247,12 @@
     <Resource tag="DOWNLOAD">Download</Resource>
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} אימות כתובת דוא"ל</Resource>
+    <Resource tag="ENTRIES_10">10 Entries</Resource>
+    <Resource tag="ENTRIES_15">15 Entries</Resource>
+    <Resource tag="ENTRIES_20">20 Entries</Resource>
+    <Resource tag="ENTRIES_25">25 Entries</Resource>
+    <Resource tag="ENTRIES_5">5 Entries</Resource>
+    <Resource tag="ENTRIES_50">50 Entries</Resource>
     <Resource tag="EXTERNALUSER">(External User)</Resource>
     <Resource tag="FONT_COLOR">צבע גופן:</Resource>
     <Resource tag="FONT_SIZE">גודל גופן:</Resource>
@@ -2695,7 +2701,7 @@
     <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
     <Resource tag="STATS">סטטיסטיקות</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
-    <Resource tag="STATS_LASTMEMBER">החבר החדש ביותר הוא</Resource>
+    <Resource tag="STATS_LASTMEMBER">החבר החדש ביותר הוא:</Resource>
     <Resource tag="STATS_LASTPOST">הודעה אחרונה {0} ע"י</Resource>
     <Resource tag="STATS_MEMBERS">יש לנו {0:N0} חברים רשומים.</Resource>
     <Resource tag="STATS_POSTS">ישנן {0:N0} הודעות ב- {1:N0} דיונים ב- {2:N0} פורומים.</Resource>

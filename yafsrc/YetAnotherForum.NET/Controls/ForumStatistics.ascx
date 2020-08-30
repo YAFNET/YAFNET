@@ -25,7 +25,7 @@
                             </li>
                             <li class="list-group-item">
                                 <asp:Label ID="StatsNewestMember" runat="server" 
-                                           CssClass="m-2" />:<YAF:UserLink ID="NewestMemberUserLink" runat="server" />
+                                           CssClass="mr-2" /><YAF:UserLink ID="NewestMemberUserLink" runat="server" />
                             </li>
                         </ul>
                     </div>

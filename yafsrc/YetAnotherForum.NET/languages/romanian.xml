@@ -2224,6 +2224,12 @@
     <Resource tag="DOWNLOAD">Download</Resource>
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Verificare Email</Resource>
+    <Resource tag="ENTRIES_10">10 Entries</Resource>
+    <Resource tag="ENTRIES_15">15 Entries</Resource>
+    <Resource tag="ENTRIES_20">20 Entries</Resource>
+    <Resource tag="ENTRIES_25">25 Entries</Resource>
+    <Resource tag="ENTRIES_5">5 Entries</Resource>
+    <Resource tag="ENTRIES_50">50 Entries</Resource>
     <Resource tag="EXTERNALUSER">(External User)</Resource>
     <Resource tag="FONT_COLOR">Culoare caractere:</Resource>
     <Resource tag="FONT_SIZE">Dimensiune caractere:</Resource>
@@ -2669,8 +2675,8 @@
     <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
     <Resource tag="STATS">Statistici</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
-    <Resource tag="STATS_LASTMEMBER">Cel mai nou membru este</Resource>
-    <Resource tag="STATS_LASTPOST">Ultima postare {0} de {1}.</Resource>
+    <Resource tag="STATS_LASTMEMBER">Cel mai nou membru este:</Resource>
+    <Resource tag="STATS_LASTPOST">Ultima postare {0} de:</Resource>
     <Resource tag="STATS_MEMBERS">Avem {0:N0} membrii inregistrati.</Resource>
     <Resource tag="STATS_POSTS">Sunt {0:N0} postari  in {1:N0} teme in {2:N0} forumuri.</Resource>
     <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>

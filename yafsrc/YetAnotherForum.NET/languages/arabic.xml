@@ -2218,6 +2218,12 @@
     <Resource tag="DOWNLOAD">Download</Resource>
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} التحقق من البريد الالكتروني</Resource>
+    <Resource tag="ENTRIES_10">10 Entries</Resource>
+    <Resource tag="ENTRIES_15">15 Entries</Resource>
+    <Resource tag="ENTRIES_20">20 Entries</Resource>
+    <Resource tag="ENTRIES_25">25 Entries</Resource>
+    <Resource tag="ENTRIES_5">5 Entries</Resource>
+    <Resource tag="ENTRIES_50">50 Entries</Resource>
     <Resource tag="EXTERNALUSER">(External User)</Resource>
     <Resource tag="FONT_COLOR"> :لون الخط  </Resource>
     <Resource tag="FONT_SIZE"> :حجم الخط </Resource>
@@ -2667,7 +2673,7 @@
     <Resource tag="STATS">إحصائيات</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER"> الجدد الاعضاء  </Resource>
-    <Resource tag="STATS_LASTPOST">آخر مشاركة{0} بواسطة </Resource>
+    <Resource tag="STATS_LASTPOST">:آخر مشاركة{0} بواسطة </Resource>
     <Resource tag="STATS_MEMBERS">لدينا {0:N0} عضو/أعضاء.</Resource>
     <Resource tag="STATS_POSTS">يوجد {0:N0} مشاركة/مشاركات في {1:N0} موضوع/مواضيع في {2:N0} منتدى/منتديات.</Resource>
     <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>

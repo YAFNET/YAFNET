@@ -2224,6 +2224,12 @@
     <Resource tag="DOWNLOAD">Download</Resource>
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} E-Posta onayı</Resource>
+    <Resource tag="ENTRIES_10">10 Entries</Resource>
+    <Resource tag="ENTRIES_15">15 Entries</Resource>
+    <Resource tag="ENTRIES_20">20 Entries</Resource>
+    <Resource tag="ENTRIES_25">25 Entries</Resource>
+    <Resource tag="ENTRIES_5">5 Entries</Resource>
+    <Resource tag="ENTRIES_50">50 Entries</Resource>
     <Resource tag="EXTERNALUSER">(External User)</Resource>
     <Resource tag="FONT_COLOR">Font Rengi:</Resource>
     <Resource tag="FONT_SIZE">Font Büyüklüğü:</Resource>
@@ -2672,7 +2678,7 @@
     <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
     <Resource tag="STATS">İstatistikler</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
-    <Resource tag="STATS_LASTMEMBER">Son Üyemiz</Resource>
+    <Resource tag="STATS_LASTMEMBER">Son Üyemiz:</Resource>
     <Resource tag="STATS_LASTPOST">Son Mesaj {0} tarihinde yazılmıştır. Üye Adı:</Resource>
     <Resource tag="STATS_MEMBERS"> {0:N0} Kayıtlı Üyemiz Bulunmaktadır.</Resource>
     <Resource tag="STATS_POSTS">{2:N0} Forumun, {1:N0} Konusu altında toplam {0:N0} Mesaj bulunmaktdır.</Resource>

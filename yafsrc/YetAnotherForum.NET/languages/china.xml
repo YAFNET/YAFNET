@@ -2224,6 +2224,12 @@
     <Resource tag="DOWNLOAD">下载</Resource>
     <Resource tag="EDIT">编辑</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email验证</Resource>
+    <Resource tag="ENTRIES_10">10 Entries</Resource>
+    <Resource tag="ENTRIES_15">15 Entries</Resource>
+    <Resource tag="ENTRIES_20">20 Entries</Resource>
+    <Resource tag="ENTRIES_25">25 Entries</Resource>
+    <Resource tag="ENTRIES_5">5 Entries</Resource>
+    <Resource tag="ENTRIES_50">50 Entries</Resource>
     <Resource tag="EXTERNALUSER">(外部用户)</Resource>
     <Resource tag="FONT_COLOR">字体颜色:</Resource>
     <Resource tag="FONT_SIZE">字体大小:</Resource>
@@ -2673,7 +2679,7 @@
     <Resource tag="STATS">统计</Resource>
     <Resource tag="STATS_BIRTHDAYS">今天生日的人: </Resource>
     <Resource tag="STATS_LASTMEMBER">最新会员:</Resource>
-    <Resource tag="STATS_LASTPOST">最后由 {1} 发表于 {0}.</Resource>
+    <Resource tag="STATS_LASTPOST">最后由 发表于 {0}:</Resource>
     <Resource tag="STATS_MEMBERS">共有 {0:N0} 个注册会员.</Resource>
     <Resource tag="STATS_POSTS">共有 {0:N0} 个帖子，{1:N0} 个话题，{2:N0} 个论坛.</Resource>
     <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>

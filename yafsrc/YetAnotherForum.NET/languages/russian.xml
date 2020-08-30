@@ -2206,6 +2206,12 @@
     <Resource tag="DOWNLOAD">Загрузка</Resource>
     <Resource tag="EDIT">Редактировать</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">Проверка Email {0}  </Resource>
+    <Resource tag="ENTRIES_10">10 Entries</Resource>
+    <Resource tag="ENTRIES_15">15 Entries</Resource>
+    <Resource tag="ENTRIES_20">20 Entries</Resource>
+    <Resource tag="ENTRIES_25">25 Entries</Resource>
+    <Resource tag="ENTRIES_5">5 Entries</Resource>
+    <Resource tag="ENTRIES_50">50 Entries</Resource>
     <Resource tag="EXTERNALUSER">(Внешний пользователь)</Resource>
     <Resource tag="FONT_COLOR">Цвет шрифта:</Resource>
     <Resource tag="FONT_SIZE">Размер шрифта:</Resource>
@@ -2653,8 +2659,8 @@
     <Resource tag="SHOW_UNREAD_ONLY">Показывать только непрочитанные темы.</Resource>
     <Resource tag="STATS">Статистика</Resource>
     <Resource tag="STATS_BIRTHDAYS">Дни рождения сегодня: </Resource>
-    <Resource tag="STATS_LASTMEMBER">Последний зарегистрированный пользователь</Resource>
-    <Resource tag="STATS_LASTPOST">Последнее сообщение {0} отправил</Resource>
+    <Resource tag="STATS_LASTMEMBER">Последний зарегистрированный пользователь:</Resource>
+    <Resource tag="STATS_LASTPOST">Последнее сообщение {0} отправил:</Resource>
     <Resource tag="STATS_MEMBERS">Зарегистрировано {0:N0} пользователей.</Resource>
     <Resource tag="STATS_POSTS">На форуме {0:N0} сообщений, {1:N0} тем в {2:N0} подфорумах.</Resource>
     <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>

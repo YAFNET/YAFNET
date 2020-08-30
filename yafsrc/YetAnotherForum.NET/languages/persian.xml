@@ -2239,6 +2239,12 @@
     <Resource tag="DOWNLOAD">دانلود</Resource>
     <Resource tag="EDIT">ویرایش</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">تائید ایمیل {0}</Resource>
+    <Resource tag="ENTRIES_10">10 Entries</Resource>
+    <Resource tag="ENTRIES_15">15 Entries</Resource>
+    <Resource tag="ENTRIES_20">20 Entries</Resource>
+    <Resource tag="ENTRIES_25">25 Entries</Resource>
+    <Resource tag="ENTRIES_5">5 Entries</Resource>
+    <Resource tag="ENTRIES_50">50 Entries</Resource>
     <Resource tag="EXTERNALUSER">(کاربر خارجی)</Resource>
     <Resource tag="FONT_COLOR">رنگ فونت</Resource>
     <Resource tag="FONT_SIZE">اندازه فونت</Resource>
