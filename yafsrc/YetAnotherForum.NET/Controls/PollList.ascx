@@ -17,12 +17,12 @@
                                Visible="False"></asp:Label>
                 </div>
                 <div class="card-body">
-                    <div class="alert alert-info">
+                    <YAF:Alert runat="server" ID="Alert"
+                               Type="info" Visible="False">
                         <YAF:Icon runat="server" 
-                                  IconName="info-circle"></YAF:Icon>
-                        <asp:Label ID="PollNotification" runat="server"
-                                   Visible="false" />
-                    </div>
+                                  IconName="info-circle" />
+                        <asp:Label ID="PollNotification" runat="server" />
+                    </YAF:Alert>
                     <asp:Image id="QuestionImage" runat="server"
                                data-toggle="tooltip"
                                CssClass="img-thumbnail mb-1"

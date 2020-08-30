@@ -497,7 +497,7 @@ namespace YAF.Controls
                 if (notification.IsSet())
                 {
                     this.PollNotification.Text = notification;
-                    this.PollNotification.Visible = true;
+                    this.Alert.Visible = true;
                 }
 
                 // we hide new poll row if a poll exist

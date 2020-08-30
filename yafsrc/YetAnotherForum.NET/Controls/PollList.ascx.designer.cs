@@ -42,6 +42,15 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.Label PollClosed;
 
         /// <summary>
+        /// Alert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.Alert Alert;
+
+        /// <summary>
         /// PollNotification control.
         /// </summary>
         /// <remarks>

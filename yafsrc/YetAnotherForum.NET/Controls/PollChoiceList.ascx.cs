@@ -229,18 +229,23 @@ namespace YAF.Controls
                 var voters = item.FindControlRecursiveAs<Label>("Voters");
                 var voterNames = new StringBuilder();
 
-                voterNames.Append("(");
+                var votersByChoice = this.Voters.Where(i => i.Item1.ChoiceID == choice.Item2.ID).ToList();
 
-                this.Voters.Where(i => i.Item1.ChoiceID == choice.Item2.ID).ForEach(
-                    itemTuple => voterNames.AppendFormat(
-                        "{0}, ",
-                        itemTuple.Item2.DisplayOrUserName()));
+                if (votersByChoice.Any())
+                {
+                    voterNames.Append("(");
 
-                voterNames.Remove(voterNames.Length - 2, 2);
+                    votersByChoice.ForEach(
+                        itemTuple => voterNames.AppendFormat(
+                            "{0}, ",
+                            itemTuple.Item2.DisplayOrUserName()));
 
-                voterNames.Append(")");
+                    voterNames.Remove(voterNames.Length - 2, 2);
 
-                voters.Text = voterNames.ToString();
+                    voterNames.Append(")");
+
+                    voters.Text = voterNames.ToString();
+                }
             }
 
             voteButton.Enabled = this.CanVote && !myChoiceMarker.Visible;
