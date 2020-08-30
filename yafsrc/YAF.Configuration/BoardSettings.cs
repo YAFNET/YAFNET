@@ -727,23 +727,11 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets or sets PostsPerPage.
         /// </summary>
-        [Obsolete]
         public int PostsPerPage
         {
             get => this.Registry.GetValue("PostsPerPage", 20);
 
             set => this.Registry.SetValue("PostsPerPage", value);
-        }
-
-        /// <summary>
-        /// Gets or sets TopicsPerPage.
-        /// </summary>
-        [Obsolete]
-        public int TopicsPerPage
-        {
-            get => this.Registry.GetValue("TopicsPerPage", 15);
-
-            set => this.Registry.SetValue("TopicsPerPage", value);
         }
 
         /// <summary>

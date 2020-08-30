@@ -2967,24 +2967,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox PostsPerPage;
 
         /// <summary>
-        /// HelpLabel179 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel179;
-
-        /// <summary>
-        /// TopicsPerPage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TopicsPerPage;
-
-        /// <summary>
         /// HelpLabel236 control.
         /// </summary>
         /// <remarks>

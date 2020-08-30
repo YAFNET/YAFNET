@@ -142,6 +142,8 @@ namespace YAF.Pages
                     iconLegend.ToJsString(),
                     "topic-icon-legend-popvover"));
 
+            this.PageContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+
             base.OnPreRender(e);
         }
 
@@ -351,10 +353,29 @@ namespace YAF.Pages
         }
 
         /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
+        }
+
+        /// <summary>
         /// The bind data.
         /// </summary>
         private void BindData()
         {
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
             var ds = this.Get<DataBroker>().BoardLayout(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,
@@ -367,20 +388,10 @@ namespace YAF.Pages
                 this.SubForums.Visible = true;
             }
 
-            this.Pager.PageSize = this.Get<BoardSettings>().TopicsPerPage;
+            var baseSize = this.PageSize.SelectedValue.ToType<int>();
 
-            // when userId is null it returns the count of all deleted messages
-            /*int? userId = null;
+            this.Pager.PageSize = baseSize;
 
-            // get the userID to use for the deleted posts count...
-            if (!this.Get<BoardSettings>().ShowDeletedMessagesToAll)
-            {
-                // only show deleted messages that belong to this user if they are not admin/mod
-                if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
-                {
-                    userId = this.PageContext.PageUserID;
-                }
-            }*/
             int? userId = this.PageContext.PageUserID;
 
             var dt = this.GetRepository<Topic>().AnnouncementsAsDataTable(
@@ -397,8 +408,6 @@ namespace YAF.Pages
             {
                 dt = this.StyleTransformDataTable(dt);
             }
-
-            var baseSize = this.Get<BoardSettings>().TopicsPerPage;
 
             this.Announcements.DataSource = dt;
 

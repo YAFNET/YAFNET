@@ -1457,12 +1457,6 @@
             <asp:TextBox CssClass="form-control" ID="PostsPerPage" runat="server"></asp:TextBox>
         </div>
         <div class="mb-3 col-md-6">
-            <YAF:HelpLabel ID="HelpLabel179" runat="server" 
-                           AssociatedControlID="TopicsPerPage" 
-                           LocalizedTag="TOPICS_PER_PAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-            <asp:TextBox CssClass="form-control" ID="TopicsPerPage" runat="server"></asp:TextBox>
-        </div>
-        <div class="mb-3 col-md-6">
             <YAF:HelpLabel ID="HelpLabel236" runat="server" 
                            AssociatedControlID="SubForumsInForumList"
                            LocalizedTag="AMOUNT_OF_SUBFORUMS" LocalizedPage="ADMIN_HOSTSETTINGS" />
