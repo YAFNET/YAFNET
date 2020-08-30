@@ -97,7 +97,7 @@ namespace YAF.Web.Controls
             // BEGIN FOOTER
             this.Get<IStopWatch>().Stop();
 
-            writer.Write(@"<div class=""clearfix""></div><footer class=""footer""><div class=""text-right"">");
+            writer.Write(@"<footer class=""footer""><div class=""text-right"">");
 
             this.RenderRulesLink(writer);
 
