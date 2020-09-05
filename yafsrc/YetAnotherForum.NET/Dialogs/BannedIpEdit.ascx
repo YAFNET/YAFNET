@@ -35,7 +35,8 @@
                                            LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDIP_EDIT" />
                             <asp:TextBox CssClass="form-control" ID="BanReason" runat="server" 
                                          MaxLength="128"
-                                         Height="100"
+                                         Height="100" 
+                                         required="required"
                                          TextMode="MultiLine"></asp:TextBox>
                         </div>
                         <!-- Modal Content END !-->

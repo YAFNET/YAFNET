@@ -175,7 +175,6 @@ namespace YAF.Dialogs
                 this.PageContext.Get<ISession>().LastPost = DateTime.UtcNow;
 
                 // post message...
-                object replyTo = -1;
                 var message = this.quickReplyEditor.Text;
                 long topicId = this.PageContext.PageTopicID;
 
@@ -292,7 +291,7 @@ namespace YAF.Dialogs
                     null,
                     this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     DateTime.UtcNow, 
-                    replyTo.ToType<int>(),
+                    null,
                     messageFlags);
 
                 // Check to see if the user has enabled "auto watch topic" option in his/her profile.
