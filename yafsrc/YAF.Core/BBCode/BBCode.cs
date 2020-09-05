@@ -125,13 +125,13 @@ namespace YAF.Core.BBCode
         /// <summary>
         ///   The _rgx code 1.
         /// </summary>
-        private static readonly Regex _rgxCode1 = new Regex(@"\[code\](?<inner>(.*?))\[/code\]", Options);
+        private static readonly Regex _rgxCode1 = new Regex(@"\[code\](?<inner>(.*?))\[/code\]\r\n|\[code\](?<inner>(.*?))\[/code\]", Options);
 
         /// <summary>
         ///   The regex code with language string.
         /// </summary>
         private static readonly Regex _regexCodeWithLanguage = new Regex(
-            @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]",
+            @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]\r\n|\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]",
             Options);
 
         /// <summary>
