@@ -28,10 +28,11 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_PMessage table.
+    /// A class which represents the PMessage table.
     /// </summary>
     [Serializable]
     [Table(Name = "PMessage")]
@@ -39,21 +40,59 @@ namespace YAF.Types.Models
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [Alias("PMessageID")]
         [AutoIncrement]
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the from user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int FromUserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the created.
+        /// </summary>
         [Required]
         public DateTime Created { get; set; }
+
+        /// <summary>
+        /// Gets or sets the subject.
+        /// </summary>
         [Required]
         [StringLength(100)]
         public string Subject { get; set; }
+
+        /// <summary>
+        /// Gets or sets the body.
+        /// </summary>
         public string Body { get; set; }
+
+        /// <summary>
+        /// Gets or sets the flags.
+        /// </summary>
         [Required]
         [Default(23)]
         public int Flags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the p message flags.
+        /// </summary>
+        [Ignore]
+        public PMessageFlags PMessageFlags
+        {
+            get => new PMessageFlags(this.Flags);
+
+            set => this.Flags = value.BitValue;
+        }
+
+        /// <summary>
+        /// Gets or sets the reply to.
+        /// </summary>
         public int? ReplyTo { get; set; }
 
         #endregion

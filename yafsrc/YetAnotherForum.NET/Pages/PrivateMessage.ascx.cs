@@ -27,7 +27,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
+    using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
 
@@ -39,11 +39,11 @@ namespace YAF.Pages
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -152,62 +152,43 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            using (
-                var dt =
-                    this.GetRepository<PMessage>().ListAsDataTable(
-                        Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"))))
+            var messageId =
+                Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"));
+
+            var messages = this.GetRepository<PMessage>().List(messageId, true);
+
+            if (messages != null && messages.Any())
             {
-                if (dt.HasRows())
+                messages.ForEach(
+                    m => this.GetRepository<UserPMessage>().MarkAsRead((int)m.PMessageID, new PMessageFlags(m.UserPMFlags)));
+
+                var message = messages.FirstOrDefault();
+
+                this.SetMessageView(message.FromUserID, message.ToUserID, message.IsInOutbox, message.IsArchived);
+
+                // get the return link to the pm listing
+                if (this.IsOutbox)
                 {
-                    var row = dt.GetFirstRow();
-
-                    // Check if Message is Reply
-                    if (!row["ReplyTo"].IsNullOrEmptyDBField())
-                    {
-                        var replyTo = row["ReplyTo"].ToType<int>();
-
-                        var message = new PMessage
-                                          {
-                                              ReplyTo = row["ReplyTo"].ToType<int>(),
-                                              ID = row["PMessageID"].ToType<int>()
-                                          };
-
-                        dt.Merge(this.GetRepository<PMessage>().GetReplies(message, replyTo));
-                    }
-
-                    var dataView = dt.DefaultView;
-                    dataView.Sort = "Created ASC";
-
-                    this.SetMessageView(
-                        row.Field<int>("FromUserID"),
-                        row.Field<int>("ToUserID"),
-                        row.Field<bool>("IsInOutbox"),
-                        row.Field<bool>("IsArchived"));
-
-                    // get the return link to the pm listing
-                    if (this.IsOutbox)
-                    {
-                        this.PageLinks.AddLink(
-                            this.GetText("SENTITEMS"), BuildLink.GetLink(ForumPages.MyMessages, "v=out"));
-                    }
-                    else if (this.IsArchived)
-                    {
-                        this.PageLinks.AddLink(
-                            this.GetText("ARCHIVE"), BuildLink.GetLink(ForumPages.MyMessages, "v=arch"));
-                    }
-                    else
-                    {
-                        this.PageLinks.AddLink(this.GetText("INBOX"), BuildLink.GetLink(ForumPages.MyMessages));
-                    }
-
-                    this.PageLinks.AddLink(row["Subject"].ToString());
-
-                    this.Inbox.DataSource = dataView;
+                    this.PageLinks.AddLink(
+                        this.GetText("SENTITEMS"),
+                        BuildLink.GetLink(ForumPages.MyMessages, "v=out"));
+                }
+                else if (this.IsArchived)
+                {
+                    this.PageLinks.AddLink(this.GetText("ARCHIVE"), BuildLink.GetLink(ForumPages.MyMessages, "v=arch"));
                 }
                 else
                 {
-                    BuildLink.Redirect(ForumPages.MyMessages);
+                    this.PageLinks.AddLink(this.GetText("INBOX"), BuildLink.GetLink(ForumPages.MyMessages));
                 }
+
+                this.PageLinks.AddLink((string)message.Subject);
+
+                this.Inbox.DataSource = messages;
+            }
+            else
+            {
+                BuildLink.Redirect(ForumPages.MyMessages);
             }
 
             this.DataBind();
@@ -217,12 +198,7 @@ namespace YAF.Pages
                 return;
             }
 
-            var userMessageId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("pm");
-
-            this.GetRepository<UserPMessage>().MarkAsRead(userMessageId);
-            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.PageContext.PageUserID));
-            this.Get<IRaiseEvent>().Raise(
-                new UpdateUserPrivateMessageEvent(this.PageContext.PageUserID, userMessageId));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserPrivateMessageEvent(this.PageContext.PageUserID, messageId));
         }
 
         /// <summary>
@@ -241,7 +217,10 @@ namespace YAF.Pages
         /// The message Is Archived.
         /// </param>
         private void SetMessageView(
-            [NotNull] int fromUserId, [NotNull] int toUserId, bool messageIsInOutbox, bool messageIsArchived)
+            [NotNull] int fromUserId,
+            [NotNull] int toUserId,
+            bool messageIsInOutbox,
+            bool messageIsArchived)
         {
             var isCurrentUserFrom = fromUserId.Equals(this.PageContext.PageUserID);
             var isCurrentUserTo = toUserId.Equals(this.PageContext.PageUserID);

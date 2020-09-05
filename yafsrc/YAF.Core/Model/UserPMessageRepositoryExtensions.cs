@@ -24,25 +24,14 @@
 
 namespace YAF.Core.Model
 {
-    using System;
     using System.Collections.Generic;
-    using System.Data;
-    using System.Data.SqlClient;
-    using System.IO;
-    using System.Linq;
 
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Extensions.Data;
-    using YAF.Types.Interfaces;
+    using YAF.Types.Constants;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
-    using YAF.Types.Models.Identity;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     /// The UserPMessage Repository Extensions
@@ -52,19 +41,84 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// The mark as read.
+        /// Mark Private Message as read.
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userPMessageId">
-        /// The user p message id.
+        /// <param name="messageId">
+        /// The message Id.
         /// </param>
-        public static void MarkAsRead(this IRepository<UserPMessage> repository, [NotNull] int userPMessageId)
+        /// <param name="messageFlags">
+        /// The message Flags.
+        /// </param>
+        public static void MarkAsRead(
+            this IRepository<UserPMessage> repository,
+            [NotNull] int messageId,
+            [NotNull] PMessageFlags messageFlags)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.DbFunction.Scalar.pmessage_markread(UserPMessageID: userPMessageId);
+            if (messageFlags.IsRead)
+            {
+                return;
+            }
+
+            messageFlags.IsRead = true;
+
+            repository.UpdateOnly(() => new UserPMessage { Flags = messageFlags.BitValue }, m => m.ID == messageId);
+        }
+
+        /// <summary>
+        /// archive message.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <param name="messageFlags">
+        /// The message Flags.
+        /// </param>
+        public static void Archive(
+            this IRepository<UserPMessage> repository,
+            [NotNull] int messageId,
+            [NotNull] PMessageFlags messageFlags)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            messageFlags.IsArchived = true;
+
+            repository.UpdateOnly(() => new UserPMessage { Flags = messageFlags.BitValue }, m => m.ID == messageId);
+        }
+
+        /// <summary>
+        /// Get Messages by To User Id
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="view">
+        /// The view.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<UserPMessage> List(
+            this IRepository<UserPMessage> repository,
+            [NotNull] int userId,
+            [NotNull] PmView view)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            return view == PmView.Archive
+                ? repository.Get(p => p.UserID == userId && p.IsRead == false && p.IsArchived == true)
+                : repository.Get(
+                    p => p.UserID == userId && p.IsRead == false && p.IsDeleted == false && p.IsArchived == false);
         }
 
         #endregion

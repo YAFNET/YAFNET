@@ -319,19 +319,19 @@ namespace YAF.Pages
                 var isReport = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("report") == "1";
 
                 // get quoted message
-                var row =
-                    this.GetRepository<PMessage>().ListAsDataTable(
-                        Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p"))).GetFirstRow();
+                var replyMessage =
+                    this.GetRepository<PMessage>().GetMessage(
+                        Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p")));
 
                 // there is such a message
-                if (row == null)
+                if (replyMessage == null)
                 {
                     return;
                 }
 
                 // get message sender/recipient
-                var toUserId = row["ToUserID"].ToType<int>();
-                var fromUserId = row["FromUserID"].ToType<int>();
+                var toUserId = (int)replyMessage.ToUserID;
+                var fromUserId = (int)replyMessage.FromUserID;
 
                 // verify access to this PM
                 if (toUserId != this.PageContext.PageUserID && fromUserId != this.PageContext.PageUserID)
@@ -340,7 +340,7 @@ namespace YAF.Pages
                 }
 
                 // handle subject
-                var subject = row["Subject"].ToType<string>();
+                var subject = replyMessage.Subject.ToString();
                 if (!subject.StartsWith("Re: "))
                 {
                     subject = $"Re: {subject}";
@@ -363,7 +363,7 @@ namespace YAF.Pages
                 }
 
                 // PM is a quoted reply
-                var body = row["Body"].ToString();
+                var body = replyMessage.Body.ToString();
 
                 if (this.Get<BoardSettings>().RemoveNestedQuotes)
                 {
@@ -392,7 +392,7 @@ namespace YAF.Pages
 
                     this.PmSubjectTextBox.Text = this.GetTextFormatted("REPORT_SUBJECT", displayName);
 
-                    var bodyReport = $"[QUOTE={displayName}]{row["Body"]}[/QUOTE]";
+                    var bodyReport = $"[QUOTE={displayName}]{replyMessage.Body.ToString()}[/QUOTE]";
 
                     // Quote the original message
                     bodyReport = this.GetTextFormatted("REPORT_BODY", bodyReport);
@@ -540,9 +540,22 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var replyTo = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p").IsSet()
+            var replyTo = this.Get<HttpRequestBase>().QueryString.Exists("p")
                               ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p").ToType<int>()
                               : -1;
+
+            // Check if quoted message is Reply
+            if (this.Get<HttpRequestBase>().QueryString.Exists("p"))
+            {
+                var replyId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p").ToType<int>();
+                var reply = this.GetRepository<PMessage>().GetSingle(
+                    m => m.ID == replyId);
+
+                if (reply.ReplyTo.HasValue)
+                {
+                    replyTo = reply.ReplyTo.Value;
+                }
+            }
 
             // recipient was set in dropdown
             if (this.ToList.Visible)

@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PMList" EnableTheming="true" Codebehind="PMList.ascx.cs" EnableViewState="true" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 
@@ -23,6 +22,7 @@
                     </asp:DropDownList>
                 </div>
                 <div class="btn-group btn-group-sm">
+                   
                     <YAF:ThemeButton ID="Sort" runat="server"
                                      CssClass="dropdown-toggle"
                                      Type="Secondary"
@@ -31,16 +31,15 @@
                                      Icon="sort"
                                      Visible="<%# this.Messages.Items.Count > 0 %>"/>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                       
                         <YAF:ThemeButton ID="SortFromAsc" runat="server"
                                          CssClass="dropdown-item"
                                          Type="None" 
-                                         OnClick="FromLinkAsc_Click"
-                                         TextLocalizedTag='<%# this.View == PmView.Outbox ? "TO_ASC" : "FROM_ASC" %>'/>
+                                         OnClick="FromLinkAsc_Click"/>
                         <YAF:ThemeButton ID="SortFromDesc" runat="server"
                                          CssClass="dropdown-item"
                                          Type="None" 
-                                         OnClick="FromLinkDesc_Click"
-                                         TextLocalizedTag='<%# this.View == PmView.Outbox ? "TO_DESC" : "FROM_DESC" %>'/>
+                                         OnClick="FromLinkDesc_Click"/>
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton ID="SortSubjectAsc" runat="server"
                                          CssClass="dropdown-item"
@@ -81,15 +80,15 @@
         <li class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1 text-break">
-                        <asp:HiddenField ID="MessageID" runat="server" Value='<%# this.Eval("UserPMessageID") %>' />
+                        <asp:HiddenField ID="MessageID" runat="server" Value="<%# (Container.DataItem as dynamic).UserPMessageID %>" />
                         <asp:CheckBox runat="server" ID="ItemCheck" 
                                        Text="&nbsp;"
                                        CssClass="form-check d-inline-flex"/>
                         <YAF:Icon runat="server"
-                                  IconName='<%# this.Eval("IsRead").ToType<bool>() ? "envelope-open" : "envelope" %>'
-                                  IconType='<%# this.Eval("IsRead").ToType<bool>() ? "text-secondary" : "text-success" %>'></YAF:Icon>
-                        <a href='<%# this.GetMessageLink(this.Eval("UserPMessageID")) %>'>
-                        <%# this.HtmlEncode(this.Eval("Subject")) %>
+                                  IconName='<%# (Container.DataItem as dynamic).IsRead ? "envelope-open" : "envelope" %>'
+                                  IconType='<%# (Container.DataItem as dynamic).IsRead ? "text-secondary" : "text-success" %>'></YAF:Icon>
+                        <a href="<%# this.GetMessageLink((Container.DataItem as dynamic).UserPMessageID) %>">
+                        <%# this.HtmlEncode((string)(Container.DataItem as dynamic).Subject) %>
                         </a>
                     </h5>
                     <small class="d-none d-md-block">
@@ -98,7 +97,7 @@
                                                 LocalizedTag="DATE" />
                         </span>
                         <YAF:DisplayDateTime ID="PostedDateTime" runat="server" 
-                                             DateTime='<%# Container.DataItemToField<DateTime>("Created") %>'></YAF:DisplayDateTime>
+                                             DateTime='<%# (Container.DataItem as dynamic).Created %>'></YAF:DisplayDateTime>
                     </small>
                 </div>
                 <p class="mb-1">
@@ -107,10 +106,10 @@
                                             LocalizedTag='<%# this.View == PmView.Outbox ? "TO" : "FROM" %>' />:
                     </span>
                     <YAF:UserLink ID="UserLink1" runat="server"
-                                  ReplaceName='<%# this.View == PmView.Outbox ? this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "ToUserDisplayName" : "ToUser") : this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "FromUserDisplayName" : "FromUser") %>'
-                                  Suspended='<%# this.Eval(this.View == PmView.Outbox ? "ToSuspended" : "FromSuspended").ToType<DateTime?>()  %>'
-                                  Style='<%# this.Eval(this.View == PmView.Outbox ? "ToStyle" : "FromStyle") %>'
-                                  UserID='<%# this.Eval(this.View == PmView.Outbox ? "ToUserID" : "FromUserID").ToType<int>() %>' />
+                                  ReplaceName="<%# this.View == PmView.Outbox ? this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).ToUserDisplayName : (Container.DataItem as dynamic).ToUser : this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).FromUserDisplayName : (Container.DataItem as dynamic).FromUser %>"
+                                  Suspended="<%# this.View == PmView.Outbox ? (Container.DataItem as dynamic).ToSuspended : (Container.DataItem as dynamic).FromSuspended  %>"
+                                  Style="<%# this.View == PmView.Outbox ? (Container.DataItem as dynamic).ToStyle : (Container.DataItem as dynamic).FromStyle %>"
+                                  UserID="<%# this.View == PmView.Outbox ? (Container.DataItem as dynamic).ToUserID : (Container.DataItem as dynamic).FromUserID %>" />
                 </p>
             </li>
     </ItemTemplate>

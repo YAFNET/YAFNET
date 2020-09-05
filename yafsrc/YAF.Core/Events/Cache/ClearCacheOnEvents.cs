@@ -59,7 +59,8 @@ namespace YAF.Core.Events.Cache
         IHandleEvent<RepositoryEvent<Category>>,
         IHandleEvent<RepositoryEvent<Forum>>,
         IHandleEvent<RepositoryEvent<Message>>,
-        IHandleEvent<RepositoryEvent<Topic>>
+        IHandleEvent<RepositoryEvent<Topic>>,
+        IHandleEvent<UpdateUserPrivateMessageEvent>
     {
         #region Constructors and Destructors
 
@@ -359,6 +360,17 @@ namespace YAF.Core.Events.Cache
         {
             this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
             this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
+        }
+
+        /// <summary>
+        /// The handle.
+        /// </summary>
+        /// <param name="event">
+        /// The event.
+        /// </param>
+        public void Handle(UpdateUserPrivateMessageEvent @event)
+        {
+            this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
         }
 
         /// <summary>

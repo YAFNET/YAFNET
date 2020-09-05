@@ -45,6 +45,7 @@ namespace YAF.Controls
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -91,22 +92,21 @@ namespace YAF.Controls
         protected void ArchiveAll_Click([NotNull] object source, [NotNull] EventArgs e)
         {
             long archivedCount = 0;
-            using (var dv = this.GetRepository<PMessage>().ListAsDataTable(this.PageContext.PageUserID, null, null)
-                .DefaultView)
-            {
-                dv.RowFilter = "IsDeleted = False AND IsArchived = False";
+            var messages = this.GetRepository<UserPMessage>().Get(
+                p => p.UserID == this.PageContext.PageUserID && p.IsDeleted == false && p.IsArchived == false);
 
-                dv.Cast<DataRowView>().ForEach(
-                    item =>
-                        {
-                            this.GetRepository<PMessage>().ArchiveMessage(item["UserPMessageID"].ToType<int>());
-                            archivedCount++;
-                        });
-            }
+            messages.ForEach(
+                item =>
+                {
+                    this.GetRepository<UserPMessage>().Archive(item.ID, new PMessageFlags(item.Flags));
+                    archivedCount++;
+                });
 
             this.BindData();
             this.ClearCache();
-            this.PageContext.AddLoadMessage(this.GetTextFormatted("MSG_ARCHIVED+", archivedCount), MessageTypes.success);
+            this.PageContext.AddLoadMessage(
+                this.GetTextFormatted("MSG_ARCHIVED+", archivedCount),
+                MessageTypes.success);
         }
 
         /// <summary>
@@ -121,11 +121,15 @@ namespace YAF.Controls
             this.Messages.Items.Cast<RepeaterItem>().Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
                 .ForEach(
                     item =>
-                        {
-                            this.GetRepository<PMessage>()
-                                .ArchiveMessage(item.FindControlAs<HiddenField>("MessageID").Value);
-                            archivedCount++;
-                        });
+                    {
+                        var messageId = item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>();
+
+                        var message = this.GetRepository<UserPMessage>().GetById(messageId);
+
+                        this.GetRepository<UserPMessage>().Archive(message.ID, new PMessageFlags(message.Flags));
+
+                        archivedCount++;
+                    });
 
             this.BindData();
             this.ClearCache();
@@ -170,37 +174,50 @@ namespace YAF.Controls
         {
             long itemCount = 0;
 
-            object toUserId = null;
-            object fromUserId = null; 
-            var isOutbox = false;
-
-            if (this.View == PmView.Outbox)
+            switch (this.View)
             {
-                fromUserId = this.PageContext.PageUserID;
-                isOutbox = true;
-            }
-            else
-            {
-                toUserId = this.PageContext.PageUserID;
-            }
+                case PmView.Inbox:
+                {
+                    var messages = this.GetRepository<UserPMessage>().Get(
+                        p => p.UserID == this.PageContext.PageUserID && p.IsDeleted == false && p.IsArchived == false);
 
-            using (var dv = this.GetRepository<PMessage>().ListAsDataTable(toUserId, fromUserId, null).DefaultView)
-            {
-                dv.RowFilter = this.View switch
-                    {
-                        PmView.Inbox => "IsDeleted = False AND IsArchived = False",
-                        PmView.Outbox => "IsInOutbox = True AND IsArchived = False",
-                        PmView.Archive => "IsArchived = True",
-                        _ => dv.RowFilter
-                    };
-
-                dv.Cast<DataRowView>().ForEach(
-                    item =>
+                    messages.ForEach(
+                        item =>
                         {
-                            this.GetRepository<PMessage>().DeleteMessage(item["UserPMessageID"].ToType<int>(), isOutbox);
+                            this.GetRepository<PMessage>().DeleteMessage(item.ID, false);
 
                             itemCount++;
                         });
+                    break;
+                }
+                case PmView.Outbox:
+                {
+                    var messages = this.GetRepository<PMessage>().Get(
+                        p => p.FromUserID == this.PageContext.PageUserID && p.PMessageFlags.IsInOutbox && p.PMessageFlags.IsArchived == false);
+
+                    messages.ForEach(
+                        item =>
+                        {
+                            this.GetRepository<PMessage>().DeleteMessage(item.ID, true);
+
+                            itemCount++;
+                        });
+                    break;
+                }
+                case PmView.Archive:
+                {
+                    var messages = this.GetRepository<UserPMessage>().Get(
+                        p => p.UserID == this.PageContext.PageUserID && p.IsArchived == true);
+
+                    messages.ForEach(
+                        item =>
+                        {
+                            this.GetRepository<PMessage>().DeleteMessage(item.ID, false);
+
+                            itemCount++;
+                        });
+                    break;
+                }
             }
 
             this.BindData();
@@ -382,26 +399,17 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void MarkAsRead_Click([NotNull] object source, [NotNull] EventArgs e)
         {
-            using (var dv = this.GetRepository<PMessage>().ListAsDataTable(this.PageContext.PageUserID, null, null)
-                .DefaultView)
-            {
-                dv.RowFilter = this.View switch
-                    {
-                        PmView.Inbox => "IsRead = False AND IsDeleted = False AND IsArchived = False",
-                        PmView.Outbox => "IsRead = False AND IsDeleted = False AND IsArchived = False",
-                        PmView.Archive => "IsRead = False AND IsArchived = True",
-                        _ => dv.RowFilter
-                    };
+            var messages = this.GetRepository<UserPMessage>().List(this.PageContext.PageUserID, this.View);
 
-                dv.Cast<DataRowView>().ForEach(
+            messages.ForEach(
                     item =>
                         {
-                            this.GetRepository<UserPMessage>().MarkAsRead(item["UserPMessageID"].ToType<int>());
+                            this.GetRepository<UserPMessage>().MarkAsRead(item.ID, new PMessageFlags(item.Flags));
 
                             // Clearing cache with old permissions data...
                             this.ClearCache();
                         });
-            }
+            
 
             this.BindData();
         }
@@ -577,68 +585,47 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            object toUserId = null;
-            object fromUserId = null;
-
-            switch (this.View)
-            {
-                case PmView.Outbox:
-                    fromUserId = this.PageContext.PageUserID;
-                    break;
-                case PmView.Archive:
-                    fromUserId = this.PageContext.PageUserID;
-                    toUserId = this.PageContext.PageUserID;
-                    break;
-                default:
-                    toUserId = this.PageContext.PageUserID;
-                    break;
-            }
-
             this.IconHeader.Text = this.GetHeaderText();
 
-            using (var dv = this.GetRepository<PMessage>().ListAsDataTable(toUserId, fromUserId, null).DefaultView)
+            this.SortFromAsc.Text = this.GetText(this.View == PmView.Outbox ? "TO_ASC" : "FROM_ASC");
+            this.SortFromDesc.Text = this.GetText(this.View == PmView.Outbox ? "TO_DESC" : "FROM_DESC");
+
+
+            var messages = this.GetRepository<PMessage>().List(
+                this.PageContext.PageUserID,
+                this.View,
+                this.ViewState["SortField"].ToString(),
+                this.ViewState["SortAsc"].ToType<bool>());
+
+            var messagesPaged = messages.GetPaged(this.PagerTop);
+
+            this.PagerTop.Count = messages.Count;
+
+            if (messages.Count > 0)
             {
-                dv.RowFilter = this.View switch
-                    {
-                        PmView.Inbox => "IsDeleted = False AND IsArchived = False",
-                        PmView.Outbox => "IsInOutbox = True AND IsArchived = False",
-                        PmView.Archive => "IsArchived = True",
-                        _ => dv.RowFilter
-                    };
+                this.lblExportType.Visible = true;
+                this.ExportType.Visible = true;
 
-                dv.Sort = $"{this.ViewState["SortField"]} {(this.ViewState["SortAsc"].ToType<bool>() ? "asc" : "desc")}";
+                this.NoMessage.Visible = false;
 
-                var dataRows = dv.Cast<DataRowView>().Skip(this.PagerTop.CurrentPageIndex * this.PagerTop.PageSize)
-                    .Take(this.PagerTop.PageSize);
-
-                this.PagerTop.Count = dv.Count;
-
-                if (dv.Count > 0)
-                {
-                    this.lblExportType.Visible = true;
-                    this.ExportType.Visible = true;
-
-                    this.NoMessage.Visible = false;
-
-                    this.Sort.Visible = true;
-                    this.upPanExport.Visible = true;
-                }
-                else
-                {
-                    this.lblExportType.Visible = false;
-                    this.ExportType.Visible = false;
-
-                    this.NoMessage.Visible = true;
-
-                    this.Sort.Visible = false;
-                    this.upPanExport.Visible = false;
-                }
-
-                this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
-
-                this.Messages.DataSource = dataRows;
-                this.Messages.DataBind();
+                this.Sort.Visible = true;
+                this.upPanExport.Visible = true;
             }
+            else
+            {
+                this.lblExportType.Visible = false;
+                this.ExportType.Visible = false;
+
+                this.NoMessage.Visible = true;
+
+                this.Sort.Visible = false;
+                this.upPanExport.Visible = false;
+            }
+
+            this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
+
+            this.Messages.DataSource = messagesPaged;
+            this.Messages.DataBind();
         }
 
         /// <summary>

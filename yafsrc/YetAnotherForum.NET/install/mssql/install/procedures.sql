@@ -2334,42 +2334,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_list](@FromUserID int=null,@ToUserID int=null,@UserPMessageID int=null) AS
-BEGIN
-        SELECT
-    a.ReplyTo, a.PMessageID, b.UserPMessageID, a.FromUserID, 
-    d.[Name] AS FromUser,
-    d.[DisplayName] as FromUserDisplayName, 
-    d.UserStyle as FromStyle,
-    d.Suspended as FromSuspended,
-    b.[UserID] AS ToUserId, 
-    c.[Name] AS ToUser, 
-    c.[DisplayName] as ToUserDisplayName,
-    c.UserStyle as ToStyle,
-    c.Suspended as ToSuspended,
-    a.Created, a.[Subject],
-    a.Body, a.Flags, b.IsRead,b.IsReply, b.IsInOutbox, b.IsArchived, b.IsDeleted
-FROM
-    [{databaseOwner}].[{objectQualifier}PMessage] a
-INNER JOIN
-    [{databaseOwner}].[{objectQualifier}UserPMessage] b ON a.PMessageID = b.PMessageID
-INNER JOIN
-    [{databaseOwner}].[{objectQualifier}User] c ON b.UserID = c.UserID
-INNER JOIN
-    [{databaseOwner}].[{objectQualifier}User] d ON a.FromUserID = d.UserID
-        WHERE	((@UserPMessageID IS NOT NULL AND b.UserPMessageID=@UserPMessageID) OR
-                 (@ToUserID   IS NOT NULL AND b.[UserID]  = @ToUserID) OR (@FromUserID IS NOT NULL AND a.FromUserID = @FromUserID))
-        ORDER BY Created DESC
-END
-GO
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_markread](@UserPMessageID int=null)
-AS
-BEGIN
-        UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = [Flags] | 1 WHERE UserPMessageID = @UserPMessageID AND IsRead = 0
-END
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}pmessage_prune](@DaysRead int,@DaysUnread int,@UTCTIMESTAMP datetime) as
 begin
     delete from [{databaseOwner}].[{objectQualifier}UserPMessage]
@@ -2431,14 +2395,6 @@ begin
         insert into [{databaseOwner}].[{objectQualifier}UserPMessage](UserID,PMessageID,Flags) values(@ToUserID,@PMessageID,2)
     end
 end
-GO
-
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_archive](@UserPMessageID int = NULL) AS
-BEGIN
-        -- set IsArchived bit
-    UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = ([Flags] | 4) WHERE UserPMessageID = @UserPMessageID AND IsArchived = 0
-END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}post_list](
