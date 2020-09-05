@@ -840,7 +840,7 @@ namespace YAF.Core.BBCode
             ruleEngine.AddRule(
                 new SyntaxHighlighterRegexReplaceRule(
                     isEditMode,
-                    new Regex(@"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]", Options),
+                    new Regex(@"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]\r\n|\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]", Options),
                     @"<div class=""code"">${inner}</div>")
                     {
                         RuleRank = 2
@@ -853,7 +853,7 @@ namespace YAF.Core.BBCode
             ruleEngine.AddRule(
                 new SyntaxHighlighterRegexReplaceRule(
                     isEditMode,
-                    new Regex(@"\[code\](?<inner>(.*?))\[/code\]", Options),
+                    new Regex(@"\[code\](?<inner>(.*?))\[/code\]\r\n|\[code\](?<inner>(.*?))\[/code\]", Options),
                     @"<div class=""code"">${inner}</div>"));
 
             ruleEngine.AddRule(
