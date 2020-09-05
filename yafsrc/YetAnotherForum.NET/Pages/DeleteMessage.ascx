@@ -30,7 +30,7 @@
                         <asp:Label runat="server">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
                         </asp:Label>
-                        <div class="card">
+                        <div class="card bg-light">
                             <div class="card-body">
                                 <YAF:MessagePost ID="MessagePreview" runat="server">
                                 </YAF:MessagePost>

@@ -184,8 +184,6 @@ namespace YAF.Pages
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Delete.ClientID));
 
-            this.message = null;
-
             this.message = this.GetRepository<Message>().GetMessage(this.MessageId);
 
             this.isModeratorChanged = this.PageContext.PageUserID != this.message.Item1.UserID;
@@ -294,7 +292,7 @@ namespace YAF.Pages
             // If it's not deleted it will be marked deleted.
             // If it is the last message of the topic, the topic is also deleted
             this.GetRepository<Message>().Delete(
-                this.message.Item1.ID,
+                this.message.Item2.ID,
                 this.isModeratorChanged,
                 HttpUtility.HtmlEncode(this.ReasonEditor.Text),
                 this.message.Item2.MessageFlags.IsDeleted ? 0 : 1,
