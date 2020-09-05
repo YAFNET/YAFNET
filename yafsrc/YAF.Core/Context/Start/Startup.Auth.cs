@@ -55,7 +55,7 @@ namespace YAF.Core.Context.Start
         public static IDataProtectionProvider DataProtectionProvider { get; set; }
 
         /// <summary>
-        /// The configure Auth.
+        /// Configure the Authentication.
         /// </summary>
         /// <param name="app">
         /// The app.
@@ -66,7 +66,7 @@ namespace YAF.Core.Context.Start
                 new CookieAuthenticationOptions
                 {
                     AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                    LoginPath = new PathString("/Account_Login"),
+                    LoginPath = new PathString("/Account/Login"),
                     Provider = new CookieAuthenticationProvider
                     {
                         OnValidateIdentity =
