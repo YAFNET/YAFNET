@@ -63,6 +63,13 @@
                 </form>
             </div>
             <div class="card-footer text-center">
+                <YAF:ThemeButton ID="DeleteUndelete" runat="server" 
+                                 OnClick="DeleteUndelete_Click"
+                                 CausesValidation="True"
+                                 DataToggle="tooltip"
+                                 Type="Danger"
+                                 Visible="False"
+                                 Icon="trash"/>
                 <YAF:ThemeButton ID="Delete" runat="server" 
                                  OnClick="ToggleDeleteStatus_Click"
                                  CausesValidation="True"

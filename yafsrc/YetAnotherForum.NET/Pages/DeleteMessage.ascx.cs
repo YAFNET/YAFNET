@@ -227,17 +227,30 @@ namespace YAF.Pages
             {
                 this.Title.Text = this.GetText("EDIT");
                 this.Delete.TextLocalizedTag = "DELETE";
+                this.Delete.TitleLocalizedTag = "DELETE_TT";
 
                 if (this.PageContext.IsAdmin)
                 {
                     this.EraseRow.Visible = true;
                 }
+
+                this.DeleteUndelete.Visible = false;
             }
             else
             {
                 this.Title.Text = this.GetText("EDIT");
                 this.Delete.TextLocalizedTag = "UNDELETE";
+                this.Delete.TitleLocalizedTag = "UNDELETE_TT";
                 this.Delete.Icon = "trash-restore";
+                this.Delete.Type = ButtonStyle.Warning;
+
+                this.DeleteUndelete.TextLocalizedTag = "BUTTON_DELETE_UNDELETE";
+                this.DeleteUndelete.TitleLocalizedTag = "BUTTON_DELETE_UNDELETE_TT";
+
+                if (this.PageContext.IsAdmin)
+                {
+                    this.DeleteUndelete.Visible = true;
+                }
             }
 
             this.Subject.Text = this.message.Item1.TopicName;
@@ -262,11 +275,39 @@ namespace YAF.Pages
         }
 
         /// <summary>
+        /// The delete Un-delete click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void DeleteUndelete_Click(object sender, EventArgs e)
+        {
+            this.ToggleDelete(0, true);
+        }
+
+        /// <summary>
         /// Delete Message(s)
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ToggleDeleteStatus_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.ToggleDelete(this.message.Item2.MessageFlags.IsDeleted ? 0 : 1, this.EraseMessage.Checked);
+        }
+
+        /// <summary>
+        /// The toggle delete.
+        /// </summary>
+        /// <param name="deleteAction">
+        /// The delete action.
+        /// </param>
+        /// <param name="eraseMessage">
+        /// The erase message.
+        /// </param>
+        private void ToggleDelete(int deleteAction, bool eraseMessage)
         {
             if (!this.CanDeletePost)
             {
@@ -295,9 +336,9 @@ namespace YAF.Pages
                 this.message.Item2.ID,
                 this.isModeratorChanged,
                 HttpUtility.HtmlEncode(this.ReasonEditor.Text),
-                this.message.Item2.MessageFlags.IsDeleted ? 0 : 1,
+                deleteAction,
                 deleteAllLinked,
-                this.EraseMessage.Checked);
+                eraseMessage);
 
             // retrieve topic information.
             var topic = this.GetRepository<Topic>().GetById(this.message.Item2.TopicID);
