@@ -83,7 +83,7 @@
                         <asp:HiddenField ID="MessageID" runat="server" Value="<%# (Container.DataItem as dynamic).UserPMessageID %>" />
                         <asp:CheckBox runat="server" ID="ItemCheck" 
                                        Text="&nbsp;"
-                                       CssClass="form-check d-inline-flex"/>
+                                       CssClass="form-check d-inline-flex align-middle"/>
                         <YAF:Icon runat="server"
                                   IconName='<%# (Container.DataItem as dynamic).IsRead ? "envelope-open" : "envelope" %>'
                                   IconType='<%# (Container.DataItem as dynamic).IsRead ? "text-secondary" : "text-success" %>'></YAF:Icon>
@@ -97,7 +97,7 @@
                                                 LocalizedTag="DATE" />
                         </span>
                         <YAF:DisplayDateTime ID="PostedDateTime" runat="server" 
-                                             DateTime='<%# (Container.DataItem as dynamic).Created %>'></YAF:DisplayDateTime>
+                                             DateTime="<%# (Container.DataItem as dynamic).Created %>"></YAF:DisplayDateTime>
                     </small>
                 </div>
                 <p class="mb-1">
@@ -121,7 +121,9 @@
             <div class="btn-group mr-2 mb-1" role="group">
                 <YAF:ThemeButton runat="server" ID="MarkAsRead" 
                                  Size="Small"
-                                 TextLocalizedTag="MARK_ALL_ASREAD" 
+                                 TextLocalizedTag="MARK_ALL_ASREAD"
+                                 TitleLocalizedTag="MARK_ALL_ASREAD"
+                                 DataToggle="tooltip"
                                  OnClick="MarkAsRead_Click"
                                  Type="Secondary" 
                                  Icon="eye"/>
@@ -130,12 +132,16 @@
                 <YAF:ThemeButton runat="server" ID="ArchiveSelected" 
                                  Size="Small"
                                  TextLocalizedTag="ARCHIVESELECTED" 
+                                 TitleLocalizedTag="ARCHIVESELECTED" 
+                                 DataToggle="tooltip"
                                  OnClick="ArchiveSelected_Click"
                                  Type="Secondary"
                                  Icon="archive" />
                 <YAF:ThemeButton runat="server" ID="ArchiveAll" 
                                  Size="Small"
                                  TextLocalizedTag="ARCHIVEALL" 
+                                 TitleLocalizedTag="ARCHIVEALL" 
+                                 DataToggle="tooltip"
                                  ReturnConfirmText='<%#this.GetText("CONFIRM_ARCHIVEALL") %>'
                                  OnClick="ArchiveAll_Click"
                                  Type="Secondary" Icon="archive" />
@@ -144,31 +150,39 @@
                 <YAF:ThemeButton runat="server" ID="ExportSelected" 
                                  Size="Small"
                                  TextLocalizedTag="EXPORTSELECTED" 
+                                 TitleLocalizedTag="EXPORTSELECTED" 
+                                 DataToggle="tooltip"
                                  OnClick="ExportSelected_Click" 
                                  Type="Secondary" 
                                  Icon="file-export"/>
                 <YAF:ThemeButton runat="server" ID="ExportAll"
                                  Size="Small"
-                                 TextLocalizedTag="EXPORTALL" 
+                                 TextLocalizedTag="DELETESELECTED" 
+                                 TitleLocalizedTag="DELETESELECTED" 
+                                 DataToggle="tooltip"
                                  OnClick="ExportAll_Click" 
                                  Type="Secondary" 
                                  Icon="file-export" />
             </div>
             <div class="btn-group mb-1" role="group">
                 <YAF:ThemeButton runat="server" ID="DeleteSelected" 
-                             Size="Small"
-                             TextLocalizedTag="DELETESELECTED" 
-                             ReturnConfirmText='<%#this.GetText("CONFIRM_DELETE") %>'
-                             OnClick="DeleteSelected_Click"
-                             Type="Secondary" 
-                             Icon="trash" />
+                                 Size="Small"
+                                 TextLocalizedTag="DELETESELECTED" 
+                                 TitleLocalizedTag="DELETESELECTED" 
+                                 DataToggle="tooltip"
+                                 ReturnConfirmText='<%#this.GetText("CONFIRM_DELETE") %>'
+                                 OnClick="DeleteSelected_Click"
+                                 Type="Secondary" 
+                                 Icon="trash" />
                 <YAF:ThemeButton runat="server" ID="DeleteAll" 
-                             Size="Small"
-                             TextLocalizedTag="DELETEALL" 
-                             ReturnConfirmText='<%#this.GetText("CONFIRM_DELETEALL") %>'
-                             OnClick="DeleteAll_Click"
-                             Type="Secondary" 
-                             Icon="trash" />
+                                 Size="Small"
+                                 TextLocalizedTag="DELETEALL" 
+                                 TitleLocalizedTag="DELETEALL" 
+                                 DataToggle="tooltip"
+                                 ReturnConfirmText='<%#this.GetText("CONFIRM_DELETEALL") %>'
+                                 OnClick="DeleteAll_Click"
+                                 Type="Secondary" 
+                                 Icon="trash" />
             </div>
         </div>
         <hr />

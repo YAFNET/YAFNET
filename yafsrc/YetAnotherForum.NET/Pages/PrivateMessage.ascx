@@ -1,7 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.PrivateMessage" Codebehind="PrivateMessage.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Flags" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -56,6 +55,8 @@
                                         <YAF:ThemeButton ID="ReportMessage" runat="server"
                                                          CommandName="report" CommandArgument="<%# (Container.DataItem as dynamic).UserPMessageID %>" 
                                                          TextLocalizedTag="REPORTPOST"
+                                                         TitleLocalizedTag="REPORTPOST_TITLE"
+                                                         DataToggle="tooltip"
                                                          TextLocalizedPage="POSTS"
                                                          Type="Link"
                                                          Icon="exclamation-triangle"
@@ -65,6 +66,7 @@
                                         <YAF:ThemeButton ID="ReplyMessage" runat="server"
                                                          CommandName="reply" CommandArgument="<%# (Container.DataItem as dynamic).UserPMessageID %>" 
                                                          TextLocalizedTag="BUTTON_REPLY" TitleLocalizedTag="BUTTON_REPLY_TT"
+                                                         DataToggle="tooltip"
                                                          Type="Secondary"
                                                          Icon="reply"
                                                          CssClass="mr-1"
@@ -72,12 +74,14 @@
                                         <YAF:ThemeButton ID="QuoteMessage" runat="server"
                                                          CommandName="quote" CommandArgument="<%# (Container.DataItem as dynamic).UserPMessageID %>" 
                                                          TextLocalizedTag="BUTTON_QUOTE" TitleLocalizedTag="BUTTON_QUOTE_TT"
+                                                         DataToggle="tooltip"
                                                          Type="Secondary"
                                                          Icon="reply"
                                                          CssClass="mr-1"
                                                          Visible="<%# (Container.DataItem as dynamic).FromUserID != this.PageContext.PageUserID %>"/>
                                         <YAF:ThemeButton ID="DeleteMessage" runat="server"
                                                          CommandName="delete" CommandArgument="<%# (Container.DataItem as dynamic).UserPMessageID %>" 
+                                                         DataToggle="tooltip"
                                                          TextLocalizedTag="BUTTON_DELETE" TitleLocalizedTag="BUTTON_DELETE_TT"
                                                          ReturnConfirmText='<%# this.GetText("confirm_deletemessage") %>'
                                                          Type="Danger"

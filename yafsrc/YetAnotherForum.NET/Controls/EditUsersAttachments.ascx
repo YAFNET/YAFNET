@@ -30,7 +30,7 @@
         <li class="list-group-item">
             <asp:CheckBox ID="Selected" runat="server"
                           Text="&nbsp;"
-                          CssClass="form-check d-inline-flex" />
+                          CssClass="form-check d-inline-flex align-middle" />
             <%# this.GetPreviewImage(Container.DataItem) %>
             <%# this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
                             

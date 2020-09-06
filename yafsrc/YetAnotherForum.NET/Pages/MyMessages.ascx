@@ -12,6 +12,7 @@
             <div class="col">
                 <YAF:ThemeButton ID="NewPM" runat="server" 
                                  TextLocalizedTag="BUTTON_NEWPM" TitleLocalizedTag="BUTTON_NEWPM_TT"
+                                 DataToggle="tooltip"
                                  Type="Secondary"
                                  Icon="envelope-open-text"/>
             </div>
@@ -80,6 +81,7 @@
             <div class="col">
                 <YAF:ThemeButton ID="NewPM2" runat="server" 
                                  TextLocalizedTag="BUTTON_NEWPM" TitleLocalizedTag="BUTTON_NEWPM_TT"
+                                 DataToggle="tooltip"
                                  Type="Secondary"
                                  Icon="envelope-open-text"/>
             </div>
