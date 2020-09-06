@@ -32,7 +32,6 @@ namespace YAF.Core.Model
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
-    using YAF.Core.Data;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -195,20 +194,17 @@ namespace YAF.Core.Model
         /// <param name="parentId">
         /// The parent Id.
         /// </param>
-        /// <returns>
-        /// Integer value for a found dependency
-        /// </returns>
-        public static int SaveParentsChecker([NotNull] this IRepository<Forum> repository, int forumId, int parentId)
+        public static bool IsParentsChecker([NotNull] this IRepository<Forum> repository, int forumId, int parentId)
         {
-            using (var cmd = repository.DbAccess.GetCommand(
-                $"select {CommandTextHelpers.GetObjectName("forum_save_parentschecker")}(@ForumID, @ParentID)",
-                CommandType.Text))
+            if (repository.Exists(f => f.ParentID == forumId))
             {
-                cmd.AddParam("@ForumID", forumId);
-                cmd.AddParam("@ParentID", parentId);
-
-                return (int)repository.DbAccess.ExecuteScalar(cmd);
+                // Forum Is already a Parent
+                return true;
             }
+
+            // Checks if Parent Forum is parent or child
+            return repository.Exists(f => f.ParentID == parentId && f.ID != forumId) ||
+                   repository.Exists(f => f.ID == parentId && f.ParentID != null);
         }
 
         /// <summary>

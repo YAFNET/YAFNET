@@ -442,30 +442,36 @@ namespace YAF.Pages.Admin
 
             int? parentId = null;
 
-            if (this.ParentList.SelectedValue.Length > 0)
+            if (this.ParentList.SelectedIndex > 0)
             {
                 parentId = this.ParentList.SelectedValue.ToType<int>();
             }
 
-            // parent selection check.
-            if (parentId != null && parentId.ToString() == this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("fa"))
-            {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITFORUM", "MSG_PARENT_SELF"),
-                    MessageTypes.warning);
-                return;
-            }
-
             // The picked forum cannot be a child forum as it's a parent
             // If we update a forum ForumID > 0 
-            if (forumId.HasValue && parentId != null)
+            if (forumId.HasValue && parentId.HasValue)
             {
-                var dependency = this.GetRepository<Forum>()
-                    .SaveParentsChecker(forumId.Value, parentId.Value);
-                if (dependency > 0)
+                // check if parent and forum is the same
+                if (parentId.Value == forumId.Value)
+                {
+                    this.PageContext.AddLoadMessage(
+                        this.GetText("ADMIN_EDITFORUM", "MSG_PARENT_SELF"),
+                        MessageTypes.warning);
+                    return;
+                }
+
+                if (this.GetRepository<Forum>()
+                    .IsParentsChecker(forumId.Value, parentId.Value))
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"),
+                        MessageTypes.warning);
+                    return;
+                }
+                else
+                {
+                    this.PageContext.AddLoadMessage(
+                        "this.GetText(\"ADMIN_EDITFORUM\", \"MSG_CHILD_PARENT\")",
                         MessageTypes.warning);
                     return;
                 }
