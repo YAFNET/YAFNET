@@ -234,7 +234,7 @@ namespace YAF.Pages
 
             // try to find users by user name
             var usersFound = this.Get<IUserDisplayName>().FindUserContainsName(this.To.Text.Trim()).Where(
-                u => !u.Block.BlockPMs && u.IsApproved == true && u.ID != this.PageContext.PageUserID).ToList();
+                u => !u.Block.BlockPMs && u.UserFlags.IsApproved && u.ID != this.PageContext.PageUserID).ToList();
 
             if (usersFound.Any())
             {

@@ -36,6 +36,12 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "Activity")]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] add [CreatedTopic]   as (CONVERT([bit],sign([Flags]&(1)),(0)))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [CreatedReply]   as (CONVERT([bit],sign([Flags]&(8)),(0)))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [WasMentioned]   as (CONVERT([bit],sign([Flags]&(512)),(0)))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [ReceivedThanks] as (CONVERT([bit],sign([Flags]&(1024)),(0)))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [GivenThanks]    as (CONVERT([bit],sign([Flags]&(2048)),(0)))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [WasQuoted]      as (CONVERT([bit],sign([Flags]&(4096)),(0)))")]
     public class Activity : IEntity, IHaveID
     {
         #region Properties

@@ -445,7 +445,7 @@ namespace YAF.Controls
                 this.User.Item1.LanguageFile,
                 this.User.Item1.Culture,
                 this.User.Item1.ThemeFile,
-                this.User.Item1.IsActiveExcluded);
+                this.User.Item1.UserFlags.IsActiveExcluded);
 
             // Save Custom Profile
             if (this.CustomProfile.Visible)

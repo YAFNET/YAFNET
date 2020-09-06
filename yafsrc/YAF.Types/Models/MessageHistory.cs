@@ -31,29 +31,62 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_MessageHistory table.
+    /// A class which represents the MessageHistory table.
     /// </summary>
     [Serializable]
     [Table(Name = "MessageHistory")]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" +
+                     "alter table [{databaseOwner}].[{tableName}] with nocheck add constraint [PK_{tableName}] primary key clustered (MessageID,Edited)")]
     public class MessageHistory : IEntity
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the message id.
+        /// </summary>
         [References(typeof(Message))]
         [Required]
         public int MessageID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the message.
+        /// </summary>
         public string Message { get; set; }
+
+        /// <summary>
+        /// Gets or sets the IP Address.
+        /// </summary>
         [Required]
         [StringLength(39)]
         public string IP { get; set; }
+
+        /// <summary>
+        /// Gets or sets the edited.
+        /// </summary>
         [Required]
         public DateTime Edited { get; set; }
+
+        /// <summary>
+        /// Gets or sets the edited by.
+        /// </summary>
         public int? EditedBy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the edit reason.
+        /// </summary>
         [StringLength(100)]
         public string EditReason { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether is moderator changed.
+        /// </summary>
         [Required]
         [Default(0)]
         public bool IsModeratorChanged { get; set; }
+
+        /// <summary>
+        /// Gets or sets the flags.
+        /// </summary>
         [Required]
         [Default(23)]
         public int Flags { get; set; }

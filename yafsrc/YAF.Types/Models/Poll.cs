@@ -28,6 +28,7 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -35,6 +36,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "Poll")]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] add IsDeleted  as (CONVERT([bit],sign([Flags]&(8)),0))" +
+                         "alter table [{databaseOwner}].[{tableName}] add IsApproved as (CONVERT([bit],sign([Flags]&(16)),(0)))")]
     public class Poll : IEntity, IHaveID
     {
         #region Properties
@@ -78,22 +81,15 @@ namespace YAF.Types.Models
         public int Flags { get; set; }
 
         /// <summary>
-        /// Gets or sets the is closed bound.
+        /// Gets or sets the Poll flags.
         /// </summary>
-        [Compute]
-        public bool? IsClosedBound { get; set; }
+        [Ignore]
+        public PollFlags PollFlags
+        {
+            get => new PollFlags(this.Flags);
 
-        /// <summary>
-        /// Gets or sets the allow multiple choices.
-        /// </summary>
-        [Compute]
-        public bool? AllowMultipleChoices { get; set; }
-
-        /// <summary>
-        /// Gets or sets the show voters.
-        /// </summary>
-        [Compute]
-        public bool? ShowVoters { get; set; }
+            set => this.Flags = value.BitValue;
+        }
 
         /// <summary>
         /// Gets or sets the allow skip vote.

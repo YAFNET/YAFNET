@@ -35,13 +35,21 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "IgnoreUser")]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" +
+                     "alter table [{databaseOwner}].[{tableName}] with nocheck add constraint [PK_{tableName}] primary key clustered (UserID, IgnoredUserID)")]
     public class IgnoreUser : IEntity
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [Required]
         public int UserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the ignored user id.
+        /// </summary>
         [Required]
         public int IgnoredUserID { get; set; }
 

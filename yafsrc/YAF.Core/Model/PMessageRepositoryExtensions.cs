@@ -7,6 +7,7 @@ namespace YAF.Core.Model
     
     using ServiceStack.OrmLite;
 
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions.Data;
@@ -32,14 +33,46 @@ namespace YAF.Core.Model
         /// <param name="daysUnread">
         /// The days unread.
         /// </param>
-        public static void PruneAll(this IRepository<PMessage> repository, [NotNull] int daysRead, [NotNull] int daysUnread)
+        public static void PruneAll(
+            this IRepository<PMessage> repository,
+            [NotNull] int daysRead,
+            [NotNull] int daysUnread)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.DbFunction.Query.pmessage_prune(
-                DaysRead: daysRead,
-                DaysUnread: daysUnread,
-                UTCTIMESTAMP: DateTime.UtcNow);
+            // Delete Read Messages
+            repository.DbAccess.Execute(
+                db =>
+                {
+                    var q = db.Connection.From<UserPMessage>(db.Connection.TableAlias("a")).Join<PMessage>(
+                        (a, b) => Sql.TableAlias(a.PMessageID, "a") == Sql.TableAlias(b.ID, "b"),
+                        db.Connection.TableAlias("b")).Where(
+                        $"a.IsRead<>0 and DATEDIFF(dd, b.Created, '{DateTime.UtcNow}') > {daysRead}");
+
+                    return db.Connection.Delete(q);
+                });
+
+            // Delete Unread Messages
+            repository.DbAccess.Execute(
+                db =>
+                {
+                    var q = db.Connection.From<UserPMessage>(db.Connection.TableAlias("a")).Join<PMessage>(
+                        (a, b) => Sql.TableAlias(a.PMessageID, "a") == Sql.TableAlias(b.ID, "b"),
+                        db.Connection.TableAlias("b")).Where(
+                        $"a.IsRead = 0 and DATEDIFF(dd, b.Created, '{DateTime.UtcNow}') > {daysUnread}");
+
+                    return db.Connection.Delete(q);
+                });
+
+            // Delete old Messages
+            repository.DbAccess.Execute(
+                db =>
+                {
+                    var q = db.Connection.From<PMessage>().UnsafeWhere(
+                        $"not exists (select 1 from {Config.DatabaseObjectQualifier}UserPMessage x where x.PMessageID = {Config.DatabaseObjectQualifier}PMessage.PMessageID)");
+
+                    return db.Connection.Delete(q);
+                });
         }
 
         /// <summary>

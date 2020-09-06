@@ -36,6 +36,10 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [UniqueConstraint(nameof(CategoryID), nameof(Name))]
+    [PostCreateTable("alter table {tableName} add [IsLocked]		as (CONVERT([bit],sign([Flags]&(1)),(0)))" + 
+                         "alter table {tableName} add [IsHidden]	as (CONVERT([bit],sign([Flags]&(2)),(0)))" + 
+                         "alter table {tableName} add [IsNoCount]   as (CONVERT([bit],sign([Flags]&(4)),(0)))" + 
+                         "alter table {tableName} add [IsModerated] as (CONVERT([bit],sign([Flags]&(8)),(0)))")]
     public class Forum : IEntity, IHaveID
     {
         #region Properties
@@ -131,12 +135,6 @@ namespace YAF.Types.Models
         /// </summary>
         [StringLength(100)]
         public string RemoteURL { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is hidden.
-        /// </summary>
-        [Compute]
-        public bool? IsHidden { get; set; }
 
         /// <summary>
         /// Gets or sets the flags.

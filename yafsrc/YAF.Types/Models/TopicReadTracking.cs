@@ -33,19 +33,31 @@ namespace YAF.Types.Models
     /// A class which represents the TopicReadTracking table.
     /// </summary>
     [Serializable]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" +
+                     "alter table [{databaseOwner}].[{tableName}] with nocheck add constraint [PK_{tableName}] primary key clustered (UserID,TopicID)")]
     public class TopicReadTracking : IEntity
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the topic id.
+        /// </summary>
         [References(typeof(Topic))]
         [Required]
         public int TopicID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last access date.
+        /// </summary>
         [Required]
         public DateTime LastAccessDate { get; set; }
-
 
         #endregion
     }

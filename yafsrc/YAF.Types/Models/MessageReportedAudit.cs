@@ -31,7 +31,7 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_MessageReportedAudit table.
+    /// A class which represents the MessageReportedAudit table.
     /// </summary>
     [Serializable]
     [Table(Name = "MessageReportedAudit")]
@@ -39,16 +39,39 @@ namespace YAF.Types.Models
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the log id.
+        /// </summary>
         [AutoIncrement]
         public int LogID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         public int? UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the message id.
+        /// </summary>
         [References(typeof(MessageReported))]
         [Required]
         public int MessageID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reported.
+        /// </summary>
         public DateTime? Reported { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reported number.
+        /// </summary>
         [Required]
         [Default(1)]
         public int ReportedNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets the report text.
+        /// </summary>
         [StringLength(4000)]
         public string ReportText { get; set; }
 

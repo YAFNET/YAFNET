@@ -310,7 +310,7 @@ namespace YAF.Controls
         {
             if (this.PageContext.ForumVoteAccess)
             {
-                this.GetRepository<Poll>().Remove(this.poll.ID, this.PageContext.PageBoardID);
+                this.GetRepository<Poll>().Remove(this.poll.ID);
             }
             else
             {
@@ -393,7 +393,7 @@ namespace YAF.Controls
                     pollChoiceList.DataSource = this.pollAndChoices;
                 }
 
-                if (this.poll.ShowVoters.Value)
+                if (this.poll.PollFlags.ShowVoters)
                 {
                     pollChoiceList.Voters = this.GetRepository<PollVote>().Voters(this.poll.ID);
                 }
@@ -405,7 +405,7 @@ namespace YAF.Controls
                 var daysToRun = this.DaysToRun(out var closesSoon);
                 var isPollClosed = this.IsPollClosed();
 
-                var isClosedBound = this.poll.Closes.HasValue && this.poll.IsClosedBound.Value &&
+                var isClosedBound = this.poll.Closes.HasValue && this.poll.PollFlags.IsClosedBound &&
                                     this.poll.Closes.Value < DateTime.UtcNow;
 
                 if (isClosedBound && isPollClosed)
@@ -445,7 +445,7 @@ namespace YAF.Controls
                 else
                 {
                     // Here warning labels are treated
-                    if (this.poll.AllowMultipleChoices.Value)
+                    if (this.poll.PollFlags.AllowMultipleChoice)
                     {
                         notificationString.Append(this.GetText("POLLEDIT", "POLL_MULTIPLECHOICES_INFO"));
                     }

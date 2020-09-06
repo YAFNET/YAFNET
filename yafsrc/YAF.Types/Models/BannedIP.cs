@@ -30,30 +30,51 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
+    /// <summary>
+    /// The banned IP table.
+    /// </summary>
     [Serializable]
     [UniqueConstraint(nameof(BoardID), nameof(Mask))]
     public class BannedIP : IEntity, IHaveID, IHaveBoardID
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [Alias("ID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the board id.
+        /// </summary>
         [References(typeof(Board))]
         [Required]
         public int BoardID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the mask.
+        /// </summary>
         [Required]
         [StringLength(15)]
         public string Mask { get; set; }
 
+        /// <summary>
+        /// Gets or sets the since.
+        /// </summary>
         [Required]
         public DateTime Since { get; set; }
 
+        /// <summary>
+        /// Gets or sets the reason.
+        /// </summary>
         [StringLength(128)]
         public string Reason { get; set; }
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         public int? UserID { get; set; }
         
         #endregion

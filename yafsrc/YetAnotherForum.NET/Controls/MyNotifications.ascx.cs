@@ -355,20 +355,20 @@ namespace YAF.Controls
 
             if (!this.WasMentioned.Checked)
             {
-                stream.RemoveAll(a => a.Item1.WasMentioned);
+                stream.RemoveAll(a => a.Item1.ActivityFlags.WasMentioned);
             }
 
             if (!this.ReceivedThanks.Checked)
             {
-                stream.RemoveAll(a => a.Item1.ReceivedThanks);
+                stream.RemoveAll(a => a.Item1.ActivityFlags.ReceivedThanks);
             }
 
             if (!this.WasQuoted.Checked)
             {
-                stream.RemoveAll(a => a.Item1.WasQuoted);
+                stream.RemoveAll(a => a.Item1.ActivityFlags.WasQuoted);
             }
 
-            stream.RemoveAll(a => a.Item1.GivenThanks);
+            stream.RemoveAll(a => a.Item1.ActivityFlags.GivenThanks);
 
             var paged = stream
                 .Skip(this.PagerTop.CurrentPageIndex * this.PagerTop.PageSize).Take(this.PagerTop.PageSize).ToList();

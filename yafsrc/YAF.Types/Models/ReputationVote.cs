@@ -31,20 +31,33 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_ReputationVote table.
+    /// A class which represents the ReputationVote table.
     /// </summary>
     [Serializable]
     [Table(Name = "ReputationVote")]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" +
+                     "alter table [{databaseOwner}].[{tableName}] with nocheck add constraint [PK_{tableName}] primary key clustered (ReputationFromUserID,ReputationToUserID)")]
     public class ReputationVote : IEntity
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the reputation from user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int ReputationFromUserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reputation to user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int ReputationToUserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the vote date.
+        /// </summary>
         [Required]
         public DateTime VoteDate { get; set; }
 

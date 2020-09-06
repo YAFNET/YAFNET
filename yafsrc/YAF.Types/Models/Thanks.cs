@@ -34,7 +34,7 @@ namespace YAF.Types.Models
     #endregion
 
     /// <summary>
-    ///     A class which represents the yaf_Thanks table in the Yaf Database.
+    ///     A class which represents the Thanks table in the Database.
     /// </summary>
     [Serializable]
     public class Thanks : IEntity, IHaveID
@@ -48,19 +48,31 @@ namespace YAF.Types.Models
         [Alias("ThanksID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the thanks from user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         [Index]
         public int ThanksFromUserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the thanks to user id.
+        /// </summary>
         [Required]
         [Index]
         public int ThanksToUserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the message id.
+        /// </summary>
         [Required]
         [Index]
         public int MessageID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the thanks date.
+        /// </summary>
         [Required]
         public DateTime ThanksDate { get; set; }
 

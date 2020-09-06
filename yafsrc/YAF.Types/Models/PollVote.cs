@@ -30,26 +30,44 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    ///     A class which represents the yaf_PollVote table.
+    ///     A class which represents the PollVote table.
     /// </summary>
     [Serializable]
     public class PollVote : IEntity, IHaveID
     {
         #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [Alias("PollVoteID")]
         [AutoIncrement]
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the poll id.
+        /// </summary>
         [References(typeof(Poll))]
         [Required]
         [Index]
         public int PollID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [Index]
         public int? UserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the remote IP.
+        /// </summary>
         [Index]
         [StringLength(39)]
         public string RemoteIP { get; set; }
+
+        /// <summary>
+        /// Gets or sets the choice id.
+        /// </summary>
         public int? ChoiceID { get; set; }
 
         #endregion

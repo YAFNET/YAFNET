@@ -105,7 +105,7 @@ namespace YAF.Pages
             }
             else
             {
-                if (user.IsApproved == false)
+                if (!user.UserFlags.IsApproved)
                 {
                     BuildLink.AccessDenied();
                 }

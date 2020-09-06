@@ -313,9 +313,9 @@ namespace YAF.Pages
                     BuildLink.RedirectInfoPage(InfoMessage.Invalid);
                 }
 
-                this.IsClosedBoundCheckBox.Checked = poll.IsClosedBound.Value;
-                this.AllowMultipleChoicesCheckBox.Checked = poll.AllowMultipleChoices.Value;
-                this.ShowVotersCheckBox.Checked = poll.ShowVoters.Value;
+                this.IsClosedBoundCheckBox.Checked = poll.PollFlags.IsClosedBound;
+                this.AllowMultipleChoicesCheckBox.Checked = poll.PollFlags.AllowMultipleChoice;
+                this.ShowVotersCheckBox.Checked = poll.PollFlags.ShowVoters;
                 this.Question.Text = poll.Question;
                 this.QuestionObjectPath.Text = poll.ObjectPath;
 

@@ -39,16 +39,26 @@ namespace YAF.Types.Models
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [Alias("ID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [Index]
+        [References(typeof(User))]
         public int UserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the topic id.
+        /// </summary>
+        [References(typeof(Topic))]
         [Index]
         public int TopicID { get; set; }
-
 
         #endregion
     }

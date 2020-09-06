@@ -31,34 +31,53 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_GroupMedal table.
+    /// A class which represents the GroupMedal table.
     /// </summary>
     [Serializable]
     [Table(Name = "GroupMedal")]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" +
+                     "alter table [{databaseOwner}].[{tableName}] with nocheck add constraint [PK_{tableName}] primary key clustered (MedalID,GroupID)")]
     public class GroupMedal : IEntity
     {
         #region Properties
 
-
+        /// <summary>
+        /// Gets or sets the group id.
+        /// </summary>
         [References(typeof(Group))]
         [Required]
         public int GroupID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the medal id.
+        /// </summary>
         [References(typeof(Medal))]
         [Required]
         public int MedalID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the message.
+        /// </summary>
         [StringLength(100)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether hide.
+        /// </summary>
         [Required]
         [Default(0)]
         public bool Hide { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether only ribbon.
+        /// </summary>
         [Required]
         [Default(0)]
         public bool OnlyRibbon { get; set; }
 
+        /// <summary>
+        /// Gets or sets the sort order.
+        /// </summary>
         [Required]
         [Default(255)]
         public byte SortOrder { get; set; }

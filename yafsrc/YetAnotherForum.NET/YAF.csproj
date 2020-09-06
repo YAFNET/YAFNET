@@ -2060,9 +2060,7 @@
     <Content Include="Install\custom\dnn.sql" />
     <Content Include="Install\mssql\install\constraints.sql" />
     <Content Include="Install\mssql\install\functions.sql" />
-    <Content Include="Install\mssql\install\indexes.sql" />
     <Content Include="Install\mssql\install\procedures.sql" />
-    <Content Include="Install\mssql\install\tables.sql" />
     <Content Include="Install\mssql\install\views.sql" />
     <Content Include="Install\mssql\upgrade\fulltext.sql" />
     <Content Include="Install\mssql\upgrade\identity\upgrade.sql" />
@@ -2094,7 +2092,6 @@
     </Content>
     <Content Include="Install\mssql\upgrade\constraints.sql" />
     <Content Include="Install\mssql\upgrade\functions.sql" />
-    <Content Include="Install\mssql\upgrade\indexes.sql" />
     <Content Include="Install\mssql\upgrade\procedures.sql" />
     <Content Include="Install\mssql\upgrade\tables.sql" />
     <Content Include="Install\mssql\upgrade\triggers.sql" />
@@ -3367,6 +3364,10 @@
     <Content Include="YetAnotherForum.NET.snk" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ServiceStack\ServiceStack.Interfaces\ServiceStack.Interfaces.csproj">
+      <Project>{7092fefb-a69a-4f4f-b856-dfca83b6cd0c}</Project>
+      <Name>ServiceStack.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServiceStack\ServiceStack.Text\ServiceStack.Text.csproj">
       <Project>{35d4c8bf-4acc-4cdf-b239-8766e69bcda5}</Project>
       <Name>ServiceStack.Text</Name>

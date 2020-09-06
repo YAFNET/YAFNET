@@ -33,21 +33,42 @@ namespace YAF.Types.Models
     /// A class which represents the WatchForum table.
     /// </summary>
     [Serializable]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" +
+                     "alter table [{databaseOwner}].[{tableName}] with nocheck add constraint [PK_{tableName}] primary key clustered (UserID,ForumID)")]
     public class UserForum : IEntity
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the forum id.
+        /// </summary>
         [References(typeof(Forum))]
         [Required]
         public int ForumID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the access mask id.
+        /// </summary>
         [References(typeof(AccessMask))]
         [Required]
         public int AccessMaskID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the invited.
+        /// </summary>
         [Required]
         public DateTime Invited { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether accepted.
+        /// </summary>
         [Required]
         public bool Accepted { get; set; }
 

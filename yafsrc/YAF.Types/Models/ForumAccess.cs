@@ -30,26 +30,36 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    ///     A class which represents the yaf_ForumAccess table.
+    ///     A class which represents the ForumAccess table.
     /// </summary>
     [Serializable]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" +
+                     "alter table [{databaseOwner}].[{tableName}] with nocheck add constraint [PK_{tableName}] primary key clustered (GroupID,ForumID)")]
     public class ForumAccess : IEntity
     {
         #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the group id.
+        /// </summary>
         [References(typeof(Group))]
         [Required]
         public int GroupID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the forum id.
+        /// </summary>
         [References(typeof(Forum))]
         [Required]
         [Index]
         public int ForumID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the access mask id.
+        /// </summary>
         [References(typeof(AccessMask))]
         [Required]
         public int AccessMaskID { get; set; }
-
 
         #endregion
     }

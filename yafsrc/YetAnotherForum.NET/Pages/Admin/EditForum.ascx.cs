@@ -468,13 +468,6 @@ namespace YAF.Pages.Admin
                         MessageTypes.warning);
                     return;
                 }
-                else
-                {
-                    this.PageContext.AddLoadMessage(
-                        "this.GetText(\"ADMIN_EDITFORUM\", \"MSG_CHILD_PARENT\")",
-                        MessageTypes.warning);
-                    return;
-                }
             }
 
             // duplicate name checking...

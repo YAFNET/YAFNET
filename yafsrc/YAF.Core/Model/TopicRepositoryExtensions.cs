@@ -210,6 +210,8 @@ namespace YAF.Core.Model
             [NotNull] bool useStyledNicks,
             [CanBeNull] bool findLastRead = false)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbFunction.GetData.topic_unanswered(
                 BoardID: boardId,
                 CategoryID: categoryId,
@@ -270,6 +272,8 @@ namespace YAF.Core.Model
             [NotNull] bool useStyledNicks,
             [CanBeNull] bool findLastRead = false)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbFunction.GetData.topic_active(
                 BoardID: boardId,
                 CategoryID: categoryId,
@@ -330,6 +334,8 @@ namespace YAF.Core.Model
             [NotNull] bool useStyledNicks,
             [CanBeNull] bool findLastRead = false)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbFunction.GetData.topic_unread(
                 BoardID: boardId,
                 CategoryID: categoryId,
@@ -390,6 +396,8 @@ namespace YAF.Core.Model
             [NotNull] bool useStyledNicks,
             [CanBeNull] bool findLastRead = false)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbFunction.GetData.topics_byuser(
                 BoardID: boardId,
                 CategoryID: categoryId,
@@ -426,6 +434,8 @@ namespace YAF.Core.Model
             [NotNull] int numOfPostsToRetrieve,
             [NotNull] int pageUserId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbFunction.GetData.topic_announcements(
                 BoardID: boardId,
                 NumPosts: numOfPostsToRetrieve,
@@ -433,7 +443,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The topic_create_by_message.
+        /// Create New Topic By Message.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -456,12 +466,24 @@ namespace YAF.Core.Model
             [NotNull] int forumId,
             [NotNull] string newTopicSubject)
         {
-            return long.Parse(
-                repository.DbFunction.GetData.topic_create_by_message(
-                    MessageID: messageId,
-                    ForumID: forumId,
-                    Subject: newTopicSubject,
-                    UTCTIMESTAMP: DateTime.UtcNow).GetFirstRow()["TopicID"].ToString());
+            CodeContracts.VerifyNotNull(repository, nameof(repository));
+
+            var message = BoardContext.Current.GetRepository<Message>().GetById(messageId);
+
+            var topic = new Topic
+            {
+                ForumID = forumId,
+                TopicName = newTopicSubject,
+                UserID = message.UserID,
+                Posted = message.Posted,
+                Views = 0,
+                Priority = 0,
+                PollID = null,
+                UserName = null,
+                NumPosts = 0
+            };
+
+            return repository.Insert(topic);
         }
 
         /// <summary>
@@ -496,6 +518,8 @@ namespace YAF.Core.Model
             bool useStyledNicks,
             bool showNoCountPosts)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbFunction.GetData.rss_topic_latest(
                 BoardID: boardId,
                 NumPosts: numOfPostsToRetrieve,
@@ -517,6 +541,8 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable RssListAsDataTable(this IRepository<Topic> repository, int forumId, int topicLimit)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbFunction.GetData.rsstopic_list(ForumID: forumId, TopicLimit: topicLimit);
         }
 
@@ -556,6 +582,8 @@ namespace YAF.Core.Model
             bool showNoCountPosts,
             [CanBeNull] bool findLastRead)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbFunction.GetData.topic_latest(
                 BoardID: boardId,
                 NumPosts: numOfPostsToRetrieve,
@@ -605,6 +633,8 @@ namespace YAF.Core.Model
             bool showNoCountPosts,
             [CanBeNull] bool findLastRead)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbFunction.GetData.topic_latest_in_category(
                 BoardID: boardId,
                 categoryId: categoryId,
@@ -663,6 +693,8 @@ namespace YAF.Core.Model
             [NotNull] bool showMoved,
             [CanBeNull] bool findLastRead)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbFunction.GetData.topic_list(
                 ForumID: forumId,
                 UserID: userId,
@@ -723,6 +755,8 @@ namespace YAF.Core.Model
             [NotNull] bool showMoved,
             [CanBeNull] bool findLastRead)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbFunction.GetData.announcements_list(
                 ForumID: forumId,
                 UserID: userId,
@@ -811,6 +845,8 @@ namespace YAF.Core.Model
             [CanBeNull] string topicTags,
             out int messageId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var topic = new Topic
             {
                 ForumID = forumId,
@@ -872,6 +908,8 @@ namespace YAF.Core.Model
             [NotNull] bool showMoved,
             [NotNull] int linkDays)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.DbFunction.Scalar.topic_move(
                 TopicID: topicId,
                 ForumID: forumId,
@@ -908,6 +946,8 @@ namespace YAF.Core.Model
             [NotNull] int days,
             [NotNull] bool permDelete)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return (int)repository.DbFunction.Scalar.topic_prune(
                 BoardID: boardId,
                 ForumID: forumId,
@@ -927,6 +967,8 @@ namespace YAF.Core.Model
         /// </param>
         public static void Delete(this IRepository<Topic> repository, [NotNull] int topicID)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.Delete(topicID, false);
         }
 
@@ -944,6 +986,8 @@ namespace YAF.Core.Model
         /// </param>
         public static void Delete(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] bool eraseTopic)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.DeleteAttachments(topicId);
 
             BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByTopicId(topicId);
@@ -1059,6 +1103,8 @@ namespace YAF.Core.Model
             this IRepository<Topic> repository,
             [NotNull] Func<string, string> decodeTopicFunc)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var topics = repository.SimpleList(0, 99999999);
 
             topics.Where(t => t.TopicName.IsSet()).ForEach(
@@ -1135,6 +1181,8 @@ namespace YAF.Core.Model
         /// </param>
         private static void DeleteAttachments(this IRepository<Topic> repository, [NotNull] object topicID)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var topics = repository.DbFunction.GetData.topic_listmessages(TopicID: topicID);
 
             foreach (DataRow row in topics.Rows)
@@ -1176,6 +1224,8 @@ namespace YAF.Core.Model
             bool deleteLinked,
             bool eraseMessages)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var useFileTable = BoardContext.Current.Get<BoardSettings>().UseFileTable;
 
             if (deleteLinked)

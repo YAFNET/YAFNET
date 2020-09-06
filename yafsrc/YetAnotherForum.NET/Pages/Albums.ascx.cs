@@ -92,7 +92,7 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            if (user.IsApproved == false)
+            if (!user.UserFlags.IsApproved)
             {
                 BuildLink.AccessDenied();
             }

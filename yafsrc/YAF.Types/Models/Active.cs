@@ -34,6 +34,8 @@ namespace YAF.Types.Models
     ///     A class which represents the Active table.
     /// </summary>
     [Serializable]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" +
+                     "alter table [{databaseOwner}].[{tableName}] with nocheck add constraint [PK_{tableName}] primary key clustered (SessionID,BoardID)")]
     public class Active : IEntity, IHaveBoardID
     {
         #region Public Properties
@@ -69,7 +71,7 @@ namespace YAF.Types.Models
         public string ForumPage { get; set; }
 
         /// <summary>
-        /// Gets or sets the ip.
+        /// Gets or sets the IP Address.
         /// </summary>
         [Required]
         [StringLength(39)]

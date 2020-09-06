@@ -42,6 +42,16 @@ namespace YAF.Types.Models
 
     [UniqueConstraint(nameof(BoardID), nameof(Name))]
     [Table(Name = "User")]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] add [IsApproved]        as (CONVERT([bit],sign([Flags]&(2)),(0)))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [IsGuest]	          as (CONVERT([bit],sign([Flags]&(4)),(0)))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [IsCaptchaExcluded] as (CONVERT([bit],sign([Flags]&(8)),(0)))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [IsActiveExcluded]  as (CONVERT([bit],sign([Flags]&(16)),(0)))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [IsDST]	          as (CONVERT([bit],sign([Flags]&(32)),(0)))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [IsDirty]	          as (CONVERT([bit],sign([Flags]&(64)),(0)))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [Moderated]	      as (CONVERT([bit],sign([Flags]&(128)),(0)))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [IsUserStyle]       as (CONVERT([bit],sign([StyleFlags]&(1)),(0)))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [IsGroupStyle]      as (CONVERT([bit],sign([StyleFlags]&(2)),(0)))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [IsRankStyle]       as (CONVERT([bit],sign([StyleFlags]&(4)),(0)))")]
     public class User : IEntity, IHaveBoardID, IHaveID
     {
         /// <summary>
@@ -309,52 +319,16 @@ namespace YAF.Types.Models
         public int Points { get; set; }
 
         /// <summary>
-        /// Gets or sets the is approved.
-        /// </summary>
-        [Compute]
-        public bool? IsApproved { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is active excluded.
-        /// </summary>
-        [Compute]
-        public bool? IsActiveExcluded { get; set; }
-
-        /// <summary>
         /// Gets or sets the culture.
         /// </summary>
         [StringLength(10)]
         public string Culture { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the is guest.
         /// </summary>
         [Compute]
         public bool? IsGuest { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is captcha excluded.
-        /// </summary>
-        [Compute]
-        public bool? IsCaptchaExcluded { get; set; }
-
-        /// <summary>
-        /// Gets or sets if DST is enabled.
-        /// </summary>
-        [Compute]
-        public bool? IsDST { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is dirty.
-        /// </summary>
-        [Compute]
-        public bool? IsDirty { get; set; }
-
-        /// <summary>
-        /// Gets or sets the moderated.
-        /// </summary>
-        [Compute]
-        public bool? Moderated { get; set; }
 
         /// <summary>
         /// Gets or sets the user style.
@@ -369,24 +343,6 @@ namespace YAF.Types.Models
         [Required]
         [Default(0)]
         public int StyleFlags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is user style.
-        /// </summary>
-        [Compute]
-        public bool? IsUserStyle { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is group style.
-        /// </summary>
-        [Compute]
-        public bool? IsGroupStyle { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is rank style.
-        /// </summary>
-        [Compute]
-        public bool? IsRankStyle { get; set; }
 
         /// <summary>
         /// Gets or sets the suspended reason.

@@ -31,7 +31,7 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_NntpForum table.
+    /// A class which represents the NntpForum table.
     /// </summary>
     [Serializable]
     [Table(Name = "NntpForum")]
@@ -39,24 +39,55 @@ namespace YAF.Types.Models
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [Alias("NntpForumID")]
         [AutoIncrement]
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the nntp server id.
+        /// </summary>
         [References(typeof(NntpServer))]
         [Required]
         public int NntpServerID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the group name.
+        /// </summary>
         [Required]
         [StringLength(100)]
         public string GroupName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the forum id.
+        /// </summary>
         [References(typeof(Forum))]
         [Required]
         public int ForumID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last message no.
+        /// </summary>
         [Required]
         public int LastMessageNo { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last update.
+        /// </summary>
         [Required]
         public DateTime LastUpdate { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether active.
+        /// </summary>
         [Required]
         public bool Active { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date cut off.
+        /// </summary>
         public DateTime? DateCutOff { get; set; }
 
         #endregion

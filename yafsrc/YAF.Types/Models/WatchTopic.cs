@@ -39,18 +39,36 @@ namespace YAF.Types.Models
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [Alias("WatchTopicID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the topic id.
+        /// </summary>
         [References(typeof(Topic))]
         [Required]
         public int TopicID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the created.
+        /// </summary>
         [Required]
         public DateTime Created { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last mail.
+        /// </summary>
         public DateTime? LastMail { get; set; }
 
         #endregion

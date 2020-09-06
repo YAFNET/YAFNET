@@ -37,6 +37,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "Message")]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] add [IsDeleted]  as (CONVERT([bit],sign([Flags]&(8)),0))" +
+                         "alter table [{databaseOwner}].[{tableName}] add [IsApproved] as (CONVERT([bit],sign([Flags]&(16)),(0)))")]
     public class Message : IEntity, IHaveID
     {
         /// <summary>

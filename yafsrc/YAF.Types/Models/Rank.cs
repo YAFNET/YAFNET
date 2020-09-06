@@ -103,33 +103,33 @@ namespace YAF.Types.Models
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the usr sig chars.
+        /// Gets or sets the user sig chars.
         /// </summary>
         [Required]
         [Default(0)]
         public int UsrSigChars { get; set; }
 
         /// <summary>
-        /// Gets or sets the usr sig bb codes.
+        /// Gets or sets the user sig bb codes.
         /// </summary>
         [StringLength(255)]
         public string UsrSigBBCodes { get; set; }
 
         /// <summary>
-        /// Gets or sets the usr sig html tags.
+        /// Gets or sets the user sig html tags.
         /// </summary>
         [StringLength(255)]
         public string UsrSigHTMLTags { get; set; }
 
         /// <summary>
-        /// Gets or sets the usr albums.
+        /// Gets or sets the user albums.
         /// </summary>
         [Required]
         [Default(0)]
         public int UsrAlbums { get; set; }
 
         /// <summary>
-        /// Gets or sets the usr album images.
+        /// Gets or sets the user album images.
         /// </summary>
         [Required]
         [Default(0)]

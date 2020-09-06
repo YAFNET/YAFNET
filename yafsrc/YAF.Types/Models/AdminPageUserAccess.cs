@@ -24,15 +24,17 @@
 namespace YAF.Types.Models
 {
     using System;
-
+    
     using ServiceStack.DataAnnotations;
 
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    ///     A class which represents the yaf_AdminPageUserAccess table.
+    ///     A class which represents the AdminPageUserAccess table.
     /// </summary>
     [Serializable]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" +
+                     "alter table [{databaseOwner}].[{tableName}] with nocheck add constraint [PK_{tableName}] primary key clustered (UserID,PageName)")]
     public class AdminPageUserAccess : IEntity
     {
         #region Public Properties
@@ -41,12 +43,19 @@ namespace YAF.Types.Models
         /// Gets or sets the user id.
         /// </summary>
         [Required]
+        [References(typeof(User))]
         public int UserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the page name.
+        /// </summary>
         [Required]
         [StringLength(128)]
         public string PageName { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether read access.
+        /// </summary>
         [Ignore]
         public bool ReadAccess { get; set; }
 

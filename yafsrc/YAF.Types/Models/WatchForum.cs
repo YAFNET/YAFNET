@@ -33,7 +33,6 @@ namespace YAF.Types.Models
     /// A class which represents the WatchForum table.
     /// </summary>
     [Serializable]
-
     [UniqueConstraint(nameof(ForumID), nameof(UserID))]
     public class WatchForum : IEntity, IHaveID
     {
@@ -46,15 +45,29 @@ namespace YAF.Types.Models
         [AutoIncrement]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the forum id.
+        /// </summary>
         [References(typeof(Forum))]
         [Required]
         public int ForumID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the created.
+        /// </summary>
         [Required]
         public DateTime Created { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last mail.
+        /// </summary>
         public DateTime? LastMail { get; set; }
 
         #endregion

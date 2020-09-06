@@ -31,9 +31,11 @@ namespace YAF.Core.Model
 
     using ServiceStack.OrmLite;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -77,20 +79,30 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="pollID">
-        /// The poll id. If null all polls in a group a deleted.
-        /// </param>
-        /// <param name="boardId">
-        /// The BoardID id.
+        /// <param name="pollId">
+        /// The poll Id.
         /// </param>
         public static void Remove(
             this IRepository<Poll> repository,
-            [NotNull] int pollID,
-            [NotNull] int boardId)
+            [NotNull] int pollId)
         {
-            repository.DbFunction.Scalar.poll_remove(
-                PollID: pollID,
-                BoardID: boardId);
+            CodeContracts.VerifyNotNull(repository, nameof(repository));
+
+            // delete vote records first
+            BoardContext.Current.GetRepository<PollVote>().Delete(p => p.PollID == pollId);
+
+            // delete choices
+            BoardContext.Current.GetRepository<Choice>().Delete(p => p.PollID == pollId);
+
+            // update topics
+            BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+                () => new Topic
+                {
+                    PollID = null
+                },
+                t => t.PollID == pollId);
+
+            repository.DeleteById(pollId);
         }
 
         /// <summary>
@@ -130,6 +142,8 @@ namespace YAF.Core.Model
             [NotNull] bool showVoters,
             [CanBeNull] string questionPath)
         {
+            CodeContracts.VerifyNotNull(repository, nameof(repository));
+
             var flags = new PollFlags
             {
                 IsClosedBound = isClosedBounded,
@@ -189,6 +203,8 @@ namespace YAF.Core.Model
             [NotNull] bool showVoters,
             [CanBeNull] string questionPath)
         {
+            CodeContracts.VerifyNotNull(repository, nameof(repository));
+
             var flags = new PollFlags
             {
                 IsClosedBound = isClosedBounded,

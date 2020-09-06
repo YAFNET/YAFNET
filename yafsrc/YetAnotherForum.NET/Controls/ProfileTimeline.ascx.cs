@@ -309,17 +309,17 @@ namespace YAF.Controls
 
             if (!this.CreatedTopic.Checked)
             {
-                stream.RemoveAll(a => a.Item1.CreatedTopic);
+                stream.RemoveAll(a => a.Item1.ActivityFlags.CreatedTopic);
             }
 
             if (!this.CreatedReply.Checked)
             {
-                stream.RemoveAll(a => a.Item1.CreatedReply);
+                stream.RemoveAll(a => a.Item1.ActivityFlags.CreatedReply);
             }
 
             if (!this.GivenThanks.Checked)
             {
-                stream.RemoveAll(a => a.Item1.GivenThanks);
+                stream.RemoveAll(a => a.Item1.ActivityFlags.GivenThanks);
             }
 
             var paged = stream.Skip(this.PagerTop.CurrentPageIndex * this.PagerTop.PageSize)

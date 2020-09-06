@@ -47,11 +47,10 @@ namespace YAF.Types.Models
         public int ID { get; set; }
 
         /// <summary>
-        /// Gets BoardId.
+        /// Gets or sets the board id.
         /// </summary>
         [References(typeof(Board))]
         [Required]
-        
         public int BoardID { get; set; }
 
         /// <summary>

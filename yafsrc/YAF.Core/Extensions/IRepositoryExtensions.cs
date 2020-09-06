@@ -73,31 +73,7 @@ namespace YAF.Core.Extensions
 
             return success;
         }
-
-        /// <summary>
-        /// The delete.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="haveId">
-        /// The have id.
-        /// </param>
-        /// <typeparam name="T">
-        /// The type parameter.
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool Delete<T>([NotNull] this IRepository<T> repository, [NotNull] IHaveID haveId)
-            where T : class, IEntity, IHaveID, new()
-        {
-            CodeContracts.VerifyNotNull(haveId, "haveId");
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.DeleteById(haveId.ID);
-        }
-
+        
         /// <summary>
         /// The delete.
         /// </summary>

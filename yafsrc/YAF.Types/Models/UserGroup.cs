@@ -31,19 +31,27 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_UserGroup table.
+    /// A class which represents the UserGroup table.
     /// </summary>
     [Serializable]
     [Table(Name = "UserGroup")]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" +
+                     "alter table [{databaseOwner}].[{tableName}] with nocheck add constraint [PK_{tableName}] primary key clustered (UserID,GroupID)")]
     public class UserGroup : IEntity
     {
         #region Properties
 
-
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         [Index]
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the group id.
+        /// </summary>
         [References(typeof(Group))]
         [Required]
         public int GroupID { get; set; }

@@ -1944,7 +1944,7 @@ BEGIN
                 (a.Flags & 24) = 16
                 AND b.IsDeleted = 0
                 AND d.BoardID = @BoardID
-                AND c.[IsNoCount] <> (CASE WHEN @ShowNoCountPosts > 0 THEN -1 ELSE 1 END)
+                AND (c.Flags & 4) <> (CASE WHEN @ShowNoCountPosts > 0 THEN -1 ELSE 1 END)
             ORDER BY
                 a.Posted DESC
         END
@@ -2341,7 +2341,7 @@ select
         b.RemoteURL,
         ReadAccess = CONVERT(int,x.ReadAccess),
         Style = case(@StyledNicks)
-            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = t.LastUserID)
+            when 1 then  lastUser.[UserStyle]
             else ''	 end,
         LastForumAccess = case(@FindLastRead)
              when 1 then
@@ -3648,21 +3648,6 @@ BEGIN
     END
 
 END
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}pmessage_prune](@DaysRead int,@DaysUnread int,@UTCTIMESTAMP datetime) as
-begin
-        delete from [{databaseOwner}].[{objectQualifier}UserPMessage]
-    where IsRead<>0
-    and datediff(dd,(select Created from [{databaseOwner}].[{objectQualifier}PMessage] x where x.PMessageID=[{databaseOwner}].[{objectQualifier}UserPMessage].PMessageID),@UTCTIMESTAMP )>@DaysRead
-
-    delete from [{databaseOwner}].[{objectQualifier}UserPMessage]
-    where IsRead=0
-    and datediff(dd,(select Created from [{databaseOwner}].[{objectQualifier}PMessage] x where x.PMessageID=[{databaseOwner}].[{objectQualifier}UserPMessage].PMessageID),@UTCTIMESTAMP )>@DaysUnread
-
-    delete from [{databaseOwner}].[{objectQualifier}PMessage]
-    where not exists(select 1 from [{databaseOwner}].[{objectQualifier}UserPMessage] x where x.PMessageID=[{databaseOwner}].[{objectQualifier}PMessage].PMessageID)
-end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}pmessage_save](
@@ -6051,35 +6036,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}topic_create_by_message] (
-    @MessageID int,
-    @ForumID	int,
-    @Subject	nvarchar(100),
-    @UTCTIMESTAMP datetime
-) as
-begin
-
-declare		@UserID		int
-declare		@Posted		datetime
-
-set @UserID = (select UserID from [{databaseOwner}].[{objectQualifier}message] where MessageID =  @MessageID)
-set  @Posted  = (select  posted from [{databaseOwner}].[{objectQualifier}message] where MessageID =  @MessageID)
-
-
-    declare @TopicID int
-    --declare @MessageID int
-
-    if @Posted is null set @Posted = @UTCTIMESTAMP
-
-    insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,[Views],Priority,PollID,UserName,NumPosts)
-    values(@ForumID,@Subject,@UserID,@Posted,0,0,null,null,0)
-
-    set @TopicID = @@IDENTITY
---	exec [{databaseOwner}].[{objectQualifier}message_save] @TopicID,@UserID,@Message,@UserName,@IP,@Posted,null,@Flags,@MessageID output
-    select TopicID = @TopicID, MessageID = @MessageID
-END
-GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_move] (@MessageID int, @MoveToTopic int) AS
 BEGIN
     DECLARE
@@ -6257,25 +6213,6 @@ begin
         --resync board forums
         exec [{databaseOwner}].[{objectQualifier}forum_resync] @BoardID
     end
-end
-GO
-
--- polls
-
-CREATE procedure [{databaseOwner}].[{objectQualifier}poll_remove](
-    @PollID int, @BoardID int = null)
-as
-begin
-    -- delete vote records first
-    delete from [{databaseOwner}].[{objectQualifier}PollVote] where PollID = @PollID
-    -- delete choices
-    delete from [{databaseOwner}].[{objectQualifier}Choice] where PollID = @PollID
-
-    -- update topics
-    Update [{databaseOwner}].[{objectQualifier}Topic] set PollID = NULL where PollID = @PollID
-
-    -- delete poll
-    delete from [{databaseOwner}].[{objectQualifier}Poll] where PollID = @PollID
 end
 GO
 

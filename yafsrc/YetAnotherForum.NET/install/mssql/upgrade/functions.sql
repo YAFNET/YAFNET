@@ -185,7 +185,7 @@ BEGIN
                     [{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
                     INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
                 WHERE
-                    a.ForumID = @ForumID AND a.IsHidden = 0
+                    a.ForumID = @ForumID AND (a.Flags & 2) = 0
         END
         ELSE
         BEGIN
@@ -196,7 +196,7 @@ BEGIN
                     [{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
                     INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
                 WHERE
-                    (a.IsHidden = 0 or x.ReadAccess <> 0) AND a.ForumID=@ForumID and x.UserID=@UserID
+                    ((a.Flags & 2) = 0 or x.ReadAccess <> 0) AND a.ForumID=@ForumID and x.UserID=@UserID
         END
     END
 
@@ -304,7 +304,7 @@ BEGIN
                     [{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
                     INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
                 WHERE
-                    a.ForumID = @ForumID AND a.IsHidden = 0
+                    a.ForumID = @ForumID AND (a.Flags & 2) = 0
         END
         ELSE
         BEGIN
@@ -315,7 +315,7 @@ BEGIN
                     [{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
                     INNER JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
                 WHERE
-                    (a.IsHidden = 0 or x.ReadAccess <> 0) AND a.ForumID=@ForumID and x.UserID=@UserID
+                    ((a.Flags & 2) = 0 or x.ReadAccess <> 0) AND a.ForumID=@ForumID and x.UserID=@UserID
         END
     END
 

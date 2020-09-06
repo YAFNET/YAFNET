@@ -32,7 +32,7 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_NntpServer table.
+    /// A class which represents the NntpServer table.
     /// </summary>
     [Serializable]
     [Table(Name = "NntpServer")]
@@ -40,27 +40,48 @@ namespace YAF.Types.Models
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [Alias("NntpServerID")]
         [AutoIncrement]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the board id.
+        /// </summary>
         [References(typeof(Board))]
         [Required]
         public int BoardID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets the address.
+        /// </summary>
         [Required]
         [StringLength(100)]
         public string Address { get; set; }
 
+        /// <summary>
+        /// Gets or sets the port.
+        /// </summary>
         public int? Port { get; set; }
 
+        /// <summary>
+        /// Gets or sets the user name.
+        /// </summary>
         [StringLength(255)]
         public string UserName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the user pass.
+        /// </summary>
         [StringLength(50)]
         public string UserPass { get; set; }
 

@@ -440,7 +440,7 @@ namespace YAF.Pages
             this.Joined.Text = $"{this.Get<IDateTime>().FormatDateLong(Convert.ToDateTime(user.Item1.Joined))}";
 
             // vzrus: Show last visit only to admins if user is hidden
-            if (!this.PageContext.IsAdmin && Convert.ToBoolean(user.Item1.IsActiveExcluded))
+            if (!this.PageContext.IsAdmin && user.Item1.UserFlags.IsActiveExcluded)
             {
                 this.LastVisit.Text = this.GetText("COMMON", "HIDDEN");
                 this.LastVisit.Visible = true;

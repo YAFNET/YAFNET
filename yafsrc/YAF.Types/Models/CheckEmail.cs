@@ -40,20 +40,35 @@ namespace YAF.Types.Models
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [Alias("CheckEmailID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
         [StringLength(255)]
         public string Email { get; set; }
 
+        /// <summary>
+        /// Gets or sets the created.
+        /// </summary>
         [Required]
         public DateTime Created { get; set; }
 
+        /// <summary>
+        /// Gets or sets the hash.
+        /// </summary>
         [Required]
         [Index]
         public string Hash { get; set; }

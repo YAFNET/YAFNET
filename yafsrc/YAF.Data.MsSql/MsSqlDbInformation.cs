@@ -44,28 +44,19 @@ namespace YAF.Data.MsSql
         /// The install script list
         /// </summary>
         private static readonly string[] InstallScriptList =
-            {
-                "mssql/install/tables.sql", 
-                "mssql/install/indexes.sql", 
-                "mssql/install/views.sql",
-                "mssql/install/constraints.sql", 
-                "mssql/install/functions.sql", 
-                "mssql/install/procedures.sql",
-            };
+        {
+            "mssql/install/views.sql", "mssql/install/constraints.sql", "mssql/install/functions.sql",
+            "mssql/install/procedures.sql",
+        };
 
         /// <summary>
         /// The upgrade script list
         /// </summary>
         private static readonly string[] UpgradeScriptList =
-            {
-                "mssql/upgrade/tables.sql", 
-                "mssql/upgrade/indexes.sql", 
-                "mssql/upgrade/views.sql",
-                "mssql/upgrade/constraints.sql", 
-                "mssql/upgrade/triggers.sql",
-                "mssql/upgrade/functions.sql", 
-                "mssql/upgrade/procedures.sql"
-            };
+        {
+            "mssql/upgrade/tables.sql", "mssql/upgrade/views.sql", "mssql/upgrade/constraints.sql",
+            "mssql/upgrade/triggers.sql", "mssql/upgrade/functions.sql", "mssql/upgrade/procedures.sql"
+        };
 
         /// <summary>
         /// The YAF Provider Upgrade script list

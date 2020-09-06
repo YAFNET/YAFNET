@@ -33,18 +33,29 @@ namespace YAF.Types.Models
     /// A class which represents the ForumReadTracking table.
     /// </summary>
     [Serializable]
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" +
+                     "alter table [{databaseOwner}].[{tableName}] with nocheck add constraint [PK_{tableName}] primary key clustered (UserID,ForumID)")]
     public class ForumReadTracking : IEntity
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the forum id.
+        /// </summary>
         [References(typeof(Forum))]
         [Required]
         public int ForumID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the last access date.
+        /// </summary>
         [Required]
         public DateTime LastAccessDate { get; set; }
 
