@@ -166,7 +166,12 @@ begin
       [{databaseOwner}].[aspnet_Users].UserId, 
       [{databaseOwner}].[aspnet_Users].UserName,
       ([{databaseOwner}].[aspnet_Membership].Password+'|'+CAST([{databaseOwner}].[aspnet_Membership].PasswordFormat as varchar)+'|'+ [{databaseOwner}].[aspnet_Membership].PasswordSalt),
-      NewID(), 1, NULL, 0, 1, CASE WHEN [{databaseOwner}].[aspnet_Membership].IsLockedOut = 1 THEN DATEADD(YEAR, 1000, SYSUTCDATETIME()) ELSE NULL END, 
+      NewID(), 
+      1, 
+      NULL, 
+      0, 
+      1, 
+      CASE WHEN [{databaseOwner}].[aspnet_Membership].IsLockedOut = 1 THEN DATEADD(YEAR, 1000, SYSUTCDATETIME()) ELSE NULL END, 
       1, 
       0,
       [{databaseOwner}].[aspnet_Membership].Email,
@@ -190,7 +195,7 @@ begin
       AND [{databaseOwner}].[aspnet_Users].UserId = [{databaseOwner}].[aspnet_Membership].UserId
       LEFT OUTER JOIN [{databaseOwner}].[{objectQualifier}AspNetUsers] ON [{databaseOwner}].[aspnet_Membership].UserId = [{databaseOwner}].[{objectQualifier}AspNetUsers].Id
   WHERE 
-      [{databaseOwner}].[{objectQualifier}AspNetUsers].Id IS NULL
+      [{databaseOwner}].[{objectQualifier}AspNetUsers].Id IS NULL and [{databaseOwner}].[aspnet_Membership].IsApproved is not null
       end
 GO
 /****/
