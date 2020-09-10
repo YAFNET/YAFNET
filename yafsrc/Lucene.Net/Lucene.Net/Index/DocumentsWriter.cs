@@ -526,7 +526,7 @@ namespace YAF.Lucene.Net.Index
             }
             finally
             {
-                perThread.Unlock();
+                perThreadPool.Release(perThread);
             }
 
             return PostUpdate(flushingDWPT, hasEvents);
@@ -572,7 +572,7 @@ namespace YAF.Lucene.Net.Index
             }
             finally
             {
-                perThread.Unlock();
+                perThreadPool.Release(perThread);
             }
 
             return PostUpdate(flushingDWPT, hasEvents);
@@ -809,7 +809,7 @@ namespace YAF.Lucene.Net.Index
         internal sealed class ApplyDeletesEvent : IEvent
         {
             internal static readonly IEvent INSTANCE = new ApplyDeletesEvent();
-            private int instCount = 0;
+            private static int instCount = 0; // LUCENENET: Made static, otherwise this makes no sense at all
 
             internal ApplyDeletesEvent()
             {
@@ -826,7 +826,7 @@ namespace YAF.Lucene.Net.Index
         internal sealed class MergePendingEvent : IEvent
         {
             internal static readonly IEvent INSTANCE = new MergePendingEvent();
-            private int instCount = 0;
+            private static int instCount = 0; // LUCENENET: Made static, otherwise this makes no sense at all
 
             internal MergePendingEvent()
             {
@@ -843,7 +843,7 @@ namespace YAF.Lucene.Net.Index
         internal sealed class ForcedPurgeEvent : IEvent
         {
             internal static readonly IEvent INSTANCE = new ForcedPurgeEvent();
-            private int instCount = 0;
+            private static int instCount = 0; // LUCENENET: Made static, otherwise this makes no sense at all
 
             internal ForcedPurgeEvent()
             {

@@ -613,8 +613,8 @@ namespace YAF.Lucene.Net.Index
             {
                 if (!success) // make sure we unlock if this fails
                 {
-                    perThread.Unlock();
-                }
+						perThreadPool.Release(perThread);
+					}
             }
         }
 

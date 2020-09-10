@@ -387,7 +387,7 @@ namespace YAF.Lucene.Net.Index
         /// Expert: Gets or sets the <see cref="DocumentsWriterPerThreadPool"/> instance used by the
         /// <see cref="IndexWriter"/> to assign thread-states to incoming indexing threads. If no
         /// <see cref="DocumentsWriterPerThreadPool"/> is set <see cref="IndexWriter"/> will use
-        /// <see cref="ThreadAffinityDocumentsWriterThreadPool"/> with max number of
+        /// <see cref="DocumentsWriterPerThreadPool"/> with max number of
         /// thread-states set to <see cref="DEFAULT_MAX_THREAD_STATES"/> (see
         /// <see cref="DEFAULT_MAX_THREAD_STATES"/>).
         /// <para>
@@ -429,14 +429,17 @@ namespace YAF.Lucene.Net.Index
             {
                 try
                 {
-                    return ((ThreadAffinityDocumentsWriterThreadPool)indexerThreadPool).MaxThreadStates;
+                    return indexerThreadPool.MaxThreadStates;
                 }
                 catch (InvalidCastException cce)
                 {
                     throw new InvalidOperationException(cce.Message, cce);
                 }
             }
-            set => this.indexerThreadPool = new ThreadAffinityDocumentsWriterThreadPool(value);
+            set
+            {
+                this.indexerThreadPool = new DocumentsWriterPerThreadPool(value);
+            }
         }
 
         /// <summary>
