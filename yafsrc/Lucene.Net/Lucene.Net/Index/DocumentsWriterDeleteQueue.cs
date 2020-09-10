@@ -1,7 +1,7 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
 using System;
-using System.Diagnostics;
 using System.Threading;
 
 namespace YAF.Lucene.Net.Index
@@ -144,7 +144,7 @@ namespace YAF.Lucene.Net.Index
              * competing updates wins!
              */
             slice.sliceTail = termNode;
-            Debug.Assert(slice.sliceHead != slice.sliceTail, "slice head and tail must differ after add");
+            if (Debugging.AssertsEnabled) Debugging.Assert(slice.sliceHead != slice.sliceTail, "slice head and tail must differ after add");
             TryApplyGlobalSlice(); // TODO doing this each time is not necessary maybe
             // we can do it just every n times or so?
         }
@@ -293,7 +293,7 @@ namespace YAF.Lucene.Net.Index
 
             internal DeleteSlice(Node currentTail)
             {
-                Debug.Assert(currentTail != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(currentTail != null);
                 /*
                  * Initially this is a 0 length slice pointing to the 'current' tail of
                  * the queue. Once we update the slice we only need to assign the tail and
@@ -319,7 +319,7 @@ namespace YAF.Lucene.Net.Index
                 do
                 {
                     current = current.next;
-                    Debug.Assert(current != null, "slice property violated between the head on the tail must not be a null node");
+                    if (Debugging.AssertsEnabled) Debugging.Assert(current != null, "slice property violated between the head on the tail must not be a null node");
                     current.Apply(del, docIDUpto);
                     //        System.out.println(Thread.currentThread().getName() + ": pull " + current + " docIDUpto=" + docIDUpto);
                 } while (current != sliceTail);

@@ -1,7 +1,7 @@
 using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Index
@@ -25,8 +25,6 @@ namespace YAF.Lucene.Net.Index
 
     using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using OffsetAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.OffsetAttribute;
-    using PayloadAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.PayloadAttribute;
     using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
     using TermVectorsWriter = YAF.Lucene.Net.Codecs.TermVectorsWriter;
 
@@ -166,14 +164,13 @@ namespace YAF.Lucene.Net.Index
         [MethodImpl(MethodImplOptions.NoInlining)]
         internal void FinishDocument()
         {
-            // LUCENENET: .NET doesn't support asserts in release mode
-            if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) docState.TestPoint("TermVectorsTermsWriterPerField.finish start");
+            if (Debugging.AssertsEnabled) Debugging.Assert(docState.TestPoint("TermVectorsTermsWriterPerField.finish start"));
 
             int numPostings = termsHashPerField.bytesHash.Count;
 
             BytesRef flushTerm = termsWriter.flushTerm;
 
-            Debug.Assert(numPostings >= 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(numPostings >= 0);
 
             if (numPostings > maxNumPostings)
             {
@@ -184,7 +181,7 @@ namespace YAF.Lucene.Net.Index
             // of a given field in the doc.  At this point we flush
             // our hash into the DocWriter.
 
-            Debug.Assert(termsWriter.VectorFieldsInOrder(fieldInfo));
+            if (Debugging.AssertsEnabled) Debugging.Assert(termsWriter.VectorFieldsInOrder(fieldInfo));
 
             TermVectorsPostingsArray postings = (TermVectorsPostingsArray)termsHashPerField.postingsArray;
             TermVectorsWriter tv = termsWriter.writer;
@@ -296,8 +293,7 @@ namespace YAF.Lucene.Net.Index
 
         internal override void NewTerm(int termID)
         {
-            // LUCENENET: .NET doesn't support asserts in release mode
-            if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) docState.TestPoint("TermVectorsTermsWriterPerField.newTerm start");
+            if (Debugging.AssertsEnabled) Debugging.Assert(docState.TestPoint("TermVectorsTermsWriterPerField.newTerm start"));
             TermVectorsPostingsArray postings = (TermVectorsPostingsArray)termsHashPerField.postingsArray;
 
             postings.freqs[termID] = 1;
@@ -309,8 +305,7 @@ namespace YAF.Lucene.Net.Index
 
         internal override void AddTerm(int termID)
         {
-            // LUCENENET: .NET doesn't support asserts in release mode
-            if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) docState.TestPoint("TermVectorsTermsWriterPerField.addTerm start");
+            if (Debugging.AssertsEnabled) Debugging.Assert(docState.TestPoint("TermVectorsTermsWriterPerField.addTerm start"));
             TermVectorsPostingsArray postings = (TermVectorsPostingsArray)termsHashPerField.postingsArray;
 
             postings.freqs[termID]++;
@@ -349,7 +344,7 @@ namespace YAF.Lucene.Net.Index
 
             internal override void CopyTo(ParallelPostingsArray toArray, int numToCopy)
             {
-                Debug.Assert(toArray is TermVectorsPostingsArray);
+                if (Debugging.AssertsEnabled) Debugging.Assert(toArray is TermVectorsPostingsArray);
                 TermVectorsPostingsArray to = (TermVectorsPostingsArray)toArray;
 
                 base.CopyTo(toArray, numToCopy);

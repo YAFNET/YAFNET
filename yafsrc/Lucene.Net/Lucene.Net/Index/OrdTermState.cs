@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -40,7 +40,7 @@ namespace YAF.Lucene.Net.Index
 
         public override void CopyFrom(TermState other)
         {
-            Debug.Assert(other is OrdTermState, "can not copy from " + other.GetType().Name);
+            if (Debugging.AssertsEnabled) Debugging.Assert(other is OrdTermState, () => "can not copy from " + other.GetType().Name);
             this.Ord = ((OrdTermState)other).Ord;
         }
 

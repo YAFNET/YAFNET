@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -86,28 +87,31 @@ namespace YAF.Lucene.Net.Index
                 this.normType = DocValuesType.NONE;
             }
             this.attributes = attributes;
-            Debug.Assert(CheckConsistency());
+            if (Debugging.AssertsEnabled) Debugging.Assert(CheckConsistency());
         }
 
         private bool CheckConsistency()
         {
             if (!indexed)
             {
-                Debug.Assert(!storeTermVector);
-                Debug.Assert(!storePayloads);
-                Debug.Assert(!omitNorms);
-                Debug.Assert(normType == DocValuesType.NONE);
-                Debug.Assert(indexOptions == IndexOptions.NONE);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(!storeTermVector);
+                    Debugging.Assert(!storePayloads);
+                    Debugging.Assert(!omitNorms);
+                    Debugging.Assert(normType == DocValuesType.NONE);
+                    Debugging.Assert(indexOptions == IndexOptions.NONE);
+                }
             }
             else
             {
-                Debug.Assert(indexOptions != IndexOptions.NONE);
+                if (Debugging.AssertsEnabled) Debugging.Assert(indexOptions != IndexOptions.NONE);
                 if (omitNorms)
                 {
-                    Debug.Assert(normType == DocValuesType.NONE);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(normType == DocValuesType.NONE);
                 }
                 // Cannot store payloads unless positions are indexed:
-                Debug.Assert(indexOptions.CompareTo(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS) >= 0 || !this.storePayloads);
+                if (Debugging.AssertsEnabled) Debugging.Assert(indexOptions.CompareTo(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS) >= 0 || !this.storePayloads);
             }
 
             return true;
@@ -159,7 +163,7 @@ namespace YAF.Lucene.Net.Index
                     }
                 }
             }
-            Debug.Assert(CheckConsistency());
+            if (Debugging.AssertsEnabled) Debugging.Assert(CheckConsistency());
         }
 
         public DocValuesType DocValuesType
@@ -172,7 +176,7 @@ namespace YAF.Lucene.Net.Index
                     throw new ArgumentException("cannot change DocValues type from " + docValueType + " to " + value + " for field \"" + Name + "\"");
                 }
                 docValueType = value;
-                Debug.Assert(CheckConsistency());
+                if (Debugging.AssertsEnabled) Debugging.Assert(CheckConsistency());
             }
         }
 
@@ -206,14 +210,14 @@ namespace YAF.Lucene.Net.Index
                     throw new ArgumentException("cannot change Norm type from " + normType + " to " + value + " for field \"" + Name + "\"");
                 }
                 normType = value;
-                Debug.Assert(CheckConsistency());
+                if (Debugging.AssertsEnabled) Debugging.Assert(CheckConsistency());
             }
         }
 
         internal void SetStoreTermVectors()
         {
             storeTermVector = true;
-            Debug.Assert(CheckConsistency());
+            if (Debugging.AssertsEnabled) Debugging.Assert(CheckConsistency());
         }
 
         internal void SetStorePayloads()
@@ -222,7 +226,7 @@ namespace YAF.Lucene.Net.Index
             {
                 storePayloads = true;
             }
-            Debug.Assert(CheckConsistency());
+            if (Debugging.AssertsEnabled) Debugging.Assert(CheckConsistency());
         }
 
         /// <summary>

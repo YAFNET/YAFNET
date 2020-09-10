@@ -1,7 +1,7 @@
 using J2N.Text;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using JCG = J2N.Collections.Generic;
 
@@ -79,7 +79,7 @@ namespace YAF.Lucene.Net.Index
                 childFields[f.FieldInfo.Name] = f;
             }
 
-            Debug.Assert(fields.Count == totalFieldCount);
+            if (Debugging.AssertsEnabled) Debugging.Assert(fields.Count == totalFieldCount);
 
             storedConsumer.Flush(state);
             consumer.Flush(childFields, state);
@@ -166,14 +166,14 @@ namespace YAF.Lucene.Net.Index
                     field = field.next;
                 }
             }
-            Debug.Assert(fields.Count == totalFieldCount);
+            if (Debugging.AssertsEnabled) Debugging.Assert(fields.Count == totalFieldCount);
             return fields;
         }
 
         private void Rehash()
         {
             int newHashSize = (fieldHash.Length * 2);
-            Debug.Assert(newHashSize > fieldHash.Length);
+            if (Debugging.AssertsEnabled) Debugging.Assert(newHashSize > fieldHash.Length);
 
             DocFieldProcessorPerField[] newHashArray = new DocFieldProcessorPerField[newHashSize];
 
@@ -246,7 +246,7 @@ namespace YAF.Lucene.Net.Index
                     // need to addOrUpdate so that FieldInfos can update globalFieldNumbers
                     // with the correct DocValue type (LUCENE-5192)
                     FieldInfo fi = fieldInfos.AddOrUpdate(fieldName, field.IndexableFieldType);
-                    Debug.Assert(fi == fp.fieldInfo, "should only have updated an existing FieldInfo instance");
+                    if (Debugging.AssertsEnabled) Debugging.Assert(fi == fp.fieldInfo, "should only have updated an existing FieldInfo instance");
                 }
 
                 if (thisFieldGen != fp.lastGen)

@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
 using System.Runtime.Serialization;
 #endif
@@ -48,7 +48,7 @@ namespace YAF.Lucene.Net.Index
         public IndexFormatTooNewException(string resourceDesc, int version, int minVersion, int maxVersion)
             : base("Format version is not supported (resource: " + resourceDesc + "): " + version + " (needs to be between " + minVersion + " and " + maxVersion + ")")
         {
-            Debug.Assert(resourceDesc != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(resourceDesc != null);
         }
 
         /// <summary>

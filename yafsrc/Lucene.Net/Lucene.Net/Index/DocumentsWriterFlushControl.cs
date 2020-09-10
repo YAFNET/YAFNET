@@ -1,8 +1,8 @@
 using J2N.Runtime.CompilerServices;
 using J2N.Threading.Atomic;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using JCG = J2N.Collections.Generic;
 
@@ -152,7 +152,11 @@ namespace YAF.Lucene.Net.Index
                      * fail. To prevent this we only assert if the the largest document seen
                      * is smaller than the 1/2 of the maxRamBufferMB
                      */
-                    Debug.Assert(ram <= expected, "actual mem: " + ram + " byte, expected mem: " + expected + " byte, flush mem: " + flushBytes + ", active mem: " + activeBytes + ", pending DWPT: " + numPending + ", flushing DWPT: " + NumFlushingDWPT + ", blocked DWPT: " + NumBlockedFlushes + ", peakDelta mem: " + peakDelta + " byte");
+                    if (Debugging.AssertsEnabled) Debugging.Assert(ram <= expected, () => "actual mem: " + ram + " byte, expected mem: " + expected
+                        + " byte, flush mem: " + flushBytes + ", active mem: " + activeBytes
+                        + ", pending DWPT: " + numPending + ", flushing DWPT: "
+                        + NumFlushingDWPT + ", blocked DWPT: " + NumBlockedFlushes
+                        + ", peakDelta mem: " + peakDelta + " byte");
                 }
             }
             return true;
@@ -175,7 +179,7 @@ namespace YAF.Lucene.Net.Index
             {
                 activeBytes += delta;
             }
-            Debug.Assert(UpdatePeaks(delta));
+            if (Debugging.AssertsEnabled) Debugging.Assert(UpdatePeaks(delta));
         }
 
         // only for asserts
@@ -235,7 +239,7 @@ namespace YAF.Lucene.Net.Index
                 finally
                 {
                     bool stalled = UpdateStallState();
-                    Debug.Assert(AssertNumDocsSinceStalled(stalled) && AssertMemory());
+                    if (Debugging.AssertsEnabled) Debugging.Assert(AssertNumDocsSinceStalled(stalled) && AssertMemory());
                 }
             }
         }
@@ -264,14 +268,14 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                Debug.Assert(flushingWriters.ContainsKey(dwpt));
+                if (Debugging.AssertsEnabled) Debugging.Assert(flushingWriters.ContainsKey(dwpt));
                 try
                 {
                     long? bytes = flushingWriters[dwpt];
                     flushingWriters.Remove(dwpt);
                     flushBytes -= (long)bytes;
                     perThreadPool.Recycle(dwpt);
-                    Debug.Assert(AssertMemory());
+                    if (Debugging.AssertsEnabled) Debugging.Assert(AssertMemory());
                 }
                 finally
                 {
@@ -289,7 +293,7 @@ namespace YAF.Lucene.Net.Index
 
         private bool UpdateStallState()
         {
-            //Debug.Assert(Thread.holdsLock(this));
+            if (Debugging.AssertsEnabled) Debugging.Assert(Monitor.IsEntered(this));
             long limit = StallLimitBytes;
             /*
              * we block indexing threads if net byte grows due to slow flushes
@@ -334,7 +338,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                Debug.Assert(!perThread.flushPending);
+                if (Debugging.AssertsEnabled) Debugging.Assert(!perThread.flushPending);
                 if (perThread.dwpt.NumDocsInRAM > 0)
                 {
                     perThread.flushPending = true; // write access synced
@@ -342,7 +346,7 @@ namespace YAF.Lucene.Net.Index
                     flushBytes += bytes;
                     activeBytes -= bytes;
                     numPending++; // write access synced
-                    Debug.Assert(AssertMemory());
+                    if (Debugging.AssertsEnabled) Debugging.Assert(AssertMemory());
                 } // don't assert on numDocs since we could hit an abort excp. while selecting that dwpt for flushing
             }
         }
@@ -361,7 +365,7 @@ namespace YAF.Lucene.Net.Index
                     {
                         activeBytes -= state.bytesUsed;
                     }
-                    Debug.Assert(AssertMemory());
+                    if (Debugging.AssertsEnabled) Debugging.Assert(AssertMemory());
                     // Take it out of the loop this DWPT is stale
                     perThreadPool.Reset(state, closed);
                 }
@@ -376,6 +380,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
+                if (Debugging.AssertsEnabled) Debugging.Assert(perThread.IsHeldByCurrentThread); // LUCENENET specific: Since .NET Core doesn't use unfair locking, we need to ensure the current thread has a lock before calling InternalTryCheckoutForFlush.
                 return perThread.flushPending ? InternalTryCheckOutForFlush(perThread) : null;
             }
         }
@@ -385,8 +390,11 @@ namespace YAF.Lucene.Net.Index
             perThread.@Lock();
             try
             {
-                Debug.Assert(perThread.flushPending, "can not block non-pending threadstate");
-                Debug.Assert(fullFlush, "can not block if fullFlush == false");
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(perThread.flushPending, () => "can not block non-pending threadstate");
+                    Debugging.Assert(fullFlush, () => "can not block if fullFlush == false");
+                }
                 DocumentsWriterPerThread dwpt;
                 long bytes = perThread.bytesUsed;
                 dwpt = perThreadPool.Reset(perThread, closed);
@@ -401,33 +409,30 @@ namespace YAF.Lucene.Net.Index
 
         private DocumentsWriterPerThread InternalTryCheckOutForFlush(ThreadState perThread)
         {
-            //Debug.Assert(Thread.HoldsLock(this));
-            Debug.Assert(perThread.flushPending);
+            if (Debugging.AssertsEnabled)
+            {
+                // LUCENENET specific - Since we need to mimic the unfair behavior of ReentrantLock, we need to ensure that all threads that enter here hold the lock.
+                Debugging.Assert(perThread.IsHeldByCurrentThread);
+                Debugging.Assert(Monitor.IsEntered(this));
+                Debugging.Assert(perThread.flushPending);
+            }
             try
             {
+                // LUCENENET specific - We removed the call to perThread.TryLock() and the try-finally below as they are no longer needed.
+
                 // We are pending so all memory is already moved to flushBytes
-                if (perThread.TryLock())
+                if (perThread.IsInitialized)
                 {
-                    try
-                    {
-                        if (perThread.IsInitialized)
-                        {
-                            //Debug.Assert(perThread.HeldByCurrentThread);
-                            DocumentsWriterPerThread dwpt;
-                            long bytes = perThread.bytesUsed; // do that before
-                            // replace!
-                            dwpt = perThreadPool.Reset(perThread, closed);
-                            Debug.Assert(!flushingWriters.ContainsKey(dwpt), "DWPT is already flushing");
-                            // Record the flushing DWPT to reduce flushBytes in doAfterFlush
-                            flushingWriters[dwpt] = bytes;
-                            numPending--; // write access synced
-                            return dwpt;
-                        }
-                    }
-                    finally
-                    {
-                        perThread.Unlock();
-                    }
+                    if (Debugging.AssertsEnabled) Debugging.Assert(perThread.IsHeldByCurrentThread);
+                    DocumentsWriterPerThread dwpt;
+                    long bytes = perThread.bytesUsed; // do that before
+                    // replace!
+                    dwpt = perThreadPool.Reset(perThread, closed);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(!flushingWriters.ContainsKey(dwpt), "DWPT is already flushing");
+                    // Record the flushing DWPT to reduce flushBytes in doAfterFlush
+                    flushingWriters[dwpt] = bytes;
+                    numPending--; // write access synced
+                    return dwpt;
                 }
                 return null;
             }
@@ -463,12 +468,19 @@ namespace YAF.Lucene.Net.Index
                 for (int i = 0; i < limit && numPending > 0; i++)
                 {
                     ThreadState next = perThreadPool.GetThreadState(i);
-                    if (next.flushPending)
+                    if (next.flushPending && next.TryLock()) // LUCENENET specific: Since .NET Core 2+ uses fair locking, we need to ensure we have a lock before calling InternalTryCheckoutForFlush. See #
                     {
-                        DocumentsWriterPerThread dwpt = TryCheckoutForFlush(next);
-                        if (dwpt != null)
+                        try
                         {
-                            return dwpt;
+                            DocumentsWriterPerThread dwpt = TryCheckoutForFlush(next);
+                            if (dwpt != null)
+                            {
+                                return dwpt;
+                            }
+                        }
+                        finally
+                        {
+                            next.Unlock();
                         }
                     }
                 }
@@ -601,8 +613,8 @@ namespace YAF.Lucene.Net.Index
             {
                 if (!success) // make sure we unlock if this fails
                 {
-                    perThread.Unlock();
-                }
+						perThreadPool.Release(perThread);
+					}
             }
         }
 
@@ -611,8 +623,11 @@ namespace YAF.Lucene.Net.Index
             DocumentsWriterDeleteQueue flushingQueue;
             lock (this)
             {
-                Debug.Assert(!fullFlush, "called DWFC#markForFullFlush() while full flush is still running");
-                Debug.Assert(fullFlushBuffer.Count == 0, "full flush buffer should be empty: " + fullFlushBuffer);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(!fullFlush, "called DWFC#markForFullFlush() while full flush is still running");
+                    Debugging.Assert(fullFlushBuffer.Count == 0, () => "full flush buffer should be empty: " + fullFlushBuffer);
+                }
                 fullFlush = true;
                 flushingQueue = documentsWriter.deleteQueue;
                 // Set a new delete queue - all subsequent DWPT will use this queue until
@@ -635,7 +650,7 @@ namespace YAF.Lucene.Net.Index
                         }
                         continue;
                     }
-                    Debug.Assert(next.dwpt.deleteQueue == flushingQueue || next.dwpt.deleteQueue == documentsWriter.deleteQueue, " flushingQueue: " + flushingQueue + " currentqueue: " + documentsWriter.deleteQueue + " perThread queue: " + next.dwpt.deleteQueue + " numDocsInRam: " + next.dwpt.NumDocsInRAM);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(next.dwpt.deleteQueue == flushingQueue || next.dwpt.deleteQueue == documentsWriter.deleteQueue, () => " flushingQueue: " + flushingQueue + " currentqueue: " + documentsWriter.deleteQueue + " perThread queue: " + next.dwpt.deleteQueue + " numDocsInRam: " + next.dwpt.NumDocsInRAM);
                     if (next.dwpt.deleteQueue != flushingQueue)
                     {
                         // this one is already a new DWPT
@@ -655,7 +670,7 @@ namespace YAF.Lucene.Net.Index
                  * a chance that this happens since we marking DWPT for full flush without
                  * blocking indexing.*/
                 PruneBlockedQueue(flushingQueue);
-                Debug.Assert(AssertBlockedFlushes(documentsWriter.deleteQueue));
+                if (Debugging.AssertsEnabled) Debugging.Assert(AssertBlockedFlushes(documentsWriter.deleteQueue));
                 //FlushQueue.AddAll(FullFlushBuffer);
                 foreach (var dwpt in fullFlushBuffer)
                 {
@@ -664,7 +679,7 @@ namespace YAF.Lucene.Net.Index
                 fullFlushBuffer.Clear();
                 UpdateStallState();
             }
-            Debug.Assert(AssertActiveDeleteQueue(documentsWriter.deleteQueue));
+            if (Debugging.AssertsEnabled) Debugging.Assert(AssertActiveDeleteQueue(documentsWriter.deleteQueue));
         }
 
         private bool AssertActiveDeleteQueue(DocumentsWriterDeleteQueue queue)
@@ -676,7 +691,7 @@ namespace YAF.Lucene.Net.Index
                 next.@Lock();
                 try
                 {
-                    Debug.Assert(!next.IsInitialized || next.dwpt.deleteQueue == queue, "isInitialized: " + next.IsInitialized + " numDocs: " + (next.IsInitialized ? next.dwpt.NumDocsInRAM : 0));
+                    if (Debugging.AssertsEnabled) Debugging.Assert(!next.IsInitialized || next.dwpt.deleteQueue == queue, () => "isInitialized: " + next.IsInitialized + " numDocs: " + (next.IsInitialized ? next.dwpt.NumDocsInRAM : 0));
                 }
                 finally
                 {
@@ -695,10 +710,13 @@ namespace YAF.Lucene.Net.Index
                 infoStream.Message("DWFC", "addFlushableState " + perThread.dwpt);
             }
             DocumentsWriterPerThread dwpt = perThread.dwpt;
-            //Debug.Assert(perThread.HeldByCurrentThread);
-            Debug.Assert(perThread.IsInitialized);
-            Debug.Assert(fullFlush);
-            Debug.Assert(dwpt.deleteQueue != documentsWriter.deleteQueue);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(perThread.IsHeldByCurrentThread);
+                Debugging.Assert(perThread.IsInitialized);
+                Debugging.Assert(fullFlush);
+                Debugging.Assert(dwpt.deleteQueue != documentsWriter.deleteQueue);
+            }
             if (dwpt.NumDocsInRAM > 0)
             {
                 lock (this)
@@ -708,8 +726,11 @@ namespace YAF.Lucene.Net.Index
                         SetFlushPending(perThread);
                     }
                     DocumentsWriterPerThread flushingDWPT = InternalTryCheckOutForFlush(perThread);
-                    Debug.Assert(flushingDWPT != null, "DWPT must never be null here since we hold the lock and it holds documents");
-                    Debug.Assert(dwpt == flushingDWPT, "flushControl returned different DWPT");
+                    if (Debugging.AssertsEnabled)
+                    {
+                        Debugging.Assert(flushingDWPT != null, "DWPT must never be null here since we hold the lock and it holds documents");
+                        Debugging.Assert(dwpt == flushingDWPT, "flushControl returned different DWPT");
+                    }
                     fullFlushBuffer.Add(flushingDWPT);
                 }
             }
@@ -732,7 +753,7 @@ namespace YAF.Lucene.Net.Index
                 if (blockedFlush.Dwpt.deleteQueue == flushingQueue)
                 {
                     blockedFlushes.Remove(node);
-                    Debug.Assert(!flushingWriters.ContainsKey(blockedFlush.Dwpt), "DWPT is already flushing");
+                    if (Debugging.AssertsEnabled) Debugging.Assert(!flushingWriters.ContainsKey(blockedFlush.Dwpt), "DWPT is already flushing");
                     // Record the flushing DWPT to reduce flushBytes in doAfterFlush
                     flushingWriters[blockedFlush.Dwpt] = blockedFlush.Bytes;
                     // don't decr pending here - its already done when DWPT is blocked
@@ -746,16 +767,19 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                Debug.Assert(fullFlush);
-                Debug.Assert(flushQueue.Count == 0);
-                Debug.Assert(flushingWriters.Count == 0);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(fullFlush);
+                    Debugging.Assert(flushQueue.Count == 0);
+                    Debugging.Assert(flushingWriters.Count == 0);
+                }
                 try
                 {
                     if (blockedFlushes.Count > 0)
                     {
-                        Debug.Assert(AssertBlockedFlushes(documentsWriter.deleteQueue));
+                        if (Debugging.AssertsEnabled) Debugging.Assert(AssertBlockedFlushes(documentsWriter.deleteQueue));
                         PruneBlockedQueue(documentsWriter.deleteQueue);
-                        Debug.Assert(blockedFlushes.Count == 0);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(blockedFlushes.Count == 0);
                     }
                 }
                 finally
@@ -770,7 +794,7 @@ namespace YAF.Lucene.Net.Index
         {
             foreach (BlockedFlush blockedFlush in blockedFlushes)
             {
-                Debug.Assert(blockedFlush.Dwpt.deleteQueue == flushingQueue);
+                if (Debugging.AssertsEnabled) Debugging.Assert(blockedFlush.Dwpt.deleteQueue == flushingQueue);
             }
             return true;
         }

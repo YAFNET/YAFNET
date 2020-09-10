@@ -1,11 +1,10 @@
 using J2N.Threading.Atomic;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
-using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
@@ -31,8 +30,8 @@ namespace YAF.Lucene.Net.Index
     using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
     using Directory = YAF.Lucene.Net.Store.Directory;
-    using IEvent = YAF.Lucene.Net.Index.IndexWriter.IEvent;
     using FlushedSegment = YAF.Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
+    using IEvent = YAF.Lucene.Net.Index.IndexWriter.IEvent;
     using InfoStream = YAF.Lucene.Net.Util.InfoStream;
     using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
     using Query = YAF.Lucene.Net.Search.Query;
@@ -245,7 +244,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                //Debug.Assert(!Thread.HoldsLock(writer), "IndexWriter lock should never be hold when aborting");
+                if (Debugging.AssertsEnabled) Debugging.Assert(!Monitor.IsEntered(writer), "IndexWriter lock should never be hold when aborting");
                 bool success = false;
                 JCG.HashSet<string> newFilesSet = new JCG.HashSet<string>();
                 try
@@ -288,7 +287,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                //Debug.Assert(indexWriter.HoldsFullFlushLock());
+                if (Debugging.AssertsEnabled) Debugging.Assert(indexWriter.HoldsFullFlushLock);
                 if (infoStream.IsEnabled("DW"))
                 {
                     infoStream.Message("DW", "lockAndAbortAll");
@@ -328,7 +327,7 @@ namespace YAF.Lucene.Net.Index
 
         private void AbortThreadState(ThreadState perThread, ISet<string> newFiles)
         {
-            //Debug.Assert(perThread.HeldByCurrentThread);
+            if (Debugging.AssertsEnabled) Debugging.Assert(perThread.IsHeldByCurrentThread);
             if (perThread.IsActive) // we might be closed
             {
                 if (perThread.IsInitialized)
@@ -351,7 +350,7 @@ namespace YAF.Lucene.Net.Index
             }
             else
             {
-                Debug.Assert(closed);
+                if (Debugging.AssertsEnabled) Debugging.Assert(closed);
             }
         }
 
@@ -359,7 +358,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                //Debug.Assert(indexWriter.HoldsFullFlushLock());
+                if (Debugging.AssertsEnabled) Debugging.Assert(indexWriter.HoldsFullFlushLock);
                 if (infoStream.IsEnabled("DW"))
                 {
                     infoStream.Message("DW", "unlockAll");
@@ -370,10 +369,10 @@ namespace YAF.Lucene.Net.Index
                     try
                     {
                         ThreadState perThread = perThreadPool.GetThreadState(i);
-                        //if (perThread.HeldByCurrentThread)
-                        //{
-                        perThread.Unlock();
-                        //}
+                        if (perThread.IsHeldByCurrentThread)
+                        {
+                            perThread.Unlock();
+                        }
                     }
                     catch (Exception e)
                     {
@@ -499,10 +498,10 @@ namespace YAF.Lucene.Net.Index
                 if (!perThread.IsActive)
                 {
                     EnsureOpen();
-                    Debug.Assert(false, "perThread is not active but we are still open");
+                    if (Debugging.AssertsEnabled) Debugging.Assert(false, "perThread is not active but we are still open");
                 }
                 EnsureInitialized(perThread);
-                Debug.Assert(perThread.IsInitialized);
+                if (Debugging.AssertsEnabled) Debugging.Assert(perThread.IsInitialized);
                 DocumentsWriterPerThread dwpt = perThread.dwpt;
                 int dwptNumDocs = dwpt.NumDocsInRAM;
                 try
@@ -527,7 +526,7 @@ namespace YAF.Lucene.Net.Index
             }
             finally
             {
-                perThread.Unlock();
+                perThreadPool.Release(perThread);
             }
 
             return PostUpdate(flushingDWPT, hasEvents);
@@ -545,10 +544,10 @@ namespace YAF.Lucene.Net.Index
                 if (!perThread.IsActive)
                 {
                     EnsureOpen();
-                    Debug.Assert(false, "perThread is not active but we are still open");
+                    if (Debugging.AssertsEnabled) Debugging.Assert(false, "perThread is not active but we are still open");
                 }
                 EnsureInitialized(perThread);
-                Debug.Assert(perThread.IsInitialized);
+                if (Debugging.AssertsEnabled) Debugging.Assert(perThread.IsInitialized);
                 DocumentsWriterPerThread dwpt = perThread.dwpt;
                 int dwptNumDocs = dwpt.NumDocsInRAM;
                 try
@@ -573,7 +572,7 @@ namespace YAF.Lucene.Net.Index
             }
             finally
             {
-                perThread.Unlock();
+                perThreadPool.Release(perThread);
             }
 
             return PostUpdate(flushingDWPT, hasEvents);
@@ -589,7 +588,7 @@ namespace YAF.Lucene.Net.Index
                 SegmentFlushTicket ticket = null;
                 try
                 {
-                    Debug.Assert(currentFullFlushDelQueue == null || flushingDWPT.deleteQueue == currentFullFlushDelQueue, "expected: " + currentFullFlushDelQueue + "but was: " + flushingDWPT.deleteQueue + " " + flushControl.IsFullFlush);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(currentFullFlushDelQueue == null || flushingDWPT.deleteQueue == currentFullFlushDelQueue, () => "expected: " + currentFullFlushDelQueue + "but was: " + flushingDWPT.deleteQueue + " " + flushControl.IsFullFlush);
                     /*
                      * Since with DWPT the flush process is concurrent and several DWPT
                      * could flush at the same time we must maintain the order of the
@@ -736,10 +735,13 @@ namespace YAF.Lucene.Net.Index
                  * otherwise a new DWPT could sneak into the loop with an already flushing
                  * delete queue */
                 flushControl.MarkForFullFlush(); // swaps the delQueue synced on FlushControl
-                Debug.Assert(SetFlushingDeleteQueue(flushingDeleteQueue));
+                if (Debugging.AssertsEnabled) Debugging.Assert(SetFlushingDeleteQueue(flushingDeleteQueue));
             }
-            Debug.Assert(currentFullFlushDelQueue != null);
-            Debug.Assert(currentFullFlushDelQueue != deleteQueue);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(currentFullFlushDelQueue != null);
+                Debugging.Assert(currentFullFlushDelQueue != deleteQueue);
+            }
 
             bool anythingFlushed = false;
             try
@@ -761,11 +763,11 @@ namespace YAF.Lucene.Net.Index
                     ticketQueue.AddDeletes(flushingDeleteQueue);
                 }
                 ticketQueue.ForcePurge(indexWriter);
-                Debug.Assert(!flushingDeleteQueue.AnyChanges() && !ticketQueue.HasTickets);
+                if (Debugging.AssertsEnabled) Debugging.Assert(!flushingDeleteQueue.AnyChanges() && !ticketQueue.HasTickets);
             }
             finally
             {
-                Debug.Assert(flushingDeleteQueue == currentFullFlushDelQueue);
+                if (Debugging.AssertsEnabled) Debugging.Assert(flushingDeleteQueue == currentFullFlushDelQueue);
             }
             return anythingFlushed;
         }
@@ -778,7 +780,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     infoStream.Message("DW", Thread.CurrentThread.Name + " finishFullFlush success=" + success);
                 }
-                Debug.Assert(SetFlushingDeleteQueue(null));
+                if (Debugging.AssertsEnabled) Debugging.Assert(SetFlushingDeleteQueue(null));
                 if (success)
                 {
                     // Release the flush lock
@@ -807,11 +809,11 @@ namespace YAF.Lucene.Net.Index
         internal sealed class ApplyDeletesEvent : IEvent
         {
             internal static readonly IEvent INSTANCE = new ApplyDeletesEvent();
-            private int instCount = 0;
+            private static int instCount = 0; // LUCENENET: Made static, otherwise this makes no sense at all
 
             internal ApplyDeletesEvent()
             {
-                Debug.Assert(instCount == 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(instCount == 0);
                 instCount++;
             }
 
@@ -824,11 +826,11 @@ namespace YAF.Lucene.Net.Index
         internal sealed class MergePendingEvent : IEvent
         {
             internal static readonly IEvent INSTANCE = new MergePendingEvent();
-            private int instCount = 0;
+            private static int instCount = 0; // LUCENENET: Made static, otherwise this makes no sense at all
 
             internal MergePendingEvent()
             {
-                Debug.Assert(instCount == 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(instCount == 0);
                 instCount++;
             }
 
@@ -841,11 +843,11 @@ namespace YAF.Lucene.Net.Index
         internal sealed class ForcedPurgeEvent : IEvent
         {
             internal static readonly IEvent INSTANCE = new ForcedPurgeEvent();
-            private int instCount = 0;
+            private static int instCount = 0; // LUCENENET: Made static, otherwise this makes no sense at all
 
             internal ForcedPurgeEvent()
             {
-                Debug.Assert(instCount == 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(instCount == 0);
                 instCount++;
             }
 

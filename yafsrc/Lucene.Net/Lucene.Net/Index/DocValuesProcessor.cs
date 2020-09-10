@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Documents.Extensions;
 using System;
@@ -81,7 +82,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 else
                 {
-                    Debug.Assert(false, "unrecognized DocValues.Type: " + dvType);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(false, () => "unrecognized DocValues.Type: " + dvType);
                 }
             }
         }
@@ -218,7 +219,7 @@ namespace YAF.Lucene.Net.Index
             }
             else
             {
-                Debug.Assert(obj is SortedDocValuesWriter);
+                if (Debugging.AssertsEnabled) Debugging.Assert(obj is SortedDocValuesWriter);
                 return "sorted";
             }
         }

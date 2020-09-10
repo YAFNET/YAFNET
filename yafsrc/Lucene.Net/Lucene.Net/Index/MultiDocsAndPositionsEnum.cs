@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 namespace YAF.Lucene.Net.Index
@@ -90,7 +90,7 @@ namespace YAF.Lucene.Net.Index
         {
             get
             {
-                Debug.Assert(current != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(current != null);
                 return current.Freq;
             }
         }
@@ -99,7 +99,7 @@ namespace YAF.Lucene.Net.Index
 
         public override int Advance(int target)
         {
-            Debug.Assert(target > doc);
+            if (Debugging.AssertsEnabled) Debugging.Assert(target > doc);
             while (true)
             {
                 if (current != null)

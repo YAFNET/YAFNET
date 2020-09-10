@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using IBits = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// Implements a <see cref="TermsEnum"/> wrapping a provided
@@ -94,7 +94,7 @@ namespace YAF.Lucene.Net.Index
 
         public override void SeekExact(long ord)
         {
-            Debug.Assert(ord >= 0 && ord < values.ValueCount);
+            if (Debugging.AssertsEnabled) Debugging.Assert(ord >= 0 && ord < values.ValueCount);
             currentOrd = (int)ord;
             values.LookupOrd(currentOrd, term);
         }
@@ -132,7 +132,7 @@ namespace YAF.Lucene.Net.Index
 
         public override void SeekExact(BytesRef term, TermState state)
         {
-            Debug.Assert(state != null && state is OrdTermState);
+            if (Debugging.AssertsEnabled) Debugging.Assert(state != null && state is OrdTermState);
             this.SeekExact(((OrdTermState)state).Ord);
         }
 

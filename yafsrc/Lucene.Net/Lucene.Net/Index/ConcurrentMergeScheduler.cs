@@ -1,5 +1,6 @@
 #if FEATURE_CONCURRENTMERGESCHEDULER
 using J2N.Threading;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -394,7 +395,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                //Debug.Assert(!Thread.holdsLock(writer));
+                if (Debugging.AssertsEnabled) Debugging.Assert(!Monitor.IsEntered(writer));
 
                 this.m_writer = writer;
 

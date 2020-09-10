@@ -1,8 +1,8 @@
 using J2N.Text;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Index
@@ -61,12 +61,12 @@ namespace YAF.Lucene.Net.Index
             if (writer != null)
             {
                 int numDocs = state.SegmentInfo.DocCount;
-                Debug.Assert(numDocs > 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(numDocs > 0);
                 // At least one doc in this run had term vectors enabled
                 try
                 {
                     Fill(numDocs);
-                    Debug.Assert(state.SegmentInfo != null);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(state.SegmentInfo != null);
                     writer.Finish(state.FieldInfos, numDocs);
                 }
                 finally
@@ -114,8 +114,7 @@ namespace YAF.Lucene.Net.Index
         [MethodImpl(MethodImplOptions.NoInlining)]
         internal override void FinishDocument(TermsHash termsHash)
         {
-            // LUCENENET: .NET doesn't support asserts in release mode
-            if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) docWriter.TestPoint("TermVectorsTermsWriter.finishDocument start");
+            if (Debugging.AssertsEnabled) Debugging.Assert(docWriter.TestPoint("TermVectorsTermsWriter.finishDocument start"));
 
             if (!hasVectors)
             {
@@ -134,14 +133,13 @@ namespace YAF.Lucene.Net.Index
             }
             writer.FinishDocument();
 
-            Debug.Assert(lastDocID == docState.docID, "lastDocID=" + lastDocID + " docState.docID=" + docState.docID);
+            if (Debugging.AssertsEnabled) Debugging.Assert(lastDocID == docState.docID, () => "lastDocID=" + lastDocID + " docState.docID=" + docState.docID);
 
             lastDocID++;
 
             termsHash.Reset();
             Reset();
-            // LUCENENET: .NET doesn't support asserts in release mode
-            if (Lucene.Net.Diagnostics.Debugging.AssertsEnabled) docWriter.TestPoint("TermVectorsTermsWriter.finishDocument end");
+            if (Debugging.AssertsEnabled) Debugging.Assert(docWriter.TestPoint("TermVectorsTermsWriter.finishDocument end"));
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -186,7 +184,7 @@ namespace YAF.Lucene.Net.Index
 
         internal override void StartDocument()
         {
-            Debug.Assert(ClearLastVectorFieldName());
+            if (Debugging.AssertsEnabled) Debugging.Assert(ClearLastVectorFieldName());
             Reset();
         }
 

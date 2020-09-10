@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Diagnostics;
 
@@ -39,7 +40,7 @@ namespace YAF.Lucene.Net.Index
             this.parent = parent;
             this.start = slice.Start;
             this.length = slice.Length;
-            Debug.Assert(length >= 0, "length=" + length);
+            if (Debugging.AssertsEnabled) Debugging.Assert(length >= 0, () => "length=" + length);
         }
 
         public bool Get(int doc)
@@ -48,7 +49,7 @@ namespace YAF.Lucene.Net.Index
             {
                 throw new Exception("doc " + doc + " is out of bounds 0 .. " + (length - 1));
             }
-            Debug.Assert(doc < length, "doc=" + doc + " length=" + length);
+            if (Debugging.AssertsEnabled) Debugging.Assert(doc < length, () => "doc=" + doc + " length=" + length);
             return parent.Get(doc + start);
         }
 

@@ -1,8 +1,8 @@
 using J2N.Runtime.CompilerServices;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using JCG = J2N.Collections.Generic;
 
@@ -145,7 +145,7 @@ namespace YAF.Lucene.Net.Index
                     }
                     else
                     {
-                        Debug.Assert(firstSubReaders[i] is CompositeReader);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(firstSubReaders[i] is CompositeReader);
                         CompositeReader[] compositeSubs = new CompositeReader[readers.Length];
                         for (int j = 0; j < readers.Length; j++)
                         {
