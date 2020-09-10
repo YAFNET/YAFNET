@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Diagnostics;
@@ -105,7 +106,7 @@ namespace YAF.Lucene.Net.Codecs
                         current = subs[upto].DocsEnum;
                         currentBase = mergeState.DocBase[reader];
                         currentMap = mergeState.DocMaps[reader];
-                        Debug.Assert(currentMap.MaxDoc == subs[upto].Slice.Length, "readerIndex=" + reader + " subs.len=" + subs.Length + " len1=" + currentMap.MaxDoc + " vs " + subs[upto].Slice.Length);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(currentMap.MaxDoc == subs[upto].Slice.Length, () => "readerIndex=" + reader + " subs.len=" + subs.Length + " len1=" + currentMap.MaxDoc + " vs " + subs[upto].Slice.Length);
                     }
                 }
 

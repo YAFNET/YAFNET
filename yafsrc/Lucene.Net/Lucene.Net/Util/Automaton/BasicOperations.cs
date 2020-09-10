@@ -1,7 +1,7 @@
 using J2N;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using JCG = J2N.Collections.Generic;
@@ -214,8 +214,10 @@ namespace YAF.Lucene.Net.Util.Automaton
         public static Automaton Repeat(Automaton a)
         {
             a = a.CloneExpanded();
-            State s = new State();
-            s.accept = true;
+            State s = new State
+            {
+                accept = true
+            };
             s.AddEpsilon(a.initial);
             foreach (State p in a.GetAcceptStates())
             {
@@ -607,9 +609,11 @@ namespace YAF.Lucene.Net.Util.Automaton
                 }
                 s.AddEpsilon(bb.initial);
             }
-            Automaton a_ = new Automaton();
-            a_.initial = s;
-            a_.deterministic = false;
+            Automaton a_ = new Automaton
+            {
+                initial = s,
+                deterministic = false
+            };
             //a.clearHashCode();
             a_.ClearNumberedStates();
             a_.CheckMinimizeAlways();
@@ -717,7 +721,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                     if (count == HASHMAP_CUTOVER)
                     {
                         // switch to HashMap on the fly
-                        Debug.Assert(map.Count == 0);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(map.Count == 0);
                         for (int i = 0; i < count; i++)
                         {
                             map[points[i].point] = points[i];
@@ -841,7 +845,7 @@ namespace YAF.Lucene.Net.Util.Automaton
 
                     if (statesSet.upto > 0)
                     {
-                        Debug.Assert(lastPoint != -1);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(lastPoint != -1);
 
                         statesSet.ComputeHash();
 
@@ -864,7 +868,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                         }
                         else
                         {
-                            Debug.Assert((accCount > 0) == q.accept, "accCount=" + accCount + " vs existing accept=" + q.accept + " states=" + statesSet);
+                            if (Debugging.AssertsEnabled) Debugging.Assert((accCount > 0) == q.accept, () => "accCount=" + accCount + " vs existing accept=" + q.accept + " states=" + statesSet);
                         }
 
                         r.AddTransition(new Transition(lastPoint, point - 1, q));
@@ -898,7 +902,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                     points.points[i].starts.count = 0;
                 }
                 points.Reset();
-                Debug.Assert(statesSet.upto == 0, "upto=" + statesSet.upto);
+                if (Debugging.AssertsEnabled) Debugging.Assert(statesSet.upto == 0, () => "upto=" + statesSet.upto);
             }
             a.deterministic = true;
             a.SetNumberedStates(newStatesArray, newStateUpto);
@@ -926,8 +930,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                     forward[p.s1] = to;
                 }
                 to.Add(p.s2);
-                JCG.HashSet<State> from;
-                if (!back.TryGetValue(p.s2, out from))
+                if (!back.TryGetValue(p.s2, out JCG.HashSet<State> from))
                 {
                     from = new JCG.HashSet<State>();
                     back[p.s2] = from;
@@ -942,9 +945,10 @@ namespace YAF.Lucene.Net.Util.Automaton
                 StatePair p = worklist.First.Value;
                 worklist.Remove(p);
                 workset.Remove(p);
-                JCG.HashSet<State> to;
+#pragma warning disable IDE0018 // Inline variable declaration
                 JCG.HashSet<State> from;
-                if (forward.TryGetValue(p.s2, out to))
+#pragma warning restore IDE0018 // Inline variable declaration
+                if (forward.TryGetValue(p.s2, out JCG.HashSet<State> to))
                 {
                     foreach (State s in to)
                     {
@@ -1044,7 +1048,8 @@ namespace YAF.Lucene.Net.Util.Automaton
             if (a.deterministic)
             {
                 State p = a.initial;
-                for (int i = 0, cp = 0; i < s.Length; i += Character.CharCount(cp))
+                int cp; // LUCENENET: Removed unnecessary assignment
+                for (int i = 0; i < s.Length; i += Character.CharCount(cp))
                 {
                     State q = p.Step(cp = Character.CodePointAt(s, i));
                     if (q == null)
@@ -1065,7 +1070,8 @@ namespace YAF.Lucene.Net.Util.Automaton
                 pp.AddLast(a.initial);
                 List<State> dest = new List<State>();
                 bool accept = a.initial.accept;
-                for (int i = 0, c = 0; i < s.Length; i += Character.CharCount(c))
+                int c; // LUCENENET: Removed unnecessary assignment
+                for (int i = 0; i < s.Length; i += Character.CharCount(c))
                 {
                     c = Character.CodePointAt(s, i);
                     accept = false;

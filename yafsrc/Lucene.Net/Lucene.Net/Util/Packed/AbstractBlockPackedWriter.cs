@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Packed
@@ -27,8 +27,8 @@ namespace YAF.Lucene.Net.Util.Packed
     public abstract class AbstractBlockPackedWriter // LUCENENET NOTE: made public rather than internal because has public subclasses
     {
         internal const int MIN_BLOCK_SIZE = 64;
-        internal static readonly int MAX_BLOCK_SIZE = 1 << (30 - 3);
-        internal static readonly int MIN_VALUE_EQUALS_0 = 1 << 0;
+        internal const int MAX_BLOCK_SIZE = 1 << (30 - 3);
+        internal const int MIN_VALUE_EQUALS_0 = 1 << 0;
         internal const int BPV_SHIFT = 1;
 
         internal static long ZigZagEncode(long n)
@@ -61,7 +61,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <summary>
         /// Sole constructor. </summary>
         /// <param name="blockSize"> the number of values of a single block, must be a multiple of <c>64</c>. </param>
-        public AbstractBlockPackedWriter(DataOutput @out, int blockSize)
+        protected AbstractBlockPackedWriter(DataOutput @out, int blockSize) // LUCENENET specific - marked protected instead of public
         {
             PackedInt32s.CheckBlockSize(blockSize, MIN_BLOCK_SIZE, MAX_BLOCK_SIZE);
             Reset(@out);
@@ -72,7 +72,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// Reset this writer to wrap <paramref name="out"/>. The block size remains unchanged. </summary>
         public virtual void Reset(DataOutput @out)
         {
-            Debug.Assert(@out != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(@out != null);
             this.m_out = @out;
             m_off = 0;
             m_ord = 0L;

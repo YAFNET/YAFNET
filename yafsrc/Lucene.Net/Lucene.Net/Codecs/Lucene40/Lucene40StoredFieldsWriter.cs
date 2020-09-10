@@ -1,4 +1,5 @@
 using J2N;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
 using System;
 using System.Diagnostics;
@@ -90,7 +91,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// Sole constructor. </summary>
         public Lucene40StoredFieldsWriter(Directory directory, string segment, IOContext context)
         {
-            Debug.Assert(directory != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(directory != null);
             this.directory = directory;
             this.segment = segment;
 
@@ -102,8 +103,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
                 CodecUtil.WriteHeader(fieldsStream, CODEC_NAME_DAT, VERSION_CURRENT);
                 CodecUtil.WriteHeader(indexStream, CODEC_NAME_IDX, VERSION_CURRENT);
-                Debug.Assert(HEADER_LENGTH_DAT == fieldsStream.GetFilePointer());
-                Debug.Assert(HEADER_LENGTH_IDX == indexStream.GetFilePointer());
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(HEADER_LENGTH_DAT == fieldsStream.GetFilePointer());
+                    Debugging.Assert(HEADER_LENGTH_IDX == indexStream.GetFilePointer());
+                }
                 success = true;
             }
             finally
@@ -262,7 +266,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 position += lengths[i];
             }
             fieldsStream.CopyBytes(stream, position - start);
-            Debug.Assert(fieldsStream.GetFilePointer() == position);
+            if (Debugging.AssertsEnabled) Debugging.Assert(fieldsStream.GetFilePointer() == position);
         }
 
         public override void Finish(FieldInfos fis, int numDocs)
@@ -324,7 +328,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             int docCount = 0;
             int maxDoc = reader.MaxDoc;
             IBits liveDocs = reader.LiveDocs;
-            Debug.Assert(liveDocs != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(liveDocs != null);
             if (matchingFieldsReader != null)
             {
                 // We can bulk-copy because the fieldInfos are "congruent"

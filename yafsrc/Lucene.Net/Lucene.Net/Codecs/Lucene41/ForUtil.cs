@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util.Packed;
@@ -87,7 +88,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         private static int EncodedSize(PackedInt32s.Format format, int packedIntsVersion, int bitsPerValue)
         {
             long byteCount = format.ByteCount(packedIntsVersion, Lucene41PostingsFormat.BLOCK_SIZE, bitsPerValue);
-            Debug.Assert(byteCount >= 0 && byteCount <= int.MaxValue, byteCount.ToString());
+            if (Debugging.AssertsEnabled) Debugging.Assert(byteCount >= 0 && byteCount <= int.MaxValue, byteCount.ToString);
             return (int)byteCount;
         }
 
@@ -110,8 +111,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             for (int bpv = 1; bpv <= 32; ++bpv)
             {
                 PackedInt32s.FormatAndBits formatAndBits = PackedInt32s.FastestFormatAndBits(Lucene41PostingsFormat.BLOCK_SIZE, bpv, acceptableOverheadRatio);
-                Debug.Assert(formatAndBits.Format.IsSupported(formatAndBits.BitsPerValue));
-                Debug.Assert(formatAndBits.BitsPerValue <= 32);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(formatAndBits.Format.IsSupported(formatAndBits.BitsPerValue));
+                    Debugging.Assert(formatAndBits.BitsPerValue <= 32);
+                }
                 encodedSizes[bpv] = EncodedSize(formatAndBits.Format, PackedInt32s.VERSION_CURRENT, formatAndBits.BitsPerValue);
                 encoders[bpv] = PackedInt32s.GetEncoder(formatAndBits.Format, PackedInt32s.VERSION_CURRENT, formatAndBits.BitsPerValue);
                 decoders[bpv] = PackedInt32s.GetDecoder(formatAndBits.Format, PackedInt32s.VERSION_CURRENT, formatAndBits.BitsPerValue);
@@ -140,7 +144,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                 var bitsPerValue = (code & 31) + 1;
 
                 PackedInt32s.Format format = PackedInt32s.Format.ById(formatId);
-                Debug.Assert(format.IsSupported(bitsPerValue));
+                if (Debugging.AssertsEnabled) Debugging.Assert(format.IsSupported(bitsPerValue));
                 encodedSizes[bpv] = EncodedSize(format, packedIntsVersion, bitsPerValue);
                 encoders[bpv] = PackedInt32s.GetEncoder(format, packedIntsVersion, bitsPerValue);
                 decoders[bpv] = PackedInt32s.GetDecoder(format, packedIntsVersion, bitsPerValue);
@@ -165,12 +169,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             }
 
             int numBits = BitsRequired(data);
-            Debug.Assert(numBits > 0 && numBits <= 32, numBits.ToString());
+            if (Debugging.AssertsEnabled) Debugging.Assert(numBits > 0 && numBits <= 32, numBits.ToString);
             PackedInt32s.IEncoder encoder = encoders[numBits];
             int iters = iterations[numBits];
-            Debug.Assert(iters * encoder.ByteValueCount >= Lucene41PostingsFormat.BLOCK_SIZE);
+            if (Debugging.AssertsEnabled) Debugging.Assert(iters * encoder.ByteValueCount >= Lucene41PostingsFormat.BLOCK_SIZE);
             int encodedSize = encodedSizes[numBits];
-            Debug.Assert(iters * encoder.ByteBlockCount >= encodedSize);
+            if (Debugging.AssertsEnabled) Debugging.Assert(iters * encoder.ByteBlockCount >= encodedSize);
 
             @out.WriteByte((byte)numBits);
 
@@ -188,7 +192,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         internal void ReadBlock(IndexInput @in, byte[] encoded, int[] decoded)
         {
             int numBits = @in.ReadByte();
-            Debug.Assert(numBits <= 32, numBits.ToString());
+            if (Debugging.AssertsEnabled) Debugging.Assert(numBits <= 32, numBits.ToString);
 
             if (numBits == ALL_VALUES_EQUAL)
             {
@@ -202,7 +206,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
 
             PackedInt32s.IDecoder decoder = decoders[numBits];
             int iters = iterations[numBits];
-            Debug.Assert(iters * decoder.ByteValueCount >= Lucene41PostingsFormat.BLOCK_SIZE);
+            if (Debugging.AssertsEnabled) Debugging.Assert(iters * decoder.ByteValueCount >= Lucene41PostingsFormat.BLOCK_SIZE);
 
             decoder.Decode(encoded, 0, decoded, 0, iters);
         }
@@ -220,7 +224,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                 @in.ReadVInt32();
                 return;
             }
-            Debug.Assert(numBits > 0 && numBits <= 32, numBits.ToString());
+            if (Debugging.AssertsEnabled) Debugging.Assert(numBits > 0 && numBits <= 32, numBits.ToString);
             int encodedSize = encodedSizes[numBits];
             @in.Seek(@in.GetFilePointer() + encodedSize);
         }
@@ -247,7 +251,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             long or = 0;
             for (int i = 0; i < Lucene41PostingsFormat.BLOCK_SIZE; ++i)
             {
-                Debug.Assert(data[i] >= 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(data[i] >= 0);
                 or |= (uint)data[i];
             }
             return PackedInt32s.BitsRequired(or);

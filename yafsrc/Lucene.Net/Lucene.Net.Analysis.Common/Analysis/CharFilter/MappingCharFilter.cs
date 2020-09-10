@@ -1,4 +1,5 @@
 ﻿using YAF.Lucene.Net.Analysis.Util;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Fst;
 using System;
@@ -135,7 +136,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
                         if (!FST.TargetHasArcs(arc))
                         {
                             // Fast pass for single character match:
-                            Debug.Assert(arc.IsFinal);
+                            if (Debugging.AssertsEnabled) Debugging.Assert(arc.IsFinal);
                             lastMatchLen = 1;
                             lastMatch = arc.Output;
                         }

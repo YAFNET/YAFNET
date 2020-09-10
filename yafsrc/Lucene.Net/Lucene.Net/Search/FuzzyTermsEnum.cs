@@ -1,11 +1,11 @@
 using J2N;
 using J2N.Collections.Generic.Extensions;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using JCG = J2N.Collections.Generic;
 
@@ -33,13 +33,13 @@ namespace YAF.Lucene.Net.Search
     using Automaton = YAF.Lucene.Net.Util.Automaton.Automaton;
     using BasicAutomata = YAF.Lucene.Net.Util.Automaton.BasicAutomata;
     using BasicOperations = YAF.Lucene.Net.Util.Automaton.BasicOperations;
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using ByteRunAutomaton = YAF.Lucene.Net.Util.Automaton.ByteRunAutomaton;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
     using CompiledAutomaton = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
     using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
     using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
     using FilteredTermsEnum = YAF.Lucene.Net.Index.FilteredTermsEnum;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using LevenshteinAutomata = YAF.Lucene.Net.Util.Automaton.LevenshteinAutomata;
     using Term = YAF.Lucene.Net.Index.Term;
     using Terms = YAF.Lucene.Net.Index.Terms;
@@ -251,7 +251,7 @@ namespace YAF.Lucene.Net.Search
             // assert newEnum != null;
             if (newEnum == null)
             {
-                Debug.Assert(maxEdits > LevenshteinAutomata.MAXIMUM_SUPPORTED_DISTANCE);
+                if (Debugging.AssertsEnabled) Debugging.Assert(maxEdits > LevenshteinAutomata.MAXIMUM_SUPPORTED_DISTANCE);
                 throw new ArgumentException("maxEdits cannot be > LevenshteinAutomata.MAXIMUM_SUPPORTED_DISTANCE");
             }
             SetEnum(newEnum);

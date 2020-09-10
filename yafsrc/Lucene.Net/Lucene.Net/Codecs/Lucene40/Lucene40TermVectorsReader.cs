@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Support;
 using System;
@@ -119,16 +120,19 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 fn = IndexFileNames.SegmentFileName(segment, "", VECTORS_FIELDS_EXTENSION);
                 tvf = d.OpenInput(fn, context);
                 int tvfVersion = CodecUtil.CheckHeader(tvf, CODEC_NAME_FIELDS, VERSION_START, VERSION_CURRENT);
-                Debug.Assert(HEADER_LENGTH_INDEX == tvx.GetFilePointer());
-                Debug.Assert(HEADER_LENGTH_DOCS == tvd.GetFilePointer());
-                Debug.Assert(HEADER_LENGTH_FIELDS == tvf.GetFilePointer());
-                Debug.Assert(tvxVersion == tvdVersion);
-                Debug.Assert(tvxVersion == tvfVersion);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(HEADER_LENGTH_INDEX == tvx.GetFilePointer());
+                    Debugging.Assert(HEADER_LENGTH_DOCS == tvd.GetFilePointer());
+                    Debugging.Assert(HEADER_LENGTH_FIELDS == tvf.GetFilePointer());
+                    Debugging.Assert(tvxVersion == tvdVersion);
+                    Debugging.Assert(tvxVersion == tvfVersion);
+                }
 
                 numTotalDocs = (int)(tvx.Length - HEADER_LENGTH_INDEX >> 4);
 
                 this.size = numTotalDocs;
-                Debug.Assert(size == 0 || numTotalDocs == size);
+                if (Debugging.AssertsEnabled) Debugging.Assert(size == 0 || numTotalDocs == size);
 
                 this.fieldInfos = fieldInfos;
                 success = true;
@@ -199,7 +203,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             while (count < numDocs)
             {
                 int docID = startDocID + count + 1;
-                Debug.Assert(docID <= numTotalDocs);
+                if (Debugging.AssertsEnabled) Debugging.Assert(docID <= numTotalDocs);
                 if (docID < numTotalDocs)
                 {
                     tvdPosition = tvx.ReadInt64();
@@ -209,7 +213,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 {
                     tvdPosition = tvd.Length;
                     tvfPosition = tvf.Length;
-                    Debug.Assert(count == numDocs - 1);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(count == numDocs - 1);
                 }
                 tvdLengths[count] = (int)(tvdPosition - lastTvdPosition);
                 tvfLengths[count] = (int)(tvfPosition - lastTvfPosition);
@@ -247,7 +251,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 outerInstance.tvd.Seek(outerInstance.tvx.ReadInt64());
 
                 int fieldCount = outerInstance.tvd.ReadVInt32();
-                Debug.Assert(fieldCount >= 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(fieldCount >= 0);
                 if (fieldCount != 0)
                 {
                     fieldNumbers = new int[fieldCount];
@@ -517,7 +521,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                         }
                         payloadOffsets[posUpto] = totalPayloadLength;
                         totalPayloadLength += lastPayloadLength;
-                        Debug.Assert(totalPayloadLength >= 0);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(totalPayloadLength >= 0);
                     }
                     payloadData = new byte[totalPayloadLength];
                     tvf.ReadBytes(payloadData, 0, payloadData.Length);
@@ -667,7 +671,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                     }
                     else
                     {
-                        Debug.Assert(startOffsets != null);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(startOffsets != null);
                         return startOffsets.Length;
                     }
                 }
@@ -729,14 +733,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
             public override int NextPosition()
             {
-                //Debug.Assert((positions != null && nextPos < positions.Length) || startOffsets != null && nextPos < startOffsets.Length);
+                //if (Debugging.AssertsEnabled) Debugging.Assert((positions != null && nextPos < positions.Length) || startOffsets != null && nextPos < startOffsets.Length);
 
                 // LUCENENET: The above assertion was for control flow when testing. In Java, it would throw an AssertionError, which is
                 // caught by the BaseTermVectorsFormatTestCase.assertEquals(RandomTokenStream tk, FieldType ft, Terms terms) method in the
                 // part that is checking for an error after reading to the end of the enumerator.
 
-                // Since there is no way to turn on assertions in a release build in .NET, we are throwing an InvalidOperationException
-                // in this case, which matches the behavior of Lucene 8. See #267.
+                // In .NET it is more natural to throw an InvalidOperationException in this case, since we would potentially get an
+                // IndexOutOfRangeException if we didn't, which doesn't really provide good feedback as to what the cause is.
+                // This matches the behavior of Lucene 8.x. See #267.
                 if (((positions != null && nextPos < positions.Length) || startOffsets != null && nextPos < startOffsets.Length) == false)
                     throw new InvalidOperationException("Read past last position");
 

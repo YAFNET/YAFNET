@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -192,7 +193,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
                     // Verify the file is long enough to hold all of our
                     // docs
-                    Debug.Assert(((int)(indexSize / 8)) >= size + this.docStoreOffset, "indexSize=" + indexSize + " size=" + size + " docStoreOffset=" + docStoreOffset);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(((int)(indexSize / 8)) >= size + this.docStoreOffset, () => "indexSize=" + indexSize + " size=" + size + " docStoreOffset=" + docStoreOffset);
                 }
                 else
                 {
@@ -272,7 +273,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 FieldInfo fieldInfo = fieldInfos.FieldInfo(fieldNumber);
 
                 int bits = fieldsStream.ReadByte() & 0xFF;
-                Debug.Assert(bits <= (FIELD_IS_NUMERIC_MASK | FIELD_IS_BINARY), "bits=" + bits.ToString("x"));
+                if (Debugging.AssertsEnabled) Debugging.Assert(bits <= (FIELD_IS_NUMERIC_MASK | FIELD_IS_BINARY), () => "bits=" + bits.ToString("x"));
 
                 switch (visitor.NeedsField(fieldInfo))
                 {

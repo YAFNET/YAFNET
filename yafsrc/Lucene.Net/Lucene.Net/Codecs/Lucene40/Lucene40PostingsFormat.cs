@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Diagnostics;
 
@@ -234,7 +235,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             : base()
         {
             this.m_minBlockSize = minBlockSize;
-            Debug.Assert(minBlockSize > 1);
+            if (Debugging.AssertsEnabled) Debugging.Assert(minBlockSize > 1);
             this.m_maxBlockSize = maxBlockSize;
         }
 

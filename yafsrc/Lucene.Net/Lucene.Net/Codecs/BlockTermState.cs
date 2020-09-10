@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 
 namespace YAF.Lucene.Net.Codecs
 {
@@ -57,7 +57,7 @@ namespace YAF.Lucene.Net.Codecs
 
         public override void CopyFrom(TermState other)
         {
-            Debug.Assert(other is BlockTermState, "can not copy from " + other.GetType().Name);
+            if (Debugging.AssertsEnabled) Debugging.Assert(other is BlockTermState, () => "can not copy from " + other.GetType().Name);
             BlockTermState other2 = (BlockTermState)other;
             base.CopyFrom(other);
             DocFreq = other2.DocFreq;

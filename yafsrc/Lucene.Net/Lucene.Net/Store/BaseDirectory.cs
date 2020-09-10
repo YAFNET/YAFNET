@@ -1,6 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
-using System.Reflection;
 
 namespace YAF.Lucene.Net.Store
 {
@@ -67,7 +66,7 @@ namespace YAF.Lucene.Net.Store
 
         public override void SetLockFactory(LockFactory lockFactory)
         {
-            Debug.Assert(lockFactory != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(lockFactory != null);
             this.m_lockFactory = lockFactory;
             lockFactory.LockPrefix = this.GetLockID();
         }

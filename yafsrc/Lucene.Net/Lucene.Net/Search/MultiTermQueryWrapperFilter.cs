@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -22,10 +22,10 @@ namespace YAF.Lucene.Net.Search
 
     using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
     using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
     using Fields = YAF.Lucene.Net.Index.Fields;
     using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using Terms = YAF.Lucene.Net.Index.Terms;
     using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
 
@@ -109,7 +109,7 @@ namespace YAF.Lucene.Net.Search
             }
 
             TermsEnum termsEnum = m_query.GetTermsEnum(terms);
-            Debug.Assert(termsEnum != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(termsEnum != null);
             if (termsEnum.Next() != null)
             {
                 // fill into a FixedBitSet

@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -145,7 +145,7 @@ namespace YAF.Lucene.Net.Search
 
         public override int NextDoc()
         {
-            Debug.Assert(m_doc != NO_MORE_DOCS);
+            if (Debugging.AssertsEnabled) Debugging.Assert(m_doc != NO_MORE_DOCS);
             while (true)
             {
                 if (m_subScorers[0].NextDoc() != NO_MORE_DOCS)
@@ -170,7 +170,7 @@ namespace YAF.Lucene.Net.Search
 
         public override int Advance(int target)
         {
-            Debug.Assert(m_doc != NO_MORE_DOCS);
+            if (Debugging.AssertsEnabled) Debugging.Assert(m_doc != NO_MORE_DOCS);
             while (true)
             {
                 if (m_subScorers[0].Advance(target) != NO_MORE_DOCS)

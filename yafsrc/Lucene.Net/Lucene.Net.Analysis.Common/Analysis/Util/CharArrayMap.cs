@@ -1,12 +1,12 @@
 ﻿using J2N;
-using J2N.Text;
 using J2N.Globalization;
+using J2N.Text;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 
@@ -632,7 +632,7 @@ namespace YAF.Lucene.Net.Analysis.Util
 
         private void Rehash()
         {
-            Debug.Assert(keys.Length == values.Length);
+            if (Debugging.AssertsEnabled) Debugging.Assert(keys.Length == values.Length);
             int newSize = 2 * keys.Length;
             char[][] oldkeys = keys;
             MapValue[] oldvalues = values;
@@ -1173,12 +1173,10 @@ namespace YAF.Lucene.Net.Analysis.Util
             /// </summary>
             private class KeyEnumerator : IEnumerator<string>
             {
-                private readonly CharArrayMap<TValue> outerInstance;
                 private readonly EntryIterator entryIterator;
 
                 public KeyEnumerator(CharArrayMap<TValue> outerInstance)
                 {
-                    this.outerInstance = outerInstance;
                     this.entryIterator = new EntryIterator(outerInstance, !outerInstance.IsReadOnly);
                 }
 
@@ -1288,12 +1286,10 @@ namespace YAF.Lucene.Net.Analysis.Util
             /// </summary>
             private class ValueEnumerator : IEnumerator<TValue>
             {
-                private readonly CharArrayMap<TValue> outerInstance;
                 private readonly EntryIterator entryIterator;
 
                 public ValueEnumerator(CharArrayMap<TValue> outerInstance)
                 {
-                    this.outerInstance = outerInstance;
                     this.entryIterator = new EntryIterator(outerInstance, !outerInstance.IsReadOnly);
                 }
 
@@ -1545,7 +1541,13 @@ namespace YAF.Lucene.Net.Analysis.Util
             // LUCENENET: Next() and Remove() methods eliminated here
 
             #region Added for better .NET support LUCENENET
-            public virtual void Dispose()
+            public void Dispose()
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            protected virtual void Dispose(bool disposing)
             {
                 // nothing to do
             }

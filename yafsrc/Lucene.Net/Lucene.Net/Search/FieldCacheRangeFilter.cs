@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 using System.Text;
 
 namespace YAF.Lucene.Net.Search
@@ -22,8 +22,8 @@ namespace YAF.Lucene.Net.Search
      */
 
     using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using NumericUtils = YAF.Lucene.Net.Util.NumericUtils;
     using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
 
@@ -65,27 +65,6 @@ namespace YAF.Lucene.Net.Search
 #endif
         private class AnonymousStringFieldCacheRangeFilter : FieldCacheRangeFilter<string>
         {
-            private class AnonymousClassFieldCacheDocIdSet : FieldCacheDocIdSet
-            {
-                private SortedDocValues fcsi;
-                private int inclusiveLowerPoint;
-                private int inclusiveUpperPoint;
-
-                internal AnonymousClassFieldCacheDocIdSet(SortedDocValues fcsi, int inclusiveLowerPoint, int inclusiveUpperPoint, int maxDoc, IBits acceptDocs)
-                    : base(maxDoc, acceptDocs)
-                {
-                    this.fcsi = fcsi;
-                    this.inclusiveLowerPoint = inclusiveLowerPoint;
-                    this.inclusiveUpperPoint = inclusiveUpperPoint;
-                }
-
-                protected internal override bool MatchDoc(int doc)
-                {
-                    int docOrd = fcsi.GetOrd(doc);
-                    return docOrd >= inclusiveLowerPoint && docOrd <= inclusiveUpperPoint;
-                }
-            }
-
             internal AnonymousStringFieldCacheRangeFilter(string field, string lowerVal, string upperVal, bool includeLower, bool includeUpper)
                 : base(field, null, lowerVal, upperVal, includeLower, includeUpper)
             {
@@ -142,9 +121,13 @@ namespace YAF.Lucene.Net.Search
                     return null;
                 }
 
-                Debug.Assert(inclusiveLowerPoint >= 0 && inclusiveUpperPoint >= 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(inclusiveLowerPoint >= 0 && inclusiveUpperPoint >= 0);
 
-                return new AnonymousClassFieldCacheDocIdSet(fcsi, inclusiveLowerPoint, inclusiveUpperPoint, context.Reader.MaxDoc, acceptDocs);
+                return new FieldCacheDocIdSet(context.Reader.MaxDoc, acceptDocs, (doc) =>
+                {
+                    int docOrd = fcsi.GetOrd(doc);
+                    return docOrd >= inclusiveLowerPoint && docOrd <= inclusiveUpperPoint;
+                });
             }
         }
 
@@ -153,27 +136,6 @@ namespace YAF.Lucene.Net.Search
 #endif
         private class AnonymousBytesRefFieldCacheRangeFilter : FieldCacheRangeFilter<BytesRef>
         {
-            private class AnonymousClassFieldCacheDocIdSet : FieldCacheDocIdSet
-            {
-                private SortedDocValues fcsi;
-                private int inclusiveLowerPoint;
-                private int inclusiveUpperPoint;
-
-                internal AnonymousClassFieldCacheDocIdSet(SortedDocValues fcsi, int inclusiveLowerPoint, int inclusiveUpperPoint, int maxDoc, IBits acceptDocs)
-                    : base(maxDoc, acceptDocs)
-                {
-                    this.fcsi = fcsi;
-                    this.inclusiveLowerPoint = inclusiveLowerPoint;
-                    this.inclusiveUpperPoint = inclusiveUpperPoint;
-                }
-
-                protected internal override bool MatchDoc(int doc)
-                {
-                    int docOrd = fcsi.GetOrd(doc);
-                    return docOrd >= inclusiveLowerPoint && docOrd <= inclusiveUpperPoint;
-                }
-            }
-
             internal AnonymousBytesRefFieldCacheRangeFilter(string field, BytesRef lowerVal, BytesRef upperVal, bool includeLower, bool includeUpper)
                 : base(field, null, lowerVal, upperVal, includeLower, includeUpper)
             {
@@ -230,8 +192,13 @@ namespace YAF.Lucene.Net.Search
                     return null; ;
                 }
 
-                //assert inclusiveLowerPoint >= 0 && inclusiveUpperPoint >= 0;
-                return new AnonymousClassFieldCacheDocIdSet(fcsi, inclusiveLowerPoint, inclusiveUpperPoint, context.AtomicReader.MaxDoc, acceptDocs);
+                if (Debugging.AssertsEnabled) Debugging.Assert(inclusiveLowerPoint >= 0 && inclusiveUpperPoint >= 0);
+
+                return new FieldCacheDocIdSet(context.AtomicReader.MaxDoc, acceptDocs, (doc) =>
+                {
+                    int docOrd = fcsi.GetOrd(doc);
+                    return docOrd >= inclusiveLowerPoint && docOrd <= inclusiveUpperPoint;
+                });
             }
         }
 
@@ -240,27 +207,6 @@ namespace YAF.Lucene.Net.Search
 #endif
         private class AnonymousSbyteFieldCacheRangeFilter : FieldCacheRangeFilter<sbyte?>
         {
-            private class AnonymousClassFieldCacheDocIdSet : FieldCacheDocIdSet
-            {
-                private FieldCache.Bytes values;
-                private sbyte inclusiveLowerPoint;
-                private sbyte inclusiveUpperPoint;
-
-                internal AnonymousClassFieldCacheDocIdSet(FieldCache.Bytes values, sbyte inclusiveLowerPoint, sbyte inclusiveUpperPoint, int maxDoc, IBits acceptDocs)
-                    : base(maxDoc, acceptDocs)
-                {
-                    this.values = values;
-                    this.inclusiveLowerPoint = inclusiveLowerPoint;
-                    this.inclusiveUpperPoint = inclusiveUpperPoint;
-                }
-
-                protected internal override bool MatchDoc(int doc)
-                {
-                    sbyte value = (sbyte)values.Get(doc);
-                    return value >= inclusiveLowerPoint && value <= inclusiveUpperPoint;
-                }
-            }
-
             internal AnonymousSbyteFieldCacheRangeFilter(string field, FieldCache.IParser parser, sbyte? lowerVal, sbyte? upperVal, bool includeLower, bool includeUpper)
                 : base(field, parser, lowerVal, upperVal, includeLower, includeUpper)
             {
@@ -300,7 +246,11 @@ namespace YAF.Lucene.Net.Search
 #pragma warning restore 612, 618
 
                 // we only request the usage of termDocs, if the range contains 0
-                return new AnonymousClassFieldCacheDocIdSet(values, inclusiveLowerPoint, inclusiveUpperPoint, context.AtomicReader.MaxDoc, acceptDocs);
+                return new FieldCacheDocIdSet(context.AtomicReader.MaxDoc, acceptDocs, (doc) =>
+                {
+                    sbyte value = (sbyte)values.Get(doc);
+                    return value >= inclusiveLowerPoint && value <= inclusiveUpperPoint;
+                });
             }
         }
 
@@ -309,27 +259,6 @@ namespace YAF.Lucene.Net.Search
 #endif
         private class AnonymousInt16FieldCacheRangeFilter : FieldCacheRangeFilter<short?>
         {
-            private class AnonymousClassFieldCacheDocIdSet : FieldCacheDocIdSet
-            {
-                private FieldCache.Int16s values;
-                private short inclusiveLowerPoint;
-                private short inclusiveUpperPoint;
-
-                internal AnonymousClassFieldCacheDocIdSet(FieldCache.Int16s values, short inclusiveLowerPoint, short inclusiveUpperPoint, int maxDoc, IBits acceptDocs)
-                    : base(maxDoc, acceptDocs)
-                {
-                    this.values = values;
-                    this.inclusiveLowerPoint = inclusiveLowerPoint;
-                    this.inclusiveUpperPoint = inclusiveUpperPoint;
-                }
-
-                protected internal override bool MatchDoc(int doc)
-                {
-                    short value = values.Get(doc);
-                    return value >= inclusiveLowerPoint && value <= inclusiveUpperPoint;
-                }
-            }
-
             internal AnonymousInt16FieldCacheRangeFilter(string field, FieldCache.IParser parser, short? lowerVal, short? upperVal, bool includeLower, bool includeUpper)
                 : base(field, parser, lowerVal, upperVal, includeLower, includeUpper)
             {
@@ -370,7 +299,11 @@ namespace YAF.Lucene.Net.Search
 #pragma warning restore 612, 618
 
                 // we only request the usage of termDocs, if the range contains 0
-                return new AnonymousClassFieldCacheDocIdSet(values, inclusiveLowerPoint, inclusiveUpperPoint, context.Reader.MaxDoc, acceptDocs);
+                return new FieldCacheDocIdSet(context.Reader.MaxDoc, acceptDocs, (doc) =>
+                {
+                    short value = values.Get(doc);
+                    return value >= inclusiveLowerPoint && value <= inclusiveUpperPoint;
+                });
             }
         }
 
@@ -379,27 +312,6 @@ namespace YAF.Lucene.Net.Search
 #endif
         private class AnonymousInt32FieldCacheRangeFilter : FieldCacheRangeFilter<int?>
         {
-            private class AnonymousClassFieldCacheDocIdSet : FieldCacheDocIdSet
-            {
-                private FieldCache.Int32s values;
-                private int inclusiveLowerPoint;
-                private int inclusiveUpperPoint;
-
-                internal AnonymousClassFieldCacheDocIdSet(FieldCache.Int32s values, int inclusiveLowerPoint, int inclusiveUpperPoint, int maxDoc, IBits acceptDocs)
-                    : base(maxDoc, acceptDocs)
-                {
-                    this.values = values;
-                    this.inclusiveLowerPoint = inclusiveLowerPoint;
-                    this.inclusiveUpperPoint = inclusiveUpperPoint;
-                }
-
-                protected internal override bool MatchDoc(int doc)
-                {
-                    int value = values.Get(doc);
-                    return value >= inclusiveLowerPoint && value <= inclusiveUpperPoint;
-                }
-            }
-
             internal AnonymousInt32FieldCacheRangeFilter(string field, FieldCache.IParser parser, int? lowerVal, int? upperVal, bool includeLower, bool includeUpper)
                 : base(field, parser, lowerVal, upperVal, includeLower, includeUpper)
             {
@@ -437,7 +349,11 @@ namespace YAF.Lucene.Net.Search
 
                 FieldCache.Int32s values = FieldCache.DEFAULT.GetInt32s(context.AtomicReader, field, (FieldCache.IInt32Parser)parser, false);
                 // we only request the usage of termDocs, if the range contains 0
-                return new AnonymousClassFieldCacheDocIdSet(values, inclusiveLowerPoint, inclusiveUpperPoint, context.Reader.MaxDoc, acceptDocs);
+                return new FieldCacheDocIdSet(context.Reader.MaxDoc, acceptDocs, (doc) =>
+                {
+                    int value = values.Get(doc);
+                    return value >= inclusiveLowerPoint && value <= inclusiveUpperPoint;
+                });
             }
         }
 
@@ -446,27 +362,6 @@ namespace YAF.Lucene.Net.Search
 #endif
         private class AnonymousInt64FieldCacheRangeFilter : FieldCacheRangeFilter<long?>
         {
-            private class AnonymousClassFieldCacheDocIdSet : FieldCacheDocIdSet
-            {
-                private FieldCache.Int64s values;
-                private long inclusiveLowerPoint;
-                private long inclusiveUpperPoint;
-
-                internal AnonymousClassFieldCacheDocIdSet(FieldCache.Int64s values, long inclusiveLowerPoint, long inclusiveUpperPoint, int maxDoc, IBits acceptDocs)
-                    : base(maxDoc, acceptDocs)
-                {
-                    this.values = values;
-                    this.inclusiveLowerPoint = inclusiveLowerPoint;
-                    this.inclusiveUpperPoint = inclusiveUpperPoint;
-                }
-
-                protected internal override bool MatchDoc(int doc)
-                {
-                    long value = values.Get(doc);
-                    return value >= inclusiveLowerPoint && value <= inclusiveUpperPoint;
-                }
-            }
-
             internal AnonymousInt64FieldCacheRangeFilter(string field, FieldCache.IParser parser, long? lowerVal, long? upperVal, bool includeLower, bool includeUpper)
                 : base(field, parser, lowerVal, upperVal, includeLower, includeUpper)
             {
@@ -504,7 +399,11 @@ namespace YAF.Lucene.Net.Search
 
                 FieldCache.Int64s values = FieldCache.DEFAULT.GetInt64s(context.AtomicReader, field, (FieldCache.IInt64Parser)parser, false);
                 // we only request the usage of termDocs, if the range contains 0
-                return new AnonymousClassFieldCacheDocIdSet(values, inclusiveLowerPoint, inclusiveUpperPoint, context.Reader.MaxDoc, acceptDocs);
+                return new FieldCacheDocIdSet(context.Reader.MaxDoc, acceptDocs, (doc) =>
+                {
+                    long value = values.Get(doc);
+                    return value >= inclusiveLowerPoint && value <= inclusiveUpperPoint;
+                });
             }
         }
 
@@ -513,27 +412,6 @@ namespace YAF.Lucene.Net.Search
 #endif
         private class AnonymousSingleFieldCacheRangeFilter : FieldCacheRangeFilter<float?>
         {
-            private class AnonymousClassFieldCacheDocIdSet : FieldCacheDocIdSet
-            {
-                private FieldCache.Singles values;
-                private float inclusiveLowerPoint;
-                private float inclusiveUpperPoint;
-
-                internal AnonymousClassFieldCacheDocIdSet(FieldCache.Singles values, float inclusiveLowerPoint, float inclusiveUpperPoint, int maxDoc, IBits acceptDocs)
-                    : base(maxDoc, acceptDocs)
-                {
-                    this.values = values;
-                    this.inclusiveLowerPoint = inclusiveLowerPoint;
-                    this.inclusiveUpperPoint = inclusiveUpperPoint;
-                }
-
-                protected internal override bool MatchDoc(int doc)
-                {
-                    float value = values.Get(doc);
-                    return value >= inclusiveLowerPoint && value <= inclusiveUpperPoint;
-                }
-            }
-
             internal AnonymousSingleFieldCacheRangeFilter(string field, FieldCache.IParser parser, float? lowerVal, float? upperVal, bool includeLower, bool includeUpper)
                 : base(field, parser, lowerVal, upperVal, includeLower, includeUpper)
             {
@@ -576,7 +454,11 @@ namespace YAF.Lucene.Net.Search
                 FieldCache.Singles values = FieldCache.DEFAULT.GetSingles(context.AtomicReader, field, (FieldCache.ISingleParser)parser, false);
 
                 // we only request the usage of termDocs, if the range contains 0
-                return new AnonymousClassFieldCacheDocIdSet(values, inclusiveLowerPoint, inclusiveUpperPoint, context.Reader.MaxDoc, acceptDocs);
+                return new FieldCacheDocIdSet(context.Reader.MaxDoc, acceptDocs, (doc) =>
+                {
+                    float value = values.Get(doc);
+                    return value >= inclusiveLowerPoint && value <= inclusiveUpperPoint;
+                });
             }
         }
 
@@ -585,27 +467,6 @@ namespace YAF.Lucene.Net.Search
 #endif
         private class AnonymousDoubleFieldCacheRangeFilter : FieldCacheRangeFilter<double?>
         {
-            private class AnonymousClassFieldCacheDocIdSet : FieldCacheDocIdSet
-            {
-                private FieldCache.Doubles values;
-                private double inclusiveLowerPoint;
-                private double inclusiveUpperPoint;
-
-                internal AnonymousClassFieldCacheDocIdSet(FieldCache.Doubles values, double inclusiveLowerPoint, double inclusiveUpperPoint, int maxDoc, IBits acceptDocs)
-                    : base(maxDoc, acceptDocs)
-                {
-                    this.values = values;
-                    this.inclusiveLowerPoint = inclusiveLowerPoint;
-                    this.inclusiveUpperPoint = inclusiveUpperPoint;
-                }
-
-                protected internal override bool MatchDoc(int doc)
-                {
-                    double value = values.Get(doc);
-                    return value >= inclusiveLowerPoint && value <= inclusiveUpperPoint;
-                }
-            }
-
             internal AnonymousDoubleFieldCacheRangeFilter(string field, FieldCache.IParser parser, double? lowerVal, double? upperVal, bool includeLower, bool includeUpper)
                 : base(field, parser, lowerVal, upperVal, includeLower, includeUpper)
             {
@@ -648,7 +509,11 @@ namespace YAF.Lucene.Net.Search
                 FieldCache.Doubles values = FieldCache.DEFAULT.GetDoubles(context.AtomicReader, field, (FieldCache.IDoubleParser)parser, false);
 
                 // we only request the usage of termDocs, if the range contains 0
-                return new AnonymousClassFieldCacheDocIdSet(values, inclusiveLowerPoint, inclusiveUpperPoint, context.Reader.MaxDoc, acceptDocs);
+                return new FieldCacheDocIdSet(context.Reader.MaxDoc, acceptDocs, (doc) =>
+                {
+                    double value = values.Get(doc);
+                    return value >= inclusiveLowerPoint && value <= inclusiveUpperPoint;
+                });
             }
         }
 

@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -45,8 +45,11 @@ namespace YAF.Lucene.Net.Search
 
             public override int Advance(int target)
             {
-                Debug.Assert(!exhausted);
-                Debug.Assert(target >= 0);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(!exhausted);
+                    Debugging.Assert(target >= 0);
+                }
                 exhausted = true;
                 return NO_MORE_DOCS;
             }
@@ -55,7 +58,7 @@ namespace YAF.Lucene.Net.Search
 
             public override int NextDoc()
             {
-                Debug.Assert(!exhausted);
+                if (Debugging.AssertsEnabled) Debugging.Assert(!exhausted);
                 exhausted = true;
                 return NO_MORE_DOCS;
             }
@@ -139,7 +142,7 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         protected internal int SlowAdvance(int target)
         {
-            Debug.Assert(DocID == NO_MORE_DOCS || DocID < target); // can happen when the enum is not positioned yet
+            if (Debugging.AssertsEnabled) Debugging.Assert(DocID == NO_MORE_DOCS || DocID < target); // can happen when the enum is not positioned yet
             int doc;
             do
             {

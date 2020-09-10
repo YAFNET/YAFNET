@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -101,7 +101,7 @@ namespace YAF.Lucene.Net.Search
                 else
                 {
                     // Query did not match this doc:
-                    Debug.Assert(actualDoc > targetDoc);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(actualDoc > targetDoc);
                     hit.Score = Combine(hit.Score, false, 0.0f);
                 }
 

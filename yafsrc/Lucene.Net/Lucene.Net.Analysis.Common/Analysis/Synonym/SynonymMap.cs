@@ -1,4 +1,5 @@
 ﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Fst;
@@ -172,8 +173,11 @@ namespace YAF.Lucene.Net.Analysis.Synonym
                     throw new ArgumentException("output.length must be > 0 (got " + output.Length + ")");
                 }
 
-                Debug.Assert(!HasHoles(input), "input has holes: " + input);
-                Debug.Assert(!HasHoles(output), "output has holes: " + output);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(!HasHoles(input), () => "input has holes: " + input);
+                    Debugging.Assert(!HasHoles(output), () => "output has holes: " + output);
+                }
 
                 //System.out.println("fmap.add input=" + input + " numInputWords=" + numInputWords + " output=" + output + " numOutputWords=" + numOutputWords);
                 UnicodeUtil.UTF16toUTF8(output.Chars, output.Offset, output.Length, utf8Scratch);
@@ -280,7 +284,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
 
                     scratch.Grow(estimatedSize);
                     scratchOutput.Reset(scratch.Bytes, scratch.Offset, scratch.Bytes.Length);
-                    Debug.Assert(scratch.Offset == 0);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(scratch.Offset == 0);
 
                     // now write our output data:
                     int count = 0;

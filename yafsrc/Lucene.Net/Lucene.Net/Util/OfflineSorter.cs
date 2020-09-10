@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
 using YAF.Lucene.Net.Support.IO;
 using System;
@@ -36,33 +37,28 @@ namespace YAF.Lucene.Net.Util
     /// </summary>
     public sealed class OfflineSorter
     {
-        private void InitializeInstanceFields()
-        {
-            buffer = new BytesRefArray(bufferBytesUsed);
-        }
-
         /// <summary>
         /// Convenience constant for megabytes </summary>
-        public static readonly long MB = 1024 * 1024;
+        public const long MB = 1024 * 1024;
         /// <summary>
         /// Convenience constant for gigabytes </summary>
-        public static readonly long GB = MB * 1024;
+        public const long GB = MB * 1024;
 
         /// <summary>
         /// Minimum recommended buffer size for sorting.
         /// </summary>
-        public static readonly long MIN_BUFFER_SIZE_MB = 32;
+        public const long MIN_BUFFER_SIZE_MB = 32;
 
         /// <summary>
         /// Absolute minimum required buffer size for sorting.
         /// </summary>
-        public static readonly long ABSOLUTE_MIN_SORT_BUFFER_SIZE = MB / 2;
-        private static readonly string MIN_BUFFER_SIZE_MSG = "At least 0.5MB RAM buffer is needed";
+        public const long ABSOLUTE_MIN_SORT_BUFFER_SIZE = MB / 2;
+        private const string MIN_BUFFER_SIZE_MSG = "At least 0.5MB RAM buffer is needed";
 
         /// <summary>
         /// Maximum number of temporary files before doing an intermediate merge.
         /// </summary>
-        public static readonly int MAX_TEMPFILES = 128;
+        public const int MAX_TEMPFILES = 128;
 
         /// <summary>
         /// A bit more descriptive unit for constructors.
@@ -139,8 +135,6 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public class SortInfo
         {
-            private readonly OfflineSorter outerInstance;
-
             /// <summary>
             /// Number of temporary files created when merging partitions </summary>
             public int TempMergeFiles { get; set; }
@@ -168,11 +162,9 @@ namespace YAF.Lucene.Net.Util
 
             /// <summary>
             /// Create a new <see cref="SortInfo"/> (with empty statistics) for debugging. </summary>
-            public SortInfo(OfflineSorter outerInstance)
+            public SortInfo(OfflineSorter offlineSorter)
             {
-                this.outerInstance = outerInstance;
-
-                BufferSize = outerInstance.ramBufferSize.bytes;
+                BufferSize = offlineSorter.ramBufferSize.bytes;
             }
 
             /// <summary>
@@ -191,7 +183,7 @@ namespace YAF.Lucene.Net.Util
         private readonly BufferSize ramBufferSize;
 
         private readonly Counter bufferBytesUsed = Counter.NewCounter();
-        private BytesRefArray buffer;
+        private readonly BytesRefArray buffer;
         private SortInfo sortInfo;
         private readonly int maxTempFiles;
         private readonly IComparer<BytesRef> comparer;
@@ -223,9 +215,11 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// All-details constructor.
         /// </summary>
+#pragma warning disable IDE0060 // Remove unused parameter
         public OfflineSorter(IComparer<BytesRef> comparer, BufferSize ramBufferSize, DirectoryInfo tempDirectory, int maxTempfiles)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
-            InitializeInstanceFields();
+            buffer = new BytesRefArray(bufferBytesUsed);
             if (ramBufferSize.bytes < ABSOLUTE_MIN_SORT_BUFFER_SIZE)
             {
                 throw new ArgumentException(MIN_BUFFER_SIZE_MSG + ": " + ramBufferSize.bytes);
@@ -262,7 +256,7 @@ namespace YAF.Lucene.Net.Util
                     int lines = 0;
                     while ((lines = ReadPartition(inputStream)) > 0)
                     {
-                        merges.Add(SortPartition(lines));
+                        merges.Add(SortPartition(/*lines*/)); // LUCENENET specific - removed unused parameter
                         sortInfo.TempMergeFiles++;
                         sortInfo.Lines += lines;
 
@@ -309,10 +303,12 @@ namespace YAF.Lucene.Net.Util
                     {
                         File.Delete(single.FullName);
                     }
-                    catch (Exception)
+#pragma warning disable CA1031 // Do not catch general exception types
+                    catch
                     {
                         // ignored
                     }
+#pragma warning restore CA1031 // Do not catch general exception types
                 }
                 else
                 {
@@ -351,18 +347,14 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         private static void Copy(FileInfo file, FileInfo output)
         {
-            using (Stream inputStream = file.OpenRead())
-            {
-                using (Stream outputStream = output.OpenWrite())
-                {
-                    inputStream.CopyTo(outputStream);
-                }
-            }
+            using Stream inputStream = file.OpenRead();
+            using Stream outputStream = output.OpenWrite();
+            inputStream.CopyTo(outputStream);
         }
 
         /// <summary>
         /// Sort a single partition in-memory. </summary>
-        private FileInfo SortPartition(int len) // LUCENENET NOTE: made private, since protected is not valid in a sealed class
+        private FileInfo SortPartition(/*int len*/) // LUCENENET NOTE: made private, since protected is not valid in a sealed class. Also eliminated unused parameter.
         {
             var data = this.buffer;
             FileInfo tempFile = FileSupport.CreateTempFile("sort", "partition", DefaultTempDir());
@@ -377,7 +369,7 @@ namespace YAF.Lucene.Net.Util
                 IBytesRefIterator iter = buffer.GetIterator(comparer);
                 while ((spare = iter.Next()) != null)
                 {
-                    Debug.Assert(spare.Length <= ushort.MaxValue);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(spare.Length <= ushort.MaxValue);
                     @out.Write(spare);
                 }
             }
@@ -542,7 +534,7 @@ namespace YAF.Lucene.Net.Util
             /// <seealso cref="Write(byte[], int, int)"/>
             public virtual void Write(BytesRef @ref)
             {
-                Debug.Assert(@ref != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(@ref != null);
                 Write(@ref.Bytes, @ref.Offset, @ref.Length);
             }
 
@@ -562,9 +554,12 @@ namespace YAF.Lucene.Net.Util
             /// </summary>
             public virtual void Write(byte[] bytes, int off, int len)
             {
-                Debug.Assert(bytes != null);
-                Debug.Assert(off >= 0 && off + len <= bytes.Length);
-                Debug.Assert(len >= 0);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(bytes != null);
+                    Debugging.Assert(off >= 0 && off + len <= bytes.Length);
+                    Debugging.Assert(len >= 0);
+                }
                 os.WriteInt16((short)len);
                 os.WriteBytes(bytes, off, len); // LUCENENET NOTE: We call WriteBytes, since there is no Write() on Lucene's version of DataOutput
             }
@@ -574,11 +569,17 @@ namespace YAF.Lucene.Net.Util
             /// </summary>
             public void Dispose()
             {
-                var os = this.os as IDisposable;
-                if (os != null)
-                {
-                    os.Dispose();
-                }
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            /// <summary>
+            /// Disposes the provided <see cref="DataOutput"/> if it is <see cref="IDisposable"/>.
+            /// </summary>
+            protected virtual void Dispose(bool disposing) // LUCENENET specific - implemented proper dispose pattern
+            {
+                if (disposing && this.os is IDisposable disposable)
+                    disposable.Dispose();
             }
         }
 
@@ -618,10 +619,12 @@ namespace YAF.Lucene.Net.Util
                 {
                     length = (ushort)inputStream.ReadInt16();
                 }
+#pragma warning disable CA1031 // Do not catch general exception types
                 catch (EndOfStreamException)
                 {
                     return false;
                 }
+#pragma warning restore CA1031 // Do not catch general exception types
 
                 @ref.Grow(length);
                 @ref.Offset = 0;
@@ -644,12 +647,14 @@ namespace YAF.Lucene.Net.Util
                 {
                     length = (ushort)inputStream.ReadInt16();
                 }
+#pragma warning disable CA1031 // Do not catch general exception types
                 catch (EndOfStreamException)
                 {
                     return null;
                 }
+#pragma warning restore CA1031 // Do not catch general exception types
 
-                Debug.Assert(length >= 0, "Sanity: sequence length < 0: " + length);
+                if (Debugging.AssertsEnabled) Debugging.Assert(length >= 0, () => "Sanity: sequence length < 0: " + length);
                 byte[] result = new byte[length];
                 inputStream.ReadBytes(result, 0, length);
                 return result;
@@ -660,10 +665,18 @@ namespace YAF.Lucene.Net.Util
             /// </summary>
             public void Dispose()
             {
-                var @is = inputStream as IDisposable;
-                if (@is != null)
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            protected virtual void Dispose(bool disposing) // LUCENENET specific - implemented proper dispose pattern
+            {
+                if (disposing)
                 {
-                    @is.Dispose();
+                    if (inputStream is IDisposable disposable)
+                    {
+                        disposable.Dispose();
+                    }
                 }
             }
         }

@@ -41,15 +41,15 @@ namespace YAF.Lucene.Net.Util
     public abstract class PriorityQueue<T>
     {
         private int size = 0;
-        private int maxSize;
-        private T[] heap;
+        private readonly int maxSize;
+        private readonly T[] heap;
 
-        public PriorityQueue(int maxSize)
+        protected PriorityQueue(int maxSize) // LUCENENET specific - made protected instead of public
             : this(maxSize, true)
         {
         }
 
-        public PriorityQueue(int maxSize, bool prepopulate)
+        protected PriorityQueue(int maxSize, bool prepopulate) // LUCENENET specific - made protected instead of public
         {
             int heapSize;
             if (0 == maxSize)
@@ -88,7 +88,7 @@ namespace YAF.Lucene.Net.Util
             {
                 // If sentinel objects are supported, populate the queue with them
                 T sentinel = GetSentinelObject();
-                if (!EqualityComparer<T>.Default.Equals(sentinel, default(T)))
+                if (!EqualityComparer<T>.Default.Equals(sentinel, default))
                 {
                     heap[1] = sentinel;
                     for (int i = 2; i < heap.Length; i++)
@@ -147,7 +147,7 @@ namespace YAF.Lucene.Net.Util
         ///         sentinel objects are not supported. </returns>
         protected virtual T GetSentinelObject()
         {
-            return default(T);
+            return default;
         }
 
         /// <summary>
@@ -166,6 +166,24 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Adds an Object to a <see cref="PriorityQueue{T}"/> in log(size) time.
+        /// If the given <paramref name="element"/> is smaller than then full
+        /// heap's minimum, it won't be added.
+        /// </summary>
+        public virtual void Insert(T element) // LUCENENET specific - added as a more efficient way to insert value types without reuse
+        {
+            if (size < maxSize)
+            {
+                Add(element);
+            }
+            else if (size > 0 && !LessThan(element, heap[1]))
+            {
+                heap[1] = element;
+                UpdateTop();
+            }
+        }
+
+        /// <summary>
+        /// Adds an Object to a <see cref="PriorityQueue{T}"/> in log(size) time.
         /// It returns the object (if any) that was
         /// dropped off the heap because it was full. This can be
         /// the given parameter (in case it is smaller than the
@@ -179,7 +197,7 @@ namespace YAF.Lucene.Net.Util
             if (size < maxSize)
             {
                 Add(element);
-                return default(T);
+                return default;
             }
             else if (size > 0 && !LessThan(element, heap[1]))
             {
@@ -213,14 +231,14 @@ namespace YAF.Lucene.Net.Util
             {
                 T result = heap[1]; // save first value
                 heap[1] = heap[size]; // move last to first
-                heap[size] = default(T); // permit GC of objects
+                heap[size] = default; // permit GC of objects
                 size--;
                 DownHeap(); // adjust heap
                 return result;
             }
             else
             {
-                return default(T);
+                return default;
             }
         }
 
@@ -260,7 +278,7 @@ namespace YAF.Lucene.Net.Util
         {
             for (int i = 0; i <= size; i++)
             {
-                heap[i] = default(T);
+                heap[i] = default;
             }
             size = 0;
         }

@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -37,8 +37,11 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         public TermStatistics(BytesRef term, long docFreq, long totalTermFreq)
         {
-            Debug.Assert(docFreq >= 0);
-            Debug.Assert(totalTermFreq == -1 || totalTermFreq >= docFreq); // #positions must be >= #postings
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(docFreq >= 0);
+                Debugging.Assert(totalTermFreq == -1 || totalTermFreq >= docFreq); // #positions must be >= #postings
+            }
             this.term = term;
             this.docFreq = docFreq;
             this.totalTermFreq = totalTermFreq;

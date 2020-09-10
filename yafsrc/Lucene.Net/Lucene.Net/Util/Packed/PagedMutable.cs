@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -58,7 +58,7 @@ namespace YAF.Lucene.Net.Util.Packed
 
         protected override Mutable NewMutable(int valueCount, int bitsPerValue)
         {
-            Debug.Assert(this.bitsPerValue >= bitsPerValue);
+            if (Debugging.AssertsEnabled) Debugging.Assert(this.bitsPerValue >= bitsPerValue);
             return PackedInt32s.GetMutable(valueCount, this.bitsPerValue, format);
         }
 

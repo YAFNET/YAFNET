@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 using System.Text;
 
 namespace YAF.Lucene.Net.Search
@@ -22,8 +22,8 @@ namespace YAF.Lucene.Net.Search
      */
 
     using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
 
     /// <summary>
@@ -123,29 +123,9 @@ namespace YAF.Lucene.Net.Search
                     return null;
                 }
 
-                Debug.Assert(inclusiveLowerPoint >= 0 && inclusiveUpperPoint >= 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(inclusiveLowerPoint >= 0 && inclusiveUpperPoint >= 0);
 
-                return new FieldCacheDocIdSetAnonymousInnerClassHelper(this, context.AtomicReader.MaxDoc, acceptDocs, docTermOrds, inclusiveLowerPoint, inclusiveUpperPoint);
-            }
-
-            private class FieldCacheDocIdSetAnonymousInnerClassHelper : FieldCacheDocIdSet
-            {
-                private readonly DocTermOrdsRangeFilterAnonymousInnerClassHelper outerInstance;
-
-                private readonly SortedSetDocValues docTermOrds;
-                private readonly long inclusiveLowerPoint;
-                private readonly long inclusiveUpperPoint;
-
-                public FieldCacheDocIdSetAnonymousInnerClassHelper(DocTermOrdsRangeFilterAnonymousInnerClassHelper outerInstance, int maxDoc, IBits acceptDocs, SortedSetDocValues docTermOrds, long inclusiveLowerPoint, long inclusiveUpperPoint)
-                    : base(maxDoc, acceptDocs)
-                {
-                    this.outerInstance = outerInstance;
-                    this.docTermOrds = docTermOrds;
-                    this.inclusiveLowerPoint = inclusiveLowerPoint;
-                    this.inclusiveUpperPoint = inclusiveUpperPoint;
-                }
-
-                protected internal override sealed bool MatchDoc(int doc)
+                return new FieldCacheDocIdSet(context.AtomicReader.MaxDoc, acceptDocs, (doc) =>
                 {
                     docTermOrds.SetDocument(doc);
                     long ord;
@@ -161,7 +141,7 @@ namespace YAF.Lucene.Net.Search
                         }
                     }
                     return false;
-                }
+                });
             }
         }
 

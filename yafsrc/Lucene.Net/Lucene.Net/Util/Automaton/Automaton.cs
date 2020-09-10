@@ -1,8 +1,8 @@
 using J2N;
 using J2N.Collections.Generic.Extensions;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 using JCG = J2N.Collections.Generic;
 
@@ -299,7 +299,7 @@ namespace YAF.Lucene.Net.Util.Automaton
 
         public virtual void SetNumberedStates(State[] states, int count)
         {
-            Debug.Assert(count <= states.Length);
+            if (Debugging.AssertsEnabled) Debugging.Assert(count <= states.Length);
             // TODO: maybe we can eventually allow for oversizing here...
             if (count < states.Length)
             {
@@ -414,8 +414,10 @@ namespace YAF.Lucene.Net.Util.Automaton
         public virtual int[] GetStartPoints()
         {
             State[] states = GetNumberedStates();
-            JCG.HashSet<int> pointset = new JCG.HashSet<int>();
-            pointset.Add(Character.MinCodePoint);
+            JCG.HashSet<int> pointset = new JCG.HashSet<int>
+            {
+                Character.MinCodePoint
+            };
             foreach (State s in states)
             {
                 foreach (Transition t in s.GetTransitions())
@@ -548,7 +550,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                 s.SortTransitions(Transition.COMPARE_BY_MIN_MAX_THEN_DEST);
                 s.TrimTransitionsArray();
                 transitions[s.number] = s.TransitionsArray;
-                Debug.Assert(s.TransitionsArray != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(s.TransitionsArray != null);
             }
             return transitions;
         }
@@ -563,7 +565,8 @@ namespace YAF.Lucene.Net.Util.Automaton
             {
                 State p = new State();
                 initial = p;
-                for (int i = 0, cp = 0; i < singleton.Length; i += Character.CharCount(cp))
+                int cp; // LUCENENET: Removed unnecessary assignment
+                for (int i = 0; i < singleton.Length; i += Character.CharCount(cp))
                 {
                     State q = new State();
                     p.AddTransition(new Transition(cp = Character.CodePointAt(singleton, i), q));
@@ -680,7 +683,8 @@ namespace YAF.Lucene.Net.Util.Automaton
                 b.Append("singleton: ");
                 int length = singleton.CodePointCount(0, singleton.Length);
                 int[] codepoints = new int[length];
-                for (int i = 0, j = 0, cp = 0; i < singleton.Length; i += Character.CharCount(cp))
+                int cp; // LUCENENET: Removed unnecessary assignment
+                for (int i = 0, j = 0; i < singleton.Length; i += Character.CharCount(cp))
                 {
                     codepoints[j++] = cp = singleton.CodePointAt(i);
                 }

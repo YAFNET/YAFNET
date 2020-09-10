@@ -1,4 +1,5 @@
 ﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
@@ -154,7 +155,7 @@ namespace YAF.Lucene.Net.Analysis.Pattern
         {
             if (currentMatcher != -1 && NextCapture())
             {
-                Debug.Assert(state != null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(state != null);
                 ClearAttributes();
                 RestoreState(state);
                 int start = matchers[currentMatcher].Groups[currentGroup[currentMatcher]].Index;

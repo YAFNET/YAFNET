@@ -1,10 +1,9 @@
 using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using FlagsAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.FlagsAttribute;
@@ -62,6 +61,7 @@ namespace YAF.Lucene.Net.Util
                 // identity for a class, so there is no need for an identity wrapper for it.
                 private static readonly ConditionalWeakTable<Type, WeakReference<Type>> attClassImplMap =
                     new ConditionalWeakTable<Type, WeakReference<Type>>();
+                private static readonly object attClassImplMapLock = new object();
 
                 internal DefaultAttributeFactory()
                 {
@@ -109,23 +109,13 @@ namespace YAF.Lucene.Net.Util
                     var attClass = typeof(T);
                     Type clazz;
 
-#if !FEATURE_CONDITIONALWEAKTABLE_ADDORUPDATE
-                    // LUCENENET: If the weakreference is dead, we need to explicitly remove and re-add its key.
-                    // We synchronize on attClassImplMap only to make the operation atomic. This does not actually
-                    // utilize the same lock as attClassImplMap does internally, but since this is the only place
-                    // it is used, it is fine here.
-
-                    // In .NET Standard 2.1, we can use AddOrUpdate, so don't need the lock.
-                    lock (attClassImplMap)
-#endif
+                    // LUCENENET: If the weakreference is dead, we need to explicitly update its key.
+                    // We synchronize on attClassImplMapLock to make the operation atomic.
+                    lock (attClassImplMapLock)
                     {
-                        var @ref = attClassImplMap.GetValue(attClass, createValueCallback: (key) =>
-                            CreateAttributeWeakReference(key, out clazz));
-
-                        if (!@ref.TryGetTarget(out clazz))
+                        if (!attClassImplMap.TryGetValue(attClass, out var @ref) || !@ref.TryGetTarget(out clazz))
                         {
 #if FEATURE_CONDITIONALWEAKTABLE_ADDORUPDATE
-                            // There is a small chance that multiple threads will get through here, but it doesn't matter
                             attClassImplMap.AddOrUpdate(attClass, CreateAttributeWeakReference(attClass, out clazz));
 #else
                             attClassImplMap.Remove(attClass);
@@ -267,7 +257,7 @@ namespace YAF.Lucene.Net.Util
             State initState = GetCurrentState();
             if (initState != null)
             {
-                return new IteratorAnonymousInnerClassHelper(this, initState);
+                return new IteratorAnonymousInnerClassHelper(initState);
             }
             else
             {
@@ -277,24 +267,18 @@ namespace YAF.Lucene.Net.Util
 
         private class IteratorAnonymousInnerClassHelper : IEnumerator<Attribute>
         {
-            private readonly AttributeSource outerInstance;
-
-            private AttributeSource.State initState;
-            private Attribute current;
-
-            public IteratorAnonymousInnerClassHelper(AttributeSource outerInstance, AttributeSource.State initState)
+            public IteratorAnonymousInnerClassHelper(AttributeSource.State initState)
             {
-                this.outerInstance = outerInstance;
-                this.initState = initState;
                 state = initState;
             }
 
+            private Attribute current;
             private State state;
 
-            public virtual void Remove()
-            {
-                throw new NotSupportedException();
-            }
+            //public virtual void Remove() // LUCENENET specific - not used
+            //{
+            //    throw new NotSupportedException();
+            //}
 
             public void Dispose()
             {
@@ -318,13 +302,9 @@ namespace YAF.Lucene.Net.Util
                 throw new NotSupportedException();
             }
 
-            public Attribute Current
-            {
-                get => current;
-                set => current = value;
-            }
+            public Attribute Current => current;
 
-            object IEnumerator.Current => Current;
+            object IEnumerator.Current => current;
         }
 
         /// <summary>
@@ -381,7 +361,7 @@ namespace YAF.Lucene.Net.Util
             foreach (var curInterfaceRef in foundInterfaces)
             {
                 curInterfaceRef.TryGetTarget(out Type curInterface);
-                Debug.Assert(curInterface != null, "We have a strong reference on the class holding the interfaces, so they should never get evicted");
+                if (Debugging.AssertsEnabled) Debugging.Assert(curInterface != null, "We have a strong reference on the class holding the interfaces, so they should never get evicted");
                 // Attribute is a superclass of this interface
                 if (!attributes.ContainsKey(curInterface))
                 {
@@ -406,28 +386,19 @@ namespace YAF.Lucene.Net.Util
             where T : IAttribute
         {
             var attClass = typeof(T);
-            if (!attributes.ContainsKey(attClass))
+            // LUCENENET: Eliminated exception and used TryGetValue
+            if (!attributes.TryGetValue(attClass, out var result))
             {
                 if (!(attClass.IsInterface && typeof(IAttribute).IsAssignableFrom(attClass)))
                 {
                     throw new ArgumentException("AddAttribute() only accepts an interface that extends IAttribute, but " + attClass.FullName + " does not fulfil this contract.");
                 }
 
-                AddAttributeImpl(this.factory.CreateAttributeInstance<T>());
+                result = this.factory.CreateAttributeInstance<T>();
+                AddAttributeImpl(result);
             }
 
-            T returnAttr;
-            try
-            {
-                returnAttr = (T)(IAttribute)attributes[attClass];
-            }
-#pragma warning disable 168
-            catch (KeyNotFoundException knf)
-#pragma warning restore 168
-            {
-                return default(T);
-            }
-            return returnAttr;
+            return (T)(IAttribute)result;
         }
 
         /// <summary>
@@ -457,11 +428,11 @@ namespace YAF.Lucene.Net.Util
         public virtual T GetAttribute<T>() where T : IAttribute
         {
             var attClass = typeof(T);
-            if (!attributes.ContainsKey(attClass))
+            if (!attributes.TryGetValue(attClass, out var result))
             {
-                throw new ArgumentException("this AttributeSource does not have the attribute '" + attClass.Name + "'.");
+                throw new ArgumentException($"this AttributeSource does not have the attribute '{attClass.Name}'.");
             }
-            return (T)(IAttribute)this.attributes[attClass];
+            return (T)(IAttribute)result;
         }
 
         private State GetCurrentState()

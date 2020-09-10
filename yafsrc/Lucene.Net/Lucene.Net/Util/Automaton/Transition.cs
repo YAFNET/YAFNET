@@ -1,7 +1,6 @@
 using J2N.Text;
-using System;
+using YAF.Lucene.Net.Diagnostics;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 
@@ -64,7 +63,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// <param name="to"> Destination state. </param>
         public Transition(int c, State to)
         {
-            Debug.Assert(c >= 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(c >= 0);
             min = max = c;
             this.to = to;
         }
@@ -77,8 +76,11 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// <param name="to"> Destination state. </param>
         public Transition(int min, int max, State to)
         {
-            Debug.Assert(min >= 0);
-            Debug.Assert(max >= 0);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(min >= 0);
+                Debugging.Assert(max >= 0);
+            }
             if (max < min)
             {
                 int t = max;
@@ -110,9 +112,8 @@ namespace YAF.Lucene.Net.Util.Automaton
         ///         and destination state as this transition. </returns>
         public override bool Equals(object obj)
         {
-            if (obj is Transition)
+            if (obj is Transition t)
             {
-                Transition t = (Transition)obj;
                 return t.min == min && t.max == max && t.to == to;
             }
             else

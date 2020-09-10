@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 using JCG = J2N.Collections.Generic;
@@ -324,7 +324,7 @@ namespace YAF.Lucene.Net.Store
             {
                 skipBuffer = new byte[SKIP_BUFFER_SIZE];
             }
-            Debug.Assert(skipBuffer.Length == SKIP_BUFFER_SIZE);
+            if (Debugging.AssertsEnabled) Debugging.Assert(skipBuffer.Length == SKIP_BUFFER_SIZE);
             for (long skipped = 0; skipped < numBytes; )
             {
                 var step = (int)Math.Min(SKIP_BUFFER_SIZE, numBytes - skipped);

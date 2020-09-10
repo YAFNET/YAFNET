@@ -1,7 +1,7 @@
 using J2N;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 
 namespace YAF.Lucene.Net.Util.Automaton
@@ -128,7 +128,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                 {
                     bytes[numBytes - i].Value = 128 | (code & MASKS[5]);
                     bytes[numBytes - i].Bits = 6;
-                    code = code >> 6;
+                    code >>= 6;
                 }
             }
 
@@ -177,8 +177,11 @@ namespace YAF.Lucene.Net.Util.Automaton
                 }
                 else
                 {
-                    Debug.Assert(startUTF8.len > upto + 1);
-                    Debug.Assert(endUTF8.len > upto + 1);
+                    if (Debugging.AssertsEnabled)
+                    {
+                        Debugging.Assert(startUTF8.len > upto + 1);
+                        Debugging.Assert(endUTF8.len > upto + 1);
+                    }
                     State n = NewUTF8State();
 
                     // Single value leading edge

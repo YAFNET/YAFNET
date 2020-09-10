@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -151,7 +152,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
             public override void Decompress(DataInput @in, int originalLength, int offset, int length, BytesRef bytes)
             {
-                Debug.Assert(offset + length <= originalLength);
+                if (Debugging.AssertsEnabled) Debugging.Assert(offset + length <= originalLength);
                 // add 7 padding bytes, this is not necessary but can help decompression run faster
                 if (bytes.Bytes.Length < originalLength + 7)
                 {
@@ -211,7 +212,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
             public override void Decompress(DataInput input, int originalLength, int offset, int length, BytesRef bytes)
             {
-                Debug.Assert(offset + length <= originalLength);
+                if (Debugging.AssertsEnabled) Debugging.Assert(offset + length <= originalLength);
                 if (length == 0)
                 {
                     bytes.Length = 0;
@@ -260,6 +261,8 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
             public override void Compress(byte[] bytes, int off, int len, DataOutput output)
             {
+                // LUCENENET specific - since DeflateStream works a bit differently than Java's Deflate class,
+                // we are unable to assert the total count
                 byte[] resultArray = null;
                 using (MemoryStream compressionMemoryStream = new MemoryStream())
                 {
@@ -272,7 +275,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
                 if (resultArray.Length == 0)
                 {
-                    Debug.Assert(len == 0, len.ToString());
+                    if (Debugging.AssertsEnabled) Debugging.Assert(len == 0, len.ToString);
                     output.WriteVInt32(0);
                     return;
                 }

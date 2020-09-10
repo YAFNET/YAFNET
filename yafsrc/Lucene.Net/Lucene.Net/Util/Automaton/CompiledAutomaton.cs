@@ -1,7 +1,7 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
@@ -228,7 +228,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                 }
             }
 
-            Debug.Assert(maxTransition != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(maxTransition != null);
 
             // Append floorLabel
             int floorLabel;
@@ -256,7 +256,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                 Transition[] transitions = sortedTransitions[state];
                 if (transitions.Length == 0)
                 {
-                    Debug.Assert(RunAutomaton.IsAccept(state));
+                    if (Debugging.AssertsEnabled) Debugging.Assert(RunAutomaton.IsAccept(state));
                     term.Length = idx;
                     //if (DEBUG) System.out.println("  return " + term.utf8ToString());
                     return term;
@@ -265,7 +265,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                 {
                     // We are pushing "top" -- so get last label of
                     // last transition:
-                    Debug.Assert(transitions.Length != 0);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(transitions.Length != 0);
                     Transition lastTransition = transitions[transitions.Length - 1];
                     if (idx >= term.Bytes.Length)
                     {
@@ -284,29 +284,16 @@ namespace YAF.Lucene.Net.Util.Automaton
         // NORMAL:
         public virtual TermsEnum GetTermsEnum(Terms terms)
         {
-            switch (Type)
+            return Type switch
             {
-                case Lucene.Net.Util.Automaton.CompiledAutomaton.AUTOMATON_TYPE.NONE:
-                    return TermsEnum.EMPTY;
-
-                case Lucene.Net.Util.Automaton.CompiledAutomaton.AUTOMATON_TYPE.ALL:
-                    return terms.GetIterator(null);
-
-                case Lucene.Net.Util.Automaton.CompiledAutomaton.AUTOMATON_TYPE.SINGLE:
-                    return new SingleTermsEnum(terms.GetIterator(null), Term);
-
-                case Lucene.Net.Util.Automaton.CompiledAutomaton.AUTOMATON_TYPE.PREFIX:
-                    // TODO: this is very likely faster than .intersect,
-                    // but we should test and maybe cutover
-                    return new PrefixTermsEnum(terms.GetIterator(null), Term);
-
-                case Lucene.Net.Util.Automaton.CompiledAutomaton.AUTOMATON_TYPE.NORMAL:
-                    return terms.Intersect(this, null);
-
-                default:
-                    // unreachable
-                    throw new Exception("unhandled case");
-            }
+                AUTOMATON_TYPE.NONE => TermsEnum.EMPTY,
+                AUTOMATON_TYPE.ALL => terms.GetIterator(null),
+                AUTOMATON_TYPE.SINGLE => new SingleTermsEnum(terms.GetIterator(null), Term),
+                AUTOMATON_TYPE.PREFIX => new PrefixTermsEnum(terms.GetIterator(null), Term),// TODO: this is very likely faster than .intersect,
+                                                                                            // but we should test and maybe cutover
+                AUTOMATON_TYPE.NORMAL => terms.Intersect(this, null),
+                _ => throw new Exception("unhandled case"),// unreachable
+            };
         }
 
         /// <summary>
@@ -377,7 +364,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                         Transition[] transitions = sortedTransitions[state];
                         if (transitions.Length == 0)
                         {
-                            Debug.Assert(RunAutomaton.IsAccept(state));
+                            if (Debugging.AssertsEnabled) Debugging.Assert(RunAutomaton.IsAccept(state));
                             output.Length = idx;
                             //if (DEBUG) System.out.println("  return " + output.utf8ToString());
                             return output;

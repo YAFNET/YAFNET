@@ -1,6 +1,6 @@
 using YAF.Lucene.Net.Support;
 using System;
-using System.Diagnostics;
+using YAF.Lucene.Net.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Store
@@ -162,7 +162,7 @@ namespace YAF.Lucene.Net.Store
 
         public override void WriteBytes(byte[] b, int offset, int len)
         {
-            Debug.Assert(b != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(b != null);
             crc.Update(b, offset, len);
             while (len > 0)
             {

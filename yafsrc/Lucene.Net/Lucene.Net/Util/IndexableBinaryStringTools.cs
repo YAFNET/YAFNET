@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -40,7 +40,7 @@ namespace YAF.Lucene.Net.Util
     /// @lucene.experimental 
     /// </summary>
     [Obsolete("Implement Analysis.TokenAttributes.ITermToBytesRefAttribute and store bytes directly instead. this class will be removed in Lucene 5.0")]
-    public sealed class IndexableBinaryStringTools
+    public static class IndexableBinaryStringTools // LUCENENET specific - made static
     {
         private static readonly CodingCase[] CODING_CASES = new CodingCase[] {
             // CodingCase(int initialShift, int finalShift)
@@ -54,11 +54,6 @@ namespace YAF.Lucene.Net.Util
             new CodingCase(9, 1, 7),
             new CodingCase(8, 0)
         };
-
-        // Export only static methods
-        private IndexableBinaryStringTools()
-        {
-        }
 
         /// <summary>
         /// Returns the number of chars required to encode the given <see cref="byte"/>s.
@@ -142,7 +137,7 @@ namespace YAF.Lucene.Net.Util
         [CLSCompliant(false)]
         public static void Encode(sbyte[] inputArray, int inputOffset, int inputLength, char[] outputArray, int outputOffset, int outputLength)
         {
-            Debug.Assert(outputLength == GetEncodedLength(inputArray, inputOffset, inputLength));
+            if (Debugging.AssertsEnabled) Debugging.Assert(outputLength == GetEncodedLength(inputArray, inputOffset, inputLength));
             if (inputLength > 0)
             {
                 int inputByteNum = inputOffset;
@@ -222,7 +217,7 @@ namespace YAF.Lucene.Net.Util
         [CLSCompliant(false)]
         public static void Decode(char[] inputArray, int inputOffset, int inputLength, sbyte[] outputArray, int outputOffset, int outputLength)
         {
-            Debug.Assert(outputLength == GetDecodedLength(inputArray, inputOffset, inputLength));
+            if (Debugging.AssertsEnabled) Debugging.Assert(outputLength == GetDecodedLength(inputArray, inputOffset, inputLength));
             int numInputChars = inputLength - 1;
             int numOutputBytes = outputLength;
 

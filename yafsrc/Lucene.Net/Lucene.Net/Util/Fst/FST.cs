@@ -1,11 +1,9 @@
 using J2N.Collections;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Text;
 using JCG = J2N.Collections.Generic;
 
@@ -218,7 +216,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 inCounts = null;
             }
 
-            emptyOutput = default(T);
+            emptyOutput = default;
             packed = false;
             nodeRefToAddress = null;
         }
@@ -278,26 +276,16 @@ namespace YAF.Lucene.Net.Util.Fst
             }
             else
             {
-                emptyOutput = default(T);
+                emptyOutput = default;
             }
             var t = @in.ReadByte();
-            switch (t)
+            inputType = t switch
             {
-                case 0:
-                    inputType = FST.INPUT_TYPE.BYTE1;
-                    break;
-
-                case 1:
-                    inputType = FST.INPUT_TYPE.BYTE2;
-                    break;
-
-                case 2:
-                    inputType = FST.INPUT_TYPE.BYTE4;
-                    break;
-
-                default:
-                    throw new InvalidOperationException("invalid input type " + t);
-            }
+                0 => FST.INPUT_TYPE.BYTE1,
+                1 => FST.INPUT_TYPE.BYTE2,
+                2 => FST.INPUT_TYPE.BYTE4,
+                _ => throw new InvalidOperationException("invalid input type " + t),
+            };
             if (packed)
             {
                 nodeRefToAddress = PackedInt32s.GetReader(@in);
@@ -358,7 +346,7 @@ namespace YAF.Lucene.Net.Util.Fst
             {
                 throw new InvalidOperationException("already finished");
             }
-            if (newStartNode == FST.FINAL_END_NODE && !EqualityComparer<T>.Default.Equals(emptyOutput, default(T)))
+            if (newStartNode == FST.FINAL_END_NODE && !EqualityComparer<T>.Default.Equals(emptyOutput, default))
             {
                 newStartNode = 0;
             }
@@ -388,9 +376,11 @@ namespace YAF.Lucene.Net.Util.Fst
             cachedRootArcs = (FST.Arc<T>[])new FST.Arc<T>[0x80];
             ReadRootArcs(cachedRootArcs);
 
-            bool set = SetAssertingRootArcs(cachedRootArcs);
-            Debug.Assert(set);
-            Debug.Assert(AssertRootArcs());
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(SetAssertingRootArcs(cachedRootArcs));
+                Debugging.Assert(AssertRootArcs());
+            }
         }
 
         public void ReadRootArcs(FST.Arc<T>[] arcs)
@@ -403,7 +393,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 ReadFirstRealTargetArc(arc.Target, arc, @in);
                 while (true)
                 {
-                    Debug.Assert(arc.Label != FST.END_LABEL);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(arc.Label != FST.END_LABEL);
                     if (arc.Label < cachedRootArcs.Length)
                     {
                         arcs[arc.Label] = (new FST.Arc<T>()).CopyFrom(arc);
@@ -421,7 +411,7 @@ namespace YAF.Lucene.Net.Util.Fst
             }
         }
 
-        private bool SetAssertingRootArcs(FST.Arc<T>[] arcs)
+        private bool SetAssertingRootArcs(FST.Arc<T>[] arcs) // Only called from assert
         {
             assertingCachedRootArcs = (FST.Arc<T>[])new FST.Arc<T>[arcs.Length];
             ReadRootArcs(assertingCachedRootArcs);
@@ -430,37 +420,37 @@ namespace YAF.Lucene.Net.Util.Fst
 
         private bool AssertRootArcs()
         {
-            Debug.Assert(cachedRootArcs != null);
-            Debug.Assert(assertingCachedRootArcs != null);
+            Debugging.Assert(cachedRootArcs != null);
+            Debugging.Assert(assertingCachedRootArcs != null);
             for (int i = 0; i < cachedRootArcs.Length; i++)
             {
                 FST.Arc<T> root = cachedRootArcs[i];
                 FST.Arc<T> asserting = assertingCachedRootArcs[i];
                 if (root != null)
                 {
-                    Debug.Assert(root.ArcIdx == asserting.ArcIdx);
-                    Debug.Assert(root.BytesPerArc == asserting.BytesPerArc);
-                    Debug.Assert(root.Flags == asserting.Flags);
-                    Debug.Assert(root.Label == asserting.Label);
-                    Debug.Assert(root.NextArc == asserting.NextArc);
+                    Debugging.Assert(root.ArcIdx == asserting.ArcIdx);
+                    Debugging.Assert(root.BytesPerArc == asserting.BytesPerArc);
+                    Debugging.Assert(root.Flags == asserting.Flags);
+                    Debugging.Assert(root.Label == asserting.Label);
+                    Debugging.Assert(root.NextArc == asserting.NextArc);
 
                     // LUCENENET NOTE: In .NET, IEnumerable will not equal another identical IEnumerable
                     // because it checks for reference equality, not that the list contents
                     // are the same. StructuralEqualityComparer.Default.Equals() will make that check.
-                    Debug.Assert(typeof(T).IsValueType 
+                    Debugging.Assert(typeof(T).IsValueType 
                         ? JCG.EqualityComparer<T>.Default.Equals(root.NextFinalOutput, asserting.NextFinalOutput)
                         : StructuralEqualityComparer.Default.Equals(root.NextFinalOutput, asserting.NextFinalOutput));
-                    Debug.Assert(root.Node == asserting.Node);
-                    Debug.Assert(root.NumArcs == asserting.NumArcs);
-                    Debug.Assert(typeof(T).IsValueType
+                    Debugging.Assert(root.Node == asserting.Node);
+                    Debugging.Assert(root.NumArcs == asserting.NumArcs);
+                    Debugging.Assert(typeof(T).IsValueType
                         ? JCG.EqualityComparer<T>.Default.Equals(root.Output, asserting.Output)
                         : StructuralEqualityComparer.Default.Equals(root.Output, asserting.Output));
-                    Debug.Assert(root.PosArcsStart == asserting.PosArcsStart);
-                    Debug.Assert(root.Target == asserting.Target);
+                    Debugging.Assert(root.PosArcsStart == asserting.PosArcsStart);
+                    Debugging.Assert(root.Target == asserting.Target);
                 }
                 else
                 {
-                    Debug.Assert(root == null && asserting == null);
+                    Debugging.Assert(root == null && asserting == null);
                 }
             }
             return true;
@@ -507,7 +497,7 @@ namespace YAF.Lucene.Net.Util.Fst
             }
             // TODO: really we should encode this as an arc, arriving
             // to the root node, instead of special casing here:
-            if (!EqualityComparer<T>.Default.Equals(emptyOutput, default(T)))
+            if (!EqualityComparer<T>.Default.Equals(emptyOutput, default))
             {
                 // Accepts empty string
                 @out.WriteByte(1);
@@ -594,15 +584,15 @@ namespace YAF.Lucene.Net.Util.Fst
         // LUCENENET NOTE: static Read<T>() was moved into the FST class
         private void WriteLabel(DataOutput @out, int v)
         {
-            Debug.Assert(v >= 0, "v=" + v);
+            if (Debugging.AssertsEnabled) Debugging.Assert(v >= 0, () => "v=" + v);
             if (inputType == FST.INPUT_TYPE.BYTE1)
             {
-                Debug.Assert(v <= 255, "v=" + v);
+                if (Debugging.AssertsEnabled) Debugging.Assert(v <= 255, () => "v=" + v);
                 @out.WriteByte((byte)(sbyte)v);
             }
             else if (inputType == FST.INPUT_TYPE.BYTE2)
             {
-                Debug.Assert(v <= 65535, "v=" + v);
+                if (Debugging.AssertsEnabled) Debugging.Assert(v <= 65535, () => "v=" + v);
                 @out.WriteInt16((short)v);
             }
             else
@@ -706,7 +696,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 }
                 else
                 {
-                    Debug.Assert(arc.NextFinalOutput.Equals(NO_OUTPUT));
+                    if (Debugging.AssertsEnabled) Debugging.Assert(arc.NextFinalOutput.Equals(NO_OUTPUT));
                 }
 
                 bool targetHasArcs = target.Node > 0;
@@ -745,7 +735,7 @@ namespace YAF.Lucene.Net.Util.Fst
 
                 if (targetHasArcs && (flags & FST.BIT_TARGET_NEXT) == 0)
                 {
-                    Debug.Assert(target.Node > 0);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(target.Node > 0);
                     //System.out.println("    write target");
                     bytes.WriteVInt64(target.Node);
                 }
@@ -785,7 +775,7 @@ namespace YAF.Lucene.Net.Util.Fst
             if (doFixedArray)
             {
                 const int MAX_HEADER_SIZE = 11; // header(byte) + numArcs(vint) + numBytes(vint)
-                Debug.Assert(maxBytesPerArc > 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(maxBytesPerArc > 0);
                 // 2nd pass just "expands" all arcs to take up a fixed
                 // byte size
 
@@ -805,7 +795,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 // expand the arcs in place, backwards
                 long srcPos = bytes.Position;
                 long destPos = fixedArrayStart + nodeIn.NumArcs * maxBytesPerArc;
-                Debug.Assert(destPos >= srcPos);
+                if (Debugging.AssertsEnabled) Debugging.Assert(destPos >= srcPos);
                 if (destPos > srcPos)
                 {
                     bytes.SkipBytes((int)(destPos - srcPos));
@@ -817,7 +807,7 @@ namespace YAF.Lucene.Net.Util.Fst
                         if (srcPos != destPos)
                         {
                             //System.out.println("  copy len=" + bytesPerArc[arcIdx]);
-                            Debug.Assert(destPos > srcPos, "destPos=" + destPos + " srcPos=" + srcPos + " arcIdx=" + arcIdx + " maxBytesPerArc=" + maxBytesPerArc + " bytesPerArc[arcIdx]=" + bytesPerArc[arcIdx] + " nodeIn.numArcs=" + nodeIn.NumArcs);
+                            if (Debugging.AssertsEnabled) Debugging.Assert(destPos > srcPos, () => "destPos=" + destPos + " srcPos=" + srcPos + " arcIdx=" + arcIdx + " maxBytesPerArc=" + maxBytesPerArc + " bytesPerArc[arcIdx]=" + bytesPerArc[arcIdx] + " nodeIn.numArcs=" + nodeIn.NumArcs);
                             bytes.CopyBytes(srcPos, destPos, bytesPerArc[arcIdx]);
                         }
                     }
@@ -868,7 +858,7 @@ namespace YAF.Lucene.Net.Util.Fst
         /// </summary>
         public FST.Arc<T> GetFirstArc(FST.Arc<T> arc)
         {
-            if (!EqualityComparer<T>.Default.Equals(emptyOutput, default(T)))
+            if (!EqualityComparer<T>.Default.Equals(emptyOutput, default))
             {
                 arc.Flags = FST.BIT_FINAL_ARC | FST.BIT_LAST_ARC;
                 arc.NextFinalOutput = emptyOutput;
@@ -903,7 +893,7 @@ namespace YAF.Lucene.Net.Util.Fst
             if (!TargetHasArcs(follow))
             {
                 //System.out.println("  end node");
-                Debug.Assert(follow.IsFinal);
+                if (Debugging.AssertsEnabled) Debugging.Assert(follow.IsFinal);
                 arc.Label = FST.END_LABEL;
                 arc.Target = FST.FINAL_END_NODE;
                 arc.Output = follow.NextFinalOutput;
@@ -970,7 +960,7 @@ namespace YAF.Lucene.Net.Util.Fst
                     arc.NextArc = @in.Position;
                 }
                 ReadNextRealArc(arc, @in);
-                Debug.Assert(arc.IsLast);
+                if (Debugging.AssertsEnabled) Debugging.Assert(arc.IsLast);
                 return arc;
             }
         }
@@ -1104,7 +1094,7 @@ namespace YAF.Lucene.Net.Util.Fst
         /// </summary>
         public int ReadNextArcLabel(FST.Arc<T> arc, FST.BytesReader @in)
         {
-            Debug.Assert(!arc.IsLast);
+            if (Debugging.AssertsEnabled) Debugging.Assert(!arc.IsLast);
 
             if (arc.Label == FST.END_LABEL)
             {
@@ -1169,7 +1159,7 @@ namespace YAF.Lucene.Net.Util.Fst
             {
                 // arcs are at fixed entries
                 arc.ArcIdx++;
-                Debug.Assert(arc.ArcIdx < arc.NumArcs);
+                if (Debugging.AssertsEnabled) Debugging.Assert(arc.ArcIdx < arc.NumArcs);
                 @in.Position = arc.PosArcsStart;
                 @in.SkipBytes(arc.ArcIdx * arc.BytesPerArc);
             }
@@ -1236,7 +1226,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 else
                 {
                     arc.Target = arc.Node - 1;
-                    Debug.Assert(arc.Target > 0);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(arc.Target > 0);
                 }
             }
             else
@@ -1312,7 +1302,7 @@ namespace YAF.Lucene.Net.Util.Fst
             {
                 // LUCENE-5152: detect tricky cases where caller
                 // modified previously returned cached root-arcs:
-                Debug.Assert(AssertRootArcs());
+                if (Debugging.AssertsEnabled) Debugging.Assert(AssertRootArcs());
                 FST.Arc<T> result = cachedRootArcs[labelToMatch];
                 if (result == null)
                 {
@@ -1839,7 +1829,7 @@ namespace YAF.Lucene.Net.Util.Fst
                             }
                             else
                             {
-                                Debug.Assert(arc.NextFinalOutput.Equals(NO_OUTPUT));
+                                if (Debugging.AssertsEnabled) Debugging.Assert(arc.NextFinalOutput.Equals(NO_OUTPUT));
                             }
                             if (!TargetHasArcs(arc))
                             {
@@ -1855,8 +1845,7 @@ namespace YAF.Lucene.Net.Util.Fst
                             bool doWriteTarget = TargetHasArcs(arc) && (flags & FST.BIT_TARGET_NEXT) == 0;
                             if (doWriteTarget)
                             {
-                                int ptr;
-                                if (topNodeMap.TryGetValue((int)arc.Target, out ptr))
+                                if (topNodeMap.TryGetValue((int)arc.Target, out int ptr))
                                 {
                                     absPtr = ptr;
                                 }
@@ -1883,7 +1872,7 @@ namespace YAF.Lucene.Net.Util.Fst
                                 absPtr = 0;
                             }
 
-                            Debug.Assert(flags != FST.ARCS_AS_FIXED_ARRAY);
+                            if (Debugging.AssertsEnabled) Debugging.Assert(flags != FST.ARCS_AS_FIXED_ARRAY);
                             writer.WriteByte((byte)(sbyte)flags);
 
                             fst.WriteLabel(writer, arc.Label);
@@ -2005,7 +1994,7 @@ namespace YAF.Lucene.Net.Util.Fst
                     // order) so nodes should only point forward to
                     // other nodes because we only produce acyclic FSTs
                     // w/ nodes only pointing "forwards":
-                    Debug.Assert(!negDelta);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(!negDelta);
                     //System.out.println("TOT wasted=" + totWasted);
                     // Converged!
                     break;
@@ -2029,14 +2018,17 @@ namespace YAF.Lucene.Net.Util.Fst
             fst.startNode = newNodeAddress.Get((int)startNode);
             //System.out.println("new startNode=" + fst.startNode + " old startNode=" + startNode);
 
-            if (!EqualityComparer<T>.Default.Equals(emptyOutput, default(T)))
+            if (!JCG.EqualityComparer<T>.Default.Equals(emptyOutput, default))
             {
                 fst.EmptyOutput = emptyOutput;
             }
 
-            Debug.Assert(fst.nodeCount == nodeCount, "fst.nodeCount=" + fst.nodeCount + " nodeCount=" + nodeCount);
-            Debug.Assert(fst.arcCount == arcCount);
-            Debug.Assert(fst.arcWithOutputCount == arcWithOutputCount, "fst.arcWithOutputCount=" + fst.arcWithOutputCount + " arcWithOutputCount=" + arcWithOutputCount);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(fst.nodeCount == nodeCount, () => "fst.nodeCount=" + fst.nodeCount + " nodeCount=" + nodeCount);
+                Debugging.Assert(fst.arcCount == arcCount);
+                Debugging.Assert(fst.arcWithOutputCount == arcWithOutputCount, () => "fst.arcWithOutputCount=" + fst.arcWithOutputCount + " arcWithOutputCount=" + arcWithOutputCount);
+            }
 
             fst.bytes.Finish();
             fst.CacheRootArcs();
@@ -2351,7 +2343,7 @@ namespace YAF.Lucene.Net.Util.Fst
             protected internal override bool LessThan(NodeAndInCount a, NodeAndInCount b)
             {
                 int cmp = a.CompareTo(b);
-                Debug.Assert(cmp != 0);
+                if (Debugging.AssertsEnabled) Debugging.Assert(cmp != 0);
                 return cmp < 0;
             }
         }

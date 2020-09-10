@@ -1,6 +1,6 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
-using System.Diagnostics;
 using System.IO;
 
 namespace YAF.Lucene.Net.Util.Packed
@@ -46,7 +46,7 @@ namespace YAF.Lucene.Net.Util.Packed
     {
         internal const int BLOCK_SIZE = 64; // 32 = int, 64 = long
         internal const int BLOCK_BITS = 6; // The #bits representing BLOCK_SIZE
-        internal static readonly int MOD_MASK = BLOCK_SIZE - 1; // x % BLOCK_SIZE
+        internal const int MOD_MASK = BLOCK_SIZE - 1; // x % BLOCK_SIZE
 
         /// <summary>
         /// Values are stores contiguously in the blocks array.
@@ -79,11 +79,11 @@ namespace YAF.Lucene.Net.Util.Packed
 
             /*var a = ~0L << (int)((uint)(BLOCK_SIZE - bitsPerValue) >> (BLOCK_SIZE - bitsPerValue));    //original
             var b = (uint)(~0L << (BLOCK_SIZE - bitsPerValue)) >> (BLOCK_SIZE - bitsPerValue);          //mod
-            Debug.Assert(a == b, "a: " + a, ", b: " + b);*/
+            if (Debugging.AssertsEnabled) Debugging.Assert(a == b, "a: " + a, ", b: " + b);*/
 
             maskRight = (long)((ulong)(~0L << (BLOCK_SIZE - bitsPerValue)) >> (BLOCK_SIZE - bitsPerValue));    //mod
 
-            //Debug.Assert((long)((ulong)(~0L << (BLOCK_SIZE - bitsPerValue)) >> (BLOCK_SIZE - bitsPerValue)) == (uint)(~0L << (BLOCK_SIZE - bitsPerValue)) >> (BLOCK_SIZE - bitsPerValue));
+            //if (Debugging.AssertsEnabled) Debugging.Assert((long)((ulong)(~0L << (BLOCK_SIZE - bitsPerValue)) >> (BLOCK_SIZE - bitsPerValue)) == (uint)(~0L << (BLOCK_SIZE - bitsPerValue)) >> (BLOCK_SIZE - bitsPerValue));
 
             bpvMinusBlockSize = bitsPerValue - BLOCK_SIZE;
         }
@@ -157,7 +157,7 @@ namespace YAF.Lucene.Net.Util.Packed
             {
                 var mod = (long) ((ulong) (Blocks[elementPos]) >> (int) (-endBits)) & MaskRight;
                 var og = ((long) ((ulong) Blocks[elementPos] >> (int) -endBits)) & MaskRight;
-                Debug.Assert(mod == og);
+                if (Debugging.AssertsEnabled) Debugging.Assert(mod == og);
 
                 //return (long)((ulong)(Blocks[elementPos]) >> (int)(-endBits)) & MaskRight;
                 return ((long)((ulong)Blocks[elementPos] >> (int)-endBits)) & MaskRight;
@@ -166,7 +166,7 @@ namespace YAF.Lucene.Net.Util.Packed
             var a = (((Blocks[elementPos] << (int)endBits) | (long)(((ulong)(Blocks[elementPos + 1])) >> (int)(BLOCK_SIZE - endBits))) & MaskRight);
             var b = ((Blocks[elementPos] << (int)endBits) | ((long)((ulong)Blocks[elementPos + 1] >> (int)(BLOCK_SIZE - endBits)))) & MaskRight;
 
-            Debug.Assert(a == b);
+            if (Debugging.AssertsEnabled) Debugging.Assert(a == b);
 
             //return (((Blocks[elementPos] << (int)endBits) | (long)(((ulong)(Blocks[elementPos + 1])) >> (int)(BLOCK_SIZE - endBits))) & MaskRight);
             return ((Blocks[elementPos] << (int)endBits) | ((long)((ulong)Blocks[elementPos + 1] >> (int)(BLOCK_SIZE - endBits)))) & MaskRight;
@@ -174,10 +174,10 @@ namespace YAF.Lucene.Net.Util.Packed
 
         public override int Get(int index, long[] arr, int off, int len)
         {
-            Debug.Assert(len > 0, "len must be > 0 (got " + len + ")");
-            Debug.Assert(index >= 0 && index < m_valueCount);
+            if (Debugging.AssertsEnabled) Debugging.Assert(len > 0, () => "len must be > 0 (got " + len + ")");
+            if (Debugging.AssertsEnabled) Debugging.Assert(index >= 0 && index < m_valueCount);
             len = Math.Min(len, m_valueCount - index);
-            Debug.Assert(off + len <= arr.Length);
+            if (Debugging.AssertsEnabled) Debugging.Assert(off + len <= arr.Length);
 
             int originalIndex = index;
             PackedInt32s.IDecoder decoder = BulkOperation.Of(PackedInt32s.Format.PACKED, m_bitsPerValue);
@@ -198,15 +198,15 @@ namespace YAF.Lucene.Net.Util.Packed
             }
 
             // bulk get
-            Debug.Assert(index % decoder.Int64ValueCount == 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(index % decoder.Int64ValueCount == 0);
             int blockIndex = (int)((ulong)((long)index * m_bitsPerValue) >> BLOCK_BITS);
-            Debug.Assert((((long)index * m_bitsPerValue) & MOD_MASK) == 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert((((long)index * m_bitsPerValue) & MOD_MASK) == 0);
             int iterations = len / decoder.Int64ValueCount;
             decoder.Decode(blocks, blockIndex, arr, off, iterations);
             int gotValues = iterations * decoder.Int64ValueCount;
             index += gotValues;
             len -= gotValues;
-            Debug.Assert(len >= 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(len >= 0);
 
             if (index > originalIndex)
             {
@@ -216,7 +216,7 @@ namespace YAF.Lucene.Net.Util.Packed
             else
             {
                 // no progress so far => already at a block boundary but no full block to get
-                Debug.Assert(index == originalIndex);
+                if (Debugging.AssertsEnabled) Debugging.Assert(index == originalIndex);
                 return base.Get(index, arr, off, len);
             }
         }
@@ -242,10 +242,10 @@ namespace YAF.Lucene.Net.Util.Packed
 
         public override int Set(int index, long[] arr, int off, int len)
         {
-            Debug.Assert(len > 0, "len must be > 0 (got " + len + ")");
-            Debug.Assert(index >= 0 && index < m_valueCount);
+            if (Debugging.AssertsEnabled) Debugging.Assert(len > 0, () => "len must be > 0 (got " + len + ")");
+            if (Debugging.AssertsEnabled) Debugging.Assert(index >= 0 && index < m_valueCount);
             len = Math.Min(len, m_valueCount - index);
-            Debug.Assert(off + len <= arr.Length);
+            if (Debugging.AssertsEnabled) Debugging.Assert(off + len <= arr.Length);
 
             int originalIndex = index;
             PackedInt32s.IEncoder encoder = BulkOperation.Of(PackedInt32s.Format.PACKED, m_bitsPerValue);
@@ -266,15 +266,15 @@ namespace YAF.Lucene.Net.Util.Packed
             }
 
             // bulk set
-            Debug.Assert(index % encoder.Int64ValueCount == 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(index % encoder.Int64ValueCount == 0);
             int blockIndex = (int)((ulong)((long)index * m_bitsPerValue) >> BLOCK_BITS);
-            Debug.Assert((((long)index * m_bitsPerValue) & MOD_MASK) == 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert((((long)index * m_bitsPerValue) & MOD_MASK) == 0);
             int iterations = len / encoder.Int64ValueCount;
             encoder.Encode(arr, off, blocks, blockIndex, iterations);
             int setValues = iterations * encoder.Int64ValueCount;
             index += setValues;
             len -= setValues;
-            Debug.Assert(len >= 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(len >= 0);
 
             if (index > originalIndex)
             {
@@ -284,7 +284,7 @@ namespace YAF.Lucene.Net.Util.Packed
             else
             {
                 // no progress so far => already at a block boundary but no full block to get
-                Debug.Assert(index == originalIndex);
+                if (Debugging.AssertsEnabled) Debugging.Assert(index == originalIndex);
                 return base.Set(index, arr, off, len);
             }
         }
@@ -306,8 +306,11 @@ namespace YAF.Lucene.Net.Util.Packed
 
         public override void Fill(int fromIndex, int toIndex, long val)
         {
-            Debug.Assert(PackedInt32s.BitsRequired(val) <= BitsPerValue);
-            Debug.Assert(fromIndex <= toIndex);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(PackedInt32s.BitsRequired(val) <= BitsPerValue);
+                Debugging.Assert(fromIndex <= toIndex);
+            }
 
             // minimum number of values that use an exact number of full blocks
             int nAlignedValues = 64 / Gcd(64, m_bitsPerValue);
@@ -329,7 +332,7 @@ namespace YAF.Lucene.Net.Util.Packed
                     Set(fromIndex++, val);
                 }
             }
-            Debug.Assert(fromIndex % nAlignedValues == 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(fromIndex % nAlignedValues == 0);
 
             // compute the long[] blocks for nAlignedValues consecutive values and
             // use them to set as many values as possible without applying any mask
@@ -343,7 +346,7 @@ namespace YAF.Lucene.Net.Util.Packed
                     values.Set(i, val);
                 }
                 nAlignedValuesBlocks = values.blocks;
-                Debug.Assert(nAlignedBlocks <= nAlignedValuesBlocks.Length);
+                if (Debugging.AssertsEnabled) Debugging.Assert(nAlignedBlocks <= nAlignedValuesBlocks.Length);
             }
             int startBlock = (int)((ulong)((long)fromIndex * m_bitsPerValue) >> 6);
             int endBlock = (int)((ulong)((long)toIndex * m_bitsPerValue) >> 6);

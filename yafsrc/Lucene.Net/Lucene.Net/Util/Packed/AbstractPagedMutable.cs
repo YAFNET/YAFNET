@@ -1,5 +1,5 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -27,8 +27,8 @@ namespace YAF.Lucene.Net.Util.Packed
     /// </summary>
     public abstract class AbstractPagedMutable<T> : Int64Values where T : AbstractPagedMutable<T> // LUCENENET NOTE: made public rather than internal because has public subclasses
     {
-        internal static readonly int MIN_BLOCK_SIZE = 1 << 6;
-        internal static readonly int MAX_BLOCK_SIZE = 1 << 30;
+        internal const int MIN_BLOCK_SIZE = 1 << 6;
+        internal const int MAX_BLOCK_SIZE = 1 << 30;
 
         internal readonly long size;
         internal readonly int pageShift;
@@ -86,7 +86,7 @@ namespace YAF.Lucene.Net.Util.Packed
 
         public override sealed long Get(long index)
         {
-            Debug.Assert(index >= 0 && index < size);
+            if (Debugging.AssertsEnabled) Debugging.Assert(index >= 0 && index < size);
             int pageIndex = PageIndex(index);
             int indexInPage = IndexInPage(index);
             return subMutables[pageIndex].Get(indexInPage);
@@ -96,7 +96,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// Set value at <paramref name="index"/>. </summary>
         public void Set(long index, long value)
         {
-            Debug.Assert(index >= 0 && index < size);
+            if (Debugging.AssertsEnabled) Debugging.Assert(index >= 0 && index < size);
             int pageIndex = PageIndex(index);
             int indexInPage = IndexInPage(index);
             subMutables[pageIndex].Set(indexInPage, value);
@@ -150,7 +150,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// Similar to <see cref="ArrayUtil.Grow(long[], int)"/>. </summary>
         public T Grow(long minSize)
         {
-            Debug.Assert(minSize >= 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(minSize >= 0);
             if (minSize <= Count)
             {
                 T result = (T)this;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using YAF.Lucene.Net.Diagnostics;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using WeightedPhraseInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo;
@@ -141,7 +142,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
             {
                 this.iter = iter;
                 T removeTop = RemoveTop();
-                Debug.Assert( removeTop == null);
+                if (Debugging.AssertsEnabled) Debugging.Assert(removeTop == null);
             }
 
             public T Top()

@@ -1,8 +1,8 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 namespace YAF.Lucene.Net.Search
@@ -117,7 +117,7 @@ namespace YAF.Lucene.Net.Search
                 }
                 if (GetRefCount(@ref) == 0 && (object)current == (object)@ref)
                 {
-                    Debug.Assert(@ref != null);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(@ref != null);
                     /* if we can't increment the reader but we are
                        still the current reference the RM is in a
                        illegal states since we can't make any progress
@@ -200,7 +200,7 @@ namespace YAF.Lucene.Net.Search
                     G newReference = RefreshIfNeeded(reference);
                     if (newReference != null)
                     {
-                        Debug.Assert((object)newReference != (object)reference, "refreshIfNeeded should return null if refresh wasn't needed");
+                        if (Debugging.AssertsEnabled) Debugging.Assert(!ReferenceEquals(newReference, reference), "refreshIfNeeded should return null if refresh wasn't needed");
                         try
                         {
                             SwapReference(newReference);
@@ -311,7 +311,7 @@ namespace YAF.Lucene.Net.Search
         /// <exception cref="IOException"> If the release operation on the given resource throws an <see cref="IOException"/> </exception>
         public void Release(G reference)
         {
-            Debug.Assert(reference != null);
+            if (Debugging.AssertsEnabled) Debugging.Assert(!(reference is null));
             DecRef(reference);
         }
 
