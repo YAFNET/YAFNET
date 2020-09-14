@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS v3.1.1
+ * blueimp Gallery JS v3.3.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -1516,8 +1516,7 @@
       } else {
         this.handleOpen();
       }
-        if (this.options.hidePageScrollbars
-            ) {
+      if (this.options.hidePageScrollbars) {
         // Hide the page scrollbars:
         this.bodyOverflowStyle = document.body.style.overflow;
         document.body.style.overflow = "hidden";
