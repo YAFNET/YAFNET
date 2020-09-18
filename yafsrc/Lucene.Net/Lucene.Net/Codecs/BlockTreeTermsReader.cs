@@ -620,7 +620,7 @@ namespace YAF.Lucene.Net.Codecs
 
             public override bool HasPayloads => fieldInfo.HasPayloads;
 
-            public override TermsEnum GetIterator(TermsEnum reuse)
+            public override TermsEnum GetEnumerator()
             {
                 return new SegmentTermsEnum(this);
             }
@@ -1270,7 +1270,7 @@ namespace YAF.Lucene.Net.Codecs
                     if (Debugging.AssertsEnabled) Debugging.Assert(false);
                 }
 
-                public override BytesRef Next()
+                public override bool MoveNext()
                 {
                     // if (DEBUG) {
                     //   System.out.println("\nintEnum.next seg=" + segment);
@@ -1293,7 +1293,7 @@ namespace YAF.Lucene.Net.Codecs
                                 //if (DEBUG) System.out.println("  pop frame");
                                 if (currentFrame.ord == 0)
                                 {
-                                    return null;
+                                    return false;
                                 }
                                 long lastFP = currentFrame.fpOrig;
                                 currentFrame = stack[currentFrame.ord - 1];
@@ -1431,15 +1431,23 @@ namespace YAF.Lucene.Net.Codecs
                             CopyTerm();
                             //if (DEBUG) System.out.println("      term match to state=" + state + "; return term=" + brToString(term));
                             if (Debugging.AssertsEnabled) Debugging.Assert(savedStartTerm == null || term.CompareTo(savedStartTerm) > 0, () => "saveStartTerm=" + savedStartTerm.Utf8ToString() + " term=" + term.Utf8ToString());
-                            return term;
+                            return true;
                         }
                         else
                         {
                             //System.out.println("    no s=" + state);
                         }
-                    nextTermContinue: ;
+                    nextTermContinue:;
                     }
                     //nextTermBreak:;
+                }
+
+                [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+                public override BytesRef Next()
+                {
+                    if (MoveNext())
+                        return term;
+                    return null;
                 }
 
                 internal void CopyTerm()
@@ -2269,7 +2277,7 @@ namespace YAF.Lucene.Net.Codecs
                                 term.CopyBytes(target);
                                 termExists = false;
 
-                                if (Next() != null)
+                                if (MoveNext())
                                 {
                                     //if (DEBUG) {
                                     //System.out.println("  return NOT_FOUND term=" + brToString(term) + " " + term);
@@ -2331,7 +2339,7 @@ namespace YAF.Lucene.Net.Codecs
                     {
                         term.CopyBytes(target);
                         termExists = false;
-                        if (Next() != null)
+                        if (MoveNext())
                         {
                             //if (DEBUG) {
                             //System.out.println("  return NOT_FOUND term=" + term.utf8ToString() + " " + term);
@@ -2417,11 +2425,11 @@ namespace YAF.Lucene.Net.Codecs
                 //    }
                 //}
 
+
                 /* Decodes only the term bytes of the next term.  If caller then asks for
                    metadata, ie docFreq, totalTermFreq or pulls a D/&PEnum, we then (lazily)
                    decode all metadata up to the current term. */
-
-                public override BytesRef Next()
+                public override bool MoveNext()
                 {
                     if (@in == null)
                     {
@@ -2480,7 +2488,7 @@ namespace YAF.Lucene.Net.Codecs
                                 validIndexPrefix = 0;
                                 currentFrame.Rewind();
                                 termExists = false;
-                                return null;
+                                return false;
                             }
                             long lastFP = currentFrame.fpOrig;
                             currentFrame = stack[currentFrame.ord - 1];
@@ -2520,9 +2528,21 @@ namespace YAF.Lucene.Net.Codecs
                         else
                         {
                             //if (DEBUG) System.out.println("  return term=" + term.utf8ToString() + " " + term + " currentFrame.ord=" + currentFrame.ord);
-                            return term;
+                            return true;
                         }
                     }
+                }
+
+
+                /* Decodes only the term bytes of the next term.  If caller then asks for
+                   metadata, ie docFreq, totalTermFreq or pulls a D/&PEnum, we then (lazily)
+                   decode all metadata up to the current term. */
+                [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+                public override BytesRef Next()
+                {
+                    if (MoveNext())
+                        return term;
+                    return null;
                 }
 
                 public override BytesRef Term

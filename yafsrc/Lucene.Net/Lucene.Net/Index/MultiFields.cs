@@ -183,7 +183,7 @@ namespace YAF.Lucene.Net.Index
             Terms terms = GetTerms(r, field);
             if (terms != null)
             {
-                TermsEnum termsEnum = terms.GetIterator(null);
+                TermsEnum termsEnum = terms.GetEnumerator();
                 if (termsEnum.SeekExact(term))
                 {
                     return termsEnum.Docs(liveDocs, null, flags);
@@ -221,7 +221,7 @@ namespace YAF.Lucene.Net.Index
             Terms terms = GetTerms(r, field);
             if (terms != null)
             {
-                TermsEnum termsEnum = terms.GetIterator(null);
+                TermsEnum termsEnum = terms.GetEnumerator();
                 if (termsEnum.SeekExact(term))
                 {
                     return termsEnum.DocsAndPositions(liveDocs, null, flags);
@@ -249,7 +249,7 @@ namespace YAF.Lucene.Net.Index
             {
                 subIterators[i] = subs[i].GetEnumerator();
             }
-            return new MergedIterator<string>(subIterators);
+            return new MergedEnumerator<string>(subIterators);
         }
 
         public override Terms GetTerms(string field)

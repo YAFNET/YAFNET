@@ -878,7 +878,7 @@ namespace YAF.Lucene.Net.Search
 
                         return true;
                     }
-#if !NETSTANDARD1_6
+#if FEATURE_THREAD_INTERRUPT
                     catch (ThreadInterruptedException /*e*/)
                     {
                         //throw new ThreadInterruptedException(e.ToString(), e);

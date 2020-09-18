@@ -112,7 +112,7 @@ namespace YAF.Lucene.Net.Search
                 return TermsEnum.EMPTY;
             }
 
-            TermsEnum tenum = terms.GetIterator(null);
+            TermsEnum tenum = terms.GetEnumerator();
 
             if ((lowerTerm == null || (includeLower && lowerTerm.Length == 0)) && upperTerm == null)
             {

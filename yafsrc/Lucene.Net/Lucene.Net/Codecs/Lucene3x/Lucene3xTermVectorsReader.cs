@@ -365,21 +365,31 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 unicodeSortOrder = outerInstance.SortTermsByUnicode();
             }
 
-            public override TermsEnum GetIterator(TermsEnum reuse)
+            public override TermsEnum GetEnumerator()
+            {
+                var termsEnum = new TVTermsEnum(outerInstance);
+                termsEnum.Reset(numTerms, tvfFPStart, storePositions, storeOffsets, unicodeSortOrder);
+                return termsEnum;
+            }
+
+            public override TermsEnum GetEnumerator(TermsEnum reuse)
             {
                 TVTermsEnum termsEnum;
-                if (reuse is TVTermsEnum)
-                {
-                    termsEnum = (TVTermsEnum)reuse;
-                    if (!termsEnum.CanReuse(outerInstance.tvf))
-                    {
-                        termsEnum = new TVTermsEnum(outerInstance);
-                    }
-                }
-                else
+#pragma warning disable IDE0038 // Use pattern matching
+                if (reuse is null || !(reuse is TVTermsEnum))
+#pragma warning restore IDE0038 // Use pattern matching
                 {
                     termsEnum = new TVTermsEnum(outerInstance);
                 }
+                else
+                {
+                    var reusable = (TVTermsEnum)reuse;
+                    if (reusable.CanReuse(outerInstance.tvf))
+                        termsEnum = reusable;
+                    else
+                        termsEnum = new TVTermsEnum(outerInstance);
+                }
+
                 termsEnum.Reset(numTerms, tvfFPStart, storePositions, storeOffsets, unicodeSortOrder);
                 return termsEnum;
             }
@@ -429,8 +439,6 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
         private class TVTermsEnum : TermsEnum
         {
-            private readonly Lucene3xTermVectorsReader outerInstance;
-
             internal bool unicodeSortOrder;
             internal readonly IndexInput origTVF;
             internal readonly IndexInput tvf;
@@ -444,7 +452,6 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             // NOTE: tvf is pre-positioned by caller
             public TVTermsEnum(Lucene3xTermVectorsReader outerInstance)
             {
-                this.outerInstance = outerInstance;
                 this.origTVF = outerInstance.tvf;
                 tvf = (IndexInput)origTVF.Clone();
             }
@@ -549,13 +556,21 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 throw new NotSupportedException();
             }
 
-            public override BytesRef Next()
+            public override bool MoveNext()
             {
                 if (++currentTerm >= numTerms)
                 {
-                    return null;
+                    return false;
                 }
-                return Term;
+                return true;
+            }
+
+            [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+            public override BytesRef Next()
+            {
+                if (MoveNext())
+                    return Term;
+                return null;
             }
 
             public override BytesRef Term => termAndPostings[currentTerm].Term;

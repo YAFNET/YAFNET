@@ -1,7 +1,6 @@
 using System;
-#if NETSTANDARD
 using System.Runtime.InteropServices;
-#else
+#if NETFRAMEWORK
 using Microsoft.Win32;
 #endif
 using System.Text.RegularExpressions;
@@ -31,7 +30,7 @@ namespace YAF.Lucene.Net.Util
     public static class Constants // LUCENENET specific - made static because all members are static and constructor in Lucene was private
     {
         // LUCENENET NOTE: IMPORTANT - this line must be placed before RUNTIME_VERSION so it can be parsed.
-        private static Regex VERSION = new Regex(@"(\d+\.\d+(?:\.\d+)?(?:\.\d+)?)", RegexOptions.Compiled);
+        private static readonly Regex VERSION = new Regex(@"(\d+\.\d+(?:\.\d+)?(?:\.\d+)?)", RegexOptions.Compiled);
 
         // LUCENENET specific - renamed JAVA_VERSION to RUNTIME_VERSION and moved below OS constants because loading is dependent upon OS
 
@@ -44,122 +43,46 @@ namespace YAF.Lucene.Net.Util
                                                                     //public static readonly string JVM_VERSION = GetEnvironmentVariable("java.vm.version", "");
                                                                     //public static readonly string JVM_NAME = GetEnvironmentVariable("java.vm.name", "");
 
-#if NETSTANDARD
         /// <summary>
         /// The value of <see cref="RuntimeInformation.OSDescription"/>, excluding the version number.</summary>
-#else
-        /// <summary>
-        /// The value of System.Environment.OSVersion.VersionString, excluding the version number.</summary>
-#endif
-        public static readonly string OS_NAME = LoadOSName();
-
-        private static string LoadOSName() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
-        {
-#if NETSTANDARD
-            return VERSION.Replace(RuntimeInformation.OSDescription, string.Empty).Trim();
-#else
-            return VERSION.Replace(Environment.OSVersion.VersionString, string.Empty).Trim();
-#endif
-        }
+        public static readonly string OS_NAME = VERSION.Replace(RuntimeInformation.OSDescription, string.Empty).Trim();
 
         /// <summary>
         /// True iff running on Linux. </summary>
-        public static readonly bool LINUX = LoadLinux();
-        private static bool LoadLinux()
-        {
-#if NETSTANDARD
-            return RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
-#else
-            // 128 is mono's old platform tag for Unix.
-            // Reference: https://stackoverflow.com/a/5117005
-            int id = (int)Environment.OSVersion.Platform;
-            return id == 4 || id == 128;
-#endif
-        }
+        public static readonly bool LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
 
         /// <summary>
         /// True iff running on Windows. </summary>
-        public static readonly bool WINDOWS = LoadWindows();
-        private static bool LoadWindows()
-        {
-#if NETSTANDARD
-            return RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-#else
-            PlatformID pid = Environment.OSVersion.Platform;
-            return pid == PlatformID.Win32NT || pid == PlatformID.Win32Windows;
-#endif
-        }
+        public static readonly bool WINDOWS = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
         /// <summary>
         /// True iff running on SunOS. </summary>
-        public static readonly bool SUN_OS = LoadSunOS();
-        private static bool LoadSunOS()
-        {
-#if NETSTANDARD
-            return RuntimeInformation.IsOSPlatform(OSPlatform.Create("SunOS"));
-#else
-            return false; // Not possible
-#endif
-        }
+        public static readonly bool SUN_OS = RuntimeInformation.IsOSPlatform(OSPlatform.Create("SunOS"));
 
         /// <summary>
         /// True iff running on Mac OS X </summary>
-        public static readonly bool MAC_OS_X = LoadMacOSX();
-        private static bool LoadMacOSX() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
-        {
-#if NETSTANDARD
-            return RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
-#else
-            // Reference: https://stackoverflow.com/a/5117005
-            return Environment.OSVersion.Platform == PlatformID.MacOSX;
-#endif
-        }
+        public static readonly bool MAC_OS_X = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 
         /// <summary>
         /// True iff running on FreeBSD </summary>
-        public static readonly bool FREE_BSD = LoadFreeBSD();
-        private static bool LoadFreeBSD() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
-        {
-#if NETSTANDARD
-            return RuntimeInformation.IsOSPlatform(OSPlatform.Create("FreeBSD"));
-#else
-            return false; // Not possible
-#endif
-        }
+        public static readonly bool FREE_BSD = RuntimeInformation.IsOSPlatform(OSPlatform.Create("FreeBSD"));
+
+        // Possible Values: X86, X64, Arm, Arm64
+        public static readonly string OS_ARCH = RuntimeInformation.OSArchitecture.ToString();
 
 
-        public static readonly string OS_ARCH = LoadOSArch();
-        private static string LoadOSArch() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
-        {
-#if NETSTANDARD
-            // Possible Values: X86, X64, Arm, Arm64
-            return RuntimeInformation.OSArchitecture.ToString();
-#else
-            return Environment.Is64BitOperatingSystem ? "X64" : "X86";
-#endif
-        }
+        public static readonly string OS_VERSION = ExtractString(RuntimeInformation.OSDescription, VERSION);
 
-
-        public static readonly string OS_VERSION = LoadOSVersion();
-        private static string LoadOSVersion() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
-        {
-#if NETSTANDARD
-            return ExtractString(RuntimeInformation.OSDescription, VERSION);
-#else
-            return Environment.OSVersion.Version.ToString();
-#endif
-        }
-
-#if NETSTANDARD
+#if NETFRAMEWORK
         /// <summary>
-        /// The value of the version parsed from <see cref="RuntimeInformation.FrameworkDescription"/>.
+        /// The value of the currently installed .NET Framework version on Windows or <see cref="Environment.Version"/> on other operating systems.
         /// <para/>
         /// NOTE: This was JAVA_VERSION in Lucene
         /// </summary>
 #else
         /// <summary>
-        /// The value of the currently installed .NET Framework version on Windows or <see cref="Environment.Version"/> on other operating systems.
+        /// The value of the version parsed from <see cref="RuntimeInformation.FrameworkDescription"/>.
         /// <para/>
         /// NOTE: This was JAVA_VERSION in Lucene
         /// </summary>
@@ -168,22 +91,14 @@ namespace YAF.Lucene.Net.Util
 
         private static string LoadRuntimeVersion() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
-#if NETSTANDARD
-            return ExtractString(RuntimeInformation.FrameworkDescription, VERSION);
-#else
+#if NETFRAMEWORK
             return WINDOWS ? GetFramework45PlusFromRegistry() : Environment.Version.ToString();
+#else
+            return ExtractString(RuntimeInformation.FrameworkDescription, VERSION);
 #endif
         }
 
-
-        //[Obsolete("We are not running on Java for heavens sake")]
-        //public static readonly bool JRE_IS_MINIMUM_JAVA6 = (bool)new bool?(true); // prevent inlining in foreign class files
-
-        //[Obsolete("We are not running on Java for heavens sake")]
-        //public static readonly bool JRE_IS_MINIMUM_JAVA7 = (bool)new bool?(true); // prevent inlining in foreign class files
-
-        //[Obsolete("We are not running on Java for heavens sake")]
-        //public static readonly bool JRE_IS_MINIMUM_JAVA8;
+        // LUCENENET: Removed JRE fields
 
         /// <summary>
         /// NOTE: This was JRE_IS_64BIT in Lucene
@@ -232,20 +147,22 @@ namespace YAF.Lucene.Net.Util
         /// Returns a LUCENE_MAIN_VERSION without any ALPHA/BETA qualifier
         /// Used by test only!
         /// </summary>
-        public static string MainVersionWithoutAlphaBeta()
+        internal static string MainVersionWithoutAlphaBeta
         {
-            string[] parts = MAIN_VERSION_WITHOUT_ALPHA_BETA.Split(LUCENE_MAIN_VERSION);
-            if (parts.Length == 4 && "0".Equals(parts[2], StringComparison.Ordinal))
+            get
             {
-                return parts[0] + "." + parts[1];
+                string[] parts = MAIN_VERSION_WITHOUT_ALPHA_BETA.Split(LUCENE_MAIN_VERSION);
+                if (parts.Length == 4 && "0".Equals(parts[2], StringComparison.Ordinal))
+                {
+                    return parts[0] + "." + parts[1];
+                }
+                return LUCENE_MAIN_VERSION;
             }
-            return LUCENE_MAIN_VERSION;
         }
 
-        private static Regex MAIN_VERSION_WITHOUT_ALPHA_BETA = new Regex("\\.", RegexOptions.Compiled);
+        private static readonly Regex MAIN_VERSION_WITHOUT_ALPHA_BETA = new Regex("\\.", RegexOptions.Compiled);
 
-#if !NETSTANDARD
-
+#if NETFRAMEWORK
         // Gets the .NET Framework Version (if at least 4.5)
         // Reference: https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed
         private static string GetFramework45PlusFromRegistry()
@@ -273,7 +190,7 @@ namespace YAF.Lucene.Net.Util
         private static string CheckFor45PlusVersion(int releaseKey)
         {
             if (releaseKey >= 460799)
-                return "4.8 or later";
+                return "4.8";
             if (releaseKey >= 460798)
                 return "4.7";
             if (releaseKey >= 394802)
@@ -302,10 +219,8 @@ namespace YAF.Lucene.Net.Util
             // that 4.5 or later is installed.
             return "No 4.5 or later version detected";
         }
-
 #endif
 
-        // LUCENENET TODO: Move to Support ?
         /// <summary>
         /// Extracts the first group matched with the regex as a new string.
         /// </summary>

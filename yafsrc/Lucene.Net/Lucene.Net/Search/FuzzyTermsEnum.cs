@@ -7,6 +7,7 @@ using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search
@@ -272,7 +273,7 @@ namespace YAF.Lucene.Net.Search
 
         private BytesRef queuedBottom = null;
 
-        public override BytesRef Next()
+        public override bool MoveNext()
         {
             if (queuedBottom != null)
             {
@@ -280,21 +281,29 @@ namespace YAF.Lucene.Net.Search
                 queuedBottom = null;
             }
 
-            BytesRef term = actualEnum.Next();
+            bool moved = actualEnum.MoveNext();
             boostAtt.Boost = actualBoostAtt.Boost;
 
             float bottom = maxBoostAtt.MaxNonCompetitiveBoost;
             BytesRef bottomTerm = maxBoostAtt.CompetitiveTerm;
-            if (term != null && (bottom != this.bottom || bottomTerm != this.bottomTerm))
+            if (moved && (bottom != this.bottom || bottomTerm != this.bottomTerm))
             {
                 this.bottom = bottom;
                 this.bottomTerm = bottomTerm;
                 // clone the term before potentially doing something with it
                 // this is a rare but wonderful occurrence anyway
-                queuedBottom = BytesRef.DeepCopyOf(term);
+                queuedBottom = BytesRef.DeepCopyOf(actualEnum.Term);
             }
 
-            return term;
+            return moved;
+        }
+
+        [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public override BytesRef Next()
+        {
+            if (MoveNext())
+                return actualEnum.Term;
+            return null;
         }
 
         // proxy all other enum calls to the actual enum
@@ -381,6 +390,9 @@ namespace YAF.Lucene.Net.Search
 
             /// <summary>
             /// Finds the smallest Lev(n) DFA that accepts the term. </summary>
+#if NETFRAMEWORK
+            [MethodImpl(MethodImplOptions.NoOptimization)] // LUCENENET specific: comparing float equality fails in x86 on .NET Framework with optimizations enabled, and is causing the TestTokenLengthOpt test to fail
+#endif
             protected override AcceptStatus Accept(BytesRef term)
             {
                 //System.out.println("AFTE.accept term=" + term);

@@ -1,4 +1,5 @@
 using YAF.Lucene.Net.Diagnostics;
+using System;
 using System.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search
@@ -101,7 +102,7 @@ namespace YAF.Lucene.Net.Search
                 TermsEnum termsEnum = m_query.GetTermsEnum(new TermsAnonymousInnerClassHelper(fcsi));
 
                 if (Debugging.AssertsEnabled) Debugging.Assert(termsEnum != null);
-                if (termsEnum.Next() != null)
+                if (termsEnum.MoveNext())
                 {
                     // fill into a bitset
                     do
@@ -111,7 +112,7 @@ namespace YAF.Lucene.Net.Search
                         {
                             termSet.Set(ord);
                         }
-                    } while (termsEnum.Next() != null);
+                    } while (termsEnum.MoveNext());
                 }
                 else
                 {
@@ -140,10 +141,7 @@ namespace YAF.Lucene.Net.Search
 
                 public override IComparer<BytesRef> Comparer => BytesRef.UTF8SortedAsUnicodeComparer;
 
-                public override TermsEnum GetIterator(TermsEnum reuse)
-                {
-                    return fcsi.GetTermsEnum();
-                }
+                public override TermsEnum GetEnumerator() => fcsi.GetTermsEnum();
 
                 public override long SumTotalTermFreq => -1;
 

@@ -1,6 +1,7 @@
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -26,9 +27,9 @@ namespace YAF.Lucene.Net.Index
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
-    /// Iterator to seek (<see cref="SeekCeil(BytesRef)"/>, 
+    /// Enumerator to seek (<see cref="SeekCeil(BytesRef)"/>, 
     /// <see cref="SeekExact(BytesRef)"/>) or step through 
-    /// (<see cref="Next()"/> terms to obtain frequency information 
+    /// (<see cref="MoveNext()"/> terms to obtain <see cref="Term"/>, frequency information 
     /// (<see cref="DocFreq"/>), <see cref="DocsEnum"/> or 
     /// <see cref="DocsAndPositionsEnum"/> for the current term 
     /// (<see cref="Docs(IBits, DocsEnum)"/>).
@@ -38,16 +39,37 @@ namespace YAF.Lucene.Net.Index
     /// greater than the one before it.
     ///
     /// <para/>The <see cref="TermsEnum"/> is unpositioned when you first obtain it
-    /// and you must first successfully call <see cref="Next"/> or one
+    /// and you must first successfully call <see cref="MoveNext()"/> or one
     /// of the <c>Seek</c> methods.
     /// <para/>
     /// @lucene.experimental
     /// </summary>
-    public abstract class TermsEnum : IBytesRefIterator
+
+    public abstract class TermsEnum : IBytesRefEnumerator
+#pragma warning disable CS0618 // Type or member is obsolete
+        , IBytesRefIterator
+#pragma warning restore CS0618 // Type or member is obsolete
     {
         public abstract IComparer<BytesRef> Comparer { get; } // LUCENENET specific - must supply implementation for the interface
 
+        /// <inheritdoc/>
+        [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         public abstract BytesRef Next(); // LUCENENET specific - must supply implementation for the interface
+
+        /// <inheritdoc/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public TermsEnum Current => this; // LUCENENET specific - made into enumerator for foreach
+
+        BytesRef IBytesRefEnumerator.Current => Term;
+
+        /// <summary>
+        /// Moves to the next item in the <see cref="TermsEnum"/>.
+        /// <para/>
+        /// The default implementation can and should be overridden with a more optimized version.
+        /// </summary>
+        /// <returns><c>true</c> if the enumerator was successfully advanced to the next element;
+        /// <c>false</c> if the enumerator has passed the end of the collection.</returns>
+        public abstract bool MoveNext(); // LUCENENET specific - must supply implementation for the interface
 
         private AttributeSource atts = null;
 
@@ -276,10 +298,6 @@ namespace YAF.Lucene.Net.Index
 
         private class TermsEnumAnonymousInnerClassHelper : TermsEnum
         {
-            public TermsEnumAnonymousInnerClassHelper()
-            {
-            }
-
             public override SeekStatus SeekCeil(BytesRef term)
             {
                 return SeekStatus.END;
@@ -309,6 +327,13 @@ namespace YAF.Lucene.Net.Index
                 throw new InvalidOperationException("this method should never be called");
             }
 
+            // LUCENENET specific
+            public override bool MoveNext()
+            {
+                return false;
+            }
+
+            [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
             public override BytesRef Next()
             {
                 return null;

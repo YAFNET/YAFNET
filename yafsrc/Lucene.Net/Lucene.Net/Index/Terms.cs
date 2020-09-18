@@ -42,12 +42,28 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Returns an iterator that will step through all
+        /// terms. This method will not return <c>null</c>.
+        /// </summary>
+        public abstract TermsEnum GetEnumerator(); // LUCENENET specific - Refactored to require both overloads, so we don't have a strange null parameter unless needed
+
+        /// <summary>
+        /// Returns an iterator that will step through all
+        /// terms. This method will not return <c>null</c>.
+        /// </summary>
+        /// <param name="reuse">If you have a previous <see cref="TermsEnum"/>,
+        /// for example from a different field, you can pass it for possible
+        /// reuse if the implementation can do so.</param>
+        public virtual TermsEnum GetEnumerator(TermsEnum reuse) => GetEnumerator(); // LUCENENET specific - Refactored to require both overloads, so we don't have a strange null parameter unless needed
+
+        /// <summary>
+        /// Returns an iterator that will step through all
         /// terms. This method will not return <c>null</c>.  If you have
         /// a previous <see cref="TermsEnum"/>, for example from a different
         /// field, you can pass it for possible reuse if the
         /// implementation can do so.
         /// </summary>
-        public abstract TermsEnum GetIterator(TermsEnum reuse);
+        [Obsolete("Use GetEnumerator() or GetEnumerator(TermsEnum). This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public virtual TermsEnum GetIterator(TermsEnum reuse) => GetEnumerator(reuse);
 
         /// <summary>
         /// Returns a <see cref="TermsEnum"/> that iterates over all terms that
@@ -55,7 +71,7 @@ namespace YAF.Lucene.Net.Index
         /// <see cref="CompiledAutomaton"/>.  If the <paramref name="startTerm"/> is
         /// provided then the returned enum will only accept terms
         /// &gt; <paramref name="startTerm"/>, but you still must call
-        /// <see cref="TermsEnum.Next()"/> first to get to the first term.  Note that the
+        /// <see cref="TermsEnum.MoveNext()"/> first to get to the first term.  Note that the
         /// provided <paramref name="startTerm"/> must be accepted by
         /// the automaton.
         ///
@@ -73,11 +89,11 @@ namespace YAF.Lucene.Net.Index
             }
             if (startTerm == null)
             {
-                return new AutomatonTermsEnum(GetIterator(null), compiled);
+                return new AutomatonTermsEnum(GetEnumerator(), compiled);
             }
             else
             {
-                return new AutomatonTermsEnumAnonymousInnerClassHelper(this, GetIterator(null), compiled, startTerm);
+                return new AutomatonTermsEnumAnonymousInnerClassHelper(this, GetEnumerator(), compiled, startTerm);
             }
         }
 

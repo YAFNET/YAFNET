@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-#if NETSTANDARD1_6
+#if !FEATURE_APPDOMAIN_GETASSEMBLIES
 using Microsoft.Extensions.DependencyModel;
 #endif
 using JCG = J2N.Collections.Generic;
@@ -39,25 +39,25 @@ namespace YAF.Lucene.Net.Support
         /// Microsoft assemblies here.
         /// </summary>
         /// <returns></returns>
-        public static IList<Assembly> GetReferencedAssemblies()
+        public static IEnumerable<Assembly> GetReferencedAssemblies()
         {
             // .NET Port Hack: We do a 2-level deep check here because if the assembly you're
             // hoping would be loaded hasn't been loaded yet into the app domain,
             // it is unavailable. So we go to the next level on each and check each referenced
             // assembly.
-#if NETSTANDARD1_6
+#if FEATURE_APPDOMAIN_GETASSEMBLIES
+            var assembliesLoaded = AppDomain.CurrentDomain.GetAssemblies();
+#else
             var dependencyContext = DependencyContext.Default;
             var assemblyNames = dependencyContext.RuntimeLibraries
                 .SelectMany(lib => lib.GetDefaultAssemblyNames(dependencyContext))
                 .Where(x => !DotNetFrameworkFilter.IsFrameworkAssembly(x))
                 .Distinct();
             var assembliesLoaded = LoadAssemblyFromName(assemblyNames);
-#else
-            var assembliesLoaded = AppDomain.CurrentDomain.GetAssemblies();
 #endif
-            assembliesLoaded = assembliesLoaded.Where(x => !DotNetFrameworkFilter.IsFrameworkAssembly(x)).ToArray();
+            var nonFrameworkAssembliesLoaded = assembliesLoaded.Where(x => !DotNetFrameworkFilter.IsFrameworkAssembly(x));
 
-            var referencedAssemblies = assembliesLoaded
+            var referencedAssemblies = nonFrameworkAssembliesLoaded
                 .SelectMany(assembly =>
                 {
                     return assembly
@@ -68,13 +68,15 @@ namespace YAF.Lucene.Net.Support
                 .Where(x => x != null)
                 .Distinct();
 
-            return assembliesLoaded.Concat(referencedAssemblies).Distinct().ToList();
+            return nonFrameworkAssembliesLoaded.Concat(referencedAssemblies).Distinct();
         }
 
+#if !FEATURE_APPDOMAIN_GETASSEMBLIES
         private static IEnumerable<Assembly> LoadAssemblyFromName(IEnumerable<AssemblyName> assemblyNames)
         {
             return assemblyNames.Select(x => LoadAssemblyFromName(x)).Where(x => x != null);
         }
+#endif
 
         private static Assembly LoadAssemblyFromName(AssemblyName assemblyName)
         {
