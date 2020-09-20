@@ -3,6 +3,7 @@
 <!doctype html>
 <html lang="en">
    <head runat="server">
+       <meta charset="utf-8">
        <title>Forum Error</title>
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <link href="~/Content/Themes/yaf/bootstrap-forum.min.css" rel="stylesheet" runat="server" />
