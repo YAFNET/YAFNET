@@ -176,7 +176,7 @@ namespace YAF.Dialogs
 
                 // post message...
                 var message = this.quickReplyEditor.Text;
-                long topicId = this.PageContext.PageTopicID;
+                int topicId = this.PageContext.PageTopicID;
 
                 // SPAM Check
 
@@ -285,6 +285,7 @@ namespace YAF.Dialogs
 
                 // Bypass Approval if Admin or Moderator.
                 var messageId = this.GetRepository<Message>().SaveNew(
+                    this.PageContext.PageForumID,
                     topicId,
                     this.PageContext.PageUserID,
                     message,

@@ -273,7 +273,7 @@ namespace YAF.Core.Services
         /// <returns> The get simple forum topic. </returns>
         public List<SimpleForum> GetSimpleForumTopic(int boardId, int userId, System.DateTime timeFrame, int maxCount)
         {
-            var forumData = this.GetRepository<Forum>().ListAll(boardId, userId).AsEnumerable()
+            var forumData = this.GetRepository<Forum>().ListAllWithAccess(boardId, userId).AsEnumerable()
                 .Select(x => new SimpleForum { ForumID = x.Item1.ID, Name = x.Item1.Name }).ToList();
 
             if (forumData.Any())
@@ -281,7 +281,7 @@ namespace YAF.Core.Services
                 // If the user is not logged in (Active Access Table is empty), we need to make sure the Active Access Tables are set
                 this.GetRepository<ActiveAccess>().PageAccessAsDataTable(boardId, userId, false);
 
-                forumData = this.GetRepository<Forum>().ListAll(boardId, userId).AsEnumerable()
+                forumData = this.GetRepository<Forum>().ListAllWithAccess(boardId, userId).AsEnumerable()
                     .Select(x => new SimpleForum { ForumID = x.Item1.ID, Name = x.Item1.Name }).ToList();
             }
 

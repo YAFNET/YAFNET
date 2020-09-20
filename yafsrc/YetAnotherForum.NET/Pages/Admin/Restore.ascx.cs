@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI.WebControls;
 
@@ -114,13 +115,16 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void List_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            var topicId = e.CommandArgument.ToType<int>();
+            var commandArgs = e.CommandArgument.ToString().Split(';');
+
+            var topicId = commandArgs[0].ToType<int>();
+            var forumId = commandArgs[1].ToType<int>();
 
             switch (e.CommandName)
             {
                 case "delete":
                     {
-                        this.GetRepository<Topic>().Delete(topicId, true);
+                        this.GetRepository<Topic>().Delete(forumId, topicId, true);
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -136,6 +140,8 @@ namespace YAF.Pages.Admin
                         if (getFirstMessage != null)
                         {
                             this.GetRepository<Message>().Delete(
+                                forumId,
+                                topicId,
                                 getFirstMessage.ID,
                                 true,
                                 string.Empty,
@@ -162,12 +168,19 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete_all":
                     {
-                        var topicIds = (from RepeaterItem item in this.DeletedTopics.Items
-                                        select item.FindControlAs<HiddenField>("hiddenID") into hiddenId
-                                        select hiddenId.Value.ToType<int>()).ToList();
+                        var topicIds = new List<(int forumId, int topicId)>();
+
+                        this.DeletedTopics.Items.Cast<RepeaterItem>().ForEach(item =>
+                        {
+                            var hiddenId = item.FindControlAs<HiddenField>("hiddenID");
+
+                            var args = hiddenId.Value.Split(';');
+
+                            topicIds.Add((args[1].ToType<int>(), args[0].ToType<int>()));
+                        });
 
                         topicIds.ForEach(
-                            topic => this.GetRepository<Topic>().Delete(topic, true));
+                            x => this.GetRepository<Topic>().Delete(x.forumId, x.topicId, true));
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -183,7 +196,7 @@ namespace YAF.Pages.Admin
                         var deletedTopics = this.GetRepository<Topic>().GetDeletedTopics(this.PageContext.PageBoardID, this.Filter.Text);
 
                         deletedTopics.ForEach(
-                            topic => this.GetRepository<Topic>().Delete(topic.Item2.ID, true));
+                            topic => this.GetRepository<Topic>().Delete(topic.Item2.ForumID, topic.Item2.ID, true));
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -196,7 +209,7 @@ namespace YAF.Pages.Admin
                         var deletedTopics = this.GetRepository<Topic>().Get(t => t.IsDeleted == true && t.NumPosts.Equals(0));
 
                         deletedTopics.ForEach(
-                            topic => this.GetRepository<Topic>().Delete(topic.ID, true));
+                            topic => this.GetRepository<Topic>().Delete(topic.ForumID, topic.ID, true));
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -218,14 +231,26 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void Messages_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            var messageId = e.CommandArgument.ToType<int>();
+            var commandArgs = e.CommandArgument.ToString().Split(';');
+
+            var messageId = commandArgs[0].ToType<int>();
+            var forumId = commandArgs[1].ToType<int>();
+            var topicId = commandArgs[2].ToType<int>();
 
             switch (e.CommandName)
             {
                 case "delete":
                     {
                         // delete message
-                        this.GetRepository<Message>().Delete(messageId, true, string.Empty, 1, true, true);
+                        this.GetRepository<Message>().Delete(
+                            forumId,
+                            topicId,
+                            messageId,
+                            true,
+                            string.Empty,
+                            1,
+                            true,
+                            true);
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -234,14 +259,16 @@ namespace YAF.Pages.Admin
 
                     break;
                 case "restore":
-                    {
-                        this.GetRepository<Message>().Delete(
-                            messageId,
-                            true,
-                            string.Empty,
-                            0,
-                            true,
-                            false);
+                {
+                    this.GetRepository<Message>().Delete(
+                        forumId,
+                        topicId,
+                        messageId,
+                        true,
+                        string.Empty,
+                        0,
+                        true,
+                        false);
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_RESTORED"), MessageTypes.success);
 
@@ -251,13 +278,27 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete_all":
                     {
-                        var messageIds = (from RepeaterItem item in this.DeletedMessages.Items
-                                          select item.FindControlAs<HiddenField>("hiddenID")
-                                          into hiddenId
-                                          select hiddenId.Value.ToType<int>()).ToList();
+                        var messageIds = new List<(int forumId, int topicId, int messageId)>();
+
+                        this.DeletedMessages.Items.Cast<RepeaterItem>().ForEach(item =>
+                        {
+                            var hiddenId = item.FindControlAs<HiddenField>("hiddenID");
+
+                            var args = hiddenId.Value.Split(';');
+
+                            messageIds.Add((args[1].ToType<int>(), args[2].ToType<int>(), args[0].ToType<int>()));
+                        });
 
                         messageIds.ForEach(
-                            message => this.GetRepository<Message>().Delete(message, true, string.Empty, 1, true, true));
+                            x => this.GetRepository<Message>().Delete(
+                                x.forumId,
+                                x.topicId,
+                                x.messageId,
+                                true,
+                                string.Empty,
+                                1,
+                                true,
+                                true));
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 

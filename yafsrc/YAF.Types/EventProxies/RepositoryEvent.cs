@@ -55,6 +55,7 @@ namespace YAF.Types.EventProxies
     /// The repository event.
     /// </summary>
     /// <typeparam name="T">
+    /// The Typed Parameter
     /// </typeparam>
     public class RepositoryEvent<T> : IAmEvent
         where T : class, IEntity

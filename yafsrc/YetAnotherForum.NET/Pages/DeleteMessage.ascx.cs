@@ -333,6 +333,8 @@ namespace YAF.Pages
             // If it's not deleted it will be marked deleted.
             // If it is the last message of the topic, the topic is also deleted
             this.GetRepository<Message>().Delete(
+                this.message.Item1.ForumID,
+                this.message.Item1.ID,
                 this.message.Item2.ID,
                 this.isModeratorChanged,
                 HttpUtility.HtmlEncode(this.ReasonEditor.Text),

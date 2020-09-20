@@ -257,10 +257,6 @@ namespace YAF.Core.Services
             this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
             this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
 
-            // Ederon : 9/7/2007
-            // re-sync all boards - necessary for proper last post bubbling
-            this.GetRepository<Board>().ReSync();
-
             if (isForumInstalled)
             {
                 if (prevVersion < 80)

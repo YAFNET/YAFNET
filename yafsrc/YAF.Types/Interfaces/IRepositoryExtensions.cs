@@ -50,6 +50,7 @@ namespace YAF.Types.Interfaces
         /// The entity.
         /// </param>
         /// <typeparam name="T">
+        /// The Typed Parameter
         /// </typeparam>
         public static void FireDeleted<T>(this IRepository<T> repository, int? id = null, T entity = null) where T : class, IEntity
         {
@@ -68,6 +69,7 @@ namespace YAF.Types.Interfaces
         /// The entity.
         /// </param>
         /// <typeparam name="T">
+        /// The Typed Parameter
         /// </typeparam>
         public static void FireDeleted<T>(this IRepository<T> repository, T entity) where T : class, IEntity, IHaveID
         {
@@ -89,6 +91,7 @@ namespace YAF.Types.Interfaces
         /// The entity.
         /// </param>
         /// <typeparam name="T">
+        /// The Typed Parameter
         /// </typeparam>
         public static void FireNew<T>([NotNull] this IRepository<T> repository, int? id = null, T entity = null) where T : class, IEntity
         {
@@ -107,6 +110,7 @@ namespace YAF.Types.Interfaces
         /// The entity.
         /// </param>
         /// <typeparam name="T">
+        /// The Typed Parameter
         /// </typeparam>
         public static void FireNew<T>([NotNull] this IRepository<T> repository, T entity) where T : class, IEntity, IHaveID
         {
@@ -128,6 +132,7 @@ namespace YAF.Types.Interfaces
         /// The entity.
         /// </param>
         /// <typeparam name="T">
+        /// The Typed Parameter
         /// </typeparam>
         public static void FireUpdated<T>(this IRepository<T> repository, int? id = null, T entity = null) where T : class, IEntity
         {
@@ -146,6 +151,7 @@ namespace YAF.Types.Interfaces
         /// The entity.
         /// </param>
         /// <typeparam name="T">
+        /// The Typed Parameter
         /// </typeparam>
         public static void FireUpdated<T>(this IRepository<T> repository, T entity) where T : class, IEntity, IHaveID
         {

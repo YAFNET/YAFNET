@@ -36,11 +36,12 @@ namespace YAF.Core.Model
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
-    using YAF.Types.Extensions.Data;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils.Helpers;
@@ -72,6 +73,8 @@ namespace YAF.Core.Model
             [NotNull] int topicId,
             [NotNull] int userId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.Count(m => m.TopicID == topicId && m.UserID == userId) > 0;
         }
 
@@ -249,6 +252,8 @@ namespace YAF.Core.Model
             bool showThanks,
             int messagePosition)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbFunction.GetData.post_list(
                 TopicID: topicId,
                 PageUserID: currentUserID,
@@ -287,6 +292,8 @@ namespace YAF.Core.Model
             this IRepository<Message> repository,
             [NotNull] int topicId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
             expression.Join<Message, User>((m, u) => m.UserID == u.ID)
@@ -307,9 +314,16 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns all the post by a user.
         /// </returns>
-        public static IOrderedEnumerable<Message> GetAllUserMessages(this IRepository<Message> repository, int userId)
+        public static IOrderedEnumerable<Tuple<Message, Topic>> GetAllUserMessages(this IRepository<Message> repository, int userId)
         {
-            return repository.Get(m => m.UserID == userId).OrderByDescending(m => m.Posted);
+            CodeContracts.VerifyNotNull(repository);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.UserID == userId);
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic>(expression))
+                .OrderByDescending(m => m.Item1.Posted);
         }
 
         /// <summary>
@@ -390,13 +404,22 @@ namespace YAF.Core.Model
         /// <summary>
         /// Approves the message.
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="messageId">The message identifier.</param>
-        public static void ApproveMessage(this IRepository<Message> repository, int messageId)
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message identifier.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum Id.
+        /// </param>
+        public static void ApproveMessage(this IRepository<Message> repository, int messageId, int forumId)
         {
             CodeContracts.VerifyNotNull(repository);
 
             repository.DbFunction.Query.message_approve(MessageID: messageId);
+
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
 
             repository.FireUpdated(messageId);
         }
@@ -420,8 +443,14 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="messageID">
-        /// The message id.
+        /// <param name="forumId">
+        /// The forum Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
         /// </param>
         /// <param name="isModeratorChanged">
         /// The is moderator changed.
@@ -437,15 +466,19 @@ namespace YAF.Core.Model
         /// </param>
         public static void Delete(
             this IRepository<Message> repository,
-            [NotNull] int messageID,
+            [NotNull] int forumId,
+            [NotNull] int topicId,
+            [NotNull] int messageId,
             bool isModeratorChanged,
             [NotNull] string deleteReason,
             int isDeleteAction,
             bool deleteLinked)
         {
-            repository.Delete(messageID, isModeratorChanged, deleteReason, isDeleteAction, deleteLinked, false);
+            CodeContracts.VerifyNotNull(repository);
 
-            repository.FireDeleted(messageID);
+            repository.Delete(forumId, topicId, messageId, isModeratorChanged, deleteReason, isDeleteAction, deleteLinked, false);
+
+            repository.FireDeleted(messageId);
         }
 
         /// <summary>
@@ -454,8 +487,14 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="messageID">
-        /// The message id.
+        /// <param name="forumId">
+        /// The forum Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
         /// </param>
         /// <param name="isModeratorChanged">
         /// The is moderator changed.
@@ -474,20 +513,28 @@ namespace YAF.Core.Model
         /// </param>
         public static void Delete(
             this IRepository<Message> repository,
-            [NotNull] int messageID,
+            [NotNull] int forumId,
+            [NotNull] int topicId,
+            [NotNull] int messageId,
             bool isModeratorChanged,
             [NotNull] string deleteReason,
             int isDeleteAction,
             bool deleteLinked,
             bool eraseMessage)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.DeleteRecursively(
-                messageID,
+                messageId,
                 isModeratorChanged,
                 deleteReason,
                 isDeleteAction,
                 deleteLinked,
                 eraseMessage);
+
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(forumId, topicId));
+
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
         }
 
         /// <summary>
@@ -496,33 +543,42 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="messageID">
-        /// The message id.
+        /// <param name="messageId">
+        /// The message Id.
         /// </param>
-        /// <param name="moveToTopic">
-        /// The move to topic.
+        /// <param name="moveToTopicId">
+        /// The move To Topic Id.
         /// </param>
         /// <param name="moveAll">
         /// The move all.
         /// </param>
         public static void Move(
             this IRepository<Message> repository,
-            [NotNull] int messageID,
-            [NotNull] int moveToTopic,
+            [NotNull] int messageId,
+            [NotNull] int moveToTopicId,
             bool moveAll)
         {
-            repository.DbFunction.Scalar.message_move(MessageID: messageID, MoveToTopic: moveToTopic);
+            CodeContracts.VerifyNotNull(repository);
 
-            if (!moveAll)
+            repository.DbFunction.Scalar.message_move(MessageID: messageId, MoveToTopic: moveToTopicId);
+
+            if (moveAll)
             {
-                return;
+                // moveAll=true anyway
+                // it's in charge of moving answers of moved post
+                var replies = repository.Get(m => m.ReplyTo == messageId).Select(x => x.ID);
+
+                replies.ForEach(replyId => repository.MoveRecursively(replyId, moveToTopicId));
             }
 
-            // moveAll=true anyway
-            // it's in charge of moving answers of moved post
-            var replies = repository.Get(m => m.ReplyTo == messageID).Select(x => x.ID);
+            var newForumId = BoardContext.Current.GetRepository<Topic>().GetById(moveToTopicId).ForumID;
+            var oldTopic = BoardContext.Current.GetRepository<Topic>().GetTopicFromMessage(messageId);
 
-            replies.ForEach(replyId => repository.MoveRecursively(replyId, moveToTopic));
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(newForumId, moveToTopicId));
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(oldTopic.ForumID, oldTopic.ID));
+
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(newForumId));
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(oldTopic.ForumID));
         }
 
         /// <summary>
@@ -540,6 +596,8 @@ namespace YAF.Core.Model
         [NotNull]
         public static List<Tuple<Message, User>> Replies(this IRepository<Message> repository, [NotNull] int messageId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
             expression.Join<User>((message, user) => user.ID == message.UserID).Where<Message>(
@@ -580,6 +638,8 @@ namespace YAF.Core.Model
             [NotNull] bool showDeleted,
             [NotNull] int authorUserId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             // Make sure there are no more DateTime.MinValues coming from db.
             if (lastRead == DateTime.MinValue)
             {
@@ -593,56 +653,6 @@ namespace YAF.Core.Model
                 LastRead: lastRead,
                 ShowDeleted: showDeleted,
                 AuthorUserID: authorUserId);
-        }
-
-        /// <summary>
-        /// Retrieve all reported messages with the correct forumID argument.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable ListReportedAsDataTable(this IRepository<Message> repository, [NotNull] int forumId)
-        {
-            return repository.DbFunction.GetData.message_listreported(ForumID: forumId);
-        }
-
-        /// <summary>
-        /// Save reported message back to the database.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="reportedDateTime">
-        /// The reported date time.
-        /// </param>
-        /// <param name="reportText">
-        /// The report text.
-        /// </param>
-        public static void Report(
-            this IRepository<Message> repository,
-            [NotNull] int messageId,
-            [NotNull] int userId,
-            [NotNull] DateTime reportedDateTime,
-            [NotNull] string reportText)
-        {
-            repository.DbFunction.Scalar.message_report(
-                MessageID: messageId,
-                ReporterID: userId,
-                ReportedDate: reportedDateTime,
-                ReportText: reportText,
-                UTCTIMESTAMP: DateTime.UtcNow);
         }
 
         /// <summary>
@@ -666,11 +676,21 @@ namespace YAF.Core.Model
             [NotNull] int messageId,
             [NotNull] int userId)
         {
-            repository.DbFunction.Scalar.message_reportresolve(
-                MessageFlag: messageFlag,
-                MessageID: messageId,
-                UserID: userId,
-                UTCTIMESTAMP: DateTime.UtcNow);
+            CodeContracts.VerifyNotNull(repository);
+
+            BoardContext.Current.GetRepository<MessageReported>().UpdateOnly(
+                () => new MessageReported { Resolved = true, ResolvedBy = userId, ResolvedDate = DateTime.UtcNow },
+                m => m.ID == messageId);
+
+            var flags = new MessageFlags(
+                repository.DbAccess.Execute(
+                    db => db.Connection.Scalar<Message, int>(m => m.Flags, m => m.ID == messageId)));
+
+            flags.IsReported = false;
+
+            repository.UpdateFlags(messageId, flags.BitValue);
+
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
         }
 
         /// <summary>
@@ -678,6 +698,9 @@ namespace YAF.Core.Model
         /// </summary>
         /// <param name="repository">
         /// The repository.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum Id.
         /// </param>
         /// <param name="topicId">
         /// The topic Id.
@@ -708,7 +731,8 @@ namespace YAF.Core.Model
         /// </returns>
         public static int SaveNew(
             this IRepository<Message> repository,
-            [NotNull] long topicId,
+            [NotNull] int forumId,
+            [NotNull] int topicId,
             [NotNull] int userId,
             [NotNull] string message,
             [NotNull] string guestUserName,
@@ -717,34 +741,54 @@ namespace YAF.Core.Model
             [CanBeNull] int? replyTo,
             [NotNull] MessageFlags flags)
         {
-            IDbDataParameter parameterMessage = null;
+            CodeContracts.VerifyNotNull(repository);
 
-            repository.SqlList(
-                "message_save",
-                cmd =>
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
+            int position;
 
-                        cmd.AddParam("TopicID", topicId);
-                        cmd.AddParam("UserID", userId);
-                        cmd.AddParam("Message", message);
-                        cmd.AddParam("UserName", guestUserName);
-                        cmd.AddParam("IP", ipAddress);
-                        cmd.AddParam("Posted", posted);
-                        cmd.AddParam("ReplyTo", replyTo);
-                        cmd.AddParam("BlogPostID", null);
-                        cmd.AddParam("Flags", flags.BitValue);
-                        cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+            var maxPosition = repository.DbAccess.Execute(
+                db => db.Connection.Scalar<Message, int?>(m => Sql.Max(m.Position), m => m.TopicID == topicId));
 
-                        parameterMessage = cmd.AddParam("MessageID", direction: ParameterDirection.Output);
-                    });
+            if (maxPosition.HasValue)
+            {
+                // Normal Reply
+                position = maxPosition.Value + 1;
+            }
+            else
+            {
+                // New Topic
+                position = 0;
+            }
 
-            var messageId = parameterMessage.Value.ToType<int>();
+            // Add points to Users total reputation points
+            if (!BoardContext.Current.IsGuest)
+            {
+                BoardContext.Current.GetRepository<User>().UpdateAdd(() => new User { Points = 3 }, u => u.ID == userId);
+            }
+
+            var replaceName = BoardContext.Current.IsGuest ? guestUserName : BoardContext.Current.User.DisplayName;
+
+            var newMessageId = repository.Insert(new Message
+            {
+                UserID = userId,
+                MessageText = message,
+                TopicID = topicId,
+                Posted = posted,
+                UserName = guestUserName,
+                UserDisplayName = replaceName,
+                IP = ipAddress,
+                ReplyTo = replyTo,
+                Position = position,
+                Indent = 0,
+                Flags = flags.BitValue,
+                BlogPostID = null,
+                ExternalMessageId = null,
+                ReferenceMessageId = null
+            });
 
             // Add to search index
             var newMessage = new SearchMessage
                                     {
-                                        MessageId = messageId,
+                                        MessageId = newMessageId,
                                         Message = message,
                                         Flags = flags.BitValue,
                                         Posted = posted.ToString(CultureInfo.InvariantCulture),
@@ -754,7 +798,7 @@ namespace YAF.Core.Model
                                         UserId = BoardContext.Current.PageUserID,
                                         TopicId = BoardContext.Current.PageTopicID,
                                         Topic = BoardContext.Current.PageTopicName,
-                                        ForumId = BoardContext.Current.PageForumID,
+                                        ForumId = forumId,
                                         TopicTags = string.Empty,
                                         ForumName = BoardContext.Current.PageForumName,
                                         Description = string.Empty
@@ -762,9 +806,15 @@ namespace YAF.Core.Model
 
             BoardContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
 
-            repository.FireNew(messageId);
+            if (flags.IsApproved)
+            {
+                repository.ApproveMessage(newMessageId, forumId);
+                BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
+            }
 
-            return messageId;
+            repository.FireNew(newMessageId);
+
+            return newMessageId;
         }
 
         /// <summary>
@@ -794,7 +844,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The message_update.
+        /// Updating the Message (Post)
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -838,7 +888,7 @@ namespace YAF.Core.Model
         public static void Update(
             this IRepository<Message> repository,
             [NotNull] int messageId,
-            [CanBeNull] int? priority,
+            [CanBeNull] short? priority,
             [NotNull] string message,
             [CanBeNull] string description,
             [CanBeNull] string status,
@@ -846,25 +896,80 @@ namespace YAF.Core.Model
             [CanBeNull] string subject,
             [NotNull] string reasonOfEdit,
             [NotNull] bool isModeratorChanged,
-            [NotNull] bool? overrideApproval,
+            [NotNull] bool overrideApproval,
             [NotNull] Tuple<Topic, Message, User, Forum> originalMessage,
             [NotNull] int editedBy)
         {
-            repository.DbFunction.Scalar.message_update(
-                MessageID: messageId,
-                Priority: priority,
-                Message: message,
-                Description: description,
-                Status: status,
-                Styles: styles,
-                Subject: subject,
-                Flags: originalMessage.Item1.Flags,
-                Reason: reasonOfEdit,
-                EditedBy: editedBy,
-                IsModeratorChanged: isModeratorChanged,
-                OverrideApproval: overrideApproval,
-                OriginalMessage: originalMessage.Item2.MessageText,
-                CurrentUtcTimestamp: DateTime.UtcNow);
+            CodeContracts.VerifyNotNull(repository);
+
+            if (overrideApproval || !originalMessage.Item4.ForumFlags.IsModerated)
+            {
+                originalMessage.Item2.MessageFlags.IsApproved = true;
+            }
+
+            if (BoardContext.Current.GetRepository<MessageHistory>()
+                .Exists(m => m.MessageID == originalMessage.Item2.ID))
+            {
+                // -- insert current message variant - use OriginalMessage in future
+                BoardContext.Current.GetRepository<MessageHistory>().Insert(new MessageHistory
+                {
+                    MessageID = originalMessage.Item2.ID,
+                    Message = originalMessage.Item2.MessageText,
+                    IP = originalMessage.Item2.IP,
+                    Edited = DateTime.UtcNow,
+                    EditedBy = editedBy,
+                    EditReason = reasonOfEdit,
+                    IsModeratorChanged = originalMessage.Item2.IsModeratorChanged.Value,
+                    Flags = originalMessage.Item2.Flags
+                });
+            }
+            else
+            {
+                // -- save original message in the history if this is the first edit
+                BoardContext.Current.GetRepository<MessageHistory>().Insert(new MessageHistory
+                {
+                    MessageID = originalMessage.Item2.ID,
+                    Message = originalMessage.Item2.MessageText,
+                    IP = originalMessage.Item2.IP,
+                    Edited = originalMessage.Item2.Posted,
+                    EditedBy = originalMessage.Item2.UserID,
+                    EditReason = null,
+                    IsModeratorChanged = originalMessage.Item2.IsModeratorChanged.Value,
+                    Flags = originalMessage.Item2.Flags
+                });
+            }
+
+            repository.UpdateOnly(
+                () => new Message
+                {
+                    MessageText = message,
+                    Edited = DateTime.UtcNow,
+                    EditedBy = editedBy,
+                    Flags = originalMessage.Item2.MessageFlags.BitValue,
+                    IsModeratorChanged = isModeratorChanged,
+                    EditReason = reasonOfEdit
+                },
+                m => m.ID == originalMessage.Item2.ID);
+
+            if (priority.HasValue)
+            {
+                BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+                    () => new Topic
+                    {
+                        Priority = priority.Value
+                    },
+                    t => t.ID == originalMessage.Item1.ID);
+            }
+
+            if (subject.IsSet())
+            {
+                BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+                    () => new Topic
+                    {
+                        TopicName = subject, Description = description, Status = status, Styles = styles
+                    },
+                    t => t.ID == originalMessage.Item1.ID);
+            }
 
             // Update Search index Item
             var updateMessage = new SearchMessage
@@ -885,6 +990,13 @@ namespace YAF.Core.Model
                                     };
 
             BoardContext.Current.Get<ISearch>().UpdateSearchIndexItem(updateMessage, true);
+
+            if (originalMessage.Item4.ForumFlags.IsModerated)
+            {
+                // If forum is moderated, make sure last post pointers are correct
+                BoardContext.Current.Get<IRaiseEvent>().Raise(
+                    new UpdateTopicLastPostEvent(originalMessage.Item4.ID, originalMessage.Item1.ID));
+            }
         }
 
         /// <summary>
@@ -907,6 +1019,8 @@ namespace YAF.Core.Model
             int messageId,
             int daysToClean)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbFunction.GetData.messagehistory_list(
                 MessageID: messageId,
                 DaysToClean: daysToClean,
@@ -948,21 +1062,26 @@ namespace YAF.Core.Model
             bool deleteLinked,
             bool eraseMessages)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var useFileTable = BoardContext.Current.Get<BoardSettings>().UseFileTable;
 
             if (deleteLinked)
             {
                 // Delete replies
-                var replies = repository.Get(m => m.ReplyTo == messageID).Select(x => x.ID);
+                var replies = repository.Get(m => m.ReplyTo == messageID).Select(x => x.ID).ToList();
 
-                replies.ForEach(
-                    replyId => repository.DeleteRecursively(
-                        replyId,
-                        isModeratorChanged,
-                        deleteReason,
-                        isDeleteAction,
-                        true,
-                        eraseMessages));
+                if (replies.Any())
+                {
+                    replies.ForEach(
+                        replyId => repository.DeleteRecursively(
+                            replyId,
+                            isModeratorChanged,
+                            deleteReason,
+                            isDeleteAction,
+                            true,
+                            eraseMessages));
+                }
             }
 
             // If the files are actually saved in the Hard Drive
@@ -1014,6 +1133,8 @@ namespace YAF.Core.Model
             [NotNull] int messageID,
             [NotNull] int moveToTopic)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var replies = repository.Get(m => m.ReplyTo == messageID).Select(x => x.ID);
 
             replies.ForEach(replyId => repository.MoveRecursively(replyId, moveToTopic));

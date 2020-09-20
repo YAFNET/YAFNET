@@ -21,38 +21,49 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Types.EventProxies
 {
-    using YAF.Types.Interfaces;
+    #region Using
+
     using YAF.Types.Interfaces.Events;
 
+    #endregion
+
     /// <summary>
-    /// The import static data event.
+    /// The update topic last post event.
     /// </summary>
-    public class ImportStaticDataEvent : IAmEvent, IHaveBoardID
+    public class UpdateTopicLastPostEvent : IAmEvent
     {
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ImportStaticDataEvent"/> class.
+        /// Initializes a new instance of the <see cref="UpdateTopicLastPostEvent"/> class.
         /// </summary>
-        /// <param name="boardId">
-        /// The board id.
+        /// <param name="forumId">
+        /// The forum id.
         /// </param>
-        public ImportStaticDataEvent(int boardId)
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        public UpdateTopicLastPostEvent(int? forumId, int? topicId)
         {
-            this.BoardID = boardId;
+            this.ForumId = forumId;
+            this.TopicId = topicId;
         }
 
         #endregion
 
-        #region Public Properties
+        #region Properties
 
         /// <summary>
-        /// Gets the board id.
+        /// Gets or sets the forum id.
         /// </summary>
-        public int BoardID { get; }
+        public int? ForumId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the topic id.
+        /// </summary>
+        public int? TopicId { get; set; }
 
         #endregion
     }

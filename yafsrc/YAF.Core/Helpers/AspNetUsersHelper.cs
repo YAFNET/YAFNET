@@ -333,10 +333,18 @@ namespace YAF.Core.Helpers
             dt.ForEach(dr => this.Get<IAlbum>().AlbumImageDelete(uploadDir, dr.ID, userID, null));
 
             // delete posts...
-            var messageIds = this.GetRepository<Message>().GetAllUserMessages(userID).Select(m => m.ID).Distinct()
+            var messages = this.GetRepository<Message>().GetAllUserMessages(userID).Distinct()
                 .ToList();
 
-            messageIds.ForEach(x => this.GetRepository<Message>().Delete(x, true, string.Empty, 1, true));
+            messages.ForEach(
+                x => this.GetRepository<Message>().Delete(
+                    x.Item2.ForumID,
+                    x.Item2.ID,
+                    x.Item1.ID,
+                    true,
+                    string.Empty,
+                    1,
+                    true));
 
             this.Get<AspNetUsersManager>().Delete(user);
             this.GetRepository<User>().Delete(userID);

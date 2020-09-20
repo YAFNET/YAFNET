@@ -171,7 +171,7 @@ namespace YAF.Pages
             }
 
             if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.AllowCreateTopicsSameName)
-                && this.GetRepository<Topic>().CheckForDuplicateTopic(this.TopicSubjectTextBox.Text.Trim()))
+                && this.GetRepository<Topic>().CheckForDuplicate(this.TopicSubjectTextBox.Text.Trim()))
             {
                 this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
                 return false;

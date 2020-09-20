@@ -21,38 +21,65 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-namespace YAF.Types.EventProxies
+namespace YAF.Core.Events
 {
+    using YAF.Core.Model;
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Models;
 
     /// <summary>
-    /// The import static data event.
+    /// The update Topic last post.
     /// </summary>
-    public class ImportStaticDataEvent : IAmEvent, IHaveBoardID
+    [ExportService(ServiceLifetimeScope.OwnedByContainer)]
+    public class UpdateTopicLastPost : IHaveServiceLocator, IHandleEvent<UpdateTopicLastPostEvent>
     {
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ImportStaticDataEvent"/> class.
+        /// Initializes a new instance of the <see cref="UpdateTopicLastPost"/> class.
         /// </summary>
-        /// <param name="boardId">
-        /// The board id.
+        /// <param name="serviceLocator">
+        /// The service locator.
         /// </param>
-        public ImportStaticDataEvent(int boardId)
+        public UpdateTopicLastPost([NotNull] IServiceLocator serviceLocator)
         {
-            this.BoardID = boardId;
+            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
+
+            this.ServiceLocator = serviceLocator;
         }
 
         #endregion
-
+        
         #region Public Properties
 
         /// <summary>
-        /// Gets the board id.
+        ///   Gets or sets ServiceLocator.
         /// </summary>
-        public int BoardID { get; }
+        public IServiceLocator ServiceLocator { get; set; }
+
+        /// <summary>
+        ///     Gets the order.
+        /// </summary>
+        public int Order => 10000;
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// The handle.
+        /// </summary>
+        /// <param name="event">
+        /// The event.
+        /// </param>
+        public void Handle(UpdateTopicLastPostEvent @event)
+        {
+            this.GetRepository<Topic>().UpdateLastPost(@event.ForumId, @event.TopicId);
+        }
 
         #endregion
     }

@@ -77,7 +77,7 @@ namespace YAF.Core.Handlers
         {
             var siteMap = new SiteMap();
 
-            var forumList = this.GetRepository<Forum>().ListAll(
+            var forumList = this.GetRepository<Forum>().ListAllWithAccess(
                 BoardContext.Current.BoardSettings.BoardID,
                 this.Get<IAspNetUsersHelper>().GuestUserId);
 

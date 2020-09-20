@@ -1155,7 +1155,6 @@ namespace YAF.Web.Controls
                 {
                     while (true)
                     {
-                        var local_18_3 = true;
                         if (local_6.MoveNext())
                         {
                             var local_7 = (DictionaryEntry)local_6.Current;
@@ -1313,7 +1312,6 @@ namespace YAF.Web.Controls
                 {
                     while (true)
                     {
-                        var local_23_3 = true;
                         if (local_4.MoveNext())
                         {
                             var local_5 = (DictionaryEntry)local_4.Current;

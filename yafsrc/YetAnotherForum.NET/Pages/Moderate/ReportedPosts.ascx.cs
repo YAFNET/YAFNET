@@ -27,6 +27,7 @@ namespace YAF.Pages.Moderate
     #region Using
 
     using System;
+    using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
 
@@ -36,9 +37,12 @@ namespace YAF.Pages.Moderate
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
@@ -107,12 +111,49 @@ namespace YAF.Pages.Moderate
         }
 
         /// <summary>
+        /// The list_ on item data bound.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void List_OnItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+            {
+                return;
+            }
+
+            var message = (dynamic)e.Item.DataItem;
+
+            var messagePostData = e.Item.FindControlAs<MessagePostData>("MessagePostPrimary");
+
+            messagePostData.MessageID = message.MessageID;
+
+            messagePostData.CurrentMessage = new Message
+            {
+                MessageFlags = new MessageFlags(message.Flags),
+                MessageText = message.OriginalMessage
+            };
+        }
+
+        /// <summary>
         /// Bind data for this control.
         /// </summary>
         private void BindData()
         {
             // get reported posts for this forum
-            this.List.DataSource = this.GetRepository<Message>().ListReportedAsDataTable(this.PageContext.PageForumID);
+            var dt = this.GetRepository<MessageReported>().ListReportedAsDataTable(this.PageContext.PageForumID);
+
+            if (!dt.Any())
+            {
+                // nope -- redirect back to the moderate main...
+                BuildLink.Redirect(ForumPages.Moderate_Index);
+            }
+            
+            this.List.DataSource = dt;
 
             // bind data to controls
             this.DataBind();
@@ -130,14 +171,23 @@ namespace YAF.Pages.Moderate
             {
                 case "delete":
 
-                    // delete message
-                    this.GetRepository<Message>().Delete(e.CommandArgument.ToType<int>(), true, string.Empty, 1, true);
+                    var commandArgs = e.CommandArgument.ToString().Split(';');
 
-                    // re-bind data
-                    this.BindData();
+                    var topicId = commandArgs[1].ToType<int>();
+                    var messageId = commandArgs[0].ToType<int>();
+
+                    // delete message
+                    this.GetRepository<Message>().Delete(
+                        this.PageContext.PageForumID,
+                        topicId,
+                        messageId,
+                        true,
+                        string.Empty,
+                        1,
+                        true);
 
                     // tell user message was deleted
-                    this.PageContext.AddLoadMessage(this.GetText("DELETED"), MessageTypes.info);
+                    this.PageContext.LoadMessage.AddSession(this.GetText("DELETED"), MessageTypes.info);
                     break;
                 case "view":
 
@@ -149,9 +199,6 @@ namespace YAF.Pages.Moderate
                         this.GetRepository<Topic>().GetNameFromMessage(e.CommandArgument.ToType<int>()));
                     break;
                 case "copyover":
-
-                    // re-bind data
-                    this.BindData();
 
                     var message = this.GetRepository<Message>().GetById(e.CommandArgument.ToType<int>());
 
@@ -170,22 +217,12 @@ namespace YAF.Pages.Moderate
                     // mark message as resolved
                     this.GetRepository<Message>().ReportResolve(7, e.CommandArgument.ToType<int>(), this.PageContext.PageUserID);
 
-                    // re-bind data
-                    this.BindData();
-
                     // tell user message was flagged as resolved
-                    this.PageContext.AddLoadMessage(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.success);
+                    this.PageContext.LoadMessage.AddSession(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.success);
                     break;
             }
 
-            // see if there are any items left...
-            var dt = this.GetRepository<Message>().ListReportedAsDataTable(this.PageContext.PageForumID);
-
-            if (!dt.HasRows())
-            {
-                // nope -- redirect back to the moderate main...
-                BuildLink.Redirect(ForumPages.Moderate_Index);
-            }
+            this.BindData();
         }
 
         #endregion

@@ -28,7 +28,7 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-
+    
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
@@ -208,6 +208,30 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
+        /// Lists all forums by Board Id
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        public static List<Tuple<Forum, Category>> ListAll(
+            [NotNull] this IRepository<Forum> repository,
+            [NotNull] int boardId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+            expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                .Where<Forum, Category>((forum, category) => category.BoardID == boardId)
+                .OrderBy<Category>(c => c.SortOrder).ThenBy<Forum>(f => f.SortOrder).ThenBy<Category>(c => c.ID)
+                .ThenBy<Forum>(f => f.ID);
+
+            return repository.DbAccess.Execute(
+                db => db.Connection.SelectMulti<Forum, Category>(expression));
+        }
+
+        /// <summary>
         /// Lists all forums accessible to a user
         /// </summary>
         /// <param name="repository">
@@ -219,10 +243,7 @@ namespace YAF.Core.Model
         /// <param name="userId">
         /// The user Id.
         /// </param>
-        /// <returns>
-        /// DataTable of all accessible forums
-        /// </returns>
-        public static List<Tuple<Forum, Category, ActiveAccess>> ListAll(
+        public static List<Tuple<Forum, Category, ActiveAccess>> ListAllWithAccess(
             [NotNull] this IRepository<Forum> repository,
             [NotNull] int boardId,
             [NotNull] int userId)
@@ -348,7 +369,7 @@ namespace YAF.Core.Model
             [NotNull] int userID,
             bool emptyFirstRow)
         {
-            var list = repository.ListAll(boardID, userID);
+            var list = repository.ListAllWithAccess(boardID, userID);
 
             return repository.SortList(list, 0, 0, 0, emptyFirstRow);
         }
@@ -461,16 +482,47 @@ namespace YAF.Core.Model
         /// <returns>
         /// Indicate that forum has been deleted
         /// </returns>
-        public static bool Delete(this IRepository<Forum> repository, [NotNull] int forumID)
+        public static bool Delete(this IRepository<Forum> repository, [NotNull] int forumId)
         {
-            if (repository.Exists(f => f.ParentID == forumID))
+            if (repository.Exists(f => f.ParentID == forumId))
             {
                 return false;
             }
 
-            repository.DbFunction.Scalar.forum_delete(ForumID: forumID);
+            repository.UpdateOnly(
+                () => new Forum { LastMessageID = null, LastTopicID = null },
+                f => f.ID == forumId);
 
-            repository.FireDeleted(forumID);
+            BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+                () => new Topic { LastMessageID = null },
+                f => f.ID == forumId);
+
+            BoardContext.Current.GetRepository<Active>().Delete(x => x.ForumID == forumId);
+
+            BoardContext.Current.GetRepository<WatchForum>().Delete(x => x.ForumID == forumId);
+            BoardContext.Current.GetRepository<ForumReadTracking>().Delete(x => x.ForumID == forumId);
+
+
+            // --- Delete topics, messages and attachments
+            var topics = BoardContext.Current.GetRepository<Topic>().Get(g => g.ForumID == forumId);
+
+            topics.ForEach(
+                t =>
+                {
+                    BoardContext.Current.GetRepository<WatchTopic>().Delete(x => x.TopicID == t.ID);
+                    BoardContext.Current.GetRepository<NntpTopic>().Delete(x => x.TopicID == t.ID);
+
+                    repository.DbFunction.Scalar.topic_delete(TopicID: t.ID, EraseTopic: 1);
+                });
+
+            BoardContext.Current.GetRepository<NntpForum>().Delete(x => x.ForumID == forumId);
+            BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.ForumID == forumId);
+            BoardContext.Current.GetRepository<UserForum>().Delete(x => x.ForumID == forumId);
+            BoardContext.Current.GetRepository<Forum>().DeleteById(forumId);
+
+            //repository.DbFunction.Scalar.forum_delete(ForumID: forumID);
+
+            repository.FireDeleted(forumId);
 
             return true;
         }
@@ -581,6 +633,57 @@ namespace YAF.Core.Model
             forumListSorted.AcceptChanges();
 
             return forumListSorted;
+        }
+
+        /// <summary>
+        /// Updates the Forum Stats (Posts and Topics Count).
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="forumId">The forum identifier.</param>
+        public static void UpdateStats([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
+
+            expression.Join<Forum>((t, f) => f.ID == t.ForumID)
+                .Where<Topic, Forum>((t, f) => (f.ID == forumId || f.ParentID == forumId) && t.IsDeleted == false)
+                .Select<Topic, Forum>(
+                    (t, f) => new { PostsCount = Sql.Sum(t.NumPosts), TopicsCount = Sql.Count(t.ID), });
+
+            var (postsCount, topicsCount) = repository.DbAccess
+                .Execute(db => db.Connection.Select<(int postsCount, int topicsCount)>(expression)).FirstOrDefault();
+
+            repository.UpdateOnly(
+                () => new Forum { NumPosts = postsCount, NumTopics = topicsCount },
+                f => f.ID == forumId);
+        }
+
+        /// <summary>
+        /// Updates the Forum Last Post.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="forumId">The forum identifier.</param>
+        public static void UpdateLastPost([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
+
+            expression.Join<Message>((t, m) => m.TopicID == t.ID)
+                .Where<Topic, Message>((t, m) => t.ForumID == forumId && t.IsDeleted == false && (m.Flags & 24) == 16)
+                .OrderByDescending<Message>(m => m.Posted);
+
+            var message = repository.DbAccess
+                .Execute(db => db.Connection.Select<Message>(expression)).FirstOrDefault();
+
+            repository.UpdateOnly(
+                () => new Forum
+                {
+                    LastPosted = message.Posted,
+                    LastTopicID = message.TopicID,
+                    LastMessageID = message.ID,
+                    LastUserID = message.UserID,
+                    LastUserName = message.UserName,
+                    LastUserDisplayName = message.UserDisplayName
+                },
+                f => f.ID == forumId);
         }
 
         #endregion

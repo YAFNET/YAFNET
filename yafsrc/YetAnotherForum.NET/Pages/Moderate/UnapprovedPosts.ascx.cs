@@ -178,7 +178,9 @@ namespace YAF.Pages.Moderate
                 case "approve":
 
                     // approve post
-                    this.GetRepository<Message>().ApproveMessage(e.CommandArgument.ToType<int>());
+                    this.GetRepository<Message>().ApproveMessage(
+                        e.CommandArgument.ToType<int>(),
+                        this.PageContext.PageForumID);
 
                     // re-bind data
                     this.BindData();
@@ -191,8 +193,20 @@ namespace YAF.Pages.Moderate
                     break;
                 case "delete":
 
+                    var commandArgs = e.CommandArgument.ToString().Split(';');
+
+                    var topicId = commandArgs[1].ToType<int>();
+                    var messageId = commandArgs[0].ToType<int>();
+
                     // delete message
-                    this.GetRepository<Message>().Delete(e.CommandArgument.ToType<int>(), true, string.Empty, 1, true);
+                    this.GetRepository<Message>().Delete(
+                        this.PageContext.PageForumID,
+                        topicId,
+                        messageId,
+                        true,
+                        string.Empty,
+                        1,
+                        true);
 
                     // re-bind data
                     this.BindData();

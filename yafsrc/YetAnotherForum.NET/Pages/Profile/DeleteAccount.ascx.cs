@@ -27,7 +27,6 @@ namespace YAF.Pages.Profile
     #region Using
 
     using System;
-    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
@@ -165,10 +164,16 @@ namespace YAF.Pages.Profile
                         // delete posts...
                         var messages = this.GetRepository<Message>().GetAllUserMessages(this.PageContext.PageUserID);
 
-                        var messageIds = messages.Select(m => m.ID).Distinct().ToList();
-
-                        messageIds.ForEach(
-                            x => this.GetRepository<Message>().Delete(x, true, string.Empty, 1, true, false));
+                        messages.ForEach(
+                            x => this.GetRepository<Message>().Delete(
+                                x.Item2.ForumID,
+                                x.Item2.ID,
+                                x.Item1.ID,
+                                true,
+                                string.Empty,
+                                1,
+                                true,
+                                false));
 
                         this.Get<ILogger>().UserDeleted(
                             this.PageContext.PageUserID,

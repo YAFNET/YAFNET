@@ -139,7 +139,7 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            this.GetRepository<Topic>().Delete(this.PageContext.PageTopicID, true);
+            this.GetRepository<Topic>().Delete(this.PageContext.PageForumID, this.PageContext.PageTopicID, true);
 
             BuildLink.Redirect(
                 ForumPages.Topics,
@@ -179,7 +179,7 @@ namespace YAF.Pages
 
             this.topic.TopicFlags.IsLocked = true;
 
-            this.GetRepository<Topic>().LockTopic(
+            this.GetRepository<Topic>().Lock(
                 this.PageContext.PageTopicID,
                 this.topic.TopicFlags.BitValue);
 
@@ -229,7 +229,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void NextTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var nextTopic = this.GetRepository<Topic>().FindNextTopic(this.topic);
+            var nextTopic = this.GetRepository<Topic>().FindNext(this.topic);
 
             if (nextTopic == null)
             {
@@ -593,7 +593,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void PrevTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var previousTopic = this.GetRepository<Topic>().FindPreviousTopic(this.topic);
+            var previousTopic = this.GetRepository<Topic>().FindPrevious(this.topic);
 
             if (previousTopic == null)
             {
@@ -658,7 +658,7 @@ namespace YAF.Pages
 
             this.topic.TopicFlags.IsLocked = false;
 
-            this.GetRepository<Topic>().LockTopic(
+            this.GetRepository<Topic>().Lock(
                 this.PageContext.PageTopicID,
                 this.topic.TopicFlags.BitValue);
 

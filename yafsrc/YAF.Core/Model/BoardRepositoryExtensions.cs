@@ -213,22 +213,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Re-Sync the Board
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        public static void ReSync(this IRepository<Board> repository, int? boardID = null)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            repository.DbFunction.Query.board_resync(BoardID: boardID);
-        }
-
-        /// <summary>
         /// Save Board Settings (Name, Culture and Language File)
         /// </summary>
         /// <param name="repository">The repository.</param>
@@ -304,7 +288,43 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.DbFunction.Query.board_delete(BoardID: boardId);
+            // --- Delete all forums of the board
+            var forums = BoardContext.Current.GetRepository<Forum>().ListAll(boardId);
+
+            forums.ForEach(f => BoardContext.Current.GetRepository<Forum>().Delete(f.Item1.ID));
+
+            // --- Delete user(s)
+            var users = BoardContext.Current.GetRepository<User>().Get(u => u.BoardID == boardId);
+
+            users.ForEach(u => BoardContext.Current.GetRepository<User>().Delete(u.ID));
+
+            // --- Delete Group
+            var groups = BoardContext.Current.GetRepository<Group>().Get(g => g.BoardID == boardId);
+
+            groups.ForEach(
+                g =>
+                {
+                    BoardContext.Current.GetRepository<GroupMedal>().Delete(x => x.GroupID == g.ID);
+                    BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.GroupID == g.ID);
+                    BoardContext.Current.GetRepository<UserGroup>().Delete(x => x.GroupID == g.ID);
+                    BoardContext.Current.GetRepository<Group>().Delete(x => x.ID == g.ID);
+                });
+
+            BoardContext.Current.GetRepository<Category>().Delete(x => x.BoardID == boardId);
+            BoardContext.Current.GetRepository<ActiveAccess>().Delete(x => x.BoardID == boardId);
+            BoardContext.Current.GetRepository<Active>().Delete(x => x.BoardID == boardId);
+            BoardContext.Current.GetRepository<Rank>().Delete(x => x.BoardID == boardId);
+            BoardContext.Current.GetRepository<AccessMask>().Delete(x => x.BoardID == boardId);
+            BoardContext.Current.GetRepository<BBCode>().Delete(x => x.BoardID == boardId);
+            BoardContext.Current.GetRepository<Medal>().Delete(x => x.BoardID == boardId);
+            BoardContext.Current.GetRepository<Replace_Words>().Delete(x => x.BoardID == boardId);
+            BoardContext.Current.GetRepository<Spam_Words>().Delete(x => x.BoardID == boardId);
+            BoardContext.Current.GetRepository<NntpServer>().Delete(x => x.BoardID == boardId);
+            BoardContext.Current.GetRepository<BannedIP>().Delete(x => x.BoardID == boardId);
+            BoardContext.Current.GetRepository<BannedName>().Delete(x => x.BoardID == boardId);
+            BoardContext.Current.GetRepository<BannedEmail>().Delete(x => x.BoardID == boardId);
+            BoardContext.Current.GetRepository<Registry>().Delete(x => x.BoardID == boardId);
+            BoardContext.Current.GetRepository<Board>().Delete(x => x.ID == boardId);
         }
 
         #endregion

@@ -27,7 +27,11 @@ namespace YAF.Core.Model
 
     using System;
 
+    using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -46,8 +50,8 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="nntpForumId">
-        /// The nntp forum id.
+        /// <param name="nntpForum">
+        /// The nntp Forum.
         /// </param>
         /// <param name="topic">
         /// The topic.
@@ -75,7 +79,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void SaveMessage(
             this IRepository<NntpTopic> repository,
-            [NotNull] int nntpForumId,
+            [NotNull] NntpForum nntpForum,
             [NotNull] string topic,
             [NotNull] string body,
             [NotNull] int userId,
@@ -87,17 +91,50 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.DbFunction.Scalar.nntptopic_savemessage(
-                NntpForumID: nntpForumId,
-                Topic: topic,
-                Body: body,
-                UserID: userId,
-                UserName: userName,
-                IP: ip,
-                Posted: posted,
-                ExternalMessageId: externalMessageId,
-                ReferenceMessageId: referenceMessageId,
-                UTCTIMESTAMP: DateTime.UtcNow);
+            int? topicId;
+            int? replyTo = null;
+
+            var externalMessage = BoardContext.Current.GetRepository<Message>()
+                .GetSingle(m => m.ExternalMessageId == referenceMessageId);
+
+            if (externalMessage != null)
+            {
+                // -- referenced message exists
+                topicId = externalMessage.TopicID;
+                replyTo = externalMessage.ID;
+            }
+            else
+            {
+                // --thread doesn't exists
+                var newTopic = new Topic
+                {
+                    ForumID = nntpForum.ForumID,
+                    UserID = userId,
+                    UserName = userName,
+                    UserDisplayName = userName,
+                    Posted = posted,
+                    TopicName = topic,
+                    Views = 0,
+                    Priority = 0,
+                    NumPosts = 0
+                };
+
+                topicId = BoardContext.Current.GetRepository<Topic>().Insert(newTopic);
+
+                repository.Insert(
+                    new NntpTopic { NntpForumID = nntpForum.ID, Thread = string.Empty, TopicID = topicId.Value });
+            }
+
+            BoardContext.Current.GetRepository<Message>().SaveNew(
+                nntpForum.ForumID,
+                topicId.Value,
+                userId,
+                body,
+                userName,
+                ip,
+                posted,
+                replyTo,
+                new MessageFlags(17));
         }
 
         #endregion

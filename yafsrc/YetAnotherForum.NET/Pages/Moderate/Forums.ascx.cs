@@ -173,7 +173,7 @@ namespace YAF.Pages.Moderate
             }
             else
             {
-                list.ForEach(x => this.GetRepository<Topic>().Delete(x.TopicRowID.Value));
+                list.ForEach(x => this.GetRepository<Topic>().Delete(this.PageContext.PageForumID, x.TopicRowID.Value));
 
                 this.PageContext.AddLoadMessage(this.GetText("moderate", "deleted"), MessageTypes.success);
 
@@ -220,8 +220,9 @@ namespace YAF.Pages.Moderate
                 else
                 {
                     list.ForEach(
-                        x => this.GetRepository<Topic>().MoveTopic(
+                        x => this.GetRepository<Topic>().Move(
                             x.TopicRowID.Value,
+                            this.PageContext.PageForumID,
                             this.ForumList.SelectedValue.ToType<int>(),
                             this.LeavePointer.Checked,
                             linkDays.Value));

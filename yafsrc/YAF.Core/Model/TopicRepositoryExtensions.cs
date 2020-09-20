@@ -37,10 +37,12 @@ namespace YAF.Core.Model
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
 
     #endregion
@@ -51,6 +53,30 @@ namespace YAF.Core.Model
     public static class TopicRepositoryExtensions
     {
         #region Public Methods and Operators
+
+        /// <summary>
+        /// Get the Topic From Message.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Topic"/>.
+        /// </returns>
+        public static Topic GetTopicFromMessage(this IRepository<Topic> repository, [NotNull] int messageId)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.ID == messageId);
+
+            return repository.DbAccess.Execute(db => db.Connection.Select<Topic>(expression))
+                .FirstOrDefault();
+        }
 
         /// <summary>
         /// Attach a Poll to a Topic
@@ -87,16 +113,11 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
-
-            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.ID == messageId);
-
             string topicName;
 
             try
             {
-                topicName = repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic>(expression))
-                    .FirstOrDefault().Item2.TopicName;
+                topicName = repository.GetTopicFromMessage(messageId).TopicName;
             }
             catch (Exception)
             {
@@ -155,7 +176,7 @@ namespace YAF.Core.Model
         /// <param name="repository">The repository.</param>
         /// <param name="topicId">The topic identifier.</param>
         /// <param name="flags">The topic flags.</param>
-        public static void LockTopic(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] int flags)
+        public static void Lock(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] int flags)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -866,6 +887,7 @@ namespace YAF.Core.Model
             var newTopicId = repository.Insert(topic);
 
             messageId = BoardContext.Current.GetRepository<Message>().SaveNew(
+                forumId,
                 newTopicId,
                 userId,
                 message,
@@ -884,7 +906,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The topic_move.
+        /// Move the Topic.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -892,8 +914,11 @@ namespace YAF.Core.Model
         /// <param name="topicId">
         /// The topic id.
         /// </param>
-        /// <param name="forumId">
-        /// The forum id.
+        /// <param name="oldForumId">
+        /// The old Forum Id.
+        /// </param>
+        /// <param name="newForumId">
+        /// The new Forum Id.
         /// </param>
         /// <param name="showMoved">
         /// The show moved.
@@ -901,10 +926,11 @@ namespace YAF.Core.Model
         /// <param name="linkDays">
         /// The link Days.
         /// </param>
-        public static void MoveTopic(
+        public static void Move(
             this IRepository<Topic> repository,
             [NotNull] int topicId,
-            [NotNull] int forumId,
+            [NotNull] int oldForumId,
+            [NotNull] int newForumId,
             [NotNull] bool showMoved,
             [NotNull] int linkDays)
         {
@@ -912,10 +938,13 @@ namespace YAF.Core.Model
 
             repository.DbFunction.Scalar.topic_move(
                 TopicID: topicId,
-                ForumID: forumId,
+                ForumID: newForumId,
                 ShowMoved: showMoved,
                 LinkDays: linkDays,
                 UTCTIMESTAMP: DateTime.UtcNow);
+
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(newForumId));
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(oldForumId));
         }
 
         /// <summary>
@@ -962,14 +991,17 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="topicID">
-        /// The topic id.
+        /// <param name="forumId">
+        /// The forum Id.
         /// </param>
-        public static void Delete(this IRepository<Topic> repository, [NotNull] int topicID)
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        public static void Delete(this IRepository<Topic> repository, [NotNull] int forumId, [NotNull] int topicId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.Delete(topicID, false);
+            repository.Delete(forumId, topicId, false);
         }
 
         /// <summary>
@@ -978,13 +1010,16 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
+        /// <param name="forumId">
+        /// The forum Id.
+        /// </param>
         /// <param name="topicId">
         /// The topic id.
         /// </param>
         /// <param name="eraseTopic">
         /// The erase topic.
         /// </param>
-        public static void Delete(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] bool eraseTopic)
+        public static void Delete(this IRepository<Topic> repository, [NotNull] int forumId, [NotNull] int topicId, [NotNull] bool eraseTopic)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -999,6 +1034,9 @@ namespace YAF.Core.Model
                 EventLogTypes.Information);
 
             repository.DbFunction.Scalar.topic_delete(TopicID: topicId, EraseTopic: eraseTopic);
+
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
         }
 
         /// <summary>
@@ -1013,7 +1051,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public static bool CheckForDuplicateTopic(this IRepository<Topic> repository, [NotNull] string topicSubject)
+        public static bool CheckForDuplicate(this IRepository<Topic> repository, [NotNull] string topicSubject)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -1034,7 +1072,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="Topic"/>.
         /// </returns>
-        public static Topic FindNextTopic(this IRepository<Topic> repository, [NotNull] Topic currentTopic)
+        public static Topic FindNext(this IRepository<Topic> repository, [NotNull] Topic currentTopic)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -1055,7 +1093,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="Topic"/>.
         /// </returns>
-        public static Topic FindPreviousTopic(this IRepository<Topic> repository, [NotNull] Topic currentTopic)
+        public static Topic FindPrevious(this IRepository<Topic> repository, [NotNull] Topic currentTopic)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -1166,6 +1204,60 @@ namespace YAF.Core.Model
             }
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic>(expression));
+        }
+
+        /// <summary>
+        /// Updates the Forum Last Post.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum identifier.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        public static void UpdateLastPost(
+            [NotNull] this IRepository<Topic> repository,
+            [CanBeNull] int? forumId,
+            [CanBeNull] int? topicId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => (m.Flags & 24) == 16)
+                .OrderByDescending<Message>(m => m.Posted);
+
+            var message = repository.DbAccess.Execute(db => db.Connection.Select(expression)).FirstOrDefault();
+
+            if (topicId.HasValue)
+            {
+                repository.UpdateOnly(
+                    () => new Topic
+                    {
+                        LastPosted = message.Posted,
+                        LastMessageID = message.ID,
+                        LastUserID = message.UserID,
+                        LastUserName = message.UserName,
+                        LastUserDisplayName = message.UserDisplayName,
+                        LastMessageFlags = message.Flags
+                    },
+                    t => t.ID == topicId.Value);
+            }
+            else
+            {
+                repository.UpdateOnly(
+                    () => new Topic
+                    {
+                        LastPosted = message.Posted,
+                        LastMessageID = message.ID,
+                        LastUserID = message.UserID,
+                        LastUserName = message.UserName,
+                        LastUserDisplayName = message.UserDisplayName,
+                        LastMessageFlags = message.Flags
+                    },
+                    t => t.TopicMovedID == null && (!forumId.HasValue || t.ForumID == forumId.Value));
+            }
         }
 
         #endregion

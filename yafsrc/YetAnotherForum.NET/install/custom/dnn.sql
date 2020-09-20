@@ -469,9 +469,6 @@ BEGIN TRY
 	-- | is delimiter for main parts:  RoleIDs Granted | UserIDs granted | SocialGroupID Owners granted | ?
 	-- each part is a list of id's delimited by ; or :
 
-	-- PRINT N'Resynchronize Board Info:';
-	Exec dbo.[yaf_forum_resync] @BoardID
-
 END TRY
 
 BEGIN CATCH

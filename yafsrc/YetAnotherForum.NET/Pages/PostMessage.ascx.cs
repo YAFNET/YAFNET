@@ -213,7 +213,7 @@ namespace YAF.Pages
             }
 
             if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.AllowCreateTopicsSameName)
-                && this.GetRepository<Topic>().CheckForDuplicateTopic(this.TopicSubjectTextBox.Text.Trim())
+                && this.GetRepository<Topic>().CheckForDuplicate(this.TopicSubjectTextBox.Text.Trim())
                 && !this.EditMessageId.HasValue)
             {
                 this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
@@ -572,7 +572,7 @@ namespace YAF.Pages
 
             this.GetRepository<Message>().Update(
                 editMessage.ID,
-                this.Priority.SelectedValue.ToType<int>(),
+                this.Priority.SelectedValue.ToType<short>(),
                 this.forumEditor.Text.Trim(),
                 descriptionSave.Trim(),
                 string.Empty,
@@ -644,6 +644,7 @@ namespace YAF.Pages
             };
 
             var messageId = this.GetRepository<Message>().SaveNew(
+                this.PageContext.PageForumID,
                 this.TopicId,
                 this.PageContext.PageUserID,
                 this.forumEditor.Text,

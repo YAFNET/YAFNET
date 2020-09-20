@@ -62,7 +62,7 @@
                                          Icon="check" Type="Success"/>
                         <YAF:ThemeButton ID="DeleteBtn" runat="server"
                                          TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="DELETE" 
-                                         CommandName="Delete" CommandArgument="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item2.ID %>"
+                                         CommandName="Delete" CommandArgument="<%# string.Format("{0};{1}", ((Tuple<Topic, Message, User>)Container.DataItem).Item2.ID, ((Tuple<Topic, Message, User>)Container.DataItem).Item1.ID) %>"
                                          ReturnConfirmText='<%# this.GetText("ASK_DELETE") %>'
                                          Icon="trash" Type="Danger" />
                     </div>

@@ -37,13 +37,13 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.2.7" />
-    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.1.0" />
-    <PackageReference Include="Microsoft.Owin.Security" Version="4.1.0" />
-    <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="4.1.0" />
-    <PackageReference Include="Microsoft.Owin.Security.Facebook" Version="4.1.0" />
-    <PackageReference Include="Microsoft.Owin.Security.Google" Version="4.1.0" />
-    <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.1.0" />
-    <PackageReference Include="Microsoft.Owin.Security.Twitter" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Owin.Security" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Owin.Security.Facebook" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Owin.Security.Google" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Owin.Security.Twitter" Version="4.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>

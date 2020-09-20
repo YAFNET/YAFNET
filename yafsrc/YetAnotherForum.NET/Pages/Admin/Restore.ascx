@@ -67,7 +67,7 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <li class="list-group-item list-group-item-action">
-                            <asp:HiddenField ID="hiddenID" runat="server" Value='<%# this.Eval("Item2.ID") %>' />
+                            <asp:HiddenField ID="hiddenID" runat="server" Value='<%# this.Eval("Item2.ID") + ";" + this.Eval("Item1.ID") %>' />
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
                                     <%# this.Eval("Item2.TopicName") %> 
@@ -91,13 +91,13 @@
                                                      Type="Success"
                                                      CommandName="restore"
                                                      Visible='<%# this.Eval("Item2.NumPosts").ToType<int>() > 0 %>'
-                                                     CommandArgument='<%# this.Eval("Item2.ID") %>'></YAF:ThemeButton>
+                                                     CommandArgument='<%# this.Eval("Item2.ID") + ";" + this.Eval("Item1.ID") %>'></YAF:ThemeButton>
                                     <YAF:ThemeButton runat="server" ID="Delete"
                                                      TextLocalizedTag="DELETE"
                                                      Type="Danger"
                                                      Icon="trash"
                                                      CommandName="delete"
-                                                     CommandArgument='<%# this.Eval("Item2.ID") %>'>
+                                                     CommandArgument='<%# this.Eval("Item2.ID") + ";" + this.Eval("Item1.ID") %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>
@@ -178,7 +178,7 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <li class="list-group-item list-group-item-action">
-                            <asp:HiddenField ID="hiddenID" runat="server" Value='<%# this.Eval("Item3.ID") %>' />
+                            <asp:HiddenField ID="hiddenID" runat="server" Value='<%# this.Eval("Item3.ID") + ";" + this.Eval("Item1.ID") + ";" + this.Eval("Item2.ID") %>' />
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
                                     <%# this.Eval("Item2.TopicName") %> 
@@ -201,13 +201,13 @@
                                                      Type="Success"
                                                      CommandName="restore"
                                                      Visible='<%# this.Eval("Item2.NumPosts").ToType<int>() > 0 %>'
-                                                     CommandArgument='<%# this.Eval("Item3.ID") %>'></YAF:ThemeButton>
+                                                     CommandArgument='<%# this.Eval("Item3.ID") + ";" + this.Eval("Item1.ID") + ";" + this.Eval("Item2.ID") %>'></YAF:ThemeButton>
                                     <YAF:ThemeButton runat="server" ID="Delete"
                                                      TextLocalizedTag="DELETE"
                                                      Type="Danger"
                                                      Icon="trash"
                                                      CommandName="delete"
-                                                     CommandArgument='<%# this.Eval("Item3.ID") %>'>
+                                                     CommandArgument='<%# this.Eval("Item3.ID") + ";" + this.Eval("Item1.ID") + ";" + this.Eval("Item2.ID") %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>

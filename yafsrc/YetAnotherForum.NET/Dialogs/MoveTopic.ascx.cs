@@ -126,8 +126,9 @@ namespace YAF.Dialogs
                 }
 
                 // Ederon : 7/14/2007
-                this.GetRepository<Topic>().MoveTopic(
+                this.GetRepository<Topic>().Move(
                     this.PageContext.PageTopicID,
+                    this.PageContext.PageForumID,
                     this.ForumList.SelectedValue.ToType<int>(),
                     this.LeavePointer.Checked,
                     linkDays.Value);

@@ -30,10 +30,13 @@ namespace YAF.Core.Model
 
     using ServiceStack.OrmLite;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
 
     #endregion
@@ -51,6 +54,9 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
+        /// <param name="forumId">
+        /// The forum Id.
+        /// </param>
         /// <param name="nntpForumId">
         /// The nntp forum id.
         /// </param>
@@ -60,15 +66,18 @@ namespace YAF.Core.Model
         /// <param name="userId">
         /// The user id.
         /// </param>
-        public static void Update(this IRepository<NntpForum> repository, [NotNull] object nntpForumId, [NotNull] object lastMessageNo, [NotNull] object userId)
+        public static void Update(
+            this IRepository<NntpForum> repository,
+            [NotNull] int forumId,
+            [NotNull] int nntpForumId,
+            [NotNull] int lastMessageNo,
+            [NotNull] int userId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.DbFunction.Scalar.nntpforum_update(
-                NntpForumID: nntpForumId,
-                LastMessageNo: lastMessageNo,
-                UserID: userId,
-                UTCTIMESTAMP: DateTime.UtcNow);
+            repository.UpdateOnly(
+                () => new NntpForum { LastMessageNo = lastMessageNo, LastUpdate = DateTime.UtcNow },
+                n => n.ID == nntpForumId);
         }
 
         /// <summary>
