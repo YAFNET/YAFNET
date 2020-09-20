@@ -1,4 +1,6 @@
-﻿namespace YAF.Lucene.Net.Index.Memory
+﻿using System;
+
+namespace YAF.Lucene.Net.Index.Memory
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -33,7 +35,7 @@
         {
             if (docID != 0)
             {
-                throw new System.IndexOutOfRangeException();
+                throw new IndexOutOfRangeException();
             }
             else
             {

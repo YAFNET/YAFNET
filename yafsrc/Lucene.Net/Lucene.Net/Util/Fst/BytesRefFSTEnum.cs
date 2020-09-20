@@ -1,4 +1,5 @@
 using YAF.Lucene.Net.Diagnostics;
+using System;
 
 namespace YAF.Lucene.Net.Util.Fst
 {
@@ -47,11 +48,30 @@ namespace YAF.Lucene.Net.Util.Fst
 
         public BytesRefFSTEnum.InputOutput<T> Current => result;
 
-        public BytesRefFSTEnum.InputOutput<T> Next()
+        public bool MoveNext()
         {
             //System.out.println("  enum.next");
             DoNext();
-            return SetResult();
+
+            if (m_upto == 0)
+            {
+                return false;
+            }
+            else
+            {
+                current.Length = m_upto - 1;
+                result.Output = m_output[m_upto];
+                return true;
+            }
+        }
+
+        [Obsolete("Use MoveNext() and Current instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public BytesRefFSTEnum.InputOutput<T> Next()
+        {
+            //System.out.println("  enum.next");
+            if (MoveNext())
+                return result;
+            return null;
         }
 
         /// <summary>

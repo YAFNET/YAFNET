@@ -1074,7 +1074,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
             {
                 private readonly CompressedBinaryDocValues outerInstance;
 
-                private IndexInput input;
+                private readonly IndexInput input;
 
                 public TermsEnumAnonymousInnerClassHelper(CompressedBinaryDocValues outerInstance, IndexInput input)
                 {
@@ -1092,24 +1092,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
 
                 private readonly BytesRef term;
 
-                public override BytesRef Next()
-                {
-                    if (DoNext() == null)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        SetTerm();
-                        return term;
-                    }
-                }
-
-                private BytesRef DoNext()
+                // LUCENENET specific - factored out DoNext() and made into MoveNext()
+                public override bool MoveNext()
                 {
                     if (++currentOrd >= outerInstance.numValues)
                     {
-                        return null;
+                        return false;
                     }
                     else
                     {
@@ -1117,8 +1105,17 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
                         int suffix = input.ReadVInt32();
                         input.ReadBytes(termBuffer.Bytes, start, suffix);
                         termBuffer.Length = start + suffix;
-                        return termBuffer;
+                        SetTerm();
+                        return true;
                     }
+                }
+
+                [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+                public override BytesRef Next()
+                {
+                    if (MoveNext())
+                        return term;
+                    return null;
                 }
 
                 public override TermsEnum.SeekStatus SeekCeil(BytesRef text)
@@ -1159,7 +1156,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
                     long block = low - 1;
                     DoSeek(block < 0 ? -1 : block * outerInstance.interval);
 
-                    while (DoNext() != null)
+                    while (MoveNext())
                     {
                         int cmp = termBuffer.CompareTo(text);
                         if (cmp == 0)
@@ -1200,7 +1197,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
 
                     while (currentOrd < ord)
                     {
-                        DoNext();
+                        MoveNext();
                     }
                 }
 

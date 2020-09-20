@@ -1,4 +1,5 @@
 using YAF.Lucene.Net.Diagnostics;
+using System;
 using System.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search
@@ -98,40 +99,49 @@ namespace YAF.Lucene.Net.Search
                 SortedSetDocValues docTermOrds = FieldCache.DEFAULT.GetDocTermOrds((context.AtomicReader), m_query.m_field);
                 // Cannot use FixedBitSet because we require long index (ord):
                 Int64BitSet termSet = new Int64BitSet(docTermOrds.ValueCount);
-                TermsEnum termsEnum = m_query.GetTermsEnum(new TermsAnonymousInnerClassHelper(this, docTermOrds));
+                TermsEnum termsEnum = m_query.GetTermsEnum(new TermsAnonymousInnerClassHelper(docTermOrds));
 
                 if (Debugging.AssertsEnabled) Debugging.Assert(termsEnum != null);
-                if (termsEnum.Next() != null)
+                if (termsEnum.MoveNext())
                 {
                     // fill into a bitset
                     do
                     {
                         termSet.Set(termsEnum.Ord);
-                    } while (termsEnum.Next() != null);
+                    } while (termsEnum.MoveNext());
                 }
                 else
                 {
                     return null;
                 }
-
-                return new FieldCacheDocIdSetAnonymousInnerClassHelper(this, context.Reader.MaxDoc, acceptDocs, docTermOrds, termSet);
+                return new FieldCacheDocIdSet(context.Reader.MaxDoc, acceptDocs, (doc) =>
+                {
+                    docTermOrds.SetDocument(doc);
+                    long ord;
+                    // TODO: we could track max bit set and early terminate (since they come in sorted order)
+                    while ((ord = docTermOrds.NextOrd()) != SortedSetDocValues.NO_MORE_ORDS)
+                    {
+                        if (termSet.Get(ord))
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                });
             }
 
             private class TermsAnonymousInnerClassHelper : Terms
             {
-                private readonly MultiTermQueryDocTermOrdsWrapperFilter outerInstance;
+                private readonly SortedSetDocValues docTermOrds;
 
-                private SortedSetDocValues docTermOrds;
-
-                public TermsAnonymousInnerClassHelper(MultiTermQueryDocTermOrdsWrapperFilter outerInstance, SortedSetDocValues docTermOrds)
+                public TermsAnonymousInnerClassHelper(SortedSetDocValues docTermOrds)
                 {
-                    this.outerInstance = outerInstance;
                     this.docTermOrds = docTermOrds;
                 }
 
                 public override IComparer<BytesRef> Comparer => BytesRef.UTF8SortedAsUnicodeComparer;
 
-                public override TermsEnum GetIterator(TermsEnum reuse)
+                public override TermsEnum GetEnumerator()
                 {
                     return docTermOrds.GetTermsEnum();
                 }
@@ -151,37 +161,6 @@ namespace YAF.Lucene.Net.Search
                 public override bool HasPositions => false;
 
                 public override bool HasPayloads => false;
-            }
-
-            private class FieldCacheDocIdSetAnonymousInnerClassHelper : FieldCacheDocIdSet
-            {
-                private readonly MultiTermQueryDocTermOrdsWrapperFilter outerInstance;
-
-                private SortedSetDocValues docTermOrds;
-                private Int64BitSet termSet;
-
-                public FieldCacheDocIdSetAnonymousInnerClassHelper(MultiTermQueryDocTermOrdsWrapperFilter outerInstance, int maxDoc, IBits acceptDocs, SortedSetDocValues docTermOrds, Int64BitSet termSet)
-                    : base(maxDoc, acceptDocs)
-                {
-                    this.outerInstance = outerInstance;
-                    this.docTermOrds = docTermOrds;
-                    this.termSet = termSet;
-                }
-
-                protected internal override sealed bool MatchDoc(int doc)
-                {
-                    docTermOrds.SetDocument(doc);
-                    long ord;
-                    // TODO: we could track max bit set and early terminate (since they come in sorted order)
-                    while ((ord = docTermOrds.NextOrd()) != SortedSetDocValues.NO_MORE_ORDS)
-                    {
-                        if (termSet.Get(ord))
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
             }
         }
 

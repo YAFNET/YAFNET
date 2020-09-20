@@ -1,4 +1,5 @@
 using YAF.Lucene.Net.Diagnostics;
+using System;
 using System.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search
@@ -98,10 +99,10 @@ namespace YAF.Lucene.Net.Search
                 SortedDocValues fcsi = FieldCache.DEFAULT.GetTermsIndex((context.AtomicReader), m_query.m_field);
                 // Cannot use FixedBitSet because we require long index (ord):
                 Int64BitSet termSet = new Int64BitSet(fcsi.ValueCount);
-                TermsEnum termsEnum = m_query.GetTermsEnum(new TermsAnonymousInnerClassHelper(this, fcsi));
+                TermsEnum termsEnum = m_query.GetTermsEnum(new TermsAnonymousInnerClassHelper(fcsi));
 
                 if (Debugging.AssertsEnabled) Debugging.Assert(termsEnum != null);
-                if (termsEnum.Next() != null)
+                if (termsEnum.MoveNext())
                 {
                     // fill into a bitset
                     do
@@ -111,34 +112,36 @@ namespace YAF.Lucene.Net.Search
                         {
                             termSet.Set(ord);
                         }
-                    } while (termsEnum.Next() != null);
+                    } while (termsEnum.MoveNext());
                 }
                 else
                 {
                     return null;
                 }
 
-                return new FieldCacheDocIdSetAnonymousInnerClassHelper(this, context.Reader.MaxDoc, acceptDocs, fcsi, termSet);
+                return new FieldCacheDocIdSet(context.Reader.MaxDoc, acceptDocs, (doc) =>
+                {
+                    int ord = fcsi.GetOrd(doc);
+                    if (ord == -1)
+                    {
+                        return false;
+                    }
+                    return termSet.Get(ord);
+                });
             }
 
             private class TermsAnonymousInnerClassHelper : Terms
             {
-                private readonly MultiTermQueryFieldCacheWrapperFilter outerInstance;
+                private readonly SortedDocValues fcsi;
 
-                private SortedDocValues fcsi;
-
-                public TermsAnonymousInnerClassHelper(MultiTermQueryFieldCacheWrapperFilter outerInstance, SortedDocValues fcsi)
+                public TermsAnonymousInnerClassHelper(SortedDocValues fcsi)
                 {
-                    this.outerInstance = outerInstance;
                     this.fcsi = fcsi;
                 }
 
                 public override IComparer<BytesRef> Comparer => BytesRef.UTF8SortedAsUnicodeComparer;
 
-                public override TermsEnum GetIterator(TermsEnum reuse)
-                {
-                    return fcsi.GetTermsEnum();
-                }
+                public override TermsEnum GetEnumerator() => fcsi.GetTermsEnum();
 
                 public override long SumTotalTermFreq => -1;
 
@@ -155,32 +158,6 @@ namespace YAF.Lucene.Net.Search
                 public override bool HasPositions => false;
 
                 public override bool HasPayloads => false;
-            }
-
-            private class FieldCacheDocIdSetAnonymousInnerClassHelper : FieldCacheDocIdSet
-            {
-                private readonly MultiTermQueryFieldCacheWrapperFilter outerInstance;
-
-                private SortedDocValues fcsi;
-                private Int64BitSet termSet;
-
-                public FieldCacheDocIdSetAnonymousInnerClassHelper(MultiTermQueryFieldCacheWrapperFilter outerInstance, int maxDoc, IBits acceptDocs, SortedDocValues fcsi, Int64BitSet termSet)
-                    : base(maxDoc, acceptDocs)
-                {
-                    this.outerInstance = outerInstance;
-                    this.fcsi = fcsi;
-                    this.termSet = termSet;
-                }
-
-                protected internal override sealed bool MatchDoc(int doc)
-                {
-                    int ord = fcsi.GetOrd(doc);
-                    if (ord == -1)
-                    {
-                        return false;
-                    }
-                    return termSet.Get(ord);
-                }
             }
         }
 

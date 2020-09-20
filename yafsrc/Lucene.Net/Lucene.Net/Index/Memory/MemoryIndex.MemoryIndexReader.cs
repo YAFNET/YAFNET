@@ -1,24 +1,5 @@
-/*
- *
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *
-*/
-
+using J2N.Collections.Generic.Extensions;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Search.Similarities;
 using YAF.Lucene.Net.Util;
@@ -26,10 +7,26 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 namespace YAF.Lucene.Net.Index.Memory
 {
+    /*
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
+
     public partial class MemoryIndex
     {
         ///////////////////////////////////////////////////////////////////////////////
@@ -63,21 +60,9 @@ namespace YAF.Lucene.Net.Index.Memory
                 return outerInstance.sortedFields[pos].Value;
             }
 
-            public override IBits LiveDocs
-            {
-                get
-                {
-                    return null;
-                }
-            }
+            public override IBits LiveDocs => null;
 
-            public override FieldInfos FieldInfos
-            {
-                get
-                {
-                    return new FieldInfos(outerInstance.fieldInfos.Values.ToArray(/*new FieldInfo[outerInstance.fieldInfos.Count]*/));
-                }
-            }
+            public override FieldInfos FieldInfos => new FieldInfos(outerInstance.fieldInfos.Values.ToArray(/*new FieldInfo[outerInstance.fieldInfos.Count]*/));
 
             public override NumericDocValues GetNumericDocValues(string field)
             {
@@ -136,21 +121,9 @@ namespace YAF.Lucene.Net.Index.Memory
                     internal int upto;
                     private string current;
 
-                    public string Current
-                    {
-                        get
-                        {
-                            return this.current;
-                        }
-                    }
+                    public string Current => this.current;
 
-                    object IEnumerator.Current
-                    {
-                        get
-                        {
-                            return Current;
-                        }
-                    }
+                    object IEnumerator.Current => Current;
 
                     public void Dispose()
                     {
@@ -203,74 +176,33 @@ namespace YAF.Lucene.Net.Index.Memory
                         this.info = info;
                     }
 
-                    public override TermsEnum GetIterator(TermsEnum reuse)
+                    public override TermsEnum GetEnumerator()
                     {
                         return new MemoryTermsEnum(outerInstance.outerInstance, info);
                     }
 
-                    public override IComparer<BytesRef> Comparer
-                    {
-                        get
-                        {
-                            return BytesRef.UTF8SortedAsUnicodeComparer;
-                        }
-                    }
+                    public override IComparer<BytesRef> Comparer => BytesRef.UTF8SortedAsUnicodeComparer;
 
-                    public override long Count
-                    {
-                        get { return info.terms.Count; }
-                    }
+                    public override long Count => info.terms.Count;
 
-                    public override long SumTotalTermFreq
-                    {
-                        get
-                        {
-                            return info.SumTotalTermFreq;
-                        }
-                    }
+                    public override long SumTotalTermFreq => info.SumTotalTermFreq;
 
-                    public override long SumDocFreq
-                    {
-                        get
-                        {
-                            // each term has df=1
-                            return info.terms.Count;
-                        }
-                    }
+                    public override long SumDocFreq =>
+                        // each term has df=1
+                        info.terms.Count;
 
-                    public override int DocCount
-                    {
-                        get
-                        {
-                            return info.terms.Count > 0 ? 1 : 0;
-                        }
-                    }
+                    public override int DocCount => info.terms.Count > 0 ? 1 : 0;
 
-                    public override bool HasFreqs
-                    {
-                        get { return true; }
-                    }
+                    public override bool HasFreqs => true;
 
-                    public override bool HasOffsets
-                    {
-                        get { return outerInstance.outerInstance.outerInstance.storeOffsets; }
-                    }
+                    public override bool HasOffsets => outerInstance.outerInstance.outerInstance.storeOffsets;
 
-                    public override bool HasPositions
-                    {
-                        get { return true; }
-                    }
+                    public override bool HasPositions => true;
 
-                    public override bool HasPayloads
-                    {
-                        get { return false; }
-                    }
+                    public override bool HasPayloads => false;
                 }
 
-                public override int Count
-                {
-                    get { return outerInstance.outerInstance.sortedFields.Length; }
-                }
+                public override int Count => outerInstance.outerInstance.sortedFields.Length;
             }
 
             public override Fields Fields
@@ -318,7 +250,7 @@ namespace YAF.Lucene.Net.Index.Memory
                             return mid;
                         }
                     }
-                    Debug.Assert(comparer.Compare(bytesRef, b) != 0);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(comparer.Compare(bytesRef, b) != 0);
                     return -(low + 1);
                 }
 
@@ -353,74 +285,62 @@ namespace YAF.Lucene.Net.Index.Memory
 
                 public override void SeekExact(long ord)
                 {
-                    Debug.Assert(ord < info.terms.Count);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(ord < info.terms.Count);
                     termUpto = (int)ord;
                 }
 
-                public override BytesRef Next()
+                public override bool MoveNext()
                 {
                     termUpto++;
                     if (termUpto >= info.terms.Count)
                     {
-                        return null;
+                        return false;
                     }
                     else
                     {
                         info.terms.Get(info.sortedTerms[termUpto], br);
-                        return br;
+                        return true;
                     }
                 }
 
-                public override BytesRef Term
+                [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+                public override BytesRef Next()
                 {
-                    get { return br; }
+                    if (MoveNext())
+                        return br;
+                    return null;
                 }
 
-                public override long Ord
-                {
-                    get { return termUpto; }
-                }
+                public override BytesRef Term => br;
 
-                public override int DocFreq
-                {
-                    get { return 1; }
-                }
+                public override long Ord => termUpto;
 
-                public override long TotalTermFreq
-                {
-                    get { return info.sliceArray.freq[info.sortedTerms[termUpto]]; }
-                }
+                public override int DocFreq => 1;
+
+                public override long TotalTermFreq => info.sliceArray.freq[info.sortedTerms[termUpto]];
 
                 public override DocsEnum Docs(IBits liveDocs, DocsEnum reuse, DocsFlags flags)
                 {
-                    if (reuse == null || !(reuse is MemoryDocsEnum))
-                    {
-                        reuse = new MemoryDocsEnum(outerInstance);
-                    }
-                    return ((MemoryDocsEnum)reuse).Reset(liveDocs, info.sliceArray.freq[info.sortedTerms[termUpto]]);
+                    if (reuse is null || !(reuse is MemoryDocsEnum toReuse))
+                        toReuse = new MemoryDocsEnum(outerInstance);
+
+                    return toReuse.Reset(liveDocs, info.sliceArray.freq[info.sortedTerms[termUpto]]);
                 }
 
                 public override DocsAndPositionsEnum DocsAndPositions(IBits liveDocs, DocsAndPositionsEnum reuse, DocsAndPositionsFlags flags)
                 {
-                    if (reuse == null || !(reuse is MemoryDocsAndPositionsEnum))
-                    {
-                        reuse = new MemoryDocsAndPositionsEnum(outerInstance);
-                    }
+                    if (reuse is null || !(reuse is MemoryDocsAndPositionsEnum toReuse))
+                        toReuse = new MemoryDocsAndPositionsEnum(outerInstance);
+
                     int ord = info.sortedTerms[termUpto];
-                    return ((MemoryDocsAndPositionsEnum)reuse).Reset(liveDocs, info.sliceArray.start[ord], info.sliceArray.end[ord], info.sliceArray.freq[ord]);
+                    return toReuse.Reset(liveDocs, info.sliceArray.start[ord], info.sliceArray.end[ord], info.sliceArray.freq[ord]);
                 }
 
-                public override IComparer<BytesRef> Comparer
-                {
-                    get
-                    {
-                        return BytesRef.UTF8SortedAsUnicodeComparer;
-                    }
-                }
+                public override IComparer<BytesRef> Comparer => BytesRef.UTF8SortedAsUnicodeComparer;
 
                 public override void SeekExact(BytesRef term, TermState state)
                 {
-                    Debug.Assert(state != null);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(state != null);
                     this.SeekExact(((OrdTermState)state).Ord);
                 }
 
@@ -444,21 +364,18 @@ namespace YAF.Lucene.Net.Index.Memory
                 internal bool hasNext;
                 internal IBits liveDocs;
                 internal int doc = -1;
-                internal int freq_Renamed;
+                internal int freq;
 
                 public virtual DocsEnum Reset(IBits liveDocs, int freq)
                 {
                     this.liveDocs = liveDocs;
                     hasNext = true;
                     doc = -1;
-                    this.freq_Renamed = freq;
+                    this.freq = freq;
                     return this;
                 }
 
-                public override int DocID
-                {
-                    get { return doc; }
-                }
+                public override int DocID => doc;
 
                 public override int NextDoc()
                 {
@@ -478,10 +395,7 @@ namespace YAF.Lucene.Net.Index.Memory
                     return SlowAdvance(target);
                 }
 
-                public override int Freq
-                {
-                    get { return freq_Renamed; }
-                }
+                public override int Freq => freq;
 
                 public override long GetCost()
                 {
@@ -498,9 +412,9 @@ namespace YAF.Lucene.Net.Index.Memory
                 internal IBits liveDocs;
                 internal int doc = -1;
                 internal Int32BlockPool.SliceReader sliceReader;
-                internal int freq_Renamed;
-                internal int startOffset_Renamed;
-                internal int endOffset_Renamed;
+                internal int freq;
+                internal int startOffset;
+                internal int endOffset;
 
                 public MemoryDocsAndPositionsEnum(MemoryIndex.MemoryIndexReader outerInstance)
                 {
@@ -515,15 +429,12 @@ namespace YAF.Lucene.Net.Index.Memory
                     posUpto = 0; // for assert
                     hasNext = true;
                     doc = -1;
-                    this.freq_Renamed = freq;
+                    this.freq = freq;
                     return this;
                 }
 
 
-                public override int DocID
-                {
-                    get { return doc; }
-                }
+                public override int DocID => doc;
 
                 public override int NextDoc()
                 {
@@ -543,20 +454,20 @@ namespace YAF.Lucene.Net.Index.Memory
                     return SlowAdvance(target);
                 }
 
-                public override int Freq
-                {
-                    get { return freq_Renamed; }
-                }
+                public override int Freq => freq;
 
                 public override int NextPosition()
                 {
-                    Debug.Assert(posUpto++ < freq_Renamed);
-                    Debug.Assert(!sliceReader.IsEndOfSlice, " stores offsets : " + startOffset_Renamed);
+                    if (Debugging.AssertsEnabled)
+                    {
+                        Debugging.Assert(posUpto++ < freq);
+                        Debugging.Assert(!sliceReader.IsEndOfSlice, () => " stores offsets : " + startOffset);
+                    }
                     if (outerInstance.outerInstance.storeOffsets)
                     {
                         int pos = sliceReader.ReadInt32();
-                        startOffset_Renamed = sliceReader.ReadInt32();
-                        endOffset_Renamed = sliceReader.ReadInt32();
+                        startOffset = sliceReader.ReadInt32();
+                        endOffset = sliceReader.ReadInt32();
                         return pos;
                     }
                     else
@@ -565,15 +476,9 @@ namespace YAF.Lucene.Net.Index.Memory
                     }
                 }
 
-                public override int StartOffset
-                {
-                    get { return startOffset_Renamed; }
-                }
+                public override int StartOffset => startOffset;
 
-                public override int EndOffset
-                {
-                    get { return endOffset_Renamed; }
-                }
+                public override int EndOffset => endOffset;
 
                 public override BytesRef GetPayload()
                 {
@@ -612,14 +517,8 @@ namespace YAF.Lucene.Net.Index.Memory
 
             internal IndexSearcher Searcher
             {
-                get // LUCENENET specific: added getter per MSDN guidelines
-                {
-                    return this.searcher;
-                }
-                set
-                {
-                    this.searcher = value;
-                }
+                get => this.searcher; // LUCENENET specific: added getter per MSDN guidelines
+                set => this.searcher = value;
             }
 
             public override int NumDocs

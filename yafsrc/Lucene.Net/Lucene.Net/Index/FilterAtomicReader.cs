@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -109,10 +110,9 @@ namespace YAF.Lucene.Net.Index
                 this.m_input = input;
             }
 
-            public override TermsEnum GetIterator(TermsEnum reuse)
-            {
-                return m_input.GetIterator(reuse);
-            }
+            public override TermsEnum GetEnumerator() => m_input.GetEnumerator();
+
+            public override TermsEnum GetEnumerator(TermsEnum reuse) => m_input.GetEnumerator(reuse);
 
             public override IComparer<BytesRef> Comparer => m_input.Comparer;
 
@@ -161,9 +161,17 @@ namespace YAF.Lucene.Net.Index
                 m_input.SeekExact(ord);
             }
 
+            public override bool MoveNext()
+            {
+                return m_input.MoveNext();
+            }
+
+            [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
             public override BytesRef Next()
             {
-                return m_input.Next();
+                if (MoveNext())
+                    return m_input.Term;
+                return null;
             }
 
             public override BytesRef Term => m_input.Term;

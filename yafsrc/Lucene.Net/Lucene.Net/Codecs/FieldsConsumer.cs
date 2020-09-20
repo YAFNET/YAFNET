@@ -92,7 +92,7 @@ namespace YAF.Lucene.Net.Codecs
                 if (terms != null)
                 {
                     TermsConsumer termsConsumer = AddField(info);
-                    termsConsumer.Merge(mergeState, info.IndexOptions, terms.GetIterator(null));
+                    termsConsumer.Merge(mergeState, info.IndexOptions, terms.GetEnumerator());
                 }
             }
         }

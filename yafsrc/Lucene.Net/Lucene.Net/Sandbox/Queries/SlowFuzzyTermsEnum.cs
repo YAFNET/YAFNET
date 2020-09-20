@@ -3,6 +3,7 @@ using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Sandbox.Queries
 {
@@ -86,7 +87,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             /// </summary>
             /// <exception cref="IOException">If there is a low-level I/O error.</exception>
             public LinearFuzzyTermsEnum(SlowFuzzyTermsEnum outerInstance)
-                : base(outerInstance.m_terms.GetIterator(null))
+                : base(outerInstance.m_terms.GetEnumerator())
             {
                 this.outerInstance = outerInstance;
                 this.boostAtt = Attributes.AddAttribute<IBoostAttribute>();
@@ -120,6 +121,9 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             /// where distance is the Levenshtein distance for the two words.
             /// </para>
             /// </summary>
+#if NETFRAMEWORK
+            [MethodImpl(MethodImplOptions.NoOptimization)] // LUCENENET specific: comparing float equality fails in x86 on .NET Framework with optimizations enabled. Fixes TestTokenLengthOpt.
+#endif
             protected override sealed AcceptStatus Accept(BytesRef term)
             {
                 if (StringHelper.StartsWith(term, prefixBytesRef))

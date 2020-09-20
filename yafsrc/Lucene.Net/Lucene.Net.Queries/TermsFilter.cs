@@ -61,8 +61,6 @@ namespace YAF.Lucene.Net.Queries
 
         private class FieldAndTermEnumAnonymousInnerClassHelper : FieldAndTermEnum
         {            
-            private IList<Term> terms;
-
             public FieldAndTermEnumAnonymousInnerClassHelper(IList<Term> terms)
             {
                 if (terms.Count == 0)
@@ -70,22 +68,23 @@ namespace YAF.Lucene.Net.Queries
                     throw new ArgumentException("no terms provided");
                 }
 
-                this.terms = terms;
                 terms.Sort();
                 iter = terms.GetEnumerator();
             }
 
             // we need to sort for deduplication and to have a common cache key
             readonly IEnumerator<Term> iter;
-            public override BytesRef Next()
+            public override bool MoveNext()
             {
                 if (iter.MoveNext())
                 {
                     var next = iter.Current;
                     Field = next.Field;
-                    return next.Bytes;
+                    m_current = next.Bytes;
+                    return true;
                 }
-                return null;
+                m_current = null;
+                return false;
             }
         }
 
@@ -100,8 +99,6 @@ namespace YAF.Lucene.Net.Queries
 
         private class FieldAndTermEnumAnonymousInnerClassHelper2 : FieldAndTermEnum
         {
-            private IList<BytesRef> terms;
-
             public FieldAndTermEnumAnonymousInnerClassHelper2(string field, IList<BytesRef> terms)
                 : base(field)
             {
@@ -110,20 +107,21 @@ namespace YAF.Lucene.Net.Queries
                     throw new ArgumentException("no terms provided");
                 }
 
-                this.terms = terms;
                 terms.Sort();
                 iter = terms.GetEnumerator();
             }
 
             // we need to sort for deduplication and to have a common cache key
             readonly IEnumerator<BytesRef> iter;
-            public override BytesRef Next()
+            public override bool MoveNext()
             {
                 if (iter.MoveNext())
                 {
-                    return iter.Current;
+                    m_current = iter.Current;
+                    return true;
                 }
-                return null;
+                m_current = null;
+                return false;
             }
         }
 
@@ -170,8 +168,9 @@ namespace YAF.Lucene.Net.Queries
             string previousField = null;
             BytesRef currentTerm;
             string currentField;
-            while ((currentTerm = iter.Next()) != null)
+            while (iter.MoveNext())
             {
+                currentTerm = iter.Current;
                 currentField = iter.Field;
                 if (currentField == null)
                 {
@@ -233,7 +232,7 @@ namespace YAF.Lucene.Net.Queries
             {
                 if ((terms = fields.GetTerms(termsAndField.field)) != null)
                 {
-                    termsEnum = terms.GetIterator(termsEnum); // this won't return null
+                    termsEnum = terms.GetEnumerator(termsEnum); // this won't return null
                     for (int i = termsAndField.start; i < termsAndField.end; i++)
                     {
                         spare.Offset = offsets[i];
@@ -384,8 +383,10 @@ namespace YAF.Lucene.Net.Queries
         private abstract class FieldAndTermEnum
         {
             // LUCENENET specific - removed field and changed Field property to protected set
+            protected BytesRef m_current;
+            public BytesRef Current => m_current;
 
-            public abstract BytesRef Next();
+            public abstract bool MoveNext();
 
             public FieldAndTermEnum()
             {

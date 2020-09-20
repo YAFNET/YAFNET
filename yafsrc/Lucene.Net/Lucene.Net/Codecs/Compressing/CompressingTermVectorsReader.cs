@@ -764,17 +764,21 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 this.termBytes = termBytes;
             }
 
-            public override TermsEnum GetIterator(TermsEnum reuse)
+            public override TermsEnum GetEnumerator()
+            {
+                var termsEnum = new TVTermsEnum();
+                termsEnum.Reset(numTerms, flags, prefixLengths, suffixLengths, termFreqs, positionIndex, positions, startOffsets, lengths, payloadIndex, payloadBytes, new ByteArrayDataInput(termBytes.Bytes, termBytes.Offset, termBytes.Length));
+                return termsEnum;
+            }
+
+            public override TermsEnum GetEnumerator(TermsEnum reuse)
             {
                 TVTermsEnum termsEnum;
-                if (reuse != null && reuse is TVTermsEnum)
-                {
+                if (!(reuse is null) && reuse is TVTermsEnum)
                     termsEnum = (TVTermsEnum)reuse;
-                }
                 else
-                {
                     termsEnum = new TVTermsEnum();
-                }
+
                 termsEnum.Reset(numTerms, flags, prefixLengths, suffixLengths, termFreqs, positionIndex, positions, startOffsets, lengths, payloadIndex, payloadBytes, new ByteArrayDataInput(termBytes.Bytes, termBytes.Offset, termBytes.Length));
                 return termsEnum;
             }
@@ -835,11 +839,11 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 ord = -1;
             }
 
-            public override BytesRef Next()
+            public override bool MoveNext()
             {
                 if (ord == numTerms - 1)
                 {
-                    return null;
+                    return false;
                 }
                 else
                 {
@@ -856,7 +860,15 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 }
                 @in.ReadBytes(term.Bytes, prefixLengths[ord], suffixLengths[ord]);
 
-                return term;
+                return true;
+            }
+
+            [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+            public override BytesRef Next()
+            {
+                if (MoveNext())
+                    return term;
+                return null;
             }
 
             public override IComparer<BytesRef> Comparer => BytesRef.UTF8SortedAsUnicodeComparer;
@@ -876,13 +888,8 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                     }
                 }
                 // linear scan
-                while (true)
+                while (MoveNext())
                 {
-                    BytesRef term = Next();
-                    if (term == null)
-                    {
-                        return TermsEnum.SeekStatus.END;
-                    }
                     int cmp = term.CompareTo(text);
                     if (cmp > 0)
                     {
@@ -893,6 +900,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                         return TermsEnum.SeekStatus.FOUND;
                     }
                 }
+                return TermsEnum.SeekStatus.END;
             }
 
             public override void SeekExact(long ord)

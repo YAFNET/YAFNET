@@ -99,15 +99,23 @@ namespace YAF.Lucene.Net.Index
             values.LookupOrd(currentOrd, term);
         }
 
-        public override BytesRef Next()
+        public override bool MoveNext()
         {
             currentOrd++;
             if (currentOrd >= values.ValueCount)
             {
-                return null;
+                return false;
             }
             values.LookupOrd(currentOrd, term);
-            return term;
+            return true;
+        }
+
+        [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public override BytesRef Next()
+        {
+            if (MoveNext())
+                return term;
+            return null;
         }
 
         public override BytesRef Term => term;

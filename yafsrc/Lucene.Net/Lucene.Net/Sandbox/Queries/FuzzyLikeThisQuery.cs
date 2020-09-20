@@ -6,6 +6,7 @@ using YAF.Lucene.Net.Search.Similarities;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Sandbox.Queries
@@ -226,8 +227,9 @@ namespace YAF.Lucene.Net.Sandbox.Queries
                         BytesRef possibleMatch;
                         IBoostAttribute boostAtt =
                           fe.Attributes.AddAttribute<IBoostAttribute>();
-                        while ((possibleMatch = fe.Next()) != null)
+                        while (fe.MoveNext())
                         {
+                            possibleMatch = fe.Term;
                             numVariants++;
                             totalVariantDocFreqs += fe.DocFreq;
                             float score = boostAtt.Boost;
@@ -363,6 +365,9 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             /// (non-Javadoc)
             /// <see cref="Util.PriorityQueue{T}.LessThan(T, T)"/>
             /// </summary>
+#if NETFRAMEWORK
+            [MethodImpl(MethodImplOptions.NoOptimization)] // LUCENENET specific: comparing score equality fails in x86 on .NET Framework with optimizations enabled
+#endif
             protected internal override bool LessThan(ScoreTerm termA, ScoreTerm termB)
             {
                 if (termA.Score == termB.Score)

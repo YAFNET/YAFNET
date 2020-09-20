@@ -1,5 +1,6 @@
 ﻿using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using System;
@@ -11,21 +12,21 @@ using System.Text;
 namespace YAF.Lucene.Net.Index.Memory
 {
     /*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
 
     /// <summary>
     /// High-performance single-document main memory Apache Lucene fulltext search index. 
@@ -216,7 +217,7 @@ namespace YAF.Lucene.Net.Index.Memory
             this.bytesUsed = Counter.NewCounter();
             int maxBufferedByteBlocks = (int)((maxReusedBytes / 2) / ByteBlockPool.BYTE_BLOCK_SIZE);
             int maxBufferedIntBlocks = (int)((maxReusedBytes - (maxBufferedByteBlocks * ByteBlockPool.BYTE_BLOCK_SIZE)) / (Int32BlockPool.INT32_BLOCK_SIZE * RamUsageEstimator.NUM_BYTES_INT32));
-            Debug.Assert((maxBufferedByteBlocks * ByteBlockPool.BYTE_BLOCK_SIZE) + (maxBufferedIntBlocks * Int32BlockPool.INT32_BLOCK_SIZE * RamUsageEstimator.NUM_BYTES_INT32) <= maxReusedBytes);
+            if (Debugging.AssertsEnabled) Debugging.Assert((maxBufferedByteBlocks * ByteBlockPool.BYTE_BLOCK_SIZE) + (maxBufferedIntBlocks * Int32BlockPool.INT32_BLOCK_SIZE * RamUsageEstimator.NUM_BYTES_INT32) <= maxReusedBytes);
             byteBlockPool = new ByteBlockPool(new RecyclingByteBlockAllocator(ByteBlockPool.BYTE_BLOCK_SIZE, maxBufferedByteBlocks, bytesUsed));
             intBlockPool = new Int32BlockPool(new RecyclingInt32BlockAllocator(Int32BlockPool.INT32_BLOCK_SIZE, maxBufferedIntBlocks, bytesUsed));
             postingsWriter = new Int32BlockPool.SliceWriter(intBlockPool);
@@ -235,15 +236,15 @@ namespace YAF.Lucene.Net.Index.Memory
         {
             if (fieldName == null)
             {
-                throw new System.ArgumentException("fieldName must not be null");
+                throw new ArgumentException("fieldName must not be null");
             }
             if (text == null)
             {
-                throw new System.ArgumentException("text must not be null");
+                throw new ArgumentException("text must not be null");
             }
             if (analyzer == null)
             {
-                throw new System.ArgumentException("analyzer must not be null");
+                throw new ArgumentException("analyzer must not be null");
             }
 
             TokenStream stream;
@@ -273,7 +274,7 @@ namespace YAF.Lucene.Net.Index.Memory
             // TODO: deprecate & move this method into AnalyzerUtil?
             if (keywords == null)
             {
-                throw new System.ArgumentException("keywords must not be null");
+                throw new ArgumentException("keywords must not be null");
             }
 
             return new TokenStreamAnonymousInnerClassHelper<T>(this, keywords);
@@ -310,7 +311,7 @@ namespace YAF.Lucene.Net.Index.Memory
                 T obj = iter.Current;
                 if (obj == null)
                 {
-                    throw new System.ArgumentException("keyword must not be null");
+                    throw new ArgumentException("keyword must not be null");
                 }
 
                 string term = obj.ToString();
@@ -388,15 +389,15 @@ namespace YAF.Lucene.Net.Index.Memory
             {
                 if (fieldName == null)
                 {
-                    throw new System.ArgumentException("fieldName must not be null");
+                    throw new ArgumentException("fieldName must not be null");
                 }
                 if (stream == null)
                 {
-                    throw new System.ArgumentException("token stream must not be null");
+                    throw new ArgumentException("token stream must not be null");
                 }
                 if (boost <= 0.0f)
                 {
-                    throw new System.ArgumentException("boost factor must be greater than 0.0");
+                    throw new ArgumentException("boost factor must be greater than 0.0");
                 }
                 int numTokens = 0;
                 int numOverlapTokens = 0;
@@ -532,7 +533,7 @@ namespace YAF.Lucene.Net.Index.Memory
         {
             if (query == null)
             {
-                throw new System.ArgumentException("query must not be null");
+                throw new ArgumentException("query must not be null");
             }
 
             IndexSearcher searcher = CreateSearcher();
@@ -590,10 +591,7 @@ namespace YAF.Lucene.Net.Index.Memory
                 this.scorer = scorer;
             }
 
-            public virtual bool AcceptsDocsOutOfOrder
-            {
-                get { return true; }
-            }
+            public virtual bool AcceptsDocsOutOfOrder => true;
 
             public virtual void SetNextReader(AtomicReaderContext context)
             {
@@ -741,9 +739,12 @@ namespace YAF.Lucene.Net.Index.Memory
                 start = new int[ArrayUtil.Oversize(ord.Length, RamUsageEstimator.NUM_BYTES_INT32)];
                 end = new int[ArrayUtil.Oversize(ord.Length, RamUsageEstimator.NUM_BYTES_INT32)];
                 freq = new int[ArrayUtil.Oversize(ord.Length, RamUsageEstimator.NUM_BYTES_INT32)];
-                Debug.Assert(start.Length >= ord.Length);
-                Debug.Assert(end.Length >= ord.Length);
-                Debug.Assert(freq.Length >= ord.Length);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(start.Length >= ord.Length);
+                    Debugging.Assert(end.Length >= ord.Length);
+                    Debugging.Assert(freq.Length >= ord.Length);
+                }
                 return ord;
             }
 
@@ -756,9 +757,12 @@ namespace YAF.Lucene.Net.Index.Memory
                     end = ArrayUtil.Grow(end, ord.Length);
                     freq = ArrayUtil.Grow(freq, ord.Length);
                 }
-                Debug.Assert(start.Length >= ord.Length);
-                Debug.Assert(end.Length >= ord.Length);
-                Debug.Assert(freq.Length >= ord.Length);
+                if (Debugging.AssertsEnabled)
+                {
+                    Debugging.Assert(start.Length >= ord.Length);
+                    Debugging.Assert(end.Length >= ord.Length);
+                    Debugging.Assert(freq.Length >= ord.Length);
+                }
                 return ord;
             }
 

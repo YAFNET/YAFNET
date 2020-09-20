@@ -288,7 +288,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 else
                 {
-                    return terms.GetIterator(null);
+                    return terms.GetEnumerator();
                 }
             }
             else
@@ -354,8 +354,8 @@ namespace YAF.Lucene.Net.Index
                 return;
             }
 
-            TermsEnum te = terms.GetIterator(null);
-            BytesRef seekStart = termPrefix != null ? termPrefix : new BytesRef();
+            TermsEnum te = terms.GetEnumerator();
+            BytesRef seekStart = termPrefix ?? new BytesRef();
             //System.out.println("seekStart=" + seekStart.utf8ToString());
             if (te.SeekCeil(seekStart) == TermsEnum.SeekStatus.END)
             {
@@ -548,7 +548,7 @@ namespace YAF.Lucene.Net.Index
                 }
 
                 termNum++;
-                if (te.Next() == null)
+                if (!te.MoveNext())
                 {
                     break;
                 }
@@ -753,7 +753,7 @@ namespace YAF.Lucene.Net.Index
 
                 InitializeInstanceFields();
                 if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.m_indexedTermsArray != null);
-                termsEnum = reader.Fields.GetTerms(outerInstance.m_field).GetIterator(null);
+                termsEnum = reader.Fields.GetTerms(outerInstance.m_field).GetEnumerator();
             }
 
             public override IComparer<BytesRef> Comparer => termsEnum.Comparer;
@@ -770,18 +770,27 @@ namespace YAF.Lucene.Net.Index
 
             public override BytesRef Term => term;
 
-            public override BytesRef Next()
+            public override bool MoveNext()
             {
                 if (++ord < 0)
                 {
                     ord = 0;
                 }
-                if (termsEnum.Next() == null)
+                if (!termsEnum.MoveNext())
                 {
                     term = null;
-                    return null;
+                    return false;
                 }
-                return SetTerm(); // this is extra work if we know we are in bounds...
+                SetTerm(); // this is extra work if we know we are in bounds...
+                return true;
+            }
+
+            [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+            public override BytesRef Next()
+            {
+                if (MoveNext())
+                    return term;
+                return null;
             }
 
             public override int DocFreq => termsEnum.DocFreq;
@@ -845,7 +854,7 @@ namespace YAF.Lucene.Net.Index
 
                 while (term != null && term.CompareTo(target) < 0)
                 {
-                    Next();
+                    MoveNext();
                 }
 
                 if (term == null)
@@ -883,8 +892,7 @@ namespace YAF.Lucene.Net.Index
 
                 while (--delta >= 0)
                 {
-                    BytesRef br = termsEnum.Next();
-                    if (br == null)
+                    if (!termsEnum.MoveNext())
                     {
                         if (Debugging.AssertsEnabled) Debugging.Assert(false);
                         return;

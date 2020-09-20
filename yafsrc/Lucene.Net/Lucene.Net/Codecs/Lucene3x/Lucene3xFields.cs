@@ -210,7 +210,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 this.fieldInfo = fieldInfo;
             }
 
-            public override TermsEnum GetIterator(TermsEnum reuse)
+            public override TermsEnum GetEnumerator()
             {
                 var termsEnum = new PreTermsEnum(outerInstance);
                 termsEnum.Reset(fieldInfo);
@@ -959,11 +959,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 }
             }
 
-            public override BytesRef Next()
+            public override bool MoveNext()
             {
                 if (DEBUG_SURROGATES)
                 {
-                    Console.WriteLine("TE.next()");
+                    Console.WriteLine("TE.MoveNext()");
                 }
                 if (skipNext)
                 {
@@ -974,16 +974,17 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                     skipNext = false;
                     if (termEnum.Term() == null)
                     {
-                        return null;
+                        return false;
                         // PreFlex codec interns field names:
                     }
                     else if (termEnum.Term().Field != internedFieldName)
                     {
-                        return null;
+                        return false;
                     }
                     else
                     {
-                        return current = termEnum.Term().Bytes;
+                        current = termEnum.Term().Bytes;
+                        return true;
                     }
                 }
 
@@ -1004,12 +1005,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                         // PreFlex codec interns field names; verify:
                         if (Debugging.AssertsEnabled) Debugging.Assert(t == null || !t.Field.Equals(internedFieldName, StringComparison.Ordinal));
                         current = null;
+                        return false;
                     }
                     else
                     {
                         current = t.Bytes;
+                        return true;
                     }
-                    return current;
                 }
                 else
                 {
@@ -1028,14 +1030,22 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                     {
                         // PreFlex codec interns field names; verify:
                         if (Debugging.AssertsEnabled) Debugging.Assert(t == null || !t.Field.Equals(internedFieldName, StringComparison.Ordinal));
-                        return null;
+                        return false;
                     }
                     else
                     {
                         current = t.Bytes;
-                        return current;
+                        return true;
                     }
                 }
+            }
+
+            [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+            public override BytesRef Next()
+            {
+                if (MoveNext())
+                    return current;
+                return null;
             }
 
             public override BytesRef Term => current;

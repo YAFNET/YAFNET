@@ -117,7 +117,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         /// <summary>
-        /// On the first call to <see cref="Next()"/> or if <see cref="Accept(BytesRef)"/> returns
+        /// On the first call to <see cref="MoveNext()"/> or if <see cref="Accept(BytesRef)"/> returns
         /// <see cref="AcceptStatus.YES_AND_SEEK"/> or <see cref="AcceptStatus.NO_AND_SEEK"/>,
         /// this method will be called to eventually seek the underlying <see cref="TermsEnum"/>
         /// to a new position.
@@ -211,7 +211,7 @@ namespace YAF.Lucene.Net.Index
             return tenum.GetTermState();
         }
 
-        public override BytesRef Next()
+        public override bool MoveNext()
         {
             //System.out.println("FTE.next doSeek=" + doSeek);
             //new Throwable().printStackTrace(System.out);
@@ -229,18 +229,22 @@ namespace YAF.Lucene.Net.Index
                     {
                         // no more terms to seek to or enum exhausted
                         //System.out.println("  return null");
-                        return null;
+                        return false;
                     }
                     actualTerm = tenum.Term;
                     //System.out.println("  got term=" + actualTerm.utf8ToString());
                 }
                 else
                 {
-                    actualTerm = tenum.Next();
-                    if (actualTerm == null)
+                    if (tenum.MoveNext())
+                    {
+                        actualTerm = tenum.Term;
+                    }
+                    else
                     {
                         // enum exhausted
-                        return null;
+                        actualTerm = null;
+                        return false;
                     }
                 }
 
@@ -253,7 +257,7 @@ namespace YAF.Lucene.Net.Index
                         goto case FilteredTermsEnum.AcceptStatus.YES;
                     case FilteredTermsEnum.AcceptStatus.YES:
                         // term accepted
-                        return actualTerm;
+                        return true;
 
                     case FilteredTermsEnum.AcceptStatus.NO_AND_SEEK:
                         // invalid term, seek next time
@@ -262,9 +266,17 @@ namespace YAF.Lucene.Net.Index
 
                     case FilteredTermsEnum.AcceptStatus.END:
                         // we are supposed to end the enum
-                        return null;
+                        return false;
                 }
             }
+        }
+
+        [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public override BytesRef Next()
+        {
+            if (MoveNext())
+                return actualTerm;
+            return null;
         }
     }
 }

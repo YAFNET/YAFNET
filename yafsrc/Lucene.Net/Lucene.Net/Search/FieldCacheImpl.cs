@@ -422,14 +422,9 @@ namespace YAF.Lucene.Net.Search
 
                     DocsEnum docs = null;
                     FixedBitSet docsWithField = null;
-                    while (true)
+                    while (termsEnum.MoveNext())
                     {
-                        BytesRef term = termsEnum.Next();
-                        if (term == null)
-                        {
-                            break;
-                        }
-                        VisitTerm(term);
+                        VisitTerm(termsEnum.Term);
                         docs = termsEnum.Docs(null, docs, DocsFlags.NONE);
                         while (true)
                         {
@@ -1101,15 +1096,10 @@ namespace YAF.Lucene.Net.Search
                         // Fast case: all docs have this field:
                         return new Lucene.Net.Util.Bits.MatchAllBits(maxDoc);
                     }
-                    TermsEnum termsEnum = terms.GetIterator(null);
+                    TermsEnum termsEnum = terms.GetEnumerator();
                     DocsEnum docs = null;
-                    while (true)
+                    while (termsEnum.MoveNext())
                     {
-                        BytesRef term = termsEnum.Next();
-                        if (term == null)
-                        {
-                            break;
-                        }
                         if (res == null)
                         {
                             // lazy init
@@ -1799,22 +1789,17 @@ namespace YAF.Lucene.Net.Search
 
                 if (terms != null)
                 {
-                    TermsEnum termsEnum = terms.GetIterator(null);
+                    TermsEnum termsEnum = terms.GetEnumerator();
                     DocsEnum docs = null;
 
-                    while (true)
+                    while (termsEnum.MoveNext())
                     {
-                        BytesRef term = termsEnum.Next();
-                        if (term == null)
-                        {
-                            break;
-                        }
                         if (termOrd >= termCountHardLimit)
                         {
                             break;
                         }
 
-                        termOrdToBytesOffset.Add(bytes.CopyUsingLengthPrefix(term));
+                        termOrdToBytesOffset.Add(bytes.CopyUsingLengthPrefix(termsEnum.Term));
                         docs = termsEnum.Docs(null, docs, DocsFlags.NONE);
                         while (true)
                         {
@@ -1959,7 +1944,7 @@ namespace YAF.Lucene.Net.Search
                 if (terms != null)
                 {
                     int termCount = 0;
-                    TermsEnum termsEnum = terms.GetIterator(null);
+                    TermsEnum termsEnum = terms.GetEnumerator();
                     DocsEnum docs = null;
                     while (true)
                     {
@@ -1971,12 +1956,11 @@ namespace YAF.Lucene.Net.Search
                             break;
                         }
 
-                        BytesRef term = termsEnum.Next();
-                        if (term == null)
+                        if (!termsEnum.MoveNext())
                         {
                             break;
                         }
-                        long pointer = bytes.CopyUsingLengthPrefix(term);
+                        long pointer = bytes.CopyUsingLengthPrefix(termsEnum.Term);
                         docs = termsEnum.Docs(null, docs, DocsFlags.NONE);
                         while (true)
                         {
