@@ -124,6 +124,11 @@ namespace YAF.Controls
             this.Users.DataBind();
 
             this.IconHeader.Param0 = this.LastNumOfDays.ToString();
+
+            if (users.Rows.Count == 0)
+            {
+                this.Visible = false;
+            }
         }
 
         #endregion
