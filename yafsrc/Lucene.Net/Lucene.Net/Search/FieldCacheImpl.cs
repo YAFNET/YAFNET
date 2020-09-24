@@ -28,27 +28,27 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using DocTermOrds = YAF.Lucene.Net.Index.DocTermOrds;
-    using DocValues = YAF.Lucene.Net.Index.DocValues;
-    using FieldCacheSanityChecker = YAF.Lucene.Net.Util.FieldCacheSanityChecker;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using GrowableWriter = YAF.Lucene.Net.Util.Packed.GrowableWriter;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
-    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
-    using SegmentReader = YAF.Lucene.Net.Index.SegmentReader;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using AtomicReader = Lucene.Net.Index.AtomicReader;
+    using BinaryDocValues = Lucene.Net.Index.BinaryDocValues;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using DocsEnum = Lucene.Net.Index.DocsEnum;
+    using DocTermOrds = Lucene.Net.Index.DocTermOrds;
+    using DocValues = Lucene.Net.Index.DocValues;
+    using FieldCacheSanityChecker = Lucene.Net.Util.FieldCacheSanityChecker;
+    using FieldInfo = Lucene.Net.Index.FieldInfo;
+    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
+    using GrowableWriter = Lucene.Net.Util.Packed.GrowableWriter;
+    using IBits = Lucene.Net.Util.IBits;
+    using IndexReader = Lucene.Net.Index.IndexReader;
+    using MonotonicAppendingInt64Buffer = Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
+    using NumericDocValues = Lucene.Net.Index.NumericDocValues;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes = Lucene.Net.Util.PagedBytes;
+    using SegmentReader = Lucene.Net.Index.SegmentReader;
+    using SortedDocValues = Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues = Lucene.Net.Index.SortedSetDocValues;
+    using Terms = Lucene.Net.Index.Terms;
+    using TermsEnum = Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Expert: The default cache implementation, storing all values in memory.
@@ -58,8 +58,17 @@ namespace YAF.Lucene.Net.Search
     /// </summary>
     internal class FieldCacheImpl : IFieldCache
     {
-        private IDictionary<Type, Cache> caches;
-
+        // LUCENENET specific - eliminated unnecessary Dictionary lookup by declaring each cache as a member variable
+        private Cache caches_typeof_sbyte;
+        private Cache caches_typeof_short;
+        private Cache caches_typeof_int;
+        private Cache caches_typeof_float;
+        private Cache caches_typeof_long;
+        private Cache caches_typeof_double;
+        private Cache caches_typeof_BinaryDocValues;
+        private Cache caches_typeof_SortedDocValues;
+        private Cache caches_typeof_DocTermOrds;
+        private Cache caches_typeof_DocsWithFieldCache;
         internal FieldCacheImpl()
         {
             Init();
@@ -73,17 +82,17 @@ namespace YAF.Lucene.Net.Search
         {
             lock (this)
             {
-                caches = new Dictionary<Type, Cache>(9);
-                caches[typeof(sbyte)] = new ByteCache(this);
-                caches[typeof(short)] = new Int16Cache(this);
-                caches[typeof(int)] = new Int32Cache(this);
-                caches[typeof(float)] = new SingleCache(this);
-                caches[typeof(long)] = new Int64Cache(this);
-                caches[typeof(double)] = new DoubleCache(this);
-                caches[typeof(BinaryDocValues)] = new BinaryDocValuesCache(this);
-                caches[typeof(SortedDocValues)] = new SortedDocValuesCache(this);
-                caches[typeof(DocTermOrds)] = new DocTermOrdsCache(this);
-                caches[typeof(DocsWithFieldCache)] = new DocsWithFieldCache(this);
+                // LUCENENET specific - eliminated unnecessary Dictionary lookup by declaring each cache as a member variable
+                caches_typeof_sbyte              = new ByteCache(this);
+                caches_typeof_short              = new Int16Cache(this);
+                caches_typeof_int                = new Int32Cache(this);
+                caches_typeof_float              = new SingleCache(this);
+                caches_typeof_long               = new Int64Cache(this);
+                caches_typeof_double             = new DoubleCache(this);
+                caches_typeof_BinaryDocValues    = new BinaryDocValuesCache(this);
+                caches_typeof_SortedDocValues    = new SortedDocValuesCache(this);
+                caches_typeof_DocTermOrds        = new DocTermOrdsCache(this);
+                caches_typeof_DocsWithFieldCache = new DocsWithFieldCache(this);
             }
         }
 
@@ -95,13 +104,29 @@ namespace YAF.Lucene.Net.Search
             }
         }
 
+        // LUCENENET specific - added GetCaches() to allow looping over the caches even though they are no longer in a collection
+        private IEnumerable<KeyValuePair<Type, Cache>> GetCaches()
+        {
+            yield return new KeyValuePair<Type, Cache>(typeof(sbyte), caches_typeof_sbyte);
+            yield return new KeyValuePair<Type, Cache>(typeof(short), caches_typeof_short);
+            yield return new KeyValuePair<Type, Cache>(typeof(int), caches_typeof_int);
+            yield return new KeyValuePair<Type, Cache>(typeof(float), caches_typeof_float);
+            yield return new KeyValuePair<Type, Cache>(typeof(long), caches_typeof_long);
+            yield return new KeyValuePair<Type, Cache>(typeof(double), caches_typeof_double);
+            yield return new KeyValuePair<Type, Cache>(typeof(BinaryDocValues), caches_typeof_BinaryDocValues);
+            yield return new KeyValuePair<Type, Cache>(typeof(SortedDocValues), caches_typeof_SortedDocValues);
+            yield return new KeyValuePair<Type, Cache>(typeof(DocTermOrds), caches_typeof_DocTermOrds);
+            yield return new KeyValuePair<Type, Cache>(typeof(DocsWithFieldCache), caches_typeof_DocsWithFieldCache);
+        }
+
         public virtual void PurgeByCacheKey(object coreCacheKey)
         {
             lock (this)
             {
-                foreach (Cache c in caches.Values)
+                // LUCENENET specific - added GetCaches() to allow looping over the caches even though they are no longer in a collection
+                foreach (var kv in GetCaches())
                 {
-                    c.PurgeByCacheKey(coreCacheKey);
+                    kv.Value.PurgeByCacheKey(coreCacheKey);
                 }
             }
         }
@@ -111,7 +136,8 @@ namespace YAF.Lucene.Net.Search
             lock (this)
             {
                 IList<FieldCache.CacheEntry> result = new List<FieldCache.CacheEntry>(17);
-                foreach (KeyValuePair<Type, Cache> cacheEntry in caches)
+                // LUCENENET specific - added GetCaches() to allow looping over the caches even though they are no longer in a collection
+                foreach (var cacheEntry in GetCaches())
                 {
                     Cache cache = cacheEntry.Value;
                     Type cacheType = cacheEntry.Key;
@@ -482,7 +508,8 @@ namespace YAF.Lucene.Net.Search
             {
                 bits = docsWithField;
             }
-            caches[typeof(DocsWithFieldCache)].Put(reader, new CacheKey(field, null), bits);
+            // LUCENENET specific - eliminated unnecessary Dictionary lookup by declaring each cache as a member variable
+            caches_typeof_DocsWithFieldCache.Put(reader, new CacheKey(field, null), bits);
         }
 
         /// <summary>
@@ -528,7 +555,8 @@ namespace YAF.Lucene.Net.Search
                 {
                     return FieldCache.Bytes.EMPTY;
                 }
-                return (FieldCache.Bytes)caches[typeof(sbyte)].Get(reader, new CacheKey(field, parser), setDocsWithField);
+                // LUCENENET specific - eliminated unnecessary Dictionary lookup by declaring each cache as a member variable
+                return (FieldCache.Bytes)caches_typeof_sbyte.Get(reader, new CacheKey(field, parser), setDocsWithField);
             }
         }
 
@@ -697,7 +725,8 @@ namespace YAF.Lucene.Net.Search
                 {
                     return FieldCache.Int16s.EMPTY;
                 }
-                return (FieldCache.Int16s)caches[typeof(short)].Get(reader, new CacheKey(field, parser), setDocsWithField);
+                // LUCENENET specific - eliminated unnecessary Dictionary lookup by declaring each cache as a member variable
+                return (FieldCache.Int16s)caches_typeof_short.Get(reader, new CacheKey(field, parser), setDocsWithField);
             }
         }
 
@@ -870,7 +899,8 @@ namespace YAF.Lucene.Net.Search
                 {
                     return FieldCache.Int32s.EMPTY;
                 }
-                return (FieldCache.Int32s)caches[typeof(int)].Get(reader, new CacheKey(field, parser), setDocsWithField);
+                // LUCENENET specific - eliminated unnecessary Dictionary lookup by declaring each cache as a member variable
+                return (FieldCache.Int32s)caches_typeof_int.Get(reader, new CacheKey(field, parser), setDocsWithField);
             }
         }
 
@@ -1069,7 +1099,8 @@ namespace YAF.Lucene.Net.Search
             {
                 return new Lucene.Net.Util.Bits.MatchNoBits(reader.MaxDoc);
             }
-            return (IBits)caches[typeof(DocsWithFieldCache)].Get(reader, new CacheKey(field, null), false);
+            // LUCENENET specific - eliminated unnecessary Dictionary lookup by declaring each cache as a member variable
+            return (IBits)caches_typeof_DocsWithFieldCache.Get(reader, new CacheKey(field, null), false);
         }
 
         internal sealed class DocsWithFieldCache : Cache
@@ -1169,7 +1200,8 @@ namespace YAF.Lucene.Net.Search
                 {
                     return FieldCache.Singles.EMPTY;
                 }
-                return (FieldCache.Singles)caches[typeof(float)].Get(reader, new CacheKey(field, parser), setDocsWithField);
+                // LUCENENET specific - eliminated unnecessary Dictionary lookup by declaring each cache as a member variable
+                return (FieldCache.Singles)caches_typeof_float.Get(reader, new CacheKey(field, parser), setDocsWithField);
             }
         }
 
@@ -1340,7 +1372,8 @@ namespace YAF.Lucene.Net.Search
                 {
                     return FieldCache.Int64s.EMPTY;
                 }
-                return (FieldCache.Int64s)caches[typeof(long)].Get(reader, new CacheKey(field, parser), setDocsWithField);
+                // LUCENENET specific - eliminated unnecessary Dictionary lookup by declaring each cache as a member variable
+                return (FieldCache.Int64s)caches_typeof_long.Get(reader, new CacheKey(field, parser), setDocsWithField);
             }
         }
 
@@ -1523,7 +1556,8 @@ namespace YAF.Lucene.Net.Search
                 {
                     return FieldCache.Doubles.EMPTY;
                 }
-                return (FieldCache.Doubles)caches[typeof(double)].Get(reader, new CacheKey(field, parser), setDocsWithField);
+                // LUCENENET specific - eliminated unnecessary Dictionary lookup by declaring each cache as a member variable
+                return (FieldCache.Doubles)caches_typeof_double.Get(reader, new CacheKey(field, parser), setDocsWithField);
             }
         }
 
@@ -1718,7 +1752,8 @@ namespace YAF.Lucene.Net.Search
                 {
                     return DocValues.EMPTY_SORTED;
                 }
-                return (SortedDocValues)caches[typeof(SortedDocValues)].Get(reader, new CacheKey(field, acceptableOverheadRatio), false);
+                // LUCENENET specific - eliminated unnecessary Dictionary lookup by declaring each cache as a member variable
+                return (SortedDocValues)caches_typeof_SortedDocValues.Get(reader, new CacheKey(field, acceptableOverheadRatio), false);
             }
         }
 
@@ -1884,7 +1919,8 @@ namespace YAF.Lucene.Net.Search
                 return DocValues.EMPTY_BINARY;
             }
 
-            return (BinaryDocValues)caches[typeof(BinaryDocValues)].Get(reader, new CacheKey(field, acceptableOverheadRatio), setDocsWithField);
+            // LUCENENET specific - eliminated unnecessary Dictionary lookup by declaring each cache as a member variable
+            return (BinaryDocValues)caches_typeof_BinaryDocValues.Get(reader, new CacheKey(field, acceptableOverheadRatio), setDocsWithField);
         }
 
         internal sealed class BinaryDocValuesCache : Cache
@@ -2036,7 +2072,8 @@ namespace YAF.Lucene.Net.Search
                 return DocValues.EMPTY_SORTED_SET;
             }
 
-            DocTermOrds dto = (DocTermOrds)caches[typeof(DocTermOrds)].Get(reader, new CacheKey(field, null), false);
+            // LUCENENET specific - eliminated unnecessary Dictionary lookup by declaring each cache as a member variable
+            DocTermOrds dto = (DocTermOrds)caches_typeof_DocTermOrds.Get(reader, new CacheKey(field, null), false);
             return dto.GetIterator(reader);
         }
 
