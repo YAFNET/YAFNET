@@ -140,7 +140,7 @@ namespace YAF.Lucene.Net.Util
                     continue;
                 }
 
-                if (val is FieldCache.CreationPlaceholder)
+                if (val is FieldCache.ICreationPlaceholder)
                 {
                     continue;
                 }
