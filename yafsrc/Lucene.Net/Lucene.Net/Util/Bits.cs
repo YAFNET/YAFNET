@@ -1,5 +1,4 @@
 using YAF.Lucene.Net.Support;
-using System;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -63,11 +62,6 @@ namespace YAF.Lucene.Net.Util
             }
 
             public int Length => _len;
-
-            public override int GetHashCode() // LUCENENET TODO: This wasn't in Lucene - is it needed ?
-            {
-                return ("MatchAllBits" + _len).GetHashCode();
-            }
         }
 
         /// <summary>
@@ -88,11 +82,6 @@ namespace YAF.Lucene.Net.Util
             }
 
             public int Length => _len;
-
-            public override int GetHashCode() // LUCENENET TODO: This wasn't in Lucene - is it needed ?
-            {
-                return ("MatchNoBits" + _len).GetHashCode();
-            }
         }
     }
 }
