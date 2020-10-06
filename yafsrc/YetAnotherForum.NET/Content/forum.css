@@ -8285,6 +8285,7 @@ div#UploadDialog {
 
 .scrollable-dropdown {
   height: auto;
+  width: 100%;
   max-height: 200px;
   overflow-x: hidden; }
 
