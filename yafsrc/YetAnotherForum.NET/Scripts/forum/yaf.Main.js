@@ -71,7 +71,7 @@ jQuery(document).ready(function () {
         allowClear: false,
         dropdownAutoWidth: true,
         templateResult: formatState,
-        templateSelection: formatState,
+        templateSelection: formatState
     });
 
     
@@ -121,6 +121,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 template:
                     '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
             });
+    });
+
+    $(".thanks-popover").on("show.bs.popover", function () {
+        var messageId = $(this).data("messageid");
+        var url = $(this).data("url");
+        $.ajax({
+            url: url + "/ThankYou/GetThanks/" + messageId,
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            cache: true,
+            success: function (response) {
+                $("#popover-list-" + messageId).html(response.ThanksInfo);
+            }
+        });
     });
 
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
