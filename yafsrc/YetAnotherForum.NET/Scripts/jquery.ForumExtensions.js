@@ -25767,7 +25767,7 @@
 
 /*! @preserve
  * bootbox.js
- * version: 5.4.0
+ * version: 5.4.1
  * author: Nick Payne <nick@kurai.co.uk>
  * license: MIT
  * http://bootboxjs.com/
@@ -25781,7 +25781,7 @@
     // Node, CommonJS-like
     module.exports = factory(require('jquery'));
   } else {
-    // Browser globals (root is window)v
+    // Browser globals (root is window)
     root.bootbox = factory(root.jQuery);
   }
 }(this, function init($, undefined) {
@@ -26196,7 +26196,7 @@
     // Bootbox event listeners; used to decouple some
     // behaviours from their respective triggers
 
-    if (options.backdrop !== 'static') {
+    if (options.backdrop === true) {
       // A boolean true/false according to the Bootstrap docs
       // should show a dialog the user can dismiss by clicking on
       // the background.
@@ -26260,7 +26260,7 @@
     $(options.container).append(dialog);
 
     dialog.modal({
-      backdrop: options.backdrop ? 'static' : false,
+      backdrop: options.backdrop,
       keyboard: false,
       show: false
     });
@@ -26831,12 +26831,19 @@
     // make sure any supplied options take precedence over defaults
     options = $.extend({}, defaults, options);
 
+    //make sure backdrop is either true, false, or 'static'
+    if (!options.backdrop) {
+      options.backdrop = (options.backdrop === false || options.backdrop === 0) ? false : 'static';
+    } else {
+      options.backdrop = typeof options.backdrop === 'string' && options.backdrop.toLowerCase() === 'static' ? 'static' : true;
+    } 
+
     // no buttons is still a valid dialog but it's cleaner to always have
     // a buttons object to iterate over, even if it's empty
     if (!options.buttons) {
       options.buttons = {};
     }
-
+    
     buttons = options.buttons;
 
     total = getKeyLength(buttons);
@@ -26996,6 +27003,7 @@
   //  The Bootbox object
   return exports;
 }));
+
 /*! version : 4.17.47
  =========================================================
  bootstrap-datetimejs
