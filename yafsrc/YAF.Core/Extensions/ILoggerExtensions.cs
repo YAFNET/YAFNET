@@ -30,6 +30,7 @@ namespace YAF.Core.Extensions
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     ///     The Logger extensions.
@@ -130,7 +131,7 @@ namespace YAF.Core.Extensions
 
             try
             {
-                message = $"Exception at URL: {BoardContext.Current.Get<HttpRequestBase>().Url}";
+                message = $"Exception at URL: {BoardContext.Current.Get<HttpRequestBase>().Url}; IP:'{BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress()}'";
             }
             catch (Exception e)
             {

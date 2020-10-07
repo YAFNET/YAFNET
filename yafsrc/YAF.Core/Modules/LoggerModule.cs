@@ -54,37 +54,23 @@ namespace YAF.Core.Modules
         {
             CodeContracts.VerifyNotNull(builder, "builder");
 
-            builder.ComponentRegistryBuilder.Registered +=
-                (sender, e) => e.ComponentRegistration.Preparing += OnComponentPreparing;
-
             if (builder.ComponentRegistryBuilder.IsRegistered(new TypedService(typeof(ILoggerProvider))))
             {
                 return;
             }
 
-            builder.RegisterType<DbLoggerProvider>().As<ILoggerProvider>().SingleInstance();
-            builder.Register(c => c.Resolve<ILoggerProvider>().Create(null)).SingleInstance();
-        }
-
-        /// <summary>
-        ///     The on component preparing.
-        /// </summary>
-        /// <param name="sender">
-        ///     The sender.
-        /// </param>
-        /// <param name="e">
-        ///     The e.
-        /// </param>
-        private static void OnComponentPreparing([NotNull] object sender, [NotNull] PreparingEventArgs e)
-        {
-            var t = e.Component.Activator.LimitType;
-            e.Parameters = e.Parameters.Union(
-                new[]
+            builder.RegisterType<DbLoggerProvider>().As<ILoggerProvider>().SingleInstance().OnPreparing(e =>
+            {
+                var t = e.Component.Activator.LimitType;
+                e.Parameters = e.Parameters.Union(
+                    new[]
                     {
                         new ResolvedParameter(
                             (p, i) => p.ParameterType == typeof(ILogger),
                             (p, i) => i.Resolve<ILoggerProvider>().Create(t))
                     });
+            });
+            builder.Register(c => c.Resolve<ILoggerProvider>().Create(null)).SingleInstance();
         }
 
         #endregion
