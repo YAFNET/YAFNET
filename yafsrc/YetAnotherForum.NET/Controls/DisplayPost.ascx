@@ -2,7 +2,6 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="ServiceStack" %>
-<%@ Import Namespace="System.Data" %>
 
 <asp:PlaceHolder runat="server" ID="ShowHideIgnoredUserPost" Visible="False">
     <YAF:Alert runat="server" Type="info" Dismissing="True">
@@ -33,7 +32,7 @@
                                 <li class="list-inline-item">
                                     <YAF:UserLink ID="UserProfileLink" runat="server" />
                                     <YAF:ThemeButton ID="AddReputation" runat="server" 
-                                                     CssClass='<%# "AddReputation_{0} mr-1".Fmt(this.DataRow["UserID"])%>'
+                                                     CssClass='<%# "AddReputation_{0} mr-1".Fmt(this.DataSource.UserID)%>'
                                                      Size="Small"
                                                      Icon="thumbs-up"
                                                      IconColor="text-success"
@@ -43,7 +42,7 @@
                                                      OnClick="AddUserReputation">
                                     </YAF:ThemeButton>
                                     <YAF:ThemeButton ID="RemoveReputation" runat="server" 
-                                                     CssClass='<%# "RemoveReputation_{0}".Fmt(this.DataRow["UserID"])%>'
+                                                     CssClass='<%# "RemoveReputation_{0}".Fmt(this.DataSource.UserID)%>'
                                                      Type="None"
                                                      Size="Small"
                                                      IconColor="text-danger"
@@ -65,16 +64,16 @@
                                     </li>
                                 </asp:PlaceHolder>
                                 <asp:PlaceHolder runat="server" ID="UserReputation" 
-                                                 Visible='<%#this.Get<BoardSettings>().DisplayPoints && !this.DataRow.Field<bool>("IsGuest") %>'>
+                                                 Visible="<%#this.PageContext.BoardSettings.DisplayPoints && !this.DataSource.IsGuest %>">
                                     <li class="list-inline-item d-none d-md-inline-block" style="width:150px">
-                                        <%# this.Get<IReputation>().GenerateReputationBar(this.DataRow.Field<int>("Points"), this.PostData.UserId) %>
+                                        <%# this.Get<IReputation>().GenerateReputationBar(this.DataSource.Points, this.PostData.UserId) %>
                                     </li>
                                 </asp:PlaceHolder>
                                 <li class="list-inline-item d-block">
-                                    <span class="badge bg-secondary"><%# this.DataRow["RankName"]%></span>
+                                    <span class="badge bg-secondary"><%# this.DataSource.RankName%></span>
                                     <asp:Label ID="TopicStarterBadge" runat="server" 
                                            CssClass="badge bg-dark mb-2"
-                                           Visible='<%# this.DataRow.Field<int>("TopicOwnerID").Equals(this.PostData.UserId) %>'
+                                           Visible="<%# this.DataSource.TopicOwnerID.Equals(this.PostData.UserId) %>"
                                            ToolTip='<%# this.GetText("POSTS","TOPIC_STARTER_HELP") %>'>
                                     <YAF:LocalizedLabel ID="TopicStarterText" runat="server" 
                                                         LocalizedTag="TOPIC_STARTER" 
@@ -161,20 +160,20 @@
                                       IconNameBadge="clock" 
                                       IconBadgeType="text-secondary"></YAF:Icon>
                             <YAF:DisplayDateTime id="DisplayDateTime" runat="server" 
-                                                 DateTime='<%# this.DataRow["Posted"] %>'>
+                                                 DateTime="<%# this.DataSource.Posted %>">
                             </YAF:DisplayDateTime>
                     </div>
                     <div style="margin-top: 1px">
-                        <a id="post<%# this.DataRow["MessageID"] %>" 
-                           href='<%# BuildLink.GetLink(ForumPages.Posts,"m={0}&name={1}#post{0}", this.DataRow["MessageID"], this.PageContext.PageTopicName) %>'>
-                            #<%# this.CurrentPage * this.Get<BoardSettings>().PostsPerPage + this.PostCount + 1%>
+                        <a id="post<%# this.DataSource.MessageID %>" 
+                           href='<%# BuildLink.GetLink(ForumPages.Posts,"m={0}&name={1}#post{0}", this.DataSource.MessageID, this.PageContext.PageTopicName) %>'>
+                            #<%# this.CurrentPage * this.PageContext.BoardSettings.PostsPerPage + this.PostCount + 1%>
                         </a>
                     </div>
                 </div>
                 <div class="message">
                     <asp:panel id="panMessage" runat="server">
                             <YAF:MessagePostData runat="server"
-                                                 DataRow="<%# this.DataRow %>"
+                                                 DataRow="<%# this.DataSource %>"
                                                  ShowEditMessage="True">
                             </YAF:MessagePostData>
                     </asp:panel>
@@ -246,10 +245,10 @@
                 <div class="card-footer py-0">
                 <div class="row">
                     <div class="col px-0">
-                        <div id="<%# "dvThanksInfo{0}".Fmt(this.DataRow["MessageID"]) %>" class="small d-inline-flex">
+                        <span id="<%# "dvThanksInfo{0}".Fmt(this.DataSource.MessageID) %>">
                             <asp:Literal runat="server" Visible="false" ID="ThanksDataLiteral"></asp:Literal>
-                        </div>
-                        <span id="<%# "dvThankBox{0}".Fmt(this.DataRow["MessageID"]) %>">
+                        </span>
+                        <span id="<%# "dvThankBox{0}".Fmt(this.DataSource.MessageID) %>">
                             <YAF:ThemeButton ID="Thank" runat="server"
                                              Type="Link"
                                              Icon="thumbs-up"

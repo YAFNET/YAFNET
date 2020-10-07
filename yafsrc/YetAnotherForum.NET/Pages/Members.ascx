@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
+<%@ Import Namespace="YAF.Types.Objects.Model" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -178,36 +179,37 @@
                                 <li class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 text-break">
-                                        <img src="<%# this.GetAvatarUrlFileName(this.Eval("UserID").ToType<int>(), this.Eval("Avatar").ToString(), this.Eval("AvatarImage").ToString().IsSet(), this.Eval("Email").ToString()) %>" alt="<%# this.HtmlEncode(DataBinder.Eval(Container.DataItem,"Name").ToString()) %>"
-                                             title="<%# this.HtmlEncode(this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name").ToString()) %>" 
-                                             class="rounded img-fluid" />
+                                        <img src="<%# this.GetAvatarUrlFileName(((PagedUser)Container.DataItem).UserID, ((PagedUser)Container.DataItem).Avatar, ((PagedUser)Container.DataItem).AvatarImage != null, ((PagedUser)Container.DataItem).Email) %>" alt="<%# this.HtmlEncode(((PagedUser)Container.DataItem).Name) %>"
+                                             title="<%# this.HtmlEncode(this.PageContext.BoardSettings.EnableDisplayName ? ((PagedUser)Container.DataItem).DisplayName : ((PagedUser)Container.DataItem).Name) %>" 
+                                             class="rounded img-fluid"
+                                             style="max-height: 50px; max-width:50px"/>
                                         <YAF:UserLink ID="UserProfileLink" runat="server" 
-                                                      Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
+                                                      Suspended="<%# ((PagedUser)Container.DataItem).Suspended %>"
                                                       IsGuest="False" 
-                                                      ReplaceName='<%# this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name").ToString() %>' 
-                                                      UserID='<%# this.Eval("UserID").ToType<int>() %>'
-                                                      Style='<%# this.Eval("Style") %>' />
+                                                      ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? ((PagedUser)Container.DataItem).DisplayName : ((PagedUser)Container.DataItem).Name %>" 
+                                                      UserID="<%# ((PagedUser)Container.DataItem).UserID %>"
+                                                      Style="<%# ((PagedUser)Container.DataItem).UserStyle %>" />
                                     </h5>
                                     <small class="d-none d-md-block">
                                         <strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                                     LocalizedTag="JOINED"
                                                                     LocalizedPage="POSTS"/>:</strong>
-                                        <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
+                                        <%# this.Get<IDateTime>().FormatDateLong(((PagedUser)Container.DataItem).Joined) %>
                                     </small>
                                 </div>
                                 <p class="mb-1">
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="RANK"></YAF:LocalizedLabel></strong>
-                                            <%# this.Eval("RankName") %>
+                                            <%# ((PagedUser)Container.DataItem).RankName %>
                                         </li>
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="POSTS" LocalizedPage="ADMIN_USERS" />:</strong>
-                                            <%# "{0:N0}".Fmt(((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %>
+                                            <%# "{0:N0}".Fmt(((PagedUser)Container.DataItem).NumPosts) %>
                                         </li>
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" />:</strong>
-                                            <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
+                                            <%# this.Get<IDateTime>().FormatDateLong(((PagedUser)Container.DataItem).LastVisit) %>
                                         </li>
                                     </ul>
                                 </p>

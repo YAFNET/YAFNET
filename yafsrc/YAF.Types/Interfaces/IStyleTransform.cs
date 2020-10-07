@@ -23,96 +23,18 @@
  */
 namespace YAF.Types.Interfaces
 {
-    using System.Collections.Generic;
-    using System.Data;
-
-    using YAF.Types.Models;
-
     /// <summary>
-    /// The StyleTransform interface.
+    /// The Style Transform interface.
     /// </summary>
     public interface IStyleTransform
     {
         /// <summary>
-        /// The decode style Group
-        /// </summary>
-        /// <param name="group">
-        /// The group.
-        /// </param>
-        /// <param name="colorOnly">
-        /// The color only.
-        /// </param>
-        void DecodeStyleByGroup(Group group, bool colorOnly = false);
-
-        /// <summary>
-        /// The decode style User
-        /// </summary>
-        /// <param name="user">
-        /// The User
-        /// </param>
-        /// <param name="colorOnly">
-        /// The color only.
-        /// </param>
-        void DecodeStyleByUser(User user, bool colorOnly = false);
-
-        /// <summary>
-        /// The decode style by row.
-        /// </summary>
-        /// <param name="dr">
-        /// The dr.
-        /// </param>
-        /// <param name="columnName">
-        /// the style column name
-        /// </param>
-        /// <param name="colorOnly">
-        /// The color only.
-        /// </param>
-        void DecodeStyleByRow(DataRow dr, string columnName = "Style", bool colorOnly = false);
-
-        /// <summary>
-        /// The decode style by string.
+        /// Decode style by string.
         /// </summary>
         /// <param name="style">The style string.</param>
-        /// <param name="colorOnly">The color only.</param>
         /// <returns>
         /// The decode style by string.
         /// </returns>
-        string DecodeStyleByString(string style, bool colorOnly = false);
-
-        /// <summary>
-        /// The decode style by table.
-        /// </summary>
-        /// <param name="dt">
-        /// The dt.
-        /// </param>
-        /// <param name="colorOnly">
-        /// The color only.
-        /// </param>
-        /// <param name="styleColumns">
-        /// The styleColumns can contain param array to handle several style columns.
-        /// </param>
-        void DecodeStyleByTable(DataTable dt, bool colorOnly = false, string[] styleColumns = null);
-
-        /// <summary>
-        /// Decode Groups Styles
-        /// </summary>
-        /// <param name="list">
-        /// The list.
-        /// </param>
-        /// <param name="colorOnly">
-        /// The color only.
-        /// </param>
-        void DecodeStyleByGroupList(List<Group> list, bool colorOnly = false);
-
-        /// <summary>
-        /// Decode User Styles
-        /// </summary>
-        /// <param name="list">
-        /// The list.
-        /// </param>
-        /// <param name="colorOnly">
-        /// The color only.
-        /// </param>
-        void DecodeStyleByUserList(List<User> list, bool colorOnly = false);
+        string Decode(string style);
     }
 }

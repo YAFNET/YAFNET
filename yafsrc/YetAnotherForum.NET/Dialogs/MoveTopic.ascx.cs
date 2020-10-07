@@ -28,7 +28,6 @@ namespace YAF.Dialogs
 
     using System;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
     using YAF.Types;
@@ -66,7 +65,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            var showMoved = this.Get<BoardSettings>().ShowMoved;
+            var showMoved = this.PageContext.BoardSettings.ShowMoved;
 
             // Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
             this.LeavePointer.Checked = showMoved;
@@ -79,7 +78,7 @@ namespace YAF.Dialogs
                 this.LinkDays.Text = "1";
             }
 
-            var forumList = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            var forumList = this.GetRepository<Forum>().ListAllSorted(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 

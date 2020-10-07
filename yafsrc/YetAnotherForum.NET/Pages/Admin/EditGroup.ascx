@@ -157,7 +157,7 @@
                                               CssClass="form-select" />
                         </div>
                     </asp:PlaceHolder>
-                    <asp:Repeater ID="AccessList" runat="server">
+                    <asp:Repeater ID="AccessList" runat="server" OnItemCreated="AccessList_OnItemCreated">
                         <HeaderTemplate>
                             <div class="row">
                         </HeaderTemplate>
@@ -166,14 +166,11 @@
                         </FooterTemplate>
                         <ItemTemplate>
                             <div class="mb-3 col-md-4">
-                                <asp:HiddenField ID="ForumID" runat="server" Value='<%# this.Eval( "ForumID") %>' />
-                                <asp:Label runat="server" AssociatedControlID="AccessMaskID">
-                                    <%# this.Eval( "ForumName") %>
-                                </asp:Label>
+                                <asp:HiddenField ID="ForumID" runat="server" />
+                                <asp:Label runat="server" ID="AccessMask"
+                                           AssociatedControlID="AccessMaskID" />
                                 <asp:DropDownList runat="server" ID="AccessMaskID" 
-                                                  OnDataBinding="BindDataAccessMaskId" 
-                                                  CssClass="form-select"
-                                                  OnPreRender="SetDropDownIndex" value='<%# this.Eval("AccessMaskID") %>' />
+                                                  CssClass="form-select" />
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>

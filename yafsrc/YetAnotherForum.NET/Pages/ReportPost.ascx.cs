@@ -29,7 +29,6 @@ namespace YAF.Pages
     using System;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -116,10 +115,10 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.Report.Text.Length > this.Get<BoardSettings>().MaxReportPostChars)
+            if (this.Report.Text.Length > this.PageContext.BoardSettings.MaxReportPostChars)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("REPORTTEXT_TOOLONG", this.Get<BoardSettings>().MaxReportPostChars),
+                    this.GetTextFormatted("REPORTTEXT_TOOLONG", this.PageContext.BoardSettings.MaxReportPostChars),
                     MessageTypes.danger);
 
                 return;
@@ -133,7 +132,7 @@ namespace YAF.Pages
                 this.Report.Text);
 
             // Send Notification to Mods about the Reported Post.
-            if (this.Get<BoardSettings>().EmailModeratorsOnReportedPost)
+            if (this.PageContext.BoardSettings.EmailModeratorsOnReportedPost)
             {
                 // not approved, notify moderators
                 this.Get<ISendNotification>().ToModeratorsThatMessageWasReported(
@@ -157,7 +156,7 @@ namespace YAF.Pages
             if (this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
                 // We check here if the user have access to the option
-                if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ReportPostPermissions))
+                if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ReportPostPermissions))
                 {
                     BuildLink.Redirect(ForumPages.Info, "i=1");
                 }
@@ -191,9 +190,9 @@ namespace YAF.Pages
                 BuildLink.Redirect(ForumPages.Info, "i=1");
             }
 
-            this.Report.MaxLength = this.Get<BoardSettings>().MaxReportPostChars;
+            this.Report.MaxLength = this.PageContext.BoardSettings.MaxReportPostChars;
 
-            this.LocalizedLblMaxNumberOfPost.Param0 = this.Get<BoardSettings>().MaxReportPostChars.ToString();
+            this.LocalizedLblMaxNumberOfPost.Param0 = this.PageContext.BoardSettings.MaxReportPostChars.ToString();
         }
 
         /// <summary>

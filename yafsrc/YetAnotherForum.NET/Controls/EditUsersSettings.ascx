@@ -7,7 +7,7 @@
                                 LocalizedTag="FORUM_SETTINGS" />
         </h4>
 </asp:PlaceHolder>
-<asp:PlaceHolder id="HideTr" visible="<%# this.Get<BoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin %>" runat="server">
+<asp:PlaceHolder id="HideTr" visible="<%# this.PageContext.BoardSettings.AllowUserHideHimself || this.PageContext.IsAdmin %>" runat="server">
     <div class="mb-3">
         <asp:Label runat="server" AssociatedControlID="Activity">
             <YAF:LocalizedLabel ID="LocalizedLabel35" runat="server" 

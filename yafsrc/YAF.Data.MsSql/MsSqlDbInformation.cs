@@ -45,8 +45,7 @@ namespace YAF.Data.MsSql
         /// </summary>
         private static readonly string[] InstallScriptList =
         {
-            "mssql/install/views.sql", "mssql/install/constraints.sql", "mssql/install/functions.sql",
-            "mssql/install/procedures.sql",
+            "mssql/install/views.sql", "mssql/install/constraints.sql", "mssql/install/functions.sql"
         };
 
         /// <summary>
@@ -56,6 +55,15 @@ namespace YAF.Data.MsSql
         {
             "mssql/upgrade/tables.sql", "mssql/upgrade/views.sql", "mssql/upgrade/constraints.sql",
             "mssql/upgrade/triggers.sql", "mssql/upgrade/functions.sql", "mssql/upgrade/procedures.sql"
+        };
+
+        /// <summary>
+        /// The upgrade script list
+        /// </summary>
+        private static readonly string[] NewUpgradeScriptList =
+        {
+            "mssql/upgrade/tables.sql", "mssql/upgrade/views.sql", "mssql/upgrade/constraints.sql",
+            "mssql/upgrade/triggers.sql", "mssql/upgrade/functions.sql"
         };
 
         /// <summary>
@@ -110,6 +118,11 @@ namespace YAF.Data.MsSql
         /// Gets the Upgrade Script List.
         /// </summary>
         public IEnumerable<string> UpgradeScripts => UpgradeScriptList;
+
+        /// <summary>
+        /// Gets the New Upgrade Script List.
+        /// </summary>
+        public IEnumerable<string> NewUpgradeScripts => NewUpgradeScriptList;
 
         /// <summary>
         /// Gets the YAF Provider Upgrade Script List.

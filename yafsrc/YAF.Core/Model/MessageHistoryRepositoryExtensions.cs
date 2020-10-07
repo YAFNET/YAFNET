@@ -23,7 +23,14 @@
  */
 namespace YAF.Core.Model
 {
+    using System.Collections.Generic;
+    using System.Dynamic;
+    
+    using ServiceStack.OrmLite;
+
+    using YAF.Core.Context;
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -35,25 +42,112 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// Delete all message variants older then DaysToClean
+        /// Gets the List of all message changes.
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
         /// <param name="messageId">
-        /// The message id.
+        /// The Message ID.
+        /// </param>
+        /// <param name="daysToClean">
+        /// Days to clean.
+        /// </param>
+        /// <returns>
+        /// Returns the List of all message changes.
+        /// </returns>
+        public static List<dynamic> List(this IRepository<MessageHistory> repository, int messageId, int daysToClean)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            repository.DeleteOlderThen(daysToClean);
+
+            var list = repository.DbAccess.Execute(
+                db =>
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageHistory>();
+
+                    expression.LeftJoin<Message>((mh, m) => mh.MessageID == m.ID)
+                        .LeftJoin<Message, Topic>((m, t) => t.ID == m.TopicID)
+                        .LeftJoin<MessageHistory, User>((mh, u) => u.ID == mh.EditedBy)
+                        .Where<MessageHistory>(mh => mh.MessageID == messageId).OrderBy(mh => mh.Edited)
+                        .ThenBy(mh => mh.MessageID).Select<MessageHistory, Message, Topic, User>(
+                            (mh, m, t, u) => new
+                            {
+                                mh.EditReason,
+                                mh.Edited,
+                                mh.EditedBy,
+                                mh.Flags,
+                                mh.IP,
+                                mh.IsModeratorChanged,
+                                mh.MessageID,
+                                mh.Message,
+                                u.Name,
+                                u.DisplayName,
+                                u.UserStyle,
+                                u.Suspended,
+                                t.ForumID,
+                                TopicID = t.ID,
+                                Topic = t.TopicName,
+                                m.Posted,
+                                MessageIP = m.IP
+                            });
+
+                    return db.Connection.Select<dynamic>(expression);
+                });
+
+            // Load Current Message
+            var currentMessage = BoardContext.Current.GetRepository<Message>().GetMessage(messageId);
+
+            dynamic current = new ExpandoObject();
+
+            current.EditReason = currentMessage.Item2.EditReason;
+            current.Edited = currentMessage.Item2.Posted;
+            current.EditedBy = currentMessage.Item2.UserID;
+            current.Flags = currentMessage.Item2.Flags;
+            current.IP = currentMessage.Item2.IP;
+            current.IsModeratorChanged = currentMessage.Item2.IsModeratorChanged;
+            current.MessageID = currentMessage.Item2.ID;
+            current.Message = currentMessage.Item2.MessageText;
+            current.DisplayName = currentMessage.Item3.Name;
+            current.DisplayName = currentMessage.Item3.DisplayName;
+            current.UserStyle = currentMessage.Item3.UserStyle;
+            current.Suspended = currentMessage.Item3.Suspended;
+            current.ForumID = currentMessage.Item1.ForumID;
+            current.TopicID = currentMessage.Item1.ID;
+            current.Topic = currentMessage.Item1.TopicName;
+            current.Posted = currentMessage.Item2.Posted;
+            current.MessageIP = currentMessage.Item2.IP;
+
+            list.Add(current);
+
+            return list;
+        }
+
+        /// <summary>
+        /// Delete all message variants older then DaysToClean
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
         /// </param>
         /// <param name="daysToClean">
         /// The days to clean.
         /// </param>
-        public static void DeleteOlderThen(
+        private static void DeleteOlderThen(
             this IRepository<MessageHistory> repository,
-            [NotNull] int messageId,
             [NotNull] int daysToClean)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            //repository.Delete(m => DateTime.UtcNow.AddDays(m.Edited.AddDays()) > DateTime.UtcNow.AddDays(daysToClean));
+            repository.DbAccess.Execute(db =>
+            {
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageHistory>();
+
+                expression.Where(
+                    $"DATEDIFF(day, {expression.Column<MessageHistory>(x => x.Edited, true)}, GETUTCDATE()) > {daysToClean}");
+
+                return db.Connection.Delete(expression);
+            });
         }
 
         #endregion

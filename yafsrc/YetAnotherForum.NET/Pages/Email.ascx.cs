@@ -30,7 +30,6 @@ namespace YAF.Pages
     using System.Net.Mail;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Utilities;
@@ -81,7 +80,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.User == null || !this.Get<BoardSettings>().AllowEmailSending)
+            if (this.User == null || !this.PageContext.BoardSettings.AllowEmailSending)
             {
                 BuildLink.AccessDenied();
             }

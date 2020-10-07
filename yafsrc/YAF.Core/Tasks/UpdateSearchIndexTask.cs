@@ -29,7 +29,6 @@ namespace YAF.Core.Tasks
     using System.Globalization;
     using System.Threading;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types.Constants;
@@ -122,7 +121,7 @@ namespace YAF.Core.Tasks
         /// </returns>
         private static bool IsTimeToUpdateSearchIndex()
         {
-            var boardSettings = (LoadBoardSettings)BoardContext.Current.Get<BoardSettings>();
+            var boardSettings = (LoadBoardSettings)BoardContext.Current.BoardSettings;
             var lastSend = DateTime.MinValue;
             var sendEveryXHours = boardSettings.UpdateSearchIndexEveryXHours;
 

@@ -23,9 +23,11 @@
  */
 namespace YAF.Core.Model
 {
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -99,6 +101,10 @@ namespace YAF.Core.Model
                         Flags = flags.BitValue,
                         SortOrder = sortOrder
                     });
+
+            // empty out access table(s)
+            BoardContext.Current.GetRepository<Active>().DeleteAll();
+            BoardContext.Current.GetRepository<ActiveAccess>().DeleteAll();
         }
 
         #endregion

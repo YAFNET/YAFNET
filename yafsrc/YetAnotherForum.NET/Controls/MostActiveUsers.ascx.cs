@@ -26,15 +26,15 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
@@ -96,15 +96,15 @@ namespace YAF.Controls
                 return;
             }
 
-            var row = (DataRowView)e.Item.DataItem;
+            var item = (dynamic)e.Item.DataItem;
 
             var userLink = e.Item.FindControlAs<UserLink>("UserLink");
 
             // render UserLink...
-            userLink.UserID = row["ID"].ToType<int>();
-            userLink.Suspended = row["Suspended"].ToType<DateTime?>();
-            userLink.Style = row["UserStyle"].ToString();
-            userLink.ReplaceName = row[this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name"].ToString();
+            userLink.UserID = (int)item.ID;
+            userLink.Suspended = item.Suspended;
+            userLink.Style = item.UserStyle;
+            userLink.ReplaceName = this.PageContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name;
         }
 
         /// <summary>
@@ -112,10 +112,11 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            var users = this.Get<IDataCache>().GetOrSet(
+           var users = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.MostActiveUsers,
-                () => this.GetRepository<User>().ActivityRankAsDataTable(
+                () => this.GetRepository<User>().LastActive(
                     this.PageContext.PageBoardID,
+                    this.Get<IAspNetUsersHelper>().GuestUserId,
                     DateTime.UtcNow.AddDays(-this.LastNumOfDays),
                     this.DisplayNumber),
                 TimeSpan.FromMinutes(5));
@@ -125,7 +126,7 @@ namespace YAF.Controls
 
             this.IconHeader.Param0 = this.LastNumOfDays.ToString();
 
-            if (users.Rows.Count == 0)
+            if (!users.Any())
             {
                 this.Visible = false;
             }

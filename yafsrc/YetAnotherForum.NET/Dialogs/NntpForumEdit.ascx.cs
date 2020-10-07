@@ -74,14 +74,14 @@ namespace YAF.Dialogs
             this.NntpServerID.DataTextField = "Name";
             this.NntpServerID.DataBind();
 
-            var forumList = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            var forumList = this.GetRepository<Forum>().ListAllSorted(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 
             this.ForumID.AddForumAndCategoryIcons(forumList);
 
             this.ForumID.DataValueField = "ForumID";
-            this.ForumID.DataTextField = "Title";
+            this.ForumID.DataTextField = "Forum";
             this.ForumID.DataBind();
 
             this.ForumId = forumId;

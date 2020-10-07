@@ -44,8 +44,10 @@
                             <asp:CheckBox ID="Selected" runat="server"
                                               Text="&nbsp;"
                                               CssClass="form-check" />
-                                <%# this.GetPreviewImage(Container.DataItem) %>
+                            <%# this.GetPreviewImage(Container.DataItem) %>
+                            <span class="text-truncate">
                                 <%# this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
+                            </span>
                             <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
                                                  CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>' 
                                                  CssClass="ml-2"
@@ -56,7 +58,6 @@
                                                  Type="Danger"
                                                  ReturnConfirmText='<%#this.GetText("ATTACHMENTS", "CONFIRM_DELETE") %>'>
                                 </YAF:ThemeButton>
-                            
                         </li>
                     </ItemTemplate>
                     <FooterTemplate>

@@ -28,7 +28,6 @@ namespace YAF.Web.Controls
 
     using System;
     using System.Collections.Specialized;
-    using System.Data;
     using System.Linq;
     using System.Web.UI;
 
@@ -100,12 +99,12 @@ namespace YAF.Web.Controls
                 string.Format(
                     Constants.Cache.ForumJump,
                     this.PageContext.MembershipUser != null ? this.PageContext.PageUserID.ToString() : "Guest"),
-                () => this.GetRepository<Types.Models.Forum>().ListAllSortedAsDataTable(
+                () => this.GetRepository<Types.Models.Forum>().ListAllSorted(
                     this.PageContext.PageBoardID,
                     this.PageContext.PageUserID),
                 TimeSpan.FromMinutes(5));
 
-            var name = forumJump.Rows.Cast<DataRow>().First(r => r.Field<int>("ForumID") == this.ForumId)["Title"];
+            var name = forumJump.First(r => r.ForumID == this.ForumId).Forum;
 
             if (this.ForumId < 0)
             {
@@ -141,7 +140,7 @@ namespace YAF.Web.Controls
                 string.Format(
                     Constants.Cache.ForumJump,
                     this.PageContext.MembershipUser != null ? this.PageContext.PageUserID.ToString() : "Guest"),
-                () => this.GetRepository<Types.Models.Forum>().ListAllSortedAsDataTable(
+                () => this.GetRepository<Types.Models.Forum>().ListAllSorted(
                     this.PageContext.PageBoardID,
                     this.PageContext.PageUserID),
                 TimeSpan.FromMinutes(5));
@@ -158,12 +157,12 @@ namespace YAF.Web.Controls
                 writer.WriteLine("<option/>");
             }
 
-            forumJump.Rows.Cast<DataRow>().ForEach(
+            forumJump.ForEach(
                 row =>
                     {
-                        var title = this.HtmlEncode(row["Title"]);
+                        var title = this.HtmlEncode(row.Forum);
 
-                        if (row["Icon"].ToString() == "folder")
+                        if (row.Icon == "folder")
                         {
                             writer.WriteLine(
                                 @"<optgroup label=""{0}"">",
@@ -173,12 +172,12 @@ namespace YAF.Web.Controls
                         {
                             writer.WriteLine(
                                 @"<option {2}value=""{0}"" data-content=""{3}"">&nbsp;&nbsp;{1}</option>",
-                                row["ForumID"],
+                                row.ForumID,
                                 title,
-                                row["ForumID"].ToString() == forumId.ToString()
+                                row.ForumID == forumId
                                     ? @"selected=""selected"" "
                                     : string.Empty,
-                                $"<span class='select2-image-select-icon'><i class='fas fa-{row["Icon"]} fa-fw text-secondary'></i>&nbsp;{title}</span>");
+                                $"<span class='select2-image-select-icon'><i class='fas fa-{row.Icon} fa-fw text-secondary'></i>&nbsp;{title}</span>");
                         }
                     });
 

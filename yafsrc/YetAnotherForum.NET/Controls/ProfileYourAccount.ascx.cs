@@ -68,11 +68,6 @@ namespace YAF.Controls
     {
       var groups = this.GetRepository<UserGroup>().List(this.PageContext.PageUserID);
 
-      if (this.PageContext.BoardSettings.UseStyledNicks)
-      {
-        this.Get<IStyleTransform>().DecodeStyleByGroupList(groups);
-      }
-
       this.Groups.DataSource = groups;
 
       this.DataBind();
@@ -95,7 +90,9 @@ namespace YAF.Controls
 
       if (avatarImg.IsSet())
       {
-        this.AvatarImage.ImageUrl = avatarImg;
+        this.AvatarImage.ImageUrl = avatarImg; 
+        this.AvatarImage.Attributes.CssStyle.Add("max-width", this.PageContext.BoardSettings.AvatarWidth.ToString());
+        this.AvatarImage.Attributes.CssStyle.Add("max-height", this.PageContext.BoardSettings.AvatarHeight.ToString());
       }
       else
       {

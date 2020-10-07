@@ -15,7 +15,7 @@
             </HeaderTemplate>
             <ItemTemplate>
                 <li><YAF:UserLink runat="server" ID="UserLink"/>
-                (<%# DataBinder.Eval(Container.DataItem, "NumOfPosts") %>)</li>
+                (<%# (Container.DataItem as dynamic).NumOfPosts %>)</li>
             </ItemTemplate>
             <FooterTemplate>
                 </ol>

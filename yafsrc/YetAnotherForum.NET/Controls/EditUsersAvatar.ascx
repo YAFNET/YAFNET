@@ -1,7 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Controls.EditUsersAvatar" CodeBehind="EditUsersAvatar.ascx.cs" %>
 
-
 <div class="row">
     <div class="col">
         <div class="card mb-3">
@@ -19,8 +18,10 @@
                                             LocalizedTag="AvatarCurrent" />
                     </h5>
                     <p class="card-text">
-                        <asp:Image ID="AvatarImg" runat="server" Visible="true" AlternateText="Image"
-                            CssClass="img-thumbnail" />
+                        <asp:Image ID="AvatarImg" runat="server" 
+                                   Visible="true" 
+                                   AlternateText="Image"
+                                   CssClass="img-thumbnail"/>
                     </p>
                     <asp:Label runat="server" ID="NoAvatar" Visible="false" />
                     <YAF:ThemeButton runat="server" ID="DeleteAvatar"
@@ -41,35 +42,12 @@
                                                     LocalizedTag="ouravatar" />
                             </asp:Label>
                         </h4>
-                        <YAF:ThemeButton runat="server" ID="OurAvatar" 
-                                         Type="Primary"
-                                         Icon="images"
-                                         TextLocalizedTag="OURAVATAR_SELECT"/>
+                        <YAF:ImageListBox ID="AvatarGallery" runat="server" CssClass="select2-image-select" /> 
                     </div>
-
-                    <hr />
-                </asp:PlaceHolder>
-                <asp:PlaceHolder runat="server" ID="AvatarRemoteRow">
                     <div class="mb-3">
-                        <h4>
-                            <asp:Label runat="server" AssociatedControlID="Avatar">
-                                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server"
-                                                    LocalizedPage="EDIT_AVATAR"
-                                                    LocalizedTag="avatarremote" />
-                            </asp:Label>
-                        </h4>
-                        <asp:TextBox ID="Avatar" runat="server"
-                                     CssClass="form-control" 
-                                     TextMode="Url" />
-                    </div>
-                    <YAF:Alert runat="server" Type="info">
-                        <YAF:Icon runat="server" IconName="info-circle"></YAF:Icon>
-                        <asp:Label ID="noteRemote" runat="server"></asp:Label>
-                    </YAF:Alert>
-                    <div class="mb-3">
-                        <YAF:ThemeButton ID="UpdateRemote" runat="server"
+                        <YAF:ThemeButton ID="UpdateGallery" runat="server"
                                          Type="Primary"
-                                         OnClick="RemoteUpdate_Click"
+                                         OnClick="GalleryUpdateClick"
                                          TextLocalizedTag="UPDATE"
                                          Icon="save" />
                     </div>

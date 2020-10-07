@@ -331,6 +331,18 @@ namespace YAF.Types.Models
         public bool? IsGuest { get; set; }
 
         /// <summary>
+        /// Gets or sets the is active excluded.
+        /// </summary>
+        [Compute]
+        public bool? IsActiveExcluded { get; set; }
+
+        /// <summary>
+        /// Gets or sets the is approved.
+        /// </summary>
+        [Compute]
+        public bool? IsApproved { get; set; }
+
+        /// <summary>
         /// Gets or sets the user style.
         /// </summary>
         [Index]

@@ -1021,7 +1021,7 @@ namespace YAF.Core.BBCode
                         }
 
                         // see if there is any CSS associated with this BBCode
-                        if (row.DisplayCSS.IsSet() && row.DisplayCSS.IsSet())
+                        if (row.DisplayCSS.IsSet())
                         {
                             // yes, add it into the builder
                             cssBuilder.AppendLine(this.LocalizeCustomBBCodeElement(row.DisplayCSS.Trim()));

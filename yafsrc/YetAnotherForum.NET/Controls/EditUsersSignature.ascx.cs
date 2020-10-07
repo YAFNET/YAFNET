@@ -27,10 +27,8 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.BaseModules;
     using YAF.Core.Extensions;
@@ -151,14 +149,13 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            var sigData = this.GetRepository<User>()
-                .SignatureDataAsDataRow(this.CurrentUserID, this.PageContext.PageBoardID);
+            var data = this.GetRepository<User>().SignatureData(this.CurrentUserID, this.PageContext.PageBoardID);
 
-            if (sigData != null)
+            if (data != null)
             {
-                this.allowedBbcodes = sigData.Field<string>("UsrSigBBCodes").Trim().Trim(',').Trim();
+                this.allowedBbcodes = (string)data.UsrSigBBCodes.Trim().Trim(',').Trim();
 
-                this.allowedNumberOfCharacters = sigData.Field<int>("UsrSigChars");
+                this.allowedNumberOfCharacters = (int)data.UsrSigChars;
             }
 
             // Quick Reply Modification Begin
@@ -263,39 +260,43 @@ namespace YAF.Controls
             {
                 if (this.signatureEditor.Text.Length <= this.allowedNumberOfCharacters)
                 {
-                    if (this.user.NumPosts < this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
+                    if (this.user.NumPosts < this.PageContext.BoardSettings.IgnoreSpamWordCheckPostCount)
                     {
                         // Check for spam
                         if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out var result))
                         {
-                            // Log and Send Message to Admins
-                            if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
+                            switch (this.PageContext.BoardSettings.BotHandlingOnRegister)
                             {
-                                this.Logger.SpamBotDetected(
-                                    this.user.ID,
-                                    $@"Internal Spam Word Check detected a SPAM BOT: (
+                                // Log and Send Message to Admins
+                                case 1:
+                                    this.Logger.SpamBotDetected(
+                                        this.user.ID,
+                                        $@"Internal Spam Word Check detected a SPAM BOT: (
                                                       user name : '{this.user.Name}', 
                                                       user id : '{this.CurrentUserID}') 
                                                  after the user included a spam word in his/her signature: {result}");
-                            }
-                            else if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
-                            {
-                                this.Logger.SpamBotDetected(
-                                    this.user.ID,
-                                    $@"Internal Spam Word Check detected a SPAM BOT: (
+                                    break;
+                                case 2:
+                                {
+                                    this.Logger.SpamBotDetected(
+                                        this.user.ID,
+                                        $@"Internal Spam Word Check detected a SPAM BOT: (
                                                        user name : '{this.user.Name}', 
                                                        user id : '{this.CurrentUserID}') 
                                                  after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.");
 
-                                // Kill user
-                                if (!this.PageContext.CurrentForumPage.IsAdminPage)
-                                {
-                                    var membershipUser = this.Get<IAspNetUsersHelper>()
-                                        .GetMembershipUserById(this.user.ID);
-                                    this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                        this.CurrentUserID,
-                                        membershipUser,
-                                        this.user.IP);
+                                    // Kill user
+                                    if (!this.PageContext.CurrentForumPage.IsAdminPage)
+                                    {
+                                        var membershipUser = this.Get<IAspNetUsersHelper>()
+                                            .GetMembershipUserById(this.user.ID);
+                                        this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                                            this.CurrentUserID,
+                                            membershipUser,
+                                            this.user.IP);
+                                    }
+
+                                    break;
                                 }
                             }
                         }

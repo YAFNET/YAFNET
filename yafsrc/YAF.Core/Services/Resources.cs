@@ -27,13 +27,8 @@ namespace YAF.Core.Services
     #region Using
 
     using System;
-    using System.Data;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
     using System.Drawing.Imaging;
-    using System.IO;
     using System.Linq;
-    using System.Net;
     using System.Text;
     using System.Web;
 
@@ -116,7 +111,7 @@ namespace YAF.Core.Services
                 context.Response.ContentEncoding = Encoding.UTF8;
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
                 context.Response.Cache.SetExpires(
-                    System.DateTime.UtcNow.AddMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                    System.DateTime.UtcNow.AddMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
                 context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
 
                 var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(user.Item1);
@@ -127,16 +122,15 @@ namespace YAF.Core.Services
 
                 var activeUsers = this.Get<IDataCache>().GetOrSet(
                     Constants.Cache.UsersOnlineStatus,
-                    () => this.GetRepository<Active>().ListAsDataTable(
+                    () => this.GetRepository<Active>().List(
                         false,
                         this.Get<BoardSettings>().ShowCrawlersInActiveList,
-                        this.Get<BoardSettings>().ActiveListTime,
-                        this.Get<BoardSettings>().UseStyledNicks),
-                    TimeSpan.FromMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                        this.Get<BoardSettings>().ActiveListTime),
+                    TimeSpan.FromMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
 
                 var userIsOnline =
-                    activeUsers.AsEnumerable().Any(
-                        x => x.Field<int>("UserId").Equals(userId) && !x.Field<bool>("IsHidden"));
+                    activeUsers.Any(
+                        x => (int)x.UserID == userId && x.IsActiveExcluded == false);
 
                 var userName = user.Item1.DisplayOrUserName();
 
@@ -169,7 +163,7 @@ namespace YAF.Core.Services
                     Online = userIsOnline
                 };
 
-                if (BoardContext.Current.Get<BoardSettings>().EnableUserReputation)
+                if (this.Get<BoardSettings>().EnableUserReputation)
                 {
                     userInfo.Points = (user.Item1.Points > 0 ? "+" : string.Empty) + user.Item1.Points;
                 }
@@ -212,7 +206,7 @@ namespace YAF.Core.Services
                 context.Response.ContentEncoding = Encoding.UTF8;
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
                 context.Response.Cache.SetExpires(
-                    System.DateTime.UtcNow.AddMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                    System.DateTime.UtcNow.AddMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
                 context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
 
                 context.Response.Write(customBbCode.ToJson());
@@ -354,108 +348,6 @@ namespace YAF.Core.Services
             }
 
 #endif
-        }
-
-        /// <summary>
-        /// The get response remote avatar.
-        /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        public void GetResponseRemoteAvatar([NotNull] HttpContext context)
-        {
-            var avatarUrl = context.Request.QueryString.GetFirstOrDefault("url");
-
-            if (avatarUrl.StartsWith("/"))
-            {
-                var basePath = $"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Host}";
-
-                avatarUrl = $"{basePath}{avatarUrl}";
-            }
-
-            var maxWidth = int.Parse(context.Request.QueryString.GetFirstOrDefault("width"));
-            var maxHeight = int.Parse(context.Request.QueryString.GetFirstOrDefault("height"));
-
-            var etagCode =
-                $@"""{(context.Request.QueryString.GetFirstOrDefault("url") + maxHeight + maxWidth).GetHashCode()}""";
-
-            var webClient = new WebClient { Credentials = CredentialCache.DefaultCredentials };
-
-            try
-            {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
-                ServicePointManager.ServerCertificateValidationCallback += (send, certificate, chain, sslPolicyErrors) => true;
-
-                var originalData = webClient.DownloadData(avatarUrl);
-
-                if (originalData == null)
-                {
-                    // Output no-avatar
-                    context.Response.Redirect($"{BoardInfo.ForumClientFileRoot}/Images/noavatar.svg");
-                    return;
-                }
-
-                using (var avatarStream = new MemoryStream(originalData))
-                {
-                    using (var img = new Bitmap(avatarStream))
-                    {
-                        var width = img.Width;
-                        var height = img.Height;
-
-                        if (width <= maxWidth && height <= maxHeight)
-                        {
-                            context.Response.Redirect(avatarUrl);
-                        }
-
-                        if (width > maxWidth)
-                        {
-                            height = (height / (double)width * maxWidth).ToType<int>();
-                            width = maxWidth;
-                        }
-
-                        if (height > maxHeight)
-                        {
-                            width = (width / (double)height * maxHeight).ToType<int>();
-                            height = maxHeight;
-                        }
-
-                        // Create the target bitmap
-                        using (var bmp = new Bitmap(width, height))
-                        {
-                            // Create the graphics object to do the high quality resizing
-                            using (var gfx = Graphics.FromImage(bmp))
-                            {
-                                gfx.CompositingQuality = CompositingQuality.HighQuality;
-                                gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                                gfx.SmoothingMode = SmoothingMode.HighQuality;
-
-                                // Draw the source image
-                                gfx.DrawImage(img, new Rectangle(new Point(0, 0), new Size(width, height)));
-                            }
-
-                            // Output the data
-                            context.Response.ContentType = "image/jpeg";
-                            context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                            context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
-                            context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
-                            context.Response.Cache.SetETag(etagCode);
-                            bmp.Save(context.Response.OutputStream, ImageFormat.Jpeg);
-                        }
-                    }
-                }
-            }
-            catch (WebException exception)
-            {
-                // issue getting access to the avatar...
-                this.Get<ILogger>().Log(
-                    BoardContext.Current.PageUserID,
-                    this,
-                    $"URL: {avatarUrl}<br />Referer URL: {context.Request.UrlReferrer?.AbsoluteUri ?? string.Empty}<br />Exception: {exception}");
-
-                // Output the data
-                context.Response.Redirect($"{BoardInfo.ForumClientFileRoot}/Images/noavatar.svg");
-            }
         }
     }
 }

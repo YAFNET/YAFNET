@@ -24,13 +24,12 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     
     using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -54,38 +53,47 @@ namespace YAF.Core.Model
         /// <param name="toUserId">
         /// The to User Id.
         /// </param>
-        /// <param name="useDisplayName">
-        /// Display name of the use.
-        /// </param>
         /// <returns>
         /// The name of the second user + Whether this request is approved or not.
         /// </returns>
         [NotNull]
-        public static string[] AddRequest(
+        public static bool AddRequest(
             this IRepository<Buddy> repository,
             [NotNull] int fromUserId,
-            [NotNull] int toUserId,
-            [NotNull] bool useDisplayName)
+            [NotNull] int toUserId)
         {
-            IDbDataParameter parameterOutput = null;
-            IDbDataParameter parameterApproved = null;
+            CodeContracts.VerifyNotNull(repository);
 
-            repository.SqlList(
-                "buddy_addrequest",
-                cmd =>
+            if (repository.Exists(x => x.FromUserID == fromUserId && x.ToUserID == toUserId))
+            {
+                return false;
+            }
+
+            if (repository.Exists(x => x.FromUserID == toUserId && x.ToUserID == fromUserId))
+            {
+                repository.Insert(
+                    new Buddy
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.AddParam("FromUserID", fromUserId);
-                        cmd.AddParam("ToUserID", toUserId);
-                        cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
-                        cmd.AddParam("UseDisplayName", useDisplayName);
-
-                        parameterOutput = cmd.AddParam("paramOutput", direction: ParameterDirection.Output);
-                        parameterApproved = cmd.AddParam("approved", direction: ParameterDirection.Output);
+                        FromUserID = fromUserId, ToUserID = toUserId, Approved = true, Requested = DateTime.UtcNow
                     });
 
-            return new[] { parameterOutput.Value.ToString(), parameterApproved.Value.ToString() };
+                repository.UpdateOnly(
+                    () => new Buddy { Approved = true },
+                    b => b.FromUserID == toUserId && b.ToUserID == fromUserId);
+
+                return true;
+            }
+
+            repository.Insert(
+                new Buddy
+                {
+                    FromUserID = fromUserId,
+                    ToUserID = toUserId,
+                    Approved = false,
+                    Requested = DateTime.UtcNow
+                });
+
+            return false;
         }
 
         /// <summary>
@@ -94,47 +102,51 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="fromUserID">
-        /// The from user id.
+        /// <param name="fromUserId">
+        /// The from User Id.
         /// </param>
-        /// <param name="toUserID">
-        /// The to user id.
+        /// <param name="toUserId">
+        /// The to User Id.
         /// </param>
         /// <param name="mutual">
         /// Should the requesting user (ToUserID) be added to FromUserID's buddy list too?
-        /// </param>
-        /// <param name="useDisplayName">
-        /// The use Display Name.
         /// </param>
         /// <returns>
         /// the name of the second user.
         /// </returns>
         [NotNull]
-        public static string ApproveRequest(
+        public static bool ApproveRequest(
             this IRepository<Buddy> repository,
-            [NotNull] int fromUserID,
-            [NotNull] int toUserID,
-            [NotNull] bool mutual,
-            [NotNull] bool useDisplayName)
+            [NotNull] int fromUserId,
+            [NotNull] int toUserId,
+            [NotNull] bool mutual)
         {
-            IDbDataParameter parameterOutput = null;
+            CodeContracts.VerifyNotNull(repository);
 
-            repository.SqlList(
-                "buddy_approverequest",
-                cmd =>
+            if (!repository.Exists(x => x.FromUserID == fromUserId && x.ToUserID == toUserId))
+            {
+                return false;
+            }
+
+            repository.UpdateOnly(
+                () => new Buddy { Approved = true },
+                b => b.FromUserID == fromUserId && b.ToUserID == toUserId);
+
+            if (!mutual)
+            {
+                return true;
+            }
+
+            if (!repository.Exists(x => x.FromUserID == toUserId && x.ToUserID == fromUserId))
+            {
+                repository.Insert(
+                    new Buddy
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.AddParam("FromUserID", fromUserID);
-                        cmd.AddParam("ToUserID", toUserID);
-                        cmd.AddParam("mutual", mutual);
-                        cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
-                        cmd.AddParam("UseDisplayName", useDisplayName);
-
-                        parameterOutput = cmd.AddParam("paramOutput", direction: ParameterDirection.Output);
+                        FromUserID = toUserId, ToUserID = fromUserId, Approved = true, Requested = DateTime.UtcNow
                     });
+            }
 
-            return parameterOutput.Value.ToString();
+            return true;
         }
 
         /// <summary>
@@ -155,7 +167,7 @@ namespace YAF.Core.Model
             [NotNull] int fromUserId,
             [NotNull] int toUserId)
         {
-            IDbDataParameter parameterOutput = null;
+            CodeContracts.VerifyNotNull(repository);
 
             repository.Delete(b => b.FromUserID == fromUserId && b.ToUserID == toUserId);
         }
@@ -178,6 +190,8 @@ namespace YAF.Core.Model
             [NotNull] int fromUserId,
             [NotNull] int toUserId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.Delete(x => x.FromUserID == fromUserId && x.ToUserID == toUserId);
             
             repository.FireDeleted();
@@ -187,15 +201,59 @@ namespace YAF.Core.Model
         /// Gets all the buddies of a certain user.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="fromUserID">From user identifier.</param>
+        /// <param name="fromUserId">From user identifier.</param>
         /// <returns>
-        /// The <see cref="DataTable" /> containing the buddy list.
+        /// The <see cref="List" /> containing the buddy list.
         /// </returns>
-        public static DataTable ListAllAsDataTable(this IRepository<Buddy> repository, int fromUserID)
+        public static List<dynamic> ListAll(this IRepository<Buddy> repository, [NotNull] int fromUserId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbFunction.GetData.buddy_list(FromUserID: fromUserID);
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            expression.Join<Rank>((u, r) => r.ID == u.RankID)
+                .Join<Buddy>((u, b) => b.ToUserID == u.ID && b.FromUserID == fromUserId && u.IsApproved == true)
+                .Select<User, Rank, Buddy>(
+                    (a, b, c) => new
+                    {
+                        UserID = a.ID,
+                        a.BoardID,
+                        a.Name,
+                        a.DisplayName,
+                        a.Joined,
+                        a.NumPosts,
+                        RankName = b.Name,
+                        c.Approved,
+                        c.FromUserID,
+                        c.Requested,
+                        a.UserStyle,
+                        a.Suspended
+                    });
+
+            var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            expression2.Join<Rank>((u, r) => r.ID == u.RankID)
+                .Join<Buddy>((u, b) => b.ToUserID == fromUserId && b.FromUserID == u.ID && u.IsApproved == true)
+                .OrderBy(u => u.Name).Select<User, Rank, Buddy>(
+                    (a, b, c) => new
+                    {
+                        UserID = fromUserId,
+                        a.BoardID,
+                        a.Name,
+                        a.DisplayName,
+                        a.Joined,
+                        a.NumPosts,
+                        RankName = b.Name,
+                        c.Approved,
+                        c.FromUserID,
+                        c.Requested,
+                        a.UserStyle,
+                        a.Suspended
+                    });
+
+            return repository.DbAccess.Execute(
+                db => db.Connection.Select<dynamic>(
+                    $"{expression.ToSelectStatement()} UNION {expression2.ToSelectStatement()}"));
         }
 
         #endregion

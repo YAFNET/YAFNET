@@ -23,7 +23,7 @@
  */
 namespace YAF.Core.Context
 {
-    using System.Data;
+    using ServiceStack;
 
     using YAF.Core.Services;
     using YAF.Types;
@@ -32,6 +32,7 @@ namespace YAF.Core.Context
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Objects;
 
     /// <summary>
     /// The load page lazy user data.
@@ -42,9 +43,9 @@ namespace YAF.Core.Context
         #region Constants and Fields
 
         /// <summary>
-        ///   The _db broker.
+        ///   The data broker.
         /// </summary>
-        private readonly DataBroker _dbBroker;
+        private readonly DataBroker dataBroker;
 
         #endregion
 
@@ -56,12 +57,12 @@ namespace YAF.Core.Context
         /// <param name="serviceLocator">
         /// The service locator.
         /// </param>
-        /// <param name="dbBroker">
-        /// The db broker.
+        /// <param name="dataBroker">
+        /// The data Broker.
         /// </param>
-        public LoadPageLazyUserData([NotNull] IServiceLocator serviceLocator, [NotNull] DataBroker dbBroker)
+        public LoadPageLazyUserData([NotNull] IServiceLocator serviceLocator, [NotNull] DataBroker dataBroker)
         {
-            this._dbBroker = dbBroker;
+            this.dataBroker = dataBroker;
             this.ServiceLocator = serviceLocator;
         }
 
@@ -91,12 +92,12 @@ namespace YAF.Core.Context
         /// <param name="event">The @event.</param>
         public void Handle([NotNull] InitPageLoadEvent @event)
         { 
-            DataRow activeUserLazyData = this._dbBroker.ActiveUserLazyData(@event.Data.UserID);
+            UserLazyData activeUserLazyData = this.dataBroker.ActiveUserLazyData(@event.Data.UserID);
 
             if (activeUserLazyData != null)
             {
                 // add the lazy user data to this page data...
-                @event.DataDictionary.AddRange(activeUserLazyData.ToDictionary());
+                @event.DataDictionary.AddRange(activeUserLazyData.ToObjectDictionary());
             }
         }
 

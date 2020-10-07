@@ -30,7 +30,6 @@ namespace YAF.Dialogs
     using System.Threading;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.BaseModules;
     using YAF.Core.Extensions;
@@ -128,8 +127,8 @@ namespace YAF.Dialogs
                 }
 
                 // No need to check whitespace if they are actually posting something
-                if (this.Get<BoardSettings>().MaxPostSize > 0
-                    && this.quickReplyEditor.Text.Length >= this.Get<BoardSettings>().MaxPostSize)
+                if (this.PageContext.BoardSettings.MaxPostSize > 0
+                    && this.quickReplyEditor.Text.Length >= this.PageContext.BoardSettings.MaxPostSize)
                 {
                     this.PageContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
@@ -152,10 +151,10 @@ namespace YAF.Dialogs
                 }
 
                 if (!(this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess)
-                    && this.Get<BoardSettings>().PostFloodDelay > 0)
+                    && this.PageContext.BoardSettings.PostFloodDelay > 0)
                 {
                     if (this.PageContext.Get<ISession>().LastPost
-                        > DateTime.UtcNow.AddSeconds(-this.Get<BoardSettings>().PostFloodDelay))
+                        > DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay))
                     {
                         this.PageContext.PageElements.RegisterJsBlockStartup(
                             "openModalJs",
@@ -165,7 +164,7 @@ namespace YAF.Dialogs
                             this.GetTextFormatted(
                                 "wait",
                                 (this.PageContext.Get<ISession>().LastPost
-                                 - DateTime.UtcNow.AddSeconds(-this.Get<BoardSettings>().PostFloodDelay)).Seconds),
+                                 - DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds),
                             MessageTypes.warning);
 
                         return;
@@ -199,7 +198,7 @@ namespace YAF.Dialogs
 
                 // Check for SPAM
                 if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess
-                                              && !this.Get<BoardSettings>().SpamServiceType.Equals(0))
+                                              && !this.PageContext.BoardSettings.SpamServiceType.Equals(0))
                 {
                     // Check content for spam
                     if (this.Get<ISpamCheck>().CheckPostForSpam(
@@ -213,7 +212,7 @@ namespace YAF.Dialogs
                             $@"Spam Check detected possible SPAM ({spamResult}) 
                                posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
 
-                        switch (this.Get<BoardSettings>().SpamMessageHandling)
+                        switch (this.PageContext.BoardSettings.SpamMessageHandling)
                         {
                             case 0:
                                 this.Logger.SpamMessageDetected(
@@ -333,7 +332,7 @@ namespace YAF.Dialogs
                 }
                 else
                 {
-                    if (this.Get<BoardSettings>().EmailModeratorsOnModeratedPost)
+                    if (this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost)
                     {
                         // not approved, notify moderators
                         this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(

@@ -243,11 +243,10 @@ namespace YAF.Core.Nntp
 
                                 if (createUsers)
                                 {
-                                    guestUserId = BoardContext.Current.GetRepository<User>().CreateNntpUser(
+                                    guestUserId = BoardContext.Current.GetRepository<User>().UpdateNntpUser(
                                         boardID,
                                         fromName,
-                                        string.Empty,
-                                        article.Header.TimeZoneOffset);
+                                        string.Empty);
                                 }
 
                                 var body = ReplaceBody(article.Body.Text.Trim());

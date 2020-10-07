@@ -114,7 +114,7 @@ namespace YAF.Web.Controls
         /// </param>
         private void RenderGeneratedAndDebug([NotNull] TextWriter writer)
         {
-            if (this.Get<BoardSettings>().ShowPageGenerationTime)
+            if (this.PageContext.BoardSettings.ShowPageGenerationTime)
             {
                 writer.Write(@"<br /><span class=""text-muted"">");
                 writer.Write(this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
@@ -179,7 +179,7 @@ namespace YAF.Web.Controls
         {
             // Copyright Link-back Algorithm
             // Please keep if you haven't purchased a removal or commercial license.
-            var domainKey = this.Get<BoardSettings>().CopyrightRemovalDomainKey;
+            var domainKey = this.PageContext.BoardSettings.CopyrightRemovalDomainKey;
             var url = this.Get<HttpRequestBase>().Url;
 
             if (domainKey.IsSet() && url != null)
@@ -208,7 +208,7 @@ namespace YAF.Web.Controls
             writer.Write(this.GetText("COMMON", "POWERED_BY"));
             writer.Write(@" YAF.NET");
 
-            if (this.Get<BoardSettings>().ShowYAFVersion)
+            if (this.PageContext.BoardSettings.ShowYAFVersion)
             {
                 writer.Write(" {0} ", BoardInfo.AppVersionName);
 

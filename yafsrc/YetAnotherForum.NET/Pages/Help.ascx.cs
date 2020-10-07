@@ -33,7 +33,6 @@ namespace YAF.Pages
     using System.Web;
     using System.Xml.Serialization;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -83,7 +82,7 @@ namespace YAF.Pages
             this.DoSearch.Click += this.DoSearch_Click;
             base.OnInit(e);
 
-            if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowHelpTo))
+            if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowHelpTo))
             {
                 BuildLink.AccessDenied();
             }

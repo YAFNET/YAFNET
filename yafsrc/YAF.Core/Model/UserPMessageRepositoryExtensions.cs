@@ -26,10 +26,12 @@ namespace YAF.Core.Model
 {
     using System.Collections.Generic;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -119,6 +121,65 @@ namespace YAF.Core.Model
                 ? repository.Get(p => p.UserID == userId && p.IsRead == false && p.IsArchived == true)
                 : repository.Get(
                     p => p.UserID == userId && p.IsRead == false && p.IsDeleted == false && p.IsArchived == false);
+        }
+
+        /// <summary>
+        /// Deletes the Private Message
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userPmMessageId">
+        /// The user Pm Message Id.
+        /// </param>
+        /// <param name="deleteFromOutbox">
+        /// The delete From Outbox.
+        /// </param>
+        public static void Delete(
+            this IRepository<UserPMessage> repository,
+            [NotNull] int userPmMessageId,
+            [NotNull] bool deleteFromOutbox)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            var message = repository.GetById(userPmMessageId);
+
+            var flags = message.PMessageFlags;
+
+            /*if (deleteFromOutbox && message.PMessageFlags.IsInOutbox)
+            {
+                // -- remove IsInOutbox bit which will remove it from the senders outbox
+                flags.IsInOutbox = false;
+
+                repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, x => x.ID == userPmMessageId);
+            }
+            else
+            {
+                if (message.PMessageFlags.IsInOutbox && message.PMessageFlags.IsArchived && !message.PMessageFlags.IsDeleted)
+                {
+                    // -- The message is in archive but still is in sender outbox
+                    flags.IsInOutbox = false;
+                    flags.IsArchived = false;
+                    flags.IsDeleted = true;
+
+                    repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, x => x.ID == userPmMessageId);
+                }
+            }*/
+
+            flags.IsInOutbox = false;
+            flags.IsArchived = false;
+            flags.IsDeleted = true;
+
+            repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, x => x.ID == userPmMessageId);
+
+            // -- see if there are no longer references to this PM.
+            if (!repository.Exists(p => p.ID == userPmMessageId && p.IsInOutbox == false && p.IsDeleted == true))
+            {
+                return;
+            }
+
+            repository.Delete(p => p.PMessageID == message.PMessageID);
+            BoardContext.Current.GetRepository<PMessage>().DeleteById(message.PMessageID);
         }
 
         #endregion

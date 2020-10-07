@@ -110,15 +110,15 @@ namespace YAF.Pages.Admin
             var cult = StaticDataHelper.Cultures();
             var langFile = "english.xml";
 
-            cult.Where(dataRow => dataRow.CultureTag == this.Culture.SelectedValue)
-                .ForEach(row => langFile = row.CultureFile);
+            cult.Where(c => c.CultureTag == this.Culture.SelectedValue)
+                .ForEach(c => langFile = c.CultureFile);
 
             if (createUserAndRoles)
             {
                 var user = new AspNetUsers
                 {
                     Id = Guid.NewGuid().ToString(),
-                    ApplicationId = this.Get<BoardSettings>().ApplicationId,
+                    ApplicationId = this.PageContext.BoardSettings.ApplicationId,
                     UserName = adminName,
                     LoweredUserName = adminName,
                     Email = adminEmail,
@@ -215,7 +215,7 @@ namespace YAF.Pages.Admin
 
             if (this.Culture.Items.Count > 0)
             {
-                this.Culture.Items.FindByValue(this.Get<BoardSettings>().Culture).Selected = true;
+                this.Culture.Items.FindByValue(this.PageContext.BoardSettings.Culture).Selected = true;
             }
 
             if (this.BoardId != null)
@@ -349,6 +349,7 @@ namespace YAF.Pages.Admin
             var newBoardId = this.GetRepository<Board>()
                 .Create(
                     boardName,
+                    this.PageContext.BoardSettings.ForumEmail,
                     this.Culture.SelectedItem.Value,
                     langFile,
                     newAdmin.UserName,

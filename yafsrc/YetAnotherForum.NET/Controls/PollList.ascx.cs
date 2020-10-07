@@ -31,7 +31,6 @@ namespace YAF.Controls
     using System.Linq;
     using System.Text;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -122,7 +121,7 @@ namespace YAF.Controls
         /// </returns>
         protected bool CanCreatePoll()
         {
-            return this.Get<BoardSettings>().AllowedPollChoiceNumber > 0 && this.HasOwnerExistingGroupAccess() &&
+            return this.PageContext.BoardSettings.AllowedPollChoiceNumber > 0 && this.HasOwnerExistingGroupAccess() &&
                    this.PollId >= 0;
         }
 
@@ -135,7 +134,7 @@ namespace YAF.Controls
         protected bool CanEditPoll()
         {
             // The host admin can forbid a user to change poll after first vote to avoid fakes.    
-            if (!this.Get<BoardSettings>().AllowPollChangesAfterFirstVote)
+            if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
             {
                 // Only if show buttons are enabled user can edit poll 
                 return this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
@@ -451,7 +450,7 @@ namespace YAF.Controls
                     }
                 }
 
-                if (!isNotVoted && (this.PageContext.ForumVoteAccess || this.PageContext.BoardVoteAccess))
+                if (!isNotVoted && this.PageContext.ForumVoteAccess)
                 {
                     notificationString.AppendFormat(" {0}", this.GetText("POLLEDIT", "POLL_VOTED"));
                 }
@@ -533,7 +532,7 @@ namespace YAF.Controls
         /// </returns>
         private bool HasOwnerExistingGroupAccess()
         {
-            if (this.Get<BoardSettings>().AllowedPollChoiceNumber <= 0)
+            if (this.PageContext.BoardSettings.AllowedPollChoiceNumber <= 0)
             {
                 return false;
             }

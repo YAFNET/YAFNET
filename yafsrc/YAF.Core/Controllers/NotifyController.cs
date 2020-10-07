@@ -139,7 +139,7 @@ namespace YAF.Core.Controllers
                         messageHolder.Controls.Add(new Literal { Text = message });
 
                         var attachment = new AttachmentItem
-                                             {
+                        {
                                                  FileName = messageHolder.RenderToString()
                                              };
 

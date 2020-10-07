@@ -24,18 +24,13 @@
 
 namespace YAF.Core.Services
 {
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
     using System.Text;
     using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
@@ -100,10 +95,44 @@ namespace YAF.Core.Services
             return new ThankYouInfo
                        {
                            MessageID = messageId,
-                           ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId),
+                           ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId, false),
                            Text = this.Get<ILocalization>().GetText("BUTTON", textTag),
                            Title = this.Get<ILocalization>().GetText("BUTTON", titleTag)
                        };
+        }
+
+        /// <summary>
+        /// Creates an instance of the thank you object from the current information.
+        /// </summary>
+        /// <param name="username">
+        /// The Current Username
+        /// </param>
+        /// <param name="textTag">
+        /// Button Text
+        /// </param>
+        /// <param name="titleTag">
+        /// Button  Title
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <returns>
+        /// Returns ThankYou Info
+        /// </returns>
+        [NotNull]
+        public ThankYouInfo GetThankYou(
+            [NotNull] string username,
+            [NotNull] string textTag,
+            [NotNull] string titleTag,
+            int messageId)
+        {
+            return new ThankYouInfo
+            {
+                MessageID = messageId,
+                ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId, true),
+                Text = this.Get<ILocalization>().GetText("BUTTON", textTag),
+                Title = this.Get<ILocalization>().GetText("BUTTON", titleTag)
+            };
         }
 
         /// <summary>
@@ -116,10 +145,13 @@ namespace YAF.Core.Services
         /// <param name="messageId">
         /// The Message ID.
         /// </param>
+        /// <param name="thanksInfoOnly">
+        /// The thank Info Only.
+        /// </param>
         /// <returns>
         /// The thanks number.
         /// </returns>
-        public string ThanksInfo([NotNull] string username, int messageId)
+        public string ThanksInfo([NotNull] string username, int messageId, bool thanksInfoOnly)
         {
             var thanksNumber = this.GetRepository<Thanks>().Count(t => t.MessageID == messageId);
 
@@ -133,74 +165,15 @@ namespace YAF.Core.Services
 
             var thanks = this.GetThanks(messageId);
 
-            return $@"<a class=""btn btn-sm btn-link thanks-popover"" 
+            return thanksInfoOnly
+                ? thanks.Replace("\"", "'").Replace("<ol>", string.Empty).Replace("</ol>", string.Empty)
+                : $@"<a class=""btn btn-link thanks-popover"" 
                            data-toggle=""popover"" 
                            data-trigger=""click hover""
                            data-html=""true""
                            title=""{thanksText}"" 
                            data-content=""{thanks.Replace("\"", "'")}"">
                                <i class=""fa fa-heart"" style= ""color:#e74c3c""></i>&nbsp;+{thanksNumber}</a>";
-        }
-
-        /// <summary>
-        ///     Adds the Thanks info to a dataTable
-        /// </summary>
-        /// <param name="dataRows"> The data Rows. </param>
-        public void AddThanksInfo(IEnumerable<DataRow> dataRows)
-        {
-            var postRows = dataRows.ToList();
-            var messageIds = postRows.Select(x => x.Field<int>("MessageID"));
-
-            // Initialize the "IsThankedByUser" column.
-            postRows.ForEach(x => x["IsThankedByUser"] = false);
-
-            // Initialize the "Thank Info" column.
-            postRows.ForEach(x => x["ThanksInfo"] = string.Empty);
-
-            // Iterate through all the thanks relating to this topic and make appropriate
-            // changes in columns.
-            var allThanks = this.GetRepository<Thanks>().MessageGetAllThanks(messageIds.ToDelimitedString(",")).ToList();
-
-            allThanks.Where(t => t.FromUserID != null && t.FromUserID == BoardContext.Current.PageUserID)
-                .SelectMany(thanks => postRows.Where(x => x.Field<int>("MessageID") == thanks.MessageID)).ForEach(
-                    f =>
-                    {
-                        f["IsThankedByUser"] = "true";
-                        f.AcceptChanges();
-                    });
-
-            var thanksFieldNames = new[] { "ThanksFromUserNumber", "ThanksToUserNumber", "ThanksToUserPostsNumber" };
-
-            postRows.ForEach(
-                postRow =>
-                {
-                    var messageId = postRow.Field<int>("MessageID");
-
-                    postRow["MessageThanksNumber"] =
-                        allThanks.Count(t => t.FromUserID != null && t.MessageID == messageId);
-
-                    var thanksFiltered = allThanks.Where(t => t.MessageID == messageId).ToList();
-
-                    if (thanksFiltered.Any())
-                    {
-                        var thanksItem = thanksFiltered.First();
-
-                        postRow["ThanksFromUserNumber"] = thanksItem.ThanksFromUserNumber ?? 0;
-                        postRow["ThanksToUserNumber"] = thanksItem.ThanksToUserNumber ?? 0;
-                        postRow["ThanksToUserPostsNumber"] = thanksItem.ThanksToUserPostsNumber ?? 0;
-                    }
-                    else
-                    {
-                        var row = postRow;
-                        thanksFieldNames.ForEach(f => row[f] = 0);
-                    }
-
-                    // load all all thanks info into a special column...
-                    postRow["ThanksInfo"] = thanksFiltered.Where(t => t.FromUserID != null)
-                        .Select(x => $"{x.FromUserID.Value}|{x.ThanksDate}").ToDelimitedString(",");
-
-                    postRow.AcceptChanges();
-                });
         }
 
         /// <summary>

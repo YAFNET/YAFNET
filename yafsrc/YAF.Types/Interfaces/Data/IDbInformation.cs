@@ -59,7 +59,12 @@ namespace YAF.Types.Interfaces.Data
         ///     Gets the Upgrade Script List.
         /// </summary>
         IEnumerable<string> UpgradeScripts { get; }
-        
+
+        /// <summary>
+        ///     Gets the New Upgrade Script List.
+        /// </summary>
+        IEnumerable<string> NewUpgradeScripts { get; }
+
         /// <summary>
         ///     Gets the YAF Provider Upgrade script list
         /// </summary>

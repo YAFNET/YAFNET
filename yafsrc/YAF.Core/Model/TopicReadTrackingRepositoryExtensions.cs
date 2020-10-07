@@ -21,17 +21,32 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
-        /// <param name="topicID">
+        /// <param name="topicId">
         /// The topic id.
         /// </param>
-        public static void AddOrUpdate(this IRepository<TopicReadTracking> repository, int userID, int topicID)
+        public static void AddOrUpdate(
+            this IRepository<TopicReadTracking> repository,
+            [NotNull] int userId,
+            [NotNull] int topicId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.DbFunction.Query.readtopic_addorupdate(UserID: userID, TopicID: topicID, UTCTIMESTAMP: DateTime.UtcNow);
+            var item = repository.GetSingle(x => x.TopicID == topicId && x.UserID == userId);
+
+            if (item != null)
+            {
+                repository.UpdateOnly(
+                    () => new TopicReadTracking { LastAccessDate = DateTime.UtcNow },
+                    x => x.LastAccessDate == item.LastAccessDate && x.TopicID == topicId && x.UserID == userId);
+            }
+            else
+            {
+                repository.Insert(
+                    new TopicReadTracking { UserID = userId, TopicID = topicId, LastAccessDate = DateTime.UtcNow });
+            }
         }
 
         /// <summary>
@@ -40,17 +55,17 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public static bool Delete(this IRepository<TopicReadTracking> repository, int userID)
+        public static bool Delete(this IRepository<TopicReadTracking> repository, [NotNull] int userId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var success = repository.Delete(x => x.UserID == userID) == 1;
+            var success = repository.Delete(x => x.UserID == userId) == 1;
 
             if (success)
             {
@@ -75,7 +90,10 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DateTime?"/>.
         /// </returns>
-        public static DateTime? LastRead(this IRepository<TopicReadTracking> repository, int userId, int topicId)
+        public static DateTime? LastRead(
+            this IRepository<TopicReadTracking> repository,
+            [NotNull] int userId,
+            [NotNull] int topicId)
         {
             CodeContracts.VerifyNotNull(repository);
 

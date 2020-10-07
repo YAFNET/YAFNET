@@ -30,7 +30,6 @@ namespace YAF.Core.Services.CheckForSpam
     using System.IO;
     using System.Net;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -79,7 +78,7 @@ namespace YAF.Core.Services.CheckForSpam
                 const string BotScoutUrl = "http://www.botscout.com/test/?multi";
 
                 var url =
-                    $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(BoardContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet() ? $"&key={BoardContext.Current.Get<BoardSettings>().BotScoutApiKey}" : string.Empty)}";
+                    $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(BoardContext.Current.BoardSettings.BotScoutApiKey.IsSet() ? $"&key={BoardContext.Current.BoardSettings.BotScoutApiKey}" : string.Empty)}";
 
                 var webRequest = (HttpWebRequest)WebRequest.Create(url);
 

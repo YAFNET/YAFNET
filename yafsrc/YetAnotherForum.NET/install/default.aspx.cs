@@ -108,7 +108,7 @@ namespace YAF.Install
         /// Gets a value indicating whether is forum installed.
         /// </summary>
         public bool IsForumInstalled =>
-            (isForumInstalled ?? (this.isForumInstalled = this.InstallUpgradeService.IsForumInstalled)).Value;
+            (this.isForumInstalled ?? (this.isForumInstalled = this.InstallUpgradeService.IsForumInstalled)).Value;
 
         /// <summary>
         ///     Gets ServiceLocator.
@@ -578,7 +578,7 @@ namespace YAF.Install
 
                     break;
                 case "WizInitDatabase":
-                    if (this.InstallUpgradeService.UpgradeDatabase(this.UpgradeExtensions.Checked))
+                    if (this.InstallUpgradeService.InitializeOrUpgradeDatabase(this.UpgradeExtensions.Checked))
                     {
                         e.Cancel = false;
                     }
@@ -859,7 +859,6 @@ namespace YAF.Install
                 this.InstallUpgradeService.InitializeForum(
                     applicationId,
                     this.TheForumName.Text,
-                    this.TimeZones.SelectedValue,
                     this.Cultures.SelectedValue,
                     this.ForumEmailAddress.Text,
                     "YAFLogo.svg",
@@ -970,8 +969,6 @@ namespace YAF.Install
                         JavaScriptBlocks.ClickOnEnterJs("InstallWizard_StepNavigationTemplateContainerID_StepNextButton"));
                 }
 
-                this.TimeZones.DataSource = StaticDataHelper.TimeZones();
-
                 this.Cultures.DataSource = StaticDataHelper.Cultures();
                 this.Cultures.DataValueField = "CultureTag";
                 this.Cultures.DataTextField = "CultureNativeName";
@@ -983,8 +980,6 @@ namespace YAF.Install
                 this.UserChoice.Items[1].Text = Install.ExistingUser;
 
                 this.DataBind();
-
-                this.TimeZones.Items.FindByValue(TimeZoneInfo.Local.Id).Selected = true;
 
                 if (this.Cultures.Items.Count > 0)
                 {

@@ -56,12 +56,8 @@ namespace YAF.Data.MsSql.Functions
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
-            using (var cmd = dbAccess.GetCommand(
-                "SELECT sum(reserved_page_count) * 8.0 / 1024 FROM sys.dm_db_partition_stats",
-                CommandType.Text))
-            {
-                return dbAccess.ExecuteScalar(cmd).ToType<int>();
-            }
+            return dbAccess.Execute(
+                db => db.Connection.Scalar<int>("SELECT sum(reserved_page_count) * 8.0 / 1024 FROM sys.dm_db_partition_stats"));
         }
 
         /// <summary>
@@ -77,10 +73,8 @@ namespace YAF.Data.MsSql.Functions
 
             try
             {
-                using (var cmd = dbAccess.GetCommand("select @@version", CommandType.Text))
-                {
-                    return dbAccess.ExecuteScalar(cmd).ToString();
-                }
+                return dbAccess.Execute(
+                    db => db.Connection.Scalar<string>("select @@version"));
             }
             catch
             {
@@ -135,10 +129,8 @@ namespace YAF.Data.MsSql.Functions
             sb.AppendLine("CLOSE myCursor");
             sb.AppendLine("DEALLOCATE myCursor");
 
-            using (var cmd = dbAccess.GetCommand(sb.ToString(), CommandType.Text))
-            {
-                return dbAccess.ExecuteScalar(cmd).ToType<string>();
-            }
+            return dbAccess.Execute(
+                db => db.Connection.Scalar<string>(sb.ToString()));
         }
 
         /// <summary>
@@ -205,122 +197,6 @@ namespace YAF.Data.MsSql.Functions
                     trans.Commit();
                 }
             }
-            else
-            {
-                // don't use transactions
-                foreach (var sql in statements.Select(sql0 => sql0.Trim()))
-                {
-                    try
-                    {
-                        if (sql.ToLower().IndexOf("setuser", StringComparison.Ordinal) >= 0)
-                        {
-                            continue;
-                        }
-
-                        if (sql.Length <= 0)
-                        {
-                            continue;
-                        }
-
-                        using (var cmd = dbAccess.GetCommand(sql.Trim(), CommandType.Text))
-                        {
-                            dbAccess.ExecuteScalar(cmd).ToType<string>();
-                        }
-                    }
-                    catch (Exception x)
-                    {
-                        throw new Exception($"FILE:\n{scriptFile}\n\nERROR:\n{x.Message}\n\nSTATEMENT:\n{sql}");
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// system initialize fix access.
-        /// </summary>
-        /// <param name="dbAccess">
-        /// The db Access.
-        /// </param>
-        /// <param name="grant">
-        /// The grant.
-        /// </param>
-        public static void SystemInitializeFixAccess(this IDbAccess dbAccess, bool grant)
-        {
-
-            using (var trans = dbAccess.CreateConnectionOpen().BeginTransaction())
-            {
-                var sqlConnection = trans.Connection as SqlConnection;
-
-                // REVIEW : Ederon - would "{databaseOwner}.{objectQualifier}" work, might need only "{objectQualifier}"
-                using (var da = new SqlDataAdapter(
-                    "select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like '{databaseOwner}.{objectQualifier}%'",
-                    sqlConnection))
-                {
-                    da.SelectCommand.Transaction = trans as SqlTransaction;
-                    using (var dt = new DataTable("sysobjects"))
-                    {
-                        da.Fill(dt);
-
-                        using (var cmd = trans.Connection.CreateCommand())
-                        {
-                            cmd.Transaction = trans;
-                            cmd.CommandType = CommandType.Text;
-                            cmd.CommandText = "select current_user";
-                            var userName = (string)cmd.ExecuteScalar();
-
-                            if (grant)
-                            {
-                                cmd.CommandType = CommandType.Text;
-                                foreach (var row in dt.Select("IsProcedure=1 or IsScalarFunction=1"))
-                                {
-                                    cmd.CommandText = $"grant execute on \"{row["Name"]}\" to \"{userName}\"";
-                                    cmd.ExecuteNonQuery();
-                                }
-
-                                foreach (var row in dt.Select("IsUserTable=1 or IsView=1"))
-                                {
-                                    cmd.CommandText = $"grant select,update on \"{row["Name"]}\" to \"{userName}\"";
-                                    cmd.ExecuteNonQuery();
-                                }
-                            }
-                            else
-                            {
-                                cmd.CommandText = "sp_changeobjectowner";
-                                cmd.CommandType = CommandType.StoredProcedure;
-                                foreach (var row in dt.Select("IsUserTable=1"))
-                                {
-                                    cmd.Parameters.Clear();
-                                    cmd.AddParam("@objname", row["Name"]);
-                                    cmd.AddParam("@newowner", "dbo");
-                                    try
-                                    {
-                                        cmd.ExecuteNonQuery();
-                                    }
-                                    catch (SqlException)
-                                    {
-                                    }
-                                }
-
-                                foreach (var row in dt.Select("IsView=1"))
-                                {
-                                    cmd.Parameters.Clear();
-                                    cmd.AddParam("@objname", row["Name"]);
-                                    cmd.AddParam("@newowner", "dbo");
-                                    try
-                                    {
-                                        cmd.ExecuteNonQuery();
-                                    }
-                                    catch (SqlException)
-                                    {
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                trans.Commit();
-            }
         }
 
         /// <summary>
@@ -339,10 +215,8 @@ namespace YAF.Data.MsSql.Functions
                 var recoveryModeSql =
                     $"ALTER DATABASE {dbAccess.CreateConnectionOpen().Database} SET RECOVERY {recoveryMode}";
 
-                using (var cmd = dbAccess.GetCommand(recoveryModeSql, CommandType.Text))
-                {
-                    return dbAccess.ExecuteScalar(cmd).ToString();
-                }
+                return dbAccess.Execute(
+                    db => db.Connection.Scalar<string>(recoveryModeSql));
             }
             catch (Exception error)
             {

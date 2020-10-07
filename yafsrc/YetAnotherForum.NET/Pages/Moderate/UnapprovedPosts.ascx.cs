@@ -178,7 +178,7 @@ namespace YAF.Pages.Moderate
                 case "approve":
 
                     // approve post
-                    this.GetRepository<Message>().ApproveMessage(
+                    this.GetRepository<Message>().Approve(
                         e.CommandArgument.ToType<int>(),
                         this.PageContext.PageForumID);
 
@@ -205,7 +205,7 @@ namespace YAF.Pages.Moderate
                         messageId,
                         true,
                         string.Empty,
-                        1,
+                        true,
                         true);
 
                     // re-bind data

@@ -29,7 +29,6 @@ namespace YAF.Controls
     using System;
     using System.Linq;
     
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Interfaces;
@@ -50,7 +49,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<BoardSettings>().ShowSimilarTopics)
+            if (!this.PageContext.BoardSettings.ShowSimilarTopics)
             {
                 this.SimilarTopicsHolder.Visible = false;
                 return;

@@ -145,7 +145,7 @@ namespace YAF.Pages.Admin
                                 getFirstMessage.ID,
                                 true,
                                 string.Empty,
-                                0,
+                                false,
                                 true,
                                 false);
                         }
@@ -248,7 +248,7 @@ namespace YAF.Pages.Admin
                             messageId,
                             true,
                             string.Empty,
-                            1,
+                            true,
                             true,
                             true);
 
@@ -266,7 +266,7 @@ namespace YAF.Pages.Admin
                         messageId,
                         true,
                         string.Empty,
-                        0,
+                        false,
                         true,
                         false);
 
@@ -296,7 +296,7 @@ namespace YAF.Pages.Admin
                                 x.messageId,
                                 true,
                                 string.Empty,
-                                1,
+                                true,
                                 true,
                                 true));
 

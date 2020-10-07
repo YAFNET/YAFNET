@@ -55,10 +55,10 @@ namespace YAF.Web.Controls
             var html = new StringBuilder();
             var htmlDropDown = new StringBuilder();
 
-            htmlDropDown.Append(@"<div class=""dropdown d-lg-none mb-3"">");
+            htmlDropDown.Append(@"<div class=""dropdown d-lg-none"">");
 
             htmlDropDown.Append(
-                @"<button class=""btn btn-secondary dropdown-toggle w-100 text-left mb-3"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
+                @"<button class=""btn btn-secondary btn-block dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
             htmlDropDown.AppendFormat(@"<i class=""fa fa-cogs fa-fw""></i>&nbsp;{0}", this.GetText("CONTROL_PANEL"));
             htmlDropDown.Append(@"</button>");
 
@@ -143,7 +143,7 @@ namespace YAF.Web.Controls
             }
 
             if (!this.PageContext.IsGuest
-                && this.Get<BoardSettings>().EnableBuddyList & this.PageContext.UserHasBuddies)
+                && this.PageContext.BoardSettings.EnableBuddyList & this.PageContext.UserHasBuddies)
             {
                 this.RenderMenuItem(
                     html,
@@ -160,7 +160,7 @@ namespace YAF.Web.Controls
                     "users");
             }
 
-            if (!this.PageContext.IsGuest && this.Get<BoardSettings>().EnableAlbum)
+            if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableAlbum)
             {
                 this.RenderMenuItem(
                     html,
@@ -179,10 +179,9 @@ namespace YAF.Web.Controls
                     $"u={this.PageContext.PageUserID}");
             }
 
-            if (!Config.IsDotNetNuke && (this.Get<BoardSettings>().AvatarRemote
-                                         || this.Get<BoardSettings>().AvatarUpload
-                                         || this.Get<BoardSettings>().AvatarGallery
-                                         || this.Get<BoardSettings>().AvatarGravatar))
+            if (!Config.IsDotNetNuke && (this.PageContext.BoardSettings.AvatarUpload
+                                         || this.PageContext.BoardSettings.AvatarGallery
+                                         || this.PageContext.BoardSettings.AvatarGravatar))
             {
                 this.RenderMenuItem(
                     html,
@@ -199,7 +198,7 @@ namespace YAF.Web.Controls
                     "user-tie");
             }
 
-            if (this.Get<BoardSettings>().AllowSignatures)
+            if (this.PageContext.BoardSettings.AllowSignatures)
             {
                 this.RenderMenuItem(
                     html,
@@ -244,7 +243,7 @@ namespace YAF.Web.Controls
                 this.GetText("BLOCK_OPTIONS", "TITLE"),
                 "user-lock");
 
-            if (!Config.IsDotNetNuke && this.Get<BoardSettings>().AllowPasswordChange)
+            if (!Config.IsDotNetNuke && this.PageContext.BoardSettings.AllowPasswordChange)
             {
                 // Render Change Password Item
                 this.RenderMenuItem(

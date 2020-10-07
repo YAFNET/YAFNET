@@ -27,8 +27,9 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
 
@@ -43,6 +44,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
@@ -373,46 +375,40 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // load available images from images/medals folder
-            using (var dt = new DataTable("Files"))
+            var medals = new List<NamedParameter>
             {
-                // create structure
-                dt.Columns.Add("FileName", typeof(string));
-                dt.Columns.Add("Description", typeof(string));
+                new NamedParameter(
+                    this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE"),
+                    BoardInfo.GetURLToContent("images/spacer.gif"))
+            };
 
-                // add blank row
-                var dr = dt.NewRow();
-                dr["FileName"] =
-                    BoardInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
-                dr["Description"] = this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE");
-                dt.Rows.Add(dr);
 
-                // add files from medals folder
-                var dir = new DirectoryInfo(
-                    this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Medals}"));
-                var files = dir.GetFiles("*.*");
+            // add files from medals folder
+            var dir = new DirectoryInfo(
+                this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Medals}"));
+            var files = dir.GetFiles("*.*").ToList();
 
-                dt.AddImageFiles(files, BoardFolders.Current.Medals);
+            medals.AddImageFiles(files, BoardFolders.Current.Medals);
 
-                // medal image
-                this.MedalImage.DataSource = dt;
-                this.MedalImage.DataValueField = "FileName";
-                this.MedalImage.DataTextField = "Description";
+            // medal image
+            this.MedalImage.DataSource = medals;
+            this.MedalImage.DataValueField = "Value";
+            this.MedalImage.DataTextField = "Name";
 
-                // ribbon bar image
-                this.RibbonImage.DataSource = dt;
-                this.RibbonImage.DataValueField = "FileName";
-                this.RibbonImage.DataTextField = "Description";
+            // ribbon bar image
+            this.RibbonImage.DataSource = medals;
+            this.RibbonImage.DataValueField = "Value";
+            this.RibbonImage.DataTextField = "Name";
 
-                // small medal image
-                this.SmallMedalImage.DataSource = dt;
-                this.SmallMedalImage.DataValueField = "FileName";
-                this.SmallMedalImage.DataTextField = "Description";
+            // small medal image
+            this.SmallMedalImage.DataSource = medals;
+            this.SmallMedalImage.DataValueField = "Value";
+            this.SmallMedalImage.DataTextField = "Name";
 
-                // small ribbon bar image
-                this.SmallRibbonImage.DataSource = dt;
-                this.SmallRibbonImage.DataValueField = "FileName";
-                this.SmallRibbonImage.DataTextField = "Description";
-            }
+            // small ribbon bar image
+            this.SmallRibbonImage.DataSource = medals;
+            this.SmallRibbonImage.DataValueField = "Value";
+            this.SmallRibbonImage.DataTextField = "Name";
 
             // bind data to controls
             this.DataBind();
@@ -429,8 +425,7 @@ namespace YAF.Pages.Admin
             this.UserList.DataSource = this.GetRepository<UserMedal>().List(null, this.CurrentMedalId.Value);
             this.UserList.DataBind();
 
-            this.GroupList.DataSource =
-                this.GetRepository<GroupMedal>().List(null, this.CurrentMedalId.Value);
+            this.GroupList.DataSource = this.GetRepository<GroupMedal>().List(null, this.CurrentMedalId.Value);
             this.GroupList.DataBind();
 
             var medal = this.GetRepository<Medal>().GetSingle(m => m.ID == this.CurrentMedalId.Value);
@@ -443,7 +438,7 @@ namespace YAF.Pages.Admin
             this.ShowMessage.Checked = medal.MedalFlags.ShowMessage;
             this.AllowRibbon.Checked = medal.MedalFlags.AllowRibbon;
             this.AllowHiding.Checked = medal.MedalFlags.AllowHiding;
-            
+
             // select images
             SelectImage(this.MedalImage, medal.MedalURL);
             SelectImage(this.RibbonImage, medal.RibbonURL);

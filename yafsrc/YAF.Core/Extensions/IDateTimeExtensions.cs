@@ -66,22 +66,21 @@ namespace YAF.Core.Extensions
           var dateTime = Convert.ToDateTime(objectDateTime);
 
           return format switch
-              {
-                  DateTimeFormat.BothDateShort => dateTimeInstance.FormatDateTimeShort(dateTime),
-                  DateTimeFormat.BothTopic => dateTimeInstance.FormatDateTimeTopic(dateTime),
-                  DateTimeFormat.DateLong => dateTimeInstance.FormatDateLong(dateTime),
-                  DateTimeFormat.DateShort => dateTimeInstance.FormatDateShort(dateTime),
-                  DateTimeFormat.Time => dateTimeInstance.FormatTime(dateTime),
-                  DateTimeFormat.Both => dateTimeInstance.FormatDateTime(dateTime),
-                  _ => dateTimeInstance.FormatDateTime(dateTime)
-              };
+          {
+              DateTimeFormat.BothDateShort => dateTimeInstance.FormatDateTimeShort(dateTime),
+              DateTimeFormat.BothTopic => dateTimeInstance.FormatDateTimeTopic(dateTime),
+              DateTimeFormat.DateLong => dateTimeInstance.FormatDateLong(dateTime),
+              DateTimeFormat.DateShort => dateTimeInstance.FormatDateShort(dateTime),
+              DateTimeFormat.Time => dateTimeInstance.FormatTime(dateTime),
+              DateTimeFormat.Both => dateTimeInstance.FormatDateTime(dateTime),
+              _ => dateTimeInstance.FormatDateTime(dateTime)
+          };
       }
       catch
       {
+          // failed convert...
+          return "[error]";
       }
-
-      // failed convert...
-      return "[error]";
     }
 
     /// <summary>

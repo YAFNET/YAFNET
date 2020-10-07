@@ -276,8 +276,8 @@ namespace YAF.Controls
             this.Gender.Items.Add(this.GetText("PROFILE", "gender2"));
 
             // End Modifications for enhanced profile
-            this.DisplayNamePlaceholder.Visible = this.Get<BoardSettings>().EnableDisplayName &&
-                                                  this.Get<BoardSettings>().AllowDisplayNameModification;
+            this.DisplayNamePlaceholder.Visible = this.PageContext.BoardSettings.EnableDisplayName &&
+                                                  this.PageContext.BoardSettings.AllowDisplayNameModification;
 
             // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
             if (Config.IsDotNetNuke)
@@ -315,13 +315,13 @@ namespace YAF.Controls
                     return;
                 }
 
-                if (this.User.Item1.NumPosts < this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
+                if (this.User.Item1.NumPosts < this.PageContext.BoardSettings.IgnoreSpamWordCheckPostCount)
                 {
                     // Check for spam
                     if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out _))
                     {
                         // Log and Send Message to Admins
-                        if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
+                        if (this.PageContext.BoardSettings.BotHandlingOnRegister.Equals(1))
                         {
                             this.Logger.Log(
                                 null,
@@ -329,7 +329,7 @@ namespace YAF.Controls
                                 $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}",
                                 EventLogTypes.SpamBotDetected);
                         }
-                        else if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
+                        else if (this.PageContext.BoardSettings.BotHandlingOnRegister.Equals(2))
                         {
                             this.Logger.Log(
                                 null,
@@ -377,23 +377,23 @@ namespace YAF.Controls
 
             string displayName = null;
 
-            if (this.Get<BoardSettings>().EnableDisplayName && this.Get<BoardSettings>().AllowDisplayNameModification)
+            if (this.PageContext.BoardSettings.EnableDisplayName && this.PageContext.BoardSettings.AllowDisplayNameModification)
             {
                 // Check if name matches the required minimum length
-                if (this.DisplayName.Text.Trim().Length < this.Get<BoardSettings>().DisplayNameMinLength)
+                if (this.DisplayName.Text.Trim().Length < this.PageContext.BoardSettings.DisplayNameMinLength)
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("USERNAME_TOOLONG", this.Get<BoardSettings>().DisplayNameMinLength),
+                        this.GetTextFormatted("USERNAME_TOOLONG", this.PageContext.BoardSettings.DisplayNameMinLength),
                         MessageTypes.warning);
 
                     return;
                 }
 
                 // Check if name matches the required minimum length
-                if (this.DisplayName.Text.Length > this.Get<BoardSettings>().UserNameMaxLength)
+                if (this.DisplayName.Text.Length > this.PageContext.BoardSettings.UserNameMaxLength)
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("USERNAME_TOOLONG", this.Get<BoardSettings>().UserNameMaxLength),
+                        this.GetTextFormatted("USERNAME_TOOLONG", this.PageContext.BoardSettings.UserNameMaxLength),
                         MessageTypes.warning);
 
                     return;
@@ -599,11 +599,11 @@ namespace YAF.Controls
 
             this.DataBind();
 
-            if (this.Get<BoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
+            if (this.PageContext.BoardSettings.UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
                 this.Birthday.Text =
                     this.User.Item2.Profile_Birthday > DateTimeHelper.SqlDbMinTime() ||
-                    this.User.Item2.Profile_Birthday.IsNullOrEmptyDBField()
+                    this.User.Item2.Profile_Birthday.IsNullOrEmptyField()
                         ? PersianDateConverter.ToPersianDate(this.User.Item2.Profile_Birthday).ToString("d")
                         : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
             }
@@ -611,7 +611,7 @@ namespace YAF.Controls
             {
                 this.Birthday.Text =
                     this.User.Item2.Profile_Birthday > DateTimeHelper.SqlDbMinTime() ||
-                    this.User.Item2.Profile_Birthday.IsNullOrEmptyDBField()
+                    this.User.Item2.Profile_Birthday.IsNullOrEmptyField()
                         ? this.User.Item2.Profile_Birthday.Date.ToString(
                             this.CurrentCultureInfo.DateTimeFormat.ShortDatePattern,
                             CultureInfo.InvariantCulture)
@@ -699,7 +699,7 @@ namespace YAF.Controls
 
             DateTime userBirthdate;
 
-            if (this.Get<BoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
+            if (this.PageContext.BoardSettings.UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
                 try
                 {
@@ -790,8 +790,8 @@ namespace YAF.Controls
         private string GetCulture(bool overrideByPageUserCulture)
         {
             // Language and culture
-            var languageFile = this.Get<BoardSettings>().Language;
-            var culture4Tag = this.Get<BoardSettings>().Culture;
+            var languageFile = this.PageContext.BoardSettings.Language;
+            var culture4Tag = this.PageContext.BoardSettings.Culture;
 
             if (overrideByPageUserCulture)
             {

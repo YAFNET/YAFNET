@@ -24,13 +24,13 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data;
     using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
     using YAF.Types.Flags;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     /// A class which represents the Message table.
@@ -54,36 +54,26 @@ namespace YAF.Types.Models
         /// <param name="row">
         /// The row.
         /// </param>
-        public Message([NotNull] DataRow row)
+        public Message([NotNull] PagedMessage row)
         {
-            this.ID = row.Field<int?>("MessageID") ?? 0;
-            this.UserID = row.Field<int?>("UserID") ?? 0;
-            this.UserName = row.Field<string>("UserName");
-            this.MessageText = row.Field<string>("Message");
-            this.TopicID = row.Field<int?>("TopicID") ?? 0;
+            this.ID = row.MessageID;
+            this.UserID = row.UserID;
+            this.UserName = row.UserName;
+            this.MessageText = row.Message;
+            this.TopicID = row.TopicID;
 
-            this.Posted = row.Field<DateTime?>("Posted").Value;
+            this.Posted = row.Posted;
 
-            try
-            {
-                this.Topic = row.Field<string>("Topic");
-            }
-            catch (ArgumentException)
-            {
-                this.Topic = row.Field<string>("Subject");
-            }
+            this.Topic = row.Topic;
 
-            this.Flags = row.Field<int?>("Flags") ?? 0;
+            this.Flags = row.Flags;
 
-            if (row.Table.Columns.Contains("Edited"))
-            {
-                this.Edited = row.Field<DateTime?>("Edited");
-                this.EditReason = row.Field<string>("EditReason");
-            }
+            this.Edited = row.Edited;
+            this.EditReason = row.EditReason;
 
             try
             {
-                this.Position = row.Field<int?>("Position") ?? 0;
+                this.Position = row.Position;
             }
             catch (Exception)
             {
@@ -92,7 +82,7 @@ namespace YAF.Types.Models
 
             try
             {
-                this.IsModeratorChanged = row.Field<bool?>("IsModeratorChanged");
+                this.IsModeratorChanged = row.IsModeratorChanged;
             }
             catch (Exception)
             {
@@ -101,25 +91,16 @@ namespace YAF.Types.Models
             
             try
             {
-                this.DeleteReason = row.Field<string>("DeleteReason");
+                this.DeleteReason = row.DeleteReason;
             }
             catch (Exception)
             {
                 this.DeleteReason = string.Empty;
             }
-            
+
             try
             {
-                this.BlogPostID = row.Field<string>("BlogPostID");
-            }
-            catch (Exception)
-            {
-                this.BlogPostID = string.Empty;
-            }
-            
-            try
-            {
-                this.IP = row.Field<string>("IP");
+                this.IP = row.IP;
             }
             catch (Exception)
             {
@@ -128,7 +109,7 @@ namespace YAF.Types.Models
            
             try
             {
-                this.ExternalMessageId = row.Field<string>("ExternalMessageId");
+                this.ExternalMessageId = row.ExternalMessageId;
             }
             catch (Exception)
             {
@@ -137,7 +118,7 @@ namespace YAF.Types.Models
             
             try
             {
-                this.ReferenceMessageId = row.Field<string>("ReferenceMessageId");
+                this.ReferenceMessageId = row.ReferenceMessageId;
             }
             catch (Exception)
             {
@@ -146,7 +127,7 @@ namespace YAF.Types.Models
 
             try
             {
-                this.AnswerMessageId = row.Field<int?>("AnswerMessageId");
+                this.AnswerMessageId = row.AnswerMessageId;
             }
             catch (Exception)
             {
@@ -155,7 +136,7 @@ namespace YAF.Types.Models
 
             try
             {
-                this.Signature = row.Field<string>("Signature");
+                this.Signature = row.Signature;
             }
             catch (Exception)
             {

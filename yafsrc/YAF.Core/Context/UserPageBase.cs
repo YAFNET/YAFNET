@@ -58,11 +58,6 @@ namespace YAF.Core.Context
         #region Properties
 
         /// <summary>
-        ///   Gets a value indicating whether the current user has access to vote on polls in the current BoardVoteAccess (True).
-        /// </summary>
-        public bool BoardVoteAccess => this.AccessNotNull("BoardVoteAccess");
-
-        /// <summary>
         ///   Gets a value indicating whether the current user can delete own messages in the current forum (True).
         /// </summary>
         public bool ForumDeleteAccess => this.AccessNotNull("DeleteAccess");
@@ -340,11 +335,6 @@ namespace YAF.Core.Context
         ///   Gets a value indicating whether a user has buddies
         /// </summary>
         public bool UserHasBuddies => this.PageValueAsBool("UserHasBuddies");
-
-        /// <summary>
-        ///   Gets the number of albums which a user can have
-        /// </summary>
-        public int UsrAlbums => this.Page["UsrAlbums"].ToType<int>();
 
         #endregion
 

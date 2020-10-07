@@ -62,7 +62,7 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void IndexSearch_OnClick(object sender, EventArgs e)
         {
-            this.Get<BoardSettings>().ForceUpdateSearchIndex = true;
+            this.PageContext.BoardSettings.ForceUpdateSearchIndex = true;
             ((LoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
 
             this.PageContext.AddLoadMessage(this.GetText("FORCE_SEARCHINDED"), MessageTypes.info);
@@ -220,7 +220,7 @@ namespace YAF.Pages.Admin
             // write all the settings back to the settings class
 
             // load Board Setting collection information...
-            var settingCollection = new BoardSettingCollection(this.Get<BoardSettings>());
+            var settingCollection = new BoardSettingCollection(this.PageContext.BoardSettings);
 
             // handle checked fields...
             settingCollection.SettingsBool.Keys.ForEach(
@@ -231,7 +231,7 @@ namespace YAF.Pages.Admin
                         if (control is CheckBox box && settingCollection.SettingsBool[name].CanWrite)
                         {
                             settingCollection.SettingsBool[name].SetValue(
-                                this.Get<BoardSettings>(),
+                                this.PageContext.BoardSettings,
                                 box.Checked,
                                 null);
                         }
@@ -247,13 +247,13 @@ namespace YAF.Pages.Admin
                         {
                             case TextBox box when settingCollection.SettingsString[name].CanWrite:
                                 settingCollection.SettingsString[name].SetValue(
-                                    this.Get<BoardSettings>(),
+                                    this.PageContext.BoardSettings,
                                     box.Text.Trim(),
                                     null);
                                 break;
                             case DropDownList list when settingCollection.SettingsString[name].CanWrite:
                                 settingCollection.SettingsString[name].SetValue(
-                                    this.Get<BoardSettings>(),
+                                    this.PageContext.BoardSettings,
                                     Convert.ToString(list.SelectedItem.Value),
                                     null);
                                 break;
@@ -282,13 +282,13 @@ namespace YAF.Pages.Admin
                                         int.TryParse(value, out i);
                                     }
 
-                                    settingCollection.SettingsInt[name].SetValue(this.Get<BoardSettings>(), i, null);
+                                    settingCollection.SettingsInt[name].SetValue(this.PageContext.BoardSettings, i, null);
                                     break;
                                 }
 
                             case DropDownList list when settingCollection.SettingsInt[name].CanWrite:
                                 settingCollection.SettingsInt[name].SetValue(
-                                    this.Get<BoardSettings>(),
+                                    this.PageContext.BoardSettings,
                                     list.SelectedItem.Value.ToType<int>(),
                                     null);
                                 break;
@@ -318,7 +318,7 @@ namespace YAF.Pages.Admin
                                     }
 
                                     settingCollection.SettingsDouble[name].SetValue(
-                                        this.Get<BoardSettings>(),
+                                        this.PageContext.BoardSettings,
                                         i,
                                         null);
                                     break;
@@ -326,7 +326,7 @@ namespace YAF.Pages.Admin
 
                             case DropDownList list when settingCollection.SettingsDouble[name].CanWrite:
                                 settingCollection.SettingsDouble[name].SetValue(
-                                    this.Get<BoardSettings>(),
+                                    this.PageContext.BoardSettings,
                                     Convert.ToDouble(list.SelectedItem.Value),
                                     null);
                                 break;
@@ -334,7 +334,7 @@ namespace YAF.Pages.Admin
                     });
 
             // save the settings to the database
-            ((LoadBoardSettings)this.Get<BoardSettings>()).SaveRegistry();
+            ((LoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
 
             // reload all settings from the DB
             this.PageContext.BoardSettings = null;
@@ -406,7 +406,7 @@ namespace YAF.Pages.Admin
             this.DataBind();
 
             // load Board Setting collection information...
-            var settingCollection = new BoardSettingCollection(this.Get<BoardSettings>());
+            var settingCollection = new BoardSettingCollection(this.PageContext.BoardSettings);
 
             // handle checked fields...
             settingCollection.SettingsBool.Keys.ForEach(
@@ -418,7 +418,7 @@ namespace YAF.Pages.Admin
                         {
                             // get the value from the property...
                             box.Checked = (bool)Convert.ChangeType(
-                                settingCollection.SettingsBool[name].GetValue(this.Get<BoardSettings>(), null),
+                                settingCollection.SettingsBool[name].GetValue(this.PageContext.BoardSettings, null),
                                 typeof(bool));
                         }
                     });
@@ -434,14 +434,14 @@ namespace YAF.Pages.Admin
                             case TextBox box when settingCollection.SettingsString[name].CanRead:
                                 // get the value from the property...
                                 box.Text = (string)Convert.ChangeType(
-                                    settingCollection.SettingsString[name].GetValue(this.Get<BoardSettings>(), null),
+                                    settingCollection.SettingsString[name].GetValue(this.PageContext.BoardSettings, null),
                                     typeof(string));
                                 break;
                             case DropDownList list when settingCollection.SettingsString[name].CanRead:
                                 {
                                     var listItem = list.Items.FindByValue(
                                         settingCollection.SettingsString[name].GetValue(
-                                            this.Get<BoardSettings>(),
+                                            this.PageContext.BoardSettings,
                                             null).ToString());
 
                                     if (listItem != null)
@@ -471,14 +471,14 @@ namespace YAF.Pages.Admin
 
                                     // get the value from the property...
                                     box.Text = settingCollection.SettingsInt[name]
-                                        .GetValue(this.Get<BoardSettings>(), null).ToString();
+                                        .GetValue(this.PageContext.BoardSettings, null).ToString();
                                     break;
                                 }
 
                             case DropDownList list when settingCollection.SettingsInt[name].CanRead:
                                 {
                                     var listItem = list.Items.FindByValue(
-                                        settingCollection.SettingsInt[name].GetValue(this.Get<BoardSettings>(), null)
+                                        settingCollection.SettingsInt[name].GetValue(this.PageContext.BoardSettings, null)
                                             .ToString());
 
                                     if (listItem != null)
@@ -504,14 +504,14 @@ namespace YAF.Pages.Admin
 
                                 // get the value from the property...
                                 box.Text = settingCollection.SettingsDouble[name]
-                                    .GetValue(this.Get<BoardSettings>(), null).ToString();
+                                    .GetValue(this.PageContext.BoardSettings, null).ToString();
                                 break;
 
                             case DropDownList list when settingCollection.SettingsDouble[name].CanRead:
                                 {
                                     var listItem = list.Items.FindByValue(
                                         settingCollection.SettingsDouble[name].GetValue(
-                                            this.Get<BoardSettings>(),
+                                            this.PageContext.BoardSettings,
                                             null).ToString());
 
                                     if (listItem != null)
@@ -525,15 +525,15 @@ namespace YAF.Pages.Admin
                     });
 
             // special field handling...
-            this.AvatarSize.Text = this.Get<BoardSettings>().AvatarSize != 0
-                                       ? this.Get<BoardSettings>().AvatarSize.ToString()
+            this.AvatarSize.Text = this.PageContext.BoardSettings.AvatarSize != 0
+                                       ? this.PageContext.BoardSettings.AvatarSize.ToString()
                                        : string.Empty;
-            this.MaxFileSize.Text = this.Get<BoardSettings>().MaxFileSize != 0
-                                        ? this.Get<BoardSettings>().MaxFileSize.ToString()
+            this.MaxFileSize.Text = this.PageContext.BoardSettings.MaxFileSize != 0
+                                        ? this.PageContext.BoardSettings.MaxFileSize.ToString()
                                         : string.Empty;
 
-            this.AlbumImagesSizeMax.Text = this.Get<BoardSettings>().AlbumImagesSizeMax != 0
-                                               ? this.Get<BoardSettings>().AlbumImagesSizeMax.ToString()
+            this.AlbumImagesSizeMax.Text = this.PageContext.BoardSettings.AlbumImagesSizeMax != 0
+                                               ? this.PageContext.BoardSettings.AlbumImagesSizeMax.ToString()
                                                : string.Empty;
 
             this.SQLVersion.Text = this.HtmlEncode(this.Get<IDbFunction>().GetSQLVersion());

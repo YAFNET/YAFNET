@@ -5,6 +5,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
+<%@ Import Namespace="YAF.Types.Objects.Model" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -89,27 +90,27 @@
             <ItemTemplate>
                 <li class="list-group-item list-group-item-action list-group-item-menu">
                     <div class="d-flex w-100 justify-content-between text-break" 
-                         onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".Fmt(this.Eval("EventLogID")) %>').click();">
+                         onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".Fmt(((PagedEventLog)Container.DataItem).ID) %>').click();">
                         <h5 class="mb-1">
-                            <asp:HiddenField ID="EventTypeID" Value='<%# this.Eval("Type")%>' runat="server"/>
+                            <asp:HiddenField ID="EventTypeID" Value='<%# ((PagedEventLog)Container.DataItem).Type%>' runat="server"/>
                             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                                                LocalizedTag="SOURCE" 
                                                                                LocalizedPage="ADMIN_EVENTLOG" />:&nbsp;
-                            <%# Container.DataItemToField<string>("Source").IsSet() ? this.HtmlEncode(this.Eval( "Source")) : "N/A" %>
+                            <%# ((PagedEventLog)Container.DataItem).Source.IsSet() ? this.HtmlEncode(((PagedEventLog)Container.DataItem).Source) : "N/A" %>
                         </h5>
                         <small class="d-none d-md-block">
                             <YAF:Icon runat="server" 
                                       IconName="calendar-day"
                                       IconNameBadge="clock"></YAF:Icon>
-                            <%# this.Get<IDateTime>().FormatDateTimeTopic(Container.DataItemToField<DateTime>("EventTime")) %>
+                            <%# this.Get<IDateTime>().FormatDateTimeTopic(((PagedEventLog)Container.DataItem).EventTime) %>
                         </small>
                     </div>
                     <p class="mb-1" 
-                       onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".Fmt(this.Eval("EventLogID")) %>').click();">
+                       onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".Fmt(((PagedEventLog)Container.DataItem).ID) %>').click();">
                         <span class="font-weight-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_EVENTLOG" />:
                         </span>
-                        <%# this.UserLink(Container.DataItem) %>
+                        <%# this.UserLink((PagedEventLog)Container.DataItem) %>
                     </p>
                     <small>
                         <div class="btn-group btn-group-sm">
@@ -118,14 +119,14 @@
                                              Size="Small"
                                              TextLocalizedTag="SHOW" TextLocalizedPage="ADMIN_EVENTLOG"
                                              Icon="caret-square-down"
-                                             CssClass='<%# "btn-toggle-{0}".Fmt(this.Eval("EventLogID")) %>'
+                                             CssClass='<%# "btn-toggle-{0}".Fmt(((PagedEventLog)Container.DataItem).ID) %>'
                                              DataToggle="collapse"
-                                             DataTarget='<%# "eventDetails{0}".Fmt(this.Eval("EventLogID")) %>'>
+                                             DataTarget='<%# "eventDetails{0}".Fmt(((PagedEventLog)Container.DataItem).ID) %>'>
                             </YAF:ThemeButton>
                             <YAF:ThemeButton runat="server" 
                                              Type="Danger"
                                              Size="Small"
-                                             CommandName="delete" CommandArgument='<%# this.Eval( "EventLogID") %>'
+                                             CommandName="delete" CommandArgument='<%# ((PagedEventLog)Container.DataItem).ID %>'
                                              ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
                                              Icon="trash" 
                                              TextLocalizedTag="DELETE">
@@ -136,7 +137,7 @@
                         <YAF:ThemeButton runat="server" 
                                          Type="None" 
                                          CssClass="dropdown-item"
-                                         CommandName="delete" CommandArgument='<%# this.Eval( "EventLogID") %>'
+                                         CommandName="delete" CommandArgument='<%# ((PagedEventLog)Container.DataItem).ID %>'
                                          ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
                                          Icon="trash" 
                                          TextLocalizedTag="DELETE">
@@ -151,11 +152,11 @@
                                          ReturnConfirmText='<%#this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL") %>'>
                         </YAF:ThemeButton>
                     </div>
-                    <div class="collapse mt-3" id="eventDetails<%# this.Eval("EventLogID") %>">
+                    <div class="collapse mt-3" id="eventDetails<%# ((PagedEventLog)Container.DataItem).ID %>">
                         <div class="card card-body py-0">
                             <pre class="pre-scrollable">
                                 <code>
-                                    <%# this.HtmlEncode(this.Eval( "Description")) %>
+                                    <%# this.HtmlEncode(((PagedEventLog)Container.DataItem).Description) %>
                                 </code>
                                </pre>
                         </div>

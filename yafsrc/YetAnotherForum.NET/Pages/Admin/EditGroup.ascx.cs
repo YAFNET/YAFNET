@@ -38,6 +38,7 @@ namespace YAF.Pages.Admin
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
@@ -251,7 +252,7 @@ namespace YAF.Pages.Admin
             }
 
             // Role
-            var roleId = 0;
+            int? roleId = null;
 
             // get role ID from page's parameter
             if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
@@ -264,7 +265,7 @@ namespace YAF.Pages.Admin
             var oldRoleName = string.Empty;
 
             // if we are editing existing role, get it's original name
-            if (roleId != 0)
+            if (roleId.HasValue)
             {
                 // get the current role name in the DB
                 var groups = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
@@ -272,29 +273,30 @@ namespace YAF.Pages.Admin
                 groups.ForEach(group => oldRoleName = group.Name);
             }
 
+            var groupFlags = new GroupFlags
+            {
+                IsGuest = this.IsGuestX.Checked,
+                IsAdmin = this.IsAdminX.Checked,
+                IsModerator = this.IsModeratorX.Checked,
+                IsStart = this.IsStartX.Checked
+            };
+
             // save role and get its ID if it's new (if it's old role, we get it anyway)
             roleId = this.GetRepository<Group>().Save(
                 roleId,
                 this.PageContext.PageBoardID,
                 roleName,
-                this.IsAdminX.Checked,
-                this.IsGuestX.Checked,
-                this.IsStartX.Checked,
-                this.IsModeratorX.Checked,
-                this.AccessMaskID.SelectedValue,
-                this.PMLimit.Text.Trim(),
+                groupFlags,
+                this.AccessMaskID.SelectedValue.ToType<int>(),
+                this.PMLimit.Text.Trim().ToType<int>(),
                 this.StyleTextBox.Text.Trim(),
-                this.Priority.Text.Trim(),
+                this.Priority.Text.Trim().ToType<short>(),
                 this.Description.Text,
-                this.UsrSigChars.Text,
+                this.UsrSigChars.Text.ToType<int>(),
                 this.UsrSigBBCodes.Text,
                 this.UsrSigHTMLTags.Text,
-                this.UsrAlbums.Text.Trim(),
-                this.UsrAlbumImages.Text.Trim());
-
-            // empty out access table(s)
-            this.GetRepository<Active>().DeleteAll();
-            this.GetRepository<ActiveAccess>().DeleteAll();
+                this.UsrAlbums.Text.Trim().ToType<int>(),
+                this.UsrAlbumImages.Text.Trim().ToType<int>());
 
             // see if need to rename an existing role...
             if (oldRoleName.IsSet() && roleName != oldRoleName && this.Get<IAspNetRolesHelper>().RoleExists(oldRoleName)
@@ -350,26 +352,49 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Handles pre-render event of each forum's access mask dropdown.
+        /// Handles the ItemCreated event of the ForumList1 control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void SetDropDownIndex([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RepeaterItemEventArgs"/> instance containing the event data.</param>
+        protected void AccessList_OnItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
         {
-            // get dropdown which raised this event
-            var list = (DropDownList)sender;
+            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+            {
+                return;
+            }
+
+            var item = ((int ForumID, string ForumName, int? ParentID, int AccessMaskID))e.Item.DataItem;
+
+            var label = e.Item.FindControlAs<Label>("AccessMask");
+            label.Text = item.ForumName;
+
+            var hiddenField = e.Item.FindControlAs<HiddenField>("ForumID");
+
+            hiddenField.Value = item.ForumID.ToString();
+
+            var list = e.Item.FindControlAs<DropDownList>("AccessMaskID");
+
+            // We don't change access masks if it's a guest
+            if (this.IsGuestX.Checked)
+            {
+                return;
+            }
+
+            // list all access masks as data source
+            list.DataSource = this.AccessMasksList;
+
+            // set value and text field names
+            list.DataValueField = "ID";
+            list.DataTextField = "Name";
+            list.DataBind();
 
             // select value from the list
-            var item = list.Items.FindByValue(list.Attributes["value"]);
+            var foundItem = list.Items.FindByValue(item.AccessMaskID.ToString());
 
             // verify something was found...
-            if (item != null)
+            if (foundItem != null)
             {
-                item.Selected = true;
+                foundItem.Selected = true;
             }
         }
 
@@ -382,7 +407,7 @@ namespace YAF.Pages.Admin
             if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
             {
                 this.AccessList.DataSource = this.GetRepository<ForumAccess>()
-                    .GroupAsDataTable(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i"));
+                    .ListByGroups(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i"));
             }
 
             this.AccessMasksList = this.GetRepository<AccessMask>().GetByBoardId();

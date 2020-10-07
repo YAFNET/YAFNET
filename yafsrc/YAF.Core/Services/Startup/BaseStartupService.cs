@@ -94,7 +94,7 @@ namespace YAF.Core.Services.Startup
     /// The run service.
     /// </summary>
     /// <returns>
-    /// The run service.
+    /// The <see cref="bool"/>.
     /// </returns>
     protected abstract bool RunService();
 

@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
     Inherits="YAF.Controls.ForumSubForumList" Codebehind="ForumSubForumList.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Objects.Model" %>
 
 
 <asp:Repeater ID="SubforumList" runat="server" OnItemCreated="SubForumList_ItemCreated">
@@ -16,7 +17,7 @@
     <ItemTemplate>
         <li class="list-inline-item">
             <YAF:Icon IconName="comments" IconType="text-secondary" runat="server" />
-            <%#  this.GetForumLink((System.Data.DataRow)Container.DataItem) %>
+            <%#  this.GetForumLink((ForumRead)Container.DataItem) %>
         </li>
     </ItemTemplate>
     <FooterTemplate>

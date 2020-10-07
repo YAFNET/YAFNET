@@ -32,8 +32,6 @@ namespace YAF.Dialogs
     using System.Linq;
     using System.Text.RegularExpressions;
     
-    using YAF.Configuration;
-    
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
     using YAF.Types;
@@ -327,7 +325,7 @@ namespace YAF.Dialogs
             var user = new AspNetUsers
             {
                 Id = Guid.NewGuid().ToString(),
-                ApplicationId = this.Get<BoardSettings>().ApplicationId,
+                ApplicationId = this.PageContext.BoardSettings.ApplicationId,
                 UserName = (string)row["Name"],
                 LoweredUserName = (string)row["Name"],
                 Email = (string)row["Email"],
@@ -384,19 +382,19 @@ namespace YAF.Dialogs
                 int.TryParse((string)row["Timezone"], out timeZone);
             }
 
-            var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
+            var autoWatchTopicsEnabled = this.PageContext.BoardSettings.DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             this.GetRepository<User>().Save(
                 userId,
                 this.PageContext.PageBoardID,
-                row["Name"],
-                row.Table.Columns.Contains("DisplayName") ? row["DisplayName"] : null,
-                row["Email"],
-                timeZone,
-                row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"] : null,
-                row.Table.Columns.Contains("Culture") ? row["Culture"] : null,
-                row.Table.Columns.Contains("ThemeFile") ? row["ThemeFile"] : null,
+                row["Name"].ToString(),
+                row.Table.Columns.Contains("DisplayName") ? row["DisplayName"].ToString() : null,
+                row["Email"].ToString(),
+                timeZone.ToString(),
+                row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"].ToString() : null,
+                row.Table.Columns.Contains("Culture") ? row["Culture"].ToString() : null,
+                row.Table.Columns.Contains("ThemeFile") ? row["ThemeFile"].ToString() : null,
                 false);
 
             // save the settings...
@@ -404,8 +402,8 @@ namespace YAF.Dialogs
                 userId,
                 true,
                 autoWatchTopicsEnabled,
-                this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
-                this.Get<BoardSettings>().DefaultSendDigestEmail);
+                this.PageContext.BoardSettings.DefaultNotificationSetting.ToInt(),
+                this.PageContext.BoardSettings.DefaultSendDigestEmail);
 
             importCount++;
 

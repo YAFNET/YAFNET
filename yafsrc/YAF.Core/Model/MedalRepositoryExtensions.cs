@@ -82,8 +82,7 @@ namespace YAF.Core.Model
             var userMedals = repository.DbAccess.Execute(
                 db => db.Connection
                     .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string
-                        SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags,
-                        DateTime DateAwarded)>(expressionUser));
+                        SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags, DateTime DateAwarded)>(expressionUser));
 
             var expressionUserGroup = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 

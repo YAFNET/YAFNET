@@ -29,6 +29,7 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -76,6 +77,17 @@ namespace YAF.Types.Models
         [Required]
         [Default(0)]
         public int Flags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Rank flags.
+        /// </summary>
+        [Ignore]
+        public RankFlags RankFlags
+        {
+            get => new RankFlags(this.Flags);
+
+            set => this.Flags = value.BitValue;
+        }
 
         /// <summary>
         /// Gets or sets the pm limit.

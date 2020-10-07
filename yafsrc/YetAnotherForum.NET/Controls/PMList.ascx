@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PMList" EnableTheming="true" Codebehind="PMList.ascx.cs" EnableViewState="true" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
+<%@ Import Namespace="YAF.Types.Objects.Model" %>
 
 <div class="card-header">
     <div class="row justify-content-between align-items-center">
@@ -80,15 +81,15 @@
         <li class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1 text-break">
-                        <asp:HiddenField ID="MessageID" runat="server" Value="<%# (Container.DataItem as dynamic).UserPMessageID %>" />
+                        <asp:HiddenField ID="MessageID" runat="server" Value="<%# (Container.DataItem as PagedPm).UserPMessageID %>" />
                         <asp:CheckBox runat="server" ID="ItemCheck" 
                                        Text="&nbsp;"
                                        CssClass="form-check d-inline-flex align-middle"/>
                         <YAF:Icon runat="server"
-                                  IconName='<%# (Container.DataItem as dynamic).IsRead ? "envelope-open" : "envelope" %>'
-                                  IconType='<%# (Container.DataItem as dynamic).IsRead ? "text-secondary" : "text-success" %>'></YAF:Icon>
-                        <a href="<%# this.GetMessageLink((Container.DataItem as dynamic).UserPMessageID) %>">
-                        <%# this.HtmlEncode((string)(Container.DataItem as dynamic).Subject) %>
+                                  IconName='<%# (Container.DataItem as PagedPm).IsRead ? "envelope-open" : "envelope" %>'
+                                  IconType='<%# (Container.DataItem as PagedPm).IsRead ? "text-secondary" : "text-success" %>'></YAF:Icon>
+                        <a href="<%# this.GetMessageLink((Container.DataItem as PagedPm).UserPMessageID) %>">
+                        <%# this.HtmlEncode((Container.DataItem as PagedPm).Subject) %>
                         </a>
                     </h5>
                     <small class="d-none d-md-block">
@@ -97,7 +98,7 @@
                                                 LocalizedTag="DATE" />
                         </span>
                         <YAF:DisplayDateTime ID="PostedDateTime" runat="server" 
-                                             DateTime="<%# (Container.DataItem as dynamic).Created %>"></YAF:DisplayDateTime>
+                                             DateTime="<%# (Container.DataItem as PagedPm).Created %>"></YAF:DisplayDateTime>
                     </small>
                 </div>
                 <p class="mb-1">
@@ -106,10 +107,10 @@
                                             LocalizedTag='<%# this.View == PmView.Outbox ? "TO" : "FROM" %>' />:
                     </span>
                     <YAF:UserLink ID="UserLink1" runat="server"
-                                  ReplaceName="<%# this.View == PmView.Outbox ? this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).ToUserDisplayName : (Container.DataItem as dynamic).ToUser : this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).FromUserDisplayName : (Container.DataItem as dynamic).FromUser %>"
-                                  Suspended="<%# this.View == PmView.Outbox ? (Container.DataItem as dynamic).ToSuspended : (Container.DataItem as dynamic).FromSuspended  %>"
-                                  Style="<%# this.View == PmView.Outbox ? (Container.DataItem as dynamic).ToStyle : (Container.DataItem as dynamic).FromStyle %>"
-                                  UserID="<%# this.View == PmView.Outbox ? (Container.DataItem as dynamic).ToUserID : (Container.DataItem as dynamic).FromUserID %>" />
+                                  ReplaceName="<%# this.View == PmView.Outbox ? this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as PagedPm).ToUserDisplayName : (Container.DataItem as PagedPm).ToUser : this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as PagedPm).FromUserDisplayName : (Container.DataItem as PagedPm).FromUser %>"
+                                  Suspended="<%# this.View == PmView.Outbox ? (Container.DataItem as PagedPm).ToSuspended : (Container.DataItem as PagedPm).FromSuspended  %>"
+                                  Style="<%# this.View == PmView.Outbox ? (Container.DataItem as PagedPm).ToStyle : (Container.DataItem as PagedPm).FromStyle %>"
+                                  UserID="<%# this.View == PmView.Outbox ? (Container.DataItem as PagedPm).ToUserID : (Container.DataItem as PagedPm).FromUserID %>" />
                 </p>
             </li>
     </ItemTemplate>
@@ -157,8 +158,8 @@
                                  Icon="file-export"/>
                 <YAF:ThemeButton runat="server" ID="ExportAll"
                                  Size="Small"
-                                 TextLocalizedTag="DELETESELECTED" 
-                                 TitleLocalizedTag="DELETESELECTED" 
+                                 TextLocalizedTag="EXPORTALL" 
+                                 TitleLocalizedTag="EXPORTALL" 
                                  DataToggle="tooltip"
                                  OnClick="ExportAll_Click" 
                                  Type="Secondary" 
@@ -207,7 +208,6 @@
                          CssClass="list-unstyled">
         <asp:ListItem Text="XML" Selected="True" Value="xml"></asp:ListItem>
         <asp:ListItem Text="CSV" Value="csv"></asp:ListItem>
-        <asp:ListItem Text="Text" Value="txt"></asp:ListItem>
     </asp:RadioButtonList>
 </div>
 

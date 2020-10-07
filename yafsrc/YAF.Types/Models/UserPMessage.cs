@@ -28,6 +28,7 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -71,6 +72,17 @@ namespace YAF.Types.Models
         [Required]
         [Default(0)]
         public int Flags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user flags.
+        /// </summary>
+        [Ignore]
+        public PMessageFlags PMessageFlags
+        {
+            get => new PMessageFlags(this.Flags);
+
+            set => this.Flags = value.BitValue;
+        }
 
         /// <summary>
         /// Gets or sets the is read.

@@ -499,11 +499,6 @@ namespace YAF.Types.Constants
         Profile_Attachments,
 
         /// <summary>
-        /// The avatar page.
-        /// </summary>
-        Profile_Avatar,
-
-        /// <summary>
         /// The BlockOptions.
         /// </summary>
         Profile_BlockOptions,

@@ -48,6 +48,20 @@ namespace YAF.Types.Extensions
         #region Public Methods and Operators
 
         /// <summary>
+        /// Tests if an object or empty.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <returns>
+        /// The is <see langword="null"/> or empty database field.
+        /// </returns>
+        public static bool IsNullOrEmptyField([NotNull] this object value)
+        {
+            return value == null || value == DBNull.Value || value.ToString().IsNotSet();
+        }
+
+        /// <summary>
         /// Turns any object into a Dictionary
         /// </summary>
         /// <param name="thingy">
@@ -64,47 +78,6 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        /// Converts an object to a type.
-        /// </summary>
-        /// <param name="value">
-        /// Object to convert 
-        /// </param>
-        /// <param name="type">
-        /// Type to convert to e.g. System.Guid 
-        /// </param>
-        /// <returns>
-        /// The convert object to type. 
-        /// </returns>
-        [CanBeNull]
-        public static object ConvertObjectToType([CanBeNull] object value, [NotNull] string type)
-        {
-            if (value == null)
-            {
-                return null;
-            }
-
-            var convertType = Type.GetType(type, true, true);
-
-            var converter = TypeDescriptor.GetConverter(convertType);
-            return converter.ConvertFrom(value);
-        }
-
-        /// <summary>
-        /// Provides a chaining action with the object.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The object.</param>
-        /// <param name="action">The action.</param>
-        /// <returns>
-        /// The <see cref="T" />.
-        /// </returns>
-        public static T DoWith<T>(this T obj, [NotNull] Action<T> action)
-        {
-            action(obj);
-            return obj;
-        }
-
-        /// <summary>
         /// The get attribute.
         /// </summary>
         /// <typeparam name="TAttribute">The type of the attribute.</typeparam>
@@ -117,23 +90,6 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(objectType, "objectType");
 
             return objectType.GetCustomAttributes(typeof(TAttribute), false).OfType<TAttribute>().FirstOrDefault();
-        }
-
-        /// <summary>
-        /// The get attributes.
-        /// </summary>
-        /// <typeparam name="TAttribute">The type of the attribute.</typeparam>
-        /// <param name="objectType">The object type.</param>
-        /// <returns>
-        /// The <see cref="IEnumerable" />.
-        /// </returns>
-        [NotNull]
-        public static IEnumerable<TAttribute> GetAttributes<TAttribute>([NotNull] this Type objectType)
-            where TAttribute : Attribute
-        {
-            CodeContracts.VerifyNotNull(objectType, "objectType");
-
-            return objectType.GetCustomAttributes(typeof(TAttribute), false).OfType<TAttribute>();
         }
 
         /// <summary>
@@ -227,38 +183,6 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        /// Converts an object to a different object (class) by copying fields (if they exist). Used to convert annonomous objects to strongly typed objects.
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <param name="obj">
-        /// </param>
-        /// <returns>
-        /// The <see cref="T"/>.
-        /// </returns>
-        [NotNull]
-        public static T ToDifferentClassType<T>([NotNull] this object obj) where T : class
-        {
-            // create instance of T type object:
-            var tmp = Activator.CreateInstance(typeof(T));
-
-            // loop through the fields of the object you want to covert:       
-            foreach (var fi in obj.GetType().GetFields())
-            {
-                try
-                {
-                    tmp.GetType().GetField(fi.Name).SetValue(tmp, fi.GetValue(obj));
-                }
-                catch
-                {
-                }
-            }
-
-            // return the T type object:         
-            return (T)tmp;
-        }
-
-        /// <summary>
         /// The to dynamic.
         /// </summary>
         /// <param name="instance">
@@ -288,7 +212,7 @@ namespace YAF.Types.Extensions
 
             var result = new ExpandoObject();
 
-            var d = result as IDictionary<string, object>;
+            var d = (IDictionary<string, object>)result;
 
             if (obj is ExpandoObject)
             {
@@ -314,51 +238,12 @@ namespace YAF.Types.Extensions
             return result;
         }
 
-        /// <summary>
-        /// The to generic list.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="listObjects">The list objects.</param>
-        /// <returns>
-        /// The <see cref="List" />.
-        /// </returns>
-        [NotNull]
-        public static List<T> ToGenericList<T>([NotNull] this IList listObjects)
-        {
-            var convertedList = new List<T>(listObjects.Count);
-
-            convertedList.AddRange(listObjects.Cast<T>());
-
-            return convertedList;
-        }
-
         // The ToString overloads are inspired by:
         // A Smarter (or Pure Evil) ToString with Extension Methods (4)
         // FormatWith 2.0 - String formatting with named variables (5)
         // This implementation is a combination of both: the regular expressions 
         // from Scott Hanselman combined with the DataBinder.Eval idea 
         // from James Newton-King.
-
-        /// <summary>
-        /// Enables you to get a string representation of the object using string formatting with property names, rather than index based values.
-        /// </summary>
-        /// <param name="anObject">
-        /// The object being extended. 
-        /// </param>
-        /// <param name="aFormat">
-        /// The formatting string, like "Hi, my name is {FirstName} {LastName}". 
-        /// </param>
-        /// <returns>
-        /// A formatted string with the values from the object replaced in the format string. 
-        /// </returns>
-        /// <remarks>
-        /// To embed a pair of {} on the string, simply double them: "I am a {{Literal}}".
-        /// </remarks>
-        [NotNull]
-        public static string ToString([NotNull] this object anObject, [NotNull] string aFormat)
-        {
-            return anObject.ToString(aFormat, null);
-        }
 
         /// <summary>
         /// Enables you to get a string representation of the object using string formatting with property names, rather than index based values.
@@ -524,34 +409,6 @@ namespace YAF.Types.Extensions
             }
 
             return defaultValue;
-        }
-
-        /// <summary>
-        /// The verify bool.
-        /// </summary>
-        /// <param name="o">
-        /// The o. 
-        /// </param>
-        /// <returns>
-        /// The verify bool. 
-        /// </returns>
-        public static bool VerifyBool([NotNull] object o)
-        {
-            return Convert.ToBoolean(o);
-        }
-
-        /// <summary>
-        /// The verify int 32.
-        /// </summary>
-        /// <param name="o">
-        /// The o. 
-        /// </param>
-        /// <returns>
-        /// The verify int 32. 
-        /// </returns>
-        public static int VerifyInt32([NotNull] object o)
-        {
-            return Convert.ToInt32(o);
         }
 
         #endregion

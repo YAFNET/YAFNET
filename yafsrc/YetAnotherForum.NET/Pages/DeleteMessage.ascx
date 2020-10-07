@@ -64,7 +64,7 @@
             </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton ID="DeleteUndelete" runat="server" 
-                                 OnClick="DeleteUndelete_Click"
+                                 OnClick="ToggleDelete_Click"
                                  CausesValidation="True"
                                  DataToggle="tooltip"
                                  Type="Danger"

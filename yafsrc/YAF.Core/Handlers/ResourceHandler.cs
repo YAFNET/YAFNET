@@ -111,21 +111,6 @@ namespace YAF.Core.Handlers
                 {
                     this.Get<IResources>().GetResponseLocalAvatar(context);
                 }
-                else if (context.Request.QueryString.Exists("url")
-                         && context.Request.QueryString.Exists("width")
-                         && context.Request.QueryString.Exists("height"))
-                {
-                    var maxWidth = int.Parse(context.Request.QueryString.GetFirstOrDefault("width"));
-                    var maxHeight = int.Parse(context.Request.QueryString.GetFirstOrDefault("height"));
-
-                    var etagCodeCode =
-                        $@"""{(context.Request.QueryString.GetFirstOrDefault("url") + maxHeight + maxWidth).GetHashCode()}""";
-
-                    if (!CheckETagCode(context, etagCodeCode))
-                    {
-                        this.Get<IResources>().GetResponseRemoteAvatar(context);
-                    }
-                }
                 else if (context.Request.QueryString.Exists("a"))
                 {
                     this.Get<IAttachment>().GetResponseAttachment(context);

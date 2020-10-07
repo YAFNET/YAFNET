@@ -25,20 +25,17 @@ namespace YAF.Core.Services
 {
     #region Using
 
-    using System;
     using System.Web;
     using System.Web.Hosting;
 
     using YAF.Configuration;
     using YAF.Core.Context;
-    using YAF.Core.Model;
     using YAF.Core.Services.Startup;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
-    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -176,18 +173,18 @@ namespace YAF.Core.Services
                 ref platform,
                 ref browser,
                 out var isSearchEngine,
-                out var dontTrack);
+                out var doNotTrack);
 
             this.Get<StartupInitializeDb>().Run();
 
-            object userKey = DBNull.Value;
+            string userKey = null;
 
             if (user != null)
             {
                 userKey = user.Id;
             }
 
-            var pageRow = BoardContext.Current.GetRepository<ActiveAccess>().PageLoadAsDataRow(
+            var pageRow = BoardContext.Current.Get<DataBroker>().GetPageLoad(
                 HttpContext.Current.Session.SessionID,
                 boardId,
                 userKey,
@@ -202,9 +199,9 @@ namespace YAF.Core.Services
                 messageId,
                 isSearchEngine, // don't track if this is a search engine
                 isMobileDevice,
-                dontTrack);
+                doNotTrack);
 
-            return pageRow["DownloadAccess"].ToType<bool>() || pageRow["ModeratorAccess"].ToType<bool>();
+            return pageRow.DownloadAccess || pageRow.ModeratorAccess;
         }
 
         #endregion

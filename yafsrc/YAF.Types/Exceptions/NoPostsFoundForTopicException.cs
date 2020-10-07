@@ -34,45 +34,52 @@ namespace YAF.Types.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="NoPostsFoundForTopicException"/> class.
         /// </summary>
-        /// <param name="topicId">The topic identifier.</param>
-        /// <param name="currentUserID">The current user identifier.</param>
-        /// <param name="authorUserID">The author user identifier.</param>
-        /// <param name="updateViewCount">The update view count.</param>
-        /// <param name="showDeleted">if set to <c>true</c> [show deleted].</param>
-        /// <param name="styledNicks">if set to <c>true</c> [styled nicks].</param>
-        /// <param name="showReputation">if set to <c>true</c> [show reputation].</param>
-        /// <param name="sincePostedDate">The since posted date.</param>
-        /// <param name="toPostedDate">To posted date.</param>
-        /// <param name="sinceEditedDate">The since edited date.</param>
-        /// <param name="toEditedDate">To edited date.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="sortPosted">The sort posted.</param>
-        /// <param name="sortEdited">The sort edited.</param>
-        /// <param name="sortPosition">The sort position.</param>
-        /// <param name="showThanks">if set to <c>true</c> [show thanks].</param>
-        /// <param name="messagePosition">The message position.</param>
+        /// <param name="topicId">
+        /// The topic identifier.
+        /// </param>
+        /// <param name="userId">
+        /// The current user identifier.
+        /// </param>
+        /// <param name="authorUserId">
+        /// The author user identifier.
+        /// </param>
+        /// <param name="updateViewCount">
+        /// The update view count.
+        /// </param>
+        /// <param name="showDeleted">
+        /// if set to <c>true</c> [show deleted].
+        /// </param>
+        /// <param name="sincePostedDate">
+        /// The since posted date.
+        /// </param>
+        /// <param name="toPostedDate">
+        /// To posted date.
+        /// </param>
+        /// <param name="pageIndex">
+        /// Index of the page.
+        /// </param>
+        /// <param name="pageSize">
+        /// Size of the page.
+        /// </param>
+        /// <param name="messagePosition">
+        /// The message position.
+        /// </param>
         public NoPostsFoundForTopicException(
-            int topicId,
-            object currentUserID,
-            [NotNull] object authorUserID,
-            [NotNull] object updateViewCount,
-            bool showDeleted,
-            bool styledNicks,
-            bool showReputation,
-            DateTime sincePostedDate,
-            DateTime toPostedDate,
-            DateTime sinceEditedDate,
-            DateTime toEditedDate,
-            int pageIndex,
-            int pageSize,
-            int sortPosted,
-            int sortEdited,
-            int sortPosition,
-            bool showThanks,
-            int messagePosition)
+            [NotNull] int topicId,
+            [NotNull] int userId,
+            [NotNull] int authorUserId,
+            [NotNull] bool updateViewCount,
+            [NotNull] bool showDeleted,
+            [NotNull] DateTime sincePostedDate,
+            [NotNull] DateTime toPostedDate,
+            [NotNull] int pageIndex,
+            [NotNull] int pageSize,
+            [NotNull] int messagePosition)
             : base(
-                $"No posts were found for topic [topicId:{topicId}, currentUserID,:{currentUserID}, authorUserID:{authorUserID}, updateViewCount:{updateViewCount}, showDeleted:{showDeleted}, styledNicks:{styledNicks}, showReputation:{showReputation}, sincePostedDate:{sincePostedDate}, toPostedDate:{toPostedDate}, sinceEditedDate:{sinceEditedDate}, toEditedDate:{toEditedDate}, pageIndex:{pageIndex}, pageSize:{pageSize}, sortPosted:{sortPosted}, sortEdited:{sortEdited}, sortPosition:{sortPosition}, showThanks:{showThanks}, messagePosition: {messagePosition}]")
+                $@"No posts were found for topic [
+                            topicId:{topicId}, userId,:{userId}, authorUserId:{authorUserId}, updateViewCount:{updateViewCount}, 
+                            showDeleted:{showDeleted}, sincePostedDate:{sincePostedDate}, toPostedDate:{toPostedDate}, 
+                            pageIndex:{pageIndex}, pageSize:{pageSize},messagePosition: {messagePosition}]")
         {
         }
     }

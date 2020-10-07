@@ -36,7 +36,6 @@ namespace YAF.Core.Tasks
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -165,16 +164,14 @@ namespace YAF.Core.Tasks
                             }
 
                             // get users with digest enabled...
-                            var usersWithDigest = this.GetRepository<User>()
-                                .FindUserTyped(false, boardId, dailyDigest: true).Where(
-                                    x => x.IsGuest != null && !x.IsGuest.Value && x.UserFlags.IsApproved);
+                            var usersWithDigest = this.GetRepository<User>().Get(
+                                u => u.BoardID == boardId && u.IsApproved == true && u.IsGuest == false &&
+                                     u.DailyDigest);
 
-                            var typedUserFinds = usersWithDigest as IList<User> ?? usersWithDigest.ToList();
-
-                            if (typedUserFinds.Any())
+                            if (usersWithDigest.Any())
                             {
                                 // start sending...
-                                this.SendDigestToUsers(typedUserFinds, boardSettings);
+                                this.SendDigestToUsers(usersWithDigest, boardSettings);
                             }
                             else
                             {

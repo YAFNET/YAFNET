@@ -87,7 +87,7 @@ namespace YAF.Dialogs
                 "onkeydown",
                 JavaScriptBlocks.ClickOnEnterJs(this.LoginButton.ClientID));
 
-            if (this.PageContext.IsGuest && !this.Get<BoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
+            if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.DisableRegistrations && !Config.IsAnyPortal)
             {
                 this.RegisterLink.Visible = true;
             }
@@ -117,7 +117,7 @@ namespace YAF.Dialogs
         protected void RegisterLinkClick(object sender, EventArgs e)
         {
             BuildLink.Redirect(
-                this.Get<BoardSettings>().ShowRulesForRegistration ? ForumPages.RulesAndPrivacy : ForumPages.Account_Register);
+                this.PageContext.BoardSettings.ShowRulesForRegistration ? ForumPages.RulesAndPrivacy : ForumPages.Account_Register);
         }
 
         /// <summary>

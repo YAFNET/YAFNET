@@ -2,6 +2,7 @@
     CodeBehind="Users.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Types.Objects.Model" %>
 
 <%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/UsersImport.ascx" %>
 
@@ -179,39 +180,45 @@
                             <li class="list-group-item list-group-item-action list-group-item-menu">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 text-break">
-                                        <%# this.GetIsUserDisabledLabel(this.Eval("Flags"))%>
-                                        <asp:LinkButton ID="NameEdit" runat="server" CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>'
-                                                        Text='<%# this.HtmlEncode( this.Eval("Name").ToString() ) %>' />
-                                        (<asp:LinkButton ID="DisplayNameEdit" runat="server" CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>'
-                                                         Text='<%# this.HtmlEncode( this.Eval("DisplayName").ToString() ) %>' />)
+                                        <%# this.GetIsUserDisabledLabel(((PagedUser)Container.DataItem).Flags)%>
+                                        <asp:LinkButton ID="NameEdit" runat="server" 
+                                                        CommandName="edit" 
+                                                        CommandArgument="<%# ((PagedUser)Container.DataItem).UserID %>"
+                                                        Text="<%# this.HtmlEncode( ((PagedUser)Container.DataItem).Name) %>" />
+                                        (<asp:LinkButton ID="DisplayNameEdit" runat="server" 
+                                                         CommandName="edit" 
+                                                         CommandArgument="<%# ((PagedUser)Container.DataItem).UserID %>"
+                                                         Text="<%# this.HtmlEncode( ((PagedUser)Container.DataItem).DisplayName) %>" />)
                                     </h5>
                                     <small class="d-none d-md-block">
                                         <span style="font-weight:bold">
-                                            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE_SUSPENDED" LocalizedPage="INFO" />&nbsp;:&nbsp;
+                                            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                                                                LocalizedTag="TITLE_SUSPENDED" 
+                                                                LocalizedPage="INFO" />&nbsp;:&nbsp;
                                         </span>
-                                        <asp:Label runat="server" ID="Suspended" CssClass='<%# this.Eval("Suspended") == DBNull.Value ? "badge bg-success" : "badge bg-danger" %>'><%# this.GetSuspendedString(this.Eval("Suspended").ToString())%></asp:Label>
+                                        <asp:Label runat="server" ID="Suspended" CssClass='<%# ((PagedUser)Container.DataItem).Suspended.HasValue ? "badge bg-danger" : "badge bg-success"  %>'><%# this.GetSuspendedString(((PagedUser)Container.DataItem).Suspended.ToString())%></asp:Label>
                                     </small>
                                 </div>
                                 <p class="mb-1">
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="EMAIL" LocalizedPage="ADMIN_USERS" />:</strong>
-                                            <%# DataBinder.Eval(Container.DataItem,"Email") %>
+                                            <%# ((PagedUser)Container.DataItem).Email %>
                                         </li>
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="RANK"></YAF:LocalizedLabel> </strong>
-                                            <%# this.Eval("RankName") %>
+                                            <%# ((PagedUser)Container.DataItem).Name %>
                                         </li>
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="POSTS" LocalizedPage="ADMIN_USERS" />:</strong>
-                                            <%# this.Eval( "NumPosts") %>
+                                            <%# ((PagedUser)Container.DataItem).NumPosts %>
                                         </li>
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" />:</strong>
-                                            <%# this.Get<IDateTime>().FormatDateTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
+                                            <%# this.Get<IDateTime>().FormatDateTime(((PagedUser)Container.DataItem).LastVisit) %>
                                         </li>
                                         <li class="list-inline-item" runat="server" 
-                                            Visible='<%# this.Eval("Profile_FacebookId").ToString().IsSet() %>'>
+                                            Visible="<%# ((PagedUser)Container.DataItem).Profile_FacebookId.IsSet() %>">
                                             <span title='<%# this.GetText("ADMIN_EDITUSER", "FACEBOOK_USER_HELP") %>'>
                                                 <YAF:Icon runat="server" 
                                                           IconName="facebook" 
@@ -220,7 +227,7 @@
                                             </span>
                                         </li>
                                         <li class="list-inline-item" runat="server" 
-                                            Visible='<%# this.Eval("Profile_TwitterId").ToString().IsSet() %>' >
+                                            Visible="<%#((PagedUser)Container.DataItem).Profile_TwitterId.IsSet() %>" >
                                             <span title='<%# this.GetText("ADMIN_EDITUSER", "TWITTER_USER_HELP") %>'>
                                                 
                                                 <YAF:Icon runat="server" 
@@ -230,7 +237,7 @@
                                             </span>
                                         </li>
                                         <li class="list-inline-item" runat="server" 
-                                            Visible='<%# this.Eval("Profile_GoogleId").ToString().IsSet() %>'>
+                                            Visible="<%# ((PagedUser)Container.DataItem).Profile_GoogleId.IsSet() %>">
                                             <span title='<%# this.GetText("ADMIN_EDITUSER", "GOOGLE_USER_HELP") %>'>
                                                 <YAF:Icon runat="server" 
                                                           IconName="google" 
@@ -246,7 +253,7 @@
                                                          Type="Info" 
                                                          Size="Small" 
                                                          CommandName="edit" 
-                                                         CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
+                                                         CommandArgument="<%# ((PagedUser)Container.DataItem).UserID %>"
                                                          TextLocalizedTag="EDIT" 
                                                          TitleLocalizedTag="EDIT" 
                                                          Icon="edit">
@@ -256,11 +263,11 @@
                                                          Type="Danger" 
                                                          Size="Small" 
                                                          CommandName="delete" 
-                                                         CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
+                                                         CommandArgument="<%# ((PagedUser)Container.DataItem).UserID %>"
                                                          TextLocalizedTag="DELETE" 
                                                          TitleLocalizedTag="DELETE"
                                                          Icon="trash" 
-                                                         Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !YAF.Configuration.Config.IsDotNetNuke %>'>
+                                                         Visible="<%# ((PagedUser)Container.DataItem).IsGuest == false && !YAF.Configuration.Config.IsDotNetNuke %>">
                                         </YAF:ThemeButton>
                                     </div>
                                 </small>
@@ -269,7 +276,7 @@
                                                      Type="None" 
                                                      CssClass="dropdown-item"
                                                      CommandName="edit" 
-                                                     CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
+                                                     CommandArgument="<%# ((PagedUser)Container.DataItem).UserID %>"
                                                      TextLocalizedTag="EDIT" 
                                                      TitleLocalizedTag="EDIT" 
                                                      Icon="edit">
@@ -279,11 +286,11 @@
                                                      Type="None" 
                                                      CssClass="dropdown-item"
                                                      CommandName="delete" 
-                                                     CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
+                                                     CommandArgument="<%# ((PagedUser)Container.DataItem).UserID %>"
                                                      TextLocalizedTag="DELETE" 
                                                      TitleLocalizedTag="DELETE"
                                                      Icon="trash" 
-                                                     Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !YAF.Configuration.Config.IsDotNetNuke %>'>
+                                                     Visible="<%# ((PagedUser)Container.DataItem).IsGuest == false && !YAF.Configuration.Config.IsDotNetNuke %>">
                                     </YAF:ThemeButton>
                                 </div>
                             </li>
@@ -299,32 +306,32 @@
                 </div>
                 <div class="card-footer text-center">
                     <asp:PlaceHolder runat="server" ID="ImportAndSyncHolder">
-                    <YAF:ThemeButton id="NewUser" runat="server"
-                                     CssClass="mt-1 mr-1"
-                                     OnClick="NewUserClick" 
-                                     Type="Primary"
-                                     Icon="plus-square" 
-                                     TextLocalizedTag="NEW_USER" 
-                                     TextLocalizedPage="ADMIN_USERS">
-                    </YAF:ThemeButton>
+                        <YAF:ThemeButton id="NewUser" runat="server"
+                                         CssClass="mt-1 mr-1"
+                                         OnClick="NewUserClick" 
+                                         Type="Primary"
+                                         Icon="plus-square" 
+                                         TextLocalizedTag="NEW_USER" 
+                                         TextLocalizedPage="ADMIN_USERS">
+                        </YAF:ThemeButton>
                         <YAF:ThemeButton id="SyncUsers" runat="server" 
-                                     CssClass="mt-1 mr-1"
-                                     OnClick="SyncUsersClick" 
-                                     Type="Secondary"
-                                     Icon="sync" 
-                                     TextLocalizedTag="SYNC_ALL" 
-                                     TextLocalizedPage="ADMIN_USERS" 
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_SYNC") %>'>
-                    </YAF:ThemeButton>
+                                         CssClass="mt-1 mr-1"
+                                         OnClick="SyncUsersClick" 
+                                         Type="Secondary"
+                                         Icon="sync" 
+                                         TextLocalizedTag="SYNC_ALL" 
+                                         TextLocalizedPage="ADMIN_USERS" 
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_SYNC") %>'>
+                        </YAF:ThemeButton>
                         <YAF:ThemeButton id="ImportUsers" runat="server" 
-                                     CssClass="mt-1 mr-1"
-                                     Icon="upload" 
-                                     DataTarget="UsersImportDialog"  
-                                     DataToggle="modal" 
-                                     Type="Info"
-                                     TextLocalizedTag="IMPORT" 
-                                     TextLocalizedPage="ADMIN_USERS">
-                    </YAF:ThemeButton>
+                                         CssClass="mt-1 mr-1"
+                                         Icon="upload" 
+                                         DataTarget="UsersImportDialog"  
+                                         DataToggle="modal" 
+                                         Type="Info"
+                                         TextLocalizedTag="IMPORT" 
+                                         TextLocalizedPage="ADMIN_USERS">
+                        </YAF:ThemeButton>
                     </asp:PlaceHolder>
                     <YAF:ThemeButton id="ExportUsersXml" runat="server" 
                                      CssClass="mt-1 mr-1"

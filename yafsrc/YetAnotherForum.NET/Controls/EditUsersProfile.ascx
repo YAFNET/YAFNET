@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Controls.EditUsersProfile" CodeBehind="EditUsersProfile.ascx.cs" %>
 
-<%@ Import Namespace="YAF.Types.Interfaces" %>
 <asp:PlaceHolder ID="ProfilePlaceHolder" runat="server">
     <h2>
         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
@@ -81,7 +80,7 @@
 
     <div class="mb-3">
         <YAF:ThemeButton runat="server" ID="GetLocation"
-            Visible="<%# this.Get<BoardSettings>().EnableIPInfoService %>"
+            Visible="<%# this.PageContext.BoardSettings.EnableIPInfoService %>"
             Icon="location-arrow"
             Type="Secondary"
             TextLocalizedTag="GET_LOCATION"

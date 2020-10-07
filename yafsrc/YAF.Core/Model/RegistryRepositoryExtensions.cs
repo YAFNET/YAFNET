@@ -25,10 +25,10 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-
     using System.Data.SqlClient;
 
-    using YAF.Configuration;
+    using ServiceStack.OrmLite;
+
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -46,6 +46,40 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
+        /// Update Max User Stats
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        public static void UpdateMaxStats(this IRepository<Registry> repository, int boardId)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            var count = repository.DbAccess.Execute(
+                db =>
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
+
+                    expression.Where(x => x.BoardID == boardId);
+
+                    return db.Connection.Scalar<int>(expression.Select(x => Sql.CountDistinct(x.IP)));
+                });
+
+            var maxUsers = BoardContext.Current.BoardSettings.MaxUsers;
+
+            if (count <= maxUsers)
+            {
+                return;
+            }
+
+            repository.Save("maxusers", count, boardId);
+            repository.Save("maxuserswhen", DateTime.UtcNow, boardId);
+        }
+
+        /// <summary>
         /// Increment the the Denied User Registration Count.
         /// </summary>
         /// <param name="repository">
@@ -55,11 +89,11 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            BoardContext.Current.Get<BoardSettings>().DeniedRegistrations++;
+            BoardContext.Current.BoardSettings.DeniedRegistrations++;
 
             repository.Save(
                 "DeniedRegistrations",
-                BoardContext.Current.Get<BoardSettings>().DeniedRegistrations,
+                BoardContext.Current.BoardSettings.DeniedRegistrations,
                 repository.BoardID);
         }
 
@@ -73,11 +107,11 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            BoardContext.Current.Get<BoardSettings>().BannedUsers++;
+            BoardContext.Current.BoardSettings.BannedUsers++;
 
             repository.Save(
                 "BannedUsers",
-                BoardContext.Current.Get<BoardSettings>().BannedUsers,
+                BoardContext.Current.BoardSettings.BannedUsers,
                 repository.BoardID);
         }
 
@@ -91,11 +125,11 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            BoardContext.Current.Get<BoardSettings>().ReportedSpammers++;
+            BoardContext.Current.BoardSettings.ReportedSpammers++;
 
             repository.Save(
                 "ReportedSpammers",
-                BoardContext.Current.Get<BoardSettings>().ReportedSpammers,
+                BoardContext.Current.BoardSettings.ReportedSpammers,
                 repository.BoardID);
         }
 
@@ -125,13 +159,47 @@ namespace YAF.Core.Model
         /// <param name="boardId">The board identifier.</param>
         public static void Save(
             this IRepository<Registry> repository,
-            string settingName,
-            object settingValue,
-            int? boardId = null)
+            [NotNull] string settingName,
+            [CanBeNull] object settingValue,
+            [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.DbFunction.Query.registry_save(Name: settingName, Value: settingValue, BoardID: boardId);
+            if (boardId.HasValue)
+            {
+                if (repository.Exists(r => r.Name.ToLower() == settingName.ToLower() && r.BoardID == boardId.Value))
+                {
+                    repository.UpdateOnly(
+                        () => new Registry { Value = settingValue.ToString() },
+                        r => r.Name.ToLower() == settingName.ToLower() && r.BoardID == boardId.Value);
+                }
+                else
+                {
+                    repository.Insert(
+                        new Registry
+                        {
+                            BoardID = boardId.Value, Name = settingName.ToLower(), Value = settingValue.ToString()
+                        });
+                }
+            }
+            else
+            {
+                if (repository.Exists(r => r.Name.ToLower() == settingName.ToLower()))
+                {
+                    repository.UpdateOnly(
+                        () => new Registry { Value = settingValue.ToString() },
+                        r => r.Name.ToLower() == settingName.ToLower() && r.BoardID == null);
+                }
+                else
+                {
+                    repository.Insert(
+                        new Registry
+                        {
+                            Name = settingName.ToLower(),
+                            Value = settingValue.ToString()
+                        });
+                }
+            }
 
             repository.FireUpdated();
         }
@@ -225,6 +293,19 @@ namespace YAF.Core.Model
             }
 
             return redirect;
+        }
+
+        /// <summary>
+        /// Delete old registry Settings
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        public static void DeleteLegacy(this IRepository<Registry> repository)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            repository.Delete(x => x.Name == "smtpserver");
         }
 
         #endregion

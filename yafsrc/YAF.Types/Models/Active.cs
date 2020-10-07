@@ -27,6 +27,7 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -57,6 +58,17 @@ namespace YAF.Types.Models
         /// Gets or sets the flags.
         /// </summary>
         public int? Flags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user flags.
+        /// </summary>
+        [Ignore]
+        public ActiveFlags ActiveFlags
+        {
+            get => new ActiveFlags(this.Flags);
+
+            set => this.Flags = value.BitValue;
+        }
 
         /// <summary>
         /// Gets or sets the forum id.

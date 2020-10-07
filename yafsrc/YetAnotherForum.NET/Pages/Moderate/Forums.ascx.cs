@@ -28,11 +28,9 @@ namespace YAF.Pages.Moderate
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -119,26 +117,25 @@ namespace YAF.Pages.Moderate
             var baseSize = this.PagerTop.PageSize;
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
 
-            var topicList = this.GetRepository<Topic>().ListAsDataTable(
+            var topicList = this.GetRepository<Topic>().ListPaged(
                 this.PageContext.PageForumID,
                 this.PageContext.PageUserID,
                 DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
                 currentPageIndex,
                 baseSize,
-                false,
                 true,
-                true);
+                this.PageContext.BoardSettings.UseReadTrackingByDatabase);
 
             this.topiclist.DataSource = topicList;
             this.UserList.DataSource = this.GetRepository<UserForum>().List(null, this.PageContext.PageForumID);
            
-            if (topicList != null && topicList.HasRows())
+            if (topicList != null && topicList.Any())
             {
-                this.PagerTop.Count = topicList.AsEnumerable().First().Field<int>("TotalRows");
+                this.PagerTop.Count = topicList.FirstOrDefault().TotalRows;
             }
 
-            var forumList = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            var forumList = this.GetRepository<Forum>().ListAllSorted(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 
@@ -257,7 +254,7 @@ namespace YAF.Pages.Moderate
 
             if (!this.IsPostBack)
             {
-                var showMoved = this.Get<BoardSettings>().ShowMoved;
+                var showMoved = this.PageContext.BoardSettings.ShowMoved;
 
                 // Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
                 this.LeavePointer.Checked = showMoved;

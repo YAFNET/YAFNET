@@ -39,9 +39,9 @@ namespace YAF.Types.Objects
     #region Constants and Fields
 
     /// <summary>
-    /// The _topics.
+    /// The topics.
     /// </summary>
-    private List<SimpleTopic> _topics = new List<SimpleTopic>();
+    private List<SimpleTopic> topics = new List<SimpleTopic>();
 
     #endregion
 
@@ -62,9 +62,9 @@ namespace YAF.Types.Objects
     /// </summary>
     public List<SimpleTopic> Topics
     {
-      get => this._topics;
+      get => this.topics;
 
-      set => this._topics = value;
+      set => this.topics = value;
     }
 
     #endregion

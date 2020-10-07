@@ -88,7 +88,7 @@ namespace YAF.Core.Controllers
                                             : "<i class=\"far fa-file-alt attachment-icon\"></i>";
 
                         var attachment = new AttachmentItem
-                                             {
+                        {
                                                  FileName = attach.FileName,
                                                  OnClick = $"CKEDITOR.tools.insertAttachment('{attach.ID}')",
                                                  IconImage = $@"{iconImage}<span>{description}</span>"

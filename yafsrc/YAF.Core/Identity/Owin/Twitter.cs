@@ -231,7 +231,7 @@ namespace YAF.Core.Identity.Owin
         {
             var subject = string.Format(
                 BoardContext.Current.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT"),
-                BoardContext.Current.Get<BoardSettings>().Name);
+                BoardContext.Current.BoardSettings.Name);
 
             var notifyUser = new TemplateEmail
             {
@@ -240,7 +240,7 @@ namespace YAF.Core.Identity.Owin
                                              ["{user}"] = user.UserName,
                                              ["{email}"] = user.Email,
                                              ["{pass}"] = pass,
-                                             ["{forumname}"] = BoardContext.Current.Get<BoardSettings>().Name
+                                             ["{forumname}"] = BoardContext.Current.BoardSettings.Name
                                          }
             };
 

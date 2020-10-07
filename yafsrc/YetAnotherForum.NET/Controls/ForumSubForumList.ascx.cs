@@ -25,17 +25,14 @@
 namespace YAF.Controls
 {
     #region Using
-
-    using System;
+    
     using System.Collections;
-    using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects.Model;
     using YAF.Utils;
     
     #endregion
@@ -64,20 +61,20 @@ namespace YAF.Controls
         ///   Automatically disables the link if the current user doesn't
         ///   have proper permissions.
         /// </summary>
-        /// <param name="row">
-        /// Current data row
+        /// <param name="forum">
+        /// The forum.
         /// </param>
         /// <returns>
         /// Forum link text
         /// </returns>
-        public string GetForumLink([NotNull] DataRow row)
+        public string GetForumLink([NotNull] ForumRead forum)
         {
-            var forumID = row["ForumID"].ToType<int>();
+            var forumID = forum.ForumID;
 
             // get the Forum Description
-            var output = Convert.ToString(row["Forum"]);
+            var output = forum.Forum;
 
-            output = int.Parse(row["ReadAccess"].ToString()) > 0
+            output = forum.ReadAccess
                 ? $"<a class=\"card-link small\" href=\"{BuildLink.GetForumLink(forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>"
                 : $"{output} {this.GetText("NO_FORUM_ACCESS")}";
 
@@ -100,11 +97,8 @@ namespace YAF.Controls
                 return;
             }
 
-            var repeater = sender as Repeater;
-            var dataSource = repeater.DataSource.ToType<IEnumerable>();
-
-            if (dataSource != null && dataSource.ToType<ArrayList>().Count >=
-                this.Get<BoardSettings>().SubForumsInForumList)
+            if (this.SubforumList.Items.Count >=
+                this.PageContext.BoardSettings.SubForumsInForumList)
             {
                 e.Item.FindControl("CutOff").Visible = true;
             }

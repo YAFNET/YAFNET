@@ -93,6 +93,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the reply to.
         /// </summary>
+        [Default(null)]
         public int? ReplyTo { get; set; }
 
         #endregion

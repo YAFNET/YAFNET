@@ -33,7 +33,6 @@ namespace YAF.Core.Services.Localization
     using System.Web;
     using System.Web.Hosting;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Helpers;
     using YAF.Types;
@@ -315,11 +314,11 @@ namespace YAF.Core.Services.Localization
                 string filename;
 
                 if (BoardContext.Current.PageIsNull() || BoardContext.Current.User.LanguageFile.IsNotSet()
-                    || !BoardContext.Current.Get<BoardSettings>().AllowUserLanguage)
+                    || !BoardContext.Current.BoardSettings.AllowUserLanguage)
                 {
                     filename = BoardContext.Current.IsGuest
                                    ? UserHelper.GetGuestUserLanguageFile()
-                                   : BoardContext.Current.Get<BoardSettings>().Language;
+                                   : BoardContext.Current.BoardSettings.Language;
                 }
                 else
                 {
@@ -409,11 +408,11 @@ namespace YAF.Core.Services.Localization
                 else
                 {
                     if (BoardContext.Current.PageIsNull() || BoardContext.Current.User.LanguageFile.IsNotSet()
-                        || !BoardContext.Current.Get<BoardSettings>().AllowUserLanguage)
+                        || !BoardContext.Current.BoardSettings.AllowUserLanguage)
                     {
                         filename = BoardContext.Current.IsGuest
                                        ? UserHelper.GetGuestUserLanguageFile()
-                                       : BoardContext.Current.Get<BoardSettings>().Language;
+                                       : BoardContext.Current.BoardSettings.Language;
                     }
                     else
                     {
@@ -586,11 +585,11 @@ namespace YAF.Core.Services.Localization
             string filename;
 
             if (BoardContext.Current.PageIsNull() || BoardContext.Current.User.LanguageFile.IsNotSet()
-                || !BoardContext.Current.Get<BoardSettings>().AllowUserLanguage)
+                || !BoardContext.Current.BoardSettings.AllowUserLanguage)
             {
                 filename = BoardContext.Current.IsGuest
                                ? UserHelper.GetGuestUserLanguageFile()
-                               : BoardContext.Current.Get<BoardSettings>().Language;
+                               : BoardContext.Current.BoardSettings.Language;
             }
             else
             {

@@ -189,32 +189,25 @@
                 </span>
                 <span class="ml-1 text-right"><asp:Literal runat="server" ID="Stats" /></span>
             </li>
-
-            <asp:PlaceHolder ID="divTF" runat="server" Visible="<%# this.Get<BoardSettings>().EnableThanksMod %>">
-                <li class="list-group-item d-flex justify-content-between align-items-end">
-                    <span class="font-weight-bold">
-                        <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="THANKSFROM" />
-                    </span>
-                    <span class="ml-1"><asp:Label ID="ThanksFrom" runat="server" /></span>
-                </li>
-            </asp:PlaceHolder>
-            <asp:PlaceHolder ID="divTTT" runat="server" Visible="<%# this.Get<BoardSettings>().EnableThanksMod %>">
-                <li class="list-group-item d-flex justify-content-between align-items-end">
-                    <span class="font-weight-bold">
-                        <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="THANKSTOTIMES" />
-                    </span>
-                    <span class="ml-1"><asp:Label ID="ThanksToTimes" runat="server" /></span>
-                </li>
-            </asp:PlaceHolder>
-            <asp:PlaceHolder ID="divTTP" runat="server" Visible="<%# this.Get<BoardSettings>().EnableThanksMod %>">
-                <li class="list-group-item d-flex justify-content-between align-items-end">
-                    <span class="font-weight-bold">
-                        <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="THANKSTOPOSTS" />
-                    </span>
-                    <span class="ml-1"><asp:Label ID="ThanksToPosts" runat="server" /></span>
-                </li>
-            </asp:PlaceHolder>
-            <asp:PlaceHolder ID="divRR" runat="server" Visible="<%# this.Get<BoardSettings>().EnableUserReputation %>">
+            <li class="list-group-item d-flex justify-content-between align-items-end">
+                <span class="font-weight-bold">
+                    <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="THANKSFROM" />
+                </span>
+                <span class="ml-1"><asp:Label ID="ThanksFrom" runat="server" /></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-end">
+                <span class="font-weight-bold">
+                    <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="THANKSTOTIMES" />
+                </span>
+                <span class="ml-1"><asp:Label ID="ThanksToTimes" runat="server" /></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-end">
+                <span class="font-weight-bold">
+                    <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="THANKSTOPOSTS" />
+                </span>
+                <span class="ml-1"><asp:Label ID="ThanksToPosts" runat="server" /></span>
+            </li>
+            <asp:PlaceHolder ID="divRR" runat="server" Visible="<%# this.PageContext.BoardSettings.EnableUserReputation %>">
                 <li class="list-group-item">
                     <span class="font-weight-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedTag="REPUTATION_RECEIVED" />

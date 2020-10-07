@@ -26,8 +26,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
-
+    
     using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
@@ -56,7 +55,7 @@ namespace YAF.Core.Model
         /// The user id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="List"/>.
         /// </returns>
         public static List<PollVote> VoteCheck(
             this IRepository<PollVote> repository,

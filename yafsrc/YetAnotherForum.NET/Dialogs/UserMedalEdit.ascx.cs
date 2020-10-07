@@ -29,9 +29,8 @@ namespace YAF.Dialogs
     using System;
     using System.Linq;
 
-    using YAF.Configuration;
-    
     using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -197,10 +196,9 @@ namespace YAF.Dialogs
         protected void FindUsersClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // try to find users by user name
-            var users = this.GetRepository<User>().FindUserTyped(
-                true,
-                userName: this.UserName.Text,
-                displayName: this.UserName.Text);
+            var users = this.GetRepository<User>().Get(
+                u => u.BoardID == this.PageContext.PageBoardID && u.IsApproved == true && u.IsGuest == false &&
+                    u.Name.Contains(this.UserName.Text) || u.DisplayName.Contains(this.UserName.Text));
 
             if (!users.Any())
             {
@@ -259,10 +257,9 @@ namespace YAF.Dialogs
             if (this.UserNameList.SelectedValue.IsNotSet() && this.UserID.Text.IsNotSet())
             {
                 // only username is specified, we must find id for it
-                var users = this.GetRepository<User>().FindUserTyped(
-                    true,
-                    userName: this.UserName.Text,
-                    displayName: this.UserName.Text);
+                var users = this.GetRepository<User>().Get(
+                    u => u.BoardID == this.PageContext.PageBoardID && u.IsApproved == true && u.IsGuest == false &&
+                        u.Name.Contains(this.UserName.Text) || u.DisplayName.Contains(this.UserName.Text));
 
                 if (users.Count > 1)
                 {
@@ -321,7 +318,7 @@ namespace YAF.Dialogs
                     this.UserSortOrder.Text.ToType<byte>());
             }
 
-            if (this.Get<BoardSettings>().EmailUserOnMedalAward)
+            if (this.PageContext.BoardSettings.EmailUserOnMedalAward)
             {
                 this.Get<ISendNotification>().ToUserWithNewMedal(this.UserID.Text.ToType<int>(), this.Name);
             }

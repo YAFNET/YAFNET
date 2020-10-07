@@ -30,7 +30,6 @@ namespace YAF.Controls
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
@@ -174,7 +173,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.Get<BoardSettings>().AlbumImagesPerPage;
+            this.PagerTop.PageSize = this.PageContext.BoardSettings.AlbumImagesPerPage;
 
             // set the Data table
             var albumImageList = this.GetRepository<UserAlbumImage>().List(this.UserAlbum.ID);

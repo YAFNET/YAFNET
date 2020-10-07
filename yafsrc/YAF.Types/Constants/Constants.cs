@@ -77,6 +77,11 @@ namespace YAF.Types.Constants
             public const string BoardUserStats = "BoardUserStats";
 
             /// <summary>
+            ///   The board user members.
+            /// </summary>
+            public const string BoardMembers = "BoardMembers";
+
+            /// <summary>
             ///   The custom bb code.
             /// </summary>
             public const string CustomBBCode = "CustomBBCode";

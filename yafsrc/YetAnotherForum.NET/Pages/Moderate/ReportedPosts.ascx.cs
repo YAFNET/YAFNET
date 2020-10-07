@@ -145,7 +145,7 @@ namespace YAF.Pages.Moderate
         private void BindData()
         {
             // get reported posts for this forum
-            var dt = this.GetRepository<MessageReported>().ListReportedAsDataTable(this.PageContext.PageForumID);
+            var dt = this.GetRepository<MessageReported>().ListReported(this.PageContext.PageForumID);
 
             if (!dt.Any())
             {
@@ -183,7 +183,7 @@ namespace YAF.Pages.Moderate
                         messageId,
                         true,
                         string.Empty,
-                        1,
+                        true,
                         true);
 
                     // tell user message was deleted

@@ -23,7 +23,6 @@
  */
 namespace YAF.Web.Editors
 {
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -73,10 +72,9 @@ namespace YAF.Web.Editors
         /// </summary>
         protected override void RegisterCKEditorCustomJS()
         {
-            var toolbar = this.Get<BoardSettings>().EditorToolbarFull;
+            var toolbar = this.PageContext.BoardSettings.EditorToolbarFull;
 
-            if (!(this.Get<BoardSettings>().EnableAlbum && this.PageContext.UsrAlbums > 0
-                                                        && this.PageContext.NumAlbums > 0))
+            if (!(this.PageContext.BoardSettings.EnableAlbum && this.PageContext.NumAlbums > 0))
             {
                 // remove albums
                 toolbar = toolbar.Replace(", \"albumsbrowser\"", string.Empty);
@@ -88,7 +86,7 @@ namespace YAF.Web.Editors
                     this.TextAreaControl.ClientID,
                     BoardContext.Current.User.Culture.IsSet()
                         ? BoardContext.Current.User.Culture.Substring(0, 2)
-                        : this.Get<BoardSettings>().Culture.Substring(0, 2),
+                        : this.PageContext.BoardSettings.Culture.Substring(0, 2),
                     this.MaxCharacters,
                     this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"),
                     BoardInfo.GetURLToContent("forum.min.css"),

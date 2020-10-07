@@ -368,7 +368,7 @@ namespace YAF.Web.Controls
                 }
                 else
                 {
-                    if (this.Get<BoardSettings>().EnableActiveLocationErrorsLog)
+                    if (this.PageContext.BoardSettings.EnableActiveLocationErrorsLog)
                     {
                         this.Logger.Log(
                             this.UserID,
@@ -396,7 +396,7 @@ namespace YAF.Web.Controls
         /// </returns>
         private string Album([NotNull] string forumPageAttributes)
         {
-            var outstring = new StringBuilder();
+            var outString = new StringBuilder();
             var userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2)
                 .Trim();
 
@@ -428,14 +428,14 @@ namespace YAF.Web.Controls
                     var displayName =
                         HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetNameById(userId));
 
-                    outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
-                    outstring.AppendFormat(
+                    outString.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
+                    outString.AppendFormat(
                         @"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>",
                         BuildLink.GetLink(ForumPages.Album, "a={0}", albumID),
                         userID + this.PageContext.PageUserID,
                         HttpUtility.HtmlEncode(albumName));
-                    outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM_OFUSER"));
-                    outstring.AppendFormat(
+                    outString.Append(this.GetText("ACTIVELOCATION", "ALBUM_OFUSER"));
+                    outString.AppendFormat(
                         @"<a href=""{0}"" id=""albumuserid_{1}"" runat=""server""> {2} </a>",
                         BuildLink.GetUserProfileLink(userId, displayName),
                         userID,
@@ -443,8 +443,8 @@ namespace YAF.Web.Controls
                 }
                 else
                 {
-                    outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM_OWN"));
-                    outstring.AppendFormat(
+                    outString.Append(this.GetText("ACTIVELOCATION", "ALBUM_OWN"));
+                    outString.AppendFormat(
                         @"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>",
                         BuildLink.GetLink(ForumPages.Album, "a={0}", albumID),
                         userID + this.PageContext.PageUserID,
@@ -453,10 +453,10 @@ namespace YAF.Web.Controls
             }
             else
             {
-                outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
+                outString.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
             }
 
-            return outstring.ToString();
+            return outString.ToString();
         }
 
         /// <summary>

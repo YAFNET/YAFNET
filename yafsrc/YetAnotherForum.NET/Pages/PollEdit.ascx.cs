@@ -32,7 +32,6 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -157,7 +156,7 @@ namespace YAF.Pages
             this.InitializeVariables();
 
             this.PollObjectRow1.Visible =
-                (this.PageContext.IsAdmin || this.Get<BoardSettings>().AllowUsersImagedPoll) &&
+                (this.PageContext.IsAdmin || this.PageContext.BoardSettings.AllowUsersImagedPoll) &&
                 this.PageContext.ForumPollAccess;
         }
 
@@ -332,7 +331,7 @@ namespace YAF.Pages
 
                 choices = pollAndChoices.Select(c => c.Item2).ToList();
 
-                var count = this.Get<BoardSettings>().AllowedPollChoiceNumber - 1 - choices.Count;
+                var count = this.PageContext.BoardSettings.AllowedPollChoiceNumber - 1 - choices.Count;
 
                 if (count > 0)
                 {
@@ -359,7 +358,7 @@ namespace YAF.Pages
                 choices = new List<Choice>();
 
                 // we add dummy rows to data table to fill in repeater empty fields   
-                var dummyRowsCount = this.Get<BoardSettings>().AllowedPollChoiceNumber - 1;
+                var dummyRowsCount = this.PageContext.BoardSettings.AllowedPollChoiceNumber - 1;
                 for (var i = 0; i <= dummyRowsCount; i++)
                 {
                     var choice = new Choice { ID = i };
@@ -377,9 +376,9 @@ namespace YAF.Pages
             this.Cancel.Visible = true;
             this.PollRowExpire.Visible = true;
             this.IsClosedBound.Visible =
-                this.Get<BoardSettings>().AllowUsersHidePollResults || this.PageContext.IsAdmin ||
+                this.PageContext.BoardSettings.AllowUsersHidePollResults || this.PageContext.IsAdmin ||
                 this.PageContext.IsForumModerator;
-            this.tr_AllowMultipleChoices.Visible = this.Get<BoardSettings>().AllowMultipleChoices ||
+            this.tr_AllowMultipleChoices.Visible = this.PageContext.BoardSettings.AllowMultipleChoices ||
                                                    this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess;
         }
 
@@ -483,7 +482,7 @@ namespace YAF.Pages
                 return true;
             }
 
-            return this.Get<BoardSettings>().AllowedPollChoiceNumber > 0;
+            return this.PageContext.BoardSettings.AllowedPollChoiceNumber > 0;
         }
 
         #endregion

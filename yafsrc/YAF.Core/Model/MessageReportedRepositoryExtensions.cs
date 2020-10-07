@@ -25,8 +25,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
-
+    
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
@@ -50,19 +49,19 @@ namespace YAF.Core.Model
         /// <param name="forumId">
         /// The forum Id.
         /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
         public static
-            List<dynamic> ListReportedAsDataTable(this IRepository<MessageReported> repository, [NotNull] int forumId)
+            List<dynamic> ListReported(this IRepository<MessageReported> repository, [NotNull] int forumId)
         {
             return repository.DbAccess.Execute(
                 db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageReported>();
 
-                    expression.Join<Message>((a, m) => m.ID == a.ID).Join<Message, Topic>((m, t) => t.ID == m.TopicID)
-                        .Join<Message, User>((m, u) => u.ID == m.UserID).Where<Message, Topic>(
+                    expression
+                        .Join<Message>((a, m) => m.ID == a.ID)
+                        .Join<Message, Topic>((m, t) => t.ID == m.TopicID)
+                        .Join<Message, User>((m, u) => u.ID == m.UserID)
+                        .Where<Message, Topic>(
                             (m, t) => t.ForumID == forumId && m.IsDeleted == false && t.IsDeleted == false &&
                                       (m.Flags & 128) == 128);
 

@@ -1,6 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.BuddyList" Codebehind="BuddyList.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
 
 <div class="card mb-3">
     <div class="card-header">
@@ -33,16 +32,16 @@
     <ItemTemplate>
         <li class="list-group-item">
             <YAF:UserLink ID="UserProfileLink" runat="server" 
-                          ReplaceName='<%# this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name") %>'
-                          Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
-                          Style='<%# this.Eval("UserStyle") %>'
-                          UserID='<%#  this.Eval(this.CurrentUserID == this.Eval("UserID").ToType<int>() ? "FromUserID": "UserID").ToType<int>() %>' />
+                          ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).DisplayName : (Container.DataItem as dynamic).Name %>"
+                          Suspended="<%# (Container.DataItem as dynamic).Suspended %>"
+                          Style="<%# (Container.DataItem as dynamic).UserStyle %>"
+                          UserID="<%#  this.CurrentUserID == (int)(Container.DataItem as dynamic).UserID ? (Container.DataItem as dynamic).FromUserID: (Container.DataItem as dynamic).UserID %>" />
             <div class="btn-group" role="group">
             <asp:PlaceHolder ID="pnlRemove" runat="server" Visible="false">
                 <YAF:ThemeButton ID="lnkRemove" runat="server"
                                  TextLocalizedTag="REMOVEBUDDY"
                                  ReturnConfirmText='<%# this.GetText("FRIENDS", "NOTIFICATION_REMOVE") %>'
-                                 CommandName="remove" CommandArgument='<%# this.Eval("UserID") %>'
+                                 CommandName="remove" CommandArgument="<%# (Container.DataItem as dynamic).UserID %>"
                                  Size="Small"
                                  Type="Danger"
                                  Icon="trash"/>
@@ -50,27 +49,27 @@
             <asp:PlaceHolder ID="pnlPending" runat="server" Visible="false">
                 <YAF:ThemeButton runat="server" 
                                  Size="Small"
-                                 CommandName="approve" CommandArgument='<%# this.Eval("FromUserID") %>'
+                                 CommandName="approve" CommandArgument="<%# (Container.DataItem as dynamic).FromUserID %>"
                                  TextLocalizedTag="APPROVE"
                                  Type="Success"
                                  Icon="check"/>
                 <YAF:ThemeButton runat="server"
                                  Size="Small"
-                                 CommandName="approveadd" CommandArgument='<%# this.Eval("FromUserID") %>'
+                                 CommandName="approveadd" CommandArgument="<%# (Container.DataItem as dynamic).FromUserID %>"
                                  TextLocalizedTag="APPROVE_ADD"
                                  Type="Success"
                                  Icon="check"/>
                 <YAF:ThemeButton runat="server"
                                  Size="Small"
                                  ReturnConfirmText='<%# this.GetText("FRIENDS", "NOTIFICATION_DENY") %>'
-                                 CommandName="deny" CommandArgument='<%# this.Eval("FromUserID") %>'
+                                 CommandName="deny" CommandArgument="<%# (Container.DataItem as dynamic).FromUserID %>"
                                  TextLocalizedTag="DENY"
                                  Type="Danger"
                                  Icon="times-circle"/>
             </asp:PlaceHolder>
             </div>
             <asp:PlaceHolder ID="pnlRequests" runat="server" Visible="false">
-                <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["Requested"]) %>
+                <%# this.Get<IDateTime>().FormatDateLong((DateTime)(Container.DataItem as dynamic).Requested) %>
             </asp:PlaceHolder>
         </li>
     </ItemTemplate>

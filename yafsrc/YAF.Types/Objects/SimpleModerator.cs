@@ -36,69 +36,9 @@ namespace YAF.Types.Objects
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleModerator"/> class.
         /// </summary>
-        /// <param name="forumID">
-        /// The forum id.
-        /// </param>
-        /// <param name="forumName">
-        /// The forum Name.
-        /// </param>
-        /// <param name="moderatorID">
-        /// The moderator id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="email">
-        /// The email.
-        /// </param>
-        /// <param name="blockFlags">
-        /// The block Flags.
-        /// </param>
-        /// <param name="avatar">
-        /// The avatar.
-        /// </param>
-        /// <param name="avatarImage">
-        /// The avatar Image.
-        /// </param>
-        /// <param name="displayName">
-        /// The display Name.
-        /// </param>
-        /// <param name="style">
-        /// The style.
-        /// </param>
-        /// <param name="isGroup">
-        /// The is group.
-        /// </param>
-        /// <param name="suspended">
-        /// The suspended.
-        /// </param>
-        public SimpleModerator(
-            long forumID,
-            string forumName,
-            long moderatorID,
-            string name,
-            string email,
-            int blockFlags,
-            string avatar,
-            bool avatarImage,
-            string displayName,
-            string style,
-            bool isGroup,
-            DateTime? suspended)
+        public SimpleModerator()
         {
-            this.ForumID = forumID;
-            this.ForumName = forumName;
-            this.ModeratorID = moderatorID;
-            this.Name = name;
-            this.Email = email;
-            this.BlockFlags = blockFlags;
-            this.Avatar = avatar;
-            this.AvatarImage = avatarImage;
-            this.DisplayName = displayName;
-            this.Style = style;
-            this.IsGroup = isGroup;
-            this.UserBlockFlags = new UserBlockFlags(blockFlags);
-            this.Suspended = suspended;
+            this.UserBlockFlags = new UserBlockFlags(this.ModeratorBlockFlags);
         }
 
         /// <summary>
@@ -109,7 +49,7 @@ namespace YAF.Types.Objects
         /// <summary>
         /// Gets or sets ForumID.
         /// </summary>
-        public long ForumID { get; set; }
+        public int ForumID { get; set; }
 
         /// <summary>
         /// Gets or sets Forum Name.
@@ -119,7 +59,7 @@ namespace YAF.Types.Objects
         /// <summary>
         /// Gets or sets ModeratorID.
         /// </summary>
-        public long ModeratorID { get; set; }
+        public int ModeratorID { get; set; }
 
         /// <summary>
         /// Gets or sets Name.
@@ -134,7 +74,7 @@ namespace YAF.Types.Objects
         /// <summary>
         /// Gets or sets the block flags.
         /// </summary>
-        public int BlockFlags { get; set; }
+        public int ModeratorBlockFlags { get; set; }
 
         /// <summary>
         /// Gets or sets the user block flags.

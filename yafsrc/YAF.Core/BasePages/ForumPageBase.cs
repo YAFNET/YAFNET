@@ -31,7 +31,6 @@ namespace YAF.Core.BasePages
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Services.Startup;
@@ -106,7 +105,7 @@ namespace YAF.Core.BasePages
             if (error.GetType() == typeof(HttpException) && error.InnerException is ViewStateException
                 || error.Source.Contains("ViewStateException"))
             {
-                if (this.Get<BoardSettings>().LogViewStateError)
+                if (this.PageContext.BoardSettings.LogViewStateError)
                 {
                     this.Get<ILogger>()
                         .Log(BoardContext.Current.User.ID, error.Source, error, EventLogTypes.Information);

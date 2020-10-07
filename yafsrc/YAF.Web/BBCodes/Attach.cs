@@ -25,7 +25,6 @@ namespace YAF.Web.BBCodes
 {
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.BBCode;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -72,7 +71,7 @@ namespace YAF.Web.BBCodes
 
             // verify it's not too large to display
             // Ederon : 02/17/2009 - made it board setting
-            if (attachment.Bytes.ToType<int>() <= this.Get<BoardSettings>().PictureAttachmentDisplayTreshold)
+            if (attachment.Bytes.ToType<int>() <= this.PageContext.BoardSettings.PictureAttachmentDisplayTreshold)
             {
                 // is it an image file?
                 showImage = filename.IsImageName();
@@ -92,11 +91,11 @@ namespace YAF.Web.BBCodes
             if (showImage)
             {
                 // user has rights to download, show him image
-                if (this.Get<BoardSettings>().EnableImageAttachmentResize)
+                if (this.PageContext.BoardSettings.EnableImageAttachmentResize)
                 {
                     writer.Write(
                         @"<div class=""card bg-dark text-white"" style=""max-width:{0}px"">",
-                        this.Get<BoardSettings>().ImageThumbnailMaxWidth);
+                        this.PageContext.BoardSettings.ImageThumbnailMaxWidth);
 
                     writer.Write(
                         @"<a href=""{0}resource.ashx?i={1}&b={3}"" title=""{2}""  data-gallery=""#blueimp-gallery-{4}"">",
@@ -112,7 +111,7 @@ namespace YAF.Web.BBCodes
                         attachment.ID,
                         this.HtmlEncode(attachment.FileName),
                         this.PageContext.PageBoardID,
-                        this.Get<BoardSettings>().ImageThumbnailMaxHeight);
+                        this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
 
                     writer.Write(@"</a>");
 
@@ -134,7 +133,7 @@ namespace YAF.Web.BBCodes
                         attachment.ID,
                         this.HtmlEncode(attachment.FileName),
                         this.PageContext.PageBoardID,
-                        this.Get<BoardSettings>().ImageThumbnailMaxHeight);
+                        this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
                 }
             }
             else

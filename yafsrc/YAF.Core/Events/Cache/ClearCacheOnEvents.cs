@@ -27,6 +27,7 @@ namespace YAF.Core.Events.Cache
 
     using System;
 
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
@@ -60,6 +61,7 @@ namespace YAF.Core.Events.Cache
         IHandleEvent<RepositoryEvent<Forum>>,
         IHandleEvent<RepositoryEvent<Message>>,
         IHandleEvent<RepositoryEvent<Topic>>,
+        IHandleEvent<RepositoryEvent<UserGroup>>,
         IHandleEvent<UpdateUserPrivateMessageEvent>
     {
         #region Constructors and Destructors
@@ -348,6 +350,7 @@ namespace YAF.Core.Events.Cache
         {
             this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
             this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
+            this.Get<IDataCache>().Remove(Constants.Cache.MostActiveUsers);
         }
 
         /// <summary>
@@ -368,6 +371,22 @@ namespace YAF.Core.Events.Cache
         /// <param name="event">
         /// The event.
         /// </param>
+        public void Handle(RepositoryEvent<UserGroup> @event)
+        {
+            if (!@event.RepositoryEventType.IsIn(RepositoryEventType.New))
+            {
+                return;
+            }
+
+            this.ClearAccess();
+        }
+
+        /// <summary>
+        /// The handle.
+        /// </summary>
+        /// <param name="event">
+        /// The event.
+        /// </param>
         public void Handle(UpdateUserPrivateMessageEvent @event)
         {
             this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
@@ -379,6 +398,15 @@ namespace YAF.Core.Events.Cache
         private void ClearModeratorsCache()
         {
             this.DataCache.Remove(Constants.Cache.ForumModerators);
+        }
+
+        /// <summary>
+        /// Empty out access table(s)
+        /// </summary>
+        private void ClearAccess()
+        {
+            this.GetRepository<Active>().DeleteAll();
+            this.GetRepository<ActiveAccess>().DeleteAll();
         }
 
         #endregion

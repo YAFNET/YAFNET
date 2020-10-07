@@ -34,11 +34,6 @@ namespace YAF.Types.Constants
     LatestPosts, 
 
     /// <summary>
-    ///   The latest announcements.
-    /// </summary>
-    LatestAnnouncements, 
-
-    /// <summary>
     ///   The posts.
     /// </summary>
     Posts, 

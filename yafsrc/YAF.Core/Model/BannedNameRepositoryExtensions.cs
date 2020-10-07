@@ -56,7 +56,10 @@ namespace YAF.Core.Model
         /// <param name="boardId">
         /// The board Id.
         /// </param>
-        public static void Save(
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool Save(
             this IRepository<BannedName> repository,
             int? id,
             string mask,
@@ -74,23 +77,25 @@ namespace YAF.Core.Model
                     });
 
                 repository.FireUpdated(id.Value);
-            }
-            else
-            {
-                var banned = repository.GetSingle(b => b.BoardID == repository.BoardID && b.Mask == mask);
 
-                if (banned == null)
-                {
-                    repository.Insert(
-                        new BannedName
-                        {
-                                BoardID = boardId ?? repository.BoardID,
-                                Mask = mask,
-                                Reason = reason,
-                                Since = DateTime.Now
-                            });
-                }
+                return true;
             }
+
+            if (repository.Exists(b => b.BoardID == repository.BoardID && b.Mask == mask))
+            {
+                return false;
+            }
+
+            repository.Insert(
+                new BannedName
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    Mask = mask,
+                    Reason = reason,
+                    Since = DateTime.Now
+                });
+
+            return true;
         }
 
         #endregion

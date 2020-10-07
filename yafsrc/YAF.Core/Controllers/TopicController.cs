@@ -25,7 +25,6 @@
 namespace YAF.Core.Controllers
 {
     using System;
-    using System.Data;
     using System.Linq;
     using System.Web.Http;
 
@@ -36,6 +35,7 @@ namespace YAF.Core.Controllers
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
+    using YAF.Types.Objects.Model;
     using YAF.Utils.Helpers;
 
     /// <summary>
@@ -92,33 +92,30 @@ namespace YAF.Core.Controllers
             }
             else
             {
-                var topics = this.GetRepository<Topic>().ListAsDataTable(
+                var topics = this.GetRepository<Topic>().ListPaged(
                     searchTopic.ForumId,
-                    null,
+                    BoardContext.Current.PageUserID,
                     DateTimeHelper.SqlDbMinTime(),
                     DateTime.UtcNow,
                     searchTopic.Page,
                     15,
                     false,
-                    false,
                     false);
 
-                var topicsList = (from DataRow topic in topics.Rows
+                var topicsList = (from PagedTopic topic in topics
                                   select new SelectOptions
                                   {
-                                      text = topic["Subject"].ToString(),
-                                      id = topic["TopicID"].ToString()
+                                      text = topic.Subject,
+                                      id = topic.TopicID.ToString()
                                   }).ToList();
-
-                var topicsEnum = topics.AsEnumerable();
 
                 var pagedTopics = new SelectPagedOptions
                 {
-                    Total = topicsEnum.Any() ? topicsEnum.First().Field<int>("TotalRows") : 0,
+                    Total = topics.Any() ? topics.FirstOrDefault().TotalRows : 0,
                     Results = topicsList
                 };
 
-              return this.Ok(pagedTopics);
+                return this.Ok(pagedTopics);
             }
         }
     }

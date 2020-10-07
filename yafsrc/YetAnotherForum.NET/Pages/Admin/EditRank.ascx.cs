@@ -166,23 +166,22 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            // Group
-            var rankID = 0;
+            // Rank
+            int? rankId = null;
             if (this.Get<HttpRequestBase>().QueryString.Exists("r"))
             {
-                rankID = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
+                rankId = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
             }
 
             this.GetRepository<Rank>().Save(
-                rankID,
+                rankId,
                 this.PageContext.PageBoardID,
                 this.Name.Text,
-                this.IsStart.Checked,
-                this.IsLadder.Checked,
-                this.MinPosts.Text,
+                new RankFlags { IsStart = this.IsStart.Checked, IsLadder = this.IsLadder.Checked },
+                this.MinPosts.Text.ToType<int>(),
                 this.PMLimit.Text.Trim().ToType<int>(),
                 this.Style.Text.Trim(),
-                this.RankPriority.Text.Trim(),
+                this.RankPriority.Text.Trim().ToType<short>(),
                 this.Description.Text,
                 this.UsrSigChars.Text.Trim().ToType<int>(),
                 this.UsrSigBBCodes.Text.Trim(),

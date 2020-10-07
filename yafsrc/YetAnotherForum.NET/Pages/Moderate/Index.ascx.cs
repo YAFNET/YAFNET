@@ -28,7 +28,6 @@ namespace YAF.Pages.Moderate
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Web.UI.WebControls;
 
@@ -39,6 +38,7 @@ namespace YAF.Pages.Moderate
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
@@ -51,9 +51,9 @@ namespace YAF.Pages.Moderate
     public partial class Index : ModerateForumPage
     {
         /// <summary>
-        /// The userListDataTable.
+        /// The forums.
         /// </summary>
-        private IEnumerable<DataRow> forumsTable;
+        private List<ModerateForum> forumsList;
 
         #region Constructors and Destructors
 
@@ -100,7 +100,7 @@ namespace YAF.Pages.Moderate
 
             var category = (Category)e.Item.DataItem;
 
-            var forums = this.forumsTable.Where(row => row.Field<int>("CategoryID") == category.ID);
+            var forums = this.forumsList.Where(f => f.CategoryID == category.ID);
 
             var forumRepeater = e.Item.FindControlAs<Repeater>("ForumList");
 
@@ -160,9 +160,8 @@ namespace YAF.Pages.Moderate
         /// </summary>
         private void BindData()
         {
-            this.forumsTable = this.GetRepository<Forum>()
-                .ModerateListAsDataTable(this.PageContext.PageUserID, this.PageContext.PageBoardID).Rows
-                .Cast<DataRow>();
+            this.forumsList = this.GetRepository<Forum>()
+                .ModerateList(this.PageContext.PageUserID, this.PageContext.PageBoardID);
 
             this.CategoryList.DataSource = this.GetRepository<Category>().GetByBoardId().OrderBy(c => c.SortOrder);
 

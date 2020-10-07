@@ -31,7 +31,6 @@ namespace YAF.Pages
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -117,17 +116,10 @@ namespace YAF.Pages
         protected List<User> GetAdmins()
         {
             // get a row with user lazy data...
-            var adminList = this.Get<IDataCache>()
-                .GetOrSet(
-                    Constants.Cache.BoardAdmins,
-                    () =>
-                    this.GetRepository<User>().ListAdmins(this.Get<BoardSettings>().UseStyledNicks),
-                    TimeSpan.FromMinutes(this.Get<BoardSettings>().BoardModeratorsCacheTimeout));
-
-            if (this.Get<BoardSettings>().UseStyledNicks)
-            {
-                this.Get<IStyleTransform>().DecodeStyleByUserList(adminList);
-            }
+            var adminList = this.Get<IDataCache>().GetOrSet(
+                Constants.Cache.BoardAdmins,
+                () => this.GetRepository<User>().ListAdmins(this.PageContext.BoardSettings.UseStyledNicks),
+                TimeSpan.FromMinutes(this.PageContext.BoardSettings.BoardModeratorsCacheTimeout));
 
             return adminList;
         }
@@ -141,7 +133,7 @@ namespace YAF.Pages
         [NotNull]
         protected List<SimpleModerator> GetModerators()
         {
-            var moderators = this.Get<DataBroker>().GetAllModerators();
+            var moderators = this.Get<DataBroker>().GetModerators();
 
             var modsSorted = new List<SimpleModerator>();
 
@@ -208,7 +200,7 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowTeamTo))
+            if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowTeamTo))
             {
                 BuildLink.AccessDenied();
             }
@@ -268,7 +260,7 @@ namespace YAF.Pages
             adminAvatar.ImageUrl = this.GetAvatarUrlFileName(
                 user.ID,
                 user.Avatar,
-                !user.AvatarImage.IsNullOrEmptyDBField(),
+                !user.AvatarImage.IsNullOrEmptyField(),
                 user.Email);
 
             adminAvatar.AlternateText = displayName;
@@ -288,7 +280,7 @@ namespace YAF.Pages
 
             var isFriend = this.Get<IFriends>().IsBuddy(user.ID, true);
 
-            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowPrivateMessages;
+            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowPrivateMessages;
 
             if (pm.Visible)
             {
@@ -307,7 +299,7 @@ namespace YAF.Pages
             pm.ParamTitle0 = displayName;
 
             // email link
-            email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowEmailSending;
+            email.Visible = !this.PageContext.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowEmailSending;
 
             if (!email.Visible)
             {
@@ -376,7 +368,7 @@ namespace YAF.Pages
 
             var itemDataItem = (SimpleModerator)e.Item.DataItem;
             var userid = itemDataItem.ModeratorID.ToType<int>();
-            var displayName = this.Get<BoardSettings>().EnableDisplayName ? itemDataItem.DisplayName : itemDataItem.Name;
+            var displayName = this.PageContext.BoardSettings.EnableDisplayName ? itemDataItem.DisplayName : itemDataItem.Name;
 
             var modAvatar = e.Item.FindControlAs<Image>("ModAvatar");
 
@@ -392,7 +384,7 @@ namespace YAF.Pages
 
             var isFriend = this.Get<IFriends>().IsBuddy(userid, true);
 
-            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowPrivateMessages;
+            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowPrivateMessages;
 
             if (pm.Visible)
             {
@@ -411,7 +403,7 @@ namespace YAF.Pages
             pm.ParamTitle0 = displayName;
 
             // email link
-            email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowEmailSending;
+            email.Visible = !this.PageContext.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowEmailSending;
 
             if (!email.Visible)
             {

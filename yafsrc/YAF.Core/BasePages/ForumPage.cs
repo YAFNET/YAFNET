@@ -402,7 +402,7 @@ namespace YAF.Core.BasePages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Get<BoardSettings>().DoUrlReferrerSecurityCheck)
+            if (this.PageContext.BoardSettings.DoUrlReferrerSecurityCheck)
             {
                 Security.CheckRequestValidity(this.Request);
             }

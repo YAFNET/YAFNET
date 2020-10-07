@@ -31,7 +31,6 @@ namespace YAF.Controls
     using System.Linq;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -151,7 +150,7 @@ namespace YAF.Controls
 
             this.DeleteAllUserMessages();
 
-            if (this.ReportUser.Checked && this.Get<BoardSettings>().StopForumSpamApiKey.IsSet() &&
+            if (this.ReportUser.Checked && this.PageContext.BoardSettings.StopForumSpamApiKey.IsSet() &&
                 this.IPAddresses.Any())
             {
                 try
@@ -305,12 +304,12 @@ namespace YAF.Controls
                     ? this.User.Item1.DisplayOrUserName()
                     : this.Get<IAspNetUsersHelper>().GuestUserName);
 
-            this.ReportUserRow.Visible = this.Get<BoardSettings>().StopForumSpamApiKey.IsSet();
+            this.ReportUserRow.Visible = this.PageContext.BoardSettings.StopForumSpamApiKey.IsSet();
 
             // load ip address history for user...
             this.IPAddresses.Take(5).ForEach(
                 ipAddress => this.IpAddresses.Text +=
-                                 $@"<a href=""{string.Format(this.Get<BoardSettings>().IPInfoPageURL, ipAddress)}""
+                                 $@"<a href=""{string.Format(this.PageContext.BoardSettings.IPInfoPageURL, ipAddress)}""
                                        target=""_blank"" 
                                        title=""{this.GetText("COMMON", "TT_IPDETAILS")}"">
                                        {ipAddress}
@@ -359,7 +358,7 @@ namespace YAF.Controls
                     x.Item1.ID,
                     true,
                     string.Empty,
-                    1,
+                    true,
                     true,
                     true));
         }

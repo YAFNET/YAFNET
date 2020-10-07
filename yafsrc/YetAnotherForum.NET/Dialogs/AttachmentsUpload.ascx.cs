@@ -27,7 +27,6 @@ namespace YAF.Dialogs
 
     using System;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -55,13 +54,13 @@ namespace YAF.Dialogs
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "fileUploadjs",
                 JavaScriptBlocks.FileUploadLoadJs(
-                    this.Get<BoardSettings>().AllowedFileExtensions.Replace(",", "|"),
-                    this.Get<BoardSettings>().MaxFileSize,
+                    this.PageContext.BoardSettings.AllowedFileExtensions.Replace(",", "|"),
+                    this.PageContext.BoardSettings.MaxFileSize,
                     $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
                     this.PageContext.PageForumID,
                     this.PageContext.PageBoardID,
-                    this.Get<BoardSettings>().ImageAttachmentResizeWidth,
-                    this.Get<BoardSettings>().ImageAttachmentResizeHeight));
+                    this.PageContext.BoardSettings.ImageAttachmentResizeWidth,
+                    this.PageContext.BoardSettings.ImageAttachmentResizeHeight));
         }
 
         /// <summary>
@@ -74,14 +73,14 @@ namespace YAF.Dialogs
             // show disallowed or allowed localized text depending on the Board Setting
             this.ExtensionTitle.LocalizedTag = "ALLOWED_EXTENSIONS";
 
-            this.ExtensionsList.Text = this.Get<BoardSettings>().AllowedFileExtensions.Replace(",", ", ");
+            this.ExtensionsList.Text = this.PageContext.BoardSettings.AllowedFileExtensions.Replace(",", ", ");
 
-            if (this.Get<BoardSettings>().MaxFileSize > 0)
+            if (this.PageContext.BoardSettings.MaxFileSize > 0)
             {
                 this.UploadNodePlaceHold.Visible = true;
                 this.UploadNote.Text = this.GetTextFormatted(
                     "UPLOAD_NOTE",
-                    (this.Get<BoardSettings>().MaxFileSize / 1024).ToString());
+                    (this.PageContext.BoardSettings.MaxFileSize / 1024).ToString());
             }
             else
             {

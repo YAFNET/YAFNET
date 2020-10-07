@@ -29,15 +29,14 @@ namespace YAF.Controls
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Data;
     using System.IO;
     using System.Linq;
-    using System.Text;
     using System.Web;
     using System.Web.UI.WebControls;
-    using System.Xml;
+    using System.Xml.Linq;
 
-    using YAF.Configuration;
+    using ServiceStack;
+
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -48,6 +47,7 @@ namespace YAF.Controls
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -184,7 +184,7 @@ namespace YAF.Controls
                     messages.ForEach(
                         item =>
                         {
-                            this.GetRepository<PMessage>().DeleteMessage(item.ID, false);
+                            this.GetRepository<UserPMessage>().Delete(item.ID, false);
 
                             itemCount++;
                         });
@@ -198,7 +198,7 @@ namespace YAF.Controls
                     messages.ForEach(
                         item =>
                         {
-                            this.GetRepository<PMessage>().DeleteMessage(item.ID, true);
+                            this.GetRepository<UserPMessage>().Delete(item.ID, true);
 
                             itemCount++;
                         });
@@ -212,7 +212,7 @@ namespace YAF.Controls
                     messages.ForEach(
                         item =>
                         {
-                            this.GetRepository<PMessage>().DeleteMessage(item.ID, false);
+                            this.GetRepository<UserPMessage>().Delete(item.ID, false);
 
                             itemCount++;
                         });
@@ -241,9 +241,10 @@ namespace YAF.Controls
             this.Messages.Items.Cast<RepeaterItem>().Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
                 .ForEach(
                     item =>
-                        {
-                            this.GetRepository<PMessage>().DeleteMessage(
-                                item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>(), this.View == PmView.Outbox);
+                    {
+                        this.GetRepository<UserPMessage>().Delete(
+                            item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>(),
+                            this.View == PmView.Outbox);
 
                             itemCount++;
                         });
@@ -267,8 +268,8 @@ namespace YAF.Controls
         {
             var messageList = this.GetMessagesForExport(null);
 
-            // Return if No Messages are Available to Export
-            if (!messageList.Table.HasRows())
+            //Return if No Messages are Available to Export
+            if (!messageList.Any())
             {
                 this.PageContext.AddLoadMessage(this.GetText("NO_MESSAGES"), MessageTypes.warning);
                 return;
@@ -281,10 +282,6 @@ namespace YAF.Controls
             else if (this.ExportType.SelectedItem.Value.Equals("csv"))
             {
                 this.ExportCsvFile(messageList);
-            }
-            else if (this.ExportType.SelectedItem.Value.Equals("txt"))
-            {
-                this.ExportTextFile(messageList);
             }
         }
 
@@ -301,10 +298,8 @@ namespace YAF.Controls
                 .Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
                 .Select(item => item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>()).ToList();
 
-            var messageList = this.GetMessagesForExport(exportPmIds);
-
-            // Return if No Message Selected
-            if (!messageList.Table.HasRows())
+            //Return if No Message Selected
+            if (!exportPmIds.Any())
             {
                 this.PageContext.AddLoadMessage(this.GetText("MSG_NOSELECTED"), MessageTypes.warning);
 
@@ -313,6 +308,9 @@ namespace YAF.Controls
                 return;
             }
 
+            var messageList = this.GetMessagesForExport(exportPmIds);
+
+
             if (this.ExportType.SelectedItem.Value.Equals("xml"))
             {
                 this.ExportXmlFile(messageList);
@@ -320,10 +318,6 @@ namespace YAF.Controls
             else if (this.ExportType.SelectedItem.Value.Equals("csv"))
             {
                 this.ExportCsvFile(messageList);
-            }
-            else if (this.ExportType.SelectedItem.Value.Equals("txt"))
-            {
-                this.ExportTextFile(messageList);
             }
 
             this.BindData();
@@ -357,21 +351,6 @@ namespace YAF.Controls
             this.SetSort(this.View == PmView.Outbox ? "ToUser" : "FromUser", false);
 
             this.BindData();
-        }
-
-        /// <summary>
-        /// Get The Icon Image indicating if Unread or Read Message
-        /// </summary>
-        /// <param name="dataRow">The data row.</param>
-        /// <returns>
-        /// Returns the Image Url
-        /// </returns>
-        protected string GetIcon([NotNull] object dataRow)
-        {
-            var dataRowView = dataRow as DataRowView;
-            var isRead = dataRowView["IsRead"].ToType<bool>();
-
-            return $"<i class=\"fa fa-{(isRead ? "envelope-open" : "envelope")} fa-2x text-secondary\"></i>";
         }
 
         /// <summary>
@@ -518,64 +497,55 @@ namespace YAF.Controls
         /// <returns>
         /// Returns the filtered Messages
         /// </returns>
-        private DataView GetMessagesForExport([CanBeNull] ICollection<int> exportPmIds)
+        private List<PagedPm> GetMessagesForExport([CanBeNull] ICollection<int> exportPmIds)
         {
-            var messageList = (DataView)this.Messages.DataSource;
+            var list = (List<PagedPm>)this.Messages.DataSource;
 
-            for (var i = messageList.Table.Rows.Count - 1; i >= 0; i--)
+            if (exportPmIds != null && exportPmIds.Any())
             {
-                var row = messageList.Table.Rows[i];
+                list = list.Where(x => x.IsDeleted == false && exportPmIds.Contains(x.PMessageID)).ToList();
+            }
+            else
+            {
+                list = list.Where(x => x.IsDeleted == false).ToList();
+            }
 
-                if (exportPmIds != null && !exportPmIds.Contains(row["PMessageID"].ToType<int>()))
-                {
-                    messageList.Table.Rows.RemoveAt(i);
-                    continue;
-                }
+            var messageList = new List<PagedPm>();
 
-                if (row["IsDeleted"].ToType<bool>())
-                {
-                    messageList.Table.Rows.RemoveAt(i);
-                }
-                else
+            list.ForEach(
+                item =>
                 {
                     switch (this.View)
                     {
                         case PmView.Inbox:
+                        {
+                            if (!item.IsArchived)
                             {
-                                if (row["IsArchived"].ToType<bool>())
-                                {
-                                    messageList.Table.Rows.RemoveAt(i);
-                                }
+                                messageList.Add(item);
                             }
+                        }
 
                             break;
                         case PmView.Outbox:
+                        {
+                            if (item.IsInOutbox)
                             {
-                                if (!row["IsInOutbox"].ToType<bool>())
-                                {
-                                    messageList.Table.Rows.RemoveAt(i);
-                                }
+                                messageList.Add(item);
                             }
+                        }
 
                             break;
                         case PmView.Archive:
+                        {
+                            if (item.IsArchived)
                             {
-                                if (!row["IsArchived"].ToType<bool>())
-                                {
-                                    messageList.Table.Rows.RemoveAt(i);
-                                }
+                                messageList.Add(item);
                             }
+                        }
 
                             break;
                     }
-                }
-            }
-
-            // Remove Columns that are not needed
-            messageList.Table.Columns.Remove("IsDeleted");
-            messageList.Table.Columns.Remove("IsArchived");
-            messageList.Table.Columns.Remove("IsInOutbox");
-            messageList.Table.Columns.Remove("Flags");
+                });
 
             return messageList;
         }
@@ -643,7 +613,7 @@ namespace YAF.Controls
         /// <param name="messageList">
         /// DataView that Contains the Private Messages
         /// </param>
-        private void ExportCsvFile([NotNull] DataView messageList)
+        private void ExportCsvFile([NotNull] IEnumerable<PagedPm> messageList)
         {
             this.Get<HttpResponseBase>().Clear();
             this.Get<HttpResponseBase>().ClearContent();
@@ -656,85 +626,22 @@ namespace YAF.Controls
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
-            var columnsCount = messageList.Table.Columns.Count;
-
-            for (var i = 0; i < columnsCount; i++)
-            {
-                sw.Write(messageList.Table.Columns[i]);
-
-                if (i < columnsCount - 1)
+            var list = messageList.Select(
+                message => new 
                 {
-                    sw.Write(",");
-                }
-            }
+                    message.FromUser,
+                    message.ToUser,
+                    message.Created,
+                    message.Subject,
+                    message.Body,
+                    MessageID = message.PMessageID
+                });
 
-            sw.Write(sw.NewLine);
-
-            messageList.Table.Rows.Cast<DataRow>().ForEach(
-                dr =>
-                    {
-                        for (var i = 0; i < columnsCount; i++)
-                        {
-                            if (!Convert.IsDBNull(dr[i]))
-                            {
-                                sw.Write(dr[i].ToString());
-                            }
-
-                            if (i < columnsCount - 1)
-                            {
-                                sw.Write(",");
-                            }
-                        }
-
-                        sw.Write(sw.NewLine);
-                    });
-
+            sw.Write(list.ToCsv());
             sw.Close();
 
             this.Get<HttpResponseBase>().Flush();
             this.Get<HttpResponseBase>().End();
-        }
-
-        /// <summary>
-        /// Export the Private Messages in message List as Text File
-        /// </summary>
-        /// <param name="messageList">
-        /// DataView that Contains the Private Messages
-        /// </param>
-        private void ExportTextFile([NotNull] DataView messageList)
-        {
-            this.Get<HttpResponseBase>().Clear();
-            this.Get<HttpResponseBase>().ClearContent();
-            this.Get<HttpResponseBase>().ClearHeaders();
-
-            this.Get<HttpResponseBase>().ContentType = "application/vnd.text";
-            this.Get<HttpResponseBase>().AppendHeader(
-                "content-disposition",
-                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageContext.User.DisplayOrUserName()}-{DateTime.Now:yyyy'-'MM'-'dd'-'HHmm}.txt")}");
-
-            var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
-
-            sw.Write($"{this.Get<BoardSettings>().Name};{BoardInfo.ForumURL}");
-            sw.Write(sw.NewLine);
-            sw.Write($"Private Message Dump for User {this.PageContext.User.DisplayOrUserName()}; {DateTime.Now}");
-            sw.Write(sw.NewLine);
-
-            for (var i = 0; i <= messageList.Table.DataSet.Tables[0].Rows.Count - 1; i++)
-            {
-                for (var j = 0; j <= messageList.Table.DataSet.Tables[0].Columns.Count - 1; j++)
-                {
-                    sw.Write(
-                        "{0}: {1}",
-                        messageList.Table.DataSet.Tables[0].Columns[j],
-                        messageList.Table.DataSet.Tables[0].Rows[i][j]);
-                    sw.Write(sw.NewLine);
-                }
-            }
-
-            sw.Close();
-
-            HttpContext.Current.Response.Flush();
-            HttpContext.Current.Response.End();
         }
 
         /// <summary>
@@ -743,7 +650,7 @@ namespace YAF.Controls
         /// <param name="messageList">
         /// DataView that Contains the Private Messages
         /// </param>
-        private void ExportXmlFile([NotNull] DataView messageList)
+        private void ExportXmlFile([NotNull] IEnumerable<PagedPm> messageList)
         {
             this.Get<HttpResponseBase>().Clear();
             this.Get<HttpResponseBase>().ClearContent();
@@ -754,32 +661,19 @@ namespace YAF.Controls
                 "content-disposition",
                 $"attachment; filename=PrivateMessages-{this.PageContext.User.DisplayOrUserName()}-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.xml");
 
-            messageList.Table.TableName = "PrivateMessage";
+            var element = new XElement(
+                "PrivateMessages",
+                from message in messageList
+                select new XElement(
+                    "Message",
+                    new XElement("FromUser", message.FromUser),
+                    new XElement("ToUser", message.ToUser),
+                    new XElement("Created", message.Created),
+                    new XElement("Subject", message.Subject),
+                    new XElement("Body", message.Body),
+                    new XElement("MessageID", message.PMessageID)));
 
-            var settings = new XmlWriterSettings
-                               {
-                                   Encoding = Encoding.UTF8,
-                                   OmitXmlDeclaration = false,
-                                   Indent = true,
-                                   NewLineOnAttributes = true
-                               };
-
-            var xw = XmlWriter.Create(this.Get<HttpResponseBase>().OutputStream, settings);
-            xw.WriteStartDocument();
-
-            messageList.Table.DataSet.DataSetName = "PrivateMessages";
-
-            xw.WriteComment($" {this.Get<BoardSettings>().Name};{BoardInfo.ForumURL} ");
-            xw.WriteComment($" Private Message Dump for User {this.PageContext.User.DisplayOrUserName()}; {DateTime.Now} ");
-
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(messageList.Table.DataSet.GetXml());
-
-            xmlDocument.ChildNodes.Cast<XmlNode>().ForEach(node => node.WriteTo(xw));
-
-            xw.WriteEndDocument();
-
-            xw.Close();
+            element.Save(this.Get<HttpResponseBase>().OutputStream);
 
             this.Get<HttpResponseBase>().Flush();
             this.Get<HttpResponseBase>().End();

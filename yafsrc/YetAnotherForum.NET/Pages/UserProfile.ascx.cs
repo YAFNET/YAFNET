@@ -102,7 +102,7 @@ namespace YAF.Pages
 
             if (!this.IsPostBack)
             {
-                this.userGroupsRow.Visible = this.Get<BoardSettings>().ShowGroupsProfile || this.PageContext.IsAdmin;
+                this.userGroupsRow.Visible = this.PageContext.BoardSettings.ShowGroupsProfile || this.PageContext.IsAdmin;
             }
 
             if (this.UserId == 0)
@@ -135,7 +135,7 @@ namespace YAF.Pages
 
                 thisButton.NavigateUrl = link;
                 thisButton.Attributes.Add("target", "_blank");
-                if (this.Get<BoardSettings>().UseNoFollowLinks)
+                if (this.PageContext.BoardSettings.UseNoFollowLinks)
                 {
                     thisButton.Attributes.Add("rel", "nofollow");
                 }
@@ -148,18 +148,18 @@ namespace YAF.Pages
 
         /// <summary>
         /// Add user as Buddy
-        /// </summary>
+        /// </summary>lnkBuddy
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
         protected void lnk_AddBuddy([NotNull] object sender, [NotNull] CommandEventArgs e)
         {
             if (e.CommandArgument.ToString() == "addbuddy")
             {
-                var strBuddyRequest = this.Get<IFriends>().AddRequest(this.UserId);
-
                 this.PageContext.AddLoadMessage(
-                    Convert.ToBoolean(strBuddyRequest[1].ToType<int>())
-                        ? this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", strBuddyRequest[0])
+                    this.Get<IFriends>().AddRequest(this.UserId)
+                        ? this.GetTextFormatted(
+                            "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
+                            this.Get<IUserDisplayName>().GetNameById(this.UserId))
                         : this.GetText("NOTIFICATION_BUDDYREQUEST"),
                     MessageTypes.success);
             }
@@ -185,7 +185,7 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("MEMBERS"),
-                this.Get<IPermissions>().Check(this.Get<BoardSettings>().MembersListViewPermissions)
+                this.Get<IPermissions>().Check(this.PageContext.BoardSettings.MembersListViewPermissions)
                     ? BuildLink.GetLink(ForumPages.Members)
                     : null);
             this.PageLinks.AddLink(userDisplayName, string.Empty);
@@ -206,7 +206,7 @@ namespace YAF.Pages
 
             // populate user information controls...
             // Is BuddyList feature enabled?
-            if (this.Get<BoardSettings>().EnableBuddyList)
+            if (this.PageContext.BoardSettings.EnableBuddyList)
             {
                 this.SetupBuddyList(this.UserId, user);
             }
@@ -230,11 +230,6 @@ namespace YAF.Pages
             this.SetupAvatar(user.Item1);
 
             var groups = this.GetRepository<UserGroup>().List(user.Item1.ID);
-
-            if (this.PageContext.BoardSettings.UseStyledNicks)
-            {
-                this.Get<IStyleTransform>().DecodeStyleByGroupList(groups);
-            }
 
             this.Groups.DataSource = groups;
 
@@ -268,6 +263,8 @@ namespace YAF.Pages
         private void SetupAvatar(User user)
         {
             this.Avatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForUser(user);
+            this.Avatar.Attributes.CssStyle.Add("max-width", this.PageContext.BoardSettings.AvatarWidth.ToString());
+            this.Avatar.Attributes.CssStyle.Add("max-height", this.PageContext.BoardSettings.AvatarHeight.ToString());
         }
 
         /// <summary>
@@ -374,7 +371,7 @@ namespace YAF.Pages
 
             var isFriend = this.Get<IFriends>().IsBuddy(user.Item1.ID, true);
 
-            this.PM.Visible = !user.Item1.IsGuest.Value && this.Get<BoardSettings>().AllowPrivateMessages;
+            this.PM.Visible = !user.Item1.IsGuest.Value && this.PageContext.BoardSettings.AllowPrivateMessages;
 
             if (this.PM.Visible)
             {
@@ -393,7 +390,7 @@ namespace YAF.Pages
             this.PM.ParamTitle0 = userName;
 
             // email link
-            this.Email.Visible = !user.Item1.IsGuest.Value && this.Get<BoardSettings>().AllowEmailSending;
+            this.Email.Visible = !user.Item1.IsGuest.Value && this.PageContext.BoardSettings.AllowEmailSending;
 
             if (this.Email.Visible)
             {
@@ -562,7 +559,7 @@ namespace YAF.Pages
             }
 
             // Show User Medals
-            if (this.Get<BoardSettings>().ShowMedals)
+            if (this.PageContext.BoardSettings.ShowMedals)
             {
                 this.ShowUserMedals();
             }

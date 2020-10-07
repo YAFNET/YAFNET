@@ -6,16 +6,14 @@
             <thead>
                 <tr>
                     <th scope="col">
-                        <%#
-    this.GetPrintHeader(Container.DataItem) %>
+                        <%# this.GetPrintHeader(Container.DataItem) %>
                     </th>
                 </tr>
             </thead>
             <tbody>
             <tr>
                 <td>
-                    <%#
-    this.GetPrintBody(Container.DataItem) %>
+                    <%# this.GetPrintBody(Container.DataItem) %>
                 </td>
             </tr>
             </tbody>

@@ -86,6 +86,7 @@
                                            AssociatedControlID="UsrSigChars"
                                            LocalizedTag="SIG_LENGTH" LocalizedPage="ADMIN_EDITRANK" />
                             <asp:TextBox ID="UsrSigChars" runat="server" 
+                                         Text="128"
                                          CssClass="form-control" 
                                          TextMode="Number" />
                         </div>

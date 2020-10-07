@@ -27,12 +27,14 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
-    using System.Globalization;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
+    using System.Xml.Serialization;
+
+    using ServiceStack;
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
@@ -99,34 +101,26 @@ namespace YAF.Pages.Admin
                     }
 
                     // get user(s) we are about to delete
-                    using (var dataTable = this.GetRepository<User>().ListAsDataTable(
-                        this.PageContext.PageBoardID,
+                    var userToDelete = this.GetRepository<User>().GetBoardUser(
                         e.CommandArgument.ToType<int>(),
-                        true))
+                        this.PageContext.PageBoardID);
+                    
+                    if (userToDelete.Item1.IsGuest == true)
                     {
-                        // examine each if he's possible to delete
-                        dataTable.Rows.Cast<DataRow>().ForEach(row =>
-                        {
-                            if (row["IsGuest"].ToType<int>() > 0)
-                            {
-                                // we cannot delete guest
-                                this.PageContext.AddLoadMessage(
-                                    this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
-                                    MessageTypes.danger);
-                                return;
-                            }
+                        // we cannot delete guest
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
+                            MessageTypes.danger);
+                        return;
+                    }
 
-                            if ((row["IsAdmin"] == DBNull.Value || row["IsAdmin"].ToType<int>() <= 0)
-                                && (row["IsHostAdmin"] == DBNull.Value || row["IsHostAdmin"].ToType<int>() <= 0))
-                            {
-                               return;
-                            }
-
-                            // admin are not deletable either
-                            this.PageContext.AddLoadMessage(
-                                this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
-                                MessageTypes.danger);
-                        });
+                    if (userToDelete.Item4.IsAdmin || userToDelete.Item1.UserFlags.IsHostAdmin)
+                    {
+                        // admin are not deletable either
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
+                            MessageTypes.danger);
+                        return;
                     }
 
                     // all is good, user can be deleted
@@ -424,7 +418,7 @@ namespace YAF.Pages.Admin
             this.SearchResults.Visible = true;
 
             // default since date is now
-            var sinceDate = DateTime.UtcNow;
+            DateTime? sinceDate = null;
 
             // default since option is "since last visit"
             var sinceValue = 0;
@@ -435,16 +429,7 @@ namespace YAF.Pages.Admin
                 // get selected value
                 sinceValue = int.Parse(this.Since.SelectedItem.Value);
 
-                // sinceDate = DateTime.UtcNow;
-                // no need to do it again (look above)
-                // decrypt selected option
-                if (sinceValue == 9999)
-                {
-                    // all
-                    // get all, from the beginning
-                    sinceDate = DateTimeHelper.SqlDbMinTime();
-                }
-                else if (sinceValue > 0)
+                if (sinceValue > 0)
                 {
                     // days
                     // get posts newer then defined number of days
@@ -464,60 +449,23 @@ namespace YAF.Pages.Admin
                 sinceDate = this.Get<ISession>().LastVisit ?? DateTime.UtcNow;
             }
 
-            // we are going to page results
-            var pds = new PagedDataSource { AllowPaging = true, PageSize = this.PagerTop.PageSize };
-
-            // page size defined by pager's size
-
             // get users, eventually filter by groups or ranks
-            using (var dt = this.GetRepository<User>().ListAsDataTable(
+            var users = this.GetRepository<User>().GetUsersPaged(
                 this.PageContext.PageBoardID,
-                null,
-                true,
-                this.group.SelectedIndex <= 0 ? null : this.group.SelectedValue,
-                this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue,
-                false))
-            {
-                using (var dv = dt.DefaultView)
-                {
-                    // filter by name or email
-                    if (this.name.Text.Trim().Length > 0 || this.Email.Text.Trim().Length > 0)
-                    {
-                        dv.RowFilter =
-                            $"(Name LIKE '%{this.name.Text.Trim()}%' OR DisplayName LIKE '%{this.name.Text.Trim()}%') AND Email LIKE '%{this.Email.Text.Trim()}%'";
-                    }
+                this.PagerTop.CurrentPageIndex,
+                this.PagerTop.PageSize,
+                this.name.Text.Trim(),
+                this.Email.Text.Trim(), 
+                sinceDate,
+                this.SuspendedOnly.Checked,
+                this.group.SelectedIndex <= 0 ? null : this.group.SelectedValue.ToType<int?>(),
+                this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue.ToType<int?>());
 
-                    // filter by date of registration
-                    if (sinceValue != 9999)
-                    {
-                        dv.RowFilter +=
-                            $"{(dv.RowFilter.IsNotSet() ? string.Empty : " AND ")}Joined > '{sinceDate.ToString(CultureInfo.InvariantCulture)}'";
-                    }
+            this.PagerTop.Count = users.FirstOrDefault().TotalRows;
 
-                    // show only suspended ?
-                    if (this.SuspendedOnly.Checked)
-                    {
-                        dv.RowFilter += $"{(dv.RowFilter.IsNotSet() ? string.Empty : " AND ")}Suspended is not null";
-                    }
-
-                    // set pager and data source
-                    this.PagerTop.Count = dv.Count;
-                    pds.DataSource = dv;
-
-                    // page to render
-                    pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
-
-                    // if we are above total number of pages, select last
-                    if (pds.CurrentPageIndex >= pds.PageCount)
-                    {
-                        pds.CurrentPageIndex = pds.PageCount - 1;
-                    }
-
-                    // bind list
-                    this.UserList.DataSource = pds;
-                    this.UserList.DataBind();
-                }
-            }
+            // bind list
+            this.UserList.DataSource = users;
+            this.UserList.DataBind();
 
             this.NoInfo.Visible = this.UserList.Items.Count == 0;
         }
@@ -530,88 +478,7 @@ namespace YAF.Pages.Admin
         /// </param>
         private void ExportAllUsers(string type)
         {
-            var usersList = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, null, true);
-
-            usersList.DataSet.DataSetName = "YafUserList";
-
-            usersList.TableName = "YafUser";
-
-            usersList.Columns.Remove("AvatarImage");
-            usersList.Columns.Remove("AvatarImageType");
-
-            usersList.Columns.Remove("ProviderUserKey");
-            usersList.Columns.Remove("Password");
-            usersList.Columns.Remove("Joined");
-            usersList.Columns.Remove("LastVisit");
-            usersList.Columns.Remove("IP");
-            usersList.Columns.Remove("NumPosts");
-            usersList.Columns.Remove("RankID");
-            usersList.Columns.Remove("Flags");
-            usersList.Columns.Remove("Points");
-            usersList.Columns.Remove("IsApproved");
-            usersList.Columns.Remove("IsActiveExcluded");
-            usersList.Columns.Remove("IsCaptchaExcluded");
-            usersList.Columns.Remove("IsDirty");
-            usersList.Columns.Remove("Style");
-            usersList.Columns.Remove("IsAdmin");
-            usersList.Columns.Remove("IsGuest1");
-            usersList.Columns.Remove("IsHostAdmin");
-
-            // Add Profile Columns
-            usersList.Columns.Add("RealName");
-            usersList.Columns.Add("Blog");
-            usersList.Columns.Add("Gender");
-            usersList.Columns.Add("MSN");
-            usersList.Columns.Add("Birthday");
-            usersList.Columns.Add("AIM");
-            usersList.Columns.Add("GoogleTalk");
-            usersList.Columns.Add("Location");
-            usersList.Columns.Add("Country");
-            usersList.Columns.Add("Region");
-            usersList.Columns.Add("City");
-            usersList.Columns.Add("Interests");
-            usersList.Columns.Add("Homepage");
-            usersList.Columns.Add("Skype");
-            usersList.Columns.Add("ICQ");
-            usersList.Columns.Add("XMPP");
-            usersList.Columns.Add("YIM");
-            usersList.Columns.Add("Occupation");
-            usersList.Columns.Add("Twitter");
-            usersList.Columns.Add("TwitterId");
-            usersList.Columns.Add("Facebook");
-            usersList.Columns.Add("FacebookId");
-            usersList.Columns.Add("Google");
-            usersList.Columns.Add("GoogleId");
-
-            usersList.AcceptChanges();
-
-            usersList.Rows.Cast<DataRow>().ForEach(user =>
-            {
-                var userProfile = this.Get<IAspNetUsersHelper>().GetUserByName((string)user["Name"]);
-
-                // Add Profile Fields to User List Table.
-                user["RealName"] = userProfile.Profile_RealName;
-                user["Blog"] = userProfile.Profile_Blog;
-                user["Gender"] = userProfile.Profile_Gender;
-                user["Birthday"] = userProfile.Profile_Birthday;
-                user["GoogleId"] = userProfile.Profile_GoogleId;
-                user["Location"] = userProfile.Profile_Location;
-                user["Country"] = userProfile.Profile_Country;
-                user["Region"] = userProfile.Profile_Region;
-                user["City"] = userProfile.Profile_City;
-                user["Interests"] = userProfile.Profile_Interests;
-                user["Homepage"] = userProfile.Profile_Homepage;
-                user["Skype"] = userProfile.Profile_Skype;
-                user["ICQ"] = userProfile.Profile_ICQ;
-                user["XMPP"] = userProfile.Profile_XMPP;
-                user["Occupation"] = userProfile.Profile_Occupation;
-                user["Twitter"] = userProfile.Profile_Twitter;
-                user["TwitterId"] = userProfile.Profile_TwitterId;
-                user["Facebook"] = userProfile.Profile_Facebook;
-                user["FacebookId"] = userProfile.Profile_FacebookId;
-
-                usersList.AcceptChanges();
-            });
+            var usersList = this.GetRepository<User>().GetByBoardId(this.PageContext.PageBoardID);
 
             switch (type)
             {
@@ -630,7 +497,7 @@ namespace YAF.Pages.Admin
         /// <param name="usersList">
         /// The users list.
         /// </param>
-        private void ExportAsCsv(DataTable usersList)
+        private void ExportAsCsv(IList<User> usersList)
         {
             this.Get<HttpResponseBase>().ContentType = "application/vnd.csv";
 
@@ -640,39 +507,7 @@ namespace YAF.Pages.Admin
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
-            // Write Column Headers
-            var columnCount = usersList.Columns.Count;
-
-            for (var i = 0; i < columnCount; i++)
-            {
-                sw.Write(usersList.Columns[i]);
-
-                if (i < columnCount - 1)
-                {
-                    sw.Write(",");
-                }
-            }
-
-            sw.Write(sw.NewLine);
-
-            usersList.Rows.Cast<DataRow>().ForEach(dr =>
-            {
-                for (var i = 0; i < columnCount; i++)
-                {
-                    if (!Convert.IsDBNull(dr[i]))
-                    {
-                        sw.Write(dr[i].ToString());
-                    }
-
-                    if (i < columnCount - 1)
-                    {
-                        sw.Write(",");
-                    }
-                }
-
-                sw.Write(sw.NewLine);
-            });
-
+            sw.Write(usersList.ToCsv());
             sw.Close();
 
             this.Get<HttpResponseBase>().Flush();
@@ -685,7 +520,7 @@ namespace YAF.Pages.Admin
         /// <param name="usersList">
         /// The users list.
         /// </param>
-        private void ExportAsXml(DataTable usersList)
+        private void ExportAsXml(IList<User> usersList)
         {
             this.Get<HttpResponseBase>().ContentType = "text/xml";
 
@@ -693,7 +528,8 @@ namespace YAF.Pages.Admin
                 "Content-Disposition",
                 $"attachment; filename=YafUsersExport-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.xml");
 
-            usersList.DataSet.WriteXml(this.Get<HttpResponseBase>().OutputStream);
+            var xmlSerializer = new XmlSerializer(typeof(List<User>));
+            xmlSerializer.Serialize(this.Get<HttpResponseBase>().OutputStream, usersList);
 
             this.Get<HttpResponseBase>().Flush();
             this.Get<HttpResponseBase>().End();

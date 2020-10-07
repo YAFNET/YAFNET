@@ -38,11 +38,6 @@ namespace YAF.Types.Interfaces.Data
         /// </summary>
         IDbTransaction DbTransaction { get; }
 
-        /// <summary>
-        /// Gets the get reader.
-        /// </summary>
-        dynamic GetReader { get; }
-
         #endregion
     }
 }

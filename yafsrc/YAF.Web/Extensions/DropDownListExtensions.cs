@@ -24,12 +24,11 @@
 
 namespace YAF.Web.Extensions
 {
-    using System.Data;
-    using System.Linq;
+    using System.Collections.Generic;
     using System.Web.UI.WebControls;
 
     using YAF.Types;
-    using YAF.Types.Extensions;
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     /// The DropDown Extensions
@@ -45,28 +44,28 @@ namespace YAF.Web.Extensions
         /// <param name="forumList">
         /// The forum list.
         /// </param>
-        public static void AddForumAndCategoryIcons(this DropDownList dropDownList, [NotNull] DataTable forumList)
+        public static void AddForumAndCategoryIcons(this DropDownList dropDownList, [NotNull] List<ForumSorted> forumList)
         {
             CodeContracts.VerifyNotNull(dropDownList, "dropDownList");
 
             CodeContracts.VerifyNotNull(forumList, "forumList");
 
-            forumList.Rows.Cast<DataRow>().ForEach(
+            forumList.ForEach(
                 row =>
                 {
                     // don't render categories
-                    if (row["Icon"].ToString() == "folder")
+                    if (row.Icon == "folder")
                     {
                         return;
                     }
 
-                    var item = new ListItem { Value = row["ForumID"].ToString(), Text = row["Title"].ToString() };
+                    var item = new ListItem { Value = row.ForumID.ToString(), Text = row.Forum };
 
-                    item.Attributes.Add("data-category", row["Category"].ToString());
+                    item.Attributes.Add("data-category", row.Category);
 
                     item.Attributes.Add(
                         "data-content",
-                        $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{row["Icon"]} fa-fw text-secondary mr-2\"></i>{row["Title"]}</span>");
+                        $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{row.Icon} fa-fw text-secondary mr-2\"></i>{row.Forum}</span>");
 
                     dropDownList.Items.Add(item);
                 });

@@ -31,7 +31,6 @@ namespace YAF.Controls
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -174,7 +173,7 @@ namespace YAF.Controls
             // un-suspend user
             this.GetRepository<User>().Suspend(this.CurrentUserID);
 
-            if (this.Get<BoardSettings>().LogUserSuspendedUnsuspended)
+            if (this.PageContext.BoardSettings.LogUserSuspendedUnsuspended)
             {
                 this.Get<ILogger>().Log(
                     this.PageContext.PageUserID,

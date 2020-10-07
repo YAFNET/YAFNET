@@ -27,7 +27,6 @@ namespace YAF.Core.Helpers
     using System.Globalization;
     using System.Linq;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Services;
@@ -55,7 +54,7 @@ namespace YAF.Core.Helpers
             var row = BoardContext.Current.GetRepository<User>().GetById(userId);
 
             if (row != null && row.LanguageFile.IsSet()
-                && BoardContext.Current.Get<BoardSettings>().AllowUserLanguage)
+                && BoardContext.Current.BoardSettings.AllowUserLanguage)
             {
                 return row.LanguageFile;
             }
@@ -81,7 +80,7 @@ namespace YAF.Core.Helpers
 
             return languageRow != null
                        ? languageRow.CultureFile
-                       : BoardContext.Current.Get<BoardSettings>().Language;
+                       : BoardContext.Current.BoardSettings.Language;
         }
 
         /// <summary>

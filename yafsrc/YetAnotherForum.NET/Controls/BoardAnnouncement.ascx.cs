@@ -28,13 +28,11 @@ namespace YAF.Controls
     using System;
     using System.Globalization;
 
-    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-
+    
     #endregion
 
     /// <summary>
@@ -52,19 +50,19 @@ namespace YAF.Controls
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            if (this.Get<BoardSettings>().BoardAnnouncement.IsNotSet())
+            if (this.PageContext.BoardSettings.BoardAnnouncement.IsNotSet())
             {
                 this.Visible = false;
                 return;
             }
 
             var dateTime = Convert.ToDateTime(
-                this.Get<BoardSettings>().BoardAnnouncementUntil,
+                this.PageContext.BoardSettings.BoardAnnouncementUntil,
                 CultureInfo.InvariantCulture); 
 
             if (dateTime <= DateTime.Now)
             {
-                var boardSettings = this.Get<BoardSettings>();
+                var boardSettings = this.PageContext.BoardSettings;
 
                 boardSettings.BoardAnnouncementUntil = DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
                 boardSettings.BoardAnnouncement = string.Empty;
@@ -80,10 +78,10 @@ namespace YAF.Controls
                 return;
             }
 
-            this.Badge.CssClass = $"badge bg-{this.Get<BoardSettings>().BoardAnnouncementType} mr-1";
+            this.Badge.CssClass = $"badge bg-{this.PageContext.BoardSettings.BoardAnnouncementType} mr-1";
 
-            this.Announcement.CssClass = $"alert alert-{this.Get<BoardSettings>().BoardAnnouncementType} alert-dismissible";
-            this.Message.Text = this.Get<BoardSettings>().BoardAnnouncement;
+            this.Announcement.CssClass = $"alert alert-{this.PageContext.BoardSettings.BoardAnnouncementType} alert-dismissible";
+            this.Message.Text = this.PageContext.BoardSettings.BoardAnnouncement;
 
             this.DataBind();
 

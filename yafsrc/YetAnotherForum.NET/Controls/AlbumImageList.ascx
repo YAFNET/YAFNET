@@ -43,7 +43,7 @@
                                         title='<%# this.Eval("Caption") == null ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.GetText("ALBUM_IMAGE_CHANGE_CAPTION2") %>'
                                         data-toggle="tooltip">
                                       <YAF:Icon runat="server" IconName="pen" IconType="text-secondary"/>
-                                      <%# this.Eval("Caption").IsNullOrEmptyDBField() ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.HtmlEncode(this.Eval("Caption"))%>
+                                      <%# this.Eval("Caption").IsNullOrEmptyField() ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.HtmlEncode(this.Eval("Caption"))%>
                                   </span>
                                   <input type="text" id='<%# "txtTitle{0}".Fmt(this.Eval("ID")) %>' 
                                          class="form-control"

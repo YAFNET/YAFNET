@@ -25,7 +25,6 @@
 namespace YAF.Types.Interfaces.Identity
 {
     using System.Collections.Generic;
-    using System.Data;
 
     using YAF.Types;
     using YAF.Types.Models.Identity;
@@ -136,14 +135,18 @@ namespace YAF.Types.Interfaces.Identity
         List<AspNetUsers> GetUsersInRole(string roleName);
 
         /// <summary>
-        /// Groups the in group table.
+        /// Is Member of Group.
         /// </summary>
-        /// <param name="groupName">The group name.</param>
-        /// <param name="groupTable">The group table.</param>
+        /// <param name="groupName">
+        /// The group name.
+        /// </param>
+        /// <param name="memberGroups">
+        /// The member Groups.
+        /// </param>
         /// <returns>
-        /// The group in group table.
+        /// The <see cref="bool"/>.
         /// </returns>
-        bool GroupInGroupTable([NotNull] string groupName, [NotNull] DataTable groupTable);
+        bool IsMemberOfGroup([NotNull] string groupName, [NotNull] List<dynamic> groups);
 
         /// <summary>
         /// Determines whether [is user in role] [the specified username].

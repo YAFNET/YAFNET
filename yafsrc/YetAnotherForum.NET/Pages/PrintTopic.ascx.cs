@@ -27,10 +27,8 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -39,6 +37,7 @@ namespace YAF.Pages
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
@@ -73,11 +72,11 @@ namespace YAF.Pages
         /// </returns>
         protected string GetPrintBody([NotNull] object o)
         {
-            var row = (DataRow)o;
+            var row = (PagedMessage)o;
 
-            var message = row["Message"].ToString();
+            var message = row.Message;
 
-            message = this.Get<IFormatMessage>().Format(row["MessageID"].ToType<int>(), message, new MessageFlags(row["Flags"].ToType<int>()));
+            message = this.Get<IFormatMessage>().Format(row.MessageID, message, new MessageFlags(row.Flags));
 
             // Remove HIDDEN Text
             message = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message);
@@ -96,9 +95,9 @@ namespace YAF.Pages
         /// </returns>
         protected string GetPrintHeader([NotNull] object o)
         {
-            var row = (DataRow)o;
+            var row = (PagedMessage)o;
             return
-                $"<strong>{this.GetText("postedby")}: {(this.Get<BoardSettings>().EnableDisplayName ? row["DisplayName"] : row["UserName"])}</strong> - {this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"])}";
+                $"<strong>{this.GetText("postedby")}: {(this.PageContext.BoardSettings.EnableDisplayName ? row.DisplayName : row.UserName)}</strong> - {this.Get<IDateTime>().FormatDateTime(row.Posted)}";
         }
 
         /// <summary>
@@ -126,40 +125,32 @@ namespace YAF.Pages
 
             var showDeleted = false;
             var userId = 0;
-            if (this.Get<BoardSettings>().ShowDeletedMessagesToAll)
+            if (this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
             {
                 showDeleted = true;
             }
 
-            if (!showDeleted && (this.Get<BoardSettings>().ShowDeletedMessages &&
-                                 !this.Get<BoardSettings>().ShowDeletedMessagesToAll
+            if (!showDeleted && (this.PageContext.BoardSettings.ShowDeletedMessages &&
+                                 !this.PageContext.BoardSettings.ShowDeletedMessagesToAll
                                  || this.PageContext.IsAdmin ||
                                  this.PageContext.ForumModeratorAccess))
             {
                 userId = this.PageContext.PageUserID;
             }
 
-            var dt = this.GetRepository<Message>().PostListAsDataTable(
+            var posts = this.GetRepository<Message>().PostListPaged(
                 this.PageContext.PageTopicID,
                 this.PageContext.PageUserID,
                 userId,
-                !this.PageContext.IsCrawler ? 1 : 0,
+                !this.PageContext.IsCrawler,
                 showDeleted,
-                false,
-                false,
-                DateTimeHelper.SqlDbMinTime(),
-                DateTime.UtcNow,
                 DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
                 0,
                 500,
-                2,
-                0,
-                0,
-                false,
                 -1);
 
-            this.Posts.DataSource = dt.AsEnumerable();
+            this.Posts.DataSource = posts;
 
             this.DataBind();
         }

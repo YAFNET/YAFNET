@@ -27,11 +27,9 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.Linq;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -43,11 +41,13 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
+    using DateTime = System.DateTime;
     using Forum = YAF.Types.Models.Forum;
 
     #endregion
@@ -80,32 +80,6 @@ namespace YAF.Pages
         public Topics()
             : base("TOPICS")
         {
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// The style transform function wrap.
-        /// </summary>
-        /// <param name="dt">
-        /// The DateTable
-        /// </param>
-        /// <returns>
-        /// The style transform wrap.
-        /// </returns>
-        public DataTable StyleTransformDataTable([NotNull] DataTable dt)
-        {
-            if (!this.Get<BoardSettings>().UseStyledNicks)
-            {
-                return dt;
-            }
-
-            var styleTransform = this.Get<IStyleTransform>();
-            styleTransform.DecodeStyleByTable(dt, false, new[] { "StarterStyle", "LastUserStyle" });
-
-            return dt;
         }
 
         #endregion
@@ -204,7 +178,7 @@ namespace YAF.Pages
 
             this.RssFeed.AdditionalParameters = $"f={this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f")}";
 
-            this.ForumJumpHolder.Visible = this.Get<BoardSettings>().ShowForumJump
+            this.ForumJumpHolder.Visible = this.PageContext.BoardSettings.ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;
 
             if (this.ForumSearchHolder.Visible)
@@ -220,7 +194,7 @@ namespace YAF.Pages
                 this.ShowList.DataTextField = "Name";
                 this.ShowList.DataValueField = "Value";
                 this.showTopicListSelected = this.Get<ISession>().ShowList == -1
-                                                  ? this.Get<BoardSettings>().ShowTopicsDefault
+                                                  ? this.PageContext.BoardSettings.ShowTopicsDefault
                                                   : this.Get<ISession>().ShowList;
 
                 this.moderate1.NavigateUrl =
@@ -302,15 +276,15 @@ namespace YAF.Pages
         /// <summary>
         /// The create topic line.
         /// </summary>
-        /// <param name="containerDataItem">
-        /// The container data item.
+        /// <param name="item">
+        /// The item.
         /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        protected string CreateTopicLine(DataRowView containerDataItem)
+        protected string CreateTopicLine(object item)
         {
-            var topicLine = new TopicContainer { DataRow = containerDataItem };
+            var topicLine = new TopicContainer { Item = item as PagedTopic };
 
             return topicLine.RenderToString();
         }
@@ -376,15 +350,16 @@ namespace YAF.Pages
             this.PageSize.DataValueField = "Value";
             this.PageSize.DataBind();
 
-            var ds = this.Get<DataBroker>().BoardLayout(
+            var forums = this.Get<DataBroker>().BoardLayout(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,
                 this.PageContext.PageCategoryID,
                 this.PageContext.PageForumID);
 
-            if (ds.Tables["Forum"].HasRows())
+            // Render Sub forum(s)
+            if (forums.Item2.Any())
             {
-                this.ForumList.DataSource = ds.Tables["Forum"].Rows;
+                this.ForumList.DataSource = forums;
                 this.SubForums.Visible = true;
             }
 
@@ -392,69 +367,30 @@ namespace YAF.Pages
 
             this.Pager.PageSize = baseSize;
 
-            int? userId = this.PageContext.PageUserID;
-
-            var dt = this.GetRepository<Topic>().AnnouncementsAsDataTable(
+            var list = this.GetRepository<Topic>().ListAnnouncementsPaged(
                 this.PageContext.PageForumID,
-                userId,
-                null,
-                System.DateTime.UtcNow,
+                this.PageContext.PageUserID,
+                DateTime.UtcNow,
                 0,
                 10,
-                this.Get<BoardSettings>().UseStyledNicks,
                 true,
-                this.Get<BoardSettings>().UseReadTrackingByDatabase);
-            if (dt != null)
-            {
-                dt = this.StyleTransformDataTable(dt);
-            }
+                this.PageContext.BoardSettings.UseReadTrackingByDatabase);
 
-            this.Announcements.DataSource = dt;
+            this.Announcements.DataSource = list;
 
             var pagerCurrentPageIndex = this.Pager.CurrentPageIndex;
 
-            DataTable topicList;
+            int[] days = { 1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356 };
 
-            if (this.showTopicListSelected == 0)
-            {
-                topicList = this.GetRepository<Topic>().ListAsDataTable(
-                    this.PageContext.PageForumID,
-                    userId,
-                    DateTimeHelper.SqlDbMinTime(),
-                    System.DateTime.UtcNow,
-                    pagerCurrentPageIndex,
-                    baseSize,
-                    this.Get<BoardSettings>().UseStyledNicks,
-                    true,
-                    this.Get<BoardSettings>().UseReadTrackingByDatabase);
-
-                if (topicList != null)
-                {
-                    topicList = this.StyleTransformDataTable(topicList);
-                }
-            }
-            else
-            {
-                int[] days = { 1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356 };
-
-                var date = System.DateTime.UtcNow.AddDays(-days[this.showTopicListSelected]);
-
-                topicList = this.GetRepository<Topic>().ListAsDataTable(
-                    this.PageContext.PageForumID,
-                    userId,
-                    date,
-                    System.DateTime.UtcNow,
-                    pagerCurrentPageIndex,
-                    baseSize,
-                    this.Get<BoardSettings>().UseStyledNicks,
-                    true,
-                    this.Get<BoardSettings>().UseReadTrackingByDatabase);
-
-                if (topicList != null)
-                {
-                    topicList = this.StyleTransformDataTable(topicList);
-                }
-            }
+            var topicList = this.GetRepository<Topic>().ListPaged(
+                this.PageContext.PageForumID,
+                this.PageContext.PageUserID,
+                this.showTopicListSelected == 0 ? DateTimeHelper.SqlDbMinTime() : DateTime.UtcNow.AddDays(-days[this.showTopicListSelected]),
+                DateTime.UtcNow,
+                pagerCurrentPageIndex,
+                baseSize,
+                true,
+                this.PageContext.BoardSettings.UseReadTrackingByDatabase);
 
             this.TopicList.DataSource = topicList;
 
@@ -464,9 +400,9 @@ namespace YAF.Pages
             this.ShowList.SelectedIndex = this.showTopicListSelected;
             this.Get<ISession>().ShowList = this.showTopicListSelected;
 
-            if (topicList != null && topicList.HasRows())
+            if (topicList != null && topicList.Any())
             {
-                this.Pager.Count = topicList.AsEnumerable().First().Field<int>("TotalRows");
+               this.Pager.Count = topicList.FirstOrDefault().TotalRows;
             }
 
             if (this.Announcements.Items.Count == 0 && this.TopicList.Items.Count == 0)

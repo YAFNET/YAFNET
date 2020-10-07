@@ -133,7 +133,7 @@ namespace YAF.Controls
 
             // get user's name
             var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.CurrentUserID);
-            
+
             // go through all roles displayed on page
             for (var i = 0; i < this.UserGroups.Items.Count; i++)
             {
@@ -150,11 +150,7 @@ namespace YAF.Controls
                 var isChecked = item.FindControlAs<CheckBox>("GroupMember").Checked;
 
                 // save user in role
-                this.GetRepository<UserGroup>().Save(this.CurrentUserID, roleID, isChecked);
-
-                // empty out access table(s)
-                this.GetRepository<Active>().DeleteAll();
-                this.GetRepository<ActiveAccess>().DeleteAll();
+                this.GetRepository<UserGroup>().AddOrRemove(this.CurrentUserID, roleID, isChecked);
 
                 // update roles if this user isn't the guest
                 if (this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentUserID))
@@ -175,10 +171,9 @@ namespace YAF.Controls
 
                     removedRoles.Add(roleName);
                 }
-
-                // Clearing cache with old permissions data...
-                this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.CurrentUserID));
             }
+
+            this.GetRepository<User>().UpdateStyle(this.CurrentUserID);
 
             if (this.SendEmail.Checked)
             {
@@ -206,7 +201,9 @@ namespace YAF.Controls
         private void BindData()
         {
             // get user roles
-            this.UserGroups.DataSource = this.GetRepository<Group>().MemberAsDataTable(this.PageContext.PageBoardID, this.CurrentUserID);
+            this.UserGroups.DataSource = this.GetRepository<Group>().Member(
+                this.PageContext.PageBoardID,
+                this.CurrentUserID);
 
             // bind data to controls
             this.DataBind();

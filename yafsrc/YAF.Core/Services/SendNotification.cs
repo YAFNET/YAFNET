@@ -28,7 +28,6 @@ namespace YAF.Core.Services
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Globalization;
     using System.Linq;
     using System.Net.Mail;
@@ -101,7 +100,7 @@ namespace YAF.Core.Services
         /// <param name="isSpamMessage">if set to <c>true</c> [is spam message].</param>
         public void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId, bool isSpamMessage)
         {
-            var moderatorsFiltered = this.Get<DataBroker>().GetAllModerators().Where(f => f.ForumID.Equals(forumId));
+            var moderatorsFiltered = this.Get<DataBroker>().GetModerators().Where(f => f.ForumID.Equals(forumId));
             var moderatorUserNames = new List<string>();
 
             moderatorsFiltered.ForEach(
@@ -201,7 +200,7 @@ namespace YAF.Core.Services
             try
             {
                 var moderatorsFiltered =
-                    this.Get<DataBroker>().GetAllModerators().Where(f => f.ForumID.Equals(pageForumID));
+                    this.Get<DataBroker>().GetModerators().Where(f => f.ForumID.Equals(pageForumID));
                 var moderatorUserNames = new List<string>();
 
                 moderatorsFiltered.ForEach(
@@ -377,7 +376,7 @@ namespace YAF.Core.Services
                 .RemoveMultipleWhitespace();
 
             var watchUsers = this.GetRepository<User>()
-                .WatchMailListAsDataTable(message.TopicID, messageAuthorUserID);
+                .WatchMailList(message.TopicID, messageAuthorUserID);
 
             var watchEmail = new TemplateEmail("TOPICPOST")
                                  {
@@ -403,43 +402,41 @@ namespace YAF.Core.Services
 
             var currentContext = HttpContext.Current;
 
-            watchUsers.Rows.Cast<DataRow>().AsParallel().ForAll(
+            watchUsers.AsParallel().ForAll(
                 row =>
+                {
+                    HttpContext.Current = currentContext;
+
+                    try
                     {
-                        HttpContext.Current = currentContext;
+                        var languageFile = row.LanguageFile.IsSet() && this.Get<BoardSettings>().AllowUserLanguage
+                            ? row.LanguageFile
+                            : this.Get<BoardSettings>().Language;
 
-                        try
-                        {
-                            var languageFile =
-                                row.Field<string>("LanguageFile").IsSet() && this.Get<BoardSettings>().AllowUserLanguage
-                                    ? row.Field<string>("LanguageFile")
-                                    : this.Get<BoardSettings>().Language;
+                        var subject = string.Format(
+                            this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile),
+                            boardName);
 
-                            var subject = string.Format(
-                                this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile),
-                                boardName);
-
-                            watchEmail.TemplateLanguageFile = languageFile;
-                            mailMessages.Add(watchEmail.CreateEmail(
+                        watchEmail.TemplateLanguageFile = languageFile;
+                        mailMessages.Add(
+                            watchEmail.CreateEmail(
                                 new MailAddress(forumEmail, boardName),
                                 new MailAddress(
-                                    row.Field<string>("Email"),
-                                    this.BoardSettings.EnableDisplayName
-                                        ? row.Field<string>("DisplayName")
-                                        : row.Field<string>("Name")),
+                                    row.Email,
+                                    this.BoardSettings.EnableDisplayName ? row.DisplayName : row.Name),
                                 subject));
-                        }
-                        finally
-                        {
-                            HttpContext.Current = null;
-                        }
-                    });
+                    }
+                    finally
+                    {
+                        HttpContext.Current = null;
+                    }
+                });
 
             if (this.BoardSettings.AllowNotificationAllPostsAllTopics)
             {
-                var usersWithAll = this.GetRepository<User>().FindUserTyped(
-                    false,
-                    notificationType: UserNotificationSetting.AllTopics.ToInt());
+                var usersWithAll = this.GetRepository<User>().Get(
+                    u => u.BoardID == this.Get<BoardSettings>().BoardID && u.IsApproved == true && u.IsGuest == false &&
+                         u.NotificationType == UserNotificationSetting.AllTopics.ToInt());
 
                 // create individual watch emails for all users who have All Posts on...
                 usersWithAll.Where(x => x.ID != messageAuthorUserID && x.ProviderUserKey != null).AsParallel().ForAll(

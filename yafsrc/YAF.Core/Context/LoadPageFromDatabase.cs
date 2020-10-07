@@ -25,10 +25,11 @@
 namespace YAF.Core.Context
 {
     using System;
-    using System.Data;
     using System.Web;
 
-    using YAF.Core.Model;
+    using ServiceStack;
+
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
@@ -37,7 +38,7 @@ namespace YAF.Core.Context
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
-    using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -109,7 +110,7 @@ namespace YAF.Core.Context
         {
             try
             {
-                object userKey = null;
+                string userKey = null;
 
                 if (BoardContext.Current.MembershipUser != null)
                 {
@@ -117,7 +118,7 @@ namespace YAF.Core.Context
                 }
 
                 var tries = 0;
-                DataRow pageRow;
+                PageLoad pageRow;
                 var forumPage = this.Get<HttpRequestBase>().QueryString.ToString();
                 var location = this.Get<HttpRequestBase>().FilePath;
 
@@ -130,7 +131,7 @@ namespace YAF.Core.Context
 
                 do
                 {
-                    pageRow = this.GetRepository<ActiveAccess>().PageLoadAsDataRow(
+                    pageRow = this.Get<DataBroker>().GetPageLoad(
                         this.Get<HttpSessionStateBase>().SessionID,
                         BoardContext.Current.PageBoardID,
                         userKey,
@@ -182,7 +183,7 @@ namespace YAF.Core.Context
                 }
 
                 // add all loaded page data into our data dictionary...
-                @event.DataDictionary.AddRange(pageRow.ToDictionary());
+                @event.DataDictionary.AddRange(pageRow.ToObjectDictionary());
 
                 // clear active users list
                 if (@event.DataDictionary["ActiveUpdate"].ToType<bool>())

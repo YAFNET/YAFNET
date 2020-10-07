@@ -29,8 +29,6 @@ namespace YAF.Dialogs
     using System;
     using System.Text;
 
-    using YAF.Configuration;
-    
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -179,17 +177,24 @@ namespace YAF.Dialogs
                 return;
             }
 
-            this.GetRepository<BannedIP>().Save(
+            if (!this.GetRepository<BannedIP>().Save(
                 this.BannedId,
                 this.mask.Text.Trim(),
                 this.BanReason.Text.Trim(),
-                this.PageContext.PageUserID);
-
-            if (this.PageContext.Get<BoardSettings>().LogBannedIP)
+                this.PageContext.PageUserID))
             {
-                this.Logger.Log(
-                    $"IP or mask {this.mask.Text.Trim()} was saved by {this.PageContext.User.DisplayOrUserName()}.",
-                    EventLogTypes.IpBanSet);
+                this.PageContext.LoadMessage.AddSession(
+                    this.GetText("ADMIN_BANNEDIP", "MSG_EXIST"),
+                    MessageTypes.warning);
+            }
+            else
+            {
+                if (this.PageContext.BoardSettings.LogBannedIP)
+                {
+                    this.Logger.Log(
+                        $"IP or mask {this.mask.Text.Trim()} was saved by {this.PageContext.User.DisplayOrUserName()}.",
+                        EventLogTypes.IpBanSet);
+                }
             }
 
             // go back to banned IPs administration page

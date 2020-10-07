@@ -83,7 +83,7 @@ namespace YAF.Web.Controls
             htmlDropDown.Append(@"<div class=""dropdown d-lg-none"">");
 
             htmlDropDown.Append(
-                @"<button class=""btn btn-secondary dropdown-toggle w-100 text-left mb-4"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
+                @"<button class=""btn btn-secondary btn-block dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
 
             htmlDropDown.AppendFormat(@"{0}</button>", this.GetText("HELP_INDEX", "INDEX"));
 
@@ -143,7 +143,7 @@ namespace YAF.Web.Controls
 
                                     if (helpPage.HelpPage.Equals("REGISTRATION"))
                                     {
-                                        if (this.Get<BoardSettings>().DisableRegistrations || Config.IsAnyPortal)
+                                        if (this.PageContext.BoardSettings.DisableRegistrations || Config.IsAnyPortal)
                                         {
                                             return;
                                         }

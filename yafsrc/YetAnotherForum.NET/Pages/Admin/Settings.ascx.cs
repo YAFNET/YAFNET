@@ -27,7 +27,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web;
@@ -45,6 +45,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
@@ -84,7 +85,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.Get<BoardSettings>().Name, BuildLink.GetLink(ForumPages.Board));
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.Board));
             this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "TITLE"), string.Empty);
 
@@ -116,7 +117,7 @@ namespace YAF.Pages.Admin
                 this.Culture.SelectedValue);
 
             // save poll group
-            var boardSettings = this.Get<BoardSettings>();
+            var boardSettings = this.PageContext.BoardSettings;
 
             boardSettings.Language = languageFile;
             boardSettings.Culture = this.Culture.SelectedValue;
@@ -163,10 +164,10 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void IncreaseVersionOnClick(object sender, EventArgs e)
         {
-            this.Get<BoardSettings>().CdvVersion++;
-            ((LoadBoardSettings)this.Get<BoardSettings>()).SaveRegistry();
+            this.PageContext.BoardSettings.CdvVersion++;
+            ((LoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
 
-            this.CdvVersion.Text = this.Get<BoardSettings>().CdvVersion.ToString();
+            this.CdvVersion.Text = this.PageContext.BoardSettings.CdvVersion.ToString();
         }
 
         /// <summary>
@@ -198,33 +199,28 @@ namespace YAF.Pages.Admin
         {
             var board = this.GetRepository<Board>().GetById(this.PageContext.PageBoardID);
 
-            using (var dt = new DataTable("Files"))
+            var logos = new List<NamedParameter>
             {
-                dt.Columns.Add("FileName", typeof(string));
-                dt.Columns.Add("Description", typeof(string));
-                
-                var dr = dt.NewRow();
-                dr["FileName"] =
-                    BoardInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
-                dr["Description"] = this.GetText("BOARD_LOGO_SELECT");
-                dt.Rows.Add(dr);
+                new NamedParameter(
+                    this.GetText("BOARD_LOGO_SELECT"),
+                    BoardInfo.GetURLToContent("images/spacer.gif"))
+            };
 
-                var dir = new DirectoryInfo(
-                    this.Get<HttpRequestBase>()
-                        .MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Logos}"));
-                var files = dir.GetFiles("*.*");
+            var dir = new DirectoryInfo(
+                this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Logos}"));
 
-                dt.AddImageFiles(files, BoardFolders.Current.Logos);
+            var files = dir.GetFiles("*.*").ToList();
 
-                this.BoardLogo.DataSource = dt;
-                this.BoardLogo.DataValueField = "FileName";
-                this.BoardLogo.DataTextField = "Description";
-                this.BoardLogo.DataBind();
-            }
+            logos.AddImageFiles(files, BoardFolders.Current.Logos);
+
+            this.BoardLogo.DataSource = logos;
+            this.BoardLogo.DataValueField = "Value";
+            this.BoardLogo.DataTextField = "Name";
+            this.BoardLogo.DataBind();
 
             this.Name.Text = board.Name;
 
-            var boardSettings = this.Get<BoardSettings>();
+            var boardSettings = this.PageContext.BoardSettings;
 
             this.CdvVersion.Text = boardSettings.CdvVersion.ToString();
 
@@ -258,9 +254,7 @@ namespace YAF.Pages.Admin
             }
 
             var notificationItems = items.Select(
-                    x => new ListItem(
-                        HtmlHelper.StripHtml(this.GetText("SUBSCRIPTIONS", x.Value)),
-                        x.Key.ToString()))
+                    x => new ListItem(HtmlHelper.StripHtml(this.GetText("SUBSCRIPTIONS", x.Value)), x.Key.ToString()))
                 .ToArray();
 
             this.DefaultNotificationSetting.Items.AddRange(notificationItems);

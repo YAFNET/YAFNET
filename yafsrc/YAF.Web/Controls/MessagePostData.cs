@@ -26,11 +26,9 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
-    using System.Data;
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -39,6 +37,7 @@ namespace YAF.Web.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
 
     #endregion
 
@@ -61,8 +60,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Sets the DataRow.
         /// </summary>
-        [Obsolete("Use CurrentMessage instead!")]    
-        public DataRow DataRow
+        public PagedMessage DataRow
         {
             set => this.CurrentMessage = value != null ? new Message(value) : null;
         }
@@ -122,7 +120,7 @@ namespace YAF.Web.Controls
         {
             get
             {
-                if (this.ShowSignature && this.Get<BoardSettings>().AllowSignatures
+                if (this.ShowSignature && this.PageContext.BoardSettings.AllowSignatures
                                        && this.CurrentMessage.Signature.IsSet()
                                        && this.CurrentMessage.Signature.ToLower() != "<p>&nbsp;</p>")
                 {
@@ -148,7 +146,7 @@ namespace YAF.Web.Controls
         {
             CodeContracts.VerifyNotNull(message, "message");
 
-            var maxPostSize = Math.Max(BoardContext.Current.Get<BoardSettings>().MaxPostSize, 0);
+            var maxPostSize = Math.Max(BoardContext.Current.BoardSettings.MaxPostSize, 0);
 
             // 0 == unlimited
             return maxPostSize == 0 || message.Length <= maxPostSize ? message : message.Truncate(maxPostSize);
@@ -232,7 +230,7 @@ namespace YAF.Web.Controls
 
                 // Render Edit Message
                 if (this.ShowEditMessage
-                    && this.Edited > this.CurrentMessage.Posted.AddSeconds(this.Get<BoardSettings>().EditTimeOut))
+                    && this.Edited > this.CurrentMessage.Posted.AddSeconds(this.PageContext.BoardSettings.EditTimeOut))
                 {
                     this.RenderEditedMessage(writer, this.Edited, this.CurrentMessage.EditReason, this.MessageID);
                 }

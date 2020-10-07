@@ -28,11 +28,10 @@ namespace YAF.Pages
     #region
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -43,6 +42,7 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -56,9 +56,9 @@ namespace YAF.Pages
         #region Fields
 
         /// <summary>
-        /// The userListDataTable.
+        /// The user List.
         /// </summary>
-        private DataTable userListDataTable;
+        private List<PagedUser> userList;
 
         #endregion
 
@@ -131,13 +131,13 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Get all users from user_list for this board.
+        /// Get all users from for this board.
         /// </summary>
-        /// <param name="literals">
-        /// The literals.
+        /// <param name="startLetter">
+        /// The start Letter.
         /// </param>
-        /// <param name="specialSymbol">
-        /// The special Symbol.
+        /// <param name="userName">
+        /// The user Name.
         /// </param>
         /// <param name="totalCount">
         /// The total Count.
@@ -145,18 +145,14 @@ namespace YAF.Pages
         /// <returns>
         /// The Members List
         /// </returns>
-        protected DataTable GetUserList(string literals, bool specialSymbol, out int totalCount)
+        protected List<PagedUser> GetUserList(char startLetter, string userName, out int totalCount)
         {
-            this.userListDataTable = this.GetRepository<User>().ListMembersAsDataTable(
+            this.userList = this.GetRepository<User>().ListMembersPaged(
                 this.PageContext.PageBoardID,
-                null,
-                true,
-                this.Group.SelectedIndex <= 0 ? null : this.Group.SelectedValue,
-                this.Ranks.SelectedIndex <= 0 ? null : this.Ranks.SelectedValue,
-                this.Get<BoardSettings>().UseStyledNicks,
-                literals,
-                specialSymbol,
-                specialSymbol,
+                this.Group.SelectedIndex <= 0 ? null : this.Group.SelectedValue.ToType<int?>(),
+                this.Ranks.SelectedIndex <= 0 ? null : this.Ranks.SelectedValue.ToType<int?>(),
+                startLetter,
+                userName,
                 this.Pager.CurrentPageIndex,
                 this.Pager.PageSize,
                 this.ViewState["SortNameField"].ToType<int?>(),
@@ -164,25 +160,12 @@ namespace YAF.Pages
                 this.ViewState["SortJoinedField"].ToType<int?>(),
                 this.ViewState["SortNumPostsField"].ToType<int?>(),
                 this.ViewState["SortLastVisitField"].ToType<int?>(),
-                this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostsTB.Text.Trim().ToType<int>() : 0,
+                this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostsTB.Text.Trim().ToType<int?>() : null,
                 this.NumPostDDL.SelectedIndex < 0 ? 3 : this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostDDL.SelectedValue.ToType<int>() : 0);
 
-            if (this.Get<BoardSettings>().UseStyledNicks)
-            {
-                this.Get<IStyleTransform>().DecodeStyleByTable(this.userListDataTable);
-            }
+            totalCount = this.userList.Any() ? this.userList.FirstOrDefault().TotalRows : 0;
 
-            if (this.userListDataTable.HasRows())
-            {
-                // commits the deletes to the table
-                totalCount = (int)this.userListDataTable.Rows[0]["TotalCount"];
-            }
-            else
-            {
-                totalCount = 0;
-            }
-
-            return this.userListDataTable;
+            return this.userList;
         }
 
         /// <summary>
@@ -492,7 +475,7 @@ namespace YAF.Pages
             var selectedCharLetter = this.AlphaSort1.CurrentLetter;
 
             // get the user list...
-            var selectedLetter = this.UserSearchName.Text.IsSet() ? this.UserSearchName.Text.Trim() : selectedCharLetter.ToString();
+            var selectedLetter = selectedCharLetter;
 
             var numberOfPosts = this.NumPostsTB.Text.ToType<int>();
 
@@ -509,13 +492,13 @@ namespace YAF.Pages
             }
 
             // get the user list...
-            this.userListDataTable = this.GetUserList(
+            this.userList = this.GetUserList(
                 selectedLetter,
-                this.UserSearchName.Text.IsNotSet() || selectedCharLetter == char.MinValue && selectedCharLetter == '#',
+                this.UserSearchName.Text.Trim(),
                 out var totalCount);
             
             this.Pager.Count = totalCount;
-            this.MemberList.DataSource = this.userListDataTable;
+            this.MemberList.DataSource = this.userList;
             this.DataBind();
 
             switch (this.ViewState["SortNameField"].ToType<int?>())

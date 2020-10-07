@@ -114,7 +114,7 @@ namespace YAF.Pages.Profile
                 BuildLink.AccessDenied();
             }
 
-            if (!this.Get<BoardSettings>().AllowPasswordChange &&
+            if (!this.PageContext.BoardSettings.AllowPasswordChange &&
                 !(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
             {
                 // Not accessible...

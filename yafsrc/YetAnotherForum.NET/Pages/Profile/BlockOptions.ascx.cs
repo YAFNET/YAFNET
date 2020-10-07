@@ -30,7 +30,6 @@ namespace YAF.Pages.Profile
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -107,13 +106,13 @@ namespace YAF.Pages.Profile
             this.BindData();
 
             this.BlockPMs.Text = this.GetText("BLOCK_PMS");
-            this.BlockPMs.Visible = this.Get<BoardSettings>().AllowPrivateMessages;
+            this.BlockPMs.Visible = this.PageContext.BoardSettings.AllowPrivateMessages;
 
             this.BlockFriendRequests.Text = this.GetText("BLOCK_BUDDYS");
-            this.BlockFriendRequests.Visible = this.Get<BoardSettings>().EnableBuddyList;
+            this.BlockFriendRequests.Visible = this.PageContext.BoardSettings.EnableBuddyList;
 
             this.BlockEmails.Text = this.GetText("BLOCK_EMAILS");
-            this.BlockEmails.Visible = this.Get<BoardSettings>().AllowEmailSending;
+            this.BlockEmails.Visible = this.PageContext.BoardSettings.AllowEmailSending;
         }
 
         /// <summary>

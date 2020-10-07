@@ -31,7 +31,7 @@ namespace YAF.Pages.Profile
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI.WebControls;
-    using YAF.Configuration;
+    
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -92,12 +92,12 @@ namespace YAF.Pages.Profile
 
             this.BindData();
 
-            this.DailyDigestRow.Visible = this.Get<BoardSettings>().AllowDigestEmail;
-            this.PMNotificationRow.Visible = this.Get<BoardSettings>().AllowPMEmailNotification;
+            this.DailyDigestRow.Visible = this.PageContext.BoardSettings.AllowDigestEmail;
+            this.PMNotificationRow.Visible = this.PageContext.BoardSettings.AllowPMEmailNotification;
 
             var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 
-            if (!this.Get<BoardSettings>().AllowNotificationAllPostsAllTopics)
+            if (!this.PageContext.BoardSettings.AllowNotificationAllPostsAllTopics)
             {
                 // remove it...
                 items.Remove(UserNotificationSetting.AllTopics.ToInt());

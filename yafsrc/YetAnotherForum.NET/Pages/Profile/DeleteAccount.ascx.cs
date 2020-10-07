@@ -70,7 +70,7 @@ namespace YAF.Pages.Profile
             this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), BuildLink.GetLink(ForumPages.MyAccount));
 
             this.PageLinks.AddLink(
-                string.Format(this.GetText("DELETE_ACCOUNT", "TITLE"), this.Get<BoardSettings>().Name),
+                string.Format(this.GetText("DELETE_ACCOUNT", "TITLE"), this.PageContext.BoardSettings.Name),
                 string.Empty);
         }
 
@@ -171,7 +171,7 @@ namespace YAF.Pages.Profile
                                 x.Item1.ID,
                                 true,
                                 string.Empty,
-                                1,
+                                true,
                                 true,
                                 false));
 

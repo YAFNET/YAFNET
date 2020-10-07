@@ -26,8 +26,8 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
-
+    using System.Collections.Generic;
+    
     using YAF.Controls;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
@@ -100,11 +100,11 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            var buddyListDataTable = this.Get<IFriends>().GetForUser(this.PageContext.PageUserID);
+            var buddyList = this.Get<IFriends>().GetForUser(this.PageContext.PageUserID);
 
-            this.InitializeBuddyList(this.BuddyList1, 2, buddyListDataTable);
-            this.InitializeBuddyList(this.PendingBuddyList, 3, buddyListDataTable);
-            this.InitializeBuddyList(this.BuddyRequested, 4, buddyListDataTable);
+            this.InitializeBuddyList(this.BuddyList1, 2, buddyList);
+            this.InitializeBuddyList(this.PendingBuddyList, 3, buddyList);
+            this.InitializeBuddyList(this.BuddyRequested, 4, buddyList);
         }
 
         /// <summary>
@@ -116,12 +116,12 @@ namespace YAF.Pages
         /// <param name="mode">
         /// The mode of this BuddyList.
         /// </param>
-        /// <param name="buddyListDataTable">
-        /// The buddy List Data Table.
+        /// <param name="buddyList">
+        /// The buddy List.
         /// </param>
-        private void InitializeBuddyList([NotNull] BuddyList customBuddyList, int mode, DataTable buddyListDataTable)
+        private void InitializeBuddyList([NotNull] BuddyList customBuddyList, int mode, List<dynamic> buddyList)
         {
-            customBuddyList.FriendsTable = buddyListDataTable;
+            customBuddyList.FriendsList = buddyList;
             customBuddyList.CurrentUserID = this.PageContext.PageUserID;
             customBuddyList.Mode = mode;
             customBuddyList.Container = this;

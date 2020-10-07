@@ -106,16 +106,14 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.forumlist.DataSource = this.GetRepository<Forum>().ListReadAsDataTable(
+            var forumList = this.GetRepository<Forum>().ListAllSorted(
                 this.PageContext.PageBoardID,
-                this.PageContext.PageUserID,
-                null,
-                null,
-                false,
-                false);
+                this.PageContext.PageUserID);
 
-            this.forumlist.DataValueField = "ForumID";
+            this.forumlist.AddForumAndCategoryIcons(forumList);
+
             this.forumlist.DataTextField = "Forum";
+            this.forumlist.DataValueField = "ForumID";
 
             this.DataBind();
 

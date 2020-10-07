@@ -73,7 +73,7 @@ namespace YAF.Controls
                 {
                     TextLocalizedTag = "LOGIN_CONNECT",
                     TextLocalizedPage = "TOOLBAR",
-                    ParamText0 = this.Get<BoardSettings>().Name,
+                    ParamText0 = this.PageContext.BoardSettings.Name,
                     TitleLocalizedTag = "LOGIN",
                     TitleLocalizedPage = "TOOLBAR",
                     Type = ButtonStyle.Link,
@@ -87,7 +87,7 @@ namespace YAF.Controls
                 isLoginAllowed = true;
             }
 
-            if (!this.Get<BoardSettings>().DisableRegistrations)
+            if (!this.PageContext.BoardSettings.DisableRegistrations)
             {
                 // show register link
                 var registerLink = new ThemeButton
@@ -98,10 +98,10 @@ namespace YAF.Controls
                     TitleLocalizedPage = "TOOLBAR",
                     Type = ButtonStyle.Link,
                     Icon = "user-plus",
-                    NavigateUrl = this.Get<BoardSettings>().ShowRulesForRegistration
+                    NavigateUrl = this.PageContext.BoardSettings.ShowRulesForRegistration
                         ?
                         BuildLink.GetLink(ForumPages.RulesAndPrivacy)
-                        : !this.Get<BoardSettings>().UseSSLToRegister
+                        : !this.PageContext.BoardSettings.UseSSLToRegister
                             ? BuildLink.GetLink(ForumPages.Account_Register)
                             : BuildLink.GetLink(ForumPages.Account_Register, true).Replace("http:", "https:")
                 };

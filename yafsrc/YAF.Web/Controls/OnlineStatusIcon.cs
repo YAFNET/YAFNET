@@ -26,11 +26,9 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
-    using System.Data;
     using System.Linq;
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
     using YAF.Core.Model;
@@ -84,11 +82,10 @@ namespace YAF.Web.Controls
 
             var activeUsers = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.UsersOnlineStatus,
-                () => this.GetRepository<Active>().ListAsDataTable(
+                () => this.GetRepository<Active>().List(
                     false,
-                    this.Get<BoardSettings>().ShowCrawlersInActiveList,
-                    this.Get<BoardSettings>().ActiveListTime,
-                    this.Get<BoardSettings>().UseStyledNicks),
+                    this.PageContext.BoardSettings.ShowCrawlersInActiveList,
+                    this.PageContext.BoardSettings.ActiveListTime),
                 TimeSpan.FromMilliseconds(BoardContext.Current.BoardSettings.OnlineStatusCacheTimeout));
 
             output.BeginRender();
@@ -104,8 +101,7 @@ namespace YAF.Web.Controls
             }
             else
             {
-                if (activeUsers.AsEnumerable()
-                    .Any(x => x.Field<int>("UserId") == this.UserId && !x.Field<bool>("IsHidden")))
+                if (activeUsers.Any(x => (int)x.UserID == this.UserId && x.IsActiveExcluded == false))
                 {
                     // online
                     output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-success");

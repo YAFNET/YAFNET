@@ -29,7 +29,6 @@ namespace YAF.Pages.Admin
     using System;
     using System.Linq;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Model;
     using YAF.Types;
@@ -85,7 +84,7 @@ namespace YAF.Pages.Admin
             var user = new AspNetUsers
             {
                 Id = Guid.NewGuid().ToString(),
-                ApplicationId = this.Get<BoardSettings>().ApplicationId,
+                ApplicationId = this.PageContext.BoardSettings.ApplicationId,
                 UserName = newUsername,
                 LoweredUserName = newUsername,
                 Email = newEmail,
@@ -108,7 +107,7 @@ namespace YAF.Pages.Admin
             // create the user in the YAF DB as well as sync roles...
             var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, this.PageContext.PageBoardID);
 
-            var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
+            var autoWatchTopicsEnabled = this.PageContext.BoardSettings.DefaultNotificationSetting
                 .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
 
             this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userId, newUsername);
@@ -117,8 +116,8 @@ namespace YAF.Pages.Admin
                 this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id),
                 true,
                 autoWatchTopicsEnabled,
-                this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
-                this.Get<BoardSettings>().DefaultSendDigestEmail);
+                this.PageContext.BoardSettings.DefaultNotificationSetting.ToInt(),
+                this.PageContext.BoardSettings.DefaultSendDigestEmail);
 
             // success
             this.PageContext.LoadMessage.AddSession(

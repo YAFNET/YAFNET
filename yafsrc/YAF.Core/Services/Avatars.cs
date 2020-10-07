@@ -27,8 +27,7 @@ namespace YAF.Core.Services
     #region Using
 
     using System;
-    using System.Web;
-
+    
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Types;
@@ -143,11 +142,9 @@ namespace YAF.Core.Services
             {
                 avatarUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?u={userId}";
             }
-            else if (avatarString.IsSet())
+            else if (avatarString.IsSet() && avatarString.StartsWith("/"))
             {
-                // Took out PageContext.BoardSettings.AvatarRemote
-                avatarUrl =
-                    $"{BoardInfo.ForumClientFileRoot}resource.ashx?url={HttpUtility.UrlEncode(avatarString)}&width={this.boardSettings.AvatarWidth}&height={this.boardSettings.AvatarHeight}";
+                avatarUrl = avatarString;
             }
             else if (this.boardSettings.AvatarGravatar && email.IsSet())
             {
@@ -157,8 +154,7 @@ namespace YAF.Core.Services
                 var gravatarUrl =
                     $@"{GravatarBaseUrl}{email.StringToHexBytes()}.jpg?r={this.boardSettings.GravatarRating}&s={this.boardSettings.AvatarWidth}";
 
-                avatarUrl =
-                    $@"{BoardInfo.ForumClientFileRoot}resource.ashx?url={HttpUtility.UrlEncode(gravatarUrl)}&width={this.boardSettings.AvatarWidth}&height={this.boardSettings.AvatarHeight}";
+                avatarUrl = gravatarUrl;
             }
 
             // Return NoAvatar Image is no Avatar available for that user.

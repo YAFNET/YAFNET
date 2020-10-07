@@ -34,7 +34,6 @@ namespace YAF.Core.Modules
     using YAF.Core.BaseModules;
     using YAF.Core.Context;
     using YAF.Core.Data;
-    using YAF.Core.Data.Filters;
     using YAF.Core.Events;
     using YAF.Core.Helpers;
     using YAF.Core.Nntp;
@@ -87,7 +86,7 @@ namespace YAF.Core.Modules
 
             // register filters -- even if they require BoardContext, they MUST BE REGISTERED UNDER GENERAL SCOPE
             // Do the BoardContext check inside the constructor and throw an exception if it's required.
-            builder.RegisterType<StyleFilter>().As<IDbDataFilter>();
+            //builder.RegisterType<StyleFilter>().As<IDbDataFilter>();
         }
 
         /// <summary>

@@ -27,7 +27,6 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.IO;
     using System.Linq;
     using System.Web;
@@ -44,9 +43,12 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
+
+    using ListItem = System.Web.UI.WebControls.ListItem;
 
     #endregion
 
@@ -102,35 +104,29 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The create images data table.
+        /// Create images list.
         /// </summary>
-        protected void CreateImagesDataTable()
+        protected void CreateImagesList()
         {
-            using (var dt = new DataTable("Files"))
+            var list = new List<NamedParameter>
             {
-                dt.Columns.Add("FileName", typeof(string));
-                dt.Columns.Add("Description", typeof(string));
-                
-                var dr = dt.NewRow();
-                dr["FileName"] =
-                    BoardInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
-                dr["Description"] = this.GetText("COMMON", "NONE");
-                dt.Rows.Add(dr);
+                new NamedParameter(this.GetText("COMMON", "NONE"), BoardInfo.GetURLToContent("images/spacer.gif"))
+            };
 
-                var dir = new DirectoryInfo(
-                    this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Forums}"));
-                if (dir.Exists)
-                {
-                    var files = dir.GetFiles("*.*");
+            var dir = new DirectoryInfo(
+                this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Forums}"));
 
-                    dt.AddImageFiles(files, BoardFolders.Current.Forums);
-                }
+            if (dir.Exists)
+            {
+                var files = dir.GetFiles("*.*").ToList();
 
-                this.ForumImages.DataSource = dt;
-                this.ForumImages.DataValueField = "FileName";
-                this.ForumImages.DataTextField = "Description";
-                this.ForumImages.DataBind();
+                list.AddImageFiles(files, BoardFolders.Current.Forums);
             }
+
+            this.ForumImages.DataSource = list;
+            this.ForumImages.DataValueField = "Value";
+            this.ForumImages.DataTextField = "Name";
+            this.ForumImages.DataBind();
         }
 
         /// <summary>
@@ -182,8 +178,8 @@ namespace YAF.Pages.Admin
 
             this.ModerateAllPosts.Text = this.GetText("MODERATE_ALL_POSTS");
 
-            // Populate Forum Images Table
-            this.CreateImagesDataTable();
+            // Populate Forum Images
+            this.CreateImagesList();
 
             this.BindData();
 
@@ -405,7 +401,7 @@ namespace YAF.Pages.Admin
                 this.CategoryList.SelectedValue.ToType<int>());
 
             this.ParentList.DataValueField = "ForumID";
-            this.ParentList.DataTextField = "Title";
+            this.ParentList.DataTextField = "Forum";
 
             this.ParentList.DataBind();
         }
@@ -475,7 +471,7 @@ namespace YAF.Pages.Admin
             {
                 var forumList = this.GetRepository<Forum>().Get(f => f.Name == this.Name.Text.Trim());
 
-                if (forumList.Any() && !this.Get<BoardSettings>().AllowForumsWithSameName)
+                if (forumList.Any() && !this.PageContext.BoardSettings.AllowForumsWithSameName)
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"),
@@ -497,10 +493,6 @@ namespace YAF.Pages.Admin
             {
                 moderatedPostCount = this.ModeratedPostCount.Text.ToType<int>();
             }
-
-            // empty out access table(s)
-            this.GetRepository<Active>().DeleteAll();
-            this.GetRepository<ActiveAccess>().DeleteAll();
 
             var newForumId = this.GetRepository<Forum>().Save(
                 forumId,

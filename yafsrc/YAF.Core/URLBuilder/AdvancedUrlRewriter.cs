@@ -249,12 +249,6 @@ namespace YAF.Core.URLBuilder
                     }
                 }
 
-                if (parser["find"] != null)
-                {
-                    newUrl += $"find{parser["find"].Trim()}";
-                    parser.Parameters.Remove("find");
-                }
-
                 if (description.Length > 0)
                 {
                     if (description.EndsWith("-"))

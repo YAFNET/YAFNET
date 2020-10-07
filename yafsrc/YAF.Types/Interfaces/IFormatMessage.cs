@@ -127,7 +127,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The get cleaned topic message.
         /// </returns>
-        MessageCleaned GetCleanedTopicMessage([NotNull] object topicMessage, [NotNull] object topicId);
+        MessageCleaned GetCleanedTopicMessage([NotNull] string topicMessage, [NotNull] int topicId);
 
         /// <summary>
         /// Removes nested quotes from the given message body.

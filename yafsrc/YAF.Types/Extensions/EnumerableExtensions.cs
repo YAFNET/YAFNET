@@ -126,6 +126,30 @@ namespace YAF.Types.Extensions
             }
         }
 
+        /// <summary>
+        /// The distinct by.
+        /// </summary>
+        /// <param name="source">
+        /// The source.
+        /// </param>
+        /// <param name="keySelector">
+        /// The key selector.
+        /// </param>
+        /// <typeparam name="TSource">
+        /// </typeparam>
+        /// <typeparam name="TKey">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(
+            this IEnumerable<TSource> source,
+            Func<TSource, TKey> keySelector)
+        {
+            var knownKeys = new HashSet<TKey>();
+            return source.Where(element => knownKeys.Add(keySelector(element)));
+        }
+
         #endregion
     }
 }

@@ -24,9 +24,7 @@
 
 namespace YAF.Core.Extensions
 {
-    using YAF.Configuration;
     using YAF.Core.Context;
-    using YAF.Types.Interfaces;
     using YAF.Types.Models;
 
     /// <summary>
@@ -46,7 +44,7 @@ namespace YAF.Core.Extensions
         /// </returns>
         public static string DisplayOrUserName(this User user)
         {
-            return BoardContext.Current.Get<BoardSettings>().EnableDisplayName
+            return BoardContext.Current.BoardSettings.EnableDisplayName
                 ? user.DisplayName
                 : user.Name;
         }

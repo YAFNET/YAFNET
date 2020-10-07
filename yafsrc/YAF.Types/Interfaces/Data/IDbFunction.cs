@@ -26,6 +26,7 @@ namespace YAF.Types.Interfaces.Data
 {
     #region Using
 
+    using System;
     using System.Collections.Generic;
     using System.Data;
 
@@ -37,16 +38,6 @@ namespace YAF.Types.Interfaces.Data
     public interface IDbFunction
     {
         #region Public Properties
-
-        /// <summary>
-        ///     Gets GetData.
-        /// </summary>
-        dynamic GetData { get; }
-
-        /// <summary>
-        ///     Gets GetDataSet.
-        /// </summary>
-        dynamic GetDataSet { get; }
 
         /// <summary>
         ///     Gets Query.

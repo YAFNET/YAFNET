@@ -138,6 +138,7 @@ namespace YAF.Core.Nntp
             this.ConnectedGroup = null;
             this.username = null;
             this.password = null;
+
             if (this.tcpClient != null)
             {
                 try
@@ -148,6 +149,7 @@ namespace YAF.Core.Nntp
                 }
                 catch
                 {
+                    this.tcpClient.Dispose();
                 }
             }
 

@@ -24,14 +24,12 @@
 namespace YAF.Core.Model
 {
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
 
     using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -51,19 +49,26 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
+
             return repository.DbAccess.Execute(
-                cmd => cmd.Connection.Scalar<int>(
-                    $"select MAX(SortOrder) from {repository.DbAccess.GetTableName<Category>()}"));
+                db => db.Connection.Scalar<int>(expression.Select(c => Sql.Max(c.SortOrder))));
         }
 
         /// <summary>
-        /// The list.
+        /// List Categories
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="categoryId">The category id.</param>
-        /// <param name="boardId">The board id.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="categoryId">
+        /// The category id.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
         /// <returns>
-        /// The <see cref="DataTable" />.
+        /// The <see cref="List"/>.
         /// </returns>
         public static List<Category> List(
             this IRepository<Category> repository,
@@ -77,28 +82,6 @@ namespace YAF.Core.Model
                            category => category.BoardID == (boardId ?? repository.BoardID)
                                        && category.ID == categoryId.Value).OrderBy(o => o.SortOrder).ToList()
                        : repository.Get(category => category.BoardID == (boardId ?? repository.BoardID));
-        }
-
-        /// <summary>
-        /// Get Categories as data table.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="categoryId">
-        /// The category id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable ListAsDataTable(
-            this IRepository<Category> repository,
-            [CanBeNull] int? categoryId = null)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.DbFunction.GetAsDataTable(
-                x => x.category_list(repository.BoardID, categoryId));
         }
 
         /// <summary>

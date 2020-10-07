@@ -104,7 +104,8 @@ namespace YAF.Core.Helpers
                         {
                             // failure...
                             throw new NoValidGuestUserForBoardException(
-                                $"Could not locate the guest user for the board id {BoardContext.Current.PageBoardID}. You might have deleted the guest group or removed the guest user.");
+                                $@"Could not locate the guest user for the board id {BoardContext.Current.PageBoardID}. 
+                                          You might have deleted the guest group or removed the guest user.");
                         }
 
                         return guestUser.ID;
@@ -141,9 +142,19 @@ namespace YAF.Core.Helpers
                     user.IsApproved = true;
                     this.Get<AspNetUsersManager>().Update(user);
                     var id = this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id);
-                    if (id > 0)
+
+                    if (id <= 0)
                     {
-                        this.GetRepository<User>().Approve(id);
+                        return;
+                    }
+
+                    this.GetRepository<User>().Approve(id, user.Email);
+
+                    var checkEmail = this.GetRepository<CheckEmail>().GetSingle(m => m.UserID == id);
+
+                    if (checkEmail != null)
+                    {
+                        this.GetRepository<CheckEmail>().DeleteById(checkEmail.ID);
                     }
                 });
         }
@@ -171,7 +182,15 @@ namespace YAF.Core.Helpers
             }
 
             this.Get<AspNetUsersManager>().Update(user);
-            this.GetRepository<User>().Approve(userID);
+
+            this.GetRepository<User>().Approve(userID, user.Email);
+
+            var checkEmail = this.GetRepository<CheckEmail>().GetSingle(m => m.UserID == userID);
+
+            if (checkEmail != null)
+            {
+                this.GetRepository<CheckEmail>().DeleteById(checkEmail.ID);
+            }
 
             return true;
         }
@@ -343,7 +362,7 @@ namespace YAF.Core.Helpers
                     x.Item1.ID,
                     true,
                     string.Empty,
-                    1,
+                    true,
                     true));
 
             this.Get<AspNetUsersManager>().Delete(user);

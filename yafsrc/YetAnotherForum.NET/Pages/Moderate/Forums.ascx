@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Types.Models" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
+<%@ Import Namespace="YAF.Types.Objects.Model" %>
 
 
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/ModForumUser.ascx" %>
@@ -105,7 +106,7 @@
                                               Text="&nbsp;"
                                               CssClass="form-check d-inline-flex align-middle" />
                                 <YAF:TopicContainer runat="server" ID="topicContainer" 
-                                                    DataRow="<%# Container.DataItem %>" 
+                                                    Item="<%# (PagedTopic)Container.DataItem %>"
                                                     AllowSelection="True" />
                     </ItemTemplate>
                     <SeparatorTemplate>

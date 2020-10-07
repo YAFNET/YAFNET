@@ -46,16 +46,7 @@ namespace YAF.Core.Services.Startup
     /// </summary>
     public class StartupCheckBannedIps : BaseStartupService
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _init var name.
-        /// </summary>
-        protected const string _initVarName = "YafCheckBannedIps_Init";
-
-        #endregion
-
-        #region Constructors and Destructors
+       #region Constructors and Destructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StartupCheckBannedIps" /> class.
@@ -115,7 +106,7 @@ namespace YAF.Core.Services.Startup
         ///   Gets InitVarName.
         /// </summary>
         [NotNull]
-        protected override string InitVarName => "YafCheckBannedIps_Init";
+        protected override string InitVarName => "CheckBannedIps_Init";
 
         #endregion
 
@@ -125,11 +116,10 @@ namespace YAF.Core.Services.Startup
         /// The run service.
         /// </summary>
         /// <returns>
-        /// The run service.
+        /// The <see cref="bool"/>.
         /// </returns>
         protected override bool RunService()
         {
-            // TODO: The data cache needs a more fast string array check as number of banned ips can be huge, but current output is too demanding on perfomance in the cases.
             var bannedIPs = this.DataCache.GetOrSet(
                 Constants.Cache.BannedIP,
                 () => this.BannedIpRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID).Select(x => x.Mask.Trim()).ToList());
@@ -142,7 +132,7 @@ namespace YAF.Core.Services.Startup
                 return true;
             }
 
-            if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
+            if (BoardContext.Current.BoardSettings.LogBannedIP)
             {
                 this.Logger.Log(
                     null,

@@ -31,7 +31,6 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -91,7 +90,7 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "delete":
-                    this.GetRepository<PMessage>().DeleteMessage(e.CommandArgument.ToType<int>(), this.IsOutbox);
+                    this.GetRepository<UserPMessage>().Delete(e.CommandArgument.ToType<int>(), this.IsOutbox);
 
                     this.BindData();
                     this.PageContext.AddLoadMessage(this.GetText("msg_deleted"), MessageTypes.success);
@@ -117,7 +116,7 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // check if this feature is disabled
-            if (!this.Get<BoardSettings>().AllowPrivateMessages)
+            if (!this.PageContext.BoardSettings.AllowPrivateMessages)
             {
                 BuildLink.RedirectInfoPage(InfoMessage.Disabled);
             }

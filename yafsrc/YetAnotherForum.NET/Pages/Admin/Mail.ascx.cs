@@ -30,7 +30,6 @@ namespace YAF.Pages.Admin
     using System.Threading.Tasks;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -104,8 +103,8 @@ namespace YAF.Pages.Admin
                 email =>
                 {
                     var from = new MailAddress(
-                        this.Get<BoardSettings>().ForumEmail,
-                        this.Get<BoardSettings>().Name);
+                        this.PageContext.BoardSettings.ForumEmail,
+                        this.PageContext.BoardSettings.Name);
 
                     var to = new MailAddress(email);
 
@@ -164,7 +163,7 @@ namespace YAF.Pages.Admin
 
             this.TestSubject.Text = this.GetText("TEST_SUBJECT");
             this.TestBody.Text = this.GetText("TEST_BODY");
-            this.TestFromEmail.Text = this.Get<BoardSettings>().ForumEmail;
+            this.TestFromEmail.Text = this.PageContext.BoardSettings.ForumEmail;
         }
 
         #endregion

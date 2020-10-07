@@ -165,8 +165,10 @@ namespace YAF.Core.Services.Import
                         continue;
                     }
 
-                    repository.Save(null, line, "Imported Email Adress", boardId);
-                    importedCount++;
+                    if (repository.Save(null, line, "Imported Email Adress", boardId))
+                    {
+                        importedCount++;
+                    }
                 }
             }
 
@@ -208,8 +210,10 @@ namespace YAF.Core.Services.Import
                         continue;
                     }
 
-                    repository.Save(null, importAddress.ToString(), "Imported IP Adress", userId, boardId);
-                    importedCount++;
+                    if (repository.Save(null, importAddress.ToString(), "Imported IP Adress", userId, boardId))
+                    {
+                        importedCount++;
+                    }
                 }
             }
 
@@ -251,8 +255,10 @@ namespace YAF.Core.Services.Import
                         continue;
                     }
 
-                    repository.Save(null, line, "Imported User Name", boardId);
-                    importedCount++;
+                    if (repository.Save(null, line, "Imported User Name", boardId))
+                    {
+                        importedCount++;
+                    }
                 }
             }
 

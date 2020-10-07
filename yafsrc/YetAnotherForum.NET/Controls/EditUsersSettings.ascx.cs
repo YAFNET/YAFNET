@@ -135,12 +135,12 @@ namespace YAF.Controls
             this.LoginInfo.Visible = true;
 
             // End Modifications for enhanced profile
-            this.ForumSettingsRows.Visible = this.Get<BoardSettings>().AllowUserTheme
-                                             || this.Get<BoardSettings>().AllowUserLanguage;
+            this.ForumSettingsRows.Visible = this.PageContext.BoardSettings.AllowUserTheme
+                                             || this.PageContext.BoardSettings.AllowUserLanguage;
 
-            this.UserThemeRow.Visible = this.Get<BoardSettings>().AllowUserTheme;
-            this.UserLanguageRow.Visible = this.Get<BoardSettings>().AllowUserLanguage;
-            this.LoginInfo.Visible = this.Get<BoardSettings>().AllowEmailChange;
+            this.UserThemeRow.Visible = this.PageContext.BoardSettings.AllowUserTheme;
+            this.UserLanguageRow.Visible = this.PageContext.BoardSettings.AllowUserLanguage;
+            this.LoginInfo.Visible = this.PageContext.BoardSettings.AllowEmailChange;
 
             // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
             if (Config.IsDotNetNuke)
@@ -192,9 +192,9 @@ namespace YAF.Controls
 
             // vzrus: We should do it as we need to write null value to db, else it will be empty.
             // Localizer currently treats only nulls.
-            object language = null;
-            object culture = this.Culture.SelectedValue;
-            object theme = this.Theme.SelectedValue;
+            string language = null;
+            var culture = this.Culture.SelectedValue;
+            var theme = this.Theme.SelectedValue;
 
             if (this.Theme.SelectedValue.IsNotSet())
             {
@@ -208,7 +208,7 @@ namespace YAF.Controls
             else
             {
                 StaticDataHelper.Cultures()
-                    .Where(row => culture.ToString() == row.CultureTag).ForEach(
+                    .Where(row => culture == row.CultureTag).ForEach(
                         row => language = row.CultureFile);
             }
 
@@ -259,12 +259,12 @@ namespace YAF.Controls
         {
             this.TimeZones.DataSource = StaticDataHelper.TimeZones();
 
-            if (this.Get<BoardSettings>().AllowUserTheme)
+            if (this.PageContext.BoardSettings.AllowUserTheme)
             {
                 this.Theme.DataSource = StaticDataHelper.Themes();
             }
 
-            if (this.Get<BoardSettings>().AllowUserLanguage)
+            if (this.PageContext.BoardSettings.AllowUserLanguage)
             {
                 this.Culture.DataSource = StaticDataHelper.Cultures();
                 this.Culture.DataValueField = "CultureTag";
@@ -282,11 +282,11 @@ namespace YAF.Controls
                 timeZoneItem.Selected = true;
             }
 
-            if (this.Get<BoardSettings>().AllowUserTheme && this.Theme.Items.Count > 0)
+            if (this.PageContext.BoardSettings.AllowUserTheme && this.Theme.Items.Count > 0)
             {
                 // Allows to use different per-forum themes,
                 // While "Allow User Change Theme" option in the host settings is true
-                var themeFile = this.Get<BoardSettings>().Theme;
+                var themeFile = this.PageContext.BoardSettings.Theme;
 
                 if (this.User.ThemeFile.IsSet())
                 {
@@ -311,11 +311,11 @@ namespace YAF.Controls
             }
 
             this.HideMe.Checked = this.User.UserFlags.IsActiveExcluded
-                                  && (this.Get<BoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
+                                  && (this.PageContext.BoardSettings.AllowUserHideHimself || this.PageContext.IsAdmin);
 
             this.Activity.Checked = this.User.Activity;
 
-            if (!this.Get<BoardSettings>().AllowUserLanguage || this.Culture.Items.Count <= 0)
+            if (!this.PageContext.BoardSettings.AllowUserLanguage || this.Culture.Items.Count <= 0)
             {
                 return;
             }
@@ -341,8 +341,8 @@ namespace YAF.Controls
         private string GetCulture(bool overrideByPageUserCulture)
         {
             // Language and culture
-            var languageFile = this.Get<BoardSettings>().Language;
-            var culture4Tag = this.Get<BoardSettings>().Culture;
+            var languageFile = this.PageContext.BoardSettings.Language;
+            var culture4Tag = this.PageContext.BoardSettings.Culture;
 
             if (overrideByPageUserCulture)
             {

@@ -61,6 +61,41 @@ namespace YAF.Core.Controllers
         /// <returns>
         /// Returns ThankYou Info
         /// </returns>
+        [Route("ThankYou/GetThanks/{messageId}")]
+        [HttpPost]
+        public IHttpActionResult GetThanks([NotNull] int messageId)
+        {
+            var membershipUser = this.Get<IAspNetUsersHelper>().GetUser();
+
+            if (membershipUser == null)
+            {
+                return this.NotFound();
+            }
+
+            var message = this.GetRepository<Message>().GetById(messageId);
+
+            var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
+
+            // if the user is empty, return a null object...
+            return userName.IsNotSet()
+                ? (IHttpActionResult)this.NotFound()
+                : this.Ok(
+                    this.Get<IThankYou>().GetThankYou(
+                        new UnicodeEncoder().XSSEncode(userName),
+                        "BUTTON_THANKSDELETE",
+                        "BUTTON_THANKSDELETE_TT",
+                        messageId));
+        }
+        
+        /// <summary>
+         /// Add Thanks to post
+         /// </summary>
+         /// <param name="messageId">
+         /// The message Id.
+         /// </param>
+         /// <returns>
+         /// Returns ThankYou Info
+         /// </returns>
         [Route("ThankYou/AddThanks/{messageId}")]
         [HttpPost]
         public IHttpActionResult AddThanks([NotNull] int messageId)

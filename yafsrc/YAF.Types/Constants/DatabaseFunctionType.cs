@@ -35,23 +35,8 @@ namespace YAF.Types.Constants
         Query,
 
         /// <summary>
-        ///     The data table.
-        /// </summary>
-        DataTable,
-
-        /// <summary>
-        ///     The data set.
-        /// </summary>
-        DataSet,
-
-        /// <summary>
         ///     The scalar.
         /// </summary>
-        Scalar,
-
-        /// <summary>
-        ///     The reader.
-        /// </summary>
-        Reader
+        Scalar
     }
 }

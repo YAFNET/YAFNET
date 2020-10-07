@@ -31,6 +31,7 @@ namespace YAF.Pages.Account
     using System.Web;
 
     using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -108,7 +109,9 @@ namespace YAF.Pages.Account
                 // tell the provider to update...
                 this.Get<IAspNetUsersHelper>().Update(user);
 
-                this.GetRepository<User>().Approve(userEmail.UserID);
+                this.GetRepository<User>().Approve(userEmail.ID, userEmail.Email);
+
+                this.GetRepository<CheckEmail>().DeleteById(userEmail.ID);
 
                 // Send welcome mail/pm to user
                 this.Get<ISendNotification>().SendUserWelcomeNotification(user, userEmail.UserID);

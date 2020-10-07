@@ -26,7 +26,7 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI.WebControls;
 
@@ -39,6 +39,8 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
+    using YAF.Types.Objects.Model;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
@@ -52,26 +54,35 @@ namespace YAF.Controls
     /// </summary>
     public partial class ForumCategoryList : BaseUserControl
     {
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the data.
+        /// </summary>
+        private Tuple<List<SimpleModerator>, List<ForumRead>> Data { get; set; }
+
+        #endregion
+
         #region Methods
 
         /// <summary>
         /// Gets the Category Image
         /// </summary>
-        /// <param name="row">
-        /// The row.
+        /// <param name="forum">
+        /// The forum.
         /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string GetCategoryImage([NotNull] DataRowView row)
+        public string GetCategoryImage([NotNull] ForumRead forum)
         {
-            var hasCategoryImage = row["CategoryImage"].ToString().IsSet();
+            var hasCategoryImage = forum.CategoryImage.IsSet();
 
             var image = new Image
                             {
                                 ImageUrl =
-                                    $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Categories}/{row["CategoryImage"]}",
-                                AlternateText = row["Name"].ToString()
+                                    $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Categories}/{forum.CategoryImage}",
+                                AlternateText = forum.Category
                             };
 
             var icon = new Icon { IconName = "folder", IconType = "text-warning", IconSize = "fa-2x" };
@@ -94,32 +105,26 @@ namespace YAF.Controls
         {
             var markAll = (ThemeButton)sender;
 
-            int? categoryId = null;
+            var categoryId = markAll.CommandArgument.ToType<int?>();
 
-            if (int.TryParse(markAll.CommandArgument, out var resultId))
-            {
-                categoryId = resultId;
-            }
-
-            var dt = this.GetRepository<Forum>().ListReadAsDataTable(
+            var forums = this.GetRepository<Forum>().ListRead(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,
                 categoryId,
                 null,
-                false,
                 false);
 
             var watchForums = this.GetRepository<WatchForum>().List(this.PageContext.PageUserID);
 
-            dt.AsEnumerable().Select(r => r.Field<int>("ForumID")).ForEach(
-                forumId =>
+            forums.ForEach(
+                forum =>
+                {
+                    if (!watchForums.Any(
+                        w => w.Item1.ForumID == forum.ForumID && w.Item1.UserID == this.PageContext.PageUserID))
                     {
-                        if (!watchForums.Any(
-                                w => w.Item1.ForumID == forumId && w.Item1.UserID == this.PageContext.PageUserID))
-                        {
-                            this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, forumId);
-                        }
-                    });
+                        this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, forum.ForumID);
+                    }
+                });
 
             this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
 
@@ -139,22 +144,16 @@ namespace YAF.Controls
         {
             var markAll = (ThemeButton)sender;
 
-            int? categoryId = null;
+            var categoryId = markAll.CommandArgument.ToType<int?>();
 
-            if (int.TryParse(markAll.CommandArgument, out var resultId))
-            {
-                categoryId = resultId;
-            }
-
-            var dt = this.GetRepository<Forum>().ListReadAsDataTable(
+            var forums = this.GetRepository<Forum>().ListRead(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,
                 categoryId,
                 null,
-                false,
                 false);
 
-            this.Get<IReadTrackCurrentUser>().SetForumRead(dt.AsEnumerable().Select(r => r["ForumID"].ToType<int>()));
+            this.Get<IReadTrackCurrentUser>().SetForumRead(forums.Select(f => f.ForumID));
 
             this.PageContext.AddLoadMessage(this.GetText("MARKALL_MESSAGE"), MessageTypes.success);
 
@@ -176,17 +175,38 @@ namespace YAF.Controls
         }
 
         /// <summary>
+        /// Gets the Forums.
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// Returns the Forums
+        /// </returns>
+        protected Tuple<List<SimpleModerator>, List<ForumRead>> GetForums([NotNull] ForumRead item)
+        {
+            var forums = this.Data;
+
+            return new Tuple<List<SimpleModerator>, List<ForumRead>>(
+                forums.Item1,
+                forums.Item2.Where(forum => forum.CategoryID == item.CategoryID).ToList());
+        }
+
+        /// <summary>
         /// Bind Data
         /// </summary>
         private void BindData()
         {
-            var ds = this.Get<DataBroker>().BoardLayout(
+            this.Data = this.Get<DataBroker>().BoardLayout(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,
                 this.PageContext.PageCategoryID,
                 null);
 
-            this.CategoryList.DataSource = ds.Tables["Category"];
+            // Filter Categories
+            var categories = this.Data.Item2.DistinctBy(x => x.CategoryID).ToList();
+
+            this.CategoryList.DataSource = categories;
             this.CategoryList.DataBind();
         }
 

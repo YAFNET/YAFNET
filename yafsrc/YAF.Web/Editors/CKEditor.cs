@@ -27,7 +27,6 @@ namespace YAF.Web.Editors
 
     using System;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -81,13 +80,13 @@ namespace YAF.Web.Editors
                 BoardContext.Current.PageElements.RegisterJsBlock(
                     "autoUpload",
                     JavaScriptBlocks.FileAutoUploadLoadJs(
-                        this.Get<BoardSettings>().AllowedFileExtensions.Replace(",", "|"),
-                        this.Get<BoardSettings>().MaxFileSize,
+                        this.PageContext.BoardSettings.AllowedFileExtensions.Replace(",", "|"),
+                        this.PageContext.BoardSettings.MaxFileSize,
                         $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
                         this.PageContext.PageForumID,
                         this.PageContext.PageBoardID,
-                        this.Get<BoardSettings>().ImageAttachmentResizeWidth,
-                        this.Get<BoardSettings>().ImageAttachmentResizeHeight,
+                        this.PageContext.BoardSettings.ImageAttachmentResizeWidth,
+                        this.PageContext.BoardSettings.ImageAttachmentResizeHeight,
                         this.TextAreaControl.ClientID));
             }
 

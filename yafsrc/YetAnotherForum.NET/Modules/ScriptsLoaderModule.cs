@@ -105,7 +105,7 @@ namespace YAF.Modules
         private void CurrentForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Load CSS First
-            this.RegisterCssFiles(this.Get<BoardSettings>().CdvVersion);
+            this.RegisterCssFiles(this.PageContext.BoardSettings.CdvVersion);
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace YAF.Modules
                 return;
             }
 
-            var version = this.Get<BoardSettings>().CdvVersion;
+            var version = this.PageContext.BoardSettings.CdvVersion;
 
             var forumJsName = Config.IsDotNetNuke ? "ForumExtensionsDnn" : "ForumExtensions";
             var adminForumJsName = Config.IsDotNetNuke ? "ForumAdminExtensionsDnn" : "ForumAdminExtensions";

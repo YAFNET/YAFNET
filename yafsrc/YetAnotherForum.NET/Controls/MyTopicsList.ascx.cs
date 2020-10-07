@@ -27,12 +27,11 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -42,6 +41,7 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
 
@@ -63,11 +63,6 @@ namespace YAF.Controls
         ///   default since option is "since last visit"
         /// </summary>
         private int sinceValue;
-
-        /// <summary>
-        ///   The Topic List Data Table
-        /// </summary>
-        private DataTable topics;
 
         #endregion
 
@@ -136,17 +131,8 @@ namespace YAF.Controls
                 }
             }
 
-            // filter by category
-            object categoryIdObject = null;
-
-            // is category set?
-            if (this.PageContext.Settings.CategoryID != 0)
-            {
-                categoryIdObject = this.PageContext.Settings.CategoryID;
-            }
-
             // we'll hold topics in this table
-            DataTable topicList = null;
+            List<PagedTopic> topicList = null;
 
             var basePageSize = this.PageSize.SelectedValue.ToType<int>();
 
@@ -163,73 +149,57 @@ namespace YAF.Controls
                 case TopicListMode.Active:
                     this.IconHeader.LocalizedTag = "ActiveTopics";
 
-                    topicList = this.GetRepository<Topic>().ActiveAsDataTable(
-                        this.PageContext.PageBoardID,
-                        categoryIdObject,
+                    topicList = this.GetRepository<Topic>().ListActivePaged(
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
                         currentPageIndex,
                         basePageSize,
-                        this.Get<BoardSettings>().UseStyledNicks,
-                        this.Get<BoardSettings>().UseReadTrackingByDatabase);
+                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Unanswered:
                     this.IconHeader.LocalizedTag = "UnansweredTopics";
 
-                    topicList = this.GetRepository<Topic>().UnansweredAsDataTable(
-                        this.PageContext.PageBoardID,
-                        categoryIdObject,
+                    topicList = this.GetRepository<Topic>().ListUnansweredPaged(
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
                         currentPageIndex,
                         basePageSize,
-                        this.Get<BoardSettings>().UseStyledNicks,
-                        this.Get<BoardSettings>().UseReadTrackingByDatabase);
+                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Unread:
                     this.IconHeader.LocalizedTag = "UnreadTopics";
 
-                    topicList = this.GetRepository<Topic>().UnreadAsDataTable(
-                        this.PageContext.PageBoardID,
-                        categoryIdObject,
+                    topicList = this.GetRepository<Topic>().ListUnreadPaged(
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
                         currentPageIndex,
                         basePageSize,
-                        this.Get<BoardSettings>().UseStyledNicks,
-                        this.Get<BoardSettings>().UseReadTrackingByDatabase);
+                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.User:
                     this.IconHeader.LocalizedTag = "MyTopics";
 
-                    topicList = this.GetRepository<Topic>().ByUserAsDataTable(
-                        this.PageContext.PageBoardID,
-                        categoryIdObject,
+                    topicList = this.GetRepository<Topic>().ListByUserPaged(
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
                         currentPageIndex,
                         basePageSize,
-                        this.Get<BoardSettings>().UseStyledNicks,
-                        this.Get<BoardSettings>().UseReadTrackingByDatabase);
+                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Favorite:
                     this.IconHeader.LocalizedTag = "FavoriteTopics";
 
-                    topicList = this.GetRepository<FavoriteTopic>().Details(
-                        this.PageContext.Settings.CategoryID == 0
-                            ? null
-                            : (int?)this.PageContext.Settings.CategoryID,
+                    topicList = this.GetRepository<FavoriteTopic>().ListPaged(
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
                         currentPageIndex,
                         basePageSize,
-                        this.Get<BoardSettings>().UseStyledNicks,
-                        this.Get<BoardSettings>().UseReadTrackingByDatabase);
+                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
             }
 
@@ -239,35 +209,7 @@ namespace YAF.Controls
                 return;
             }
 
-            if (!topicList.HasRows())
-            {
-                this.PagerTop.Count = 0;
-                this.TopicList.DataSource = null;
-                this.TopicList.DataBind();
-                return;
-            }
-
-            this.topics = topicList;
-
-            var topicsNew = topicList.Copy();
-
-            topicsNew.Rows.Cast<DataRow>()
-                .Where(
-                    thisTableRow => thisTableRow["LastPosted"] != DBNull.Value
-                                    && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate)
-                .ForEach(thisTableRow => thisTableRow.Delete());
-
-            // styled nicks
-            topicsNew.AcceptChanges();
-            if (this.Get<BoardSettings>().UseStyledNicks)
-            {
-                this.Get<IStyleTransform>().DecodeStyleByTable(
-                    topicsNew,
-                    false,
-                    new[] { "LastUserStyle", "StarterStyle" });
-            }
-
-            if (!topicsNew.HasRows())
+            if (!topicList.Any())
             {
                 this.PagerTop.Count = 0;
                 this.TopicList.DataSource = null;
@@ -276,9 +218,9 @@ namespace YAF.Controls
             }
 
             // let's page the results
-            this.PagerTop.Count = topicsNew.HasRows() ? topicsNew.AsEnumerable().First().Field<int>("TotalRows") : 0;
+            this.PagerTop.Count = topicList.FirstOrDefault().TotalRows;
 
-            this.TopicList.DataSource = topicsNew;
+            this.TopicList.DataSource = topicList;
             this.TopicList.DataBind();
 
             // Get new Feeds links
@@ -334,13 +276,15 @@ namespace YAF.Controls
         {
             this.BindData();
 
-            if (this.topics == null || !this.topics.HasRows())
+            if (this.TopicList.Items.Count <= 0)
             {
                 return;
             }
 
-            this.topics.Rows.Cast<DataRow>().ForEach(
-                row => this.Get<IReadTrackCurrentUser>().SetTopicRead(row.Field<int>("TopicID")));
+            this.TopicList.Items.Cast<RepeaterItem>()
+                .Where(item => item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
+                .ForEach(
+                    item => this.Get<IReadTrackCurrentUser>().SetTopicRead(item.DataItem.ToType<PagedTopic>().TopicID));
 
             // Rebind
             this.BindData();
@@ -478,15 +422,15 @@ namespace YAF.Controls
         /// <summary>
         /// The create topic line.
         /// </summary>
-        /// <param name="containerDataItem">
-        /// The container data item.
+        /// <param name="item">
+        /// The item.
         /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        protected string CreateTopicLine(DataRowView containerDataItem)
+        protected string CreateTopicLine(object item)
         {
-            var topicLine = new TopicContainer { DataRow = containerDataItem };
+            var topicLine = new TopicContainer { Item = item as PagedTopic };
 
             return topicLine.RenderToString();
         }
@@ -496,11 +440,11 @@ namespace YAF.Controls
         /// </summary>
         private void BindFeeds()
         {
-            var accessActive = this.Get<IPermissions>().Check(this.Get<BoardSettings>().ActiveTopicFeedAccess);
-            var accessFavorite = this.Get<IPermissions>().Check(this.Get<BoardSettings>().FavoriteTopicFeedAccess);
+            var accessActive = this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ActiveTopicFeedAccess);
+            var accessFavorite = this.Get<IPermissions>().Check(this.PageContext.BoardSettings.FavoriteTopicFeedAccess);
 
             // RSS link setup 
-            if (!this.Get<BoardSettings>().ShowRSSLink)
+            if (!this.PageContext.BoardSettings.ShowRSSLink)
             {
                 return;
             }

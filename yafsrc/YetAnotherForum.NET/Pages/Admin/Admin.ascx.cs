@@ -27,7 +27,6 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
     using System.Data.SqlClient;
     using System.Linq;
     using System.Net.Mail;
@@ -96,7 +95,7 @@ namespace YAF.Pages.Admin
                         var verifyEmail = new TemplateEmail("VERIFYEMAIL");
 
                         var subject = this.Get<ILocalization>()
-                            .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<BoardSettings>().Name);
+                            .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageContext.BoardSettings.Name);
 
                         verifyEmail.TemplateParams["{link}"] = BuildLink.GetLink(
                             ForumPages.Account_Approve,
@@ -104,7 +103,7 @@ namespace YAF.Pages.Admin
                             "code={0}",
                             checkMail.Hash);
                         verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
-                        verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
+                        verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
                         verifyEmail.TemplateParams["{forumlink}"] = BoardInfo.ForumURL;
 
                         verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
@@ -164,8 +163,6 @@ namespace YAF.Pages.Admin
                 case "approveall":
                     this.Get<IAspNetUsersHelper>().ApproveAll();
 
-                    // vzrus: Should delete users from send email list
-                    this.GetRepository<User>().ApproveAll(this.PageContext.PageBoardID);
                     this.BindData();
                     break;
             }
@@ -297,9 +294,13 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindActiveUserData()
         {
-            var activeUsers = this.GetActiveUsersData(true, true);
+            var activeUsers = this.GetRepository<Active>().ListUsers(
+                this.PageContext.PageUserID,
+                true,
+                true,
+                this.PageContext.BoardSettings.ActiveListTime);
 
-            if (activeUsers.HasRows())
+            if (activeUsers.Any())
             {
                 this.PageContext.PageElements.RegisterJsBlock(
                     "ActiveUsersTablesorterLoadJs",
@@ -322,9 +323,6 @@ namespace YAF.Pages.Admin
             }
 
             var boards = this.GetRepository<Board>().GetAll();
-
-            // add row for "all boards" (null value)
-            boards.Insert(0, new Board { ID = -1, Name = this.GetText("ADMIN_ADMIN", "ALL_BOARDS") });
 
             // set data source
             this.BoardStatsSelect.DataSource = boards;
@@ -363,33 +361,33 @@ namespace YAF.Pages.Admin
             }
 
             // get stats for current board, selected board or all boards (see function)
-            var row = this.GetRepository<Board>().Stats(this.GetSelectedBoardId());
+            var data = this.GetRepository<Board>().Stats(this.GetSelectedBoardId());
 
-            this.NumPosts.Text = $"{row["NumPosts"]:N0}";
-            this.NumTopics.Text = $"{row["NumTopics"]:N0}";
-            this.NumUsers.Text = $"{row["NumUsers"]:N0}";
+            this.NumPosts.Text = $"{(int)data.Posts:N0}";
+            this.NumTopics.Text = $"{(int)data.Topics:N0}";
+            this.NumUsers.Text = $"{(int)data.Users:N0}";
 
-            var span = System.DateTime.UtcNow - (System.DateTime)row["BoardStart"];
+            var span = System.DateTime.UtcNow - (System.DateTime)data.BoardStart;
             double days = span.Days;
 
             this.BoardStart.Text = this.Get<IDateTime>().FormatDateTimeTopic(
-                this.Get<BoardSettings>().UseFarsiCalender
-                    ? PersianDateConverter.ToPersianDate((System.DateTime)row["BoardStart"])
-                    : row["BoardStart"]);
+                this.PageContext.BoardSettings.UseFarsiCalender
+                    ? PersianDateConverter.ToPersianDate((System.DateTime)data.BoardStart)
+                    : data.BoardStart);
 
             this.BoardStartAgo.Text = new DisplayDateTime
             {
-                                              DateTime = (System.DateTime)row["BoardStart"], Format = DateTimeFormat.BothTopic
-                                          }.RenderToString();
+                DateTime = (System.DateTime)data.BoardStart, Format = DateTimeFormat.BothTopic
+            }.RenderToString();
 
             if (days < 1)
             {
                 days = 1;
             }
 
-            this.DayPosts.Text = $"{row["NumPosts"].ToType<int>() / days:N2}";
-            this.DayTopics.Text = $"{row["NumTopics"].ToType<int>() / days:N2}";
-            this.DayUsers.Text = $"{row["NumUsers"].ToType<int>() / days:N2}";
+            this.DayPosts.Text = $"{(int)data.Posts / days:N2}";
+            this.DayTopics.Text = $"{(int)data.Topics / days:N2}";
+            this.DayUsers.Text = $"{(int)data.Users / days:N2}";
 
             try
             {
@@ -406,46 +404,17 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Gets active user data Table data for a page user
-        /// </summary>
-        /// <param name="showGuests">
-        /// The show guests.
-        /// </param>
-        /// <param name="showCrawlers">
-        /// The show crawlers.
-        /// </param>
-        /// <returns>
-        /// A DataTable
-        /// </returns>
-        private DataTable GetActiveUsersData(bool showGuests, bool showCrawlers)
-        {
-            var activeUsers = this.GetRepository<Active>()
-                .ListUserAsDataTable(
-                    this.PageContext.PageUserID,
-                    showGuests,
-                    showCrawlers,
-                    this.PageContext.BoardSettings.ActiveListTime,
-                    this.PageContext.BoardSettings.UseStyledNicks);
-
-            return activeUsers;
-        }
-
-        /// <summary>
         /// Gets board ID for which to show statistics.
         /// </summary>
         /// <returns>
         /// Returns ID of selected board (for host admin), ID of current board (for admin), null if all boards is selected.
         /// </returns>
-        private int? GetSelectedBoardId()
+        private int GetSelectedBoardId()
         {
             // check dropdown only if user is host admin
-            if (!this.PageContext.User.UserFlags.IsHostAdmin)
-            {
-                return this.PageContext.PageBoardID;
-            }
-
-            // -1 means all boards are selected
-            return this.BoardStatsSelect.SelectedValue == "-1" ? (int?)null : this.BoardStatsSelect.SelectedValue.ToType<int>();
+            return !this.PageContext.User.UserFlags.IsHostAdmin
+                ? this.PageContext.PageBoardID
+                : this.BoardStatsSelect.SelectedValue.ToType<int>();
         }
 
         #endregion

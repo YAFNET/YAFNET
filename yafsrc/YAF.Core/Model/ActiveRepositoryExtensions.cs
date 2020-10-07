@@ -23,14 +23,16 @@
  */
 namespace YAF.Core.Model
 {
-    using System;
-    using System.Data;
+    using System.Collections.Generic;
+    using System.Linq;
 
+    using ServiceStack.OrmLite;
+
+    using YAF.Core.Context;
     using YAF.Types;
-    using YAF.Types.Extensions.Data;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     ///     The active repository extensions.
@@ -48,69 +50,111 @@ namespace YAF.Core.Model
         /// <param name="forumId">
         /// The forum Id.
         /// </param>
-        /// <param name="styledNicks">
-        /// The styled nicks.
-        /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/> .
+        /// The <see cref="List"/>.
         /// </returns>
-        public static DataTable ListForum(this IRepository<Active> repository, int forumId, bool styledNicks)
+        public static List<dynamic> ListForum(this IRepository<Active> repository, [NotNull] int forumId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-           /* var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
-
-            expression.Join<User>((a, u) => u.ID == a.UserID).Where(a => a.ForumID == forumId).Select<Active, User>(
-                (a, b) => new
-                {
-                    UserID = a.UserID,
-                    UserName = b.Name,
-                    UserDisplayName = b.DisplayName,
-                    IsHidden = b.IsActiveExcluded,
-                    IsCrawler = a.Flags & 8,
-                    Style = styledNicks ? b.UserStyle : string.Empty,
-                    b.Suspended,
-                    UserCount = (SELECT COUNT(ac.UserID) from
-                     [{ databaseOwner}].[{ objectQualifier}
-         Active] ac where ac.UserID = a.UserID and ac.ForumID = @ForumID),
-                    Browser = a.Browser
-                }).GroupBy<Active, User>(
-                (a, b) => new
-                {
-                    a.UserID,
-                    b.DisplayName,
-                    b.Name,
-                    b.IsActiveExcluded,
-                    b.ID,
-                    b.UserStyle,
-                    b.Suspended,
-                    a.Flags,
-                    a.Browser
-                }).OrderBy<User>(u => u.Name);
-
             return repository.DbAccess.Execute(
-                db => db.Connection
-                    .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string
-                        SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags,
-                        DateTime DateAwarded)>(expression));*/
+                db =>
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
 
-            return repository.DbFunction.GetData.active_listforum(ForumID: forumId, StyledNicks: styledNicks);
+                    var countExpression = db.Connection.From<Active>(db.Connection.TableAlias("ac"));
+                    countExpression.Where(
+                        $@"ac.{countExpression.Column<Active>(ac => ac.UserID)}={expression.Column<Active>(a => a.UserID, true)}
+                                    and ac.{countExpression.Column<Active>(ac => ac.ForumID)}={forumId}");
+                    var countSql = countExpression.Select(Sql.Count($"{countExpression.Column<Active>(x => x.UserID)}"))
+                        .ToSelectStatement();
+
+                    expression.Join<User>((a, u) => u.ID == a.UserID).Where(a => a.ForumID == forumId)
+                        .Select<Active, User>(
+                            (a, b) => new
+                            {
+                                a.UserID,
+                                UserName = b.Name,
+                                UserDisplayName = b.DisplayName,
+                                b.IsActiveExcluded,
+                                IsCrawler = a.Flags & 8,
+                                b.UserStyle,
+                                b.Suspended,
+                                UserCount = Sql.Custom($"({countSql})"),
+                                a.Browser
+                            }).GroupBy<Active, User>(
+                            (a, u) => new
+                            {
+                                a.UserID,
+                                u.DisplayName,
+                                u.Name,
+                                u.IsActiveExcluded,
+                                u.ID,
+                                u.UserStyle,
+                                u.Suspended,
+                                a.Flags,
+                                a.Browser
+                            }).OrderBy<User>(u => u.Name);
+
+                    return db.Connection.Select<object>(expression);
+                });
         }
 
         /// <summary>
         /// Lists the topic.
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="topicID">The topic id.</param>
-        /// <param name="styledNicks">The styled nicks.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
         /// <returns>
-        /// The <see cref="DataTable" /> .
+        /// The <see cref="List"/>.
         /// </returns>
-        public static DataTable ListTopic(this IRepository<Active> repository, int topicID, bool styledNicks)
+        public static List<dynamic> ListTopic(this IRepository<Active> repository, [NotNull] int topicId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbFunction.GetData.active_listtopic(TopicID: topicID, StyledNicks: styledNicks);
+            return repository.DbAccess.Execute(db =>
+            {
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
+
+                var countExpression = db.Connection.From<Active>(db.Connection.TableAlias("ac"));
+                countExpression.Where(
+                    $@"ac.{countExpression.Column<Active>(ac => ac.UserID)}={expression.Column<Active>(a => a.UserID, true)}
+                                    and ac.{countExpression.Column<Active>(ac => ac.TopicID)}={topicId}");
+                var countSql = countExpression.Select(Sql.Count($"{countExpression.Column<Active>(x => x.UserID)}"))
+                    .ToSelectStatement();
+
+                expression.Join<User>((a, u) => u.ID == a.UserID).Where(a => a.TopicID == topicId).Select<Active, User>(
+                    (a, b) => new
+                    {
+                        a.UserID,
+                        UserName = b.Name,
+                        UserDisplayName = b.DisplayName,
+                        b.IsActiveExcluded,
+                        IsCrawler = a.Flags & 8,
+                        b.UserStyle,
+                        b.Suspended,
+                        UserCount = Sql.Custom($"({countSql})"),
+                        a.Browser
+                    }).GroupBy<Active, User>(
+                    (a, u) => new
+                    {
+                        a.UserID,
+                        u.DisplayName,
+                        u.Name,
+                        u.IsActiveExcluded,
+                        u.ID,
+                        u.UserStyle,
+                        u.Suspended,
+                        a.Flags,
+                        a.Browser
+                    }).OrderBy<User>(u => u.Name);
+
+                return db.Connection.Select<object>(expression);
+            });
         }
 
         /// <summary>
@@ -119,8 +163,8 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository. 
         /// </param>
-        /// <param name="guests">
-        /// The guests. 
+        /// <param name="showGuests">
+        /// The show Guests.
         /// </param>
         /// <param name="showCrawlers">
         /// The show crawlers. 
@@ -128,65 +172,207 @@ namespace YAF.Core.Model
         /// <param name="activeTime">
         /// The active time. 
         /// </param>
-        /// <param name="styledNicks">
-        /// The styled nicks. 
-        /// </param>
         /// <param name="boardId">
         /// The board Id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/> . 
+        /// The <see cref="List"/>.
         /// </returns>
-        public static DataTable ListAsDataTable(
+        public static List<dynamic> List(
             this IRepository<Active> repository,
-            bool guests,
-            bool showCrawlers,
-            int activeTime,
-            bool styledNicks,
-            int? boardId = null)
+            [NotNull] bool showGuests,
+            [NotNull] bool showCrawlers,
+            [NotNull] int activeTime,
+            [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbFunction.GetData.active_list(
-                BoardID: boardId ?? repository.BoardID,
-                Guests: guests,
-                ShowCrawlers: showCrawlers,
-                ActiveTime: activeTime,
-                StyledNicks: styledNicks,
-                UTCTIMESTAMP: DateTime.UtcNow);
+            repository.DeleteActive(activeTime);
+
+            // -- we don't delete guest access
+            BoardContext.Current.GetRepository<ActiveAccess>().Delete(activeTime);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            return repository.DbAccess.Execute(
+                db =>
+                {
+                    expression.Join<Rank>((u, r) => r.ID == u.RankID).Join<Active>((u, a) => a.UserID == u.ID);
+
+                    if (showGuests)
+                    {
+                        expression.Where<User, Active>(
+                            (u, a) => a.BoardID == (boardId ?? repository.BoardID));
+                    }
+                    else
+                    {
+                        if (showCrawlers)
+                        {
+                            expression.Where<User, Active>(
+                                (u, a) => a.BoardID == (boardId ?? repository.BoardID) &&
+                                          ((u.Flags & 4) == 4 || (u.Flags & 8) == 8));
+                        }
+                        else
+                        {
+                            expression.Where<User, Active>(
+                                (u, a) => a.BoardID == (boardId ?? repository.BoardID) && u.IsGuest == false);
+                        }
+                    }
+
+                    expression.OrderByDescending<Active>(a => a.LastActive);
+
+                    var forumExpression = db.Connection.From<Forum>(db.Connection.TableAlias("f"));
+                    forumExpression.Where(
+                        $"f.{forumExpression.Column<Forum>(f => f.ID)}={expression.Column<Active>(a => a.ForumID, true)}");
+                    var forumSql = forumExpression.Select($"{forumExpression.Column<Forum>(x => x.Name)}")
+                        .ToSelectStatement();
+
+                    var topicExpression = db.Connection.From<Topic>(db.Connection.TableAlias("t"));
+                    topicExpression.Where(
+                        $"t.{topicExpression.Column<Topic>(f => f.ID)}={expression.Column<Active>(a => a.TopicID, true)}");
+                    var topicSql = topicExpression
+                        .Select($"{topicExpression.Column<Topic>(x => x.TopicName)}").ToSelectStatement();
+
+                    expression.Select<User, Rank, Active>(
+                        (u, r, a) => new
+                        {
+                            a.UserID,
+                            UserName = u.Name,
+                            UserDisplayName = u.DisplayName,
+                            a.IP,
+                            a.SessionID,
+                            a.ForumID,
+                            a.TopicID,
+                            ForumName = Sql.Custom($"({forumSql})"),
+                            TopicName = Sql.Custom($"({topicSql})"),
+                            u.IsGuest,
+                            IsCrawler = a.Flags & 8,
+                            u.IsActiveExcluded,
+                            u.UserStyle,
+                            u.Suspended,
+                            UserCount = 1,
+                            a.Login,
+                            a.LastActive,
+                            a.Location,
+                            Active = Sql.Custom(
+                                $"DATEDIFF(minute,{expression.Column<Active>(x => x.Login, true)}, {expression.Column<Active>(x => x.LastActive, true)})"),
+                            a.Browser,
+                            a.Platform,
+                            a.ForumPage
+                        });
+
+                    return db.Connection.Select<dynamic>(expression);
+                });
         }
 
         /// <summary>
         /// Lists the active user.
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userID">The user id.</param>
-        /// <param name="guests">The guests.</param>
-        /// <param name="showCrawlers">The show crawlers.</param>
-        /// <param name="activeTime">The active time.</param>
-        /// <param name="styledNicks">The styled nicks.</param>
-        /// <param name="boardId">The board Id.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="showGuests">
+        /// The show Guests.
+        /// </param>
+        /// <param name="showCrawlers">
+        /// The show crawlers.
+        /// </param>
+        /// <param name="activeTime">
+        /// The active time.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
         /// <returns>
-        /// The <see cref="DataTable" /> .
+        /// The <see cref="List"/>.
         /// </returns>
-        public static DataTable ListUserAsDataTable(
+        public static List<dynamic> ListUsers(
             this IRepository<Active> repository,
-            int userID,
-            bool guests,
-            bool showCrawlers,
-            int activeTime,
-            bool styledNicks,
-            int? boardId = null)
+            [NotNull] int userId,
+            [NotNull] bool showGuests,
+            [NotNull] bool showCrawlers,
+            [NotNull] int activeTime,
+            [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbFunction.GetData.active_list_user(
-                BoardID: boardId ?? repository.BoardID,
-                UserID: userID,
-                Guests: guests,
-                ShowCrawlers: showCrawlers,
-                ActiveTime: activeTime,
-                StyledNicks: styledNicks);
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            return repository.DbAccess.Execute(
+                db =>
+                {
+                    expression.Join<Rank>((u, r) => r.ID == u.RankID)
+                        .Join<Active>((u, a) => a.UserID == u.ID)
+                        .Join<Active, ActiveAccess>((a, x) => x.ForumID == (a.ForumID != null ? a.ForumID : 0));
+
+                    if (showGuests)
+                    {
+                        expression.Where<User, Active, ActiveAccess>(
+                            (u, a, x) => a.BoardID == (boardId ?? repository.BoardID) && x.UserID == userId);
+                    }
+                    else
+                    {
+                        if (showCrawlers)
+                        {
+                            expression.Where<User, Active, ActiveAccess>(
+                                (u, a, x) => a.BoardID == (boardId ?? repository.BoardID) &&
+                                          ((u.Flags & 4) == 4 || (u.Flags & 8) == 8) && x.UserID == userId);
+                        }
+                        else
+                        {
+                            expression.Where<User, Active, ActiveAccess>(
+                                (u, a, x) => a.BoardID == (boardId ?? repository.BoardID) && u.IsGuest == false && x.UserID == userId);
+                        }
+                    }
+
+                    expression.OrderByDescending<Active>(a => a.LastActive);
+
+                    var forumExpression = db.Connection.From<Forum>(db.Connection.TableAlias("f"));
+                    forumExpression.Where(
+                        $"f.{forumExpression.Column<Forum>(f => f.ID)}={expression.Column<Active>(a => a.ForumID, true)}");
+                    var forumSql = forumExpression.Select(Sql.Count($"{forumExpression.Column<Forum>(x => x.Name)}"))
+                        .ToSelectStatement();
+
+                    var topicExpression = db.Connection.From<Topic>(db.Connection.TableAlias("t"));
+                    topicExpression.Where(
+                        $"t.{topicExpression.Column<Topic>(f => f.ID)}={expression.Column<Active>(a => a.TopicID, true)}");
+                    var topicSql = topicExpression
+                        .Select(Sql.Count($"{topicExpression.Column<Topic>(x => x.TopicName)}")).ToSelectStatement();
+
+                    expression.Select<User, Rank, Active, ActiveAccess>(
+                        (u, r, a, x) => new
+                        {
+                            a.UserID,
+                            UserName = u.Name,
+                            UserDisplayName = u.DisplayName,
+                            a.IP,
+                            a.SessionID,
+                            a.ForumID,
+                            HasForumAccess = x.ReadAccess,
+                            a.TopicID,
+                            ForumName = Sql.Custom($"({forumSql})"),
+                            TopicName = Sql.Custom($"({topicSql})"),
+                            u.IsGuest,
+                            IsCrawler = a.Flags & 8,
+                            u.IsActiveExcluded,
+                            u.UserStyle,
+                            u.Suspended,
+                            UserCount = 1,
+                            a.Login,
+                            a.LastActive,
+                            a.Location,
+                            Active = Sql.Custom(
+                                $"DATEDIFF(minute,{expression.Column<Active>(ac => ac.Login, true)}, {expression.Column<Active>(ac => ac.LastActive, true)})"),
+                            a.Browser,
+                            a.Platform,
+                            ForumPage = a.ForumPage == null ? "MAINPAGE" : a.ForumPage
+                        });
+
+                    return db.Connection.Select<dynamic>(expression);
+                });
         }
 
         /// <summary>
@@ -199,31 +385,89 @@ namespace YAF.Core.Model
         /// The board Id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/> . 
+        /// The <see cref="dynamic"/>.
         /// </returns>
-        public static DataRow Stats(this IRepository<Active> repository, int? boardId = null)
+        public static dynamic Stats(this IRepository<Active> repository, int boardId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbFunction.GetAsDataTable(
-                f => f.active_stats(BoardID: boardId ?? repository.BoardID)).GetFirstRow();
+            return repository.DbAccess.Execute(
+                db =>
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
+
+                    expression.Join<User>((x, u) => u.ID == x.UserID);
+
+                    expression.Where<User>(
+                        u => u.BoardID == boardId && u.IsActiveExcluded == false);
+
+                    // -- count Members
+                    var countMembersExpression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
+
+                    countMembersExpression.Join<User>((x, u) => u.ID == x.UserID);
+
+                    countMembersExpression.Where<Active, User>(
+                        (x, u) => x.BoardID == boardId && u.IsActiveExcluded == false && u.IsApproved == true);
+
+                    var countMembersSql = countMembersExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
+
+                    // -- count Guests
+                    var countGuestsExpression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
+
+                    countGuestsExpression.Join<User>((x, u) => u.ID == x.UserID);
+
+                    countGuestsExpression.Where<Active, User>(
+                        (x, u) => x.BoardID == boardId && u.IsGuest == true);
+
+                    var countGuestsSql = countMembersExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
+
+                    // -- count Hidden
+                    var countHiddenExpression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
+
+                    countHiddenExpression.Join<User>((x, u) => u.ID == x.UserID);
+
+                    countHiddenExpression.Where<Active, User>(
+                        (x, u) => x.BoardID == boardId && u.IsApproved == true && u.IsActiveExcluded == true);
+
+                    var countHiddenSql = countHiddenExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
+
+                    expression.Select<Active>(
+                        x => new
+                        {
+                            ActiveUsers = Sql.Count("1"),
+                            ActiveMembers = Sql.Custom($"({countMembersSql})"),
+                            ActiveGuests = Sql.Custom($"({countGuestsSql})"),
+                            ActiveHidden = Sql.Custom($"({countHiddenSql})")
+                        });
+
+                    return db.Connection.Select<dynamic>(expression);
+                }).FirstOrDefault();
         }
 
         /// <summary>
-        /// Updates the maximum stats.
+        /// Delete all old
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="boardId">The board Id.</param>
-        /// <returns>
-        /// The <see cref="DataTable" /> .
-        /// </returns>
-        public static DataTable UpdateMaxStats(this IRepository<Active> repository, int? boardId = null)
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="activeTime">
+        /// The active Time.
+        /// </param>
+        private static void DeleteActive(
+            this IRepository<Active> repository,
+            [NotNull] int activeTime)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbFunction.GetData.active_updatemaxstats(
-                BoardID: boardId ?? repository.BoardID,
-                UTCTIMESTAMP: DateTime.UtcNow);
+            repository.DbAccess.Execute(db =>
+            {
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
+
+                expression.Where(
+                    $"DATEDIFF(minute, {expression.Column<Active>(x => x.LastActive, true)}, GETUTCDATE()) > {activeTime}");
+
+                return db.Connection.Delete(expression);
+            });
         }
 
         #endregion

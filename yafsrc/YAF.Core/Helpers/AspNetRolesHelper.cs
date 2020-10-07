@@ -28,7 +28,6 @@ namespace YAF.Core.Helpers
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -123,11 +122,11 @@ namespace YAF.Core.Helpers
         /// </returns>
         public int? CreateForumUser([NotNull] AspNetUsers user, [NotNull] string displayName, int pageBoardID)
         {
-            int? userID = null;
+            int? userId = null;
 
             try
             {
-                userID = this.GetRepository<User>().AspNet(
+                userId = this.GetRepository<User>().AspNet(
                     pageBoardID,
                     user.UserName,
                     displayName,
@@ -136,14 +135,14 @@ namespace YAF.Core.Helpers
                     user.IsApproved);
 
                 this.Get<IAspNetRolesHelper>().GetRolesForUser(user).ForEach(
-                    role => this.GetRepository<User>().SetRole(pageBoardID, user.Id, role));
+                    role => this.GetRepository<UserGroup>().SetRole(pageBoardID, userId.Value, role));
             }
             catch (Exception x)
             {
                 this.Get<ILogger>().Error(x, "Error in CreateForumUser");
             }
 
-            return userID;
+            return userId;
         }
 
         /// <summary>
@@ -241,17 +240,21 @@ namespace YAF.Core.Helpers
         }
 
         /// <summary>
-        /// Groups the in group table.
+        /// Is Member of Group.
         /// </summary>
-        /// <param name="groupName">The group name.</param>
-        /// <param name="groupTable">The group table.</param>
+        /// <param name="groupName">
+        /// The group name.
+        /// </param>
+        /// <param name="memberGroups">
+        /// The member Groups.
+        /// </param>
         /// <returns>
-        /// The group in group table.
+        /// The <see cref="bool"/>.
         /// </returns>
-        public bool GroupInGroupTable([NotNull] string groupName, [NotNull] DataTable groupTable)
+        public bool IsMemberOfGroup([NotNull] string groupName, [NotNull] List<dynamic> memberGroups)
         {
-            return groupTable.AsEnumerable().Any(
-                row => row["Member"].ToType<int>() == 1 && row["Name"].ToType<string>() == groupName);
+            return memberGroups.Any(
+                row => (int)row.Member == 1 && row.Name == groupName);
         }
 
         /// <summary>
@@ -397,7 +400,7 @@ namespace YAF.Core.Helpers
                 user.IsApproved);
 
             // get user groups...
-            var groupTable = this.GetRepository<Group>().MemberAsDataTable(pageBoardID, userId);
+            var groupsMember = this.GetRepository<Group>().Member(pageBoardID, userId);
             var userRoles = this.Get<IAspNetRolesHelper>().GetRolesForUser(user);
 
             if (Config.IsDotNetNuke && roles != null)
@@ -414,12 +417,12 @@ namespace YAF.Core.Helpers
             }
 
             // add groups...
-            userRoles.Where(role => !this.Get<IAspNetRolesHelper>().GroupInGroupTable(role, groupTable)).ForEach(
-                role => this.GetRepository<User>().SetRole(pageBoardID, user.Id, role));
+            userRoles.Where(role => !this.Get<IAspNetRolesHelper>().IsMemberOfGroup(role, groupsMember)).ForEach(
+                role => this.GetRepository<UserGroup>().SetRole(pageBoardID, userId, role));
 
             // remove groups...remove since there is no longer an association in the membership...
-            groupTable.AsEnumerable().Where(row => !userRoles.Contains(row["Name"].ToString())).ForEach(
-                row => this.GetRepository<UserGroup>().Save(userId, row["GroupID"].ToType<int>(), 0));
+            groupsMember.Where(row => !userRoles.Contains((string)row.Name)).ForEach(
+                row => this.GetRepository<UserGroup>().Remove(userId, (int)row.GroupID));
 
             if (!isNewUser || userId <= 0)
             {

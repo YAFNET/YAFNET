@@ -30,7 +30,6 @@ namespace YAF.Pages.Admin
     using System.Globalization;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BasePages;
     using YAF.Core.Utilities;
@@ -83,7 +82,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.Get<BoardSettings>().Name, BuildLink.GetLink(ForumPages.Board));
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.Board));
             this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_TITLE"), string.Empty);
 
@@ -119,7 +118,7 @@ namespace YAF.Pages.Admin
                     _ => boardAnnouncementUntil
                 };
 
-            var boardSettings = this.Get<BoardSettings>();
+            var boardSettings = this.PageContext.BoardSettings;
 
             boardSettings.BoardAnnouncementUntil = boardAnnouncementUntil.ToString(CultureInfo.InvariantCulture);
             boardSettings.BoardAnnouncement = this.Message.Text;
@@ -145,7 +144,7 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void DeleteClick(object sender, EventArgs e)
         {
-            var boardSettings = this.Get<BoardSettings>();
+            var boardSettings = this.PageContext.BoardSettings;
 
             boardSettings.BoardAnnouncementUntil = DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
             boardSettings.BoardAnnouncement = this.Message.Text;
@@ -165,7 +164,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            var boardSettings = this.Get<BoardSettings>();
+            var boardSettings = this.PageContext.BoardSettings;
 
             // add items to the dropdown
             this.BoardAnnouncementUntilUnit.Items.Add(new ListItem(this.GetText("PROFILE", "MONTH"), "3"));

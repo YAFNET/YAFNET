@@ -25,13 +25,11 @@ namespace YAF.Utils
 {
     #region Using
 
-    using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
 
+    using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
 
     #endregion
 
@@ -40,141 +38,22 @@ namespace YAF.Utils
     /// </summary>
     public class StyleTransform : IStyleTransform
     {
-        #region Public Methods
-
-        /// <summary>
-        /// The decode style by row.
-        /// </summary>
-        /// <param name="dr">
-        /// The dr.
-        /// </param>
-        /// <param name="columnName">
-        /// the style column name
-        /// </param>
-        /// <param name="colorOnly">
-        /// The color only.
-        /// </param>
-        public void DecodeStyleByRow(DataRow dr, string columnName = "Style", bool colorOnly = false)
-        {
-            dr[columnName] = this.DecodeStyleByString(dr[columnName].ToString(), colorOnly);
-        }
-
-        /// <summary>
-        /// The decode style Group
-        /// </summary>
-        /// <param name="group">
-        /// The group.
-        /// </param>
-        /// <param name="colorOnly">
-        /// The color only.
-        /// </param>
-        public void DecodeStyleByGroup(Group group, bool colorOnly = false)
-        {
-            if (group.Style.IsSet())
-            {
-                group.Style = this.DecodeStyleByString(group.Style, colorOnly);
-            }
-        }
-
-        /// <summary>
-        /// The decode style User
-        /// </summary>
-        /// <param name="user">
-        /// The User
-        /// </param>
-        /// <param name="colorOnly">
-        /// The color only.
-        /// </param>
-        public void DecodeStyleByUser(User user, bool colorOnly = false)
-        {
-            if (user.UserStyle.IsSet())
-            {
-                user.UserStyle = this.DecodeStyleByString(user.UserStyle, colorOnly);
-            }
-        }
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IStyleTransform
-
         /// <summary>
         /// Decode Style by String
         /// </summary>
         /// <param name="style">The style string.</param>
-        /// <param name="colorOnly">The color only.</param>
         /// <returns>
         /// The decode style by string.
         /// </returns>
-        public string DecodeStyleByString(string style, bool colorOnly = false)
+        public string Decode([NotNull] string style)
         {
             var styleRow = style.Trim().Split('/');
 
             styleRow.Select(s => s.Split('!')).Where(x => x.Length > 1).ForEach(
-                pair => style = colorOnly ? GetColorOnly(pair[1]) : pair[1]);
-            
+                pair => style = GetColorOnly(pair[1]));
+
             return style;
         }
-
-        /// <summary>
-        /// The decode style by table.
-        /// </summary>
-        /// <param name="dt">
-        /// The dt.
-        /// </param>
-        /// <param name="colorOnly">
-        /// The color only.
-        /// </param>
-        /// <param name="styleColumns">
-        /// The styleColumns can contain param array to handle several style columns.
-        /// </param>
-        public void DecodeStyleByTable(DataTable dt, bool colorOnly = false, string[] styleColumns = null)
-        {
-            styleColumns ??= new[] { "Style" };
-
-            dt.Rows.Cast<DataRow>().ForEach(
-                row => styleColumns.ForEach(
-                    t =>
-                        {
-                            var dr = row;
-                            this.DecodeStyleByRow(dr, t, colorOnly);
-                        }));
-        }
-
-        /// <summary>
-        /// Decode Groups Styles
-        /// </summary>
-        /// <param name="list">
-        /// The list.
-        /// </param>
-        /// <param name="colorOnly">
-        /// The color only.
-        /// </param>
-        public void DecodeStyleByGroupList(List<Group> list, bool colorOnly = false)
-        {
-            list.ForEach(group => this.DecodeStyleByGroup(group, colorOnly));
-        }
-
-        /// <summary>
-        /// Decode User Styles
-        /// </summary>
-        /// <param name="list">
-        /// The list.
-        /// </param>
-        /// <param name="colorOnly">
-        /// The color only.
-        /// </param>
-        public void DecodeStyleByUserList(List<User> list, bool colorOnly = false)
-        {
-            list.ForEach(user => this.DecodeStyleByUser(user, colorOnly));
-        }
-
-        #endregion
-
-        #endregion
-
-        #region Methods
 
         /// <summary>
         /// Gets the color only
@@ -190,7 +69,5 @@ namespace YAF.Utils
             var styleArray = styleString.Split(';');
             return styleArray.FirstOrDefault(t => t.ToLower().Contains("color"));
         }
-
-        #endregion
     }
 }

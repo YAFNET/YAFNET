@@ -24,9 +24,6 @@
 
 namespace YAF.Types.Interfaces
 {
-    using System.Collections.Generic;
-    using System.Data;
-
     using YAF.Types.Objects;
 
     /// <summary>
@@ -60,6 +57,31 @@ namespace YAF.Types.Interfaces
             int messageId);
 
         /// <summary>
+        /// Creates an instance of the thank you object from the current information.
+        /// </summary>
+        /// <param name="username">
+        /// The Current Username
+        /// </param>
+        /// <param name="textTag">
+        /// Button Text
+        /// </param>
+        /// <param name="titleTag">
+        /// Button  Title
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <returns>
+        /// Returns ThankYou Info
+        /// </returns>
+        [NotNull]
+        ThankYouInfo GetThankYou(
+            [NotNull] string username,
+            [NotNull] string textTag,
+            [NotNull] string titleTag,
+            int messageId);
+
+        /// <summary>
         /// This method returns a string which shows how many times users have
         ///   thanked the message with the provided messageID. Returns an empty string.
         /// </summary>
@@ -69,15 +91,12 @@ namespace YAF.Types.Interfaces
         /// <param name="messageID">
         /// The Message ID.
         /// </param>
+        /// <param name="thanksInfoOnly">
+        /// The thank Info Only.
+        /// </param>
         /// <returns>
-        /// The thanks number.
+        /// The thanks info.
         /// </returns>
-        string ThanksInfo([NotNull] string username, int messageID);
-
-        /// <summary>
-        ///     Adds the Thanks info to a dataTable
-        /// </summary>
-        /// <param name="dataRows"> The data Rows. </param>
-        void AddThanksInfo(IEnumerable<DataRow> dataRows);
+        string ThanksInfo([NotNull] string username, int messageID, bool thanksInfoOnly);
     }
 }

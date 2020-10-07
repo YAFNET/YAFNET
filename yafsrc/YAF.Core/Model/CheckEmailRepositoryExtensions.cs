@@ -25,8 +25,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
-
+    
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -100,7 +99,7 @@ namespace YAF.Core.Model
         /// The hash.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="CheckEmail"/>.
         /// </returns>
         public static CheckEmail Update(this IRepository<CheckEmail> repository, [NotNull] string hash)
         {

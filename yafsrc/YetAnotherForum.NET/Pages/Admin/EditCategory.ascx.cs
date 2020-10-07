@@ -27,7 +27,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web;
@@ -42,6 +42,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
@@ -74,35 +75,29 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The create images data table.
+        /// create images List.
         /// </summary>
-        protected void CreateImagesDataTable()
+        protected void CreateImagesList()
         {
-            using (var dt = new DataTable("Files"))
+            var list = new List<NamedParameter>
             {
-                dt.Columns.Add("FileName", typeof(string));
-                dt.Columns.Add("Description", typeof(string));
-                
-                var dr = dt.NewRow();
-                dr["FileName"] =
-                    $"{BoardInfo.ForumClientFileRoot}Content/images/spacer.gif"; // use spacer.gif for Description Entry
-                dr["Description"] = "None";
-                dt.Rows.Add(dr);
+                new NamedParameter(this.GetText("COMMON", "NONE"), BoardInfo.GetURLToContent("images/spacer.gif"))
+            };
 
-                var dir = new DirectoryInfo(
-                    this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Categories}"));
-                if (dir.Exists)
-                {
-                    var files = dir.GetFiles("*.*");
+            var dir = new DirectoryInfo(
+                this.Get<HttpRequestBase>()
+                    .MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Categories}"));
+            if (dir.Exists)
+            {
+                var files = dir.GetFiles("*.*").ToList();
 
-                    dt.AddImageFiles(files, BoardFolders.Current.Categories);
-                }
-
-                this.CategoryImages.DataSource = dt;
-                this.CategoryImages.DataValueField = "FileName";
-                this.CategoryImages.DataTextField = "Description";
-                this.CategoryImages.DataBind();
+                list.AddImageFiles(files, BoardFolders.Current.Categories);
             }
+
+            this.CategoryImages.DataSource = list;
+            this.CategoryImages.DataValueField = "Value";
+            this.CategoryImages.DataTextField = "Name";
+            this.CategoryImages.DataBind();
         }
 
         /// <summary>
@@ -121,8 +116,8 @@ namespace YAF.Pages.Admin
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
 
-            // Populate Category Table
-            this.CreateImagesDataTable();
+            // Populate Categories
+            this.CreateImagesList();
 
             this.BindData();
         }

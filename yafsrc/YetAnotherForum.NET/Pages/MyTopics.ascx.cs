@@ -27,7 +27,6 @@ namespace YAF.Pages
 
     using System;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -163,8 +162,8 @@ namespace YAF.Pages
                 return;
             }
 
-            this.UnreadTopicsTabTitle.Visible = this.Get<BoardSettings>().UseReadTrackingByDatabase;
-            this.UnreadTopicsTabContent.Visible = this.Get<BoardSettings>().UseReadTrackingByDatabase;
+            this.UnreadTopicsTabTitle.Visible = this.PageContext.BoardSettings.UseReadTrackingByDatabase;
+            this.UnreadTopicsTabContent.Visible = this.PageContext.BoardSettings.UseReadTrackingByDatabase;
         }
 
         /// <summary>

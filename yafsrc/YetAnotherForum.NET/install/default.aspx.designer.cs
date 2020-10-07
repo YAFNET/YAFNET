@@ -771,24 +771,6 @@ namespace YAF.Install
         protected global::System.Web.UI.WebControls.TextBox TheForumName;
 
         /// <summary>
-        /// Label6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label6;
-
-        /// <summary>
-        /// TimeZones control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList TimeZones;
-
-        /// <summary>
         /// Label7 control.
         /// </summary>
         /// <remarks>

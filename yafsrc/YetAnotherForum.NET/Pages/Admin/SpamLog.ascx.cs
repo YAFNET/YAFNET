@@ -27,23 +27,21 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
     using System.Globalization;
     using System.Linq;
     using System.Web.UI.WebControls;
 
     using FarsiLibrary.Utils;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects.Model;
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
@@ -68,43 +66,6 @@ namespace YAF.Pages.Admin
 
             // re-bind controls
             this.BindData();
-        }
-
-        /// <summary>
-        /// Gets HTML IMG code representing given log event icon.
-        /// </summary>
-        /// <param name="dataRow">
-        /// Data row containing event log entry data.
-        /// </param>
-        /// <returns>
-        /// return HTML code of event log entry image
-        /// </returns>
-        protected string EventCssClass([NotNull] object dataRow)
-        {
-            // cast object to the DataRowView
-            var row = (DataRowView)dataRow;
-
-            string cssClass;
-
-            try
-            {
-                // find out of what type event log entry is
-                var eventType = row["Type"].ToEnum<EventLogTypes>();
-
-                cssClass = eventType switch
-                    {
-                        EventLogTypes.Error => "danger",
-                        EventLogTypes.Warning => "warning",
-                        EventLogTypes.Information => "info",
-                        _ => "active"
-                    };
-            }
-            catch (Exception)
-            {
-                return "active";
-            }
-
-            return cssClass;
         }
 
         /// <summary>
@@ -163,14 +124,14 @@ namespace YAF.Pages.Admin
 
             var ci = this.Get<ILocalization>().Culture;
 
-            if (this.Get<BoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+            if (this.PageContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
             {
                 this.SinceDate.Text = PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
                 this.ToDate.Text = PersianDateConverter.ToPersianDate(PersianDate.Now).ToString("d");
             }
             else
             {
-                this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.Get<BoardSettings>().EventLogMaxDays).ToString(
+                this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.PageContext.BoardSettings.EventLogMaxDays).ToString(
                                              ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
                 this.ToDate.Text = DateTime.UtcNow.Date.ToString(
                                              ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
@@ -235,25 +196,20 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Renders the UserLink
         /// </summary>
-        /// <param name="dataRow">The data row.</param>
-        /// <returns></returns>
-        protected string UserLink([NotNull] object dataRow)
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected string UserLink([NotNull] PagedEventLog item)
         {
-            // cast object to the DataRowView
-            var row = (DataRowView)dataRow;
-
-
-            if (row["UserID"].IsNullOrEmptyDBField())
-            {
-                return row["Name"].ToString();
-            }
-
             var userLink = new UserLink
             {
-                UserID = row["UserID"].ToType<int>(),
-                Suspended = row["Suspended"].ToType<DateTime?>(),
-                Style = row["Style"].ToString(),
-                ReplaceName = row[this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name"].ToString()
+                UserID = item.UserID,
+                Suspended = item.Suspended,
+                Style = item.UserStyle,
+                ReplaceName = this.PageContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name
             };
 
             return userLink.RenderToString();
@@ -268,14 +224,14 @@ namespace YAF.Pages.Admin
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
             this.PagerTop.PageSize = baseSize;
 
-            var sinceDate = DateTime.UtcNow.AddDays(-this.Get<BoardSettings>().EventLogMaxDays);
+            var sinceDate = DateTime.UtcNow.AddDays(-this.PageContext.BoardSettings.EventLogMaxDays);
             var toDate = DateTime.UtcNow;
 
             var ci = this.Get<ILocalization>().Culture;
 
             if (this.SinceDate.Text.IsSet())
             {
-                if (this.Get<BoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+                if (this.PageContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
                 {
                     var persianDate = new PersianDate(this.SinceDate.Text.PersianNumberToEnglish());
 
@@ -289,7 +245,7 @@ namespace YAF.Pages.Admin
 
             if (this.ToDate.Text.IsSet())
             {
-                if (this.Get<BoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+                if (this.PageContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
                 {
                     var persianDate = new PersianDate(this.ToDate.Text.PersianNumberToEnglish());
 
@@ -302,21 +258,22 @@ namespace YAF.Pages.Admin
             }
 
             // list event for this board
-            var dt = this.GetRepository<Types.Models.EventLog>()
-                               .ListAsDataTable(
-                                   this.PageContext.PageUserID,
-                                   this.Get<BoardSettings>().EventLogMaxMessages,
-                                   this.Get<BoardSettings>().EventLogMaxDays,
+            var list = this.GetRepository<Types.Models.EventLog>()
+                               .ListPaged(
+                                   this.PageContext.PageBoardID,
+                                   this.PageContext.BoardSettings.EventLogMaxMessages,
+                                   this.PageContext.BoardSettings.EventLogMaxDays,
                                    currentPageIndex,
                                    baseSize,
                                    sinceDate,
                                    toDate.AddDays(1).AddMinutes(-1),
-                                   "1003,1004,1005,2000,2001,2002,2003");
+                                   null,
+                                   true);
 
-            this.List.DataSource = dt;
+            this.List.DataSource = list;
 
-            this.PagerTop.Count = dt != null && dt.HasRows()
-                                      ? dt.AsEnumerable().First().Field<int>("TotalRows")
+            this.PagerTop.Count = list != null && list.Any()
+                                      ? list.FirstOrDefault().TotalRows
                                       : 0;
 
             // bind data to controls

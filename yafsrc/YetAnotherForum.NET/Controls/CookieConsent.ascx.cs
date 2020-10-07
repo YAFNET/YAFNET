@@ -28,7 +28,6 @@ namespace YAF.Controls
     using System;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -49,7 +48,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Label1.Param0 = this.Get<BoardSettings>().Name;
+            this.Label1.Param0 = this.PageContext.BoardSettings.Name;
 
             this.MoreDetails.NavigateUrl = BuildLink.GetLink(ForumPages.Cookies);
         }

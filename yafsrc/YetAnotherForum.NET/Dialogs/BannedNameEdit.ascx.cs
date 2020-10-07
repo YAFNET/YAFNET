@@ -130,12 +130,14 @@ namespace YAF.Dialogs
                 return;
             }
 
-            this.GetRepository<BannedName>().Save(
-                this.BannedId,
-                this.mask.Text.Trim(),
-                this.BanReason.Text.Trim());
+            if (!this.GetRepository<BannedName>().Save(this.BannedId, this.mask.Text.Trim(), this.BanReason.Text.Trim()))
+            {
+                this.PageContext.LoadMessage.AddSession(
+                    this.GetText("ADMIN_BANNEDNAME", "MSG_EXIST"),
+                    MessageTypes.warning);
+            }
 
-            // go back to banned IP's administration page
+            // go back to banned names administration page
             BuildLink.Redirect(ForumPages.Admin_BannedNames);
         }
 

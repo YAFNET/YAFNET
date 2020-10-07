@@ -27,10 +27,8 @@ namespace YAF.Pages
 
     using System;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Web.Extensions;
 
     #endregion
@@ -63,9 +61,9 @@ namespace YAF.Pages
         {
             // Since these controls have EnabledViewState=false, set their visibility on every page load so that this value is not lost on post-back.
             // This is important for another reason: these are board settings; values in the view state should have no impact on whether these controls are shown or not.
-            this.ForumStats.Visible = this.Get<BoardSettings>().ShowForumStatistics;
-            this.ForumStatistics.Visible = this.Get<BoardSettings>().ShowForumStatistics;
-            this.ActiveDiscussions.Visible = this.Get<BoardSettings>().ShowActiveDiscussions;
+            this.ForumStats.Visible = this.PageContext.BoardSettings.ShowForumStatistics;
+            this.ForumStatistics.Visible = this.PageContext.BoardSettings.ShowForumStatistics;
+            this.ActiveDiscussions.Visible = this.PageContext.BoardSettings.ShowActiveDiscussions;
 
             if (this.IsPostBack)
             {

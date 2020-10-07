@@ -14,11 +14,11 @@
 </div>
 
 <div class="row">
-    <div class='<%= this.Get<BoardSettings>().TwoColumnBoardLayout ? "col-md-8" : "col" %>'>
+    <div class='<%= this.PageContext.BoardSettings.TwoColumnBoardLayout ? "col-md-8" : "col" %>'>
         <YAF:ForumCategoryList ID="ForumCategoryList" runat="server" />
     </div>
-    <%= this.Get<BoardSettings>().TwoColumnBoardLayout ?  string.Empty : @"</div><div class=""row"">" %>
-    <div class='<%= this.Get<BoardSettings>().TwoColumnBoardLayout ? "col-md-4" : "col" %>'>
+    <%= this.PageContext.BoardSettings.TwoColumnBoardLayout ?  string.Empty : @"</div><div class=""row"">" %>
+    <div class='<%= this.PageContext.BoardSettings.TwoColumnBoardLayout ? "col-md-4" : "col" %>'>
         <YAF:ForumActiveDiscussion ID="ActiveDiscussions" runat="server" />
         <YAF:ForumStatsUsers ID="ForumStats" runat="Server" />
     </div>

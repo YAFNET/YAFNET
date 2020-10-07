@@ -28,14 +28,12 @@ namespace YAF.Pages
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BaseModules;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
@@ -89,7 +87,7 @@ namespace YAF.Pages
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            if (this.Get<BoardSettings>().AllowPrivateMessageAttachments)
+            if (this.PageContext.BoardSettings.AllowPrivateMessageAttachments)
             {
                 this.PageContext.PageElements.AddScriptReference("FileUploadScript");
 
@@ -138,20 +136,20 @@ namespace YAF.Pages
         protected void AllBuddies_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // try to find users by user name
-            var usersFound = this.Get<IFriends>().ListAllAsDataTable();
+            var usersFound = this.Get<IFriends>().ListAll();
 
             var friendsString = new StringBuilder();
 
-            if (!usersFound.HasRows())
+            if (!usersFound.Any())
             {
                 return;
             }
 
             // we found a user(s)
-            usersFound.Rows.Cast<DataRow>().ForEach(
+            usersFound.ForEach(
                 row => friendsString.AppendFormat(
                     "{0};",
-                    this.PageContext.BoardSettings.EnableDisplayName ? row["DisplayName"] : row["Name"]));
+                    this.PageContext.BoardSettings.EnableDisplayName ? row.DisplayName : row.Name));
 
             this.To.Text = friendsString.ToString();
 
@@ -241,7 +239,7 @@ namespace YAF.Pages
                 // we found a user(s)
                 this.ToList.DataSource = usersFound;
                 this.ToList.DataValueField = "ID";
-                this.ToList.DataTextField = this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
+                this.ToList.DataTextField = this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name";
                 this.ToList.DataBind();
 
                 // ToList.SelectedIndex = 0;
@@ -279,7 +277,7 @@ namespace YAF.Pages
 
             this.EditorLine.Controls.Add(this.editor);
 
-            this.editor.UserCanUpload = this.Get<BoardSettings>().AllowPrivateMessageAttachments;
+            this.editor.UserCanUpload = this.PageContext.BoardSettings.AllowPrivateMessageAttachments;
 
             // add editor to the page
             this.EditorLine.Controls.Add(this.editor);
@@ -365,7 +363,7 @@ namespace YAF.Pages
                 // PM is a quoted reply
                 var body = replyMessage.Body.ToString();
 
-                if (this.Get<BoardSettings>().RemoveNestedQuotes)
+                if (this.PageContext.BoardSettings.RemoveNestedQuotes)
                 {
                     body = this.Get<IFormatMessage>().RemoveNestedQuotes(body);
                 }
@@ -491,14 +489,14 @@ namespace YAF.Pages
                 // Blank PM
 
                 // multi-receiver info is relevant only when sending blank PM
-                if (this.Get<BoardSettings>().PrivateMessageMaxRecipients < 1 || this.PageContext.IsAdmin)
+                if (this.PageContext.BoardSettings.PrivateMessageMaxRecipients < 1 || this.PageContext.IsAdmin)
                 {
                     return;
                 }
 
                 // format localized string
                 this.MultiReceiverInfo.Text =
-                    $"{string.Format(this.GetText("MAX_RECIPIENT_INFO"), this.Get<BoardSettings>().PrivateMessageMaxRecipients)} {this.GetText("MULTI_RECEIVER_INFO")}";
+                    $"{string.Format(this.GetText("MAX_RECIPIENT_INFO"), this.PageContext.BoardSettings.PrivateMessageMaxRecipients)} {this.GetText("MULTI_RECEIVER_INFO")}";
 
                 // display info
                 this.MultiReceiverAlert.Visible = true;
@@ -520,7 +518,7 @@ namespace YAF.Pages
             this.PreviewMessagePost.Message = this.editor.Text;
             this.PreviewMessagePost.MessageID = 0;
 
-            if (!this.Get<BoardSettings>().AllowSignatures)
+            if (!this.PageContext.BoardSettings.AllowSignatures)
             {
                 return;
             }
@@ -633,14 +631,14 @@ namespace YAF.Pages
                 // list of recipients
                 var recipients = new List<string>(this.To.Text.Trim().Split(';'));
 
-                if (recipients.Count > this.Get<BoardSettings>().PrivateMessageMaxRecipients
-                    && !this.PageContext.IsAdmin && this.Get<BoardSettings>().PrivateMessageMaxRecipients != 0)
+                if (recipients.Count > this.PageContext.BoardSettings.PrivateMessageMaxRecipients
+                    && !this.PageContext.IsAdmin && this.PageContext.BoardSettings.PrivateMessageMaxRecipients != 0)
                 {
                     // to many recipients
                     this.PageContext.AddLoadMessage(
                         this.GetTextFormatted(
                             "TOO_MANY_RECIPIENTS",
-                            this.Get<BoardSettings>().PrivateMessageMaxRecipients),
+                            this.PageContext.BoardSettings.PrivateMessageMaxRecipients),
                         MessageTypes.warning);
 
                     return;
@@ -679,15 +677,12 @@ namespace YAF.Pages
                         recipientIds.Add(user.ID);
                     }
 
-                    var receivingPMInfo = this.GetRepository<PMessage>().UserMessageCount(user.ID).Rows[0];
+                    var count = this.GetRepository<PMessage>().UserMessageCount(user.ID);
 
                     // test receiving user's PM count
-                    if (receivingPMInfo["NumberTotal"].ToType<int>() + 1
-                        < receivingPMInfo["NumberAllowed"].ToType<int>() || this.PageContext.IsAdmin
-                        || (bool)
-                           Convert.ChangeType(
-                               this.PageContext.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, user.ID, true).GetFirstRow()["IsAdmin"],
-                               typeof(bool)))
+                    if ((int)count.NumberTotal + 1
+                        < (int)count.NumberAllowed || this.PageContext.IsAdmin
+                        || this.GetRepository<User>().GetBoardUser(user.ID, this.PageContext.PageBoardID).Item4.IsAdmin)
                     {
                         continue;
                     }
@@ -723,7 +718,7 @@ namespace YAF.Pages
                             // reset lazy data as he should be informed at once
                             this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
 
-                            if (this.Get<BoardSettings>().AllowPMEmailNotification)
+                            if (this.PageContext.BoardSettings.AllowPMEmailNotification)
                             {
                                 this.Get<ISendNotification>().ToPrivateMessageRecipient(
                                     userId,
@@ -747,7 +742,7 @@ namespace YAF.Pages
         private bool VerifyMessageAllowed(int count, string message)
         {
             // Check if SPAM Message first...
-            if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess && !this.Get<BoardSettings>().SpamServiceType.Equals(0))
+            if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess && !this.PageContext.BoardSettings.SpamServiceType.Equals(0))
             {
                 // Check content for spam
                 if (!this.Get<ISpamCheck>().CheckPostForSpam(
@@ -764,7 +759,7 @@ namespace YAF.Pages
                     $@"Spam Check detected possible SPAM ({spamResult}) 
                        posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
 
-                switch (this.Get<BoardSettings>().SpamMessageHandling)
+                switch (this.PageContext.BoardSettings.SpamMessageHandling)
                 {
                     case 0:
                         this.Logger.SpamMessageDetected(
@@ -804,9 +799,9 @@ namespace YAF.Pages
 
             // test sending user's PM count
             // get user's name
-            var info = this.GetRepository<PMessage>().UserMessageCount(this.PageContext.PageUserID).Rows[0];
+            var countInfo = this.GetRepository<PMessage>().UserMessageCount(this.PageContext.PageUserID);
 
-            if (info["NumberTotal"].ToType<int>() + count <= info["NumberAllowed"].ToType<int>()
+            if ((int)countInfo.NumberTotal + count <= (int)countInfo.NumberAllowed
                 || this.PageContext.IsAdmin)
             {
                 return true;
@@ -814,7 +809,7 @@ namespace YAF.Pages
 
             // user has full PM box
             this.PageContext.AddLoadMessage(
-                this.GetTextFormatted("OWN_PMBOX_FULL", info["NumberAllowed"]),
+                this.GetTextFormatted("OWN_PMBOX_FULL", (int)countInfo.NumberAllowed),
                 MessageTypes.danger);
 
             return false;

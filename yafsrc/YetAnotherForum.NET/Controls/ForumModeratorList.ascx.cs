@@ -26,16 +26,14 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Collections;
-    using System.Data;
-    using System.Linq;
+    using System.Collections.Generic;
     using System.Text;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Utilities;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects;
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
 
@@ -51,7 +49,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets DataSource.
         /// </summary>
-        public IEnumerable DataSource { get; set; }
+        public List<SimpleModerator> DataSource { get; set; }
 
         #endregion
 
@@ -65,13 +63,6 @@ namespace YAF.Controls
         { 
             base.OnPreRender(e);
 
-            if (((DataRow[])this.DataSource).Length == 0)
-            {
-                this.ShowMods.Visible = false;
-
-                return;
-            }
-
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "ForumModsPopoverJs",
                 JavaScriptBlocks.ForumModsPopoverJs(
@@ -81,21 +72,21 @@ namespace YAF.Controls
 
             content.Append(@"<ol class=""list-unstyled"">");
 
-            this.DataSource.Cast<DataRow>().ForEach(
+            this.DataSource.ForEach(
                 row =>
                 {
                     content.Append("<li>");
 
-                    if (row["IsGroup"].ToType<int>() == 0)
+                    if (row.IsGroup)
                     {
                         // Render Moderator User Link
                         var userLink = new UserLink
                         {
-                            Style = row["Style"].ToString(),
-                            UserID = row["ModeratorID"].ToType<int>(),
-                            ReplaceName = row[this.Get<BoardSettings>().EnableDisplayName
-                                                                     ? "ModeratorDisplayName"
-                                                                     : "ModeratorName"].ToString()
+                            Style = row.Style,
+                            UserID = row.ModeratorID,
+                            ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+                                                                     ? row.DisplayName
+                                                                     : row.Name
                         };
 
                         content.Append(userLink.RenderToString());
@@ -104,9 +95,9 @@ namespace YAF.Controls
                     {
                         // render mod group
                         content.Append(
-                            row[this.Get<BoardSettings>().EnableDisplayName
-                                    ? "ModeratorDisplayName"
-                                    : "ModeratorName"]);
+                            this.PageContext.BoardSettings.EnableDisplayName
+                                    ? row.DisplayName
+                                    : row.Name);
                     }
 
                     content.Append(@"</li>");

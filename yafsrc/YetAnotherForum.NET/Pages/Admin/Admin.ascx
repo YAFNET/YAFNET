@@ -250,25 +250,25 @@
                             <tr>
                     <td>
                         <YAF:UserLink ID="ActiveUserLink" 
-                                      ReplaceName='<%# this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "UserDisplayName" : "UserName") %>'
-                                      Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
-                                      UserID='<%# this.Eval("UserID") %>' 
-                                      CrawlerName='<%# this.Eval("IsCrawler").ToType<int>() > 0 ? this.Eval("Browser").ToString() : string.Empty %>'
-                                      Style='<%# this.Eval("Style") %>' runat="server" />
+                                      ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).UserDisplayName : (Container.DataItem as dynamic).UserName %>"
+                                      Suspended="<%# (Container.DataItem as dynamic).Suspended%>"
+                                      UserID="<%# (Container.DataItem as dynamic).UserID %>" 
+                                      CrawlerName="<%# (Container.DataItem as dynamic).IsCrawler > 0 ? (string)(Container.DataItem as dynamic).Browser : string.Empty %>"
+                                      Style="<%# (Container.DataItem as dynamic).UserStyle %>" runat="server" />
                     </td>
                     <td>
-                        <a id="A1" href='<%# string.Format(this.Get<BoardSettings>().IPInfoPageURL, IPHelper.GetIp4Address(this.Eval("IP").ToString())) %>'
+                        <a id="A1" href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL, IPHelper.GetIp4Address((string)(Container.DataItem as dynamic).IP)) %>"
                             title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
-                            <%# IPHelper.GetIp4Address(this.Eval("IP").ToString())%></a>
+                            <%# IPHelper.GetIp4Address((string)(Container.DataItem as dynamic).IP)%></a>
                     </td>
                     <td>
                         <YAF:ActiveLocation ID="ActiveLocation2" 
-                                            UserID='<%# (this.Eval("UserID") == DBNull.Value? 0 : this.Eval("UserID")).ToType<int>() %>' 
-                                            UserName='<%# this.Eval("UserName") %>' 
-                                            ForumPage='<%# this.Eval("ForumPage") %>' 
-                                            ForumID='<%# (this.Eval("ForumID") == DBNull.Value? 0 : this.Eval("ForumID")).ToType<int>() %>'
-                                            ForumName='<%# this.Eval("ForumName") %>' TopicID='<%# (this.Eval("TopicID") == DBNull.Value? 0 : this.Eval("TopicID")).ToType<int>() %>'
-                                            TopicName='<%# this.Eval("TopicName") %>' LastLinkOnly="false" runat="server">
+                                            UserID="<%# (Container.DataItem as dynamic).UserID == null ? 0 : (Container.DataItem as dynamic).UserID %>" 
+                                            UserName="<%# (Container.DataItem as dynamic).UserName %>" 
+                                            ForumPage="<%# (Container.DataItem as dynamic).ForumPage %>" 
+                                            ForumID="<%# (Container.DataItem as dynamic).ForumID == null ? 0 : (Container.DataItem as dynamic).ForumID %>"
+                                            ForumName="<%# (Container.DataItem as dynamic).ForumName %>" TopicID="<%# (Container.DataItem as dynamic).TopicID == null ? 0 : (Container.DataItem as dynamic).TopicID %>"
+                                            TopicName="<%# (Container.DataItem as dynamic).TopicName %>" LastLinkOnly="false" runat="server">
                         </YAF:ActiveLocation>
                     </td>
                             </tr>

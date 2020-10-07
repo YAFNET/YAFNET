@@ -29,7 +29,6 @@ namespace YAF.Core.Services
     using System.Linq;
 
     using YAF.Configuration;
-    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -69,7 +68,7 @@ namespace YAF.Core.Services
         /// </returns>
         public bool CheckIfAllowReputationVoting(object voteDateToCheck)
         {
-            if (voteDateToCheck.IsNullOrEmptyDBField())
+            if (voteDateToCheck.IsNullOrEmptyField())
             {
                 return true;
             }
@@ -182,11 +181,11 @@ namespace YAF.Core.Services
         {
             var percentage = points;
 
-            var minValue = BoardContext.Current.Get<BoardSettings>().ReputationMaxNegative;
+            var minValue = this.Get<BoardSettings>().ReputationMaxNegative;
 
-            var maxValue = BoardContext.Current.Get<BoardSettings>().ReputationMaxPositive;
+            var maxValue = this.Get<BoardSettings>().ReputationMaxPositive;
 
-            if (!BoardContext.Current.Get<BoardSettings>().ReputationAllowNegative)
+            if (!this.Get<BoardSettings>().ReputationAllowNegative)
             {
                 minValue = 0;
             }

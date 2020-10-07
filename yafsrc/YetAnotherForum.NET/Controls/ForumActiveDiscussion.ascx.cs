@@ -27,11 +27,11 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -71,15 +71,15 @@ namespace YAF.Controls
                 return;
             }
 
-            var currentRow = (DataRowView)e.Item.DataItem;
+            var item = (dynamic)e.Item.DataItem;
 
-            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]));
+            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode((string)item.Topic));
 
             // make message url...
             var messageUrl = BuildLink.GetLink(
                 ForumPages.Posts,
                 "m={0}&name={1}#post{0}",
-                currentRow["LastMessageID"],
+                item.LastMessageID,
                 topicSubject);
 
             // get the controls
@@ -92,9 +92,11 @@ namespace YAF.Controls
             var lastUserLink = new UserLink();
             var lastPostedDateLabel = new DisplayDateTime { Format = DateTimeFormat.BothTopic };
 
-            var styles = this.Get<BoardSettings>().UseStyledTopicTitles
-                             ? this.Get<IStyleTransform>().DecodeStyleByString(currentRow["Styles"].ToString())
-                             : string.Empty;
+            var topicStyle = (string)item.Styles;
+
+            var styles = this.PageContext.BoardSettings.UseStyledTopicTitles && topicStyle.IsSet()
+                ? this.Get<IStyleTransform>().Decode((string)item.Styles)
+                : string.Empty;
 
             if (styles.IsSet())
             {
@@ -105,9 +107,9 @@ namespace YAF.Controls
 
             var startedByText = this.GetTextFormatted(
                 "VIEW_TOPIC_STARTED_BY",
-                currentRow[this.Get<BoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName"].ToString());
+                this.PageContext.BoardSettings.EnableDisplayName ? (string)item.UserDisplayName : (string)item.UserName);
 
-            var inForumText = this.GetTextFormatted("IN_FORUM", this.HtmlEncode(currentRow["Forum"].ToString()));
+            var inForumText = this.GetTextFormatted("IN_FORUM", this.HtmlEncode((string)item.Forum));
 
             textMessageLink.ToolTip =
                 $"{startedByText} {inForumText}";
@@ -115,59 +117,50 @@ namespace YAF.Controls
 
             textMessageLink.NavigateUrl = BuildLink.GetLink(
                 ForumPages.Posts,
-                "t={0}&name={1}&find=unread",
-                currentRow["TopicID"],
+                "t={0}&name={1}",
+                item.TopicID,
                 topicSubject);
 
             imageMessageLink.NavigateUrl = messageUrl;
 
-            forumLink.Text = $"({currentRow["Forum"]})";
-            forumLink.NavigateUrl = BuildLink.GetForumLink(
-                currentRow["ForumID"].ToType<int>(),
-                currentRow["Forum"].ToString());
+            forumLink.Text = $"({item.Forum})";
+            forumLink.NavigateUrl = BuildLink.GetForumLink(item.ForumID, item.Forum);
 
             if (imageLastUnreadMessageLink.Visible)
             {
                 imageLastUnreadMessageLink.NavigateUrl = BuildLink.GetLink(
                     ForumPages.Posts,
-                    "t={0}&name={1}&find=unread",
-                    currentRow["TopicID"],
+                    "t={0}&name={1}",
+                    item.TopicID,
                     topicSubject);
             }
-            
-            // Just in case...
-            if (currentRow["LastUserID"] != DBNull.Value)
+
+            lastUserLink.UserID = item.LastUserID;
+            lastUserLink.Style = item.LastUserStyle;
+            lastUserLink.Suspended = item.LastUserSuspended;
+            lastUserLink.ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+                ? item.LastUserDisplayName
+                : item.LastUserName;
+
+            lastPostedDateLabel.DateTime = item.LastPosted;
+
+            var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                (int)item.ForumID,
+                (int)item.TopicID,
+                (DateTime?)item.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
+                (DateTime?)item.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
+
+            if ((DateTime)item.LastPosted > lastRead)
             {
-                lastUserLink.UserID = currentRow["LastUserID"].ToType<int>();
-                lastUserLink.Style = currentRow["LastUserStyle"].ToString();
-                lastUserLink.ReplaceName =
-                    currentRow[this.Get<BoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUserName"]
-                        .ToString();
+                postIcon.Visible = true;
+                postIcon.CssClass = "badge bg-success";
+
+                postIcon.Text = this.GetText("NEW_MESSAGE");
             }
 
-            if (currentRow["LastPosted"] != DBNull.Value)
-            {
-                lastPostedDateLabel.DateTime = currentRow["LastPosted"];
+            var lastPostedDateTime = (DateTime)item.LastPosted;
 
-                var lastRead =
-                    this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                        currentRow["ForumID"].ToType<int>(),
-                        currentRow["TopicID"].ToType<int>(),
-                        currentRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
-                        currentRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
-
-                if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
-                {
-                    postIcon.Visible = true;
-                    postIcon.CssClass = "badge bg-success";
-
-                    postIcon.Text = this.GetText("NEW_MESSAGE");
-                }
-            }
-
-            var lastPostedDateTime = currentRow["LastPosted"].ToType<DateTime>();
-
-            var formattedDatetime = this.Get<BoardSettings>().ShowRelativeTime
+            var formattedDatetime = this.PageContext.BoardSettings.ShowRelativeTime
                                         ? lastPostedDateTime.ToString(
                                             "yyyy-MM-ddTHH:mm:ssZ",
                                             CultureInfo.InvariantCulture)
@@ -175,13 +168,13 @@ namespace YAF.Controls
                                             DateTimeFormat.BothTopic,
                                             lastPostedDateTime);
 
-            var span = this.Get<BoardSettings>().ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
+            var span = this.PageContext.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
             info.TextLocalizedTag = "by";
             info.TextLocalizedPage = "DEFAULT";
-            info.ParamText0 = this.Get<BoardSettings>().EnableDisplayName
-                                  ? currentRow["LastUserDisplayName"].ToString()
-                                  : currentRow["LastUserName"].ToString();
+            info.ParamText0 = this.PageContext.BoardSettings.EnableDisplayName
+                                  ? item.UserDisplayName
+                                  : item.UserName;
             
             info.DataContent = $@"
                           {lastUserLink.RenderToString()}
@@ -226,60 +219,40 @@ namespace YAF.Controls
             // Shows the latest n number of posts on the main forum list page
             const string CacheKey = Constants.Cache.ForumActiveDiscussions;
 
-            DataTable activeTopics = null;
+            List<dynamic> activeTopics = null;
 
             if (this.PageContext.IsGuest)
             {
                 // allow caching since this is a guest...
-                activeTopics = this.Get<IDataCache>()[CacheKey] as DataTable;
+                activeTopics = this.Get<IDataCache>()[CacheKey] as List<dynamic>;
             }
 
             if (activeTopics == null)
             {
                 this.Get<ISession>().UnreadTopics = 0;
 
-                if (this.PageContext.Settings.CategoryID > 0)
-                {
-                    activeTopics = this.GetRepository<Topic>().LatestInCategoryAsDataTable(
-                        this.PageContext.PageBoardID,
-                        this.PageContext.Settings.CategoryID,
-                        this.Get<BoardSettings>().ActiveDiscussionsCount,
-                        this.PageContext.PageUserID,
-                        this.Get<BoardSettings>().UseStyledNicks,
-                        this.Get<BoardSettings>().NoCountForumsInActiveDiscussions,
-                        this.Get<BoardSettings>().UseReadTrackingByDatabase);
-                }
-                else
-                {
-                    activeTopics = this.GetRepository<Topic>().LatestAsDataTable(
-                        this.PageContext.PageBoardID,
-                        this.Get<BoardSettings>().ActiveDiscussionsCount,
-                        this.PageContext.PageUserID,
-                        this.Get<BoardSettings>().UseStyledNicks,
-                        this.Get<BoardSettings>().NoCountForumsInActiveDiscussions,
-                        this.Get<BoardSettings>().UseReadTrackingByDatabase);
-                }
-
-                // Set colorOnly parameter to true, as we get all but color from css in the place
-                if (this.Get<BoardSettings>().UseStyledNicks)
-                {
-                    this.Get<IStyleTransform>().DecodeStyleByTable(activeTopics, false, new[] { "LastUserStyle" });
-                }
+                activeTopics = this.GetRepository<Topic>().Latest(
+                    this.PageContext.PageBoardID,
+                    this.PageContext.PageCategoryID,
+                    this.PageContext.BoardSettings.ActiveDiscussionsCount,
+                    this.PageContext.PageUserID,
+                    this.PageContext.BoardSettings.NoCountForumsInActiveDiscussions,
+                    this.PageContext.BoardSettings.UseReadTrackingByDatabase);
 
                 if (this.PageContext.IsGuest)
                 {
                     this.Get<IDataCache>().Set(
                         CacheKey,
                         activeTopics,
-                        TimeSpan.FromMinutes(this.Get<BoardSettings>().ActiveDiscussionsCacheTimeout));
+                        TimeSpan.FromMinutes(this.PageContext.BoardSettings.ActiveDiscussionsCacheTimeout));
                 }
             }
 
             this.RssFeed.Visible = this.Footer.Visible =
                                        this.Get<IPermissions>()
-                                           .Check(this.Get<BoardSettings>().PostLatestFeedAccess);
+                                           .Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
 
-            if (!this.Get<BoardSettings>().ShowRSSLink && !this.Get<BoardSettings>().ShowAtomLink)
+            if (!this.PageContext.BoardSettings.ShowRSSLink && !this.PageContext.BoardSettings.ShowAtomLink)
             {
                 this.Footer.Visible = false;
             }
@@ -287,7 +260,7 @@ namespace YAF.Controls
             this.LatestPosts.DataSource = activeTopics;
             this.LatestPosts.DataBind();
 
-            if (activeTopics.Rows.Count == 0)
+            if (!activeTopics.Any())
             {
                 this.ActiveDiscussionPlaceHolder.Visible = false;
             }

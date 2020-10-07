@@ -29,13 +29,11 @@ namespace YAF.Pages
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Web;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Controls;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
@@ -94,28 +92,6 @@ namespace YAF.Pages
         public Posts()
             : base("POSTS")
         {
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets CurrentMessage.
-        /// </summary>
-        protected int CurrentMessage
-        {
-            get
-            {
-                if (this.ViewState["CurrentMessage"] != null)
-                {
-                    return (int)this.ViewState["CurrentMessage"];
-                }
-
-                return 0;
-            }
-
-            set => this.ViewState["CurrentMessage"] = value;
         }
 
         #endregion
@@ -207,7 +183,7 @@ namespace YAF.Pages
             var connectControl = e.Item.FindControlAs<DisplayConnect>("DisplayConnect");
 
             if (connectControl != null && this.PageContext.IsGuest
-                && this.Get<BoardSettings>().ShowConnectMessageInTopic)
+                && this.PageContext.BoardSettings.ShowConnectMessageInTopic)
             {
                 connectControl.Visible = true;
             }
@@ -216,9 +192,9 @@ namespace YAF.Pages
             var displayAd = e.Item.FindControlAs<DisplayAd>("DisplayAd");
 
             // check if need to display the ad...
-            if (this.Get<BoardSettings>().AdPost.IsSet() && displayAd != null)
+            if (this.PageContext.BoardSettings.AdPost.IsSet() && displayAd != null)
             {
-                displayAd.Visible = this.PageContext.IsGuest || this.Get<BoardSettings>().ShowAdsToSignedInUsers;
+                displayAd.Visible = this.PageContext.IsGuest || this.PageContext.BoardSettings.ShowAdsToSignedInUsers;
             }
         }
 
@@ -262,9 +238,9 @@ namespace YAF.Pages
 
             // share menu...
             this.ShareMenu.Visible = this.ShareLink.Visible =
-                                         this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowShareTopicTo);
+                                         this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowShareTopicTo);
 
-            if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowShareTopicTo))
+            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowShareTopicTo))
             {
                 var topicUrl = BuildLink.GetLink(
                     ForumPages.Posts,
@@ -273,7 +249,7 @@ namespace YAF.Pages
                     this.PageContext.PageTopicID,
                     this.PageContext.PageTopicName);
 
-                if (this.Get<BoardSettings>().AllowEmailTopic)
+                if (this.PageContext.BoardSettings.AllowEmailTopic)
                 {
                     this.ShareMenu.AddPostBackItem(
                         "email", this.GetText("EMAILTOPIC"), "fa fa-paper-plane");
@@ -312,7 +288,7 @@ namespace YAF.Pages
             }
             else
             {
-                if (this.Get<BoardSettings>().AllowEmailTopic)
+                if (this.PageContext.BoardSettings.AllowEmailTopic)
                 {
                     this.OptionsMenu.AddPostBackItem(
                         "email", this.GetText("EMAILTOPIC"), "fa fa-email");
@@ -330,15 +306,15 @@ namespace YAF.Pages
             this.OptionsMenu.AddPostBackItem(
                 "print", this.GetText("PRINTTOPIC"), "fa fa-print");
 
-            if (this.Get<BoardSettings>().ShowAtomLink
-                && this.Get<IPermissions>().Check(this.Get<BoardSettings>().PostsFeedAccess))
+            if (this.PageContext.BoardSettings.ShowAtomLink
+                && this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostsFeedAccess))
             {
                 this.OptionsMenu.AddPostBackItem(
                     "atomfeed", this.GetText("ATOMTOPIC"), "fa fa-rss");
             }
 
-            if (this.Get<BoardSettings>().ShowRSSLink
-                && this.Get<IPermissions>().Check(this.Get<BoardSettings>().PostsFeedAccess))
+            if (this.PageContext.BoardSettings.ShowRSSLink
+                && this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostsFeedAccess))
             {
                 this.OptionsMenu.AddPostBackItem(
                     "rssfeed", this.GetText("RSSTOPIC"), "fa fa-rss-square");
@@ -443,7 +419,7 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            var yafBoardSettings = this.Get<BoardSettings>();
+            var yafBoardSettings = this.PageContext.BoardSettings;
 
             if (!this.IsPostBack)
             {
@@ -677,11 +653,11 @@ namespace YAF.Pages
         /// <param name="firstMessage">
         /// first message in the topic
         /// </param>
-        private void AddMetaData([NotNull] object firstMessage)
+        private void AddMetaData([NotNull] string firstMessage)
         {
             try
             {
-                if (firstMessage.IsNullOrEmptyDBField())
+                if (firstMessage.IsNotSet())
                 {
                     return;
                 }
@@ -691,7 +667,7 @@ namespace YAF.Pages
                return;
             }
             
-            if (this.Page.Header == null || !this.Get<BoardSettings>().AddDynamicPageMetaTags)
+            if (this.Page.Header == null || !this.PageContext.BoardSettings.AddDynamicPageMetaTags)
             {
                 return;
             }
@@ -708,7 +684,7 @@ namespace YAF.Pages
                 string descriptionContent;
 
                 // Use Topic Description if set
-                if (!this.topic.Description.IsNullOrEmptyDBField())
+                if (!this.topic.Description.IsNullOrEmptyField())
                 {
                     var topicDescription =
                         this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.Description));
@@ -797,117 +773,58 @@ namespace YAF.Pages
             var userId = this.PageContext.PageUserID;
 
             if (this.PageContext.IsAdmin
-                || this.PageContext.ForumModeratorAccess || this.Get<BoardSettings>().ShowDeletedMessagesToAll)
+                || this.PageContext.ForumModeratorAccess || this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
             {
                 showDeleted = true;
             }
 
-            if (!this.Get<BoardSettings>().ShowDeletedMessages
-                || !this.Get<BoardSettings>().ShowDeletedMessagesToAll)
+            if (!this.PageContext.BoardSettings.ShowDeletedMessages
+                || !this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
             {
                 // normally, users can always see own deleted topics or stubs we set a false id to hide them.
                 userId = -1;
             }
 
             var findMessageId = this.GetFindMessageId(showDeleted, userId, out var messagePosition);
-            if (findMessageId > 0)
-            {
-                this.CurrentMessage = findMessageId;
-            }
 
             // Mark topic read
             this.Get<IReadTrackCurrentUser>().SetTopicRead(this.PageContext.PageTopicID);
-            this.Pager.PageSize = this.Get<BoardSettings>().PostsPerPage;
+            this.Pager.PageSize = this.PageContext.BoardSettings.PostsPerPage;
 
-            var postListDataTable = this.GetRepository<Message>().PostListAsDataTable(
+            var postList = this.GetRepository<Message>().PostListPaged(
                 this.PageContext.PageTopicID,
                 this.PageContext.PageUserID,
                 userId,
-                this.IsPostBack || this.PageContext.IsCrawler ? 0 : 1,
+                !this.IsPostBack && !this.PageContext.IsCrawler,
                 showDeleted,
-                this.Get<BoardSettings>().UseStyledNicks,
-                !this.PageContext.IsGuest && this.Get<BoardSettings>().EnableUserReputation,
-                DateTimeHelper.SqlDbMinTime(),
-                DateTime.UtcNow,
                 DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
                 this.Pager.CurrentPageIndex,
                 this.Pager.PageSize,
-                1,
-                0,
-                0,
-                this.Get<BoardSettings>().EnableThanksMod,
                 messagePosition);
 
-            if (this.Get<BoardSettings>().EnableThanksMod)
-            {
-                // Add necessary columns for later use in DisplayPost (Prevent repetitive calls to database.)
-                if (!postListDataTable.Columns.Contains("ThanksInfo"))
-                {
-                    postListDataTable.Columns.Add("ThanksInfo", typeof(string));
-                }
-
-                postListDataTable.Columns.AddRange(
-                    new[]
-                        {
-                            // How many times has this message been thanked.
-                            new DataColumn("IsThankedByUser", typeof(bool)),
-
-                            //// How many times has the message poster thanked others?
-                            new DataColumn("MessageThanksNumber", typeof(int)),
-
-                            //// How many times has the message poster been thanked?
-                            new DataColumn("ThanksFromUserNumber", typeof(int)),
-
-                            //// In how many posts has the message poster been thanked?
-                            new DataColumn("ThanksToUserNumber", typeof(int)),
-
-                            //// In how many posts has the message poster been thanked?
-                            new DataColumn("ThanksToUserPostsNumber", typeof(int))
-                        });
-
-                postListDataTable.AcceptChanges();
-            }
-
-            if (this.Get<BoardSettings>().UseStyledNicks)
-            {
-                // needs to be moved to the paged data below -- so it doesn't operate on unnecessary rows
-                this.Get<IStyleTransform>().DecodeStyleByTable(postListDataTable, true);
-            }
-
-            if (!postListDataTable.HasRows())
+            if (!postList.Any())
             {
                 throw new NoPostsFoundForTopicException(
                     this.PageContext.PageTopicID,
                     this.PageContext.PageUserID,
                     userId,
-                    this.IsPostBack || this.PageContext.IsCrawler ? 0 : 1,
+                    !this.IsPostBack && !this.PageContext.IsCrawler,
                     showDeleted,
-                    this.Get<BoardSettings>().UseStyledNicks,
-                    !this.PageContext.IsGuest && this.Get<BoardSettings>().EnableUserReputation,
-                    DateTimeHelper.SqlDbMinTime(),
-                    DateTime.UtcNow,
                     DateTimeHelper.SqlDbMinTime(),
                     DateTime.UtcNow,
                     this.Pager.CurrentPageIndex,
                     this.Pager.PageSize,
-                    1,
-                    0,
-                    0,
-                    this.Get<BoardSettings>().EnableThanksMod,
                     messagePosition);
             }
 
-            // convert to linq...
-            var rowList = postListDataTable.AsEnumerable();
+            var firstPost = postList.FirstOrDefault();
 
-            var firstPost = rowList.First();
-
-            this.Pager.Count = firstPost.Field<int>("TotalRows");
+            this.Pager.Count = firstPost.TotalRows;
 
             if (findMessageId > 0)
             {
-                this.Pager.CurrentPageIndex = firstPost.Field<int>("PageIndex");
+                this.Pager.CurrentPageIndex = firstPost.PageIndex;
 
                 // move to this message on load...
                 if (!this.PageContext.IsCrawler)
@@ -924,26 +841,18 @@ namespace YAF.Pages
                     this.PageContext.PageElements.RegisterJsBlockStartup(
                         this,
                         "GotoAnchorJs",
-                        JavaScriptBlocks.LoadGotoAnchor($"post{firstPost.Field<int>("MessageID")}"));
+                        JavaScriptBlocks.LoadGotoAnchor($"post{firstPost.MessageID}"));
                 }
-            }
-
-            var pagedData = rowList;
-
-            // Add thanks info and styled nicks if they are enabled
-            if (this.Get<BoardSettings>().EnableThanksMod)
-            {
-                this.Get<IThankYou>().AddThanksInfo(pagedData);
             }
 
             // if current index is 0 we are on the first page and the metadata can be added.
             if (this.Pager.CurrentPageIndex == 0)
             {
                 // handle add description/keywords for SEO
-                this.AddMetaData(pagedData.First()["Message"]);
+                this.AddMetaData(firstPost.Message);
             }
 
-            this.MessageList.DataSource = pagedData;
+            this.MessageList.DataSource = postList;
 
             this.DataBind();
         }
@@ -970,108 +879,49 @@ namespace YAF.Pages
 
             try
             {
-                if (!this.Get<HttpRequestBase>().QueryString.Exists("find"))
+                if (this.Get<HttpRequestBase>().QueryString.Exists("p"))
                 {
-                    if (this.Get<HttpRequestBase>().QueryString.Exists("m") && int.TryParse(
-                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
-                            out var messageId))
-                    {
-                        // we find message position always by time.
-                        using (var lastPost = this.GetRepository<Message>().FindUnreadAsDataTable(
-                            this.PageContext.PageTopicID,
-                            messageId,
-                            DateTimeHelper.SqlDbMinTime(),
-                            showDeleted,
-                            userId))
-                        {
-                            var unreadFirst = lastPost.AsEnumerable().FirstOrDefault();
-                            if (unreadFirst != null)
-                            {
-                                findMessageId = unreadFirst.Field<int>("MessageID");
-                                var first = lastPost.AsEnumerable().FirstOrDefault();
-                                if (first != null)
-                                {
-                                    // if Message is deleted
-                                    if (first["MessagePosition"] == DBNull.Value)
-                                    {
-                                        findMessageId = 0;
-                                        return -1;
-                                    }
+                    return findMessageId;
+                }
 
-                                    messagePosition = first.Field<int>("MessagePosition");
-                                }
-                            }
-                        }
-                    }
+                if (this.Get<HttpRequestBase>().QueryString.Exists("m") && int.TryParse(
+                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
+                    out var messageId))
+                {
+                    var unreadFirst = this.GetRepository<Message>().FindUnread(
+                        this.PageContext.PageTopicID,
+                        messageId,
+                        DateTimeHelper.SqlDbMinTime(),
+                        showDeleted,
+                        userId);
+
+                    findMessageId = unreadFirst.MessageID;
+                    messagePosition = unreadFirst.MessagePosition;
                 }
                 else
                 {
-                    switch (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower())
+                    // find first unread message
+                    var lastRead = !this.PageContext.IsCrawler
+                        ? this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                            this.PageContext.PageForumID,
+                            this.PageContext.PageTopicID,
+                            null,
+                            null)
+                        : DateTime.UtcNow;
+
+                    var unreadFirst = this.GetRepository<Message>().FindUnread(
+                        this.PageContext.PageTopicID,
+                        null,
+                        lastRead,
+                        showDeleted,
+                        userId);
+
+                    findMessageId = unreadFirst.MessageID;
+                    messagePosition = unreadFirst.MessagePosition;
+
+                    if (this.PageContext.User.Activity)
                     {
-                        case "unread":
-                            {
-                                // find first unread message
-                                var lastRead = !this.PageContext.IsCrawler
-                                    ? this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                                        this.PageContext.PageForumID,
-                                        this.PageContext.PageTopicID,
-                                        null,
-                                        null)
-                                    : DateTime.UtcNow;
-
-                                using (var unread = this.GetRepository<Message>().FindUnreadAsDataTable(
-                                    this.PageContext.PageTopicID,
-                                    0,
-                                    lastRead,
-                                    showDeleted,
-                                    userId))
-                                {
-                                    var unreadFirst = unread.AsEnumerable().FirstOrDefault();
-                                    if (unreadFirst != null)
-                                    {
-                                        // if Message is deleted
-                                        if (unreadFirst["MessagePosition"] == DBNull.Value)
-                                        {
-                                            findMessageId = 0;
-                                            return -1;
-                                        }
-
-                                        findMessageId = unreadFirst.Field<int>("MessageID");
-                                        messagePosition = unreadFirst.Field<int>("MessagePosition");
-
-                                        if (this.Get<HttpRequestBase>().QueryString.Exists("m") && this.PageContext.User.Activity)
-                                        {
-                                            this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, findMessageId);
-                                        }
-                                    }
-                                }
-                            }
-
-                            break;
-                        case "lastpost":
-                            using (var unread = this.GetRepository<Message>().FindUnreadAsDataTable(
-                                this.PageContext.PageTopicID,
-                                0,
-                                DateTime.UtcNow,
-                                showDeleted,
-                                userId))
-                            {
-                                var unreadFirst = unread.AsEnumerable().FirstOrDefault();
-                                if (unreadFirst != null)
-                                {
-                                    // if Message is deleted
-                                    if (unreadFirst["MessagePosition"] == DBNull.Value)
-                                    {
-                                        findMessageId = 0;
-                                        return -1;
-                                    }
-
-                                    findMessageId = unreadFirst.Field<int>("MessageID");
-                                    messagePosition = unreadFirst.Field<int>("MessagePosition");
-                                }
-                            }
-
-                            break;
+                        this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, findMessageId);
                     }
                 }
             }
@@ -1161,8 +1011,8 @@ namespace YAF.Pages
                     break;
                 case "retweet":
                     {
-                        var twitterName = this.Get<BoardSettings>().TwitterUserName.IsSet()
-                                              ? $"@{this.Get<BoardSettings>().TwitterUserName} "
+                        var twitterName = this.PageContext.BoardSettings.TwitterUserName.IsSet()
+                                              ? $"@{this.PageContext.BoardSettings.TwitterUserName} "
                                               : string.Empty;
 
                         // process message... clean html, strip html, remove bbcode, etc...

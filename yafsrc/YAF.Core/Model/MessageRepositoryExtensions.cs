@@ -25,13 +25,11 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Globalization;
     using System.Linq;
 
     using ServiceStack.OrmLite;
-
-    using YAF.Configuration;
+    
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -44,6 +42,7 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Types.Objects;
+    using YAF.Types.Objects.Model;
     using YAF.Utils.Helpers;
 
     /// <summary>
@@ -167,7 +166,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The post_list.
+        /// Gets the Post List Paged
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -175,11 +174,11 @@ namespace YAF.Core.Model
         /// <param name="topicId">
         /// The topic id.
         /// </param>
-        /// <param name="currentUserID">
-        /// The current User ID.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
-        /// <param name="authorUserID">
-        /// The author User ID.
+        /// <param name="authorUserId">
+        /// The author User Id.
         /// </param>
         /// <param name="updateViewCount">
         /// The update view count.
@@ -187,23 +186,11 @@ namespace YAF.Core.Model
         /// <param name="showDeleted">
         /// The show deleted.
         /// </param>
-        /// <param name="styledNicks">
-        /// The styled nicks.
-        /// </param>
-        /// <param name="showReputation">
-        /// The show Reputation.
-        /// </param>
         /// <param name="sincePostedDate">
         /// The posted date.
         /// </param>
         /// <param name="toPostedDate">
         /// The to Posted Date.
-        /// </param>
-        /// <param name="sinceEditedDate">
-        /// The edited date.
-        /// </param>
-        /// <param name="toEditedDate">
-        /// The to Edited Date.
         /// </param>
         /// <param name="pageIndex">
         /// The page index.
@@ -211,69 +198,149 @@ namespace YAF.Core.Model
         /// <param name="pageSize">
         /// The Page size.
         /// </param>
-        /// <param name="sortPosted">
-        /// The sort by posted date.
-        ///   0 - no sort, 1 - ASC, 2 - DESC
-        /// </param>
-        /// <param name="sortEdited">
-        /// The sort by edited date.
-        ///   0 - no sort, 1 - ASC, 2 - DESC.
-        /// </param>
-        /// <param name="sortPosition">
-        /// The sort Position.
-        /// </param>
-        /// <param name="showThanks">
-        /// The show thanks. Returns thanked posts. Not implemented.
-        /// </param>
         /// <param name="messagePosition">
         /// The message Position.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="List"/>.
         /// </returns>
-        public static DataTable PostListAsDataTable(
+        public static List<PagedMessage> PostListPaged(
             this IRepository<Message> repository,
-            [NotNull] object topicId,
-            object currentUserID,
-            [NotNull] object authorUserID,
-            [NotNull] object updateViewCount,
-            bool showDeleted,
-            bool styledNicks,
-            bool showReputation,
-            DateTime sincePostedDate,
-            DateTime toPostedDate,
-            DateTime sinceEditedDate,
-            DateTime toEditedDate,
-            int pageIndex,
-            int pageSize,
-            int sortPosted,
-            int sortEdited,
-            int sortPosition,
-            bool showThanks,
-            int messagePosition)
+            [NotNull] int topicId,
+            [NotNull] int userId,
+            [NotNull] int authorUserId,
+            [NotNull] bool updateViewCount,
+            [NotNull] bool showDeleted,
+            [NotNull] DateTime sincePostedDate,
+            [NotNull] DateTime toPostedDate,
+            [NotNull] int pageIndex,
+            [NotNull] int pageSize,
+            [NotNull] int messagePosition)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbFunction.GetData.post_list(
-                TopicID: topicId,
-                PageUserID: currentUserID,
-                AuthorUserID: authorUserID,
-                UpdateViewCount: updateViewCount,
-                ShowDeleted: showDeleted,
-                StyledNicks: styledNicks,
-                ShowReputation: showReputation,
-                SincePostedDate: sincePostedDate,
-                ToPostedDate: toPostedDate,
-                SinceEditedDate: sinceEditedDate,
-                ToEditedDate: toEditedDate,
-                PageIndex: pageIndex,
-                PageSize: pageSize,
-                SortPosted: sortPosted,
-                SortEdited: sortEdited,
-                SortPosition: sortPosition,
-                ShowThanks: showThanks,
-                MessagePosition: messagePosition,
-                UTCTIMESTAMP: DateTime.UtcNow);
+            if (updateViewCount)
+            {
+                BoardContext.Current.GetRepository<Topic>().UpdateAdd(() => new Topic { Views = 1 }, t => t.ID == topicId);
+            }
+
+            if (messagePosition > 0)
+            {
+                // Change index
+                pageIndex = messagePosition / pageSize;
+            }
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+            return repository.DbAccess.Execute(
+                db =>
+                {
+                    expression.Join<User>((m, u) => u.ID == m.UserID)
+                        .Join<Topic>((m, t) => t.ID == m.TopicID)
+                        .Join<Topic, Forum>((t, f) => f.ID == t.ForumID)
+                        .Join<Forum, Category>((f, c) => c.ID == f.CategoryID)
+                        .Join<User, Rank>((u, r) => r.ID == u.RankID);
+
+                    expression.Where(m => m.TopicID == topicId && m.IsApproved == true && m.Posted >= sincePostedDate && m.Posted <= toPostedDate);
+
+                    // -- find total returned count
+                    var countTotalExpression = db.Connection.From<Message>();
+
+                    countTotalExpression.Where(m => m.TopicID == topicId && m.IsApproved == true && m.Posted >= sincePostedDate && m.Posted <= toPostedDate);
+
+                    if (!showDeleted)
+                    {
+                        countTotalExpression.And(m => m.IsDeleted == false);
+                        expression.And(m => m.IsDeleted == false);
+                    }
+
+                    expression.OrderBy<Message>(m => m.Posted).Page(pageIndex + 1, pageSize);
+
+                    var countTotalSql = countTotalExpression
+                        .Select(Sql.Count($"{countTotalExpression.Column<Message>(x => x.ID)}")).ToSelectStatement();
+
+                    // -- Count favorite
+                    var reputationExpression =
+                        db.Connection.From<ReputationVote>(db.Connection.TableAlias("x"));
+                    reputationExpression.Where(
+                        $@"x.{reputationExpression.Column<ReputationVote>(x => x.ReputationToUserID)}={expression.Column<User>(b => b.ID, true)}
+                                        and x.{reputationExpression.Column<ReputationVote>(x => x.ReputationFromUserID)}={userId}");
+                    var reputationSql = reputationExpression
+                        .Select($"{reputationExpression.Column<ReputationVote>(x => x.VoteDate)}")
+                        .Limit(1).ToSelectStatement();
+
+                     var isThankByUserExpression =
+                        db.Connection.From<Thanks>(db.Connection.TableAlias("ta"));
+                     isThankByUserExpression.Where(
+                         $@"ta.{isThankByUserExpression.Column<Thanks>(x => x.ThanksFromUserID)}={userId}
+                                    and ta.{isThankByUserExpression.Column<Thanks>(x => x.MessageID)}={expression.Column<Message>(x => x.ID, true)}");
+                    var isThankByUserSql = isThankByUserExpression
+                        .Select(Sql.Count("1"))
+                        .ToSelectStatement();
+
+                    var thanksCountExpression =
+                        db.Connection.From<Thanks>(db.Connection.TableAlias("ta"));
+                    thanksCountExpression.Where(
+                        $@"ta.{thanksCountExpression.Column<Thanks>(x => x.MessageID)}={expression.Column<Message>(x => x.ID, true)}");
+                    var thanksCountSql = thanksCountExpression
+                        .Select(Sql.Count($"{thanksCountExpression.Column<Thanks>(x => x.ID)}"))
+                        .ToSelectStatement();
+
+                    expression.Select<Message, User, Topic, Forum, Category, Rank, Thanks>(
+                        (m, b, d, g, h, c, thanks) => new
+                        {
+                            TopicID = d.ID,
+                            Topic = d.TopicName,
+                            d.Priority,
+                            d.Description,
+                            d.Status,
+                            d.Styles,
+                            d.PollID,
+                            TopicOwnerID = d.UserID,
+                            d.AnswerMessageId,
+                            TopicFlags = d.Flags,
+                            ForumFlags = g.Flags,
+                            ForumName = g.Name,
+                            MessageID = m.ID,
+                            m.Posted,
+                            m.MessageText,
+                            UserID = m.ID,
+                            m.IP,
+                            m.Flags,
+                            m.EditReason,
+                            m.IsModeratorChanged,
+                            m.IsDeleted,
+                            m.Position,
+                            m.DeleteReason,
+                            m.BlogPostID,
+                            m.ExternalMessageId,
+                            m.ReferenceMessageId,
+                            UserName = m.UserName != null ? m.UserName : b.Name,
+                            DisplayName = m.UserDisplayName != null ? m.UserDisplayName : b.DisplayName,
+                            b.BlockFlags,
+                            b.Suspended,
+                            b.Joined,
+                            b.Avatar,
+                            b.Signature,
+                            Posts = b.NumPosts,
+                            b.Points,
+                            ReputationVoteDate = Sql.Custom($"CAST(ISNULL(({reputationSql}), null) as datetime)"),
+                            b.IsGuest,
+                            d.Views,
+                            d.ForumID,
+                            RankName = c.Name,
+                            RankStyle = c.Style,
+                            Style = b.UserStyle,
+                            Edited = m.Edited != null ? m.Edited : m.Posted,
+                            HasAvatarImage = 0,
+                            IsThankedByUser = Sql.Custom($"({isThankByUserSql})"),
+                            ThanksNumber = Sql.Custom($"({thanksCountSql})"),
+                            PageIndex = pageIndex,
+                            TotalRows = Sql.Custom($"({countTotalSql})")
+                        });
+
+                    return db.Connection.Select<PagedMessage>(expression);
+                });
         }
 
         /// <summary>
@@ -413,11 +480,57 @@ namespace YAF.Core.Model
         /// <param name="forumId">
         /// The forum Id.
         /// </param>
-        public static void ApproveMessage(this IRepository<Message> repository, int messageId, int forumId)
+        public static void Approve(this IRepository<Message> repository, [NotNull] int messageId, [NotNull] int forumId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.DbFunction.Query.message_approve(MessageID: messageId);
+            var message = BoardContext.Current.GetRepository<Topic>().GetTopicWithMessage(messageId);
+
+            var flags = message.Item1.MessageFlags;
+
+            flags.IsApproved = true;
+            
+            // -- update Message table, set message flag to approved
+            repository.UpdateFlags(messageId, flags.BitValue);
+
+            if (!BoardContext.Current.GetRepository<Forum>().Exists(f => f.ID == forumId && f.IsNoCount == true))
+            {
+                // -- update User table to increase post count
+                BoardContext.Current.GetRepository<User>().UpdateAdd(
+                    () => new User { NumPosts = 1 },
+                    u => u.ID == message.Item1.UserID);
+
+                BoardContext.Current.GetRepository<User>().Promote(message.Item1.UserID);
+            }
+
+            // -- update Forum table with last topic/post info
+            BoardContext.Current.GetRepository<Forum>().UpdateOnly(
+                () => new Forum
+                {
+                    LastPosted = message.Item1.Posted,
+                    LastTopicID = message.Item1.TopicID,
+                    LastMessageID = message.Item1.ID,
+                    LastUserID = message.Item1.UserID,
+                    LastUserName = message.Item1.UserName,
+                    LastUserDisplayName = message.Item1.UserDisplayName
+                },
+                x => x.ID == message.Item2.ForumID);
+
+            var numPostsCount = repository.Count(m => m.TopicID == message.Item1.TopicID && m.IsDeleted == false).ToType<int>();
+
+            // -- update Topic table with info about last post in topic
+            BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+                () => new Topic
+                {
+                    LastPosted = message.Item1.Posted,
+                    LastMessageID = message.Item1.ID,
+                    LastUserID = message.Item1.UserID,
+                    LastUserName = message.Item1.UserName,
+                    LastUserDisplayName = message.Item1.UserDisplayName,
+                    LastMessageFlags = flags.BitValue,
+                    NumPosts = numPostsCount
+                },
+                x => x.ID == message.Item1.TopicID);
 
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
 
@@ -438,7 +551,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The message_delete.
+        /// Delete Message(s)
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -469,10 +582,10 @@ namespace YAF.Core.Model
             [NotNull] int forumId,
             [NotNull] int topicId,
             [NotNull] int messageId,
-            bool isModeratorChanged,
+            [NotNull] bool isModeratorChanged,
             [NotNull] string deleteReason,
-            int isDeleteAction,
-            bool deleteLinked)
+            [NotNull] bool isDeleteAction,
+            [NotNull] bool deleteLinked)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -482,7 +595,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The message_delete.
+        /// Delete Message(s)
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -516,11 +629,11 @@ namespace YAF.Core.Model
             [NotNull] int forumId,
             [NotNull] int topicId,
             [NotNull] int messageId,
-            bool isModeratorChanged,
+            [NotNull] bool isModeratorChanged,
             [NotNull] string deleteReason,
-            int isDeleteAction,
-            bool deleteLinked,
-            bool eraseMessage)
+            [NotNull] bool isDeleteAction,
+            [NotNull] bool deleteLinked,
+            [NotNull] bool eraseMessage)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -560,7 +673,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.DbFunction.Scalar.message_move(MessageID: messageId, MoveToTopic: moveToTopicId);
+            repository.Move(messageId, moveToTopicId);
 
             if (moveAll)
             {
@@ -591,7 +704,7 @@ namespace YAF.Core.Model
         /// The message Id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="List"/>.
         /// </returns>
         [NotNull]
         public static List<Tuple<Message, User>> Replies(this IRepository<Message> repository, [NotNull] int messageId)
@@ -607,7 +720,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Finds the Unread Message
+        /// Finds the first Unread or Newest Message
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -628,31 +741,89 @@ namespace YAF.Core.Model
         /// The author User Id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="(int MessagePosition, int MessageID)"/>.
         /// </returns>
-        public static DataTable FindUnreadAsDataTable(
+        public static (int MessagePosition, int MessageID) FindUnread(
             this IRepository<Message> repository,
             [NotNull] int topicId,
-            [NotNull] int messageId,
+            [CanBeNull] int? messageId,
             [NotNull] DateTime lastRead,
             [NotNull] bool showDeleted,
             [NotNull] int authorUserId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            // Make sure there are no more DateTime.MinValues coming from db.
-            if (lastRead == DateTime.MinValue)
+            var minDateTime = DateTimeHelper.SqlDbMinTime().AddYears(-1);
+
+            List<(int MessagePosition, int MessageID)> list;
+
+            if (messageId.HasValue)
             {
-                lastRead = DateTimeHelper.SqlDbMinTime();
+                list = repository.DbAccess.Execute(
+                    db =>
+                    {
+                        var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+                        return db.Connection.SqlList<(int MessagePosition, int MessageID)>(
+                            $@"select tbl.Position, tbl.MessageID from (
+                                      select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.Position, m.MessageID     
+                                      from {expression.Table<Message>()} m
+                                      where m.TopicID = {topicId} AND m.IsApproved = 1
+                                            and ({(showDeleted ? 1 : 0)} = 1 or m.IsDeleted = 0 or ({authorUserId} > 0 and m.UserID = {authorUserId}))
+                                      ) as tbl
+                               where tbl.MessageID = {messageId}
+                               order by tbl.RowNum ASC;");
+                    });
+
+                if (list.Any())
+                {
+                    return list.FirstOrDefault();
+                }
             }
 
-            return repository.DbFunction.GetData.message_findunread(
-                TopicID: topicId,
-                MessageID: messageId,
-                MinDateTime: DateTimeHelper.SqlDbMinTime().AddYears(-1),
-                LastRead: lastRead,
-                ShowDeleted: showDeleted,
-                AuthorUserID: authorUserId);
+            // -- if value > yaf db min value (1-1-1903) we are looking for first unread
+            if (lastRead > minDateTime)
+            {
+                // -- a message with the id was not found or we are looking for first unread or last post
+                list = repository.DbAccess.Execute(
+                    db =>
+                    {
+                        var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+                        return db.Connection.SqlList<(int MessagePosition, int MessageID)>(
+                            $@"select top 1 tbl.Position, tbl.MessageID from (
+                                      select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.Position, m.MessageID, m.Posted    
+                                      from {expression.Table<Message>()} m
+                                      where m.TopicID = {topicId} AND m.IsApproved = 1
+                                            and ({(showDeleted ? 1 : 0)} = 1 or m.IsDeleted = 0 or ({authorUserId} > 0 and m.UserID = {authorUserId}))
+                                      ) as tbl
+                               where tbl.Posted > '{lastRead.ToString(CultureInfo.InvariantCulture)}'
+                               order by tbl.RowNum ASC;");
+                    });
+
+                if (list.Any())
+                {
+                    return list.FirstOrDefault();
+                }
+            }
+
+            // -- if first unread was not found or we looking for last posted
+            list = repository.DbAccess.Execute(
+                db =>
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+                    return db.Connection.SqlList<(int MessagePosition, int MessageID)>(
+                        $@"select top 1 tbl.Position, tbl.MessageID from (
+                                      select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.Position, m.MessageID, m.Posted    
+                                      from {expression.Table<Message>()} m
+                                      where m.TopicID = {topicId} AND m.IsApproved = 1
+                                            and ({(showDeleted ? 1 : 0)} = 1 or m.IsDeleted = 0 or ({authorUserId} > 0 and m.UserID = {authorUserId}))
+                                      ) as tbl
+                               order by tbl.RowNum ASC;");
+                });
+
+            return list.FirstOrDefault();
         }
 
         /// <summary>
@@ -808,7 +979,7 @@ namespace YAF.Core.Model
 
             if (flags.IsApproved)
             {
-                repository.ApproveMessage(newMessageId, forumId);
+                repository.Approve(newMessageId, forumId);
                 BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
             }
 
@@ -827,7 +998,7 @@ namespace YAF.Core.Model
         /// The forum Id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="List"/>.
         /// </returns>
         public static List<Tuple<Topic, Message, User>> Unapproved(this IRepository<Message> repository, [NotNull] int forumId)
         {
@@ -999,38 +1170,10 @@ namespace YAF.Core.Model
             }
         }
 
-        /// <summary>
-        /// Gets the List of all message changes.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageId">
-        /// The Message ID.
-        /// </param>
-        /// <param name="daysToClean">
-        /// Days to clean.
-        /// </param>
-        /// <returns>
-        /// Returns the List of all message changes.
-        /// </returns>
-        public static DataTable HistoryListAsDataTable(
-            this IRepository<Message> repository,
-            int messageId,
-            int daysToClean)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.DbFunction.GetData.messagehistory_list(
-                MessageID: messageId,
-                DaysToClean: daysToClean,
-                UTCTIMESTAMP: DateTime.UtcNow);
-        }
-
         #endregion
 
         /// <summary>
-        /// The message_delete recursively.
+        /// Delete all messages recursively.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -1056,15 +1199,15 @@ namespace YAF.Core.Model
         private static void DeleteRecursively(
             this IRepository<Message> repository,
             [NotNull] int messageID,
-            bool isModeratorChanged,
+            [NotNull] bool isModeratorChanged,
             [NotNull] string deleteReason,
-            int isDeleteAction,
-            bool deleteLinked,
-            bool eraseMessages)
+            [NotNull] bool isDeleteAction,
+            [NotNull] bool deleteLinked,
+            [NotNull] bool eraseMessages)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var useFileTable = BoardContext.Current.Get<BoardSettings>().UseFileTable;
+            var useFileTable = BoardContext.Current.BoardSettings.UseFileTable;
 
             if (deleteLinked)
             {
@@ -1093,26 +1236,24 @@ namespace YAF.Core.Model
             // Ederon : erase message for good
             if (eraseMessages)
             {
-                // Delete Message from Search Index
-                BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByMessageId(messageID);
-
                 BoardContext.Current.Get<ILogger>().Log(
                     BoardContext.Current.PageUserID,
                     "YAF",
                     BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", messageID),
                     EventLogTypes.Information);
-
-                repository.DbFunction.Scalar.message_delete(MessageID: messageID, EraseMessage: true);
             }
-            else
+
+            repository.Delete(
+                messageID,
+                isModeratorChanged,
+                deleteReason,
+                eraseMessages,
+                isDeleteAction);
+
+            // Delete Message from Search Index
+            if (isDeleteAction)
             {
-                // Delete Message
-                // un-delete function added
-                repository.DbFunction.Scalar.message_deleteundelete(
-                    MessageID: messageID,
-                    isModeratorChanged: isModeratorChanged,
-                    DeleteReason: deleteReason,
-                    isDeleteAction: isDeleteAction);
+                BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByMessageId(messageID);
             }
         }
 
@@ -1122,24 +1263,265 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="messageID">
+        /// <param name="messageId">
         /// The message id.
         /// </param>
-        /// <param name="moveToTopic">
+        /// <param name="moveToTopicId">
         /// The move to topic.
         /// </param>
         private static void MoveRecursively(
             this IRepository<Message> repository,
-            [NotNull] int messageID,
-            [NotNull] int moveToTopic)
+            [NotNull] int messageId,
+            [NotNull] int moveToTopicId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var replies = repository.Get(m => m.ReplyTo == messageID).Select(x => x.ID);
+            var replies = repository.Get(m => m.ReplyTo == messageId).Select(x => x.ID);
 
-            replies.ForEach(replyId => repository.MoveRecursively(replyId, moveToTopic));
+            replies.ForEach(replyId => repository.MoveRecursively(replyId, moveToTopicId));
 
-            repository.DbFunction.Scalar.message_move(MessageID: messageID, MoveToTopic: moveToTopic);
+            repository.Move(messageId, moveToTopicId);
+        }
+
+        /// <summary>
+        /// Execute the actual message delete.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <param name="isModeratorChanged">
+        /// The is Moderator Changed.
+        /// </param>
+        /// <param name="deleteReason">
+        /// The delete Reason.
+        /// </param>
+        /// <param name="eraseMessage">
+        /// The erase Message.
+        /// </param>
+        /// <param name="isDeleteAction">
+        /// The is Delete Action.
+        /// </param>
+        private static void Delete(
+            this IRepository<Message> repository,
+            [NotNull] int messageId,
+            [NotNull] bool isModeratorChanged,
+            [NotNull] string deleteReason,
+            [NotNull] bool eraseMessage,
+            [NotNull] bool isDeleteAction)
+        {
+            // -- Find TopicID and ForumID
+            var message = BoardContext.Current.GetRepository<Topic>().GetTopicWithMessage(messageId);
+
+            // -- Update LastMessageID in Topic
+            BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+                () => new Topic
+                {
+                    LastPosted = null,
+                    LastMessageID = null,
+                    LastUserID = null,
+                    LastUserName = null,
+                    LastUserDisplayName = null,
+                    LastMessageFlags = null
+                },
+                x => x.LastMessageID == messageId);
+
+            // -- Update LastMessageID in Forum
+            BoardContext.Current.GetRepository<Forum>().UpdateOnly(
+                () => new Forum
+                {
+                    LastPosted = null,
+                    LastMessageID = null,
+                    LastUserID = null,
+                    LastUserName = null,
+                    LastUserDisplayName = null
+                },
+                x => x.LastMessageID == messageId);
+
+            // -- should it be physically deleter or not?
+            if (eraseMessage)
+            {
+                BoardContext.Current.GetRepository<Attachment>().Delete(x => x.MessageID == messageId);
+                BoardContext.Current.GetRepository<Activity>().Delete(x => x.MessageID == messageId);
+                BoardContext.Current.GetRepository<MessageReportedAudit>().Delete(x => x.MessageID == messageId);
+                BoardContext.Current.GetRepository<MessageReported>().Delete(x => x.ID == messageId);
+                BoardContext.Current.GetRepository<Thanks>().Delete(x => x.MessageID == messageId);
+                BoardContext.Current.GetRepository<MessageHistory>().Delete(x => x.MessageID == messageId);
+
+                // -- update message positions inside the topic
+                repository.UpdateAdd(
+                    () => new Message { Position = -1 },
+                    x => x.TopicID == message.Item1.TopicID && x.Posted > message.Item1.Posted && x.ID == messageId);
+
+                // -- update ReplyTo
+                var replyMessage = repository.GetSingle(
+                    x => x.TopicID == message.Item1.TopicID && x.Position == 0 && x.ID != messageId);
+
+                if (replyMessage != null)
+                {
+                    repository.UpdateOnly(
+                        () => new Message { ReplyTo = replyMessage.ID },
+                        x => x.TopicID == message.Item1.TopicID && x.ID == messageId);
+
+                    // -- fix Reply To if equal with MessageID
+                    repository.UpdateOnly(
+                        () => new Message { ReplyTo = null },
+                        x => x.TopicID == message.Item1.TopicID && x.ID == replyMessage.ID);
+                }
+
+                // -- finally delete the message we want to delete
+                repository.DeleteById(messageId);
+
+                if (repository.Count(x => x.TopicID == message.Item1.TopicID && x.IsDeleted == false) == 0)
+                {
+                    BoardContext.Current.GetRepository<Topic>().Delete(
+                        message.Item2.ForumID,
+                        message.Item1.TopicID,
+                        true);
+                }
+            }
+            else
+            {
+                var flags = message.Item1.MessageFlags;
+
+                flags.IsDeleted = isDeleteAction;
+
+                // -- "Delete" it only by setting deleted flag message
+                repository.UpdateOnly(
+                    () => new Message
+                    {
+                        IsModeratorChanged = isModeratorChanged, DeleteReason = deleteReason, Flags = flags.BitValue
+                    },
+                    x => x.TopicID == message.Item1.TopicID && x.ID == messageId);
+            }
+
+            // -- update user post count
+            if (!BoardContext.Current.GetRepository<Forum>()
+                .Exists(f => f.ID == message.Item2.ForumID && f.IsNoCount == true))
+            {
+                var postCount = repository.Count(
+                        x => x.UserID == message.Item1.UserID && x.IsDeleted == false && x.IsApproved == true)
+                    .ToType<int>();
+
+                BoardContext.Current.GetRepository<User>().UpdateOnly(
+                    () => new User
+                    {
+                        NumPosts = postCount
+                    },
+                    u => u.ID == message.Item1.UserID);
+            }
+
+            // -- update topic Post Count
+            BoardContext.Current.GetRepository<Topic>().UpdateAdd(
+                () => new Topic { NumPosts = -1 },
+                x => x.ID == message.Item1.TopicID);
+        }
+
+        /// <summary>
+        /// Execute the actual message move.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <param name="moveToTopicId">
+        /// The move To Topic Id.
+        /// </param>
+        private static void Move(
+            this IRepository<Message> repository,
+            [NotNull] int messageId,
+            [NotNull] int moveToTopicId)
+        {
+            // -- Find TopicID and ForumID
+            var message = BoardContext.Current.GetRepository<Topic>().GetTopicWithMessage(messageId);
+
+            int? replyToId = repository.GetSingle(x => x.Position == 0 && x.TopicID == moveToTopicId).ID;
+
+            int position;
+
+            try
+            {
+                position = repository.DbAccess.Execute(
+                    db => db.Connection.Scalar<Message, int>(
+                        x => Sql.Max(x.Position) + 1,
+                        x => x.TopicID == moveToTopicId && x.Posted < message.Item1.Posted));
+            }
+            catch (Exception)
+            {
+                position = 0;
+            }
+
+            repository.UpdateAdd(
+                () => new Message { Position = 1 },
+                x => x.TopicID == moveToTopicId && x.Posted > message.Item1.Posted);
+
+            repository.UpdateAdd(
+                () => new Message { Position = -1 },
+                x => x.TopicID == message.Item1.TopicID && x.Posted > message.Item1.Posted);
+
+            // -- Update LastMessageID in Topic & Forum
+            BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+                () => new Topic
+                {
+                    LastPosted = null,
+                    LastMessageID = null,
+                    LastUserID = null,
+                    LastUserName = null,
+                    LastUserDisplayName = null,
+                    LastMessageFlags = null
+                },
+                x => x.LastMessageID == messageId);
+
+            BoardContext.Current.GetRepository<Forum>().UpdateOnly(
+                () => new Forum
+                {
+                    LastPosted = null,
+                    LastMessageID = null,
+                    LastUserID = null,
+                    LastUserName = null,
+                    LastUserDisplayName = null
+                },
+                x => x.LastMessageID == messageId);
+
+            if (position == 0)
+            {
+                repository.UpdateOnly(
+                    () => new Message { ReplyTo = messageId },
+                    x => x.TopicID == moveToTopicId && x.ReplyTo == null);
+
+                replyToId = null;
+            }
+
+            repository.UpdateOnly(
+                () => new Message
+                {
+                    TopicID = moveToTopicId,
+                    ReplyTo = replyToId,
+                    Position = position
+                },
+                x => x.ID == messageId);
+
+            // -- Delete topic if there are no more messages
+            if (repository.Count(x => x.TopicID == message.Item1.TopicID && x.IsDeleted == false) == 0)
+            {
+                BoardContext.Current.GetRepository<Topic>().Delete(
+                    message.Item2.ForumID,
+                    message.Item1.TopicID,
+                    true);
+            }
+
+            // -- update topic Post Count
+            BoardContext.Current.GetRepository<Topic>().UpdateAdd(
+                () => new Topic { NumPosts = -1 },
+                x => x.ID == message.Item1.TopicID);
+
+            BoardContext.Current.GetRepository<Topic>().UpdateAdd(
+                () => new Topic { NumPosts = 1 },
+                x => x.ID == moveToTopicId);
         }
     }
 }

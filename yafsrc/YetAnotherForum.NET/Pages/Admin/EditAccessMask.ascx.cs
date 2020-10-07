@@ -154,10 +154,6 @@ namespace YAF.Pages.Admin
                     this.DownloadAccess.Checked,
                     sortOrder);
 
-            // empty out access table(s)
-            this.GetRepository<Active>().DeleteAll();
-            this.GetRepository<ActiveAccess>().DeleteAll();
-
             // get back to access masks administration
             BuildLink.Redirect(ForumPages.Admin_AccessMasks);
         }

@@ -2,17 +2,20 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
+    using System.Dynamic;
     using System.Linq;
-    
+
     using ServiceStack.OrmLite;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions.Data;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     /// The PMessage Repository Extensions
@@ -85,32 +88,61 @@ namespace YAF.Core.Model
         /// The user id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="dynamic"/>.
         /// </returns>
-        public static DataTable UserMessageCount(this IRepository<PMessage> repository, [NotNull] int userId)
+        public static dynamic UserMessageCount(this IRepository<PMessage> repository, [NotNull] int userId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbFunction.GetAsDataTable(cdb => cdb.user_pmcount(UserID: userId));
-        }
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-        /// <summary>
-        /// Deletes the Private Message
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
-        /// <param name="deleteFromOutbox">
-        /// The delete From Outbox.
-        /// </param>
-        public static void DeleteMessage(this IRepository<PMessage> repository, [NotNull] int messageId, bool deleteFromOutbox)
-        {
-            CodeContracts.VerifyNotNull(repository);
+            expression.Join<UserGroup>((a, b) => b.UserID == a.ID).Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
+                .Join<Rank>((a, d) => d.ID == a.RankID).Where<User>(a => a.ID == userId)
+                .OrderByDescending<Group>(c => c.PMLimit).ThenByDescending<Rank>(c => c.PMLimit).Limit(1)
+                .Select<Group, Rank>((c, d) => new { GroupLimit = c.PMLimit, RankLimit = d.PMLimit });
 
-            repository.DbFunction.Scalar.pmessage_delete(UserPMessageID: messageId, FromOutbox: deleteFromOutbox);
+            var limit = repository.DbAccess.Execute(db => db.Connection.Select<dynamic>(expression)).FirstOrDefault();
+
+            var numberAllowed = (int)limit.RankLimit;
+
+            if (limit.GroupLimit > limit.RankLimit)
+            {
+                numberAllowed = (int)limit.GroupLimit;
+            }
+
+            // -- get count of pm's in user's sent items
+            var countOutBoxExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>();
+
+            countOutBoxExpression.Join<PMessage>((a, b) => a.PMessageID == b.ID).Where<UserPMessage, PMessage>(
+                (a, b) => a.IsInOutbox == true && a.IsDeleted == false && a.IsArchived == false &&
+                          b.FromUserID == userId);
+
+            var numberOut = repository.DbAccess.Execute(db => db.Connection.Count(countOutBoxExpression));
+
+            // -- get count of pm's in user's received items
+            var countInBoxExpression = OrmLiteConfig.DialectProvider.SqlExpression<PMessage>();
+
+            countInBoxExpression.Join<UserPMessage>((a, b) => b.PMessageID == a.ID).Where<PMessage, UserPMessage>(
+                (a, b) => b.IsDeleted == false && b.IsArchived == false && b.UserID == userId);
+
+            var numberIn = repository.DbAccess.Execute(db => db.Connection.Count(countInBoxExpression));
+
+            var countArchivedExpression = OrmLiteConfig.DialectProvider.SqlExpression<PMessage>();
+
+            countArchivedExpression.Join<UserPMessage>((a, b) => b.PMessageID == a.ID).Where<PMessage, UserPMessage>(
+                (a, b) => b.IsDeleted == false && b.IsArchived == true && b.UserID == userId);
+
+            var numberArchived = repository.DbAccess.Execute(db => db.Connection.Count(countArchivedExpression));
+
+            dynamic count = new ExpandoObject();
+
+            count.NumberIn = numberIn;
+            count.NumberOut = numberOut;
+            count.NumberTotal = numberIn + numberOut + numberArchived;
+            count.NumberArchived = numberArchived;
+            count.NumberAllowed = numberAllowed;
+
+            return count;
         }
 
         /// <summary>
@@ -119,10 +151,10 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="fromUserID">
+        /// <param name="fromUserId">
         /// The from user id.
         /// </param>
-        /// <param name="toUserID">
+        /// <param name="toUserId">
         /// The to user id.
         /// </param>
         /// <param name="subject">
@@ -139,8 +171,8 @@ namespace YAF.Core.Model
         /// </param>
         public static void SendMessage(
             this IRepository<PMessage> repository,
-            [NotNull] int fromUserID,
-            [NotNull] int toUserID,
+            [NotNull] int fromUserId,
+            [NotNull] int toUserId,
             [NotNull] string subject,
             [NotNull] string body,
             [NotNull] int flags,
@@ -148,14 +180,41 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.DbFunction.Scalar.pmessage_save(
-                FromUserID: fromUserID,
-                ToUserID: toUserID,
-                Subject: subject,
-                Body: body,
-                Flags: flags,
-                ReplyTo: replyTo,
-                UTCTIMESTAMP: DateTime.UtcNow);
+            var newMessageId = repository.Insert(
+                new PMessage
+                {
+                    FromUserID = fromUserId,
+                    Created = DateTime.UtcNow,
+                    Subject = subject,
+                    Body = body,
+                    Flags = flags,
+                    ReplyTo = replyTo
+                });
+
+            if (replyTo.HasValue)
+            {
+                BoardContext.Current.GetRepository<UserPMessage>().UpdateOnly(
+                    () => new UserPMessage { IsReply = true },
+                    x => x.ID == replyTo.Value);
+            }
+
+            if (toUserId == 0)
+            {
+                // Get all board users
+                var users = BoardContext.Current.GetRepository<User>().Get(
+                    u => u.BoardID == repository.BoardID && u.IsApproved == true && u.IsGuest == false);
+
+                users.ForEach(
+                    u => BoardContext.Current.GetRepository<UserPMessage>().Insert(
+                        new UserPMessage { UserID = u.ID, PMessageID = newMessageId, Flags = 2 }));
+            }
+            else
+            {
+                BoardContext.Current.GetRepository<UserPMessage>().Insert(
+                    new UserPMessage { UserID = toUserId, PMessageID = newMessageId, Flags = 2 });
+            }
+
+            repository.FireNew(newMessageId);
         }
 
         /// <summary>
@@ -179,7 +238,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<dynamic> List(
+        public static List<PagedPm> List(
             this IRepository<PMessage> repository,
             [NotNull] int userId,
             [NotNull] PmView view,
@@ -278,15 +337,15 @@ namespace YAF.Core.Model
                             PMessageID = a.ID,
                             UserPMessageID = b.ID,
                             a.FromUserID,
-                            FromUser = Sql.TableAlias("d.Name", "d"),
-                            FromUserDisplayName = Sql.TableAlias("d.DisplayName", "d"),
-                            FromStyle = Sql.TableAlias("d.UserStyle", "d"),
-                            FromSuspended = Sql.TableAlias("d.Suspended", "d"),
+                            FromUser = Sql.TableAlias(d.Name, "d"),
+                            FromUserDisplayName = Sql.TableAlias(d.DisplayName, "d"),
+                            FromStyle = Sql.TableAlias(d.UserStyle, "d"),
+                            FromSuspended = Sql.TableAlias(d.Suspended, "d"),
                             ToUserID = b.UserID,
-                            ToUser = Sql.TableAlias("c.Name", "c"),
-                            ToUserDisplayName = Sql.TableAlias("c.DisplayName", "c"),
-                            ToStyle = Sql.TableAlias("c.UserStyle", "c"),
-                            ToSuspended = Sql.TableAlias("c.Suspended", "c"),
+                            ToUser = Sql.TableAlias(c.Name, "c"),
+                            ToUserDisplayName = Sql.TableAlias(c.DisplayName, "c"),
+                            ToStyle = Sql.TableAlias(c.UserStyle, "c"),
+                            ToSuspended = Sql.TableAlias(c.Suspended, "c"),
                             a.Created,
                             a.Subject,
                             a.Body,
@@ -299,7 +358,7 @@ namespace YAF.Core.Model
                             b.IsDeleted
                         });
 
-                    return db.Connection.Select<object>(expression);
+                    return db.Connection.Select<PagedPm>(expression);
                 });
         }
 
@@ -340,7 +399,7 @@ namespace YAF.Core.Model
         public static List<dynamic> List(
             this IRepository<PMessage> repository,
             [NotNull] int userPMessageID,
-            bool includeReplies)
+            [NotNull] bool includeReplies)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -401,7 +460,9 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="IEnumerable"/>.
         /// </returns>
-        private static IEnumerable<dynamic> GetReplies(this IRepository<PMessage> repository, [CanBeNull] List<dynamic> messages)
+        private static IEnumerable<dynamic> GetReplies(
+            this IRepository<PMessage> repository,
+            [CanBeNull] List<dynamic> messages)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -412,7 +473,9 @@ namespace YAF.Core.Model
 
             var message = messages.FirstOrDefault();
 
-            if (message.ReplyTo != null)
+            var replyTo = (int?)message.ReplyTo;
+
+            if (replyTo.HasValue && replyTo.Value > 0)
             {
                 var replyToId = (int)message.ReplyTo;
 

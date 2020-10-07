@@ -25,12 +25,10 @@
 namespace YAF.Web.Controls
 {
     using System;
-    using System.Data;
     using System.Globalization;
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -38,6 +36,7 @@ namespace YAF.Web.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects.Model;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -60,14 +59,15 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        ///   Sets DataRow.
+        /// Sets the item.
         /// </summary>
-        public object DataRow
+        public PagedTopic Item
         {
             set
             {
-                this.TopicRow = value as DataRowView;
-                this.TopicRowID = this.TopicRow?["LinkTopicID"].ToType<int>();
+                this.TopicItem = value;
+
+                this.TopicRowID = this.TopicItem.LinkTopicID;
             }
         }
 
@@ -84,28 +84,28 @@ namespace YAF.Web.Controls
         /// <summary>
         ///  Gets the TopicRow.
         /// </summary>
-        protected DataRowView TopicRow { get; private set; }
+        protected PagedTopic TopicItem { get; private set; }
 
         #endregion
 
         /// <summary>
-        ///   Checks if the Topic is Hot or not
+        /// Checks if the Topic is Hot or not
         /// </summary>
         /// <param name="lastPosted">
-        ///   The last Posted DateTime.
+        /// The last Posted DateTime.
         /// </param>
-        /// <param name="row">
-        ///   The Topic Data Row
+        /// <param name="item">
+        /// The item.
         /// </param>
         /// <returns>
-        ///   Returns if the Topic is Hot or not
+        /// Returns if the Topic is Hot or not
         /// </returns>
-        public bool IsPopularTopic(DateTime lastPosted, DataRowView row)
+        public bool IsPopularTopic(DateTime lastPosted, PagedTopic item)
         {
-            if (lastPosted > DateTime.Now.AddDays(-this.Get<BoardSettings>().PopularTopicDays))
+            if (lastPosted > DateTime.Now.AddDays(-this.PageContext.BoardSettings.PopularTopicDays))
             {
-                return row["Replies"].ToType<int>() >= this.Get<BoardSettings>().PopularTopicReplys ||
-                       row["Views"].ToType<int>() >= this.Get<BoardSettings>().PopularTopicViews;
+                return item.Replies >= this.PageContext.BoardSettings.PopularTopicReplys ||
+                       item.Views >= this.PageContext.BoardSettings.PopularTopicViews;
             }
 
             return false;
@@ -123,10 +123,10 @@ namespace YAF.Web.Controls
             }
 
             var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                this.TopicRow["ForumID"].ToType<int>(),
-                this.TopicRow["TopicID"].ToType<int>(),
-                this.TopicRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
-                this.TopicRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
+                this.TopicItem.ForumID,
+                this.TopicItem.TopicID,
+                this.TopicItem.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
+                this.TopicItem.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
             if (!this.AllowSelection)
             {
@@ -152,41 +152,39 @@ namespace YAF.Web.Controls
 
             writer.Write(HtmlTextWriter.TagRightChar);
 
-            this.GetTopicIcon(this.TopicRow, lastRead).RenderControl(writer);
+            this.GetTopicIcon(this.TopicItem, lastRead).RenderControl(writer);
 
             writer.WriteEndTag(HtmlTextWriterTag.A.ToString());
 
-            this.RenderPriorityMessage(writer, this.TopicRow);
+            this.RenderPriorityMessage(writer, this.TopicItem);
 
             var topicLink = new HyperLink
             {
                 NavigateUrl = BuildLink.GetTopicLink(
-                    this.TopicRow["LinkTopicID"].ToType<int>(),
-                    this.TopicRow["Subject"].ToString()),
+                    this.TopicItem.LinkTopicID,
+                    this.TopicItem.Subject),
                 Text = this.FormatTopicName(),
                 CssClass = "topic-starter-popover"
             };
 
             topicLink.Attributes.Add("data-toggle", "popover");
 
-            var topicStartedDateTime = this.TopicRow["Posted"].ToType<DateTime>();
+            var topicStartedDateTime = this.TopicItem.Posted;
 
-            var formattedStartedDatetime = this.Get<BoardSettings>().ShowRelativeTime
+            var formattedStartedDatetime = this.PageContext.BoardSettings.ShowRelativeTime
                 ? topicStartedDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)
                 : this.Get<IDateTime>().Format(DateTimeFormat.BothTopic, topicStartedDateTime);
 
             var topicStarterLink = new UserLink
             {
                 IsGuest = true,
-                Suspended = this.TopicRow["StarterSuspended"].ToType<DateTime?>(),
-                UserID = this.TopicRow["UserID"].ToType<int>(),
-                ReplaceName = this
-                    .TopicRow[this.Get<BoardSettings>().EnableDisplayName ? "StarterDisplay" : "Starter"]
-                    .ToString(),
-                Style = this.TopicRow["StarterStyle"].ToString()
+                Suspended = this.TopicItem.StarterSuspended,
+                UserID = this.TopicItem.UserID,
+                ReplaceName = this.PageContext.BoardSettings.EnableDisplayName ? this.TopicItem.StarterDisplay : this.TopicItem.Starter,
+                Style = this.TopicItem.StarterStyle
             };
 
-            var span = this.Get<BoardSettings>().ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
+            var span = this.PageContext.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
             var dateTimeIcon = new Icon
             {
@@ -200,9 +198,9 @@ namespace YAF.Web.Controls
                 "data-content",
                 $@"{topicStarterLink.RenderToString()}{dateTimeIcon}{span}{formattedStartedDatetime}</span>");
 
-            if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
+            if (this.TopicItem.LastMessageID.HasValue)
             {
-                if (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)
+                if (this.TopicItem.LastPosted > lastRead)
                 {
                     var success = new Label { CssClass = "badge bg-success mr-1", Text = this.GetText("NEW_POSTS") };
 
@@ -212,7 +210,7 @@ namespace YAF.Web.Controls
 
             writer.Write(topicLink.RenderToString());
 
-            var favoriteCount = this.TopicRow["FavoriteCount"].ToType<int>();
+            var favoriteCount = this.TopicItem.FavoriteCount;
 
             if (favoriteCount > 0)
             {
@@ -261,23 +259,23 @@ namespace YAF.Web.Controls
             viewsLabel.RenderControl(writer);
 
             // Render Pager
-            var actualPostCount = this.TopicRow["Replies"].ToType<int>() + 1;
+            var actualPostCount = this.TopicItem.Replies + 1;
 
-            if (this.Get<BoardSettings>().ShowDeletedMessages)
+            if (this.PageContext.BoardSettings.ShowDeletedMessages)
             {
                 // add deleted posts not included in replies...");
-                actualPostCount += this.TopicRow["NumPostsDeleted"].ToType<int>();
+                actualPostCount += this.TopicItem.NumPostsDeleted;
             }
 
             this.CreatePostPager(
                 writer,
                 actualPostCount,
-                this.Get<BoardSettings>().PostsPerPage,
-                this.TopicRow["LinkTopicID"].ToType<int>());
+                this.PageContext.BoardSettings.PostsPerPage,
+                this.TopicItem.LinkTopicID);
 
             writer.WriteEndTag(HtmlTextWriterTag.H5.ToString());
 
-            var topicDescription = this.TopicRow["Description"].ToString();
+            var topicDescription = this.TopicItem.Description;
 
             if (topicDescription.IsSet())
             {
@@ -286,7 +284,7 @@ namespace YAF.Web.Controls
 
             writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());
 
-            if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
+            if (this.TopicItem.LastMessageID.HasValue)
             {
                 writer.Write("<div class=\"col-md-4 text-secondary\">");
 
@@ -304,22 +302,21 @@ namespace YAF.Web.Controls
                     NavigateUrl = "#!"
                 };
 
-                var lastPostedDateTime = this.TopicRow["LastPosted"].ToType<DateTime>();
+                var lastPostedDateTime = this.TopicItem.LastPosted;
 
-                var formattedDatetime = this.Get<BoardSettings>().ShowRelativeTime
+                var formattedDatetime = this.PageContext.BoardSettings.ShowRelativeTime
                     ? lastPostedDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)
                     : this.Get<IDateTime>().Format(DateTimeFormat.BothTopic, lastPostedDateTime);
 
                 var userLast = new UserLink
                 {
                     IsGuest = true,
-                    Suspended = this.TopicRow["LastUserSuspended"].ToType<DateTime?>(),
-                    UserID = this.TopicRow["LastUserID"].ToType<int>(),
-                    ReplaceName = this
-                        .TopicRow[this.Get<BoardSettings>().EnableDisplayName
-                            ? "LastUserDisplayName"
-                            : "LastUserName"].ToString(),
-                    Style = this.TopicRow["LastUserStyle"].ToString()
+                    Suspended = this.TopicItem.LastUserSuspended,
+                    UserID = this.TopicItem.LastUserID.Value,
+                    ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+                            ? this.TopicItem.LastUserDisplayName
+                            : this.TopicItem.LastUserName,
+                    Style = this.TopicItem.LastUserStyle
                 };
 
                 infoLastPost.DataContent =
@@ -327,9 +324,9 @@ namespace YAF.Web.Controls
 
                 infoLastPost.TextLocalizedTag = "by";
                 infoLastPost.TextLocalizedPage = "DEFAULT";
-                infoLastPost.ParamText0 = this
-                    .TopicRow[this.Get<BoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUserName"]
-                    .ToString();
+                infoLastPost.ParamText0 = this.PageContext.BoardSettings.EnableDisplayName
+                    ? this.TopicItem.LastUserDisplayName
+                    : this.TopicItem.LastUserName;
 
                 writer.Write(infoLastPost.RenderToString());
 
@@ -339,8 +336,8 @@ namespace YAF.Web.Controls
                         BuildLink.GetLink(
                             ForumPages.Posts,
                             "m={0}&name={1}#post{0}",
-                            this.TopicRow["LastMessageID"],
-                            this.TopicRow["Subject"]),
+                            this.TopicItem.LastMessageID,
+                            this.TopicItem.Subject),
                     Size = ButtonSize.Small,
                     Icon = "share-square",
                     Type = ButtonStyle.OutlineSecondary,
@@ -353,9 +350,9 @@ namespace YAF.Web.Controls
                     NavigateUrl =
                         BuildLink.GetLink(
                             ForumPages.Posts,
-                            "t={0}&name={1}&find=unread",
-                            this.TopicRow["TopicID"],
-                            this.TopicRow["Subject"]),
+                            "t={0}&name={1}",
+                            this.TopicItem.TopicID,
+                            this.TopicItem.Subject),
                     Size = ButtonSize.Small,
                     Icon = "book-reader",
                     Type = ButtonStyle.OutlineSecondary,
@@ -414,7 +411,7 @@ namespace YAF.Web.Controls
             {
                 this.MakeLink(
                     "1",
-                    BuildLink.GetLink(ForumPages.Posts, "t={0}&name={1}", topicID, this.TopicRow["Subject"]),
+                    BuildLink.GetLink(ForumPages.Posts, "t={0}&name={1}", topicID, this.TopicItem.Subject),
                     1).RenderControl(writer);
                 writer.Write(" ... ");
 
@@ -430,7 +427,7 @@ namespace YAF.Web.Controls
                             "t={0}&name={2}&p={1}",
                             topicID,
                             post,
-                            this.TopicRow["Subject"]),
+                            this.TopicItem.Subject),
                         post).RenderControl(writer);
                 }
             }
@@ -447,7 +444,7 @@ namespace YAF.Web.Controls
                             "t={0}&name={2}&p={1}",
                             topicID,
                             post,
-                            this.TopicRow["Subject"]),
+                            this.TopicItem.Subject),
                         post).RenderControl(writer);
                 }
             }
@@ -465,15 +462,15 @@ namespace YAF.Web.Controls
         {
             var repStr = "&nbsp;";
 
-            var replies = this.TopicRow["Replies"].ToType<int>();
-            var numDeleted = this.TopicRow["NumPostsDeleted"].ToType<int>();
+            var replies = this.TopicItem.Replies;
+            var numDeleted = this.TopicItem.NumPostsDeleted;
 
             if (replies < 0)
             {
                 return repStr;
             }
 
-            if (this.Get<BoardSettings>().ShowDeletedMessages && numDeleted > 0)
+            if (this.PageContext.BoardSettings.ShowDeletedMessages && numDeleted > 0)
             {
                 repStr = $"{replies + numDeleted:N0}";
             }
@@ -493,8 +490,8 @@ namespace YAF.Web.Controls
         /// </returns>
         protected string FormatViews()
         {
-            var views = this.TopicRow["Views"].ToType<int>();
-            return this.TopicRow["TopicMovedID"].ToString().Length > 0 ? "&nbsp;" : $"{views:N0}";
+            var views = this.TopicItem.Views;
+            return this.TopicItem.TopicMovedID.HasValue ? "&nbsp;" : $"{views:N0}";
         }
 
         /// <summary>
@@ -506,10 +503,10 @@ namespace YAF.Web.Controls
         /// </returns>
         protected string FormatTopicName()
         {
-            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Subject"]));
+            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicItem.Subject));
 
-            var styles = this.Get<BoardSettings>().UseStyledTopicTitles
-                ? this.Get<IStyleTransform>().DecodeStyleByString(this.TopicRow["Styles"].ToString())
+            var styles = this.PageContext.BoardSettings.UseStyledTopicTitles
+                ? this.Get<IStyleTransform>().Decode(this.TopicItem.Styles)
                 : string.Empty;
 
             if (styles.IsNotSet())
@@ -530,16 +527,14 @@ namespace YAF.Web.Controls
         /// <param name="writer">
         /// The writer.
         /// </param>
-        /// <param name="row">
-        /// Current Topic Data Row
+        /// <param name="item">
+        /// The item.
         /// </param>
-        protected void RenderPriorityMessage([NotNull] HtmlTextWriter writer, [NotNull] DataRowView row)
+        protected void RenderPriorityMessage([NotNull] HtmlTextWriter writer, [NotNull] PagedTopic item)
         {
-            CodeContracts.VerifyNotNull(row, "row");
-
             var priorityLabel = new Label();
 
-            if (row["TopicMovedID"].ToString().Length > 0)
+            if (item.TopicMovedID.HasValue)
             {
                 priorityLabel.Text = new IconHeader { LocalizedTag = "MOVED", IconName = "arrows-alt", IconType = " " }
                     .RenderToString();
@@ -547,7 +542,7 @@ namespace YAF.Web.Controls
 
                 priorityLabel.RenderControl(writer);
             }
-            else if (row["PollID"].ToString() != string.Empty)
+            else if (item.PollID.HasValue)
             {
                 priorityLabel.Text = new IconHeader { LocalizedTag = "POLL", IconName = "poll-h", IconType = " " }
                     .RenderToString();
@@ -557,7 +552,7 @@ namespace YAF.Web.Controls
             }
             else
             {
-                switch (int.Parse(row["Priority"].ToString()))
+                switch (item.Priority)
                 {
                     case 1:
                         priorityLabel.Text =
@@ -582,8 +577,8 @@ namespace YAF.Web.Controls
         /// <summary>
         /// Gets the topic image.
         /// </summary>
-        /// <param name="row">
-        /// The row.
+        /// <param name="item">
+        /// The item.
         /// </param>
         /// <param name="lastRead">
         /// The last Read.
@@ -591,16 +586,12 @@ namespace YAF.Web.Controls
         /// <returns>
         /// Returns the Topic Image
         /// </returns>
-        protected Icon GetTopicIcon([NotNull] DataRowView row, DateTime lastRead)
+        protected Icon GetTopicIcon([NotNull] PagedTopic item, DateTime lastRead)
         {
-            CodeContracts.VerifyNotNull(row, "row");
+            var lastPosted = item.LastPosted ?? DateTimeHelper.SqlDbMinTime();
 
-            var lastPosted = row["LastPosted"] != DBNull.Value
-                ? (DateTime)row["LastPosted"]
-                : DateTimeHelper.SqlDbMinTime();
-
-            var topicFlags = new TopicFlags(row["TopicFlags"]);
-            var forumFlags = new ForumFlags(row["ForumFlags"]);
+            var topicFlags = new TopicFlags(item.TopicFlags);
+            var forumFlags = new ForumFlags(item.ForumFlags);
 
             var iconNew = new Icon
             {
@@ -620,9 +611,9 @@ namespace YAF.Web.Controls
                 IconType = "text-secondary"
             };
 
-            var isHotTopic = this.IsPopularTopic(lastPosted, row);
+            var isHotTopic = this.IsPopularTopic(lastPosted, item);
 
-            if (row["TopicMovedID"].ToString().Length > 0)
+            if (item.TopicMovedID.HasValue)
             {
                 icon.IconStackName = "arrows-alt";
 

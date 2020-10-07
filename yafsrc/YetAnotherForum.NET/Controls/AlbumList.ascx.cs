@@ -31,7 +31,6 @@ namespace YAF.Controls
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -120,21 +119,25 @@ namespace YAF.Controls
 
             this.BindData();
 
+            var userAlbum = (int)this.GetRepository<User>().MaxAlbumData(
+                this.PageContext.PageUserID,
+                this.PageContext.PageBoardID).UserAlbum;
+
             HttpContext.Current.Session["localizationFile"] = this.Get<ILocalization>().LanguageFileName;
 
             // Show Albums Max Info
             if (this.User.ID == this.PageContext.PageUserID)
             {
                 this.albumsInfo.Text = this.Get<ILocalization>().GetTextFormatted(
-                    "ALBUMS_INFO", this.PageContext.NumAlbums, this.PageContext.UsrAlbums);
-                if (this.PageContext.UsrAlbums > this.PageContext.NumAlbums)
+                    "ALBUMS_INFO", this.PageContext.NumAlbums, userAlbum);
+                if (userAlbum > this.PageContext.NumAlbums)
                 {
                     this.AddAlbum.Visible = true;
                 }
 
-                this.albumsInfo.Text = this.PageContext.UsrAlbums > 0
+                this.albumsInfo.Text = userAlbum > 0
                                            ? this.Get<ILocalization>().GetTextFormatted(
-                                               "ALBUMS_INFO", this.PageContext.NumAlbums, this.PageContext.UsrAlbums)
+                                               "ALBUMS_INFO", this.PageContext.NumAlbums, userAlbum)
                                            : this.Get<ILocalization>().GetText("ALBUMS_NOTALLOWED");
 
                 this.albumsInfo.Visible = true;
@@ -164,7 +167,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.Get<BoardSettings>().AlbumsPerPage;
+            this.PagerTop.PageSize = this.PageContext.BoardSettings.AlbumsPerPage;
 
             // set the Data table
             var albumListDT = this.GetRepository<UserAlbum>().ListByUser(this.User.ID);

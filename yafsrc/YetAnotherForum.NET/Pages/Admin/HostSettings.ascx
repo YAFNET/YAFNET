@@ -7,7 +7,7 @@
     <div class="col flex-grow-1 ml-lg-3 d-lg-none">
         <div class="dropdown">
             <YAF:ThemeButton runat="server" 
-                             CssClass="dropdown-toggle w-100 text-left" 
+                             CssClass="dropdown-toggle btn-block" 
                              DataToggle="dropdown"
                              Type="Secondary"
                              TextLocalizedTag="TITLE"
@@ -819,23 +819,13 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel100" runat="server"
-                                               AssociatedControlID="EnableThanksMod"
-                                               LocalizedTag="ALLOW_THANKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <div class="form-check form-switch">
-                                    <asp:CheckBox Text="&nbsp;" ID="EnableThanksMod" runat="server"></asp:CheckBox>
-                                </div>
-                            </div>
-                            <div class="mb-3 col-md-6">
+                            <div class="mb-3">
                                 <YAF:HelpLabel ID="HelpLabel102" runat="server" 
                                                AssociatedControlID="ShowThanksDate"
                                                LocalizedTag="SHOW_THANK_DATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                 <div class="form-check form-switch">
                                     <asp:CheckBox Text="&nbsp;" ID="ShowThanksDate" runat="server"></asp:CheckBox>
                                 </div>
-                            </div>
                         </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel101" runat="server"
@@ -1720,14 +1710,6 @@
                                    LocalizedTag="AVATAR_GALLERY" LocalizedPage="ADMIN_HOSTSETTINGS" />
                     <div class="form-check form-switch">
                         <asp:CheckBox Text="&nbsp;" ID="AvatarGallery" runat="server"></asp:CheckBox>
-                    </div>
-                </div>
-                <div class="mb-3 col-md-6">
-                    <YAF:HelpLabel ID="HelpLabel50" runat="server" 
-                                   AssociatedControlID="AvatarRemote"
-                                   LocalizedTag="REMOTE_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                    <div class="form-check form-switch">
-                        <asp:CheckBox Text="&nbsp;" ID="AvatarRemote" runat="server"></asp:CheckBox>
                     </div>
                 </div>
                 <div class="mb-3 col-md-6">

@@ -26,7 +26,6 @@ namespace YAF.Web.BBCodes
 {
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.BBCode;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
@@ -148,12 +147,6 @@ namespace YAF.Web.BBCodes
             else
             {
                 // Handle Hide Thanks
-                if (!this.Get<BoardSettings>().EnableThanksMod)
-                {
-                    writer.Write(hiddenContent);
-                    return;
-                }
-
                 if (BoardContext.Current.IsGuest)
                 {
                     writer.Write(shownContentGuest);

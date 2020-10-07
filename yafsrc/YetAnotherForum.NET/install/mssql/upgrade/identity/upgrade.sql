@@ -435,7 +435,7 @@ declare @ApplicationID uniqueidentifier;
 set @ApplicationID = (select top 1 ApplicationId from [{databaseOwner}].[{objectQualifier}AspNetUsers])
 
 -- Import Application Id
-EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'applicationid',@ApplicationID;
+insert into [{databaseOwner}].[{objectQualifier}Registry](Name,Value) values('applicationid',@ApplicationID)
 go
 
 if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Application]') and type in (N'U'))

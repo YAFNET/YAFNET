@@ -46,7 +46,6 @@ namespace YAF.Pages
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -135,11 +134,11 @@ namespace YAF.Pages
                     this.BindVariousControls(
                         this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a").Equals("new"));
 
-                    var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
+                    var data = this.GetRepository<User>().MaxAlbumData(
                         this.PageContext.PageUserID,
                         this.PageContext.PageBoardID);
 
-                    var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
+                    var usrAlbumImagesAllowed = (int)data.UserAlbumImages;
 
                     // Check if user album is empty
                     if (usrAlbumImagesAllowed == 0)
@@ -149,7 +148,7 @@ namespace YAF.Pages
 
                     // Has the user uploaded maximum number of images?   
                     // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
-                    if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
+                    if (usrAlbumImagesAllowed > 0)
                     {
                         this.UploadHolder.Visible = !(this.List.Items.Count >= usrAlbumImagesAllowed);
 
@@ -157,7 +156,7 @@ namespace YAF.Pages
                             "IMAGES_INFO",
                             this.List.Items.Count,
                             usrAlbumImagesAllowed,
-                            this.Get<BoardSettings>().AlbumImagesSizeMax / 1024);
+                            this.PageContext.BoardSettings.AlbumImagesSizeMax / 1024);
                     }
                     else
                     {
@@ -175,7 +174,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<BoardSettings>().EnableAlbum)
+            if (!this.PageContext.BoardSettings.EnableAlbum)
             {
                 BuildLink.AccessDenied();
             }
@@ -189,11 +188,11 @@ namespace YAF.Pages
                 return;
             }
 
-            var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
+            var data = this.GetRepository<User>().MaxAlbumData(
                 this.PageContext.PageUserID,
                 this.PageContext.PageBoardID);
 
-            var usrAlbumsAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
+            var usrAlbumsAllowed = (int)data.UserAlbumImages;
 
             var albumSize = this.GetRepository<UserAlbum>().CountUserAlbum(this.PageContext.PageUserID);
             
@@ -203,13 +202,10 @@ namespace YAF.Pages
                 case "new":
 
                     // Has the user created maximum number of albums?
-                    if (usrAlbumsAllowed.HasValue && usrAlbumsAllowed > 0)
+                    if (usrAlbumsAllowed > 0 && albumSize >= usrAlbumsAllowed)
                     {
                         // Albums count. If we reached limit then we go to info page.
-                        if (usrAlbumsAllowed > 0 && albumSize >= usrAlbumsAllowed)
-                        {
-                            BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
-                        }
+                        BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
                     }
 
                     this.UpdateTitle.Visible = false;
@@ -221,11 +217,11 @@ namespace YAF.Pages
 
             this.BindData();
 
-            var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
+            var usrAlbumImagesAllowed = (int)data.UserAlbumImages;
 
             // Has the user uploaded maximum number of images?   
             // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
-            if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
+            if (usrAlbumImagesAllowed > 0)
             {
                 this.UploadHolder.Visible = !(this.List.Items.Count >= usrAlbumImagesAllowed);
 
@@ -233,7 +229,7 @@ namespace YAF.Pages
                     "IMAGES_INFO",
                     this.List.Items.Count,
                     usrAlbumImagesAllowed,
-                    this.Get<BoardSettings>().AlbumImagesSizeMax / 1024);
+                    this.PageContext.BoardSettings.AlbumImagesSizeMax / 1024);
             }
             else
             {
@@ -290,15 +286,15 @@ namespace YAF.Pages
 
                 this.BindData();
 
-                var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
+                var data = this.GetRepository<User>().MaxAlbumData(
                     this.PageContext.PageUserID,
                     this.PageContext.PageBoardID);
 
-                var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
+                var usrAlbumImagesAllowed = (int)data.UserAlbumImages;
 
                 // Has the user uploaded maximum number of images?   
                 // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
-                if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
+                if (usrAlbumImagesAllowed > 0)
                 {
                     this.UploadHolder.Visible = !(this.List.Items.Count >= usrAlbumImagesAllowed);
 
@@ -306,7 +302,7 @@ namespace YAF.Pages
                         "IMAGES_INFO",
                         this.List.Items.Count,
                         usrAlbumImagesAllowed,
-                        this.Get<BoardSettings>().AlbumImagesSizeMax / 1024);
+                        this.PageContext.BoardSettings.AlbumImagesSizeMax / 1024);
                 }
                 else
                 {
@@ -431,20 +427,20 @@ namespace YAF.Pages
             }
 
             // verify the size of the attachment
-            if (this.Get<BoardSettings>().AlbumImagesSizeMax > 0
-                && file.PostedFile.ContentLength > this.Get<BoardSettings>().AlbumImagesSizeMax)
+            if (this.PageContext.BoardSettings.AlbumImagesSizeMax > 0
+                && file.PostedFile.ContentLength > this.PageContext.BoardSettings.AlbumImagesSizeMax)
             {
                 this.PageContext.AddLoadMessage(this.GetText("ERROR_TOOBIG"), MessageTypes.danger);
                 return;
             }
 
             // vzrus: the checks here are useless but in a case...
-            var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
+            var data = this.GetRepository<User>().MaxAlbumData(
                 this.PageContext.PageUserID,
                 this.PageContext.PageBoardID);
 
-            var usrAlbumsAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
-            var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
+            var usrAlbumsAllowed = (int)data.UserAlbum;
+            var usrAlbumImagesAllowed = (int)data.UserAlbumImages;
 
             // if (!usrAlbums.HasValue || usrAlbums <= 0) return;
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == "new")

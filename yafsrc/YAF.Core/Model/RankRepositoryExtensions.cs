@@ -23,9 +23,20 @@
  */
 namespace YAF.Core.Model
 {
+    using System;
+    using System.Linq;
+
+    using ServiceStack.OrmLite;
+
+    using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.EventProxies;
+    using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
 
     /// <summary>
@@ -34,31 +45,28 @@ namespace YAF.Core.Model
     public static class RankRepositoryExtensions
     {
         /// <summary>
-        /// The rank_save.
+        /// Saves or adds a New Rank
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="rankID">
-        /// The rank id.
+        /// <param name="rankId">
+        /// The rank Id.
         /// </param>
-        /// <param name="boardID">
-        /// The board id.
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
         /// <param name="name">
         /// The name.
         /// </param>
-        /// <param name="isStart">
-        /// The is start.
-        /// </param>
-        /// <param name="isLadder">
-        /// The is ladder.
+        /// <param name="flags">
+        /// The flags.
         /// </param>
         /// <param name="minPosts">
         /// The min posts.
         /// </param>
-        /// <param name="pmLimit">
-        /// The pm limit.
+        /// <param name="messagesLimit">
+        /// The private message limit.
         /// </param>
         /// <param name="style">
         /// The style.
@@ -69,58 +77,123 @@ namespace YAF.Core.Model
         /// <param name="description">
         /// The description.
         /// </param>
-        /// <param name="usrSigChars">
-        /// The usrSigChars defines number of allowed characters in user signature.
+        /// <param name="signatureChars">
+        /// Defines number of allowed characters in user signature.
         /// </param>
-        /// <param name="usrSigBBCodes">
-        /// The UsrSigBBCodes.defines comma separated bbcodes allowed for a rank, i.e in a user signature
+        /// <param name="signatureBBCodes">
+        /// Defines comma separated BBCodes allowed for a rank, i.e in a user signature
         /// </param>
-        /// <param name="usrSigHTMLTags">
-        /// The UsrSigHTMLTags defines comma separated tags allowed for a rank, i.e in a user signature
+        /// <param name="signatureHTMLTags">
+        /// Defines comma separated tags allowed for a rank, i.e in a user signature
         /// </param>
-        /// <param name="usrAlbums">
-        /// The UsrAlbums defines allowed number of albums.
+        /// <param name="userAlbums">
+        /// Defines allowed number of albums.
         /// </param>
-        /// <param name="usrAlbumImages">
-        /// The UsrAlbumImages defines number of images allowed for an album.
+        /// <param name="userAlbumImages">
+        /// Defines number of images allowed for an album.
         /// </param>
         public static void Save(
             this IRepository<Rank> repository,
-            [NotNull] int rankID,
-            [NotNull] object boardID,
-            [NotNull] object name,
-            [NotNull] object isStart,
-            [NotNull] object isLadder,
-            [NotNull] object minPosts,
-            [NotNull] object pmLimit,
-            [NotNull] object style,
-            [NotNull] object sortOrder,
-            [NotNull] object description,
-            [NotNull] object usrSigChars,
-            [NotNull] object usrSigBBCodes,
-            [NotNull] object usrSigHTMLTags,
-            [NotNull] object usrAlbums,
-            [NotNull] object usrAlbumImages)
+            [CanBeNull] int? rankId,
+            [NotNull] int boardId,
+            [NotNull] string name,
+            [NotNull] RankFlags flags,
+            [CanBeNull] int? minPosts,
+            [NotNull] int messagesLimit,
+            [CanBeNull] string style,
+            [NotNull] short sortOrder,
+            [CanBeNull] string description,
+            [CanBeNull] int signatureChars,
+            [CanBeNull] string signatureBBCodes,
+            [CanBeNull] string signatureHTMLTags,
+            [NotNull] int userAlbums,
+            [NotNull] int userAlbumImages)
         {
-            repository.DbFunction.Scalar.rank_save(
-                RankID: rankID,
-                BoardID: boardID,
-                Name: name,
-                IsStart: isStart,
-                IsLadder: isLadder,
-                MinPosts: minPosts,
-                PMLimit: pmLimit,
-                Style: style,
-                SortOrder: sortOrder,
-                Description: description,
-                UsrSigChars: usrSigChars,
-                UsrSigBBCodes: usrSigBBCodes,
-                UsrSigHTMLTags: usrSigHTMLTags,
-                UsrAlbums: usrAlbums,
-                UsrAlbumImages: usrAlbumImages);
+            CodeContracts.VerifyNotNull(repository);
 
-            repository.FireUpdated(rankID);
+            if (!flags.IsLadder)
+            {
+                minPosts = null;
+            }
 
+            if (flags.IsLadder && !minPosts.HasValue)
+            {
+                minPosts = 0;
+            }
+
+            if (rankId.HasValue)
+            {
+                repository.UpdateOnly(
+                    () => new Rank
+                    {
+                        Name = name,
+                        Flags = flags.BitValue,
+                        MinPosts = minPosts,
+                        PMLimit = messagesLimit,
+                        Style = style,
+                        SortOrder = sortOrder,
+                        Description = description,
+                        UsrSigChars = signatureChars,
+                        UsrSigBBCodes = signatureBBCodes,
+                        UsrSigHTMLTags = signatureHTMLTags,
+                        UsrAlbums = userAlbums,
+                        UsrAlbumImages = userAlbumImages
+                    },
+                    g => g.ID == rankId.Value);
+
+                repository.FireUpdated(rankId);
+            }
+            else
+            {
+                rankId = repository.Insert(
+                    new Rank
+                    {
+                        Name = name,
+                        BoardID = boardId,
+                        Flags = flags.BitValue,
+                        MinPosts = minPosts,
+                        PMLimit = messagesLimit,
+                        Style = style,
+                        SortOrder = sortOrder,
+                        Description = description,
+                        UsrSigChars = signatureChars,
+                        UsrSigBBCodes = signatureBBCodes,
+                        UsrSigHTMLTags = signatureHTMLTags,
+                        UsrAlbums = userAlbums,
+                        UsrAlbumImages = userAlbumImages
+                    });
+
+                repository.FireNew(rankId);
+            }
+
+            if (style.IsSet())
+            {
+                BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(boardId));
+            }
+        }
+
+        /// <summary>
+        /// Get the User with the Current Rank
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Tuple"/>.
+        /// </returns>
+        public static Tuple<User, Rank> GetUserAndRank(this IRepository<Rank> repository, [NotNull] int userId)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            expression.Join<Rank>((u, r) => r.ID == u.RankID).Where<User>(u => u.ID == userId);
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<User, Rank>(expression))
+                .FirstOrDefault();
         }
     }
 }

@@ -33,12 +33,9 @@ namespace YAF.Core.Model
 
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -48,31 +45,6 @@ namespace YAF.Core.Model
     public static class ThanksRepositoryExtensions
     {
         #region Public Methods and Operators
-
-        /// <summary>
-        /// Gets All the Thanks for the Message IDs which are in the
-        ///   delimited string variable MessageIDs
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageIdsSeparatedWithColon">
-        /// The message i ds.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IEnumerable"/>.
-        /// </returns>
-        [NotNull]
-        public static IEnumerable<TypedAllThanks> MessageGetAllThanks(
-            this IRepository<Thanks> repository,
-            [NotNull] string messageIdsSeparatedWithColon)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.DbFunction
-                .GetAsDataTable(cdb => cdb.message_getallthanks(MessageIDs: messageIdsSeparatedWithColon))
-                .SelectTypedList(t => new TypedAllThanks(t));
-        }
 
         /// <summary>
         /// The thanks from user.
@@ -174,9 +146,9 @@ namespace YAF.Core.Model
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
 
-            expression.Join<User>((a, b) => a.ThanksFromUserID == b.ID).Where<Thanks>(b => b.MessageID == messageId)
-                .Select<Thanks, User>(
-                    (a, b) => new { UserID = a.ThanksFromUserID, a.ThanksDate, b.Name, b.DisplayName });
+            expression.Join<User>((a, b) => a.ThanksFromUserID == b.ID).Where<Thanks>(b => b.MessageID == messageId);
+               /* .Select<Thanks, User>(
+                    (a, b) => new { UserID = a.ThanksFromUserID, a.ThanksDate, b.Name, b.DisplayName });*/
 
             return repository.DbAccess.Execute(
                 db => db.Connection.SelectMulti<Thanks, User>(expression));

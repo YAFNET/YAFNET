@@ -18,7 +18,7 @@
                                    LocalizedTag="PRUNE_FORUM" LocalizedPage="ADMIN_PRUNE"
                                    AssociatedControlID="forumlist"/>
                     <asp:DropDownList ID="forumlist" runat="server"
-                                      CssClass="form-select">
+                                      CssClass="select2-image-select">
                     </asp:DropDownList>
                 </div>
                 <div class="row">

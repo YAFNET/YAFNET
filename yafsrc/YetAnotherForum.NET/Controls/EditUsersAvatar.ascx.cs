@@ -27,8 +27,10 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.IO;
+    using System.Linq;
     using System.Security.Cryptography;
     using System.Text;
     using System.Web;
@@ -44,6 +46,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Utils.Helpers.ImageUtils;
@@ -113,64 +116,38 @@ namespace YAF.Controls
                 return;
             }
 
-            // check if it's a link from the avatar picker
-            if (this.Get<HttpRequestBase>().QueryString.Exists("av"))
-            {
-                // save the avatar right now...
-                this.GetRepository<User>().SaveAvatar(
-                    this.currentUserId,
-                    $"{BaseUrlBuilder.BaseUrl}{this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("av")}",
-                    null,
-                    null);
-
-                // clear the cache for this user...
-                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
-            }
-
             this.NoAvatar.Text = this.GetText("EDIT_AVATAR", "NOAVATAR");
 
-            var addAdminParam = string.Empty;
-            if (this.PageContext.CurrentForumPage.IsAdminPage)
-            {
-                addAdminParam = $"u={this.currentUserId}";
-            }
-
-            this.OurAvatar.NavigateUrl = BuildLink.GetLink(ForumPages.Profile_Avatar, addAdminParam);
-
-            this.noteRemote.Text = this.GetTextFormatted(
-                "NOTE_REMOTE",
-                this.Get<BoardSettings>().AvatarWidth.ToString(),
-                this.Get<BoardSettings>().AvatarHeight.ToString());
             this.noteLocal.Text = this.GetTextFormatted(
                 "NOTE_LOCAL",
-                this.Get<BoardSettings>().AvatarWidth.ToString(),
-                this.Get<BoardSettings>().AvatarHeight,
-                (this.Get<BoardSettings>().AvatarSize / 1024).ToString());
+                this.PageContext.BoardSettings.AvatarWidth.ToString(),
+                this.PageContext.BoardSettings.AvatarHeight,
+                (this.PageContext.BoardSettings.AvatarSize / 1024).ToString());
 
             this.BindData();
         }
 
         /// <summary>
-        /// Saves the Remote Avatar
+        /// Saves the Gallery Avatar
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void RemoteUpdate_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void GalleryUpdateClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Avatar.Text.Length > 0 && !this.Avatar.Text.StartsWith("http://")
-                                            && !this.Avatar.Text.StartsWith("https://"))
+            if (this.AvatarGallery.SelectedIndex <= 0)
             {
-                this.Avatar.Text = $"http://{this.Avatar.Text}";
+                return;
             }
 
-            // update
-            this.GetRepository<User>().SaveAvatar(this.currentUserId, this.Avatar.Text.Trim(), null, null);
+            // save the avatar right now...
+            this.GetRepository<User>().SaveAvatar(
+                this.currentUserId,
+                this.AvatarGallery.SelectedValue,
+                null,
+                null);
 
             // clear the cache for this user...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
-
-            // clear the URL out...
-            this.Avatar.Text = string.Empty;
 
             this.BindData();
         }
@@ -188,9 +165,9 @@ namespace YAF.Controls
                 return;
             }
 
-            long x = this.Get<BoardSettings>().AvatarWidth;
-            long y = this.Get<BoardSettings>().AvatarHeight;
-            var avatarSize = this.Get<BoardSettings>().AvatarSize;
+            long x = this.PageContext.BoardSettings.AvatarWidth;
+            long y = this.PageContext.BoardSettings.AvatarHeight;
+            var avatarSize = this.PageContext.BoardSettings.AvatarSize;
 
             Stream resized = null;
 
@@ -211,7 +188,7 @@ namespace YAF.Controls
                 // Delete old first...
                 this.GetRepository<User>().DeleteAvatar(this.currentUserId);
 
-                if (this.Get<BoardSettings>().UseFileTable)
+                if (this.PageContext.BoardSettings.UseFileTable)
                 {
                     var image = Image.FromStream(resized ?? this.File.PostedFile.InputStream);
 
@@ -316,27 +293,69 @@ namespace YAF.Controls
                 : this.PageContext.User;
 
             this.AvatarImg.Visible = true;
-            this.Avatar.Text = string.Empty;
             this.DeleteAvatar.Visible = false;
             this.NoAvatar.Visible = false;
 
-            if (!user.AvatarImage.IsNullOrEmptyDBField())
+            this.AvatarUploadRow.Visible = this.PageContext.CurrentForumPage.IsAdminPage
+                                           || this.PageContext.BoardSettings.AvatarUpload;
+            this.AvatarOurs.Visible = this.PageContext.CurrentForumPage.IsAdminPage
+                                      || this.PageContext.BoardSettings.AvatarGallery;
+
+            if (this.AvatarOurs.Visible)
+            {
+                var avatars = new List<NamedParameter>
+                {
+                    new NamedParameter(this.GetText("OURAVATAR"), BoardInfo.GetURLToContent("images/spacer.gif"))
+                };
+
+                var dir = new DirectoryInfo(
+                    this.Get<HttpRequestBase>()
+                        .MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Avatars}"));
+
+                var files = dir.GetFiles("*.*").ToList();
+
+                avatars.AddImageFiles(files, BoardFolders.Current.Avatars);
+
+                if (avatars.Any())
+                {
+                    this.AvatarGallery.DataSource = avatars;
+                    this.AvatarGallery.DataValueField = "Value";
+                    this.AvatarGallery.DataTextField = "Name";
+                    this.AvatarGallery.DataBind();
+                }
+                else
+                {
+                    this.AvatarOurs.Visible = false;
+                }
+            }
+
+            if (!user.AvatarImage.IsNullOrEmptyField())
             {
                 this.AvatarImg.ImageUrl =
                     $"{BoardInfo.ForumClientFileRoot}resource.ashx?u={this.currentUserId}&v={DateTime.Now.Ticks}";
-                this.Avatar.Text = string.Empty;
                 this.DeleteAvatar.Visible = true;
             }
             else if (user.Avatar.IsSet())
             {
-                // Took out PageContext.BoardSettings.AvatarRemote
-                this.AvatarImg.ImageUrl =
-                    $"{BoardInfo.ForumClientFileRoot}resource.ashx?url={this.Server.UrlEncode(user.Avatar)}&width={this.Get<BoardSettings>().AvatarWidth}&height={this.Get<BoardSettings>().AvatarHeight}&v={DateTime.Now.Ticks}";
+                if (!user.Avatar.StartsWith("/"))
+                {
+                    return;
+                }
 
-                this.Avatar.Text = user.Avatar;
+                var item = this.AvatarGallery.Items.FindByValue(user.Avatar);
+
+                if (item == null)
+                {
+                    return;
+                }
+                
+                this.AvatarImg.ImageUrl = user.Avatar;
+
+                item.Selected = true;
+
                 this.DeleteAvatar.Visible = true;
             }
-            else if (this.Get<BoardSettings>().AvatarGravatar)
+            else if (this.PageContext.BoardSettings.AvatarGravatar)
             {
                 var x = new MD5CryptoServiceProvider();
                 var bs = Encoding.UTF8.GetBytes(this.PageContext.MembershipUser.Email);
@@ -348,10 +367,10 @@ namespace YAF.Controls
                 var emailHash = s.ToString();
 
                 var gravatarUrl =
-                    $"http://www.gravatar.com/avatar/{emailHash}.jpg?r={this.Get<BoardSettings>().GravatarRating}";
+                    $"http://www.gravatar.com/avatar/{emailHash}.jpg?r={this.PageContext.BoardSettings.GravatarRating}";
 
                 this.AvatarImg.ImageUrl =
-                    $"{BoardInfo.ForumClientFileRoot}resource.ashx?url={this.Server.UrlEncode(gravatarUrl)}&width={this.Get<BoardSettings>().AvatarWidth}&height={this.Get<BoardSettings>().AvatarHeight}&v={DateTime.Now.Ticks}";
+                    gravatarUrl;
 
                 this.NoAvatar.Text = "Gravatar Image";
                 this.NoAvatar.Visible = true;
@@ -362,12 +381,8 @@ namespace YAF.Controls
                 this.NoAvatar.Visible = true;
             }
 
-            this.AvatarUploadRow.Visible = this.PageContext.CurrentForumPage.IsAdminPage
-                                           || this.Get<BoardSettings>().AvatarUpload;
-            this.AvatarRemoteRow.Visible = this.PageContext.CurrentForumPage.IsAdminPage
-                                           || this.Get<BoardSettings>().AvatarRemote;
-            this.AvatarOurs.Visible = this.PageContext.CurrentForumPage.IsAdminPage
-                                      || this.Get<BoardSettings>().AvatarGallery;
+            this.AvatarImg.Attributes.CssStyle.Add("max-width", this.PageContext.BoardSettings.AvatarWidth.ToString());
+            this.AvatarImg.Attributes.CssStyle.Add("max-height", this.PageContext.BoardSettings.AvatarHeight.ToString());
         }
 
         #endregion

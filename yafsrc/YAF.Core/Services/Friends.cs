@@ -26,7 +26,7 @@ namespace YAF.Core.Services
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.Linq;
 
     using YAF.Core.Context;
@@ -85,14 +85,13 @@ namespace YAF.Core.Services
         ///   is approved without the target user's approval if the target user has sent a buddy request
         ///   to current user too or if the current user is already in the target user's buddy list.
         /// </returns>
-        public string[] AddRequest(int toUserId)
+        public bool AddRequest(int toUserId)
         {
             this.ClearCache(toUserId);
 
             return this.GetRepository<Buddy>().AddRequest(
                 BoardContext.Current.PageUserID,
-                toUserId,
-                BoardContext.Current.BoardSettings.EnableDisplayName);
+                toUserId);
         }
 
         /// <summary>
@@ -103,11 +102,9 @@ namespace YAF.Core.Services
         /// </param>
         public void ApproveAllRequests(bool mutual)
         {
-            var dt = this.ListAllAsDataTable();
-            var dv = dt.DefaultView;
-            dv.RowFilter = $"Approved = 0 AND UserID = {BoardContext.Current.PageUserID}";
+            var dt = this.ListAll().Where(x => x.Approved == true && x.UserID == BoardContext.Current.PageUserID);
 
-            dv.Cast<DataRowView>().ForEach(drv => this.ApproveRequest((int)drv["FromUserID"], mutual));
+            dt.ForEach(drv => this.ApproveRequest((int)drv.FromUserID, mutual));
         }
 
         /// <summary>
@@ -120,29 +117,29 @@ namespace YAF.Core.Services
         /// should the second user be added to current user's buddy list too?
         /// </param>
         /// <returns>
-        /// The name of the second user.
+        /// The <see cref="bool"/>.
         /// </returns>
-        public string ApproveRequest(int toUserId, bool mutual)
+        public bool ApproveRequest(int toUserId, bool mutual)
         {
             this.ClearCache(toUserId);
+
             return this.GetRepository<Buddy>().ApproveRequest(
                 toUserId,
                 BoardContext.Current.PageUserID,
-                mutual,
-                BoardContext.Current.BoardSettings.EnableDisplayName);
+                mutual);
         }
 
         /// <summary>
         /// Gets all the buddies of the current user.
         /// </summary>
         /// <returns>
-        /// A <see cref="DataTable"/> of all buddies.
+        /// A <see cref="List"/> of all buddies.
         /// </returns>
-        public DataTable ListAllAsDataTable()
+        public List<dynamic> ListAll()
         {
             return this.Get<IDataCache>().GetOrSet(
                 string.Format(Constants.Cache.UserBuddies, BoardContext.Current.PageUserID),
-                () => this.GetRepository<Buddy>().ListAllAsDataTable(BoardContext.Current.PageUserID),
+                () => this.GetRepository<Buddy>().ListAll(BoardContext.Current.PageUserID),
                 TimeSpan.FromMinutes(10));
         }
 
@@ -161,12 +158,11 @@ namespace YAF.Core.Services
         /// </summary>
         public void DenyAllRequests()
         {
-            var dt = this.ListAllAsDataTable();
-            var dv = dt.DefaultView;
-            dv.RowFilter = $"Approved = 0 AND UserID = {BoardContext.Current.PageUserID}";
+            var dt = this.ListAll()
+                .Where(x => x.Approved == false && x.UserID == BoardContext.Current.PageUserID);
 
-            dv.Cast<DataRowView>().Where(drv => Convert.ToDateTime(drv["Requested"]).AddDays(14) < System.DateTime.UtcNow)
-                .ForEach(drv => this.DenyRequest(drv["FromUserID"].ToType<int>()));
+            dt.Where(x => Convert.ToDateTime(x.Requested).AddDays(14) < System.DateTime.UtcNow)
+                .ForEach(x => this.DenyRequest((int)x.FromUserID));
         }
 
         /// <summary>
@@ -191,11 +187,11 @@ namespace YAF.Core.Services
         /// The user id.
         /// </param>
         /// <returns>
-        /// a <see cref="DataTable"/> of all buddies.
+        /// The <see cref="List"/>.
         /// </returns>
-        public DataTable GetForUser(int userId)
+        public List<dynamic> GetForUser(int userId)
         {
-            return this.GetRepository<Buddy>().ListAllAsDataTable(userId);
+            return this.GetRepository<Buddy>().ListAll(userId);
         }
 
         /// <summary>
@@ -217,24 +213,24 @@ namespace YAF.Core.Services
                 return true;
             }
 
-            var userBuddyList = this.Get<IFriends>().ListAllAsDataTable();
+            var userBuddyList = this.Get<IFriends>().ListAll();
 
-            if (userBuddyList == null || !userBuddyList.HasRows())
+            if (userBuddyList == null || !userBuddyList.Any())
             {
                 return false;
             }
 
-            // Filter the DataTable.
+            // Filter
             if (approved)
             {
-                if (userBuddyList.Select($"UserID = {buddyUserId} AND Approved = 1").Length > 0)
+                if (userBuddyList.Any(x => x.UserID == buddyUserId && x.Approved == true))
                 {
                     return true;
                 }
             }
             else
             {
-                if (userBuddyList.Select($"UserID = {buddyUserId}").Length > 0)
+                if (userBuddyList.Any(x => x.UserID == buddyUserId))
                 {
                     return true;
                 }

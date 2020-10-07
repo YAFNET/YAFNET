@@ -119,7 +119,7 @@ namespace YAF.Core.Controllers
                         var url = $"{BoardInfo.ForumClientFileRoot}resource.ashx?imgprv={image.ID}";
 
                         var attachment = new AttachmentItem
-                                             {
+                        {
                                                  FileName = image.FileName,
                                                  OnClick = $"CKEDITOR.tools.insertAlbumImage('{image.ID}')",
                                                  IconImage =

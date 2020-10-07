@@ -1599,24 +1599,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox UseStyledTopicTitles;
 
         /// <summary>
-        /// HelpLabel100 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel100;
-
-        /// <summary>
-        /// EnableThanksMod control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox EnableThanksMod;
-
-        /// <summary>
         /// HelpLabel102 control.
         /// </summary>
         /// <remarks>
@@ -3451,24 +3433,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox AvatarGallery;
-
-        /// <summary>
-        /// HelpLabel50 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel50;
-
-        /// <summary>
-        /// AvatarRemote control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AvatarRemote;
 
         /// <summary>
         /// HelpLabel51 control.

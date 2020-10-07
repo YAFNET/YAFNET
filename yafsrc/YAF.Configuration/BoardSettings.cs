@@ -79,6 +79,26 @@ namespace YAF.Configuration
         }
 
         /// <summary>
+        /// Gets or sets the max users.
+        /// </summary>
+        public int MaxUsers
+        {
+            get => this.RegistryBoard.GetValue("MaxUsers", 0);
+
+            set => this.RegistryBoard.SetValue("MaxUsers", value);
+        }
+
+        /// <summary>
+        /// Gets or sets the max users when.
+        /// </summary>
+        public DateTime MaxUsersWhen
+        {
+            get => this.RegistryBoard.GetValue("MaxUsersWhen", DateTime.MinValue);
+
+            set => this.RegistryBoard.SetValue("MaxUsersWhen", value);
+        }
+
+        /// <summary>
         /// The application id.
         /// </summary>
         public Guid ApplicationId => this.RegistryBoard.GetValue("ApplicationId", string.Empty).ToType<Guid>();
@@ -1366,16 +1386,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether AvatarRemote.
-        /// </summary>
-        public bool AvatarRemote
-        {
-            get => this.Registry.GetValue("AvatarRemote", false);
-
-            set => this.Registry.SetValue("AvatarRemote", value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether Avatar Gallery.
         /// </summary>
         public bool AvatarGallery
@@ -1746,16 +1756,6 @@ namespace YAF.Configuration
             get => this.Registry.GetValue("ShowThanksDate", true);
 
             set => this.Registry.SetValue("ShowThanksDate", value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether EnableThanksMod.
-        /// </summary>
-        public bool EnableThanksMod
-        {
-            get => this.Registry.GetValue("EnableThanksMod", true);
-
-            set => this.Registry.SetValue("EnableThanksMod", value);
         }
 
         /// <summary>

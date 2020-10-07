@@ -98,7 +98,7 @@ namespace YAF.Core.Utilities
             
 		     moment.locale('{(BoardContext.Current.User.Culture.IsSet()
                                   ? BoardContext.Current.User.Culture.Substring(0, 2)
-                                  : BoardContext.Current.Get<BoardSettings>().Culture.Substring(0, 2))}');
+                                  : BoardContext.Current.BoardSettings.Culture.Substring(0, 2))}');
              {Config.JQueryAlias}('abbr.timeago').each(function() {{
                   {Config.JQueryAlias}(this).html(function(index, value) {{
                                           return moment(value).fromNow();
@@ -1281,7 +1281,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         {
             return $@"if (typeof(jQuery.fn.hovercard) != 'undefined'){{ 
                       {Config.JQueryAlias}('.hc-user').hovercard({{
-                                      delay: {BoardContext.Current.Get<BoardSettings>().HoverCardOpenDelay}, 
+                                      delay: {BoardContext.Current.BoardSettings.HoverCardOpenDelay}, 
                                       width: 350,
                                       loadingHTML: '{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}',
                                       errorHTML: '{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}',

@@ -65,13 +65,5 @@ namespace YAF.Types.Interfaces
         /// The context.
         /// </param>
         void GetResponseCaptcha([NotNull] HttpContext context);
-
-        /// <summary>
-        /// The get response remote avatar.
-        /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        void GetResponseRemoteAvatar([NotNull] HttpContext context);
     }
 }

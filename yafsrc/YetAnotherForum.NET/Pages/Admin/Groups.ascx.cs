@@ -34,11 +34,11 @@ namespace YAF.Pages.Admin
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
@@ -201,14 +201,13 @@ namespace YAF.Pages.Admin
                     // save role and get its ID
                     const int InitialPMessages = 0;
 
+                    var groupFlags = new GroupFlags();
+
                     var groupId = this.GetRepository<Group>().Save(
-                        0,
+                        null,
                         this.PageContext.PageBoardID,
                         e.CommandArgument.ToString(),
-                        false,
-                        false,
-                        false,
-                        false,
+                        groupFlags,
                         1,
                         InitialPMessages,
                         null,

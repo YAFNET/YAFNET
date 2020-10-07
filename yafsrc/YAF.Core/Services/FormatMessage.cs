@@ -297,10 +297,9 @@ namespace YAF.Core.Services
         /// <returns>
         /// The get cleaned topic message.
         /// </returns>
-        public MessageCleaned GetCleanedTopicMessage([NotNull] object topicMessage, [NotNull] object topicId)
+        public MessageCleaned GetCleanedTopicMessage([NotNull] string topicMessage, [NotNull] int topicId)
         {
             CodeContracts.VerifyNotNull(topicMessage, "topicMessage");
-            CodeContracts.VerifyNotNull(topicId, "topicId");
 
             // get the common words for the language -- should be all lower case.
             var commonWords = this.Get<ILocalization>().GetText("COMMON", "COMMON_WORDS").StringToList(',');
@@ -308,13 +307,13 @@ namespace YAF.Core.Services
             var cacheKey = string.Format(Constants.Cache.FirstPostCleaned, BoardContext.Current.PageBoardID, topicId);
             var message = new MessageCleaned();
 
-            if (!topicMessage.IsNullOrEmptyDBField())
+            if (topicMessage.IsSet())
             {
                 message = this.Get<IDataCache>().GetOrSet(
                     cacheKey,
                     () =>
                         {
-                            var returnMsg = topicMessage.ToString();
+                            var returnMsg = topicMessage;
                             var keywordList = new List<string>();
 
                             if (returnMsg.IsNotSet())

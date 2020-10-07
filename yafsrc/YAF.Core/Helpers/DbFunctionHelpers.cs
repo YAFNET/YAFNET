@@ -153,26 +153,6 @@ namespace YAF.Core.Helpers
         }
 
         /// <summary>
-        /// The system initialize fix access.
-        /// </summary>
-        /// <param name="dbFunction">
-        /// The db function.
-        /// </param>
-        /// <param name="grantAccess">
-        /// The grant access.
-        /// </param>
-        public static void SystemInitializeFixAccess(
-            [NotNull] this IDbFunction dbFunction,
-            bool grantAccess)
-        {
-            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
-
-            dbFunction.ValidateAndExecute(
-                "SystemInitializeFixAccess",
-                f => f.Scalar.SystemInitializeFixAccess(grantAccess));
-        }
-
-        /// <summary>
         /// The run sql.
         /// </summary>
         /// <param name="dbFunction">

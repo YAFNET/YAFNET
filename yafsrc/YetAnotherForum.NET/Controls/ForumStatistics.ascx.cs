@@ -26,19 +26,13 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
-    using System.Text;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
-    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
 
@@ -64,98 +58,6 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The format active users.
-        /// </summary>
-        /// <param name="activeStats">
-        /// The active stats.
-        /// </param>
-        /// <returns>
-        /// Returns the formatted active users.
-        /// </returns>
-        [NotNull]
-        protected string FormatActiveUsers([NotNull] DataRow activeStats)
-        {
-            var sb = new StringBuilder();
-
-            var activeUsers = activeStats["ActiveUsers"].ToType<int>();
-            var activeHidden = activeStats["ActiveHidden"].ToType<int>();
-            var activeMembers = activeStats["ActiveMembers"].ToType<int>();
-            var activeGuests = activeStats["ActiveGuests"].ToType<int>();
-
-            // show hidden count to admin...
-            if (this.PageContext.IsAdmin)
-            {
-                activeUsers += activeHidden;
-            }
-
-            var canViewActive = this.Get<IPermissions>().Check(this.Get<BoardSettings>().ActiveUsersViewPermissions);
-            var showGuestTotal = activeGuests > 0 && (this.Get<BoardSettings>().ShowGuestsInDetailedActiveList
-                                                      || this.Get<BoardSettings>().ShowCrawlersInActiveList);
-            if (canViewActive && (showGuestTotal || activeMembers > 0 && activeGuests <= 0))
-            {
-                // always show active users...       
-                sb.AppendFormat(
-                    "<a href=\"{1}\" title=\"{2}\"{3}>{0}</a>",
-                    this.GetTextFormatted(
-                        activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2",
-                        activeUsers),
-                    BuildLink.GetLink(ForumPages.ActiveUsers, "v={0}", 0),
-                    this.GetText("COMMON", "VIEW_FULLINFO"),
-                    this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty);
-            }
-            else
-            {
-                // no link because no permissions...
-                sb.Append(
-                    this.GetTextFormatted(
-                        activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2",
-                        activeUsers));
-            }
-
-            if (activeMembers > 0)
-            {
-                sb.Append(
-                    canViewActive
-                        ? $", <a href=\"{BuildLink.GetLink(ForumPages.ActiveUsers, "v={0}", 1)}\" title=\"{this.GetText("COMMON", "VIEW_FULLINFO")}\"{(this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty)}>{this.GetTextFormatted(activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)}</a>"
-                        : $", {this.GetTextFormatted(activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)}");
-            }
-
-            if (activeGuests > 0)
-            {
-                if (canViewActive && (this.Get<BoardSettings>().ShowGuestsInDetailedActiveList
-                                      || this.Get<BoardSettings>().ShowCrawlersInActiveList))
-                {
-                    sb.AppendFormat(
-                        ", <a href=\"{1}\" title=\"{2}\"{3}>{0}</a>",
-                        this.GetTextFormatted(
-                            activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2",
-                            activeGuests),
-                        BuildLink.GetLink(ForumPages.ActiveUsers, "v={0}", 2),
-                        this.GetText("COMMON", "VIEW_FULLINFO"),
-                        this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty);
-                }
-                else
-                {
-                    sb.Append(
-                        $", {this.GetTextFormatted(activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests)}");
-                }
-            }
-
-            if (activeHidden > 0 && this.PageContext.IsAdmin)
-            {
-                sb.AppendFormat(
-                    ", <a href=\"{1}\" title=\"{2}\">{0}</a>",
-                    this.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden),
-                    BuildLink.GetLink(ForumPages.ActiveUsers, "v={0}", 3),
-                    this.GetText("COMMON", "VIEW_FULLINFO"));
-            }
-
-            sb.Append($" {this.GetTextFormatted("ACTIVE_USERS_TIME", this.Get<BoardSettings>().ActiveListTime)}");
-
-            return sb.ToString();
-        }
-
-        /// <summary>
         /// The forum statistics_ load.
         /// </summary>
         /// <param name="sender">
@@ -167,54 +69,39 @@ namespace YAF.Controls
         private void ForumStatistics_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Forum Statistics
-            var postsStatisticsDataRow = this.Get<IDataCache>().GetOrSet(
+            var postsStatistics = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.BoardStats,
-                () =>
-                    {
-                        // get the post stats
-                        var dr = this.GetRepository<Board>().PostStats(
-                            this.PageContext.PageBoardID,
-                            this.Get<BoardSettings>().UseStyledNicks,
-                            true);
+                () => this.GetRepository<Board>().PostStats(this.PageContext.PageBoardID, true),
+                TimeSpan.FromMinutes(this.PageContext.BoardSettings.ForumStatisticsCacheTimeout));
 
-                        // Set colorOnly parameter to false, as we get here color from data field in the place
-                        dr["LastUserStyle"] = this.Get<BoardSettings>().UseStyledNicks
-                                                  ? this.Get<IStyleTransform>().DecodeStyleByString(
-                                                      dr["LastUserStyle"].ToString())
-                                                  : null;
-                        return dr.Table;
-                    },
-                TimeSpan.FromMinutes(this.Get<BoardSettings>().ForumStatisticsCacheTimeout)).Rows[0];
-
-            // Forum Statistics
-            var userStatisticsDataRow = this.Get<IDataCache>().GetOrSet(
+            var latestUser = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.BoardUserStats,
-                () => this.GetRepository<Board>().UserStats(this.PageContext.PageBoardID).Table,
-                TimeSpan.FromMinutes(this.Get<BoardSettings>().BoardUserStatsCacheTimeout)).Rows[0];
+                () => this.GetRepository<User>().Latest(this.PageContext.PageBoardID),
+                TimeSpan.FromMinutes(this.PageContext.BoardSettings.BoardUserStatsCacheTimeout));
 
             // Posts and Topic Count...
             this.StatsPostsTopicCount.Text = this.GetTextFormatted(
                 "stats_posts",
-                postsStatisticsDataRow["posts"],
-                postsStatisticsDataRow["topics"],
-                postsStatisticsDataRow["forums"]);
+                (int)postsStatistics.Posts,
+                (int)postsStatistics.Topics,
+                (int)postsStatistics.Forums);
 
             // Last post
-            if (!postsStatisticsDataRow.IsNull("LastPost"))
+            if (postsStatistics.LastPost != null)
             {
                 this.StatsLastPostHolder.Visible = true;
 
-                this.LastPostUserLink.UserID = postsStatisticsDataRow["LastUserID"].ToType<int>();
-                this.LastPostUserLink.ReplaceName = postsStatisticsDataRow[this.Get<BoardSettings>().EnableDisplayName
-                    ? "LastUserDisplayName"
-                    : "LastUser"].ToString();
-                this.LastPostUserLink.Suspended = postsStatisticsDataRow.Field<DateTime?>("LastUserSuspended");
-                this.LastPostUserLink.Style = postsStatisticsDataRow["LastUserStyle"].ToString();
+                this.LastPostUserLink.UserID = postsStatistics.LastUserID;
+                this.LastPostUserLink.ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+                    ? postsStatistics.LastUserDisplayName
+                    : postsStatistics.LastUser;
+                this.LastPostUserLink.Suspended = (DateTime?)postsStatistics.LastUserSuspended;
+                this.LastPostUserLink.Style = postsStatistics.LastUserStyle;
                 this.StatsLastPost.Text = this.GetTextFormatted(
                     "stats_lastpost",
                     new DisplayDateTime
                         {
-                            DateTime = postsStatisticsDataRow["LastPost"], Format = DateTimeFormat.BothTopic
+                            DateTime = (DateTime)postsStatistics.LastPost, Format = DateTimeFormat.BothTopic
                         }.RenderToString());
             }
             else
@@ -222,26 +109,31 @@ namespace YAF.Controls
                 this.StatsLastPostHolder.Visible = false;
             }
 
+            var membersCount = this.Get<IDataCache>().GetOrSet(
+                Constants.Cache.BoardMembers,
+                () => this.GetRepository<User>().BoardMembers(this.PageContext.PageBoardID),
+                TimeSpan.FromMinutes(this.PageContext.BoardSettings.BoardUserStatsCacheTimeout));
+
             // Member Count
-            this.StatsMembersCount.Text = this.GetTextFormatted("stats_members", userStatisticsDataRow["members"]);
+            this.StatsMembersCount.Text = this.GetTextFormatted("stats_members", membersCount);
 
             // Newest Member
             this.StatsNewestMember.Text = this.GetText("stats_lastmember");
-            this.NewestMemberUserLink.UserID = userStatisticsDataRow["LastMemberID"].ToType<int>();
-            this.NewestMemberUserLink.ReplaceName = userStatisticsDataRow[this.Get<BoardSettings>().EnableDisplayName
-                ? "LastMemberDisplayName"
-                : "LastMember"].ToString();
-            this.NewestMemberUserLink.Style = userStatisticsDataRow["LastMemberStyle"].ToString();
-            this.NewestMemberUserLink.Suspended = userStatisticsDataRow.Field<DateTime?>("LastMemberSuspended");
+            this.NewestMemberUserLink.UserID = latestUser.ID;
+            this.NewestMemberUserLink.ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+                ? latestUser.DisplayName
+                : latestUser.Name;
+            this.NewestMemberUserLink.Style = latestUser.UserStyle;
+            this.NewestMemberUserLink.Suspended = latestUser.Suspended;
 
-            if (this.Get<BoardSettings>().DeniedRegistrations > 0 || this.Get<BoardSettings>().BannedUsers > 0
-                                                                     || this.Get<BoardSettings>().ReportedSpammers
+            if (this.PageContext.BoardSettings.DeniedRegistrations > 0 || this.PageContext.BoardSettings.BannedUsers > 0
+                                                                     || this.PageContext.BoardSettings.ReportedSpammers
                                                                      > 0)
             {
                 this.AntiSpamStatsHolder.Visible = true;
-                this.StatsSpamDenied.Param0 = this.Get<BoardSettings>().DeniedRegistrations.ToString();
-                this.StatsSpamBanned.Param0 = this.Get<BoardSettings>().BannedUsers.ToString();
-                this.StatsSpamReported.Param0 = this.Get<BoardSettings>().ReportedSpammers.ToString();
+                this.StatsSpamDenied.Param0 = this.PageContext.BoardSettings.DeniedRegistrations.ToString();
+                this.StatsSpamBanned.Param0 = this.PageContext.BoardSettings.BannedUsers.ToString();
+                this.StatsSpamReported.Param0 = this.PageContext.BoardSettings.ReportedSpammers.ToString();
             }
             else
             {

@@ -239,8 +239,8 @@ namespace YAF.Controls
         /// </summary>
         private void RenderQuickSearch()
         {
-            if (!this.Get<BoardSettings>().ShowQuickSearch
-                || !this.Get<IPermissions>().Check(this.Get<BoardSettings>().SearchPermissions))
+            if (!this.PageContext.BoardSettings.ShowQuickSearch
+                || !this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
             {
                 return;
             }
@@ -320,7 +320,7 @@ namespace YAF.Controls
         private void RenderMainHeaderMenu()
         {
             // Search
-            if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().SearchPermissions))
+            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
             {
                 RenderMenuItem(
                     this.menuListItems,
@@ -337,7 +337,7 @@ namespace YAF.Controls
             }
 
             // Members
-            if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().MembersListViewPermissions))
+            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.MembersListViewPermissions))
             {
                 RenderMenuItem(
                     this.menuListItems,
@@ -354,7 +354,7 @@ namespace YAF.Controls
             }
 
             // Team
-            if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowTeamTo))
+            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowTeamTo))
             {
                 RenderMenuItem(
                     this.menuListItems,
@@ -371,7 +371,7 @@ namespace YAF.Controls
             }
 
             // Help
-            if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowHelpTo))
+            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowHelpTo))
             {
                 RenderMenuItem(
                     this.menuListItems,
@@ -417,16 +417,16 @@ namespace YAF.Controls
             }
 
             // Register
-            if (!this.Get<BoardSettings>().DisableRegistrations)
+            if (!this.PageContext.BoardSettings.DisableRegistrations)
             {
                 RenderMenuItem(
                     this.menuListItems,
                     "nav-link",
                     this.GetText("TOOLBAR", "REGISTER"),
                     "REGISTER_TITLE",
-                    this.Get<BoardSettings>().ShowRulesForRegistration
+                    this.PageContext.BoardSettings.ShowRulesForRegistration
                         ? BuildLink.GetLink(ForumPages.RulesAndPrivacy)
-                        : !this.Get<BoardSettings>().UseSSLToRegister
+                        : !this.PageContext.BoardSettings.UseSSLToRegister
                             ? BuildLink.GetLink(ForumPages.Account_Register)
                             : BuildLink.GetLink(ForumPages.Account_Register, true).Replace("http:", "https:"),
                     true,
@@ -488,7 +488,7 @@ namespace YAF.Controls
                     isLoginAllowed = true;
                 }
 
-                if (!this.Get<BoardSettings>().DisableRegistrations)
+                if (!this.PageContext.BoardSettings.DisableRegistrations)
                 {
                     if (isLoginAllowed)
                     {
@@ -501,9 +501,9 @@ namespace YAF.Controls
                                            {
                                                Text = this.GetText("TOOLBAR", "REGISTER"),
                                                NavigateUrl =
-                                                   this.Get<BoardSettings>().ShowRulesForRegistration
+                                                   this.PageContext.BoardSettings.ShowRulesForRegistration
                                                        ? BuildLink.GetLink(ForumPages.RulesAndPrivacy)
-                                                       : !this.Get<BoardSettings>().UseSSLToRegister
+                                                       : !this.PageContext.BoardSettings.UseSSLToRegister
                                                            ? BuildLink.GetLink(ForumPages.Account_Register)
                                                            : BuildLink.GetLink(
                                                                ForumPages.Account_Register,

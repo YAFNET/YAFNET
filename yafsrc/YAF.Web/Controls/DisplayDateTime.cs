@@ -29,7 +29,6 @@ namespace YAF.Web.Controls
     using System.Globalization;
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -122,7 +121,7 @@ namespace YAF.Web.Controls
 
             writer.Write(
                 ControlHtml,
-                this.Get<BoardSettings>().ShowRelativeTime
+                this.PageContext.BoardSettings.ShowRelativeTime
                     ? this.AsDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)
                     : formattedDatetime,
                 formattedDatetime);

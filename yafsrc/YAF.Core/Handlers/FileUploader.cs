@@ -34,6 +34,7 @@ namespace YAF.Core.Handlers
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Services.Startup;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -275,14 +276,14 @@ namespace YAF.Core.Handlers
 
             this.Get<StartupInitializeDb>().Run();
 
-            object userKey = DBNull.Value;
+            string userKey = null;
 
             if (user != null)
             {
                 userKey = user.Id;
             }
 
-            var pageRow = this.GetRepository<ActiveAccess>().PageLoadAsDataRow(
+            var pageRow = this.Get<DataBroker>().GetPageLoad(
                 HttpContext.Current.Session.SessionID,
                 boardId,
                 userKey,
@@ -299,7 +300,7 @@ namespace YAF.Core.Handlers
                 isMobileDevice,
                 doNotTrack);
 
-            return pageRow["UploadAccess"].ToType<bool>() || pageRow["ModeratorAccess"].ToType<bool>();
+            return pageRow.UploadAccess || pageRow.ModeratorAccess;
         }
     }
 }

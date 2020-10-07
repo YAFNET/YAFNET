@@ -280,10 +280,9 @@ namespace YAF.Controls
                 this.PageContext.ForumPageType == ForumPages.Profile_Attachments,
                 "paperclip");
 
-            if (!Config.IsDotNetNuke && (this.Get<BoardSettings>().AvatarRemote
-                                         || this.Get<BoardSettings>().AvatarUpload
-                                         || this.Get<BoardSettings>().AvatarGallery
-                                         || this.Get<BoardSettings>().AvatarGravatar))
+            if (!Config.IsDotNetNuke && (this.PageContext.BoardSettings.AvatarUpload
+                                         || this.PageContext.BoardSettings.AvatarGallery
+                                         || this.PageContext.BoardSettings.AvatarGravatar))
             {
                 RenderMenuItem(
                     this.MySettings,
@@ -299,7 +298,7 @@ namespace YAF.Controls
                     "user-tie");
             }
 
-            if (this.Get<BoardSettings>().AllowSignatures)
+            if (this.PageContext.BoardSettings.AllowSignatures)
             {
                 RenderMenuItem(
                     this.MySettings,
@@ -341,7 +340,7 @@ namespace YAF.Controls
                 this.PageContext.ForumPageType == ForumPages.Profile_BlockOptions,
                 "user-lock");
 
-            if (!Config.IsDotNetNuke && this.Get<BoardSettings>().AllowPasswordChange)
+            if (!Config.IsDotNetNuke && this.PageContext.BoardSettings.AllowPasswordChange)
             {
                 // Render Change Password Item
                 RenderMenuItem(
@@ -376,7 +375,7 @@ namespace YAF.Controls
             }
 
             // My Inbox
-            if (this.Get<BoardSettings>().AllowPrivateMessages)
+            if (this.PageContext.BoardSettings.AllowPrivateMessages)
             {
                 RenderMenuItem(
                     this.MyInboxItem,
@@ -393,7 +392,7 @@ namespace YAF.Controls
             }
 
             // My Buddies
-            if (this.Get<BoardSettings>().EnableBuddyList && this.PageContext.UserHasBuddies)
+            if (this.PageContext.BoardSettings.EnableBuddyList && this.PageContext.UserHasBuddies)
             {
                 RenderMenuItem(
                     this.MyBuddiesItem,
@@ -410,8 +409,8 @@ namespace YAF.Controls
             }
 
             // My Albums
-            if (this.Get<BoardSettings>().EnableAlbum
-                && (this.PageContext.UsrAlbums > 0 || this.PageContext.NumAlbums > 0))
+            if (this.PageContext.BoardSettings.EnableAlbum
+                && this.PageContext.NumAlbums > 0)
             {
                 RenderMenuItem(
                     this.MyAlbumsItem,
@@ -462,7 +461,6 @@ namespace YAF.Controls
                 || this.PageContext.ForumPageType == ForumPages.Profile_EditSettings
                 || this.PageContext.ForumPageType == ForumPages.Profile_ChangePassword
                 || this.PageContext.ForumPageType == ForumPages.Profile_Attachments
-                || this.PageContext.ForumPageType == ForumPages.Profile_Avatar
                 || this.PageContext.ForumPageType == ForumPages.Profile_EditAvatar
                 || this.PageContext.ForumPageType == ForumPages.Profile_EditSignature
                 || this.PageContext.ForumPageType == ForumPages.Profile_Subscriptions

@@ -15,13 +15,13 @@
 		<ItemTemplate>
               <div class="mb-3 col-md-4">
 			    <asp:Label runat="server" AssociatedControlID="GroupMember">
-			        <%# DataBinder.Eval(Container.DataItem, "Name") %>
+			        <%# (Container.DataItem as dynamic).Name %>
 			    </asp:Label>
 				<div class="form-check form-switch">
 					<asp:CheckBox Text="&nbsp;" runat="server" ID="GroupMember" 
-                                  Checked='<%# this.IsMember(DataBinder.Eval(Container.DataItem,"Member")) %>'/>
+                                  Checked="<%# this.IsMember((Container.DataItem as dynamic).Member) %>"/>
                 </div>
-					<asp:Label ID="GroupID" Visible="false" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'></asp:Label>
+					<asp:Label ID="GroupID" Visible="false" runat="server" Text="<%# (Container.DataItem as dynamic).GroupID %>"></asp:Label>
               </div>
         </ItemTemplate>
        <FooterTemplate>

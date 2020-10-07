@@ -52,22 +52,10 @@ namespace YAF.Core.Data
         /// </summary>
         private readonly IDbAccessProvider _dbAccessProvider;
 
+        /// <summary>
+        /// The _service locator.
+        /// </summary>
         private readonly IServiceLocator _serviceLocator;
-
-        /// <summary>
-        ///     The _get data proxy.
-        /// </summary>
-        private readonly TryInvokeMemberProxy _getDataProxy;
-
-        /// <summary>
-        ///     The _get data set proxy.
-        /// </summary>
-        private readonly TryInvokeMemberProxy _getDataSetProxy;
-
-        /// <summary>
-        ///     The _get reader proxy.
-        /// </summary>
-        private readonly TryInvokeMemberProxy _getReaderProxy;
 
         /// <summary>
         ///     The _query proxy.
@@ -99,11 +87,8 @@ namespace YAF.Core.Data
             this._dbAccessProvider = dbAccessProvider;
             this._serviceLocator = serviceLocator;
 
-            this._getDataProxy = new TryInvokeMemberProxy(this.InvokeGetData);
-            this._getDataSetProxy = new TryInvokeMemberProxy(this.InvokeGetDataSet);
             this._queryProxy = new TryInvokeMemberProxy(this.InvokeQuery);
             this._scalarProxy = new TryInvokeMemberProxy(this.InvokeScalar);
-            this._getReaderProxy = new TryInvokeMemberProxy(this.InvokeDataReader);
         }
 
         #endregion
@@ -114,21 +99,6 @@ namespace YAF.Core.Data
         ///     Gets or sets UnitOfWork.
         /// </summary>
         public IDbTransaction DbTransaction { get; protected set; }
-
-        /// <summary>
-        ///     Gets GetData.
-        /// </summary>
-        public dynamic GetData => this._getDataProxy.ToDynamic();
-
-        /// <summary>
-        ///     Gets GetDataSet.
-        /// </summary>
-        public dynamic GetDataSet => this._getDataSetProxy.ToDynamic();
-
-        /// <summary>
-        ///     Gets the get reader.
-        /// </summary>
-        public dynamic GetReader => this._getReaderProxy.ToDynamic();
 
         /// <summary>
         ///     Gets Query.
@@ -257,94 +227,6 @@ namespace YAF.Core.Data
             this.RunFilters(functionType, parameters, operationName, ref result);
  
             return true;
-        }
-
-        /// <summary>
-        /// The invoke data reader.
-        /// </summary>
-        /// <param name="binder">
-        /// The binder. 
-        /// </param>
-        /// <param name="args">
-        /// The args. 
-        /// </param>
-        /// <param name="result">
-        /// The result. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/> . 
-        /// </returns>
-        protected bool InvokeDataReader(InvokeMemberBinder binder, object[] args, out object result)
-        {
-            if (this.DbTransaction == null)
-            {
-                throw new ArgumentNullException("UnitOfWork", "GetReader must be executed in the context of an Session.");
-            }
-
-            return this.DbFunctionExecute(
-                DatabaseFunctionType.Reader, 
-                binder, 
-                this.MapParameters(binder.CallInfo, args), 
-                (cmd) => this._dbAccessProvider.Instance.GetReader(cmd, this.DbTransaction), 
-                out result);
-        }
-
-        /// <summary>
-        /// The invoke get data.
-        /// </summary>
-        /// <param name="binder">
-        /// The binder. 
-        /// </param>
-        /// <param name="args">
-        /// The args. 
-        /// </param>
-        /// <param name="result">
-        /// The result. 
-        /// </param>
-        /// <returns>
-        /// The invoke get data. 
-        /// </returns>
-        protected bool InvokeGetData(
-            [NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
-        {
-            return this.DbFunctionExecute(
-                DatabaseFunctionType.DataTable, 
-                binder, 
-                this.MapParameters(binder.CallInfo, args), 
-                (cmd) =>
-                    {
-                        // Inject Command Timeout
-                        cmd.CommandTimeout = Configuration.Config.SqlCommandTimeout.ToType<int>();
-
-                        return this._dbAccessProvider.Instance.GetData(cmd, this.DbTransaction);
-                    }, 
-                out result);
-        }
-
-        /// <summary>
-        /// The invoke get data set.
-        /// </summary>
-        /// <param name="binder">
-        /// The binder. 
-        /// </param>
-        /// <param name="args">
-        /// The args. 
-        /// </param>
-        /// <param name="result">
-        /// The result. 
-        /// </param>
-        /// <returns>
-        /// The invoke get data set. 
-        /// </returns>
-        protected bool InvokeGetDataSet(
-            [NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
-        {
-            return this.DbFunctionExecute(
-                DatabaseFunctionType.DataSet, 
-                binder, 
-                this.MapParameters(binder.CallInfo, args), 
-                (cmd) => this._dbAccessProvider.Instance.GetDataSet(cmd, this.DbTransaction), 
-                out result);
         }
 
         /// <summary>

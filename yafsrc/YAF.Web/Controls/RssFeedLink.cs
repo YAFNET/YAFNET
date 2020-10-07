@@ -81,7 +81,7 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            if (!this.PageContext.BoardSettings.ShowAtomLink && !this.PageContext.BoardSettings.ShowAtomLink)
+            if (!this.PageContext.BoardSettings.ShowAtomLink && !this.PageContext.BoardSettings.ShowRSSLink)
             {
                 return;
             }

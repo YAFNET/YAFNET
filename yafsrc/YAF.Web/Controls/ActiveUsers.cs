@@ -28,15 +28,12 @@ namespace YAF.Web.Controls
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -51,7 +48,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   The _active user table.
         /// </summary>
-        private DataTable activeUserTable;
+        private List<dynamic> activeUsers;
 
         #endregion
 
@@ -61,33 +58,33 @@ namespace YAF.Web.Controls
         ///   Gets or sets list of users to display in control.
         /// </summary>
         [CanBeNull]
-        public DataTable ActiveUserTable
+        public List<dynamic> ActiveUsersList
         {
             get
             {
-                if (this.activeUserTable != null)
+                if (this.activeUsers != null)
                 {
-                    return this.activeUserTable;
+                    return this.activeUsers;
                 }
 
                 // read there data from view state
-                if (this.ViewState["ActiveUserTable"] != null)
+                if (this.ViewState["ActiveUsers"] != null)
                 {
                     // cast it
-                    this.activeUserTable = this.ViewState["ActiveUserTable"] as DataTable;
+                    this.activeUsers = this.ViewState["ActiveUsers"] as List<dynamic>;
                 }
 
                 // return data table
-                return this.activeUserTable;
+                return this.activeUsers;
             }
 
             set
             {
                 // save it to view state
-                this.ViewState["ActiveUserTable"] = value;
+                this.ViewState["ActiveUsers"] = value;
 
                 // save it also to local variable to avoid repetitive casting from ViewState in getter
-                this.activeUserTable = value;
+                this.activeUsers = value;
             }
         }
 
@@ -133,69 +130,56 @@ namespace YAF.Web.Controls
             base.OnPreRender(e);
 
             // we shall continue only if there are active user data available
-            if (this.ActiveUserTable == null)
+            if (this.ActiveUsersList == null)
             {
                 return;
-            }
-
-            // add style column if there is no such column in the table
-            // style column defines how concrete user's link should be styled
-            if (!this.ActiveUserTable.Columns.Contains("Style"))
-            {
-                this.ActiveUserTable.Columns.Add("Style", typeof(string));
-                this.ActiveUserTable.AcceptChanges();
             }
 
             var crawlers = new List<string>();
 
             // go through the table and process each row
-            this.ActiveUserTable.Rows.Cast<DataRow>().ForEach(
-                row =>
+            this.ActiveUsersList.ForEach(
+                user =>
                     {
                         UserLink userLink;
 
-                        var isCrawler = row["IsCrawler"].ToType<int>() > 0;
+                        var isCrawler = (int)user.IsCrawler > 0;
 
                         // create new link and set its parameters
                         if (isCrawler)
                         {
-                            if (crawlers.Contains(row["Browser"].ToString()))
+                            if (crawlers.Contains(user.Browser))
                             {
                                 return;
                             }
 
-                            crawlers.Add(row["Browser"].ToString());
+                            crawlers.Add(user.Browser);
                             userLink = new UserLink
-                                           {
-                                               Suspended = row.Field<DateTime?>("Suspended"),
-                                               CrawlerName = row["Browser"].ToString(),
-                                               UserID = row["UserID"].ToType<int>(),
-                                               Style = this.Get<BoardSettings>().UseStyledNicks
-                                                           ? this.Get<IStyleTransform>().DecodeStyleByString(
-                                                               row["Style"].ToString())
-                                                           : string.Empty
-                                           };
+                            {
+                                Suspended = user.Suspended,
+                                CrawlerName = user.Browser,
+                                UserID = user.UserID,
+                                Style = (string)user.UserStyle
+                            };
                             userLink.ID += userLink.CrawlerName;
                         }
                         else
                         {
                             userLink = new UserLink
                             {
-                                Suspended = row.Field<DateTime?>("Suspended"),
-                                UserID = row["UserID"].ToType<int>(),
-                                Style = this.Get<BoardSettings>().UseStyledNicks
-                                    ? this.Get<IStyleTransform>().DecodeStyleByString(row["Style"].ToString())
-                                    : string.Empty,
-                                ReplaceName = row[this.Get<BoardSettings>().EnableDisplayName
-                                    ? "UserDisplayName"
-                                    : "UserName"].ToString()
+                                Suspended = user.Suspended,
+                                UserID = user.UserID,
+                                Style = (string)user.UserStyle,
+                                ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+                                    ? user.UserDisplayName
+                                    : user.UserName
                             };
                             userLink.ID = $"UserLink{this.InstantId}{userLink.UserID}";
                         }
-
+                        
                         // how many users of this type is present (valid for guests, others have it 1)
-                        var userCount = row["UserCount"].ToType<int>();
-                        if (userCount > 1 && (!isCrawler || !this.Get<BoardSettings>().ShowCrawlersInActiveList))
+                        var userCount = (int)user.UserCount;
+                        if (userCount > 1 && (!isCrawler || !this.PageContext.BoardSettings.ShowCrawlersInActiveList))
                         {
                             // add postfix if there is more the one user of this name
                             userLink.PostfixText = $" ({userCount})";
@@ -205,8 +189,8 @@ namespace YAF.Web.Controls
                         var addControl = true;
 
                         // we might not want to add this user link if user is marked as hidden
-                        if (Convert.ToBoolean(row["IsHidden"]) || // or if user is guest and guest should be hidden
-                            this.TreatGuestAsHidden && Convert.ToBoolean(row["IsGuest"]))
+                        if (user.IsActiveExcluded == true || // or if user is guest and guest should be hidden
+                            this.TreatGuestAsHidden && user.IsGuest == true)
                         {
                             // hidden user are always visible to admin and himself)
                             if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)

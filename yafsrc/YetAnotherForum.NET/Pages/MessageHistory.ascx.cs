@@ -26,7 +26,8 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
+    using System.Dynamic;
+    using System.Globalization;
     using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
@@ -186,30 +187,31 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "restore":
+                    // TODO : Handle Restore Message
                     var currentMessage = this.GetRepository<Message>().GetMessage(this.messageID);
 
-                    DataRow restoreMessage = null;
-
-                    var revisionsTable = this.GetRepository<Message>().HistoryListAsDataTable(
+                    var revisionsTable = this.GetRepository<Types.Models.MessageHistory>().List(
                         this.messageID,
-                        this.PageContext.BoardSettings.MessageHistoryDaysToLog).AsEnumerable();
+                        this.PageContext.BoardSettings.MessageHistoryDaysToLog);
 
-                    Enumerable.Where(
-                            revisionsTable,
-                            row => row["Edited"].ToString().Equals(e.CommandArgument.ToType<string>()))
-                        .ForEach(row => restoreMessage = row);
+                    var restoreMessage = revisionsTable.FirstOrDefault(
+                        mh => mh.Edited.ToString(CultureInfo.InvariantCulture) ==
+                              e.CommandArgument.ToType<string>());
+
+                   /////dfjdfälökgjslkgj
 
                     if (restoreMessage != null)
                     {
+                        /////fhkfölghkxgföälhkölk
                         this.GetRepository<Message>().Update(
                             this.messageID,
                             null,
-                            restoreMessage["Message"].ToString(),
+                            (string)restoreMessage.Message,
                             null,
                             null,
                             null,
                             null,
-                            restoreMessage["EditReason"].ToString(),
+                            (string)restoreMessage.EditReason,
                             this.PageContext.PageUserID != currentMessage.Item1.UserID,
                             this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
                             currentMessage,
@@ -231,13 +233,11 @@ namespace YAF.Pages
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        protected string GetIpAddress(object dataItem)
+        protected string GetIpAddress(dynamic dataItem)
         {
-            var row = (DataRow)dataItem;
+            var ip = IPHelper.GetIp4Address((string)dataItem.IP);
 
-            var ip = IPHelper.GetIp4Address(row["IP"].ToString());
-
-            return ip.IsSet() ? ip : IPHelper.GetIp4Address(row["MessageIP"].ToString());
+            return ip.IsSet() ? ip : IPHelper.GetIp4Address((string)dataItem.MessageIP);
         }
 
         /// <summary>
@@ -246,13 +246,13 @@ namespace YAF.Pages
         private void BindData()
         {
             // Fill revisions list repeater.
-            var revisionsTable = this.GetRepository<Message>().HistoryListAsDataTable(
+            var revisionsTable = this.GetRepository<Types.Models.MessageHistory>().List(
                 this.messageID,
                 this.PageContext.BoardSettings.MessageHistoryDaysToLog);
 
-            this.RevisionsCount = revisionsTable.Rows.Count;
+            this.RevisionsCount = revisionsTable.Count;
 
-            this.RevisionsList.DataSource = revisionsTable.AsEnumerable();
+            this.RevisionsList.DataSource = revisionsTable;
 
             this.DataBind();
         }

@@ -130,10 +130,15 @@ namespace YAF.Dialogs
                 return;
             }
 
-            this.GetRepository<BannedEmail>().Save(
+            if (!this.GetRepository<BannedEmail>().Save(
                 this.BannedId,
                 this.mask.Text.Trim(),
-                this.BanReason.Text.Trim());
+                this.BanReason.Text.Trim()))
+            {
+                this.PageContext.LoadMessage.AddSession(
+                    this.GetText("ADMIN_BANNEDEMAIL", "MSG_EXIST"),
+                    MessageTypes.warning);
+            }
 
             // go back to banned IPs administration page
             BuildLink.Redirect(ForumPages.Admin_BannedEmails);

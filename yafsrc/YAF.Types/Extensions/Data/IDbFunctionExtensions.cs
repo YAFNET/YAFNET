@@ -26,7 +26,6 @@ namespace YAF.Types.Extensions.Data
     #region Using
 
     using System;
-    using System.Data;
 
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
@@ -39,27 +38,6 @@ namespace YAF.Types.Extensions.Data
     public static class IDbFunctionExtensions
     {
         #region Public Methods and Operators
-
-        /// <summary>
-        /// Gets a DataTable using the new dynamic Db Function
-        /// </summary>
-        /// <param name="dbFunction">
-        /// The db function. 
-        /// </param>
-        /// <param name="function">
-        /// The function. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/> . 
-        /// </returns>
-        [NotNull]
-        public static DataTable GetAsDataTable([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
-        {
-            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
-            CodeContracts.VerifyNotNull(function, "function");
-
-            return (DataTable)function(dbFunction.GetData);
-        }
 
         /// <summary>
         /// The get scalar as.

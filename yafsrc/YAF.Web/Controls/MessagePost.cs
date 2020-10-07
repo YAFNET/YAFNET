@@ -30,7 +30,6 @@ namespace YAF.Web.Controls
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -227,7 +226,7 @@ namespace YAF.Web.Controls
         protected virtual void RenderEditedMessage(
             [NotNull] HtmlTextWriter writer, [NotNull] DateTime edited, [NotNull] string editReason, int? messageId)
         {
-            if (!this.Get<BoardSettings>().ShowEditedMessage)
+            if (!this.PageContext.BoardSettings.ShowEditedMessage)
             {
                 return;
             }

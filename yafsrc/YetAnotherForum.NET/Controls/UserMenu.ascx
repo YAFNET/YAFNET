@@ -22,7 +22,6 @@
                                                                         this.PageContext.ForumPageType == ForumPages.Profile_EditSettings ||
                                                                         this.PageContext.ForumPageType == ForumPages.Profile_ChangePassword  ||
                                                                         this.PageContext.ForumPageType == ForumPages.Profile_Attachments  ||
-                                                                        this.PageContext.ForumPageType == ForumPages.Profile_Avatar  ||
                                                                         this.PageContext.ForumPageType == ForumPages.Profile_EditAvatar ||
                                                                         this.PageContext.ForumPageType == ForumPages.Profile_EditSignature  ||
                                                                         this.PageContext.ForumPageType == ForumPages.Profile_Subscriptions  ||

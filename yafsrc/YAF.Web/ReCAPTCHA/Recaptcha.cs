@@ -31,11 +31,9 @@ namespace YAF.Web.Controls
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
     using YAF.Web.ReCAPTCHA;
 
@@ -68,8 +66,8 @@ namespace YAF.Web.Controls
         public RecaptchaControl()
         {
             this.SkipRecaptcha = false;
-            this.SecretKey = BoardContext.Current.Get<BoardSettings>().RecaptchaPrivateKey;
-            this.SiteKey = BoardContext.Current.Get<BoardSettings>().RecaptchaPublicKey;
+            this.SecretKey = BoardContext.Current.BoardSettings.RecaptchaPrivateKey;
+            this.SiteKey = BoardContext.Current.BoardSettings.RecaptchaPublicKey;
         }
 
         #endregion

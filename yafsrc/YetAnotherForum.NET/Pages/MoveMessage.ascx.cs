@@ -119,14 +119,13 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ForumList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.TopicsList.DataSource = this.GetRepository<Topic>().ListAsDataTable(
+            this.TopicsList.DataSource = this.GetRepository<Topic>().ListPaged(
                 this.ForumList.SelectedValue.ToType<int>(),
-                null,
+                this.PageContext.PageUserID,
                 DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
                 0,
                 100,
-                false,
                 false,
                 false);
 
@@ -178,13 +177,13 @@ namespace YAF.Pages
                 return;
             }
 
-            var forumList = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            var forumList = this.GetRepository<Forum>().ListAllSorted(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 
             this.ForumList.AddForumAndCategoryIcons(forumList);
 
-            this.ForumList.DataTextField = "Title";
+            this.ForumList.DataTextField = "Forum";
             this.ForumList.DataValueField = "ForumID";
             this.DataBind();
 

@@ -32,7 +32,6 @@ namespace YAF.Types.Interfaces.Identity
     using Microsoft.AspNet.Identity;
 
     using YAF.Types.Exceptions;
-    using YAF.Types.Models;
     using YAF.Types.Models.Identity;
 
     /// <summary>

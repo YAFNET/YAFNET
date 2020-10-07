@@ -28,7 +28,6 @@ namespace YAF.Pages.Profile
 
     using System;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -65,7 +64,7 @@ namespace YAF.Pages.Profile
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<BoardSettings>().AllowSignatures
+            if (!this.PageContext.BoardSettings.AllowSignatures
                 && !(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
             {
                 BuildLink.AccessDenied();

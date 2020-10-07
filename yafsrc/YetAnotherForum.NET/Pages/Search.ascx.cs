@@ -30,7 +30,6 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
@@ -96,7 +95,7 @@ namespace YAF.Pages
 
             var doSearch = false;
 
-            this.txtSearchStringFromWho.Attributes.Add("data-display", this.Get<BoardSettings>().EnableDisplayName.ToString());
+            this.txtSearchStringFromWho.Attributes.Add("data-display", this.PageContext.BoardSettings.EnableDisplayName.ToString());
 
             // Load result dropdown
             this.listResInPage.Items.Add(new ListItem(this.GetText("result5"), "5"));
@@ -116,14 +115,14 @@ namespace YAF.Pages
             this.listSearchWhat.SelectedIndex = 2;
 
             // Load forum's combo
-            var forumList = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            var forumList = this.GetRepository<Forum>().ListAllSorted(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 
             this.listForum.AddForumAndCategoryIcons(forumList);
 
             this.listForum.DataValueField = "ForumID";
-            this.listForum.DataTextField = "Title";
+            this.listForum.DataTextField = "Forum";
 
             this.listForum.DataBind();
 

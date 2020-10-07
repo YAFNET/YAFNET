@@ -24,7 +24,6 @@
 
 namespace YAF.Web.Extensions
 {
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -50,7 +49,7 @@ namespace YAF.Web.Extensions
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
 
-            pageLinks.AddLink(pageLinks.Get<BoardSettings>().Name, BuildLink.GetLink(ForumPages.Board));
+            pageLinks.AddLink(pageLinks.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.Board));
 
             return pageLinks;
         }

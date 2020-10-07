@@ -2,7 +2,6 @@
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils.Helpers" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <asp:Repeater ID="UserList" runat="server">
@@ -59,46 +58,45 @@
                         <tr>
 				        <td>		
 					        <YAF:UserLink ID="NameLink" runat="server" 
-                                          Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
-                                          ReplaceName='<%# this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName") %>' 
-                                          CrawlerName='<%# this.Eval("IsCrawler").ToType<int>() > 0 ? this.Eval("Browser").ToString() : string.Empty %>'
-                                          UserID='<%# this.Eval("UserID").ToType<int>() %>' 
-                                          Style='<%# this.Eval("Style").ToString() %>' />
-                            <asp:PlaceHolder ID="HiddenPlaceHolder" runat="server" Visible='<%# Convert.ToBoolean(this.Eval("IsHidden"))%>' >
+                                          Suspended="<%# (Container.DataItem as dynamic).Suspended %>"
+                                          ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).UserDisplayName : (Container.DataItem as dynamic).UserName %>" 
+                                          CrawlerName="<%# (Container.DataItem as dynamic).IsCrawler > 0 ? (string)(Container.DataItem as dynamic).Browser : string.Empty %>"
+                                          UserID="<%# (Container.DataItem as dynamic).UserID %>" 
+                                          Style="<%# (string)(Container.DataItem as dynamic).UserStyle %>" />
+                            <asp:PlaceHolder ID="HiddenPlaceHolder" runat="server" Visible="<%# (Container.DataItem as dynamic).IsActiveExcluded%>" >
                                 (<YAF:LocalizedLabel ID="Hidden" LocalizedTag="HIDDEN" runat="server" />)
                             </asp:PlaceHolder>				    
 				        </td>
 				        <td>				
 					        <YAF:ActiveLocation ID="ActiveLocation2" 
-                                                UserID='<%# (this.Eval("UserID") == DBNull.Value ? 0 : this.Eval("UserID")).ToType<int>() %>'
-                                                UserName='<%# this.Eval("UserName") %>' 
-                                                HasForumAccess='<%# Convert.ToBoolean(this.Eval("HasForumAccess")) %>' 
-                                                ForumPage='<%# this.Eval("ForumPage") %>'
-                                                ForumID='<%# (this.Eval("ForumID") == DBNull.Value ? 0 : this.Eval("ForumID")).ToType<int>() %>' 
-                                                ForumName='<%# this.Eval("ForumName") %>'
-                                                TopicID='<%# (this.Eval("TopicID") == DBNull.Value ? 0 : this.Eval("TopicID")).ToType<int>() %>' 
-                                                TopicName='<%# this.Eval("TopicName") %>'
+                                                UserID="<%# (Container.DataItem as dynamic).UserID %>"
+                                                UserName="<%# (Container.DataItem as dynamic).UserName %>" 
+                                                HasForumAccess="<%# (Container.DataItem as dynamic).HasForumAccess %>" 
+                                                ForumPage="<%#(Container.DataItem as dynamic).ForumPage %>"
+                                                ForumID="<%# (Container.DataItem as dynamic).ForumID == null ? 0 : (Container.DataItem as dynamic).ForumID %>" 
+                                                ForumName="<%# (Container.DataItem as dynamic).ForumName %>"
+                                                TopicID="<%# (Container.DataItem as dynamic).TopicID == null ? 0 : (Container.DataItem as dynamic).TopicID %>" 
+                                                TopicName="<%# (Container.DataItem as dynamic).TopicName %>"
                                                 LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
 				        </td>
 				        <td>
-					        <%# this.Get<IDateTime>().FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["Login"]) %>
+					        <%# this.Get<IDateTime>().FormatTime((DateTime)(Container.DataItem as dynamic).Login) %>
 				        </td>				
 				        <td>
-					        <%# this.Get<IDateTime>().FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastActive"]) %>
+					        <%# this.Get<IDateTime>().FormatTime((DateTime)(Container.DataItem as dynamic).LastActive) %>
 				        </td>
 				        <td>
-					        <%# this.Get<ILocalization>().GetTextFormatted("minutes", ((System.Data.DataRowView)Container.DataItem)["Active"])%>
+					        <%# this.Get<ILocalization>().GetTextFormatted("minutes", (Container.DataItem as dynamic).Active)%>
+				        </td>
+				        <td><%# (Container.DataItem as dynamic).Browser %>
 				        </td>
 				        <td>
-					        <%# this.Eval("Browser") %>
-				        </td>
-				        <td>
-					        <%# this.Eval("Platform") %>
+					        <%#(Container.DataItem as dynamic).Platform %>
 				        </td>
                         <td id="Iptd1" runat="server" visible="<%# this.PageContext.IsAdmin %>">
-					         <a id="Iplink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIp4Address(this.Eval("IP").ToString())) %>'
+					         <a id="Iplink1" href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIp4Address((string)(Container.DataItem as dynamic).IP)) %>"
                                 title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
-                             <%# IPHelper.GetIp4Address(this.Eval("IP").ToString())%></a>
+                             <%# IPHelper.GetIp4Address((string)(Container.DataItem as dynamic).IP)%></a>
 				        </td>
                     </tr>	
                         </ItemTemplate>

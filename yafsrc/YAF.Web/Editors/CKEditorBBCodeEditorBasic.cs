@@ -23,7 +23,6 @@
  */
 namespace YAF.Web.Editors
 {
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -79,11 +78,11 @@ namespace YAF.Web.Editors
                     this.TextAreaControl.ClientID,
                     BoardContext.Current.User.Culture.IsSet()
                         ? BoardContext.Current.User.Culture.Substring(0, 2)
-                        : this.Get<BoardSettings>().Culture.Substring(0, 2),
+                        : this.PageContext.BoardSettings.Culture.Substring(0, 2),
                     this.MaxCharacters,
                     this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"),
                     BoardInfo.GetURLToContent("forum.min.css"),
-                    this.Get<BoardSettings>().EditorToolbarBasic));
+                    this.PageContext.BoardSettings.EditorToolbarBasic));
         }
 
         #endregion

@@ -115,7 +115,7 @@
                 </asp:PlaceHolder>
                 <asp:Repeater ID="Announcements" runat="server">
                     <ItemTemplate>
-                        <%# this.CreateTopicLine((System.Data.DataRowView)Container.DataItem) %>
+                        <%# this.CreateTopicLine(Container.DataItem) %>
                     </ItemTemplate>
                     <SeparatorTemplate>
                         <div class="row">
@@ -137,7 +137,7 @@
                 </asp:Repeater>
                 <asp:Repeater ID="TopicList" runat="server">
                     <ItemTemplate>
-                        <%# this.CreateTopicLine((System.Data.DataRowView)Container.DataItem) %>
+                        <%# this.CreateTopicLine(Container.DataItem) %>
                     </ItemTemplate>
                     <SeparatorTemplate>
                         <div class="row">

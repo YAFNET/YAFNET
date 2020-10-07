@@ -27,7 +27,8 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
@@ -71,7 +72,7 @@ namespace YAF.Controls
         /// <summary>
         /// Gets or sets the Friends Table.
         /// </summary>
-        public DataTable FriendsTable { get; set; }
+        public List<dynamic> FriendsList { get; set; }
 
         #endregion
 
@@ -259,29 +260,32 @@ namespace YAF.Controls
             this.Pager.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
             // set the Data table
-            var buddyListDataTable = this.FriendsTable;
+            var buddyList = this.FriendsList;
 
-            if (buddyListDataTable != null && buddyListDataTable.HasRows())
+            if (buddyList != null && buddyList.Any())
             {
-                // get the view from the data table
-                var buddyListDataView = buddyListDataTable.DefaultView;
-
+                var buddyListView = buddyList;
                 // In what mode should this control work?
                 // Refer to "rptBuddy_ItemCreate" event for more info.
-                buddyListDataView.RowFilter = this.Mode switch
+                switch (this.Mode)
                 {
-                    1 => "Approved = 1",
-                    2 => "Approved = 1",
-                    3 => $"Approved = 0 AND FromUserID <> {this.CurrentUserID}",
-                    4 => $"Approved = 0 AND FromUserID = {this.CurrentUserID}",
-                    _ => buddyListDataView.RowFilter
-                };
+                    case 1:
+                    case 2:
+                        buddyListView = buddyList.Where(x => x.Approved == true).ToList();
+                        break;
+                    case 3:
+                        buddyListView = buddyList.Where(x => x.Approved == false && x.FromUserID != this.CurrentUserID).ToList();
+                        break;
+                    case 4:
+                        buddyListView = buddyList.Where(x => x.Approved == false && x.FromUserID == this.CurrentUserID).ToList();
+                        break;
+                }
 
-                this.Pager.Count = buddyListDataView.Count;
+                this.Pager.Count = buddyListView.Count;
 
                 var pds = new PagedDataSource
                               {
-                                  DataSource = buddyListDataView,
+                                  DataSource = buddyListView,
                                   AllowPaging = true,
                                   CurrentPageIndex = this.Pager.CurrentPageIndex,
                                   PageSize = this.Pager.PageSize

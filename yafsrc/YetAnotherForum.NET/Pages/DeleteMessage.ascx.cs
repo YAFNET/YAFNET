@@ -30,7 +30,6 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -104,14 +103,14 @@ namespace YAF.Pages
         {
             get
             {
-                if (this.PageContext.IsAdmin || this.Get<BoardSettings>().LockPosts <= 0)
+                if (this.PageContext.IsAdmin || this.PageContext.BoardSettings.LockPosts <= 0)
                 {
                     return false;
                 }
 
                 var edited = this.message.Item2.Edited.Value;
 
-                return edited.AddDays(this.Get<BoardSettings>().LockPosts) < DateTime.UtcNow;
+                return edited.AddDays(this.PageContext.BoardSettings.LockPosts) < DateTime.UtcNow;
             }
         }
 
@@ -283,9 +282,9 @@ namespace YAF.Pages
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void DeleteUndelete_Click(object sender, EventArgs e)
+        protected void ToggleDelete_Click(object sender, EventArgs e)
         {
-            this.ToggleDelete(0, true);
+            this.ToggleDelete(false, true);
         }
 
         /// <summary>
@@ -295,7 +294,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ToggleDeleteStatus_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.ToggleDelete(this.message.Item2.MessageFlags.IsDeleted ? 0 : 1, this.EraseMessage.Checked);
+            this.ToggleDelete(!this.message.Item2.MessageFlags.IsDeleted, this.EraseMessage.Checked);
         }
 
         /// <summary>
@@ -307,7 +306,7 @@ namespace YAF.Pages
         /// <param name="eraseMessage">
         /// The erase message.
         /// </param>
-        private void ToggleDelete(int deleteAction, bool eraseMessage)
+        private void ToggleDelete(bool deleteAction, bool eraseMessage)
         {
             if (!this.CanDeletePost)
             {

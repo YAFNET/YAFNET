@@ -27,7 +27,6 @@ namespace YAF.Core.Model
 
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -44,8 +43,8 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository. 
         /// </param>
-        /// <param name="bannedId">
-        /// The banned Id.
+        /// <param name="id">
+        /// The id.
         /// </param>
         /// <param name="mask">
         /// The mask. 
@@ -56,24 +55,47 @@ namespace YAF.Core.Model
         /// <param name="boardId">
         /// The board Id.
         /// </param>
-        public static void Save(
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool Save(
             this IRepository<BannedEmail> repository,
-            int? bannedId,
+            int? id,
             string mask,
             string reason,
             int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.Upsert(
+            if (id.HasValue)
+            {
+                repository.Upsert(
+                    new BannedEmail
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        ID = id.Value,
+                        Mask = mask,
+                        Reason = reason,
+                        Since = DateTime.Now
+                    });
+                return true;
+            }
+
+            if (repository.Exists(b => b.BoardID == repository.BoardID && b.Mask == mask))
+            {
+                return false;
+            }
+
+            repository.Insert(
                 new BannedEmail
                 {
                     BoardID = boardId ?? repository.BoardID,
-                    ID = bannedId ?? 0,
                     Mask = mask,
                     Reason = reason,
                     Since = DateTime.Now
                 });
+
+            return true;
         }
 
         #endregion

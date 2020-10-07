@@ -44,7 +44,7 @@
             <div class="card-body">
                 <asp:Repeater ID="TopicList" runat="server">
                     <ItemTemplate>
-                        <%# this.CreateTopicLine((System.Data.DataRowView)Container.DataItem) %>
+                        <%# this.CreateTopicLine(Container.DataItem) %>
                     </ItemTemplate>
                     <SeparatorTemplate>
                         <div class="row">

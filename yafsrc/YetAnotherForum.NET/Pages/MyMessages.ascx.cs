@@ -29,7 +29,6 @@ namespace YAF.Pages
     using System;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -97,7 +96,7 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // check if this feature is disabled
-            if (!this.Get<BoardSettings>().AllowPrivateMessages)
+            if (!this.PageContext.BoardSettings.AllowPrivateMessages)
             {
                 BuildLink.RedirectInfoPage(InfoMessage.Disabled);
             }
@@ -118,16 +117,17 @@ namespace YAF.Pages
             this.NewPM2.NavigateUrl = this.NewPM.NavigateUrl;
 
             // Renew PM Statistics
-            var dt = this.GetRepository<PMessage>().UserMessageCount(this.PageContext.PageUserID);
-            if (dt.HasRows())
+            var count = this.GetRepository<PMessage>().UserMessageCount(this.PageContext.PageUserID);
+
+            if (count != null)
             {
                 this.InfoInbox.Text = this.InfoArchive.Text = this.InfoOutbox.Text = this.GetPMessageText(
                     "PMLIMIT_ALL",
-                    dt.Rows[0]["NumberTotal"],
-                    dt.Rows[0]["NumberIn"],
-                    dt.Rows[0]["NumberOut"],
-                    dt.Rows[0]["NumberArchived"],
-                    dt.Rows[0]["NumberAllowed"]);
+                    (int)count.NumberTotal,
+                    (int)count.NumberIn,
+                    (int)count.NumberOut,
+                    (int)count.NumberArchived,
+                    (int)count.NumberAllowed);
             }
         }
 
@@ -143,16 +143,17 @@ namespace YAF.Pages
         /// <returns>Returns the Message Text</returns>
         protected string GetPMessageText(
             [NotNull] string text,
-            [NotNull] object total,
-            [NotNull] object inbox,
-            [NotNull] object outbox,
-            [NotNull] object archive,
-            [NotNull] object limit)
+            [NotNull] int total,
+            [NotNull] int inbox,
+            [NotNull] int outbox,
+            [NotNull] int archive,
+            [NotNull] int limit)
         {
-            object percentage = 0;
-            if (limit.ToType<int>() != 0)
+            decimal percentage = 0;
+
+            if (limit != 0)
             {
-                percentage = decimal.Round(total.ToType<decimal>() / limit.ToType<decimal>() * 100, 2);
+                percentage = decimal.Round(total / limit * 100, 2);
             }
 
             if (!this.PageContext.IsAdmin)
@@ -160,10 +161,9 @@ namespace YAF.Pages
                 return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, limit, percentage));
             }
 
-            limit = "\u221E";
             percentage = 0;
 
-            return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, limit, percentage));
+            return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, "\u221E", percentage));
         }
 
         /// <summary>

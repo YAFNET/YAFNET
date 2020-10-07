@@ -26,20 +26,20 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
-    
+
     using ServiceStack.OrmLite;
 
+    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Extensions.Data;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     /// The Forum Repository Extensions
@@ -124,33 +124,35 @@ namespace YAF.Core.Model
             [NotNull] string imageURL,
             [NotNull] string styles)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             if (parentID.HasValue && parentID.Equals(0))
             {
                 parentID = null;
             }
 
             var flags = new ForumFlags
-                            {
-                                IsLocked = locked, IsHidden = hidden, IsTest = isTest, IsModerated = moderated
-                            };
+            {
+                IsLocked = locked, IsHidden = hidden, IsTest = isTest, IsModerated = moderated
+            };
 
             if (!forumID.HasValue)
             {
-                var newForumId=  repository.Insert(
+                var newForumId = repository.Insert(
                     new Forum
-                        {
-                            Name = name,
-                            Description = description,
-                            SortOrder = sortOrder,
-                            CategoryID = categoryID,
-                            RemoteURL = remoteURL,
-                            ThemeURL = themeURL,
-                            ImageURL = imageURL,
-                            Styles = styles,
-                            Flags = flags.BitValue,
-                            ModeratedPostCount = moderatedPostCount,
-                            IsModeratedNewTopicOnly = isModeratedNewTopicOnly
-                        });
+                    {
+                        Name = name,
+                        Description = description,
+                        SortOrder = sortOrder,
+                        CategoryID = categoryID,
+                        RemoteURL = remoteURL,
+                        ThemeURL = themeURL,
+                        ImageURL = imageURL,
+                        Styles = styles,
+                        Flags = flags.BitValue,
+                        ModeratedPostCount = moderatedPostCount,
+                        IsModeratedNewTopicOnly = isModeratedNewTopicOnly
+                    });
 
                 repository.FireNew(newForumId);
 
@@ -159,23 +161,27 @@ namespace YAF.Core.Model
 
             repository.UpdateOnly(
                 () => new Forum
-                          {
-                              ParentID = parentID,
-                              Name = name,
-                              Description = description,
-                              SortOrder = sortOrder,
-                              CategoryID = categoryID,
-                              RemoteURL = remoteURL,
-                              ThemeURL = themeURL,
-                              ImageURL = imageURL,
-                              Styles = styles,
-                              Flags = flags.BitValue,
-                              ModeratedPostCount = moderatedPostCount,
-                              IsModeratedNewTopicOnly = isModeratedNewTopicOnly
-                          },
+                {
+                    ParentID = parentID,
+                    Name = name,
+                    Description = description,
+                    SortOrder = sortOrder,
+                    CategoryID = categoryID,
+                    RemoteURL = remoteURL,
+                    ThemeURL = themeURL,
+                    ImageURL = imageURL,
+                    Styles = styles,
+                    Flags = flags.BitValue,
+                    ModeratedPostCount = moderatedPostCount,
+                    IsModeratedNewTopicOnly = isModeratedNewTopicOnly
+                },
                 f => f.ID == forumID);
 
             repository.FireUpdated(forumID.Value);
+
+            // empty out access table(s)
+            BoardContext.Current.GetRepository<Active>().DeleteAll();
+            BoardContext.Current.GetRepository<ActiveAccess>().DeleteAll();
 
             return forumID.Value;
         }
@@ -196,6 +202,8 @@ namespace YAF.Core.Model
         /// </param>
         public static bool IsParentsChecker([NotNull] this IRepository<Forum> repository, int forumId, int parentId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             if (repository.Exists(f => f.ParentID == forumId))
             {
                 // Forum Is already a Parent
@@ -220,6 +228,8 @@ namespace YAF.Core.Model
             [NotNull] this IRepository<Forum> repository,
             [NotNull] int boardId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
             expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
@@ -227,8 +237,7 @@ namespace YAF.Core.Model
                 .OrderBy<Category>(c => c.SortOrder).ThenBy<Forum>(f => f.SortOrder).ThenBy<Category>(c => c.ID)
                 .ThenBy<Forum>(f => f.ID);
 
-            return repository.DbAccess.Execute(
-                db => db.Connection.SelectMulti<Forum, Category>(expression));
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Category>(expression));
         }
 
         /// <summary>
@@ -248,6 +257,8 @@ namespace YAF.Core.Model
             [NotNull] int boardId,
             [NotNull] int userId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
             expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
@@ -280,13 +291,12 @@ namespace YAF.Core.Model
         /// <param name="categoryId">
         /// The category ID.
         /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable ListAllFromCategory(
+        public static List<ForumSorted> ListAllFromCategory(
             [NotNull] this IRepository<Forum> repository,
             [NotNull] int categoryId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.ListAllFromCategory(categoryId, true);
         }
 
@@ -302,14 +312,13 @@ namespace YAF.Core.Model
         /// <param name="emptyFirstRow">
         /// The empty First Row.
         /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable ListAllFromCategory(
+        public static List<ForumSorted> ListAllFromCategory(
             [NotNull] this IRepository<Forum> repository,
             [NotNull] int categoryId,
             bool emptyFirstRow)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
             expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
@@ -322,7 +331,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets the forum list all sorted as data table.
+        /// Gets the forum list all sorted.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -333,19 +342,18 @@ namespace YAF.Core.Model
         /// <param name="userID">
         /// The user id.
         /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable ListAllSortedAsDataTable(
+        public static List<ForumSorted> ListAllSorted(
             [NotNull] this IRepository<Forum> repository,
             [NotNull] int boardID,
             [NotNull] int userID)
         {
-            return repository.ListAllSortedAsDataTable(boardID, userID, false);
+            CodeContracts.VerifyNotNull(repository);
+
+            return repository.ListAllSorted(boardID, userID, false);
         }
 
         /// <summary>
-        /// Gets the forum list all sorted as data table.
+        /// Gets the forum list all sorted.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -359,11 +367,8 @@ namespace YAF.Core.Model
         /// <param name="emptyFirstRow">
         /// The empty first row.
         /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
         [NotNull]
-        public static DataTable ListAllSortedAsDataTable(
+        public static List<ForumSorted> ListAllSorted(
             [NotNull] this IRepository<Forum> repository,
             [NotNull] int boardID,
             [NotNull] int userID,
@@ -375,7 +380,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Lists read topics
+        /// Lists all forums
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -398,25 +403,117 @@ namespace YAF.Core.Model
         /// <param name="findLastRead">
         /// Indicates if the Table should Contain the last Access Date
         /// </param>
-        /// <returns>
-        /// DataTable with list
-        /// </returns>
-        public static DataTable ListReadAsDataTable(
+        public static List<ForumRead> ListRead(
             [NotNull] this IRepository<Forum> repository,
-            [NotNull] int boardID,
-            [NotNull] int userID,
-            [NotNull] int? categoryID,
-            [NotNull] int? parentID,
-            [NotNull] bool useStyledNicks,
-            [CanBeNull] bool findLastRead)
+            [NotNull] int boardId,
+            [NotNull] int userId,
+            [CanBeNull] int? categoryId,
+            [CanBeNull] int? parentId,
+            [NotNull] bool findLastRead)
         {
-            return repository.DbFunction.GetData.forum_listread(
-                BoardID: boardID,
-                UserID: userID,
-                CategoryID: categoryID,
-                ParentID: parentID,
-                StyledNicks: useStyledNicks,
-                FindLastRead: findLastRead);
+            CodeContracts.VerifyNotNull(repository);
+
+            return repository.DbAccess.Execute(
+                db =>
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
+
+                    var countViewsExpression = db.Connection.From<Active>(db.Connection.TableAlias("x"));
+                    countViewsExpression.Where(
+                        $@"x.{countViewsExpression.Column<Active>(x => x.ForumID)}=
+                                   {expression.Column<Forum>(x => x.ID, true)}");
+                    var countViewsSql = countViewsExpression.Select(Sql.Count("1")).ToSelectStatement();
+
+                    var lastTopicAccessSql = "NULL";
+                    var lastForumAccessSql = "NULL";
+
+                    if (findLastRead)
+                    {
+                        var topicAccessExpression =
+                            db.Connection.From<TopicReadTracking>(db.Connection.TableAlias("y"));
+                        topicAccessExpression.Where(
+                            $@"y.{topicAccessExpression.Column<TopicReadTracking>(y => y.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
+                                    and y.{topicAccessExpression.Column<TopicReadTracking>(y => y.UserID)}={userId}");
+                        lastTopicAccessSql = topicAccessExpression.Select(
+                                $"top 1 {topicAccessExpression.Column<TopicReadTracking>(x => x.LastAccessDate)}")
+                            .ToSelectStatement();
+
+                        var forumAccessExpression =
+                            db.Connection.From<ForumReadTracking>(db.Connection.TableAlias("x"));
+                        forumAccessExpression.Where(
+                            $@"x.{forumAccessExpression.Column<ForumReadTracking>(x => x.ForumID)}={expression.Column<Topic>(x => x.ForumID, true)}
+                                    and x.{forumAccessExpression.Column<ForumReadTracking>(x => x.UserID)}={userId}");
+                        lastForumAccessSql = forumAccessExpression.Select(
+                                $"top 1 {forumAccessExpression.Column<ForumReadTracking>(x => x.LastAccessDate)}")
+                            .ToSelectStatement();
+                    }
+
+                    expression.Join<Forum>((c, f) => c.ID == f.CategoryID)
+                        .Join<Forum, ActiveAccess>((f, x) => x.ForumID == f.ID).CustomJoin(
+                            $@" left outer join {expression.Table<Topic>()} on {expression.Column<Topic>(t => t.ID, true)} =
+                       [{Config.DatabaseOwner}].[{Config.DatabaseObjectQualifier}forum_lasttopic](
+                                {expression.Column<Forum>(f => f.ID, true)},
+                                {userId},
+                                {expression.Column<Forum>(f => f.LastTopicID, true)},
+                                {expression.Column<Forum>(f => f.LastPosted, true)}) ")
+                        .CustomJoin(
+                            $@" left outer join {expression.Table<User>()} on {expression.Column<User>(x => x.ID, true)} = {expression.Column<Topic>(t => t.LastUserID, true)} ")
+                        .Where<Forum, Category, ActiveAccess>(
+                            (forum, category, x) => category.BoardID == boardId && x.UserID == userId && x.ReadAccess);
+
+                    if (categoryId.HasValue)
+                    {
+                        expression.And<Category>(a => a.ID == categoryId.Value);
+                    }
+
+                    if (parentId.HasValue)
+                    {
+                        expression.And<Forum>(f => f.ParentID == parentId.Value);
+                    }
+
+                    expression.OrderBy<Category>(a => a.SortOrder).ThenBy<Forum>(b => b.SortOrder);
+
+                    expression.Select<Category, Forum, ActiveAccess, Topic, User>(
+                        (a, b, x, t, lastUser) => new
+                        {
+                            CategoryID = a.ID,
+                            Category = a.Name,
+                            a.CategoryImage,
+                            ForumID = b.ID,
+                            Forum = b.Name,
+                            b.Description,
+                            b.ImageURL,
+                            b.Styles,
+                            b.ParentID,
+                            Topics =
+                                Sql.Custom(
+                                    $"[{Config.DatabaseOwner}].[{Config.DatabaseObjectQualifier}forum_topics]({expression.Column<Forum>(f => f.ID, true)})"),
+                            Posts =
+                                Sql.Custom(
+                                    $"[{Config.DatabaseOwner}].[{Config.DatabaseObjectQualifier}forum_posts]({expression.Column<Forum>(f => f.ID, true)})"),
+                            t.LastPosted,
+                            t.LastMessageID,
+                            t.LastMessageFlags,
+                            t.LastUserID,
+                            LastUser = lastUser.Name,
+                            LastUserDisplayName = lastUser.DisplayName,
+                            LastUserSuspended = lastUser.Suspended,
+                            LastTopicID = t.ID,
+                            t.TopicMovedID,
+                            LastTopicName = t.TopicName,
+                            LastTopicStatus = t.Status,
+                            LastTopicStyles = t.Styles,
+                            b.Flags,
+                            Viewing = Sql.Custom($"({countViewsSql})"),
+                            b.RemoteURL,
+                            x.ReadAccess,
+                            Style = lastUser.UserStyle,
+                            LastForumAccess = Sql.Custom($"({lastForumAccessSql})"),
+                            LastTopicAccess = Sql.Custom($"({lastTopicAccessSql})"),
+                        });
+
+                    return db.Connection.Select<ForumRead>(expression);
+                });
         }
 
         /// <summary>
@@ -431,9 +528,6 @@ namespace YAF.Core.Model
         /// <param name="forumId">
         /// The forum ID.
         /// </param>
-        /// <returns>
-        /// DataTable with list of topics from a forum
-        /// </returns>
         public static List<Forum> List(
             [NotNull] this IRepository<Forum> repository,
             [NotNull] int boardId,
@@ -484,14 +578,14 @@ namespace YAF.Core.Model
         /// </returns>
         public static bool Delete(this IRepository<Forum> repository, [NotNull] int forumId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             if (repository.Exists(f => f.ParentID == forumId))
             {
                 return false;
             }
 
-            repository.UpdateOnly(
-                () => new Forum { LastMessageID = null, LastTopicID = null },
-                f => f.ID == forumId);
+            repository.UpdateOnly(() => new Forum { LastMessageID = null, LastTopicID = null }, f => f.ID == forumId);
 
             BoardContext.Current.GetRepository<Topic>().UpdateOnly(
                 () => new Topic { LastMessageID = null },
@@ -512,7 +606,7 @@ namespace YAF.Core.Model
                     BoardContext.Current.GetRepository<WatchTopic>().Delete(x => x.TopicID == t.ID);
                     BoardContext.Current.GetRepository<NntpTopic>().Delete(x => x.TopicID == t.ID);
 
-                    repository.DbFunction.Scalar.topic_delete(TopicID: t.ID, EraseTopic: 1);
+                    BoardContext.Current.GetRepository<Topic>().Delete(forumId, t.ID, true);
                 });
 
             BoardContext.Current.GetRepository<NntpForum>().Delete(x => x.ForumID == forumId);
@@ -528,31 +622,52 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Deletes a forum
+        /// Deletes a Forum and Moves the Content to a new Forum
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="forumOldID">
-        /// The forum Old ID.
-        /// </param>
-        /// <param name="forumNewID">
-        /// The forum New ID.
-        /// </param>
         /// <returns>
         /// Indicates that forum has been deleted
         /// </returns>
-        public static bool Move(this IRepository<Forum> repository, [NotNull] int forumOldID, [NotNull] int forumNewID)
+        public static bool Move(this IRepository<Forum> repository, [NotNull] int oldForumId, [NotNull] int newForumId)
         {
-            if (repository.Exists(f => f.ParentID == forumOldID))
+            CodeContracts.VerifyNotNull(repository);
+
+            if (repository.Exists(f => f.ParentID == oldForumId))
             {
                 return false;
             }
 
-            repository.DbFunction.Scalar.forum_move(
-                ForumOldID: forumOldID,
-                ForumNewID: forumNewID,
-                UTCTIMESTAMP: DateTime.UtcNow);
+            BoardContext.Current.GetRepository<Forum>().UpdateOnly(
+                () => new Forum { LastMessageID = null, LastTopicID = null },
+                f => f.ID == oldForumId);
+            BoardContext.Current.GetRepository<Active>().UpdateOnly(
+                () => new Active { ForumID = newForumId },
+                f => f.ForumID == oldForumId);
+            BoardContext.Current.GetRepository<NntpForum>().UpdateOnly(
+                () => new NntpForum { ForumID = newForumId },
+                f => f.ForumID == oldForumId);
+            BoardContext.Current.GetRepository<WatchForum>().UpdateOnly(
+                () => new WatchForum { ForumID = newForumId },
+                f => f.ForumID == oldForumId);
+            BoardContext.Current.GetRepository<ForumReadTracking>().UpdateOnly(
+                () => new ForumReadTracking { ForumID = newForumId },
+                f => f.ForumID == oldForumId);
+
+            // -- Move topics, messages and attachments
+            var topics = BoardContext.Current.GetRepository<Topic>().Get(t => t.ForumID == oldForumId);
+
+            topics.ForEach(
+                topic => BoardContext.Current.GetRepository<Topic>().Move(topic.ID, oldForumId, newForumId, false, 0));
+
+            BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.ForumID == oldForumId);
+
+            BoardContext.Current.GetRepository<UserForum>().UpdateOnly(
+                () => new UserForum { ForumID = newForumId },
+                f => f.ForumID == oldForumId);
+
+            BoardContext.Current.GetRepository<Forum>().Delete(x => x.ID == oldForumId);
 
             return true;
         }
@@ -571,6 +686,8 @@ namespace YAF.Core.Model
         /// </returns>
         public static List<Forum> GetByCategorySorted(this IRepository<Forum> repository, [NotNull] int categoryId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var forums = repository.Get(f => f.CategoryID == categoryId);
 
             var forumsSorted = new List<Forum>();
@@ -592,47 +709,76 @@ namespace YAF.Core.Model
         /// <param name="boardId">
         ///  The Board ID
         /// </param>
-        /// <returns>
-        /// Data table with categories
-        /// </returns>
         [NotNull]
-        public static DataTable ModerateListAsDataTable(
+        public static List<ModerateForum> ModerateList(
             this IRepository<Forum> repository,
-            [NotNull] object userId,
-            [NotNull] object boardId)
+            [NotNull] int userId,
+            [NotNull] int boardId)
         {
-            var forumUnsorted =
-                repository.DbFunction.GetAsDataTable(f => f.forum_moderatelist(BoardID: boardId, UserID: userId));
+            CodeContracts.VerifyNotNull(repository);
 
-            var forumListSorted = forumUnsorted.Clone();
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
-            forumListSorted.Dispose();
-            ForumListSortBasic(forumUnsorted, forumListSorted, 0, 0);
+            var forums = repository.DbAccess.Execute(
+                db =>
+                {
+                    expression.Join<Forum>((c, f) => c.ID == f.CategoryID)
+                        .Join<Forum, ActiveAccess>((f, x) => x.ForumID == f.ID);
 
-            // vzrus: Remove here all forums with no reports. Would be better to do it in query...
-            // Array to write categories numbers
-            var categories = new int[forumListSorted.Rows.Count];
-            var count = 0;
+                    expression.Where<Category, ActiveAccess>(
+                        (c, x) => c.BoardID == boardId && x.ModeratorAccess && x.UserID == userId);
 
-            // We should make it before too as the collection was changed
-            forumListSorted.AcceptChanges();
+                    expression.OrderBy<Category>(c => c.SortOrder).ThenBy<Forum>(f => f.SortOrder);
 
-            forumListSorted.Rows.Cast<DataRow>().ForEach(
-                row =>
-                    {
-                        categories[count] = row.Field<int>("CategoryID");
-                        if (row.Field<int>("ReportedCount") == 0 && row.Field<int>("MessageCount") == 0)
+                    // -- count unapproved posts
+                    var countMessagesExpression = db.Connection.From<Message>(db.Connection.TableAlias("m"));
+                    countMessagesExpression.Join<Topic>(
+                        (m, t) => Sql.TableAlias(t.ID, "t") == Sql.TableAlias(m.TopicID, "m"),
+                        db.Connection.TableAlias("t"));
+
+                    countMessagesExpression.Where(
+                        $@"m.{countMessagesExpression.Column<Message>(x => x.IsApproved)} = 0
+                                    and m.{countMessagesExpression.Column<Message>(x => x.IsDeleted)} = 0
+                                    and t.{countMessagesExpression.Column<Topic>(x => x.IsDeleted)} = 0 
+                                    and t.{countMessagesExpression.Column<Topic>(x => x.ForumID)}=
+                                    {expression.Column<Forum>(x => x.ID, true)}");
+                    var countMessagesSql = countMessagesExpression
+                        .Select(Sql.Count(countMessagesExpression.Column<Message>(x => x.ID))).ToSelectStatement();
+
+                    // -- count reported posts
+                    var countReportedExpression = db.Connection.From<Message>(db.Connection.TableAlias("m"));
+                    countReportedExpression.Join<Topic>(
+                        (m, t) => Sql.TableAlias(t.ID, "t") == Sql.TableAlias(m.TopicID, "m"),
+                        db.Connection.TableAlias("t"));
+
+                    countReportedExpression.Where(
+                        $@"(m.{countReportedExpression.Column<Message>(x => x.Flags)} & 128) = 128
+                                    and m.{countReportedExpression.Column<Message>(x => x.IsDeleted)} = 0
+                                    and t.{countReportedExpression.Column<Topic>(x => x.IsDeleted)} = 0 
+                                    and t.{countReportedExpression.Column<Topic>(x => x.ForumID)}=
+                                    {expression.Column<Forum>(x => x.ID, true)}");
+                    var countReportedSql = countReportedExpression
+                        .Select(Sql.Count(countReportedExpression.Column<Message>(x => x.ID))).ToSelectStatement();
+
+                    expression.Select<Category, Forum>(
+                        (c, f) => new
                         {
-                            row.Delete();
-                            categories[count] = 0;
-                        }
+                            Category = c.Name,
+                            f.CategoryID,
+                            f.Name,
+                            f.ParentID,
+                            ForumID = f.ID,
+                            ReportedCount = Sql.Custom($"({countReportedSql})"),
+                            MessageCount = Sql.Custom($"({countMessagesSql})")
+                        });
 
-                        count++;
-                    });
+                    return db.Connection.Select<ModerateForum>(expression);
+                });
 
-            forumListSorted.AcceptChanges();
+            // Remove all forums with no reports. Would be better to do it in query...
+            forums.RemoveAll(f => f.MessageCount == 0 && f.ReportedCount == 0);
 
-            return forumListSorted;
+            return forums;
         }
 
         /// <summary>
@@ -642,6 +788,8 @@ namespace YAF.Core.Model
         /// <param name="forumId">The forum identifier.</param>
         public static void UpdateStats([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
             expression.Join<Forum>((t, f) => f.ID == t.ForumID)
@@ -664,14 +812,15 @@ namespace YAF.Core.Model
         /// <param name="forumId">The forum identifier.</param>
         public static void UpdateLastPost([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
             expression.Join<Message>((t, m) => m.TopicID == t.ID)
                 .Where<Topic, Message>((t, m) => t.ForumID == forumId && t.IsDeleted == false && (m.Flags & 24) == 16)
                 .OrderByDescending<Message>(m => m.Posted);
 
-            var message = repository.DbAccess
-                .Execute(db => db.Connection.Select<Message>(expression)).FirstOrDefault();
+            var message = repository.DbAccess.Execute(db => db.Connection.Select<Message>(expression)).FirstOrDefault();
 
             repository.UpdateOnly(
                 () => new Forum
@@ -706,30 +855,26 @@ namespace YAF.Core.Model
         /// <param name="emptyFirstRow">
         /// The empty first row.
         /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
         [NotNull]
-        private static DataTable SortList(
+        private static List<ForumSorted> SortList(
             this IRepository<Forum> repository,
             [NotNull] List<Forum> listSource,
-            int parentId,
-            int startingIndent,
-            bool emptyFirstRow)
+            [NotNull] int parentId,
+            [NotNull] int startingIndent,
+            [NotNull] bool emptyFirstRow)
         {
-            var listDestination = new DataTable { TableName = "forum_sort_list" };
-
-            listDestination.Columns.Add("ForumID", typeof(int));
-            listDestination.Columns.Add("Title", typeof(string));
-            listDestination.Columns.Add("Icon", typeof(string));
+            var listDestination = new List<ForumSorted>();
 
             if (emptyFirstRow)
             {
-                var blankRow = listDestination.NewRow();
-                blankRow["ForumID"] = 0;
-                blankRow["Title"] = BoardContext.Current.Get<ILocalization>().GetText("NONE");
-                blankRow["Icon"] = string.Empty;
-                listDestination.Rows.Add(blankRow);
+                var blankRow = new ForumSorted
+                {
+                    ForumID = 0,
+                    Forum = BoardContext.Current.Get<ILocalization>().GetText("NONE"),
+                    Icon = string.Empty
+                };
+
+                listDestination.Add(blankRow);
             }
 
             repository.SortListRecursive(listSource, listDestination, parentId, startingIndent);
@@ -758,33 +903,28 @@ namespace YAF.Core.Model
         /// <param name="emptyFirstRow">
         /// The empty first row.
         /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
         [NotNull]
-        private static DataTable SortList(
+        private static List<ForumSorted> SortList(
             this IRepository<Forum> repository,
             [NotNull] List<Tuple<Forum, Category, ActiveAccess>> listSource,
-            int parentID,
-            int categoryID,
-            int startingIndent,
-            bool emptyFirstRow)
+            [NotNull] int parentID,
+            [NotNull] int categoryID,
+            [NotNull] int startingIndent,
+            [NotNull] bool emptyFirstRow)
         {
-            var listDestination = new DataTable { TableName = "forum_sort_list" };
-
-            listDestination.Columns.Add("ForumID", typeof(int));
-            listDestination.Columns.Add("Title", typeof(string));
-            listDestination.Columns.Add("Category", typeof(string));
-            listDestination.Columns.Add("Icon", typeof(string));
+            var listDestination = new List<ForumSorted>();
 
             if (emptyFirstRow)
             {
-                var blankRow = listDestination.NewRow();
-                blankRow["ForumID"] = 0;
-                blankRow["Title"] = BoardContext.Current.Get<ILocalization>().GetText("NONE");
-                blankRow["Category"] = string.Empty;
-                blankRow["Icon"] = string.Empty;
-                listDestination.Rows.Add(blankRow);
+                var blankRow = new ForumSorted
+                {
+                    ForumID = 0,
+                    Forum = BoardContext.Current.Get<ILocalization>().GetText("NONE"),
+                    Category = string.Empty,
+                    Icon = string.Empty
+                };
+
+                listDestination.Add(blankRow);
             }
 
             repository.SortListRecursive(listSource, listDestination, parentID, categoryID, startingIndent);
@@ -816,10 +956,10 @@ namespace YAF.Core.Model
         private static void SortListRecursive(
             this IRepository<Forum> repository,
             [NotNull] List<Tuple<Forum, Category, ActiveAccess>> listSource,
-            [NotNull] DataTable listDestination,
-            int parentID,
-            int categoryID,
-            int currentIndent)
+            [NotNull] ICollection<ForumSorted> listDestination,
+            [NotNull] int parentID,
+            [NotNull] int categoryID,
+            [NotNull] int currentIndent)
         {
             foreach (var (item1, item2, _) in listSource)
             {
@@ -831,17 +971,18 @@ namespace YAF.Core.Model
                     continue;
                 }
 
-                DataRow newRow;
                 if (item2.ID != categoryID)
                 {
                     categoryID = item2.ID;
 
-                    newRow = listDestination.NewRow();
-                    newRow["ForumID"] = -categoryID;
-                    newRow["Title"] = $"{item2.Name}";
-                    newRow["Category"] = $"{item2.Name}";
-                    newRow["Icon"] = "folder";
-                    listDestination.Rows.Add(newRow);
+                    listDestination.Add(
+                        new ForumSorted
+                        {
+                            ForumID = -categoryID,
+                            Forum = $"{item2.Name}",
+                            Category = $"{item2.Name}",
+                            Icon = "folder"
+                        });
                 }
 
                 var indent = string.Empty;
@@ -852,14 +993,16 @@ namespace YAF.Core.Model
                 }
 
                 // import the row into the destination
-                newRow = listDestination.NewRow();
+                var newRow = new ForumSorted
+                {
+                    ForumID = item1.ID,
+                    Forum = $" {indent} {item1.Name}",
+                    Category = $"{item2.Name}",
+                    Icon = "comments"
+                };
 
-                newRow["ForumID"] = item1.ID;
-                newRow["Title"] = $" {indent} {item1.Name}";
-                newRow["Category"] = $"{item2.Name}";
-                newRow["Icon"] = "comments";
 
-                listDestination.Rows.Add(newRow);
+                listDestination.Add(newRow);
 
                 // recurse through the list...
                 repository.SortListRecursive(listSource, listDestination, item1.ID, categoryID, currentIndent + 1);
@@ -887,40 +1030,39 @@ namespace YAF.Core.Model
         private static void SortListRecursive(
             this IRepository<Forum> repository,
             [NotNull] List<Forum> listSource,
-            [NotNull] DataTable listDestination,
-            int parentID,
-            int currentIndent)
+            [NotNull] ICollection<ForumSorted> listDestination,
+            [NotNull] int parentID,
+            [NotNull] int currentIndent)
         {
             listSource.ForEach(
                 forum =>
+                {
+                    // see if this is a root-forum
+                    forum.ParentID ??= 0;
+
+                    if (forum.ParentID != parentID)
                     {
-                        // see if this is a root-forum
-                        forum.ParentID ??= 0;
+                        return;
+                    }
 
-                        if (forum.ParentID != parentID)
-                        {
-                            return;
-                        }
+                    var indent = string.Empty;
 
-                        var indent = string.Empty;
+                    for (var j = 0; j < currentIndent; j++)
+                    {
+                        indent += "--";
+                    }
 
-                        for (var j = 0; j < currentIndent; j++)
-                        {
-                            indent += "--";
-                        }
+                    // import the row into the destination
+                    var newRow = new ForumSorted
+                    {
+                        ForumID = forum.ID, Forum = $" -{indent} {forum.Name}", Icon = "comments"
+                    };
 
-                        // import the row into the destination
-                        var newRow = listDestination.NewRow();
+                    listDestination.Add(newRow);
 
-                        newRow["ForumID"] = forum.ID;
-                        newRow["Title"] = $" -{indent} {forum.Name}";
-                        newRow["Icon"] = "comments";
-
-                        listDestination.Rows.Add(newRow);
-
-                        // recurse through the list...
-                        repository.SortListRecursive(listSource, listDestination, forum.ID, currentIndent + 1);
-                    });
+                    // recurse through the list...
+                    repository.SortListRecursive(listSource, listDestination, forum.ID, currentIndent + 1);
+                });
         }
 
         /// <summary>
@@ -941,79 +1083,31 @@ namespace YAF.Core.Model
         private static void ForumListSortBasic(
             [NotNull] List<Forum> listSource,
             [NotNull] ICollection<Forum> list,
-            int parentId,
-            int currentLevel)
+            [NotNull] int parentId,
+            [NotNull] int currentLevel)
         {
             listSource.ForEach(
                 row =>
+                {
+                    row.ParentID ??= 0;
+
+                    if (row.ParentID != parentId)
                     {
-                        row.ParentID ??= 0;
+                        return;
+                    }
 
-                        if (row.ParentID != parentId)
-                        {
-                            return;
-                        }
+                    var indent = string.Empty;
+                    var intentIndex = currentLevel.ToType<int>();
 
-                        var indent = string.Empty;
-                        var intentIndex = currentLevel.ToType<int>();
+                    for (var j = 0; j < intentIndex; j++)
+                    {
+                        indent += "--";
+                    }
 
-                        for (var j = 0; j < intentIndex; j++)
-                        {
-                            indent += "--";
-                        }
-
-                        row.Name = $" -{indent} {row.Name}";
-                        list.Add(row);
-                        ForumListSortBasic(listSource, list, row.ID, currentLevel + 1);
-                    });
-        }
-
-        /// <summary>
-        /// Basic Sorting for the Forum List
-        /// </summary>
-        /// <param name="listSource">
-        /// The list source.
-        /// </param>
-        /// <param name="list">
-        /// The list.
-        /// </param>
-        /// <param name="parentId">
-        /// The parent Id.
-        /// </param>
-        /// <param name="currentLevel">
-        /// The current level.
-        /// </param>
-        private static void ForumListSortBasic(
-            [NotNull] DataTable listSource,
-            [NotNull] DataTable list,
-            int parentId,
-            int currentLevel)
-        {
-            for (var i = 0; i < listSource.Rows.Count; i++)
-            {
-                var row = listSource.Rows[i];
-                if (row["ParentID"] == DBNull.Value)
-                {
-                    row["ParentID"] = 0;
-                }
-
-                if (row.Field<int>("ParentID") != parentId)
-                {
-                    continue;
-                }
-
-                var indent = string.Empty;
-                var intentIndex = currentLevel.ToType<int>();
-
-                for (var j = 0; j < intentIndex; j++)
-                {
-                    indent += "--";
-                }
-
-                row["Name"] = $" -{indent} {row["Name"]}";
-                list.Rows.Add(row.ItemArray);
-                ForumListSortBasic(listSource, list, (int)row["ForumID"], currentLevel + 1);
-            }
+                    row.Name = $" -{indent} {row.Name}";
+                    list.Add(row);
+                    ForumListSortBasic(listSource, list, row.ID, currentLevel + 1);
+                });
         }
     }
 }

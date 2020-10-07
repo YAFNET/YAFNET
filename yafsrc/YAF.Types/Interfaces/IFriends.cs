@@ -23,111 +23,111 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System.Data;
-
-  /// <summary>
-  /// The Friends interface.
-  /// </summary>
-  public interface IFriends
-  {
-    /// <summary>
-    /// Adds a buddy request.
-    /// </summary>
-    /// <param name="toUserID">
-    /// The to User ID.
-    /// </param>
-    /// <returns>
-    /// The name of the second user + whether this request is approved or not. (This request
-    /// is approved without the target user's approval if the target user has sent a buddy request
-    /// to current user too or if the current user is already in the target user's buddy list.
-    /// </returns>
-    string[] AddRequest(int toUserID);
+    using System.Collections.Generic;
 
     /// <summary>
-    /// Approves all buddy requests for the current user.
+    /// The Friends interface.
     /// </summary>
-    /// <param name="mutual">
-    /// The mutual.
-    /// </param>
-    void ApproveAllRequests(bool mutual);
+    public interface IFriends
+    {
+        /// <summary>
+        /// Adds a buddy request.
+        /// </summary>
+        /// <param name="toUserID">
+        /// The to User ID.
+        /// </param>
+        /// <returns>
+        /// The name of the second user + whether this request is approved or not. (This request
+        /// is approved without the target user's approval if the target user has sent a buddy request
+        /// to current user too or if the current user is already in the target user's buddy list.
+        /// </returns>
+        bool AddRequest(int toUserID);
 
-    /// <summary>
-    /// Approves a buddy request.
-    /// </summary>
-    /// <param name="toUserID">
-    /// the to user id.
-    /// </param>
-    /// <param name="mutual">
-    /// should the second user be added to current user's buddy list too?
-    /// </param>
-    /// <returns>
-    /// The name of the second user.
-    /// </returns>
-    string ApproveRequest(int toUserID, bool mutual);
+        /// <summary>
+        /// Approves all buddy requests for the current user.
+        /// </summary>
+        /// <param name="mutual">
+        /// The mutual.
+        /// </param>
+        void ApproveAllRequests(bool mutual);
 
-    /// <summary>
-    /// Gets all the buddies of the current user.
-    /// </summary>
-    /// <returns>
-    /// A <see cref="DataTable"/> of all buddies.
-    /// </returns>
-    DataTable ListAllAsDataTable();
+        /// <summary>
+        /// Approves a buddy request.
+        /// </summary>
+        /// <param name="toUserID">
+        /// the to user id.
+        /// </param>
+        /// <param name="mutual">
+        /// should the second user be added to current user's buddy list too?
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        bool ApproveRequest(int toUserID, bool mutual);
 
-    /// <summary>
-    /// Clears the buddies cache for the current user.
-    /// </summary>
-    /// <param name="userID">
-    /// The User ID.
-    /// </param>
-    void ClearCache(int userID);
+        /// <summary>
+        /// Gets all the buddies of the current user.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        List<dynamic> ListAll();
 
-    /// <summary>
-    /// Denies all buddy requests for the current user.
-    /// </summary>
-    void DenyAllRequests();
+        /// <summary>
+        /// Clears the buddies cache for the current user.
+        /// </summary>
+        /// <param name="userID">
+        /// The User ID.
+        /// </param>
+        void ClearCache(int userID);
 
-    /// <summary>
-    /// Denies a friend request.
-    /// </summary>
-    /// <param name="fromUserId">
-    /// The from User Id.
-    /// </param>
-    void DenyRequest(int fromUserId);
+        /// <summary>
+        /// Denies all buddy requests for the current user.
+        /// </summary>
+        void DenyAllRequests();
 
-    /// <summary>
-    /// Gets all the buddies for the specified user.
-    /// </summary>
-    /// <param name="userID">
-    /// The user id.
-    /// </param>
-    /// <returns>
-    /// a <see cref="DataTable"/> of all buddies.
-    /// </returns>
-    DataTable GetForUser(int userID);
+        /// <summary>
+        /// Denies a friend request.
+        /// </summary>
+        /// <param name="fromUserId">
+        /// The from User Id.
+        /// </param>
+        void DenyRequest(int fromUserId);
 
-    /// <summary>
-    /// determines if the "<paramref name="buddyUserID"/>" and current user are buddies.
-    /// </summary>
-    /// <param name="buddyUserID">
-    /// The Buddy User ID.
-    /// </param>
-    /// <param name="approved">
-    /// Just look into approved buddies?
-    /// </param>
-    /// <returns>
-    /// true if they are buddies, <see langword="false"/> if not.
-    /// </returns>
-    bool IsBuddy(int buddyUserID, bool approved);
+        /// <summary>
+        /// Gets all the buddies for the specified user.
+        /// </summary>
+        /// <param name="userID">
+        ///     The user id.
+        /// </param>
+        /// <returns>
+        /// a List of all buddies.
+        /// </returns>
+        List<dynamic> GetForUser(int userID);
 
-    /// <summary>
-    /// Removes the "<paramref name="toUserID"/>" from current user's buddy list.
-    /// </summary>
-    /// <param name="toUserID">
-    /// The to user id.
-    /// </param>
-    /// <returns>
-    /// The name of the second user.
-    /// </returns>
-    string Remove(int toUserID);
-  }
+        /// <summary>
+        /// determines if the "<paramref name="buddyUserID"/>" and current user are buddies.
+        /// </summary>
+        /// <param name="buddyUserID">
+        /// The Buddy User ID.
+        /// </param>
+        /// <param name="approved">
+        /// Just look into approved buddies?
+        /// </param>
+        /// <returns>
+        /// true if they are buddies, <see langword="false"/> if not.
+        /// </returns>
+        bool IsBuddy(int buddyUserID, bool approved);
+
+        /// <summary>
+        /// Removes the "<paramref name="toUserID"/>" from current user's buddy list.
+        /// </summary>
+        /// <param name="toUserID">
+        /// The to user id.
+        /// </param>
+        /// <returns>
+        /// The name of the second user.
+        /// </returns>
+        string Remove(int toUserID);
+    }
 }
