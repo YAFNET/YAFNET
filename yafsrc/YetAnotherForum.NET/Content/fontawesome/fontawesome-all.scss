@@ -1,5 +1,5 @@
 /*!
- * Font Awesome Free 5.14.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 
@@ -11,8 +11,8 @@
 /* Extensions */
 .fa-badge-bg {
     position: absolute;
-    right: 1%;
-    bottom: -2%;
+    right: 0%;
+    bottom: -5%;
     font-size: 91%;
     height: 60%;
     width: 60%;
@@ -29,4 +29,8 @@
     width: 30%;
     line-height: 120%;
     text-align: center;
+}
+
+.fa-outline-inverse {
+    text-shadow: -0.12ex 0 #FFF,-0.1ex -0.1ex #FFF, 0 -0.12ex #FFF, 0.1ex -0.1ex #FFF, 0.12ex 0 #FFF, 0.1ex 0.1ex #FFF, 0 0.12ex #FFF, -0.1ex 0.1ex #FFF;
 }
