@@ -306,6 +306,13 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository);
 
             repository.Delete(x => x.Name == "smtpserver");
+            repository.Delete(x => x.Name == "avatarremote");
+            repository.Delete(x => x.Name == "enablethanksmod");
+            repository.Delete(x => x.Name == "topicsperpage");
+            repository.Delete(x => x.Name == "MemberListPageSize".ToLower());
+            repository.Delete(x => x.Name == "MyTopicsListPageSize".ToLower());
+            repository.Delete(x => x.Name == "EnableTopicDescription".ToLower());
+            repository.Delete(x => x.Name == "MaxWordLength".ToLower());
         }
 
         #endregion

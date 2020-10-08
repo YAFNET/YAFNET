@@ -232,7 +232,7 @@ namespace YAF.Core.Services
         {
             var isForumInstalled = this.IsForumInstalled;
 
-            this.CreateTablesIfNotExists();
+            this.CreateOrUpdateTables();
 
             if (!isForumInstalled)
             {
@@ -253,6 +253,8 @@ namespace YAF.Core.Services
                 else
                 {
                     this.ExecuteUpgradeScripts();
+
+                    this.ExecuteScript(this.DbAccess.Information.FullTextUpgradeScript, false);
                 }
 
                 if (prevVersion < 80)
@@ -297,11 +299,6 @@ namespace YAF.Core.Services
                 this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
 
                 this.Get<IDataCache>().Remove(Constants.Cache.Version);
-            }
-
-            if (this.IsForumInstalled)
-            {
-                this.ExecuteScript(this.DbAccess.Information.FullTextUpgradeScript, false);
             }
 
             // run custom script...
@@ -352,6 +349,16 @@ namespace YAF.Core.Services
         private void ExecuteNewUpgradeScripts()
         {
             this.DbAccess.Information.NewUpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
+        }
+
+        /// <summary>
+        /// Crate Tables and Update Tables
+        /// </summary>
+        private void CreateOrUpdateTables()
+        {
+            this.CreateTablesIfNotExists();
+
+            this.UpdateTables();
         }
 
         /// <summary>
@@ -417,10 +424,10 @@ namespace YAF.Core.Services
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileCustom>());
         }
 
-        /*private void UpdateTables()
+        private void UpdateTables()
         {
             // Add Missing Ids
-            this.DbAccess.Execute(
+            /*this.DbAccess.Execute(
                 db =>
                 {
                     if (!db.Connection.ColumnExists<ActiveAccess>(x => x.Id))
@@ -429,8 +436,8 @@ namespace YAF.Core.Services
                     }
 
                     return true;
-                });
-        }*/
+                });*/
+        }
 
         /// <summary>
         /// The execute script.

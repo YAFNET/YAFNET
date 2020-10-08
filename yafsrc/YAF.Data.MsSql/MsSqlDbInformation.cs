@@ -32,7 +32,6 @@ namespace YAF.Data.MsSql
     using YAF.Configuration;
     using YAF.Core.Data;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -62,8 +61,7 @@ namespace YAF.Data.MsSql
         /// </summary>
         private static readonly string[] NewUpgradeScriptList =
         {
-            "mssql/upgrade/tables.sql", "mssql/upgrade/views.sql", "mssql/upgrade/constraints.sql",
-            "mssql/upgrade/triggers.sql", "mssql/upgrade/functions.sql"
+            "mssql/upgrade/views.sql", "mssql/upgrade/functions.sql"
         };
 
         /// <summary>
@@ -77,7 +75,7 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// The DB parameters
         /// </summary>
-        private readonly DbConnectionParam[] dbParameters =
+        private readonly DbConnectionParam[] connectionParameters =
         {
             new DbConnectionParam(0, "Password", string.Empty),
             new DbConnectionParam(1, "Data Source", "(local)"),
@@ -132,7 +130,7 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// Gets the DB Connection Parameters.
         /// </summary>
-        public IDbConnectionParam[] DbConnectionParameters => this.dbParameters.OfType<IDbConnectionParam>().ToArray();
+        public IDbConnectionParam[] DbConnectionParameters => this.connectionParameters.OfType<IDbConnectionParam>().ToArray();
 
         /// <summary>
         /// Builds a connection string.
@@ -141,11 +139,13 @@ namespace YAF.Data.MsSql
         /// <returns>Returns the Connection String</returns>
         public string BuildConnectionString([NotNull] IEnumerable<IDbConnectionParam> parameters)
         {
-            CodeContracts.VerifyNotNull(parameters, "parameters");
+            var connectionParams = parameters.ToList();
+
+            CodeContracts.VerifyNotNull(connectionParams, "parameters");
 
             var connBuilder = new SqlConnectionStringBuilder();
 
-            parameters.ForEach(param => connBuilder[param.Name] = param.Value);
+            connectionParams.ForEach(param => connBuilder[param.Name] = param.Value);
 
             return connBuilder.ConnectionString;
         }

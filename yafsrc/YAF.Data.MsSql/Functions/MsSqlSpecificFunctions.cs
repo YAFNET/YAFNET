@@ -197,6 +197,31 @@ namespace YAF.Data.MsSql.Functions
                     trans.Commit();
                 }
             }
+            else
+            {
+                // don't use transactions
+                foreach (var sql in statements.Select(sql0 => sql0.Trim()))
+                {
+                    try
+                    {
+                        if (sql.ToLower().IndexOf("setuser", StringComparison.Ordinal) >= 0)
+                        {
+                            continue;
+                        }
+
+                        if (sql.Length <= 0)
+                        {
+                            continue;
+                        }
+
+                        dbAccess.Execute(db => db.Connection.Scalar<string>(sql.Trim()));
+                    }
+                    catch (Exception x)
+                    {
+                        throw new Exception($"FILE:\n{scriptFile}\n\nERROR:\n{x.Message}\n\nSTATEMENT:\n{sql}");
+                    }
+                }
+            }
         }
 
         /// <summary>
