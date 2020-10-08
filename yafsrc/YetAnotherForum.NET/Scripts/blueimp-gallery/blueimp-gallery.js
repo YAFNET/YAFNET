@@ -105,7 +105,7 @@
       // The class for the "next" control:
       nextClass: "next",
       // The class for the "close" control:
-      closeClass: "close",
+      closeClass: "btn-close",
       // The class for the "play-pause" toggle control:
       playPauseClass: "play-pause",
       // The list object property (or data attribute) with the object type:

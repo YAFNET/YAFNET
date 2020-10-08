@@ -8,8 +8,7 @@
                         <h5 class="modal-title">
                             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="BUTTON_MOVETOPIC" />
                         </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
             <div class="modal-body">

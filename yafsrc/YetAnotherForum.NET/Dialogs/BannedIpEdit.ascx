@@ -10,8 +10,7 @@
                             <YAF:LocalizedLabel ID="Title" runat="server" LocalizedTag="TITLE" 
                                 LocalizedPage="ADMIN_BANNEDIP_EDIT" />
                         </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
                     <div class="modal-body">

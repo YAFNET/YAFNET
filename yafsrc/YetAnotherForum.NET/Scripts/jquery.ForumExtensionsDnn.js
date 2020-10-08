@@ -18176,7 +18176,7 @@
     footer:
     '<div class="modal-footer"></div>',
     closeButton:
-    '<button type="button" class="bootbox-close-button close" aria-hidden="true">&times;</button>',
+    '<button type="button" class="bootbox-close-button close" aria-hidden="true"></button>',
     form:
     '<form class="bootbox-form"></form>',
     button:
@@ -22016,8 +22016,7 @@
             '<div class="toast-header">',
             '<span data-notify="icon" class="mr-2 text-{0}"></span>',
             '<span class="mr-auto font-weight-bold" data-notify="title">{1}</span>',
-            '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" data-notify="dismiss" aria-label="Close">',
-            '<span aria-hidden="true">&times;</span>',
+            '<button type="button" class="ml-2 mb-1 btn-close" data-dismiss="toast" data-notify="dismiss" aria-label="Close">',
             '</button>',
             '</div>',
             '<div class="toast-body" data-notify="message">',
@@ -30903,7 +30902,7 @@ S2.define('jquery.select2',[
       // The class for the "next" control:
       nextClass: "next",
       // The class for the "close" control:
-      closeClass: "close",
+      closeClass: "btn-close",
       // The class for the "play-pause" toggle control:
       playPauseClass: "play-pause",
       // The list object property (or data attribute) with the object type:

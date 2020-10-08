@@ -598,7 +598,7 @@
                             <div class="modal-body">
                                 <asp:PlaceHolder ID="errorMessage" runat="server" Visible="false">
                                     <div class="alert alert-warning">
-                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <button type="button" class="btn-close" data-dismiss="alert" aria-hidden="true"></button>
                                         <asp:Literal runat="server" ID="errorMessageContent"></asp:Literal>
                                     </div>
                                 </asp:PlaceHolder>
