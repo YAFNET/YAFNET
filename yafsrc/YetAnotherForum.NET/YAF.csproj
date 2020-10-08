@@ -1913,6 +1913,9 @@
     <Content Include="Content\bootstrap\_containers.scss" />
     <Content Include="Content\bootstrap\_helpers.scss" />
     <Content Include="Content\bootstrap\utilities\_api.scss" />
+    <Content Include="Content\bootstrap\helpers\_ratio.scss" />
+    <Content Include="Content\bootstrap\helpers\_visually-hidden.scss" />
+    <Content Include="Content\bootstrap\mixins\_visually-hidden.scss" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
     <Content Include="Content\images\error.svg" />
@@ -3676,7 +3679,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
