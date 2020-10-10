@@ -424,6 +424,9 @@ namespace YAF.Core.Services
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileCustom>());
         }
 
+        /// <summary>
+        /// Update Tables.
+        /// </summary>
         private void UpdateTables()
         {
             // Add Missing Ids

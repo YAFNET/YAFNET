@@ -648,10 +648,10 @@ namespace YAF.Core.BBCode
                         50) { RuleRank = 11 });
 
                 // urls
-                ruleEngine.AddRule(
+               ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         new Regex(
-                            @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!"")(?<!href="")(?<!src="")(?<inner>(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)",
+                            @"^(?!.*youtu).*(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!"")(?<!href="")(?<!src="")(?<inner>(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)",
                             RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
                         "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                             .Replace("{0}", target).Replace("{1}", noFollow),
@@ -665,7 +665,7 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         new Regex(
-                            @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~/(/)$]*[^.<|^.\[])?)",
+                            @"^(?!.*youtu).*(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?!youtu)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~/(/)$]*[^.<|^.\[])?)",
                             RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
                         "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                             .Replace("{0}", target).Replace("{1}", noFollow),
@@ -676,6 +676,36 @@ namespace YAF.Core.BBCode
                         new[] { string.Empty },
                         50) { RuleRank = 13 });
 
+                ruleEngine.AddRule(
+                    new VariableRegexReplaceRule(
+                        new Regex(
+                            @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://)(www.)?youtube\.com\/watch\?v=(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)",
+                            RegexOptions.Multiline | RegexOptions.Compiled),
+                        "${before}<div data-oembed-url=\"//youtube.com/embed/${id}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
+                        new[]
+                        {
+                            "before", "videoId"
+                        },
+                        new[] { string.Empty })
+                    {
+                        RuleRank = 8
+                    });
+
+                ruleEngine.AddRule(
+                    new VariableRegexReplaceRule(
+                        new Regex(
+                            @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://)youtu\.be\/(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)",
+                            RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
+                        "${before}<div data-oembed-url=\"//youtube.com/embed/${id}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
+                        new[]
+                        {
+                            "before", "videoId"
+                        },
+                        new[] { string.Empty })
+                    {
+                        RuleRank = 9
+                    });
+                
                 // font
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
