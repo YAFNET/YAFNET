@@ -1,6 +1,18 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.1.09
+* [NEW] added login failure logging
+* [SECURITY FIX] for Private Messages
+* [FIXED] duplicate topic title check
+* [FIXED] Attachments inside PMs
+* [FIXED #589] visiblity of profile
+* [FIXED] Remove line break after code block
+* [FIXED #588] creating of new medals
+* FIXED] show info message after shrink db
+* Removed Postback before logout dialog appears
+
+
 # YetAnotherForum.NET v2.3.1.08
 * Upgraded to Bootstrap 4.5.2
 * [FIXED] Cookie Alert 
