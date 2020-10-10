@@ -37039,7 +37039,7 @@ S2.define('jquery.select2',[
     this.itemsArray = [];
 
     this.$element = $(element);
-    this.$element.addClass("sr-only");
+      this.$element.addClass("visually-hidden");
 
     this.isSelect = (element.tagName === "SELECT");
     this.multiple = (this.isSelect && element.hasAttribute("multiple"));

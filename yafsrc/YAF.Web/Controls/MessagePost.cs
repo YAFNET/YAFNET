@@ -271,8 +271,7 @@ namespace YAF.Web.Controls
             writer.Write(
                 @"<div class=""alert alert-success"" role=""alert"">
                       <a title=""{0}"" alt=""title=""{0}"" href=""{1}""><i class=""fa fa-check fa-fw""></i>{0}</a>
-                      <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
-                          <span aria-hidden=""true"">&times;</span>
+                      <button type=""button"" class=""btn-close"" data-dismiss=""alert"" aria-label=""Close"">
                       </button></div>",
                 this.GetText("GO_TO_ANSWER"),
                 BuildLink.GetLink(ForumPages.Posts, "m={0}&name={1}#post{0}", messageId, this.PageContext.PageTopicName));

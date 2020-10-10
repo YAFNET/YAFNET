@@ -1828,7 +1828,6 @@
     <Content Include="Content\bootstrap\mixins\_pagination.scss" />
     <Content Include="Content\bootstrap\mixins\_reset-text.scss" />
     <Content Include="Content\bootstrap\mixins\_resize.scss" />
-    <Content Include="Content\bootstrap\mixins\_screen-reader.scss" />
     <Content Include="Content\bootstrap\mixins\_text-truncate.scss" />
     <Content Include="Content\bootstrap\mixins\_transition.scss" />
     <Content Include="Content\bootstrap\_alert.scss" />
@@ -1901,9 +1900,7 @@
     <Content Include="Content\bootstrap\forms\_validation.scss" />
     <Content Include="Content\bootstrap\helpers\_clearfix.scss" />
     <Content Include="Content\bootstrap\helpers\_colored-links.scss" />
-    <Content Include="Content\bootstrap\helpers\_embed.scss" />
     <Content Include="Content\bootstrap\helpers\_position.scss" />
-    <Content Include="Content\bootstrap\helpers\_screenreaders.scss" />
     <Content Include="Content\bootstrap\helpers\_stretched-link.scss" />
     <Content Include="Content\bootstrap\helpers\_text-truncation.scss" />
     <Content Include="Content\bootstrap\mixins\_container.scss" />

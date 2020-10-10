@@ -7292,7 +7292,7 @@ readers do not read off random characters that represent icons */
 .input-group.date .input-group-addon {
   cursor: pointer; }
 
-.sr-only {
+.visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;

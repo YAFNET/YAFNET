@@ -107,8 +107,7 @@ namespace YAF.Web.Controls
 
             if (this.Dismissing)
             {
-                writer.Write("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">");
-                writer.Write("<span aria-hidden=\"true\">&times;</span>");
+                writer.Write("<button type=\"button\" class=\"btn-close\" data-dismiss=\"alert\" aria-label=\"Close\">");
                 writer.Write("</button>");
             }
 

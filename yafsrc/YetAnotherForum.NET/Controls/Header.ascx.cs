@@ -216,7 +216,7 @@ namespace YAF.Controls
 
                 unreadLabel.Attributes.Add("data-toggle", "tooltip");
 
-                var unreadLabelText = new Label { CssClass = "sr-only", Text = unreadText };
+                var unreadLabelText = new Label { CssClass = "visually-hidden", Text = unreadText };
 
                 link.Controls.Add(unreadLabel);
 
