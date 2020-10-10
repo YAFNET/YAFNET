@@ -40,7 +40,6 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
@@ -92,12 +91,10 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-            var pageLinks = this.PageContext.CurrentForumPage.ForumBreadCrumb.ToType<PageLinks>();
-            
             // forum index
-            pageLinks.AddRoot();
+            this.PageLinks.AddRoot();
 
-            pageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 
         /// <summary>
