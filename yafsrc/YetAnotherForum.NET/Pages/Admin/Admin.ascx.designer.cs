@@ -240,6 +240,24 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel9;
 
         /// <summary>
+        /// HelpLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel HelpLabel2;
+
+        /// <summary>
+        /// PageSize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PageSize;
+
+        /// <summary>
         /// ActiveList control.
         /// </summary>
         /// <remarks>
@@ -247,6 +265,15 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater ActiveList;
+
+        /// <summary>
+        /// PagerTop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.Pager PagerTop;
 
         /// <summary>
         /// UnverifiedUsersHolder control.
@@ -258,6 +285,24 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.PlaceHolder UnverifiedUsersHolder;
 
         /// <summary>
+        /// LocalizedLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
+
+        /// <summary>
+        /// PageSizeUnverified control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PageSizeUnverified;
+
+        /// <summary>
         /// UserList control.
         /// </summary>
         /// <remarks>
@@ -265,5 +310,14 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater UserList;
+
+        /// <summary>
+        /// PagerUnverified control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.Pager PagerUnverified;
     }
 }

@@ -154,18 +154,12 @@ namespace YAF.Web.Controls
                         "f={0}&name={1}",
                         this.PageContext.PageForumID,
                         this.PageContext.PageForumName),
-                ForumPages.Posts => page > 1
-                    ? BuildLink.GetLink(
-                        ForumPages.Posts,
-                        "t={0}&p={1}&name={2}",
-                        this.PageContext.PageTopicID,
-                        page,
-                        this.PageContext.PageTopicName)
-                    : BuildLink.GetLink(
-                        ForumPages.Posts,
-                        "t={0}&name={1}",
-                        this.PageContext.PageTopicID,
-                        this.PageContext.PageTopicName),
+                ForumPages.Posts => BuildLink.GetLink(
+                    ForumPages.Posts,
+                    "t={0}&p={1}&name={2}",
+                    this.PageContext.PageTopicID,
+                    page,
+                    this.PageContext.PageTopicName),
                 _ => string.Empty
             };
 

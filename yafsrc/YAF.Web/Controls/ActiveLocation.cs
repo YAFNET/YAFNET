@@ -373,7 +373,7 @@ namespace YAF.Web.Controls
                         this.Logger.Log(
                             this.UserID,
                             this,
-                            $"Incorrect active location string: ForumID = {this.ForumID}; ForumName= {this.ForumName}; ForumPage={this.ForumPage}; TopicID={this.TopicID}; TopicName={this.TopicName}; UserID={this.UserID}; UserName={this.UserName}; Attributes={forumPageAttributes}; ForumPageName={forumPageName}; URL={this.Get<HttpRequestBase>().Url.AbsoluteUri}");
+                            $"Incorrect active location string: ForumID = {this.ForumID};ForumName= {this.ForumName}; ForumPage={this.ForumPage}; TopicID={this.TopicID}; TopicName={this.TopicName}; UserID={this.UserID}; UserName={this.UserName}; Attributes={forumPageAttributes}; ForumPageName={forumPageName}; URL={this.Get<HttpRequestBase>().Url.AbsoluteUri}");
                     }
 
                     outputText = this.GetText("ACTIVELOCATION", "NODATA");

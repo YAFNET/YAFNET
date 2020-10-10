@@ -29,6 +29,7 @@ namespace YAF.Core.Model
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -283,18 +284,26 @@ namespace YAF.Core.Model
         /// <param name="activeTime">
         /// The active time.
         /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
         /// <param name="boardId">
         /// The board Id.
         /// </param>
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<dynamic> ListUsers(
+        public static List<dynamic> ListUsersPaged(
             this IRepository<Active> repository,
             [NotNull] int userId,
             [NotNull] bool showGuests,
             [NotNull] bool showCrawlers,
             [NotNull] int activeTime,
+            [NotNull] int pageIndex,
+            [NotNull] int pageSize,
             [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
@@ -328,7 +337,7 @@ namespace YAF.Core.Model
                         }
                     }
 
-                    expression.OrderByDescending<Active>(a => a.LastActive);
+                    expression.OrderByDescending<Active>(a => a.LastActive).Page(pageIndex + 1, pageSize);
 
                     var forumExpression = db.Connection.From<Forum>(db.Connection.TableAlias("f"));
                     forumExpression.Where(

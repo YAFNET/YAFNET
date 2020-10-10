@@ -40,6 +40,7 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
@@ -91,10 +92,12 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
+            var pageLinks = this.PageContext.CurrentForumPage.ForumBreadCrumb.ToType<PageLinks>();
+            
             // forum index
-            this.PageLinks.AddRoot();
+            pageLinks.AddRoot();
 
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+            pageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 
         /// <summary>
@@ -206,16 +209,17 @@ namespace YAF.Pages
         /// The show crawlers.
         /// </param>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// Returns the Active user list
         /// </returns>
         private List<dynamic> GetActiveUsersData(bool showGuests, bool showCrawlers)
         {
-            // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocation Control to hide unavailable places.        
-            var activeUsers = this.GetRepository<Active>().ListUsers(
+            var activeUsers = this.GetRepository<Active>().ListUsersPaged(
                 this.PageContext.PageUserID,
                 showGuests,
                 showCrawlers,
-                this.PageContext.BoardSettings.ActiveListTime);
+                this.PageContext.BoardSettings.ActiveListTime,
+                0,
+                5000);
 
             return activeUsers;
         }

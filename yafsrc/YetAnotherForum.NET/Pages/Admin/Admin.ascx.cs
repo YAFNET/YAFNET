@@ -40,7 +40,6 @@ namespace YAF.Pages.Admin
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -239,6 +238,16 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSizeUnverified.DataSource = StaticDataHelper.PageEntries();
+            this.PageSizeUnverified.DataTextField = "Name";
+            this.PageSizeUnverified.DataValueField = "Value";
+            this.PageSizeUnverified.DataBind();
+
             this.BoardStatsSelect.Visible = this.PageContext.User.UserFlags.IsHostAdmin;
 
             // bind data
@@ -260,6 +269,54 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
 
             this.Page.Header.Title = this.GetText("ADMIN_ADMIN", "Administration");
+        }
+
+        /// <summary>
+        /// The pager top_ page change.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void PagerTopChange([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.BindActiveUserData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindActiveUserData();
+        }
+
+        /// <summary>
+        /// The pager top_ page change.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void PagerUnverifiedChange([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.BindUnverifiedUsers();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeUnverifiedSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindUnverifiedUsers();
         }
 
         /// <summary>
@@ -294,18 +351,15 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindActiveUserData()
         {
-            var activeUsers = this.GetRepository<Active>().ListUsers(
+            this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
+
+            var activeUsers = this.GetRepository<Active>().ListUsersPaged(
                 this.PageContext.PageUserID,
                 true,
                 true,
-                this.PageContext.BoardSettings.ActiveListTime);
-
-            if (activeUsers.Any())
-            {
-                this.PageContext.PageElements.RegisterJsBlock(
-                    "ActiveUsersTablesorterLoadJs",
-                    JavaScriptBlocks.LoadTableSorter("#ActiveUsers", "sortList: [[0,0]]", "#ActiveUsersPager"));
-            }
+                this.PageContext.BoardSettings.ActiveListTime,
+                this.PagerTop.CurrentPageIndex,
+                this.PagerTop.PageSize);
 
             this.ActiveList.DataSource = activeUsers;
             this.ActiveList.DataBind();
@@ -339,26 +393,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.UnverifiedUsersHolder.Visible = !Config.IsDotNetNuke;
-
-            if (this.UnverifiedUsersHolder.Visible)
-            {
-                var unverifiedUsers = this.GetRepository<User>().UnApprovedUsers(this.PageContext.PageBoardID);
-
-                if (unverifiedUsers.Any())
-                {
-                    this.PageContext.PageElements.RegisterJsBlock(
-                        "UnverifiedUserstablesorterLoadJs",
-                        JavaScriptBlocks.LoadTableSorter(
-                            "#UnverifiedUsers",
-                            "headers: { 4: { sorter: false }},sortList: [[3,1],[0,0]]",
-                            "#UnverifiedUsersPager"));
-                }
-
-                // bind list
-                this.UserList.DataSource = unverifiedUsers;
-                this.UserList.DataBind();
-            }
+            this.BindUnverifiedUsers();
 
             // get stats for current board, selected board or all boards (see function)
             var data = this.GetRepository<Board>().Stats(this.GetSelectedBoardId());
@@ -401,6 +436,28 @@ namespace YAF.Pages.Admin
             this.BindActiveUserData();
 
             this.DataBind();
+        }
+
+        /// <summary>
+        /// Bind unverified users.
+        /// </summary>
+        private void BindUnverifiedUsers()
+        {
+            this.UnverifiedUsersHolder.Visible = !Config.IsDotNetNuke;
+
+            if (!this.UnverifiedUsersHolder.Visible)
+            {
+                return;
+            }
+
+            this.PagerUnverified.PageSize = this.PageSizeUnverified.SelectedValue.ToType<int>();
+
+            var unverifiedUsers = this.GetRepository<User>().UnApprovedUsers(this.PageContext.PageBoardID)
+                .GetPaged(this.PagerUnverified);
+
+            // bind list
+            this.UserList.DataSource = unverifiedUsers;
+            this.UserList.DataBind();
         }
 
         /// <summary>

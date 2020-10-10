@@ -59,9 +59,9 @@ namespace YAF.Core.BasePages
         #region Constants and Fields
 
         /// <summary>
-        ///   The _trans page.
+        ///   The trans page.
         /// </summary>
-        private readonly string _transPage;
+        private readonly string transPage;
 
         /// <summary>
         /// The Unicode Encoder
@@ -69,14 +69,9 @@ namespace YAF.Core.BasePages
         private readonly UnicodeEncoder unicodeEncoder;
 
         /// <summary>
-        ///   No Database Toggle
+        ///   The top page control.
         /// </summary>
-        private bool _noDataBase;
-
-        /// <summary>
-        ///   The _top page control.
-        /// </summary>
-        private Control _topPageControl;
+        private Control topPageControl;
 
         #endregion
 
@@ -104,7 +99,7 @@ namespace YAF.Core.BasePages
             // create empty hashtable for cache entries));
             this.PageCache = new Hashtable();
 
-            this._transPage = transPage;
+            this.transPage = transPage;
             this.Init += this.ForumPage_Init;
             this.Load += this.ForumPage_Load;
             this.Unload += this.ForumPage_Unload;
@@ -146,11 +141,6 @@ namespace YAF.Core.BasePages
         ///   Gets or sets ForumTopControl.
         /// </summary>
         public PlaceHolder ForumTopControl { get; set; }
-
-        /// <summary>
-        ///   Gets ForumURL.
-        /// </summary>
-        public string ForumURL => BuildLink.GetLink(ForumPages.Board, true);
 
         /// <summary>
         /// Gets or sets a value indicating whether is account page.
@@ -238,21 +228,21 @@ namespace YAF.Core.BasePages
         {
             get
             {
-                if (this._topPageControl != null)
+                if (this.topPageControl != null)
                 {
-                    return this._topPageControl;
+                    return this.topPageControl;
                 }
 
                 if (this.Page?.Header != null)
                 {
-                    this._topPageControl = this.Page.Header;
+                    this.topPageControl = this.Page.Header;
                 }
                 else
                 {
-                    this._topPageControl = this.FindControlRecursiveBoth("YafHead") ?? this.ForumTopControl;
+                    this.topPageControl = this.FindControlRecursiveBoth("YafHead") ?? this.ForumTopControl;
                 }
 
-                return this._topPageControl;
+                return this.topPageControl;
             }
         }
 
@@ -262,12 +252,9 @@ namespace YAF.Core.BasePages
         public AspNetUsers User => this.PageContext.MembershipUser;
 
         /// <summary>
-        ///   Sets a value indicating whether  Set to <see langword = "true" /> if this is the start page. Should only be set by the page that initialized the database.
+        /// Gets or sets a value indicating whether no data base, Should only be set by the page that initialized the database.
         /// </summary>
-        protected bool NoDataBase
-        {
-            set => this._noDataBase = value;
-        }
+        protected bool NoDataBase { get; set; }
 
         #endregion
 
@@ -383,13 +370,13 @@ namespace YAF.Core.BasePages
         {
             this.Get<IRaiseEvent>().Raise(new ForumPageInitEvent());
 
-            if (this._noDataBase)
+            if (this.NoDataBase)
             {
                 return;
             }
 
             // set the current translation page...
-            this.Get<LocalizationProvider>().TranslationPage = this._transPage;
+            this.Get<LocalizationProvider>().TranslationPage = this.transPage;
 
             // fire pre-load event...
             this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent());

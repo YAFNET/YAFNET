@@ -2,19 +2,21 @@
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils.Helpers" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-<asp:Repeater ID="UserList" runat="server">
-	<HeaderTemplate>
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <YAF:IconHeader runat="server"
-                                        IconName="users"></YAF:IconHeader>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <YAF:IconHeader runat="server"
+                                IconName="users"></YAF:IconHeader>
+            </div>
+            <div class="card-body">
+                <asp:Repeater ID="UserList" runat="server">
+                    <HeaderTemplate>
+                        <div class="list-group">
+                            <div class="table-responsive">
 	                        <table class="table tablesorter table-bordered table-striped" id="ActiveUsers">
                                 <thead class="table-light">
                                     <tr>
@@ -53,7 +55,7 @@
                                     </tr>
                                 </thead>
                             <tbody>
-	                    </HeaderTemplate>
+                        </HeaderTemplate>
 		                <ItemTemplate>
                         <tr>
 				        <td>		
@@ -62,10 +64,8 @@
                                           ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).UserDisplayName : (Container.DataItem as dynamic).UserName %>" 
                                           CrawlerName="<%# (Container.DataItem as dynamic).IsCrawler > 0 ? (string)(Container.DataItem as dynamic).Browser : string.Empty %>"
                                           UserID="<%# (Container.DataItem as dynamic).UserID %>" 
-                                          Style="<%# (string)(Container.DataItem as dynamic).UserStyle %>" />
-                            <asp:PlaceHolder ID="HiddenPlaceHolder" runat="server" Visible="<%# (Container.DataItem as dynamic).IsActiveExcluded%>" >
-                                (<YAF:LocalizedLabel ID="Hidden" LocalizedTag="HIDDEN" runat="server" />)
-                            </asp:PlaceHolder>				    
+                                          Style="<%# (string)(Container.DataItem as dynamic).UserStyle %>"
+                                          PostfixText='<%# (Container.DataItem as dynamic).IsActiveExcluded ? new Icon{IconName = "user-secret"}.RenderToString() : "" %>'/>
 				        </td>
 				        <td>				
 					        <YAF:ActiveLocation ID="ActiveLocation2" 
@@ -154,4 +154,8 @@
         </div>
                             </div>
     </FooterTemplate>
-</asp:Repeater>
+                </asp:Repeater>
+            </div>
+        </div>
+    </div>
+</div>
