@@ -172,7 +172,7 @@ namespace YAF.Controls
                                            && !this.PostData.IsLocked)
             {
                 this.ContextMenu.Attributes.Add(
-                    "data-url",
+                    "data-url", 
                     BuildLink.GetLink(
                         ForumPages.PostMessage,
                         "t={0}&f={1}",

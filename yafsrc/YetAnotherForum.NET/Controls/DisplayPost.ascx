@@ -181,7 +181,7 @@
                         <YAF:ThemeButton ID="Quote2" runat="server"
                                          Type="None"
                                          Icon="quote-left"
-                                         TextLocalizedTag="BUTTON_QUOTE"
+                                         TextLocalizedTag="BUTTON_QUOTE_TT"
                                          DataToggle="tooltip"
                                          TitleLocalizedTag="BUTTON_QUOTE_TT"
                                          CssClass="dropdown-item" />

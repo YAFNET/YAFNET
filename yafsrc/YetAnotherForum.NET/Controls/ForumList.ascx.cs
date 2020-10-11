@@ -74,7 +74,9 @@ namespace YAF.Controls
             {
                 this.dataSource = value;
 
-                this.ForumList1.DataSource = this.dataSource.Item2.Where(x => !x.ParentID.HasValue);
+                this.ForumList1.DataSource = this.PageContext.PageForumID > 0
+                    ? this.dataSource.Item2
+                    : this.dataSource.Item2.Where(x => !x.ParentID.HasValue);
             }
         }
 
