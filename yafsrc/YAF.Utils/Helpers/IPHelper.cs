@@ -92,32 +92,28 @@ namespace YAF.Utils.Helpers
                 return addressIpv6;
             }
 
+            // don't resolve ip regex
+            if (addressIpv6.IsSet() && addressIpv6.ToLower().Contains("*"))
+            {
+                return addressIpv6;
+            }
+
             try
             {
                 // Loop through all address InterNetwork - Address for IP version 4))
-                foreach (
-                    var ipAddress in
-                        Dns.GetHostAddresses(addressIpv6)
-                            .Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
-                {
-                    ip4Address = ipAddress.ToString();
-                    break;
-                }
+                var address = Dns.GetHostAddresses(addressIpv6)
+                    .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork);
 
-                if (ip4Address.IsSet())
+                if (address != null)
                 {
-                    return ip4Address;
+                    return address.ToString();
                 }
 
                 // to find by host name - is not in use so far.
-                foreach (
-                    var ipAddress in
-                        Dns.GetHostAddresses(Dns.GetHostName())
-                            .Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
-                {
-                    ip4Address = ipAddress.ToString();
-                    break;
-                }
+                address = Dns.GetHostAddresses(Dns.GetHostName())
+                    .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork);
+
+                return address.ToString();
             }
             catch (Exception ex)
             {
