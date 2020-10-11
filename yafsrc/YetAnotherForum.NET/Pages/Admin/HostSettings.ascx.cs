@@ -76,7 +76,6 @@ namespace YAF.Pages.Admin
         protected void ActiveDiscussionsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.ActiveDiscussions);
-            this.RemoveCacheKey(Constants.Cache.ForumActiveDiscussions);
         }
 
         /// <summary>
@@ -553,7 +552,7 @@ namespace YAF.Pages.Admin
             this.ForumStatisticsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.BoardStats);
             this.BoardUserStatsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.BoardUserStats);
             this.ActiveDiscussionsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ActiveDiscussions)
-                                                       || this.CheckCacheKey(Constants.Cache.ForumActiveDiscussions);
+                                                       || this.CheckCacheKey(Constants.Cache.ActiveDiscussions);
             this.BoardModeratorsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumModerators);
             this.BoardCategoriesCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumCategory);
             this.ActiveUserLazyDataCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ActiveUserLazyData);

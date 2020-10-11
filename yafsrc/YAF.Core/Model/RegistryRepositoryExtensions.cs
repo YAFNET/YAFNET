@@ -165,6 +165,8 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
+            settingValue ??= string.Empty;
+
             if (boardId.HasValue)
             {
                 if (repository.Exists(r => r.Name.ToLower() == settingName.ToLower() && r.BoardID == boardId.Value))

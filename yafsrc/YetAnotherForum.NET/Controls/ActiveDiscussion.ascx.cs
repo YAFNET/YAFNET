@@ -48,9 +48,9 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    /// The forum active discussion.
+    /// The active discussion.
     /// </summary>
-    public partial class ForumActiveDiscussion : BaseUserControl
+    public partial class ActiveDiscussion : BaseUserControl
     {
         #region Methods
 
@@ -75,20 +75,11 @@ namespace YAF.Controls
 
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode((string)item.Topic));
 
-            // make message url...
-            var messageUrl = BuildLink.GetLink(
-                ForumPages.Posts,
-                "m={0}&name={1}#post{0}",
-                item.LastMessageID,
-                topicSubject);
-
             // get the controls
             var postIcon = e.Item.FindControlAs<Label>("PostIcon");
-            var textMessageLink = e.Item.FindControlAs<HyperLink>("TextMessageLink");
-            var forumLink = e.Item.FindControlAs<HyperLink>("ForumLink");
+            var textMessageLink = e.Item.FindControlAs<ThemeButton>("TextMessageLink");
+            var forumLink = e.Item.FindControlAs<ThemeButton>("ForumLink");
             var info = e.Item.FindControlAs<ThemeButton>("Info");
-            var imageMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastPost");
-            var imageLastUnreadMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastUnread");
             var lastUserLink = new UserLink();
             var lastPostedDateLabel = new DisplayDateTime { Format = DateTimeFormat.BothTopic };
 
@@ -111,29 +102,15 @@ namespace YAF.Controls
 
             var inForumText = this.GetTextFormatted("IN_FORUM", this.HtmlEncode((string)item.Forum));
 
-            textMessageLink.ToolTip =
-                $"{startedByText} {inForumText}";
-            textMessageLink.Attributes.Add("data-toggle", "tooltip");
-
+            textMessageLink.TitleNonLocalized = $"{startedByText} {inForumText}";
             textMessageLink.NavigateUrl = BuildLink.GetLink(
                 ForumPages.Posts,
                 "t={0}&name={1}",
                 item.TopicID,
                 topicSubject);
 
-            imageMessageLink.NavigateUrl = messageUrl;
-
             forumLink.Text = $"({item.Forum})";
             forumLink.NavigateUrl = BuildLink.GetForumLink(item.ForumID, item.Forum);
-
-            if (imageLastUnreadMessageLink.Visible)
-            {
-                imageLastUnreadMessageLink.NavigateUrl = BuildLink.GetLink(
-                    ForumPages.Posts,
-                    "t={0}&name={1}",
-                    item.TopicID,
-                    topicSubject);
-            }
 
             lastUserLink.UserID = item.LastUserID;
             lastUserLink.Style = item.LastUserStyle;
@@ -217,7 +194,7 @@ namespace YAF.Controls
         {
             // Latest forum posts
             // Shows the latest n number of posts on the main forum list page
-            const string CacheKey = Constants.Cache.ForumActiveDiscussions;
+            const string CacheKey = Constants.Cache.ActiveDiscussions;
 
             List<dynamic> activeTopics = null;
 

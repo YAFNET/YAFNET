@@ -48,7 +48,7 @@ namespace YAF.Controls
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink topicLink;
+        protected global::YAF.Web.Controls.ThemeButton topicLink;
 
         /// <summary>
         /// Info control.
@@ -58,24 +58,6 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Info;
-
-        /// <summary>
-        /// ImageLastUnreadMessageLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton ImageLastUnreadMessageLink;
-
-        /// <summary>
-        /// LastTopicImgLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton LastTopicImgLink;
 
         /// <summary>
         /// NoPostsPlaceHolder control.

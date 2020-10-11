@@ -11,7 +11,7 @@ namespace YAF.Controls
 {
 
 
-    public partial class ForumStatistics
+    public partial class Statistics
     {
 
         /// <summary>

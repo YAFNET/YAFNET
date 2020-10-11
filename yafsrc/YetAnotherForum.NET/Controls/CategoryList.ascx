@@ -1,12 +1,12 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.ForumCategoryList"
-    CodeBehind="ForumCategoryList.ascx.cs" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.CategoryList"
+    CodeBehind="CategoryList.ascx.cs" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
 
-<asp:Repeater ID="CategoryList" runat="server">
+<asp:Repeater ID="Categories" runat="server">
     <ItemTemplate>
                     <div class="row">
                         <div class="col">

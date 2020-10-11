@@ -100,9 +100,6 @@ namespace YAF.Controls
                 this.topicLink.NavigateUrl = BuildLink.GetLink(
                     ForumPages.Posts, "t={0}&name={1}", this.DataSource.LastTopicID, this.topicLink.Text);
 
-                this.topicLink.ToolTip = this.GetText("COMMON", "VIEW_TOPIC");
-                this.topicLink.Attributes.Add("data-toggle", "tooltip");
-
                 var styles = this.PageContext.BoardSettings.UseStyledTopicTitles
                                  ? this.Get<IStyleTransform>().Decode(
                                      this.DataSource.LastTopicStyles)
@@ -127,18 +124,6 @@ namespace YAF.Controls
                                                             ? this.DataSource.LastUserDisplayName
                                                             : this.DataSource.LastUser
                 };
-
-                this.LastTopicImgLink.NavigateUrl = BuildLink.GetLink(
-                    ForumPages.Posts,
-                    "m={0}&name={1}#post{0}",
-                    this.DataSource.LastMessageID,
-                    this.topicLink.Text);
-
-                this.ImageLastUnreadMessageLink.NavigateUrl = BuildLink.GetLink(
-                    ForumPages.Posts,
-                    "t={0}&name={1}",
-                    this.DataSource.LastTopicID,
-                    this.topicLink.Text);
 
                 var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                     this.DataSource.ForumID,

@@ -39,7 +39,7 @@ namespace YAF.Pages
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ForumCategoryList ForumCategoryList;
+        protected global::YAF.Controls.CategoryList ForumCategoryList;
 
         /// <summary>
         /// ActiveDiscussions control.
@@ -48,7 +48,7 @@ namespace YAF.Pages
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ForumActiveDiscussion ActiveDiscussions;
+        protected global::YAF.Controls.ActiveDiscussion ActiveDiscussions;
 
         /// <summary>
         /// ForumStats control.
@@ -66,6 +66,6 @@ namespace YAF.Pages
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ForumStatistics ForumStatistics;
+        protected global::YAF.Controls.Statistics ForumStatistics;
     }
 }

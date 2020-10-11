@@ -511,8 +511,8 @@
     <Compile Include="Controls\EditUsersSuspend.ascx.designer.cs">
       <DependentUpon>EditUsersSuspend.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ForumActiveDiscussion.ascx.designer.cs">
-      <DependentUpon>ForumActiveDiscussion.ascx</DependentUpon>
+    <Compile Include="Controls\ActiveDiscussion.ascx.designer.cs">
+      <DependentUpon>ActiveDiscussion.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\ForumIconLegend.ascx.designer.cs">
       <DependentUpon>ForumIconLegend.ascx</DependentUpon>
@@ -526,8 +526,8 @@
     <Compile Include="Controls\ForumModeratorList.ascx.designer.cs">
       <DependentUpon>ForumModeratorList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ForumStatistics.ascx.designer.cs">
-      <DependentUpon>ForumStatistics.ascx</DependentUpon>
+    <Compile Include="Controls\Statistics.ascx.designer.cs">
+      <DependentUpon>Statistics.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\ForumSubForumList.ascx.designer.cs">
       <DependentUpon>ForumSubForumList.ascx</DependentUpon>
@@ -1991,15 +1991,15 @@
     <Content Include="Controls\EditUsersProfile.ascx" />
     <Content Include="Controls\EditUsersSignature.ascx" />
     <Content Include="Controls\EditUsersSuspend.ascx" />
-    <Content Include="Controls\ForumActiveDiscussion.ascx" />
-    <Content Include="Controls\ForumCategoryList.ascx" />
+    <Content Include="Controls\ActiveDiscussion.ascx" />
+    <Content Include="Controls\CategoryList.ascx" />
     <Content Include="Controls\ForumIconLegend.ascx" />
     <Content Include="Controls\ForumLastPost.ascx" />
     <Content Include="Controls\ForumList.ascx">
       <SubType>UserControl</SubType>
     </Content>
     <Content Include="Controls\ForumModeratorList.ascx" />
-    <Content Include="Controls\ForumStatistics.ascx" />
+    <Content Include="Controls\Statistics.ascx" />
     <Content Include="Controls\ForumSubForumList.ascx" />
     <Content Include="Controls\ForumWelcome.ascx" />
     <Content Include="Controls\LastPosts.ascx" />
@@ -2857,16 +2857,16 @@
       <DependentUpon>EditUsersSuspend.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\ForumActiveDiscussion.ascx.cs">
-      <DependentUpon>ForumActiveDiscussion.ascx</DependentUpon>
+    <Compile Include="Controls\ActiveDiscussion.ascx.cs">
+      <DependentUpon>ActiveDiscussion.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\ForumCategoryList.ascx.cs">
-      <DependentUpon>ForumCategoryList.ascx</DependentUpon>
+    <Compile Include="Controls\CategoryList.ascx.cs">
+      <DependentUpon>CategoryList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\ForumCategoryList.ascx.designer.cs">
-      <DependentUpon>ForumCategoryList.ascx</DependentUpon>
+    <Compile Include="Controls\CategoryList.ascx.designer.cs">
+      <DependentUpon>CategoryList.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\ForumIconLegend.ascx.cs">
       <DependentUpon>ForumIconLegend.ascx</DependentUpon>
@@ -2884,8 +2884,8 @@
       <DependentUpon>ForumModeratorList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\ForumStatistics.ascx.cs">
-      <DependentUpon>ForumStatistics.ascx</DependentUpon>
+    <Compile Include="Controls\Statistics.ascx.cs">
+      <DependentUpon>Statistics.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\ForumSubForumList.ascx.cs">
@@ -3676,7 +3676,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

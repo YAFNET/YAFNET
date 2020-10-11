@@ -121,10 +121,11 @@ namespace YAF.Pages.Admin
             this.List.DataSource = cultureTable;
 
             this.PageContext.PageElements.RegisterJsBlock(
-               "tablesorterLoadJs",
-               JavaScriptBlocks.LoadTableSorter(
-                   "#language-table",
-                   cultureTable.Any() ? "headers: { 4: { sorter: false }}" : null));
+                "tablesorterLoadJs",
+                JavaScriptBlocks.LoadTableSorter(
+                    "#language-table",
+                    cultureTable.Any() ? "headers: { 4: { sorter: false }}" : null,
+                    "#LanguagesPager"));
 
             this.DataBind();
         }

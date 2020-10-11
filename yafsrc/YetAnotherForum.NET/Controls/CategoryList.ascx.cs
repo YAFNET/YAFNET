@@ -50,9 +50,9 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    /// The forum category list.
+    /// The category list.
     /// </summary>
-    public partial class ForumCategoryList : BaseUserControl
+    public partial class CategoryList : BaseUserControl
     {
         #region Properties
 
@@ -206,8 +206,8 @@ namespace YAF.Controls
             // Filter Categories
             var categories = this.Data.Item2.DistinctBy(x => x.CategoryID).ToList();
 
-            this.CategoryList.DataSource = categories;
-            this.CategoryList.DataBind();
+            this.Categories.DataSource = categories;
+            this.Categories.DataBind();
         }
 
         #endregion

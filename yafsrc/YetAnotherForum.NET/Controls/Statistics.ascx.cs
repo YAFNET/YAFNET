@@ -41,14 +41,14 @@ namespace YAF.Controls
     /// <summary>
     /// The forum statistics.
     /// </summary>
-    public partial class ForumStatistics : BaseUserControl
+    public partial class Statistics : BaseUserControl
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "ForumStatistics" /> class.
+        ///   Initializes a new instance of the <see cref = "Statistics" /> class.
         /// </summary>
-        public ForumStatistics()
+        public Statistics()
         {
             this.Load += this.ForumStatistics_Load;
         }

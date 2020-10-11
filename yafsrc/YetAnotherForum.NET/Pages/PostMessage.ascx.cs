@@ -119,7 +119,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets TopicID.
         /// </summary>
-        protected int TopicId => this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("t");
+        protected int TopicId => this.PageContext.PageTopicID;
 
         #endregion
 
@@ -1119,7 +1119,7 @@ namespace YAF.Pages
             this.TagsHolder.Visible = false;
 
             // add topic link...
-            this.PageLinks.AddTopic(this.topic.TopicName, this.TopicId.ToType<int>());
+            this.PageLinks.AddTopic(this.topic.TopicName, this.PageContext.PageTopicID);
 
             if (!this.EditMessageId.HasValue)
             {

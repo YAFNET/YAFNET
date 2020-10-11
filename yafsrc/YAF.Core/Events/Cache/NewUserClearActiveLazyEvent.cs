@@ -75,7 +75,7 @@ namespace YAF.Core.Events.Cache
         public void Handle(NewUserRegisteredEvent @event)
         {
             this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
-            this.DataCache.Remove(Constants.Cache.ForumActiveDiscussions);
+            this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
         }
 
         #endregion

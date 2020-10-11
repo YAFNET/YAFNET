@@ -11,7 +11,7 @@ namespace YAF.Controls
 {
 
 
-    public partial class ForumActiveDiscussion
+    public partial class ActiveDiscussion
     {
 
         /// <summary>

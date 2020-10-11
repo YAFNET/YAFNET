@@ -50,7 +50,9 @@
                     <YAF:ForumModeratorList ID="ForumModeratorListMob" runat="server"
                                             Visible="false" />
                 </h5>
-                <h6 class="card-subtitle text-muted"><%# ((ForumRead)Container.DataItem).Description  %></h6>
+                <h6 class="card-subtitle text-muted mb-1" runat="server" Visible="<%# ((ForumRead)Container.DataItem).Description.IsSet()  %>">
+                    <%# ((ForumRead)Container.DataItem).Description  %>
+                </h6>
                 <YAF:ForumSubForumList ID="SubForumList" runat="server"
                                        DataSource="<%# this.GetSubForums((ForumRead)Container.DataItem) %>"
                                        Visible="<%# this.HasSubForums((ForumRead)Container.DataItem) %>" />
@@ -58,7 +60,7 @@
             <asp:PlaceHolder runat="server" Visible="<%# ((ForumRead)Container.DataItem).RemoteURL.IsNotSet() %>">
                 <div class="col-md-4 text-secondary">
                     <div class="card bg-light card-post-last">
-                        <div class="card-body py-2 pl-2">
+                        <div class="card-body py-1 pl-2">
                             <YAF:ForumLastPost ID="lastPost" runat="server" 
                                                DataSource="<%# (ForumRead)Container.DataItem %>"/>
                         </div>

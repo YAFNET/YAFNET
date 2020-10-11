@@ -1,5 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumStatistics" Codebehind="ForumStatistics.ascx.cs" %>
-
+﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.Statistics" Codebehind="Statistics.ascx.cs" %>
 
         <div class="card mb-3">
             <div class="card-header d-flex align-items-center">

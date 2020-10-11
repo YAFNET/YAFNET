@@ -119,7 +119,7 @@ namespace YAF.Core.Events.Cache
         {
             // vzrus: to clear the cache to show user in the list at once));
             this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
-            this.DataCache.Remove(Constants.Cache.ForumActiveDiscussions);
+            this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
             this.DataCache.Remove(Constants.Cache.BoardUserStats);
         }
 
@@ -313,7 +313,7 @@ namespace YAF.Core.Events.Cache
             this.DataCache.Remove(Constants.Cache.ForumCategory);
 
             // clear active discussions cache..
-            this.DataCache.Remove(Constants.Cache.ForumActiveDiscussions);
+            this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
 
             this.ClearModeratorsCache();
         }
@@ -335,7 +335,7 @@ namespace YAF.Core.Events.Cache
             this.DataCache.Remove(Constants.Cache.ForumCategory);
 
             // clear active discussions cache..
-            this.DataCache.Remove(Constants.Cache.ForumActiveDiscussions);
+            this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
 
             this.ClearModeratorsCache();
         }
