@@ -998,9 +998,6 @@ namespace YAF.Pages
             this.PostReply.TextLocalizedTag = "SAVE";
             this.PostReply.TextLocalizedPage = "COMMON";
 
-            // add topic link...
-            this.PageLinks.AddTopic(this.Server.HtmlDecode(this.PageContext.PageTopicName), this.PageContext.PageTopicID);
-
             // editing..
             this.PageLinks.AddLink(this.GetText("EDIT"));
 
@@ -1121,13 +1118,16 @@ namespace YAF.Pages
             this.StyleRow.Visible = false;
             this.TagsHolder.Visible = false;
 
-            this.Title.Text = this.GetText("reply");
-
             // add topic link...
             this.PageLinks.AddTopic(this.topic.TopicName, this.TopicId.ToType<int>());
 
-            // add "reply" text...
-            this.PageLinks.AddLink(this.GetText("reply"));
+            if (!this.EditMessageId.HasValue)
+            {
+                this.Title.Text = this.GetText("reply");
+                
+                // add "reply" text...
+                this.PageLinks.AddLink(this.GetText("reply"));
+            }
 
             this.HandleUploadControls();
 
