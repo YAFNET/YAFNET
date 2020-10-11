@@ -15,8 +15,7 @@
             <div class="card-body">
                 <asp:Repeater ID="UserList" runat="server">
                     <HeaderTemplate>
-                        <div class="list-group">
-                            <div class="table-responsive">
+                        <div class="table-responsive">
 	                        <table class="table tablesorter table-bordered table-striped" id="ActiveUsers">
                                 <thead class="table-light">
                                     <tr>
@@ -103,7 +102,7 @@
                         <FooterTemplate>
                             </table>
                         </div>
-                        </div>
+						</div>
             <div class="card-footer">
                 <div id="ActiveUsersPager" class="row justify-content-between align-items-center">
                 <div class="col-auto mb-1">

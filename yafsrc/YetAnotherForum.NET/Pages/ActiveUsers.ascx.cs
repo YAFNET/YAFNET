@@ -111,8 +111,7 @@ namespace YAF.Pages
             }
 
             // remove non-guest users...
-            activeUsers.Where(row => row.IsGuest == false)
-                .ForEach(row => row.Delete());
+            activeUsers.RemoveAll(row => row.IsGuest == false);
         }
 
         /// <summary>
@@ -235,10 +234,8 @@ namespace YAF.Pages
             }
 
             // remove hidden users...
-            activeUsers
-                .Where(
-                    row => row.IsActiveExcluded == false &&
-                           this.PageContext.PageUserID != (int)row.UserID).ForEach(row => row.Delete());
+            activeUsers.RemoveAll(
+                row => row.IsActiveExcluded == false && this.PageContext.PageUserID != (int)row.UserID);
         }
 
         /// <summary>
@@ -255,10 +252,9 @@ namespace YAF.Pages
             }
 
             // remove hidden users...
-            activeUsers
-                .Where(
-                    row => row.IsActiveExcluded == true && !this.PageContext.IsAdmin &&
-                           this.PageContext.PageUserID != (int)row.UserID).ForEach(row => row.Delete());
+            activeUsers.RemoveAll(
+                row => row.IsActiveExcluded == true && !this.PageContext.IsAdmin &&
+                       this.PageContext.PageUserID != (int)row.UserID);
         }
 
         #endregion
