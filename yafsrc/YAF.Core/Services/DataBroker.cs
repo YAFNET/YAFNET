@@ -647,6 +647,7 @@ namespace YAF.Core.Services
                                     x.IsGuestX,
                                     x.LastActive,
                                     x.ModeratorAccess,
+                                    x.DownloadAccess,
                                     x.PollAccess,
                                     x.PostAccess,
                                     x.PriorityAccess,
