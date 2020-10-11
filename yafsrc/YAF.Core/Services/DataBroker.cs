@@ -173,53 +173,23 @@ namespace YAF.Core.Services
         /// <summary>
         /// The Page Load as Data Row
         /// </summary>
-        /// <param name="sessionID">
-        /// The session id.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="userKey">
-        /// The user key.
-        /// </param>
-        /// <param name="ip">
-        /// The IP Address.
-        /// </param>
-        /// <param name="location">
-        /// The location.
-        /// </param>
-        /// <param name="forumPage">
-        /// The forum page name.
-        /// </param>
-        /// <param name="browser">
-        /// The browser.
-        /// </param>
-        /// <param name="platform">
-        /// The platform.
-        /// </param>
-        /// <param name="categoryId">
-        /// The category Id.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum Id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic Id.
-        /// </param>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <param name="isCrawler">
-        /// The is Crawler.
-        /// </param>
-        /// <param name="isMobileDevice">
-        /// The browser is a mobile device.
-        /// </param>
-        /// <param name="doNotTrack">
-        /// The do Not Track.
-        /// </param>
+        /// <param name="sessionID">The session id.</param>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="userKey">The user key.</param>
+        /// <param name="ip">The IP Address.</param>
+        /// <param name="location">The location.</param>
+        /// <param name="forumPage">The forum page name.</param>
+        /// <param name="browser">The browser.</param>
+        /// <param name="platform">The platform.</param>
+        /// <param name="categoryId">The category Id.</param>
+        /// <param name="forumId">The forum Id.</param>
+        /// <param name="topicId">The topic Id.</param>
+        /// <param name="messageId">The message Id.</param>
+        /// <param name="isCrawler">The is Crawler.</param>
+        /// <param name="isMobileDevice">The browser is a mobile device.</param>
+        /// <param name="doNotTrack">The do Not Track.</param>
         /// <returns>
-        /// The <see cref="PageLoad"/>.
+        /// The <see cref="PageLoad" />.
         /// </returns>
         public PageLoad GetPageLoad(
             [NotNull] string sessionID,
@@ -302,29 +272,33 @@ namespace YAF.Core.Services
                     }
 
                     // -- Check valid ForumID
-                    var idForum = forumId;
-                    if (forumId.HasValue && !this.GetRepository<Forum>().Exists(f => f.ID == idForum.Value))
+                    var forum = this.GetRepository<Forum>().GetById(forumId.Value);
+
+                    if (forumId.HasValue && forum == null)
                     {
                         forumId = null;
                     }
 
                     // -- Check valid CategoryID
-                    var idCategory = categoryId;
-                    if (categoryId.HasValue && !this.GetRepository<Category>().Exists(c => c.ID == idCategory.Value))
+                    var category = this.GetRepository<Category>().GetById(categoryId.Value);
+
+                    if (categoryId.HasValue && category == null)
                     {
                         categoryId = null;
                     }
 
                     // -- Check valid MessageID
-                    var idMessage = messageId;
-                    if (messageId.HasValue && !this.GetRepository<Message>().Exists(m => m.ID == idMessage.Value))
+                    var message = this.GetRepository<Message>().GetById(messageId.Value);
+
+                    if (messageId.HasValue && message == null)
                     {
                         messageId = null;
                     }
 
                     // -- Check valid TopicID
-                    var idTopic = topicId;
-                    if (topicId.HasValue && !this.GetRepository<Topic>().Exists(t => t.ID == idTopic.Value))
+                    var topic = this.GetRepository<Topic>().GetById(topicId.Value);
+
+                    if (topicId.HasValue && topic == null)
                     {
                         topicId = null;
                     }
@@ -338,16 +312,20 @@ namespace YAF.Core.Services
                         expression.Join<Topic>((m, t) => t.ID == m.TopicID)
                             .Join<Topic, Forum>((t, f) => f.ID == t.ForumID)
                             .Join<Forum, Category>((f, c) => c.ID == f.CategoryID)
-                            .Where<Message, Category>((m, c) => m.ID == id.Value && c.BoardID == boardId)
-                            .Select<Topic, Forum, Message>((t, f, m) => new { f.CategoryID, t.ForumID, m.TopicID });
+                            .Where<Message, Category>((m, c) => m.ID == id.Value && c.BoardID == boardId);
 
                         var result = this.GetRepository<ActiveAccess>().DbAccess.Execute(
-                                db => db.Connection.Select<(int CategoryID, int ForumID, int TopicID)>(expression))
+                                db => db.Connection.SelectMulti<Message, Topic, Forum, Category>(expression))
                             .FirstOrDefault();
 
-                        categoryId = result.CategoryID;
-                        forumId = result.ForumID;
-                        topicId = result.TopicID;
+                        categoryId = result.Item3.CategoryID;
+                        category = result.Item4;
+
+                        forumId = result.Item3.ID;
+                        forum = result.Item3;
+
+                        topicId = result.Item1.TopicID;
+                        topic = result.Item2;
                     }
 
                     if (topicId.HasValue && (!categoryId.HasValue || !forumId.HasValue))
@@ -361,11 +339,14 @@ namespace YAF.Core.Services
                             .Select<Topic, Forum, Message>((t, f, m) => new { f.CategoryID, t.ForumID, });
 
                         var result = this.GetRepository<ActiveAccess>().DbAccess
-                            .Execute(db => db.Connection.Select<(int CategoryID, int ForumID)>(expression))
+                            .Execute(db => db.Connection.SelectMulti<Topic, Forum, Category>(expression))
                             .FirstOrDefault();
 
-                        categoryId = result.CategoryID;
-                        forumId = result.ForumID;
+                        categoryId = result.Item2.CategoryID;
+                        category = result.Item3;
+
+                        forumId = result.Item1.ForumID;
+                        forum = result.Item2;
                     }
 
                     if (forumId.HasValue && !categoryId.HasValue)
@@ -374,11 +355,11 @@ namespace YAF.Core.Services
 
                         var id = forumId;
                         expression.Join<Category>((f, c) => c.ID == f.CategoryID)
-                            .Where<Forum, Category>((f, c) => f.ID == id.Value && c.BoardID == boardId)
-                            .Select<Forum>(f => f.CategoryID);
+                            .Where<Forum, Category>((f, c) => f.ID == id.Value && c.BoardID == boardId);
 
-                        categoryId = this.GetRepository<ActiveAccess>().DbAccess
-                            .Execute(db => db.Connection.Column<int>(expression)).FirstOrDefault();
+                        category = this.GetRepository<ActiveAccess>().DbAccess
+                            .Execute(db => db.Connection.Select<Category>(expression)).FirstOrDefault();
+                        categoryId = category.ID;
                     }
 
                     // -- update active access and ensure that access right are in place
@@ -471,7 +452,7 @@ namespace YAF.Core.Services
                     var idForum2 = forumId ?? 0;
                     if (this.GetRepository<ActiveAccess>().Exists(
                         x => x.UserID == userId && x.ForumID == idForum2 &&
-                            idForum2 == 0 || x.ReadAccess == true))
+                            idForum2 == 0 || x.ReadAccess))
                     {
                         // -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
                         this.GetRepository<Active>().Delete(
@@ -589,50 +570,6 @@ namespace YAF.Core.Services
                             var isModeratorAnySql = isModeratorAnyExpression.Select(Sql.Count("1"))
                                 .ToMergedParamsSelectStatement();
 
-                            // -- Category name
-                            var categoryExpression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
-
-                            categoryExpression.Where(c => c.ID == categoryId.Value);
-
-                            var categorySql = categoryExpression
-                                .Select(categoryExpression.Column<Category>(c => c.Name))
-                                .ToMergedParamsSelectStatement();
-
-                            // -- topic name
-                            var topicNameExpression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
-
-                            topicNameExpression.Where(t => t.ID == topicId.Value);
-
-                            var topicNameSql = topicNameExpression
-                                .Select(topicNameExpression.Column<Topic>(t => t.TopicName))
-                                .ToMergedParamsSelectStatement();
-
-                            // -- forum name
-                            var forumNameExpression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
-
-                            forumNameExpression.Where(f => f.ID == forumId.Value);
-
-                            var forumNameSql = forumNameExpression
-                                .Select(forumNameExpression.Column<Forum>(f => f.Name)).ToMergedParamsSelectStatement();
-
-                            // -- forum theme
-                            var forumThemeExpression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
-
-                            forumThemeExpression.Where(f => f.ID == forumId.Value);
-
-                            var forumThemeSql = forumThemeExpression
-                                .Select(forumThemeExpression.Column<Forum>(f => f.ThemeURL))
-                                .ToMergedParamsSelectStatement();
-
-                            // -- forum parent Id
-                            var forumParentExpression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
-
-                            forumParentExpression.Where(f => f.ID == forumId.Value);
-
-                            var forumParentSql = forumParentExpression
-                                .Select(forumParentExpression.Column<Forum>(f => f.ParentID))
-                                .ToMergedParamsSelectStatement();
-
                             expression.Select<ActiveAccess>(
                                 x => new
                                 {
@@ -659,16 +596,15 @@ namespace YAF.Core.Services
                                     IsModeratorAny = Sql.Custom($"sign(isnull(({isModeratorAnySql}),0))"),
                                     IsCrawler = isCrawler,
                                     IsMobileDevice = isMobileDevice,
-                                    CategoryID =
-                                        Sql.Custom(
-                                            $"{(categoryId.HasValue ? categoryId.Value.ToString() : "null")}"),
-                                    CategoryName = Sql.Custom($"({categorySql})"),
-                                    ForumName = Sql.Custom($"({forumNameSql})"),
-                                    TopicID =
-                                        Sql.Custom($"{(topicId.HasValue ? topicId.Value.ToString() : "null")}"),
-                                    TopicName = Sql.Custom($"({topicNameSql})"),
-                                    ForumTheme = Sql.Custom($"({forumThemeSql})"),
-                                    ParentForumID = Sql.Custom($"({forumParentSql})")
+                                    CategoryID = Sql.Custom($"{(category != null ? category.ID : 0)}"),
+                                    CategoryName =
+                                        Sql.Custom($"{(category != null ? $"N'{category.Name}'" : "NULL")}"),
+                                    ForumName = Sql.Custom($"{(forum != null ? $"N'{forum.Name}'" : "NULL")}"),
+                                    TopicID = Sql.Custom($"{(topic != null ? topic.ID : 0)}"),
+                                    TopicName =
+                                        Sql.Custom($"{(topic != null ? $"N'{topic.TopicName}'" : "NULL")}"),
+                                    ForumTheme = Sql.Custom($"{(forum != null && forum.ThemeURL.IsSet() ? $"N'{forum.ThemeURL}'" : "NULL")}"),
+                                    ParentForumID = Sql.Custom($"{(forum != null && forum.ParentID.HasValue ? $"N'{forum.ParentID}'" : "NULL")}")
                                 });
 
                             return db.Connection.Select<PageLoad>(expression);
