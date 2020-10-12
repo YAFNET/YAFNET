@@ -331,7 +331,9 @@ namespace YAF.Pages.Admin
                     () => this.Get<ILatestInformation>().GetLatestVersion(),
                     TimeSpan.FromDays(1));
 
-                if (version.VersionDate <= BoardInfo.AppVersionDate)
+                var latestVersion = (System.DateTime)version.VersionDate;
+
+                if (latestVersion.ToUniversalTime() <= BoardInfo.AppVersionDate.ToUniversalTime())
                 {
                     return;
                 }
