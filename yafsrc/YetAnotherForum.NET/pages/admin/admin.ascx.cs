@@ -304,7 +304,9 @@ namespace YAF.Pages.Admin
 
             try
             {
-                if (version.VersionDate <= BoardInfo.AppVersionDate)
+                var latestVersion = (System.DateTime)version.VersionDate;
+
+                if (latestVersion.ToUniversalTime() <= BoardInfo.AppVersionDate.ToUniversalTime())
                 {
                     return;
                 }

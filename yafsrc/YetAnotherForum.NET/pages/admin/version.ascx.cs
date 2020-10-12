@@ -61,11 +61,11 @@ namespace YAF.Pages.Admin
                         TimeSpan.FromDays(1));
 
                     string lastVersion = version.Version;
-                    string lastVersionDate = this.Get<IDateTime>().FormatDateShort(version.VersionDate);
+                    var lastVersionDate = (DateTime)version.VersionDate;
 
-                    this.LatestVersion.Text = this.GetTextFormatted("LATEST_VERSION", lastVersion, lastVersionDate);
+                    this.LatestVersion.Text = this.GetTextFormatted("LATEST_VERSION", lastVersion, this.Get<IDateTime>().FormatDateShort(lastVersionDate));
 
-                    this.UpgradeVersionHolder.Visible = version.VersionDate > BoardInfo.AppVersionDate;
+                    this.UpgradeVersionHolder.Visible = lastVersionDate.ToUniversalTime() > BoardInfo.AppVersionDate.ToUniversalTime();
 
                     this.Download.NavigateUrl = version.UpgradeUrl;
                     this.Download.DataBind();
