@@ -137,8 +137,6 @@ namespace YAF.Core.Events.Cache
         {
             // clear the cache for this user...
             var userId = @event.UserId;
-
-            this.DataCache.Remove(string.Format(Constants.Cache.UserListForID, userId));
             this.DataCache.Remove(string.Format(Constants.Cache.UserBuddies, userId));
 
             // update forum moderators cache just in case something was changed...
@@ -262,9 +260,6 @@ namespace YAF.Core.Events.Cache
             // Clearing cache with old permissions data...
             this.DataCache.Remove(
                 k => k.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
-
-            // Clear Styling Caching
-            this.DataCache.Remove(Constants.Cache.GroupRankStyles);
         }
 
         /// <summary>
@@ -278,9 +273,6 @@ namespace YAF.Core.Events.Cache
             // Clearing cache with old permissions data...
             this.DataCache.RemoveOf<object>(
                 k => k.Key.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
-
-            // Clear Styling Caching
-            this.DataCache.Remove(Constants.Cache.GroupRankStyles);
         }
 
         /// <summary>
@@ -309,9 +301,6 @@ namespace YAF.Core.Events.Cache
                 return;
             }*/
 
-            // clear category cache...
-            this.DataCache.Remove(Constants.Cache.ForumCategory);
-
             // clear active discussions cache..
             this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
 
@@ -330,9 +319,6 @@ namespace YAF.Core.Events.Cache
             {
                 return;
             }*/
-
-            // clear category cache...
-            this.DataCache.Remove(Constants.Cache.ForumCategory);
 
             // clear active discussions cache..
             this.DataCache.Remove(Constants.Cache.ActiveDiscussions);

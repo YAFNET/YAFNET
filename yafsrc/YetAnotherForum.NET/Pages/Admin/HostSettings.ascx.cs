@@ -83,16 +83,6 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void BoardCategoriesCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.RemoveCacheKey(Constants.Cache.ForumCategory);
-        }
-
-        /// <summary>
-        /// Resets the Board Categories Cache
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void BoardModeratorsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.ForumModerators);
@@ -554,7 +544,6 @@ namespace YAF.Pages.Admin
             this.ActiveDiscussionsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ActiveDiscussions)
                                                        || this.CheckCacheKey(Constants.Cache.ActiveDiscussions);
             this.BoardModeratorsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumModerators);
-            this.BoardCategoriesCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumCategory);
             this.ActiveUserLazyDataCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ActiveUserLazyData);
             this.ResetCacheAll.Enabled = this.Get<IDataCache>().Count() > 0;
         }

@@ -1818,17 +1818,6 @@
                                              OnClick="ActiveDiscussionsCacheResetClick" />
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <YAF:HelpLabel ID="HelpLabel44" runat="server" 
-                                       LocalizedTag="CAT_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        <div class="input-group">
-                            <asp:TextBox CssClass="form-control" runat="server" ID="BoardCategoriesCacheTimeout" />
-                            <YAF:ThemeButton Type="Primary" ID="BoardCategoriesCacheReset" 
-                                             TextLocalizedTag="CLEAR"  runat="server" 
-                                             Icon="trash"
-                                             OnClick="BoardCategoriesCacheResetClick" />
-                        </div>
-                    </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel45" runat="server" 
                                            LocalizedTag="MOD_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />

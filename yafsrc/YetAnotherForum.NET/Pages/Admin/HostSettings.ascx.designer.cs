@@ -3642,33 +3642,6 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.ThemeButton ActiveDiscussionsCacheReset;
 
         /// <summary>
-        /// HelpLabel44 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel44;
-
-        /// <summary>
-        /// BoardCategoriesCacheTimeout control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoardCategoriesCacheTimeout;
-
-        /// <summary>
-        /// BoardCategoriesCacheReset control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton BoardCategoriesCacheReset;
-
-        /// <summary>
         /// HelpLabel45 control.
         /// </summary>
         /// <remarks>

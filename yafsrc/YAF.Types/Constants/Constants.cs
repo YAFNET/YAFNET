@@ -102,11 +102,6 @@ namespace YAF.Types.Constants
             public const string FirstPostCleaned = "FirstPostCleaned{0}{1}";
 
             /// <summary>
-            ///   The forum category.
-            /// </summary>
-            public const string ForumCategory = "ForumCategory";
-
-            /// <summary>
             ///   The forum jump.
             /// </summary>
             public const string ForumJump = "ForumJump{0}";
@@ -115,11 +110,6 @@ namespace YAF.Types.Constants
             ///   The forum moderators.
             /// </summary>
             public const string ForumModerators = "ForumModerators";
-
-            /// <summary>
-            ///   The group rank styles.
-            /// </summary>
-            public const string GroupRankStyles = "GroupRankStyles";
 
             /// <summary>
             ///   The guest user id.
@@ -160,11 +150,6 @@ namespace YAF.Types.Constants
             ///   The user ignore list.
             /// </summary>
             public const string UserIgnoreList = "UserIgnoreList{0}";
-
-            /// <summary>
-            ///   The user list for id.
-            /// </summary>
-            public const string UserListForID = "UserListForID{0}";
 
             /// <summary>
             ///   The user medals.

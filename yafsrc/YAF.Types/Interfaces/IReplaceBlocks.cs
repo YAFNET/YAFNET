@@ -37,15 +37,19 @@ namespace YAF.Types.Interfaces
     /// The new item.
     /// </param>
     /// <returns>
-    /// The add replacement.
+    /// The <see cref="int"/>.
     /// </returns>
     int Add(string newItem);
 
     /// <summary>
     /// Gets the replacement value from the index.
     /// </summary>
-    /// <param name="index"></param>
-    /// <returns></returns>
+    /// <param name="index">
+    /// The index.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
     string Get(int index);
 
     #endregion
