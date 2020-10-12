@@ -51,22 +51,22 @@ namespace YAF.Core.Model
         /// The description. 
         /// </param>
         /// <param name="onClickJs">
-        /// The on click js. 
+        /// The on click JS. 
         /// </param>
         /// <param name="displayJs">
-        /// The display js. 
+        /// The display JS. 
         /// </param>
         /// <param name="editJs">
-        /// The edit js. 
+        /// The edit JS. 
         /// </param>
         /// <param name="displayCss">
-        /// The display css. 
+        /// The display CSS. 
         /// </param>
         /// <param name="searchRegEx">
-        /// The search reg ex. 
+        /// The search Regular Expression. 
         /// </param>
         /// <param name="replaceRegEx">
-        /// The replace reg ex. 
+        /// The replace Regular Expression. 
         /// </param>
         /// <param name="variables">
         /// The variables. 
@@ -87,44 +87,44 @@ namespace YAF.Core.Model
         /// The board Id.
         /// </param>
         public static void Save(
-            this IRepository<BBCode> repository, 
-            int? codeId, 
-            string name, 
-            string description, 
-            string onClickJs, 
-            string displayJs, 
-            string editJs, 
-            string displayCss, 
-            string searchRegEx, 
-            string replaceRegEx, 
-            string variables, 
-            bool? useModule, 
-            bool? useToolbar,
-            string moduleClass, 
-            int execOrder, 
-            int? boardId = null)
+            this IRepository<BBCode> repository,
+            [NotNull] int? codeId,
+            [NotNull] string name,
+            [CanBeNull] string description,
+            [CanBeNull] string onClickJs,
+            [CanBeNull] string displayJs,
+            [CanBeNull] string editJs,
+            [CanBeNull] string displayCss,
+            [NotNull] string searchRegEx,
+            [NotNull] string replaceRegEx,
+            [CanBeNull] string variables,
+            [CanBeNull] bool? useModule,
+            [CanBeNull] bool? useToolbar,
+            [CanBeNull] string moduleClass,
+            [NotNull] int execOrder,
+            [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 
             repository.Upsert(
                 new BBCode
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        ID = codeId ?? 0,
-                        Name = name,
-                        Description = description,
-                        OnClickJS = onClickJs,
-                        DisplayJS = displayJs,
-                        EditJS = editJs,
-                        DisplayCSS = displayCss,
-                        SearchRegex = searchRegEx,
-                        ReplaceRegex = replaceRegEx,
-                        Variables = variables,
-                        UseModule = useModule,
-                        UseToolbar = useToolbar,
-                        ModuleClass = moduleClass,
-                        ExecOrder = execOrder
-                    });
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    ID = codeId ?? 0,
+                    Name = name,
+                    Description = description,
+                    OnClickJS = onClickJs,
+                    DisplayJS = displayJs,
+                    EditJS = editJs,
+                    DisplayCSS = displayCss,
+                    SearchRegex = searchRegEx,
+                    ReplaceRegex = replaceRegEx,
+                    Variables = variables,
+                    UseModule = useModule,
+                    UseToolbar = useToolbar,
+                    ModuleClass = moduleClass,
+                    ExecOrder = execOrder
+                });
         }
 
         #endregion

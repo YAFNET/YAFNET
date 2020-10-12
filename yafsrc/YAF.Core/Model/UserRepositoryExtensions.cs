@@ -399,25 +399,25 @@ namespace YAF.Core.Model
         /// </param>
         public static void AdminSave(
             this IRepository<User> repository,
-            [NotNull] int boardID,
+            [NotNull] int boardId,
             [NotNull] int userId,
             [NotNull] string name,
             [NotNull] string displayName,
             [NotNull] string email,
             [NotNull] int flags,
-            [NotNull] int rankID)
+            [NotNull] int rankId)
         {
             CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(
                 () => new User
                 {
-                    BoardID = boardID,
+                    BoardID = boardId,
                     Name = name,
                     DisplayName = displayName,
                     Email = email,
                     Flags = flags,
-                    RankID = rankID
+                    RankID = rankId
                 },
                 u => u.ID == userId);
         }
@@ -474,7 +474,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static int AspNet(
             this IRepository<User> repository,
-            int boardId,
+            [NotNull] int boardId,
             [NotNull] string userName,
             [CanBeNull] string displayName,
             [NotNull] string email,
@@ -708,13 +708,13 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="groupID">
+        /// <param name="groupId">
         /// The group id.
         /// </param>
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<string> GroupEmails(this IRepository<User> repository, [NotNull] int groupID)
+        public static List<string> GroupEmails(this IRepository<User> repository, [NotNull] int groupId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -722,7 +722,7 @@ namespace YAF.Core.Model
 
             expression.Join<UserGroup>((u, b) => b.UserID == u.ID).Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
                 .Where<User, UserGroup, Group>(
-                    (a, b, c) => b.GroupID == groupID && (c.Flags & 2) == 0 && a.Email != null)
+                    (a, b, c) => b.GroupID == groupId && (c.Flags & 2) == 0 && a.Email != null)
                 .Select(u => new { u.Email });
 
             return repository.DbAccess.Execute(db => db.Connection.SqlList<string>(expression));
@@ -734,7 +734,7 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="boardID">
+        /// <param name="boardId">
         /// The board id.
         /// </param>
         /// <param name="providerUserKey">
@@ -743,11 +743,11 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns the User Id
         /// </returns>
-        public static int GetUserId(this IRepository<User> repository, int boardID, [NotNull] string providerUserKey)
+        public static int GetUserId(this IRepository<User> repository, int boardId, [NotNull] string providerUserKey)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var user = repository.GetSingle(u => u.BoardID == boardID && u.ProviderUserKey == providerUserKey);
+            var user = repository.GetSingle(u => u.BoardID == boardId && u.ProviderUserKey == providerUserKey);
 
             return user?.ID ?? 0;
         }
@@ -769,6 +769,8 @@ namespace YAF.Core.Model
             [NotNull] int userId,
             [NotNull] int boardId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var groupMax = repository.DbAccess.Execute(
                 db => db.Connection.Single<(int maxAlbum, int maxAlbumImages)>(
                     db.Connection.From<User>().Join<UserGroup>((a, b) => b.UserID == a.ID)
@@ -871,6 +873,8 @@ namespace YAF.Core.Model
             [NotNull] bool showUnreadPMs,
             [NotNull] bool showUserAlbums)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var tries = 0;
 
             while (true)
@@ -1109,14 +1113,14 @@ namespace YAF.Core.Model
             [CanBeNull] int? rankId,
             [NotNull] char startLetter,
             [CanBeNull] string name,
-            [NotNull] int pageIndex,
-            [NotNull] int pageSize,
-            [NotNull] int? sortName,
-            [NotNull] int? sortRank,
-            [NotNull] int? sortJoined,
-            [NotNull] int? sortPosts,
-            [NotNull] int? sortLastVisit,
-            [NotNull] int? numPosts,
+            [CanBeNull] int pageIndex,
+            [CanBeNull] int pageSize,
+            [CanBeNull] int? sortName,
+            [CanBeNull] int? sortRank,
+            [CanBeNull] int? sortJoined,
+            [CanBeNull] int? sortPosts,
+            [CanBeNull] int? sortLastVisit,
+            [CanBeNull] int? numPosts,
             [NotNull] int numPostCompare)
         {
             return repository.DbAccess.Execute(
@@ -1319,6 +1323,8 @@ namespace YAF.Core.Model
             [NotNull] string userName,
             [CanBeNull] string email)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var user = repository.GetSingle(u => u.BoardID == boardId && u.Name == userName);
 
             repository.Save(user.ID, boardId, $"{userName} (NNTP)", null, email, null, null, null, null, true);
@@ -1375,6 +1381,8 @@ namespace YAF.Core.Model
             [CanBeNull] string themeFile,
             [NotNull] bool hideUser)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var updateDisplayName = false;
             var user = repository.GetById(userId);
 
@@ -1446,7 +1454,7 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
         /// <param name="avatarUrl">
@@ -1460,11 +1468,13 @@ namespace YAF.Core.Model
         /// </param>
         public static void SaveAvatar(
             this IRepository<User> repository,
-            [NotNull] int userID,
+            [NotNull] int userId,
             [CanBeNull] string avatarUrl,
             [CanBeNull] Stream stream,
             [CanBeNull] string avatarImageType)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             if (avatarUrl == null)
             {
                 byte[] data = null;
@@ -1478,13 +1488,13 @@ namespace YAF.Core.Model
 
                 repository.UpdateOnly(
                     () => new User { Avatar = avatarUrl, AvatarImage = data, AvatarImageType = avatarImageType },
-                    u => u.ID == userID);
+                    u => u.ID == userId);
             }
             else
             {
                 repository.UpdateOnly(
                     () => new User { Avatar = avatarUrl, AvatarImage = null, AvatarImageType = null },
-                    u => u.ID == userID);
+                    u => u.ID == userId);
             }
         }
 
@@ -1517,6 +1527,8 @@ namespace YAF.Core.Model
             [CanBeNull] int? notificationType,
             [NotNull] bool dailyDigest)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.UpdateOnly(
                 () => new User
                 {
@@ -1545,8 +1557,8 @@ namespace YAF.Core.Model
         /// </returns>
         public static List<User> ListAdmins(
             this IRepository<User> repository,
-            bool? useStyledNicks = null,
-            int? boardId = null)
+            [NotNull] bool? useStyledNicks = null,
+            [NotNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -1571,8 +1583,10 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<User> UnApprovedUsers(this IRepository<User> repository, int boardId)
+        public static List<User> UnApprovedUsers(this IRepository<User> repository, [NotNull] int boardId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.Get(u => u.BoardID == boardId && u.IsApproved == false);
         }
 
@@ -1598,7 +1612,7 @@ namespace YAF.Core.Model
         /// <param name="repository">The repository.</param>
         /// <param name="userId">The user identifier.</param>
         /// <returns>Returns the user points</returns>
-        public static int GetPoints(this IRepository<User> repository, int userId)
+        public static int GetPoints(this IRepository<User> repository, [NotNull] int userId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -1619,7 +1633,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Suspends the User
+        /// Suspends or Unsuspend the User
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="userId">The user identifier.</param>
@@ -1630,7 +1644,7 @@ namespace YAF.Core.Model
             this IRepository<User> repository,
             [NotNull] int userId,
             [NotNull] DateTime? suspend = null,
-            string suspendReason = null,
+            [CanBeNull] string suspendReason = null,
             [NotNull] int suspendBy = 0)
         {
             CodeContracts.VerifyNotNull(repository);
@@ -1652,7 +1666,7 @@ namespace YAF.Core.Model
         /// <param name="flags">
         /// The flags.
         /// </param>
-        public static void UpdateBlockFlags(this IRepository<User> repository, int userId, int flags)
+        public static void UpdateBlockFlags(this IRepository<User> repository, [NotNull] int userId, [NotNull] int flags)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -1676,8 +1690,8 @@ namespace YAF.Core.Model
         /// </returns>
         public static Tuple<User, AspNetUsers, Rank, vaccess> GetBoardUser(
             this IRepository<User> repository,
-            int userId,
-            int? boardId = null)
+            [NotNull] int userId,
+            [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 

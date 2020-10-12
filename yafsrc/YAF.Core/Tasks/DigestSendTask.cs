@@ -154,9 +154,9 @@ namespace YAF.Core.Tasks
                 var boardIds = this.GetRepository<Board>().GetAll().Select(b => b.ID);
 
                 boardIds.ForEach(
-                    boardId =>
+                    id =>
                         {
-                            var boardSettings = new LoadBoardSettings(boardId);
+                            var boardSettings = new LoadBoardSettings(id);
 
                             if (!IsTimeToSendDigestForBoard(boardSettings))
                             {
@@ -165,7 +165,7 @@ namespace YAF.Core.Tasks
 
                             // get users with digest enabled...
                             var usersWithDigest = this.GetRepository<User>().Get(
-                                u => u.BoardID == boardId && u.IsApproved == true && u.IsGuest == false &&
+                                u => u.BoardID == id && u.IsApproved == true && u.IsGuest == false &&
                                      u.DailyDigest);
 
                             if (usersWithDigest.Any())

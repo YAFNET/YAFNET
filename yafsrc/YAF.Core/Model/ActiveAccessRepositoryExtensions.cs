@@ -58,7 +58,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void InsertPageAccess(
             this IRepository<ActiveAccess> repository,
-            [NotNull] int? boardId,
+            [CanBeNull] int? boardId,
             [NotNull] int userId,
             [NotNull] bool isGuest)
         {

@@ -25,7 +25,7 @@ namespace YAF.Core.Model
 {
     using System.Collections.Generic;
     using System.Dynamic;
-    
+
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
@@ -56,7 +56,10 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns the List of all message changes.
         /// </returns>
-        public static List<dynamic> List(this IRepository<MessageHistory> repository, int messageId, int daysToClean)
+        public static List<dynamic> List(
+            this IRepository<MessageHistory> repository,
+            [NotNull] int messageId,
+            [NotNull] int daysToClean)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -133,21 +136,20 @@ namespace YAF.Core.Model
         /// <param name="daysToClean">
         /// The days to clean.
         /// </param>
-        private static void DeleteOlderThen(
-            this IRepository<MessageHistory> repository,
-            [NotNull] int daysToClean)
+        private static void DeleteOlderThen(this IRepository<MessageHistory> repository, [NotNull] int daysToClean)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.DbAccess.Execute(db =>
-            {
-                var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageHistory>();
+            repository.DbAccess.Execute(
+                db =>
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageHistory>();
 
-                expression.Where(
-                    $"DATEDIFF(day, {expression.Column<MessageHistory>(x => x.Edited, true)}, GETUTCDATE()) > {daysToClean}");
+                    expression.Where(
+                        $"DATEDIFF(day, {expression.Column<MessageHistory>(x => x.Edited, true)}, GETUTCDATE()) > {daysToClean}");
 
-                return db.Connection.Delete(expression);
-            });
+                    return db.Connection.Delete(expression);
+                });
         }
 
         #endregion

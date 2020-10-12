@@ -41,7 +41,7 @@ namespace YAF.Core.Events
     #endregion
 
     /// <summary>
-    /// The app init task manager.
+    /// Initializes the Application task manager.
     /// </summary>
     [ExportService(ServiceLifetimeScope.Singleton)]
     public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplicationInitEvent>, IHaveServiceLocator
@@ -49,9 +49,9 @@ namespace YAF.Core.Events
         #region Constants and Fields
 
         /// <summary>
-        ///   The _app instance.
+        ///   The app instance.
         /// </summary>
-        private HttpApplication _appInstance;
+        private HttpApplication appInstance;
 
         #endregion
 
@@ -104,12 +104,15 @@ namespace YAF.Core.Events
         /// <param name="start">
         /// Task to run
         /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         public override bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> start)
         {
             CodeContracts.VerifyNotNull(instanceName, "instanceName");
             CodeContracts.VerifyNotNull(start, "start");
 
-            if (this._appInstance == null)
+            if (this.appInstance == null)
             {
                 return false;
             }
@@ -160,7 +163,7 @@ namespace YAF.Core.Events
         /// </param>
         public void Handle([NotNull] HttpApplicationInitEvent @event)
         {
-            this._appInstance = @event.HttpApplication;
+            this.appInstance = @event.HttpApplication;
 
             // wire up provider so that the task module can be found...
             this.Get<CurrentTaskModuleProvider>().Instance = this;

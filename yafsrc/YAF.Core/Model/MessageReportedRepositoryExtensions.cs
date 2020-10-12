@@ -52,6 +52,8 @@ namespace YAF.Core.Model
         public static
             List<dynamic> ListReported(this IRepository<MessageReported> repository, [NotNull] int forumId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.DbAccess.Execute(
                 db =>
                 {
@@ -176,6 +178,8 @@ namespace YAF.Core.Model
         /// </param>
         public static void ReportCopyOver(this IRepository<MessageReported> repository, [NotNull] Message message)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.UpdateOnly(() => new MessageReported { Message = message.MessageText }, m => m.ID == message.ID);
         }
     }

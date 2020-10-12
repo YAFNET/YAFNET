@@ -124,8 +124,8 @@ namespace YAF.Core.Model
         public static List<UserAlbumImage> GetUserAlbumImagesPaged(
             [NotNull] this IRepository<UserAlbumImage> repository,
             int userId,
-            int? pageIndex = 0,
-            int? pageSize = 10000000)
+            int pageIndex = 0,
+            int pageSize = 10000000)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -165,6 +165,8 @@ namespace YAF.Core.Model
         /// <param name="imageId">The image identifier.</param>
         public static void IncrementDownload(this IRepository<UserAlbumImage> repository, [NotNull] int imageId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.UpdateAdd(() => new UserAlbumImage { Downloads = 1 }, u => u.ID == imageId);
         }
 
@@ -183,8 +185,10 @@ namespace YAF.Core.Model
         public static void UpdateCaption(
             this IRepository<UserAlbumImage> repository,
             [NotNull] int imageId,
-            [NotNull] string caption)
+            [CanBeNull] string caption)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.UpdateOnly(
                 () => new UserAlbumImage { Caption = caption },
                 f => f.ID == imageId);
@@ -218,11 +222,13 @@ namespace YAF.Core.Model
             this IRepository<UserAlbumImage> repository,
             [NotNull] int? imageId,
             [NotNull] int albumId,
-            [NotNull] string caption,
+            [CanBeNull] string caption,
             [NotNull] string fileName,
             [NotNull] int bytes,
             [NotNull] string contentType)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.Insert(
                 new UserAlbumImage
                     {

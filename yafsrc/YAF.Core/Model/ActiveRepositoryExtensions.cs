@@ -396,7 +396,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="dynamic"/>.
         /// </returns>
-        public static dynamic Stats(this IRepository<Active> repository, int boardId)
+        public static dynamic Stats(this IRepository<Active> repository, [NotNull] int boardId)
         {
             CodeContracts.VerifyNotNull(repository);
 

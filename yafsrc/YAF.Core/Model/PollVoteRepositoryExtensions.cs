@@ -113,6 +113,8 @@ namespace YAF.Core.Model
             [CanBeNull] int userId,
             [NotNull] int pollId)
         {
+            CodeContracts.VerifyNotNull(repository, nameof(repository));
+
             var entity = new PollVote { PollID = pollId, UserID = userId, ChoiceID = choiceId };
 
             repository.Insert(entity);

@@ -77,6 +77,8 @@ namespace YAF.Core.Model
             [NotNull] string userName,
             [NotNull] string userPass)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             if (nntpServerId.HasValue)
             {
                 repository.UpdateOnly(

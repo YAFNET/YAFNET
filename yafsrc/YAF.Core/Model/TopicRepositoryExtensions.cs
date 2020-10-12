@@ -506,9 +506,9 @@ namespace YAF.Core.Model
         /// </returns>
         public static List<dynamic> RssList(
             this IRepository<Topic> repository,
-            int forumId,
-            int pageUserId,
-            int topicLimit)
+            [NotNull] int forumId,
+            [NotNull] int pageUserId,
+            [NotNull] int topicLimit)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -578,7 +578,7 @@ namespace YAF.Core.Model
             [NotNull] int categoryId,
             [NotNull] int numOfPostsToRetrieve,
             [NotNull] int pageUserId,
-            bool showNoCountPosts,
+            [NotNull] bool showNoCountPosts,
             [NotNull] bool findLastRead)
         {
             CodeContracts.VerifyNotNull(repository);
@@ -791,7 +791,7 @@ namespace YAF.Core.Model
             [NotNull] int pageSize,
             [NotNull] bool showMoved,
             [NotNull] bool findLastRead,
-            Expression<Func<Topic, ActiveAccess, Category, bool>> whereCriteria)
+            [NotNull] Expression<Func<Topic, ActiveAccess, Category, bool>> whereCriteria)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -1526,6 +1526,8 @@ namespace YAF.Core.Model
             [CanBeNull] int? forumId,
             [CanBeNull] int? topicId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
             expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => (m.Flags & 24) == 16)

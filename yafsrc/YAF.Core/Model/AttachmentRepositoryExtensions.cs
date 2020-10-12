@@ -59,6 +59,8 @@ namespace YAF.Core.Model
         /// </returns>
         public static List<Message> GetMessageAttachments(this IRepository<Attachment> repository)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
             expression.Join<Attachment>((m, a) => a.MessageID == m.ID);
@@ -106,7 +108,7 @@ namespace YAF.Core.Model
         /// <param name="attachmentId">
         /// The board id.
         /// </param>
-        public static void Delete(this IRepository<Attachment> repository, int attachmentId)
+        public static void Delete(this IRepository<Attachment> repository, [NotNull] int attachmentId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -137,7 +139,7 @@ namespace YAF.Core.Model
         /// <param name="messageId">
         /// The message id.
         /// </param>
-        public static void DeleteByMessageId(this IRepository<Attachment> repository, int messageId)
+        public static void DeleteByMessageId(this IRepository<Attachment> repository, [NotNull] int messageId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -171,7 +173,7 @@ namespace YAF.Core.Model
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="attachmentId">The attachment identifier.</param>
-        public static void IncrementDownloadCounter(this IRepository<Attachment> repository, int attachmentId)
+        public static void IncrementDownloadCounter(this IRepository<Attachment> repository, [NotNull] int attachmentId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -182,7 +184,6 @@ namespace YAF.Core.Model
         /// The save.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="messageId">The message id.</param>
         /// <param name="userId">The user identifier.</param>
         /// <param name="fileName">The file name.</param>
         /// <param name="bytes">The bytes.</param>
@@ -191,12 +192,11 @@ namespace YAF.Core.Model
         /// <returns>Returns the new attachment identifier</returns>
         public static int Save(
             this IRepository<Attachment> repository,
-            int messageId,
-            int userId,
-            string fileName,
-            int bytes,
-            string contentType,
-            byte[] fileData = null)
+            [NotNull] int userId,
+            [NotNull] string fileName,
+            [NotNull] int bytes,
+            [NotNull] string contentType,
+            [CanBeNull] byte[] fileData = null)
         {
             CodeContracts.VerifyNotNull(repository);
 

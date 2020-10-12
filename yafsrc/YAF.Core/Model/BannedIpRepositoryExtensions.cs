@@ -64,11 +64,11 @@ namespace YAF.Core.Model
         /// </returns>
         public static bool Save(
             this IRepository<BannedIP> repository,
-            int? id,
-            string mask,
-            string reason,
-            int userId,
-            int? boardId = null)
+            [CanBeNull] int? id,
+            [NotNull] string mask,
+            [NotNull] string reason,
+            [NotNull] int userId,
+            [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 

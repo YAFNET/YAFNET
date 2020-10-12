@@ -62,13 +62,16 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="IList"/>.
         /// </returns>
-        public static IList<Group> List(this IRepository<Group> repository, int? groupId = null, int? boardId = null)
+        public static IList<Group> List(
+            this IRepository<Group> repository,
+            [CanBeNull] int? groupId = null,
+            [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 
             return groupId.HasValue
-                       ? repository.Get(g => g.BoardID == boardId && g.ID == groupId.Value)
-                       : repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder).ToList();
+                ? repository.Get(g => g.BoardID == boardId && g.ID == groupId.Value)
+                : repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder).ToList();
         }
 
         /// <summary>
@@ -94,28 +97,22 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository);
 
             return repository.DbAccess.Execute(
-               db =>
-               {
-                   var expression = OrmLiteConfig.DialectProvider.SqlExpression<Group>();
+                db =>
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<Group>();
 
-                   var countExpression = db.Connection.From<UserGroup>(db.Connection.TableAlias("x"));
-                   countExpression.Where(
-                       $@"x.{countExpression.Column<UserGroup>(x => x.UserID)}={userId}
+                    var countExpression = db.Connection.From<UserGroup>(db.Connection.TableAlias("x"));
+                    countExpression.Where(
+                        $@"x.{countExpression.Column<UserGroup>(x => x.UserID)}={userId}
                                     and x.{countExpression.Column<UserGroup>(x => x.GroupID)}={expression.Column<Group>(a => a.ID, true)}");
-                   var countSql = countExpression.Select(Sql.Count("1"))
-                       .ToSelectStatement();
+                    var countSql = countExpression.Select(Sql.Count("1")).ToSelectStatement();
 
-                   expression.Where(a => a.BoardID == boardId)
-                       .Select<Group>(
-                           a => new
-                           {
-                               GroupID = a.ID,
-                               a.Name,
-                               Member = Sql.Custom($"({countSql})")
-                           }).OrderBy<Group>(a => a.Name);
+                    expression.Where(a => a.BoardID == boardId)
+                        .Select<Group>(a => new { GroupID = a.ID, a.Name, Member = Sql.Custom($"({countSql})") })
+                        .OrderBy<Group>(a => a.Name);
 
-                   return db.Connection.Select<object>(expression);
-               });
+                    return db.Connection.Select<object>(expression);
+                });
         }
 
         /// <summary>
@@ -238,7 +235,7 @@ namespace YAF.Core.Model
                 // -- group styles override rank styles
                 BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(boardId));
             }
-            
+
             return groupId.Value;
         }
 

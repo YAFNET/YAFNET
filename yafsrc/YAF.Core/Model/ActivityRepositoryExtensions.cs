@@ -25,7 +25,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    
+
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
@@ -58,7 +58,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static List<Tuple<Activity, User, Topic>> Notifications(
             this IRepository<Activity> repository,
-            int userId)
+            [NotNull] int userId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -82,9 +82,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Tuple<Activity, Topic>> Timeline(
-            this IRepository<Activity> repository,
-            int userId)
+        public static List<Tuple<Activity, Topic>> Timeline(this IRepository<Activity> repository, [NotNull] int userId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -111,8 +109,8 @@ namespace YAF.Core.Model
         /// </param>
         public static void UpdateNotification(
             this IRepository<Activity> repository,
-            int userId,
-            int messageId)
+            [NotNull] int userId,
+            [NotNull] int messageId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -137,8 +135,8 @@ namespace YAF.Core.Model
         /// </param>
         public static void UpdateTopicNotification(
             this IRepository<Activity> repository,
-            int userId,
-            int topicId)
+            [NotNull] int userId,
+            [NotNull] int topicId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -158,9 +156,7 @@ namespace YAF.Core.Model
         /// <param name="userId">
         /// The user id.
         /// </param>
-        public static void MarkAllAsRead(
-            this IRepository<Activity> repository,
-            int userId)
+        public static void MarkAllAsRead(this IRepository<Activity> repository, [NotNull] int userId)
         {
             CodeContracts.VerifyNotNull(repository);
 

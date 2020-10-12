@@ -79,15 +79,15 @@ namespace YAF.Core.Model
         /// </returns>
         public static List<PagedEventLog> ListPaged(
             this IRepository<EventLog> repository,
-            int? boardId,
-            int maxRows,
-            int maxDays,
-            int pageIndex,
-            int pageSize,
-            DateTime sinceDate,
-            DateTime toDate,
-            int? eventType, 
-            bool spamOnly = false)
+            [NotNull] int? boardId,
+            [NotNull] int maxRows,
+            [NotNull] int maxDays,
+            [NotNull] int pageIndex,
+            [NotNull] int pageSize,
+            [NotNull] DateTime sinceDate,
+            [NotNull] DateTime toDate,
+            [CanBeNull] int? eventType,
+            [NotNull] bool spamOnly = false)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -161,8 +161,8 @@ namespace YAF.Core.Model
         /// </param>
         public static void DeleteOld(
            this IRepository<EventLog> repository,
-           int maxRows,
-           int maxDays)
+           [NotNull] int maxRows,
+           [NotNull] int maxDays)
         {
             CodeContracts.VerifyNotNull(repository);
 

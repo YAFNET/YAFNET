@@ -53,8 +53,8 @@ namespace YAF.Core.Model
         /// </returns>
         public static int Add(
             this IRepository<Tag> repository,
-            string tagName,
-            int? boardId = null)
+            [NotNull] string tagName,
+            [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 

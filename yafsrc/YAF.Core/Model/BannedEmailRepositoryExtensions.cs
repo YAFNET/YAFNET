@@ -60,10 +60,10 @@ namespace YAF.Core.Model
         /// </returns>
         public static bool Save(
             this IRepository<BannedEmail> repository,
-            int? id,
-            string mask,
-            string reason,
-            int? boardId = null)
+            [CanBeNull] int? id,
+            [NotNull] string mask,
+            [NotNull] string reason,
+            [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 

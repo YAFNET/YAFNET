@@ -57,7 +57,7 @@ namespace YAF.Core.ForumModules
     #region Methods
 
     /// <summary>
-    /// The current_ after init.
+    /// Start Task after Initialization
     /// </summary>
     /// <param name="sender">
     /// The sender.

@@ -54,7 +54,7 @@ namespace YAF.Core.Model
         /// <param name="boardId">
         /// The board id.
         /// </param>
-        public static void UpdateMaxStats(this IRepository<Registry> repository, int boardId)
+        public static void UpdateMaxStats(this IRepository<Registry> repository, [NotNull] int boardId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -145,8 +145,10 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Registry> List(this IRepository<Registry> repository, int? boardId = null)
+        public static List<Registry> List(this IRepository<Registry> repository, [CanBeNull] int? boardId = null)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.Get(r => r.BoardID == boardId); 
         }
 
@@ -270,7 +272,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public static string ValidateVersion(this IRepository<Registry> repository, int appVersion)
+        public static string ValidateVersion(this IRepository<Registry> repository, [NotNull] int appVersion)
         {
             CodeContracts.VerifyNotNull(repository);
 

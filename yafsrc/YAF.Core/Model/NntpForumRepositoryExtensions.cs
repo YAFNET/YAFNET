@@ -30,13 +30,10 @@ namespace YAF.Core.Model
 
     using ServiceStack.OrmLite;
 
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
-    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
 
     #endregion

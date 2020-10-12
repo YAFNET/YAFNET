@@ -58,7 +58,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="long"/>.
         /// </returns>
-        public static long ThanksFromUser(this IRepository<Thanks> repository, int thanksFromUserId)
+        public static long ThanksFromUser(this IRepository<Thanks> repository, [NotNull] int thanksFromUserId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -79,7 +79,7 @@ namespace YAF.Core.Model
         /// Returns the number of times and posts that other users have thanked the
         /// user with the provided userID.
         /// </returns>
-        public static dynamic ThanksToUser(this IRepository<Thanks> repository, int thanksToUserId)
+        public static dynamic ThanksToUser(this IRepository<Thanks> repository, [NotNull] int thanksToUserId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -88,8 +88,7 @@ namespace YAF.Core.Model
             expression.Where<Thanks>(t => t.ThanksToUserID == thanksToUserId).Select(
                 u => new { ThankesPosts = Sql.CountDistinct(u.MessageID), ThankesReceived = Sql.Count("*") });
 
-            return repository.DbAccess.Execute(
-                db => db.Connection.Select<dynamic>(expression)).FirstOrDefault();
+            return repository.DbAccess.Execute(db => db.Connection.Select<dynamic>(expression)).FirstOrDefault();
         }
 
         /// <summary>
@@ -109,7 +108,10 @@ namespace YAF.Core.Model
         /// </param>
         [NotNull]
         public static void AddMessageThanks(
-            this IRepository<Thanks> repository, [NotNull] int fromUserId, [NotNull] int toUserId, [NotNull] int messageId)
+            this IRepository<Thanks> repository,
+            [NotNull] int fromUserId,
+            [NotNull] int toUserId,
+            [NotNull] int messageId)
         {
             CodeContracts.VerifyNotNull(repository, nameof(repository));
 
@@ -140,18 +142,18 @@ namespace YAF.Core.Model
         ///   with the provided messageID.
         /// </returns>
         public static List<Tuple<Thanks, User>> MessageGetThanksList(
-            this IRepository<Thanks> repository, [NotNull] int messageId)
+            this IRepository<Thanks> repository,
+            [NotNull] int messageId)
         {
             CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
 
             expression.Join<User>((a, b) => a.ThanksFromUserID == b.ID).Where<Thanks>(b => b.MessageID == messageId);
-               /* .Select<Thanks, User>(
-                    (a, b) => new { UserID = a.ThanksFromUserID, a.ThanksDate, b.Name, b.DisplayName });*/
+            /* .Select<Thanks, User>(
+                 (a, b) => new { UserID = a.ThanksFromUserID, a.ThanksDate, b.Name, b.DisplayName });*/
 
-            return repository.DbAccess.Execute(
-                db => db.Connection.SelectMulti<Thanks, User>(expression));
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Thanks, User>(expression));
         }
 
         /// <summary>
@@ -171,7 +173,10 @@ namespace YAF.Core.Model
         /// </param>
         [NotNull]
         public static void RemoveMessageThanks(
-            this IRepository<Thanks> repository, [NotNull] int fromUserId, [NotNull] int messageId, [NotNull] bool useDisplayName)
+            this IRepository<Thanks> repository,
+            [NotNull] int fromUserId,
+            [NotNull] int messageId,
+            [NotNull] bool useDisplayName)
         {
             CodeContracts.VerifyNotNull(repository);
 

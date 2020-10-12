@@ -61,6 +61,8 @@ namespace YAF.Core.Model
             [NotNull] int? groupId,
             [NotNull] int medalId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
             if (groupId.HasValue)
@@ -86,10 +88,10 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="groupID">
+        /// <param name="groupId">
         /// The group ID.
         /// </param>
-        /// <param name="medalID">
+        /// <param name="medalId">
         /// ID of medal.
         /// </param>
         /// <param name="message">
@@ -106,13 +108,15 @@ namespace YAF.Core.Model
         /// </param>
         public static void Save(
             this IRepository<GroupMedal> repository,
-            [NotNull] int groupID,
-            [NotNull] int medalID,
-            [NotNull] string message,
+            [NotNull] int groupId,
+            [NotNull] int medalId,
+            [CanBeNull] string message,
             [NotNull] bool hide,
             [NotNull] bool onlyRibbon,
             [NotNull] byte sortOrder)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.UpdateOnly(
                 () => new GroupMedal
                 {
@@ -121,7 +125,7 @@ namespace YAF.Core.Model
                     OnlyRibbon = onlyRibbon,
                     SortOrder = sortOrder
                 },
-                m => m.GroupID == groupID && m.MedalID == medalID);
+                m => m.GroupID == groupId && m.MedalID == medalId);
         }
 
         /// <summary>
@@ -130,10 +134,10 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="groupID">
+        /// <param name="groupId">
         /// The group ID.
         /// </param>
-        /// <param name="medalID">
+        /// <param name="medalId">
         /// ID of medal.
         /// </param>
         /// <param name="message">
@@ -150,18 +154,20 @@ namespace YAF.Core.Model
         /// </param>
         public static void SaveNew(
             this IRepository<GroupMedal> repository,
-            [NotNull] int groupID,
-            [NotNull] int medalID,
-            [NotNull] string message,
+            [NotNull] int groupId,
+            [NotNull] int medalId,
+            [CanBeNull] string message,
             [NotNull] bool hide,
             [NotNull] bool onlyRibbon,
             [NotNull] byte sortOrder)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.Insert(
                 new GroupMedal
                 {
-                    GroupID = groupID,
-                    MedalID = medalID,
+                    GroupID = groupId,
+                    MedalID = medalId,
                     Message = message,
                     Hide = hide,
                     OnlyRibbon = onlyRibbon,

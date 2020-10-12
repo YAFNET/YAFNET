@@ -107,7 +107,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static int Save(
             [NotNull] this IRepository<Forum> repository,
-            [NotNull] int? forumID,
+            [CanBeNull] int? forumID,
             [NotNull] int categoryID,
             [CanBeNull] int? parentID,
             [NotNull] string name,
@@ -119,10 +119,10 @@ namespace YAF.Core.Model
             [NotNull] bool moderated,
             [CanBeNull] int? moderatedPostCount,
             [NotNull] bool isModeratedNewTopicOnly,
-            [NotNull] string remoteURL,
-            [NotNull] string themeURL,
-            [NotNull] string imageURL,
-            [NotNull] string styles)
+            [CanBeNull] string remoteURL,
+            [CanBeNull] string themeURL,
+            [CanBeNull] string imageURL,
+            [CanBeNull] string styles)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -200,7 +200,7 @@ namespace YAF.Core.Model
         /// <param name="parentId">
         /// The parent Id.
         /// </param>
-        public static bool IsParentsChecker([NotNull] this IRepository<Forum> repository, int forumId, int parentId)
+        public static bool IsParentsChecker([NotNull] this IRepository<Forum> repository, [NotNull] int forumId, [NotNull] int parentId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -374,6 +374,8 @@ namespace YAF.Core.Model
             [NotNull] int userID,
             bool emptyFirstRow)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var list = repository.ListAllWithAccess(boardID, userID);
 
             return repository.SortList(list, 0, 0, 0, emptyFirstRow);
@@ -863,6 +865,8 @@ namespace YAF.Core.Model
             [NotNull] int startingIndent,
             [NotNull] bool emptyFirstRow)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var listDestination = new List<ForumSorted>();
 
             if (emptyFirstRow)
@@ -907,11 +911,13 @@ namespace YAF.Core.Model
         private static List<ForumSorted> SortList(
             this IRepository<Forum> repository,
             [NotNull] List<Tuple<Forum, Category, ActiveAccess>> listSource,
-            [NotNull] int parentID,
-            [NotNull] int categoryID,
+            [NotNull] int parentId,
+            [NotNull] int categoryId,
             [NotNull] int startingIndent,
             [NotNull] bool emptyFirstRow)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var listDestination = new List<ForumSorted>();
 
             if (emptyFirstRow)
@@ -927,7 +933,7 @@ namespace YAF.Core.Model
                 listDestination.Add(blankRow);
             }
 
-            repository.SortListRecursive(listSource, listDestination, parentID, categoryID, startingIndent);
+            repository.SortListRecursive(listSource, listDestination, parentId, categoryId, startingIndent);
 
             return listDestination;
         }
@@ -957,28 +963,30 @@ namespace YAF.Core.Model
             this IRepository<Forum> repository,
             [NotNull] List<Tuple<Forum, Category, ActiveAccess>> listSource,
             [NotNull] ICollection<ForumSorted> listDestination,
-            [NotNull] int parentID,
-            [NotNull] int categoryID,
+            [NotNull] int parentId,
+            [NotNull] int categoryId,
             [NotNull] int currentIndent)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             foreach (var (item1, item2, _) in listSource)
             {
                 // see if this is a root-forum
                 item1.ParentID ??= 0;
 
-                if (item1.ParentID != parentID)
+                if (item1.ParentID != parentId)
                 {
                     continue;
                 }
 
-                if (item2.ID != categoryID)
+                if (item2.ID != categoryId)
                 {
-                    categoryID = item2.ID;
+                    categoryId = item2.ID;
 
                     listDestination.Add(
                         new ForumSorted
                         {
-                            ForumID = -categoryID,
+                            ForumID = -categoryId,
                             Forum = $"{item2.Name}",
                             Category = $"{item2.Name}",
                             Icon = "folder"
@@ -1005,7 +1013,7 @@ namespace YAF.Core.Model
                 listDestination.Add(newRow);
 
                 // recurse through the list...
-                repository.SortListRecursive(listSource, listDestination, item1.ID, categoryID, currentIndent + 1);
+                repository.SortListRecursive(listSource, listDestination, item1.ID, categoryId, currentIndent + 1);
             }
         }
 
@@ -1021,7 +1029,7 @@ namespace YAF.Core.Model
         /// <param name="listDestination">
         /// The list destination.
         /// </param>
-        /// <param name="parentID">
+        /// <param name="parentId">
         /// The parent id.
         /// </param>
         /// <param name="currentIndent">
@@ -1031,7 +1039,7 @@ namespace YAF.Core.Model
             this IRepository<Forum> repository,
             [NotNull] List<Forum> listSource,
             [NotNull] ICollection<ForumSorted> listDestination,
-            [NotNull] int parentID,
+            [NotNull] int parentId,
             [NotNull] int currentIndent)
         {
             listSource.ForEach(
@@ -1040,7 +1048,7 @@ namespace YAF.Core.Model
                     // see if this is a root-forum
                     forum.ParentID ??= 0;
 
-                    if (forum.ParentID != parentID)
+                    if (forum.ParentID != parentId)
                     {
                         return;
                     }

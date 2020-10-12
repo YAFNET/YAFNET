@@ -56,7 +56,6 @@ namespace YAF.Core.Model
         /// <returns>
         /// The name of the second user + Whether this request is approved or not.
         /// </returns>
-        [NotNull]
         public static bool AddRequest(
             this IRepository<Buddy> repository,
             [NotNull] int fromUserId,
@@ -114,7 +113,6 @@ namespace YAF.Core.Model
         /// <returns>
         /// the name of the second user.
         /// </returns>
-        [NotNull]
         public static bool ApproveRequest(
             this IRepository<Buddy> repository,
             [NotNull] int fromUserId,
@@ -161,7 +159,6 @@ namespace YAF.Core.Model
         /// <param name="toUserId">
         /// The to User Id.
         /// </param>
-        [NotNull]
         public static void DenyRequest(
             this IRepository<Buddy> repository,
             [NotNull] int fromUserId,
@@ -184,7 +181,6 @@ namespace YAF.Core.Model
         /// <param name="toUserId">
         /// The to user id.
         /// </param>
-        [NotNull]
         public static void Remove(
             this IRepository<Buddy> repository,
             [NotNull] int fromUserId,

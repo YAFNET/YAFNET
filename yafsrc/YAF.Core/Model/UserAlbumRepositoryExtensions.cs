@@ -54,9 +54,10 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<UserAlbum> ListByUser(
-            [NotNull] this IRepository<UserAlbum> repository, int userId)
+        public static List<UserAlbum> ListByUser([NotNull] this IRepository<UserAlbum> repository, [NotNull] int userId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.Get(userAlbum => userAlbum.UserID == userId).OrderByDescending(u => u.Updated).ToList();
         }
 
@@ -74,6 +75,8 @@ namespace YAF.Core.Model
         /// </returns>
         public static string GetTitle(this IRepository<UserAlbum> repository, [NotNull] int albumId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             return repository.GetById(albumId).Title;
         }
 
@@ -88,6 +91,8 @@ namespace YAF.Core.Model
         /// </param>
         public static void DeleteCover(this IRepository<UserAlbum> repository, [NotNull] int imageId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.UpdateOnly(() => new UserAlbum { CoverImageID = null }, u => u.CoverImageID == imageId);
         }
 

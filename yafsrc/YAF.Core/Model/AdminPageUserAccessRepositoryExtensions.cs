@@ -50,7 +50,9 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="IEnumerable"/>.
         /// </returns>
-        public static IEnumerable<AdminPageUserAccess> List(this IRepository<AdminPageUserAccess> repository, int userId)
+        public static IEnumerable<AdminPageUserAccess> List(
+            this IRepository<AdminPageUserAccess> repository,
+            [NotNull] int userId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -73,7 +75,10 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public static bool HasAccess(this IRepository<AdminPageUserAccess> repository, int userId, string pageName)
+        public static bool HasAccess(
+            this IRepository<AdminPageUserAccess> repository,
+            [NotNull] int userId,
+            [NotNull] string pageName)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -94,7 +99,10 @@ namespace YAF.Core.Model
         /// <param name="pageName">
         /// The page name.
         /// </param>
-        public static void Save(this IRepository<AdminPageUserAccess> repository, int userId, string pageName)
+        public static void Save(
+            this IRepository<AdminPageUserAccess> repository,
+            [NotNull] int userId,
+            [NotNull] string pageName)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -116,7 +124,10 @@ namespace YAF.Core.Model
         /// <param name="pageName">
         /// The page name.
         /// </param>
-        public static void Delete(this IRepository<AdminPageUserAccess> repository, int userId, string pageName)
+        public static void Delete(
+            this IRepository<AdminPageUserAccess> repository,
+            [NotNull] int userId,
+            [NotNull] string pageName)
         {
             CodeContracts.VerifyNotNull(repository);
 

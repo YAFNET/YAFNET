@@ -110,8 +110,8 @@ namespace YAF.Core.Model
         public static List<Tuple<WatchForum, Forum>> List(
             this IRepository<WatchForum> repository,
             [NotNull] int userId,
-            int? pageIndex = 0,
-            int? pageSize = 10000000)
+            [NotNull] int pageIndex = 0,
+            [NotNull] int pageSize = 10000000)
         {
             CodeContracts.VerifyNotNull(repository);
 

@@ -34,22 +34,22 @@ namespace YAF.Core.Tasks
     public class IntermittentBackgroundTask : BaseBackgroundTask
     {
         /// <summary>
-        /// The _intermittent timer.
+        /// The intermittent timer.
         /// </summary>
-        protected Timer _intermittentTimer;
+        protected Timer intermittentTimer;
 
         /// <summary>
-        /// The _primary thread identity
+        /// The primary thread identity
         /// </summary>
-        private WindowsIdentity _primaryThreadIdentity;
+        private WindowsIdentity primaryThreadIdentity;
 
         /// <summary>
-        /// Gets or sets StartDelayMs.
+        /// Gets or sets Start Delay.
         /// </summary>
         public long StartDelayMs { get; set; }
 
         /// <summary>
-        /// Gets or sets RunPeriodMs.
+        /// Gets or sets Run Period.
         /// </summary>
         public long RunPeriodMs { get; set; }
 
@@ -71,7 +71,7 @@ namespace YAF.Core.Tasks
             }
 
             // keep the context...
-            this._primaryThreadIdentity = WindowsIdentity.GetCurrent();
+            this.primaryThreadIdentity = WindowsIdentity.GetCurrent();
 
             // we're running this thread now...
             this.IsRunning = true;
@@ -79,7 +79,7 @@ namespace YAF.Core.Tasks
             this.Logger.Debug("Starting Background Task {0} Now", this.GetType().Name);
 
             // create the timer...);
-            this._intermittentTimer = new Timer(this.TimerCallback, null, this.StartDelayMs, this.RunPeriodMs);
+            this.intermittentTimer = new Timer(this.TimerCallback, null, this.StartDelayMs, this.RunPeriodMs);
         }
 
         /// <summary>
@@ -97,9 +97,9 @@ namespace YAF.Core.Tasks
 
             WindowsImpersonationContext impersonationContext = null;
 
-            if (this._primaryThreadIdentity != null)
+            if (this.primaryThreadIdentity != null)
             {
-                impersonationContext = this._primaryThreadIdentity.Impersonate();
+                impersonationContext = this.primaryThreadIdentity.Impersonate();
             }
 
             try

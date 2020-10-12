@@ -202,7 +202,6 @@ namespace YAF.Core.Handlers
                     if (this.Get<BoardSettings>().UseFileTable)
                     {
                         newAttachmentId = this.GetRepository<Attachment>().Save(
-                            0,
                             yafUserId,
                             fileName,
                             file.ContentLength,
@@ -221,7 +220,6 @@ namespace YAF.Core.Handlers
                         }
 
                         newAttachmentId = this.GetRepository<Attachment>().Save(
-                            0,
                             yafUserId,
                             fileName,
                             file.ContentLength,

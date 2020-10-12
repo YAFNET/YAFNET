@@ -72,8 +72,8 @@ namespace YAF.Core.Model
         /// </returns>
         public static List<Category> List(
             this IRepository<Category> repository,
-            int? categoryId = null,
-            int? boardId = null)
+            [CanBeNull] int? categoryId = null,
+            [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -95,11 +95,11 @@ namespace YAF.Core.Model
         /// <param name="boardId">The board id.</param>
         public static void Save(
             this IRepository<Category> repository,
-            int? categoryId,
-            string name,
-            string categoryImage,
-            short sortOrder,
-            int? boardId = null)
+            [CanBeNull] int? categoryId,
+            [NotNull] string name,
+            [CanBeNull] string categoryImage,
+            [NotNull] short sortOrder,
+            [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 

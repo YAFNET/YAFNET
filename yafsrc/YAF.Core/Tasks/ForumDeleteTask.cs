@@ -42,14 +42,14 @@ namespace YAF.Core.Tasks
         #region Properties
 
         /// <summary>
-        /// Gets TaskName.
-        /// </summary>
-        public static string TaskName { get; } = "ForumDeleteTask";
-
-        /// <summary>
         /// The Blocking Task Names.
         /// </summary>
         private static readonly string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
+
+        /// <summary>
+        /// Gets TaskName.
+        /// </summary>
+        public static string TaskName { get; } = "ForumDeleteTask";
 
         /// <summary>
         /// Gets or sets ForumId.

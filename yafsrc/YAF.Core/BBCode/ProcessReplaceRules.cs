@@ -43,19 +43,19 @@ namespace YAF.Core.BBCode
         #region Fields
 
         /// <summary>
-        ///     The _rules list.
+        ///     The rules list.
         /// </summary>
-        private readonly List<IReplaceRule> _rulesList;
+        private readonly List<IReplaceRule> rulesList;
 
         /// <summary>
-        ///     The _rules lock.
+        ///     The rules lock.
         /// </summary>
-        private readonly object _rulesLock = new object();
+        private readonly object rulesLock = new object();
 
         /// <summary>
-        ///     The _need sort.
+        ///     The need sort.
         /// </summary>
-        private bool _needSort;
+        private bool needSort;
 
         #endregion
 
@@ -66,7 +66,7 @@ namespace YAF.Core.BBCode
         /// </summary>
         public ProcessReplaceRules()
         {
-            this._rulesList = new List<IReplaceRule>();
+            this.rulesList = new List<IReplaceRule>();
         }
 
         #endregion
@@ -80,9 +80,9 @@ namespace YAF.Core.BBCode
         {
             get
             {
-                lock (this._rulesLock)
+                lock (this.rulesLock)
                 {
-                    return this._rulesList.Count > 0;
+                    return this.rulesList.Count > 0;
                 }
             }
         }
@@ -92,21 +92,19 @@ namespace YAF.Core.BBCode
         #region Public Methods and Operators
 
         /// <summary>
-        ///     The add rule.
+        ///     Add New Rule
         /// </summary>
         /// <param name="newRule">
         ///     The new rule.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// </exception>
         public void AddRule(IReplaceRule newRule)
         {
             CodeContracts.VerifyNotNull(newRule, "newRule");
 
-            lock (this._rulesLock)
+            lock (this.rulesLock)
             {
-                this._rulesList.Add(newRule);
-                this._needSort = true;
+                this.rulesList.Add(newRule);
+                this.needSort = true;
             }
         }
 
@@ -121,10 +119,10 @@ namespace YAF.Core.BBCode
             var copyReplaceRules = new ProcessReplaceRules();
 
             // move the rules over...
-            var ruleArray = new IReplaceRule[this._rulesList.Count];
-            this._rulesList.CopyTo(ruleArray);
-            copyReplaceRules._rulesList.InsertRange(0, ruleArray);
-            copyReplaceRules._needSort = this._needSort;
+            var ruleArray = new IReplaceRule[this.rulesList.Count];
+            this.rulesList.CopyTo(ruleArray);
+            copyReplaceRules.rulesList.InsertRange(0, ruleArray);
+            copyReplaceRules.needSort = this.needSort;
 
             return copyReplaceRules;
         }
@@ -143,12 +141,12 @@ namespace YAF.Core.BBCode
             }
 
             // sort the rules according to rank...
-            if (this._needSort)
+            if (this.needSort)
             {
-                lock (this._rulesLock)
+                lock (this.rulesLock)
                 {
-                    this._rulesList.Sort();
-                    this._needSort = false;
+                    this.rulesList.Sort();
+                    this.needSort = false;
                 }
             }
 
@@ -158,9 +156,9 @@ namespace YAF.Core.BBCode
             // get as local list...
             var localRulesList = new List<IReplaceRule>();
 
-            lock (this._rulesLock)
+            lock (this.rulesLock)
             {
-                localRulesList.AddRange(this._rulesList);
+                localRulesList.AddRange(this.rulesList);
             }
 
             // apply all rules...

@@ -25,7 +25,6 @@ namespace YAF.Core.Model
 {
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -46,10 +45,10 @@ namespace YAF.Core.Model
         /// <param name="boardId">The board identifier.</param>
         public static void Save(
             this IRepository<Replace_Words> repository,
-            int? replaceWordId,
-            string badWord,
-            string goodWord,
-            int? boardId = null)
+            [CanBeNull] int? replaceWordId,
+            [NotNull] string badWord,
+            [NotNull] string goodWord,
+            [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 

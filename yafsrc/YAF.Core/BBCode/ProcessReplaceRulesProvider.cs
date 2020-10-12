@@ -45,17 +45,17 @@ namespace YAF.Core.BBCode
     /// <summary>
     ///   The inject services.
     /// </summary>
-    private readonly IInjectServices _injectServices;
+    private readonly IInjectServices injectServices;
 
     /// <summary>
     /// The object store.
     /// </summary>
-    private readonly IObjectStore _objectStore;
+    private readonly IObjectStore objectStore;
 
     /// <summary>
     ///   The unique flags.
     /// </summary>
-    private readonly IEnumerable<bool> _uniqueFlags;
+    private readonly IEnumerable<bool> uniqueFlags;
 
     #endregion
 
@@ -83,9 +83,9 @@ namespace YAF.Core.BBCode
       [NotNull] IEnumerable<bool> uniqueFlags)
     {
       this.ServiceLocator = serviceLocator;
-      this._objectStore = objectStore;
-      this._injectServices = injectServices;
-      this._uniqueFlags = uniqueFlags;
+      this.objectStore = objectStore;
+      this.injectServices = injectServices;
+      this.uniqueFlags = uniqueFlags;
     }
 
     #endregion
@@ -99,14 +99,14 @@ namespace YAF.Core.BBCode
     {
       get
       {
-        return this._objectStore.GetOrSet(
-          string.Format(Constants.Cache.ReplaceRules, this._uniqueFlags.ToIntOfBits()), 
+        return this.objectStore.GetOrSet(
+          string.Format(Constants.Cache.ReplaceRules, this.uniqueFlags.ToIntOfBits()), 
           () =>
             {
               var processRules = new ProcessReplaceRules();
 
               // inject
-              this._injectServices.Inject(processRules);
+              this.injectServices.Inject(processRules);
 
               return processRules;
             });

@@ -25,8 +25,7 @@ namespace YAF.Core.Tasks
 {
     using System;
     using System.Linq;
-    using System.Threading;
-
+    
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
@@ -65,28 +64,17 @@ namespace YAF.Core.Tasks
 
                 // go through each board...
                 boardIds.ForEach(
-                    boardId =>
+                    id =>
                     {
-                        // get users for this board...
-                        var users = this.GetRepository<User>().GetByBoardId(boardId);
-
-                        // handle un-suspension...
-                        var suspendedUsers = from u in users
-                                             where u.Suspended.HasValue && u.Suspended < DateTime.UtcNow
-                                             select u;
+                        // Check for users ...
+                        var users = this.GetRepository<User>().Get(
+                            u => u.BoardID == id && u.Suspended.HasValue && u.Suspended < DateTime.UtcNow);
 
                         // un-suspend these users...
-                        suspendedUsers.ForEach(
-                            user =>
-                            {
-                                this.GetRepository<User>().Suspend(user.ID);
-
-                                // sleep for a quarter of a second so we don't pound the server...
-                                Thread.Sleep(250);
-                            });
+                        users.ForEach(user => this.GetRepository<User>().Suspend(user.ID));
 
                         // sleep for a second...
-                        Thread.Sleep(1000);
+                        // Thread.Sleep(1000);
                     });
             }
             catch (Exception x)

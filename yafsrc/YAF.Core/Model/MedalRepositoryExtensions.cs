@@ -59,6 +59,8 @@ namespace YAF.Core.Model
                 string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags, DateTime DateAwarded)>
             ListUserMedals(this IRepository<Medal> repository, [NotNull] int userId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expressionUser = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
             expressionUser.Join<UserMedal>((a, b) => b.MedalID == a.ID).Where<UserMedal>(b => b.UserID == userId)
@@ -74,15 +76,14 @@ namespace YAF.Core.Model
                         SmallRibbonURL = a.SmallRibbonURL != null ? a.SmallRibbonURL : a.SmallMedalURL,
                         SortOrder = (a.Flags & 8) == 0 ? a.SortOrder : b.SortOrder,
                         Hide = (a.Flags & 4) == 0 ? false : b.Hide,
-                        OnlyRibbon = (a.RibbonURL == null || (a.Flags & 2) == 0) ? false : b.OnlyRibbon,
+                        OnlyRibbon = a.RibbonURL == null || (a.Flags & 2) == 0 ? false : b.OnlyRibbon,
                         a.Flags,
                         b.DateAwarded
                     });
 
             var userMedals = repository.DbAccess.Execute(
                 db => db.Connection
-                    .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string
-                        SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags, DateTime DateAwarded)>(expressionUser));
+                    .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags, DateTime DateAwarded)>(expressionUser));
 
             var expressionUserGroup = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
@@ -100,16 +101,14 @@ namespace YAF.Core.Model
                         SmallRibbonURL = a.SmallRibbonURL != null ? a.SmallRibbonURL : a.SmallMedalURL,
                         SortOrder = (a.Flags & 8) == 0 ? a.SortOrder : b.SortOrder,
                         Hide = (a.Flags & 4) == 0 ? false : b.Hide,
-                        OnlyRibbon = (a.RibbonURL == null || (a.Flags & 2) == 0) ? false : b.OnlyRibbon,
+                        OnlyRibbon = a.RibbonURL == null || (a.Flags & 2) == 0 ? false : b.OnlyRibbon,
                         a.Flags,
                         DateAwarded = default(DateTime)
                     });
 
             var userGroupMedals = repository.DbAccess.Execute(
                 db => db.Connection
-                    .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string
-                        SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags,
-                        DateTime DateAwarded)>(expressionUserGroup));
+                    .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags, DateTime DateAwarded)>(expressionUserGroup));
 
             return userMedals.Union(userGroupMedals).Distinct().ToList();
         }
@@ -154,18 +153,18 @@ namespace YAF.Core.Model
         /// The board Id.
         /// </param>
         public static void Save(
-            this IRepository<Medal> repository, 
-            int? medalId, 
-            string name, 
-            string description, 
-            string message, 
-            string category, 
-            string medalURL, 
-            string ribbonURL, 
-            string smallMedalURL, 
-            string smallRibbonURL, 
-            int flags, 
-            int? boardId = null)
+            this IRepository<Medal> repository,
+            [NotNull] int? medalId,
+            [NotNull] string name,
+            [CanBeNull] string description,
+            [CanBeNull] string message,
+            [CanBeNull] string category,
+            [CanBeNull] string medalURL,
+            [CanBeNull] string ribbonURL,
+            [CanBeNull] string smallMedalURL,
+            [CanBeNull] string smallRibbonURL,
+            [NotNull] int flags,
+            [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -187,12 +186,12 @@ namespace YAF.Core.Model
                         Flags = flags
                     },
                     medal => medal.ID == medalId.Value);
-                
+
                 repository.FireUpdated(medalId);
             }
             else
             {
-               var newId = repository.Insert(
+                var newId = repository.Insert(
                     new Medal
                     {
                         BoardID = boardId ?? repository.BoardID,

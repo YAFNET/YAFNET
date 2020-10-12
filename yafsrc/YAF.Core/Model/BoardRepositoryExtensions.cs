@@ -313,7 +313,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="dynamic"/>.
         /// </returns>
-        public static dynamic PostStats(this IRepository<Board> repository, int boardId, bool showNoCountPosts)
+        public static dynamic PostStats(this IRepository<Board> repository, [NotNull] int boardId, [NotNull] bool showNoCountPosts)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -420,10 +420,10 @@ namespace YAF.Core.Model
         /// <param name="culture">The culture.</param>
         public static void Save(
             this IRepository<Board> repository,
-            int boardId,
-            string name,
-            string languageFile,
-            string culture)
+            [NotNull] int boardId,
+            [NotNull] string name,
+            [NotNull] string languageFile,
+            [NotNull] string culture)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -447,7 +447,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="dynamic"/>.
         /// </returns>
-        public static dynamic Stats(this IRepository<Board> repository, int boardId)
+        public static dynamic Stats(this IRepository<Board> repository, [NotNull] int boardId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -508,7 +508,7 @@ namespace YAF.Core.Model
         /// <param name="boardId">
         /// The board id.
         /// </param>
-        public static void DeleteBoard(this IRepository<Board> repository, int boardId)
+        public static void DeleteBoard(this IRepository<Board> repository, [NotNull] int boardId)
         {
             CodeContracts.VerifyNotNull(repository);
 

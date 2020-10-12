@@ -25,7 +25,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    
+
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -51,11 +51,13 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="IList"/>.
         /// </returns>
-        public static IList<CheckEmail> ListTyped(this IRepository<CheckEmail> repository, string email = null)
+        public static IList<CheckEmail> ListTyped(
+            this IRepository<CheckEmail> repository,
+            [CanBeNull] string email = null)
         {
             CodeContracts.VerifyNotNull(repository);
 
-           return email.IsSet() ? repository.Get(mail => mail.Email == email) : repository.Get(null);
+            return email.IsSet() ? repository.Get(mail => mail.Email == email) : repository.Get(null);
         }
 
         /// <summary>
@@ -73,20 +75,21 @@ namespace YAF.Core.Model
         /// <param name="email">
         /// The email.
         /// </param>
-        public static void Save(this IRepository<CheckEmail> repository, int? userId, [NotNull] string hash, [NotNull] string email)
+        public static void Save(
+            this IRepository<CheckEmail> repository,
+            int? userId,
+            [NotNull] string hash,
+            [NotNull] string email)
         {
-            CodeContracts.VerifyNotNull(hash, "hash");
-            CodeContracts.VerifyNotNull(email, "email");
+            CodeContracts.VerifyNotNull(hash);
+            CodeContracts.VerifyNotNull(email);
             CodeContracts.VerifyNotNull(repository);
 
             repository.Insert(
                 new CheckEmail
-                    {
-                        UserID = userId.Value,
-                        Email = email.ToLower(),
-                        Created = DateTime.UtcNow,
-                        Hash = hash
-                    });
+                {
+                    UserID = userId.Value, Email = email.ToLower(), Created = DateTime.UtcNow, Hash = hash
+                });
         }
 
         /// <summary>
@@ -103,7 +106,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static CheckEmail Update(this IRepository<CheckEmail> repository, [NotNull] string hash)
         {
-            CodeContracts.VerifyNotNull(hash, "hash");
+            CodeContracts.VerifyNotNull(hash);
             CodeContracts.VerifyNotNull(repository);
 
             var mail = repository.GetSingle(c => c.Hash == hash);

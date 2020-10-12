@@ -61,6 +61,8 @@ namespace YAF.Core.Model
             [NotNull] string choice,
             [CanBeNull] string objectPath)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var entity = new Choice { PollID = pollId, ChoiceName = choice, Votes = 0, ObjectPath = objectPath };
 
             var newId = repository.Insert(entity);
@@ -91,6 +93,8 @@ namespace YAF.Core.Model
             [NotNull] string choice,
             [CanBeNull] string objectPath)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.UpdateOnly(
                 () => new Choice { ChoiceName = choice, ObjectPath = objectPath },
                 c => c.ID == choiceId);
@@ -107,6 +111,8 @@ namespace YAF.Core.Model
         /// </param>
         public static void Vote(this IRepository<Choice> repository, [NotNull] int choiceId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.UpdateAdd(() => new Choice { Votes = 1 }, a => a.ID == choiceId);
         }
 

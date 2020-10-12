@@ -56,6 +56,8 @@ namespace YAF.Core.Model
             [NotNull] this IRepository<ProfileCustom> repository,
             [NotNull] int userId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<ProfileCustom>();
 
             expression.Join<ProfileDefinition>((c, d) => d.ID == c.ProfileDefinitionID)

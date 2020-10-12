@@ -50,7 +50,7 @@ namespace YAF.Core.BBCode
     /// <summary>
     ///  REPLACEMENT UNIQUE VALUE -- USED TO CREATE A UNIQUE VALUE TO REPLACE -- IT IS NOT SUPPOSED TO BE HUMAN READABLE.
     /// </summary>
-    private string replaceFormat = "÷ñÒ{1}êÖ{0}õæ÷";
+    private const string replaceFormat = "÷ñÒ{1}êÖ{0}õæ÷";
 
     #endregion
 
@@ -85,7 +85,7 @@ namespace YAF.Core.BBCode
     /// The new item.
     /// </param>
     /// <returns>
-    /// The add replacement.
+    /// The <see cref="int"/>.
     /// </returns>
     public int Add(string newItem)
     {
@@ -100,11 +100,11 @@ namespace YAF.Core.BBCode
     /// The index.
     /// </param>
     /// <returns>
-    /// The get replace value.
+    /// The <see cref="string"/>.
     /// </returns>
     public string Get(int index)
     {
-      return string.Format(this.replaceFormat, index, this.randomInstance);
+      return string.Format(replaceFormat, index, this.randomInstance);
     }
 
     /// <summary>
@@ -121,6 +121,7 @@ namespace YAF.Core.BBCode
     /// Reconstructs the text from the collection elements...
     /// </summary>
     /// <param name="text">
+    /// The text.
     /// </param>
     public void Reconstruct(ref string text)
     {

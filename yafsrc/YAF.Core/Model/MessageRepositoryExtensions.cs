@@ -451,7 +451,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static IEnumerable<SearchMessage> GetAllSearchMessagesByForum(
             this IRepository<Message> repository,
-            [NotNull]int forumId)
+            [NotNull] int forumId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -543,7 +543,7 @@ namespace YAF.Core.Model
         /// <param name="repository">The repository.</param>
         /// <param name="messageId">The message identifier.</param>
         /// <param name="flags">The flags.</param>
-        public static void UpdateFlags(this IRepository<Message> repository, int messageId, int flags)
+        public static void UpdateFlags(this IRepository<Message> repository, [NotNull] int messageId, [NotNull] int flags)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -669,7 +669,7 @@ namespace YAF.Core.Model
             this IRepository<Message> repository,
             [NotNull] int messageId,
             [NotNull] int moveToTopicId,
-            bool moveAll)
+            [NotNull] bool moveAll)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -1312,6 +1312,8 @@ namespace YAF.Core.Model
             [NotNull] bool eraseMessage,
             [NotNull] bool isDeleteAction)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             // -- Find TopicID and ForumID
             var message = BoardContext.Current.GetRepository<Topic>().GetTopicWithMessage(messageId);
 
@@ -1436,6 +1438,8 @@ namespace YAF.Core.Model
             [NotNull] int messageId,
             [NotNull] int moveToTopicId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             // -- Find TopicID and ForumID
             var message = BoardContext.Current.GetRepository<Topic>().GetTopicWithMessage(messageId);
 

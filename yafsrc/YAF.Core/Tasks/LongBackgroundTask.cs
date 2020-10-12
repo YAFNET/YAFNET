@@ -50,7 +50,7 @@ namespace YAF.Core.Tasks
       lock (this)
       {
         // we're done with this timer...
-        this._intermittentTimer.Dispose();
+        this.intermittentTimer.Dispose();
 
         // run this item once...
         this.RunOnce();
