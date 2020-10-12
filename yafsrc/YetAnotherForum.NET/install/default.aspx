@@ -649,7 +649,7 @@
                                         <asp:ListItem Text="Finnish" Value="fi" />
                                         <asp:ListItem Text="French" Value="fr"/>
                                         <asp:ListItem Text="German" Value="de-DE" />
-                                        <asp:ListItem Text="Hebrew" Value="iw" />
+                                        <asp:ListItem Text="Hebrew" Value="he" />
                                         <asp:ListItem Text="Italian" Value="it"/>
                                         <asp:ListItem Text="Lithuanian" Value="lt"/>
                                         <asp:ListItem Text="Norwegian" Value="no"/>

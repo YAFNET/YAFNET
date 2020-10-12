@@ -231,10 +231,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Install.it.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Install.iw.designer.cs">
+    <Compile Include="App_GlobalResources\Install.her.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Install.iw.resx</DependentUpon>
+      <DependentUpon>Install.her.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\Install.lt.designer.cs">
       <AutoGen>True</AutoGen>
@@ -3562,9 +3562,9 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="App_GlobalResources\Install.iw.resx">
+    <EmbeddedResource Include="App_GlobalResources\Install.her.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Install.iw.designer.cs</LastGenOutput>
+      <LastGenOutput>Install.her.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
