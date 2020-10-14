@@ -44,11 +44,7 @@ namespace YAF.Lucene.Net.Analysis
         /// Construct a token stream processing the given input. </summary>
         protected internal Tokenizer(TextReader input)
         {
-            if (input == null)
-            {
-                throw new ArgumentNullException("input", "input must not be null");
-            }
-            this.inputPending = input;
+            this.inputPending = input ?? throw new ArgumentNullException(nameof(input), "input must not be null");
         }
 
         /// <summary>
@@ -57,11 +53,7 @@ namespace YAF.Lucene.Net.Analysis
         protected internal Tokenizer(AttributeFactory factory, TextReader input)
             : base(factory)
         {
-            if (input == null)
-            {
-                throw new ArgumentNullException("input", "input must not be null");
-            }
-            this.inputPending = input;
+            this.inputPending = input ?? throw new ArgumentNullException(nameof(input), "input must not be null");
         }
 
         /// <summary>
