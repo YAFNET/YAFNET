@@ -337,9 +337,13 @@ namespace YAF.Core.Services
         /// <param name="isAzureEngine">if set to <c>true</c> [is azure engine].</param>
         private void ExecuteUpgradeScripts(bool isAzureEngine)
         {
-            // upgrade Membership Scripts
-            if (!isAzureEngine)
+            if (isAzureEngine)
             {
+                this.DbAccess.Information.AzureScripts.ForEach(script => this.ExecuteScript(script, true));
+            }
+            else
+            {
+                // upgrade Membership Scripts
                 this.DbAccess.Information.YAFProviderUpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
             }
 
