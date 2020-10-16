@@ -15,19 +15,17 @@
     </YAF:Alert>
 </asp:PlaceHolder>
 
-
 <asp:Panel runat="server" ID="MessageRow">
     <div class="row">
-    <div class="col-xl-12">
-        <div class="card mb-3">
-            <div class="card-header py-1 px-2">
-                <div class="d-flex">
-                    <div class="mr-2">
-                        <asp:Image runat="server" ID="Avatar" 
-                                   CssClass="img-avatar-sm mt-2" />
-                    </div>
-                    <div>
-                        <asp:PlaceHolder runat="server" ID="UserInfo">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header py-1 px-2">
+                    <div class="d-flex">
+                        <div class="mr-2">
+                            <asp:Image runat="server" ID="Avatar" 
+                                       CssClass="img-avatar-sm mt-2" />
+                        </div>
+                        <div>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <YAF:UserLink ID="UserProfileLink" runat="server" />
@@ -82,13 +80,22 @@
                                     <asp:Label runat="server" CssClass="badge bg-success" ID="MessageIsAnswerBadge" 
                                            Visible="<%# this.PostData.PostIsAnswer %>"
                                            ToolTip='<%# this.GetText("POSTS","MESSAGE_ANSWER_HELP") %>'>
-                                    <i class="fas fa-check fa-fw"></i>
-                                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MESSAGE_ANSWER" LocalizedPage="POSTS" />
+                                        <YAF:Icon runat="server" 
+                                                  IconName="check" />
+                                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                                            LocalizedTag="MESSAGE_ANSWER" 
+                                                            LocalizedPage="POSTS" />
                                     </asp:Label>
+                                    <asp:Repeater runat="server" ID="UserCustomProfile" Visible="False">
+                                        <ItemTemplate>
+                                            <span class="badge bg-secondary">
+                                                <%# this.Eval("Item2.Name") %>:&nbsp;<%# this.Eval("Item1.Value") %>
+                                            </span>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
                                 </li>
                             </ul>
-                        </asp:PlaceHolder>
-                    </div>
+                        </div>
                     <asp:Panel runat="server" CssClass="ml-auto" id="ToolsHolder">
                         <YAF:ThemeButton ID="Tools1" runat="server"
                                          Type="Link"

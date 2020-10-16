@@ -108,6 +108,11 @@ namespace YAF.Core.Helpers
         public int UserId => this.DataRow.UserID;
 
         /// <summary>
+        /// The is guest.
+        /// </summary>
+        public bool IsGuest => this.DataRow.IsGuest;
+
+        /// <summary>
         /// Gets the message identifier.
         /// </summary>
         /// <value>

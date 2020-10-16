@@ -235,18 +235,21 @@ namespace YAF.Core.Model
             return repository.DbAccess.Execute(
                 db =>
                 {
-                    expression.Join<User>((m, u) => u.ID == m.UserID)
-                        .Join<Topic>((m, t) => t.ID == m.TopicID)
+                    expression.Join<User>((m, u) => u.ID == m.UserID).Join<Topic>((m, t) => t.ID == m.TopicID)
                         .Join<Topic, Forum>((t, f) => f.ID == t.ForumID)
                         .Join<Forum, Category>((f, c) => c.ID == f.CategoryID)
                         .Join<User, Rank>((u, r) => r.ID == u.RankID);
 
-                    expression.Where(m => m.TopicID == topicId && m.IsApproved == true && m.Posted >= sincePostedDate && m.Posted <= toPostedDate);
+                    expression.Where<Message>(
+                        m => m.TopicID == topicId && m.IsApproved == true && m.Posted >= sincePostedDate &&
+                             m.Posted <= toPostedDate);
 
                     // -- find total returned count
                     var countTotalExpression = db.Connection.From<Message>();
 
-                    countTotalExpression.Where(m => m.TopicID == topicId && m.IsApproved == true && m.Posted >= sincePostedDate && m.Posted <= toPostedDate);
+                    countTotalExpression.Where<Message>(
+                        m => m.TopicID == topicId && m.IsApproved == true && m.Posted >= sincePostedDate &&
+                             m.Posted <= toPostedDate);
 
                     if (!showDeleted)
                     {
@@ -286,8 +289,8 @@ namespace YAF.Core.Model
                         .Select(Sql.Count($"{thanksCountExpression.Column<Thanks>(x => x.ID)}"))
                         .ToSelectStatement();
 
-                    expression.Select<Message, User, Topic, Forum, Category, Rank, Thanks>(
-                        (m, b, d, g, h, c, thanks) => new
+                    expression.Select<Message, User, Topic, Forum, Category, Rank>(
+                        (m, b, d, g, h, c) => new
                         {
                             TopicID = d.ID,
                             Topic = d.TopicName,
@@ -304,7 +307,7 @@ namespace YAF.Core.Model
                             MessageID = m.ID,
                             m.Posted,
                             m.MessageText,
-                            UserID = m.ID,
+                            UserID = b.ID,
                             m.IP,
                             m.Flags,
                             m.EditReason,

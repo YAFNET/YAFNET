@@ -51,15 +51,6 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.Image Avatar;
 
         /// <summary>
-        /// UserInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder UserInfo;
-
-        /// <summary>
         /// UserProfileLink control.
         /// </summary>
         /// <remarks>
@@ -157,6 +148,15 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
+
+        /// <summary>
+        /// UserCustomProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater UserCustomProfile;
 
         /// <summary>
         /// ToolsHolder control.

@@ -46,12 +46,11 @@ namespace YAF.Pages
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.EventsArgs;
     using YAF.Web.Extensions;
-
-    using Forum = YAF.Types.Models.Forum;
 
     #endregion
 
@@ -68,12 +67,7 @@ namespace YAF.Pages
         private bool dataBound;
 
         /// <summary>
-        ///   The _forum.
-        /// </summary>
-        private Forum forum;
-
-        /// <summary>
-        ///   The _forum flags.
+        ///   The forum flags.
         /// </summary>
         private ForumFlags forumFlags;
 
@@ -95,8 +89,6 @@ namespace YAF.Pages
         }
 
         #endregion
-
-        #region Methods
 
         /// <summary>
         /// The delete topic_ click.
@@ -404,10 +396,11 @@ namespace YAF.Pages
                 this.PollList.PollId = this.topic.PollID.Value;
             }
 
-            this.forum = this.GetRepository<Forum>().GetById(
-                this.PageContext.PageForumID);
-            
-            this.forumFlags = this.forum.ForumFlags;
+            this.BindData();
+
+            var firstPost = ((List<PagedMessage>)this.MessageList.DataSource).FirstOrDefault();
+
+            this.forumFlags = new ForumFlags(firstPost.ForumFlags); 
 
             if (this.PageContext.IsGuest && !this.PageContext.ForumReadAccess)
             {
@@ -421,101 +414,99 @@ namespace YAF.Pages
 
             var yafBoardSettings = this.PageContext.BoardSettings;
 
-            if (!this.IsPostBack)
+            if (this.IsPostBack)
             {
-                // Clear Multi-quotes if topic is different
-                if (this.Get<ISession>().MultiQuoteIds != null)
-                {
-                    if (!this.Get<ISession>().MultiQuoteIds.Any(m => m.TopicID.Equals(this.PageContext.PageTopicID)))
-                    {
-                        this.Get<ISession>().MultiQuoteIds = null;
-                    }
-                }
+                return;
+            }
 
-                this.NewTopic2.NavigateUrl =
-                    this.NewTopic1.NavigateUrl =
+            // Clear Multi-quotes if topic is different
+            if (this.Get<ISession>().MultiQuoteIds != null)
+            {
+                if (!this.Get<ISession>().MultiQuoteIds.Any(m => m.TopicID.Equals(this.PageContext.PageTopicID)))
+                {
+                    this.Get<ISession>().MultiQuoteIds = null;
+                }
+            }
+
+            this.NewTopic2.NavigateUrl =
+                this.NewTopic1.NavigateUrl =
                     BuildLink.GetLink(ForumPages.PostTopic, "f={0}", this.PageContext.PageForumID);
 
-                this.PostReplyLink1.NavigateUrl =
-                    this.PostReplyLink2.NavigateUrl =
+            this.PostReplyLink1.NavigateUrl =
+                this.PostReplyLink2.NavigateUrl =
                     BuildLink.GetLink(
                         ForumPages.PostMessage,
                         "t={0}&f={1}",
                         this.PageContext.PageTopicID,
                         this.PageContext.PageForumID);
 
-                var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.TopicName));
+            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.TopicName));
 
-                this.TopicTitle.Text = this.topic.Description.IsSet()
-                    ? $"{topicSubject} - <em>{this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.Description))}</em>"
-                    : this.Get<IBadWordReplace>().Replace(topicSubject);
+            this.TopicTitle.Text = this.topic.Description.IsSet()
+                ? $"{topicSubject} - <em>{this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.Description))}</em>"
+                : this.Get<IBadWordReplace>().Replace(topicSubject);
 
-                this.TopicLink.ToolTip = this.Get<IBadWordReplace>().Replace(
-                    this.HtmlEncode(this.topic.Description));
-                this.TopicLink.NavigateUrl = BuildLink.GetLink(
-                    ForumPages.Posts,
-                    "t={0}&name={1}",
-                    this.PageContext.PageTopicID,
-                    this.PageContext.PageTopicName);
+            this.TopicLink.ToolTip = this.Get<IBadWordReplace>().Replace(
+                this.HtmlEncode(this.topic.Description));
+            this.TopicLink.NavigateUrl = BuildLink.GetLink(
+                ForumPages.Posts,
+                "t={0}&name={1}",
+                this.PageContext.PageTopicID,
+                this.PageContext.PageTopicName);
 
-                this.QuickReplyDialog.Visible = yafBoardSettings.ShowQuickAnswer;
-                this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
-                this.QuickReplyLink2.Visible = yafBoardSettings.ShowQuickAnswer;
+            this.QuickReplyDialog.Visible = yafBoardSettings.ShowQuickAnswer;
+            this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
+            this.QuickReplyLink2.Visible = yafBoardSettings.ShowQuickAnswer;
 
-                if (!this.PageContext.ForumPostAccess || this.forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
-                {
-                    this.NewTopic1.Visible = false;
-                    this.NewTopic2.Visible = false;
-                }
-
-                // Ederon : 9/9/2007 - moderators can reply in locked topics
-                if (!this.PageContext.ForumReplyAccess ||
-                    (this.topic.TopicFlags.IsLocked || this.forumFlags.IsLocked) && !this.PageContext.ForumModeratorAccess)
-                {
-                    this.PostReplyLink1.Visible = this.PostReplyLink2.Visible = false;
-                    this.QuickReplyDialog.Visible = false;
-                    this.QuickReplyLink1.Visible = false;
-                    this.QuickReplyLink2.Visible = false;
-                }
-
-                if (this.PageContext.ForumModeratorAccess)
-                {
-                    this.MoveTopic1.Visible = true;
-                    this.MoveTopic2.Visible = true;
-
-                    this.Tools1.Visible = true;
-                    this.Tools2.Visible = true;
-                }
-                else
-                {
-                    this.MoveTopic1.Visible = false;
-                    this.MoveTopic2.Visible = false;
-
-                    this.Tools1.Visible = false;
-                    this.Tools2.Visible = false;
-                }
-
-                if (!this.PageContext.ForumModeratorAccess)
-                {
-                    this.LockTopic1.Visible = false;
-                    this.UnlockTopic1.Visible = false;
-                    this.DeleteTopic1.Visible = false;
-                    this.LockTopic2.Visible = false;
-                    this.UnlockTopic2.Visible = false;
-                    this.DeleteTopic2.Visible = false;
-                }
-                else
-                {
-                    this.LockTopic1.Visible = !this.topic.TopicFlags.IsLocked;
-                    this.UnlockTopic1.Visible = !this.LockTopic1.Visible;
-                    this.LockTopic2.Visible = this.LockTopic1.Visible;
-                    this.UnlockTopic2.Visible = !this.LockTopic2.Visible;
-                }
+            if (!this.PageContext.ForumPostAccess || this.forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
+            {
+                this.NewTopic1.Visible = false;
+                this.NewTopic2.Visible = false;
             }
 
-            #endregion
+            // Ederon : 9/9/2007 - moderators can reply in locked topics
+            if (!this.PageContext.ForumReplyAccess ||
+                (this.topic.TopicFlags.IsLocked || this.forumFlags.IsLocked) && !this.PageContext.ForumModeratorAccess)
+            {
+                this.PostReplyLink1.Visible = this.PostReplyLink2.Visible = false;
+                this.QuickReplyDialog.Visible = false;
+                this.QuickReplyLink1.Visible = false;
+                this.QuickReplyLink2.Visible = false;
+            }
 
-            this.BindData();
+            if (this.PageContext.ForumModeratorAccess)
+            {
+                this.MoveTopic1.Visible = true;
+                this.MoveTopic2.Visible = true;
+
+                this.Tools1.Visible = true;
+                this.Tools2.Visible = true;
+            }
+            else
+            {
+                this.MoveTopic1.Visible = false;
+                this.MoveTopic2.Visible = false;
+
+                this.Tools1.Visible = false;
+                this.Tools2.Visible = false;
+            }
+
+            if (!this.PageContext.ForumModeratorAccess)
+            {
+                this.LockTopic1.Visible = false;
+                this.UnlockTopic1.Visible = false;
+                this.DeleteTopic1.Visible = false;
+                this.LockTopic2.Visible = false;
+                this.UnlockTopic2.Visible = false;
+                this.DeleteTopic2.Visible = false;
+            }
+            else
+            {
+                this.LockTopic1.Visible = !this.topic.TopicFlags.IsLocked;
+                this.UnlockTopic1.Visible = !this.LockTopic1.Visible;
+                this.LockTopic2.Visible = this.LockTopic1.Visible;
+                this.UnlockTopic2.Visible = !this.LockTopic2.Visible;
+            }
         }
 
         /// <summary>

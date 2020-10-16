@@ -27,6 +27,7 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Linq;
     using System.Text;
     using System.Web;
     using System.Web.UI.WebControls;
@@ -44,7 +45,6 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Objects.Model;
     using YAF.Utils;
@@ -85,7 +85,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets a value indicating whether IsGuest.
         /// </summary>
-        public bool IsGuest => this.PostData == null || this.Get<IAspNetUsersHelper>().IsGuestUser(this.PostData.UserId);
+        public bool IsGuest => this.PostData == null || this.PostData.IsGuest;
 
         /// <summary>
         ///   Gets or sets Post Count.
@@ -327,6 +327,19 @@ namespace YAF.Controls
                                                  && this.Quote.Visible == false && this.MultiQuote.Visible == false)
             {
                 this.Footer.Visible = false;
+            }
+
+            if (!this.PostData.IsGuest)
+            {
+                this.UserCustomProfile.Visible = true;
+
+                var customProfile = this.Get<IDataCache>().GetOrSet(
+                        string.Format(Constants.Cache.UserCustomProfileData, this.PostData.UserId),
+                        () => this.GetRepository<ProfileCustom>().ListByUser(this.PostData.UserId))
+                    .Where(x => x.Item2.ShowInUserInfo && x.Item1.Value.IsSet());
+
+                this.UserCustomProfile.DataSource = customProfile;
+                this.UserCustomProfile.DataBind();
             }
 
             base.OnPreRender(e);

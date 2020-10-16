@@ -35,7 +35,8 @@
                             </span>
                         </small>
                     </div>
-                    <p>
+                    <p class="mb-1">
+                        <%# this.Eval("DataType") %>
                     </p>
                     <small>
                         <div class="btn-group btn-group-sm">

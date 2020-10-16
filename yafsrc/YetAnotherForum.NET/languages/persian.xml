@@ -260,6 +260,7 @@
     <Resource tag="ADD_IP">افزون ایمیل جدید</Resource>
     <Resource tag="IMPORT_IPS">درون‌ریزی ایمیل (ها)</Resource>
     <Resource tag="MASK">Mask</Resource>
+    <Resource tag="MSG_EXIST">The Banned Email Address Already exists!</Resource>
     <Resource tag="MSG_REMOVEBAN_EMAIL">Email was successfully deleted</Resource>
     <Resource tag="REASON">دلیل</Resource>
     <Resource tag="SINCE">از</Resource>
@@ -292,6 +293,7 @@
     <Resource tag="IMPORT_IPS">درون‌ریزی آدرس (ها)</Resource>
     <Resource tag="MASK">قالب</Resource>
     <Resource tag="MSG_DELETE">Delete this Banned Item?</Resource>
+    <Resource tag="MSG_EXIST">The Banned IP Already exists!</Resource>
     <Resource tag="MSG_REMOVEBAN_IP">IP Address or Mask '{0}' was successfully deleted</Resource>
     <Resource tag="REASON">دلیل</Resource>
     <Resource tag="SINCE">از</Resource>
@@ -325,6 +327,7 @@
     <Resource tag="ADD_IP">افزودن نام کاربری جدید</Resource>
     <Resource tag="IMPORT_IPS">درون‌ریزی نام (ها)</Resource>
     <Resource tag="MASK">قالب</Resource>
+    <Resource tag="MSG_EXIST">The Banned Name Already exists!</Resource>
     <Resource tag="MSG_REMOVEBAN_NAME">The user name was successfully deleted</Resource>
     <Resource tag="REASON">دلیل</Resource>
     <Resource tag="SINCE">از</Resource>
@@ -519,6 +522,8 @@
     <Resource tag="REQUIRED">Required</Resource>
     <Resource tag="REQUIRED_HELP">Define if the field should be required or not</Resource>
     <Resource tag="SAVE_NEW">Save New</Resource>
+    <Resource tag="SHOW_USERINFO">Show in User Info</Resource>
+    <Resource tag="SHOW_USERINFO_HELP">Show in User Info inside Post Header</Resource>
     <Resource tag="TITLE">Add New Profile Definition</Resource>
     <Resource tag="TITLE_EDIT">Edit Profile Definition</Resource>
   </page>
@@ -2115,6 +2120,8 @@
     <Resource tag="BUTTON_ATTACH_TT">الصاق فایل به این مطلب</Resource>
     <Resource tag="BUTTON_DELETE">حذف</Resource>
     <Resource tag="BUTTON_DELETE_TT">حذف این مطلب</Resource>
+    <Resource tag="BUTTON_DELETE_UNDELETE">Delete from DB</Resource>
+    <Resource tag="BUTTON_DELETE_UNDELETE_TT">Delete this post from the Database</Resource>
     <Resource tag="BUTTON_DELETEALBUM">حذف آلبوم</Resource>
     <Resource tag="BUTTON_DELETEATTACHMENT">حذف فایل‌های ضمیمه</Resource>
     <Resource tag="BUTTON_DELETEATTACHMENT_TT">حذف فایل‌های ضمیمه‌ی انتخاب شده</Resource>

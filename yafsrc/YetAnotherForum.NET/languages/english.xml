@@ -209,6 +209,7 @@
   <Resource tag="ADD_IP">Add New Email</Resource>
   <Resource tag="IMPORT_IPS">Import Email(s)</Resource>
   <Resource tag="MASK">Mask</Resource>
+   <Resource tag="MSG_EXIST">The Banned Email Address Already exists!</Resource>
   <Resource tag="REASON">Reason</Resource>
   <Resource tag="SINCE">Since</Resource>
   <Resource tag="TITLE">Banned Email Addresses</Resource>
@@ -240,6 +241,7 @@
   <Resource tag="EXPORT">Export to Text File</Resource>
   <Resource tag="IMPORT_IPS">Import Address(es)</Resource>
   <Resource tag="MASK">Mask</Resource>
+   <Resource tag="MSG_EXIST">The Banned IP Already exists!</Resource>
   <Resource tag="MSG_DELETE">Delete this Banned Item?</Resource>
   <Resource tag="REASON">Reason</Resource>
   <Resource tag="SINCE">Since</Resource>
@@ -274,6 +276,7 @@
   <Resource tag="ADD_IP">Add New User Name</Resource>
   <Resource tag="IMPORT_IPS">Import Name(s)</Resource>
   <Resource tag="MASK">Mask</Resource>
+   <Resource tag="MSG_EXIST">The Banned Name Already exists!</Resource>
   <Resource tag="REASON">Reason</Resource>
   <Resource tag="SINCE">Since</Resource>
   <Resource tag="TITLE">Banned Names</Resource>
@@ -1635,6 +1638,8 @@
     <Resource tag="NEED_LENGTH">Maximum Length Value with Minimum 1 is required</Resource>
     <Resource tag="REQUIRED">Required</Resource>
     <Resource tag="REQUIRED_HELP">Define if the field should be required or not</Resource>
+    <Resource tag="SHOW_USERINFO">Show in User Info</Resource>
+    <Resource tag="SHOW_USERINFO_HELP">Show in User Info inside Post Header</Resource>
     <Resource tag="TITLE">Add New Profile Definition</Resource>
     <Resource tag="TITLE_EDIT">Edit Profile Definition</Resource>
     <Resource tag="SAVE_NEW">Save New</Resource>
@@ -2036,7 +2041,7 @@
   <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
   <Resource tag="BUTTON_POSTREPLY">Post Reply</Resource>
   <Resource tag="BUTTON_POSTREPLY_TT">Post a reply to this topic</Resource>
-  <Resource tag="BUTTON_QUOTE">Quote</Resource>
+  <Resource tag="BUTTON_QUOTE">Reply</Resource>
   <Resource tag="BUTTON_QUOTE_TT">Reply with Quote</Resource>
   <Resource tag="BUTTON_REPLY">Reply</Resource>
   <Resource tag="BUTTON_REPLY_TT">Reply to message</Resource>
@@ -2050,6 +2055,8 @@
   <Resource tag="BUTTON_THANKS_TT">Thank the post sender</Resource>
   <Resource tag="BUTTON_THANKSDELETE">Remove Thank</Resource>
   <Resource tag="BUTTON_THANKSDELETE_TT">Remove your thank note from the post sender</Resource>
+   <Resource tag="BUTTON_DELETE_UNDELETE">Delete from DB</Resource>
+   <Resource tag="BUTTON_DELETE_UNDELETE_TT">Delete this post from the Database</Resource>
   <Resource tag="BUTTON_UNDELETE">Undelete</Resource>
   <Resource tag="BUTTON_UNDELETE_TT">Undelete this post</Resource>
   <Resource tag="BUTTON_UNLOCKTOPIC">Unlock Topic</Resource>

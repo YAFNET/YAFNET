@@ -200,6 +200,7 @@ namespace YAF.Pages
 
             if (user == null || user.Item1.ID == 0)
             {
+                throw new ApplicationException("hä");
                 // No such user exists or this is an nntp user ("0")
                 BuildLink.AccessDenied();
             }
@@ -361,7 +362,11 @@ namespace YAF.Pages
                 this.SocialMediaHolder.Visible = false;
             }
 
-            this.CustomProfile.DataSource = this.GetRepository<ProfileCustom>().ListByUser(this.UserId);
+            var customProfile = this.DataCache.GetOrSet(
+                string.Format(Constants.Cache.UserCustomProfileData, this.UserId),
+                () => this.GetRepository<ProfileCustom>().ListByUser(this.UserId));
+
+            this.CustomProfile.DataSource = customProfile;
             this.CustomProfile.DataBind();
 
             if (user.Item1.ID == this.PageContext.PageUserID)

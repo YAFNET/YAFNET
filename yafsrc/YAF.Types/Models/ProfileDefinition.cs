@@ -84,6 +84,13 @@ namespace YAF.Types.Models
         [Required]
         public int Length { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether show in user info.
+        /// </summary>
+        [Required]
+        [Default(0)]
+        public bool ShowInUserInfo { get; set; }
+
         #endregion
     }
 }
