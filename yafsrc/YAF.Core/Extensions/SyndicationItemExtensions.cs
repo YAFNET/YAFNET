@@ -78,7 +78,7 @@ namespace YAF.Core.Extensions
             string link,
             string id,
             DateTime posted,
-            YafSyndicationFeed feed,
+            FeedItem feed,
             List<SyndicationLink> links)
         {
             var si = new SyndicationItem(
@@ -146,7 +146,7 @@ namespace YAF.Core.Extensions
             string link,
             string id,
             DateTime posted,
-            YafSyndicationFeed feed)
+            FeedItem feed)
         {
             AddSyndicationItem(currentList, title, content, summary, link, id, posted, feed, null);
         }

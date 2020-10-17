@@ -39,7 +39,7 @@ namespace YAF.Core.Services
     #endregion
 
     /// <summary>
-    /// The YAF avatars.
+    /// The avatars.
     /// </summary>
     public class Avatars : IAvatars
     {

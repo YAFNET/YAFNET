@@ -116,6 +116,7 @@ namespace YAF.Core.Modules
             builder.RegisterType<Friends>().As<IFriends>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<LatestInformation>().As<ILatestInformation>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
+            builder.RegisterType<SyndicationFeeds>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
 
             builder.RegisterType<InstallUpgradeService>().AsSelf().PreserveExistingDefaults();
 
