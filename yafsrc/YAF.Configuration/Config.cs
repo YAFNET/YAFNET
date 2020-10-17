@@ -145,9 +145,8 @@ namespace YAF.Configuration
             get
             {
                 var value = GetConfigValueAsString("YAF.DatabaseObjectQualifier");
-                return value != null
-                           ? value.IsSet() ? GetConfigValueAsString("YAF.DatabaseObjectQualifier") : "yaf_"
-                           : "yaf_";
+
+                return value.IsSet() ? GetConfigValueAsString("YAF.DatabaseObjectQualifier") : "yaf_";
             }
         }
 
@@ -340,11 +339,6 @@ namespace YAF.Configuration
         /// </summary>
         [NotNull]
         public static string UrlRewritingMode => GetConfigValueAsString("YAF.URLRewritingMode") ?? string.Empty;
-
-        /// <summary>
-        ///     Gets a value indicating whether Use an SSL connection for the SMTP server -- default is "false"
-        /// </summary>
-        public static bool UseSMTPSSL => GetConfigValueAsBool("YAF.UseSMTPSSL", false);
 
         /// <summary>
         /// Gets the banned IP redirect URL.

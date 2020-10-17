@@ -31,7 +31,6 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Net.Mail;
 
-    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Interfaces;
 
@@ -55,12 +54,14 @@ namespace YAF.Core.Services
         /// </param>
         public void SendAll([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleException = null)
         {
-            CodeContracts.VerifyNotNull(messages, "messages");
+            var mailMessages = messages.ToList();
 
-            var smtpClient = new SmtpClient { EnableSsl = Config.UseSMTPSSL };
+            CodeContracts.VerifyNotNull(mailMessages, "messages");
+
+            var smtpClient = new SmtpClient();
 
             // send the message...
-            messages.ToList().ForEach(m =>
+            mailMessages.ToList().ForEach(m =>
             {
                 try
                 {
