@@ -12,22 +12,22 @@ namespace YAF.Types.Interfaces
     /// <summary>
     /// The read articles.
     /// </summary>
-    /// <param name="boardID">
+    /// <param name="boardId">
     /// The board id.
     /// </param>
     /// <param name="lastUpdate">
-    /// The n last update.
+    /// The last update.
     /// </param>
     /// <param name="timeToRun">
-    /// The n time to run.
+    /// The time to run.
     /// </param>
     /// <param name="createUsers">
-    /// The b create users.
+    /// The create users.
     /// </param>
     /// <returns>
-    /// The read articles.
+    /// The <see cref="int"/>.
     /// </returns>
-    int ReadArticles([NotNull] int boardID, int lastUpdate, int timeToRun, bool createUsers);
+    int ReadArticles([NotNull] int boardId, int lastUpdate, int timeToRun, bool createUsers);
 
     #endregion
   }

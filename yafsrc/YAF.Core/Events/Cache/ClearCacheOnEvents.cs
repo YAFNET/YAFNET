@@ -117,7 +117,7 @@ namespace YAF.Core.Events.Cache
         /// </param>
         void IHandleEvent<SuccessfulUserLoginEvent>.Handle([NotNull] SuccessfulUserLoginEvent @event)
         {
-            // vzrus: to clear the cache to show user in the list at once));
+            // to clear the cache to show user in the list at once
             this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
             this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
             this.DataCache.Remove(Constants.Cache.BoardUserStats);

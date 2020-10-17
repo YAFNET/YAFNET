@@ -44,10 +44,10 @@ namespace YAF.Core.Nntp
     /// <summary>
     /// The on request delegate.
     /// </summary>
-    /// <param name="msg">
-    /// The msg.
+    /// <param name="message">
+    /// The message.
     /// </param>
-    public delegate void OnRequestDelegate(string msg);
+    public delegate void OnRequestDelegate(string message);
 
     /// <summary>
     /// The YAF NNTP.
@@ -57,9 +57,9 @@ namespace YAF.Core.Nntp
         #region Constants and Fields
 
         /// <summary>
-        /// The _application state base.
+        /// The application state base.
         /// </summary>
-        private readonly HttpApplicationStateBase _applicationStateBase;
+        private readonly HttpApplicationStateBase applicationStateBase;
 
         #endregion
 
@@ -76,7 +76,7 @@ namespace YAF.Core.Nntp
         /// </param>
         public Nntp([NotNull] ILogger logger, [NotNull] HttpApplicationStateBase applicationStateBase)
         {
-            this._applicationStateBase = applicationStateBase;
+            this.applicationStateBase = applicationStateBase;
             this.Logger = logger;
         }
 
@@ -96,27 +96,57 @@ namespace YAF.Core.Nntp
         #region INewsreader
 
         /// <summary>
+        /// The get nntp connection.
+        /// </summary>
+        /// <param name="nntpForum">
+        /// The nntp forum.
+        /// </param>
+        /// <returns>
+        /// The <see cref="NntpConnection"/>.
+        /// </returns>
+        [NotNull]
+        public static NntpConnection GetNntpConnection([NotNull] Tuple<NntpForum, NntpServer, Forum> nntpForum)
+        {
+            CodeContracts.VerifyNotNull(nntpForum, "nntpForum");
+
+            var nntpConnection = new NntpConnection();
+
+            // call connect server
+            nntpConnection.ConnectServer(nntpForum.Item2.Address.ToLower(), nntpForum.Item2.Port ?? 119);
+
+            // provide authentication if required...
+            if (!nntpForum.Item2.UserName.IsSet() || !nntpForum.Item2.UserPass.IsSet())
+            {
+                return nntpConnection;
+            }
+
+            nntpConnection.ProvideIdentity(nntpForum.Item2.UserName, nntpForum.Item2.UserPass);
+            nntpConnection.SendIdentity();
+
+            return nntpConnection;
+        }
+
+        /// <summary>
         /// The read articles.
         /// </summary>
-        /// <param name="boardID">
+        /// <param name="boardId">
         /// The board id.
         /// </param>
         /// <param name="lastUpdate">
-        /// The n last update.
+        /// The last update.
         /// </param>
         /// <param name="timeToRun">
-        /// The n time to run.
+        /// The time to run.
         /// </param>
         /// <param name="createUsers">
-        /// The b create users.
+        /// The create users.
         /// </param>
         /// <returns>
-        /// The read articles.
+        /// The <see cref="int"/>.
         /// </returns>
-        /// <exception cref="NntpException"><c>NntpException</c>.</exception>
-        public int ReadArticles(int boardID, int lastUpdate, int timeToRun, bool createUsers)
+        public int ReadArticles(int boardId, int lastUpdate, int timeToRun, bool createUsers)
         {
-            if (this._applicationStateBase["WorkingInYafNNTP"] != null)
+            if (this.applicationStateBase["WorkingInYafNNTP"] != null)
             {
                 return 0;
             }
@@ -130,11 +160,11 @@ namespace YAF.Core.Nntp
 
             try
             {
-                this._applicationStateBase["WorkingInYafNNTP"] = true;
+                this.applicationStateBase["WorkingInYafNNTP"] = true;
 
                 // Only those not updated in the last 30 minutes
                 foreach (var nntpForum in BoardContext.Current.GetRepository<NntpForum>()
-                    .NntpForumList(boardID, true)
+                    .NntpForumList(boardId, true)
                     .Where(n => (n.Item1.LastUpdate - DateTime.UtcNow).Minutes > lastUpdate))
                 {
                     using (var nntpConnection = GetNntpConnection(nntpForum))
@@ -145,7 +175,6 @@ namespace YAF.Core.Nntp
 
                         // start at the bottom...
                         var currentMessage = lastMessageNo == 0 ? group.Low : lastMessageNo + 1;
-                        var nntpForumID = nntpForum.Item1.ID;
                         var cutOffDate = nntpForum.Item1.DateCutOff ?? DateTime.MinValue;
 
                         if (nntpForum.Item1.DateCutOff.HasValue)
@@ -244,7 +273,7 @@ namespace YAF.Core.Nntp
                                 if (createUsers)
                                 {
                                     guestUserId = BoardContext.Current.GetRepository<User>().UpdateNntpUser(
-                                        boardID,
+                                        boardId,
                                         fromName,
                                         string.Empty);
                                 }
@@ -291,7 +320,8 @@ namespace YAF.Core.Nntp
                                 {
                                     throw;
                                 }
-                                else if (exception.ErrorCode != 423)
+
+                                if (exception.ErrorCode != 423)
                                 {
                                     this.Logger.Error(exception, "YafNntp");
                                 }
@@ -318,41 +348,10 @@ namespace YAF.Core.Nntp
             }
             finally
             {
-                this._applicationStateBase["WorkingInYafNNTP"] = null;
+                this.applicationStateBase["WorkingInYafNNTP"] = null;
             }
 
             return articleCount;
-        }
-
-        /// <summary>
-        /// The get nntp connection.
-        /// </summary>
-        /// <param name="nntpForum">
-        /// The nntp forum.
-        /// </param>
-        /// <returns>
-        /// The <see cref="NntpConnection"/>.
-        /// </returns>
-        [NotNull]
-        public static NntpConnection GetNntpConnection([NotNull] Tuple<NntpForum, NntpServer, Forum> nntpForum)
-        {
-            CodeContracts.VerifyNotNull(nntpForum, "nntpForum");
-
-            var nntpConnection = new NntpConnection();
-
-            // call connect server
-            nntpConnection.ConnectServer(nntpForum.Item2.Address.ToLower(), nntpForum.Item2.Port ?? 119);
-
-            // provide authentication if required...
-            if (!nntpForum.Item2.UserName.IsSet() || !nntpForum.Item2.UserPass.IsSet())
-            {
-                return nntpConnection;
-            }
-
-            nntpConnection.ProvideIdentity(nntpForum.Item2.UserName, nntpForum.Item2.UserPass);
-            nntpConnection.SendIdentity();
-
-            return nntpConnection;
         }
 
         #endregion
@@ -368,7 +367,7 @@ namespace YAF.Core.Nntp
         /// The body.
         /// </param>
         /// <returns>
-        /// The replace body.
+        /// The <see cref="string"/>.
         /// </returns>
         [NotNull]
         private static string ReplaceBody([NotNull] string body)
@@ -378,8 +377,8 @@ namespace YAF.Core.Nntp
             body = body.Replace("<br>", "<br />");
             body = body.Replace("<hr>", "<hr />");
 
-            //// vzrus: various wrong NNTP tags replacements
-
+            //// not used
+            /*
             // body = body.Replace("&amp;lt;", "&lt;");
             // body = body.Replace("&amp;gt;", "&gt;");
             // body = body.Replace("&lt;br&gt;", "");
@@ -390,6 +389,8 @@ namespace YAF.Core.Nntp
             // Innerquote class in yaf terms, should be replaced while displaying     
             // body = body.Replace("&lt;quote&gt;", @"[quote]");
             // body = body.Replace("&lt;/quote&gt;", @"[/quote]");
+            */
+
             return body;
         }
 
