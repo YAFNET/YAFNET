@@ -25748,7 +25748,7 @@
 
 /*! @preserve
  * bootbox.js
- * version: 5.4.1
+ * version: 5.5.1
  * author: Nick Payne <nick@kurai.co.uk>
  * license: MIT
  * http://bootboxjs.com/
@@ -25813,7 +25813,7 @@
 
   var exports = {};
 
-  var VERSION = '5.0.0';
+  var VERSION = '5.5.1';
   exports.VERSION = VERSION;
 
   var locales = {
@@ -25840,7 +25840,7 @@
     footer:
     '<div class="modal-footer"></div>',
     closeButton:
-    '<button type="button" class="bootbox-close-button close" aria-hidden="true"></button>',
+    '<button type="button" class="bootbox-close-button btn-close" aria-hidden="true"></button>',
     form:
     '<form class="bootbox-form"></form>',
     button:
@@ -25902,7 +25902,9 @@
     // Append "multiple" property to the select when using the "prompt" helper
     multiple: false,
     // Automatically scroll modal content when height exceeds viewport height
-    scrollable: false
+    scrollable: false,
+    // whether or not to destroy the modal on hide
+    reusable: false
   };
 
 
@@ -26131,8 +26133,10 @@
     // setup & teardown required after the underlying
     // modal has performed certain actions.
 
-    // make sure we unbind any listeners once the dialog has definitively been dismissed
-    dialog.one('hide.bs.modal', { dialog: dialog }, unbindModal);
+    if(!options.reusable) {
+      // make sure we unbind any listeners once the dialog has definitively been dismissed
+      dialog.one('hide.bs.modal', { dialog: dialog }, unbindModal);
+    }
 
     if (options.onHide) {
       if ($.isFunction(options.onHide)) {
@@ -26143,7 +26147,9 @@
       }
     }
 
-    dialog.one('hidden.bs.modal', { dialog: dialog }, destroyModal);
+    if(!options.reusable) {
+      dialog.one('hidden.bs.modal', { dialog: dialog }, destroyModal);
+    }
 
     if (options.onHidden) {
       if ($.isFunction(options.onHidden)) {
