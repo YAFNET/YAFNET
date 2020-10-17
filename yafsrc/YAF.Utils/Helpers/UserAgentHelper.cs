@@ -250,7 +250,7 @@ namespace YAF.Utils.Helpers
                 }
 
                 isSearchEngine = isCrawler || san.IsSet();
-                isIgnoredForDisplay = IsIgnoredForDisplay(userAgent) | isSearchEngine;
+                isIgnoredForDisplay = IsIgnoredForDisplay(userAgent) || isSearchEngine;
             }
         }
 

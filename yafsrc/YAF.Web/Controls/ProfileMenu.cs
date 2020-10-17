@@ -143,7 +143,7 @@ namespace YAF.Web.Controls
             }
 
             if (!this.PageContext.IsGuest
-                && this.PageContext.BoardSettings.EnableBuddyList & this.PageContext.UserHasBuddies)
+                && this.PageContext.BoardSettings.EnableBuddyList && this.PageContext.UserHasBuddies)
             {
                 this.RenderMenuItem(
                     html,

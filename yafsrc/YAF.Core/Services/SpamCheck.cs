@@ -198,7 +198,7 @@ namespace YAF.Core.Services
                         var botScout = new BotScout();
 
                         return botScout.IsBot(ipAddress, emailAddress, userName)
-                               | stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
+                               || stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                     }
             }
 

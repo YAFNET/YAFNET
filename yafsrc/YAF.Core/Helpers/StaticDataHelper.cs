@@ -159,24 +159,19 @@ namespace YAF.Core.Helpers
             // Extract available language tags into the array
             for (var i = 0; i < files.Length; i++)
             {
-                try
-                {
-                    var doc = new XmlDocument();
-                    doc.Load(files[i].FullName);
-                    tags[0, i] = files[i].Name;
-                    var attr = doc.DocumentElement.Attributes["code"];
+                var doc = new XmlDocument();
 
-                    if (attr != null)
-                    {
-                        tags[1, i] = attr.Value.Trim();
-                    }
-                    else
-                    {
-                        tags[1, i] = "en-US";
-                    }
-                }
-                catch (Exception)
+                doc.Load(files[i].FullName);
+                tags[0, i] = files[i].Name;
+                var attr = doc.DocumentElement.Attributes["code"];
+
+                if (attr != null)
                 {
+                    tags[1, i] = attr.Value.Trim();
+                }
+                else
+                {
+                    tags[1, i] = "en-US";
                 }
             }
 
@@ -230,23 +225,17 @@ namespace YAF.Core.Helpers
             // Extract available language tags into the array
             for (var i = 0; i < files.Length; i++)
             {
-                try
+                var doc = new XmlDocument();
+                doc.Load(files[i].FullName);
+                tags[0, i] = files[i].Name;
+                var attr = doc.DocumentElement.Attributes["code"];
+                if (attr != null)
                 {
-                    var doc = new XmlDocument();
-                    doc.Load(files[i].FullName);
-                    tags[0, i] = files[i].Name;
-                    var attr = doc.DocumentElement.Attributes["code"];
-                    if (attr != null)
-                    {
-                        tags[1, i] = attr.Value.Trim();
-                    }
-                    else
-                    {
-                        tags[1, i] = "en-US";
-                    }
+                    tags[1, i] = attr.Value.Trim();
                 }
-                catch (Exception)
+                else
                 {
+                    tags[1, i] = "en-US";
                 }
             }
 

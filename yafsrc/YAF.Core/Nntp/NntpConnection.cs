@@ -143,13 +143,12 @@ namespace YAF.Core.Nntp
             {
                 try
                 {
-                    this.sw.Close();
-                    this.sr.Close();
                     this.tcpClient.Close();
                 }
-                catch
+                finally
                 {
-                    this.tcpClient.Dispose();
+                    this.sw.Close();
+                    this.sr.Close();
                 }
             }
 
