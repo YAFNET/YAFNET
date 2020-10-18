@@ -25,11 +25,11 @@
 namespace YAF.Core.Membership
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
     using System.Web.Security;
 
     using Microsoft.AspNet.Identity;
+
+    using ServiceStack;
 
     using YAF.Utils.Helpers;
 
@@ -52,60 +52,18 @@ namespace YAF.Core.Membership
             return base.HashPassword(password);
         }
 
-        private const int _pbkdf2IterCount = 1000;
-
-        private const int _pbkdf2SubkeyLength = 256 / 8;
-
-        private const int _saltSize = 128 / 8;
-
-        internal static string BinaryToHex(byte[] data)
-        {
-            var hex = new char[data.Length * 2];
-            for (var iter = 0; iter < data.Length; iter++)
-            {
-                var hexChar = (byte)(data[iter] >> 4);
-                hex[iter * 2] = (char)(hexChar > 9 ? hexChar + 0x37 : hexChar + 0x30);
-                hexChar = (byte)(data[iter] & 0xF);
-                hex[iter * 2 + 1] = (char)(hexChar > 9 ? hexChar + 0x37 : hexChar + 0x30);
-            }
-
-            return new string(hex);
-        }
-
         /// <summary>
-        /// The byte arrays equal.
+        /// The verify hashed password.
         /// </summary>
-        /// <param name="a">
-        /// The a.
+        /// <param name="hashedPassword">
+        /// The hashed password.
         /// </param>
-        /// <param name="b">
-        /// The b.
+        /// <param name="providedPassword">
+        /// The provided password.
         /// </param>
         /// <returns>
-        /// The <see cref="bool"/>.
+        /// The <see cref="PasswordVerificationResult"/>.
         /// </returns>
-        [MethodImpl(MethodImplOptions.NoOptimization)]
-        private static bool ByteArraysEqual(IReadOnlyList<byte> a, IReadOnlyList<byte> b)
-        {
-            if (ReferenceEquals(a, b))
-            {
-                return true;
-            }
-
-            if (a == null || b == null || a.Count != b.Count)
-            {
-                return false;
-            }
-
-            var areSame = true;
-            for (var i = 0; i < a.Count; i++)
-            {
-                areSame &= a[i] == b[i];
-            }
-
-            return areSame;
-        }
-
         public override PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword)
         {
             var passwordProperties = hashedPassword.Split('|');
@@ -114,23 +72,46 @@ namespace YAF.Core.Membership
             {
                 return base.VerifyHashedPassword(hashedPassword, providedPassword);
             }
-            else
-            {
-                var passwordHash = passwordProperties[0];
-                var salt = passwordProperties[2];
 
-                return string.Equals(
-                    EncryptPassword(providedPassword, MembershipPasswordFormat.Hashed, salt),
-                    passwordHash,
-                    StringComparison.CurrentCultureIgnoreCase)
-                    ? PasswordVerificationResult.SuccessRehashNeeded
-                    : PasswordVerificationResult.Failed;
-            }
+            var passwordHash = passwordProperties[0];
+            var salt = passwordProperties[2];
+
+            return string.Equals(
+                EncryptPassword(providedPassword, MembershipPasswordFormat.Hashed, salt),
+                passwordHash,
+                StringComparison.CurrentCultureIgnoreCase)
+                ? PasswordVerificationResult.SuccessRehashNeeded
+                : PasswordVerificationResult.Failed;
         }
 
-
+        /// <summary>
+        /// The encrypt password.
+        /// </summary>
+        /// <param name="pass">
+        /// The pass.
+        /// </param>
+        /// <param name="passwordFormat">
+        /// The password format.
+        /// </param>
+        /// <param name="salt">
+        /// The salt.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         private static string EncryptPassword(string pass, MembershipPasswordFormat passwordFormat, string salt)
         {
+            var hashAlgorithmType = HashHelper.HashAlgorithmType.SHA1;
+
+            try
+            {
+                Membership.HashAlgorithmType.ToEnum<HashHelper.HashAlgorithmType>();
+            }
+            catch (Exception exception)
+            {
+                hashAlgorithmType = HashHelper.HashAlgorithmType.SHA1;
+            }
+
             switch (passwordFormat)
             {
                 case MembershipPasswordFormat.Clear:
@@ -138,11 +119,11 @@ namespace YAF.Core.Membership
                 case MembershipPasswordFormat.Hashed:
                     return HashHelper.Hash(
                         pass,
-                        HashHelper.HashAlgorithmType.SHA1,
+                        hashAlgorithmType,
                         salt,
                         false,
                         HashHelper.HashCaseType.None,
-                        "",
+                        null,
                         false);
                 case MembershipPasswordFormat.Encrypted:
                     var passwordManager = new YafMembershipProvider();
