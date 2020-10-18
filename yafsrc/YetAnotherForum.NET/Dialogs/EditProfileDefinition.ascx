@@ -36,24 +36,34 @@
                     <asp:DropDownList runat="server" ID="DataTypes"
                                       CssClass="form-select"/>
                 </div>
+                <div class="mb-3">
+                    <YAF:HelpLabel ID="HelpLabel2" runat="server"
+                                   AssociatedControlID="Length"
+                                   LocalizedTag="LENGTH"
+                                   LocalizedPage="ADMIN_EDIT_PROFILEDEFINITION"/>
+                    <asp:TextBox ID="Length" runat="server"
+                                 Text="1"
+                                 TextMode="Number"
+                                 required="required"
+                                 CssClass="form-control" />
+                    <div class="invalid-feedback">
+                        <YAF:LocalizedLabel runat="server"
+                                            LocalizedPage="ADMIN_EDIT_PROFILEDEFINITION"
+                                            LocalizedTag="NEED_LENGTH" />
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="mb-3 col-md-7">
-                        <YAF:HelpLabel ID="HelpLabel2" runat="server"
-                                       AssociatedControlID="Length"
-                                       LocalizedTag="LENGTH"
+                    <div class="mb-3 col-md-6">
+                        <YAF:HelpLabel ID="HelpLabel5" runat="server"
+                                       AssociatedControlID="ShowInUserInfo"
+                                       LocalizedTag="SHOW_USERINFO"
                                        LocalizedPage="ADMIN_EDIT_PROFILEDEFINITION"/>
-                        <asp:TextBox ID="Length" runat="server"
-                                     Text="1"
-                                     TextMode="Number"
-                                     required="required"
-                                     CssClass="form-control" />
-                        <div class="invalid-feedback">
-                            <YAF:LocalizedLabel runat="server"
-                                                LocalizedPage="ADMIN_EDIT_PROFILEDEFINITION"
-                                                LocalizedTag="NEED_LENGTH" />
+                        <div class="form-check form-switch">
+                            <asp:CheckBox ID="ShowInUserInfo" runat="server"
+                                          Text="&nbsp;" />
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 col-md-6">
                         <YAF:HelpLabel ID="HelpLabel3" runat="server"
                                        AssociatedControlID="Required"
                                        LocalizedTag="REQUIRED"

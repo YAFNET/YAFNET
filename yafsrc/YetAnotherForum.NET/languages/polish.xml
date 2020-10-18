@@ -4327,6 +4327,7 @@ Spoiler Content
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">Adres e-mail</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Mail z nowym hasłem został wysłany do Ciebie.</Resource>
+    <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Zaloguj przez Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Zaloguj</Resource>
     <Resource tag="GOOGLE_LOGIN">Zaloguj przez Google</Resource>

@@ -69,6 +69,24 @@ namespace YAF.Dialogs
         protected global::System.Web.UI.WebControls.TextBox Length;
 
         /// <summary>
+        /// HelpLabel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel5;
+
+        /// <summary>
+        /// ShowInUserInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowInUserInfo;
+
+        /// <summary>
         /// HelpLabel3 control.
         /// </summary>
         /// <remarks>

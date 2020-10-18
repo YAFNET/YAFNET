@@ -4348,6 +4348,7 @@ Spoiler Content
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">Sähköpostiosoite</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Sähköpostiisi on lähetetty uusi salasana.</Resource>
+    <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Login with Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Kirjaudu</Resource>
     <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>

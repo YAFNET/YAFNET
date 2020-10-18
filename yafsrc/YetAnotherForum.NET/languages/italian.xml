@@ -4331,6 +4331,7 @@ Spoiler Content
     <Resource tag="CONNECT_VIA">Oppure accedi tramite</Resource>
     <Resource tag="EMAIL">Indirizzo e-mail</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">E-mail con nuova password inviata.</Resource>
+    <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Accedi tramite Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Connetti</Resource>
     <Resource tag="GOOGLE_LOGIN">Accedi tramite Google</Resource>

@@ -4351,6 +4351,7 @@ Spoiler Content
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">E-posti aadress</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Teile on saadetud e-kiri uue parooliga.</Resource>
+    <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Login with Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Logi sisse</Resource>
     <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>

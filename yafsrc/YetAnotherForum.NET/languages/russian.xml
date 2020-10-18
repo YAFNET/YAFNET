@@ -4316,6 +4316,7 @@ Spoiler Content
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">Адрес Email</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Было послано сообщение по почте с вашим новым паролем.</Resource>
+    <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Войти через Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Войти</Resource>
     <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>

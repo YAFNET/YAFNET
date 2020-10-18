@@ -53,7 +53,12 @@ namespace YAF.Dialogs
         /// <value>
         /// The Definition identifier.
         /// </value>
-        public int? DefinitionId { get; set; }
+        public int? DefinitionId
+        {
+            get => this.ViewState["DefinitionId"].ToType<int?>();
+
+            set => this.ViewState["DefinitionId"] = value;
+        }
 
         /// <summary>
         /// Binds the data.
@@ -82,6 +87,7 @@ namespace YAF.Dialogs
                     this.DataTypes.Items.FindByText(item.DataType).Selected = true;
                     this.Length.Text = item.Length.ToString();
                     this.Required.Checked = item.Required;
+                    this.ShowInUserInfo.Checked = item.ShowInUserInfo;
                     this.DefaultValue.Text = item.DefaultValue;
                 }
 
@@ -140,7 +146,8 @@ namespace YAF.Dialogs
                     DataType = this.DataTypes.SelectedValue,
                     DefaultValue = this.DefaultValue.Text,
                     Length = this.Length.Text.ToType<int>(),
-                    Required = this.Required.Checked
+                    Required = this.Required.Checked,
+                    ShowInUserInfo = this.ShowInUserInfo.Checked
                 });
 
             BuildLink.Redirect(ForumPages.Admin_ProfileDefinitions);

@@ -4394,6 +4394,7 @@
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">آدرس پست الکترونیک</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">پست الکترونیکی حاوی رمز عبور جدید شما ارسال شد.</Resource>
+    <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
     <Resource tag="FACEBOOK_LOGIN">ورود با فیسبوک</Resource>
     <Resource tag="FORUM_LOGIN">ورود به انجمن</Resource>
     <Resource tag="GOOGLE_LOGIN">ورود با گوگل</Resource>

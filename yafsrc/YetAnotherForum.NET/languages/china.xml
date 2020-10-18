@@ -4354,6 +4354,7 @@ Spoiler Content
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">电子邮件地址</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">一封电子邮件已经发送给您，里面有新的密码.</Resource>
+    <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
     <Resource tag="FACEBOOK_LOGIN">使用Facebook帐号登录</Resource>
     <Resource tag="FORUM_LOGIN">登录论坛</Resource>
     <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>

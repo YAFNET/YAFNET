@@ -4309,6 +4309,7 @@ Spoiler Inhoud
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">E-mail adres</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Er is een e-mail verzonden met je nieuwe wachtwoord.</Resource>
+    <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Login met Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Inloggen op forum</Resource>
     <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>

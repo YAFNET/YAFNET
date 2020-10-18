@@ -4451,6 +4451,7 @@ Spoiler Content
 
       slaptažodis. 
     </Resource>
+    <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Login with Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Forum Prisijungti </Resource>
     <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>

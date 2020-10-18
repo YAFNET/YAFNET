@@ -4166,6 +4166,7 @@
   <Resource tag="BOTH_USERNAME_EMAIL">Both user name and email address must be entered.</Resource>
   <Resource tag="EMAIL">Email Address</Resource>
   <Resource tag="EMAIL_SENT_PASSWORD">A mail has been sent with your new password.</Resource>
+   <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
   <Resource tag="FORUM_LOGIN">Forum Login</Resource>
   <Resource tag="LOSTPASSWORD">Lost Password</Resource>
   <Resource tag="PASSWORD">Password:</Resource>

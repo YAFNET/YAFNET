@@ -34,6 +34,7 @@ namespace YAF.Dialogs
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models.Identity;
@@ -165,7 +166,12 @@ namespace YAF.Dialogs
                         {
                             user.LockoutEndDateUtc = DateTime.UtcNow.AddMinutes(15);
 
-                            // TODO: info user
+                            this.Logger.Info(
+                                $"User: {user.UserName} has reached the Limit of 10 failed login attempts and is locked out until {user.LockoutEndDateUtc}");
+
+                            this.PageContext.LoadMessage.AddSession(
+                                this.GetText("LOGIN", "ERROR_LOCKEDOUT"),
+                                MessageTypes.danger);
                         }
 
                         this.Get<IAspNetUsersHelper>().Update(user);

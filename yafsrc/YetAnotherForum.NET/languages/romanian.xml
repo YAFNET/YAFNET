@@ -4352,6 +4352,7 @@ Spoiler Content
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">Addresa email</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Pe adresa ta de email a fost trimisa parola.</Resource>
+    <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Login with Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Intrare forum</Resource>
     <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>
