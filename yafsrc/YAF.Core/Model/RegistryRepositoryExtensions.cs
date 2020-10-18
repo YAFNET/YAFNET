@@ -25,8 +25,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.SqlClient;
-
+    
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
@@ -290,11 +289,12 @@ namespace YAF.Core.Model
                     redirect = $"install/default.aspx?upgrade={registryVersion}";
                 }
             }
-            catch (SqlException ex)
+            catch (Exception)
             {
                 // needs to be setup...
                 redirect = "install/default.aspx";
             }
+            
 
             return redirect;
         }

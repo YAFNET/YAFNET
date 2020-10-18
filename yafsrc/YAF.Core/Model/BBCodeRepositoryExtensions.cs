@@ -23,6 +23,10 @@
  */
 namespace YAF.Core.Model
 {
+    using System.Collections.Generic;
+
+    using ServiceStack.OrmLite;
+
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces.Data;
@@ -125,6 +129,40 @@ namespace YAF.Core.Model
                     ModuleClass = moduleClass,
                     ExecOrder = execOrder
                 });
+        }
+
+        /// <summary>
+        /// Get All BBCodes Paged by Board Id
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page size.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<BBCode> ListPaged(
+            this IRepository<BBCode> repository,
+            [NotNull] int boardId,
+            [NotNull] int? pageIndex = 0,
+            int? pageSize = 10000000)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<BBCode>();
+
+            expression.Where(x => x.BoardID == boardId).OrderBy(item => item.Name)
+                .Page(pageIndex + 1, pageSize);
+
+            return repository.DbAccess.Execute(db => db.Connection.Select(expression));
         }
 
         #endregion

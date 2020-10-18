@@ -35,6 +35,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -226,8 +227,8 @@ namespace YAF.Pages.Admin
         {
             this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
-            var list = this.GetRepository<BBCode>().GetPaged(
-                x => x.BoardID == this.PageContext.PageBoardID,
+            var list = this.GetRepository<BBCode>().ListPaged(
+                this.PageContext.PageBoardID,
                 this.PagerTop.CurrentPageIndex,
                 this.PagerTop.PageSize);
 
