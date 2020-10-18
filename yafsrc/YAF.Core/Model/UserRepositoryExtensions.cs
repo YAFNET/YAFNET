@@ -688,18 +688,19 @@ namespace YAF.Core.Model
 
             expression.Join<User>((a, b) => b.ID == a.UserID).Where<WatchTopic, User>(
                 (a, b) => b.ID == userId && b.NotificationType != 10 && b.NotificationType != 20 &&
-                          a.TopicID == topicId && (a.LastMail == null || a.LastMail < b.LastVisit));
+                          a.TopicID == topicId && (a.LastMail == null || a.LastMail < b.LastVisit)).Select<User>(x => x);
 
             var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<WatchForum>();
 
             expression2.Join<User>((a, b) => b.ID == a.UserID).Join<Topic>((a, c) => c.ForumID == a.ForumID)
                 .Where<WatchForum, User, Topic>(
                     (a, b, c) => b.ID == userId && b.NotificationType != 10 && b.NotificationType != 20 &&
-                                 c.ID == topicId && (a.LastMail == null || a.LastMail < b.LastVisit));
+                                 c.ID == topicId && (a.LastMail == null || a.LastMail < b.LastVisit)).Select<User>(x => x);
 
             return repository.DbAccess.Execute(
-                db => db.Connection.Select<User>(
-                    $"{expression.ToSelectStatement()} UNION {expression2.ToSelectStatement()}"));
+                    db => db.Connection.Select<User>(
+                        $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}"))
+                .DistinctBy(x => x.ID).ToList();
         }
 
         /// <summary>

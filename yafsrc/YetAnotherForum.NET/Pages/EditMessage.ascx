@@ -1,4 +1,4 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.PostMessage" CodeBehind="PostMessage.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.EditMessage" CodeBehind="EditMessage.ascx.cs" %>
 
 <%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../controls/LastPosts.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>
@@ -38,12 +38,64 @@
                         </YAF:Alert>
                     </asp:PlaceHolder>
                 </asp:PlaceHolder>
+                <asp:PlaceHolder ID="SubjectRow" runat="server">
+                    <div class="mb-3">
+                        <asp:Label runat="server" AssociatedControlID="TopicSubjectTextBox">
+                            <YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server" LocalizedTag="subject" />
+                        </asp:Label>
+                        <asp:TextBox ID="TopicSubjectTextBox" runat="server"
+                            CssClass="form-control"
+                            MaxLength="100"
+                            autocomplete="off" />
+                    </div>
+                    <div id="SearchResultsPlaceholder"
+                        data-url="<%=BoardInfo.ForumClientFileRoot %>"
+                        data-userid="<%= this.PageContext.PageUserID %>">
+                    </div>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder ID="DescriptionRow" Visible="false" runat="server">
+                    <div class="mb-3">
+                        <asp:Label runat="server" AssociatedControlID="TopicDescriptionTextBox">
+                            <YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server" LocalizedTag="description" />
+                        </asp:Label>
+                        <asp:TextBox ID="TopicDescriptionTextBox" runat="server"
+                            CssClass="form-control"
+                            MaxLength="100"
+                            autocomplete="off" />
+                    </div>
+                </asp:PlaceHolder>
                 <asp:PlaceHolder ID="FromRow" runat="server" Visible="False">
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="From">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="from" />
                         </asp:Label>
                         <asp:TextBox ID="From" runat="server" CssClass="form-control" />
+                    </div>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder ID="PriorityRow" runat="server">
+                    <div class="mb-3">
+                        <asp:Label runat="server" AssociatedControlID="Priority">
+                            <YAF:LocalizedLabel runat="server" LocalizedTag="priority" />
+                        </asp:Label>
+                        <asp:DropDownList ID="Priority" runat="server" CssClass="select2-image-select" />
+                    </div>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder ID="StyleRow" runat="server">
+                    <div class="mb-3">
+                        <asp:Label runat="server" AssociatedControlID="TopicStylesTextBox">
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="STYLES" />
+                        </asp:Label>
+                        <asp:TextBox ID="TopicStylesTextBox" runat="server" CssClass="form-control" />
+                    </div>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder ID="TagsHolder" runat="server" Visible="True">
+                    <div class="mb-3">
+                        <asp:Label runat="server" AssociatedControlID="Tags">
+                            <YAF:LocalizedLabel runat="server" LocalizedTag="TAGS" />
+                        </asp:Label>
+                        <asp:TextBox runat="server" ID="Tags" 
+                                     CssClass="form-control">
+                        </asp:TextBox>
                     </div>
                 </asp:PlaceHolder>
                 <div class="mb-3">
@@ -71,6 +123,15 @@
                                                 LocalizedTag="Captcha_Enter" />
                         </asp:Label>
                         <asp:TextBox ID="tbCaptcha" runat="server" CssClass="form-control" />
+                    </div>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder ID="EditReasonRow" runat="server">
+                    <div class="mb-3">
+                        <asp:Label runat="server" AssociatedControlID="ReasonEditor">
+                            <YAF:LocalizedLabel runat="server" 
+                                                LocalizedTag="EditReason" />
+                        </asp:Label>
+                        <asp:TextBox ID="ReasonEditor" runat="server" CssClass="form-control" />
                     </div>
                 </asp:PlaceHolder>
             </div>

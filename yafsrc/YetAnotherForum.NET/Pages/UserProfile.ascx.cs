@@ -200,7 +200,6 @@ namespace YAF.Pages
 
             if (user == null || user.Item1.ID == 0)
             {
-                throw new ApplicationException("hä");
                 // No such user exists or this is an nntp user ("0")
                 BuildLink.AccessDenied();
             }

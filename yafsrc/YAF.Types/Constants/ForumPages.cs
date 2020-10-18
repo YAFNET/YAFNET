@@ -59,6 +59,11 @@ namespace YAF.Types.Constants
         PostTopic,
 
         /// <summary>
+        /// The edit  message page.
+        /// </summary>
+        EditMessage,
+
+        /// <summary>
         /// The post message page.
         /// </summary>
         PostMessage,

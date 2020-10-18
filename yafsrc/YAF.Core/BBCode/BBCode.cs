@@ -705,7 +705,7 @@ namespace YAF.Core.BBCode
                     {
                         RuleRank = 9
                     });
-                
+
                 // font
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(

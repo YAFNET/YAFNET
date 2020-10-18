@@ -33,7 +33,7 @@ namespace YAF.Utils.Helpers
     /// DateTime Helper
     /// </summary>
     public static class DateTimeHelper
-    {
+    { 
         /// <summary>
         /// the SQL compatible DateTime Min Value
         /// </summary>

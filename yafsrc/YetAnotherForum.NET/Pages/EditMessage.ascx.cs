@@ -30,12 +30,12 @@ namespace YAF.Pages
     using System.Linq;
     using System.Web;
     
-    using YAF.Configuration;
     using YAF.Core.BaseModules;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -43,17 +43,18 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
+    using ListItem = System.Web.UI.WebControls.ListItem;
+
     #endregion
 
     /// <summary>
-    /// The post message Page.
+    /// The Edit message Page.
     /// </summary>
-    public partial class PostMessage : ForumPage
+    public partial class EditMessage : ForumPage
     {
         #region Constants and Fields
 
@@ -63,14 +64,14 @@ namespace YAF.Pages
         private ForumEditor forumEditor;
 
         /// <summary>
-        ///   The Spam Approved Indicator
+        ///   The owner user id.
         /// </summary>
-        private bool spamApproved = true;
+        private int ownerUserId;
 
         /// <summary>
         /// The edit or quoted message.
         /// </summary>
-        private Tuple<Topic, Message, User, Forum> quotedMessage;
+        private Tuple<Topic, Message, User, Forum> editedMessage;
 
         /// <summary>
         ///   The forum.
@@ -82,9 +83,9 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PostMessage"/> class.
+        /// Initializes a new instance of the <see cref="EditMessage"/> class.
         /// </summary>
-        public PostMessage()
+        public EditMessage()
             : base("POSTMESSAGE")
         {
         }
@@ -94,19 +95,14 @@ namespace YAF.Pages
         #region Properties
 
         /// <summary>
+        ///   Gets EditMessageID.
+        /// </summary>
+        protected int? EditMessageId => this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("m");
+
+        /// <summary>
         ///   Gets or sets the PollId if the topic has a poll attached
         /// </summary>
         protected int? PollId { get; set; }
-
-        /// <summary>
-        ///   Gets Quoted Message ID.
-        /// </summary>
-        protected int? QuotedMessageId => this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("q");
-
-        /// <summary>
-        ///   Gets TopicID.
-        /// </summary>
-        protected int TopicId => this.PageContext.PageTopicID;
 
         #endregion
 
@@ -125,37 +121,6 @@ namespace YAF.Pages
                 "t={0}&name={1}",
                 this.PageContext.PageTopicID,
                 this.PageContext.PageTopicName);
-        }
-
-        /// <summary>
-        /// Verifies the user isn't posting too quickly, if so, tells them to wait.
-        /// </summary>
-        /// <returns>
-        /// True if there is a delay in effect.
-        /// </returns>
-        protected bool IsPostReplyDelay()
-        {
-            // see if there is a post delay
-            if (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess
-                || this.PageContext.BoardSettings.PostFloodDelay <= 0)
-            {
-                return false;
-            }
-
-            // see if they've past that delay point
-            if (this.Get<ISession>().LastPost
-                <= DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay))
-            {
-                return false;
-            }
-
-            this.PageContext.AddLoadMessage(
-                this.GetTextFormatted(
-                    "wait",
-                    (this.Get<ISession>().LastPost
-                     - DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds),
-                MessageTypes.warning);
-            return true;
         }
 
         /// <summary>
@@ -189,6 +154,20 @@ namespace YAF.Pages
                 this.PageContext.AddLoadMessage(this.GetText("GUEST_NAME_TOOLONG"), MessageTypes.warning);
 
                 this.From.Text = this.From.Text.Substring(100);
+                return false;
+            }
+
+            if (this.SubjectRow.Visible && this.TopicSubjectTextBox.Text.IsNotSet())
+            {
+                this.PageContext.AddLoadMessage(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
+                return false;
+            }
+
+            if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.AllowCreateTopicsSameName)
+                && this.GetRepository<Topic>().CheckForDuplicate(this.TopicSubjectTextBox.Text.Trim())
+                && !this.EditMessageId.HasValue)
+            {
+                this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
                 return false;
             }
 
@@ -229,6 +208,20 @@ namespace YAF.Pages
         }
 
         /// <summary>
+        /// Registers the java scripts
+        /// </summary>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            // setup jQuery and Jquery Ui Tabs.
+            this.PageContext.PageElements.RegisterJsBlock(
+                "GetBoardTagsJs",
+                JavaScriptBlocks.GetBoardTagsJs(this.Tags.ClientID));
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -253,39 +246,71 @@ namespace YAF.Pages
 
             this.topic = this.GetRepository<Topic>().GetById(this.PageContext.PageTopicID);
 
-            // we reply to a post with a quote
-            if (this.QuotedMessageId.HasValue)
+            if (this.EditMessageId.HasValue)
             {
-                this.quotedMessage =
-                    this.GetRepository<Message>().GetMessage(this.QuotedMessageId.Value);
+                var editMessage = this.GetRepository<Message>().GetMessage(this.EditMessageId.Value);
 
-                if (this.quotedMessage != null)
+                if (editMessage != null)
                 {
-                    if (this.Get<HttpRequestBase>().QueryString.Exists("text"))
-                    {
-                        var quotedMessageText =
-                            this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text"));
+                    this.ownerUserId = editMessage.Item1.UserID;
 
-                        this.quotedMessage.Item2.MessageText =
-                            HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(quotedMessageText));
-                    }
-
-                    if (this.quotedMessage.Item2.TopicID != this.PageContext.PageTopicID)
-                    {
-                        BuildLink.AccessDenied();
-                    }
-
-                    if (!this.CanQuotePostCheck(this.topic))
+                    if (!this.CanEditPostCheck(editMessage.Item2, this.topic))
                     {
                         BuildLink.AccessDenied();
                     }
                 }
+
+                this.editedMessage = editMessage;
+
+                // we edit message and should transfer both the message ID and TopicID for PageLinks.
+                this.PollList.EditMessageId = this.EditMessageId.Value;
             }
 
             this.HandleUploadControls();
 
             if (!this.IsPostBack)
             {
+                var normal = new ListItem(this.GetText("normal"), "0");
+
+                normal.Attributes.Add(
+                    "data-content",
+                    $"<span class='select2-image-select-icon'><i class='far fa-comment fa-fw text-secondary'></i>&nbsp;{this.GetText("normal")}</span>");
+
+                this.Priority.Items.Add(normal);
+
+                var sticky = new ListItem(this.GetText("sticky"), "1");
+
+                sticky.Attributes.Add(
+                    "data-content",
+                    $"<span class='select2-image-select-icon'><i class='fas fa-thumbtack fa-fw text-secondary'></i>&nbsp;{this.GetText("sticky")}</span>");
+
+                this.Priority.Items.Add(sticky);
+
+                var announcement = new ListItem(this.GetText("announcement"), "2");
+
+                announcement.Attributes.Add(
+                    "data-content",
+                    $"<span class='select2-image-select-icon'><i class='fas fa-bullhorn fa-fw text-secondary'></i>&nbsp;{this.GetText("announcement")}</span>");
+
+                this.Priority.Items.Add(announcement);
+
+                this.Priority.SelectedIndex = 0;
+
+                // Allow the Styling of Topic Titles only for Mods or Admins
+                if (this.PageContext.BoardSettings.UseStyledTopicTitles
+                    && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
+                {
+                    this.StyleRow.Visible = true;
+                }
+                else
+                {
+                    this.StyleRow.Visible = false;
+                }
+
+                this.EditReasonRow.Visible = false;
+
+                this.PriorityRow.Visible = this.PageContext.ForumPriorityAccess;
+
                 // update options...
                 this.PostOptions1.Visible = !this.PageContext.IsGuest;
                 this.PostOptions1.PersistentOptionVisible =
@@ -316,41 +341,9 @@ namespace YAF.Pages
 
                 this.PageLinks.AddForum(this.PageContext.PageForumID);
 
-                // check if it's a reply to a topic...
-                this.InitReplyToTopic();
-
-                if (this.quotedMessage != null)
-                {
-                    if (this.QuotedMessageId.HasValue)
-                    {
-                        if (this.Get<ISession>().MultiQuoteIds != null)
-                        {
-                            var quoteId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q").ToType<int>();
-                            var multiQuote = new MultiQuote { MessageID = quoteId, TopicID = this.PageContext.PageTopicID };
-
-                            if (
-                                !this.Get<ISession>()
-                                    .MultiQuoteIds.Any(m => m.MessageID.Equals(quoteId)))
-                            {
-                                this.Get<ISession>()
-                                    .MultiQuoteIds.Add(
-                                        multiQuote);
-                            }
-
-                            var messages = this.GetRepository<Message>().GetByIds(
-                                this.Get<ISession>().MultiQuoteIds.Select(i => i.MessageID));
-
-                            messages.ForEach(this.InitQuotedReply);
-
-                            // Clear Multi-quotes
-                            this.Get<ISession>().MultiQuoteIds = null;
-                        }
-                        else
-                        {
-                            this.InitQuotedReply(this.quotedMessage.Item2);
-                        }
-                    }
-                }
+                // editing a message...
+                this.InitEditedPost(this.editedMessage.Item2);
+                this.PollList.EditMessageId = this.EditMessageId.Value;
 
                 // form user is only for "Guest"
                 if (this.PageContext.IsGuest)
@@ -362,74 +355,87 @@ namespace YAF.Pages
 
             // Set Poll
             this.PollId = this.topic.PollID;
-            this.PollList.TopicId = this.TopicId;
+            this.PollList.TopicId = this.PageContext.PageTopicID;
             this.PollList.PollId = this.PollId;
         }
 
         /// <summary>
-        /// The post reply handle reply to topic.
+        /// The post reply handle edit post.
         /// </summary>
-        /// <param name="isSpamApproved">
-        /// The is Spam Approved.
-        /// </param>
         /// <returns>
-        /// Returns the Message Id.
+        /// Returns the Message Id
         /// </returns>
-        protected int PostReplyHandleReplyToTopic(bool isSpamApproved)
+        protected Message PostReplyHandleEditPost()
         {
-            if (!this.PageContext.ForumReplyAccess)
+            if (!this.PageContext.ForumEditAccess)
             {
                 BuildLink.AccessDenied();
             }
 
-            // Check if Forum is Moderated
-            var isForumModerated = false;
+            var subjectSave = string.Empty;
+            var descriptionSave = string.Empty;
+            var stylesSave = string.Empty;
 
-            var forumInfo = this.GetRepository<Forum>()
-                .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
-
-            if (forumInfo != null)
+            if (this.TopicSubjectTextBox.Enabled)
             {
-                isForumModerated = this.CheckForumModerateStatus(forumInfo, false);
+                subjectSave = this.TopicSubjectTextBox.Text;
             }
 
-            // If Forum is Moderated
-            if (isForumModerated)
+            if (this.TopicDescriptionTextBox.Enabled)
             {
-                isSpamApproved = false;
+                descriptionSave = this.TopicDescriptionTextBox.Text;
             }
 
-            // Bypass Approval if Admin or Moderator
-            if (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess)
+            if (this.TopicStylesTextBox.Enabled)
             {
-                isSpamApproved = true;
+                stylesSave = this.TopicStylesTextBox.Text;
             }
 
-            var replyTo = this.QuotedMessageId;
-
-            // make message flags
-            var messageFlags = new MessageFlags
+            // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
+            // Ederon : now it should be better, but all this code around forum/topic/message flags needs revamp
+            // retrieve message flags
+            var messageFlags = new MessageFlags(this.editedMessage.Item2.Flags)
             {
-                IsHtml = this.forumEditor.UsesHTML,
-                IsBBCode = this.forumEditor.UsesBBCode,
-                IsPersistent = this.PostOptions1.PersistentChecked,
-                IsApproved = isSpamApproved
+                IsHtml =
+                    this
+                    .forumEditor
+                    .UsesHTML,
+                IsBBCode
+                    =
+                    this
+                    .forumEditor
+                    .UsesBBCode,
+                IsPersistent
+                    =
+                    this
+                    .PostOptions1
+                    .PersistentChecked
             };
 
-            var messageId = this.GetRepository<Message>().SaveNew(
-                this.PageContext.PageForumID,
-                this.TopicId,
-                this.PageContext.PageUserID,
-                this.forumEditor.Text,
-                this.User != null ? null : this.From.Text,
-                this.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                DateTime.UtcNow,
-                replyTo,
-                messageFlags);
+            this.editedMessage.Item2.Flags = messageFlags.BitValue;
+
+            var isModeratorChanged = this.PageContext.PageUserID != this.ownerUserId;
+
+            this.GetRepository<Message>().Update(
+                this.Priority.SelectedValue.ToType<short>(),
+                this.forumEditor.Text.Trim(),
+                descriptionSave.Trim(),
+                string.Empty,
+                stylesSave.Trim(),
+                subjectSave.Trim(),
+                this.HtmlEncode(this.ReasonEditor.Text),
+                isModeratorChanged,
+                this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
+                this.editedMessage,
+                this.PageContext.PageUserID);
 
             this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
 
-            return messageId;
+            // remove cache if it exists...
+            this.Get<IDataCache>()
+                .Remove(string.Format(Constants.Cache.FirstPostCleaned, this.PageContext.PageBoardID, this.PageContext.PageTopicID));
+
+            return this.editedMessage.Item2;
         }
 
         /// <summary>
@@ -444,11 +450,6 @@ namespace YAF.Pages
         protected void PostReply_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.IsPostReplyVerified())
-            {
-                return;
-            }
-
-            if (this.IsPostReplyDelay())
             {
                 return;
             }
@@ -481,7 +482,6 @@ namespace YAF.Pages
                                 description);
                             break;
                         case 1:
-                            this.spamApproved = false;
                             isPossibleSpamMessage = true;
                             this.Logger.SpamMessageDetected(
                                 this.PageContext.PageUserID,
@@ -516,10 +516,13 @@ namespace YAF.Pages
             // update the last post time...
             this.Get<ISession>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
-            // Reply to topic
-            int? messageId = this.PostReplyHandleReplyToTopic(this.spamApproved);
+            // Edit existing post
+            var editMessage = this.PostReplyHandleEditPost();
 
-            var isApproved = this.spamApproved;
+            // Check if message is approved
+            var isApproved = editMessage.MessageFlags.IsApproved;
+
+            var messageId = editMessage.ID;
 
             // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
             var attachPollParameter = string.Empty;
@@ -528,7 +531,7 @@ namespace YAF.Pages
             if (this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible)
             {
                 // new topic poll token
-                attachPollParameter = $"&t={this.TopicId}";
+                attachPollParameter = $"&t={this.PageContext.PageTopicID}";
 
                 // new return forum poll token
                 returnForum = $"&f={this.PageContext.PageForumID}";
@@ -537,50 +540,6 @@ namespace YAF.Pages
             // Create notification emails
             if (isApproved)
             {
-                this.Get<ISendNotification>().ToWatchingUsers(messageId.Value);
-
-                if (!this.PageContext.IsGuest && this.PageContext.User.Activity)
-                {
-                    // Handle Mentions
-                    BBCodeHelper.FindMentions(this.forumEditor.Text).ForEach(
-                        user =>
-                            {
-                                var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
-
-                                if (userId != this.PageContext.PageUserID)
-                                {
-                                    this.Get<IActivityStream>().AddMentionToStream(
-                                        userId,
-                                        this.TopicId,
-                                        messageId.ToType<int>(),
-                                        this.PageContext.PageUserID);
-                                }
-                            });
-
-                    // Handle User Quoting
-                    BBCodeHelper.FindUserQuoting(this.forumEditor.Text).ForEach(
-                        user =>
-                            {
-                                var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
-
-                                if (userId != this.PageContext.PageUserID)
-                                {
-                                    this.Get<IActivityStream>().AddQuotingToStream(
-                                        userId,
-                                        this.TopicId,
-                                        messageId.ToType<int>(),
-                                        this.PageContext.PageUserID);
-                                }
-                            });
-
-                    this.Get<IActivityStream>().AddReplyToStream(
-                        Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
-                        this.TopicId,
-                        messageId.ToType<int>(),
-                        this.PageContext.PageTopicName,
-                        this.forumEditor.Text);
-                }
-
                 if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)
                 {
                     // regular redirect...
@@ -655,87 +614,125 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Determines whether this instance [can quote post check] the specified topic info.
-        /// </summary>
-        /// <param name="topicInfo">
-        /// The topic info.
-        /// </param>
-        /// <returns>
-        /// The can quote post check.
-        /// </returns>
-        private bool CanQuotePostCheck(Topic topicInfo)
-        {
-            // get topic and forum information
-            var forumInfo = this.GetRepository<Forum>()
-                .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
-
-            if (topicInfo == null || forumInfo == null)
-            {
-                return false;
-            }
-
-            // Ederon : 9/9/2007 - moderator can reply to locked topics
-            return !forumInfo.ForumFlags.IsLocked
-                    && !topicInfo.TopicFlags.IsLocked || this.PageContext.ForumModeratorAccess
-                   && this.PageContext.ForumReplyAccess;
-        }
-
-        /// <summary>
-        /// Initializes the quoted reply.
+        /// The can edit post check.
         /// </summary>
         /// <param name="message">
-        /// The current TypedMessage.
+        /// The message.
         /// </param>
-        private void InitQuotedReply(Message message)
+        /// <param name="topicInfo">
+        /// The topic Info.
+        /// </param>
+        /// <returns>
+        /// Returns if user can edit post check.
+        /// </returns>
+        private bool CanEditPostCheck([NotNull] Message message, Topic topicInfo)
         {
-            var messageContent = message.MessageText;
+            var postLocked = false;
 
-            if (this.PageContext.BoardSettings.RemoveNestedQuotes)
+            if (!this.PageContext.IsAdmin && this.PageContext.BoardSettings.LockPosts > 0)
             {
-                messageContent = this.Get<IFormatMessage>().RemoveNestedQuotes(messageContent);
+                var edited = message.Edited.Value;
+
+                if (edited.AddDays(this.PageContext.BoardSettings.LockPosts) < DateTime.UtcNow)
+                {
+                    postLocked = true;
+                }
             }
 
-            /*if (this.forumEditor.UsesHTML && message.Flags.IsBBCode)
-            {
-                // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
-                messageContent = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(messageContent);
-            }*/
+            // get  forum information
+            var forumInfo = this.GetRepository<Forum>().GetById(this.PageContext.PageForumID);
 
-            if (this.forumEditor.UsesBBCode && message.MessageFlags.IsHtml)
-            {
-                // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
-                messageContent = this.Get<IBBCode>().ConvertHtmlToBBCodeForEdit(messageContent);
-            }
-
-            // Ensure quoted replies have bad words removed from them
-            messageContent = this.Get<IBadWordReplace>().Replace(messageContent);
-
-            // Remove HIDDEN Text
-            messageContent = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(messageContent);
-
-            // Quote the original message
-            this.forumEditor.Text +=
-                $"[quote={this.Get<IUserDisplayName>().GetNameById(message.UserID.ToType<int>())};{message.ID}]{messageContent}[/quote]\r\n"
-                    .TrimStart();
-
-            /*if (this.forumEditor.UsesHTML && message.Flags.IsBBCode)
-            {
-                // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
-                this.forumEditor.Text = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(this.forumEditor.Text);
-
-                this.forumEditor.Text = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
-                    this.forumEditor.Text,
-                    message.Flags,
-                    message.UserID,
-                    message.MessageID);
-            }*/
+            // Ederon : 9/9/2007 - moderator can edit in locked topics
+            return !postLocked && !forumInfo.ForumFlags.IsLocked
+                               && !topicInfo.TopicFlags.IsLocked
+                               && message.UserID == this.PageContext.PageUserID
+                    || this.PageContext.ForumModeratorAccess && this.PageContext.ForumEditAccess;
         }
 
         /// <summary>
-        /// Initializes a reply to the current topic.
+        /// The initializes the edited post.
         /// </summary>
-        private void InitReplyToTopic()
+        /// <param name="currentMessage">
+        /// The current message.
+        /// </param>
+        private void InitEditedPost([NotNull] Message currentMessage)
         {
+            /*if (this.forumEditor.UsesHTML && currentMessage.Flags.IsBBCode)
+            {
+                // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
+                currentMessage.Message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(currentMessage.Message);
+            }*/
+
+            if (this.forumEditor.UsesBBCode && currentMessage.MessageFlags.IsHtml)
+            {
+                // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
+                currentMessage.MessageText = this.Get<IBBCode>().ConvertHtmlToBBCodeForEdit(currentMessage.MessageText);
+            }
+
+            this.forumEditor.Text = currentMessage.MessageText;
+
+            if (this.forumEditor.UsesHTML && currentMessage.MessageFlags.IsBBCode)
+            {
+                this.forumEditor.Text = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
+                    this.forumEditor.Text,
+                    currentMessage.MessageFlags,
+                    currentMessage.UserID,
+                    currentMessage.ID);
+            }
+
+            this.Title.Text = this.GetText("EDIT");
+            this.PostReply.TextLocalizedTag = "SAVE";
+            this.PostReply.TextLocalizedPage = "COMMON";
+
+            // add topic link...
+            this.PageLinks.AddTopic(this.topic.TopicName, this.PageContext.PageTopicID);
+
+            // editing..
+            this.PageLinks.AddLink(this.GetText("EDIT"));
+
+            this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(this.PageContext.PageTopicName);
+            this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(this.topic.Description);
+
+            if (this.topic.UserID == currentMessage.UserID.ToType<int>()
+                || this.PageContext.ForumModeratorAccess)
+            {
+                // allow editing of the topic subject
+                this.TopicSubjectTextBox.Enabled = true;
+            }
+            else
+            {
+                this.TopicSubjectTextBox.Enabled = false;
+                this.TopicDescriptionTextBox.Enabled = false;
+            }
+
+            // Allow the Styling of Topic Titles only for Mods or Admins
+            if (this.PageContext.BoardSettings.UseStyledTopicTitles
+                && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
+            {
+                this.StyleRow.Visible = true;
+            }
+            else
+            {
+                this.StyleRow.Visible = false;
+                this.TopicStylesTextBox.Enabled = false;
+            }
+
+            this.TopicStylesTextBox.Text = this.topic.Styles;
+
+            this.Priority.SelectedItem.Selected = false;
+            this.Priority.Items.FindByValue(this.topic.Priority.ToString()).Selected = true;
+
+            this.EditReasonRow.Visible = true;
+            this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.EditReason);
+            this.PostOptions1.PersistentChecked = currentMessage.MessageFlags.IsPersistent;
+
+            var topicsList = this.GetRepository<TopicTag>().List(this.PageContext.PageTopicID);
+
+            if (topicsList.Any())
+            {
+                this.Tags.Text = topicsList.Select(t => t.Item2.TagName).ToDelimitedString(",");
+            }
+
             // Ederon : 9/9/2007 - moderators can reply in locked topics
             if (this.topic.TopicFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
             {
@@ -747,19 +744,7 @@ namespace YAF.Pages
                 }
             }
 
-            // add topic link...
-            this.PageLinks.AddTopic(this.topic.TopicName, this.PageContext.PageTopicID);
-
-            this.Title.Text = this.GetText("reply");
-
-            // add "reply" text...
-            this.PageLinks.AddLink(this.GetText("reply"));
-
             this.HandleUploadControls();
-
-            // show the last posts AJAX frame...
-            this.LastPosts1.Visible = true;
-            this.LastPosts1.TopicID = this.TopicId;
         }
 
         /// <summary>
@@ -785,44 +770,6 @@ namespace YAF.Pages
                 // subscribe to this topic...
                 this.GetRepository<WatchTopic>().Add(userId, topicId);
             }
-        }
-
-        /// <summary>
-        /// Checks the forum moderate status.
-        /// </summary>
-        /// <param name="forumInfo">The forum information.</param>
-        /// <param name="isNewTopic">if set to <c>true</c> [is new topic].</param>
-        /// <returns>
-        /// Returns if the forum needs to be moderated
-        /// </returns>
-        private bool CheckForumModerateStatus(Forum forumInfo, bool isNewTopic)
-        {
-            // User Moderate override
-            if (this.PageContext.User.UserFlags.Moderated)
-            {
-                return true;
-            }
-
-            var forumModerated = forumInfo.ForumFlags.IsModerated;
-
-            if (!forumModerated)
-            {
-                return false;
-            }
-
-            if (forumInfo.IsModeratedNewTopicOnly && !isNewTopic)
-            {
-                return false;
-            }
-
-            if (!forumInfo.ModeratedPostCount.HasValue || this.PageContext.IsGuest)
-            {
-                return true;
-            }
-
-            var moderatedPostCount = forumInfo.ModeratedPostCount;
-
-            return !(this.PageContext.User.NumPosts >= moderatedPostCount);
         }
 
         /// <summary>

@@ -1023,9 +1023,6 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
         /// <param name="priority">
         /// The priority.
         /// </param>
@@ -1061,7 +1058,6 @@ namespace YAF.Core.Model
         /// </param>
         public static void Update(
             this IRepository<Message> repository,
-            [NotNull] int messageId,
             [CanBeNull] short? priority,
             [NotNull] string message,
             [CanBeNull] string description,
@@ -1148,7 +1144,7 @@ namespace YAF.Core.Model
             // Update Search index Item
             var updateMessage = new SearchMessage
                                     {
-                                        MessageId = messageId,
+                                        MessageId = originalMessage.Item2.ID,
                                         Message = message,
                                         Flags = originalMessage.Item1.Flags,
                                         Posted = originalMessage.Item1.Posted.ToString(CultureInfo.InvariantCulture),

@@ -62,7 +62,6 @@ namespace YAF.Utils.Structures
         /// </summary>
         public MostRecentlyUsed()
         {
-            // TODO: Add constructor logic here
             this.Capacity = 50;
         }
 

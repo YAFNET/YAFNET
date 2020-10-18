@@ -26,19 +26,18 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Dynamic;
-    using System.Globalization;
-    using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
@@ -132,15 +131,15 @@ namespace YAF.Pages
                 BuildLink.RedirectInfoPage(InfoMessage.Invalid);
             }
 
-            this.PageLinks.AddForum(this.originalMessage.Item4.ID);
-            this.PageLinks.AddTopic(this.originalMessage.Item1.TopicName, this.originalMessage.Item1.ID);
-
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
             if (this.IsPostBack)
             {
                 return;
             }
+
+            this.PageLinks.AddForum(this.originalMessage.Item4.ID);
+            this.PageLinks.AddTopic(this.originalMessage.Item1.TopicName, this.originalMessage.Item1.ID);
+
+            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             this.BindData();
         }
@@ -187,37 +186,31 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "restore":
-                    // TODO : Handle Restore Message
                     var currentMessage = this.GetRepository<Message>().GetMessage(this.messageID);
 
-                    var revisionsTable = this.GetRepository<Types.Models.MessageHistory>().List(
-                        this.messageID,
-                        this.PageContext.BoardSettings.MessageHistoryDaysToLog);
+                    var edited = e.CommandArgument.ToType<DateTime>();
 
-                    var restoreMessage = revisionsTable.FirstOrDefault(
-                        mh => mh.Edited.ToString(CultureInfo.InvariantCulture) ==
-                              e.CommandArgument.ToType<string>());
+                    var messageToRestore = this.GetRepository<Types.Models.MessageHistory>().GetSingle(
+                        m => m.MessageID == this.messageID && m.Edited == edited);
 
-                   /////dfjdfälökgjslkgj
-
-                    if (restoreMessage != null)
+                    if (messageToRestore != null)
                     {
-                        /////fhkfölghkxgföälhkölk
                         this.GetRepository<Message>().Update(
-                            this.messageID,
                             null,
-                            (string)restoreMessage.Message,
-                            null,
+                            messageToRestore.Message,
                             null,
                             null,
                             null,
-                            (string)restoreMessage.EditReason,
+                            null,
+                            messageToRestore.EditReason,
                             this.PageContext.PageUserID != currentMessage.Item1.UserID,
                             this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
                             currentMessage,
                             this.PageContext.PageUserID);
 
                         this.PageContext.AddLoadMessage(this.GetText("MESSAGE_RESTORED"), MessageTypes.success);
+
+                        this.BindData();
                     }
 
                     break;
@@ -233,11 +226,11 @@ namespace YAF.Pages
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        protected string GetIpAddress(dynamic dataItem)
+        protected string GetIpAddress(MessageHistoryTopic dataItem)
         {
-            var ip = IPHelper.GetIp4Address((string)dataItem.IP);
+            var ip = IPHelper.GetIp4Address(dataItem.IP);
 
-            return ip.IsSet() ? ip : IPHelper.GetIp4Address((string)dataItem.MessageIP);
+            return ip.IsSet() ? ip : IPHelper.GetIp4Address(dataItem.MessageIP);
         }
 
         /// <summary>

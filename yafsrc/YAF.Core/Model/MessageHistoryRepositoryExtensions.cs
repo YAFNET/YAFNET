@@ -24,8 +24,7 @@
 namespace YAF.Core.Model
 {
     using System.Collections.Generic;
-    using System.Dynamic;
-
+    
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
@@ -33,6 +32,7 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     ///     The MessageHistory repository extensions.
@@ -56,7 +56,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns the List of all message changes.
         /// </returns>
-        public static List<dynamic> List(
+        public static List<MessageHistoryTopic> List(
             this IRepository<MessageHistory> repository,
             [NotNull] int messageId,
             [NotNull] int daysToClean)
@@ -96,31 +96,33 @@ namespace YAF.Core.Model
                                 MessageIP = m.IP
                             });
 
-                    return db.Connection.Select<dynamic>(expression);
+                    return db.Connection
+                        .Select<MessageHistoryTopic>(expression);
                 });
 
             // Load Current Message
             var currentMessage = BoardContext.Current.GetRepository<Message>().GetMessage(messageId);
 
-            dynamic current = new ExpandoObject();
-
-            current.EditReason = currentMessage.Item2.EditReason;
-            current.Edited = currentMessage.Item2.Posted;
-            current.EditedBy = currentMessage.Item2.UserID;
-            current.Flags = currentMessage.Item2.Flags;
-            current.IP = currentMessage.Item2.IP;
-            current.IsModeratorChanged = currentMessage.Item2.IsModeratorChanged;
-            current.MessageID = currentMessage.Item2.ID;
-            current.Message = currentMessage.Item2.MessageText;
-            current.DisplayName = currentMessage.Item3.Name;
-            current.DisplayName = currentMessage.Item3.DisplayName;
-            current.UserStyle = currentMessage.Item3.UserStyle;
-            current.Suspended = currentMessage.Item3.Suspended;
-            current.ForumID = currentMessage.Item1.ForumID;
-            current.TopicID = currentMessage.Item1.ID;
-            current.Topic = currentMessage.Item1.TopicName;
-            current.Posted = currentMessage.Item2.Posted;
-            current.MessageIP = currentMessage.Item2.IP;
+            var current = new MessageHistoryTopic
+            {
+                EditReason = currentMessage.Item2.EditReason,
+                Edited = currentMessage.Item2.Edited.Value,
+                EditedBy = currentMessage.Item2.UserID,
+                Flags = currentMessage.Item2.Flags,
+                IP = currentMessage.Item2.IP,
+                IsModeratorChanged = currentMessage.Item2.IsModeratorChanged,
+                MessageID = currentMessage.Item2.ID,
+                Message = currentMessage.Item2.MessageText,
+                Name = currentMessage.Item3.Name,
+                DisplayName = currentMessage.Item3.DisplayName,
+                UserStyle = currentMessage.Item3.UserStyle,
+                Suspended = currentMessage.Item3.Suspended,
+                ForumID = currentMessage.Item1.ForumID,
+                TopicID = currentMessage.Item1.ID,
+                Topic = currentMessage.Item1.TopicName,
+                Posted = currentMessage.Item2.Posted,
+                MessageIP = currentMessage.Item2.IP
+            };
 
             list.Add(current);
 

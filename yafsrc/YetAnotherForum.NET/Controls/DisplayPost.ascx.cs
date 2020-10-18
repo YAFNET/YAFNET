@@ -138,7 +138,7 @@ namespace YAF.Controls
             this.Edit.Visible = this.Edit2.Visible =
                                     !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
             this.Edit.NavigateUrl = this.Edit2.NavigateUrl = BuildLink.GetLink(
-                                        ForumPages.PostMessage,
+                                        ForumPages.EditMessage,
                                         "m={0}",
                                         this.PostData.MessageId);
             this.MovePost.Visible =
