@@ -78,9 +78,6 @@ namespace YAF.Core.Services
         /// </summary>
         public void GetFeed()
         {
-            // Atom feed as variable
-            var atomFeedType = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("type").ToEnum<SyndicationFormats>();
-
             FeedItem feed = null;
 
             var lastPostName = this.Get<ILocalization>().GetText("DEFAULT", "GO_LAST_POST");
@@ -102,18 +99,18 @@ namespace YAF.Core.Services
                 // Latest posts feed
                 case RssFeeds.LatestPosts:
                     if (!(BoardContext.Current.BoardSettings.ShowActiveDiscussions && this.Get<IPermissions>()
-                              .Check(BoardContext.Current.BoardSettings.PostLatestFeedAccess)))
+                        .Check(BoardContext.Current.BoardSettings.PostLatestFeedAccess)))
                     {
                         BuildLink.AccessDenied();
                     }
 
-                    feed = this.GetPostLatestFeed(feedType, atomFeedType, lastPostName);
+                    feed = this.GetPostLatestFeed(feedType, lastPostName);
                     break;
 
                 // Posts Feed
                 case RssFeeds.Posts:
-                    if (!(BoardContext.Current.ForumReadAccess
-                          && this.Get<IPermissions>().Check(BoardContext.Current.BoardSettings.PostsFeedAccess)))
+                    if (!(BoardContext.Current.ForumReadAccess && this.Get<IPermissions>()
+                        .Check(BoardContext.Current.BoardSettings.PostsFeedAccess)))
                     {
                         BuildLink.AccessDenied();
                     }
@@ -122,7 +119,7 @@ namespace YAF.Core.Services
                     {
                         var topicId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("t");
 
-                        feed = this.GetPostsFeed(feedType, atomFeedType, topicId.Value);
+                        feed = this.GetPostsFeed(feedType, topicId.Value);
                     }
 
                     break;
@@ -141,13 +138,13 @@ namespace YAF.Core.Services
                         categoryId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("c");
                     }
 
-                    feed = this.GetForumFeed(feedType, atomFeedType, categoryId);
+                    feed = this.GetForumFeed(feedType, categoryId);
                     break;
 
                 // Topics Feed
                 case RssFeeds.Topics:
-                    if (!(BoardContext.Current.ForumReadAccess
-                          && this.Get<IPermissions>().Check(BoardContext.Current.BoardSettings.TopicsFeedAccess)))
+                    if (!(BoardContext.Current.ForumReadAccess && this.Get<IPermissions>()
+                        .Check(BoardContext.Current.BoardSettings.TopicsFeedAccess)))
                     {
                         BuildLink.AccessDenied();
                     }
@@ -156,7 +153,7 @@ namespace YAF.Core.Services
                     {
                         var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("f");
 
-                        feed = this.GetTopicsFeed(feedType, atomFeedType, lastPostName, forumId.Value);
+                        feed = this.GetTopicsFeed(feedType, lastPostName, forumId.Value);
                     }
 
                     break;
@@ -168,7 +165,7 @@ namespace YAF.Core.Services
                         BuildLink.AccessDenied();
                     }
 
-                    feed = this.GetActiveFeed(feedType, atomFeedType, lastPostName);
+                    feed = this.GetActiveFeed(feedType, lastPostName);
 
                     break;
                 case RssFeeds.Favorite:
@@ -177,7 +174,7 @@ namespace YAF.Core.Services
                         BuildLink.AccessDenied();
                     }
 
-                    feed = this.GetFavoriteFeed(feedType, atomFeedType, lastPostName);
+                    feed = this.GetFavoriteFeed(feedType, lastPostName);
                     break;
                 default:
                     BuildLink.AccessDenied();
@@ -192,19 +189,10 @@ namespace YAF.Core.Services
                 writer.WriteStartDocument();
 
                 // write the feed to the response writer);
-                if (atomFeedType == SyndicationFormats.Rss)
-                {
-                    var rssFormatter = new Rss20FeedFormatter(feed);
-                    rssFormatter.WriteTo(writer);
-                    this.Get<HttpResponseBase>().ContentType = "application/rss+xml";
-                }
-                else
-                {
-                    var atomFormatter = new Atom10FeedFormatter(feed);
-                    atomFormatter.WriteTo(writer);
+                var atomFormatter = new Atom10FeedFormatter(feed);
+                atomFormatter.WriteTo(writer);
 
-                    this.Get<HttpResponseBase>().ContentType = "application/atom+xml";
-                }
+                this.Get<HttpResponseBase>().ContentType = "application/atom+xml";
 
                 writer.WriteEndDocument();
                 writer.Close();
@@ -249,16 +237,13 @@ namespace YAF.Core.Services
         /// <param name="feedType">
         /// The FeedType.
         /// </param>
-        /// <param name="feedFormat">
-        /// The feed Format.
-        /// </param>
         /// <param name="lastPostName">
         /// The last post name.
         /// </param>
         /// <returns>
         /// The <see cref="FeedItem"/>.
         /// </returns>
-        public FeedItem GetActiveFeed(RssFeeds feedType, SyndicationFormats feedFormat, [NotNull] string lastPostName)
+        public FeedItem GetActiveFeed([NotNull] RssFeeds feedType, [NotNull] string lastPostName)
         {
             var syndicationItems = new List<SyndicationItem>();
             var toActDate = System.DateTime.UtcNow;
@@ -297,7 +282,6 @@ namespace YAF.Core.Services
             var feed = new FeedItem(
                 $"{this.Get<ILocalization>().GetText("MYTOPICS", "ACTIVETOPICS")} - {toActText}",
                 feedType,
-                feedFormat,
                 urlAlphaNum);
 
             var topics = this.GetRepository<Topic>().ListActivePaged(
@@ -340,7 +324,7 @@ namespace YAF.Core.Services
                             false),
                         null,
                         messageLink,
-                        $"urn:{urlAlphaNum}:ft{feedNameAlphaNum}:st{feedType}:span{feedFormat.ToInt()}:ltid{t.LinkTopicID}:lmid{t.LastMessageID}:{BoardContext.Current.PageBoardID}"
+                        $"urn:{urlAlphaNum}:ft{feedNameAlphaNum}:st{feedType}:ltid{t.LinkTopicID}:lmid{t.LastMessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
                         lastPosted,
                         feed);
@@ -357,16 +341,13 @@ namespace YAF.Core.Services
         /// <param name="feedType">
         /// The FeedType.
         /// </param>
-        /// <param name="feedFormat">
-        /// The feed Format.
-        /// </param>
         /// <param name="lastPostName">
         /// The last post name.
         /// </param>
         /// <returns>
         /// The <see cref="FeedItem"/>.
         /// </returns>
-        public FeedItem GetFavoriteFeed(RssFeeds feedType, SyndicationFormats feedFormat, [NotNull] string lastPostName)
+        public FeedItem GetFavoriteFeed([NotNull] RssFeeds feedType, [NotNull] string lastPostName)
         {
             var syndicationItems = new List<SyndicationItem>();
 
@@ -413,7 +394,6 @@ namespace YAF.Core.Services
             var feed = new FeedItem(
                 $"{this.Get<ILocalization>().GetText("MYTOPICS", "FAVORITETOPICS")} - {toFavText}",
                 feedType,
-                feedFormat,
                 urlAlphaNum);
 
             list.ForEach(
@@ -441,7 +421,7 @@ namespace YAF.Core.Services
                             false),
                         null,
                         BuildLink.GetLink(ForumPages.Posts, true, "t={0}&name={1}", t.LinkTopicID, t.Subject),
-                        $"urn:{urlAlphaNum}:ft{feedType}:st{feedFormat.ToInt()}:span{feedNameAlphaNum}:ltid{t.LinkTopicID}:lmid{t.LastMessageID}:{BoardContext.Current.PageBoardID}"
+                        $"urn:{urlAlphaNum}:ft{feedType}:span{feedNameAlphaNum}:ltid{t.LinkTopicID}:lmid{t.LastMessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
                         lastPosted,
                         feed);
@@ -458,19 +438,13 @@ namespace YAF.Core.Services
         /// <param name="feedType">
         /// The FeedType.
         /// </param>
-        /// <param name="feedFormat">
-        /// The feed Format.
-        /// </param>
         /// <param name="categoryId">
         /// The category id.
         /// </param>
         /// <returns>
         /// The <see cref="FeedItem"/>.
         /// </returns>
-        public FeedItem GetForumFeed(
-            RssFeeds feedType,
-            [NotNull] SyndicationFormats feedFormat,
-            [CanBeNull] int? categoryId)
+        public FeedItem GetForumFeed([NotNull] RssFeeds feedType, [CanBeNull] int? categoryId)
         {
             var syndicationItems = new List<SyndicationItem>();
 
@@ -483,11 +457,7 @@ namespace YAF.Core.Services
 
             var urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
-            var feed = new FeedItem(
-                this.Get<ILocalization>().GetText("DEFAULT", "FORUM"),
-                feedType,
-                feedFormat,
-                urlAlphaNum);
+            var feed = new FeedItem(this.Get<ILocalization>().GetText("DEFAULT", "FORUM"), feedType, urlAlphaNum);
 
             forums.Where(x => x.LastPosted.HasValue && !x.TopicMovedID.HasValue).ForEach(
                 forum =>
@@ -518,7 +488,7 @@ namespace YAF.Core.Services
                         forum.Description,
                         null,
                         BuildLink.GetLink(ForumPages.Topics, true, "f={0}&name={1}", forum.ForumID, forum.Forum),
-                        $@"urn:{urlAlphaNum}:ft{feedType}:st{feedFormat.ToInt()}:
+                        $@"urn:{urlAlphaNum}:ft{feedType}:
                               fid{forum.ForumID}:lmid{forum.LastMessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
                         lastPosted,
@@ -568,29 +538,19 @@ namespace YAF.Core.Services
         /// <param name="feedType">
         /// The FeedType.
         /// </param>
-        /// <param name="feedFormat">
-        /// The feed Format.
-        /// </param>
         /// <param name="lastPostName">
         /// The last post name.
         /// </param>
         /// <returns>
         /// The <see cref="FeedItem"/>.
         /// </returns>
-        public FeedItem GetPostLatestFeed(
-            RssFeeds feedType,
-            SyndicationFormats feedFormat,
-            [NotNull] string lastPostName)
+        public FeedItem GetPostLatestFeed([NotNull] RssFeeds feedType, [NotNull] string lastPostName)
         {
             var syndicationItems = new List<SyndicationItem>();
 
             var urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
-            var feed = new FeedItem(
-                this.Get<ILocalization>().GetText("ACTIVE_DISCUSSIONS"),
-                feedType,
-                feedFormat,
-                urlAlphaNum);
+            var feed = new FeedItem(this.Get<ILocalization>().GetText("ACTIVE_DISCUSSIONS"), feedType, urlAlphaNum);
 
             var topics = this.GetRepository<Topic>().RssLatest(
                 BoardContext.Current.PageBoardID,
@@ -645,7 +605,7 @@ namespace YAF.Core.Services
                             "t={0}&name={1}",
                             topic.Item2.ID,
                             topic.Item2.TopicName),
-                        $"urn:{urlAlphaNum}:ft{feedType}:st{feedFormat.ToInt()}:tid{topic.Item2.ID}:mid{topic.Item2.LastMessageID}:{BoardContext.Current.PageBoardID}"
+                        $"urn:{urlAlphaNum}:ft{feedType}:tid{topic.Item2.ID}:mid{topic.Item2.LastMessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
                         lastPosted,
                         feed);
@@ -664,16 +624,13 @@ namespace YAF.Core.Services
         /// <param name="feedType">
         /// The FeedType.
         /// </param>
-        /// <param name="feedFormat">
-        /// The feed Format.
-        /// </param>
         /// <param name="topicId">
         /// The TopicID
         /// </param>
         /// <returns>
         /// The <see cref="FeedItem"/>.
         /// </returns>
-        public FeedItem GetPostsFeed(RssFeeds feedType, SyndicationFormats feedFormat, int topicId)
+        public FeedItem GetPostsFeed([NotNull] RssFeeds feedType, [NotNull] int topicId)
         {
             var syndicationItems = new List<SyndicationItem>();
 
@@ -712,7 +669,6 @@ namespace YAF.Core.Services
             var feed = new FeedItem(
                 $"{this.Get<ILocalization>().GetText("PROFILE", "TOPIC")}{BoardContext.Current.PageTopicName} - {BoardContext.Current.BoardSettings.PostsPerPage}",
                 feedType,
-                feedFormat,
                 urlAlphaNum);
 
             posts.ForEach(
@@ -752,7 +708,7 @@ namespace YAF.Core.Services
                             "m={0}&name={1}&find=lastpost",
                             row.MessageID,
                             row.Topic),
-                        $"urn:{urlAlphaNum}:ft{feedType}:st{feedFormat.ToInt()}:meid{row.MessageID}:{BoardContext.Current.PageBoardID}"
+                        $"urn:{urlAlphaNum}:ft{feedType}:meid{row.MessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
                         posted,
                         feed,
@@ -773,9 +729,6 @@ namespace YAF.Core.Services
         /// <param name="feedType">
         /// The FeedType.
         /// </param>
-        /// <param name="feedFormat">
-        /// The feed Format.
-        /// </param>
         /// <param name="lastPostName">
         /// The last post name.
         /// </param>
@@ -785,11 +738,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The <see cref="FeedItem"/>.
         /// </returns>
-        public FeedItem GetTopicsFeed(
-            [NotNull] RssFeeds feedType,
-            [NotNull] SyndicationFormats feedFormat,
-            [NotNull] string lastPostName,
-            [NotNull] int forumId)
+        public FeedItem GetTopicsFeed([NotNull] RssFeeds feedType, [NotNull] string lastPostName, [NotNull] int forumId)
         {
             var syndicationItems = new List<SyndicationItem>();
 
@@ -803,7 +752,6 @@ namespace YAF.Core.Services
             var feed = new FeedItem(
                 $"{this.Get<ILocalization>().GetText("DEFAULT", "FORUM")}:{BoardContext.Current.PageForumName}",
                 feedType,
-                feedFormat,
                 urlAlphaNum);
 
             topics.ForEach(
@@ -820,9 +768,6 @@ namespace YAF.Core.Services
                                 null,
                                 null));
                         feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
-
-                        // Alternate Link
-                        // feed.Links.Add(new SyndicationLink(new Uri(BuildLink.GetLink(ForumPages.Posts, true))));
                     }
 
                     feed.Contributors.Add(
@@ -851,7 +796,7 @@ namespace YAF.Core.Services
                         content,
                         null,
                         postLink,
-                        $"urn:{urlAlphaNum}:ft{feedType}:st{feedFormat.ToInt()}:tid{topic.TopicID}:lmid{topic.LastMessageID}:{BoardContext.Current.PageBoardID}"
+                        $"urn:{urlAlphaNum}:ft{feedType}:tid{topic.TopicID}:lmid{topic.LastMessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
                         lastPosted,
                         feed);

@@ -11,7 +11,7 @@ namespace YAF.Pages
 {
 
 
-    public partial class RssTopic
+    public partial class Feed
     {
     }
 }

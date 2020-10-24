@@ -305,13 +305,6 @@ namespace YAF.Pages
                     "atomfeed", this.GetText("ATOMTOPIC"), "fa fa-rss");
             }
 
-            if (this.PageContext.BoardSettings.ShowRSSLink
-                && this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostsFeedAccess))
-            {
-                this.OptionsMenu.AddPostBackItem(
-                    "rssfeed", this.GetText("RSSTOPIC"), "fa fa-rss-square");
-            }
-
             // attach the menus to HyperLinks
             this.ShareMenu.Attach(this.ShareLink);
             this.OptionsMenu.Attach(this.OptionsLink);
@@ -1053,17 +1046,10 @@ namespace YAF.Pages
                 case "email":
                     this.EmailTopic_Click(sender, e);
                     break;
-                case "rssfeed":
-                    BuildLink.Redirect(
-                        ForumPages.RssTopic,
-                        "pg={0}&t={1}&ft=0",
-                        RssFeeds.Posts.ToInt(),
-                        this.PageContext.PageTopicID);
-                    break;
                 case "atomfeed":
                     BuildLink.Redirect(
-                        ForumPages.RssTopic,
-                        "pg={0}&t={1}&ft=1",
+                        ForumPages.Feed,
+                        "feed={0}&t={1}",
                         RssFeeds.Posts.ToInt(),
                         this.PageContext.PageTopicID);
                     break;

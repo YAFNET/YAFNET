@@ -229,7 +229,7 @@ namespace YAF.Controls
                                        this.Get<IPermissions>()
                                            .Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
 
-            if (!this.PageContext.BoardSettings.ShowRSSLink && !this.PageContext.BoardSettings.ShowAtomLink)
+            if (!this.PageContext.BoardSettings.ShowAtomLink)
             {
                 this.Footer.Visible = false;
             }

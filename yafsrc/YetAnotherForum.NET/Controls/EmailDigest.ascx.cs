@@ -35,8 +35,8 @@ namespace YAF.Controls
     using ServiceStack;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
+    using YAF.Core.BoardSettings;
     using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Core.Services.Localization;

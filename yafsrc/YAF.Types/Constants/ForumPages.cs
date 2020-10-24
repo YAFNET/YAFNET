@@ -199,9 +199,9 @@ namespace YAF.Types.Constants
         Email,
 
         /// <summary>
-        /// The RSS Topic page.
+        /// The Feed page.
         /// </summary>
-        RssTopic,
+        Feed,
 
         /// <summary>
         /// The PollEdit page.

@@ -299,8 +299,10 @@ namespace YAF.Data.MsSql.Functions
         /// Called from RunSql -- just runs a sql command according to specifications.
         /// </summary>
         /// <param name="command">
+        /// The command.
         /// </param>
         /// <param name="useTransaction">
+        /// The use Transaction.
         /// </param>
         /// <returns>
         /// The inner run sql execute reader.

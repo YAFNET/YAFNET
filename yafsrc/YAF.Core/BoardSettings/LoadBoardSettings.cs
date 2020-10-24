@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.BoardSettings
 {
     #region Using
 
@@ -64,6 +64,8 @@ namespace YAF.Core
         {
             this.BoardId = boardId;
 
+            this.BoardName = this.CurrentBoard.Name;
+
             // get all the registry values for the forum
             this.LoadBoardSettingsFromDB();
         }
@@ -71,16 +73,6 @@ namespace YAF.Core
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the legacy board settings.
-        /// </summary>
-        protected override LegacyBoardSettings LegacySettings
-        {
-            get => base.LegacySettings ?? (base.LegacySettings = SetupLegacyBoardSettings(this.CurrentBoard));
-
-            set => base.LegacySettings = value;
-        }
 
         /// <summary>
         /// Gets the current board.
@@ -121,23 +113,6 @@ namespace YAF.Core
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// The setup legacy board settings.
-        /// </summary>
-        /// <param name="board">
-        /// The board.
-        /// </param>
-        /// <returns>
-        /// The <see cref="LegacyBoardSettings"/>.
-        /// </returns>
-        private static LegacyBoardSettings SetupLegacyBoardSettings([NotNull] Board board)
-        {
-            CodeContracts.VerifyNotNull(board, "board");
-
-            return new LegacyBoardSettings(
-                board.Name);
-        }
 
         /// <summary>
         /// Loads the board settings from database.

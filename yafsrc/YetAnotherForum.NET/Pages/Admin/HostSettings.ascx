@@ -1007,15 +1007,7 @@
                     </div>
                     <div class="tab-pane fade" id="syndication" role="tabpanel" aria-labelledby="syndication-tab">
                         <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel131" runat="server" 
-                                               AssociatedControlID="ShowRSSLink"
-                                               LocalizedTag="SHOW_RSS_LINKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <div class="form-check form-switch">
-                                    <asp:CheckBox Text="&nbsp;" ID="ShowRSSLink" runat="server"></asp:CheckBox>
-                                </div>
-                            </div>
-                            <div class="mb-3 col-md-6">
+                            <div class="mb-3">
                                 <YAF:HelpLabel ID="HelpLabel132" runat="server"
                                                AssociatedControlID="ShowAtomLink"
                                                LocalizedTag="SHOW_ATOM_LINKS" LocalizedPage="ADMIN_HOSTSETTINGS" />

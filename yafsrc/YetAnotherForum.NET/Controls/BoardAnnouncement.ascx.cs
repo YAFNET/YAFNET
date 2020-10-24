@@ -28,8 +28,8 @@ namespace YAF.Controls
     using System;
     using System.Globalization;
 
-    using YAF.Core;
     using YAF.Core.BaseControls;
+    using YAF.Core.BoardSettings;
     using YAF.Types;
     using YAF.Types.Extensions;
     

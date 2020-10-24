@@ -176,7 +176,8 @@ namespace YAF.Pages
         {
             this.Get<ISession>().UnreadTopics = 0;
 
-            this.RssFeed.AdditionalParameters = $"f={this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f")}";
+            this.RssFeed.AdditionalParameters =
+                $"f={this.PageContext.PageForumID}&name={this.PageContext.PageForumName}";
 
             this.ForumJumpHolder.Visible = this.PageContext.BoardSettings.ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;

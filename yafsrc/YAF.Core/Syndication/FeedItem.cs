@@ -64,27 +64,23 @@ namespace YAF.Core.Syndication
         /// <param name="feedType">
         /// The feed source.
         /// </param>
-        /// <param name="feedFormat">
-        /// The feed Format.
-        /// </param>
         /// <param name="urlAlphaNum">
         /// The alphanumerically encoded base site Url.
         /// </param>
-        public FeedItem([NotNull] string subTitle, RssFeeds feedType, SyndicationFormats feedFormat, [NotNull] string urlAlphaNum)
+        public FeedItem([NotNull] string subTitle, RssFeeds feedType, string urlAlphaNum)
         {
-            this.Copyright =
-                new TextSyndicationContent($"Copyright {DateTime.Now.Year} {BoardContext.Current.BoardSettings.Name}");
+            this.Copyright = new TextSyndicationContent(
+                $"Copyright {DateTime.Now.Year} {BoardContext.Current.BoardSettings.Name}");
             this.Description = new TextSyndicationContent(
-                $"{BoardContext.Current.BoardSettings.Name} - {(feedFormat == SyndicationFormats.Atom ? BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED") : BoardContext.Current.Get<ILocalization>().GetText("RSSFEED"))}");
+                $"{BoardContext.Current.BoardSettings.Name} - {BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED")}");
             this.Title = new TextSyndicationContent(
-                $"{(feedFormat == SyndicationFormats.Atom ? BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED") : BoardContext.Current.Get<ILocalization>().GetText("RSSFEED"))} - {BoardContext.Current.BoardSettings.Name} - {subTitle}");
+                $"{BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED")} - {BoardContext.Current.BoardSettings.Name} - {subTitle}");
 
             // Alternate link
             this.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(BaseUrlBuilder.BaseUrl)));
 
             // Self Link
-            var slink = new Uri(
-                BuildLink.GetLink(ForumPages.RssTopic, true, $"pg={feedType.ToInt()}&ft={feedFormat.ToInt()}"));
+            var slink = new Uri(BuildLink.GetLink(ForumPages.Feed, true, $"feed={feedType.ToInt()}"));
             this.Links.Add(SyndicationLink.CreateSelfLink(slink));
 
             this.Generator = "YetAnotherForum.NET";
@@ -94,12 +90,11 @@ namespace YAF.Core.Syndication
                 $"{BaseUrlBuilder.BaseUrl}{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{BoardContext.Current.BoardSettings.ForumLogo}");
 
             this.Id =
-                $"urn:{urlAlphaNum}:{(feedFormat == SyndicationFormats.Atom ? BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED") : BoardContext.Current.Get<ILocalization>().GetText("RSSFEED"))}:{BoardContext.Current.BoardSettings.Name}:{subTitle}:{BoardContext.Current.PageBoardID}"
+                $"urn:{urlAlphaNum}:{BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED")}:{BoardContext.Current.BoardSettings.Name}:{subTitle}:{BoardContext.Current.PageBoardID}"
                     .Unidecode();
 
             this.Id = this.Id.Replace(" ", string.Empty);
 
-            // this.Id = "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D"));
             this.BaseUri = slink;
             this.Authors.Add(
                 new SyndicationPerson(

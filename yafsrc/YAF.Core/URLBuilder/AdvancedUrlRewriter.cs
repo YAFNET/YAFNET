@@ -26,6 +26,9 @@ namespace YAF.Core.URLBuilder
     #region Using
 
     using System;
+    using System.Text;
+
+    using J2N.Text;
 
     using YAF.Configuration;
     using YAF.Core.Helpers;
@@ -53,7 +56,9 @@ namespace YAF.Core.URLBuilder
         /// </returns>
         public override string BuildUrl(string url)
         {
-            var newUrl = $"{AppPath}{Config.ForceScriptName ?? ScriptName}?{url}";
+            var newUrl = new StringBuilder();
+
+            newUrl.Append($"{AppPath}{Config.ForceScriptName ?? ScriptName}?{url}");
 
             // create scriptName
             var scriptName = $"{AppPath}{Config.ForceScriptName ?? ScriptName}";
@@ -63,12 +68,13 @@ namespace YAF.Core.URLBuilder
 
             if (url.IsNotSet())
             {
-                return newUrl;
+                return newUrl.ToString();
             }
 
-            //const string gsr = "getsearchresults";
-            //scriptName = scriptName.Replace(gsr, scriptFile);
-            //newUrl = newUrl.Replace(gsr, scriptFile);
+            // TODO : is this needed?!
+            /*const string gsr = "getsearchresults";
+            scriptName = scriptName.Replace(gsr, scriptFile);
+            newUrl = newUrl.Replace(gsr, scriptFile);*/
 
             if (scriptName.EndsWith(scriptFile))
             {
@@ -77,7 +83,8 @@ namespace YAF.Core.URLBuilder
                 var parser = new SimpleURLParameterParser(url);
 
                 // create "rewritten" url...
-                newUrl = before;
+                newUrl.Clear();
+                newUrl.Append(before);
 
                 var useKey = string.Empty;
                 var description = string.Empty;
@@ -148,7 +155,7 @@ namespace YAF.Core.URLBuilder
                             }
 
                             break;
-                        case ForumPages.RssTopic:
+                        case ForumPages.Feed:
                             pageName += "/";
 
                             if (parser["feed"].IsSet())
@@ -158,17 +165,17 @@ namespace YAF.Core.URLBuilder
 
                             if (parser["f"].IsSet())
                             {
-                                description += $"_{parser["name"]}";
+                                description = parser["name"];
                             }
 
                             if (parser["t"].IsSet())
                             {
-                                description += $"_{parser["name"]}";
+                                description = parser["name"];
                             }
 
                             if (parser["c"].IsSet())
                             {
-                                description += $"_{parser["name"]}";
+                                description = parser["name"];
                             }
 
                             handlePage = true;
@@ -198,11 +205,11 @@ namespace YAF.Core.URLBuilder
                     pageName = parser["g"].Replace("Account_", "Account/");
                 }
 
-                newUrl += pageName;
+                newUrl.Append(pageName);
 
                 if (useKey.Length > 0)
                 {
-                    newUrl += parser[useKey];
+                    newUrl.Append(parser[useKey]);
                 }
 
                 // handle pager links
@@ -222,32 +229,32 @@ namespace YAF.Core.URLBuilder
 
                 if (isFeed)
                 {
-                    if (parser["type"] != null)
-                    {
-                        var page = parser["type"].ToType<int>();
-                        newUrl += $"type{page}";
-                        parser.Parameters.Remove("type");
-                    }
-
                     if (parser["feed"] != null)
                     {
                         var page = parser["feed"].ToType<int>();
-                        newUrl += $"feed{page}";
+                        newUrl.Append(page);
                         parser.Parameters.Remove("feed");
                     }
 
                     if (parser["f"] != null)
                     {
                         var page = parser["f"].ToType<int>();
-                        newUrl += $"f{page}";
+                        newUrl.AppendFormat("-f{0}", page);
                         parser.Parameters.Remove("f");
                     }
 
                     if (parser["t"] != null)
                     {
                         var page = parser["t"].ToType<int>();
-                        newUrl += $"t{page}";
+                        newUrl.AppendFormat("-t{0}", page);
                         parser.Parameters.Remove("t");
+                    }
+
+                    if (parser["c"] != null)
+                    {
+                        var page = parser["c"].ToType<int>();
+                        newUrl.AppendFormat("-c{0}", page);
+                        parser.Parameters.Remove("c");
                     }
                 }
 
@@ -258,7 +265,7 @@ namespace YAF.Core.URLBuilder
                         description = description.Remove(description.Length - 1, 1);
                     }
 
-                    newUrl += $"-{description}";
+                    newUrl.AppendFormat("-{0}", description);
                 }
 
                 var restUrl = parser.CreateQueryString(new[] { "g", useKey, "name" });
@@ -266,26 +273,26 @@ namespace YAF.Core.URLBuilder
                 // append to the url if there are additional (unsupported) parameters
                 if (restUrl.Length > 0)
                 {
-                    newUrl += $"?{restUrl}";
+                    newUrl.AppendFormat("?{0}", restUrl);
                 }
 
-                if (newUrl.EndsWith("/forum"))
+                if (newUrl.ToString().EndsWith("/forum"))
                 {
                     // remove in favor of just slash...
-                    newUrl = newUrl.Remove(newUrl.LastIndexOf("/forum", StringComparison.Ordinal), "/forum".Length);
+                    newUrl.Remove(newUrl.LastIndexOf("/forum", StringComparison.Ordinal), "/forum".Length);
                 }
 
                 // add anchor
                 if (parser.HasAnchor)
                 {
-                    newUrl += $"#{parser.Anchor}";
+                    newUrl.AppendFormat("#{0}", parser.Anchor);
                 }
             }
 
             // just make sure & is &amp; ...
             newUrl = newUrl.Replace("&amp;", "&").Replace("&", "&amp;");
 
-            return newUrl;
+            return newUrl.ToString();
         }
 
         /// <summary>

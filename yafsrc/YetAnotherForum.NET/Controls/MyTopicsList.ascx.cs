@@ -444,7 +444,7 @@ namespace YAF.Controls
             var accessFavorite = this.Get<IPermissions>().Check(this.PageContext.BoardSettings.FavoriteTopicFeedAccess);
 
             // RSS link setup 
-            if (!this.PageContext.BoardSettings.ShowRSSLink)
+            if (!this.PageContext.BoardSettings.ShowAtomLink)
             {
                 return;
             }

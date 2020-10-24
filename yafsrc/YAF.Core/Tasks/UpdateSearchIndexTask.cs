@@ -29,6 +29,7 @@ namespace YAF.Core.Tasks
     using System.Globalization;
     using System.Threading;
 
+    using YAF.Core.BoardSettings;
     using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types.Constants;

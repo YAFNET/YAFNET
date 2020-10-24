@@ -30,8 +30,8 @@ namespace YAF.Pages.Admin
     using System.Globalization;
     using System.Net.Mail;
 
-    using YAF.Core;
     using YAF.Core.BasePages;
+    using YAF.Core.BoardSettings;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

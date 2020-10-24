@@ -3,7 +3,7 @@
     <ProductVersion>9.0.30729</ProductVersion>
     <FileUpgradeFlags />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks>net48</TargetFrameworks>
     <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>

@@ -28,6 +28,7 @@ namespace YAF.Core.Helpers
     using System.Web;
 
     using YAF.Configuration;
+    using YAF.Core.BoardSettings;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;

@@ -41,6 +41,7 @@ namespace YAF.Configuration
         public BoardSettings()
         {
             this.BoardId = 0;
+            this.BoardName = string.Empty;
             this.Registry = new RegistryDictionaryOverride();
             this.RegistryBoard = new RegistryDictionary();
 
@@ -117,7 +118,7 @@ namespace YAF.Configuration
         /// Gets Name.
         /// individual board settings
         /// </summary>
-        public string Name => this.LegacySettings.BoardName;
+        public string Name => this.BoardName;
 
         /// <summary>
         /// Gets the board identifier.
@@ -1436,16 +1437,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether ShowRSSLink.
-        /// </summary>
-        public bool ShowRSSLink
-        {
-            get => this.Registry.GetValue("ShowRSSLink", false);
-
-            set => this.Registry.SetValue("ShowRSSLink", value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether ShowAtomLink.
         /// </summary>
         public bool ShowAtomLink
@@ -2389,8 +2380,8 @@ namespace YAF.Configuration
         protected virtual int BoardId { get; set; }
 
         /// <summary>
-        ///  Gets or sets the legacy board settings.
+        /// Gets or sets the board name.
         /// </summary>
-        protected virtual LegacyBoardSettings LegacySettings { get; set; }
+        protected virtual string BoardName { get; set;}
     }
 }

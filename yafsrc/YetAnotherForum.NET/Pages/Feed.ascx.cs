@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,39 +22,59 @@
  * under the License.
  */
 
-namespace YAF.Configuration
+namespace YAF.Pages
 {
+    #region Using
+
+    using System;
+
+    using YAF.Core.BasePages;
+    using YAF.Core.Services;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+
+    #endregion
+
     /// <summary>
-    /// The YAF legacy board settings.
+    /// Generates the RSS Feeds.
     /// </summary>
-    public class LegacyBoardSettings
+    public partial class Feed : ForumPage
     {
+        #region Constructors and Destructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="LegacyBoardSettings"/> class.
+        ///   Initializes a new instance of the <see cref = "Feed" /> class.
         /// </summary>
-        public LegacyBoardSettings()
+        public Feed()
+            : base("RSSTOPIC")
         {
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="LegacyBoardSettings"/> class.
+        /// The page_ load.
         /// </summary>
-        /// <param name="boardName">
-        /// The board name.
+        /// <param name="sender">
+        /// The sender.
         /// </param>
-        public LegacyBoardSettings(string boardName)
-            : this()
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.BoardName = boardName;
+            if (!this.PageContext.BoardSettings.ShowAtomLink)
+            {
+                BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+            }
+
+            this.Get<SyndicationFeeds>().GetFeed();
         }
 
-        /// <summary>
-        /// Gets or sets BoardName.
-        /// </summary>
-        public string BoardName
-        {
-            get;
-            set;
-        }
+        #endregion
     }
 }

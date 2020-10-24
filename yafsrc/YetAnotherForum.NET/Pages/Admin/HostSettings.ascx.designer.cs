@@ -2013,24 +2013,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox PopularTopicDays;
 
         /// <summary>
-        /// HelpLabel131 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel131;
-
-        /// <summary>
-        /// ShowRSSLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowRSSLink;
-
-        /// <summary>
         /// HelpLabel132 control.
         /// </summary>
         /// <remarks>
