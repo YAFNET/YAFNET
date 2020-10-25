@@ -930,6 +930,13 @@
     <Compile Include="Pages\Moderate\Forums.ascx.designer.cs">
       <DependentUpon>Forums.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\EditMessage.ascx.cs">
+      <DependentUpon>EditMessage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\EditMessage.ascx.designer.cs">
+      <DependentUpon>EditMessage.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Profile\Attachments.ascx.designer.cs">
       <DependentUpon>Attachments.ascx</DependentUpon>
     </Compile>
@@ -1116,8 +1123,8 @@
     <Compile Include="Pages\ReportPost.ascx.designer.cs">
       <DependentUpon>ReportPost.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\RssTopic.ascx.designer.cs">
-      <DependentUpon>RssTopic.ascx</DependentUpon>
+    <Compile Include="Pages\Feed.ascx.designer.cs">
+      <DependentUpon>Feed.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Cookies.ascx.cs">
       <DependentUpon>Cookies.ascx</DependentUpon>
@@ -2165,6 +2172,7 @@
     <Content Include="Pages\Albums.ascx" />
     <Content Include="Pages\Account\Approve.ascx" />
     <Content Include="Pages\Moderate\Forums.ascx" />
+    <Content Include="Pages\EditMessage.ascx" />
     <Content Include="Pages\Profile\Attachments.ascx" />
     <Content Include="Pages\Profile\DeleteAccount.ascx" />
     <Content Include="Pages\Profile\ChangePassword.ascx" />
@@ -2207,7 +2215,7 @@
     <Content Include="Pages\Account\ForgotPassword.ascx" />
     <Content Include="Pages\Account\Register.ascx" />
     <Content Include="Pages\ReportPost.ascx" />
-    <Content Include="Pages\RssTopic.ascx" />
+    <Content Include="Pages\Feed.ascx" />
     <Content Include="Pages\Cookies.ascx" />
     <Content Include="Pages\RulesAndPrivacy.ascx" />
     <Content Include="Pages\Search.ascx" />
@@ -3188,8 +3196,8 @@
       <DependentUpon>ReportPost.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\RssTopic.ascx.cs">
-      <DependentUpon>RssTopic.ascx</DependentUpon>
+    <Compile Include="Pages\Feed.ascx.cs">
+      <DependentUpon>Feed.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\RulesAndPrivacy.ascx.cs">
@@ -3423,83 +3431,8 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>del YAF.dll.config
-RD /S /Q "$(TargetDir)bin\"
-
-xcopy "$(TargetDir)ar" "$(TargetDir)\languages\ar" /e /y /i /r
-RD /S /Q "$(TargetDir)ar\"
-
-xcopy "$(TargetDir)cs" "$(TargetDir)\languages\cs" /e /y /i /r
-RD /S /Q "$(TargetDir)cs\"
-
-xcopy "$(TargetDir)da" "$(TargetDir)\languages\da" /e /y /i /r
-RD /S /Q "$(TargetDir)da\"
-
-xcopy "$(TargetDir)de" "$(TargetDir)\languages\de" /e /y /i /r
-RD /S /Q "$(TargetDir)de\"
-
-xcopy "$(TargetDir)es" "$(TargetDir)\languages\es" /e /y /i /r
-RD /S /Q "$(TargetDir)es\"
-
-xcopy "$(TargetDir)et" "$(TargetDir)\languages\et" /e /y /i /r
-RD /S /Q "$(TargetDir)et\"
-
-xcopy "$(TargetDir)fa" "$(TargetDir)\languages\fa" /e /y /i /r
-RD /S /Q "$(TargetDir)fa\"
-
-xcopy "$(TargetDir)fi" "$(TargetDir)\languages\fi" /e /y /i /r
-RD /S /Q "$(TargetDir)fi\"
-
-xcopy "$(TargetDir)fr" "$(TargetDir)\languages\fr" /e /y /i /r
-RD /S /Q "$(TargetDir)fr\"
-
-xcopy "$(TargetDir)hr" "$(TargetDir)\languages\he" /e /y /i /r
-RD /S /Q "$(TargetDir)he\"
-
-xcopy "$(TargetDir)hr" "$(TargetDir)\languages\hr" /e /y /i /r
-RD /S /Q "$(TargetDir)hr\"
-
-xcopy "$(TargetDir)it" "$(TargetDir)\languages\it" /e /y /i /r
-RD /S /Q "$(TargetDir)it\"
-
-xcopy "$(TargetDir)lt" "$(TargetDir)\languages\lt" /e /y /i /r
-RD /S /Q "$(TargetDir)lt\"
-
-xcopy "$(TargetDir)nl" "$(TargetDir)\languages\nl" /e /y /i /r
-RD /S /Q "$(TargetDir)nl\"
-
-xcopy "$(TargetDir)no" "$(TargetDir)\languages\no" /e /y /i /r
-RD /S /Q "$(TargetDir)no\"
-
-xcopy "$(TargetDir)pl" "$(TargetDir)\languages\pl" /e /y /i /r
-RD /S /Q "$(TargetDir)pl\"
-
-xcopy "$(TargetDir)pt" "$(TargetDir)\languages\pt" /e /y /i /r
-RD /S /Q "$(TargetDir)pt\"
-
-xcopy "$(TargetDir)ro" "$(TargetDir)\languages\ro" /e /y /i /r
-RD /S /Q "$(TargetDir)ro\"
-
-xcopy "$(TargetDir)ru" "$(TargetDir)\languages\ru" /e /y /i /r
-RD /S /Q "$(TargetDir)ru\"
-
-xcopy "$(TargetDir)sk" "$(TargetDir)\languages\sk" /e /y /i /r
-RD /S /Q "$(TargetDir)sk\"
-
-xcopy "$(TargetDir)sv" "$(TargetDir)\languages\sv" /e /y /i /r
-RD /S /Q "$(TargetDir)sv\"
-
-xcopy "$(TargetDir)tr" "$(TargetDir)\languages\tr" /e /y /i /r
-RD /S /Q "$(TargetDir)tr\"
-
-xcopy "$(TargetDir)vi" "$(TargetDir)\languages\vi" /e /y /i /r
-RD /S /Q "$(TargetDir)vi\"
-
-xcopy "$(TargetDir)zh-CN" "$(TargetDir)\languages\zh-CN" /e /y /i /r
-RD /S /Q "$(TargetDir)zh-CN\"
-
-xcopy "$(TargetDir)zh-TW" "$(TargetDir)\languages\zh-TW" /e /y /i /r
-RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
+    <PostBuildEvent>del *.dll.config
+del *.xml</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -3510,7 +3443,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
     <CreatePackages>false</CreatePackages>
   </PropertyGroup>
   <Import Project="BuildScripts\YAF.Package.Targets" />
-  <Target Name="AfterBuild" DependsOnTargets="PackageModule">
+  <Target Name="AfterBuild" DependsOnTargets="Resources;PackageModule">
   </Target>
   <PropertyGroup>
     <TempFolder>$([System.IO.Path]::GetTempPath())</TempFolder>
@@ -3679,7 +3612,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
