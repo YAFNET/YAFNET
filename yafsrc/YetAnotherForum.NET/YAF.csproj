@@ -3378,83 +3378,8 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>del YAF.dll.config
-RD /S /Q "$(TargetDir)bin\"
-
-xcopy "$(TargetDir)ar" "$(TargetDir)\languages\ar" /e /y /i /r
-RD /S /Q "$(TargetDir)ar\"
-
-xcopy "$(TargetDir)cs" "$(TargetDir)\languages\cs" /e /y /i /r
-RD /S /Q "$(TargetDir)cs\"
-
-xcopy "$(TargetDir)da" "$(TargetDir)\languages\da" /e /y /i /r
-RD /S /Q "$(TargetDir)da\"
-
-xcopy "$(TargetDir)de" "$(TargetDir)\languages\de" /e /y /i /r
-RD /S /Q "$(TargetDir)de\"
-
-xcopy "$(TargetDir)es" "$(TargetDir)\languages\es" /e /y /i /r
-RD /S /Q "$(TargetDir)es\"
-
-xcopy "$(TargetDir)et" "$(TargetDir)\languages\et" /e /y /i /r
-RD /S /Q "$(TargetDir)et\"
-
-xcopy "$(TargetDir)fa" "$(TargetDir)\languages\fa" /e /y /i /r
-RD /S /Q "$(TargetDir)fa\"
-
-xcopy "$(TargetDir)fi" "$(TargetDir)\languages\fi" /e /y /i /r
-RD /S /Q "$(TargetDir)fi\"
-
-xcopy "$(TargetDir)fr" "$(TargetDir)\languages\fr" /e /y /i /r
-RD /S /Q "$(TargetDir)fr\"
-
-xcopy "$(TargetDir)hr" "$(TargetDir)\languages\he" /e /y /i /r
-RD /S /Q "$(TargetDir)he\"
-
-xcopy "$(TargetDir)hr" "$(TargetDir)\languages\hr" /e /y /i /r
-RD /S /Q "$(TargetDir)hr\"
-
-xcopy "$(TargetDir)it" "$(TargetDir)\languages\it" /e /y /i /r
-RD /S /Q "$(TargetDir)it\"
-
-xcopy "$(TargetDir)lt" "$(TargetDir)\languages\lt" /e /y /i /r
-RD /S /Q "$(TargetDir)lt\"
-
-xcopy "$(TargetDir)nl" "$(TargetDir)\languages\nl" /e /y /i /r
-RD /S /Q "$(TargetDir)nl\"
-
-xcopy "$(TargetDir)no" "$(TargetDir)\languages\no" /e /y /i /r
-RD /S /Q "$(TargetDir)no\"
-
-xcopy "$(TargetDir)pl" "$(TargetDir)\languages\pl" /e /y /i /r
-RD /S /Q "$(TargetDir)pl\"
-
-xcopy "$(TargetDir)pt" "$(TargetDir)\languages\pt" /e /y /i /r
-RD /S /Q "$(TargetDir)pt\"
-
-xcopy "$(TargetDir)ro" "$(TargetDir)\languages\ro" /e /y /i /r
-RD /S /Q "$(TargetDir)ro\"
-
-xcopy "$(TargetDir)ru" "$(TargetDir)\languages\ru" /e /y /i /r
-RD /S /Q "$(TargetDir)ru\"
-
-xcopy "$(TargetDir)sk" "$(TargetDir)\languages\sk" /e /y /i /r
-RD /S /Q "$(TargetDir)sk\"
-
-xcopy "$(TargetDir)sv" "$(TargetDir)\languages\sv" /e /y /i /r
-RD /S /Q "$(TargetDir)sv\"
-
-xcopy "$(TargetDir)tr" "$(TargetDir)\languages\tr" /e /y /i /r
-RD /S /Q "$(TargetDir)tr\"
-
-xcopy "$(TargetDir)vi" "$(TargetDir)\languages\vi" /e /y /i /r
-RD /S /Q "$(TargetDir)vi\"
-
-xcopy "$(TargetDir)zh-CN" "$(TargetDir)\languages\zh-CN" /e /y /i /r
-RD /S /Q "$(TargetDir)zh-CN\"
-
-xcopy "$(TargetDir)zh-TW" "$(TargetDir)\languages\zh-TW" /e /y /i /r
-RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
+    <PostBuildEvent>del *.dll.config
+del *.xml</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -3465,8 +3390,11 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
     <CreatePackages>false</CreatePackages>
   </PropertyGroup>
   <Import Project="BuildScripts\YAF.Package.Targets" />
-  <Target Name="AfterBuild" DependsOnTargets="PackageModule">
+  <Target Name="AfterBuild" DependsOnTargets="Resources;PackageModule">
   </Target>
+  <PropertyGroup> 
+  <ExcludeFoldersFromDeployment>BuildScripts;Content\select2;Content\tablesorter;Content\bootstrap;Content\jquery.fileupload</ExcludeFoldersFromDeployment> 
+</PropertyGroup>
   <PropertyGroup>
     <TempFolder>$([System.IO.Path]::GetTempPath())</TempFolder>
   </PropertyGroup>
@@ -3637,7 +3565,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
