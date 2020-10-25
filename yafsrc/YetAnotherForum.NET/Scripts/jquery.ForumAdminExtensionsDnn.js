@@ -42494,6 +42494,11 @@ jQuery(document).ready(function () {
 
     $(".form-check > label").addClass("form-check-label");
     $(".form-check li > label").addClass("form-check-label");
+
+    $(".img-user-posted").on("error",
+        function () {
+            $(this).parent().parent().hide();
+        });
 });
 
 document.addEventListener("DOMContentLoaded", function () {
