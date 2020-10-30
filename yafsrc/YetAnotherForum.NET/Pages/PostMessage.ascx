@@ -98,5 +98,5 @@
     </div>
 </div>
 
-<YAF:LastPosts ID="LastPosts1" runat="server" Visible="false" />
+<YAF:LastPosts ID="LastPosts1" runat="server" />
 <YAF:AttachmentsUploadDialog ID="UploadDialog" runat="server" Visible="False"></YAF:AttachmentsUploadDialog>

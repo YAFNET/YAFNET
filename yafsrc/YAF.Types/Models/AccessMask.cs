@@ -29,6 +29,7 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -62,6 +63,17 @@ namespace YAF.Types.Models
         [Required]
         [Default(0)]
         public int Flags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the access flags.
+        /// </summary>
+        [Ignore]
+        public AccessFlags AccessFlags
+        {
+            get => new AccessFlags(this.Flags);
+
+            set => this.Flags = value.BitValue;
+        }
 
         /// <summary>
         ///     Gets or sets the name.

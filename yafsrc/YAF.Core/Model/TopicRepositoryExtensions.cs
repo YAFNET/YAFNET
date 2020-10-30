@@ -569,8 +569,11 @@ namespace YAF.Core.Model
         /// <param name="findLastRead">
         /// Indicates if the Table should contain the last Access Date
         /// </param>
+        /// <param name="sortOrder">
+        /// The sort Order 0 == LastPosted, 1 == Views, 2 == Number of Posts.
+        /// </param>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// The List of Latest Topics
         /// </returns>
         public static List<dynamic> Latest(
             this IRepository<Topic> repository,
@@ -579,7 +582,8 @@ namespace YAF.Core.Model
             [NotNull] int numOfPostsToRetrieve,
             [NotNull] int pageUserId,
             [NotNull] bool showNoCountPosts,
-            [NotNull] bool findLastRead)
+            [NotNull] bool findLastRead,
+            [CanBeNull] int sortOrder = 0)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -615,7 +619,18 @@ namespace YAF.Core.Model
                         expression.And<Category>(c => c.ID == categoryId);
                     }
 
-                    expression.OrderByDescending<Topic>(t => t.LastPosted);
+                    switch (sortOrder)
+                    {
+                        case 0:
+                            expression.OrderByDescending<Topic>(t => t.LastPosted);
+                            break;
+                        case 1:
+                            expression.OrderByDescending<Topic>(t => t.Views);
+                            break;
+                        case 2:
+                            expression.OrderByDescending<Topic>(t => t.NumPosts);
+                            break;
+                    }
 
                     if (findLastRead)
                     {

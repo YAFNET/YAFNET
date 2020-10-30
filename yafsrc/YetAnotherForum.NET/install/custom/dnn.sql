@@ -499,17 +499,3 @@ GO
 IF  EXISTS (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}GetReadAccessListForForum]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}GetReadAccessListForForum]
 GO
-
-/** Create Stored Procedures **/
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}GetReadAccessListForForum](
-  @ForumID int)
-	AS
-	select fa.GroupID, GroupName = g.Name, AccessMaskName = am.Name, am.Flags
-	from [{databaseOwner}].[{objectQualifier}ForumAccess] fa
-	Inner join [{databaseOwner}].[{objectQualifier}AccessMask] am
-    on (fa.AccessMaskID = am.AccessMaskID)
-	inner join [{databaseOwner}].[{objectQualifier}Group] g
-	on (fa.GroupID = g.GroupID)
-	where fa.ForumID = @ForumID
-GO

@@ -188,6 +188,33 @@ namespace YAF.Core.Model
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<ForumAccess, Group>(expression));
         }
 
+        /// <summary>
+        /// Gets the forum Read Access 
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<Tuple<ForumAccess, AccessMask, Group>> GetReadAccessList(
+            [NotNull] this IRepository<ForumAccess> repository,
+            [NotNull] int forumId)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
+
+            expression.Join<AccessMask>((fa, am) => am.ID == fa.AccessMaskID)
+                .Join<Group>((fa, group) => group.ID == fa.GroupID)
+                .Where(fa => fa.ForumID == forumId);
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<ForumAccess, AccessMask, Group>(expression));
+        }
+
         #endregion
     }
 }

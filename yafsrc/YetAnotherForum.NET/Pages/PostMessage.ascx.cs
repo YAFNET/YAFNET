@@ -284,6 +284,8 @@ namespace YAF.Pages
 
             this.HandleUploadControls();
 
+            this.LastPosts1.TopicID = this.TopicId;
+
             if (!this.IsPostBack)
             {
                 // update options...
@@ -754,12 +756,6 @@ namespace YAF.Pages
 
             // add "reply" text...
             this.PageLinks.AddLink(this.GetText("reply"));
-
-            this.HandleUploadControls();
-
-            // show the last posts AJAX frame...
-            this.LastPosts1.Visible = true;
-            this.LastPosts1.TopicID = this.TopicId;
         }
 
         /// <summary>

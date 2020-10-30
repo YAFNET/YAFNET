@@ -55,13 +55,6 @@ namespace YAF.Modules
       this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
     }
 
-    /// <summary>
-    /// The init before page.
-    /// </summary>
-    public override void InitBeforePage()
-    {
-    }
-
     #endregion
 
     #region Methods
@@ -88,30 +81,6 @@ namespace YAF.Modules
       var groupAccess =
           this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
 
-      if (this.PageContext.BoardSettings.ShowRSSLink && groupAccess)
-      {
-          // setup the rss link...
-          var rssLink = new HtmlLink
-                            {
-                                Href =
-                                    BuildLink.GetLink(
-                                        ForumPages.RssTopic,
-                                        true,
-                                        "pg={0}&ft={1}",
-                                        RssFeeds.LatestPosts.ToInt(),
-                                        SyndicationFormats.Rss.ToInt())
-                            };
-
-          // defaults to the "Active" rss.
-          rssLink.Attributes.Add("rel", "alternate");
-          rssLink.Attributes.Add("type", "application/rss+xml");
-          rssLink.Attributes.Add(
-              "title",
-              $"{this.GetText("RSSFEED")} - {this.PageContext.BoardSettings.Name}");
-
-          head.Controls.Add(rssLink);
-      }
-
       if (!this.PageContext.BoardSettings.ShowAtomLink || !groupAccess)
       {
           return;
@@ -122,11 +91,10 @@ namespace YAF.Modules
                          {
                              Href =
                                  BuildLink.GetLink(
-                                     ForumPages.RssTopic,
+                                     ForumPages.Feed,
                                      true,
-                                     "pg={0}&ft={1}",
-                                     RssFeeds.LatestPosts.ToInt(),
-                                     SyndicationFormats.Atom.ToInt())
+                                     "feed={0}",
+                                     RssFeeds.LatestPosts.ToInt())
                          };
 
       // defaults to the "Active" rss.
