@@ -86,10 +86,9 @@ namespace YAF.Pages.Admin
             var rankId = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
             var rank = this.GetRepository<Rank>().GetById(rankId);
 
-            var flags = new RankFlags(rank.Flags);
             this.Name.Text = rank.Name;
-            this.IsStart.Checked = flags.IsStart;
-            this.IsLadder.Checked = flags.IsLadder;
+            this.IsStart.Checked = rank.RankFlags.IsStart;
+            this.IsLadder.Checked = rank.RankFlags.IsLadder;
             this.MinPosts.Text = rank.MinPosts.ToString();
             this.PMLimit.Text = rank.PMLimit.ToString();
             this.Style.Text = rank.Style;

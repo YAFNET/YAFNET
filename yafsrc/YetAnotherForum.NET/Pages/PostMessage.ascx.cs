@@ -327,7 +327,7 @@ namespace YAF.Pages
                     {
                         if (this.Get<ISession>().MultiQuoteIds != null)
                         {
-                            var quoteId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q").ToType<int>();
+                            var quoteId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("q");
                             var multiQuote = new MultiQuote { MessageID = quoteId, TopicID = this.PageContext.PageTopicID };
 
                             if (

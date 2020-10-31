@@ -36,7 +36,6 @@ namespace YAF.Pages.Admin
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -175,18 +174,17 @@ namespace YAF.Pages.Admin
                     this.SortOrder.Text = accessMask.SortOrder.ToString();
 
                     // get flags
-                    var flags = new AccessFlags(accessMask.Flags);
-                    this.ReadAccess.Checked = flags.ReadAccess;
-                    this.PostAccess.Checked = flags.PostAccess;
-                    this.ReplyAccess.Checked = flags.ReplyAccess;
-                    this.PriorityAccess.Checked = flags.PriorityAccess;
-                    this.PollAccess.Checked = flags.PollAccess;
-                    this.VoteAccess.Checked = flags.VoteAccess;
-                    this.ModeratorAccess.Checked = flags.ModeratorAccess;
-                    this.EditAccess.Checked = flags.EditAccess;
-                    this.DeleteAccess.Checked = flags.DeleteAccess;
-                    this.UploadAccess.Checked = flags.UploadAccess;
-                    this.DownloadAccess.Checked = flags.DownloadAccess;
+                    this.ReadAccess.Checked = accessMask.AccessFlags.ReadAccess;
+                    this.PostAccess.Checked = accessMask.AccessFlags.PostAccess;
+                    this.ReplyAccess.Checked = accessMask.AccessFlags.ReplyAccess;
+                    this.PriorityAccess.Checked = accessMask.AccessFlags.PriorityAccess;
+                    this.PollAccess.Checked = accessMask.AccessFlags.PollAccess;
+                    this.VoteAccess.Checked = accessMask.AccessFlags.VoteAccess;
+                    this.ModeratorAccess.Checked = accessMask.AccessFlags.ModeratorAccess;
+                    this.EditAccess.Checked = accessMask.AccessFlags.EditAccess;
+                    this.DeleteAccess.Checked = accessMask.AccessFlags.DeleteAccess;
+                    this.UploadAccess.Checked = accessMask.AccessFlags.UploadAccess;
+                    this.DownloadAccess.Checked = accessMask.AccessFlags.DownloadAccess;
                 }
             }
             else

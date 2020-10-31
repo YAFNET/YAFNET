@@ -277,7 +277,7 @@ namespace YAF.Controls
         /// </returns>
         protected bool GetModerated([NotNull] ForumRead item)
         {
-            return item.Flags.BinaryAnd(ForumFlags.Flags.IsModerated);
+            return item.ForumFlags.IsModerated;
         }
 
         /// <summary>

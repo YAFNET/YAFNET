@@ -138,7 +138,7 @@ namespace YAF.Pages.Admin
         protected string GetLinkedStatus([NotNull] Group currentRow)
         {
             // check whether role is Guests role, which can't be linked
-            return currentRow.Flags.BinaryAnd(2)
+            return currentRow.GroupFlags.IsGuest
                        ? this.GetText("ADMIN_GROUPS", "UNLINKABLE")
                        : this.GetText("ADMIN_GROUPS", "LINKED");
         }

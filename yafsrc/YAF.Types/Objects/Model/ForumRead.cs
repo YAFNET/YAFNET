@@ -26,12 +26,28 @@ namespace YAF.Types.Objects.Model
 {
     using System;
 
+    using ServiceStack.DataAnnotations;
+
+    using YAF.Types.Flags;
+
+    /// <summary>
+    /// The forum read.
+    /// </summary>
     public class ForumRead
     {
+        /// <summary>
+        /// Gets or sets the category id.
+        /// </summary>
         public int CategoryID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the category.
+        /// </summary>
         public string Category { get; set; }
 
+        /// <summary>
+        /// Gets or sets the category image.
+        /// </summary>
         public string CategoryImage { get; set; }
 
         /// <summary>
@@ -39,18 +55,39 @@ namespace YAF.Types.Objects.Model
         /// </summary>
         public int ForumID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the forum.
+        /// </summary>
         public string Forum { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// Gets or sets the image url.
+        /// </summary>
         public string ImageURL { get; set; }
 
+        /// <summary>
+        /// Gets or sets the styles.
+        /// </summary>
         public string Styles { get; set; }
 
+        /// <summary>
+        /// Gets or sets the parent id.
+        /// </summary>
         public int? ParentID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the topics.
+        /// </summary>
         public int Topics { get; set; }
 
+        /// <summary>
+        /// Gets or sets the posts.
+        /// </summary>
         public int Posts { get; set; }
 
         /// <summary>
@@ -93,22 +130,60 @@ namespace YAF.Types.Objects.Model
         /// </summary>
         public string Style { get; set; }
 
+        /// <summary>
+        /// Gets or sets the last topic id.
+        /// </summary>
         public int LastTopicID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the topic moved id.
+        /// </summary>
         public int? TopicMovedID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the last topic name.
+        /// </summary>
         public string LastTopicName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the last topic status.
+        /// </summary>
         public string LastTopicStatus { get; set; }
 
+        /// <summary>
+        /// Gets or sets the last topic styles.
+        /// </summary>
         public string LastTopicStyles { get; set; }
 
+        /// <summary>
+        /// Gets or sets the flags.
+        /// </summary>
         public int Flags { get; set; }
 
+        /// <summary>
+        /// Gets or sets the forum flags.
+        /// </summary>
+        [Ignore]
+        public ForumFlags ForumFlags
+        {
+            get => new ForumFlags(this.Flags);
+
+            set => this.Flags = value.BitValue;
+        }
+
+        /// <summary>
+        /// Gets or sets the viewing.
+        /// </summary>
         public int Viewing { get; set; }
 
+        /// <summary>
+        /// Gets or sets the remote url.
+        /// </summary>
         public string RemoteURL { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether read access.
+        /// </summary>
         public bool ReadAccess { get; set; }
 
         /// <summary>

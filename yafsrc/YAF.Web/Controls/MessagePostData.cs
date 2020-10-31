@@ -78,7 +78,7 @@ namespace YAF.Web.Controls
             set
             {
                 this.currentMessage = value ?? new Message();
-                this.MessageFlags = new MessageFlags(this.currentMessage.Flags);
+                this.MessageFlags = this.currentMessage.MessageFlags;
             }
         }
 

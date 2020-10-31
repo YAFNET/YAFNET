@@ -34,7 +34,6 @@ namespace YAF.Pages.Admin
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -124,7 +123,7 @@ namespace YAF.Pages.Admin
         {
             var dr = (Rank)rank;
 
-            var isLadder = dr.Flags.BinaryAnd(RankFlags.Flags.IsLadder);
+            var isLadder = dr.RankFlags.IsLadder;
 
             return isLadder
                        ? $"{this.GetItemName(true)} ({dr.MinPosts} {this.GetText("ADMIN_RANKS", "POSTS")})"

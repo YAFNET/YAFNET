@@ -312,8 +312,7 @@ namespace YAF.Core.Helpers
         public void SetupUserRoles(int pageBoardID, [NotNull] AspNetUsers user)
         {
             (from @group in this.GetRepository<Group>().List(boardId: pageBoardID)
-                let roleFlags = new GroupFlags(@group.Flags)
-                where roleFlags.IsStart && !roleFlags.IsGuest
+                where @group.GroupFlags.IsStart && !@group.GroupFlags.IsGuest
                 select @group.Name
                 into roleName
                 where roleName.IsSet()
@@ -347,8 +346,7 @@ namespace YAF.Core.Helpers
             // get all the groups in YAF DB and create them if they do not exist as a role in membership
             (from @group in this.GetRepository<Group>().List(boardId: pageBoardID)
                 let name = @group.Name
-                let roleFlags = new GroupFlags(@group.Flags)
-                where name.IsSet() && !roleFlags.IsGuest && !this.Get<IAspNetRolesHelper>().RoleExists(name)
+                where name.IsSet() && !@group.GroupFlags.IsGuest && !this.Get<IAspNetRolesHelper>().RoleExists(name)
                 select name).ForEach(this.Get<IAspNetRolesHelper>().CreateRole);
         }
 
