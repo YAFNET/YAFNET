@@ -2,7 +2,6 @@
     CodeBehind="users.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="YAF.Types.Flags" %>
 
 <%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/UsersImport.ascx" %>
 
@@ -197,7 +196,7 @@
                                                      TextLocalizedTag="DELETE" 
                                                      TitleLocalizedTag="DELETE"
                                                      Icon="trash" 
-                                                     Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !Config.IsDotNetNuke %>'>
+                                                     Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !YAF.Configuration.Config.IsDotNetNuke %>'>
                                     </YAF:ThemeButton>
                                 </small>
                                 <div class="dropdown-menu context-menu" aria-labelledby="context menu">
@@ -219,7 +218,7 @@
                                                      TextLocalizedTag="DELETE" 
                                                      TitleLocalizedTag="DELETE"
                                                      Icon="trash" 
-                                                     Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !Config.IsDotNetNuke %>'>
+                                                     Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !YAF.Configuration.Config.IsDotNetNuke %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </li>
