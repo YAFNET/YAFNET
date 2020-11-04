@@ -2,7 +2,6 @@ using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Support;
 using System;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Codecs.Lucene40
 {
@@ -23,7 +22,6 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
     using DataInput = YAF.Lucene.Net.Store.DataInput;
     using Directory = YAF.Lucene.Net.Store.Directory;
@@ -31,6 +29,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
     using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
     using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
     using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
     using IndexInput = YAF.Lucene.Net.Store.IndexInput;
     using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
@@ -206,7 +205,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 // undefined
             }
 
-            if (fieldInfo.IndexOptions.CompareTo(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS) >= 0)
+            // LUCENENET specific - to avoid boxing, changed from CompareTo() to IndexOptionsComparer.Compare()
+            if (IndexOptionsComparer.Default.Compare(fieldInfo.IndexOptions, IndexOptions.DOCS_AND_FREQS_AND_POSITIONS) >= 0)
             {
                 termState2.proxOffset += @in.ReadVInt64();
                 // if (DEBUG) System.out.println("  proxFP=" + termState2.proxOffset);
@@ -254,7 +254,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
         public override DocsAndPositionsEnum DocsAndPositions(FieldInfo fieldInfo, BlockTermState termState, IBits liveDocs, DocsAndPositionsEnum reuse, DocsAndPositionsFlags flags)
         {
-            bool hasOffsets = fieldInfo.IndexOptions.CompareTo(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS) >= 0;
+            // LUCENENET specific - to avoid boxing, changed from CompareTo() to IndexOptionsComparer.Compare()
+            bool hasOffsets = IndexOptionsComparer.Default.Compare(fieldInfo.IndexOptions, IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS) >= 0;
 
             // TODO: can we optimize if FLAG_PAYLOADS / FLAG_OFFSETS
             // isn't passed?
@@ -347,7 +348,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             {
                 m_indexOmitsTF = fieldInfo.IndexOptions == IndexOptions.DOCS_ONLY;
                 m_storePayloads = fieldInfo.HasPayloads;
-                m_storeOffsets = fieldInfo.IndexOptions.CompareTo(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS) >= 0;
+                // LUCENENET specific - to avoid boxing, changed from CompareTo() to IndexOptionsComparer.Compare()
+                m_storeOffsets = IndexOptionsComparer.Default.Compare(fieldInfo.IndexOptions, IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS) >= 0;
                 m_freqOffset = termState.freqOffset;
                 m_skipOffset = termState.skipOffset;
 
@@ -933,7 +935,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
                 posPendingCount--;
 
-                if (Debugging.AssertsEnabled) Debugging.Assert(posPendingCount >= 0, () => "nextPosition() was called too many times (more than freq() times) posPendingCount=" + posPendingCount);
+                if (Debugging.AssertsEnabled) Debugging.Assert(posPendingCount >= 0,"NextPosition() was called too many times (more than Freq( times) posPendingCount={0}", posPendingCount);
 
                 return position;
             }
@@ -1004,11 +1006,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
             public virtual SegmentFullPositionsEnum Reset(FieldInfo fieldInfo, StandardTermState termState, IBits liveDocs)
             {
-                storeOffsets = fieldInfo.IndexOptions.CompareTo(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS) >= 0;
+                // LUCENENET specific - to avoid boxing, changed from CompareTo() to IndexOptionsComparer.Compare()
+                storeOffsets = IndexOptionsComparer.Default.Compare(fieldInfo.IndexOptions, IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS) >= 0;
                 storePayloads = fieldInfo.HasPayloads;
                 if (Debugging.AssertsEnabled)
                 {
-                    Debugging.Assert(fieldInfo.IndexOptions.CompareTo(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS) >= 0);
+                    // LUCENENET specific - to avoid boxing, changed from CompareTo() to IndexOptionsComparer.Compare()
+                    Debugging.Assert(IndexOptionsComparer.Default.Compare(fieldInfo.IndexOptions, IndexOptions.DOCS_AND_FREQS_AND_POSITIONS) >= 0);
                     Debugging.Assert(storePayloads || storeOffsets);
                 }
                 if (payload == null)
@@ -1228,7 +1232,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
                 posPendingCount--;
 
-                if (Debugging.AssertsEnabled) Debugging.Assert(posPendingCount >= 0, () => "nextPosition() was called too many times (more than freq() times) posPendingCount=" + posPendingCount);
+                if (Debugging.AssertsEnabled) Debugging.Assert(posPendingCount >= 0,"NextPosition() was called too many times (more than Freq times) posPendingCount={0}", posPendingCount);
 
                 //System.out.println("StandardR.D&PE nextPos   return pos=" + position);
                 return position;

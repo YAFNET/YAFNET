@@ -82,7 +82,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 else
                 {
-                    if (Debugging.AssertsEnabled) Debugging.Assert(false, () => "unrecognized DocValues.Type: " + dvType);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(false,"unrecognized DocValues.Type: {0}", dvType);
                 }
             }
         }

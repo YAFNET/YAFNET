@@ -152,11 +152,11 @@ namespace YAF.Lucene.Net.Index
                      * fail. To prevent this we only assert if the the largest document seen
                      * is smaller than the 1/2 of the maxRamBufferMB
                      */
-                    if (Debugging.AssertsEnabled) Debugging.Assert(ram <= expected, () => "actual mem: " + ram + " byte, expected mem: " + expected
-                        + " byte, flush mem: " + flushBytes + ", active mem: " + activeBytes
-                        + ", pending DWPT: " + numPending + ", flushing DWPT: "
-                        + NumFlushingDWPT + ", blocked DWPT: " + NumBlockedFlushes
-                        + ", peakDelta mem: " + peakDelta + " byte");
+                    if (Debugging.AssertsEnabled) Debugging.Assert(ram <= expected,
+                        "actual mem: {0} byte, expected mem: {1}"
+                        + " byte, flush mem: {2}, active mem: {3}"
+                        + ", pending DWPT: {4}, flushing DWPT: {5}"
+                        + ", blocked DWPT: {6}, peakDelta mem: {7} byte", ram, expected, flushBytes, activeBytes, numPending, NumFlushingDWPT, NumBlockedFlushes, peakDelta);
                 }
             }
             return true;
@@ -392,8 +392,8 @@ namespace YAF.Lucene.Net.Index
             {
                 if (Debugging.AssertsEnabled)
                 {
-                    Debugging.Assert(perThread.flushPending, () => "can not block non-pending threadstate");
-                    Debugging.Assert(fullFlush, () => "can not block if fullFlush == false");
+                    Debugging.Assert(perThread.flushPending, "can not block non-pending threadstate");
+                    Debugging.Assert(fullFlush, "can not block if fullFlush == false");
                 }
                 DocumentsWriterPerThread dwpt;
                 long bytes = perThread.bytesUsed;
@@ -613,8 +613,8 @@ namespace YAF.Lucene.Net.Index
             {
                 if (!success) // make sure we unlock if this fails
                 {
-						perThreadPool.Release(perThread);
-					}
+                    perThreadPool.Release(perThread);
+                }
             }
         }
 
@@ -626,7 +626,7 @@ namespace YAF.Lucene.Net.Index
                 if (Debugging.AssertsEnabled)
                 {
                     Debugging.Assert(!fullFlush, "called DWFC#markForFullFlush() while full flush is still running");
-                    Debugging.Assert(fullFlushBuffer.Count == 0, () => "full flush buffer should be empty: " + fullFlushBuffer);
+                    Debugging.Assert(fullFlushBuffer.Count == 0,"full flush buffer should be empty: {0}", fullFlushBuffer);
                 }
                 fullFlush = true;
                 flushingQueue = documentsWriter.deleteQueue;
@@ -650,7 +650,10 @@ namespace YAF.Lucene.Net.Index
                         }
                         continue;
                     }
-                    if (Debugging.AssertsEnabled) Debugging.Assert(next.dwpt.deleteQueue == flushingQueue || next.dwpt.deleteQueue == documentsWriter.deleteQueue, () => " flushingQueue: " + flushingQueue + " currentqueue: " + documentsWriter.deleteQueue + " perThread queue: " + next.dwpt.deleteQueue + " numDocsInRam: " + next.dwpt.NumDocsInRAM);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(next.dwpt.deleteQueue == flushingQueue
+                        || next.dwpt.deleteQueue == documentsWriter.deleteQueue,
+                        " flushingQueue: {0} currentqueue: {1} perThread queue: {2} numDocsInRam: {3}",
+                        flushingQueue, documentsWriter.deleteQueue, next.dwpt.deleteQueue, next.dwpt.NumDocsInRAM);
                     if (next.dwpt.deleteQueue != flushingQueue)
                     {
                         // this one is already a new DWPT
@@ -691,7 +694,7 @@ namespace YAF.Lucene.Net.Index
                 next.@Lock();
                 try
                 {
-                    if (Debugging.AssertsEnabled) Debugging.Assert(!next.IsInitialized || next.dwpt.deleteQueue == queue, () => "isInitialized: " + next.IsInitialized + " numDocs: " + (next.IsInitialized ? next.dwpt.NumDocsInRAM : 0));
+                    if (Debugging.AssertsEnabled) Debugging.Assert(!next.IsInitialized || next.dwpt.deleteQueue == queue,"isInitialized: {0} numDocs: {1}", next.IsInitialized, (next.IsInitialized ? next.dwpt.NumDocsInRAM : 0));
                 }
                 finally
                 {

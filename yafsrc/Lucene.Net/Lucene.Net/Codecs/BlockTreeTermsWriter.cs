@@ -261,7 +261,7 @@ namespace YAF.Lucene.Net.Codecs
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(numTerms > 0);
                 this.FieldInfo = fieldInfo;
-                if (Debugging.AssertsEnabled) Debugging.Assert(rootCode != null, () => "field=" + fieldInfo.Name + " numTerms=" + numTerms);
+                if (Debugging.AssertsEnabled) Debugging.Assert(rootCode != null, "field={0} numTerms={1}", fieldInfo.Name, numTerms);
                 this.RootCode = rootCode;
                 this.IndexStartFP = indexStartFP;
                 this.NumTerms = numTerms;
@@ -437,54 +437,67 @@ namespace YAF.Lucene.Net.Codecs
             }
 
             // LUCENENET specific - to keep the Debug.Assert statement from throwing exceptions
-            // because of invalid UTF8 code in Prefix, we have a wrapper method that falls back
-            // to using PendingBlock.Prefix.ToString() if PendingBlock.ToString()
-            private string ToString(IList<PendingBlock> blocks) // For assert
+            // because of invalid UTF8 code in Prefix, we have a wrapper class that falls back
+            // to using PendingBlock.Prefix.ToString() if PendingBlock.ToString() errors.
+            // This struct defers formatting the string until it is actually used as a parameter
+            // in string.Format().
+            private struct PendingBlocksFormatter // For assert
             {
-                if (blocks == null)
-                    return "null";
-
-
-                if (blocks.Count == 0)
-                    return "[]";
-
-                using (var it = blocks.GetEnumerator())
+#pragma warning disable IDE0044 // Add readonly modifier
+                private IList<PendingBlock> blocks;
+#pragma warning restore IDE0044 // Add readonly modifier
+                public PendingBlocksFormatter(IList<PendingBlock> blocks)
                 {
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append('[');
-                    it.MoveNext();
-                    while (true)
+                    this.blocks = blocks; // May be null
+                }
+
+                public override string ToString() // For assert
+                {
+                    if (blocks == null)
+                        return "null";
+
+                    if (blocks.Count == 0)
+                        return "[]";
+
+                    using (var it = blocks.GetEnumerator())
                     {
-                        var e = it.Current;
-                        // There is a chance that the Prefix will contain invalid UTF8,
-                        // so we catch that and use the alternative way of displaying it
-                        try
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append('[');
+                        it.MoveNext();
+                        while (true)
                         {
-                            sb.Append(e.ToString());
+                            var e = it.Current;
+                            // There is a chance that the Prefix will contain invalid UTF8,
+                            // so we catch that and use the alternative way of displaying it
+                            try
+                            {
+                                sb.Append(e.ToString());
+                            }
+                            catch (IndexOutOfRangeException)
+                            {
+                                sb.Append("BLOCK: ");
+                                sb.Append(e.Prefix.ToString());
+                            }
+                            if (!it.MoveNext())
+                            {
+                                return sb.Append(']').ToString();
+                            }
+                            sb.Append(',').Append(' ');
                         }
-                        catch (IndexOutOfRangeException)
-                        {
-                            sb.Append("BLOCK: ");
-                            sb.Append(e.Prefix.ToString());
-                        }
-                        if (!it.MoveNext())
-                        {
-                            return sb.Append(']').ToString();
-                        }
-                        sb.Append(',').Append(' ');
                     }
                 }
             }
 
             public void CompileIndex(IList<PendingBlock> floorBlocks, RAMOutputStream scratchBytes)
             {
-                // LUCENENET specific - we use a custom wrapper function to display floorBlocks, since
-                // it might contain garbage that cannot be converted into text.
-                if (Debugging.AssertsEnabled) Debugging.Assert(
-                    (IsFloor && floorBlocks != null && floorBlocks.Count != 0) || (!IsFloor && floorBlocks == null),
-                    () => "isFloor=" + IsFloor + " floorBlocks=" + ToString(floorBlocks));
+                if (Debugging.AssertsEnabled)
+                {
+                    // LUCENENET specific - we use a custom wrapper struct to display floorBlocks, since
+                    // it might contain garbage that cannot be converted into text.
+                    Debugging.Assert((IsFloor && floorBlocks != null && floorBlocks.Count != 0) || (!IsFloor && floorBlocks == null), "isFloor={0} floorBlocks={1}", IsFloor, new PendingBlocksFormatter(floorBlocks));
 
-                if (Debugging.AssertsEnabled) Debugging.Assert(scratchBytes.GetFilePointer() == 0);
+                    Debugging.Assert(scratchBytes.GetFilePointer() == 0);
+                }
 
                 // TODO: try writing the leading vLong in MSB order
                 // (opposite of what Lucene does today), for better
@@ -864,7 +877,7 @@ namespace YAF.Lucene.Net.Codecs
                             //System.out.println("    = " + pendingCount);
                             pendingCount = 0;
 
-                            if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.minItemsInBlock == 1 || subCount > 1, () => "minItemsInBlock=" + outerInstance.minItemsInBlock + " subCount=" + subCount + " sub=" + sub + " of " + numSubs + " subTermCount=" + subTermCountSums[sub] + " subSubCount=" + subSubCounts[sub] + " depth=" + prefixLength);
+                            if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.minItemsInBlock == 1 || subCount > 1, "minItemsInBlock={0} subCount={1} sub={2} of {3} subTermCount={4} subSubCount={5} depth={6}", outerInstance.minItemsInBlock, subCount, sub, numSubs, subTermCountSums[sub], subSubCounts[sub], prefixLength);
                             subCount = 0;
                             startLabel = subBytes[sub + 1];
 
@@ -936,7 +949,7 @@ namespace YAF.Lucene.Net.Codecs
 
                 int start = pending.Count - startBackwards;
 
-                if (Debugging.AssertsEnabled) Debugging.Assert(start >= 0, () => "pending.Count=" + pending.Count + " startBackwards=" + startBackwards + " length=" + length);
+                if (Debugging.AssertsEnabled) Debugging.Assert(start >= 0, "pending.Count={0} startBackwards={1} length={2}", pending.Count, startBackwards, length);
 
                 IList<PendingEntry> slice = pending.SubList(start, start + length);
 
@@ -1013,7 +1026,7 @@ namespace YAF.Lucene.Net.Codecs
                         statsWriter.WriteVInt32(state.DocFreq);
                         if (fieldInfo.IndexOptions != IndexOptions.DOCS_ONLY)
                         {
-                            if (Debugging.AssertsEnabled) Debugging.Assert(state.TotalTermFreq >= state.DocFreq, () => state.TotalTermFreq + " vs " + state.DocFreq);
+                            if (Debugging.AssertsEnabled) Debugging.Assert(state.TotalTermFreq >= state.DocFreq, "{0} vs {1}", state.TotalTermFreq, state.DocFreq);
                             statsWriter.WriteVInt64(state.TotalTermFreq - state.DocFreq);
                         }
 
@@ -1207,7 +1220,7 @@ namespace YAF.Lucene.Net.Codecs
                     blockBuilder.Finish();
 
                     // We better have one final "root" block:
-                    if (Debugging.AssertsEnabled) Debugging.Assert(pending.Count == 1 && !pending[0].IsTerm, () => "pending.size()=" + pending.Count + " pending=" + pending);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(pending.Count == 1 && !pending[0].IsTerm, "pending.Count={0} pending={1}", pending.Count, pending);
                     PendingBlock root = (PendingBlock)pending[0];
                     if (Debugging.AssertsEnabled)
                     {
