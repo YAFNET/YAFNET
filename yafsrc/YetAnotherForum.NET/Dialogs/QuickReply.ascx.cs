@@ -393,7 +393,7 @@ namespace YAF.Dialogs
                 return true;
             }
 
-            var forumModerated = forumInfo.Flags.BinaryAnd(ForumFlags.Flags.IsModerated);
+            var forumModerated = forumInfo.ForumFlags.IsModerated;
 
             if (!forumModerated)
             {

@@ -37,7 +37,6 @@ namespace YAF.Dialogs
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -91,12 +90,9 @@ namespace YAF.Dialogs
             // only admin can assign all access masks
             if (!this.PageContext.IsAdmin)
             {
-                // do not include access masks with this flags set
-                var flags = AccessFlags.Flags.ModeratorAccess.ToType<int>();
-
                 // non-admins cannot assign moderation access masks
                 masks = this.GetRepository<AccessMask>()
-                    .Get(a => a.BoardID == this.PageContext.PageBoardID && a.Flags == flags);
+                    .Get(a => a.BoardID == this.PageContext.PageBoardID && a.AccessFlags.ModeratorAccess);
             }
             else
             {
