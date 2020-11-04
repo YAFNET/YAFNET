@@ -162,7 +162,12 @@ namespace YAF.Lucene.Net.Util.Fst
                     // freeze & add
                     long node = fst.AddNode(nodeIn);
                     //System.out.println("  now freeze node=" + node);
-                    if (Debugging.AssertsEnabled) Debugging.Assert(Hash(node) == h, () => "frozenHash=" + Hash(node) + " vs h=" + h);
+                    if (Debugging.AssertsEnabled)
+                    {
+                        // LUCENENET specific - store hash value and reuse it, since it might be expensive to create
+                        long hash = Hash(node);
+                        Debugging.Assert(hash == h, "frozenHash={0} vs h={1}", hash, h);
+                    }
                     count++;
                     table.Set(pos, node);
                     // Rehash at 2/3 occupancy:

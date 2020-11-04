@@ -1,6 +1,6 @@
 using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Index;
 using System;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Codecs.Lucene41
 {
@@ -249,9 +249,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         public override int SetField(FieldInfo fieldInfo)
         {
             IndexOptions indexOptions = fieldInfo.IndexOptions;
-            fieldHasFreqs = indexOptions.CompareTo(IndexOptions.DOCS_AND_FREQS) >= 0;
-            fieldHasPositions = indexOptions.CompareTo(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS) >= 0;
-            fieldHasOffsets = indexOptions.CompareTo(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS) >= 0;
+            // LUCENENET specific - to avoid boxing, changed from CompareTo() to IndexOptionsComparer.Compare()
+            fieldHasFreqs = IndexOptionsComparer.Default.Compare(indexOptions, IndexOptions.DOCS_AND_FREQS) >= 0;
+            fieldHasPositions = IndexOptionsComparer.Default.Compare(indexOptions, IndexOptions.DOCS_AND_FREQS_AND_POSITIONS) >= 0;
+            fieldHasOffsets = IndexOptionsComparer.Default.Compare(indexOptions, IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS) >= 0;
             fieldHasPayloads = fieldInfo.HasPayloads;
             skipWriter.SetField(fieldHasPositions, fieldHasOffsets, fieldHasPayloads);
             lastState = emptyState;
@@ -446,7 +447,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
 
             // TODO: wasteful we are counting this (counting # docs
             // for this term) in two places?
-            if (Debugging.AssertsEnabled) Debugging.Assert(state2.DocFreq == docCount, () => state2.DocFreq + " vs " + docCount);
+            if (Debugging.AssertsEnabled) Debugging.Assert(state2.DocFreq == docCount, "{0} vs {1}", state2.DocFreq, docCount);
 
             // if (DEBUG) {
             //   System.out.println("FPW.finishTerm docFreq=" + state2.docFreq);

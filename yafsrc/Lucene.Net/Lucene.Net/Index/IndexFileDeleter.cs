@@ -529,9 +529,12 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public void Checkpoint(SegmentInfos segmentInfos, bool isCommit)
         {
-            if (Debugging.AssertsEnabled) Debugging.Assert(IsLocked);
+            if (Debugging.AssertsEnabled)
+            {
+                Debugging.Assert(IsLocked);
 
-            if (Debugging.AssertsEnabled) Debugging.Assert(Monitor.IsEntered(writer));
+                Debugging.Assert(Monitor.IsEntered(writer));
+            }
             long t0 = 0;
             if (infoStream.IsEnabled("IFD"))
             {
@@ -723,8 +726,6 @@ namespace YAF.Lucene.Net.Index
                 // the file is open in another process, and queue
                 // the file for subsequent deletion.
 
-                //if (Debugging.AssertsEnabled) Debugging.Assert(e.Message.Contains("cannot delete"));
-
                 if (infoStream.IsEnabled("IFD"))
                 {
                     infoStream.Message("IFD",
@@ -763,14 +764,14 @@ namespace YAF.Lucene.Net.Index
                 }
                 else
                 {
-                    if (Debugging.AssertsEnabled) Debugging.Assert(count > 0, () => Thread.CurrentThread.Name + ": RefCount is 0 pre-increment for file \"" + fileName + "\"");
+                    if (Debugging.AssertsEnabled) Debugging.Assert(count > 0, "{0}: RefCount is 0 pre-increment for file \"{1}\"", Thread.CurrentThread.Name, fileName);
                 }
                 return ++count;
             }
 
             public int DecRef()
             {
-                if (Debugging.AssertsEnabled) Debugging.Assert(count > 0, () => Thread.CurrentThread.Name + ": RefCount is 0 pre-decrement for file \"" + fileName + "\"");
+                if (Debugging.AssertsEnabled) Debugging.Assert(count > 0, "{0}: RefCount is 0 pre-decrement for file \"{1}\"", Thread.CurrentThread.Name, fileName);
                 return --count;
             }
         }
