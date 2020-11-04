@@ -24,7 +24,6 @@
 
 namespace YAF.Utils
 {
-    using System;
     using System.Web;
 
     using YAF.Types.Constants;
@@ -75,27 +74,6 @@ namespace YAF.Utils
             }
 
             return value;
-        }
-
-        /// <summary>
-        /// Creates the password.
-        /// </summary>
-        /// <param name="length">The length.</param>
-        /// <returns>
-        /// Returns the created password
-        /// </returns>
-        public static string CreatePassword(int length)
-        {
-            const string Valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#%&()@${[]}";
-            var res = string.Empty;
-            var rnd = new Random();
-
-            while (0 < length--)
-            {
-                res += Valid[rnd.Next(Valid.Length)];
-            }
-
-            return res;
         }
 
         /// <summary>

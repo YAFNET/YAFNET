@@ -39,26 +39,6 @@ namespace YAF.Utils
         #region Public Methods
 
         /// <summary>
-        /// Compares two messages.
-        /// </summary>
-        /// <param name="originalMessage">
-        /// Original message text.
-        /// </param>
-        /// <param name="newMessage">
-        /// New message text.
-        /// </param>
-        /// <returns>
-        /// True if messages differ, <see langword="false"/> if they are identical.
-        /// </returns>
-        public static bool CompareMessage([NotNull] object originalMessage, [NotNull] object newMessage)
-        {
-            CodeContracts.VerifyNotNull(originalMessage, "originalMessage");
-            CodeContracts.VerifyNotNull(newMessage, "newMessage");
-
-            return originalMessage.ToString() != newMessage.ToString();
-        }
-
-        /// <summary>
         /// Gets the safe raw URL.
         /// </summary>
         /// <returns>Returns the safe raw URL</returns>
