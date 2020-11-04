@@ -706,8 +706,10 @@ namespace YAF.Core.Model
                                 LastMessage = m.MessageText,
                                 LastUserName = u.Name,
                                 LastUserDisplayName = u.DisplayName,
-                                LastForumAccess = (DateTime?)null,
-                                LastTopicAccess = (DateTime?)null
+                                LastUserStyle = lastUser.UserStyle,
+                                LastUserSuspended = lastUser.Suspended,
+                                LastForumAccess = Sql.Custom("(NULL)"),
+                                LastTopicAccess = Sql.Custom("(NULL)")
                             });
                     }
 
