@@ -1,6 +1,17 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.1.11
+* [FIXED] Admin User page
+* [Fixed] publish solution
+
+# YetAnotherForum.NET v2.3.1.10
+* [FIXED] wrong lanuage code for hebrew
+* [FIXED] version info
+* [FIXED] youtube autoembed
+* Install Membership Provider Scripts on Upgrade for Azure if needed
+* Upgraded to Bootstrap 4.5.3
+
 # YetAnotherForum.NET v2.3.1.09
 * [NEW] added login failure logging
 * [SECURITY FIX] for Private Messages
@@ -11,7 +22,6 @@ YetAnotherForum.NET Changelog
 * [FIXED #588] creating of new medals
 * FIXED] show info message after shrink db
 * Removed Postback before logout dialog appears
-
 
 # YetAnotherForum.NET v2.3.1.08
 * Upgraded to Bootstrap 4.5.2
@@ -29,7 +39,6 @@ YetAnotherForum.NET Changelog
 * [FIXED] Links to Moved topics
 * [FIXED #580] wrong DateTime format for Sitemap Urls
 * [FIXED #579] Clear cache on user delete
-
 
 # YetAnotherForum.NET v2.3.1.06
 * [FIXED] Emoji Button in CKEditor
