@@ -119,17 +119,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Add the given CSS to the page header within a style tag
-        /// </summary>
-        /// <param name="cssUrl">
-        /// Url of the CSS file to add
-        /// </param>
-        public void RegisterCssInclude(string cssUrl)
-        {
-            this.RegisterCssInclude(BoardContext.Current.CurrentForumPage.TopPageControl, cssUrl);
-        }
-
-        /// <summary>
         /// Adds the given CSS to the page header within a <![CDATA[<style>]]> tag
         /// </summary>
         /// <param name="element">

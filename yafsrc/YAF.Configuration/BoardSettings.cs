@@ -1167,7 +1167,7 @@ namespace YAF.Configuration
         /// </summary>
         public bool UseReadTrackingByDatabase
         {
-            get => this.Registry.GetValue("UseReadTrackingByDatabase", false);
+            get => this.Registry.GetValue("UseReadTrackingByDatabase", true);
 
             set => this.Registry.SetValue("UseReadTrackingByDatabase", value);
         }
@@ -2106,7 +2106,7 @@ namespace YAF.Configuration
             get =>
                 this.Registry.GetValue(
                     "EditorToolbarFull",
-                    "[\"Source\"],[\"Cut\", \"Copy\", \"Paste\"], [\"Undo\", \"Redo\", \"-\", \"Find\", \"Replace\", \"-\", \"SelectAll\", \"RemoveFormat\"],[\"About\"],\"/\",[\"Bold\", \"Italic\", \"Underline\", \"-\", \"TextColor\", \"FontSize\",\"highlight\"],[\"-\", \"JustifyLeft\", \"JustifyCenter\", \"JustifyRight\"],[\"-\", \"Outdent\", \"Indent\"],[\"EmojiPanel\"],[\"-\", \"Link\", \"Unlink\", \"-\", \"attachments\", \"-\", \"Image\", \"albumsbrowser\"], [\"-\", \"NumberedList\", \"BulletedList\"],[\"quote\", \"Syntaxhighlight\",\"bbcodeselector\"]");
+                    "[\"Source\"],[\"Cut\", \"Copy\", \"Paste\"], [\"Undo\", \"Redo\", \"-\", \"Find\", \"Replace\", \"-\", \"SelectAll\", \"RemoveFormat\"],[\"About\"],\"/\",[\"Bold\", \"Italic\", \"Underline\", \"-\", \"TextColor\", \"FontSize\",\"highlight\"],[\"-\", \"JustifyLeft\", \"JustifyCenter\", \"JustifyRight\"],[\"-\", \"Outdent\", \"Indent\"],[\"EmojiPanel\"],[\"-\", \"Link\", \"Unlink\", \"-\", \"attachments\", \"-\", \"Image\", \"albumsbrowser\"], [\"-\", \"NumberedList\", \"BulletedList\"],[\"quote\", \"Syntaxhighlight\",\"bbcodeselector\"],[\"youtube\",\"vimeo\", \"instagram\", \"twitter\", \"facebook\"]");
 
             set => this.Registry.SetValue("EditorToolbarFull", value);
         }

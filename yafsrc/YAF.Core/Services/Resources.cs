@@ -197,6 +197,7 @@ namespace YAF.Core.Services
                     return;
                 }
 
+                // TODo : Cache list
                 var customBbCode = this.GetRepository<BBCode>().GetByBoardId()
                     .Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH").Select(e => e.Name).ToList();
 
