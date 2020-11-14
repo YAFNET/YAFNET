@@ -1,7 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Groups" Codebehind="Groups.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="YAF.Core.Extensions" %>
+<%@ Import Namespace="YAF.Types.Flags" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row" runat="server" Visible="<%# this.RoleListNet.Items.Count > 0 %>">
@@ -120,32 +120,32 @@
                             <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
                                                 LocalizedTag="IS_GUEST" LocalizedPage="ADMIN_GROUPS" />:&nbsp;
                             <asp:Label ID="Label2" runat="server" 
-                                       CssClass='<%# this.GetItemColor(this.Eval( "Flags" ).BinaryAnd(2)) %>'>
-                                <%# this.GetItemName(this.Eval( "Flags" ).BinaryAnd(2)) %>
+                                       CssClass='<%# this.GetItemColor(((GroupFlags)this.Eval("GroupFlags")).IsGuest) %>'>
+                                <%# this.GetItemName(((GroupFlags)this.Eval("GroupFlags")).IsGuest) %>
                             </asp:Label>
                         </li>
                         <li class="list-inline-item">
                             <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
                                                 LocalizedTag="IS_START" LocalizedPage="ADMIN_GROUPS" />:&nbsp;
                             <asp:Label ID="Label1" runat="server" 
-                                       CssClass='<%# this.GetItemColor(this.Eval( "Flags" ).BinaryAnd(4)) %>'>
-                                <%# this.GetItemName(this.Eval( "Flags" ).BinaryAnd(4)) %>
+                                       CssClass='<%# this.GetItemColor(((GroupFlags)this.Eval("GroupFlags")).IsStart) %>'>
+                                <%# this.GetItemName(((GroupFlags)this.Eval("GroupFlags")).IsStart) %>
                             </asp:Label>
                         </li>
                         <li class="list-inline-item">
                             <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" 
                                                 LocalizedTag="IS_MOD" LocalizedPage="ADMIN_GROUPS" />:&nbsp;
                             <asp:Label ID="Label3" runat="server" 
-                                       CssClass='<%# this.GetItemColor(this.Eval( "Flags" ).BinaryAnd(8)) %>'>
-                                <%# this.GetItemName(this.Eval( "Flags" ).BinaryAnd(8)) %>
+                                       CssClass='<%# this.GetItemColor(((GroupFlags)this.Eval("GroupFlags")).IsModerator) %>'>
+                                <%# this.GetItemName(((GroupFlags)this.Eval("GroupFlags")).IsModerator) %>
                             </asp:Label>
                         </li>
                         <li class="list-inline-item">
                             <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" 
                                                 LocalizedTag="IS_ADMIN" LocalizedPage="ADMIN_GROUPS" />:&nbsp;
                             <asp:Label ID="Label4" runat="server" 
-                                       CssClass='<%# this.GetItemColor(this.Eval( "Flags" ).BinaryAnd(1)) %>'>
-                                <%# this.GetItemName(this.Eval( "Flags" ).BinaryAnd(1)) %>
+                                       CssClass='<%# this.GetItemColor(((GroupFlags)this.Eval("GroupFlags")).IsAdmin) %>'>
+                                <%# this.GetItemName(((GroupFlags)this.Eval("GroupFlags")).IsAdmin) %>
                             </asp:Label>
                         </li>
                         <li class="list-inline-item">
@@ -220,7 +220,7 @@
                         <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
                                          Type="Danger" 
                                          Size="Small" 
-                                         Visible='<%#!this.Eval( "Flags" ).BinaryAnd(2)%>'
+                                         Visible='<%#!((GroupFlags)this.Eval("GroupFlags")).IsGuest%>'
                                          CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>'
                                          ReturnConfirmText='<%# this.GetText("ADMIN_GROUPGS", "CONFIRM_DELETE") %>'
                                          TitleLocalizedTag="DELETE"
@@ -240,7 +240,7 @@
                         <YAF:ThemeButton ID="ThemeButton2" runat="server" 
                                          Type="None"
                                          CssClass="dropdown-item"
-                                         Visible='<%#!this.Eval( "Flags" ).BinaryAnd(2)%>'
+                                         Visible='<%#!((GroupFlags)this.Eval("GroupFlags")).IsGuest%>'
                                          CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>'
                                          ReturnConfirmText='<%# this.GetText("ADMIN_GROUPGS", "CONFIRM_DELETE") %>'
                                          TitleLocalizedTag="DELETE"
