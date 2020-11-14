@@ -73,9 +73,8 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
                 return true;
             }
 
-            if (other is PayloadAttribute)
+            if (other is PayloadAttribute o)
             {
-                PayloadAttribute o = (PayloadAttribute)other;
                 if (o.payload == null || payload == null)
                 {
                     return o.payload == null && payload == null;

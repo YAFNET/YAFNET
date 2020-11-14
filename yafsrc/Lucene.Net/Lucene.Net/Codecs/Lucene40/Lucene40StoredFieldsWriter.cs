@@ -2,7 +2,6 @@ using J2N;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
 using System;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene40
@@ -25,12 +24,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      */
 
     using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
     using Directory = YAF.Lucene.Net.Store.Directory;
     using Document = Documents.Document;
     using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
     using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using IIndexableField = YAF.Lucene.Net.Index.IIndexableField;
     using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
     using IndexInput = YAF.Lucene.Net.Store.IndexInput;
@@ -51,12 +50,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
     public sealed class Lucene40StoredFieldsWriter : StoredFieldsWriter
     {
         // NOTE: bit 0 is free here!  You can steal it!
-        internal static readonly int FIELD_IS_BINARY = 1 << 1;
+        internal const int FIELD_IS_BINARY = 1 << 1;
 
         // the old bit 1 << 2 was compressed, is now left out
 
         private const int _NUMERIC_BIT_SHIFT = 3;
-        internal static readonly int FIELD_IS_NUMERIC_MASK = 0x07 << _NUMERIC_BIT_SHIFT;
+        internal const int FIELD_IS_NUMERIC_MASK = 0x07 << _NUMERIC_BIT_SHIFT;
 
         internal const int FIELD_IS_NUMERIC_INT = 1 << _NUMERIC_BIT_SHIFT;
         internal const int FIELD_IS_NUMERIC_LONG = 2 << _NUMERIC_BIT_SHIFT;
@@ -84,8 +83,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
         private readonly Directory directory;
         private readonly string segment;
+#pragma warning disable CA2213 // Disposable fields should be disposed
         private IndexOutput fieldsStream;
         private IndexOutput indexStream;
+#pragma warning restore CA2213 // Disposable fields should be disposed
 
         /// <summary>
         /// Sole constructor. </summary>
@@ -123,12 +124,14 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         // and adds a new entry for this document into the index
         // stream.  this assumes the buffer was already written
         // in the correct fields format.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void StartDocument(int numStoredFields)
         {
             indexStream.WriteInt64(fieldsStream.GetFilePointer());
             fieldsStream.WriteVInt32(numStoredFields);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -269,6 +272,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             if (Debugging.AssertsEnabled) Debugging.Assert(fieldsStream.GetFilePointer() == position);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Finish(FieldInfos fis, int numDocs)
         {
             if (HEADER_LENGTH_IDX + ((long)numDocs) * 8 != indexStream.GetFilePointer())
@@ -298,9 +302,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 {
                     StoredFieldsReader fieldsReader = matchingSegmentReader.FieldsReader;
                     // we can only bulk-copy if the matching reader is also a Lucene40FieldsReader
-                    if (fieldsReader != null && fieldsReader is Lucene40StoredFieldsReader)
+                    if (fieldsReader != null && fieldsReader is Lucene40StoredFieldsReader lucene40StoredFieldsReader)
                     {
-                        matchingFieldsReader = (Lucene40StoredFieldsReader)fieldsReader;
+                        matchingFieldsReader = lucene40StoredFieldsReader;
                     }
                 }
 

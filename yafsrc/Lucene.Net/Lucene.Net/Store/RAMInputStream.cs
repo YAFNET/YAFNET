@@ -32,8 +32,8 @@ namespace YAF.Lucene.Net.Store
     {
         internal const int BUFFER_SIZE = RAMOutputStream.BUFFER_SIZE;
 
-        private RAMFile file;
-        private long length;
+        private readonly RAMFile file; // LUCENENET: marked readonly
+        private readonly long length; // LUCENENET: marked readonly
 
         private byte[] currentBuffer;
         private int currentBufferIndex;

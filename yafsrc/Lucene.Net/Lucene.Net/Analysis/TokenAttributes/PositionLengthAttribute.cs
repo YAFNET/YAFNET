@@ -62,9 +62,8 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
                 return true;
             }
 
-            if (other is PositionLengthAttribute)
+            if (other is PositionLengthAttribute _other)
             {
-                PositionLengthAttribute _other = (PositionLengthAttribute)other;
                 return positionLength == _other.positionLength;
             }
 

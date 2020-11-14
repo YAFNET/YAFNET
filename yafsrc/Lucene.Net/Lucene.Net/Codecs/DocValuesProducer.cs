@@ -95,7 +95,7 @@ namespace YAF.Lucene.Net.Codecs
         /// <summary>
         /// Disposes all resources used by this object.
         /// </summary>
-        public virtual void Dispose()
+        public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);

@@ -36,10 +36,9 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
     {
         protected override IQueryNode PostProcessNode(IQueryNode node)
         {
-            if (node is IFieldableNode &&
+            if (node is IFieldableNode fieldNode &&
                 (node.Parent == null || !(node.Parent is IFieldableNode)))
             {
-                IFieldableNode fieldNode = (IFieldableNode)node;
                 QueryConfigHandler config = GetQueryConfigHandler();
 
                 if (config != null)

@@ -1,10 +1,10 @@
-using J2N.Threading.Atomic;
 using J2N.Runtime.CompilerServices;
+using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
@@ -27,10 +27,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      */
 
     using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using Directory = YAF.Lucene.Net.Store.Directory;
     using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
     using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
     using IndexInput = YAF.Lucene.Net.Store.IndexInput;
     using IOContext = YAF.Lucene.Net.Store.IOContext;
@@ -81,7 +81,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         {
             Directory separateNormsDir = info.Dir; // separate norms are never inside CFS
             maxdoc = info.DocCount;
-            string segmentName = info.Name;
+            //string segmentName = info.Name; // LUCENENET: IDE0059: Remove unnecessary value assignment
             bool success = false;
             try
             {
@@ -161,6 +161,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 {
                     norms.Clear();
                     openFiles.Clear();
+                    singleNormStream?.Dispose(); // LUCENENET: Dispose singleNormStream and set to null
+                    singleNormStream = null;
                 }
             }
         }
@@ -179,6 +181,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool HasSeparateNorms(SegmentInfo info, int number)
         {
             string v = info.GetAttribute(Lucene3xSegmentInfoFormat.NORMGEN_PREFIX + number);
@@ -232,7 +235,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                                 file.Dispose();
                             }
                             outerInstance.ramBytesUsed.AddAndGet(RamUsageEstimator.SizeOf(bytes));
-                            instance = new NumericDocValuesAnonymousInnerClassHelper(this, bytes);
+                            instance = new NumericDocValuesAnonymousInnerClassHelper(bytes);
                         }
                         return instance;
                     }
@@ -243,11 +246,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             {
                 private readonly byte[] bytes;
 
-                public NumericDocValuesAnonymousInnerClassHelper(NormsDocValues outerInstance, byte[] bytes)
+                public NumericDocValuesAnonymousInnerClassHelper(byte[] bytes)
                 {
                     this.bytes = bytes;
                 }
 
+                [MethodImpl(MethodImplOptions.AggressiveInlining)]
                 public override long Get(int docID)
                 {
                     return bytes[docID];
@@ -255,6 +259,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override NumericDocValues GetNumeric(FieldInfo field)
         {
             var dv = norms[field.Name];
@@ -282,6 +287,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             throw new InvalidOperationException();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override long RamBytesUsed() => ramBytesUsed;
 
         public override void CheckIntegrity() { }

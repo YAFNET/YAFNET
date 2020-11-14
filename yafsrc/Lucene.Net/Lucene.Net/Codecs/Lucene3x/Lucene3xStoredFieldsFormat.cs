@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using Directory = YAF.Lucene.Net.Store.Directory;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
@@ -27,6 +28,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
     [Obsolete("Only for reading existing 3.x indexes")]
     internal class Lucene3xStoredFieldsFormat : StoredFieldsFormat
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override StoredFieldsReader FieldsReader(Directory directory, SegmentInfo si, FieldInfos fn, IOContext context)
         {
             return new Lucene3xStoredFieldsReader(directory, si, fn, context);

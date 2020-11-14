@@ -380,7 +380,7 @@ namespace YAF.Lucene.Net.Search
 
         private class CollectorAnonymousInnerClassHelper : ICollector
         {
-            private bool acceptDocsOutOfOrder;
+            private readonly bool acceptDocsOutOfOrder;
 
             public CollectorAnonymousInnerClassHelper(bool acceptDocsOutOfOrder)
             {

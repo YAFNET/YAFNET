@@ -1,5 +1,6 @@
 using YAF.Lucene.Net.Diagnostics;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Fst
 {
@@ -627,6 +628,7 @@ namespace YAF.Lucene.Net.Util.Fst
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private FST.Arc<T> GetArc(int idx)
         {
             if (m_arcs[idx] == null)

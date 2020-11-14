@@ -1,5 +1,6 @@
 using YAF.Lucene.Net.Diagnostics;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -97,6 +98,7 @@ namespace YAF.Lucene.Net.Util
             return pos < nextPos && pos >= nextPos - count;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private int GetIndex(int pos)
         {
             int index = nextWrite - (nextPos - pos);

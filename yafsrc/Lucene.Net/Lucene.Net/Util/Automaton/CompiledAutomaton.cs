@@ -3,6 +3,7 @@ using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace YAF.Lucene.Net.Util.Automaton
@@ -215,6 +216,7 @@ namespace YAF.Lucene.Net.Util.Automaton
 
         //private static final boolean DEBUG = BlockTreeTermsWriter.DEBUG;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private BytesRef AddTail(int state, BytesRef term, int idx, int leadLabel)
         {
             // Find biggest transition that's < label

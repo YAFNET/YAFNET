@@ -1,6 +1,5 @@
 using YAF.Lucene.Net.Diagnostics;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene40
@@ -22,13 +21,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
-
     // javadocs
     using Directory = YAF.Lucene.Net.Store.Directory;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
     using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
     using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
     using SegmentCommitInfo = YAF.Lucene.Net.Index.SegmentCommitInfo;
 
     /// <summary>
@@ -67,7 +65,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
     {
         /// <summary>
         /// Extension of deletes </summary>
-        internal static readonly string DELETES_EXTENSION = "del";
+        internal const string DELETES_EXTENSION = "del";
 
         /// <summary>
         /// Sole constructor. </summary>
@@ -75,6 +73,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         {
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override IMutableBits NewLiveDocs(int size)
         {
             BitVector bitVector = new BitVector(size);
@@ -82,6 +81,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             return bitVector;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override IMutableBits NewLiveDocs(IBits existing)
         {
             BitVector liveDocs = (BitVector)existing;
@@ -113,6 +113,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             liveDocs.Write(dir, filename, context);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Files(SegmentCommitInfo info, ICollection<string> files)
         {
             if (info.HasDeletions)

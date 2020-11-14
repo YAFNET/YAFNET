@@ -1,5 +1,6 @@
 using YAF.Lucene.Net.Support;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -133,17 +134,20 @@ namespace YAF.Lucene.Net.Util.Packed
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal override void Grow(int newBlockCount)
         {
             base.Grow(newBlockCount);
             this.minValues = Arrays.CopyOf(minValues, newBlockCount);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal override long BaseRamBytesUsed()
         {
             return base.BaseRamBytesUsed() + RamUsageEstimator.NUM_BYTES_OBJECT_REF; // additional array
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override long RamBytesUsed()
         {
             return base.RamBytesUsed() + RamUsageEstimator.SizeOf(minValues);

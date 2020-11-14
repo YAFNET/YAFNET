@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace YAF.Lucene.Net.Util
 {
     /*
@@ -38,6 +40,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Get value at <paramref name="idx"/>. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override long Get(int idx)
         {
             return Get((long)idx);

@@ -2,7 +2,6 @@ using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene40
@@ -26,13 +25,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
     using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
     using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
     using DataInput = YAF.Lucene.Net.Store.DataInput;
     using Directory = YAF.Lucene.Net.Store.Directory;
     using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
     using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
     using Fields = YAF.Lucene.Net.Index.Fields;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
     using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
     using IOContext = YAF.Lucene.Net.Store.IOContext;
@@ -60,7 +59,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
     {
         private readonly Directory directory;
         private readonly string segment;
+#pragma warning disable CA2213 // Disposable fields should be disposed
         private IndexOutput tvx = null, tvd = null, tvf = null;
+#pragma warning restore CA2213 // Disposable fields should be disposed
 
         /// <summary>
         /// Sole constructor. </summary>
@@ -95,6 +96,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void StartDocument(int numVectorFields)
         {
             lastFieldName = null;
@@ -156,7 +158,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         private int[] offsetStartBuffer = new int[10];
 
         private int[] offsetEndBuffer = new int[10];
-        private BytesRef payloadData = new BytesRef(10);
+        private readonly BytesRef payloadData = new BytesRef(10); // LUCENENET: marked readonly
         private int bufferedIndex = 0;
         private int bufferedFreq = 0;
         private bool positions = false;
@@ -332,10 +334,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             {
                 Dispose();
             }
-#pragma warning disable 168
-            catch (Exception ignored)
-#pragma warning restore 168
+            catch (Exception) // LUCENENET: IDE0059: Remove unnecessary value assignment
             {
+                // ignored
             }
             IOUtils.DeleteFilesIgnoringExceptions(directory, 
                 IndexFileNames.SegmentFileName(segment, "", Lucene40TermVectorsReader.VECTORS_INDEX_EXTENSION), 
@@ -389,9 +390,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 {
                     TermVectorsReader vectorsReader = matchingSegmentReader.TermVectorsReader;
 
-                    if (vectorsReader != null && vectorsReader is Lucene40TermVectorsReader)
+                    if (vectorsReader != null && vectorsReader is Lucene40TermVectorsReader lucene40TermVectorsReader)
                     {
-                        matchingVectorsReader = (Lucene40TermVectorsReader)vectorsReader;
+                        matchingVectorsReader = lucene40TermVectorsReader;
                     }
                 }
                 if (reader.LiveDocs != null)
@@ -504,6 +505,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             return maxDoc;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Finish(FieldInfos fis, int numDocs)
         {
             if (Lucene40TermVectorsReader.HEADER_LENGTH_INDEX + ((long)numDocs) * 16 != tvx.GetFilePointer())
@@ -519,6 +521,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
         /// <summary>
         /// Close all streams. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void Dispose(bool disposing)
         {
             if (disposing)

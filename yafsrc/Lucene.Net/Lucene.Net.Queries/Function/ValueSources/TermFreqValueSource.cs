@@ -53,7 +53,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         {
             private readonly TermFreqValueSource outerInstance;
 
-            private Terms terms;
+            private readonly Terms terms;
 
             public Int32DocValuesAnonymousInnerClassHelper(TermFreqValueSource outerInstance, TermFreqValueSource @this, Terms terms)
                 : base(@this)
@@ -74,7 +74,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
                 if (terms != null)
                 {
-                    TermsEnum termsEnum = terms.GetIterator(null);
+                    TermsEnum termsEnum = terms.GetEnumerator();
                     if (termsEnum.SeekExact(outerInstance.m_indexedBytes))
                     {
                         docs = termsEnum.Docs(null, null);
@@ -91,20 +91,13 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
                 if (docs == null)
                 {
-                    docs = new DocsEnumAnonymousInnerClassHelper(this);
+                    docs = new DocsEnumAnonymousInnerClassHelper();
                 }
                 atDoc = -1;
             }
 
             private class DocsEnumAnonymousInnerClassHelper : DocsEnum
             {
-                private readonly Int32DocValuesAnonymousInnerClassHelper outerInstance;
-
-                public DocsEnumAnonymousInnerClassHelper(Int32DocValuesAnonymousInnerClassHelper outerInstance)
-                {
-                    this.outerInstance = outerInstance;
-                }
-
                 public override int Freq => 0;
 
                 public override int DocID => DocIdSetIterator.NO_MORE_DOCS;
