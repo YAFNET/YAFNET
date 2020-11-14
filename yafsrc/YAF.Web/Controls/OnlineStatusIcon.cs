@@ -95,7 +95,7 @@ namespace YAF.Web.Controls
             if (this.Suspended.HasValue)
             {
                 // suspended
-                output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-warning");
+                output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-warning user-suspended");
                 output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetTextFormatted("USERSUSPENDED", this.Suspended.Value));
                 output.WriteAttribute("data-toggle", "tooltip");
             }
@@ -104,14 +104,14 @@ namespace YAF.Web.Controls
                 if (activeUsers.Any(x => (int)x.UserID == this.UserId && x.IsActiveExcluded == false))
                 {
                     // online
-                    output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-success");
+                    output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-success user-online");
                     output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USERONLINESTATUS"));
                     output.WriteAttribute("data-toggle", "tooltip");
                 }
                 else
                 {
                     // offline
-                    output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-danger");
+                    output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-danger user-offline");
                     output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USEROFFLINESTATUS"));
                     output.WriteAttribute("data-toggle", "tooltip");
                 }
