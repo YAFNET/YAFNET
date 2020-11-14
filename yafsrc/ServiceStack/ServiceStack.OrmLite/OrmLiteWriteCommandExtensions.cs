@@ -92,7 +92,6 @@ namespace ServiceStack.OrmLite
                 DropTable(dbCmd, modelDef);
 
                 var postDropTableSql = dialectProvider.ToPostDropTableStatement(modelDef);
-
                 if (postDropTableSql != null)
                 {
                     ExecuteSql(dbCmd, postDropTableSql);
@@ -154,7 +153,6 @@ namespace ServiceStack.OrmLite
                     ExecuteSql(dbCmd, createTableSql);
 
                     var postCreateTableSql = dialectProvider.ToPostCreateTableStatement(modelDef);
-
                     if (postCreateTableSql != null)
                     {
                         ExecuteSql(dbCmd, postCreateTableSql);

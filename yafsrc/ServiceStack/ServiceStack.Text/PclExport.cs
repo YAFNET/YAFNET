@@ -23,12 +23,12 @@ namespace ServiceStack
         {
             public const string NetStandard = "NETStandard";
             public const string NetCore = "NetCore";
-            public const string NET48 = "NET48";
+            public const string Net45 = "Net45";
         }
 
         public static PclExport Instance
 #if NET48
-          = new NET48PclExport()
+          = new Net45PclExport()
 #elif NETCORE2_1
           = new NetCorePclExport()
 #else
@@ -115,10 +115,6 @@ namespace ServiceStack
         {
         }
 
-        public virtual void RegisterLicenseFromConfig()
-        {            
-        }
-
         public virtual string GetEnvironmentVariable(string name)
         {
             return null;
@@ -179,6 +175,11 @@ namespace ServiceStack
             {
                 throw ex.UnwrapIfSingleException();
             }
+        }
+
+        public virtual Task<WebResponse> GetResponseAsync(WebRequest webRequest)
+        {
+            return webRequest.GetResponseAsync();
         }
 
         public virtual bool IsDebugBuild(Assembly assembly)

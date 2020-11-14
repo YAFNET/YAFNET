@@ -23,11 +23,11 @@ using System.Reflection.Emit;
 
 namespace ServiceStack
 {
-    public class NET48PclExport : PclExport
+    public class Net45PclExport : PclExport
     {
-        public static NET48PclExport Provider = new NET48PclExport();
+        public static Net45PclExport Provider = new Net45PclExport();
 
-        public NET48PclExport()
+        public Net45PclExport()
         {
             this.DirSep = Path.DirectorySeparatorChar;
             this.AltDirSep = Path.DirectorySeparatorChar == '/' ? '\\' : '/';
@@ -37,7 +37,7 @@ namespace ServiceStack
             this.InvariantComparer = StringComparer.InvariantCulture;
             this.InvariantComparerIgnoreCase = StringComparer.InvariantCultureIgnoreCase;
 
-            this.PlatformName = Platforms.NET48;
+            this.PlatformName = Platforms.Net45;
             ReflectionOptimizer.Instance = EmitReflectionOptimizer.Provider;
         }
 
@@ -100,6 +100,9 @@ namespace ServiceStack
                 : Directory.GetDirectories(dirPath);
         }
 
+        public const string AppSettingsKey = "servicestack:license";
+        public const string EnvironmentKey = "SERVICESTACK_LICENSE";
+
         public override string GetEnvironmentVariable(string name)
         {
             return Environment.GetEnvironmentVariable(name);
@@ -117,8 +120,8 @@ namespace ServiceStack
 
         public override async Task WriteAndFlushAsync(Stream stream, byte[] bytes)
         {
-            await stream.WriteAsync(bytes, 0, bytes.Length);
-            await stream.FlushAsync();
+            await stream.WriteAsync(bytes, 0, bytes.Length).ConfigAwait();
+            await stream.FlushAsync().ConfigAwait();
         }
 
         public override void AddCompression(WebRequest webReq)
@@ -488,61 +491,6 @@ namespace ServiceStack
 
     public static class PclExportExt
     {
-        //HttpUtils
-        public static WebResponse PostFileToUrl(this string url,
-            FileInfo uploadFileInfo, string uploadFileMimeType,
-            string accept = null,
-            Action<HttpWebRequest> requestFilter = null)
-        {
-            var webReq = (HttpWebRequest)WebRequest.Create(url);
-            using (var fileStream = uploadFileInfo.OpenRead())
-            {
-                var fileName = uploadFileInfo.Name;
-
-                webReq.UploadFile(fileStream, fileName, uploadFileMimeType, accept: accept, requestFilter: requestFilter, method: "POST");
-            }
-
-            if (HttpUtils.ResultsFilter != null)
-                return null;
-
-            return webReq.GetResponse();
-        }
-
-        public static WebResponse PutFileToUrl(this string url,
-            FileInfo uploadFileInfo, string uploadFileMimeType,
-            string accept = null,
-            Action<HttpWebRequest> requestFilter = null)
-        {
-            var webReq = (HttpWebRequest)WebRequest.Create(url);
-            using (var fileStream = uploadFileInfo.OpenRead())
-            {
-                var fileName = uploadFileInfo.Name;
-
-                webReq.UploadFile(fileStream, fileName, uploadFileMimeType, accept: accept, requestFilter: requestFilter, method: "PUT");
-            }
-
-            if (HttpUtils.ResultsFilter != null)
-                return null;
-
-            return webReq.GetResponse();
-        }
-
-        public static WebResponse UploadFile(this WebRequest webRequest,
-            FileInfo uploadFileInfo, string uploadFileMimeType)
-        {
-            using (var fileStream = uploadFileInfo.OpenRead())
-            {
-                var fileName = uploadFileInfo.Name;
-
-                webRequest.UploadFile(fileStream, fileName, uploadFileMimeType);
-            }
-
-            if (HttpUtils.ResultsFilter != null)
-                return null;
-
-            return webRequest.GetResponse();
-        }
-
         //XmlSerializer
         public static void CompressToStream<TXmlDto>(TXmlDto from, Stream stream)
         {

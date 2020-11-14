@@ -79,12 +79,12 @@ namespace ServiceStack.OrmLite
 #else
         public Task<int> SaveAllAsync(IEnumerable objs, CancellationToken token)
         {
-            throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNET48Error);
+            throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNet45Error);
         }
 
         public Task<bool> SaveAsync(object obj, CancellationToken token)
         {
-            throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNET48Error);
+            throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNet45Error);
         }
 #endif
 
