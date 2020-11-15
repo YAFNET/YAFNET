@@ -18,7 +18,7 @@
                         </HeaderTemplate>
                         <ItemTemplate>
                             <li class="list-group-item list-group-item-action">
-                                <span class="font-weight-bold">
+                                <span class="fw-bold">
                                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                                         LocalizedTag="PAGE" 
                                                         LocalizedPage="ADMIN_PAGEACCESSEDIT" />:

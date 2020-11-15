@@ -32,7 +32,7 @@
                     
                 </p>
                 <p class="mb-1">
-                    <span class="font-weight-bold">
+                    <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GOOD" LocalizedPage="ADMIN_REPLACEWORDS" />: &nbsp;
                     </span>
                     <%# this.HtmlEncode(this.Eval("goodword")) %>

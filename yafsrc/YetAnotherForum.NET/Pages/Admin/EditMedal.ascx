@@ -156,7 +156,7 @@
                     </h5>
                 </div>
                 <p class="mb-1">
-                    <span class="font-weight-bold">
+                    <span class="fw-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                             LocalizedTag="MESSAGE" 
                                             LocalizedPage="COMMON" />
@@ -256,7 +256,7 @@
                         <%# this.FormatUserLink(Container.DataItem) %>
                     </h5>
                     <small class="d-none d-md-block">
-                        <span class="font-weight-bold">
+                        <span class="fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
                                                 LocalizedTag="DATE_AWARDED" 
                                                 LocalizedPage="ADMIN_EDITMEDAL" />:
@@ -265,7 +265,7 @@
                     </small>
                 </div>
                 <p class="mb-1">
-                    <span class="font-weight-bold">
+                    <span class="fw-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
                                             LocalizedTag="MESSAGE" 
                                             LocalizedPage="COMMON" />

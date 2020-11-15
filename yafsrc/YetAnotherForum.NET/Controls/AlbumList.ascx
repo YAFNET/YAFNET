@@ -9,7 +9,7 @@
 <section class="text-center container">
     <div class="row">
         <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="font-weight-light">
+            <h1 class="fw-light">
                 <YAF:LocalizedLabel runat="server" ID="Header"
                                     LocalizedTag="ALBUMS_HEADER_TEXT"
                 />

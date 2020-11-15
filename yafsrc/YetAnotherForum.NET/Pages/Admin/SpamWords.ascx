@@ -46,10 +46,9 @@
                                     <asp:TextBox runat="server" ID="SearchInput"
                                                  CssClass="form-control"></asp:TextBox>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 d-grid gap-2">
                                     <YAF:ThemeButton ID="search" runat="server"  
                                                      Type="Primary"
-                                                     CssClass="btn-block"
                                                      TextLocalizedTag="BTNSEARCH" 
                                                      TextLocalizedPage="SEARCH" 
                                                      Icon="search"

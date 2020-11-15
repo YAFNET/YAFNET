@@ -74,19 +74,13 @@
                                             LocalizedTag="UPLOAD_TITLE" runat="server" />
                     </asp:Label>
                     <div class="input-group">
-                        <div class="form-file mb-3">
-                            <input type="file" id="File" class="form-file-input" runat="server" />
-                            <label for="<%# this.File.ClientID %>" class="form-file-label">
-                                <span class="form-file-text">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel3" 
-                                                        LocalizedTag="SELECT_FILE" 
-                                                        LocalizedPage="EDIT_ALBUMIMAGES" runat="server" />
-                                </span>
-                                <span class="form-file-button">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
-                                                        LocalizedTag="BROWSE" />
-                                </span>
+                        <div class="mb-3">
+                            <label for="<%# this.File.ClientID %>" class="form-label">
+                                <YAF:LocalizedLabel ID="LocalizedLabel3" 
+                                                    LocalizedTag="SELECT_FILE" 
+                                                    LocalizedPage="EDIT_ALBUMIMAGES" runat="server" />
                             </label>
+                            <input type="file" id="File" class="form-control" runat="server" />
                         </div>
                         <YAF:ThemeButton runat="server" ID="Upload" 
                                          CausesValidation="True"

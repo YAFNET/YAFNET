@@ -22021,7 +22021,7 @@
             '<div data-notify="container" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="false">',
             '<div class="toast-header">',
             '<span data-notify="icon" class="mr-2 text-{0}"></span>',
-            '<span class="mr-auto font-weight-bold" data-notify="title">{1}</span>',
+            '<span class="mr-auto fw-bold" data-notify="title">{1}</span>',
             '<button type="button" class="ml-2 mb-1 btn-close" data-dismiss="toast" data-notify="dismiss" aria-label="Close">',
             '</button>',
             '</div>',
@@ -42414,8 +42414,20 @@ jQuery(document).ready(function () {
 
 
     // Numeric Spinner Inputs
-    jQuery("input[type='number']").TouchSpin({
-        max: 2147483647
+    $("input[type='number']").each(function () {
+
+        if ($(this).hasClass("form-pager")) {
+            var holder = $(this).closest(".mb-3");
+
+            $(this).TouchSpin({
+                min: holder.data("min"),
+                max: holder.data("max")
+            });
+        } else {
+            $(this).TouchSpin({
+                max: 2147483647
+            });
+        }
     });
 
     jQuery(".serverTime-Input").TouchSpin({
@@ -42733,10 +42745,3 @@ function getSelectedMessageText() {
     return text.replace(/<p[^>]*>/ig, "\n").replace(/<\/p>|  /ig, "").replace("(", "").replace(")", "")
         .replace("\"", "").replace("'", "").replace("\'", "").replace(";", "").trim();
 }
-jQuery(document).ready(function () {
-    jQuery(".form-file-input").on("change",
-        function () {
-            var fileName = $(this)[0].files[0].name;
-            $(this).next(".form-file-label").html(fileName);
-        });
-});

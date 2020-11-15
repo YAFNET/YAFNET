@@ -24,19 +24,13 @@
                                                 LocalizedTag="NOTE" LocalizedPage="ADMIN_BANNEDEMAIL">
                             </YAF:LocalizedLabel>
                         </YAF:Alert>
-                        <div class="form-file">
-                            <input type="file" id="importFile" class="form-file-input" runat="server" />
-                            <label for="<%# this.importFile.ClientID %>" class="form-file-label">
-                                <span class="form-file-text">
-                                    <YAF:LocalizedLabel runat="server" 
-                                                        LocalizedTag="SELECT_IMPORT" 
-                                                        LocalizedPage="ADMIN_EXTENSIONS_IMPORT"/>
-                                </span>
-                                <span class="form-file-button">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
-                                                        LocalizedTag="BROWSE" />
-                                </span>
+                        <div class="mb-3">
+                            <label for="<%# this.importFile.ClientID %>" class="form-label">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedTag="SELECT_IMPORT" 
+                                                    LocalizedPage="ADMIN_EXTENSIONS_IMPORT"/>
                             </label>
+                            <input type="file" id="importFile" class="form-control" runat="server" />
                         </div>
                         <!-- Modal Content END !-->
                     </div>

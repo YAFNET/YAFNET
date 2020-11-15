@@ -26,11 +26,10 @@
                                             LocalizedTag="NEED_USERNAME" />
                     </div>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 d-grid gap-2">
                     <YAF:ThemeButton runat="server" ID="Forgot"
                                      CausesValidation="True"
                                      TextLocalizedTag="SUBMIT"
-                                     CssClass="btn-block"
                                      OnClick="ForgotPasswordClick"/> 
                 </div>
             </div>

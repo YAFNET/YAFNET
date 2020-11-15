@@ -55,7 +55,7 @@
             '<div data-notify="container" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="false">',
             '<div class="toast-header">',
             '<span data-notify="icon" class="mr-2 text-{0}"></span>',
-            '<span class="mr-auto font-weight-bold" data-notify="title">{1}</span>',
+            '<span class="mr-auto fw-bold" data-notify="title">{1}</span>',
             '<button type="button" class="ml-2 mb-1 btn-close" data-dismiss="toast" data-notify="dismiss" aria-label="Close">',
             '</button>',
             '</div>',

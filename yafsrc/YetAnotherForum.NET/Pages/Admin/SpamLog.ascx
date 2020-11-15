@@ -66,10 +66,9 @@
                             <asp:TextBox ID="ToDate" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                     </div>
-                                <div class="mb-3">
+                                <div class="mb-3 d-grid gap-2">
                                     <YAF:ThemeButton ID="ApplyButton" runat="server"
                                                      Type="Primary" 
-                                                     CssClass="btn-block"
                                                      OnClick="ApplyButtonClick"
                                                      TextLocalizedPage="ADMIN_EVENTLOG" 
                                                      TextLocalizedTag="APPLY" 
@@ -107,7 +106,7 @@
                     </div>
                     <p class="mb-1" 
                        onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".Fmt(((PagedEventLog)Container.DataItem).ID) %>').click();">
-                        <span class="font-weight-bold">
+                        <span class="fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_EVENTLOG" />:
                         </span>
                         <%# this.UserLink((PagedEventLog)Container.DataItem) %>

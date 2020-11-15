@@ -21,15 +21,15 @@
                            href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}&name={1}", (Container.DataItem as dynamic).TopicID, (Container.DataItem as dynamic).TopicName) %>'
                            runat="server"><%# (Container.DataItem as dynamic).TopicName %></a>
                         <div class="float-right">
-                            <span class="font-weight-bold">
+                            <span class="fw-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
                             </span>
                             <%# this.Get<IDateTime>().FormatDateShort((Container.DataItem as dynamic).Posted) %>
-                            <span class="font-weight-bold pl-3">
+                            <span class="fw-bold pl-3">
                                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NUMBERREPORTED" />
                             </span>
                             <%# (Container.DataItem as dynamic).NumberOfReports %>
-                            <span class="font-weight-bold pl-3">
+                            <span class="fw-bold pl-3">
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                     LocalizedTag="POSTEDBY" LocalizedPage="REPORTPOST" />
                             </span>

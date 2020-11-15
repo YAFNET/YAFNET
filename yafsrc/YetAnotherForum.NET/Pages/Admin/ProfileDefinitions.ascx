@@ -26,7 +26,7 @@
                         <%# this.Eval("Name") %>
                     </h5>
                         <small class="d-none d-md-block">
-                            <span class="font-weight-bold">
+                            <span class="fw-bold">
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="REQUIRED"></YAF:LocalizedLabel>
                             </span>

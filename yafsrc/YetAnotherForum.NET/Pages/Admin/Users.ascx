@@ -59,11 +59,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="mb-3">
+                                        <div class="mb-3 d-grid gap-2">
                                             <YAF:ThemeButton runat="server"
                                                              Type="Danger" 
                                                              Icon="trash" 
-                                                             CssClass="btn-block"
                                                              TextLocalizedTag="LOCK_INACTIVE" 
                                                              TitleLocalizedTag="LOCK_INACTIVE_HELP"
                                                              OnClick="LockAccountsClick"/>

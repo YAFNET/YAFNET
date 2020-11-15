@@ -45,13 +45,12 @@
                                 <asp:TextBox runat="server" ID="Filter"
                                              CssClass="form-control"></asp:TextBox>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 d-grid gap-2">
                                 <YAF:ThemeButton runat="server" 
                                                  Icon="sync-alt"
                                                  Type="Primary"
                                                  TextLocalizedTag="SEARCH"
                                                  TextLocalizedPage="ADMIN_RESTORE"
-                                                 CssClass="btn-block"
                                                  OnClick="RefreshClick"></YAF:ThemeButton>
                             </div>
                         </div>

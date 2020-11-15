@@ -43,7 +43,7 @@
                                                    Style='<%# this.Eval("UserStyle") %>'  />
                                  </h5>
                                  <small>
-                                     <span class="font-weight-bold">
+                                     <span class="fw-bold">
                                          <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
                                                              LocalizedTag="FORUMS" />:
                                      </span>
@@ -116,7 +116,7 @@
                                  </h5>
                              </div>
                                 <p>
-                                        <span class="font-weight-bold">
+                                        <span class="fw-bold">
                                             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
                                                                 LocalizedTag="FORUMS" />:
                                         </span>

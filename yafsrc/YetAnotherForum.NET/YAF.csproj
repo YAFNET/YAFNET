@@ -1898,7 +1898,6 @@
     <Content Include="Content\bootstrap\_toasts.scss" />
     <Content Include="Content\bootstrap\forms\_form-check.scss" />
     <Content Include="Content\bootstrap\forms\_form-control.scss" />
-    <Content Include="Content\bootstrap\forms\_form-file.scss" />
     <Content Include="Content\bootstrap\forms\_form-range.scss" />
     <Content Include="Content\bootstrap\forms\_form-select.scss" />
     <Content Include="Content\bootstrap\forms\_form-text.scss" />
@@ -1920,6 +1919,8 @@
     <Content Include="Content\bootstrap\helpers\_ratio.scss" />
     <Content Include="Content\bootstrap\helpers\_visually-hidden.scss" />
     <Content Include="Content\bootstrap\mixins\_visually-hidden.scss" />
+    <Content Include="Content\bootstrap\forms\_floating-labels.scss" />
+    <Content Include="Content\bootstrap\_accordion.scss" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
     <Content Include="Content\images\error.svg" />
@@ -2377,6 +2378,13 @@
     <Content Include="Scripts\ckeditor\plugins\autolink\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\autosave\css\autosave.min.css" />
     <Content Include="Scripts\ckeditor\plugins\autosave\js\extensions.min.js" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeextensions\facebook.svg" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeextensions\instagram.svg" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeextensions\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeextensions\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeextensions\twitter.svg" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeextensions\vimeo.svg" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeextensions\youtube.svg" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\dialogs\bbcodeselector.js" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\images\plug-solid.svg" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\lang\en.js" />
@@ -2750,7 +2758,6 @@
     <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\forum\yaf.Albums.js" />
     <Content Include="Scripts\forum\yaf.Notify.js" />
-    <Content Include="Scripts\forum\yaf.FileBrowser.js" />
     <Content Include="Scripts\forum\yaf.contextMenu.js" />
     <Content Include="Scripts\forum\yaf.SearchResults.js" />
     <Content Include="Scripts\forum\yaf.SimilarTitles.js" />

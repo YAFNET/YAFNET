@@ -9,7 +9,7 @@
         <div class="card-body pl-2 py-1">        
         <ul class="list-inline">
             <li class="list-inline-item">
-                <span class="font-weight-bold small text-secondary">
+                <span class="fw-bold small text-secondary">
                     <YAF:LocalizedLabel ID="SubForums" LocalizedTag="SUBFORUMS" runat="server" />:
                 </span>
             </li>

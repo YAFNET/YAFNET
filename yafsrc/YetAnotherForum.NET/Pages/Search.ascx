@@ -62,13 +62,12 @@
                     <asp:DropDownList ID="listResInPage" runat="server" CssClass="form-select resultsPage" />
                 </div>
             </div>
-            <div class="px-3">
+            <div class="px-3 d-grid gap-2">
                 <YAF:ThemeButton runat="server"
                                  Type="Primary"
                                  Size="Small"
                                  TextLocalizedTag="OK"
-                                 TextLocalizedPage="COMMON"
-                                 CssClass="btn-block"></YAF:ThemeButton>
+                                 TextLocalizedPage="COMMON" />
             </div>
     </div>
 </div>

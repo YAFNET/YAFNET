@@ -23,7 +23,7 @@
                                      IconCssClass="far"
                                      IconColor="text-secondary"
                                      Type="Link"
-                                     CssClass="font-weight-bold p-0"
+                                     CssClass="fw-bold p-0"
                                      DataToggle="tooltip" />
                     <YAF:ThemeButton runat="server"
                                      ID="ForumLink"

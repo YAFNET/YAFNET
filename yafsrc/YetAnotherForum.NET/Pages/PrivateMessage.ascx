@@ -31,7 +31,7 @@
                                                   IconBadgeType="text-secondary" />
                                         <YAF:DisplayDateTime ID="CreatedDateTime" runat="server"
                                                              DateTime="<%# (Container.DataItem as dynamic).Created %>" />
-                                        <span class="font-weight-bold ml-2">
+                                        <span class="fw-bold ml-2">
                                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                                 LocalizedTag="FROM" />:
                                         </span>

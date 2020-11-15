@@ -54,13 +54,13 @@
                 <YAF:LocalizedLabel runat="server" LocalizedTag="profile" />
             </li>
             <li class="list-group-item text-right">
-                <span class="float-left font-weight-bold">
+                <span class="float-left fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="joined" />
                 </span>
                 <asp:Label ID="Joined" runat="server" />
             </li>
             <li class="list-group-item text-right">
-                <span class="float-left font-weight-bold">
+                <span class="float-left fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="lastvisit" />
                 </span>
                 <asp:Label ID="LastVisit" runat="server" Visible="false" />
@@ -68,7 +68,7 @@
             </li>
             <asp:PlaceHolder runat="server" ID="RealNameTR" Visible="false">
                 <li class="list-group-item text-right">
-                    <span class="float-left font-weight-bold">
+                    <span class="float-left fw-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="realname" />
                     </span>
                     <asp:Literal runat="server" ID="RealName"></asp:Literal>
@@ -76,7 +76,7 @@
             </asp:PlaceHolder>
             <asp:PlaceHolder runat="server" ID="userGroupsRow" Visible="false">
                 <li class="list-group-item text-right">
-                    <span class="float-left font-weight-bold">
+                    <span class="float-left fw-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="groups" />
                     </span>
                     <asp:Repeater ID="Groups" runat="server">
@@ -91,7 +91,7 @@
             </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="RankTR" Visible="false">
                     <li class="list-group-item text-right">
-                        <span class="float-left font-weight-bold">
+                        <span class="float-left fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="rank" />
                         </span>
                         <asp:Label ID="Rank" runat="server" />
@@ -100,7 +100,7 @@
 
                 <asp:PlaceHolder runat="server" ID="CountryTR" Visible="false">
                     <li class="list-group-item text-right">
-                        <span class="float-left font-weight-bold">
+                        <span class="float-left fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedTag="country" />
                         </span>
                         <asp:Label ID="CountryLabel" runat="server" />
@@ -108,7 +108,7 @@
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="RegionTR" Visible="false">
                     <li class="list-group-item text-right">
-                        <span class="float-left font-weight-bold">
+                        <span class="float-left fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel28" runat="server" LocalizedTag="region" />
                         </span>
                         <asp:Label ID="RegionLabel" runat="server" />
@@ -116,7 +116,7 @@
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="CityTR" Visible="false">
                     <li class="list-group-item text-right">
-                        <span class="float-left font-weight-bold">
+                        <span class="float-left fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel26" runat="server" LocalizedTag="city" />
                         </span>
                         <asp:Label ID="CityLabel" runat="server" />
@@ -124,7 +124,7 @@
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="LocationTR" Visible="false">
                     <li class="list-group-item text-right">
-                        <span class="float-left font-weight-bold">
+                        <span class="float-left fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="location" />
                         </span>
                         <asp:Label ID="Location" runat="server" />
@@ -132,7 +132,7 @@
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="BirthdayTR" Visible="false">
                     <li class="list-group-item text-right">
-                        <span class="float-left font-weight-bold">
+                        <span class="float-left fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedTag="BIRTHDAY" />:
                         </span>
                         <asp:Label ID="Birthday" runat="server" />
@@ -140,7 +140,7 @@
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="OccupationTR" Visible="false">
                     <li class="list-group-item text-right">
-                        <span class="float-left font-weight-bold">
+                        <span class="float-left fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="occupation" />
                         </span>
                         <asp:Literal runat="server" ID="Occupation" />
@@ -149,7 +149,7 @@
 
                 <asp:PlaceHolder runat="server" ID="GenderTR" Visible="false">
                     <li class="list-group-item text-right">
-                        <span class="float-left font-weight-bold">
+                        <span class="float-left fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="gender" />
                         </span>
                         <asp:Literal runat="server" ID="Gender" />
@@ -159,7 +159,7 @@
                 <asp:Repeater runat="server" ID="CustomProfile">
                     <ItemTemplate>
                         <li class="list-group-item text-right">
-                            <span class="float-left font-weight-bold">
+                            <span class="float-left fw-bold">
                                 <%# this.Eval("Item2.Name") %>:
                             </span>
                             <%# this.Eval("Item1.Value") %>
@@ -184,32 +184,32 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedTag="STATISTICS" />
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-end">
-                <span class="font-weight-bold">
+                <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="numposts" />
                 </span>
                 <span class="ml-1 text-right"><asp:Literal runat="server" ID="Stats" /></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-end">
-                <span class="font-weight-bold">
+                <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="THANKSFROM" />
                 </span>
                 <span class="ml-1"><asp:Label ID="ThanksFrom" runat="server" /></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-end">
-                <span class="font-weight-bold">
+                <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="THANKSTOTIMES" />
                 </span>
                 <span class="ml-1"><asp:Label ID="ThanksToTimes" runat="server" /></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-end">
-                <span class="font-weight-bold">
+                <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="THANKSTOPOSTS" />
                 </span>
                 <span class="ml-1"><asp:Label ID="ThanksToPosts" runat="server" /></span>
             </li>
             <asp:PlaceHolder ID="divRR" runat="server" Visible="<%# this.PageContext.BoardSettings.EnableUserReputation %>">
                 <li class="list-group-item">
-                    <span class="font-weight-bold">
+                    <span class="fw-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedTag="REPUTATION_RECEIVED" />
                     </span>
                     <asp:Literal ID="ReputationReceived" runat="server" />
@@ -217,7 +217,7 @@
             </asp:PlaceHolder>
             <asp:PlaceHolder runat="server" ID="MedalsRow" Visible="False">
                 <li class="list-group-item d-flex justify-content-between align-items-end">
-                    <span class="font-weight-bold">
+                    <span class="fw-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel30" runat="server" LocalizedTag="MEDALS" />
                     </span>
                     <span class="ml-1"><asp:Label ID="MedalsPlaceHolder" runat="server" /></span>
@@ -281,7 +281,7 @@
                         <div class="card mb-3">
                             <div class="card-header">
                                 <YAF:Icon runat="server" IconName="comment" />
-                                <span class="font-weight-bold">
+                                <span class="fw-bold">
                                     <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" 
                                                         LocalizedTag="topic" />
                                 </span><a

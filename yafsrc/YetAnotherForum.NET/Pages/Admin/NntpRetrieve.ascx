@@ -38,7 +38,7 @@
                                 </small>
                             </div>
                             <small>
-                                <span class="font-weight-bold">
+                                <span class="fw-bold">
                                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                         LocalizedTag="LAST_UPDATE" 
                                                         LocalizedPage="ADMIN_NNTPRETRIEVE" />:&nbsp;

@@ -26,7 +26,7 @@
                         </h5>
                     </div>
                     <p class="mb-1">
-                        <span class="font-weight-bold">
+                        <span class="fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADRESS" LocalizedPage="ADMIN_NNTPSERVERS" />:&nbsp;
                         </span>
                         <%# this.Eval("Address") %>

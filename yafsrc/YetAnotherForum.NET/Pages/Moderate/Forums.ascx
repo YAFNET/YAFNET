@@ -28,15 +28,15 @@
         </HeaderTemplate>
         <ItemTemplate>
             <li class="list-group-item">
-                <span class="font-weight-bold">
+                <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="USER" LocalizedPage="MODERATE" />:
                 </span>
                 <%#  this.Eval("Item1").ToType<User>().DisplayOrUserName() %>
-                <span class="font-weight-bold">
+                <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ACCEPTED" LocalizedPage="MODERATE" />:
                 </span>
                 <%# this.Eval("Item2.Accepted") %>
-                <span class="font-weight-bold">
+                <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="ACCESSMASK" LocalizedPage="MODERATE" />:
                 </span>
                 <%# this.Eval("Item3.Name") %>

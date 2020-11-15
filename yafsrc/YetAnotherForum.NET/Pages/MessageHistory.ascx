@@ -60,7 +60,7 @@
                                                                                                   Style="<%# (Container.DataItem as MessageHistoryTopic).UserStyle %>"
                                                                                                   UserID="<%# (Container.DataItem as MessageHistoryTopic).EditedBy %>" />
                                     <asp:PlaceHolder runat="server" Visible="<%# this.PageContext.IsAdmin || this.PageContext.BoardSettings.AllowModeratorsViewIPs && this.PageContext.ForumModeratorAccess%>">
-                                        <span class="font-weight-bold mr-2">
+                                        <span class="fw-bold mr-2">
                                             <%# this.GetText("IP") %>:
                                         </span><a id="IPLink1" 
                                                   href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL, this.GetIpAddress(Container.DataItem as MessageHistoryTopic)) %>"

@@ -26,7 +26,7 @@
                             <%# this.Eval("Item2.Name") %>
                         </h5>
                         <small>
-                            <span class="font-weight-bold">
+                            <span class="fw-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Active" LocalizedPage="ADMIN_NNTPFORUMS" />
                             </span>
                             <div class="badge bg-<%# this.Eval("Item1.Active").ToType<bool>() ? "success" : "secondary" %>">
@@ -35,12 +35,12 @@
                         </small>
                     </div>
                     <p class="mb-1">
-                        <span class="font-weight-bold">
+                        <span class="fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="Group" LocalizedPage="ADMIN_NNTPFORUMS" />
                         </span>
                         <%# this.Eval("Item1.GroupName") %>
                         
-                        <span class="font-weight-bold">
+                        <span class="fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="Forum" LocalizedPage="ADMIN_NNTPFORUMS" />
                         </span>
                         <%# this.Eval("Item3.Name") %>

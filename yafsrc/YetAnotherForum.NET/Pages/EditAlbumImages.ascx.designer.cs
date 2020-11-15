@@ -87,15 +87,6 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.LocalizedLabel UploadTitle;
 
         /// <summary>
-        /// File control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputFile File;
-
-        /// <summary>
         /// LocalizedLabel3 control.
         /// </summary>
         /// <remarks>
@@ -105,13 +96,13 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
 
         /// <summary>
-        /// LocalizedLabel6 control.
+        /// File control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
+        protected global::System.Web.UI.HtmlControls.HtmlInputFile File;
 
         /// <summary>
         /// Upload control.

@@ -59,7 +59,7 @@
                                                                             LocalizedTag="NUM_POSTS"
                                                                             LocalizedPage="ADMIN_ADMIN" />
                                                     </h5>
-                                                    <span class="h2 font-weight-bold mb-0">
+                                                    <span class="h2 fw-bold mb-0">
                                                         <asp:Label ID="NumPosts" runat="server"></asp:Label>
                                                     </span>
                                                 </div>
@@ -91,7 +91,7 @@
                                                                             LocalizedTag="NUM_TOPICS"
                                                                             LocalizedPage="ADMIN_ADMIN" />
                                                     </h5>
-                                                    <span class="h2 font-weight-bold mb-0">
+                                                    <span class="h2 fw-bold mb-0">
                                                         <asp:Label ID="NumTopics" runat="server"></asp:Label>
                                                     </span>
                                                 </div>
@@ -123,7 +123,7 @@
                                                                             LocalizedTag="NUM_USERS"
                                                                             LocalizedPage="ADMIN_ADMIN" />
                                                     </h5>
-                                                    <span class="h2 font-weight-bold mb-0">
+                                                    <span class="h2 fw-bold mb-0">
                                                         <asp:Label ID="NumUsers" runat="server"></asp:Label>
                                                     </span>
                                                 </div>
@@ -155,7 +155,7 @@
                                                                     LocalizedTag="BOARD_STARTED"
                                                                     LocalizedPage="ADMIN_ADMIN" />
                                             </h5>
-                                            <span class="h2 font-weight-bold mb-0">
+                                            <span class="h2 fw-bold mb-0">
                                                 <asp:Label ID="BoardStartAgo" runat="server"></asp:Label>
                                             </span>
                                         </div>
@@ -184,7 +184,7 @@
                                                                             LocalizedTag="SIZE_DATABASE"
                                                                             LocalizedPage="ADMIN_ADMIN" />
                                                     </h5>
-                                                    <span class="h2 font-weight-bold mb-0">
+                                                    <span class="h2 fw-bold mb-0">
                                                         <asp:Label ID="DBSize" runat="server"></asp:Label>
                                                     </span>
                                                 </div>
@@ -254,7 +254,7 @@
                                                Style="<%# (Container.DataItem as dynamic).UserStyle %>" runat="server" />
                             </div>
                             <div class="mr-2">
-                                <span class="font-weight-bold">
+                                <span class="fw-bold">
                                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
                                                         LocalizedTag="ADMIN_IPADRESS" LocalizedPage="ADMIN_ADMIN" />
                                 </span>
@@ -263,7 +263,7 @@
                                     <%# IPHelper.GetIp4Address((string)(Container.DataItem as dynamic).IP)%></a>
                             </div>
                             <div>
-                                <span class="font-weight-bold">
+                                <span class="fw-bold">
                                     <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
                                                         LocalizedTag="BOARD_LOCATION" LocalizedPage="ADMIN_ADMIN" />
                                 </span>
@@ -332,19 +332,19 @@
                                     <li class="list-group-item list-group-item-action">
                                     <div class="d-flex w-100 justify-content-start align-items-baseline">
                                         <div class="mr-2">
-                                            <span class="font-weight-bold">
+                                            <span class="fw-bold">
                                                 <%# this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name") %>
                                             </span>
                                         </div>
                                         <div class="mr-2">
-                                            <span class="font-weight-bold">
+                                            <span class="fw-bold">
                                                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="ADMIN_JOINED"
                                                                     LocalizedPage="ADMIN_ADMIN" />
                                             </span>
                                             <%# this.Get<IDateTime>().FormatDateTime((DateTime)this.Eval("Joined")) %>
                                         </div>
                                         <div>
-                                            <span class="font-weight-bold">
+                                            <span class="fw-bold">
                                                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ADMIN_EMAIL"
                                                                     LocalizedPage="ADMIN_ADMIN" />
                                             </span>

@@ -26,7 +26,7 @@
                             <ItemTemplate>
                                 <div class="list-group list-group-flush small">
                                     <div class="list-group-item list-group-item-action">
-                                        <h5 class="font-weight-bold">
+                                        <h5 class="fw-bold">
                                             <%# "{0}{1}".Fmt(((ModerateForum)Container.DataItem).ParentID.HasValue ? "--" : "-", ((ModerateForum)Container.DataItem).Name) %>
                                         </h5>
                                         <YAF:ThemeButton ID="ViewUnapprovedPostsBtn" runat="server" 

@@ -41,10 +41,9 @@
                     </asp:Label>
                     <asp:TextBox ID="key" runat="server" CssClass="form-control" />
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 d-grid gap-2">
                     <YAF:ThemeButton ID="ValidateKey" runat="server" 
                                      OnClick="ValidateKey_Click" 
-                                     CssClass="btn-block"
                                      Type="Primary"
                                      TextLocalizedTag="VALIDATE"
                                      Icon="check"/>

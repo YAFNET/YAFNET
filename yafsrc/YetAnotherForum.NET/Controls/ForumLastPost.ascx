@@ -9,7 +9,7 @@
                          IconColor="text-secondary"
                          IconCssClass="far"
                          Type="Link"
-                         CssClass="font-weight-bold p-0"
+                         CssClass="fw-bold p-0"
                          DataToggle="tooltip"
                          TitleLocalizedTag="VIEW_TOPIC"
                          TitleLocalizedPage="COMMON"

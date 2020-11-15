@@ -23,7 +23,7 @@
                     <div class="d-flex w-100 justify-content-between">
 					<h5 class="mb-1"><%# this.Eval( "Name") %></h5>
                         <small class="d-none d-md-block">
-                            <span class="font-weight-bold">
+                            <span class="fw-bold">
                                 <YAF:LocalizedLabel runat="server" LocalizedTag="SORT_ORDER"></YAF:LocalizedLabel>
                             </span>
                             <%# this.Eval( "SortOrder") %>

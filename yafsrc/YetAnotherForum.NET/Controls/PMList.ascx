@@ -93,7 +93,7 @@
                         </a>
                     </h5>
                     <small class="d-none d-md-block">
-                        <span class="font-weight-bold">
+                        <span class="fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                 LocalizedTag="DATE" />
                         </span>
@@ -102,7 +102,7 @@
                     </small>
                 </div>
                 <p class="mb-1">
-                    <span class="font-weight-bold">
+                    <span class="fw-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
                                             LocalizedTag='<%# this.View == PmView.Outbox ? "TO" : "FROM" %>' />:
                     </span>

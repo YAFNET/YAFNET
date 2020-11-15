@@ -49,10 +49,9 @@
                                             <asp:TextBox ID="SearchInput" runat="server" 
                                                          CssClass="form-control"></asp:TextBox>
                                         </div>
-                                        <div class="mb-3">
+                                        <div class="mb-3 d-grid gap-2">
                                             <YAF:ThemeButton ID="search" runat="server"  
                                                              Type="Primary"
-                                                             CssClass="btn-block"
                                                              TextLocalizedTag="BTNSEARCH" 
                                                              TextLocalizedPage="SEARCH" 
                                                              Icon="search"
@@ -84,7 +83,7 @@
                         </asp:HyperLink>
                     </h5>
                     <small class="d-none d-md-block">
-                        <span class="font-weight-bold">
+                        <span class="fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="SINCE" LocalizedPage="ADMIN_BANNEDIP" />
                         </span>
                         <%# this.Get<IDateTime>().FormatDateTime(this.Eval("Since")) %>
@@ -92,7 +91,7 @@
                     </small>
                 </div>
                 <p class="mb-1">
-                    <span class="font-weight-bold">
+                    <span class="fw-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDIP" />
                     </span>
                     <%# this.Eval("Reason") %>

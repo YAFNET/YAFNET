@@ -62,19 +62,13 @@
                                                     LocalizedTag="AVATARUPLOAD" />
                             </asp:Label>
                         </h4>
-                        <div class="form-file">
-                            <input type="file" id="File" runat="server" class="form-file-input" aria-describedby="File" />
-                            <label for="<%# this.File.ClientID %>" class="form-file-label">
-                                <span class="form-file-text">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
-                                                        LocalizedPage="EDIT_AVATAR"
-                                                        LocalizedTag="AVATARUPLOAD" />
-                                </span>
-                                <span class="form-file-button">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
-                                                        LocalizedTag="BROWSE" />
-                                </span>
+                        <div class="mb-3">
+                            <label for="<%# this.File.ClientID %>" class="form-label">
+                                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
+                                                    LocalizedPage="EDIT_AVATAR"
+                                                    LocalizedTag="AVATARUPLOAD" />
                             </label>
+                            <input type="file" id="File" runat="server" class="form-control" />
                         </div>
                     </div>
                     <YAF:Alert runat="server" Type="info">

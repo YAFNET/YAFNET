@@ -5,9 +5,9 @@
 
 <div class="row">
     <div class="col flex-grow-1 ml-lg-3 d-lg-none">
-        <div class="dropdown">
+        <div class="dropdown d-grid gap-2">
             <YAF:ThemeButton runat="server" 
-                             CssClass="dropdown-toggle btn-block" 
+                             CssClass="dropdown-toggle" 
                              DataToggle="dropdown"
                              Type="Secondary"
                              TextLocalizedTag="TITLE"

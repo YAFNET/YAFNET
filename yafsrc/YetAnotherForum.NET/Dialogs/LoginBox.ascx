@@ -78,12 +78,12 @@
                                              TextLocalizedTag="LOSTPASSWORD" />
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 d-grid gap-2">
                         <YAF:ThemeButton ID="LoginButton" runat="server"
                                          CausesValidation="True"
                                          Icon="sign-in-alt"
                                          Type="Primary"
-                                         CssClass="btn-loading btn-block"
+                                         CssClass="btn-loading"
                                          TextLocalizedTag="FORUM_LOGIN"
                                          OnClick="SignIn"/>
                     </div>
