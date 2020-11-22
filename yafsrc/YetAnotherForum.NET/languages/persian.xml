@@ -5180,6 +5180,7 @@
     <Resource tag="CANCEL_TITLE">انصراف از گزارش پیام</Resource>
     <Resource tag="ENTER_TEXT">متن مورد نظر برای گزارش را اینجا وارد کنید</Resource>
     <Resource tag="HEADER">گزارش ارسال</Resource>
+    <Resource tag="MSG_REPORTED">Message was Reported!</Resource>
     <Resource tag="NEED_REASON">You need to provide a Report Reason.</Resource>
     <Resource tag="POSTEDBY">ارسال شده توسط:</Resource>
     <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">تگ ها در گزارشات غیر مجاز هستند.</Resource>

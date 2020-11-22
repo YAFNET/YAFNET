@@ -5149,6 +5149,7 @@ Spoiler Content
     <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
     <Resource tag="ENTER_TEXT">Entrez le texte du rapport ici.</Resource>
     <Resource tag="HEADER">Rapporter un message</Resource>
+    <Resource tag="MSG_REPORTED">Message was Reported!</Resource>
     <Resource tag="NEED_REASON">You need to provide a Report Reason.</Resource>
     <Resource tag="POSTEDBY">Posted by:</Resource>
     <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">Tags are not allowed in reports.</Resource>

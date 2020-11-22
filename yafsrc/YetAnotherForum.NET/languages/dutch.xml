@@ -5115,6 +5115,7 @@ Spoiler Inhoud
     <Resource tag="CANCEL_TITLE">Annuleer Berichtrapport</Resource>
     <Resource tag="ENTER_TEXT">Zet hier de reden waarom je deze post wilt rapporteren.</Resource>
     <Resource tag="HEADER">Post rapporteren</Resource>
+    <Resource tag="MSG_REPORTED">Message was Reported!</Resource>
     <Resource tag="NEED_REASON">You need to provide a Report Reason.</Resource>
     <Resource tag="POSTEDBY">Gepost door:</Resource>
     <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">Tags mogen niet in rapporten gebruikt worden.</Resource>

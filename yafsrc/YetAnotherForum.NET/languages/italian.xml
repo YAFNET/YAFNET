@@ -5123,6 +5123,7 @@ Spoiler Content
     <Resource tag="CANCEL_TITLE">Annulla segnalazione messaggio</Resource>
     <Resource tag="ENTER_TEXT">Scrivi il motivo della segnalazione:</Resource>
     <Resource tag="HEADER">Segnalazione messaggio</Resource>
+    <Resource tag="MSG_REPORTED">Message was Reported!</Resource>
     <Resource tag="NEED_REASON">You need to provide a Report Reason.</Resource>
     <Resource tag="POSTEDBY">Inviato da:</Resource>
     <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">I tag non sono ammessi nelle segnalazioni.</Resource>

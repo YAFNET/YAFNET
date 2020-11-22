@@ -5109,6 +5109,7 @@ Spoiler Content
     <Resource tag="CANCEL_TITLE">Нажмите если передумали</Resource>
     <Resource tag="ENTER_TEXT">Введите текст вашей жалобы:</Resource>
     <Resource tag="HEADER">Сообщение о нарушении правил форума</Resource>
+    <Resource tag="MSG_REPORTED">Message was Reported!</Resource>
     <Resource tag="NEED_REASON">You need to provide a Report Reason.</Resource>
     <Resource tag="POSTEDBY">Автор:</Resource>
     <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">Теги запрещены администратором.</Resource>

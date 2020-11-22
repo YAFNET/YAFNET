@@ -5123,6 +5123,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
     <Resource tag="ENTER_TEXT">اكتب سبب التبليغ عن  هذه  المشاكة </Resource>
     <Resource tag="HEADER">التبليغ  عن مشاركات </Resource>
+    <Resource tag="MSG_REPORTED">Message was Reported!</Resource>
     <Resource tag="NEED_REASON">You need to provide a Report Reason.</Resource>
     <Resource tag="POSTEDBY">مشراكة بواسطة :</Resource>
     <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN"> غير مسموح به في التقارير</Resource>
