@@ -158,7 +158,7 @@
                     <h4>
                         <%# YAF.App_GlobalResources.Install.DBConnection %>
                     </h4>
-                    <div class="form-check">
+                    <div class="form-check form-check-custom">
                         <asp:RadioButtonList ID="rblYAFDatabase" runat="server" 
                                              AutoPostBack="true"
                                              OnSelectedIndexChanged="YafDatabaseSelectedIndexChanged"
