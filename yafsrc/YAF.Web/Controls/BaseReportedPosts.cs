@@ -115,7 +115,7 @@ namespace YAF.Web.Controls
                             var resolvedByName = resolvedBy.DisplayOrUserName();
 
                             writer.Write(
-                                @"<span class=""font-weight-bold mr-2"">{0}</span><a href=""{1}"">{2}</a> : {3}",
+                                @"<span class=""fw-bold mr-2"">{0}</span><a href=""{1}"">{2}</a> : {3}",
                                 this.GetText("RESOLVEDBY"),
                                 BuildLink.GetUserProfileLink(this.ResolvedBy.ToType<int>(), resolvedByName),
                                 resolvedByName,
@@ -123,7 +123,7 @@ namespace YAF.Web.Controls
                         }
 
                         writer.Write(
-                            @"<span class=""font-weight-bold mx-2"">{3}</span><a href=""{1}"" class=""mr-2"">{0}</a><em>{2}</em>",
+                            @"<span class=""fw-bold mx-2"">{3}</span><a href=""{1}"" class=""mr-2"">{0}</a><em>{2}</em>",
                             reporterName,
                             BuildLink.GetUserProfileLink(reporter.Item2.ID, reporterName),
                             howMany,

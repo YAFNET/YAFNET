@@ -218,7 +218,7 @@ namespace YAF.Web.Controls
             output.Write(@"<div class=""dropdown-menu"">");
 
             output.Write(@"<div class=""px-3 py-1"">");
-            output.Write(@"<div class=""mb-3"">");
+            output.Write(@"<div class=""mb-3"" data-max=""{0}"" data-min=""1"">", this.PageCount());
 
             this.gotoPageForm.RenderControl(output);
 

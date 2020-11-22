@@ -55,10 +55,10 @@ namespace YAF.Web.Controls
             var html = new StringBuilder();
             var htmlDropDown = new StringBuilder();
 
-            htmlDropDown.Append(@"<div class=""dropdown d-lg-none"">");
+            htmlDropDown.Append(@"<div class=""dropdown d-lg-none d-grid gap-2 mb-3"">");
 
             htmlDropDown.Append(
-                @"<button class=""btn btn-secondary btn-block dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
+                @"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
             htmlDropDown.AppendFormat(@"<i class=""fa fa-cogs fa-fw""></i>&nbsp;{0}", this.GetText("CONTROL_PANEL"));
             htmlDropDown.Append(@"</button>");
 

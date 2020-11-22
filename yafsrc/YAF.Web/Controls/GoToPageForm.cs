@@ -31,6 +31,7 @@ namespace YAF.Web.Controls
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Web.EventsArgs;
@@ -99,15 +100,23 @@ namespace YAF.Web.Controls
 
             this.Controls.Add(headerLabel);
 
+            var toolbar = new HtmlGenericControl("div");
+
+            toolbar.Attributes.Add("class", "btn-toolbar");
+            toolbar.Attributes.Add("role", "toolbar");
+
             var inputGroup = new HtmlGenericControl("div");
 
-            inputGroup.Attributes.Add("class", "input-group");
+            inputGroup.Attributes.Add("class", "input-group mr-2 w-50");
 
             // text box...
             this.gotoTextBox.ID = this.GetExtendedID("GotoTextBox");
-            this.gotoTextBox.CssClass = "form-control";
+            this.gotoTextBox.CssClass = "form-control form-pager";
+            this.gotoTextBox.TextMode = TextBoxMode.Number;
 
             inputGroup.Controls.Add(this.gotoTextBox);
+
+            toolbar.Controls.Add(inputGroup);
 
             this.gotoButton.ID = this.GetExtendedID("GotoButton");
             this.gotoButton.CssClass = "btn btn-primary";
@@ -116,9 +125,9 @@ namespace YAF.Web.Controls
             this.gotoButton.Click += this.GotoButtonClick;
             this.gotoButton.Text = this.GetText("COMMON", "GO");
 
-            inputGroup.Controls.Add(this.gotoButton);
+            toolbar.Controls.Add(this.gotoButton);
 
-            this.Controls.Add(inputGroup);
+            this.Controls.Add(toolbar);
         }
 
         /// <summary>
@@ -175,6 +184,10 @@ namespace YAF.Web.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
+            this.PageContext.PageElements.RegisterJsBlock(
+                nameof(JavaScriptBlocks.DropDownToggleJs),
+                JavaScriptBlocks.DropDownToggleJs());
+
             base.Render(writer);
         }
 
