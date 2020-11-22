@@ -132,6 +132,8 @@ namespace YAF.Pages
                         this.PageContext.PageUserID,
                         this.reportEditor.Text);
             }
+			
+			this.PageContext.LoadMessage.AddSession(this.GetText("MSG_REPORTED"), MessageTypes.success);
 
             // Redirect to reported post
             this.RedirectToPost();

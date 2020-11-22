@@ -5418,6 +5418,7 @@ public class Hello1
     <Resource tag="CANCEL_TITLE">Cancelar denuncia de mensaje</Resource>
     <Resource tag="ENTER_TEXT">Introduce aquí la razón de tu denuncia:</Resource>
     <Resource tag="HEADER">Denunciar publicación</Resource>
+    <Resource tag="MSG_REPORTED">Message was Reported!</Resource>
     <Resource tag="POSTEDBY">Publicado por:</Resource>
     <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">Las etiquetas no están permitidas en las denuncias.</Resource>
     <Resource tag="REPORTTEXT_FORBIDDENTAG">La etiqueta [{0}] no está permitida en denuncias.</Resource>

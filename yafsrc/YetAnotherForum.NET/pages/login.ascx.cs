@@ -207,7 +207,7 @@ namespace YAF.Pages
                 this.Logger.Log(
                     $"Login Failure: {userName.Text}",
                     this,
-                    $"Login Failure for User {userName.Text} with the IP Address {this.Get<HttpRequestBase>().GetUserRealIPAddress()}",
+                    $"Login Failure for User {userName.Text} with the IP Address {this.Get<HttpRequestBase>().GetUserRealIPAddress()} and User String {this.Get<HttpRequestBase>().UserAgent}",
                     EventLogTypes.LoginFailure);
 
                 this.PageContext.AddLoadMessage(this.Login1.FailureText, MessageTypes.danger);

@@ -5046,6 +5046,7 @@ Spoiler Content
     <Resource tag="CANCEL_TITLE">Anulowanie zgłoszenia postu</Resource>
     <Resource tag="ENTER_TEXT">Podaj powód zgłoszenia tego postu:</Resource>
     <Resource tag="HEADER">Zgłoś post</Resource>
+    <Resource tag="MSG_REPORTED">Message was Reported!</Resource>
     <Resource tag="POSTEDBY">Napisany przez:</Resource>
     <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">BBCode nie jest dozwolony w zgłoszeniach.</Resource>
     <Resource tag="REPORTTEXT_FORBIDDENTAG">BBCode [{0}] nie jest dozwolony w zgłoszeniach.</Resource>

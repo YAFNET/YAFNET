@@ -5003,6 +5003,7 @@ Spoiler Content
     <Resource tag="CANCEL_TITLE">Beitrag Melden abbrechen</Resource>
     <Resource tag="ENTER_TEXT">Geben Sie den Meldetext hier ein.</Resource>
     <Resource tag="HEADER">Beitrag melden</Resource>
+    <Resource tag="MSG_REPORTED">Message was Reported!</Resource>
     <Resource tag="POSTEDBY">Geschrieben von:</Resource>
     <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">Tags sind nicht erlaubt in Berichten.</Resource>
     <Resource tag="REPORTTEXT_FORBIDDENTAG">Der Tag [{0}] ist nicht erlaubt in Berichten.</Resource>

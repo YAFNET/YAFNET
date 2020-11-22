@@ -4867,6 +4867,7 @@
   <Resource tag="CANCEL_TITLE">Cancel Message Report</Resource>
   <Resource tag="ENTER_TEXT">Please enter the reason you're reporting this post:</Resource>
   <Resource tag="HEADER">Report Post</Resource>
+  <Resource tag="MSG_REPORTED">Message was Reported!</Resource>
   <Resource tag="POSTEDBY">Posted by:</Resource>
   <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">Tags are not allowed in reports.</Resource>
   <Resource tag="REPORTTEXT_FORBIDDENTAG">The tag [{0}] is not allowed in reports.</Resource>
