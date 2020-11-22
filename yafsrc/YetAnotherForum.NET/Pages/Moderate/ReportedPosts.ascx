@@ -56,7 +56,7 @@
                                 </h6>
                                 <span id="Label1" runat="server" 
                                       class="badge bg-warning text-dark" 
-                                      visible="<%# General.CompareMessage((Container.DataItem as dynamic).OriginalMessage,(Container.DataItem as dynamic).Message)%>">
+                                      visible="<%# (Container.DataItem as dynamic).OriginalMessage != (Container.DataItem as dynamic).Message%>">
                                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MODIFIED" />
                                 </span>
                                 <div class="card bg-light mb-3">
@@ -83,7 +83,7 @@
                         <YAF:ThemeButton ID="CopyOverBtn" runat="server" 
                                          TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="COPYOVER" 
                                          CommandName="CopyOver" CommandArgument="<%# (Container.DataItem as dynamic).MessageID %>"
-                                         Visible="<%# General.CompareMessage( (Container.DataItem as dynamic).OriginalMessage, (Container.DataItem as dynamic).Message)%>"
+                                         Visible="<%# (Container.DataItem as dynamic).OriginalMessage != (Container.DataItem as dynamic).Message%>"
                                          Icon="copy" 
                                          Type="Secondary" />
                         <YAF:ThemeButton ID="DeleteBtn" runat="server" 
@@ -104,7 +104,7 @@
                                          Type="Secondary" />
                         <YAF:ThemeButton ID="ViewHistoryBtn" runat="server" 
                                          TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="HISTORY" 
-                                         Visible="<%# General.CompareMessage((string)(Container.DataItem as dynamic).OriginalMessage, (string)(Container.DataItem as dynamic).Message)%>"
+                                         Visible="<%# (string)(Container.DataItem as dynamic).OriginalMessage != (string)(Container.DataItem as dynamic).Message%>"
                                          CommandName="ViewHistory" CommandArgument='<%# "{0},{1}".Fmt(this.PageContext.PageForumID, (int)(Container.DataItem as dynamic).MessageID) %>'
                                          Icon="history" 
                                          Type="Secondary" />

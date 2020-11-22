@@ -56,19 +56,19 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Gets or sets Resolved.
         /// </summary>
-        [NotNull]
+        [CanBeNull]
         public virtual string Resolved { get; set; }
 
         /// <summary>
         ///   Gets or sets ResolvedBy. It returns UserID as string value
         /// </summary>
-        [NotNull]
-        public virtual int ResolvedBy { get; set; }
+        [CanBeNull]
+        public virtual int? ResolvedBy { get; set; }
 
         /// <summary>
         ///   Gets or sets ResolvedDate.
         /// </summary>
-        [NotNull]
+        [CanBeNull]
         public virtual string ResolvedDate { get; set; }
 
         #endregion
@@ -110,7 +110,7 @@ namespace YAF.Web.Controls
                         if (this.ResolvedDate.IsSet()  && DateTime.Parse(this.ResolvedDate) > DateTime.MinValue)
                         {
                             var resolvedBy = this.GetRepository<User>().GetById(
-                                this.ResolvedBy.ToType<int>());
+                                this.ResolvedBy.Value);
 
                             var resolvedByName = resolvedBy.DisplayOrUserName();
 
