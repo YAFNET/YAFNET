@@ -23,41 +23,38 @@
  */
 namespace YAF.Types.Attributes
 {
-  using System;
-
-  /// <summary>
-  /// This attribute is used to represent a string value
-  /// for a value in an enum.
-  /// </summary>
-  [AttributeUsage(AttributeTargets.Enum)]
-  public class StringValueAttribute : Attribute
-  {
-    #region Properties
+    using System;
 
     /// <summary>
-    /// Holds the stringvalue for a value in an enum.
+    /// This attribute is used to represent a string value
+    /// for a value in an enum.
     /// </summary>
-    public string StringValue
+    [AttributeUsage(AttributeTargets.Enum)]
+    public class StringValueAttribute : Attribute
     {
-      get;
-      protected set;
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StringValueAttribute"/> class. 
+        /// Constructor used to init a StringValue Attribute
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        public StringValueAttribute(string value)
+        {
+            this.StringValue = value;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the string value for a value in an enum.
+        /// </summary>
+        public string StringValue { get; protected set; }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Constructor
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="StringValueAttribute"/> class. 
-    /// Constructor used to init a StringValue Attribute
-    /// </summary>
-    /// <param name="value">
-    /// </param>
-    public StringValueAttribute(string value)
-    {
-        this.StringValue = value;
-    }
-
-    #endregion
-  }
 }

@@ -245,8 +245,8 @@ namespace YAF.Web.Controls
         private string GetLinkUrl(int pageNum, bool postBack)
         {
             return postBack
-                       ? this.Page.ClientScript.GetPostBackClientHyperlink(this, pageNum.ToString())
-                       : this.GetPageUrl(pageNum);
+                ? this.Page.ClientScript.GetPostBackClientHyperlink(this, pageNum.ToString())
+                : this.GetPageUrl(pageNum);
         }
 
         /// <summary>
@@ -276,13 +276,14 @@ namespace YAF.Web.Controls
             if (start > 0)
             {
                 var link = new ThemeButton
-                               {
-                                   NavigateUrl = this.GetLinkUrl(1, postBack),
-                                   Type = ButtonStyle.Secondary,
-                                   TextLocalizedPage = "COMMON",
-                                   TextLocalizedTag = "GOTOFIRSTPAGE_TT",
-                                   Icon = "angle-double-left"
-                               };
+                {
+                    NavigateUrl = this.GetLinkUrl(1, postBack),
+                    Type = ButtonStyle.Secondary,
+                    TitleLocalizedPage = "COMMON",
+                    TitleLocalizedTag = "GOTOFIRSTPAGE_TT",
+                    DataToggle = "tooltip",
+                    Icon = "angle-double-left"
+                };
 
                 link.RenderControl(output);
             }
@@ -290,13 +291,14 @@ namespace YAF.Web.Controls
             if (this.CurrentPageIndex > start)
             {
                 var link = new ThemeButton
-                               {
-                                   NavigateUrl = this.GetLinkUrl(this.CurrentPageIndex, postBack),
-                                   Type = ButtonStyle.Secondary,
-                                   TextLocalizedPage = "COMMON",
-                                   TextLocalizedTag = "GOTOPREVPAGE_TT",
-                                   Icon = "angle-left"
-                               };
+                {
+                    NavigateUrl = this.GetLinkUrl(this.CurrentPageIndex, postBack),
+                    Type = ButtonStyle.Secondary,
+                    TitleLocalizedPage = "COMMON",
+                    TitleLocalizedTag = "GOTOPREVPAGE_TT",
+                    DataToggle = "tooltip",
+                    Icon = "angle-left"
+                };
 
                 link.RenderControl(output);
             }
@@ -306,11 +308,14 @@ namespace YAF.Web.Controls
                 var page = (i + 1).ToString();
 
                 var link = new ThemeButton
-                               {
-                                   NavigateUrl = this.GetLinkUrl(i + 1, postBack),
-                                   Type = ButtonStyle.Secondary,
-                                   Text = page
-                               };
+                {
+                    NavigateUrl = this.GetLinkUrl(i + 1, postBack),
+                    Type = ButtonStyle.Secondary,
+                    TitleLocalizedPage = "COMMON",
+                    TitleLocalizedTag = "GOTOPAGE_HEADER",
+                    Text = page,
+                    DataToggle = "tooltip"
+                };
 
                 if (i == this.CurrentPageIndex)
                 {
@@ -323,13 +328,14 @@ namespace YAF.Web.Controls
             if (this.CurrentPageIndex < this.PageCount() - 1)
             {
                 var link = new ThemeButton
-                               {
-                                   NavigateUrl = this.GetLinkUrl(this.CurrentPageIndex + 2, postBack),
-                                   Type = ButtonStyle.Secondary,
-                                   TextLocalizedPage = "COMMON",
-                                   TextLocalizedTag = "GOTONEXTPAGE_TT",
-                                   Icon = "angle-right"
-                               };
+                {
+                    NavigateUrl = this.GetLinkUrl(this.CurrentPageIndex + 2, postBack),
+                    Type = ButtonStyle.Secondary,
+                    TitleLocalizedPage = "COMMON",
+                    TitleLocalizedTag = "GOTONEXTPAGE_TT",
+                    DataToggle = "tooltip",
+                    Icon = "angle-right"
+                };
 
                 link.RenderControl(output);
             }
@@ -340,13 +346,14 @@ namespace YAF.Web.Controls
             }
 
             new ThemeButton
-                {
-                    NavigateUrl = this.GetLinkUrl(this.PageCount(), postBack),
-                    Type = ButtonStyle.Secondary,
-                    TextLocalizedPage = "COMMON",
-                    TextLocalizedTag = "GOTOLASTPAGE_TT",
-                    Icon = "angle-double-right"
-                }.RenderControl(output);
+            {
+                NavigateUrl = this.GetLinkUrl(this.PageCount(), postBack),
+                Type = ButtonStyle.Secondary,
+                TitleLocalizedPage = "COMMON",
+                TitleLocalizedTag = "GOTOLASTPAGE_TT",
+                DataToggle = "tooltip",
+                Icon = "angle-double-right"
+            }.RenderControl(output);
         }
 
         /// <summary>

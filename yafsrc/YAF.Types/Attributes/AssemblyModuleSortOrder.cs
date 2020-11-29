@@ -40,7 +40,7 @@ namespace YAF.Types.Attributes
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AssemblyLoadOrder"/> class.
+    /// Initializes a new instance of the <see cref="AssemblyModuleSortOrder"/> class.
     /// </summary>
     /// <param name="value">
     /// The value.

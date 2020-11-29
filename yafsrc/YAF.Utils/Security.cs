@@ -38,27 +38,6 @@ namespace YAF.Utils
         /// Function that verifies a string is an integer value or it redirects to invalid "info" page.
         /// Used as a security feature against invalid values submitted to the page.
         /// </summary>
-        /// <param name="longValue">
-        /// The string value to test
-        /// </param>
-        /// <returns>
-        /// The converted long value
-        /// </returns>
-        public static long StringToLongOrRedirect(string longValue)
-        {
-            if (!long.TryParse(longValue, out var value))
-            {
-                // it's an invalid request. Redirect to the info page on invalid requests.
-                BuildLink.RedirectInfoPage(InfoMessage.Invalid);
-            }
-
-            return value;
-        }
-
-        /// <summary>
-        /// Function that verifies a string is an integer value or it redirects to invalid "info" page.
-        /// Used as a security feature against invalid values submitted to the page.
-        /// </summary>
         /// <param name="intValue">
         /// The string value to test
         /// </param>

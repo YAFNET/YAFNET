@@ -94,10 +94,9 @@ namespace YAF.Utils
         /// The this.
         /// </summary>
         /// <value>
-        /// The <see cref="System.String"/>.
+        /// The <see cref="System.string"/>.
         /// </value>
         /// <param name="name">The name.</param>
-        /// <returns></returns>
         public string this[string name] => this.Parameters[name];
 
         /// <summary>
@@ -107,7 +106,6 @@ namespace YAF.Utils
         /// The <see cref="System.String"/>.
         /// </value>
         /// <param name="index">The index.</param>
-        /// <returns></returns>
         public string this[int index] => this.Parameters[index];
 
         #endregion

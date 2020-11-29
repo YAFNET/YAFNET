@@ -24,7 +24,7 @@
     <LangVersion>latest</LangVersion>
     <AssemblyName>YAF.Configuration</AssemblyName>
     <RootNamespace>YAF.Configuration</RootNamespace>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>YetAnotherForum.NET.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

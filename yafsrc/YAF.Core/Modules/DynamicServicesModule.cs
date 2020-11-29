@@ -139,7 +139,7 @@ namespace YAF.Core.Modules
                                 built.InstancePerLifetimeScope();
                                 break;
 
-                            case ServiceLifetimeScope.InstancePerDependancy:
+                            case ServiceLifetimeScope.InstancePerDependency:
                                 built.InstancePerDependency();
                                 break;
 
