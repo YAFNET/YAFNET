@@ -23,7 +23,7 @@ namespace ServiceStack
         {
             public const string NetStandard = "NETStandard";
             public const string NetCore = "NetCore";
-            public const string Net45 = "Net45";
+            public const string Net45 = "Net48";
         }
 
         public static PclExport Instance
