@@ -38,7 +38,7 @@ namespace YAF.Lucene.Net.Documents
     /// <i>not</i> available in documents retrieved from the index, e.g. with 
     /// <see cref="Search.ScoreDoc.Doc"/> or <see cref="IndexReader.Document(int)"/>.
     /// </summary>
-    public sealed class Document : IEnumerable<IIndexableField>
+    public sealed class Document : IEnumerable<IIndexableField>, IFormattable
     {
         private readonly List<IIndexableField> fields = new List<IIndexableField>();
 
@@ -235,9 +235,104 @@ namespace YAF.Lucene.Net.Documents
             var result = new List<string>();
             foreach (IIndexableField field in fields)
             {
-                if (field.Name.Equals(name, StringComparison.Ordinal) && field.GetStringValue() != null)
+                string fieldStringValue;
+                if (field.Name.Equals(name, StringComparison.Ordinal) && (fieldStringValue = field.GetStringValue()) != null)
                 {
-                    result.Add(field.GetStringValue());
+                    result.Add(fieldStringValue);
+                }
+            }
+
+            if (result.Count == 0)
+            {
+                return NO_STRINGS;
+            }
+
+            return result.ToArray();
+        }
+
+        /// <summary>
+        /// Returns an array of values of the field specified as the method parameter.
+        /// This method returns an empty array when there are no
+        /// matching fields. It never returns <c>null</c>.
+        /// For <see cref="Int32Field"/>, <see cref="Int64Field"/>, 
+        /// <see cref="SingleField"/> and <seealso cref="DoubleField"/> it returns the string value of the number. If you want
+        /// the actual numeric field instances back, use <see cref="GetFields(string)"/>. </summary>
+        /// <param name="name"> the name of the field </param>
+        /// <param name="format">A standard or custom numeric format string. This parameter has no effect if this field is non-numeric.</param>
+        /// <returns> a <see cref="T:string[]"/> of field values </returns>
+        // LUCENENET specific - method added for better .NET compatibility
+        public string[] GetValues(string name, string format)
+        {
+            var result = new List<string>();
+            foreach (IIndexableField field in fields)
+            {
+                string fieldStringValue;
+                if (field.Name.Equals(name, StringComparison.Ordinal) && (fieldStringValue = field.GetStringValue(format)) != null)
+                {
+                    result.Add(fieldStringValue);
+                }
+            }
+
+            if (result.Count == 0)
+            {
+                return NO_STRINGS;
+            }
+
+            return result.ToArray();
+        }
+
+        /// <summary>
+        /// Returns an array of values of the field specified as the method parameter.
+        /// This method returns an empty array when there are no
+        /// matching fields. It never returns <c>null</c>.
+        /// For <see cref="Int32Field"/>, <see cref="Int64Field"/>, 
+        /// <see cref="SingleField"/> and <seealso cref="DoubleField"/> it returns the string value of the number. If you want
+        /// the actual numeric field instances back, use <see cref="GetFields(string)"/>. </summary>
+        /// <param name="name"> the name of the field </param>
+        /// <param name = "provider" > An object that supplies culture-specific formatting information.This parameter has no effect if this field is non-numeric.</param>
+        /// <returns> a <see cref="T:string[]"/> of field values </returns>
+        // LUCENENET specific - method added for better .NET compatibility
+        public string[] GetValues(string name, IFormatProvider provider)
+        {
+            var result = new List<string>();
+            foreach (IIndexableField field in fields)
+            {
+                string fieldStringValue;
+                if (field.Name.Equals(name, StringComparison.Ordinal) && (fieldStringValue = field.GetStringValue(provider)) != null)
+                {
+                    result.Add(fieldStringValue);
+                }
+            }
+
+            if (result.Count == 0)
+            {
+                return NO_STRINGS;
+            }
+
+            return result.ToArray();
+        }
+
+        /// <summary>
+        /// Returns an array of values of the field specified as the method parameter.
+        /// This method returns an empty array when there are no
+        /// matching fields. It never returns <c>null</c>.
+        /// For <see cref="Int32Field"/>, <see cref="Int64Field"/>, 
+        /// <see cref="SingleField"/> and <seealso cref="DoubleField"/> it returns the string value of the number. If you want
+        /// the actual numeric field instances back, use <see cref="GetFields(string)"/>. </summary>
+        /// <param name="name"> the name of the field </param>
+        /// <param name="format">A standard or custom numeric format string. This parameter has no effect if this field is non-numeric.</param>
+        /// <param name="provider">An object that supplies culture-specific formatting information. This parameter has no effect if this field is non-numeric.</param>
+        /// <returns> a <see cref="T:string[]"/> of field values </returns>
+        // LUCENENET specific - method added for better .NET compatibility
+        public string[] GetValues(string name, string format, IFormatProvider provider)
+        {
+            var result = new List<string>();
+            foreach (IIndexableField field in fields)
+            {
+                string fieldStringValue;
+                if (field.Name.Equals(name, StringComparison.Ordinal) && (fieldStringValue = field.GetStringValue(format, provider)) != null)
+                {
+                    result.Add(fieldStringValue);
                 }
             }
 
@@ -262,9 +357,83 @@ namespace YAF.Lucene.Net.Documents
         {
             foreach (IIndexableField field in fields)
             {
-                if (field.Name.Equals(name, StringComparison.Ordinal) && field.GetStringValue() != null)
+                string fieldStringValue;
+                if (field.Name.Equals(name, StringComparison.Ordinal) && (fieldStringValue = field.GetStringValue()) != null)
                 {
-                    return field.GetStringValue();
+                    return fieldStringValue;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Returns the string value of the field with the given name if any exist in
+        /// this document, or <c>null</c>.  If multiple fields exist with this name, this
+        /// method returns the first value added. If only binary fields with this name
+        /// exist, returns <c>null</c>.
+        /// For <see cref="Int32Field"/>, <see cref="Int64Field"/>, 
+        /// <see cref="SingleField"/> and <seealso cref="DoubleField"/> it returns the string value of the number. If you want
+        /// the actual numeric field instance back, use <see cref="GetField(string)"/>.
+        /// </summary>
+        /// <param name="format">A standard or custom numeric format string. This parameter has no effect if this field is non-numeric.</param>
+        // LUCENENET specific - method added for better .NET compatibility
+        public string Get(string name, string format)
+        {
+            foreach (IIndexableField field in fields)
+            {
+                string fieldStringValue;
+                if (field.Name.Equals(name, StringComparison.Ordinal) && (fieldStringValue = field.GetStringValue(format)) != null)
+                {
+                    return fieldStringValue;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Returns the string value of the field with the given name if any exist in
+        /// this document, or <c>null</c>.  If multiple fields exist with this name, this
+        /// method returns the first value added. If only binary fields with this name
+        /// exist, returns <c>null</c>.
+        /// For <see cref="Int32Field"/>, <see cref="Int64Field"/>, 
+        /// <see cref="SingleField"/> and <seealso cref="DoubleField"/> it returns the string value of the number. If you want
+        /// the actual numeric field instance back, use <see cref="GetField(string)"/>.
+        /// </summary>
+        /// <param name="provider">An object that supplies culture-specific formatting information. This parameter has no effect if this field is non-numeric.</param>
+        // LUCENENET specific - method added for better .NET compatibility
+        public string Get(string name, IFormatProvider provider)
+        {
+            foreach (IIndexableField field in fields)
+            {
+                string fieldStringValue;
+                if (field.Name.Equals(name, StringComparison.Ordinal) && (fieldStringValue = field.GetStringValue(provider)) != null)
+                {
+                    return fieldStringValue;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Returns the string value of the field with the given name if any exist in
+        /// this document, or <c>null</c>.  If multiple fields exist with this name, this
+        /// method returns the first value added. If only binary fields with this name
+        /// exist, returns <c>null</c>.
+        /// For <see cref="Int32Field"/>, <see cref="Int64Field"/>, 
+        /// <see cref="SingleField"/> and <seealso cref="DoubleField"/> it returns the string value of the number. If you want
+        /// the actual numeric field instance back, use <see cref="GetField(string)"/>.
+        /// </summary>
+        /// <param name="format">A standard or custom numeric format string. This parameter has no effect if this field is non-numeric.</param>
+        /// <param name="provider">An object that supplies culture-specific formatting information. This parameter has no effect if this field is non-numeric.</param>
+        // LUCENENET specific - method added for better .NET compatibility
+        public string Get(string name, string format, IFormatProvider provider)
+        {
+            foreach (IIndexableField field in fields)
+            {
+                string fieldStringValue;
+                if (field.Name.Equals(name, StringComparison.Ordinal) && (fieldStringValue = field.GetStringValue(format, provider)) != null)
+                {
+                    return fieldStringValue;
                 }
             }
             return null;
@@ -274,12 +443,40 @@ namespace YAF.Lucene.Net.Documents
         /// Prints the fields of a document for human consumption. </summary>
         public override string ToString()
         {
+            return ToString(null, J2N.Text.StringFormatter.CurrentCulture);
+        }
+
+        /// <summary>
+        /// Prints the fields of a document for human consumption. 
+        /// </summary>
+        /// <param name="provider">An object that supplies culture-specific formatting information. This parameter has no effect if this field is non-numeric.</param>
+        // LUCENENET specific - method added for better .NET compatibility
+        public string ToString(IFormatProvider provider)
+        {
+            return ToString(null, provider);
+        }
+
+        /// <summary>
+        /// Prints the fields of a document for human consumption. 
+        /// </summary>
+        /// <param name="format">A standard or custom numeric format string. This parameter has no effect if this field is non-numeric.</param>
+        /// <param name="provider">An object that supplies culture-specific formatting information. This parameter has no effect if this field is non-numeric.</param>
+        // LUCENENET specific - method added for better .NET compatibility
+        private string ToString(string format, IFormatProvider provider)
+        {
             var buffer = new StringBuilder();
             buffer.Append("Document<");
             for (int i = 0; i < fields.Count; i++)
             {
                 IIndexableField field = fields[i];
-                buffer.Append(field.ToString());
+                if (field is IFormattable formattable)
+                {
+                    buffer.Append(formattable.ToString(format, provider));
+                }
+                else
+                {
+                    buffer.Append(field.ToString());
+                }
                 if (i != fields.Count - 1)
                 {
                     buffer.Append(" ");
@@ -287,6 +484,17 @@ namespace YAF.Lucene.Net.Documents
             }
             buffer.Append(">");
             return buffer.ToString();
+        }
+
+        /// <summary>
+        /// Prints the fields of a document for human consumption. 
+        /// </summary>
+        /// <param name="format">A standard or custom numeric format string. This parameter has no effect if this field is non-numeric.</param>
+        /// <param name="provider">An object that supplies culture-specific formatting information. This parameter has no effect if this field is non-numeric.</param>
+        // LUCENENET specific - method added for better .NET compatibility
+        string IFormattable.ToString(string format, IFormatProvider provider)
+        {
+            return ToString(format, provider);
         }
     }
 }
