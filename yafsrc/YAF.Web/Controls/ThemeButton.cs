@@ -600,7 +600,7 @@ namespace YAF.Web.Controls
             // Write Modal
             if (this.DataTarget.IsSet())
             {
-                output.WriteAttribute("data-target", $"#{this.DataTarget}");
+                output.WriteAttribute("data-bs-target", $"#{this.DataTarget}");
 
                 if (this.DataTarget == "modal")
                 {
@@ -611,7 +611,7 @@ namespace YAF.Web.Controls
             // Write popover content
             if (this.DataContent.IsSet())
             {
-                output.WriteAttribute("data-content", this.DataContent.Replace("\"", "'"));
+                output.WriteAttribute("data-bs-content", this.DataContent.Replace("\"", "'"));
                 output.WriteAttribute("tabindex", "0");
             }
 
@@ -623,7 +623,7 @@ namespace YAF.Web.Controls
             // Write Dropdown
             if (this.DataToggle.IsSet())
             {
-                output.WriteAttribute("data-toggle", this.DataToggle);
+                output.WriteAttribute("data-bs-toggle", this.DataToggle);
 
                 output.WriteAttribute("aria-expanded", "false");
             }

@@ -475,7 +475,7 @@ namespace YAF.Controls
                     notificationString.Append(this.GetText("POLLEDIT", "POLL_EXPIRED"));
 
                     this.PollClosed.Text =
-                        $"<span class=\"badge bg-danger ml-1\"><i class=\"fa fa-lock fa-fw\"></i>&nbsp;{this.GetText("POLLEDIT", "POLL_CLOSED")}</span>";
+                        $"<span class=\"badge bg-danger ms-1\"><i class=\"fa fa-lock fa-fw\"></i>&nbsp;{this.GetText("POLLEDIT", "POLL_CLOSED")}</span>";
                     this.PollClosed.Visible = true;
                 }
 

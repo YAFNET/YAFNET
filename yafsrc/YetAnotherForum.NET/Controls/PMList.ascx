@@ -12,7 +12,7 @@
         </div>
         <div class="col-auto">
             <div class="btn-toolbar" role="toolbar">
-                <div class="input-group input-group-sm mr-2" role="group">
+                <div class="input-group input-group-sm me-2" role="group">
                     <div class="input-group-text">
                         <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
                     </div>
@@ -31,7 +31,7 @@
                                      TextLocalizedTag="SORT_BY"
                                      Icon="sort"
                                      Visible="<%# this.Messages.Items.Count > 0 %>"/>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                        
                         <YAF:ThemeButton ID="SortFromAsc" runat="server"
                                          CssClass="dropdown-item"
@@ -119,7 +119,7 @@
 <asp:UpdatePanel ID="upPanExport" runat="server">
     <ContentTemplate>
         <div class="btn-toolbar mt-3" role="toolbar">
-            <div class="btn-group mr-2 mb-1" role="group">
+            <div class="btn-group me-2 mb-1" role="group">
                 <YAF:ThemeButton runat="server" ID="MarkAsRead" 
                                  Size="Small"
                                  TextLocalizedTag="MARK_ALL_ASREAD"
@@ -129,7 +129,7 @@
                                  Type="Secondary" 
                                  Icon="eye"/>
             </div>
-            <div class="btn-group mr-2 mb-1" role="group">
+            <div class="btn-group me-2 mb-1" role="group">
                 <YAF:ThemeButton runat="server" ID="ArchiveSelected" 
                                  Size="Small"
                                  TextLocalizedTag="ARCHIVESELECTED" 
@@ -147,7 +147,7 @@
                                  OnClick="ArchiveAll_Click"
                                  Type="Secondary" Icon="archive" />
             </div>
-            <div class="btn-group mr-2 mb-1" role="group">
+            <div class="btn-group me-2 mb-1" role="group">
                 <YAF:ThemeButton runat="server" ID="ExportSelected" 
                                  Size="Small"
                                  TextLocalizedTag="EXPORTSELECTED" 

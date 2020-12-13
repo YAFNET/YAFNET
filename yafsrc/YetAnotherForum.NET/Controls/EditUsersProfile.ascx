@@ -237,7 +237,7 @@
     <YAF:ThemeButton ID="UpdateProfile" runat="server"
                      Type="Primary"
                      OnClick="UpdateProfileClick"
-                     CssClass="mr-2"
+                     CssClass="me-2"
                      Icon="save"
                      TextLocalizedTag="SAVE"
                      TextLocalizedPage="COMMON" />

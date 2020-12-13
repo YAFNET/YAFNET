@@ -21,7 +21,7 @@
                                         IconName="paperclip"></YAF:IconHeader>
                     </div>
                     <div class="col-auto">
-                        <div class="input-group input-group-sm mr-2" role="group">
+                        <div class="input-group input-group-sm me-2" role="group">
                             <div class="input-group-text">
                                 <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
                             </div>
@@ -50,7 +50,7 @@
                             </span>
                             <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
                                                  CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>' 
-                                                 CssClass="ml-2"
+                                                 CssClass="ms-2"
                                                  TitleLocalizedTag="DELETE" 
                                                  Size="Small"
                                                  TextLocalizedTag="DELETE"

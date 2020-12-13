@@ -183,7 +183,7 @@ namespace YAF.Controls
                 link.Attributes.Add("rel", "nofollow");
             }
 
-            link.Attributes.Add("data-toggle", "tooltip");
+            link.Attributes.Add("data-bs-toggle", "tooltip");
 
             if (showUnread)
             {
@@ -195,7 +195,7 @@ namespace YAF.Controls
 
                 var unreadLabel = new Label { CssClass = "badge bg-danger", ToolTip = unreadText, Text = unread };
 
-                unreadLabel.Attributes.Add("data-toggle", "tooltip");
+                unreadLabel.Attributes.Add("data-bs-toggle", "tooltip");
 
                 var unreadLabelText = new Label { CssClass = "visually-hidden", Text = unreadText };
 

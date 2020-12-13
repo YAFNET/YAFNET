@@ -110,7 +110,7 @@ namespace YAF.Controls
 
                 output = item.RemoteURL.IsSet()
                              ? $"<a href=\"{item.RemoteURL}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fas fa-external-link-alt fa-fw\"></i></a>"
-                             : $"<a href=\"{BuildLink.GetForumLink(forumID, output)}\" data-toggle=\"tooltip\" title=\"{title}\">{this.Page.HtmlEncode(output)}</a>";
+                             : $"<a href=\"{BuildLink.GetForumLink(forumID, output)}\" data-bs-toggle=\"tooltip\" title=\"{title}\">{this.Page.HtmlEncode(output)}</a>";
             }
             else
             {
@@ -167,7 +167,7 @@ namespace YAF.Controls
                 var icon = new Literal
                                {
                                    Text =
-                                       $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"" href=""#"">
+                                       $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"">
                                                       {forumIconNew.RenderToString()}
                                                   </a>"
                                };
@@ -177,21 +177,21 @@ namespace YAF.Controls
                     if (flags.IsLocked)
                     {
                         icon.Text =
-                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"" href=""#"">
+                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"">
                                    {forumIconLocked}
                                </a>";
                     }
                     else if (lastPosted > lastRead && item.ReadAccess)
                     {
                         icon.Text =
-                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"" href=""#"">
+                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"">
                                     {forumIconNew.RenderToString()}
                                </a>";
                     }
                     else
                     {
                         icon.Text =
-                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"" href=""#"">
+                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"">
                                   <span class=""fa-stack"">
                                        {forumIconNormal.RenderToString()}
                                   </span>

@@ -83,7 +83,7 @@ namespace YAF.Web.Controls
             htmlDropDown.Append(@"<div class=""dropdown d-lg-none d-grid gap-2"">");
 
             htmlDropDown.Append(
-                @"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
+                @"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-bs-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
 
             htmlDropDown.AppendFormat(@"{0}</button>", this.GetText("HELP_INDEX", "INDEX"));
 
@@ -199,9 +199,7 @@ namespace YAF.Web.Controls
             writer.WriteLine(@"</div></div>");
 
             // contents of the help pages...
-
-            // writer.WriteLine(@"<div class=""col-md-9 ml-sm-auto col-lg-10 px-4"">");
-            writer.WriteLine(@"<div class=""col flex-grow-1 ml-lg-3"">");
+            writer.WriteLine(@"<div class=""col flex-grow-1 ms-lg-3"">");
 
             // Write Mobile Drop down
             writer.WriteLine(htmlDropDown.ToString());

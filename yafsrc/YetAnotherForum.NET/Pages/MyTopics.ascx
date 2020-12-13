@@ -6,32 +6,32 @@
 <asp:Panel id="TopicsTabs" runat="server">
                <ul class="nav nav-tabs" role="tablist">
                  <li class="nav-item">
-                     <a href="#ActiveTopicsTab" class="nav-link" data-toggle="tab" role="tab">
+                     <a href="#ActiveTopicsTab" class="nav-link" data-bs-toggle="tab" role="tab">
                          <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ActiveTopics" LocalizedPage="MyTopics" />
                      </a>
                  </li>
                  <asp:PlaceHolder ID="UnansweredTopicsTabTitle" runat="server">
                  <li class="nav-item">
-                     <a href="#UnansweredTopicsTab" class="nav-link" data-toggle="tab" role="tab">
+                     <a href="#UnansweredTopicsTab" class="nav-link" data-bs-toggle="tab" role="tab">
                          <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="UnansweredTopics" LocalizedPage="MyTopics" />
                      </a>
                  </li>
                  </asp:PlaceHolder>
                  <asp:PlaceHolder ID="UnreadTopicsTabTitle" runat="server">
                    <li class="nav-item">
-                       <a href="#UnreadTopicsTab" class="nav-link" data-toggle="tab" role="tab">
+                       <a href="#UnreadTopicsTab" class="nav-link" data-bs-toggle="tab" role="tab">
                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="UnreadTopics" LocalizedPage="MyTopics" />
                        </a>
                    </li>
                  </asp:PlaceHolder>
                  <asp:PlaceHolder ID="UserTopicsTabTitle" runat="server">
                    <li class="nav-item">
-                       <a href="#MyTopicsTab" class="nav-link" data-toggle="tab" role="tab">
+                       <a href="#MyTopicsTab" class="nav-link" data-bs-toggle="tab" role="tab">
                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MyTopics" LocalizedPage="MyTopics" />
                        </a>
                    </li>
 		           <li class="nav-item">
-		               <a href="#FavoriteTopicsTab" class="nav-link" data-toggle="tab" role="tab">
+		               <a href="#FavoriteTopicsTab" class="nav-link" data-bs-toggle="tab" role="tab">
 		                   <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FavoriteTopics" LocalizedPage="MyTopics" />
 		               </a>
 		           </li>

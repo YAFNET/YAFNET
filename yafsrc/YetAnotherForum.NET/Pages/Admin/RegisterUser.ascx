@@ -74,7 +74,7 @@
                     <YAF:ThemeButton id="ForumRegister" runat="server" 
                                      Onclick="ForumRegisterClick" 
                                      CausesValidation="True"
-                                     CssClass="mr-1"
+                                     CssClass="me-1"
                                      Type="Primary"
                                      Icon="user-plus" 
                                      TextLocalizedTag="REGISTER" 

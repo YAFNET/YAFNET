@@ -97,7 +97,7 @@ namespace YAF.Core.Controllers
                                     "m={0}&name={1}#post{0}",
                                     activity.MessageID.Value,
                                     topic.TopicName),
-                            Text = $"<i class=\"fas fa-comment fa-fw mr-1\"></i>{topic.TopicName}"
+                            Text = $"<i class=\"fas fa-comment fa-fw me-1\"></i>{topic.TopicName}"
                         };
 
                         var name = this.Get<IUserDisplayName>().GetNameById(activity.FromUserID.Value);

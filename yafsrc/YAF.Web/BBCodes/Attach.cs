@@ -120,7 +120,7 @@ namespace YAF.Web.BBCodes
                         this.GetText("IMAGE_RESIZE_ENLARGE"));
 
                     writer.Write(
-                        @"<span class=""text-muted float-right"">{0}</span></p>",
+                        @"<span class=""text-muted float-end"">{0}</span></p>",
                         this.GetTextFormatted("IMAGE_RESIZE_VIEWS", attachment.Downloads));
 
                     writer.Write(@"</div></div>");

@@ -31,8 +31,20 @@ jQuery(document).ready(function () {
 
 
     // Numeric Spinner Inputs
-    jQuery("input[type='number']").TouchSpin({
-        max: 2147483647
+    $("input[type='number']").each(function () {
+
+        if ($(this).hasClass("form-pager")) {
+            var holder = $(this).closest(".mb-3");
+
+            $(this).TouchSpin({
+                min: holder.data("min"),
+                max: holder.data("max")
+            });
+        } else {
+            $(this).TouchSpin({
+                max: 2147483647
+            });
+        }
     });
 
     jQuery(".serverTime-Input").TouchSpin({
@@ -142,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });

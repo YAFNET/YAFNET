@@ -24,15 +24,6 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.PlaceHolder LastPostedHolder;
 
         /// <summary>
-        /// NewMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NewMessage;
-
-        /// <summary>
         /// TopicInPlaceHolder control.
         /// </summary>
         /// <remarks>
@@ -49,6 +40,15 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton topicLink;
+
+        /// <summary>
+        /// NewMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label NewMessage;
 
         /// <summary>
         /// Info control.

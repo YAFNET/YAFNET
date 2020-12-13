@@ -177,8 +177,8 @@ namespace YAF.Web.Controls
             button.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "btn btn-sm");
             button.Attributes.Add(HtmlTextWriterAttribute.Title.ToString(), tooltip);
 
-            button.Attributes.Add("data-toggle", "tooltip");
-            button.Attributes.Add("data-placement", "right");
+            button.Attributes.Add("data-bs-toggle", "tooltip");
+            button.Attributes.Add("data-bs-placement", "right");
 
             button.Controls.Add(new Icon { IconName = "info-circle", IconSize = "fa-lg", IconType = "text-info" });
 

@@ -107,7 +107,7 @@ namespace YAF.Web.Controls
 
             var inputGroup = new HtmlGenericControl("div");
 
-            inputGroup.Attributes.Add("class", "input-group mr-2 w-50");
+            inputGroup.Attributes.Add("class", "input-group me-2 w-50");
 
             // text box...
             this.gotoTextBox.ID = this.GetExtendedID("GotoTextBox");

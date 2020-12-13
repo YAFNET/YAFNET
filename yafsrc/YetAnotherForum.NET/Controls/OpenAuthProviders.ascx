@@ -14,7 +14,7 @@
                     <YAF:ThemeButton runat="server" ID="Login" 
                                      Type="None"
                                      Size="Small"
-                                     CssClass='<%#: "btn btn-social btn-{0} mr-1".Fmt(Item.ToLower()) %>'
+                                     CssClass='<%#: "btn btn-social btn-{0} me-1".Fmt(Item.ToLower()) %>'
                                      Icon="<%#: Item.ToLower() %>"
                                      IconCssClass="fab"
                                      CausesValidation="False" 

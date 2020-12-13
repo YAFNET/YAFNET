@@ -1250,7 +1250,7 @@ namespace YAF.Configuration
         /// </summary>
         public bool BlankLinks
         {
-            get => this.Registry.GetValue("BlankLinks", false);
+            get => this.Registry.GetValue("BlankLinks", true);
 
             set => this.Registry.SetValue("BlankLinks", value);
         }

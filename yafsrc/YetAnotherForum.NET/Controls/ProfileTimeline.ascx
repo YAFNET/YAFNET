@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-auto">
                         <div class="btn-toolbar" role="toolbar">
-                            <div class="input-group input-group-sm mr-2" role="group">
+                            <div class="input-group input-group-sm me-2" role="group">
                                 <div class="input-group-text">
                                     <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
                                 </div>
@@ -33,7 +33,7 @@
                                              Icon="filter"
                                              TextLocalizedTag="FILTER_DROPDOWN"
                                              TextLocalizedPage="ADMIN_USERS"/>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                                 <div class="px-3 py-1">
                                     <div class="mb-3">
                                         <div class="form-check form-switch">
@@ -66,7 +66,7 @@
                                                      TextLocalizedTag="CLEAR"
                                                      Type="Secondary"
                                                      Size="Small"
-                                                     Icon="trash" CssClass="float-right">
+                                                     Icon="trash" CssClass="float-end">
                                     </YAF:ThemeButton>
                                 </div>
                             </div>

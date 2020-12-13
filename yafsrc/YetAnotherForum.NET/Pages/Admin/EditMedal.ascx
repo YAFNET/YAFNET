@@ -117,7 +117,7 @@
                 </div>
                 <div class="card-footer text-center">
                     <YAF:ThemeButton ID="Save" runat="server" 
-                                     CssClass="mr-2"
+                                     CssClass="me-2"
                                      OnClick="SaveClick" 
                                      CausesValidation="True"
                                      Type="Primary" 

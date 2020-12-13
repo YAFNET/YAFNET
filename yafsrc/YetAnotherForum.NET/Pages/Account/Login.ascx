@@ -64,7 +64,7 @@
                                                   Checked="True"></asp:CheckBox>
                                 </div>
                             </div>
-                            <div class="mb-3 col-md-6 text-right">
+                            <div class="mb-3 col-md-6 text-end">
                                 <YAF:ThemeButton ID="PasswordRecovery" runat="server" 
                                                  CausesValidation="False"
                                                  Type="Secondary"

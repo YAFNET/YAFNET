@@ -75,14 +75,14 @@
                     <ul class="standardList">
                         <li>
                             <asp:Label ID="lblPermissionApp" runat="server" 
-                                       CssClass="badge bg-info float-right">
+                                       CssClass="badge bg-info float-end">
                                 <%# YAF.App_GlobalResources.Install.Unchecked %>
                             </asp:Label>
                             <%# YAF.App_GlobalResources.Install.PermissionApp %>
                         </li>
                         <li>
                             <asp:Label ID="lblPermissionUpload" runat="server" 
-                                       CssClass="badge bg-info float-right">
+                                       CssClass="badge bg-info float-end">
                                 <%# YAF.App_GlobalResources.Install.Unchecked %>
                             </asp:Label>
                             <%# YAF.App_GlobalResources.Install.PermissionUpload %>

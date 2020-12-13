@@ -89,15 +89,15 @@ namespace YAF.Web.Controls
                     : $"<li class\"nav-item\"><a class=\"nav-link\" href='{ProfilerURL}'>web profiler</a></li>");
 
             writer.Write(
-                $"<li class\"nav-item\"><a class=\"nav-link\" data-toggle=\"tooltip\" title=\"A page displaying grand totals of the application state, all session states and the web application cache along with server variables\" href='{ProfilerURL}?detail=Summary'>server summary</a></li>");
+                $"<li class\"nav-item\"><a class=\"nav-link\" data-bs-toggle=\"tooltip\" title=\"A page displaying grand totals of the application state, all session states and the web application cache along with server variables\" href='{ProfilerURL}?detail=Summary'>server summary</a></li>");
             writer.Write(
-                $"<li class\"nav-item\"><a class=\"nav-link\" data-toggle=\"tooltip\" title=\"All server cache objects and their sizes\" href='{ProfilerURL}?detail=Cache'>server cache</a></li>");
+                $"<li class\"nav-item\"><a class=\"nav-link\" data-bs-toggle=\"tooltip\" title=\"All server cache objects and their sizes\" href='{ProfilerURL}?detail=Cache'>server cache</a></li>");
             writer.Write(
-                $"<li class\"nav-item\"><a class=\"nav-link\" data-toggle=\"tooltip\" title=\"All objects and their sizes contained within the application state\" href='{ProfilerURL}?detail=ApplicationState'>application state</a></li>");
+                $"<li class\"nav-item\"><a class=\"nav-link\" data-bs-toggle=\"tooltip\" title=\"All objects and their sizes contained within the application state\" href='{ProfilerURL}?detail=ApplicationState'>application state</a></li>");
             writer.Write(
-                $"<li class\"nav-item\"><a class=\"nav-link\" data-toggle=\"tooltip\" title=\"A list of all the active sessions with their session id's, total amount of objects total of the object sizes\" href='{ProfilerURL}?detail=SessionState'>session state</a></li>");
+                $"<li class\"nav-item\"><a class=\"nav-link\" data-bs-toggle=\"tooltip\" title=\"A list of all the active sessions with their session id's, total amount of objects total of the object sizes\" href='{ProfilerURL}?detail=SessionState'>session state</a></li>");
             writer.Write(
-                $"<li class\"nav-item\"><a class=\"nav-link\" data-toggle=\"tooltip\" title=\"View objects stored in the current web session\" href='{ProfilerURL}?detail=SessionState&sessionID=j{this.Get<HttpSessionStateBase>().SessionID}'>current session</a></li>");
+                $"<li class\"nav-item\"><a class=\"nav-link\" data-bs-toggle=\"tooltip\" title=\"View objects stored in the current web session\" href='{ProfilerURL}?detail=SessionState&sessionID=j{this.Get<HttpSessionStateBase>().SessionID}'>current session</a></li>");
             writer.Write("</ul>");
 
             if (this.Get<HttpContextBase>().Request.QueryString["detail"] == null)

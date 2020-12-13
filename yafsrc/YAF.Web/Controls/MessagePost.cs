@@ -245,7 +245,7 @@ namespace YAF.Web.Controls
 
             var messageHistoryButton =
                 $@"<hr />
-                   <p class=""mb-0""><a href=""{BuildLink.GetLink(ForumPages.MessageHistory, "m={0}", messageId.ToType<int>())}"" class=""btn btn-secondary btn-sm mr-1"">
+                   <p class=""mb-0""><a href=""{BuildLink.GetLink(ForumPages.MessageHistory, "m={0}", messageId.ToType<int>())}"" class=""btn btn-secondary btn-sm me-1"">
                          <i class=""fa fa-history fa-fw""></i>{this.GetText("MESSAGEHISTORY", "TITLE")}
                       </a></p>";
 

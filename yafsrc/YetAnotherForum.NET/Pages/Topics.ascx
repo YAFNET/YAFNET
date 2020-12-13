@@ -15,11 +15,11 @@
                     <YAF:CollapseButton ID="CollapsibleImage" runat="server"
                                         PanelID='<%# "forumPanel{0}".Fmt(this.PageContext.PageForumID) %>'
                                         AttachedControlID="body" 
-                                        CssClass="pl-0">
+                                        CssClass="ps-0">
                     </YAF:CollapseButton>
                     <YAF:Icon runat="server"
                               IconName="comments"
-                              IconType="text-secondary pr-1"></YAF:Icon>
+                              IconType="text-secondary pe-1"></YAF:Icon>
                     <%= this.GetSubForumTitle()%>
                 </div>
                 <div class="card-body" id="body" runat="server">
@@ -32,7 +32,7 @@
 <div class="row justify-content-end">
     <div class="col-auto mb-1">
         <YAF:ThemeButton ID="moderate1" runat="server"
-                         CssClass="mr-1"
+                         CssClass="me-1"
                          TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT"
                          Type="Secondary"
                          Icon="tasks"/>
@@ -49,7 +49,7 @@
                     <div class="col-auto">
                         <YAF:Icon runat="server"
                                   IconName="comments"
-                                  IconType="text-secondary pr-1"></YAF:Icon>
+                                  IconType="text-secondary pe-1"></YAF:Icon>
                         <asp:Label ID="PageTitle" runat="server"></asp:Label>
                     </div>
                     <div class="col-auto">
@@ -61,7 +61,7 @@
                                          Icon="filter"
                                          TextLocalizedTag="FILTER_DROPDOWN"
                                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                             <div class="px-3 py-1 dropdown-sm">
                                 <div class="mb-3">
                                     <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
@@ -187,7 +187,7 @@
     </div>
     <div class="col-auto mb-1">
             <YAF:ThemeButton ID="moderate2" runat="server" 
-                             CssClass="mr-1"
+                             CssClass="me-1"
                              TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT"
                              Type="Secondary"
                              Icon="tasks"/>

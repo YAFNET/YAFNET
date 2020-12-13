@@ -225,7 +225,7 @@
                                                     LocalizedPage="ADMIN_ADMIN"></YAF:IconHeader>
                                 </div>
                                 <div class="col-auto">
-                                    <div class="input-group input-group-sm mr-2" role="group">
+                                    <div class="input-group input-group-sm me-2" role="group">
                                         <div class="input-group-text">
                                             <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
                                         </div>
@@ -246,14 +246,14 @@
                     <ItemTemplate>
                         <li class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-start align-items-baseline">
-                            <div class="mr-2">
+                            <div class="me-2">
                                 <YAF:UserLabel ID="ActiveUserLink"
                                                ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).UserDisplayName : (Container.DataItem as dynamic).UserName %>"
                                                UserID="<%# (Container.DataItem as dynamic).UserID %>" 
                                                CrawlerName="<%# (Container.DataItem as dynamic).IsCrawler > 0 ? (string)(Container.DataItem as dynamic).Browser : string.Empty %>"
                                                Style="<%# (Container.DataItem as dynamic).UserStyle %>" runat="server" />
                             </div>
-                            <div class="mr-2">
+                            <div class="me-2">
                                 <span class="fw-bold">
                                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
                                                         LocalizedTag="ADMIN_IPADRESS" LocalizedPage="ADMIN_ADMIN" />
@@ -309,7 +309,7 @@
                                                     LocalizedPage="ADMIN_ADMIN"></YAF:IconHeader>
                                 </div>
                                 <div class="col-auto">
-                                    <div class="input-group input-group-sm mr-2" role="group">
+                                    <div class="input-group input-group-sm me-2" role="group">
                                         <div class="input-group-text">
                                             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="SHOW" />:
                                         </div>
@@ -331,12 +331,12 @@
                                 <ItemTemplate>
                                     <li class="list-group-item list-group-item-action">
                                     <div class="d-flex w-100 justify-content-start align-items-baseline">
-                                        <div class="mr-2">
+                                        <div class="me-2">
                                             <span class="fw-bold">
                                                 <%# this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name") %>
                                             </span>
                                         </div>
-                                        <div class="mr-2">
+                                        <div class="me-2">
                                             <span class="fw-bold">
                                                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="ADMIN_JOINED"
                                                                     LocalizedPage="ADMIN_ADMIN" />
@@ -409,7 +409,7 @@
                                                              Icon="trash" 
                                                              TextLocalizedTag="DELETE_ALL" 
                                                              ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
-                                                             CssClass="mr-1 mb-1"/>
+                                                             CssClass="me-1 mb-1"/>
                                         </div>
                                         <div>
                                             <div class="input-group">

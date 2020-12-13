@@ -18,8 +18,8 @@
         </a>
         
         <button class="navbar-toggler" type="button" 
-                data-toggle="collapse" 
-                data-target="#navbarSupportedContent" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#navbarSupportedContent" 
                 aria-controls="navbarSupportedContent" 
                 aria-expanded="false" 
                 aria-label="Toggle navigation">
@@ -27,7 +27,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav me-auto">
                 <asp:PlaceHolder ID="menuListItems" runat="server">
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="AdminModHolder" runat="server" 
@@ -88,7 +88,7 @@
             </ul>
             <asp:Panel ID="quickSearch" runat="server" CssClass="d-flex" Visible="false">
                 <asp:TextBox ID="searchInput" Type="Search" runat="server" 
-                             CssClass="form-control mr-2"
+                             CssClass="form-control me-2"
                              aria-label="Search"></asp:TextBox>
                 <YAF:ThemeButton ID="doQuickSearch" runat="server"
                                  Type="OutlineInfo"

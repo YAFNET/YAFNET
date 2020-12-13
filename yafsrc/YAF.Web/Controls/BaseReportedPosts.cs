@@ -115,7 +115,7 @@ namespace YAF.Web.Controls
                             var resolvedByName = resolvedBy.DisplayOrUserName();
 
                             writer.Write(
-                                @"<span class=""fw-bold mr-2"">{0}</span><a href=""{1}"">{2}</a> : {3}",
+                                @"<span class=""fw-bold me-2"">{0}</span><a href=""{1}"">{2}</a> : {3}",
                                 this.GetText("RESOLVEDBY"),
                                 BuildLink.GetUserProfileLink(this.ResolvedBy.ToType<int>(), resolvedByName),
                                 resolvedByName,
@@ -123,14 +123,14 @@ namespace YAF.Web.Controls
                         }
 
                         writer.Write(
-                            @"<span class=""fw-bold mx-2"">{3}</span><a href=""{1}"" class=""mr-2"">{0}</a><em>{2}</em>",
+                            @"<span class=""fw-bold mx-2"">{3}</span><a href=""{1}"" class=""me-2"">{0}</a><em>{2}</em>",
                             reporterName,
                             BuildLink.GetUserProfileLink(reporter.Item2.ID, reporterName),
                             howMany,
                             this.GetText("REPORTEDBY"));
 
                         writer.Write(
-                            @"<a class=""btn btn-secondary btn-sm ml-2"" href=""{1}""><i class=""fa fa-envelope fa-fw""></i>&nbsp;{2} {0}</a>",
+                            @"<a class=""btn btn-secondary btn-sm ms-2"" href=""{1}""><i class=""fa fa-envelope fa-fw""></i>&nbsp;{2} {0}</a>",
                             reporterName,
                             BuildLink.GetLink(
                                 ForumPages.PostPrivateMessage,
@@ -147,7 +147,7 @@ namespace YAF.Web.Controls
                                     var textString = t.Split("??".ToCharArray());
 
                                     writer.Write(
-                                        @"<p class=""card-text"">@</span><span class=""pl-1"">{0}</p>",
+                                        @"<p class=""card-text"">@</span><span class=""ps-1"">{0}</p>",
                                         this.Get<IDateTime>().FormatDateTimeTopic(textString[0]));
 
                                     if (textString.Length > 2)

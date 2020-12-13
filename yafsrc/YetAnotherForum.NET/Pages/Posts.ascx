@@ -26,20 +26,20 @@
             <span id="dvFavorite1">
                 <YAF:ThemeButton ID="TagFavorite1" runat="server"
                                  Type="Secondary"
-                                 CssClass="mb-1 mr-1"
+                                 CssClass="mb-1 me-1"
                                  TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
                                  Icon="star"
                                  IconColor="text-warning" />
             </span>
             <YAF:ThemeButton ID="Tools1" runat="server"
-                             CssClass="dropdown-toggle mr-1 mb-1"
+                             CssClass="dropdown-toggle me-1 mb-1"
                              Type="Danger"
                              DataToggle="dropdown"
                              TextLocalizedTag="MANAGE_TOPIC"
                              TextLocalizedPage="POSTS"
                              NavigateUrl="#"
                              Icon="cogs" />
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="<%# this.Tools1.ClientID %>">
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="<%# this.Tools1.ClientID %>">
                 <YAF:ThemeButton ID="MoveTopic1" runat="server"
                                  CssClass="dropdown-item"
                                  Type="None"
@@ -70,11 +70,11 @@
             <YAF:ThemeButton ID="NewTopic1" runat="server"
                              Type="Secondary"
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
-                             CssClass="mr-1 mb-1"
+                             CssClass="me-1 mb-1"
                              Icon="plus" />
             <YAF:ThemeButton ID="PostReplyLink1" runat="server"
                              Type="Primary"
-                             CssClass="mr-1 mb-1"
+                             CssClass="me-1 mb-1"
                              OnClick="PostReplyLink_Click"
                              TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                              Icon="reply" />
@@ -96,7 +96,7 @@
                 <asp:Label ID="TopicTitle" runat="server" 
                            CssClass="topic-title" />
             </asp:HyperLink>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -118,7 +118,7 @@
                                          Icon="arrow-circle-right" />
                     </li>
                 </ul>
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
                         <YAF:ThemeButton runat="server" ID="ShareLink"
                                          TextLocalizedTag="SHARE" TitleLocalizedTag="SHARE_TOOLTIP"
@@ -185,13 +185,13 @@
                                  IconColor="text-warning" />
             </span>
             <YAF:ThemeButton ID="Tools2" runat="server"
-                             CssClass="dropdown-toggle ml-1 mb-1"
+                             CssClass="dropdown-toggle ms-1 mb-1"
                              Type="Danger"
                              DataToggle="dropdown"
                              TextLocalizedTag="MANAGE_TOPIC"
                              NavigateUrl="#"
                              Icon="cogs" />
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="<%# this.Tools1.ClientID %>">
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="<%# this.Tools1.ClientID %>">
                 <YAF:ThemeButton ID="MoveTopic2" runat="server"
                                  Type="None"
                                  CssClass="dropdown-item"
@@ -222,17 +222,17 @@
             <YAF:ThemeButton ID="NewTopic2" runat="server"
                              Type="Secondary"
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
-                             CssClass="ml-1 mb-1"
+                             CssClass="ms-1 mb-1"
                              Icon="comment" />
             <YAF:ThemeButton ID="PostReplyLink2" runat="server"
                              Type="Primary"
-                             CssClass="ml-1 mb-1"
+                             CssClass="ms-1 mb-1"
                              OnClick="PostReplyLink_Click"
                              TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                              Icon="reply" />
             <YAF:ThemeButton ID="QuickReplyLink2" runat="server"
                              Type="Primary"
-                             CssClass="ml-1 mb-1"
+                             CssClass="ms-1 mb-1"
                              TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                              Icon="reply"
                              DataToggle="modal"

@@ -706,15 +706,15 @@ namespace YAF.Install
             {
                 case 0:
                     theLabel.Text = Install.No;
-                    theLabel.CssClass = "badge bg-danger float-right";
+                    theLabel.CssClass = "badge bg-danger float-end";
                     break;
                 case 1:
                     theLabel.Text = Install.Unchecked;
-                    theLabel.CssClass = "badge bg-info float-right";
+                    theLabel.CssClass = "badge bg-info float-end";
                     break;
                 case 2:
                     theLabel.Text = Install.Yes;
-                    theLabel.CssClass = "badge bg-success float-right";
+                    theLabel.CssClass = "badge bg-success float-end";
                     break;
             }
         }

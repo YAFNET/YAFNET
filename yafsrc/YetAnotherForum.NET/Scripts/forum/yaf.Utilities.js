@@ -14,7 +14,7 @@ function formatState(state) {
 
 // Confirm Dialog
 $(document).on("click",
-    "[data-toggle=\"confirm\"]",
+    "[data-bs-toggle=\"confirm\"]",
     function (e) {
         e.preventDefault();
         var link = $(this).attr("href");

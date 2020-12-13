@@ -5,6 +5,7 @@
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Utils.Helpers" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 
 
 <div class="bg-light">
@@ -41,7 +42,7 @@
                                   <span id='<%# "spnTitle{0}".Fmt(this.Eval("ID")) %>'
                                         onclick="showTexBox(this.id)"
                                         title='<%# this.Eval("Caption") == null ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.GetText("ALBUM_IMAGE_CHANGE_CAPTION2") %>'
-                                        data-toggle="tooltip">
+                                        data-bs-toggle="tooltip">
                                       <YAF:Icon runat="server" IconName="pen" IconType="text-secondary"/>
                                       <%# this.Eval("Caption").IsNullOrEmptyField() ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.HtmlEncode(this.Eval("Caption"))%>
                                   </span>

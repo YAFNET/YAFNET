@@ -66,7 +66,7 @@
     <div class="col-xl-12">
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-envelope fa-fw text-secondary pr-1"></i>
+                <i class="fa fa-envelope fa-fw text-secondary pe-1"></i>
                 Mail testing
             </div>
             <div class="card-body">

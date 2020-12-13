@@ -61,7 +61,7 @@ CKEDITOR.dialog.add("attachmentsDialog",
                                 '</ul>' +
                                 '</div>' +
                                 '<div class="OpenUploadDialog">' +
-                                '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#UploadDialog">' +
+                                '<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#UploadDialog">' +
                                 editor.lang.attachments.upload +
                                 '</button></div>'
                         }

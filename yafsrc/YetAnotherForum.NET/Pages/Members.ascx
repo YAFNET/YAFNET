@@ -1,7 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Members" CodeBehind="Members.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 
@@ -18,7 +17,7 @@
                     </div>
                     <div class="col-auto">
                         <div class="btn-toolbar" role="toolbar">
-                            <div class="input-group input-group-sm mr-2 mb-1" role="group">
+                            <div class="input-group input-group-sm me-2 mb-1" role="group">
                                 <div class="input-group-text">
                                     <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
                                 </div>
@@ -28,7 +27,7 @@
                                                   CssClass="form-select">
                                 </asp:DropDownList>
                             </div>
-                            <div class="btn-group mr-2 mb-1" role="group" aria-label="Filters">
+                            <div class="btn-group me-2 mb-1" role="group" aria-label="Filters">
                         <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown"
@@ -38,7 +37,7 @@
                                          TextLocalizedTag="FILTER_DROPDOWN"
                                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                         
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                             <div class="px-3 py-1">
                                 <div class="mb-3">
                                     <asp:Label runat="server" AssociatedControlID="Group">
@@ -82,7 +81,7 @@
                                 </div>
                                 <YAF:ThemeButton ID="SearchByUserName" runat="server"
                                                  OnClick="Search_Click"
-                                                 CssClass="mr-2"
+                                                 CssClass="me-2"
                                                  TextLocalizedTag="BTNSEARCH"
                                                  Type="Primary"
                                                  Icon="search">
@@ -105,7 +104,7 @@
                                                  DataToggle="dropdown"
                                                  TextLocalizedTag="SORT_BY"
                                                  Icon="sort" />
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                                      <YAF:ThemeButton ID="SortUserNameAsc" runat="server"
                                          CssClass="dropdown-item"
                                          Type="None" 

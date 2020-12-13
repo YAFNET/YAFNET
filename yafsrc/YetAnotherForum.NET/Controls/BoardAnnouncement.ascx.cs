@@ -78,7 +78,7 @@ namespace YAF.Controls
                 return;
             }
 
-            this.Badge.CssClass = $"badge bg-{this.PageContext.BoardSettings.BoardAnnouncementType} mr-1";
+            this.Badge.CssClass = $"badge bg-{this.PageContext.BoardSettings.BoardAnnouncementType} me-1";
 
             this.Announcement.CssClass = $"alert alert-{this.PageContext.BoardSettings.BoardAnnouncementType} alert-dismissible";
             this.Message.Text = this.PageContext.BoardSettings.BoardAnnouncement;

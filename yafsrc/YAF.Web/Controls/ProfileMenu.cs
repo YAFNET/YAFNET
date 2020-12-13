@@ -58,7 +58,7 @@ namespace YAF.Web.Controls
             htmlDropDown.Append(@"<div class=""dropdown d-lg-none d-grid gap-2 mb-3"">");
 
             htmlDropDown.Append(
-                @"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
+                @"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-bs-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
             htmlDropDown.AppendFormat(@"<i class=""fa fa-cogs fa-fw""></i>&nbsp;{0}", this.GetText("CONTROL_PANEL"));
             htmlDropDown.Append(@"</button>");
 
@@ -318,8 +318,8 @@ namespace YAF.Web.Controls
         {
             stringBuilder.AppendFormat(
                 this.PageContext.ForumPageType == page
-                    ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"" data-toggle=""tooltip""><i class=""fas fa-{4} mr-1 text-light""></i>{1}</a>"
-                    : @"<a class=""{3}"" href=""{0}"" title=""{2}"" data-toggle=""tooltip""><i class=""fas fa-{4} mr-1 text-secondary""></i>{1}</a>",
+                    ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"" data-bs-toggle=""tooltip""><i class=""fas fa-{4} me-1 text-light""></i>{1}</a>"
+                    : @"<a class=""{3}"" href=""{0}"" title=""{2}"" data-bs-toggle=""tooltip""><i class=""fas fa-{4} me-1 text-secondary""></i>{1}</a>",
                 parameter.IsSet() ? BuildLink.GetLink(page, parameter) : BuildLink.GetLink(page),
                 getText,
                 getText,

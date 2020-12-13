@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-auto">
                         <div class="btn-toolbar" role="toolbar">
-                            <div class="input-group input-group-sm mr-2 mb-1" role="group">
+                            <div class="input-group input-group-sm me-2 mb-1" role="group">
                                 <div class="input-group-text">
                                     <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
                                 </div>
@@ -33,7 +33,7 @@
                                                   CssClass="form-select">
                                 </asp:DropDownList>
                             </div>
-                            <div class="btn-group btn-group-sm mr-2 mb-1" role="group" aria-label="tools">
+                            <div class="btn-group btn-group-sm me-2 mb-1" role="group" aria-label="tools">
                                 <YAF:ThemeButton runat="server"
                                                  CssClass="dropdown-toggle"
                                                  DataToggle="dropdown"
@@ -41,7 +41,7 @@
                                                  Type="Secondary"
                                                  Icon="tools"
                                                  TextLocalizedTag="TOOLS" />
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                                     <div class="px-3 py-1 dropdown-sm">
                                         <div class="mb-3">
                                             <YAF:HelpLabel runat="server" 
@@ -79,7 +79,7 @@
                                          Icon="filter"
                                          TextLocalizedTag="FILTER_DROPDOWN"
                                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                                     <div class="px-3 py-1 dropdown-sm">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
@@ -148,7 +148,7 @@
                                 <div class="mb-3">
                                     <YAF:ThemeButton ID="search" runat="server" 
                                                      OnClick="SearchClick" 
-                                                     CssClass="mr-2"
+                                                     CssClass="me-2"
                                                      Type="Primary"
                                                      Icon="search" 
                                                      TextLocalizedTag="SEARCH" 
@@ -306,7 +306,7 @@
                 <div class="card-footer text-center">
                     <asp:PlaceHolder runat="server" ID="ImportAndSyncHolder">
                         <YAF:ThemeButton id="NewUser" runat="server"
-                                         CssClass="mt-1 mr-1"
+                                         CssClass="mt-1 me-1"
                                          OnClick="NewUserClick" 
                                          Type="Primary"
                                          Icon="plus-square" 
@@ -314,7 +314,7 @@
                                          TextLocalizedPage="ADMIN_USERS">
                         </YAF:ThemeButton>
                         <YAF:ThemeButton id="SyncUsers" runat="server" 
-                                         CssClass="mt-1 mr-1"
+                                         CssClass="mt-1 me-1"
                                          OnClick="SyncUsersClick" 
                                          Type="Secondary"
                                          Icon="sync" 
@@ -323,7 +323,7 @@
                                          ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_SYNC") %>'>
                         </YAF:ThemeButton>
                         <YAF:ThemeButton id="ImportUsers" runat="server" 
-                                         CssClass="mt-1 mr-1"
+                                         CssClass="mt-1 me-1"
                                          Icon="upload" 
                                          DataTarget="UsersImportDialog"  
                                          DataToggle="modal" 
@@ -333,7 +333,7 @@
                         </YAF:ThemeButton>
                     </asp:PlaceHolder>
                     <YAF:ThemeButton id="ExportUsersXml" runat="server" 
-                                     CssClass="mt-1 mr-1"
+                                     CssClass="mt-1 me-1"
                                      OnClick="ExportUsersXmlClick" 
                                      Type="Warning"
                                      Icon="download" 

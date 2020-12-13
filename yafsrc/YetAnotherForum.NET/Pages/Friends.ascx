@@ -14,17 +14,17 @@
     <asp:Panel id="BuddiesTabs" runat="server" CssClass="col">
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-                <a href="#BuddyListTab" class="nav-link" data-toggle="tab" role="tab">
+                <a href="#BuddyListTab" class="nav-link" data-bs-toggle="tab" role="tab">
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BUDDYLIST" LocalizedPage="FRIENDS" />
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#PendingRequestsTab" class="nav-link" data-toggle="tab" role="tab">
+                <a href="#PendingRequestsTab" class="nav-link" data-bs-toggle="tab" role="tab">
                     <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="PENDING_REQUESTS" LocalizedPage="FRIENDS" />
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#YourRequestsTab" class="nav-link" data-toggle="tab" role="tab">
+                <a href="#YourRequestsTab" class="nav-link" data-bs-toggle="tab" role="tab">
                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="YOUR_REQUESTS" LocalizedPage="FRIENDS" />
                 </a>
             </li>

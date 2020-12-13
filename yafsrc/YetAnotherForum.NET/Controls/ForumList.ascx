@@ -29,9 +29,9 @@
                     </asp:Label>
                     <asp:PlaceHolder runat="server" Visible="<%# ((ForumRead)Container.DataItem).RemoteURL.IsNotSet() && ((ForumRead)Container.DataItem).ReadAccess  %>">
                         <asp:Label runat="server" 
-                                   CssClass="badge bg-light text-dark mr-1"
+                                   CssClass="badge bg-light text-dark me-1"
                                    ToolTip='<%# this.GetText("TOPICS") %>'
-                                   data-toggle="tooltip">
+                                   data-bs-toggle="tooltip">
                             <YAF:Icon runat="server" 
                                       IconName="comments" 
                                       IconStyle="far"></YAF:Icon>
@@ -40,7 +40,7 @@
                         <asp:Label runat="server"
                                    CssClass="badge bg-light text-dark" 
                                    ToolTip='<%# this.GetText("Posts") %>'
-                                   data-toggle="tooltip">
+                                   data-bs-toggle="tooltip">
                             <YAF:Icon runat="server" 
                                       IconName="comment"
                                       IconStyle="far"></YAF:Icon>
@@ -60,7 +60,7 @@
             <asp:PlaceHolder runat="server" Visible="<%# ((ForumRead)Container.DataItem).RemoteURL.IsNotSet() %>">
                 <div class="col-md-4 text-secondary">
                     <div class="card bg-light card-post-last">
-                        <div class="card-body py-1 pl-2">
+                        <div class="card-body py-1 ps-2">
                             <YAF:ForumLastPost ID="lastPost" runat="server" 
                                                DataSource="<%# (ForumRead)Container.DataItem %>"/>
                         </div>

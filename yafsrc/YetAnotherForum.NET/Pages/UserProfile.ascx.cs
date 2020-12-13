@@ -609,7 +609,7 @@ namespace YAF.Pages
                     var title = $"{medal.Name}{(flags.ShowMessage ? $": {medal.Message}" : string.Empty)}";
 
                     ribbonBar.AppendFormat(
-                        "<li class=\"list-inline-item\"><img src=\"{0}{3}/{1}\" alt=\"{2}\" title=\"{2}\" data-toggle=\"tooltip\"></li>",
+                        "<li class=\"list-inline-item\"><img src=\"{0}{3}/{1}\" alt=\"{2}\" title=\"{2}\" data-bs-toggle=\"tooltip\"></li>",
                         BoardInfo.ForumClientFileRoot,
                         medal.SmallRibbonURL,
                         title,
@@ -629,7 +629,7 @@ namespace YAF.Pages
                     }
 
                     medals.AppendFormat(
-                        "<li class=\"list-inline-item\"><img src=\"{0}{4}/{1}\" alt=\"{2}{3}\" title=\"{2}{3}\" data-toggle=\"tooltip\"></li>",
+                        "<li class=\"list-inline-item\"><img src=\"{0}{4}/{1}\" alt=\"{2}{3}\" title=\"{2}{3}\" data-bs-toggle=\"tooltip\"></li>",
                         BoardInfo.ForumClientFileRoot,
                         medal.SmallMedalURL,
                         medal.Name,

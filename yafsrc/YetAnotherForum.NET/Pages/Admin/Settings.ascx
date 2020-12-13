@@ -164,7 +164,7 @@
                                  Enabled="False"></asp:TextBox>
                     <YAF:ThemeButton runat="server"
                                      OnClick="IncreaseVersionOnClick"
-                                     CssClass="float-right"
+                                     CssClass="float-end"
                                      Type="Info"
                                      Icon="file-code"
                                      TextLocalizedTag="CDVVERSION_BUTTON"

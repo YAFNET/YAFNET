@@ -158,8 +158,8 @@ namespace YAF.Pages.Profile
                 $"{BoardInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={this.PageContext.PageBoardID}&editor=true";
 
             return isImage
-                       ? $"<img src=\"{url}\" alt=\"{fileName}\" title=\"{fileName}\" data-url=\"{url}\"style=\"max-width:30px\" class=\"mr-2\" />"
-                       : "<i class=\"far fa-file-alt attachment-icon mr-2\"></i>";
+                       ? $"<img src=\"{url}\" alt=\"{fileName}\" title=\"{fileName}\" data-url=\"{url}\"style=\"max-width:30px\" class=\"me-2\" />"
+                       : "<i class=\"far fa-file-alt attachment-icon me-2\"></i>";
         }
 
         /// <summary>

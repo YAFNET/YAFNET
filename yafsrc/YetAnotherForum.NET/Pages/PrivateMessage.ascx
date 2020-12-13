@@ -31,7 +31,7 @@
                                                   IconBadgeType="text-secondary" />
                                         <YAF:DisplayDateTime ID="CreatedDateTime" runat="server"
                                                              DateTime="<%# (Container.DataItem as dynamic).Created %>" />
-                                        <span class="fw-bold ml-2">
+                                        <span class="fw-bold ms-2">
                                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                                 LocalizedTag="FROM" />:
                                         </span>
@@ -69,7 +69,7 @@
                                                          DataToggle="tooltip"
                                                          Type="Secondary"
                                                          Icon="reply"
-                                                         CssClass="mr-1"
+                                                         CssClass="me-1"
                                                          Visible="<%# (Container.DataItem as dynamic).FromUserID != this.PageContext.PageUserID %>"/>
                                         <YAF:ThemeButton ID="QuoteMessage" runat="server"
                                                          CommandName="quote" CommandArgument="<%# (Container.DataItem as dynamic).UserPMessageID %>" 
@@ -77,7 +77,7 @@
                                                          DataToggle="tooltip"
                                                          Type="Secondary"
                                                          Icon="reply"
-                                                         CssClass="mr-1"
+                                                         CssClass="me-1"
                                                          Visible="<%# (Container.DataItem as dynamic).FromUserID != this.PageContext.PageUserID %>"/>
                                         <YAF:ThemeButton ID="DeleteMessage" runat="server"
                                                          CommandName="delete" CommandArgument="<%# (Container.DataItem as dynamic).UserPMessageID %>" 

@@ -16,7 +16,6 @@
                 </HeaderTemplate>
             <ItemTemplate>
                 <li class="list-group-item pt-2 list-group-item-action">
-                    <asp:Label runat="server" ID="PostIcon" Visible="False" />
                     <YAF:ThemeButton runat="server"
                                      ID="TextMessageLink"
                                      Icon="comment"
@@ -25,6 +24,8 @@
                                      Type="Link"
                                      CssClass="fw-bold p-0"
                                      DataToggle="tooltip" />
+                    <asp:Label runat="server" ID="PostIcon" Visible="False" />
+
                     <YAF:ThemeButton runat="server"
                                      ID="ForumLink"
                                      Type="Link"
@@ -44,7 +45,7 @@
         </asp:Repeater>
         <asp:Panel runat="server" ID="Footer" 
                    CssClass="card-footer">
-            <div class="btn-group float-right" role="group" aria-label="Tools">
+            <div class="btn-group float-end" role="group" aria-label="Tools">
                 <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts" />
             </div>
         </asp:Panel>

@@ -833,13 +833,13 @@ namespace YAF.Controls
                                           username);
 
             this.ThanksDataLiteral.Text = $@"<a class=""btn btn-link thanks-popover"" 
-                           data-toggle=""popover"" 
-                           data-trigger=""click hover""
-                           data-html=""true""
+                           data-bs-toggle=""popover"" 
+                           data-bs-trigger=""click hover""
+                           data-bs-html=""true""
                            data-messageid=""{this.PostData.MessageId}""
                            data-url=""{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}""
                            title=""{thanksLabelText}"" 
-                           data-content=""{this.FormatThanksInfo().ToJsString()}"">
+                           data-bs-content=""{this.FormatThanksInfo().ToJsString()}"">
                            <i class=""fa fa-heart"" style=""color:#e74c3c""></i>&nbsp;+{thanksNumber}
                   </a>";
             

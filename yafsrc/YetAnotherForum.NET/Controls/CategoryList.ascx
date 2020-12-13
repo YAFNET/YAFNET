@@ -15,7 +15,7 @@
                                     <YAF:CollapseButton ID="CollapsibleImage" runat="server"
                                                         PanelID='<%# "categoryPanel{0}".Fmt(((ForumRead)Container.DataItem).CategoryID) %>'
                                                         AttachedControlID="body" 
-                                                        CssClass="pl-0">
+                                                        CssClass="ps-0">
                                     </YAF:CollapseButton>
                                     <div class="d-none d-md-block icon-category">
                                         <%#  this.GetCategoryImage((ForumRead)Container.DataItem) %>

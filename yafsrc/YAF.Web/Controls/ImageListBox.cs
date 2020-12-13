@@ -51,7 +51,7 @@ namespace YAF.Web.Controls
         {
             this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
                 item => item.Attributes.Add(
-                    "data-content",
+                    "data-bs-content",
                     $"<span class=\"select2-image-select-icon\"><img src=\"{item.Value.ToLower()}\" /><span><span>&nbsp;{item.Text}</span>"));
             
             base.Render(writer);

@@ -16,7 +16,7 @@
                                             LocalizedTag="HEADER1" 
                                             LocalizedPage="ADMIN_BBCODE_EDIT" /></h2>
                     <hr />
-                    <div class="ml-2">
+                    <div class="ms-2">
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel1" runat="server" 
                                            AssociatedControlID="txtName"
@@ -67,7 +67,7 @@
                                             LocalizedTag="HEADER2" LocalizedPage="ADMIN_BBCODE_EDIT" />
                     </h2>
                     <hr />
-                    <div class="ml-2">
+                    <div class="ms-2">
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel4" runat="server" 
                                            AssociatedControlID="txtSearchRegEx"
@@ -113,7 +113,7 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HEADER3" LocalizedPage="ADMIN_BBCODE_EDIT" />
                     </h2>
                     <hr />
-                    <div class="ml-2">
+                    <div class="ms-2">
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel9" runat="server" 
                                            AssociatedControlID="txtOnClickJS"

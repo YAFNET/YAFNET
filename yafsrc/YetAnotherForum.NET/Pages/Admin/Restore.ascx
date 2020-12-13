@@ -18,7 +18,7 @@
                     </div>
                 <div class="col-auto">
                     <div class="btn-toolbar" role="toolbar">
-                        <div class="input-group input-group-sm mr-2" role="group">
+                        <div class="input-group input-group-sm me-2" role="group">
                         <div class="input-group-text">
                             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="SHOW" />:
                         </div>
@@ -36,7 +36,7 @@
                                      Icon="filter"
                                      TextLocalizedTag="FILTER_DROPDOWN"
                                      TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                         <div class="px-3 py-1">
                             <div class="mb-3">
                                 <YAF:HelpLabel ID="HelpLabel2" runat="server"
@@ -116,7 +116,7 @@
                         <div class="card-footer text-center">
                             <YAF:ThemeButton runat="server" 
                                              CommandName="delete_all" 
-                                             CssClass="mr-2"
+                                             CssClass="me-2"
                                              ID="Linkbutton4" 
                                              Type="Danger"
                                              Icon="dumpster" 
@@ -157,7 +157,7 @@
                                         LocalizedPage="ADMIN_RESTORE"></YAF:IconHeader>
                     </div>
                     <div class="col-auto">
-                        <div class="input-group input-group-sm mr-2" role="group">
+                        <div class="input-group input-group-sm me-2" role="group">
                             <div class="input-group-text">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SHOW" />:
                             </div>

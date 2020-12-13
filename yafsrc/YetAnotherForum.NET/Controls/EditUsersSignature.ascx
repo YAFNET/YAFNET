@@ -24,12 +24,12 @@
     <YAF:ThemeButton ID="preview" runat="server"
                      Type="Secondary"
                      Icon="image"
-                     CssClass="mr-2"
+                     CssClass="me-2"
                      TextLocalizedTag="PREVIEW"/>
     <YAF:ThemeButton ID="save" runat="server"
                      Type="Primary" 
                      TextLocalizedTag="SAVE"
-                     CssClass="mr-2"
+                     CssClass="me-2"
                      Icon="save"/>
     <YAF:ThemeButton ID="cancel" runat="server"
                      Type="Secondary" 

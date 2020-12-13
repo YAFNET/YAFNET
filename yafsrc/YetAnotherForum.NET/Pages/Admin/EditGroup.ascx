@@ -179,7 +179,7 @@
                     <YAF:ThemeButton ID="Save" runat="server" 
                                      CausesValidation="True"
                                      OnClick="SaveClick" 
-                                     CssClass="mr-2"
+                                     CssClass="me-2"
                                      Type="Primary"
                                      Icon="save" 
                                      TextLocalizedTag="SAVE">

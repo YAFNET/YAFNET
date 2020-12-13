@@ -21,7 +21,7 @@
             <div class="card mb-3">
                 <div class="card-header py-1 px-2">
                     <div class="d-flex">
-                        <div class="mr-2">
+                        <div class="me-2">
                             <asp:Image runat="server" ID="Avatar" 
                                        CssClass="img-avatar-sm mt-2" />
                         </div>
@@ -30,7 +30,7 @@
                                 <li class="list-inline-item">
                                     <YAF:UserLink ID="UserProfileLink" runat="server" />
                                     <YAF:ThemeButton ID="AddReputation" runat="server" 
-                                                     CssClass='<%# "AddReputation_{0} mr-1".Fmt(this.DataSource.UserID)%>'
+                                                     CssClass='<%# "AddReputation_{0} me-1".Fmt(this.DataSource.UserID)%>'
                                                      Size="Small"
                                                      Icon="thumbs-up"
                                                      IconColor="text-success"
@@ -96,7 +96,7 @@
                                 </li>
                             </ul>
                         </div>
-                    <asp:Panel runat="server" CssClass="ml-auto" id="ToolsHolder">
+                    <asp:Panel runat="server" CssClass="ms-auto" id="ToolsHolder">
                         <YAF:ThemeButton ID="Tools1" runat="server"
                                          Type="Link"
                                          DataToggle="dropdown"

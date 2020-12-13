@@ -65,7 +65,7 @@ namespace YAF.Web.Extensions
 
                     item.Attributes.Add(
                         "data-content",
-                        $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{row.Icon} fa-fw text-secondary mr-2\"></i>{row.Forum}</span>");
+                        $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{row.Icon} fa-fw text-secondary me-2\"></i>{row.Forum}</span>");
 
                     dropDownList.Items.Add(item);
                 });

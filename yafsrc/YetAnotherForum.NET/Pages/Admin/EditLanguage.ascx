@@ -90,7 +90,7 @@
             </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton runat="server" id="btnSave"
-                                 CssClass="mr-1"
+                                 CssClass="me-1"
                                  Type="Primary"
                                  Icon="save" 
                                  TextLocalizedTag="SAVE" />

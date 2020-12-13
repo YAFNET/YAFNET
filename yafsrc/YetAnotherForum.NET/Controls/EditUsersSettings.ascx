@@ -81,7 +81,7 @@
 <div class="text-lg-center">
     <YAF:ThemeButton ID="UpdateProfile" runat="server" 
                      Type="Primary" 
-                     CssClass="mr-2"
+                     CssClass="me-2"
                      OnClick="UpdateProfileClick"
                      Icon="save" 
                      TextLocalizedTag="SAVE" 

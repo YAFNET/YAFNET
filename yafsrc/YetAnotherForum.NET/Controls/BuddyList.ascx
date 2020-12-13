@@ -10,7 +10,7 @@
                                 IconName="user-friends"/>
             </div>
             <div class="col-auto">
-                <div class="input-group input-group-sm mr-2" role="group">
+                <div class="input-group input-group-sm me-2" role="group">
                     <div class="input-group-text">
                         <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
                     </div>

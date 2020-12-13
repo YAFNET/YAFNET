@@ -49,7 +49,7 @@ namespace YAF.Web.BBCodes
             writer.Write("<!-- BEGIN spoiler -->");
             writer.Write(
                 @"<p>
-                      <a class=""btn btn-secondary btn-sm"" data-toggle=""collapse"" href=""#{0}"" role=""button"" aria-expanded=""false"" title=""{2}"">{1}</a>
+                      <a class=""btn btn-secondary btn-sm"" data-bs-toggle=""collapse"" href=""#{0}"" role=""button"" aria-expanded=""false"" title=""{2}"">{1}</a>
                   </p>
                   <div class=""collapse"" id=""{0}""><div class=""card card-body"">",
                 this.GetUniqueID("spoil_"),

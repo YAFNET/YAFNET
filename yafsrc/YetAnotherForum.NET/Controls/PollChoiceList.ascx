@@ -15,8 +15,8 @@
                 <div class="d-flex w-100 justify-content-between">
                     <h5>
                         <asp:Image id="ChoiceImage" runat="server"
-                                   CssClass="img-fluid mr-1"
-                                   data-toggle="tooltip"
+                                   CssClass="img-fluid me-1"
+                                   data-bs-toggle="tooltip"
                                    style="max-height:80px"/>
                         <%# this.Get<IBadWordReplace>().Replace(this.Eval("Item2.ChoiceName").ToString()) %>
                     </h5>
@@ -50,7 +50,7 @@
                 <asp:Label ID="VoteSpan" Visible="false" runat="server">
                     <%# this.Eval("Item2.Votes") %>&nbsp; <%# this.GetText("VOTES") %>
                     <asp:Label runat="server" ID="Voters" 
-                               CssClass="ml-1 text-muted"></asp:Label>
+                               CssClass="ms-1 text-muted"></asp:Label>
                 </asp:Label>
         </li>
     </ItemTemplate>

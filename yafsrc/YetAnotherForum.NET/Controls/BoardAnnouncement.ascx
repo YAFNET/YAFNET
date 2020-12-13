@@ -5,7 +5,7 @@
     <div class="col">
         <asp:Panel ID="Announcement" runat="server">
             <asp:Label runat="server" ID="Badge">
-                <i class="fas fa-bullhorn mr-1"></i><YAF:LocalizedLabel runat="server" LocalizedTag="ANNOUNCEMENT"></YAF:LocalizedLabel>
+                <i class="fas fa-bullhorn me-1"></i><YAF:LocalizedLabel runat="server" LocalizedTag="ANNOUNCEMENT"></YAF:LocalizedLabel>
             </asp:Label>
             <asp:Label runat="server" ID="Message"></asp:Label>
             <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">

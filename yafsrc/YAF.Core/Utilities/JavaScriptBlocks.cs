@@ -471,7 +471,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         public static string CollapseToggleJs(string hideText, string showText)
         {
             return $@"{Config.JQueryAlias}(document).ready(function() {{
-                          {Config.JQueryAlias}('a[data-toggle=""collapse""]').click(function() {{
+                          {Config.JQueryAlias}('a[data-bs-toggle=""collapse""]').click(function() {{
                               var button = $(this);
                               if (button.attr(""aria-expanded"") == ""false"") {{
                                   button.html('<i class=""fa fa-caret-square-up fa-fw""></i>&nbsp;{hideText}');
@@ -767,7 +767,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                               maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
                           }},
 		                  mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
-                                         itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pr-1""></i><strong class=""username"">{{name}}</strong></li>',
+                                         itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pe-1""></i><strong class=""username"">{{name}}</strong></li>',
 		                                 outputTemplate: '@[userlink]{{name}}[/userlink]'
           		                      }} ]
                           }});
@@ -837,7 +837,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                           }},
                           codemirror: {{mode: ""bbcode"",  theme: ""monokai""}},
 		                  mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
-                                         itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pr-1""></i><strong class=""username"">{{name}}</strong></li>',
+                                         itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pe-1""></i><strong class=""username"">{{name}}</strong></li>',
 		                                 outputTemplate: '@[userlink]{{name}}[/userlink]'
           		                      }} ]
                           }});

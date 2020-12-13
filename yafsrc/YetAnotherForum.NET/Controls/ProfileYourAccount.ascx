@@ -15,35 +15,35 @@
     <li class="list-group-item fw-bold text-light bg-secondary" contenteditable="false">
         <YAF:LocalizedLabel ID="YourAccountLocalized" runat="server" LocalizedTag="YOUR_ACCOUNT" />
     </li>
-    <li class="list-group-item text-right">
-        <span class="float-left">
+    <li class="list-group-item text-end">
+        <span class="float-start">
             <span class="fw-bold">
             <YAF:LocalizedLabel ID="YourUsernameLocalized" runat="server" LocalizedTag="YOUR_USERNAME" />
         </span>
         </span> <asp:Label ID="Name" runat="server" />
     </li>
     <asp:PlaceHolder ID="DisplayNameHolder" runat="server">
-    <li class="list-group-item text-right">
-        <span class="float-left">
+    <li class="list-group-item text-end">
+        <span class="float-start">
             <span class="fw-bold">
             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="YOUR_USERDISPLAYNAME" />
         </span>
         </span> <asp:Label ID="DisplayName" runat="server" />
     </li>
     </asp:PlaceHolder>
-    <li class="list-group-item text-right">
-        <span class="float-left">
+    <li class="list-group-item text-end">
+        <span class="float-start">
             <span class="fw-bold"><YAF:LocalizedLabel ID="YourEmailLocalized" runat="server" LocalizedTag="YOUR_EMAIL" /></span>
         </span> <asp:Label ID="AccountEmail" runat="server" />
     </li>
-    <li class="list-group-item text-right">
-        <span class="float-left">
+    <li class="list-group-item text-end">
+        <span class="float-start">
             <span class="fw-bold"><YAF:LocalizedLabel ID="NumPostsLocalized" runat="server" LocalizedTag="NUMPOSTS" /></span>
         </span> <asp:Label ID="NumPosts" runat="server" />
                
     </li>
-    <li class="list-group-item text-right">
-        <span class="float-left">
+    <li class="list-group-item text-end">
+        <span class="float-start">
             <span class="fw-bold"><YAF:LocalizedLabel ID="GroupsLocalized" runat="server" LocalizedTag="GROUPS" /></span>
         </span> <asp:Repeater ID="Groups" runat="server">
             <ItemTemplate>
@@ -55,8 +55,8 @@
             </SeparatorTemplate>
         </asp:Repeater>
     </li>
-    <li class="list-group-item text-right">
-        <span class="float-left">
+    <li class="list-group-item text-end">
+        <span class="float-start">
             <span class="fw-bold"> <YAF:LocalizedLabel ID="JoinedLocalized" runat="server" LocalizedTag="JOINED" /></span>
         </span> <asp:Label ID="Joined" runat="server" />
                

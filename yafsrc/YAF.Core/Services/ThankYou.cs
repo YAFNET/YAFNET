@@ -168,11 +168,11 @@ namespace YAF.Core.Services
             return thanksInfoOnly
                 ? thanks.Replace("\"", "'").Replace("<ol>", string.Empty).Replace("</ol>", string.Empty)
                 : $@"<a class=""btn btn-link thanks-popover"" 
-                           data-toggle=""popover"" 
-                           data-trigger=""click hover""
-                           data-html=""true""
+                           data-bs-toggle=""popover"" 
+                           data-bs-trigger=""click hover""
+                           data-bs-html=""true""
                            title=""{thanksText}"" 
-                           data-content=""{thanks.Replace("\"", "'")}"">
+                           data-bs-content=""{thanks.Replace("\"", "'")}"">
                                <i class=""fa fa-heart"" style= ""color:#e74c3c""></i>&nbsp;+{thanksNumber}</a>";
         }
 

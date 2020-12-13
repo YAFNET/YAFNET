@@ -182,7 +182,7 @@ namespace YAF.Web.Controls
                     {
                         if (this.CssClass.Equals("dropdown-toggle"))
                         {
-                            output.WriteAttribute("data-toggle", "dropdown");
+                            output.WriteAttribute("data-bs-toggle", "dropdown");
                             output.WriteAttribute("aria-haspopup", "true");
                             output.WriteAttribute("aria-expanded", "false");
                         }

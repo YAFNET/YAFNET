@@ -19777,9 +19777,9 @@
                 }
 
                 if (horizontal === 'right') {
-                    widget.addClass('float-right');
+                    widget.addClass('float-end');
                 } else {
-                    widget.removeClass('float-right');
+                    widget.removeClass('float-end');
                 }
 
                 // find the first parent element that has a non-static css positioning
@@ -22020,9 +22020,9 @@
             //  '<div >',
             '<div data-notify="container" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="false">',
             '<div class="toast-header">',
-            '<span data-notify="icon" class="mr-2 text-{0}"></span>',
-            '<span class="mr-auto fw-bold" data-notify="title">{1}</span>',
-            '<button type="button" class="ml-2 mb-1 btn-close" data-dismiss="toast" data-notify="dismiss" aria-label="Close">',
+            '<span data-notify="icon" class="me-2 text-{0}"></span>',
+            '<span class="me-auto fw-bold" data-notify="title">{1}</span>',
+            '<button type="button" class="ms-2 mb-1 btn-close" data-dismiss="toast" data-notify="dismiss" aria-label="Close">',
             '</button>',
             '</div>',
             '<div class="toast-body" data-notify="message">',
@@ -29477,7 +29477,7 @@ S2.define('jquery.select2',[
 
       // add a tag element
 
-        var $tag = $('<span class="' + htmlEncode(tagClass) + (itemTitle !== null ? ('" title="' + itemTitle) : "") + '"><i class="fas fa-tag mr-1"></i>' + htmlEncode(itemText) + '<span data-role="remove"></span></span>');
+        var $tag = $('<span class="' + htmlEncode(tagClass) + (itemTitle !== null ? ('" title="' + itemTitle) : "") + '"><i class="fas fa-tag me-1"></i>' + htmlEncode(itemText) + '<span data-role="remove"></span></span>');
       $tag.data("item", item);
       self.findInputWrapper().before($tag);
 
@@ -30207,12 +30207,12 @@ S2.define('jquery.select2',[
                 pos.top = offset.top;
                 pos.left = offset.left;
             }
-            // The rules for bootstrap are: 'dropup' in the parent and 'dropdown-menu-right' in the element.
+            // The rules for bootstrap are: 'dropup' in the parent and 'dropdown-menu-end' in the element.
             // Note that to get right alignment, you'll need to specify `menu` in the options to be:
             // '<ul class="typeahead dropdown-menu" role="listbox"></ul>'
             var dropup = $(element).parent().hasClass('dropup');
             var newTop = dropup ? 'auto' : (pos.top + pos.height + scrollHeight);
-            var right = $(element).hasClass('dropdown-menu-right');
+            var right = $(element).hasClass('dropdown-menu-end');
             var newLeft = right ? 'auto' : pos.left;
             // it seems like setting the css is a bad idea (just let Bootstrap do it), but I'll keep the old
             // logic in place except for the dropup/right-align cases.
@@ -32749,11 +32749,11 @@ S2.define('jquery.select2',[
                                                 "</div>" +
                                             '<div class="card-body p-2">' +
                                                 '<ul class="list-unstyled mt-1 mb-3">' +
-                                (profileData.Location ? '<li class="px-2 py-1"><i class="fas fa-home mr-1"></i>' + profileData.Location + "</li>" : "") +
-                                (profileData.Rank ? '<li class="px-2 py-1"><i class="fas fa-graduation-cap mr-1"></i>' + profileData.Rank + "</li>" : "") +
-                                (profileData.Interests ? '<li class="px-2 py-1"><i class="fas fa-running mr-1"></i>' + profileData.Interests + "</li>" : "") +
-                                (profileData.Joined ? '<li class="px-2 py-1"><i class="fas fa-user-check mr-1"></i>' + profileData.Joined + "</li>" : "") +
-                                (profileData.HomePage ? '<li class="px-2 py-1"><i class="fas fa-globe mr-1"></i><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + "</a></li>" : "") +
+                                (profileData.Location ? '<li class="px-2 py-1"><i class="fas fa-home me-1"></i>' + profileData.Location + "</li>" : "") +
+                                (profileData.Rank ? '<li class="px-2 py-1"><i class="fas fa-graduation-cap me-1"></i>' + profileData.Rank + "</li>" : "") +
+                                (profileData.Interests ? '<li class="px-2 py-1"><i class="fas fa-running me-1"></i>' + profileData.Interests + "</li>" : "") +
+                                (profileData.Joined ? '<li class="px-2 py-1"><i class="fas fa-user-check me-1"></i>' + profileData.Joined + "</li>" : "") +
+                                (profileData.HomePage ? '<li class="px-2 py-1"><i class="fas fa-globe me-1"></i><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + "</a></li>" : "") +
                                                 "</ul >" +
                                                 '<div class="row no-gutters">' +
                                                     '<div class="col-5 p-1 small bg-secondary link-light d-flex align-items-center justify-content-between">' +
@@ -45050,7 +45050,7 @@ function formatState(state) {
 
 // Confirm Dialog
 $(document).on("click",
-    "[data-toggle=\"confirm\"]",
+    "[data-bs-toggle=\"confirm\"]",
     function (e) {
         e.preventDefault();
         var link = $(this).attr("href");
@@ -45695,7 +45695,7 @@ function getSearchResultsData(pageNumber) {
                                 var topicTags = data.TopicTags.split(",");
 
                                 $(topicTags).each(function (index, d) {
-                                    tags += "<span class='badge bg-secondary mr-1'><i class='fas fa-tag mr-1'></i>" +  d  + "</span>";
+                                    tags += "<span class='badge bg-secondary me-1'><i class='fas fa-tag me-1'></i>" +  d  + "</span>";
                                 });
                             }
 
@@ -46040,7 +46040,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });

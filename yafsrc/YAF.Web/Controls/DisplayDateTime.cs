@@ -49,7 +49,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   The ControlHtml.
         /// </summary>
-        private const string ControlHtml = @"<abbr class=""timeago"" title=""{1}"" data-toggle=""tooltip"" data-html=""true"">{0}</abbr>";
+        private const string ControlHtml = @"<abbr class=""timeago"" title=""{1}"" data-bs-toggle=""tooltip"" data-bs-html=""true"">{0}</abbr>";
 
         #endregion
 

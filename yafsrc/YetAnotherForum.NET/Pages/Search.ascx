@@ -18,7 +18,7 @@
                          Icon="cog"
                          TextLocalizedTag="OPTIONS"
                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
-        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="optionsDropDown">
+        <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="optionsDropDown">
             <div class="px-3 py-1">
                 <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="txtSearchStringFromWho">

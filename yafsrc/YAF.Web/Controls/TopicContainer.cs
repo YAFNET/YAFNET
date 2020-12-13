@@ -147,7 +147,7 @@ namespace YAF.Web.Controls
             writer.WriteAttribute(HtmlTextWriterAttribute.Tabindex.ToString(), "0");
             writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "topic-icon-legend-popvover");
             writer.WriteAttribute("role", "button");
-            writer.WriteAttribute("data-toggle", "popover");
+            writer.WriteAttribute("data-bs-toggle", "popover");
             writer.WriteAttribute(HtmlTextWriterAttribute.Href.ToString(), "#!");
 
             writer.Write(HtmlTextWriter.TagRightChar);
@@ -167,7 +167,7 @@ namespace YAF.Web.Controls
                 CssClass = "topic-starter-popover"
             };
 
-            topicLink.Attributes.Add("data-toggle", "popover");
+            topicLink.Attributes.Add("data-bs-toggle", "popover");
 
             var topicStartedDateTime = this.TopicItem.Posted;
 
@@ -195,14 +195,14 @@ namespace YAF.Web.Controls
             }.RenderToString();
 
             topicLink.Attributes.Add(
-                "data-content",
+                "data-bs-content",
                 $@"{topicStarterLink.RenderToString()}{dateTimeIcon}{span}{formattedStartedDatetime}</span>");
 
             if (this.TopicItem.LastMessageID.HasValue)
             {
                 if (this.TopicItem.LastPosted > lastRead)
                 {
-                    var success = new Label { CssClass = "badge bg-success mr-1", Text = this.GetText("NEW_POSTS") };
+                    var success = new Label { CssClass = "badge bg-success me-1", Text = this.GetText("NEW_POSTS") };
 
                     success.RenderControl(writer);
                 }
@@ -216,7 +216,7 @@ namespace YAF.Web.Controls
             {
                 var favoriteLabel = new Label
                 {
-                    CssClass = "badge bg-light text-dark ml-1",
+                    CssClass = "badge bg-light text-dark ms-1",
                     Text = new IconHeader
                     {
                         IconName = "star", IconType = " ", IconStyle = "far", Text = favoriteCount.ToString()
@@ -224,7 +224,7 @@ namespace YAF.Web.Controls
                     ToolTip = this.GetText("FAVORITE_COUNT_TT")
                 };
 
-                favoriteLabel.Attributes.Add("data-toggle", "tooltip");
+                favoriteLabel.Attributes.Add("data-bs-toggle", "tooltip");
 
                 favoriteLabel.RenderControl(writer);
             }
@@ -232,7 +232,7 @@ namespace YAF.Web.Controls
             // Render Replies & Views
             var repliesLabel = new Label
             {
-                CssClass = "badge bg-light text-dark ml-1 mr-1",
+                CssClass = "badge bg-light text-dark ms-1 me-1",
                 Text = new IconHeader
                 {
                     IconName = "comment", IconType = " ", IconStyle = "far", Text = this.FormatReplies()
@@ -240,7 +240,7 @@ namespace YAF.Web.Controls
                 ToolTip = this.GetText("MODERATE", "REPLIES"),
             };
 
-            repliesLabel.Attributes.Add("data-toggle", "tooltip");
+            repliesLabel.Attributes.Add("data-bs-toggle", "tooltip");
 
             repliesLabel.RenderControl(writer);
 
@@ -254,7 +254,7 @@ namespace YAF.Web.Controls
                 ToolTip = this.GetText("MODERATE", "VIEWS"),
             };
 
-            viewsLabel.Attributes.Add("data-toggle", "tooltip");
+            viewsLabel.Attributes.Add("data-bs-toggle", "tooltip");
 
             viewsLabel.RenderControl(writer);
 
@@ -537,7 +537,7 @@ namespace YAF.Web.Controls
             {
                 priorityLabel.Text = new IconHeader { LocalizedTag = "MOVED", IconName = "arrows-alt", IconType = " " }
                     .RenderToString();
-                priorityLabel.CssClass = "badge bg-secondary mr-1";
+                priorityLabel.CssClass = "badge bg-secondary me-1";
 
                 priorityLabel.RenderControl(writer);
             }
@@ -545,7 +545,7 @@ namespace YAF.Web.Controls
             {
                 priorityLabel.Text = new IconHeader { LocalizedTag = "POLL", IconName = "poll-h", IconType = " " }
                     .RenderToString();
-                priorityLabel.CssClass = "badge bg-secondary mr-1";
+                priorityLabel.CssClass = "badge bg-secondary me-1";
 
                 priorityLabel.RenderControl(writer);
             }
@@ -557,7 +557,7 @@ namespace YAF.Web.Controls
                         priorityLabel.Text =
                             new IconHeader { LocalizedTag = "STICKY", IconName = "thumbtack", IconType = " " }
                                 .RenderToString();
-                        priorityLabel.CssClass = "badge bg-warning text-dark mr-1";
+                        priorityLabel.CssClass = "badge bg-warning text-dark me-1";
 
                         priorityLabel.RenderControl(writer);
                         break;
@@ -565,7 +565,7 @@ namespace YAF.Web.Controls
                         priorityLabel.Text =
                             new IconHeader { LocalizedTag = "ANNOUNCEMENT", IconName = "bullhorn", IconType = " " }
                                 .RenderToString();
-                        priorityLabel.CssClass = "badge bg-primary mr-1";
+                        priorityLabel.CssClass = "badge bg-primary me-1";
 
                         priorityLabel.RenderControl(writer);
                         break;

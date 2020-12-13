@@ -52,7 +52,7 @@
 						<%# this.Eval("CultureFile")%>
 					</td>
                     <td>
-                        <span class="float-right">
+                        <span class="float-end">
                         <YAF:ThemeButton ID="btnEdit"
                             Type="Info" Size="Small"
                             CommandName="edit"

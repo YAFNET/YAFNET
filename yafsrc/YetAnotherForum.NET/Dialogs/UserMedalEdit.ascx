@@ -88,7 +88,7 @@
                     <div class="modal-footer">
                         <YAF:ThemeButton runat="server" 
                                          OnClick="Save_OnClick" 
-                                         CssClass="mr-2"
+                                         CssClass="me-2"
                                          ID="AddUserSave" 
                                          Type="Primary"
                                          Icon="save" 

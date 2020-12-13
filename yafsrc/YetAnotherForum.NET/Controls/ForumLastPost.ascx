@@ -1,8 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumLastPost" CodeBehind="ForumLastPost.ascx.cs" %>
 
 <asp:PlaceHolder ID="LastPostedHolder" runat="server">
-    <asp:Label runat="server" ID="NewMessage" 
-               CssClass="mr-1"></asp:Label>
     <asp:PlaceHolder ID="TopicInPlaceHolder" runat="server">
         <YAF:ThemeButton ID="topicLink" runat="server"
                          Icon="comment"
@@ -15,6 +13,8 @@
                          TitleLocalizedPage="COMMON"
                          DataContent="tooltip" />
     </asp:PlaceHolder>
+    <asp:Label runat="server" ID="NewMessage" 
+               CssClass="me-1" />
     <YAF:ThemeButton runat="server" ID="Info"
                      Icon="info-circle"
                      IconColor="text-secondary"

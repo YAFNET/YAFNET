@@ -174,7 +174,7 @@ namespace YAF.Web.Controls
             }
 
             writer.Write(
-                @"<div class=""dropdown-menu dropdown-menu-right"" id=""{0}"" aria-labelledby=""{1}"">",
+                @"<div class=""dropdown-menu dropdown-menu-end"" id=""{0}"" aria-labelledby=""{1}"">",
                 this.ClientID,
                 this.ButtonId);
 

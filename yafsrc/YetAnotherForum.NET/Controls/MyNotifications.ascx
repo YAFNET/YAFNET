@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-auto">
                         <div class="btn-toolbar" role="toolbar">
-                            <div class="input-group input-group-sm mr-2" role="group">
+                            <div class="input-group input-group-sm me-2" role="group">
                                 <div class="input-group-text">
                                     <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
                                 </div>
@@ -33,7 +33,7 @@
                                              TextLocalizedTag="FILTER_DROPDOWN"
                                              TextLocalizedPage="ADMIN_USERS">
                             </YAF:ThemeButton>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                                 <div class="px-3 py-1">
                                     <div class="mb-3">
                                         <div class="form-check form-switch">
@@ -56,7 +56,7 @@
                                     <YAF:ThemeButton runat="server" ID="Update"
                                                      OnClick="UpdateFilterClick"
                                                      TextLocalizedTag="UPDATE"
-                                                     CssClass="mr-2"
+                                                     CssClass="me-2"
                                                      Size="Small"
                                                      Icon="sync">
                                     </YAF:ThemeButton>
@@ -94,7 +94,7 @@
                             <YAF:ThemeButton runat="server" ID="MarkRead"
                                              Type="Secondary"
                                              Size="Small"
-                                             CssClass="float-right"
+                                             CssClass="float-end"
                                              TextLocalizedTag="MARK_ASREAD"
                                              CommandName="read"
                                              Icon="glasses"

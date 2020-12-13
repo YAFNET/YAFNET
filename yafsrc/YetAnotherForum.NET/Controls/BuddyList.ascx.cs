@@ -302,11 +302,11 @@ namespace YAF.Controls
             {
                 case 1:
                 case 2:
-                    this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-info text-info pr-1\"></i>{this.GetText("INFO_NO")}" });
+                    this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-info text-info pe-1\"></i>{this.GetText("INFO_NO")}" });
                     break;
                 case 3:
                 case 4:
-                    this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-check text-success pr-1\"></i>{this.GetText("INFO_PENDING")}" });
+                    this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-check text-success pe-1\"></i>{this.GetText("INFO_PENDING")}" });
                     break;
             }
         }

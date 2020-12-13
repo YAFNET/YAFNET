@@ -53,30 +53,30 @@
             <li class="list-group-item link-light bg-primary">
                 <YAF:LocalizedLabel runat="server" LocalizedTag="profile" />
             </li>
-            <li class="list-group-item text-right">
-                <span class="float-left fw-bold">
+            <li class="list-group-item text-end">
+                <span class="float-start fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="joined" />
                 </span>
                 <asp:Label ID="Joined" runat="server" />
             </li>
-            <li class="list-group-item text-right">
-                <span class="float-left fw-bold">
+            <li class="list-group-item text-end">
+                <span class="float-start fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="lastvisit" />
                 </span>
                 <asp:Label ID="LastVisit" runat="server" Visible="false" />
                 <YAF:DisplayDateTime ID="LastVisitDateTime" runat="server" Visible="false"></YAF:DisplayDateTime>
             </li>
             <asp:PlaceHolder runat="server" ID="RealNameTR" Visible="false">
-                <li class="list-group-item text-right">
-                    <span class="float-left fw-bold">
+                <li class="list-group-item text-end">
+                    <span class="float-start fw-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="realname" />
                     </span>
                     <asp:Literal runat="server" ID="RealName"></asp:Literal>
                 </li>
             </asp:PlaceHolder>
             <asp:PlaceHolder runat="server" ID="userGroupsRow" Visible="false">
-                <li class="list-group-item text-right">
-                    <span class="float-left fw-bold">
+                <li class="list-group-item text-end">
+                    <span class="float-start fw-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="groups" />
                     </span>
                     <asp:Repeater ID="Groups" runat="server">
@@ -90,8 +90,8 @@
                 </li>
             </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="RankTR" Visible="false">
-                    <li class="list-group-item text-right">
-                        <span class="float-left fw-bold">
+                    <li class="list-group-item text-end">
+                        <span class="float-start fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="rank" />
                         </span>
                         <asp:Label ID="Rank" runat="server" />
@@ -99,48 +99,48 @@
                 </asp:PlaceHolder>
 
                 <asp:PlaceHolder runat="server" ID="CountryTR" Visible="false">
-                    <li class="list-group-item text-right">
-                        <span class="float-left fw-bold">
+                    <li class="list-group-item text-end">
+                        <span class="float-start fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedTag="country" />
                         </span>
                         <asp:Label ID="CountryLabel" runat="server" />
                     </li>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="RegionTR" Visible="false">
-                    <li class="list-group-item text-right">
-                        <span class="float-left fw-bold">
+                    <li class="list-group-item text-end">
+                        <span class="float-start fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel28" runat="server" LocalizedTag="region" />
                         </span>
                         <asp:Label ID="RegionLabel" runat="server" />
                     </li>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="CityTR" Visible="false">
-                    <li class="list-group-item text-right">
-                        <span class="float-left fw-bold">
+                    <li class="list-group-item text-end">
+                        <span class="float-start fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel26" runat="server" LocalizedTag="city" />
                         </span>
                         <asp:Label ID="CityLabel" runat="server" />
                     </li>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="LocationTR" Visible="false">
-                    <li class="list-group-item text-right">
-                        <span class="float-left fw-bold">
+                    <li class="list-group-item text-end">
+                        <span class="float-start fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="location" />
                         </span>
                         <asp:Label ID="Location" runat="server" />
                     </li>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="BirthdayTR" Visible="false">
-                    <li class="list-group-item text-right">
-                        <span class="float-left fw-bold">
+                    <li class="list-group-item text-end">
+                        <span class="float-start fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedTag="BIRTHDAY" />:
                         </span>
                         <asp:Label ID="Birthday" runat="server" />
                     </li>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="OccupationTR" Visible="false">
-                    <li class="list-group-item text-right">
-                        <span class="float-left fw-bold">
+                    <li class="list-group-item text-end">
+                        <span class="float-start fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="occupation" />
                         </span>
                         <asp:Literal runat="server" ID="Occupation" />
@@ -148,8 +148,8 @@
                 </asp:PlaceHolder>
 
                 <asp:PlaceHolder runat="server" ID="GenderTR" Visible="false">
-                    <li class="list-group-item text-right">
-                        <span class="float-left fw-bold">
+                    <li class="list-group-item text-end">
+                        <span class="float-start fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="gender" />
                         </span>
                         <asp:Literal runat="server" ID="Gender" />
@@ -158,8 +158,8 @@
 
                 <asp:Repeater runat="server" ID="CustomProfile">
                     <ItemTemplate>
-                        <li class="list-group-item text-right">
-                            <span class="float-left fw-bold">
+                        <li class="list-group-item text-end">
+                            <span class="float-start fw-bold">
                                 <%# this.Eval("Item2.Name") %>:
                             </span>
                             <%# this.Eval("Item1.Value") %>
@@ -187,25 +187,25 @@
                 <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="numposts" />
                 </span>
-                <span class="ml-1 text-right"><asp:Literal runat="server" ID="Stats" /></span>
+                <span class="ms-1 text-end"><asp:Literal runat="server" ID="Stats" /></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-end">
                 <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="THANKSFROM" />
                 </span>
-                <span class="ml-1"><asp:Label ID="ThanksFrom" runat="server" /></span>
+                <span class="ms-1"><asp:Label ID="ThanksFrom" runat="server" /></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-end">
                 <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="THANKSTOTIMES" />
                 </span>
-                <span class="ml-1"><asp:Label ID="ThanksToTimes" runat="server" /></span>
+                <span class="ms-1"><asp:Label ID="ThanksToTimes" runat="server" /></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-end">
                 <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="THANKSTOPOSTS" />
                 </span>
-                <span class="ml-1"><asp:Label ID="ThanksToPosts" runat="server" /></span>
+                <span class="ms-1"><asp:Label ID="ThanksToPosts" runat="server" /></span>
             </li>
             <asp:PlaceHolder ID="divRR" runat="server" Visible="<%# this.PageContext.BoardSettings.EnableUserReputation %>">
                 <li class="list-group-item">
@@ -220,7 +220,7 @@
                     <span class="fw-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel30" runat="server" LocalizedTag="MEDALS" />
                     </span>
-                    <span class="ml-1"><asp:Label ID="MedalsPlaceHolder" runat="server" /></span>
+                    <span class="ms-1"><asp:Label ID="MedalsPlaceHolder" runat="server" /></span>
                 </li>
             </asp:PlaceHolder>
         </ul>
@@ -317,14 +317,14 @@
                     <div class="nav nav-tabs d-flex flex-nowrap" id="nav-tab" role="tablist" style="overflow-x: auto; overflow-y:hidden; white-space: nowrap;">
                         <a class="nav-item nav-link active"
                             id="nav-suspend-tab"
-                            data-toggle="tab"
+                            data-bs-toggle="tab"
                             href="#nav-suspend"
                             role="tab">
                             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_USER" />
                         </a>
                         <a class="nav-item nav-link"
                             id="nav-signature-tab"
-                            data-toggle="tab"
+                            data-bs-toggle="tab"
                             href="#nav-signature"
                             role="tab">
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="PROFILE" LocalizedTag="SIGNATURE" />

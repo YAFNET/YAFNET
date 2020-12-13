@@ -192,10 +192,10 @@ namespace YAF.Core.Context
                     this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
                 }
             }
+
+#if !DEBUG
             catch (Exception x)
             {
-#if !DEBUG
-
                 // log the exception...
                 this.Logger.Fatal(
                     x,
@@ -216,6 +216,8 @@ namespace YAF.Core.Context
                 }
 
 #else
+            catch (Exception)
+            {
                 // re-throw exception...
                 throw;
 #endif

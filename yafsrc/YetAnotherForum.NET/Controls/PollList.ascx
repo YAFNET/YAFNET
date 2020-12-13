@@ -24,7 +24,7 @@
                         <asp:Label ID="PollNotification" runat="server" />
                     </YAF:Alert>
                     <asp:Image id="QuestionImage" runat="server"
-                               data-toggle="tooltip"
+                               data-bs-toggle="tooltip"
                                CssClass="img-thumbnail mb-1"
                                style="max-height:80px"/>
                
@@ -42,7 +42,7 @@
                                 <YAF:ThemeButton ID="EditPoll" runat="server" 
                                                  OnClick="EditClick"
                                                  Size="Small"
-                                                 CssClass="mr-1" 
+                                                 CssClass="me-1" 
                                                  TextLocalizedTag="EDITPOLL"
                                                  Type="Secondary"
                                                  Icon="edit"/>

@@ -4,7 +4,7 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
-    <div class="col flex-grow-1 ml-lg-3 d-lg-none">
+    <div class="col flex-grow-1 ms-lg-3 d-lg-none">
         <div class="dropdown d-grid gap-2">
             <YAF:ThemeButton runat="server" 
                              CssClass="dropdown-toggle" 
@@ -13,46 +13,46 @@
                              TextLocalizedTag="TITLE"
                              TextLocalizedPage="ADMIN_HOSTSETTINGS"></YAF:ThemeButton>
             <div class="dropdown-menu scrollable-dropdown" aria-labelledby="dropdownMenuButton">
-               <a href="#View0" class="nav-link" data-toggle="pill" role="tab">
+               <a href="#View0" class="nav-link" data-bs-toggle="pill" role="tab">
                             <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="HEADER_SERVER_INFO" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </a>
-                        <a href="#View1" class="nav-link" data-toggle="pill" role="tab">
+                        <a href="#View1" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" 
                                 LocalizedTag="HEADER_SETUP" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-		<a href="#View2" class="nav-link" data-toggle="pill" role="tab">
+		<a href="#View2" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" 
                                 LocalizedTag="HOST_FEATURES" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-		<a href="#View3" class="nav-link" data-toggle="pill" role="tab">
+		<a href="#View3" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" 
                                 LocalizedTag="HOST_DISPLAY" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View4" class="nav-link" data-toggle="pill" role="tab">
+        <a href="#View4" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" 
                                 LocalizedTag="HOST_ADVERTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-                <a href="#View5" class="nav-link" data-toggle="pill" role="tab">
+                <a href="#View5" class="nav-link" data-bs-toggle="pill" role="tab">
                     <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" 
                                         LocalizedTag="HOST_EDITORS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                 </a>
-                <a href="#View6" class="nav-link" data-toggle="pill" role="tab">
+                <a href="#View6" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" 
                                 LocalizedTag="HOST_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-                <a href="#View8" class="nav-link" data-toggle="pill" role="tab">
+                <a href="#View8" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" 
                                 LocalizedTag="HOST_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View9" class="nav-link" data-toggle="pill" role="tab">
+        <a href="#View9" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" 
                                 LocalizedTag="HOST_CACHE" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View10" class="nav-link" data-toggle="pill" role="tab">
+        <a href="#View10" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel24" runat="server" 
                                 LocalizedTag="HOST_SEARCH" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View11" class="nav-link" data-toggle="pill" role="tab">
+        <a href="#View11" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel26" runat="server" 
                                 LocalizedTag="HOST_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
@@ -61,46 +61,46 @@
     </div>
     <div class="col-md-3 d-none d-lg-block mt-3">
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a href="#View0" class="nav-link" data-toggle="pill" role="tab">
+            <a href="#View0" class="nav-link" data-bs-toggle="pill" role="tab">
                             <YAF:LocalizedLabel ID="LocalizedLabel25" runat="server" LocalizedTag="HEADER_SERVER_INFO" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </a>
-                        <a href="#View1" class="nav-link" data-toggle="pill" role="tab">
+                        <a href="#View1" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel36" runat="server" 
                                 LocalizedTag="HEADER_SETUP" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-		<a href="#View2" class="nav-link" data-toggle="pill" role="tab">
+		<a href="#View2" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel45" runat="server" 
                                 LocalizedTag="HOST_FEATURES" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-		<a href="#View3" class="nav-link" data-toggle="pill" role="tab">
+		<a href="#View3" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel46" runat="server" 
                                 LocalizedTag="HOST_DISPLAY" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View4" class="nav-link" data-toggle="pill" role="tab">
+        <a href="#View4" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel47" runat="server" 
                                 LocalizedTag="HOST_ADVERTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-            <a href="#View5" class="nav-link" data-toggle="pill" role="tab">
+            <a href="#View5" class="nav-link" data-bs-toggle="pill" role="tab">
                 <YAF:LocalizedLabel ID="LocalizedLabel48" runat="server" 
                                     LocalizedTag="HOST_EDITORS" LocalizedPage="ADMIN_HOSTSETTINGS" />
             </a>
-            <a href="#View6" class="nav-link" data-toggle="pill" role="tab">
+            <a href="#View6" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel49" runat="server" 
                                 LocalizedTag="HOST_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-            <a href="#View8" class="nav-link" data-toggle="pill" role="tab">
+            <a href="#View8" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel51" runat="server" 
                                 LocalizedTag="HOST_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View9" class="nav-link" data-toggle="pill" role="tab">
+        <a href="#View9" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel52" runat="server" 
                                 LocalizedTag="HOST_CACHE" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View10" class="nav-link" data-toggle="pill" role="tab">
+        <a href="#View10" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel53" runat="server" 
                                 LocalizedTag="HOST_SEARCH" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View11" class="nav-link" data-toggle="pill" role="tab">
+        <a href="#View11" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel54" runat="server" 
                                 LocalizedTag="HOST_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
@@ -176,56 +176,56 @@
                     <div class="card-body">
                     <ul class="nav nav-tabs" id="tabSetup" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="setup-tab" data-toggle="tab" href="#setup" role="tab" aria-controls="setup" aria-selected="true">
+                            <a class="nav-link active" id="setup-tab" data-bs-toggle="tab" href="#setup" role="tab" aria-controls="setup" aria-selected="true">
                                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                                     LocalizedTag="HEADER_SETUP" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="spam-tab" data-toggle="tab" href="#spam" role="tab" aria-controls="spam" aria-selected="false">
+                            <a class="nav-link" id="spam-tab" data-bs-toggle="tab" href="#spam" role="tab" aria-controls="spam" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel32" runat="server" 
                                                     LocalizedTag="HEADER_SPAM" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="bot-tab" data-toggle="tab" href="#bot" role="tab" aria-controls="bot" aria-selected="false">
+                            <a class="nav-link" id="bot-tab" data-bs-toggle="tab" href="#bot" role="tab" aria-controls="bot" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel39" runat="server" 
                                                     LocalizedTag="HEADER_BOTSPAM" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="false">
+                            <a class="nav-link" id="login-tab" data-bs-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" 
                                                     LocalizedTag="HEADER_LOGIN" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="attachments-tab" data-toggle="tab" href="#attachments" role="tab" aria-controls="attachments" aria-selected="false">
+                            <a class="nav-link" id="attachments-tab" data-bs-toggle="tab" href="#attachments" role="tab" aria-controls="attachments" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel43" runat="server" 
                                                     LocalizedTag="HEADER_ATTACHMENTS" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="albums-tab" data-toggle="tab" href="#albums" role="tab" aria-controls="albums" aria-selected="false">
+                            <a class="nav-link" id="albums-tab" data-bs-toggle="tab" href="#albums" role="tab" aria-controls="albums" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" 
                                                     LocalizedTag="HEADER_ALBUM" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="image-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false">
+                            <a class="nav-link" id="image-tab" data-bs-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel22" runat="server" 
                                                     LocalizedTag="HEADER_IMAGE_ATTACH" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="cdn-tab" data-toggle="tab" href="#cdn" role="tab" aria-controls="cdn" aria-selected="false">
+                            <a class="nav-link" id="cdn-tab" data-bs-toggle="tab" href="#cdn" role="tab" aria-controls="cdn" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel40" runat="server" 
                                                     LocalizedTag="HEADER_CDN" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -655,70 +655,70 @@
                     <div class="card-body">
                          <ul class="nav nav-tabs" id="featuresTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="display-tab" data-toggle="tab" href="#display" role="tab" aria-controls="display" aria-selected="true">
+                            <a class="nav-link active" id="display-tab" data-bs-toggle="tab" href="#display" role="tab" aria-controls="display" aria-selected="true">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                     LocalizedTag="HEADER_DISPLAY" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="hover-tab" data-toggle="tab" href="#hover" role="tab" aria-controls="hover" aria-selected="false">
+                            <a class="nav-link" id="hover-tab" data-bs-toggle="tab" href="#hover" role="tab" aria-controls="hover" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                     LocalizedTag="HEADER_HOVERCARD" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="poll-tab" data-toggle="tab" href="#poll" role="tab" aria-controls="poll" aria-selected="false">
+                            <a class="nav-link" id="poll-tab" data-bs-toggle="tab" href="#poll" role="tab" aria-controls="poll" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                                     LocalizedTag="HEADER_POLL" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pms-tab" data-toggle="tab" href="#pms" role="tab" aria-controls="pms" aria-selected="false">
+                            <a class="nav-link" id="pms-tab" data-bs-toggle="tab" href="#pms" role="tab" aria-controls="pms" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                     LocalizedTag="HEADER_PMS" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="hot-tab" data-toggle="tab" href="#hot" role="tab" aria-controls="hot" aria-selected="false">
+                            <a class="nav-link" id="hot-tab" data-bs-toggle="tab" href="#hot" role="tab" aria-controls="hot" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
                                                     LocalizedTag="HEADER_HOTTOPICS" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="syndication-tab" data-toggle="tab" href="#syndication" role="tab" aria-controls="syndication" aria-selected="false">
+                            <a class="nav-link" id="syndication-tab" data-bs-toggle="tab" href="#syndication" role="tab" aria-controls="syndication" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
                                                     LocalizedTag="HEADER_SYNDICATION" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="geo-tab" data-toggle="tab" href="#geo" role="tab" aria-controls="geo" aria-selected="false">
+                            <a class="nav-link" id="geo-tab" data-bs-toggle="tab" href="#geo" role="tab" aria-controls="geo" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
                                                     LocalizedTag="HEADER_GEOLOCATION" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="reputation-tab" data-toggle="tab" href="#reputation" role="tab" aria-controls="reputation" aria-selected="false">
+                            <a class="nav-link" id="reputation-tab" data-bs-toggle="tab" href="#reputation" role="tab" aria-controls="reputation" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" 
                                                     LocalizedTag="HEADER_REPUTATION" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="captcha-tab" data-toggle="tab" href="#captcha" role="tab" aria-controls="captcha" aria-selected="false">
+                            <a class="nav-link" id="captcha-tab" data-bs-toggle="tab" href="#captcha" role="tab" aria-controls="captcha" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" 
                                                     LocalizedTag="HEADER_CAPTCHA" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="notification-tab" data-toggle="tab" href="#notification" role="tab" aria-controls="notification" aria-selected="false">
+                            <a class="nav-link" id="notification-tab" data-bs-toggle="tab" href="#notification" role="tab" aria-controls="notification" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server"
                                                     LocalizedTag="HEADER_MESSAGE_NOTIFICATION" 
                                                     LocalizedPage="ADMIN_HOSTSETTINGS" />

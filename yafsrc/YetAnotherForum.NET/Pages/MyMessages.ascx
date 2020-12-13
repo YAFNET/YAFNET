@@ -22,17 +22,17 @@
         <asp:Panel id="PmTabs" runat="server">
             <ul class="nav nav-tabs" role="tablist">
                  <li class="nav-item">
-                     <a href="#View0" class="nav-link" data-toggle="tab" role="tab">
+                     <a href="#View0" class="nav-link" data-bs-toggle="tab" role="tab">
                          <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="INBOX" />
                      </a>
                  </li>
 		         <li class="nav-item">
-		             <a href="#View1" class="nav-link" data-toggle="tab" role="tab">
+		             <a href="#View1" class="nav-link" data-bs-toggle="tab" role="tab">
 		                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="SENTITEMS" />
 		             </a>
 		         </li>
 		         <li class="nav-item">
-		             <a href="#View2" class="nav-link" data-toggle="tab" role="tab">
+		             <a href="#View2" class="nav-link" data-bs-toggle="tab" role="tab">
 		                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ARCHIVE" />
 		             </a>
 		         </li>
