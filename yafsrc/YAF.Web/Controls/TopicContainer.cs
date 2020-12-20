@@ -171,6 +171,7 @@ namespace YAF.Web.Controls
 
             var topicStarterLink = new UserLink
             {
+                IsGuest = true,
                 UserID = this.TopicRow["UserID"].ToType<int>(),
                 ReplaceName = this
                                                .TopicRow[this.Get<BoardSettings>().EnableDisplayName
