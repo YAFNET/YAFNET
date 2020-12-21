@@ -26,10 +26,10 @@ namespace YAF.Core.Extensions
     #region Using
 
     using Autofac.Builder;
+    using Autofac.Core.Lifetime;
 
     using YAF.Types;
-    using YAF.Types.Constants;
-
+    
     #endregion
 
     /// <summary>
@@ -42,15 +42,15 @@ namespace YAF.Core.Extensions
         /// <summary>
         /// The owned by yaf context.
         /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
         /// <typeparam name="TLimit">
         /// </typeparam>
         /// <typeparam name="TActivatorData">
         /// </typeparam>
         /// <typeparam name="TRegistrationStyle">
         /// </typeparam>
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
         /// <returns>
         /// The instance per yaf context.
         /// </returns>
@@ -59,7 +59,7 @@ namespace YAF.Core.Extensions
         {
             CodeContracts.VerifyNotNull(builder, "builder");
 
-            return builder.InstancePerMatchingLifetimeScope(LifetimeScope.Context);
+            return builder.InstancePerMatchingLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
         }
 
         #endregion

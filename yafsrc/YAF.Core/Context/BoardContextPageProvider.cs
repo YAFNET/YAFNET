@@ -28,8 +28,8 @@ namespace YAF.Core.Context
     using System.Web;
 
     using Autofac;
+    using Autofac.Core.Lifetime;
 
-    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -119,7 +119,7 @@ namespace YAF.Core.Context
         /// </returns>
         private BoardContext CreateContextInstance()
         {
-            var lifetimeContainer = this._lifetimeScope.BeginLifetimeScope(LifetimeScope.Context);
+            var lifetimeContainer = this._lifetimeScope.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
 
             var instance = new BoardContext(lifetimeContainer);
             this._injectServices.Inject(instance);

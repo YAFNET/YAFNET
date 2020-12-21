@@ -237,22 +237,6 @@ namespace YAF.Types.Interfaces
         }
 
         /// <summary>
-        /// The is yaf context.
-        /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool IsBoardContext([NotNull] this IServiceLocator serviceLocator)
-        {
-            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
-
-            return serviceLocator.Tag == (object)LifetimeScope.Context;
-        }
-
-        /// <summary>
         /// The get.
         /// </summary>
         /// <param name="serviceLocator">

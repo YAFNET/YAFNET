@@ -39,7 +39,6 @@ namespace YAF.Web.Controls
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Constants;
 #if DEBUG
     using YAF.Types.Exceptions;
 #endif
@@ -82,18 +81,15 @@ namespace YAF.Web.Controls
         /// </summary>
         public Forum()
         {
-            // validate TaskModule is running...
-            TaskModuleRunning();
-
             // init the modules and run them immediately...
             var baseModules = this.Get<IModuleManager<IBaseForumModule>>();
 
             baseModules.GetAll().ForEach(
                 module =>
-                    {
-                        module.ForumControlObj = this;
-                        module.Init();
-                    });
+                {
+                    module.ForumControlObj = this;
+                    module.Init();
+                });
         }
 
         #endregion
@@ -237,9 +233,6 @@ namespace YAF.Web.Controls
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit(EventArgs e)
         {
-            // run startup services -- should already be called except when running inside a CMS.
-            this.RunStartupServices();
-
             // handle script manager first...
             var yafScriptManager = ScriptManager.GetCurrent(this.Page);
 
@@ -352,31 +345,6 @@ namespace YAF.Web.Controls
             this.AfterForumPageLoad?.Invoke(this, new AfterForumPageLoad());
 
             base.OnLoad(e);
-        }
-
-        /// <summary>
-        /// The task module running.
-        /// </summary>
-        private static void TaskModuleRunning()
-        {
-            if (HttpContext.Current.Application[Constants.Cache.TaskModule] != null)
-            {
-                return;
-            }
-
-#if DEBUG
-            throw new TaskModuleNotRegisteredException(
-                @"YAF.NET is not setup properly. Please add the <add name=""TaskModule"" type=""YAF.Core.TaskModule, YAF.Core"" /> to the <modules> section of your web.config file.");
-#else
-
-            // YAF is not setup properly...
-            HttpContext.Current.Session["StartupException"] =
-                @"YAF.NET is not setup properly. Please add the <add name=""TaskModule"" type=""YAF.Core.TaskModule, YAF.Core"" /> to the <modules> section of your web.config file.";
-
-            // go immediately to the error page.
-            HttpContext.Current.Response.Redirect($"{BoardInfo.ForumClientFileRoot}error.aspx");
-
-#endif
         }
 
         /// <summary>

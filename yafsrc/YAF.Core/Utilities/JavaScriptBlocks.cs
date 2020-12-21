@@ -1231,11 +1231,13 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull]
         public static string TopicLinkPopoverJs([NotNull] string title, [NotNull] string cssClass, [NotNull] string trigger)
         {
-            return $@"{Config.JQueryAlias}('{cssClass}').popover({{
+            return $@"{Config.JQueryAlias}(document).ready(function() {{
+                     {Config.JQueryAlias}('{cssClass}').popover({{
                            title: '{title}',
                            html: true,
                            trigger: '{trigger}',
                            template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body""></div></div>'
+                }});
                 }});
                 {Config.JQueryAlias}('{cssClass}').on('inserted.bs.popover', function () {{
                       {Config.JQueryAlias}('.popover-timeago').each(function() {{

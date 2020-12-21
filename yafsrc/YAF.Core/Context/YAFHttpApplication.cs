@@ -28,14 +28,55 @@ namespace YAF.Core.Context
     using System.Web;
     using System.Web.Http;
 
+    using Autofac;
+
     using YAF.Core.Context.Start;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
+    using YAF.Core.Services.Startup;
+    using YAF.Types.EventProxies;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
 
     /// <summary>
     /// The YAF HttpApplication.
     /// </summary>
-    public abstract class YafHttpApplication : HttpApplication
+    public abstract class YafHttpApplication : HttpApplication, IHaveServiceLocator
     {
+        /// <summary>
+        ///   Gets ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+
+        /// <summary>
+        /// The application_ end.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected virtual void Application_End(object sender, EventArgs e)
+        {
+            // make sure the BoardContext is disposed of...
+            BoardContext.Current.Dispose();
+
+            if (!this.Get<StartupInitializeDb>().Initialized)
+            {
+                return;
+            }
+
+            if (BoardContext.Current.BoardSettings.AbandonSessionsForDontTrack
+                && (BoardContext.Current.Vars.AsBoolean("DontTrack") ?? false)
+                && this.Get<HttpSessionStateBase>().IsNewSession)
+            {
+                // remove session
+                this.Get<HttpSessionStateBase>().Abandon();
+            }
+        }
+        
         /// <summary>
         /// The application_ start.
         /// </summary>
@@ -47,10 +88,55 @@ namespace YAF.Core.Context
         /// </param>
         protected virtual void Application_Start(object sender, EventArgs e)
         {
+            //DependencyResolver.SetResolver(new AutofacDependencyResolver(GlobalContainer.Container));
+
+           
+
             // Pass a delegate to the Configure method.
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
             ScriptManagerHelper.RegisterJQuery();
+        }
+
+        /// <summary>
+        /// The session_ start.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            // set the httpApplication as early as possible...
+            GlobalContainer.Container.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance =
+                new HttpApplicationStateWrapper(this.Application);
+
+            // init the modules and run them immediately...
+            /*var baseModules = this.Get<IModuleManager<IBaseForumModule>>();
+
+            baseModules.GetAll().ForEach(
+                module =>
+                {
+                    module.ForumControlObj = HttpContext.Current.Handler;
+                    module.Init();
+                });*/
+
+
+            // run startup services...
+            this.RunStartupServices();
+
+            // app init notification...
+            this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(this), null);
+        }
+
+        /// <summary>
+        /// The application_ post authorize request.
+        /// </summary>
+        protected void Application_PostAuthorizeRequest()
+        {
+           // HttpContext.Current.SetSessionStateBehavior(System.Web.SessionState.SessionStateBehavior.Required);
         }
     }
 }
