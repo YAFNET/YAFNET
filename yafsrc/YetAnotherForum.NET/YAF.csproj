@@ -3398,10 +3398,6 @@
       <Project>{f8516c67-92be-43ff-a8a9-b71a3ea4be0d}</Project>
       <Name>YAF.UrlRewriter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Utils\YAF.Utils.csproj">
-      <Project>{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}</Project>
-      <Name>YAF.Utils</Name>
-    </ProjectReference>
     <ProjectReference Include="..\YAF.Web\YAF.Web.csproj">
       <Project>{c72a5fc8-4b1c-4a24-a306-fb550729dbf0}</Project>
       <Name>YAF.Web</Name>
@@ -3619,7 +3615,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
