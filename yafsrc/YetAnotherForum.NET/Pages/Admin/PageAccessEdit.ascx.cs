@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,13 +34,13 @@ namespace YAF.Pages.Admin
 
     using YAF.Core.BasePages;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -54,7 +54,7 @@ namespace YAF.Pages.Admin
         ///   Gets CurrentUserID.
         /// </summary>
         protected int CurrentUserID =>
-            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         #region Methods
 
@@ -66,7 +66,7 @@ namespace YAF.Pages.Admin
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // get back to access admin list
-            BuildLink.Redirect(ForumPages.Admin_PageAccessList);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace YAF.Pages.Admin
 
             this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.CurrentUserID));
 
-            BuildLink.Redirect(ForumPages.Admin_PageAccessList);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace YAF.Pages.Admin
 
             this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.CurrentUserID));
 
-            BuildLink.Redirect(ForumPages.Admin_PageAccessList);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace YAF.Pages.Admin
 
             this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.CurrentUserID));
 
-            BuildLink.Redirect(ForumPages.Admin_PageAccessList);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
         }
 
         /// <summary>

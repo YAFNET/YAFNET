@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,14 +31,16 @@ namespace YAF.Web.Controls
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects.Model;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+
+    using DateTime = System.DateTime;
 
     /// <summary>
     /// Topic Container Control
@@ -160,7 +162,7 @@ namespace YAF.Web.Controls
 
             var topicLink = new HyperLink
             {
-                NavigateUrl = BuildLink.GetTopicLink(
+                NavigateUrl = this.Get<LinkBuilder>().GetTopicLink(
                     this.TopicItem.LinkTopicID,
                     this.TopicItem.Subject),
                 Text = this.FormatTopicName(),
@@ -332,7 +334,7 @@ namespace YAF.Web.Controls
                 var gotoLastPost = new ThemeButton
                 {
                     NavigateUrl =
-                        BuildLink.GetLink(
+                        this.Get<LinkBuilder>().GetLink(
                             ForumPages.Posts,
                             "m={0}&name={1}#post{0}",
                             this.TopicItem.LastMessageID,
@@ -347,7 +349,7 @@ namespace YAF.Web.Controls
                 var gotoLastUnread = new ThemeButton
                 {
                     NavigateUrl =
-                        BuildLink.GetLink(
+                        this.Get<LinkBuilder>().GetLink(
                             ForumPages.Posts,
                             "t={0}&name={1}",
                             this.TopicItem.TopicID,
@@ -410,7 +412,7 @@ namespace YAF.Web.Controls
             {
                 this.MakeLink(
                     "1",
-                    BuildLink.GetLink(ForumPages.Posts, "t={0}&name={1}", topicID, this.TopicItem.Subject),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "t={0}&name={1}", topicID, this.TopicItem.Subject),
                     1).RenderControl(writer);
                 writer.Write(" ... ");
 
@@ -421,7 +423,7 @@ namespace YAF.Web.Controls
 
                     this.MakeLink(
                         post.ToString(),
-                        BuildLink.GetLink(
+                        this.Get<LinkBuilder>().GetLink(
                             ForumPages.Posts,
                             "t={0}&name={2}&p={1}",
                             topicID,
@@ -438,7 +440,7 @@ namespace YAF.Web.Controls
 
                     this.MakeLink(
                         post.ToString(),
-                        BuildLink.GetLink(
+                        this.Get<LinkBuilder>().GetLink(
                             ForumPages.Posts,
                             "t={0}&name={2}&p={1}",
                             topicID,

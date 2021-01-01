@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,6 +26,7 @@ namespace YAF.Core.Helpers
     #region Using
 
     using System;
+    using System.Runtime.Caching;
     using System.Web;
     using System.Web.Caching;
 
@@ -34,6 +35,7 @@ namespace YAF.Core.Helpers
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
+    
     #endregion
 
     /// <summary>
@@ -73,7 +75,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static string GetCaptchaText(
             [NotNull] HttpSessionStateBase session,
-            [NotNull] Cache cache,
+            [NotNull] MemoryCache cache,
             bool forceNew)
         {
             CodeContracts.VerifyNotNull(session, "session");
@@ -93,14 +95,7 @@ namespace YAF.Core.Helpers
             }
             else
             {
-                cache.Add(
-                    cacheName,
-                    text,
-                    null,
-                    Cache.NoAbsoluteExpiration,
-                    TimeSpan.FromMinutes(10),
-                    CacheItemPriority.Low,
-                    null);
+                cache.Add(cacheName, text, Cache.NoAbsoluteExpiration);
             }
 
             return text;
@@ -119,7 +114,7 @@ namespace YAF.Core.Helpers
         {
             CodeContracts.VerifyNotNull(captchaText, "captchaText");
 
-            var text = GetCaptchaText(BoardContext.Current.Get<HttpSessionStateBase>(), HttpRuntime.Cache, false);
+            var text = GetCaptchaText(BoardContext.Current.Get<HttpSessionStateBase>(), MemoryCache.Default, false);
 
             return string.Compare(text, captchaText, StringComparison.InvariantCultureIgnoreCase) == 0;
         }

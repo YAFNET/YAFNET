@@ -8,7 +8,7 @@
                 <i class="fas fa-bullhorn me-1"></i><YAF:LocalizedLabel runat="server" LocalizedTag="ANNOUNCEMENT"></YAF:LocalizedLabel>
             </asp:Label>
             <asp:Label runat="server" ID="Message"></asp:Label>
-            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
             </button>
         </asp:Panel>
     </div>

@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.configuration" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,6 +31,8 @@ namespace YAF.Pages.Admin
 
     using YAF.Core.BasePages;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -38,8 +40,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -124,7 +124,7 @@ namespace YAF.Pages.Admin
                 this.GetTextFormatted("MSG_CREATED", this.UserName.Text.Trim()),
                 MessageTypes.success);
 
-            BuildLink.Redirect(ForumPages.Admin_Users);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddAdminIndex();
 
-            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), BuildLink.GetLink(ForumPages.Admin_Users));
+            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Users));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_REGUSER", "TITLE"), string.Empty);
@@ -170,7 +170,7 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Admin_Users);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
         }
 
         #endregion

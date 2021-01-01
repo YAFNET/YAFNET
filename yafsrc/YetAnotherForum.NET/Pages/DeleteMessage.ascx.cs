@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,15 +33,17 @@ namespace YAF.Pages
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -94,7 +96,7 @@ namespace YAF.Pages
         /// <summary>
         /// The message id.
         /// </summary>
-        protected int MessageId => Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
+        protected int MessageId => this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
 
         /// <summary>
         ///   Gets a value indicating whether PostLocked.
@@ -126,7 +128,7 @@ namespace YAF.Pages
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // new topic -- cancel back to forum
-            BuildLink.Redirect(
+            this.Get<LinkBuilder>().Redirect(
                 ForumPages.Topics,
                 "f={0}&name={1}",
                 this.PageContext.PageForumID,
@@ -190,12 +192,12 @@ namespace YAF.Pages
             if (!this.PageContext.ForumModeratorAccess
                 && this.isModeratorChanged)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.PageContext.PageForumID == 0)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -347,11 +349,11 @@ namespace YAF.Pages
             // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
             if (topic == null)
             {
-                BuildLink.Redirect(ForumPages.Topics, "f={0}&name={1}", this.message.Item3.ID, this.message.Item3.Name);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Topics, "f={0}&name={1}", this.message.Item3.ID, this.message.Item3.Name);
             }
             else
             {
-                BuildLink.Redirect(ForumPages.Posts, "t={0}&name={1}", topic.ID, topic.TopicName);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "t={0}&name={1}", topic.ID, topic.TopicName);
             }
         }
 

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,10 +25,9 @@ namespace YAF.Modules
 {
     #region Using
 
-    using System;
-
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
@@ -36,7 +35,8 @@ namespace YAF.Modules
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
-    using YAF.Utils;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -96,7 +96,7 @@ namespace YAF.Modules
             }
             else
             {
-                BuildLink.RedirectInfoPage(InfoMessage.Suspended);
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Suspended);
             }
         }
 

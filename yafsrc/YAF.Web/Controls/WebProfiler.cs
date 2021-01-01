@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -35,10 +35,10 @@ namespace YAF.Web.Controls
 
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
+    using YAF.Core.Services;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     /// <summary>
     /// The web profiler.
@@ -51,7 +51,7 @@ namespace YAF.Web.Controls
         /// <summary>
         /// The profiler URL.
         /// </summary>
-        private static string ProfilerURL => BuildLink.GetLink(ForumPages.Admin_Profiler);
+        private static string ProfilerURL => BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Admin_Profiler);
 
         /// <summary>
         /// Gets or sets the session objects.
@@ -510,7 +510,7 @@ namespace YAF.Web.Controls
         private static string GetApplicationObjectTable(string key)
         {
             var stringBuilder = new StringBuilder();
-            var obj = BoardContext.Current.Get<HttpApplicationStateBase>()[key];
+            var obj = HttpRuntime.Cache[key];
             if (obj == null)
             {
                 stringBuilder.Append("The object was not found. Was it removed?");
@@ -534,12 +534,12 @@ namespace YAF.Web.Controls
         /// </returns>
         private static string GetApplicationStateTotals()
         {
-            BoardContext.Current.Get<HttpApplicationStateBase>()["Avbob.Security.User"] =
-                BoardContext.Current.Get<HttpSessionStateBase>()["Avbob.Security.User"];
+            HttpRuntime.Cache["Avbob.Security.User"] =
+                HttpRuntime.Cache["Avbob.Security.User"];
             var stringBuilder = new StringBuilder();
-            var count = BoardContext.Current.Get<HttpApplicationStateBase>().Keys.Count;
+            var count = HttpRuntime.Cache.Count;
             var byteSize = 0L;
-            var keys = BoardContext.Current.Get<HttpApplicationStateBase>().Keys;
+            var keys = HttpRuntime.Cache;
             lock (keys)
             {
                 var local_5 = keys.GetEnumerator();
@@ -551,7 +551,7 @@ namespace YAF.Web.Controls
                         {
                             var local_6 = (string)local_5.Current;
 
-                            var local_7 = BoardContext.Current.Get<HttpApplicationStateBase>()[local_6];
+                            var local_7 = HttpRuntime.Cache[local_6];
                             byteSize += GetObjectByteSize(local_7);
                         }
                         else
@@ -655,9 +655,9 @@ namespace YAF.Web.Controls
             stringBuilder.Append("</thead>");
 
 
-            lock (BoardContext.Current.Get<HttpApplicationStateBase>().Keys)
+            lock (HttpRuntime.Cache)
             {
-                var local_4 = BoardContext.Current.Get<HttpApplicationStateBase>().Keys.GetEnumerator();
+                var local_4 = HttpRuntime.Cache.GetEnumerator();
                 try
                 {
                     while (true)
@@ -668,7 +668,7 @@ namespace YAF.Web.Controls
                             var local_6 = new StringBuilder();
                             try
                             {
-                                var local_7 = BoardContext.Current.Get<HttpApplicationStateBase>()[local_5];
+                                var local_7 = HttpRuntime.Cache[local_5];
 
                                 if (local_7 == null)
                                 {

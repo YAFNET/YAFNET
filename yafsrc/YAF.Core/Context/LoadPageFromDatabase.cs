@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,6 +30,7 @@ namespace YAF.Core.Context
     using ServiceStack;
 
     using YAF.Core.Services;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
@@ -39,8 +40,6 @@ namespace YAF.Core.Context
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Objects.Model;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     /// The load page from database.
@@ -207,7 +206,7 @@ namespace YAF.Core.Context
                 if (BoardContext.Current.ForumPageType != ForumPages.Info)
                 {
                     // show a failure notice since something is probably up with membership...
-                    BuildLink.RedirectInfoPage(InfoMessage.Failure);
+                    this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
                 }
                 else
                 {

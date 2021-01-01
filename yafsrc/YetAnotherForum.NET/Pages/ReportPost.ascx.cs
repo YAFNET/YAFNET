@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,14 +32,16 @@ namespace YAF.Pages
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -68,7 +70,7 @@ namespace YAF.Pages
         public Tuple<Topic, Message, User, Forum> Message =>
             this.message ??= this.GetRepository<Message>().GetMessageWithAccess(this.MessageId, this.PageContext.PageUserID);
 
-        protected int MessageId => Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
+        protected int MessageId => this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
 
         #region Constructors and Destructors
 
@@ -160,7 +162,7 @@ namespace YAF.Pages
                 // We check here if the user have access to the option
                 if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ReportPostPermissions))
                 {
-                    BuildLink.Redirect(ForumPages.Info, "i=1");
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Info, "i=1");
                 }
             }
 
@@ -189,7 +191,7 @@ namespace YAF.Pages
             }
             else
             {
-                BuildLink.Redirect(ForumPages.Info, "i=1");
+                this.Get<LinkBuilder>().Redirect(ForumPages.Info, "i=1");
             }
 
             this.Report.MaxLength = this.PageContext.BoardSettings.MaxReportPostChars;
@@ -212,7 +214,7 @@ namespace YAF.Pages
         protected void RedirectToPost()
         {
             // Redirect to reported post
-            BuildLink.Redirect(ForumPages.Posts, "m={0}&name={1}#post{0}", this.MessageId, this.topicName);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "m={0}&name={1}#post{0}", this.MessageId, this.topicName);
         }
 
         #endregion

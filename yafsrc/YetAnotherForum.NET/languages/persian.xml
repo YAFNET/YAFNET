@@ -181,7 +181,6 @@
     <Resource tag="RSSTOPIC">نمایش فید RSS و Atom</Resource>
     <Resource tag="RULES">نمایش قوانین انجمن</Resource>
     <Resource tag="SEARCH">استفاده از جستجو</Resource>
-    <Resource tag="SHOUTBOX">استفاده از جعبه گفتگو</Resource>
     <Resource tag="SUBSCRIPTIONS">نمایش اشتراک‌ها</Resource>
     <Resource tag="TEAM">نمایش صفحه گروه</Resource>
     <Resource tag="TOPICINFORUM"> در انجمن </Resource>
@@ -1435,10 +1434,6 @@
     <Resource tag="SERVER_VERSION_HELP">SQL server چه نسخه ای است؟</Resource>
     <Resource tag="SERVERTIME_CORRECT">اصلاح منطقه زمانی سرور:</Resource>
     <Resource tag="SERVERTIME_CORRECT_HELP">در صورت اشتباه بودن UTC سرور عددی بین 720- تا 720 وارد کنید.</Resource>
-    <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>
-    <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
-    <Resource tag="SHOUTBOX_DEFAULTSTATE">Shout Box Default State:</Resource>
-    <Resource tag="SHOUTBOX_DEFAULTSTATE_HELP">The Default State for the Shout Box if it should be collapsed or expanded (Note: the State is saved as cookie, if you change the value you need to delete the cookie to see the changes).</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">نمایش بحث های فعال:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">فعال یا غیر فعال کردن نمایش فهرست بحث های فعال در صفحه شاخص تابلو.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">نمایش پیوندهای اتم :</Resource>
@@ -1490,8 +1485,6 @@
     <Resource tag="SHOW_RSS_LINKS">نمایش پیوندهای آر اس اس:</Resource>
     <Resource tag="SHOW_RSS_LINKS_HELP">فعال/غیرفعال کردن پیوند های RSS در انجمن.</Resource>
     <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
-    <Resource tag="SHOW_SHOUTBOX">نمایش کادر گفتگو:</Resource>
-    <Resource tag="SHOW_SHOUTBOX_HELP">فعال یا غیرفعال گردن ماژوول چت.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">نمایش تاریخ تشکر کاربر:</Resource>
@@ -1572,8 +1565,6 @@
     <Resource tag="VIEWMEMBERLIST_PERMISSION_HELP">مجوز دیدن فهرست های کاربری به:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION">مجوز های نمایش پروفایل :</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">اعطای مجوز بازدید از پروفایل سایر کاربران به :</Resource>
-    <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
-    <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
     <Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
     <Resource tag="WELCOME_NOTIFICATION_0">Send No Message</Resource>
     <Resource tag="WELCOME_NOTIFICATION_1">Send as e-mail</Resource>
@@ -5411,14 +5402,6 @@
     <Resource tag="TITLE">جستجو</Resource>
     <Resource tag="TITLE_ONLY">فقط جستجو عناوین</Resource>
     <Resource tag="TOPIC">موضوع:</Resource>
-  </page>
-  <page name="SHOUTBOX">
-    <Resource tag="CLEAR">پاک کردن گفتگو ها</Resource>
-    <Resource tag="FLYOUT">نمایش در پنجره مجزا</Resource>
-    <Resource tag="HEADING">گفتگو با کاربران دیگر</Resource>
-    <Resource tag="MUSTBELOGGEDIN">برای استفاده از گفتگو می بایست عضو باشید.</Resource>
-    <Resource tag="SUBMIT">ارسال</Resource>
-    <Resource tag="TITLE">گفتگو</Resource>
   </page>
   <page name="SUBSCRIPTIONS">
     <Resource tag="ALLTOPICS">اطلاع رسانی برای [b]تمام ارسال‌ها در تمام موضوعات[/b]</Resource>

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,6 +34,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Tasks;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -41,7 +42,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -74,7 +74,7 @@ namespace YAF.Pages.Admin
         {
             this.MoveTopics.CheckedChanged += this.MoveTopicsCheckedChanged;
             this.Delete.Click += this.SaveClick;
-            this.Cancel.Click += Cancel_Click;
+            this.Cancel.Click += this.Cancel_Click;
 
             this.Delete.ReturnConfirmText = this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE");
             this.Delete.ReturnConfirmEvent = "blockUIMessage";
@@ -98,7 +98,7 @@ namespace YAF.Pages.Admin
 
             if (!this.Get<HttpRequestBase>().QueryString.Exists("fa"))
             {
-                BuildLink.Redirect(ForumPages.Admin_Forums);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
             }
 
             var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
@@ -107,7 +107,7 @@ namespace YAF.Pages.Admin
 
             if (forum == null)
             {
-                BuildLink.Redirect(ForumPages.Admin_Forums);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
             }
             else
             {
@@ -126,7 +126,7 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddAdminIndex();
 
-            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), BuildLink.GetLink(ForumPages.Admin_Forums));
+            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Forums));
             this.PageLinks.AddLink(this.GetText("ADMIN_DELETEFORUM", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -152,7 +152,7 @@ namespace YAF.Pages.Admin
             // rebind...
             this.BindData();
 
-            BuildLink.Redirect(ForumPages.Admin_Forums);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
         }
 
         /// <summary>
@@ -160,9 +160,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private static void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        private void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Admin_Forums);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
         }
 
         /// <summary>

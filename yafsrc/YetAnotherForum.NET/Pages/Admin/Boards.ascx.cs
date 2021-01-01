@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,12 +32,12 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -56,7 +56,7 @@ namespace YAF.Pages.Admin
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.List.ItemCommand += this.ListItemCommand;
-            this.New.Click += New_Click;
+            this.New.Click += this.New_Click;
 
             base.OnInit(e);
         }
@@ -70,7 +70,7 @@ namespace YAF.Pages.Admin
         {
             if (!this.PageContext.User.UserFlags.IsHostAdmin)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -99,9 +99,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private static void New_Click([NotNull] object sender, [NotNull] EventArgs e)
+        private void New_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Admin_EditBoard);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditBoard);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    BuildLink.Redirect(ForumPages.Admin_EditBoard, "b={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditBoard, "b={0}", e.CommandArgument);
                     break;
                 case "delete":
                     this.GetRepository<Board>().DeleteBoard(e.CommandArgument.ToType<int>());

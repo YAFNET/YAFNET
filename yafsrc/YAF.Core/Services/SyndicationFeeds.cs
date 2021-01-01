@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -40,15 +40,15 @@ namespace YAF.Core.Services
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Syndication;
+    using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
+    using YAF.Core.Utilities.Helpers.StringUtils;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
-    using YAF.Utils.Helpers.StringUtils;
 
     #endregion
 
@@ -101,7 +101,7 @@ namespace YAF.Core.Services
                     if (!(BoardContext.Current.BoardSettings.ShowActiveDiscussions && this.Get<IPermissions>()
                         .Check(BoardContext.Current.BoardSettings.PostLatestFeedAccess)))
                     {
-                        BuildLink.AccessDenied();
+                        this.Get<LinkBuilder>().AccessDenied();
                     }
 
                     feed = this.GetPostLatestFeed(feedType, lastPostName);
@@ -112,7 +112,7 @@ namespace YAF.Core.Services
                     if (!(BoardContext.Current.ForumReadAccess && this.Get<IPermissions>()
                         .Check(BoardContext.Current.BoardSettings.PostsFeedAccess)))
                     {
-                        BuildLink.AccessDenied();
+                        this.Get<LinkBuilder>().AccessDenied();
                     }
 
                     if (this.Get<HttpRequestBase>().QueryString.Exists("t"))
@@ -128,7 +128,7 @@ namespace YAF.Core.Services
                 case RssFeeds.Forum:
                     if (!this.Get<IPermissions>().Check(BoardContext.Current.BoardSettings.ForumFeedAccess))
                     {
-                        BuildLink.AccessDenied();
+                        this.Get<LinkBuilder>().AccessDenied();
                     }
 
                     int? categoryId = null;
@@ -146,7 +146,7 @@ namespace YAF.Core.Services
                     if (!(BoardContext.Current.ForumReadAccess && this.Get<IPermissions>()
                         .Check(BoardContext.Current.BoardSettings.TopicsFeedAccess)))
                     {
-                        BuildLink.AccessDenied();
+                        this.Get<LinkBuilder>().AccessDenied();
                     }
 
                     if (this.Get<HttpRequestBase>().QueryString.Exists("f"))
@@ -162,7 +162,7 @@ namespace YAF.Core.Services
                 case RssFeeds.Active:
                     if (!this.Get<IPermissions>().Check(BoardContext.Current.BoardSettings.ActiveTopicFeedAccess))
                     {
-                        BuildLink.AccessDenied();
+                        this.Get<LinkBuilder>().AccessDenied();
                     }
 
                     feed = this.GetActiveFeed(feedType, lastPostName);
@@ -171,13 +171,13 @@ namespace YAF.Core.Services
                 case RssFeeds.Favorite:
                     if (!this.Get<IPermissions>().Check(BoardContext.Current.BoardSettings.FavoriteTopicFeedAccess))
                     {
-                        BuildLink.AccessDenied();
+                        this.Get<LinkBuilder>().AccessDenied();
                     }
 
                     feed = this.GetFavoriteFeed(feedType, lastPostName);
                     break;
                 default:
-                    BuildLink.AccessDenied();
+                    this.Get<LinkBuilder>().AccessDenied();
                     break;
             }
 
@@ -204,7 +204,7 @@ namespace YAF.Core.Services
             }
             else
             {
-                BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
             }
         }
 
@@ -307,7 +307,7 @@ namespace YAF.Core.Services
                     feed.Contributors.Add(
                         SyndicationItemExtensions.NewSyndicationPerson(string.Empty, t.LastUserID.Value, null, null));
 
-                    var messageLink = BuildLink.GetLink(
+                    var messageLink = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         true,
                         "m={0}&name={1}#post{0}",
@@ -414,13 +414,13 @@ namespace YAF.Core.Services
                     syndicationItems.AddSyndicationItem(
                         t.Subject,
                         this.GetPostLatestContent(
-                            BuildLink.GetLink(ForumPages.Posts, true, "m={0}#post{0}", t.LastMessageID, t.Subject),
+                            this.Get<LinkBuilder>().GetLink(ForumPages.Posts, true, "m={0}#post{0}", t.LastMessageID, t.Subject),
                             lastPostName,
                             lastPostName,
                             t.LastMessageFlags ?? 22,
                             false),
                         null,
-                        BuildLink.GetLink(ForumPages.Posts, true, "t={0}&name={1}", t.LinkTopicID, t.Subject),
+                        this.Get<LinkBuilder>().GetLink(ForumPages.Posts, true, "t={0}&name={1}", t.LinkTopicID, t.Subject),
                         $"urn:{urlAlphaNum}:ft{feedType}:span{feedNameAlphaNum}:ltid{t.LinkTopicID}:lmid{t.LastMessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
                         lastPosted,
@@ -487,7 +487,7 @@ namespace YAF.Core.Services
                         forum.Forum,
                         forum.Description,
                         null,
-                        BuildLink.GetLink(ForumPages.Topics, true, "f={0}&name={1}", forum.ForumID, forum.Forum),
+                        this.Get<LinkBuilder>().GetLink(ForumPages.Topics, true, "f={0}&name={1}", forum.ForumID, forum.Forum),
                         $@"urn:{urlAlphaNum}:ft{feedType}:
                               fid{forum.ForumID}:lmid{forum.LastMessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
@@ -583,7 +583,7 @@ namespace YAF.Core.Services
                             topic.Item2.LastUserName,
                             topic.Item2.LastUserDisplayName));
 
-                    var messageLink = BuildLink.GetLink(
+                    var messageLink = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         true,
                         "m={0}&name={1}#post{0}",
@@ -599,7 +599,7 @@ namespace YAF.Core.Services
                             topic.Item2.LastMessageFlags ?? 22,
                             altItem),
                         null,
-                        BuildLink.GetLink(
+                        this.Get<LinkBuilder>().GetLink(
                             ForumPages.Posts,
                             true,
                             "t={0}&name={1}",
@@ -702,7 +702,7 @@ namespace YAF.Core.Services
                             altItem,
                             4000),
                         null,
-                        BuildLink.GetLink(
+                        this.Get<LinkBuilder>().GetLink(
                             ForumPages.Posts,
                             true,
                             "m={0}&name={1}&find=lastpost",
@@ -777,7 +777,7 @@ namespace YAF.Core.Services
                             null,
                             null));
 
-                    var postLink = BuildLink.GetLink(
+                    var postLink = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         true,
                         "m={0}&name={1}#post{0}",

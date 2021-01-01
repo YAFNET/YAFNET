@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,7 +24,6 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
@@ -35,7 +34,6 @@ namespace YAF.Types.Models
     /// A class which represents the UserPMessage table.
     /// </summary>
     [Serializable]
-    [Table(Name = "UserPMessage")]
     [PostCreateTable("alter table [{databaseOwner}].[{tableName}] add [IsRead]	   as (CONVERT([bit],sign([Flags]&(1)),(0)))" +
                          "alter table [{databaseOwner}].[{tableName}] add [IsInOutbox] as (CONVERT([bit],sign([Flags]&(2)),(0)))" +
                          "alter table [{databaseOwner}].[{tableName}] add [IsArchived] as (CONVERT([bit],sign([Flags]&(4)),(0)))" +

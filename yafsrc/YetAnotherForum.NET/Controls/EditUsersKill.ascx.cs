@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,6 +34,7 @@ namespace YAF.Controls
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Services.CheckForSpam;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -42,8 +43,8 @@ namespace YAF.Controls
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
-    using YAF.Utils;
-    
+
+    using DateTime = System.DateTime;
     using ListItem = System.Web.UI.WebControls.ListItem;
 
     #endregion
@@ -103,7 +104,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets CurrentUserID.
         /// </summary>
-        protected int CurrentUserId => Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+        protected int CurrentUserId => this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         /// <summary>
         /// Gets or sets the current user.
@@ -221,7 +222,7 @@ namespace YAF.Controls
                         // all is good, user can be deleted
                         this.Get<IAspNetUsersHelper>().DeleteUser(this.CurrentUserId);
 
-                        BuildLink.Redirect(ForumPages.Admin_Users);
+                        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
                     }
 
                     break;
@@ -285,7 +286,7 @@ namespace YAF.Controls
                         "ADMIN_EDITUSER",
                         "LINK_USER_BAN",
                         this.CurrentUserId,
-                        BuildLink.GetUserProfileLink(this.CurrentUserId, name),
+                        this.Get<LinkBuilder>().GetUserProfileLink(this.CurrentUserId, name),
                         this.HtmlEncode(name));
 
                     this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
@@ -297,7 +298,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.ViewPostsLink.NavigateUrl = BuildLink.GetLink(
+            this.ViewPostsLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                 ForumPages.Search,
                 "postedby={0}",
                 !this.User.Item1.IsGuest.Value

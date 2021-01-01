@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -35,6 +35,7 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -43,7 +44,6 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
@@ -69,7 +69,7 @@ namespace YAF.Controls
                         this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
                         this.GetText("TOOLBAR", "LOGOUT"),
                         this.GetText("COMMON", "CANCEL"),
-                        BuildLink.GetLink(ForumPages.Account_Logout)));
+                        this.Get<LinkBuilder>().GetLink(ForumPages.Account_Logout)));
             }
             
             base.OnPreRender(e);
@@ -230,7 +230,7 @@ namespace YAF.Controls
                 "dropdown-item",
                 this.GetText("TOOLBAR", "MYPROFILE"),
                 this.GetText("TOOLBAR", "MYPROFILE_TITLE"),
-                BuildLink.GetLink(ForumPages.MyAccount),
+                this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount),
                 false,
                 false,
                 null,
@@ -245,7 +245,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("EDIT_PROFILE"),
                     this.GetText("EDIT_PROFILE"),
-                    BuildLink.GetLink(ForumPages.Profile_EditProfile),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Profile_EditProfile),
                     false,
                     false,
                     null,
@@ -258,7 +258,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ACCOUNT", "EDIT_SETTINGS"),
                     this.GetText("ACCOUNT", "EDIT_SETTINGS"),
-                    BuildLink.GetLink(ForumPages.Profile_EditSettings),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Profile_EditSettings),
                     false,
                     false,
                     null,
@@ -272,7 +272,7 @@ namespace YAF.Controls
                 "dropdown-item",
                 this.GetText("ATTACHMENTS", "TITLE"),
                 this.GetText("ATTACHMENTS", "TITLE"),
-                BuildLink.GetLink(ForumPages.Profile_Attachments),
+                this.Get<LinkBuilder>().GetLink(ForumPages.Profile_Attachments),
                 false,
                 false,
                 null,
@@ -289,7 +289,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ACCOUNT", "EDIT_AVATAR"),
                     this.GetText("ACCOUNT", "EDIT_AVATAR"),
-                    BuildLink.GetLink(ForumPages.Profile_EditAvatar),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Profile_EditAvatar),
                     false,
                     false,
                     null,
@@ -305,7 +305,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ACCOUNT", "SIGNATURE"),
                     this.GetText("ACCOUNT", "SIGNATURE"),
-                    BuildLink.GetLink(ForumPages.Profile_EditSignature),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Profile_EditSignature),
                     false,
                     false,
                     null,
@@ -319,7 +319,7 @@ namespace YAF.Controls
                 "dropdown-item",
                 this.GetText("ACCOUNT", "SUBSCRIPTIONS"),
                 this.GetText("ACCOUNT", "SUBSCRIPTIONS"),
-                BuildLink.GetLink(ForumPages.Profile_Subscriptions),
+                this.Get<LinkBuilder>().GetLink(ForumPages.Profile_Subscriptions),
                 false,
                 false,
                 null,
@@ -332,7 +332,7 @@ namespace YAF.Controls
                 "dropdown-item",
                 this.GetText("BLOCK_OPTIONS", "TITLE"),
                 this.GetText("BLOCK_OPTIONS", "TITLE"),
-                BuildLink.GetLink(ForumPages.Profile_BlockOptions),
+                this.Get<LinkBuilder>().GetLink(ForumPages.Profile_BlockOptions),
                 false,
                 false,
                 null,
@@ -348,7 +348,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ACCOUNT", "CHANGE_PASSWORD"),
                     this.GetText("ACCOUNT", "CHANGE_PASSWORD"),
-                    BuildLink.GetLink(ForumPages.Profile_ChangePassword),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Profile_ChangePassword),
                     false,
                     false,
                     null,
@@ -365,7 +365,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ACCOUNT", "DELETE_ACCOUNT"),
                     this.GetText("ACCOUNT", "DELETE_ACCOUNT"),
-                    BuildLink.GetLink(ForumPages.Profile_DeleteAccount),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Profile_DeleteAccount),
                     false,
                     false,
                     null,
@@ -382,7 +382,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("TOOLBAR", "INBOX"),
                     this.GetText("TOOLBAR", "INBOX_TITLE"),
-                    BuildLink.GetLink(ForumPages.MyMessages),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages),
                     false,
                     this.PageContext.UnreadPrivate > 0,
                     this.PageContext.UnreadPrivate.ToString(),
@@ -399,7 +399,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("TOOLBAR", "BUDDIES"),
                     this.GetText("TOOLBAR", "BUDDIES_TITLE"),
-                    BuildLink.GetLink(ForumPages.Friends),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Friends),
                     false,
                     this.PageContext.PendingBuddies > 0,
                     this.PageContext.PendingBuddies.ToString(),
@@ -417,7 +417,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("TOOLBAR", "MYALBUMS"),
                     this.GetText("TOOLBAR", "MYALBUMS_TITLE"),
-                    BuildLink.GetLink(ForumPages.Albums, "u={0}", this.PageContext.PageUserID),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Albums, "u={0}", this.PageContext.PageUserID),
                     false,
                     false,
                     null,
@@ -432,7 +432,7 @@ namespace YAF.Controls
                 "dropdown-item",
                 this.GetText("TOOLBAR", "MYTOPICS"),
                 this.GetText("TOOLBAR", "MYTOPICS"),
-                BuildLink.GetLink(ForumPages.MyTopics),
+                this.Get<LinkBuilder>().GetLink(ForumPages.MyTopics),
                 false,
                 false,
                 string.Empty,
@@ -494,7 +494,7 @@ namespace YAF.Controls
 
                     this.NotifyItem.DataToggle = "tooltip";
                     this.NotifyItem.CssClass = "nav-link";
-                    this.NotifyItem.NavigateUrl = BuildLink.GetLink(ForumPages.Notification);
+                    this.NotifyItem.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Notification);
                 }
             }
 

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -39,6 +39,8 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -46,8 +48,6 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -169,7 +169,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.MyMessages);
+            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages);
         }
 
         /// <summary>
@@ -205,12 +205,12 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
 
             // users control panel
-            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), BuildLink.GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
 
             // private messages
             this.PageLinks.AddLink(
                 this.GetText(ForumPages.MyMessages.ToString(), "TITLE"),
-                BuildLink.GetLink(ForumPages.MyMessages));
+                this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages));
 
             // post new message
             this.PageLinks.AddLink(this.GetText("TITLE"));
@@ -319,7 +319,7 @@ namespace YAF.Pages
                 // get quoted message
                 var replyMessage =
                     this.GetRepository<PMessage>().GetMessage(
-                        Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p")));
+                        this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p")));
 
                 // there is such a message
                 if (replyMessage == null)
@@ -334,7 +334,7 @@ namespace YAF.Pages
                 // verify access to this PM
                 if (toUserId != this.PageContext.PageUserID && fromUserId != this.PageContext.PageUserID)
                 {
-                    BuildLink.AccessDenied();
+                    this.Get<LinkBuilder>().AccessDenied();
                 }
 
                 // handle subject
@@ -400,7 +400,7 @@ namespace YAF.Pages
                 }
                 else
                 {
-                    BuildLink.AccessDenied();
+                    this.Get<LinkBuilder>().AccessDenied();
                 }
             }
             else if (this.Get<HttpRequestBase>().QueryString.Exists("u")
@@ -416,9 +416,9 @@ namespace YAF.Pages
                 // get quoted message
                 var reporter =
                         this.GetRepository<User>().MessageReporter(
-                            Security.StringToIntOrRedirect(
+                            this.Get<LinkBuilder>().StringToIntOrRedirect(
                                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")),
-                            Security.StringToIntOrRedirect(
+                            this.Get<LinkBuilder>().StringToIntOrRedirect(
                                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")))
                         .FirstOrDefault();
 
@@ -462,7 +462,7 @@ namespace YAF.Pages
             {
                 // find user
                 var foundUser =
-                    this.GetRepository<User>().GetById(Security.StringToIntOrRedirect(
+                    this.GetRepository<User>().GetById(this.Get<LinkBuilder>().StringToIntOrRedirect(
                         this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
 
                 if (foundUser == null)
@@ -607,7 +607,7 @@ namespace YAF.Pages
                     replyTo);
 
                 // redirect to outbox (sent items), not control panel
-                BuildLink.Redirect(ForumPages.MyMessages, "v={0}", "out");
+                this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, "v={0}", "out");
             }
             else
             {
@@ -727,7 +727,7 @@ namespace YAF.Pages
                         });
 
                 // redirect to outbox (sent items), not control panel
-                BuildLink.Redirect(ForumPages.MyMessages, "v={0}", "out");
+                this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, "v={0}", "out");
             }
         }
 

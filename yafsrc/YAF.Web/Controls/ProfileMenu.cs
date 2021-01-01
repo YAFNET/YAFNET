@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,12 +31,12 @@ namespace YAF.Web.Controls
     
     using YAF.Configuration;
     using YAF.Core.BaseControls;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    
+
     #endregion
 
     /// <summary>
@@ -320,7 +320,7 @@ namespace YAF.Web.Controls
                 this.PageContext.ForumPageType == page
                     ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"" data-bs-toggle=""tooltip""><i class=""fas fa-{4} me-1 text-light""></i>{1}</a>"
                     : @"<a class=""{3}"" href=""{0}"" title=""{2}"" data-bs-toggle=""tooltip""><i class=""fas fa-{4} me-1 text-secondary""></i>{1}</a>",
-                parameter.IsSet() ? BuildLink.GetLink(page, parameter) : BuildLink.GetLink(page),
+                parameter.IsSet() ? this.Get<LinkBuilder>().GetLink(page, parameter) : this.Get<LinkBuilder>().GetLink(page),
                 getText,
                 getText,
                 cssClass,

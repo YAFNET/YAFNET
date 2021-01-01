@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,9 +28,8 @@ namespace YAF.Core.Helpers
 
     using System;
     using System.IO;
+    using System.Runtime.Caching;
     using System.Text;
-    using System.Web;
-    using System.Web.Caching;
     using System.Xml;
     using System.Xml.Serialization;
 
@@ -65,7 +64,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public T FromFile(string xmlFileName, string cacheName, Action<T> transformResource = null)
         {
-            if (HttpRuntime.Cache.Get(cacheName) is T file)
+            if (MemoryCache.Default.Get(cacheName) is T file)
             {
                 return file;
             }
@@ -91,15 +90,16 @@ namespace YAF.Core.Helpers
                         return resources;
                     }
 
-                    var fileDependency = new CacheDependency(xmlFileName);
-                    HttpRuntime.Cache.Add(
-                        cacheName,
-                        resources,
-                        fileDependency,
-                        DateTime.UtcNow.AddHours(1.0),
-                        TimeSpan.Zero,
-                        CacheItemPriority.Default,
-                        null);
+                    var item = new CacheItem(cacheName) { Value = resources, RegionName = xmlFileName };
+
+                    var cacheItemPolicy = new CacheItemPolicy
+                    {
+                        AbsoluteExpiration = DateTime.UtcNow.AddHours(1.0),
+                        SlidingExpiration = TimeSpan.Zero,
+                        Priority = System.Runtime.Caching.CacheItemPriority.Default
+                    };
+
+                    MemoryCache.Default.Add(item, cacheItemPolicy);
 
                     return resources;
                 }

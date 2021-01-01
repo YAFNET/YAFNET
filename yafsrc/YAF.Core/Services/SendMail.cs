@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -52,7 +52,9 @@ namespace YAF.Core.Services
         /// <param name="handleException">
         /// The handle Exception.
         /// </param>
-        public void SendAll([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleException = null)
+        public void SendAll(
+            [NotNull] IEnumerable<MailMessage> messages,
+            [CanBeNull] Action<MailMessage, Exception> handleException = null)
         {
             var mailMessages = messages.ToList();
 
@@ -61,28 +63,29 @@ namespace YAF.Core.Services
             var smtpClient = new SmtpClient();
 
             // send the message...
-            mailMessages.ToList().ForEach(m =>
-            {
-                try
+            mailMessages.ToList().ForEach(
+                m =>
                 {
-                    // send the message...
-                    smtpClient.Send(m);
-                }
-                catch (Exception ex)
-                {
-                    smtpClient.Dispose();
-
-                    if (handleException != null)
+                    try
                     {
-                        handleException(m, ex);
+                        // send the message...
+                        smtpClient.Send(m);
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        // don't handle here...
-                        throw;
+                        smtpClient.Dispose();
+                        
+                        if (handleException != null)
+                        {
+                            handleException(m, ex);
+                        }
+                        else
+                        {
+                            // don't handle here...
+                            throw;
+                        }
                     }
-                }
-            });
+                });
 
             smtpClient.Dispose();
         }

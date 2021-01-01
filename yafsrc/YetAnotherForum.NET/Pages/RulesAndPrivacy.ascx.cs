@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,11 +31,11 @@ namespace YAF.Pages
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -81,11 +81,11 @@ namespace YAF.Pages
         {
             if (!this.PageContext.BoardSettings.UseSSLToRegister)
             {
-                BuildLink.Redirect(ForumPages.Account_Register);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Account_Register);
             }
 
             this.Get<HttpResponseBase>()
-                .Redirect(BuildLink.GetLink(ForumPages.Account_Register, true).Replace("http:", "https:"));
+                .Redirect(this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register, true).Replace("http:", "https:"));
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace YAF.Pages
         /// </param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Board);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Board);
         }
 
         /// <summary>

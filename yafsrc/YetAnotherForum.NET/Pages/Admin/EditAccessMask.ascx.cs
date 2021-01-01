@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,14 +32,14 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -59,7 +59,7 @@ namespace YAF.Pages.Admin
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // get back to access masks administration
-            BuildLink.Redirect(ForumPages.Admin_AccessMasks);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_AccessMasks);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace YAF.Pages.Admin
 
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ACCESSMASKS", "TITLE"),
-                BuildLink.GetLink(ForumPages.Admin_AccessMasks));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_AccessMasks));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITACCESSMASKS", "TITLE"), string.Empty);
@@ -154,7 +154,7 @@ namespace YAF.Pages.Admin
                     sortOrder);
 
             // get back to access masks administration
-            BuildLink.Redirect(ForumPages.Admin_AccessMasks);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_AccessMasks);
         }
 
         /// <summary>

@@ -125,7 +125,7 @@
   <Resource tag="PRINTTOPIC">Prints topic</Resource>
   <Resource tag="PROFILE">Views profile of a user</Resource>
   <Resource tag="PROFILE_OFUSER">Views profile of user</Resource>
-  <Resource tag="PROFILE_OWN">Views his profile</Resource>
+  <Resource tag="PROFILE_OWN">Views his/her own profile</Resource>
   <Resource tag="RECOVERPASSWORD">No data</Resource>
   <Resource tag="REGISTER">Registers</Resource>
   <Resource tag="REPORTPOST">Reports a post</Resource>

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,11 +26,11 @@ namespace YAF.Web.Extensions
 {
     using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
-    using YAF.Utils;
     using YAF.Web.Controls;
 
     using Forum = YAF.Types.Models.Forum;
@@ -49,7 +49,9 @@ namespace YAF.Web.Extensions
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
 
-            pageLinks.AddLink(pageLinks.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.Board));
+            pageLinks.AddLink(
+                pageLinks.PageContext.BoardSettings.Name,
+                BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Board));
 
             return pageLinks;
         }
@@ -63,12 +65,13 @@ namespace YAF.Web.Extensions
         /// <returns>
         /// The <see cref="PageLinks"/>.
         /// </returns>
-        public static PageLinks AddAdminIndex(
-            this PageLinks pageLinks)
+        public static PageLinks AddAdminIndex(this PageLinks pageLinks)
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
 
-            pageLinks.AddLink(pageLinks.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.Admin_Admin));
+            pageLinks.AddLink(
+                pageLinks.GetText("ADMIN_ADMIN", "Administration"),
+                BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Admin_Admin));
 
             return pageLinks;
         }
@@ -88,17 +91,12 @@ namespace YAF.Web.Extensions
         /// <returns>
         /// The <see cref="PageLinks"/>.
         /// </returns>
-        public static PageLinks AddUser(
-            this PageLinks pageLinks,
-            [NotNull] int userId,
-            [NotNull] string name)
+        public static PageLinks AddUser(this PageLinks pageLinks, [NotNull] int userId, [NotNull] string name)
         {
             CodeContracts.VerifyNotNull(pageLinks);
             CodeContracts.VerifyNotNull(name);
 
-            pageLinks.AddLink(
-                name,
-                BuildLink.GetUserProfileLink(userId, name));
+            pageLinks.AddLink(name, BoardContext.Current.Get<LinkBuilder>().GetUserProfileLink(userId, name));
 
             return pageLinks;
         }
@@ -118,16 +116,11 @@ namespace YAF.Web.Extensions
         /// <returns>
         /// The <see cref="PageLinks"/>.
         /// </returns>
-        public static PageLinks AddTopic(
-            this PageLinks pageLinks,
-            [NotNull] string topicName,
-            [NotNull] int topicId)
+        public static PageLinks AddTopic(this PageLinks pageLinks, [NotNull] string topicName, [NotNull] int topicId)
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
 
-            pageLinks.AddLink(
-                topicName,
-                BuildLink.GetTopicLink(topicId, topicName));
+            pageLinks.AddLink(topicName, BoardContext.Current.Get<LinkBuilder>().GetTopicLink(topicId, topicName));
 
             return pageLinks;
         }
@@ -147,7 +140,9 @@ namespace YAF.Web.Extensions
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
             CodeContracts.VerifyNotNull(categoryName, "categoryName");
 
-            pageLinks.AddLink(categoryName, BuildLink.GetCategoryLink(categoryId, categoryName));
+            pageLinks.AddLink(
+                categoryName,
+                BoardContext.Current.Get<LinkBuilder>().GetCategoryLink(categoryId, categoryName));
 
             return pageLinks;
         }
@@ -170,7 +165,9 @@ namespace YAF.Web.Extensions
 
                 if (parent != null)
                 {
-                    pageLinks.AddLink(parent.Name, BuildLink.GetForumLink(parent.ID, parent.Name));
+                    pageLinks.AddLink(
+                        parent.Name,
+                        BoardContext.Current.Get<LinkBuilder>().GetForumLink(parent.ID, parent.Name));
                 }
             }
 
@@ -178,7 +175,11 @@ namespace YAF.Web.Extensions
             {
                 pageLinks.AddLink(
                     BoardContext.Current.PageForumName,
-                    noForumLink ? string.Empty : BuildLink.GetForumLink(forumId, BoardContext.Current.PageForumName));
+                    noForumLink
+                        ? string.Empty
+                        : BoardContext.Current.Get<LinkBuilder>().GetForumLink(
+                            forumId,
+                            BoardContext.Current.PageForumName));
             }
 
             return pageLinks;

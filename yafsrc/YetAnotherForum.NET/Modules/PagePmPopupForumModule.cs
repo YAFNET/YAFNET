@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,12 +27,12 @@ namespace YAF.Modules
 
     using System;
 
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -106,7 +106,7 @@ namespace YAF.Modules
                         this.GetTextFormatted("UNREAD_MSG2", this.PageContext.UnreadPrivate),
                         this.GetText("COMMON", "YES"),
                         this.GetText("COMMON", "NO"),
-                        BuildLink.GetLink(ForumPages.MyMessages)));
+                        this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages)));
 
                 this.Get<ISession>().LastPm = this.PageContext.LastUnreadPm;
 
@@ -126,7 +126,7 @@ namespace YAF.Modules
                     this.GetTextFormatted("PENDINGBUDDIES2", this.PageContext.PendingBuddies),
                     this.GetText("COMMON", "YES"),
                     this.GetText("COMMON", "NO"),
-                    BuildLink.GetLink(ForumPages.Friends)));
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Friends)));
 
             this.Get<ISession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
         }

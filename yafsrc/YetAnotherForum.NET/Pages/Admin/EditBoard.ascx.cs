@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -38,6 +38,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -46,7 +47,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -77,7 +77,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Admin_Boards);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Boards);
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_BOARDS", "TITLE"),
-                BuildLink.GetLink(ForumPages.Admin_EditBoard));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditBoard));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITBOARD", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -315,7 +315,7 @@ namespace YAF.Pages.Admin
             // Done
             this.PageContext.BoardSettings = null;
 
-            BuildLink.Redirect(ForumPages.Admin_Boards);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Boards);
         }
 
         /// <summary>

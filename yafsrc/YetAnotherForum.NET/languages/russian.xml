@@ -181,7 +181,6 @@
     <Resource tag="RSSTOPIC">Просматривает ленту RSS</Resource>
     <Resource tag="RULES">Просматривает правила форума</Resource>
     <Resource tag="SEARCH">Использует поиск</Resource>
-    <Resource tag="SHOUTBOX">Использует чат</Resource>
     <Resource tag="SUBSCRIPTIONS">Редактирует подписки</Resource>
     <Resource tag="TEAM">Просматривает список команды форума</Resource>
     <Resource tag="TOPICINFORUM"> в форуме </Resource>
@@ -1236,7 +1235,6 @@
     <Resource tag="HEADER_SEARCH">Настройки поиска</Resource>
     <Resource tag="HEADER_SERVER_INFO">Server Info</Resource>
     <Resource tag="HEADER_SETUP">Настройки хоста</Resource>
-    <Resource tag="HEADER_SHOUT">Shoutbox Settings</Resource>
     <Resource tag="HEADER_SPAM">Настройки анти-спама</Resource>
     <Resource tag="HEADER_SYNDICATION">Настройки синдикации</Resource>
     <Resource tag="HEADER_TEMPLATES">Настройки шаблонов</Resource>
@@ -1432,10 +1430,6 @@
     <Resource tag="SERVER_VERSION_HELP">Какая версия сервера SQL исполняется.</Resource>
     <Resource tag="SERVERTIME_CORRECT">Коррекция временной зоны сервера:</Resource>
     <Resource tag="SERVERTIME_CORRECT_HELP">Введите целое число (минуты) между -720 и 720, только если это время UTC неверно: </Resource>
-    <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>
-    <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
-    <Resource tag="SHOUTBOX_DEFAULTSTATE">Shout Box Default State:</Resource>
-    <Resource tag="SHOUTBOX_DEFAULTSTATE_HELP">The Default State for the Shout Box if it should be collapsed or expanded (Note: the State is saved as cookie, if you change the value you need to delete the cookie to see the changes).</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">Показывать активные обсуждения:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Включить или отключить отображение активных обсуждений.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">Отображать ссылки на ленты Atom:</Resource>
@@ -1487,8 +1481,6 @@
     <Resource tag="SHOW_RSS_LINKS">Показывать ссылки RSS:</Resource>
     <Resource tag="SHOW_RSS_LINKS_HELP">Разрешить ссылки RSS. Вы также должны установить разрешения для каждой ленты</Resource>
     <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
-    <Resource tag="SHOW_SHOUTBOX">Включить чат:</Resource>
-    <Resource tag="SHOW_SHOUTBOX_HELP">Включить чат на главной странице форума.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Показывать дату, когда пользователя сказали «Спасибо»:</Resource>
@@ -1569,8 +1561,6 @@
     <Resource tag="VIEWMEMBERLIST_PERMISSION_HELP">Разрешить просмотр списка пользователей:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION">Разрешения просмотра профиля:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">Разрешить просмотр профилей других пользователей:</Resource>
-    <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
-    <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
     <Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
     <Resource tag="WELCOME_NOTIFICATION_0">Send No Message</Resource>
     <Resource tag="WELCOME_NOTIFICATION_1">Send as e-mail</Resource>
@@ -5340,14 +5330,6 @@ Spoiler Content
     <Resource tag="TITLE">Поиск</Resource>
     <Resource tag="TITLE_ONLY">Search Titles Only</Resource>
     <Resource tag="TOPIC">Тема:</Resource>
-  </page>
-  <page name="SHOUTBOX">
-    <Resource tag="CLEAR">Очистить</Resource>
-    <Resource tag="FLYOUT">Открепить</Resource>
-    <Resource tag="HEADING">Поговорите с другими пользователями</Resource>
-    <Resource tag="MUSTBELOGGEDIN">Для использования чата вам необходимо войти в систему.</Resource>
-    <Resource tag="SUBMIT">Отправить</Resource>
-    <Resource tag="TITLE">Чат</Resource>
   </page>
   <page name="SUBSCRIPTIONS">
     <Resource tag="ALLTOPICS">Уведомление о [b]всех постах во всех темах[/b]</Resource>

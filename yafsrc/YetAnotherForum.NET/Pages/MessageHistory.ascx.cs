@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,15 +32,17 @@ namespace YAF.Pages
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects.Model;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -99,13 +101,13 @@ namespace YAF.Pages
         {
             if (this.PageContext.IsGuest)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
                 this.messageID =
-                    Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
+                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
 
                 this.ReturnBtn.Visible = true;
             }
@@ -115,11 +117,11 @@ namespace YAF.Pages
                 // We check here if the user have access to the option
                 if (this.PageContext.IsGuest)
                 {
-                    this.Get<HttpResponseBase>().Redirect(BuildLink.GetLink(ForumPages.Info, "i=4"));
+                    this.Get<HttpResponseBase>().Redirect(this.Get<LinkBuilder>().GetLink(ForumPages.Info, "i=4"));
                 }
 
                 this.forumID =
-                    Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
+                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
 
                 this.ReturnModBtn.Visible = true;
             }
@@ -128,7 +130,7 @@ namespace YAF.Pages
 
             if (this.originalMessage == null)
             {
-                BuildLink.RedirectInfoPage(InfoMessage.Invalid);
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
 
             if (this.IsPostBack)
@@ -159,7 +161,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReturnBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(
+            this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
                 "m={0}&name={1}#post{0}",
                 this.messageID,
@@ -173,7 +175,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReturnModBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Moderate_ReportedPosts, "f={0}", this.forumID);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_ReportedPosts, "f={0}", this.forumID);
         }
 
         /// <summary>

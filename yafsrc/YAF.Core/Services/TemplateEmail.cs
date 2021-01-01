@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,9 +30,9 @@ namespace YAF.Core.Services
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Utilities;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     /// <summary>
     ///     The YAF template email.
@@ -63,12 +63,12 @@ namespace YAF.Core.Services
             : this(templateName, true)
         {
             var logoUrl =
-                $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{this.Get<BoardSettings>().ForumLogo}";
+                $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.Get<BoardSettings>().ForumLogo}";
             var themeCss =
                 $"{this.Get<BoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
             this.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
-            this.TemplateParams["{forumlink}"] = BoardInfo.ForumURL;
+            this.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
             this.TemplateParams["{themecss}"] = themeCss;
             this.TemplateParams["{logo}"] = $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}";
         }

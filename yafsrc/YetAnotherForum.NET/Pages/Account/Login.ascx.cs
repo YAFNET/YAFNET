@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,15 +31,15 @@ namespace YAF.Pages.Account
 
     using YAF.Core.BasePages;
     using YAF.Core.Identity.Owin;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models.Identity;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     using Config = YAF.Configuration.Config;
@@ -136,7 +136,7 @@ namespace YAF.Pages.Account
         /// </param>
         protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Account_ForgotPassword);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Account_ForgotPassword);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace YAF.Pages.Account
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void RegisterLinkClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(
+            this.Get<LinkBuilder>().Redirect(
                 this.PageContext.BoardSettings.ShowRulesForRegistration ? ForumPages.RulesAndPrivacy : ForumPages.Account_Register);
         }
         
@@ -231,7 +231,7 @@ namespace YAF.Pages.Account
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
                     ? this.HtmlEncode(
                         this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl")))
-                    : BuildLink.GetLink(ForumPages.Board));
+                    : this.Get<LinkBuilder>().GetLink(ForumPages.Board));
         }
 
         /// <summary>

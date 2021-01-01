@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,12 +34,14 @@ namespace YAF.Controls
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -259,7 +261,7 @@ namespace YAF.Controls
         {
             if (this.PageContext.ForumVoteAccess)
             {
-                BuildLink.Redirect(
+                this.Get<LinkBuilder>().Redirect(
                     ForumPages.PollEdit,
                     "{0}&p={1}",
                     this.ParamsToSend(),
@@ -286,7 +288,7 @@ namespace YAF.Controls
         {
             if (this.PageContext.ForumVoteAccess)
             {
-                BuildLink.Redirect(ForumPages.PollEdit, "{0}", this.ParamsToSend());
+                this.Get<LinkBuilder>().Redirect(ForumPages.PollEdit, "{0}", this.ParamsToSend());
             }
             else
             {
@@ -339,7 +341,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindCreateNewPollRow()
         {
-            this.CreatePoll.NavigateUrl = BuildLink.GetLink(ForumPages.PollEdit, "{0}", this.ParamsToSend());
+            this.CreatePoll.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.PollEdit, "{0}", this.ParamsToSend());
             this.CreatePoll.DataBind();
 
             this.NewPollRow.Visible = true;
@@ -651,12 +653,12 @@ namespace YAF.Controls
             {
                 if (this.TopicId > 0)
                 {
-                    BuildLink.Redirect(ForumPages.Posts, "t={0}&name={1}", this.TopicId, this.PageContext.PageTopicName);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "t={0}&name={1}", this.TopicId, this.PageContext.PageTopicName);
                 }
             }
             else
             {
-                BuildLink.RedirectInfoPage(InfoMessage.Invalid);
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
         }
 

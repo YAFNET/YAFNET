@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -40,6 +40,8 @@ namespace YAF.Pages.Admin
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
+    using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -47,8 +49,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
@@ -82,7 +82,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    BuildLink.Redirect(ForumPages.Admin_EditUser, "u={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, "u={0}", e.CommandArgument);
                     break;
                 case "resendEmail":
                     var commandArgument = e.CommandArgument.ToString().Split(';');
@@ -96,14 +96,14 @@ namespace YAF.Pages.Admin
                         var subject = this.Get<ILocalization>()
                             .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageContext.BoardSettings.Name);
 
-                        verifyEmail.TemplateParams["{link}"] = BuildLink.GetLink(
+                        verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetLink(
                             ForumPages.Account_Approve,
                             true,
                             "code={0}",
                             checkMail.Hash);
                         verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
                         verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
-                        verifyEmail.TemplateParams["{forumlink}"] = BoardInfo.ForumURL;
+                        verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
 
                         verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
 
@@ -191,7 +191,7 @@ namespace YAF.Pages.Admin
             }
 
             return
-                $"<a target=\"_top\" href=\"{BuildLink.GetForumLink(forumId.ToType<int>(), forumName.ToString())}\">{forumName}</a>";
+                $"<a target=\"_top\" href=\"{this.Get<LinkBuilder>().GetForumLink(forumId.ToType<int>(), forumName.ToString())}\">{forumName}</a>";
         }
 
         /// <summary>
@@ -214,7 +214,7 @@ namespace YAF.Pages.Admin
             }
 
             return
-                $"<a target=\"_top\" href=\"{BuildLink.GetLink(ForumPages.Posts, "t={0}&name={1}", topicId, topicName)}\">{topicName}</a>";
+                $"<a target=\"_top\" href=\"{this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "t={0}&name={1}", topicId, topicName)}\">{topicName}</a>";
         }
 
         /// <summary>

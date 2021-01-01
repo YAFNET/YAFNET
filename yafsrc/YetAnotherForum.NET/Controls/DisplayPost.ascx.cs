@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -39,7 +39,9 @@ namespace YAF.Controls
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -47,11 +49,10 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects.Model;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
 
     using ButtonStyle = YAF.Types.Constants.ButtonStyle;
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -137,13 +138,13 @@ namespace YAF.Controls
 
             this.Edit.Visible = this.Edit2.Visible =
                                     !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
-            this.Edit.NavigateUrl = this.Edit2.NavigateUrl = BuildLink.GetLink(
+            this.Edit.NavigateUrl = this.Edit2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                         ForumPages.EditMessage,
                                         "m={0}",
                                         this.PostData.MessageId);
             this.MovePost.Visible =
                 this.Move.Visible = this.PageContext.ForumModeratorAccess && !this.PostData.IsLocked;
-            this.MovePost.NavigateUrl = this.Move.NavigateUrl = BuildLink.GetLink(
+            this.MovePost.NavigateUrl = this.Move.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                             ForumPages.MoveMessage,
                                             "m={0}",
                                             this.PostData.MessageId);
@@ -151,12 +152,12 @@ namespace YAF.Controls
                                       !this.PostData.PostDeleted && this.PostData.CanDeletePost
                                                                  && !this.PostData.IsLocked;
 
-            this.Delete.NavigateUrl = this.Delete2.NavigateUrl = BuildLink.GetLink(
+            this.Delete.NavigateUrl = this.Delete2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                           ForumPages.DeleteMessage,
                                           "m={0}&action=delete",
                                           this.PostData.MessageId);
             this.UnDelete.Visible = this.UnDelete2.Visible = this.PostData.CanUnDeletePost && !this.PostData.IsLocked;
-            this.UnDelete.NavigateUrl = this.UnDelete2.NavigateUrl = BuildLink.GetLink(
+            this.UnDelete.NavigateUrl = this.UnDelete2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                             ForumPages.DeleteMessage,
                                             "m={0}&action=undelete",
                                             this.PostData.MessageId);
@@ -173,7 +174,7 @@ namespace YAF.Controls
             {
                 this.ContextMenu.Attributes.Add(
                     "data-url", 
-                    BuildLink.GetLink(
+                    this.Get<LinkBuilder>().GetLink(
                         ForumPages.PostMessage,
                         "t={0}&f={1}",
                         this.PageContext.PageTopicID,
@@ -196,14 +197,14 @@ namespace YAF.Controls
 
             this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
 
-            this.Quote.NavigateUrl = this.Quote2.NavigateUrl = BuildLink.GetLink(
+            this.Quote.NavigateUrl = this.Quote2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                          ForumPages.PostMessage,
                                          "t={0}&f={1}&q={2}",
                                          this.PageContext.PageTopicID,
                                          this.PageContext.PageForumID,
                                          this.PostData.MessageId);
 
-            this.Reply.NavigateUrl = this.ReplyFooter.NavigateUrl = BuildLink.GetLink(
+            this.Reply.NavigateUrl = this.ReplyFooter.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                          ForumPages.PostMessage,
                                          "t={0}&f={1}",
                                          this.PageContext.PageTopicID,
@@ -285,7 +286,7 @@ namespace YAF.Controls
                 {
                     this.ReportPost.Visible = this.ReportPost2.Visible = true;
 
-                    this.ReportPost.NavigateUrl = this.ReportPost2.NavigateUrl = BuildLink.GetLink(
+                    this.ReportPost.NavigateUrl = this.ReportPost2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                                       ForumPages.ReportPost,
                                                       "m={0}",
                                                       this.PostData.MessageId);
@@ -384,7 +385,7 @@ namespace YAF.Controls
                 this.GetRepository<Message>().UpdateFlags(this.PostData.MessageId, messageFlags.BitValue);
             }
 
-            BuildLink.Redirect(
+            this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
                 "m={0}&name={1}#post{0}",
                 this.PostData.MessageId,
@@ -552,7 +553,7 @@ namespace YAF.Controls
                     TextLocalizedPage = "PAGE",
                     TextLocalizedTag = "SEARCHUSER",
                     CssClass = "dropdown-item",
-                    NavigateUrl = BuildLink.GetLink(
+                    NavigateUrl = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Search,
                         "postedby={0}",
                         this.PageContext.BoardSettings.EnableDisplayName
@@ -567,7 +568,7 @@ namespace YAF.Controls
                     TextLocalizedPage = "PAGE",
                     TextLocalizedTag = "SEARCHUSER",
                     CssClass = "dropdown-item",
-                    NavigateUrl = BuildLink.GetLink(
+                    NavigateUrl = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Search,
                         "postedby={0}",
                         this.PageContext.BoardSettings.EnableDisplayName
@@ -585,7 +586,7 @@ namespace YAF.Controls
                             TextLocalizedPage = "POSTS",
                             TextLocalizedTag = "EDITUSER",
                             CssClass = "dropdown-item",
-                            NavigateUrl = BuildLink.GetLink(ForumPages.Admin_EditUser, "u={0}", this.PostData.UserId)
+                            NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, "u={0}", this.PostData.UserId)
                         });
                 this.UserDropHolder2.Controls.Add(
                     new ThemeButton
@@ -595,7 +596,7 @@ namespace YAF.Controls
                             TextLocalizedPage = "POSTS",
                             TextLocalizedTag = "EDITUSER",
                             CssClass = "dropdown-item",
-                            NavigateUrl = BuildLink.GetLink(ForumPages.Admin_EditUser, "u={0}", this.PostData.UserId)
+                            NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, "u={0}", this.PostData.UserId)
                         });
             }
 

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,18 +32,18 @@ namespace YAF.Core.Services.Startup
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Tasks;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    /// The startup initialize db.
+    /// The startup initialize Database.
     /// </summary>
     public class StartupInitializeDb : BaseStartupService, ICriticalStartupService
     {
@@ -60,10 +60,10 @@ namespace YAF.Core.Services.Startup
         #region Methods
 
         /// <summary>
-        ///     The run service.
+        /// The run service.
         /// </summary>
         /// <returns>
-        ///     The run service.
+        /// The <see cref="bool"/>.
         /// </returns>
         protected override bool RunService()
         {

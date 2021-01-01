@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -38,7 +38,6 @@ namespace YAF.Pages
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -72,7 +71,7 @@ namespace YAF.Pages
             if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageContext.ForumReadAccess
                 || !this.PageContext.BoardSettings.AllowEmailTopic)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -90,7 +89,7 @@ namespace YAF.Pages
             {
                 TemplateParams =
                 {
-                    ["{link}"] = BuildLink.GetLink(
+                    ["{link}"] = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         true,
                         "t={0}&name={1}",
@@ -119,7 +118,7 @@ namespace YAF.Pages
 
             this.PageLinks.AddLink(
                 this.PageContext.PageTopicName,
-                BuildLink.GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopicName));
+                this.Get<LinkBuilder>().GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopicName));
         }
 
         /// <summary>
@@ -139,7 +138,7 @@ namespace YAF.Pages
                 // send a change email message...
                 emailTopic.SendEmail(new MailAddress(this.EmailAddress.Text.Trim()), this.Subject.Text.Trim());
 
-                BuildLink.Redirect(
+                this.Get<LinkBuilder>().Redirect(
                     ForumPages.Posts,
                     "t={0}&name={1}",
                     this.PageContext.PageTopicID,

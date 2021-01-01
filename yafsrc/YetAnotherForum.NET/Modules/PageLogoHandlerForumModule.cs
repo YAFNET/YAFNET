@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,13 +28,13 @@ namespace YAF.Modules
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -83,10 +83,10 @@ namespace YAF.Modules
                 return;
             }
 
-            bannerLink.NavigateUrl = BuildLink.GetLink(ForumPages.Board);
+            bannerLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Board);
             bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
 
-            var logoUrl = $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
+            var logoUrl = $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.PageContext.BoardSettings.ForumLogo}";
 
             bannerLink.Attributes.Add("style", $"background: url('{logoUrl}') no-repeat");
             

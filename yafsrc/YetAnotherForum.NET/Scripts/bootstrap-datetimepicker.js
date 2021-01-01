@@ -448,9 +448,9 @@
                 }
 
                 if (horizontal === 'right') {
-                    widget.addClass('float-right');
+                    widget.addClass('float-end');
                 } else {
-                    widget.removeClass('float-right');
+                    widget.removeClass('float-end');
                 }
 
                 // find the first parent element that has a non-static css positioning

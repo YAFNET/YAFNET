@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,13 +29,13 @@ namespace YAF.Modules
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
 
+    using YAF.Core.Services;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     ///     Generates a canonical meta tag to fight the dreaded duplicate content SEO warning
@@ -79,7 +79,7 @@ namespace YAF.Modules
                 }
                 else
                 {
-                    var topicUrl = BuildLink.GetLink(
+                    var topicUrl = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         true,
                         TopicLinkParams,

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,6 +34,10 @@ namespace YAF.Core.BasePages
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Handlers;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
+    using YAF.Core.Utilities.Helpers.StringUtils;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
@@ -41,9 +45,6 @@ namespace YAF.Core.BasePages
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models.Identity;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
-    using YAF.Utils.Helpers.StringUtils;
 
     #endregion
 
@@ -280,12 +281,7 @@ namespace YAF.Core.BasePages
         [CanBeNull]
         public string HtmlEncode([NotNull] object data)
         {
-            if (!(data is string))
-            {
-                return null;
-            }
-
-            return this.unicodeEncoder.XSSEncode(data.ToString());
+            return !(data is string) ? null : this.unicodeEncoder.XSSEncode(data.ToString());
         }
 
         /// <summary>
@@ -391,7 +387,10 @@ namespace YAF.Core.BasePages
         {
             if (this.PageContext.BoardSettings.DoUrlReferrerSecurityCheck)
             {
-                Security.CheckRequestValidity(this.Request);
+                if (Security.CheckRequestValidity(this.Request))
+                {
+                    this.Get<LinkBuilder>().AccessDenied();
+                }
             }
 
             if (!this.IsPostBack)

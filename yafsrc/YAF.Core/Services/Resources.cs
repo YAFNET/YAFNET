@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2020 Ingo Herbote
+* Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,6 +29,7 @@ namespace YAF.Core.Services
     using System;
     using System.Drawing.Imaging;
     using System.Linq;
+    using System.Runtime.Caching;
     using System.Text;
     using System.Web;
 
@@ -41,14 +42,14 @@ namespace YAF.Core.Services
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers.ImageUtils;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
-    using YAF.Utils;
-    using YAF.Utils.Helpers.ImageUtils;
 
     #endregion
 
@@ -332,7 +333,7 @@ namespace YAF.Core.Services
 
                 var captchaImage =
                     new CaptchaImage(
-                        CaptchaHelper.GetCaptchaText(new HttpSessionStateWrapper(context.Session), context.Cache, true),
+                        CaptchaHelper.GetCaptchaText(new HttpSessionStateWrapper(context.Session), MemoryCache.Default, true),
                         250,
                         50,
                         "Century Schoolbook");

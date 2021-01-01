@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,11 +31,11 @@ namespace YAF.Web.Controls
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Web.EventsArgs;
 
     #endregion
@@ -143,18 +143,18 @@ namespace YAF.Web.Controls
             var url = this.PageContext.ForumPageType switch
             {
                 ForumPages.Topics => page > 1
-                    ? BuildLink.GetLink(
+                    ? this.Get<LinkBuilder>().GetLink(
                         ForumPages.Topics,
                         "f={0}&p={1}&name={2}",
                         this.PageContext.PageForumID,
                         page,
                         this.PageContext.PageForumName)
-                    : BuildLink.GetLink(
+                    : this.Get<LinkBuilder>().GetLink(
                         ForumPages.Topics,
                         "f={0}&name={1}",
                         this.PageContext.PageForumID,
                         this.PageContext.PageForumName),
-                ForumPages.Posts => BuildLink.GetLink(
+                ForumPages.Posts => this.Get<LinkBuilder>().GetLink(
                     ForumPages.Posts,
                     "t={0}&p={1}&name={2}",
                     this.PageContext.PageTopicID,
@@ -178,7 +178,7 @@ namespace YAF.Web.Controls
             {
                 // set a new page...
                 this.CurrentPageIndex =
-                    Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p")) - 1;
+                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p")) - 1;
             }
 
             this.gotoPageForm.ID = this.GetExtendedID("GotoPageForm");

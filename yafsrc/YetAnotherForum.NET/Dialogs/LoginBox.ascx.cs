@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,15 +31,17 @@ namespace YAF.Dialogs
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models.Identity;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -107,7 +109,7 @@ namespace YAF.Dialogs
         /// </param>
         protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Account_ForgotPassword);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Account_ForgotPassword);
         }
 
         /// <summary>
@@ -117,7 +119,7 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void RegisterLinkClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(
+            this.Get<LinkBuilder>().Redirect(
                 this.PageContext.BoardSettings.ShowRulesForRegistration ? ForumPages.RulesAndPrivacy : ForumPages.Account_Register);
         }
 

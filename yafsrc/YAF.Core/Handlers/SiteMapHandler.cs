@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,20 +26,20 @@ namespace YAF.Core.Handlers
 {
     #region Using
 
-    using System;
     using System.Globalization;
     using System.Web;
     using System.Xml.Serialization;
 
     using YAF.Core.Context;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
 
+    using DateTime = System.DateTime;
     using SiteMap = YAF.Types.Objects.SiteMap;
 
     #endregion
@@ -85,7 +85,7 @@ namespace YAF.Core.Handlers
                 forum => siteMap.Add(
                     new UrlLocation
                     {
-                        Url = BuildLink.GetTopicLink(forum.Item1.ID, forum.Item1.Name),
+                        Url = this.Get<LinkBuilder>().GetTopicLink(forum.Item1.ID, forum.Item1.Name),
                         Priority = 0.8D,
                         LastModified =
                             forum.Item1.LastPosted.HasValue

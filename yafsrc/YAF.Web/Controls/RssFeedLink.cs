@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,11 +28,11 @@ namespace YAF.Web.Controls
     using System.Web.UI;
 
     using YAF.Core.BaseControls;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -95,7 +95,7 @@ namespace YAF.Web.Controls
                 Icon = "rss-square",
                 DataToggle = "tooltip",
                 TitleNonLocalized = this.GetText("ATOMFEED"),
-                NavigateUrl = BuildLink.GetLink(
+                NavigateUrl = this.Get<LinkBuilder>().GetLink(
                     ForumPages.Feed,
                     "feed={0}{1}",
                     this.FeedType.ToInt(),

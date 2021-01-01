@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Moderate.ReportedPosts" CodeBehind="ReportedPosts.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="ServiceStack" %>
+<%@ Import Namespace="YAF.Core.Services" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -18,7 +19,7 @@
                     <div class="card-header">
                         <YAF:Icon runat="server" IconName="comment" IconType="text-secondary" />
                         <a id="TopicLink" 
-                           href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}&name={1}", (Container.DataItem as dynamic).TopicID, (Container.DataItem as dynamic).TopicName) %>'
+                           href='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "t={0}&name={1}", (Container.DataItem as dynamic).TopicID, (Container.DataItem as dynamic).TopicName) %>'
                            runat="server"><%# (Container.DataItem as dynamic).TopicName %></a>
                         <div class="float-end">
                             <span class="fw-bold">
@@ -42,7 +43,7 @@
                                              Size="Small"
                                              Visible="<%# this.PageContext.IsAdmin %>"
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
-                                             NavigateUrl='<%# BuildLink.GetLink( ForumPages.Admin_EditUser,"u={0}", (Container.DataItem as dynamic).UserID ) %>'
+                                             NavigateUrl='<%# this.Get<LinkBuilder>().GetLink( ForumPages.Admin_EditUser,"u={0}", (Container.DataItem as dynamic).UserID ) %>'
                                              Icon="users-cog" 
                                              Type="Danger">
                             </YAF:ThemeButton>

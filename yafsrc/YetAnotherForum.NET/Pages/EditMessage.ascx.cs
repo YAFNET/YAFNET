@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -35,7 +35,9 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -43,10 +45,9 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
+    using DateTime = System.DateTime;
     using ListItem = System.Web.UI.WebControls.ListItem;
 
     #endregion
@@ -116,7 +117,7 @@ namespace YAF.Pages
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // reply to existing topic or editing of existing topic
-            BuildLink.Redirect(
+            this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
                 "t={0}&name={1}",
                 this.PageContext.PageTopicID,
@@ -230,18 +231,18 @@ namespace YAF.Pages
         {
             if (this.PageContext.PageForumID == 0)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.Get<HttpRequestBase>()["t"] == null && this.Get<HttpRequestBase>()["m"] == null
                                                          && !this.PageContext.ForumPostAccess)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.Get<HttpRequestBase>()["t"] != null && !this.PageContext.ForumReplyAccess)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             this.topic = this.GetRepository<Topic>().GetById(this.PageContext.PageTopicID);
@@ -256,7 +257,7 @@ namespace YAF.Pages
 
                     if (!this.CanEditPostCheck(editMessage.Item2, this.topic))
                     {
-                        BuildLink.AccessDenied();
+                        this.Get<LinkBuilder>().AccessDenied();
                     }
                 }
 
@@ -369,7 +370,7 @@ namespace YAF.Pages
         {
             if (!this.PageContext.ForumEditAccess)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             var subjectSave = string.Empty;
@@ -543,12 +544,12 @@ namespace YAF.Pages
                 if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)
                 {
                     // regular redirect...
-                    BuildLink.Redirect(ForumPages.Posts, "m={0}&name={1}#post{0}", messageId, this.PageContext.PageTopicName);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "m={0}&name={1}#post{0}", messageId, this.PageContext.PageTopicName);
                 }
                 else
                 {
                     // poll edit redirect...
-                    BuildLink.Redirect(ForumPages.PollEdit, "{0}", attachPollParameter);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.PollEdit, "{0}", attachPollParameter);
                 }
             }
             else
@@ -571,20 +572,20 @@ namespace YAF.Pages
                 }
 
                 // Tell user that his message will have to be approved by a moderator
-                var url = BuildLink.GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForumName);
+                var url = this.Get<LinkBuilder>().GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForumName);
 
                 if (this.PageContext.PageTopicID > 0 && this.topic.NumPosts > 1)
                 {
-                    url = BuildLink.GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopicName);
+                    url = this.Get<LinkBuilder>().GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopicName);
                 }
 
                 if (attachPollParameter.Length <= 0)
                 {
-                    BuildLink.Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
                 }
                 else
                 {
-                    BuildLink.Redirect(ForumPages.PollEdit, "&ra=1{0}{1}", attachPollParameter, returnForum);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.PollEdit, "&ra=1{0}{1}", attachPollParameter, returnForum);
                 }
             }
         }

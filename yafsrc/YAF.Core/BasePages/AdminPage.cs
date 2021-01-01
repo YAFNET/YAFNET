@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,13 +29,13 @@ namespace YAF.Core.BasePages
     using System;
 
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-
+    
     #endregion
 
     /// <summary>
@@ -90,7 +90,7 @@ namespace YAF.Core.BasePages
             // not admins are forbidden
             if (!this.PageContext.IsAdmin)
             { 
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             // host admins are not checked
@@ -105,7 +105,7 @@ namespace YAF.Core.BasePages
             // Check access rights to the page.
             if (!this.PageContext.ForumPageType.ToString().IsSet() || !hasAccess)
             {
-                BuildLink.RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
             }
         }
 

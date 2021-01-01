@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,18 +31,17 @@ namespace YAF.Controls
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
     using YAF.Types.Objects.Model;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
 
     #endregion
@@ -110,7 +109,7 @@ namespace YAF.Controls
 
                 output = item.RemoteURL.IsSet()
                              ? $"<a href=\"{item.RemoteURL}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fas fa-external-link-alt fa-fw\"></i></a>"
-                             : $"<a href=\"{BuildLink.GetForumLink(forumID, output)}\" data-bs-toggle=\"tooltip\" title=\"{title}\">{this.Page.HtmlEncode(output)}</a>";
+                             : $"<a href=\"{this.Get<LinkBuilder>().GetForumLink(forumID, output)}\" data-bs-toggle=\"tooltip\" title=\"{title}\">{this.Page.HtmlEncode(output)}</a>";
             }
             else
             {
@@ -209,7 +208,7 @@ namespace YAF.Controls
                 if (forumImage != null)
                 {
                     forumImage.ImageUrl =
-                        $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Forums}/{item.ImageURL}";
+                        $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Forums}/{item.ImageURL}";
 
                     // Highlight custom icon images and add tool tips to them. 
                     try

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,12 +32,14 @@ namespace YAF.Controls
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    
+
+    using DateTime = System.DateTime;
+
     #endregion
 
     /// <summary>
@@ -95,7 +97,7 @@ namespace YAF.Controls
                     this.GetTextFormatted(
                         activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2",
                         activeUsers),
-                    BuildLink.GetLink(ForumPages.ActiveUsers, "v={0}", 0),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, "v={0}", 0),
                     this.GetText("COMMON", "VIEW_FULLINFO"),
                     this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty);
             }
@@ -112,7 +114,7 @@ namespace YAF.Controls
             {
                 sb.Append(
                     canViewActive
-                        ? $", <a href=\"{BuildLink.GetLink(ForumPages.ActiveUsers, "v={0}", 1)}\" title=\"{this.GetText("COMMON", "VIEW_FULLINFO")}\"{(this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty)}>{this.GetTextFormatted(activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)}</a>"
+                        ? $", <a href=\"{this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, "v={0}", 1)}\" title=\"{this.GetText("COMMON", "VIEW_FULLINFO")}\"{(this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty)}>{this.GetTextFormatted(activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)}</a>"
                         : $", {this.GetTextFormatted(activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)}");
             }
 
@@ -126,7 +128,7 @@ namespace YAF.Controls
                         this.GetTextFormatted(
                             activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2",
                             activeGuests),
-                        BuildLink.GetLink(ForumPages.ActiveUsers, "v={0}", 2),
+                        this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, "v={0}", 2),
                         this.GetText("COMMON", "VIEW_FULLINFO"),
                         this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty);
                 }
@@ -142,7 +144,7 @@ namespace YAF.Controls
                 sb.AppendFormat(
                     ", <a href=\"{1}\" title=\"{2}\">{0}</a>",
                     this.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden),
-                    BuildLink.GetLink(ForumPages.ActiveUsers, "v={0}", 3),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, "v={0}", 3),
                     this.GetText("COMMON", "VIEW_FULLINFO"));
             }
 

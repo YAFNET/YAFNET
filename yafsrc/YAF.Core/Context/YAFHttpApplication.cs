@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,14 +28,11 @@ namespace YAF.Core.Context
     using System.Web;
     using System.Web.Http;
 
-    using Autofac;
-
     using YAF.Core.Context.Start;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Services.Startup;
     using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
 
@@ -88,10 +85,6 @@ namespace YAF.Core.Context
         /// </param>
         protected virtual void Application_Start(object sender, EventArgs e)
         {
-            //DependencyResolver.SetResolver(new AutofacDependencyResolver(GlobalContainer.Container));
-
-           
-
             // Pass a delegate to the Configure method.
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
@@ -109,34 +102,11 @@ namespace YAF.Core.Context
         /// </param>
         protected void Session_Start(object sender, EventArgs e)
         {
-            // set the httpApplication as early as possible...
-            GlobalContainer.Container.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance =
-                new HttpApplicationStateWrapper(this.Application);
-
-            // init the modules and run them immediately...
-            /*var baseModules = this.Get<IModuleManager<IBaseForumModule>>();
-
-            baseModules.GetAll().ForEach(
-                module =>
-                {
-                    module.ForumControlObj = HttpContext.Current.Handler;
-                    module.Init();
-                });*/
-
-
             // run startup services...
             this.RunStartupServices();
 
             // app init notification...
             this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(this), null);
-        }
-
-        /// <summary>
-        /// The application_ post authorize request.
-        /// </summary>
-        protected void Application_PostAuthorizeRequest()
-        {
-           // HttpContext.Current.SetSessionStateBehavior(System.Web.SessionState.SessionStateBehavior.Required);
         }
     }
 }

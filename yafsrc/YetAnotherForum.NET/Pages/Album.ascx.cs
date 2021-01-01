@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,12 +31,12 @@ namespace YAF.Pages
 
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -62,13 +62,13 @@ namespace YAF.Pages
         ///   Gets user ID of edited user.
         /// </summary>
         protected int CurrentUserID =>
-            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         /// <summary>
         /// The album id.
         /// </summary>
         protected int AlbumID =>
-            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
+            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
 
         #region Methods
 
@@ -81,13 +81,13 @@ namespace YAF.Pages
         {
             if (!this.PageContext.BoardSettings.EnableAlbum)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (!this.Get<HttpRequestBase>().QueryString.Exists("u")
                 || !this.Get<HttpRequestBase>().QueryString.Exists("a"))
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             var displayName = this.Get<IUserDisplayName>().GetNameById(this.CurrentUserID);
@@ -98,7 +98,7 @@ namespace YAF.Pages
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
             this.PageLinks.AddUser(this.CurrentUserID, displayName);
-            this.PageLinks.AddLink(this.GetText("ALBUMS"), BuildLink.GetLink(ForumPages.Albums, "u={0}", this.CurrentUserID));
+            this.PageLinks.AddLink(this.GetText("ALBUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Albums, "u={0}", this.CurrentUserID));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             // Set the title text.
@@ -127,7 +127,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Back_Click(object sender, EventArgs e)
         {
-            BuildLink.Redirect(
+            this.Get<LinkBuilder>().Redirect(
                 ForumPages.Albums,
                 "u={0}",
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
@@ -140,7 +140,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void EditAlbums_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(
+            this.Get<LinkBuilder>().Redirect(
                 ForumPages.EditAlbumImages,
                 "a={0}",
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));

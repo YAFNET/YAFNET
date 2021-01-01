@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,6 +33,7 @@ namespace YAF.Pages.Profile
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -41,8 +42,9 @@ namespace YAF.Pages.Profile
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -67,7 +69,7 @@ namespace YAF.Pages.Profile
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), BuildLink.GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
 
             this.PageLinks.AddLink(
                 string.Format(this.GetText("DELETE_ACCOUNT", "TITLE"), this.PageContext.BoardSettings.Name),
@@ -83,7 +85,7 @@ namespace YAF.Pages.Profile
         {
             if (Config.IsDotNetNuke || this.PageContext.User.UserFlags.IsHostAdmin)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -102,7 +104,7 @@ namespace YAF.Pages.Profile
 
             this.Options.SelectedIndex = 0;
 
-            this.Cancel.NavigateUrl = BuildLink.GetLink(ForumPages.MyAccount);
+            this.Cancel.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount);
 
             this.DeleteUser.ReturnConfirmText = this.GetText("CONFIRM");
         }
@@ -183,7 +185,7 @@ namespace YAF.Pages.Profile
                     break;
             }
 
-            BuildLink.Redirect(ForumPages.Board);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Board);
         }
 
         #endregion

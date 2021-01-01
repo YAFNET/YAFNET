@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Profile.Subscriptions" CodeBehind="Subscriptions.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Core.Services" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -97,7 +98,7 @@
                                         <asp:CheckBox ID="unsubf" runat="server" CssClass="form-check d-inline-block" Text="&nbsp;" />
                                         <asp:Label ID="tfid" runat="server" Text='<%# this.Eval("Item1.ID") %>'
                                                Visible="false" />
-                                        <a href="<%# BuildLink.GetForumLink(this.Eval("Item1.ForumID").ToType<int>(), this.Eval("Item2.Name").ToString())%>">
+                                        <a href="<%# this.Get<LinkBuilder>().GetForumLink(this.Eval("Item1.ForumID").ToType<int>(), this.Eval("Item2.Name").ToString())%>">
                                                 <%# this.HtmlEncode(this.Eval("Item2.Name"))%></a>
                                     </li>
                                 </ItemTemplate>
@@ -161,7 +162,7 @@
                                         </asp:CheckBox>
                                         <asp:Label ID="ttid" runat="server" Text='<%# this.Eval("Item1.ID") %>'
                                                Visible="false" />
-                                            <a href="<%# BuildLink.GetTopicLink(this.Eval("Item1.TopicID").ToType<int>(), this.Eval("Item2.TopicName").ToString())%>">
+                                            <a href="<%# this.Get<LinkBuilder>().GetTopicLink(this.Eval("Item1.TopicID").ToType<int>(), this.Eval("Item2.TopicName").ToString())%>">
                                                 <%# this.HtmlEncode(this.Eval("Item2.TopicName"))%></a>
                                     </li>
                                 </ItemTemplate>

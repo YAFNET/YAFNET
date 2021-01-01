@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,6 +31,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -38,7 +39,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -54,7 +54,7 @@ namespace YAF.Pages.Admin
         ///   Gets user ID of edited user.
         /// </summary>
         protected int CurrentUserId =>
-            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         /// <summary>
         ///   Gets a value indicating whether Is Guest User.
@@ -97,7 +97,7 @@ namespace YAF.Pages.Admin
             if (!this.PageContext.User.UserFlags.IsHostAdmin && user.UserFlags.IsHostAdmin)
             {
                 // user is not host admin and is attempted to edit host admin account...
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -139,7 +139,7 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddAdminIndex();
 
-            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), BuildLink.GetLink(ForumPages.Admin_Users));
+            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Users));
         }
 
         #endregion

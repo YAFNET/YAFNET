@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,19 +25,20 @@ namespace YAF.Web.Controls
 {
     #region Using
 
-    using System;
     using System.Linq;
     using System.Web.UI;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -117,7 +118,7 @@ namespace YAF.Web.Controls
                             writer.Write(
                                 @"<span class=""fw-bold me-2"">{0}</span><a href=""{1}"">{2}</a> : {3}",
                                 this.GetText("RESOLVEDBY"),
-                                BuildLink.GetUserProfileLink(this.ResolvedBy.ToType<int>(), resolvedByName),
+                                this.Get<LinkBuilder>().GetUserProfileLink(this.ResolvedBy.ToType<int>(), resolvedByName),
                                 resolvedByName,
                                 this.Get<IDateTime>().FormatDateTimeTopic(this.ResolvedDate));
                         }
@@ -125,14 +126,14 @@ namespace YAF.Web.Controls
                         writer.Write(
                             @"<span class=""fw-bold mx-2"">{3}</span><a href=""{1}"" class=""me-2"">{0}</a><em>{2}</em>",
                             reporterName,
-                            BuildLink.GetUserProfileLink(reporter.Item2.ID, reporterName),
+                            this.Get<LinkBuilder>().GetUserProfileLink(reporter.Item2.ID, reporterName),
                             howMany,
                             this.GetText("REPORTEDBY"));
 
                         writer.Write(
                             @"<a class=""btn btn-secondary btn-sm ms-2"" href=""{1}""><i class=""fa fa-envelope fa-fw""></i>&nbsp;{2} {0}</a>",
                             reporterName,
-                            BuildLink.GetLink(
+                            this.Get<LinkBuilder>().GetLink(
                                 ForumPages.PostPrivateMessage,
                                 "u={0}&r={1}",
                                 reporter.Item2.ID,

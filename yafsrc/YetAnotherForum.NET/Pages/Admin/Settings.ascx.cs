@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,21 +33,20 @@ namespace YAF.Pages.Admin
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.BoardSettings;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     using ListItem = System.Web.UI.WebControls.ListItem;
@@ -85,7 +84,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.Board));
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, this.Get<LinkBuilder>().GetLink(ForumPages.Board));
             this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "TITLE"), string.Empty);
 
@@ -154,7 +153,7 @@ namespace YAF.Pages.Admin
             // Clearing cache with old users permissions data to get new default styles...
             this.Get<IDataCache>().Remove(x => x.StartsWith(Constants.Cache.ActiveUserLazyData));
 
-            BuildLink.Redirect(ForumPages.Admin_Admin);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Admin);
         }
 
         /// <summary>
@@ -207,11 +206,11 @@ namespace YAF.Pages.Admin
             };
 
             var dir = new DirectoryInfo(
-                this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Logos}"));
+                this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{this.Get<BoardFolders>().Logos}"));
 
             var files = dir.GetFiles("*.*").ToList();
 
-            logos.AddImageFiles(files, BoardFolders.Current.Logos);
+            logos.AddImageFiles(files, this.Get<BoardFolders>().Logos);
 
             this.BoardLogo.DataSource = logos;
             this.BoardLogo.DataValueField = "Value";

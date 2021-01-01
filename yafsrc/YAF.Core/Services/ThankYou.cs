@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,7 +34,6 @@ namespace YAF.Core.Services
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
-    using YAF.Utils;
 
     /// <summary>
     ///  ThankYou Class to handle Thanks
@@ -206,7 +205,7 @@ namespace YAF.Core.Services
                         filler.AppendFormat(
                             @"<li class=""list-inline-item""><a id=""{0}"" href=""{1}""><u>{2}</u></a>",
                             dr.Item2.ID,
-                            BuildLink.GetUserProfileLink(dr.Item2.ID, name),
+                            this.Get<LinkBuilder>().GetUserProfileLink(dr.Item2.ID, name),
                             name);
 
                         if (this.Get<BoardSettings>().ShowThanksDate)

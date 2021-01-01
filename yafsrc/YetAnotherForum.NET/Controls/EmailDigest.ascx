@@ -2,8 +2,8 @@
     Inherits="YAF.Controls.EmailDigest" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Configuration" %>
 <%@ Import Namespace="ServiceStack" %>
+<%@ Import Namespace="YAF.Core.Services" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en">
@@ -13,14 +13,14 @@
 <body class="bg-light">
 <div class="container">
 <div class="mx-auto mt-4 mb-3 text-center" 
-     style="width:100px;height:40px;background: url('<%= "{0}/{1}/{2}/{3}".Fmt(this.PageContext.BoardSettings.BaseUrlMask, BoardInfo.ForumClientFileRoot, BoardFolders.Current.Logos, this.BoardSettings.ForumLogo) %>') no-repeat;"></div>
+     style="width:100px;height:40px;background: url('<%= "{0}/{1}/{2}/{3}".Fmt(this.PageContext.BoardSettings.BaseUrlMask, BoardInfo.ForumClientFileRoot, this.Get<BoardFolders>()Logos, this.BoardSettings.ForumLogo) %>') no-repeat;"></div>
   <div class="card mb-4" style="border-top: 5px solid #3761b5;">
     <div class="card-body">
       <h4 class="text-center">
           <YAF:LocalizedLabel runat="server" LocalizedTag="ACTIVETOPICS"></YAF:LocalizedLabel>
       </h4>
       <h5 class="text-muted text-center">
-          <%= this.Get<IDateTime>().FormatDateLong(DateTime.UtcNow) %>
+          <%= this.Get<IDateTime>().FormatDateLong(System.DateTime.UtcNow) %>
       </h5>
     </div>
   </div>
@@ -41,7 +41,7 @@
                     foreach (var t in f.OrderByDescending(x => x.LastPostDate))
                     { %>
                            <h6 class="card-subtitle">
-                            <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}&name={1}#post{0}", t.LastMessageID, t.Subject) %>"
+                            <a href="<%= this.Get<LinkBuilder>().GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}&name={1}#post{0}", t.LastMessageID, t.Subject) %>"
                                 target="_blank">
                                 <i class="fas fa-comment"></i> <%= t.Subject %></a> 
                                  <span class="badge bg-secondary">
@@ -56,7 +56,7 @@
                         </p>
                        
                         <a class="btn btn-primary btn-sm mx-auto mt-2"
-                                  href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}&name={1}#post{0}", t.LastMessageID, t.Subject) %>"
+                                  href="<%= this.Get<LinkBuilder>().GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}&name={1}#post{0}", t.LastMessageID, t.Subject) %>"
                                   target="_blank">
                             <%= this.GetText("LINK") %></a>
                     
@@ -83,7 +83,7 @@
                         foreach (var t in f.OrderByDescending(x => x.LastPostDate))
                         { %>
                         <h6 class="card-subtitle">
-                            <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}&name={1}#post{0}", t.LastMessageID, t.Subject) %>"
+                            <a href="<%= this.Get<LinkBuilder>().GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}&name={1}#post{0}", t.LastMessageID, t.Subject) %>"
                                target="_blank">
                                 <i class="fas fa-comment"></i> <%= t.Subject %></a> 
                             <span class="badge bg-secondary">
@@ -98,7 +98,7 @@
                         </p>
                        
                         <a class="btn btn-primary btn-sm mx-auto mt-2"
-                           href="<%= BuildLink.GetLink(ForumPages.Posts, true, "m={0}&name={1}#post{0}", t.LastMessageID, t.Subject) %>"
+                           href="<%= this.Get<LinkBuilder>().GetLink(ForumPages.Posts, true, "m={0}&name={1}#post{0}", t.LastMessageID, t.Subject) %>"
                            target="_blank">
                             <%= this.GetText("LINK") %></a>
                     
@@ -113,7 +113,7 @@
 
     <div class="text-center text-muted small">
         <YAF:LocalizedLabel runat="server" LocalizedTag="REMOVALTEXT"></YAF:LocalizedLabel>&nbsp;
-        <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Profile_Subscriptions, true) %>">
+        <a href="<%= this.Get<LinkBuilder>().GetLink(this.BoardSettings, ForumPages.Profile_Subscriptions, true) %>">
             <YAF:LocalizedLabel runat="server" LocalizedTag="REMOVALLINK"></YAF:LocalizedLabel>
         </a>
   </div>

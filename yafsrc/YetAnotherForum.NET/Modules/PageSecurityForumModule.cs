@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,13 +25,14 @@ namespace YAF.Modules
 {
     #region Using
 
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
-    using YAF.Utils;
-
+    
     #endregion
 
     /// <summary>
@@ -93,14 +94,14 @@ namespace YAF.Modules
             // not totally necessary... but provides another layer of protection...
             if (this.CurrentForumPage.IsAdminPage && !this.PageContext.IsAdmin)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
                 return;
             }
 
             // handle security features...
             if (this.ForumPageType == ForumPages.Account_Register && this.PageContext.BoardSettings.DisableRegistrations)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
         }
 

@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Core.Services" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -74,7 +75,7 @@
                                                      Type="Link"
                                                      Icon="external-link-alt"
                                                      Visible='<%# this.Eval("Item2.NumPosts").ToType<int>() > 0 %>'
-                                                     NavigateUrl='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}&name={1}", this.Eval("Item2.ID"), this.Eval("Item2.TopicName")) %>'>
+                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "t={0}&name={1}", this.Eval("Item2.ID"), this.Eval("Item2.TopicName")) %>'>
                                 </YAF:ThemeButton>
                                 </h5>
                                 <small><%# "{0} {1}".Fmt(this.Eval("Item2.NumPosts"), this.GetText("POSTS")) %></small>
@@ -185,7 +186,7 @@
                                                      Type="Link"
                                                      Icon="external-link-alt"
                                                      Visible='<%# this.Eval("Item2.NumPosts").ToType<int>() > 0 %>'
-                                                     NavigateUrl='<%# BuildLink.GetLink(ForumPages.Posts, "m={0}&name={1}#post{0}", this.Eval("Item3.ID"), this.Eval("Item2.TopicName")) %>'>
+                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "m={0}&name={1}#post{0}", this.Eval("Item3.ID"), this.Eval("Item2.TopicName")) %>'>
                                 </YAF:ThemeButton>
                                 </h5>
                             </div>

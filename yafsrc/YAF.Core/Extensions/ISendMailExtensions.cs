@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -155,13 +155,30 @@ namespace YAF.Core.Extensions
         /// <summary>
         /// The send.
         /// </summary>
-        /// <param name="sendMail">The send mail.</param>
-        /// <param name="fromAddress">The from address.</param>
-        /// <param name="toAddress">The to address.</param>
-        /// <param name="senderAddress">The sender address.</param>
-        /// <param name="subject">The subject.</param>
-        /// <param name="bodyText">The body text.</param>
-        /// <param name="bodyHtml">The body html.</param>
+        /// <param name="sendMail">
+        /// The send mail.
+        /// </param>
+        /// <param name="fromAddress">
+        /// The from address.
+        /// </param>
+        /// <param name="toAddress">
+        /// The to address.
+        /// </param>
+        /// <param name="senderAddress">
+        /// The sender address.
+        /// </param>
+        /// <param name="subject">
+        /// The subject.
+        /// </param>
+        /// <param name="bodyText">
+        /// The body text.
+        /// </param>
+        /// <param name="bodyHtml">
+        /// The body html.
+        /// </param>
+        /// <returns>
+        /// The <see cref="MailMessage"/>.
+        /// </returns>
         public static MailMessage CreateMessage(
             [NotNull] this ISendMail sendMail,
             [NotNull] MailAddress fromAddress,

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,7 +24,6 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
@@ -36,7 +35,6 @@ namespace YAF.Types.Models
     /// A class which represents the Message table.
     /// </summary>
     [Serializable]
-    [Table(Name = "Message")]
     [PostCreateTable("alter table [{databaseOwner}].[{tableName}] add [IsDeleted]  as (CONVERT([bit],sign([Flags]&(8)),0))" +
                          "alter table [{databaseOwner}].[{tableName}] add [IsApproved] as (CONVERT([bit],sign([Flags]&(16)),(0)))")]
     public class Message : IEntity, IHaveID

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -39,14 +39,14 @@ namespace YAF.Pages.Admin
     using System.Xml.XPath;
 
     using YAF.Core.BasePages;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     using ListItem = System.Web.UI.WebControls.ListItem;
@@ -176,7 +176,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.langPath = HttpContext.Current.Request.MapPath($"{BoardInfo.ForumServerFileRoot}languages");
+            this.langPath = this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages");
 
             if (this.Get<HttpRequestBase>().QueryString.Exists("x"))
             {
@@ -227,7 +227,7 @@ namespace YAF.Pages.Admin
 
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_LANGUAGES", "TITLE"),
-                BuildLink.GetLink(ForumPages.Admin_Languages));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Languages));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITLANGUAGE", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -239,9 +239,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private static void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+        private void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Admin_Languages);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Languages);
         }
 
         /// <summary>
@@ -315,7 +315,7 @@ namespace YAF.Pages.Admin
         private void InitializeComponent()
         {
             this.btnLoadPageLocalization.Click += this.LoadPageLocalization;
-            this.btnCancel.Click += CancelClick;
+            this.btnCancel.Click += this.CancelClick;
             this.btnSave.Click += this.SaveClick;
 
             this.grdLocals.ItemDataBound += GrdLocalsItemDataBound;

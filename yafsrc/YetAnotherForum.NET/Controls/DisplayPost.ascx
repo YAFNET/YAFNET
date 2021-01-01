@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="ServiceStack" %>
+<%@ Import Namespace="YAF.Core.Services" %>
 
 <asp:PlaceHolder runat="server" ID="ShowHideIgnoredUserPost" Visible="False">
     <YAF:Alert runat="server" Type="info" Dismissing="True">
@@ -172,7 +173,7 @@
                     </div>
                     <div style="margin-top: 1px">
                         <a id="post<%# this.DataSource.MessageID %>" 
-                           href='<%# BuildLink.GetLink(ForumPages.Posts,"m={0}&name={1}#post{0}", this.DataSource.MessageID, this.PageContext.PageTopicName) %>'>
+                           href='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts,"m={0}&name={1}#post{0}", this.DataSource.MessageID, this.PageContext.PageTopicName) %>'>
                             #<%# this.CurrentPage * this.PageContext.BoardSettings.PostsPerPage + this.PostCount + 1%>
                         </a>
                     </div>

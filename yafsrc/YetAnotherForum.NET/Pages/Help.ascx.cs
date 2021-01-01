@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -35,12 +35,13 @@ namespace YAF.Pages
 
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -84,7 +85,7 @@ namespace YAF.Pages
 
             if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowHelpTo))
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
         }
 
@@ -104,7 +105,7 @@ namespace YAF.Pages
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.GetText("SUBTITLE"), BuildLink.GetLink(ForumPages.Help));
+                this.GetText("SUBTITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Help));
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq").IsSet())
             {
@@ -262,7 +263,7 @@ namespace YAF.Pages
             var serializer = new XmlSerializer(typeof(List<HelpNavigation>));
 
             var xmlFilePath =
-                HttpContext.Current.Server.MapPath($"{BoardInfo.ForumServerFileRoot}Resources/HelpMenuList.xml");
+                this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}Resources/HelpMenuList.xml");
 
             if (File.Exists(xmlFilePath))
             {
@@ -283,7 +284,7 @@ namespace YAF.Pages
                         {
                             helpContent = this.GetTextFormatted(
                                 $"{helpPage.HelpPage}CONTENT",
-                                BuildLink.GetLink(ForumPages.Account_ForgotPassword));
+                                this.Get<LinkBuilder>().GetLink(ForumPages.Account_ForgotPassword));
                         }
 
                         break;
@@ -299,7 +300,7 @@ namespace YAF.Pages
                         {
                             helpContent = this.GetTextFormatted(
                                 $"{helpPage.HelpPage}CONTENT",
-                                BuildLink.GetLink(ForumPages.Help, "faq=bbcodes"));
+                                this.Get<LinkBuilder>().GetLink(ForumPages.Help, "faq=bbcodes"));
                         }
 
                         break;

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,10 +33,12 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -44,8 +46,6 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
@@ -77,7 +77,7 @@ namespace YAF.Pages
         ///   Gets or sets UserId.
         /// </summary>
         public int UserId =>
-            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         #endregion
 
@@ -108,7 +108,7 @@ namespace YAF.Pages
             if (this.UserId == 0)
             {
                 // No such user exists
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             this.BindData();
@@ -186,7 +186,7 @@ namespace YAF.Pages
             this.PageLinks.AddLink(
                 this.GetText("MEMBERS"),
                 this.Get<IPermissions>().Check(this.PageContext.BoardSettings.MembersListViewPermissions)
-                    ? BuildLink.GetLink(ForumPages.Members)
+                    ? this.Get<LinkBuilder>().GetLink(ForumPages.Members)
                     : null);
             this.PageLinks.AddLink(userDisplayName, string.Empty);
         }
@@ -201,7 +201,7 @@ namespace YAF.Pages
             if (user == null || user.Item1.ID == 0)
             {
                 // No such user exists or this is an nntp user ("0")
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             // populate user information controls...
@@ -245,7 +245,7 @@ namespace YAF.Pages
                     this.PageContext.PageUserID,
                     10);
 
-                this.SearchUser.NavigateUrl = BuildLink.GetLink(
+                this.SearchUser.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                     ForumPages.Search,
                     "postedby={0}",
                     userNameOrDisplayName);
@@ -390,7 +390,7 @@ namespace YAF.Pages
                 }
             }
 
-            this.PM.NavigateUrl = BuildLink.GetLink(ForumPages.PostPrivateMessage, "u={0}", user.Item1.ID);
+            this.PM.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, "u={0}", user.Item1.ID);
             this.PM.ParamTitle0 = userName;
 
             // email link
@@ -409,7 +409,7 @@ namespace YAF.Pages
                 }
             }
 
-            this.Email.NavigateUrl = BuildLink.GetLink(ForumPages.Email, "u={0}", user.Item1.ID);
+            this.Email.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Email, "u={0}", user.Item1.ID);
             if (this.PageContext.IsAdmin)
             {
                 this.Email.TitleNonLocalized = user.Item1.Email;
@@ -418,7 +418,7 @@ namespace YAF.Pages
             this.Email.ParamTitle0 = userName;
 
             this.XMPP.Visible = user.Item2.Profile_XMPP.IsSet();
-            this.XMPP.NavigateUrl = BuildLink.GetLink(ForumPages.Jabber, "u={0}", user.Item1.ID);
+            this.XMPP.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Jabber, "u={0}", user.Item1.ID);
             this.XMPP.ParamTitle0 = userName;
 
             this.Skype.Visible = user.Item2.Profile_Skype.IsSet();
@@ -613,7 +613,7 @@ namespace YAF.Pages
                         BoardInfo.ForumClientFileRoot,
                         medal.SmallRibbonURL,
                         title,
-                        BoardFolders.Current.Medals);
+                        this.Get<BoardFolders>().Medals);
                 });
 
             // follow with the rest
@@ -634,7 +634,7 @@ namespace YAF.Pages
                         medal.SmallMedalURL,
                         medal.Name,
                         flags.ShowMessage ? $": {medal.Message}" : string.Empty,
-                        BoardFolders.Current.Medals);
+                        this.Get<BoardFolders>().Medals);
                 });
 
             this.MedalsPlaceHolder.Text = $"<ul class=\"list-inline\">{ribbonBar}{medals}</ul>";

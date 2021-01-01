@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,6 +33,7 @@ namespace YAF.Controls
     using YAF.Core.BaseModules;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -41,7 +42,6 @@ namespace YAF.Controls
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Controls;
     using YAF.Web.Editors;
 
@@ -109,14 +109,14 @@ namespace YAF.Controls
                 if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin
                                                                   && this.Get<HttpRequestBase>().QueryString.Exists("u"))
                 {
-                    return Security.StringToIntOrRedirect(
+                    return this.Get<LinkBuilder>().StringToIntOrRedirect(
                         this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
                 }
 
                 if (this.InModeratorMode && (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
                                          && this.Get<HttpRequestBase>().QueryString.Exists("u"))
                 {
-                    return Security.StringToIntOrRedirect(
+                    return this.Get<LinkBuilder>().StringToIntOrRedirect(
                         this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
                 }
 
@@ -212,7 +212,7 @@ namespace YAF.Controls
         {
             if (this.InModeratorMode)
             {
-                BuildLink.Redirect(
+                this.Get<LinkBuilder>().Redirect(
                     ForumPages.UserProfile,
                     "u={0}&name={1}",
                     this.CurrentUserID,
@@ -220,7 +220,7 @@ namespace YAF.Controls
             }
             else
             {
-                BuildLink.Redirect(ForumPages.MyAccount);
+                this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount);
             }
         }
 

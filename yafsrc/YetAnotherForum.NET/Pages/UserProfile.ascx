@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.UserProfile" CodeBehind="UserProfile.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Core.Services" %>
 
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
@@ -33,7 +34,7 @@
         <YAF:ThemeButton ID="AdminUserButton" runat="server" 
                          Visible="false"
                          TextLocalizedTag="ADMIN_USER"
-                         NavigateUrl='<%# BuildLink.GetLink(ForumPages.Admin_EditUser,"u={0}", this.UserId) %>'
+                         NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser,"u={0}", this.UserId) %>'
                          CssClass="mb-1"
                          Icon="user-cog"
                          Type="Danger"/>
@@ -286,7 +287,7 @@
                                                         LocalizedTag="topic" />
                                 </span><a
                                     title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>'
-                                    href='<%# BuildLink.GetTopicLink(this.Eval("Item2.ID").ToType<int>(), this.Eval("Item2.TopicName").ToString()) %>'>
+                                    href='<%# this.Get<LinkBuilder>().GetTopicLink(this.Eval("Item2.ID").ToType<int>(), this.Eval("Item2.TopicName").ToString()) %>'>
                                     <%# this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.Eval("Item2.TopicName").ToString())) %>
                                 </a>
                             </div>
@@ -300,7 +301,7 @@
                                     <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" 
                                                         LocalizedTag="posted" />
                                     &nbsp;
-                                            <%# this.Get<IDateTime>().FormatDateTime(this.Eval("Item1.Posted").ToType<DateTime>())%>
+                                            <%# this.Get<IDateTime>().FormatDateTime(this.Eval("Item1.Posted").ToType<System.DateTime>())%>
                                 </small>
                             </div>
                         </div>

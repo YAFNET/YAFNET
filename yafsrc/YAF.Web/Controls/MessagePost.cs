@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,13 +31,15 @@ namespace YAF.Web.Controls
     using System.Web.UI;
 
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -245,7 +247,7 @@ namespace YAF.Web.Controls
 
             var messageHistoryButton =
                 $@"<hr />
-                   <p class=""mb-0""><a href=""{BuildLink.GetLink(ForumPages.MessageHistory, "m={0}", messageId.ToType<int>())}"" class=""btn btn-secondary btn-sm me-1"">
+                   <p class=""mb-0""><a href=""{this.Get<LinkBuilder>().GetLink(ForumPages.MessageHistory, "m={0}", messageId.ToType<int>())}"" class=""btn btn-secondary btn-sm me-1"">
                          <i class=""fa fa-history fa-fw""></i>{this.GetText("MESSAGEHISTORY", "TITLE")}
                       </a></p>";
 
@@ -271,10 +273,10 @@ namespace YAF.Web.Controls
             writer.Write(
                 @"<div class=""alert alert-success"" role=""alert"">
                       <a title=""{0}"" alt=""title=""{0}"" href=""{1}""><i class=""fa fa-check fa-fw""></i>{0}</a>
-                      <button type=""button"" class=""btn-close"" data-dismiss=""alert"" aria-label=""Close"">
+                      <button type=""button"" class=""btn-close"" data-bs-dismiss=""alert"" aria-label=""Close"">
                       </button></div>",
                 this.GetText("GO_TO_ANSWER"),
-                BuildLink.GetLink(ForumPages.Posts, "m={0}&name={1}#post{0}", messageId, this.PageContext.PageTopicName));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "m={0}&name={1}#post{0}", messageId, this.PageContext.PageTopicName));
         }
 
         /// <summary>

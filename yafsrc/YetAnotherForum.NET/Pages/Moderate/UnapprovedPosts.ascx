@@ -2,6 +2,7 @@
 
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Models" %>
+<%@ Import Namespace="YAF.Core.Services" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -20,7 +21,7 @@
                                         IconName="comment" 
                                         LocalizedTag="Topic"></YAF:IconHeader>
                         <a id="TopicLink"
-                           href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}&name={1}", ((Tuple<Topic, Message, User>)Container.DataItem).Item1.ID, ((Tuple<Topic, Message, User>)Container.DataItem).Item1.TopicName) %>'
+                           href='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "t={0}&name={1}", ((Tuple<Topic, Message, User>)Container.DataItem).Item1.ID, ((Tuple<Topic, Message, User>)Container.DataItem).Item1.TopicName) %>'
                            runat="server" 
                            Visible="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item1.NumPosts > 0 %>"><%# ((Tuple<Topic, Message, User>)Container.DataItem).Item1.TopicName %></a>
                          <asp:Label id="TopicName" 
@@ -47,7 +48,7 @@
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                              Icon="users-cog" 
                                              Type="Danger"
-                                             NavigateUrl='<%# BuildLink.GetLink( ForumPages.Admin_EditUser,"u={0}", ((Tuple<Topic, Message, User>)Container.DataItem).Item2.UserID ) %>'>
+                                             NavigateUrl='<%# this.Get<LinkBuilder>().GetLink( ForumPages.Admin_EditUser,"u={0}", ((Tuple<Topic, Message, User>)Container.DataItem).Item2.UserID ) %>'>
                             </YAF:ThemeButton>
                         </div>
                     </div>

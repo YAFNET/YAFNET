@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,8 +25,8 @@ namespace YAF.Core.Helpers
 {
     #region Using
 
-    using System.Web;
-
+    using System.Runtime.Caching;
+    
     using YAF.Configuration;
     using YAF.Core.BoardSettings;
     using YAF.Core.Extensions;
@@ -42,11 +42,6 @@ namespace YAF.Core.Helpers
     public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
     {
         #region Fields
-
-        /// <summary>
-        ///     The application state base.
-        /// </summary>
-        private readonly HttpApplicationStateBase applicationStateBase;
 
         /// <summary>
         ///     The have board id.
@@ -70,9 +65,6 @@ namespace YAF.Core.Helpers
         /// <summary>
         /// Initializes a new instance of the <see cref="CurrentBoardSettings"/> class.
         /// </summary>
-        /// <param name="applicationStateBase">
-        /// The application state base.
-        /// </param>
         /// <param name="injectServices">
         /// The inject services.
         /// </param>
@@ -83,17 +75,14 @@ namespace YAF.Core.Helpers
         /// The treat Cache Key.
         /// </param>
         public CurrentBoardSettings(
-            [NotNull] HttpApplicationStateBase applicationStateBase,
             [NotNull] IInjectServices injectServices,
             [NotNull] IHaveBoardID haveBoardId,
             [NotNull] ITreatCacheKey treatCacheKey)
         {
-            CodeContracts.VerifyNotNull(applicationStateBase, "applicationStateBase");
             CodeContracts.VerifyNotNull(injectServices, "injectServices");
             CodeContracts.VerifyNotNull(haveBoardId, "haveBoardId");
             CodeContracts.VerifyNotNull(treatCacheKey, "treatCacheKey");
 
-            this.applicationStateBase = applicationStateBase;
             this.injectServices = injectServices;
             this.haveBoardId = haveBoardId;
             this.treatCacheKey = treatCacheKey;
@@ -110,20 +99,20 @@ namespace YAF.Core.Helpers
         {
             get
             {
-                return this.applicationStateBase.GetOrSet(
+                return MemoryCache.Default.GetOrSet(
                     this.treatCacheKey.Treat(Constants.Cache.BoardSettings),
                     () =>
-                        {
-                            var boardSettings = (BoardSettings)new LoadBoardSettings(this.haveBoardId.BoardID);
+                    {
+                        var boardSettings = (BoardSettings)new LoadBoardSettings(this.haveBoardId.BoardID);
 
-                            // inject
-                            this.injectServices.Inject(boardSettings);
+                        // inject
+                        this.injectServices.Inject(boardSettings);
 
-                            return boardSettings;
-                        });
+                        return boardSettings;
+                    });
             }
 
-            set => this.applicationStateBase.Set(this.treatCacheKey.Treat(Constants.Cache.BoardSettings), value);
+            set => MemoryCache.Default.Set(this.treatCacheKey.Treat(Constants.Cache.BoardSettings), value);
         }
 
         #endregion

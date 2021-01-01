@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -38,6 +38,7 @@ namespace YAF.Core.Services
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -46,8 +47,6 @@ namespace YAF.Core.Services
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -119,9 +118,9 @@ namespace YAF.Core.Services
             var themeCss =
                 $"{this.Get<BoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
-            var forumLink = BoardInfo.ForumURL;
+            var forumLink = this.Get<LinkBuilder>().ForumUrl;
 
-            var adminLink = BuildLink.GetLink(ForumPages.Moderate_UnapprovedPosts, true, "f={0}", forumId);
+            var adminLink = this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_UnapprovedPosts, true, "f={0}", forumId);
 
             var currentContext = HttpContext.Current;
 
@@ -252,7 +251,7 @@ namespace YAF.Core.Services
                                                                        ["{reporter}"] =
                                                                            this.Get<IUserDisplayName>()
                                                                                .GetNameById(reporter),
-                                                                       ["{adminlink}"] = BuildLink.GetLink(
+                                                                       ["{adminlink}"] = this.Get<LinkBuilder>().GetLink(
                                                                            ForumPages.Moderate_ReportedPosts,
                                                                            true,
                                                                            "f={0}",
@@ -326,7 +325,7 @@ namespace YAF.Core.Services
                     {
                         ["{fromuser}"] = displayName,
                         ["{link}"] =
-                            $"{BuildLink.GetLink(ForumPages.PrivateMessage, true, "pm={0}", userPMessageId)}\r\n\r\n",
+                            $"{this.Get<LinkBuilder>().GetLink(ForumPages.PrivateMessage, true, "pm={0}", userPMessageId)}\r\n\r\n",
                         ["{subject}"] = subject,
                         ["{username}"] = toUser.DisplayOrUserName()
                     }
@@ -389,12 +388,12 @@ namespace YAF.Core.Services
                                                  this.Get<IUserDisplayName>().GetNameById(messageAuthorUserID),
                                              ["{body}"] = bodyText,
                                              ["{bodytruncated}"] = bodyText.Truncate(160),
-                                             ["{link}"] = BuildLink.GetLink(
+                                             ["{link}"] = this.Get<LinkBuilder>().GetLink(
                                                  ForumPages.Posts,
                                                  true,
                                                  "m={0}&name={1}#post{0}",
                                                  newMessageId, message.Topic),
-                                             ["{subscriptionlink}"] = BuildLink.GetLink(
+                                             ["{subscriptionlink}"] = this.Get<LinkBuilder>().GetLink(
                                                  ForumPages.Profile_Subscriptions,
                                                  true)
                                          }
@@ -479,7 +478,7 @@ namespace YAF.Core.Services
                 // Now send all mails..
                 this.Get<ISendMail>().SendAll(
                     mailMessages,
-                    (mailMessage, exception) => this.Get<ILogger>().Log(
+                    (_, exception) => this.Get<ILogger>().Log(
                         "Mail Error",
                         EventLogTypes.Error,
                         null,
@@ -573,7 +572,7 @@ namespace YAF.Core.Services
                                                 ["{user}"] = user.UserName,
                                                 ["{roles}"] = string.Join(", ", removedRoles.ToArray()),
                                                 ["{forumname}"] = this.BoardSettings.Name,
-                                                ["{forumurl}"] = BoardInfo.ForumURL
+                                                ["{forumurl}"] = this.Get<LinkBuilder>().ForumUrl
                                             }
                                     };
 
@@ -598,7 +597,7 @@ namespace YAF.Core.Services
                                                 ["{user}"] = user.UserName,
                                                 ["{roles}"] = string.Join(", ", addedRoles.ToArray()),
                                                 ["{forumname}"] = this.BoardSettings.Name,
-                                                ["{forumurl}"] = BoardInfo.ForumURL
+                                                ["{forumurl}"] = this.Get<LinkBuilder>().ForumUrl
                                             }
                                     };
 
@@ -632,7 +631,7 @@ namespace YAF.Core.Services
                                       TemplateLanguageFile = this.BoardSettings.Language,
                                       TemplateParams =
                                           {
-                                              ["{adminlink}"] = BuildLink.GetLink(
+                                              ["{adminlink}"] = this.Get<LinkBuilder>().GetLink(
                                                   ForumPages.Admin_EditUser,
                                                   true,
                                                   "u={0}",
@@ -683,7 +682,7 @@ namespace YAF.Core.Services
                     {
                         TemplateParams =
                         {
-                            ["{adminlink}"] = BuildLink.GetLink(
+                            ["{adminlink}"] = this.Get<LinkBuilder>().GetLink(
                                 ForumPages.Admin_EditUser,
                                 true,
                                 "u={0}",
@@ -774,7 +773,7 @@ namespace YAF.Core.Services
                                       TemplateParams =
                                           {
                                               ["{link}"] =
-                                                  BuildLink.GetLink(ForumPages.Account_Approve, true, "code={0}", code),
+                                                  this.Get<LinkBuilder>().GetLink(ForumPages.Account_Approve, true, "code={0}", code),
                                               ["{key}"] = code,
                                               ["{username}"] = user.UserName
                                           }
@@ -809,7 +808,7 @@ namespace YAF.Core.Services
                                              ["{suspendedUntil}"] =
                                                  suspendedUntil.ToString(CultureInfo.InvariantCulture),
                                              ["{forumname}"] = this.BoardSettings.Name,
-                                             ["{forumurl}"] = BoardInfo.ForumURL
+                                             ["{forumurl}"] = this.Get<LinkBuilder>().ForumUrl
                                          }
                                  };
 
@@ -833,7 +832,7 @@ namespace YAF.Core.Services
                                          {
                                              ["{user}"] = userName,
                                              ["{forumname}"] = this.BoardSettings.Name,
-                                             ["{forumurl}"] = BoardInfo.ForumURL
+                                             ["{forumurl}"] = this.Get<LinkBuilder>().ForumUrl
                                          }
                                  };
 
@@ -858,13 +857,13 @@ namespace YAF.Core.Services
                 "RESET_PASS_EMAIL_SUBJECT",
                 this.Get<BoardSettings>().Name);
 
-            verifyEmail.TemplateParams["{link}"] = BuildLink.GetLink(
+            verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetLink(
                 ForumPages.Account_ResetPassword,
                 true,
                 "code={0}",
                 code);
             verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
-            verifyEmail.TemplateParams["{forumlink}"] = $"{BoardInfo.ForumURL}";
+            verifyEmail.TemplateParams["{forumlink}"] = $"{this.Get<LinkBuilder>().ForumUrl}";
 
             verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject);
         }

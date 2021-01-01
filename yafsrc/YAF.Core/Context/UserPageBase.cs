@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,8 +31,9 @@ namespace YAF.Core.Context
     using System.Threading;
 
     using YAF.Configuration;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types.Extensions;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -209,7 +210,7 @@ namespace YAF.Core.Context
         /// <summary>
         ///   Gets PageBoardID.
         /// </summary>
-        public int PageBoardID => ControlSettings.Current == null ? 1 : ControlSettings.Current.BoardID;
+        public int PageBoardID => BoardContext.Current.Get<ControlSettings>().BoardID;
 
         /// <summary>
         ///   Gets the CategoryID for the current page, or 0 if not in any category
@@ -411,12 +412,7 @@ namespace YAF.Core.Context
         /// </returns>
         private int PageValueAsInt(string field)
         {
-            if (this.Page?[field] != null)
-            {
-                return this.Page[field].ToType<int>();
-            }
-
-            return 0;
+            return this.Page?[field] != null ? this.Page[field].ToType<int>() : 0;
         }
 
         /// <summary>

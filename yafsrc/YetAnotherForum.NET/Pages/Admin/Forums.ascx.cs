@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,13 +33,13 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
@@ -64,13 +64,13 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    BuildLink.Redirect(ForumPages.Admin_EditForum, "fa={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditForum, "fa={0}", e.CommandArgument);
                     break;
                 case "copy":
-                    BuildLink.Redirect(ForumPages.Admin_EditForum, "copy={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditForum, "copy={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    BuildLink.Redirect(ForumPages.Admin_DeleteForum, "fa={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_DeleteForum, "fa={0}", e.CommandArgument);
                     break;
             }
         }
@@ -85,7 +85,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    BuildLink.Redirect(ForumPages.Admin_EditCategory, "c={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditCategory, "c={0}", e.CommandArgument);
                     break;
                 case "delete":
                     if (this.GetRepository<Category>().DeleteById(e.CommandArgument.ToType<int>()))
@@ -110,7 +110,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void NewCategory_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Admin_EditCategory);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditCategory);
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void NewForum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Admin_EditForum);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditForum);
         }
 
         /// <summary>

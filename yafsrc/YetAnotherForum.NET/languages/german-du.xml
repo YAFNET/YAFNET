@@ -181,7 +181,6 @@
     <Resource tag="RSSTOPIC">Betrachtet RSS Feed</Resource>
     <Resource tag="RULES">Betrachtet Forum Regeln</Resource>
     <Resource tag="SEARCH">Benutzt Suche</Resource>
-    <Resource tag="SHOUTBOX">Benutzt Shoutbox</Resource>
     <Resource tag="SUBSCRIPTIONS">Betrachtet Abos</Resource>
     <Resource tag="TEAM">Betrachtet Teamseite</Resource>
     <Resource tag="TOPICINFORUM"> im Forum</Resource>
@@ -1235,7 +1234,6 @@
     <Resource tag="HEADER_SEARCH">Sucheinstellungen</Resource>
     <Resource tag="HEADER_SERVER_INFO">Server Info</Resource>
     <Resource tag="HEADER_SETUP">Host Konfiguration</Resource>
-    <Resource tag="HEADER_SHOUT">Shoutboxeinstellungen</Resource>
     <Resource tag="HEADER_SPAM">Spam Einstellungen (Beitragsüberprüfung)</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndication-Feed Einstellungen</Resource>
     <Resource tag="HEADER_TEMPLATES">Vorlageneinstellungen</Resource>
@@ -1431,10 +1429,6 @@
     <Resource tag="SERVER_VERSION_HELP">SQL Server Version die ausgeführt wird.</Resource>
     <Resource tag="SERVERTIME_CORRECT">Server Zeitzonen Korrektur:</Resource>
     <Resource tag="SERVERTIME_CORRECT_HELP">Geben Sie einen positiven oder einen negativen Wert in Minuten zwischen -720 und 720 ein. Wenn der Server UTC Zeit falsch ist:</Resource>
-    <Resource tag="SHOUTBOX_COUNT">Anzahl der Shoutbox Einträge:</Resource>
-    <Resource tag="SHOUTBOX_COUNT_HELP">Max. Anzahl an Einträgen die in der Shoutbox angezeigt werden sollen.</Resource>
-    <Resource tag="SHOUTBOX_DEFAULTSTATE">Shout Box Grundzustand:</Resource>
-    <Resource tag="SHOUTBOX_DEFAULTSTATE_HELP">Grundzustand der Shout Box Eingeklappt oder ausgeklappt.</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">Aktive Diskussionen Anzeigen:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Aktivieren oder Deaktivieren Anzeige der aktiven Diskussionen Liste in der Bord Hauptseite.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">Atom Links anzeigen</Resource>
@@ -1486,8 +1480,6 @@
     <Resource tag="SHOW_RSS_LINKS">RSS Links Anzeigen:</Resource>
     <Resource tag="SHOW_RSS_LINKS_HELP">Aktivieren oder deaktivieren Anzeige von RSS-Links im Forum.</Resource>
     <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
-    <Resource tag="SHOW_SHOUTBOX">Shoutbox Anzeigen:</Resource>
-    <Resource tag="SHOW_SHOUTBOX_HELP">Aktivieren oder deaktivieren Anzeige der Shoutbox (Chat-Modul) im Forum.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Das Datum, an dem der Benutzer sich bedankt hat:</Resource>
@@ -1568,8 +1560,6 @@
     <Resource tag="VIEWMEMBERLIST_PERMISSION_HELP">Folgenden Erlauben die Mitgliederliste anzusehen:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION">Profil Anzeigen Berechtigungen:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">Damit können andere Benutzer Profile ansehen:</Resource>
-    <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box Anzeigeberechtigung:</Resource>
-    <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">Anzeigeberechtigung für die Shout Box um sie für alle Benutzer (inkl. Gäste), oder nur für Registrierte Benutzer zu erlauben.</Resource>
     <Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
     <Resource tag="WELCOME_NOTIFICATION_0">Send No Message</Resource>
     <Resource tag="WELCOME_NOTIFICATION_1">Send as e-mail</Resource>
@@ -5305,14 +5295,6 @@ Spoiler Content
     <Resource tag="TITLE">Suche</Resource>
     <Resource tag="TITLE_ONLY">Nur Titel durchsuchen</Resource>
     <Resource tag="TOPIC">Thema:</Resource>
-  </page>
-  <page name="SHOUTBOX">
-    <Resource tag="CLEAR">Eingabe Löschen</Resource>
-    <Resource tag="FLYOUT">Chat in eigenem Fenster öffnen</Resource>
-    <Resource tag="HEADING">Mit anderen Mitgliedern Chatten</Resource>
-    <Resource tag="MUSTBELOGGEDIN">Sie müssen eingeloggt sein um die Shoutbox benutzen zu können.</Resource>
-    <Resource tag="SUBMIT">Absenden</Resource>
-    <Resource tag="TITLE">ShoutBox (Mini-Chat)</Resource>
   </page>
   <page name="SUBSCRIPTIONS">
     <Resource tag="ALLTOPICS">Benachrichtigung für [b]alle Beiträge in allen Themen[/b]</Resource>

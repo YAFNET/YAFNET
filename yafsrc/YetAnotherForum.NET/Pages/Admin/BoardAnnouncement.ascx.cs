@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,14 +32,15 @@ namespace YAF.Pages.Admin
 
     using YAF.Core.BasePages;
     using YAF.Core.BoardSettings;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
-    using YAF.Pages.Profile;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Web.Extensions;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -51,7 +52,7 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "Attachments" /> class.
+        ///   Initializes a new instance of the <see cref = "Profile.Attachments" /> class.
         /// </summary>
         public BoardAnnouncement()
             : base("ADMIN_BOARDSETTINGS")
@@ -82,7 +83,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.Board));
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, this.Get<LinkBuilder>().GetLink(ForumPages.Board));
             this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_TITLE"), string.Empty);
 
@@ -130,7 +131,7 @@ namespace YAF.Pages.Admin
             // Reload forum settings
             this.PageContext.BoardSettings = null;
 
-            BuildLink.Redirect(ForumPages.Admin_BoardAnnouncement);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
         }
 
         /// <summary>
@@ -156,7 +157,7 @@ namespace YAF.Pages.Admin
             // Reload forum settings
             this.PageContext.BoardSettings = null;
 
-            BuildLink.Redirect(ForumPages.Admin_BoardAnnouncement);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
         }
 
         /// <summary>

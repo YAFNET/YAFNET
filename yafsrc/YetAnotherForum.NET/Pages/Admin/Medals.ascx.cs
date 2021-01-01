@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,15 +31,15 @@ namespace YAF.Pages.Admin
     using System.Text;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -96,7 +96,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // edit medal
-                    BuildLink.Redirect(ForumPages.Admin_EditMedal, "medalid={0}", medalId);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, "medalid={0}", medalId);
                     break;
                 case "delete":
                     // delete medal
@@ -119,7 +119,7 @@ namespace YAF.Pages.Admin
         protected void NewMedalClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to medal edit page
-            BuildLink.Redirect(ForumPages.Admin_EditMedal);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal);
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace YAF.Pages.Admin
                 BoardInfo.ForumClientFileRoot,
                 medal.SmallMedalURL,
                 this.GetText("ADMIN_MEDALS", "DISPLAY_BOX"),
-                BoardFolders.Current.Medals);
+                this.Get<BoardFolders>().Medals);
 
             // if available, create also ribbon bar image of medal
             if (medal.SmallRibbonURL.IsSet())
@@ -171,7 +171,7 @@ namespace YAF.Pages.Admin
                     BoardInfo.ForumClientFileRoot,
                     medal.SmallRibbonURL,
                     this.GetText("ADMIN_MEDALS", "DISPLAY_RIBBON"),
-                    BoardFolders.Current.Medals);
+                    this.Get<BoardFolders>().Medals);
             }
 
             return output.ToString();

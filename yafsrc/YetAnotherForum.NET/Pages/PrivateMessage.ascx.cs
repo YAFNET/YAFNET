@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,6 +34,7 @@ namespace YAF.Pages
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -42,7 +43,6 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -94,16 +94,16 @@ namespace YAF.Pages
 
                     this.BindData();
                     this.PageContext.AddLoadMessage(this.GetText("msg_deleted"), MessageTypes.success);
-                    BuildLink.Redirect(ForumPages.MyMessages);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages);
                     break;
                 case "reply":
-                    BuildLink.Redirect(ForumPages.PostPrivateMessage, "p={0}&q=0", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.PostPrivateMessage, "p={0}&q=0", e.CommandArgument);
                     break;
                 case "report":
-                    BuildLink.Redirect(ForumPages.PostPrivateMessage, "p={0}&q=1&report=1", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.PostPrivateMessage, "p={0}&q=1&report=1", e.CommandArgument);
                     break;
                 case "quote":
-                    BuildLink.Redirect(ForumPages.PostPrivateMessage, "p={0}&q=1", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.PostPrivateMessage, "p={0}&q=1", e.CommandArgument);
                     break;
             }
         }
@@ -118,12 +118,12 @@ namespace YAF.Pages
             // check if this feature is disabled
             if (!this.PageContext.BoardSettings.AllowPrivateMessages)
             {
-                BuildLink.RedirectInfoPage(InfoMessage.Disabled);
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Disabled);
             }
 
             if (!this.Get<HttpRequestBase>().QueryString.Exists("pm"))
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -143,7 +143,7 @@ namespace YAF.Pages
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), BuildLink.GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace YAF.Pages
         private void BindData()
         {
             var messageId =
-                Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"));
+                this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"));
 
             var messages = this.GetRepository<PMessage>().List(messageId, true);
 
@@ -170,15 +170,15 @@ namespace YAF.Pages
                 {
                     this.PageLinks.AddLink(
                         this.GetText("SENTITEMS"),
-                        BuildLink.GetLink(ForumPages.MyMessages, "v=out"));
+                        this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, "v=out"));
                 }
                 else if (this.IsArchived)
                 {
-                    this.PageLinks.AddLink(this.GetText("ARCHIVE"), BuildLink.GetLink(ForumPages.MyMessages, "v=arch"));
+                    this.PageLinks.AddLink(this.GetText("ARCHIVE"), this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, "v=arch"));
                 }
                 else
                 {
-                    this.PageLinks.AddLink(this.GetText("INBOX"), BuildLink.GetLink(ForumPages.MyMessages));
+                    this.PageLinks.AddLink(this.GetText("INBOX"), this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages));
                 }
 
                 this.PageLinks.AddLink((string)message.Subject);
@@ -187,7 +187,7 @@ namespace YAF.Pages
             }
             else
             {
-                BuildLink.Redirect(ForumPages.MyMessages);
+                this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages);
             }
 
             this.DataBind();
@@ -234,11 +234,11 @@ namespace YAF.Pages
                 // see if the message got deleted, if so, redirect to their outbox/archive
                 if (this.IsOutbox && !messageIsInOutbox)
                 {
-                    BuildLink.Redirect(ForumPages.MyMessages, "v=out");
+                    this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, "v=out");
                 }
                 else if (this.IsArchived && !messageIsArchived)
                 {
-                    BuildLink.Redirect(ForumPages.MyMessages, "v=arch");
+                    this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, "v=arch");
                 }
             }
             else if (isCurrentUserFrom)
@@ -247,7 +247,7 @@ namespace YAF.Pages
                 if (!messageIsInOutbox)
                 {
                     // deleted for this user, redirect...
-                    BuildLink.Redirect(ForumPages.MyMessages, "v=out");
+                    this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, "v=out");
                 }
                 else
                 {
@@ -263,7 +263,7 @@ namespace YAF.Pages
             }
             else
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
         }
 

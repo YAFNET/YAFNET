@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,14 +34,14 @@ namespace YAF.Pages.Moderate
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
@@ -76,7 +76,7 @@ namespace YAF.Pages.Moderate
             this.PageLinks.AddRoot();
 
             // moderation index
-            this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), BuildLink.GetLink(ForumPages.Moderate_Index));
+            this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Index));
 
             // current page
             this.PageLinks.AddLink(this.PageContext.PageForumName);
@@ -150,7 +150,7 @@ namespace YAF.Pages.Moderate
             if (!dt.Any())
             {
                 // nope -- redirect back to the moderate main...
-                BuildLink.Redirect(ForumPages.Moderate_Index);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Index);
             }
             
             this.List.DataSource = dt;
@@ -192,7 +192,7 @@ namespace YAF.Pages.Moderate
                 case "view":
 
                     // go to the message
-                    BuildLink.Redirect(
+                    this.Get<LinkBuilder>().Redirect(
                         ForumPages.Posts,
                         "m={0}&name={1}#post{0}",
                         e.CommandArgument,
@@ -210,7 +210,7 @@ namespace YAF.Pages.Moderate
                     // go to history page
                     var ff = e.CommandArgument.ToString().Split(',');
                     this.Get<HttpResponseBase>().Redirect(
-                      BuildLink.GetLink(ForumPages.MessageHistory, "f={0}&m={1}", ff[0], ff[1]));
+                      this.Get<LinkBuilder>().GetLink(ForumPages.MessageHistory, "f={0}&m={1}", ff[0], ff[1]));
                     break;
                 case "resolved":
 

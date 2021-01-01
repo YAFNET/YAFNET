@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,20 +32,19 @@ namespace YAF.Pages.Admin
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     using ListItem = System.Web.UI.WebControls.ListItem;
@@ -114,13 +113,13 @@ namespace YAF.Pages.Admin
             };
 
             var dir = new DirectoryInfo(
-                this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Forums}"));
+                this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{this.Get<BoardFolders>().Forums}"));
 
             if (dir.Exists)
             {
                 var files = dir.GetFiles("*.*").ToList();
 
-                list.AddImageFiles(files, BoardFolders.Current.Forums);
+                list.AddImageFiles(files, this.Get<BoardFolders>().Forums);
             }
 
             this.ForumImages.DataSource = list;
@@ -139,7 +138,7 @@ namespace YAF.Pages.Admin
         {
             this.CategoryList.AutoPostBack = true;
             this.Save.Click += this.SaveClick;
-            this.Cancel.Click += CancelClick;
+            this.Cancel.Click += this.CancelClick;
             base.OnInit(e);
         }
 
@@ -276,7 +275,7 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddAdminIndex();
 
-            this.PageLinks.AddLink(this.GetText("ADMINMENU", "ADMIN_FORUMS"), BuildLink.GetLink(ForumPages.Admin_Forums));
+            this.PageLinks.AddLink(this.GetText("ADMINMENU", "ADMIN_FORUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Forums));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITFORUM", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -349,9 +348,9 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The <see cref="EventArgs"/> instance containing the event data.
         /// </param>
-        private static void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+        private void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Admin_Forums);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
         }
 
         /// <summary>
@@ -540,7 +539,7 @@ namespace YAF.Pages.Admin
                         });
             }
 
-            BuildLink.Redirect(ForumPages.Admin_Forums);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
         }
 
         #endregion

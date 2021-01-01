@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -37,6 +37,7 @@ namespace YAF.Core.Modules
     using YAF.Configuration;
     using YAF.Core.BaseModules;
     using YAF.Core.BBCode;
+    using YAF.Core.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Handlers;
@@ -48,7 +49,6 @@ namespace YAF.Core.Modules
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models.Identity;
-    using YAF.Utils;
 
     /// <summary>
     /// Registers all Service Modules
@@ -104,6 +104,8 @@ namespace YAF.Core.Modules
                 .PreserveExistingDefaults();
             builder.RegisterType<Search>().As<ISearch>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
+            builder.RegisterType<LinkBuilder>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
+
             builder.RegisterType<Session>().As<ISession>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<BadWordReplace>().As<IBadWordReplace>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<SpamWordCheck>().As<ISpamWordCheck>().SingleInstance().PreserveExistingDefaults();
@@ -145,6 +147,12 @@ namespace YAF.Core.Modules
             builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerBoardContext().PreserveExistingDefaults();
             builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentBoardSettings>().Instance)
                 .ExternallyOwned().PreserveExistingDefaults();
+
+            builder.RegisterInstance(new BoardFolders()).AsSelf().SingleInstance();
+            builder.RegisterInstance(new ControlSettings()).AsSelf().SingleInstance();
+
+            // Caching 
+            //builder.RegisterType<MemoryCache>().As<IMemoryCache>().SingleInstance();
         }
 
         /// <summary>

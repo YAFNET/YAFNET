@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -39,6 +39,7 @@ namespace YAF.Core.Helpers
     using YAF.Core.Extensions;
     using YAF.Core.Identity;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -49,9 +50,9 @@ namespace YAF.Core.Helpers
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
-    using YAF.Utils;
-    
+
     using Constants = YAF.Types.Constants.Constants;
+    using DateTime = System.DateTime;
 
     /// <summary>
     /// This is a stop-gap class to help with syncing operations
@@ -263,7 +264,7 @@ namespace YAF.Core.Helpers
 
             // Delete the images/albums both from database and physically.
             var uploadFolderPath = HttpContext.Current.Server.MapPath(
-                string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
+                string.Concat(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads));
 
             var dt = this.GetRepository<UserAlbum>().ListByUser(userID);
 
@@ -345,7 +346,7 @@ namespace YAF.Core.Helpers
 
             // Delete the images/albums both from database and physically.
             var uploadDir = HttpContext.Current.Server.MapPath(
-                string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
+                string.Concat(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads));
 
             var dt = this.GetRepository<UserAlbum>().ListByUser(userID);
 
@@ -655,7 +656,7 @@ namespace YAF.Core.Helpers
             // Login
             this.Get<IAspNetUsersHelper>().SignIn(user);
 
-            BuildLink.Redirect(ForumPages.Board);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Board);
         }
 
         /// <summary>

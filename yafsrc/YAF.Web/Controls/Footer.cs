@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,7 +26,6 @@ namespace YAF.Web.Controls
 {
     #region Using
 
-    using System;
     using System.IO;
 #if DEBUG
     using System.Collections.Generic;
@@ -38,13 +37,15 @@ namespace YAF.Web.Controls
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
-
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -116,7 +117,7 @@ namespace YAF.Web.Controls
         {
             if (this.PageContext.BoardSettings.ShowPageGenerationTime)
             {
-                writer.Write(@"<br /><span class=""text-muted"">");
+                writer.Write(@"<br /><span class=""text-muted small"">");
                 writer.Write(this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
                 writer.Write("</span>");
             }
@@ -165,7 +166,7 @@ namespace YAF.Web.Controls
 
             writer.Write(
                 @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ",
-                BuildLink.GetLink(ForumPages.RulesAndPrivacy),
+                this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy),
                 this.GetText("COMMON", "PRIVACY_POLICY"));
         }
 
@@ -204,7 +205,7 @@ namespace YAF.Web.Controls
                 }
             }
 
-            writer.Write(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">");
+            writer.Write(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""https://www.yetanotherforum.net"">");
             writer.Write(this.GetText("COMMON", "POWERED_BY"));
             writer.Write(@" YAF.NET");
 

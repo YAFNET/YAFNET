@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,8 +25,8 @@ namespace YAF.Types.EventProxies
 {
   #region Using
 
-  using System.Web.Caching;
-
+  using System.Runtime.Caching;
+  
   using YAF.Types.Interfaces.Events;
 
   #endregion
@@ -41,21 +41,15 @@ namespace YAF.Types.EventProxies
     /// <summary>
     /// Initializes a new instance of the <see cref="CacheItemRemovedEvent"/> class.
     /// </summary>
-    /// <param name="key">
-    /// The key.
+    /// <param name="arguments">
+    /// The arguments.
     /// </param>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    /// <param name="reason">
-    /// The reason.
-    /// </param>
-    public CacheItemRemovedEvent([NotNull] string key, [NotNull] object value, CacheItemRemovedReason reason)
+    public CacheItemRemovedEvent(CacheEntryRemovedArguments arguments)
     {
-      this.Key = key;
-      this.Value = value;
-      this.Reason = reason;
-    }
+        this.Key = arguments.CacheItem.Key;
+        this.Value = arguments.CacheItem.Value;
+        this.Reason = arguments.RemovedReason;
+        }
 
     #endregion
 
@@ -69,7 +63,7 @@ namespace YAF.Types.EventProxies
     /// <summary>
     /// Gets or sets Reason.
     /// </summary>
-    public CacheItemRemovedReason Reason { get; set; }
+    public CacheEntryRemovedReason Reason { get; set; }
 
     /// <summary>
     /// Gets or sets Value.

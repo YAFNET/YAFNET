@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -41,8 +41,10 @@ namespace YAF.Pages.Admin
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Tasks;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -50,9 +52,9 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -71,7 +73,7 @@ namespace YAF.Pages.Admin
         public void NewUserClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to create new user page
-            BuildLink.Redirect(ForumPages.Admin_RegisterUser);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_RegisterUser);
         }
 
         /// <summary>
@@ -86,7 +88,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // we are going to edit user - redirect to edit page
-                    BuildLink.Redirect(ForumPages.Admin_EditUser, "u={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, "u={0}", e.CommandArgument);
                     break;
                 case "delete":
 
@@ -153,7 +155,7 @@ namespace YAF.Pages.Admin
         public void Reset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // re-direct to self.
-            BuildLink.Redirect(ForumPages.Admin_Users);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
         }
 
         /// <summary>
@@ -393,7 +395,7 @@ namespace YAF.Pages.Admin
             this.UpdateStatusTimer.Enabled = false;
 
             // done here...
-            BuildLink.Redirect(ForumPages.Admin_Users);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
         }
 
         /// <summary>

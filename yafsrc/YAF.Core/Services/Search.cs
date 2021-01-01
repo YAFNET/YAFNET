@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,6 +32,7 @@ namespace YAF.Core.Services
     using System.Threading.Tasks;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Lucene.Net.Analysis;
@@ -51,7 +52,6 @@ namespace YAF.Core.Services
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
-    using YAF.Utils;
 
     /// <summary>
     /// The YAF Search Functions
@@ -271,22 +271,22 @@ namespace YAF.Core.Services
                 var description = message.Description ?? (message.Topic ?? string.Empty);
 
                 var doc = new Document
-                              {
-                                  new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
-                                  new TextField("Message", message.Message, Field.Store.YES),
-                                  new StoredField("Flags", message.Flags.ToString()),
-                                  new StoredField("Posted", message.Posted),
-                                  new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
-                                  new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
-                                  new TextField("Topic", message.Topic, Field.Store.YES),
-                                  new TextField("TopicTags", message.TopicTags, Field.Store.YES),
-                                  new StringField("ForumName", message.ForumName, Field.Store.YES),
-                                  new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
-                                  new TextField("Author", name, Field.Store.YES),
-                                  new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
-                                  new StoredField("AuthorStyle", userStyle),
-                                  new TextField("Description", description, Field.Store.YES)
-                              };
+                {
+                    new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
+                    new TextField("Message", message.Message, Field.Store.YES),
+                    new StoredField("Flags", message.Flags.ToString()),
+                    new StoredField("Posted", message.Posted),
+                    new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
+                    new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
+                    new TextField("Topic", message.Topic, Field.Store.YES),
+                    new TextField("TopicTags", message.TopicTags, Field.Store.YES),
+                    new StringField("ForumName", message.ForumName, Field.Store.YES),
+                    new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
+                    new TextField("Author", name, Field.Store.YES),
+                    new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
+                    new StoredField("AuthorStyle", userStyle),
+                    new TextField("Description", description, Field.Store.YES)
+                };
                 try
                 {
                     this.Writer.AddDocument(doc);
@@ -322,21 +322,21 @@ namespace YAF.Core.Services
                 var description = message.Description ?? (message.Topic ?? string.Empty);
 
                 var doc = new Document
-                              {
-                                  new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
-                                  new TextField("Message", message.Message, Field.Store.YES),
-                                  new StoredField("Flags", message.Flags.ToString()),
-                                  new StoredField("Posted", message.Posted),
-                                  new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
-                                  new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
-                                  new TextField("Topic", message.Topic, Field.Store.YES),
-                                  new StringField("ForumName", message.ForumName, Field.Store.YES),
-                                  new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
-                                  new TextField("Author", name, Field.Store.YES),
-                                  new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
-                                  new StoredField("AuthorStyle", userStyle),
-                                  new TextField("Description", description, Field.Store.YES)
-                              };
+                {
+                    new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
+                    new TextField("Message", message.Message, Field.Store.YES),
+                    new StoredField("Flags", message.Flags.ToString()),
+                    new StoredField("Posted", message.Posted),
+                    new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
+                    new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
+                    new TextField("Topic", message.Topic, Field.Store.YES),
+                    new StringField("ForumName", message.ForumName, Field.Store.YES),
+                    new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
+                    new TextField("Author", name, Field.Store.YES),
+                    new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
+                    new StoredField("AuthorStyle", userStyle),
+                    new TextField("Description", description, Field.Store.YES)
+                };
 
                 try
                 {
@@ -376,8 +376,8 @@ namespace YAF.Core.Services
         public List<SearchMessage> DoSearch(int forumId, int userId, string input, string fieldName = "")
         {
             return input.IsNotSet()
-                       ? new List<SearchMessage>()
-                       : this.SearchIndex(out _, forumId, userId, input, fieldName);
+                ? new List<SearchMessage>()
+                : this.SearchIndex(out _, forumId, userId, input, fieldName);
         }
 
         /// <summary>
@@ -401,8 +401,8 @@ namespace YAF.Core.Services
         public List<SearchMessage> SearchSimilar(int userId, string filter, string input, string fieldName = "")
         {
             return input.IsNotSet()
-                       ? new List<SearchMessage>()
-                       : this.SearchSimilarIndex(userId, filter, input, fieldName);
+                ? new List<SearchMessage>()
+                : this.SearchSimilarIndex(userId, filter, input, fieldName);
         }
 
         /// <summary>
@@ -449,8 +449,8 @@ namespace YAF.Core.Services
         public List<SearchMessage> SearchDefault(int forumId, int userId, string input, string fieldName = "")
         {
             return input.IsNotSet()
-                       ? new List<SearchMessage>()
-                       : this.SearchIndex(out _, forumId, userId, input, fieldName);
+                ? new List<SearchMessage>()
+                : this.SearchIndex(out _, forumId, userId, input, fieldName);
         }
 
         /// <summary>
@@ -522,9 +522,8 @@ namespace YAF.Core.Services
             var results = hits.Select(hit => MapSearchDocumentToData(searcher.Doc(hit.Doc), userAccessList)).ToList();
 
             return results.Any()
-                       ? results.Where(item => item != null).GroupBy(x => x.Topic).Select(y => y.FirstOrDefault())
-                           .ToList()
-                       : null;
+                ? results.Where(item => item != null).GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList()
+                : null;
         }
 
         /// <summary>
@@ -545,18 +544,23 @@ namespace YAF.Core.Services
             }
 
             return new SearchMessage
-                       {
-                           Topic = doc.Get("Topic"),
-                           TopicId = doc.Get("TopicId").ToType<int>(),
-                           TopicUrl = BuildLink.GetTopicLink(doc.Get("TopicId").ToType<int>(), doc.Get("Topic")),
-                           Posted = doc.Get("Posted"),
-                           UserId = doc.Get("UserId").ToType<int>(),
-                           UserName = doc.Get("Author"),
-                           UserDisplayName = doc.Get("AuthorDisplay"),
-                           ForumName = doc.Get("ForumName"),
-                           ForumUrl = BuildLink.GetForumLink(doc.Get("ForumId").ToType<int>(), doc.Get("ForumName")),
-                           UserStyle = doc.Get("AuthorStyle")
-                       };
+            {
+                Topic = doc.Get("Topic"),
+                TopicId = doc.Get("TopicId").ToType<int>(),
+                TopicUrl =
+                    BoardContext.Current.Get<LinkBuilder>().GetTopicLink(
+                        doc.Get("TopicId").ToType<int>(),
+                        doc.Get("Topic")),
+                Posted = doc.Get("Posted"),
+                UserId = doc.Get("UserId").ToType<int>(),
+                UserName = doc.Get("Author"),
+                UserDisplayName = doc.Get("AuthorDisplay"),
+                ForumName = doc.Get("ForumName"),
+                ForumUrl = BoardContext.Current.Get<LinkBuilder>().GetForumLink(
+                    doc.Get("ForumId").ToType<int>(),
+                    doc.Get("ForumName")),
+                UserStyle = doc.Get("AuthorStyle")
+            };
         }
 
         /// <summary>
@@ -581,22 +585,25 @@ namespace YAF.Core.Services
                 var description = message.Description ?? (message.Topic ?? string.Empty);
 
                 var doc = new Document
-                              {
-                                  new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
-                                  new TextField("Message", message.Message, Field.Store.YES),
-                                  new StoredField("Flags", message.Flags.ToString()),
-                                  new StoredField("Posted", message.Posted),
-                                  new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
-                                  new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
-                                  new TextField("Topic", message.Topic, Field.Store.YES),
-                                  new StringField("ForumName", message.ForumName, Field.Store.YES),
-                                  new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
-                                  new TextField("Author", name, Field.Store.YES),
-                                  new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
-                                  new StoredField("AuthorStyle", userStyle),
-                                  new TextField("Description", description, Field.Store.YES),
-                                  new TextField("TopicTags", this.GetRepository<TopicTag>().ListAsDelimitedString(message.TopicId.Value), Field.Store.YES)
-                              };
+                {
+                    new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
+                    new TextField("Message", message.Message, Field.Store.YES),
+                    new StoredField("Flags", message.Flags.ToString()),
+                    new StoredField("Posted", message.Posted),
+                    new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
+                    new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
+                    new TextField("Topic", message.Topic, Field.Store.YES),
+                    new StringField("ForumName", message.ForumName, Field.Store.YES),
+                    new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
+                    new TextField("Author", name, Field.Store.YES),
+                    new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
+                    new StoredField("AuthorStyle", userStyle),
+                    new TextField("Description", description, Field.Store.YES),
+                    new TextField(
+                        "TopicTags",
+                        this.GetRepository<TopicTag>().ListAsDelimitedString(message.TopicId.Value),
+                        Field.Store.YES)
+                };
 
                 try
                 {
@@ -638,8 +645,8 @@ namespace YAF.Core.Services
             }
 
             this.searcherManager = this.indexWriter != null
-                                       ? new SearcherManager(this.indexWriter, false, null)
-                                       : new SearcherManager(FSDirectory.Open(SearchIndexFolder), null);
+                ? new SearcherManager(this.indexWriter, false, null)
+                : new SearcherManager(FSDirectory.Open(SearchIndexFolder), null);
 
             this.searcherManager.MaybeRefreshBlocking();
 
@@ -727,16 +734,17 @@ namespace YAF.Core.Services
                 ForumId = doc.Get("ForumId").ToType<int>(),
                 Description = doc.Get("Description"),
                 TopicUrl =
-                    BuildLink.GetTopicLink(
+                    this.Get<LinkBuilder>().GetTopicLink(
                         doc.Get("TopicId").ToType<int>(),
                         topic.IsSet() ? topic : doc.Get("Topic")),
                 MessageUrl =
-                    BuildLink.GetLink(
+                    this.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         "m={0}&name={1}#post{0}",
                         doc.Get("MessageId").ToType<int>(),
                         topic.IsSet() ? topic : doc.Get("Topic")),
-                ForumUrl = BuildLink.GetForumLink(doc.Get("ForumId").ToType<int>(), doc.Get("ForumName")),
+                ForumUrl =
+                    this.Get<LinkBuilder>().GetForumLink(doc.Get("ForumId").ToType<int>(), doc.Get("ForumName")),
                 UserDisplayName = doc.Get("AuthorDisplay"),
                 ForumName = doc.Get("ForumName"),
                 UserStyle = doc.Get("AuthorStyle")
@@ -861,10 +869,10 @@ namespace YAF.Core.Services
                 var parser = new MultiFieldQueryParser(
                     MatchVersion,
                     new[]
-                        {
-                            "Message", "Topic",
-                            this.Get<BoardSettings>().EnableDisplayName ? "AuthorDisplay" : "Author", "TopicTags"
-                        },
+                    {
+                        "Message", "Topic",
+                        this.Get<BoardSettings>().EnableDisplayName ? "AuthorDisplay" : "Author", "TopicTags"
+                    },
                     analyzer);
 
                 var query = ParseQuery(searchQuery, parser);
@@ -931,7 +939,11 @@ namespace YAF.Core.Services
         /// <returns>
         /// Returns the Search results
         /// </returns>
-        private List<SearchMessage> SearchSimilarIndex(int userId, string filter, string searchQuery, string searchField)
+        private List<SearchMessage> SearchSimilarIndex(
+            int userId,
+            string filter,
+            string searchQuery,
+            string searchField)
         {
             if (searchQuery.Replace("*", string.Empty).Replace("?", string.Empty).IsNotSet())
             {

@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Core.Services" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
@@ -38,7 +39,7 @@
                                      <YAF:UserLink ID="AdminLink" runat="server" 
                                                    IsGuest="False" 
                                                    ReplaceName='<%#  this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name").ToString() %>' 
-                                                   Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
+                                                   Suspended='<%# this.Eval("Suspended").ToType<System.DateTime?>() %>'
                                                    UserID='<%# this.Eval("ID").ToType<int>() %>' 
                                                    Style='<%# this.Eval("UserStyle") %>'  />
                                  </h5>
@@ -70,7 +71,7 @@
                                                      Visible="false"
                                                      Icon="user-cog" 
                                                      Type="Danger"
-                                                     NavigateUrl='<%# BuildLink.GetLink(ForumPages.Admin_EditUser,"u={0}", this.Eval("ID").ToType<int>() ) %>'>
+                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser,"u={0}", this.Eval("ID").ToType<int>() ) %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>
@@ -108,7 +109,7 @@
                                                 Height="40px"
                                                 CssClass="rounded img-fluid"/>
                                      <YAF:UserLink ID="ModLink" runat="server" 
-                                                   Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
+                                                   Suspended='<%# this.Eval("Suspended").ToType<System.DateTime?>() %>'
                                                    ReplaceName='<%#  this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name").ToString() %>' 
                                                    UserID='<%# this.Eval("ModeratorID").ToType<int>() %>' 
                                                    IsGuest="False" 
@@ -149,7 +150,7 @@
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                                      Icon="user-cog" 
                                                      Type="Danger"
-                                                     NavigateUrl='<%# BuildLink.GetLink( ForumPages.Admin_EditUser,"u={0}", this.Eval("ModeratorID").ToType<int>() ) %>'>
+                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink( ForumPages.Admin_EditUser,"u={0}", this.Eval("ModeratorID").ToType<int>() ) %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>

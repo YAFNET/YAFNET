@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,9 +31,9 @@ namespace YAF.Core.Tasks
     using System.Text;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -91,10 +91,10 @@ namespace YAF.Core.Tasks
                                 if (attach.FileData == null)
                                 {
                                     var oldFilePath = this.Get<HttpRequestBase>().MapPath(
-                                        $"{BoardFolders.Current.Uploads}/{attach.MessageID}.{attach.FileName}.yafupload");
+                                        $"{this.Get<BoardFolders>().Uploads}/{attach.MessageID}.{attach.FileName}.yafupload");
 
                                     var newFilePath = this.Get<HttpRequestBase>().MapPath(
-                                        $"{BoardFolders.Current.Uploads}/u{attach.UserID}.{attach.FileName}.yafupload");
+                                        $"{this.Get<BoardFolders>().Uploads}/u{attach.UserID}.{attach.FileName}.yafupload");
 
                                     File.Move(oldFilePath, newFilePath);
                                 }

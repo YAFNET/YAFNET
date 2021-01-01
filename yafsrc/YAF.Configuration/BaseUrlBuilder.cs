@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,6 +26,7 @@ namespace YAF.Configuration
     #region Using
 
     using System;
+    using System.Runtime.Caching;
     using System.Text;
     using System.Web;
     using System.Web.Hosting;
@@ -115,7 +116,7 @@ namespace YAF.Configuration
 
                 try
                 {
-                    var boardSettings = HttpContext.Current.Application["BoardSettings$1"] as BoardSettings;
+                    var boardSettings = MemoryCache.Default["BoardSettings$1"] as BoardSettings;
 
                     baseUrlMask = boardSettings.BaseUrlMask.IsSet()
                                       ? TreatBaseUrl(boardSettings.BaseUrlMask)

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,13 +30,13 @@ namespace YAF.Pages.Account
     using System.Web.Security;
 
     using YAF.Core.BasePages;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
-    using YAF.Utils;
 
     #endregion
 
@@ -74,7 +74,7 @@ namespace YAF.Pages.Account
 
             this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageContext.PageUserID));
 
-            BuildLink.Redirect(ForumPages.Board);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Board);
         }
 
         #endregion

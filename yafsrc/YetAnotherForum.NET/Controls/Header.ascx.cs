@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -35,12 +35,12 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Web.Controls;
 
     #endregion
@@ -118,7 +118,7 @@ namespace YAF.Controls
                 return;
             }
 
-            BuildLink.Redirect(ForumPages.Search, "search={0}", this.Server.UrlEncode(this.searchInput.Text));
+            this.Get<LinkBuilder>().Redirect(ForumPages.Search, "search={0}", this.Server.UrlEncode(this.searchInput.Text));
         }
 
         /// <summary>
@@ -293,7 +293,7 @@ namespace YAF.Controls
                 "nav-link",
                 this.GetText("TOOLBAR", "MODERATE"),
                 "MODERATE_TITLE",
-                BuildLink.GetLink(ForumPages.Moderate_Index),
+                this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Index),
                 false,
                 this.PageContext.ModeratePosts > 0,
                 this.PageContext.ModeratePosts.ToString(),
@@ -327,7 +327,7 @@ namespace YAF.Controls
                     "nav-link",
                     this.GetText("TOOLBAR", "SEARCH"),
                     "SEARCH_TITLE",
-                    BuildLink.GetLink(ForumPages.Search),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Search),
                     false,
                     false,
                     null,
@@ -344,7 +344,7 @@ namespace YAF.Controls
                     "nav-link",
                     this.GetText("TOOLBAR", "MEMBERS"),
                     "MEMBERS_TITLE",
-                    BuildLink.GetLink(ForumPages.Members),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Members),
                     false,
                     false,
                     null,
@@ -361,7 +361,7 @@ namespace YAF.Controls
                     "nav-link",
                     this.GetText("TOOLBAR", "TEAM"),
                     "TEAM_TITLE",
-                    BuildLink.GetLink(ForumPages.Team),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Team),
                     false,
                     false,
                     null,
@@ -378,7 +378,7 @@ namespace YAF.Controls
                     "nav-link",
                     this.GetText("TOOLBAR", "HELP"),
                     "HELP_TITLE",
-                    BuildLink.GetLink(ForumPages.Help),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Help),
                     false,
                     false,
                     null,
@@ -399,7 +399,7 @@ namespace YAF.Controls
 
                 if (this.PageContext.CurrentForumPage.IsAccountPage)
                 {
-                    navigateUrl = BuildLink.GetLink(ForumPages.Account_Login);
+                    navigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login);
                 }
 
                 RenderMenuItem(
@@ -425,10 +425,10 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "REGISTER"),
                     "REGISTER_TITLE",
                     this.PageContext.BoardSettings.ShowRulesForRegistration
-                        ? BuildLink.GetLink(ForumPages.RulesAndPrivacy)
+                        ? this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
                         : !this.PageContext.BoardSettings.UseSSLToRegister
-                            ? BuildLink.GetLink(ForumPages.Account_Register)
-                            : BuildLink.GetLink(ForumPages.Account_Register, true).Replace("http:", "https:"),
+                            ? this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register)
+                            : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register, true).Replace("http:", "https:"),
                     true,
                     false,
                     null,
@@ -471,7 +471,7 @@ namespace YAF.Controls
 
                     if (this.PageContext.CurrentForumPage.IsAccountPage)
                     {
-                        navigateUrl = BuildLink.GetLink(ForumPages.Account_Login);
+                        navigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login);
                     }
 
                     // show login
@@ -502,10 +502,10 @@ namespace YAF.Controls
                                                Text = this.GetText("TOOLBAR", "REGISTER"),
                                                NavigateUrl =
                                                    this.PageContext.BoardSettings.ShowRulesForRegistration
-                                                       ? BuildLink.GetLink(ForumPages.RulesAndPrivacy)
+                                                       ? this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
                                                        : !this.PageContext.BoardSettings.UseSSLToRegister
-                                                           ? BuildLink.GetLink(ForumPages.Account_Register)
-                                                           : BuildLink.GetLink(
+                                                           ? this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register)
+                                                           : this.Get<LinkBuilder>().GetLink(
                                                                ForumPages.Account_Register,
                                                                true).Replace("http:", "https:"),
                                                CssClass = "alert-link"

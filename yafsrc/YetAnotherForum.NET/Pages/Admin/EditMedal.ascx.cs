@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,11 +33,12 @@ namespace YAF.Pages.Admin
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -45,8 +46,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -124,7 +123,7 @@ namespace YAF.Pages.Admin
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // go back to medals administration
-            BuildLink.Redirect(ForumPages.Admin_Medals);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Medals);
         }
 
         /// <summary>
@@ -140,7 +139,7 @@ namespace YAF.Pages.Admin
 
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_MEDALS", "TITLE"),
-                BuildLink.GetLink(ForumPages.Admin_Medals));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Medals));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITMEDAL", "TITLE"), string.Empty);
@@ -165,7 +164,7 @@ namespace YAF.Pages.Admin
             return string.Format(
                 "<a href=\"{1}\">{0}</a>",
                 dr.Item3.Name,
-                BuildLink.GetLink(ForumPages.Admin_EditGroup, "i={0}", dr.Item3.ID));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditGroup, "i={0}", dr.Item3.ID));
         }
 
         /// <summary>
@@ -185,7 +184,7 @@ namespace YAF.Pages.Admin
                 "<a href=\"{2}\">{0}&nbsp;({1})</a>",
                 this.HtmlEncode(dr.Item3.DisplayName),
                 this.HtmlEncode(dr.Item3.Name),
-                BuildLink.GetLink(ForumPages.Admin_EditUser, "u={0}", dr.Item3.ID));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, "u={0}", dr.Item3.ID));
         }
 
         /// <summary>
@@ -305,7 +304,7 @@ namespace YAF.Pages.Admin
                 flags.BitValue);
 
             // go back to medals administration
-            BuildLink.Redirect(ForumPages.Admin_Medals);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Medals);
         }
 
         /// <summary>
@@ -382,13 +381,12 @@ namespace YAF.Pages.Admin
                     BoardInfo.GetURLToContent("images/spacer.gif"))
             };
 
-
             // add files from medals folder
             var dir = new DirectoryInfo(
-                this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Medals}"));
+                this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{this.Get<BoardFolders>().Medals}"));
             var files = dir.GetFiles("*.*").ToList();
 
-            medals.AddImageFiles(files, BoardFolders.Current.Medals);
+            medals.AddImageFiles(files, this.Get<BoardFolders>().Medals);
 
             // medal image
             this.MedalImage.DataSource = medals;

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,8 +25,8 @@ namespace YAF.Core.Helpers
 {
   #region Using
 
-  using System.Web;
-
+  using System.Runtime.Caching;
+  
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
@@ -38,49 +38,21 @@ namespace YAF.Core.Helpers
   /// </summary>
   public class CurrentTaskModuleProvider : IReadWriteProvider<ITaskModuleManager>
   {
-    #region Constants and Fields
-
-    /// <summary>
-    /// The _http application state.
-    /// </summary>
-    private readonly HttpApplicationStateBase _httpApplicationState;
-
-    #endregion
-
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CurrentTaskModuleProvider"/> class.
-    /// </summary>
-    /// <param name="httpApplicationState">
-    /// The http application state.
-    /// </param>
-    public CurrentTaskModuleProvider([NotNull] HttpApplicationStateBase httpApplicationState)
-    {
-      CodeContracts.VerifyNotNull(httpApplicationState, "httpApplicationState");
-
-      this._httpApplicationState = httpApplicationState;
-    }
-
-    #endregion
-
     #region Properties
 
     /// <summary>
-    ///   The create.
+    /// Gets or sets the instance.
     /// </summary>
-    /// <returns>
-    /// </returns>
     [CanBeNull]
     public ITaskModuleManager Instance
     {
-      get => this._httpApplicationState[Constants.Cache.TaskModule] as ITaskModuleManager;
+      get => MemoryCache.Default[Constants.Cache.TaskModule] as ITaskModuleManager;
 
       set
       {
         CodeContracts.VerifyNotNull(value, "value");
 
-        this._httpApplicationState[Constants.Cache.TaskModule] = value;
+        MemoryCache.Default[Constants.Cache.TaskModule] = value;
       }
     }
 

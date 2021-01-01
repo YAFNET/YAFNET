@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,7 +34,9 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -42,8 +44,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -96,7 +96,7 @@ namespace YAF.Pages.Admin
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // go back to roles administration
-            BuildLink.Redirect(ForumPages.Admin_Groups);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Groups);
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace YAF.Pages.Admin
 
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_GROUPS", "TITLE"),
-                BuildLink.GetLink(ForumPages.Admin_Groups));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Groups));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITGROUP", "TITLE"), string.Empty);
@@ -344,11 +344,11 @@ namespace YAF.Pages.Admin
                         item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue.ToType<int>());
                 }
 
-                BuildLink.Redirect(ForumPages.Admin_Groups);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Groups);
             }
 
             // Done, redirect to role editing page
-            BuildLink.Redirect(ForumPages.Admin_EditGroup, "i={0}", roleId);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditGroup, "i={0}", roleId);
         }
 
         /// <summary>

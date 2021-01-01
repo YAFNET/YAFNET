@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2020 Ingo Herbote
+* Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,7 +30,6 @@ namespace YAF.Core.Services
     using System.IO;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -102,7 +101,7 @@ namespace YAF.Core.Services
 
                 if (attachment.FileData == null)
                 {
-                    var uploadFolder = BoardFolders.Current.Uploads;
+                    var uploadFolder = this.Get<BoardFolders>().Uploads;
 
                     var oldFileName =
                         context.Server.MapPath(
@@ -205,7 +204,7 @@ namespace YAF.Core.Services
 
                 if (attachment.FileData == null)
                 {
-                    var uploadFolder = BoardFolders.Current.Uploads;
+                    var uploadFolder = this.Get<BoardFolders>().Uploads;
 
                     var oldFileName =
                          context.Server.MapPath(

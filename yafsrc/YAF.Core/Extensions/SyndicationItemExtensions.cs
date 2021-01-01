@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,10 +28,12 @@ namespace YAF.Core.Extensions
     using System.ServiceModel.Syndication;
 
     using YAF.Core.Context;
+    using YAF.Core.Services;
     using YAF.Core.Syndication;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
+    
+    using DateTime = System.DateTime;
 
     /// <summary>
     /// The syndication item extensions.
@@ -82,13 +84,13 @@ namespace YAF.Core.Extensions
             List<SyndicationLink> links)
         {
             var si = new SyndicationItem(
-                         BoardContext.Current.Get<IBadWordReplace>().Replace(title),
-                         new TextSyndicationContent(
-                             BoardContext.Current.Get<IBadWordReplace>().Replace(content),
-                             TextSyndicationContentKind.Html),
-                         new Uri(link),
-                         id,
-                         new DateTimeOffset(posted)) { PublishDate = new DateTimeOffset(posted) };
+                BoardContext.Current.Get<IBadWordReplace>().Replace(title),
+                new TextSyndicationContent(
+                    BoardContext.Current.Get<IBadWordReplace>().Replace(content),
+                    TextSyndicationContentKind.Html),
+                new Uri(link),
+                id,
+                new DateTimeOffset(posted)) { PublishDate = new DateTimeOffset(posted) };
 
             links?.ForEach(syndicationLink => si.Links.Add(syndicationLink));
 
@@ -170,18 +172,20 @@ namespace YAF.Core.Extensions
             if (BoardContext.Current.BoardSettings.EnableDisplayName)
             {
                 userNameToShow = userDisplayName.IsNotSet()
-                                     ? BoardContext.Current.Get<IUserDisplayName>().GetNameById(userId)
-                                     : userDisplayName;
+                    ? BoardContext.Current.Get<IUserDisplayName>().GetNameById(userId)
+                    : userDisplayName;
             }
             else
             {
-                userNameToShow = userName.IsNotSet() ? BoardContext.Current.Get<IUserDisplayName>().GetNameById(userId) : userName;
+                userNameToShow = userName.IsNotSet()
+                    ? BoardContext.Current.Get<IUserDisplayName>().GetNameById(userId)
+                    : userName;
             }
 
             return new SyndicationPerson(
                 userEmail,
                 userNameToShow,
-                BuildLink.GetUserProfileLink(userId, userNameToShow));
+                BoardContext.Current.Get<LinkBuilder>().GetUserProfileLink(userId, userNameToShow));
         }
 
         #endregion

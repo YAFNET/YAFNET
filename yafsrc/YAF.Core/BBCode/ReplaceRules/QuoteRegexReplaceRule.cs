@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,11 +30,11 @@ namespace YAF.Core.BBCode.ReplaceRules
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     /// <summary>
     /// Quote Block regular express replace
@@ -111,7 +111,7 @@ namespace YAF.Core.BBCode.ReplaceRules
                         userName = quote;
                     }
 
-                    var topicLink = BuildLink.GetLink(
+                    var topicLink = BoardContext.Current.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         "m={0}&name={1}#post{0}",
                         postId,

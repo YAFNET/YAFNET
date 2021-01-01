@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -39,6 +39,10 @@ namespace YAF.Controls
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
+    using YAF.Core.Utilities.Helpers.ImageUtils;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -47,9 +51,8 @@ namespace YAF.Controls
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Types.Objects;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
-    using YAF.Utils.Helpers.ImageUtils;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -76,7 +79,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(
+            this.Get<LinkBuilder>().Redirect(
                 this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
         }
 
@@ -104,7 +107,7 @@ namespace YAF.Controls
             if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin
                                                               && this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
-                this.currentUserId = Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+                this.currentUserId = this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
             }
             else
             {
@@ -205,7 +208,7 @@ namespace YAF.Controls
                 else
                 {
                     var uploadFolderPath = this.Get<HttpRequestBase>().MapPath(
-                        string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
+                        string.Concat(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads));
 
                     // check if Uploads folder exists
                     if (!Directory.Exists(uploadFolderPath))
@@ -252,7 +255,7 @@ namespace YAF.Controls
 
                     this.GetRepository<User>().SaveAvatar(
                         this.currentUserId,
-                        $"{BoardInfo.ForumBaseUrl}{BoardFolders.Current.Uploads}/{newFileName}",
+                        $"{BoardInfo.ForumBaseUrl}{this.Get<BoardFolders>().Uploads}/{newFileName}",
                         null,
                         null);
                 }
@@ -310,11 +313,11 @@ namespace YAF.Controls
 
                 var dir = new DirectoryInfo(
                     this.Get<HttpRequestBase>()
-                        .MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Avatars}"));
+                        .MapPath($"{BoardInfo.ForumServerFileRoot}{this.Get<BoardFolders>().Avatars}"));
 
                 var files = dir.GetFiles("*.*").ToList();
 
-                avatars.AddImageFiles(files, BoardFolders.Current.Avatars);
+                avatars.AddImageFiles(files, this.Get<BoardFolders>().Avatars);
 
                 if (avatars.Any())
                 {

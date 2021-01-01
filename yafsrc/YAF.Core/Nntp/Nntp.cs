@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,8 +28,8 @@ namespace YAF.Core.Nntp
     using System;
     using System.Data.SqlClient;
     using System.Linq;
-    using System.Web;
-
+    using System.Runtime.Caching;
+    
     using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types;
@@ -54,15 +54,6 @@ namespace YAF.Core.Nntp
     /// </summary>
     public class Nntp : INewsreader
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The application state base.
-        /// </summary>
-        private readonly HttpApplicationStateBase applicationStateBase;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -74,9 +65,8 @@ namespace YAF.Core.Nntp
         /// <param name="applicationStateBase">
         /// The application state base.
         /// </param>
-        public Nntp([NotNull] ILogger logger, [NotNull] HttpApplicationStateBase applicationStateBase)
+        public Nntp([NotNull] ILogger logger)
         {
-            this.applicationStateBase = applicationStateBase;
             this.Logger = logger;
         }
 
@@ -146,7 +136,7 @@ namespace YAF.Core.Nntp
         /// </returns>
         public int ReadArticles(int boardId, int lastUpdate, int timeToRun, bool createUsers)
         {
-            if (this.applicationStateBase["WorkingInYafNNTP"] != null)
+            if (MemoryCache.Default["WorkingInYafNNTP"] != null)
             {
                 return 0;
             }
@@ -160,7 +150,7 @@ namespace YAF.Core.Nntp
 
             try
             {
-                this.applicationStateBase["WorkingInYafNNTP"] = true;
+                MemoryCache.Default["WorkingInYafNNTP"] = true;
 
                 // Only those not updated in the last 30 minutes
                 foreach (var nntpForum in BoardContext.Current.GetRepository<NntpForum>()
@@ -348,7 +338,7 @@ namespace YAF.Core.Nntp
             }
             finally
             {
-                this.applicationStateBase["WorkingInYafNNTP"] = null;
+                MemoryCache.Default["WorkingInYafNNTP"] = null;
             }
 
             return articleCount;

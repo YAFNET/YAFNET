@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -38,13 +38,13 @@ namespace YAF.Web.Controls
     using YAF.Core.BasePages;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Utilities;
     using YAF.Types;
 #if DEBUG
     using YAF.Types.Exceptions;
 #endif
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Web.EventsArgs;
 
     #endregion
@@ -120,9 +120,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public int BoardID
         {
-            get => ControlSettings.Current.BoardID;
+            get => this.Get<ControlSettings>().BoardID;
 
-            set => ControlSettings.Current.BoardID = value;
+            set => this.Get<ControlSettings>().BoardID = value;
         }
 
         /// <summary>
@@ -130,9 +130,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public int CategoryID
         {
-            get => ControlSettings.Current.CategoryID;
+            get => this.Get<ControlSettings>().CategoryID;
 
-            set => ControlSettings.Current.CategoryID = value;
+            set => this.Get<ControlSettings>().CategoryID = value;
         }
 
         /// <summary>
@@ -150,9 +150,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public int LockedForum
         {
-            get => ControlSettings.Current.LockedForum;
+            get => this.Get<ControlSettings>().LockedForum;
 
-            set => ControlSettings.Current.LockedForum = value;
+            set => this.Get<ControlSettings>().LockedForum = value;
         }
 
         /// <summary>

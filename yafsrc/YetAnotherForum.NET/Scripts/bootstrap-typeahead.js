@@ -179,12 +179,12 @@
                 pos.top = offset.top;
                 pos.left = offset.left;
             }
-            // The rules for bootstrap are: 'dropup' in the parent and 'dropdown-menu-right' in the element.
+            // The rules for bootstrap are: 'dropup' in the parent and 'dropdown-menu-end' in the element.
             // Note that to get right alignment, you'll need to specify `menu` in the options to be:
             // '<ul class="typeahead dropdown-menu" role="listbox"></ul>'
             var dropup = $(element).parent().hasClass('dropup');
             var newTop = dropup ? 'auto' : (pos.top + pos.height + scrollHeight);
-            var right = $(element).hasClass('dropdown-menu-right');
+            var right = $(element).hasClass('dropdown-menu-end');
             var newLeft = right ? 'auto' : pos.left;
             // it seems like setting the css is a bad idea (just let Bootstrap do it), but I'll keep the old
             // logic in place except for the dropup/right-align cases.

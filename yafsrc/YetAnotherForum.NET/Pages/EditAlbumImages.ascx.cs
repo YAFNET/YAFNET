@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -37,6 +37,7 @@ namespace YAF.Pages
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -45,7 +46,6 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -83,7 +83,7 @@ namespace YAF.Pages
                 // This is an existing album
                 if (albumId.IsSet() && !albumId.Contains("new"))
                 {
-                    BuildLink.Redirect(
+                    this.Get<LinkBuilder>().Redirect(
                         ForumPages.Album,
                         "u={0}&a={1}",
                         this.PageContext.PageUserID.ToString(),
@@ -92,12 +92,12 @@ namespace YAF.Pages
                 else
                 {
                     // simply redirect to albums page
-                    BuildLink.Redirect(ForumPages.Albums, "u={0}", this.PageContext.PageUserID);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Albums, "u={0}", this.PageContext.PageUserID);
                 }
             }
             else
             {
-                BuildLink.Redirect(ForumPages.Albums, "u={0}", this.PageContext.PageUserID);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Albums, "u={0}", this.PageContext.PageUserID);
             }
         }
 
@@ -122,7 +122,7 @@ namespace YAF.Pages
             {
                 case "delete":
                     var path = this.Get<HttpRequestBase>().MapPath(
-                        string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
+                        string.Concat(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads));
 
                     this.Get<IAlbum>().AlbumImageDelete(
                         path,
@@ -176,7 +176,7 @@ namespace YAF.Pages
         {
             if (!this.PageContext.BoardSettings.EnableAlbum)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             this.PageContext.PageElements.RegisterJsBlockStartup(
@@ -205,7 +205,7 @@ namespace YAF.Pages
                     if (usrAlbumsAllowed > 0 && albumSize >= usrAlbumsAllowed)
                     {
                         // Albums count. If we reached limit then we go to info page.
-                        BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+                        this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
                     }
 
                     this.UpdateTitle.Visible = false;
@@ -249,7 +249,7 @@ namespace YAF.Pages
             this.PageLinks.AddUser(this.PageContext.PageUserID, displayName);
             this.PageLinks.AddLink(
                 this.GetText("ALBUMS"),
-                BuildLink.GetLink(ForumPages.Albums, "u={0}", this.PageContext.PageUserID));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Albums, "u={0}", this.PageContext.PageUserID));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 
@@ -267,7 +267,7 @@ namespace YAF.Pages
                 albumId.Value,
                 this.txtTitle.Text);
 
-            BuildLink.Redirect(ForumPages.EditAlbumImages, "a={0}", albumId.Value);
+            this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, "a={0}", albumId.Value);
         }
 
         /// <summary>
@@ -404,7 +404,7 @@ namespace YAF.Pages
             }
 
             var path = this.Get<HttpRequestBase>()
-                .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
+                .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads));
 
             // check if Uploads folder exists
             if (!Directory.Exists(path))
@@ -473,7 +473,7 @@ namespace YAF.Pages
                 // clear the cache for this user to update albums|images stats...
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
 
-                BuildLink.Redirect(ForumPages.EditAlbumImages, "a={0}", newAlbumId);
+                this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, "a={0}", newAlbumId);
             }
             else
             {
@@ -506,7 +506,7 @@ namespace YAF.Pages
         private void DeleteAlbum()
         {
             var path = this.Get<HttpRequestBase>()
-                .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
+                .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads));
 
             this.Get<IAlbum>().AlbumImageDelete(
                 path,
@@ -517,7 +517,7 @@ namespace YAF.Pages
             // clear the cache for this user to update albums|images stats...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
 
-            BuildLink.Redirect(ForumPages.Albums, "u={0}", this.PageContext.PageUserID);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Albums, "u={0}", this.PageContext.PageUserID);
         }
 
         #endregion

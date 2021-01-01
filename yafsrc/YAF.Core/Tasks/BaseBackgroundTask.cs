@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,6 +26,7 @@ namespace YAF.Core.Tasks
     using System;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Types.Attributes;
     using YAF.Types.Interfaces;
 
@@ -37,7 +38,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// The board id.
         /// </summary>
-        protected int boardId = ControlSettings.Current.BoardID;
+        protected int boardId = BoardContext.Current.Get<ControlSettings>().BoardID;
 
         /// <summary>
         /// The is running.

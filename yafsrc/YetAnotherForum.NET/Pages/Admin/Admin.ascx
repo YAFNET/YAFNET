@@ -1,8 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Admin"
     CodeBehind="Admin.ascx.cs" %>
-
-<%@ Import Namespace="YAF.Utils.Helpers" %>
 <%@ Import Namespace="ServiceStack" %>
+<%@ Import Namespace="YAF.Core.Utilities.Helpers" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <div class="row">
     <div class="col-xl-12">

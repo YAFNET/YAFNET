@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -197,12 +197,7 @@ namespace YAF.Core.Context
         /// <summary>
         /// Gets the Current Page Control Settings from Forum Control
         /// </summary>
-        public ControlSettings Settings => ControlSettings.Current;
-
-        /// <summary>
-        /// Gets the UrlBuilder
-        /// </summary>
-        public IUrlBuilder UrlBuilder => FactoryProvider.UrlBuilder;
+        public ControlSettings Settings => this.Get<ControlSettings>();
 
         /// <summary>
         /// Gets or sets the Current Membership User

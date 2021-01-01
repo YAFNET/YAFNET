@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,11 +30,11 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects.Model;
-    using YAF.Utils;
-    
+
     #endregion
 
     /// <summary>
@@ -75,7 +75,7 @@ namespace YAF.Controls
             var output = forum.Forum;
 
             output = forum.ReadAccess
-                ? $"<a class=\"card-link small\" href=\"{BuildLink.GetForumLink(forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>"
+                ? $"<a class=\"card-link small\" href=\"{this.Get<LinkBuilder>().GetForumLink(forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>"
                 : $"{output} {this.GetText("NO_FORUM_ACCESS")}";
 
             return output;

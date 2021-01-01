@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -35,13 +35,15 @@ namespace YAF.Pages
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
@@ -197,7 +199,7 @@ namespace YAF.Pages
         {
             if (this.forumId > 0 && !this.PageContext.ForumPollAccess)
             {
-                BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
             }
         }
 
@@ -309,7 +311,7 @@ namespace YAF.Pages
                 if (poll.UserID != this.PageContext.PageUserID &&
                     !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
                 {
-                    BuildLink.RedirectInfoPage(InfoMessage.Invalid);
+                    this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
                 }
 
                 this.IsClosedBoundCheckBox.Checked = poll.PollFlags.IsClosedBound;
@@ -348,7 +350,7 @@ namespace YAF.Pages
                 // A new poll is created
                 if (!this.CanCreatePoll())
                 {
-                    BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+                    this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
                 }
 
                 // clear the fields...
@@ -393,13 +395,13 @@ namespace YAF.Pages
                 this.topicUnapproved = true;
 
                 this.forumId =
-                    Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
+                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
             }
 
             if (this.Get<HttpRequestBase>().QueryString.Exists("t"))
             {
                 var topicId =
-                    Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"));
+                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"));
                 this.topicInfo = this.GetRepository<Topic>().GetById(topicId);
 
                 if (this.forumId > 0)
@@ -421,7 +423,7 @@ namespace YAF.Pages
             {
                 // edit existing poll
                 this.PollId =
-                    Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p"));
+                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p"));
                 this.InitPollUI(this.PollId);
 
                 this.PageLinks.AddLink(this.GetText("POLLEDIT", "EDITPOLL"), string.Empty);
@@ -447,10 +449,10 @@ namespace YAF.Pages
             if (this.topicUnapproved)
             {
                 // Tell user that his message will have to be approved by a moderator
-                BuildLink.Redirect(ForumPages.Info, "i=1");
+                this.Get<LinkBuilder>().Redirect(ForumPages.Info, "i=1");
             }
 
-            BuildLink.Redirect(ForumPages.Posts, "t={0}&name={1}", this.topicInfo.ID, this.topicInfo.TopicName);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "t={0}&name={1}", this.topicInfo.ID, this.topicInfo.TopicName);
         }
 
         /// <summary>

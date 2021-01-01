@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,12 +34,12 @@ namespace YAF.Web.Controls
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    
+
     #endregion
 
     /// <summary>
@@ -91,7 +91,7 @@ namespace YAF.Web.Controls
         {
             if (this.ForumId == 0)
             {
-                BuildLink.Redirect(ForumPages.Board);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Board);
                 return;
             }
 
@@ -109,11 +109,11 @@ namespace YAF.Web.Controls
             if (this.ForumId < 0)
             {
                 // categories are negative
-                BuildLink.Redirect(ForumPages.Board, "c={0}&name={1}", -this.ForumId, name);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Board, "c={0}&name={1}", -this.ForumId, name);
                 return;
             }
 
-            BuildLink.Redirect(ForumPages.Topics, "f={0}&name={1}", this.ForumId, name);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Topics, "f={0}&name={1}", this.ForumId, name);
         }
 
         #endregion

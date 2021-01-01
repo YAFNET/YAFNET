@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,9 +31,10 @@ namespace YAF.Controls
 
     using YAF.Core.BaseControls;
     using YAF.Core.Helpers;
+    using YAF.Core.Services;
     using YAF.Types.Constants;
-    using YAF.Utils;
-
+    using YAF.Types.Interfaces;
+    
     #endregion
 
     /// <summary>
@@ -65,7 +66,7 @@ namespace YAF.Controls
         {
             var providerName = e.CommandArgument.ToString();
 
-            var redirectUrl = BuildLink.GetLink(ForumPages.Account_Login, "auth={0}", providerName);
+            var redirectUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login, "auth={0}", providerName);
 
             IdentityHelper.RegisterExternalLogin(this.Context, providerName, redirectUrl);
 

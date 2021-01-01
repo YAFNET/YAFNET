@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,12 +34,12 @@ namespace YAF.Pages
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -82,7 +82,7 @@ namespace YAF.Pages
             }
             else
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
         }
 
@@ -173,12 +173,12 @@ namespace YAF.Pages
                     }
                     else
                     {
-                        BuildLink.AccessDenied();
+                        this.Get<LinkBuilder>().AccessDenied();
                     }
 
                     break;
                 default:
-                    BuildLink.AccessDenied();
+                    this.Get<LinkBuilder>().AccessDenied();
                     break;
             }
 

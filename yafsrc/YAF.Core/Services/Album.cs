@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2020 Ingo Herbote
+* Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,7 +31,6 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -232,7 +231,7 @@ namespace YAF.Core.Services
                 var image = this.GetRepository<UserAlbumImage>()
                     .GetImage(context.Request.QueryString.GetFirstOrDefaultAs<int>("imgprv"));
 
-                var uploadFolder = BoardFolders.Current.Uploads;
+                var uploadFolder = this.Get<BoardFolders>().Uploads;
 
                 var oldFileName = context.Server.MapPath(
                     $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}");
@@ -298,7 +297,7 @@ namespace YAF.Core.Services
                     {
                         var image = this.GetRepository<UserAlbumImage>().GetImage(album[random.Next(album.Count)].ID);
 
-                        var uploadFolder = BoardFolders.Current.Uploads;
+                        var uploadFolder = this.Get<BoardFolders>().Uploads;
 
                         var oldFileName = context.Server.MapPath(
                             $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}");
@@ -316,7 +315,7 @@ namespace YAF.Core.Services
 
                     if (image != null)
                     {
-                        var uploadFolder = BoardFolders.Current.Uploads;
+                        var uploadFolder = this.Get<BoardFolders>().Uploads;
 
                         var oldFileName = context.Server.MapPath(
                             $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}");
@@ -372,7 +371,7 @@ namespace YAF.Core.Services
 
                 byte[] data;
 
-                var uploadFolder = BoardFolders.Current.Uploads;
+                var uploadFolder = this.Get<BoardFolders>().Uploads;
 
                 var oldFileName = context.Server.MapPath(
                     $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}");
@@ -451,7 +450,7 @@ namespace YAF.Core.Services
 
                 if (attachment.FileData == null)
                 {
-                    var uploadFolder = BoardFolders.Current.Uploads;
+                    var uploadFolder = this.Get<BoardFolders>().Uploads;
 
                     var oldFileName = context.Server.MapPath(
                         $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}");
