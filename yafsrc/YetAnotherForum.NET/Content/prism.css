@@ -1,4 +1,4 @@
-/* PrismJS 1.22.0
+/* PrismJS 1.23.0
 https://prismjs.com/download.html?#themes=prism-okaidia&languages=markup+css+clike+javascript+aspnet+bash+basic+c+csharp+cpp+css-extras+git+java+python+scss+sql+vbnet+visual-basic&plugins=line-highlight+line-numbers+autolinker+normalize-whitespace+toolbar+copy-to-clipboard */
 /**
  * okaidia theme for JavaScript, CSS and HTML
@@ -141,29 +141,40 @@ pre[data-line] {
     white-space: pre;
 }
 
-    .line-highlight:before,
-    .line-highlight[data-end]:after {
-        content: attr(data-start);
-        position: absolute;
-        top: .4em;
-        left: .6em;
-        min-width: 1em;
-        padding: 0 .5em;
-        background-color: hsla(24, 20%, 50%,.4);
-        color: hsl(24, 20%, 95%);
-        font: bold 65%/1.5 sans-serif;
-        text-align: center;
-        vertical-align: .3em;
-        border-radius: 999px;
-        text-shadow: none;
-        box-shadow: 0 1px white;
+@media print {
+    .line-highlight {
+        /*
+		 * This will prevent browsers from replacing the background color with white.
+		 * It's necessary because the element is layered on top of the displayed code.
+		 */
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
     }
+}
 
-    .line-highlight[data-end]:after {
-        content: attr(data-end);
-        top: auto;
-        bottom: .4em;
-    }
+.line-highlight:before,
+.line-highlight[data-end]:after {
+    content: attr(data-start);
+    position: absolute;
+    top: .4em;
+    left: .6em;
+    min-width: 1em;
+    padding: 0 .5em;
+    background-color: hsla(24, 20%, 50%,.4);
+    color: hsl(24, 20%, 95%);
+    font: bold 65%/1.5 sans-serif;
+    text-align: center;
+    vertical-align: .3em;
+    border-radius: 999px;
+    text-shadow: none;
+    box-shadow: 0 1px white;
+}
+
+.line-highlight[data-end]:after {
+    content: attr(data-end);
+    top: auto;
+    bottom: .4em;
+}
 
 .line-numbers .line-highlight:before,
 .line-numbers .line-highlight:after {
