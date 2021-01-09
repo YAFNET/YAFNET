@@ -35,18 +35,18 @@ namespace YAF.Web.ReCAPTCHA
     /// <summary>
     ///   The invalid solution.
     /// </summary>
-    public static readonly RecaptchaResponse InvalidSolution = new RecaptchaResponse(false, "incorrect-captcha-sol");
+    public static readonly RecaptchaResponse InvalidSolution = new(false, "incorrect-captcha-sol");
 
     /// <summary>
     ///   The reCAPTCHA not reachable.
     /// </summary>
-    public static readonly RecaptchaResponse RecaptchaNotReachable = new RecaptchaResponse(
+    public static readonly RecaptchaResponse RecaptchaNotReachable = new(
       false, "recaptcha-not-reachable");
 
     /// <summary>
     ///   The valid.
     /// </summary>
-    public static readonly RecaptchaResponse Valid = new RecaptchaResponse(true, string.Empty);
+    public static readonly RecaptchaResponse Valid = new(true, string.Empty);
 
     #endregion
 

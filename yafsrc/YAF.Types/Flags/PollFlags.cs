@@ -178,7 +178,7 @@ namespace YAF.Types.Flags
         /// </returns>
         public static implicit operator PollFlags(int newBitValue)
         {
-            return new PollFlags(newBitValue);
+            return new(newBitValue);
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace YAF.Types.Flags
         /// </returns>
         public static implicit operator PollFlags(Flags flags)
         {
-            return new PollFlags(flags);
+            return new(flags);
         }
 
         #endregion

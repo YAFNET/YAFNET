@@ -50,7 +50,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   The _goto page form.
         /// </summary>
-        private readonly GotoPageForm gotoPageForm = new GotoPageForm();
+        private readonly GotoPageForm gotoPageForm = new();
 
         /// <summary>
         ///   The _ignore page index.

@@ -41,7 +41,7 @@ namespace YAF.Types.Objects
     /// <summary>
     /// The topics.
     /// </summary>
-    private List<SimpleTopic> topics = new List<SimpleTopic>();
+    private List<SimpleTopic> topics = new();
 
     #endregion
 

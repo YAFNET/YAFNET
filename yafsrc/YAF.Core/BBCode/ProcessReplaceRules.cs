@@ -50,7 +50,7 @@ namespace YAF.Core.BBCode
         /// <summary>
         ///     The rules lock.
         /// </summary>
-        private readonly object rulesLock = new object();
+        private readonly object rulesLock = new();
 
         /// <summary>
         ///     The need sort.

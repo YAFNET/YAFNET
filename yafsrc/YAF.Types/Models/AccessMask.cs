@@ -70,7 +70,7 @@ namespace YAF.Types.Models
         [Ignore]
         public AccessFlags AccessFlags
         {
-            get => new AccessFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }

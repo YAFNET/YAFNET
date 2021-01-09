@@ -48,7 +48,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   The _active users.
         /// </summary>
-        private readonly ActiveUsers activeUsers = new ActiveUsers();
+        private readonly ActiveUsers activeUsers = new();
 
         #endregion
 

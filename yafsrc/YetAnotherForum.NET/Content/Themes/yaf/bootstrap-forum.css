@@ -1797,9 +1797,6 @@ progress {
   .form-control::-webkit-input-placeholder, .bootstrap-tagsinput::-webkit-input-placeholder {
     color: #6c757d;
     opacity: 1; }
-  .form-control::-moz-placeholder, .bootstrap-tagsinput::-moz-placeholder {
-    color: #6c757d;
-    opacity: 1; }
   .form-control::-ms-input-placeholder, .bootstrap-tagsinput::-ms-input-placeholder {
     color: #6c757d;
     opacity: 1; }
@@ -2163,8 +2160,6 @@ textarea.form-control-lg {
         -webkit-transition: none;
         transition: none; } }
   .form-floating > .form-control::-webkit-input-placeholder, .form-floating > .bootstrap-tagsinput::-webkit-input-placeholder {
-    color: transparent; }
-  .form-floating > .form-control::-moz-placeholder, .form-floating > .bootstrap-tagsinput::-moz-placeholder {
     color: transparent; }
   .form-floating > .form-control::-ms-input-placeholder, .form-floating > .bootstrap-tagsinput::-ms-input-placeholder {
     color: transparent; }
@@ -5302,36 +5297,42 @@ textarea.form-control-lg {
   z-index: 1030; }
 
 .sticky-top {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1020; }
 
 @media (min-width: 576px) {
   .sticky-sm-top {
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020; } }
 
 @media (min-width: 768px) {
   .sticky-md-top {
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020; } }
 
 @media (min-width: 992px) {
   .sticky-lg-top {
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020; } }
 
 @media (min-width: 1200px) {
   .sticky-xl-top {
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020; } }
 
 @media (min-width: 1400px) {
   .sticky-xxl-top {
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020; } }
@@ -5464,6 +5465,7 @@ textarea.form-control-lg {
   position: fixed !important; }
 
 .position-sticky {
+  position: -webkit-sticky !important;
   position: sticky !important; }
 
 .top-0 {
@@ -8994,16 +8996,16 @@ textarea.form-control-lg {
 
 .is-valid .select2-container--focus .select2-selection,
 .is-valid .select2-container--open .select2-selection {
-  border-color: #115c39; }
+  border-color: #177a4c; }
   .is-valid .select2-container--focus .select2-selection:focus,
   .is-valid .select2-container--open .select2-selection:focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25); }
 
 .is-valid.select2-drop-active {
-  border-color: #115c39; }
+  border-color: #177a4c; }
   .is-valid.select2-drop-active.select2-drop.select2-drop-above {
-    border-top-color: #115c39; }
+    border-top-color: #177a4c; }
 
 .is-invalid .select2-dropdown,
 .is-invalid .select2-selection {
@@ -9011,16 +9013,16 @@ textarea.form-control-lg {
 
 .is-invalid .select2-container--focus .select2-selection,
 .is-invalid .select2-container--open .select2-selection {
-  border-color: #bd2130; }
+  border-color: #c6303e; }
   .is-invalid .select2-container--focus .select2-selection:focus,
   .is-invalid .select2-container--open .select2-selection:focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25); }
 
 .is-invalid.select2-drop-active {
-  border-color: #bd2130; }
+  border-color: #c6303e; }
   .is-invalid.select2-drop-active.select2-drop.select2-drop-above {
-    border-top-color: #bd2130; }
+    border-top-color: #c6303e; }
 
 /**
  * Select2 widgets in Bootstrap Input Groups

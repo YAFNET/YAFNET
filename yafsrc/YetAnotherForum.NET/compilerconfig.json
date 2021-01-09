@@ -102,9 +102,5 @@
   {
     "outputFile": "Content/Themes/cerulean/bootstrap-forum.css",
     "inputFile": "Content/Themes/cerulean/bootstrap-forum.scss"
-  },
-  {
-    "outputFile": "Content/Themes/cerulean/_variables.css",
-    "inputFile": "Content/Themes/cerulean/_variables.scss"
   }
 ]

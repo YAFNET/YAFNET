@@ -194,13 +194,13 @@ namespace YAF.Web.Controls
 
             if (stateValue != CollapsiblePanelState.None)
             {
-                return stateValue == CollapsiblePanelState.Expanded ? "minus-square" : "plus-square";
+                return stateValue == CollapsiblePanelState.Expanded ? "chevron-up" : "chevron-down";
             }
 
             stateValue = defaultState;
             BoardContext.Current.Get<ISession>().PanelState[panelId] = defaultState;
 
-            return stateValue == CollapsiblePanelState.Expanded ? "minus-square" : "plus-square";
+            return stateValue == CollapsiblePanelState.Expanded ? "chevron-up" : "chevron-down";
         }
 
         #endregion

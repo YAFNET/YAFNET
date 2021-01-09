@@ -36,12 +36,12 @@ namespace YAF.Core.Utilities.Helpers.StringUtils
         /// <summary>
         /// The HTML unicode's
         /// </summary>
-        private readonly List<HtmlCode> htmlUniCodes = new List<HtmlCode>();
+        private readonly List<HtmlCode> htmlUniCodes = new();
 
         /// <summary>
         /// The simple list of codes that are needed
         /// </summary>
-        private readonly List<HtmlCode> htmlSimpleCodes = new List<HtmlCode>();
+        private readonly List<HtmlCode> htmlSimpleCodes = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UnicodeEncoder"/> class.

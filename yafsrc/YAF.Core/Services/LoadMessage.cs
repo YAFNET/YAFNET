@@ -68,7 +68,7 @@ namespace YAF.Core.Services
         ///   Gets LoadStringList.
         /// </summary>
         [NotNull]
-        public List<MessageNotification> LoadStringList { get; } = new List<MessageNotification>();
+        public List<MessageNotification> LoadStringList { get; } = new();
 
         /// <summary>
         /// Gets the session load string.

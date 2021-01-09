@@ -83,7 +83,7 @@ namespace YAF.Types.Models
         [Ignore]
         public PMessageFlags PMessageFlags
         {
-            get => new PMessageFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }

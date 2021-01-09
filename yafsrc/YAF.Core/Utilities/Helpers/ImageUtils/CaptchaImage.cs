@@ -176,10 +176,10 @@ namespace YAF.Core.Utilities.Helpers.ImageUtils
             var v = 4F;
             PointF[] points =
             {
-                new PointF(r.Next(rect.Width) / v, r.Next(rect.Height) / v),
-                new PointF(rect.Width - r.Next(rect.Width) / v, r.Next(rect.Height) / v),
-                new PointF(r.Next(rect.Width) / v, rect.Height - r.Next(rect.Height) / v),
-                new PointF(rect.Width - r.Next(rect.Width) / v, rect.Height - r.Next(rect.Height) / v)
+                new(r.Next(rect.Width) / v, r.Next(rect.Height) / v),
+                new(rect.Width - r.Next(rect.Width) / v, r.Next(rect.Height) / v),
+                new(r.Next(rect.Width) / v, rect.Height - r.Next(rect.Height) / v),
+                new(rect.Width - r.Next(rect.Width) / v, rect.Height - r.Next(rect.Height) / v)
             };
             var matrix = new Matrix();
             matrix.Translate(0F, 0F);

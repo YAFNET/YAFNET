@@ -54,7 +54,7 @@ namespace YAF.Web.Controls
         /// <summary>
         /// The List with the Help Navigation Items
         /// </summary>
-        private List<HelpNavigation> helpNavList = new List<HelpNavigation>();
+        private List<HelpNavigation> helpNavList = new();
 
         /// <summary>
         /// The render.
@@ -93,7 +93,7 @@ namespace YAF.Web.Controls
 
             var faqPage = "index";
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq").IsSet())
+            if (this.Get<HttpRequestBase>().QueryString.Exists("faq"))
             {
                 faqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
             }

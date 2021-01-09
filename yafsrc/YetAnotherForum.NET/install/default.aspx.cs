@@ -77,7 +77,7 @@ namespace YAF.Install
         /// <summary>
         ///     The _config.
         /// </summary>
-        private readonly ConfigHelper config = new ConfigHelper();
+        private readonly ConfigHelper config = new();
 
         /// <summary>
         ///     The _load message.

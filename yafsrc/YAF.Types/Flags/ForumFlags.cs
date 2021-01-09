@@ -99,7 +99,7 @@ namespace YAF.Types.Flags
     /// </returns>
     public static implicit operator ForumFlags(int newBitValue)
     {
-      return new ForumFlags(newBitValue);
+      return new(newBitValue);
     }
 
     /// <summary>
@@ -112,7 +112,7 @@ namespace YAF.Types.Flags
     /// </returns>
     public static implicit operator ForumFlags(Flags flags)
     {
-      return new ForumFlags(flags);
+      return new(flags);
     }
 
     #endregion

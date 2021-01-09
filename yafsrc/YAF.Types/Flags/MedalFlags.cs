@@ -99,7 +99,7 @@ namespace YAF.Types.Flags
     /// </returns>
     public static implicit operator MedalFlags(int newBitValue)
     {
-      return new MedalFlags(newBitValue);
+      return new(newBitValue);
     }
 
     /// <summary>
@@ -112,7 +112,7 @@ namespace YAF.Types.Flags
     /// </returns>
     public static implicit operator MedalFlags(Flags flags)
     {
-      return new MedalFlags(flags);
+      return new(flags);
     }
 
     #endregion

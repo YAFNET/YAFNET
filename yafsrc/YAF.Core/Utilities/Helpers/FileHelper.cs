@@ -47,7 +47,7 @@ namespace YAF.Core.Utilities.Helpers
         /// <summary>
         /// FileName Validator Regex
         /// </summary>
-        private static readonly Regex FileNameValidator = new Regex(FileNameValidatorExpression, RegexOptions.Compiled);
+        private static readonly Regex FileNameValidator = new(FileNameValidatorExpression, RegexOptions.Compiled);
 
         /// <summary>
         /// FileName Cleaner Expression
@@ -58,7 +58,7 @@ namespace YAF.Core.Utilities.Helpers
         /// <summary>
         /// FileName Cleaner Regex
         /// </summary>
-        private static readonly Regex FileNameCleaner = new Regex(FileNameCleanerExpression, RegexOptions.Compiled);
+        private static readonly Regex FileNameCleaner = new(FileNameCleanerExpression, RegexOptions.Compiled);
 
         /// <summary>
         /// Validates the name of the file.

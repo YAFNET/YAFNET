@@ -286,7 +286,7 @@ namespace YAF.Types.Models
         [Ignore]
         public UserFlags UserFlags
         {
-            get => new UserFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }
@@ -304,7 +304,7 @@ namespace YAF.Types.Models
         [Ignore]
         public UserBlockFlags Block
         {
-            get => new UserBlockFlags(this.BlockFlags);
+            get => new(this.BlockFlags);
 
             set => this.BlockFlags = value.BitValue;
         }

@@ -68,7 +68,7 @@ namespace YAF.Types.Models
         [Ignore]
         public GroupFlags GroupFlags
         {
-            get => new GroupFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }

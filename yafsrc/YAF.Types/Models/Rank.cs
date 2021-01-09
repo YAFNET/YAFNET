@@ -84,7 +84,7 @@ namespace YAF.Types.Models
         [Ignore]
         public RankFlags RankFlags
         {
-            get => new RankFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }

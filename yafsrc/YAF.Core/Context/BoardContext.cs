@@ -217,7 +217,7 @@ namespace YAF.Core.Context
         /// <summary>
         /// Gets the YAF Context Global Instance Variables Use for plugins or other situations where a value is needed per instance.
         /// </summary>
-        public TypeDictionary Vars { get; } = new TypeDictionary();
+        public TypeDictionary Vars { get; } = new();
 
         #endregion
 

@@ -99,7 +99,7 @@ namespace YAF.Types.Flags
     /// </returns>
     public static implicit operator GroupFlags(int newBitValue)
     {
-      return new GroupFlags(newBitValue);
+      return new(newBitValue);
     }
 
     /// <summary>
@@ -112,7 +112,7 @@ namespace YAF.Types.Flags
     /// </returns>
     public static implicit operator GroupFlags(Flags flags)
     {
-      return new GroupFlags(flags);
+      return new(flags);
     }
 
     #endregion

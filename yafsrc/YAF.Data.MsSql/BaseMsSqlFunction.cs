@@ -43,7 +43,7 @@ namespace YAF.Data.MsSql
         /// <summary>
         ///   The _sql messages.
         /// </summary>
-        protected List<SqlInfoMessageEventArgs> _sqlMessages = new List<SqlInfoMessageEventArgs>();
+        protected List<SqlInfoMessageEventArgs> _sqlMessages = new();
 
         #endregion
 

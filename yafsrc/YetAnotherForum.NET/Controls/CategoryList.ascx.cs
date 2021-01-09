@@ -84,7 +84,7 @@ namespace YAF.Controls
                                 AlternateText = forum.Category
                             };
 
-            var icon = new Icon { IconName = "folder", IconType = "text-warning", IconSize = "fa-2x" };
+            var icon = new Icon { IconName = "folder", IconType = "text-warning" };
 
             return hasCategoryImage
                        ? $"{image.RenderToString()}&nbsp;"

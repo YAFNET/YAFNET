@@ -65,7 +65,7 @@ namespace YAF.Types.Models
         [Ignore]
         public ActiveFlags ActiveFlags
         {
-            get => new ActiveFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }

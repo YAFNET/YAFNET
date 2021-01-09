@@ -109,7 +109,7 @@ namespace YAF.Pages.Admin
         {
             var list = new List<NamedParameter>
             {
-                new NamedParameter(this.GetText("COMMON", "NONE"), BoardInfo.GetURLToContent("images/spacer.gif"))
+                new(this.GetText("COMMON", "NONE"), BoardInfo.GetURLToContent("images/spacer.gif"))
             };
 
             var dir = new DirectoryInfo(

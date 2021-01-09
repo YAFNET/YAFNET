@@ -200,7 +200,7 @@ namespace YAF.Pages.Admin
 
             var logos = new List<NamedParameter>
             {
-                new NamedParameter(
+                new(
                     this.GetText("BOARD_LOGO_SELECT"),
                     BoardInfo.GetURLToContent("images/spacer.gif"))
             };

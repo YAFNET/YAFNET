@@ -60,7 +60,7 @@ namespace YAF.Pages
         /// <summary>
         ///   The Moderators List
         /// </summary>
-        private List<SimpleModerator> completeModsList = new List<SimpleModerator>();
+        private List<SimpleModerator> completeModsList = new();
 
         #endregion
 

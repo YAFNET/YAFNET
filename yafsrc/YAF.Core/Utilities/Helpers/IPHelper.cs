@@ -49,8 +49,8 @@ namespace YAF.Core.Utilities.Helpers
         /// <summary>
         /// The non routable IP v4 networks.
         /// </summary>
-        private static readonly List<string> NonRoutableIPv4Networks = new List<string>
-                                                                           {
+        private static readonly List<string> NonRoutableIPv4Networks = new()
+        {
                                                                                "10.0.0.0/8",
                                                                                "172.16.0.0/12",
                                                                                "192.168.0.0/16",
@@ -62,8 +62,8 @@ namespace YAF.Core.Utilities.Helpers
         /// <summary>
         /// The non routable IP v6 networks.
         /// </summary>
-        private static readonly List<string> NonRoutableIPv6Networks = new List<string>
-                                                                           {
+        private static readonly List<string> NonRoutableIPv6Networks = new()
+        {
                                                                                "::/128",
                                                                                "::1/128",
                                                                                "2001:db8::/32",

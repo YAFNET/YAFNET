@@ -71,7 +71,7 @@ namespace YAF.Types.Models
         [Ignore]
         public ActivityFlags ActivityFlags
         {
-            get => new ActivityFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }

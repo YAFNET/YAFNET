@@ -34,7 +34,6 @@ namespace YAF.Data.MsSql
     using YAF.Core.Data;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
 
     #endregion
 

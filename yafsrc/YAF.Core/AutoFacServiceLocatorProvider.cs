@@ -64,7 +64,7 @@ namespace YAF.Core
         /// </summary>
         private static readonly
             ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>> InjectionCache =
-                new ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>>();
+                new();
 
         #endregion
 

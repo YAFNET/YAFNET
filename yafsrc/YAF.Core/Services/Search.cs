@@ -962,7 +962,7 @@ namespace YAF.Core.Services
 
             var booleanFilter = new BooleanFilter
             {
-                new FilterClause(new TermsFilter(new Term("TopicId", filter)), Occur.MUST_NOT)
+                new(new TermsFilter(new Term("TopicId", filter)), Occur.MUST_NOT)
             };
 
             var hitsLimit = this.Get<BoardSettings>().ReturnSearchMax;

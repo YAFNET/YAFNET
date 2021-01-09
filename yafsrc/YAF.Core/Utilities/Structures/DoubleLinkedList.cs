@@ -81,7 +81,7 @@ namespace YAF.Core.Utilities.Structures
     /// <summary>
     /// Gets SyncRoot.
     /// </summary>
-    public object SyncRoot { get; } = new object();
+    public object SyncRoot { get; } = new();
 
     #endregion
 

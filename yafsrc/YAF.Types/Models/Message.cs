@@ -237,7 +237,7 @@ namespace YAF.Types.Models
         [Ignore]
         public MessageFlags MessageFlags
         {
-            get => new MessageFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }

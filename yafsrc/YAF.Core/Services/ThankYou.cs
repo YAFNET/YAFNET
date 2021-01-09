@@ -91,8 +91,8 @@ namespace YAF.Core.Services
             [NotNull] string titleTag,
             int messageId)
         {
-            return new ThankYouInfo
-                       {
+            return new()
+            {
                            MessageID = messageId,
                            ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId, false),
                            Text = this.Get<ILocalization>().GetText("BUTTON", textTag),
@@ -125,7 +125,7 @@ namespace YAF.Core.Services
             [NotNull] string titleTag,
             int messageId)
         {
-            return new ThankYouInfo
+            return new()
             {
                 MessageID = messageId,
                 ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId, true),

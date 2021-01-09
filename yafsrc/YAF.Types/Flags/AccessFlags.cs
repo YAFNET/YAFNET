@@ -112,7 +112,7 @@ namespace YAF.Types.Flags
         /// </returns>
         public static implicit operator AccessFlags(Flags flags)
         {
-            return new AccessFlags(flags);
+            return new(flags);
         }
 
         #endregion

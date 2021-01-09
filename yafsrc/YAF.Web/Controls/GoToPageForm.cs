@@ -48,12 +48,12 @@ namespace YAF.Web.Controls
         /// <summary>
         ///     The _goto button.
         /// </summary>
-        private readonly Button gotoButton = new Button();
+        private readonly Button gotoButton = new();
 
         /// <summary>
         ///     The _goto text box.
         /// </summary>
-        private readonly TextBox gotoTextBox = new TextBox();
+        private readonly TextBox gotoTextBox = new();
 
         /// <summary>
         ///     The _goto page value.

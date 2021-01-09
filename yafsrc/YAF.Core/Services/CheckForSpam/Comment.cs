@@ -101,7 +101,7 @@ namespace YAF.Core.Services.CheckForSpam
         /// <summary>
         ///   Optional collection of various server environment variables.
         /// </summary>
-        public NameValueCollection ServerEnvironmentVariables { get; } = new NameValueCollection();
+        public NameValueCollection ServerEnvironmentVariables { get; } = new();
 
         /// <summary>
         ///   User agent of the requester. (Required)

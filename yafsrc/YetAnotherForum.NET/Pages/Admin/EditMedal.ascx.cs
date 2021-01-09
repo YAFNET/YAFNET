@@ -376,7 +376,7 @@ namespace YAF.Pages.Admin
             // load available images from images/medals folder
             var medals = new List<NamedParameter>
             {
-                new NamedParameter(
+                new(
                     this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE"),
                     BoardInfo.GetURLToContent("images/spacer.gif"))
             };

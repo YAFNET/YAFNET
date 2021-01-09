@@ -17,7 +17,7 @@ namespace YAF.Core.Helpers
 
         private readonly Func<T> _create;
 
-        private readonly ReaderWriterLockSlim _slimLock = new ReaderWriterLockSlim();
+        private readonly ReaderWriterLockSlim _slimLock = new();
 
         private T _instance;
 

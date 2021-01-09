@@ -47,6 +47,11 @@ namespace YAF.Core.Services
         /// </returns>
         public string Decode([NotNull] string style)
         {
+            if (style.IsNotSet())
+            {
+                return string.Empty;
+            }
+
             var styleRow = style.Trim().Split('/');
 
             styleRow.Select(s => s.Split('!')).Where(x => x.Length > 1).ForEach(

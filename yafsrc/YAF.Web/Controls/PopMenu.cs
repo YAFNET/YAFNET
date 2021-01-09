@@ -46,7 +46,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   The _items.
         /// </summary>
-        private readonly List<InternalPopMenuItem> items = new List<InternalPopMenuItem>();
+        private readonly List<InternalPopMenuItem> items = new();
 
         #endregion
 

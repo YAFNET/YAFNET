@@ -53,7 +53,7 @@ namespace YAF.Core.Extensions
         /// <summary>
         /// The pc.
         /// </summary>
-        private static readonly PersianCalendar pc = new PersianCalendar();
+        private static readonly PersianCalendar pc = new();
 
         /// <summary>
         /// Gets the persian calendar.

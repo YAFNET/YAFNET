@@ -29,7 +29,7 @@ namespace YAF.UrlRewriter.Utilities
         /// <summary>
         /// The resources.
         /// </summary>
-        private static readonly ResourceManager Resources = new ResourceManager(Constants.Messages, Assembly.GetExecutingAssembly());
+        private static readonly ResourceManager Resources = new(Constants.Messages, Assembly.GetExecutingAssembly());
 
         /// <summary>
         /// Formats a string.

@@ -56,7 +56,7 @@ namespace YAF.Pages
         /// <summary>
         ///  List with the Help Content
         /// </summary>
-        private readonly List<HelpContent> helpContents = new List<HelpContent>();
+        private readonly List<HelpContent> helpContents = new();
 
         #endregion
 

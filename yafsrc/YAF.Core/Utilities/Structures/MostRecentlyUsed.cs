@@ -45,12 +45,12 @@ namespace YAF.Core.Utilities.Structures
         /// <summary>
         /// The link to key.
         /// </summary>
-        private readonly HybridDictionary linkToKey = new HybridDictionary();
+        private readonly HybridDictionary linkToKey = new();
 
         /// <summary>
         /// The list.
         /// </summary>
-        private readonly DoubleLinkedList list = new DoubleLinkedList();
+        private readonly DoubleLinkedList list = new();
 
         #endregion
 

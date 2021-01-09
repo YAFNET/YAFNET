@@ -48,7 +48,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// The _lock object.
         /// </summary>
-        protected object lockObject = new object();
+        protected object lockObject = new();
 
         /// <summary>
         /// The _started.

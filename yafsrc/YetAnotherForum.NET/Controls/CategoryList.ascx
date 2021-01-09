@@ -11,16 +11,21 @@
                     <div class="row">
                         <div class="col">
                             <div class="card mb-3">
-                                <div class="card-header d-flex align-items-center">
-                                    <YAF:CollapseButton ID="CollapsibleImage" runat="server"
-                                                        PanelID='<%# "categoryPanel{0}".Fmt(((ForumRead)Container.DataItem).CategoryID) %>'
-                                                        AttachedControlID="body" 
-                                                        CssClass="ps-0">
-                                    </YAF:CollapseButton>
-                                    <div class="d-none d-md-block icon-category">
-                                        <%#  this.GetCategoryImage((ForumRead)Container.DataItem) %>
+                                <div class="card-header">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-auto">
+                                            <div class="d-none d-md-inline-block icon-category">
+                                                <%#  this.GetCategoryImage((ForumRead)Container.DataItem) %>
+                                            </div>
+                                            <%# this.HtmlEncode(((ForumRead)Container.DataItem).Category) %>
+                                        </div>
+                                        <div class="col-auto">
+                                            <YAF:CollapseButton ID="CollapsibleImage" runat="server"
+                                                                PanelID='<%# "categoryPanel{0}".Fmt(((ForumRead)Container.DataItem).CategoryID) %>'
+                                                                AttachedControlID="body" 
+                                                                CssClass="ps-0" />
+                                        </div>
                                     </div>
-                                    <%# this.HtmlEncode(((ForumRead)Container.DataItem).Category) %>
                                 </div>
                                 <div class="card-body" id="body" runat="server">
                                     <YAF:ForumList runat="server" 

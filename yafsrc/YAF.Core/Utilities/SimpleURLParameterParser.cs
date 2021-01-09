@@ -84,7 +84,7 @@ namespace YAF.Core.Utilities
         /// <summary>
         ///   Gets Parameters.
         /// </summary>
-        public NameValueCollection Parameters { get; } = new NameValueCollection();
+        public NameValueCollection Parameters { get; } = new();
 
         #endregion
 

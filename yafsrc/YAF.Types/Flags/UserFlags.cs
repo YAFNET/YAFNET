@@ -256,7 +256,7 @@ namespace YAF.Types.Flags
         /// </returns>
         public static implicit operator UserFlags(int newBitValue)
         {
-            return new UserFlags(newBitValue);
+            return new(newBitValue);
         }
 
         /// <summary>
@@ -269,7 +269,7 @@ namespace YAF.Types.Flags
         /// </returns>
         public static implicit operator UserFlags(Flags flags)
         {
-            return new UserFlags(flags);
+            return new(flags);
         }
 
         #endregion

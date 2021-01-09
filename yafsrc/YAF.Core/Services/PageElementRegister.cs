@@ -46,7 +46,7 @@ namespace YAF.Core.Services
         ///   Gets elements (using in the head or header) that are registered on the page.
         ///   Used mostly by RegisterPageElementHelper.
         /// </summary>
-        public List<string> RegisteredElements { get; } = new List<string>();
+        public List<string> RegisteredElements { get; } = new();
 
         #endregion
 

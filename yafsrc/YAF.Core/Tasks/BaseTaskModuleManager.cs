@@ -48,7 +48,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// The task manager.
         /// </summary>
-        protected static ConcurrentDictionary<string, IBackgroundTask> taskManager = new ConcurrentDictionary<string, IBackgroundTask>();
+        protected static ConcurrentDictionary<string, IBackgroundTask> taskManager = new();
 
         #endregion
 

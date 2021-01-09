@@ -30,7 +30,7 @@ namespace YAF.Core.Utilities.Helpers.StringUtils
     public static partial class Unidecoder
 		{
         
-        static ConcurrentDictionary<int, string[]> characters = new ConcurrentDictionary<int, string[]>(3, 256);
+        static ConcurrentDictionary<int, string[]> characters = new(3, 256);
         
 				static Unidecoder()
 				{

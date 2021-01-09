@@ -224,7 +224,7 @@ namespace YAF.Web.Controls
             }
 
             writer.Write(
-                @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF.NET &copy; 2003-{2}, Yet Another Forum.NET</a>",
+                @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF.NET &copy; 2003-{2} YetAnotherForum.NET</a>",
                 "YetAnotherForum.NET",
                 "https://www.yetanotherforum.net",
                 DateTime.UtcNow.Year);

@@ -85,7 +85,7 @@ namespace YAF.Types.Models
         [Ignore]
         public MedalFlags MedalFlags
         {
-            get => new MedalFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }

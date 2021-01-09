@@ -37,7 +37,7 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// <summary>
         ///   The _syntax highlighter.
         /// </summary>
-        private readonly HighLighter syntaxHighlighter = new HighLighter();
+        private readonly HighLighter syntaxHighlighter = new();
 
         #endregion
 

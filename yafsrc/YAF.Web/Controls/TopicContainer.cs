@@ -660,7 +660,7 @@ namespace YAF.Web.Controls
         /// </returns>
         protected ThemeButton MakeLink([NotNull] string text, [NotNull] string link, [NotNull] int pageId)
         {
-            return new ThemeButton
+            return new()
             {
                 NavigateUrl = link,
                 TitleLocalizedTag = "GOTO_POST_PAGER",

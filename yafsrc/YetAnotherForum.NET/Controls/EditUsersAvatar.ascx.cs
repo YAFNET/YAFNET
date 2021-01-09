@@ -308,7 +308,7 @@ namespace YAF.Controls
             {
                 var avatars = new List<NamedParameter>
                 {
-                    new NamedParameter(this.GetText("OURAVATAR"), BoardInfo.GetURLToContent("images/spacer.gif"))
+                    new(this.GetText("OURAVATAR"), BoardInfo.GetURLToContent("images/spacer.gif"))
                 };
 
                 var dir = new DirectoryInfo(

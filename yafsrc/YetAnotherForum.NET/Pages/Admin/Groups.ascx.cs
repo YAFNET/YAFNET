@@ -57,7 +57,7 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///   Temporary storage of un-linked provider roles.
         /// </summary>
-        private readonly StringCollection availableRoles = new StringCollection();
+        private readonly StringCollection availableRoles = new();
 
         #endregion
 

@@ -79,7 +79,7 @@ namespace YAF.UrlRewriter
         /// <summary>
         /// The _rewriter.
         /// </summary>
-        private static readonly RewriterEngine _rewriter = new RewriterEngine(
+        private static readonly RewriterEngine _rewriter = new(
             new HttpContextFacade(),
             new ConfigurationManagerFacade(),
             new RewriterConfiguration());

@@ -38,7 +38,7 @@ namespace YAF.Types.EventProxies
         /// <summary>
         /// The the expando data.
         /// </summary>
-        private readonly ExpandoObject theExpandoData = new ExpandoObject();
+        private readonly ExpandoObject theExpandoData = new();
 
         #endregion
 

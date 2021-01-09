@@ -115,7 +115,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static IReadOnlyCollection<ListItem> Region(ILocalization localization, string culture)
         {
-            var list = new List<ListItem> { new ListItem(null, null) };
+            var list = new List<ListItem> { new(null, null) };
 
             var countries = localization
                 .GetCountryNodesUsingQuery("REGION", x => x.tag.StartsWith($"RGN_{culture}_")).ToList();

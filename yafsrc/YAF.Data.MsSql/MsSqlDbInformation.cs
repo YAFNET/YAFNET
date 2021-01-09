@@ -77,10 +77,10 @@ namespace YAF.Data.MsSql
         /// </summary>
         private readonly DbConnectionParam[] connectionParameters =
         {
-            new DbConnectionParam(0, "Password", string.Empty),
-            new DbConnectionParam(1, "Data Source", "(local)"),
-            new DbConnectionParam(2, "Initial Catalog", string.Empty),
-            new DbConnectionParam(11, "Use Integrated Security", "true")
+            new(0, "Password", string.Empty),
+            new(1, "Data Source", "(local)"),
+            new(2, "Initial Catalog", string.Empty),
+            new(11, "Use Integrated Security", "true")
         };
 
         /// <summary>

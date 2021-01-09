@@ -150,7 +150,7 @@ namespace YAF.Types.Models
         [Ignore]
         public ForumFlags ForumFlags
         {
-            get => new ForumFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }

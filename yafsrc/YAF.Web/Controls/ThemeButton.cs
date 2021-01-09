@@ -54,17 +54,17 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   The click event.
         /// </summary>
-        private static readonly object ClickEvent = new object();
+        private static readonly object ClickEvent = new();
 
         /// <summary>
         ///   The command event.
         /// </summary>
-        private static readonly object CommandEvent = new object();
+        private static readonly object CommandEvent = new();
 
         /// <summary>
         ///   The localized label.
         /// </summary>
-        private readonly LocalizedLabel localizedLabel = new LocalizedLabel();
+        private readonly LocalizedLabel localizedLabel = new();
 
         #endregion
 

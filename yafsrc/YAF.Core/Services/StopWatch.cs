@@ -35,7 +35,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// Gets Watch.
         /// </summary>
-        public Stopwatch Watch { get; } = new Stopwatch();
+        public Stopwatch Watch { get; } = new();
 
         /// <summary>
         /// Gets Duration.

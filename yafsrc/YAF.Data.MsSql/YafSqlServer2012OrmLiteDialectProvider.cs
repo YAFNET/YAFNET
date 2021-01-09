@@ -44,7 +44,7 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// The instance.
         /// </summary>
-        public static new YafSqlServer2012OrmLiteDialectProvider Instance = new YafSqlServer2012OrmLiteDialectProvider();
+        public static new YafSqlServer2012OrmLiteDialectProvider Instance = new();
 
         #endregion
 
