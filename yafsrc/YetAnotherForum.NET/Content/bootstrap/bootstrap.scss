@@ -58,6 +58,14 @@
     @extend .form-check-label
 }
 
+.aspNetDisabled input {
+    @extend .form-check-input;
+}
+
+.aspNetDisabled label {
+    @extend .form-check-label
+}
+
 .form-check-inline li {
     @extend .form-check-inline;
     margin-right: 2rem;
