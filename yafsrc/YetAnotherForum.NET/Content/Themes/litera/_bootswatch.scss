@@ -1,4 +1,4 @@
-// Litera 4.5.2
+// Litera 4.6.0
 // Bootswatch
 
 // Navbar ======================================================================
@@ -21,20 +21,6 @@
     &.navbar-fixed-bottom {
       border-width: 1px 0 0;
     }
-  }
-}
-
-// Buttons =====================================================================
-
-.btn {
-  border-radius: 1.078em;
-
-  &-lg {
-    border-radius: 2.688em;
-  }
-
-  &-sm {
-    border-radius: .844em;
   }
 }
 
@@ -255,7 +241,7 @@ table,
   @each $color, $value in $theme-colors {
     &-#{$color} {
       @if $enable-gradients {
-        background: $value linear-gradient(0deg, mix($body-bg, $value, 15%), $value) repeat-x;
+        background: $value linear-gradient($value, mix($body-bg, $value, 15%)) repeat-x;
       } @else {
         background-color: $value;
       }
@@ -264,8 +250,8 @@ table,
 
   &-light {
     &,
-    & a,
-    & .alert-link {
+    a,
+    .alert-link {
       color: $body-color;
     }
   }

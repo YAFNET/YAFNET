@@ -1,4 +1,4 @@
-// Yeti 4.5.2
+// Yeti 4.6.0
 // Bootswatch
 
 
@@ -550,8 +550,8 @@ label,
   &-secondary,
   &-light {
     &,
-    & a:not(.btn),
-    & .alert-link {
+    a:not(.btn),
+    .alert-link {
       color: $body-color;
     }
   }

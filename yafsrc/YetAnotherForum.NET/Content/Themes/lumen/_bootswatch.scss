@@ -1,4 +1,4 @@
-// Lumen 4.5.2
+// Lumen 4.6.0
 // Bootswatch
 
 
@@ -6,6 +6,8 @@
 
 $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" !default;
 @import url($web-font-path);
+
+// Mixins ======================================================================
 
 @mixin shadow($width: 4px){
   border-style: solid;
@@ -314,13 +316,13 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
     &.disabled:focus {
       margin-top: 6px;
       border-color: $nav-tabs-border-color;
-      transition: all .2s ease-in-out;
+      transition: padding-bottom .2s ease-in-out, margin-top .2s ease-in-out, border-bottom .2s ease-in-out;
     }
 
     &:not(.disabled):hover,
     &:not(.disabled):focus,
     &.active {
-      padding-bottom: calc(.5rem + 6px);
+      padding-bottom: add(.5rem, 6px);
       border-bottom-color: transparent;
       margin-top: 0;
     }
@@ -460,8 +462,8 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
   &-secondary,
   &-light {
     &,
-    & a,
-    & .alert-link {
+    a,
+    .alert-link {
       color: $body-color;
     }
   }

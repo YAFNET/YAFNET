@@ -1,4 +1,4 @@
-// Minty 4.5.2
+// Minty 4.6.0
 // Bootswatch
 
 
@@ -349,8 +349,8 @@ legend {
     }
 
     &,
-    & a:not(.btn),
-    & .alert-link {
+    a:not(.btn),
+    .alert-link {
       color: $body-color;
     }
   }
