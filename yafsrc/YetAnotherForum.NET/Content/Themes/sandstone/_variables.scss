@@ -1,4 +1,4 @@
-// Sandstone 4.5.3
+// Sandstone 5.0.0-beta1
 // Bootswatch
 
 //
@@ -37,7 +37,7 @@ $danger:        $red !default;
 $light:         $gray-200 !default;
 $dark:          $gray-800 !default;
 
-$yiq-contrasted-threshold:  170 !default;
+$min-contrast-ratio:   2 !default;
 
 // Body
 
@@ -51,7 +51,6 @@ $link-color:                $success !default;
 
 // stylelint-disable-next-line value-keyword-case
 $font-family-sans-serif:      Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-$font-size-base:              .875rem !default;
 $headings-font-weight:        400 !default;
 
 // Dropdowns
@@ -124,6 +123,9 @@ $list-group-action-color:           $list-group-active-color !default;
 $list-group-action-active-color:    $list-group-active-color !default;
 $list-group-action-active-bg:       $gray-300 !default;
 
-// Close
+// Breadcrumbs
 
-$close-text-shadow:                 none !default;
+$breadcrumb-padding-y:              .375rem !default;
+$breadcrumb-padding-x:              .75rem !default;
+$breadcrumb-bg:                     $pagination-bg !default;
+$breadcrumb-border-radius:          .25rem !default;

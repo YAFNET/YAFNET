@@ -1,4 +1,4 @@
-// Solar 4.5.3
+// Solar 5.0.0-beta1
 // Bootswatch
 
 //
@@ -38,8 +38,6 @@ $danger:        $red !default;
 $light:         $gray-100 !default;
 $dark:          $gray-800 !default;
 
-$enable-gradients: true;
-
 // Body
 
 $body-bg:                   $gray-900 !default;
@@ -65,7 +63,7 @@ $table-accent-bg:             rgba($white, .05) !default;
 $table-hover-bg:              rgba($white, .075) !default;
 $table-border-color:          $component-active-bg !default;
 $table-dark-bg:               $gray-500 !default;
-$table-dark-border-color:     shade-color($gray-500, 3%) !default;
+$table-dark-border-color:     darken($gray-500, 3%) !default;
 $table-dark-color:            $body-bg !default;
 
 // Forms
@@ -76,6 +74,16 @@ $input-border-color:                    rgba($black, .15) !default;
 $input-placeholder-color:               #657b83 !default;
 $input-group-addon-color:               $gray-600 !default;
 $input-group-addon-bg:                  $gray-800 !default;
+
+$form-check-input-bg:                     rgba(255, 255, 255, .75) !default;
+$form-check-input-border:                 1px solid $white !default;
+$form-check-input-checked-bg-color:       $primary !default;
+
+$form-switch-color:               rgba(255, 255, 255, .75) !default;
+$form-switch-focus-color:         $form-switch-color !default;
+
+$form-range-track-bg:             $gray-800 !default;
+$form-range-thumb-bg:                      $primary !default;
 
 // Dropdowns
 
@@ -129,7 +137,7 @@ $popover-header-bg:                 $gray-800 !default;
 
 // Toasts
 
-$toast-background-color:            tint-color($body-bg, 5%) !default;
+$toast-background-color:            lighten($body-bg, 5%) !default;
 $toast-border-color:                rgba(0, 0, 0, .2) !default;
 $toast-header-color:                $body-color !default;
 $toast-header-background-color:     $toast-background-color !default;
@@ -157,10 +165,17 @@ $list-group-disabled-bg:            transparent !default;
 $list-group-action-color:           $body-color !default;
 $list-group-action-hover-color:     $component-active-color !default;
 
+// Breadcrumbs
+
+$breadcrumb-padding-y:              .375rem !default;
+$breadcrumb-padding-x:              .75rem !default;
+$breadcrumb-bg:                     $component-active-bg !default;
+$breadcrumb-active-color:           $gray-500 !default;
+$breadcrumb-border-radius:          .25rem !default;
+
 // Close
 
-$btn-close-color: $body-color !default;
-$close-text-shadow:                 none !default;
+$btn-close-color:                       $body-color !default;
 
 // Code
 

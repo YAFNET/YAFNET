@@ -44,7 +44,7 @@
 body {
   margin: 0;
   font-family: var(--bs-font-sans-serif);
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   color: #adafae;
@@ -103,7 +103,7 @@ h5, .h5 {
       font-size: 1.5rem; } }
 
 h6, .h6 {
-  font-size: 0.875rem; }
+  font-size: 1rem; }
 
 p {
   margin-top: 0;
@@ -376,7 +376,7 @@ progress {
   display: none !important; }
 
 .lead {
-  font-size: 1.09375rem;
+  font-size: 1.25rem;
   font-weight: 300; }
 
 .display-1 {
@@ -446,7 +446,7 @@ progress {
 
 .blockquote {
   margin-bottom: 1rem;
-  font-size: 1.09375rem; }
+  font-size: 1.25rem; }
   .blockquote > :last-child {
     margin-bottom: 0; }
 
@@ -1702,11 +1702,11 @@ progress {
 .table-dark {
   --bs-table-bg: #adafae;
   --bs-table-striped-bg: #a4a6a5;
-  --bs-table-striped-color: #000;
+  --bs-table-striped-color: #fff;
   --bs-table-active-bg: #9c9e9d;
-  --bs-table-active-color: #000;
+  --bs-table-active-color: #fff;
   --bs-table-hover-bg: #a0a2a1;
-  --bs-table-hover-color: #000;
+  --bs-table-hover-color: #fff;
   color: #000;
   border-color: #9c9e9d; }
 
@@ -1752,12 +1752,12 @@ progress {
 .col-form-label-lg {
   padding-top: calc(0.5rem + 1px);
   padding-bottom: calc(0.5rem + 1px);
-  font-size: 1.09375rem; }
+  font-size: 1.25rem; }
 
 .col-form-label-sm {
   padding-top: calc(0.25rem + 1px);
   padding-bottom: calc(0.25rem + 1px);
-  font-size: 0.76563rem; }
+  font-size: 0.875rem; }
 
 .form-text {
   margin-top: 0.25rem;
@@ -1768,7 +1768,7 @@ progress {
   display: block;
   width: 100%;
   padding: 0.375rem 1rem;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   color: #adafae;
@@ -1876,7 +1876,7 @@ progress {
 .form-control-sm {
   min-height: calc(1.5em + 0.5rem + 2px);
   padding: 0.25rem 0.5rem;
-  font-size: 0.76563rem;
+  font-size: 0.875rem;
   border-radius: 0.2rem; }
   .form-control-sm::file-selector-button {
     padding: 0.25rem 0.5rem;
@@ -1892,7 +1892,7 @@ progress {
 .form-control-lg {
   min-height: calc(1.5em + 1rem + 2px);
   padding: 0.5rem 1rem;
-  font-size: 1.09375rem;
+  font-size: 1.25rem;
   border-radius: 0.3rem; }
   .form-control-lg::file-selector-button {
     padding: 0.5rem 1rem;
@@ -1931,7 +1931,7 @@ textarea.form-control-lg {
   display: block;
   width: 100%;
   padding: 0.375rem 2rem 0.375rem 1rem;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   color: #adafae;
@@ -1965,24 +1965,24 @@ textarea.form-control-lg {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   padding-left: 0.5rem;
-  font-size: 0.76563rem; }
+  font-size: 0.875rem; }
 
 .form-select-lg {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
-  font-size: 1.09375rem; }
+  font-size: 1.25rem; }
 
 .form-check {
   display: block;
-  min-height: 1.3125rem;
+  min-height: 1.5rem;
   padding-left: 1.5em;
   margin-bottom: 0.125rem; }
-  .form-check .form-check-input, .form-check .form-check-custom input, .form-check-custom .form-check input {
+  .form-check .form-check-input, .form-check .form-check-custom input, .form-check-custom .form-check input, .form-check .aspNetDisabled input, .aspNetDisabled .form-check input {
     float: left;
     margin-left: -1.5em; }
 
-.form-check-input, .form-check-custom input {
+.form-check-input, .form-check-custom input, .aspNetDisabled input {
   width: 1em;
   height: 1em;
   margin-top: 0.25em;
@@ -2002,51 +2002,51 @@ textarea.form-control-lg {
   transition: background-color 0.15s ease-in-out, background-position 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: background-color 0.15s ease-in-out, background-position 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; }
   @media (prefers-reduced-motion: reduce) {
-    .form-check-input, .form-check-custom input {
+    .form-check-input, .form-check-custom input, .aspNetDisabled input {
       -webkit-transition: none;
       transition: none; } }
-  .form-check-input[type="checkbox"], .form-check-custom input[type="checkbox"] {
+  .form-check-input[type="checkbox"], .form-check-custom input[type="checkbox"], .aspNetDisabled input[type="checkbox"] {
     border-radius: 0.25em; }
-  .form-check-input[type="radio"], .form-check-custom input[type="radio"] {
+  .form-check-input[type="radio"], .form-check-custom input[type="radio"], .aspNetDisabled input[type="radio"] {
     border-radius: 50%; }
-  .form-check-input:active, .form-check-custom input:active {
+  .form-check-input:active, .form-check-custom input:active, .aspNetDisabled input:active {
     -webkit-filter: brightness(90%);
             filter: brightness(90%); }
-  .form-check-input:focus, .form-check-custom input:focus {
+  .form-check-input:focus, .form-check-custom input:focus, .aspNetDisabled input:focus {
     border-color: #95cfeb;
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.25rem rgba(42, 159, 214, 0.25);
             box-shadow: 0 0 0 0.25rem rgba(42, 159, 214, 0.25); }
-  .form-check-input:checked, .form-check-custom input:checked {
+  .form-check-input:checked, .form-check-custom input:checked, .aspNetDisabled input:checked {
     background-color: #2a9fd6;
     border-color: #2a9fd6; }
-    .form-check-input:checked[type="checkbox"], .form-check-custom input:checked[type="checkbox"] {
+    .form-check-input:checked[type="checkbox"], .form-check-custom input:checked[type="checkbox"], .aspNetDisabled input:checked[type="checkbox"] {
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e"); }
-    .form-check-input:checked[type="radio"], .form-check-custom input:checked[type="radio"] {
+    .form-check-input:checked[type="radio"], .form-check-custom input:checked[type="radio"], .aspNetDisabled input:checked[type="radio"] {
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e"); }
-  .form-check-input[type="checkbox"]:indeterminate, .form-check-custom input[type="checkbox"]:indeterminate {
+  .form-check-input[type="checkbox"]:indeterminate, .form-check-custom input[type="checkbox"]:indeterminate, .aspNetDisabled input[type="checkbox"]:indeterminate {
     background-color: #2a9fd6;
     border-color: #2a9fd6;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e"); }
-  .form-check-input:disabled, .form-check-custom input:disabled {
+  .form-check-input:disabled, .form-check-custom input:disabled, .aspNetDisabled input:disabled {
     pointer-events: none;
     -webkit-filter: none;
             filter: none;
     opacity: 0.5; }
-  .form-check-input[disabled] ~ .form-check-label, .form-check-custom input[disabled] ~ .form-check-label, .form-check-custom .form-check-input[disabled] ~ label, .form-check-custom input[disabled] ~ label, .form-check-input:disabled ~ .form-check-label, .form-check-custom input:disabled ~ .form-check-label, .form-check-custom .form-check-input:disabled ~ label, .form-check-custom input:disabled ~ label {
+  .form-check-input[disabled] ~ .form-check-label, .form-check-custom input[disabled] ~ .form-check-label, .aspNetDisabled input[disabled] ~ .form-check-label, .form-check-custom .form-check-input[disabled] ~ label, .form-check-custom input[disabled] ~ label, .aspNetDisabled .form-check-input[disabled] ~ label, .aspNetDisabled input[disabled] ~ label, .form-check-input:disabled ~ .form-check-label, .form-check-custom input:disabled ~ .form-check-label, .aspNetDisabled input:disabled ~ .form-check-label, .form-check-custom .form-check-input:disabled ~ label, .form-check-custom input:disabled ~ label, .aspNetDisabled .form-check-input:disabled ~ label, .aspNetDisabled input:disabled ~ label {
     opacity: 0.5; }
 
 .form-switch {
   padding-left: 2.5em; }
-  .form-switch .form-check-input, .form-switch .form-check-custom input, .form-check-custom .form-switch input {
+  .form-switch .form-check-input, .form-switch .form-check-custom input, .form-check-custom .form-switch input, .form-switch .aspNetDisabled input, .aspNetDisabled .form-switch input {
     width: 2em;
     margin-left: -2.5em;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e");
     background-position: left center;
     border-radius: 2em; }
-    .form-switch .form-check-input:focus, .form-switch .form-check-custom input:focus, .form-check-custom .form-switch input:focus {
+    .form-switch .form-check-input:focus, .form-switch .form-check-custom input:focus, .form-check-custom .form-switch input:focus, .form-switch .aspNetDisabled input:focus, .aspNetDisabled .form-switch input:focus {
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%2395cfeb'/%3e%3c/svg%3e"); }
-    .form-switch .form-check-input:checked, .form-switch .form-check-custom input:checked, .form-check-custom .form-switch input:checked {
+    .form-switch .form-check-input:checked, .form-switch .form-check-custom input:checked, .form-check-custom .form-switch input:checked, .form-switch .aspNetDisabled input:checked, .aspNetDisabled .form-switch input:checked {
       background-position: right center;
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e"); }
 
@@ -2228,7 +2228,7 @@ textarea.form-control-lg {
       -ms-flex-align: center;
           align-items: center;
   padding: 0.375rem 1rem;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   color: #fff;
@@ -2243,7 +2243,7 @@ textarea.form-control-lg {
 .input-group-lg > .input-group-text,
 .input-group-lg > .btn {
   padding: 0.5rem 1rem;
-  font-size: 1.09375rem;
+  font-size: 1.25rem;
   border-radius: 0.3rem; }
 
 .input-group-sm > .form-control, .input-group-sm > .bootstrap-tagsinput,
@@ -2251,7 +2251,7 @@ textarea.form-control-lg {
 .input-group-sm > .input-group-text,
 .input-group-sm > .btn {
   padding: 0.25rem 0.5rem;
-  font-size: 0.76563rem;
+  font-size: 0.875rem;
   border-radius: 0.2rem; }
 
 .input-group-lg > .form-select,
@@ -2288,8 +2288,8 @@ textarea.form-control-lg {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.76563rem;
-  color: #000;
+  font-size: 0.875rem;
+  color: #fff;
   background-color: #77b300;
   border-radius: 0.25rem; }
 
@@ -2326,17 +2326,17 @@ textarea.form-control-lg {
     -webkit-box-shadow: 0 0 0 0.25rem rgba(119, 179, 0, 0.25);
             box-shadow: 0 0 0 0.25rem rgba(119, 179, 0, 0.25); }
 
-.was-validated .form-check-input:valid, .was-validated .form-check-custom input:valid, .form-check-custom .was-validated input:valid, .form-check-input.is-valid, .form-check-custom input.is-valid {
+.was-validated .form-check-input:valid, .was-validated .form-check-custom input:valid, .form-check-custom .was-validated input:valid, .was-validated .aspNetDisabled input:valid, .aspNetDisabled .was-validated input:valid, .form-check-input.is-valid, .form-check-custom input.is-valid, .aspNetDisabled input.is-valid {
   border-color: #77b300; }
-  .was-validated .form-check-input:valid:checked, .was-validated .form-check-custom input:valid:checked, .form-check-custom .was-validated input:valid:checked, .form-check-input.is-valid:checked, .form-check-custom input.is-valid:checked {
+  .was-validated .form-check-input:valid:checked, .was-validated .form-check-custom input:valid:checked, .form-check-custom .was-validated input:valid:checked, .was-validated .aspNetDisabled input:valid:checked, .aspNetDisabled .was-validated input:valid:checked, .form-check-input.is-valid:checked, .form-check-custom input.is-valid:checked, .aspNetDisabled input.is-valid:checked {
     background-color: #77b300; }
-  .was-validated .form-check-input:valid:focus, .was-validated .form-check-custom input:valid:focus, .form-check-custom .was-validated input:valid:focus, .form-check-input.is-valid:focus, .form-check-custom input.is-valid:focus {
+  .was-validated .form-check-input:valid:focus, .was-validated .form-check-custom input:valid:focus, .form-check-custom .was-validated input:valid:focus, .was-validated .aspNetDisabled input:valid:focus, .aspNetDisabled .was-validated input:valid:focus, .form-check-input.is-valid:focus, .form-check-custom input.is-valid:focus, .aspNetDisabled input.is-valid:focus {
     -webkit-box-shadow: 0 0 0 0.25rem rgba(119, 179, 0, 0.25);
             box-shadow: 0 0 0 0.25rem rgba(119, 179, 0, 0.25); }
-  .was-validated .form-check-input:valid ~ .form-check-label, .was-validated .form-check-custom input:valid ~ .form-check-label, .form-check-custom .was-validated input:valid ~ .form-check-label, .was-validated .form-check-custom .form-check-input:valid ~ label, .form-check-custom .was-validated .form-check-input:valid ~ label, .was-validated .form-check-custom input:valid ~ label, .form-check-custom .was-validated input:valid ~ label, .form-check-input.is-valid ~ .form-check-label, .form-check-custom input.is-valid ~ .form-check-label, .form-check-custom .form-check-input.is-valid ~ label, .form-check-custom input.is-valid ~ label {
+  .was-validated .form-check-input:valid ~ .form-check-label, .was-validated .form-check-custom input:valid ~ .form-check-label, .form-check-custom .was-validated input:valid ~ .form-check-label, .was-validated .aspNetDisabled input:valid ~ .form-check-label, .aspNetDisabled .was-validated input:valid ~ .form-check-label, .was-validated .form-check-custom .form-check-input:valid ~ label, .form-check-custom .was-validated .form-check-input:valid ~ label, .was-validated .form-check-custom input:valid ~ label, .form-check-custom .was-validated input:valid ~ label, .was-validated .aspNetDisabled .form-check-custom input:valid ~ label, .form-check-custom .aspNetDisabled .was-validated input:valid ~ label, .was-validated .aspNetDisabled .form-check-input:valid ~ label, .aspNetDisabled .was-validated .form-check-input:valid ~ label, .was-validated .form-check-custom .aspNetDisabled input:valid ~ label, .aspNetDisabled .was-validated .form-check-custom input:valid ~ label, .form-check-custom .was-validated .aspNetDisabled input:valid ~ label, .aspNetDisabled .form-check-custom .was-validated input:valid ~ label, .was-validated .aspNetDisabled input:valid ~ label, .aspNetDisabled .was-validated input:valid ~ label, .form-check-input.is-valid ~ .form-check-label, .form-check-custom input.is-valid ~ .form-check-label, .aspNetDisabled input.is-valid ~ .form-check-label, .form-check-custom .form-check-input.is-valid ~ label, .form-check-custom input.is-valid ~ label, .aspNetDisabled .form-check-input.is-valid ~ label, .aspNetDisabled input.is-valid ~ label {
     color: #77b300; }
 
-.form-check-inline .form-check-input ~ .valid-feedback, .form-check-inline li .form-check-input ~ .valid-feedback, .form-check-inline .form-check-custom input ~ .valid-feedback, .form-check-custom .form-check-inline input ~ .valid-feedback, .form-check-custom .form-check-inline li input ~ .valid-feedback {
+.form-check-inline .form-check-input ~ .valid-feedback, .form-check-inline li .form-check-input ~ .valid-feedback, .form-check-inline .form-check-custom input ~ .valid-feedback, .form-check-custom .form-check-inline input ~ .valid-feedback, .form-check-custom .form-check-inline li input ~ .valid-feedback, .form-check-inline .aspNetDisabled input ~ .valid-feedback, .aspNetDisabled .form-check-inline input ~ .valid-feedback, .aspNetDisabled .form-check-inline li input ~ .valid-feedback {
   margin-left: .5em; }
 
 .invalid-feedback {
@@ -2354,7 +2354,7 @@ textarea.form-control-lg {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.76563rem;
+  font-size: 0.875rem;
   color: #fff;
   background-color: #cc0000;
   border-radius: 0.25rem; }
@@ -2392,17 +2392,17 @@ textarea.form-control-lg {
     -webkit-box-shadow: 0 0 0 0.25rem rgba(204, 0, 0, 0.25);
             box-shadow: 0 0 0 0.25rem rgba(204, 0, 0, 0.25); }
 
-.was-validated .form-check-input:invalid, .was-validated .form-check-custom input:invalid, .form-check-custom .was-validated input:invalid, .form-check-input.is-invalid, .form-check-custom input.is-invalid {
+.was-validated .form-check-input:invalid, .was-validated .form-check-custom input:invalid, .form-check-custom .was-validated input:invalid, .was-validated .aspNetDisabled input:invalid, .aspNetDisabled .was-validated input:invalid, .form-check-input.is-invalid, .form-check-custom input.is-invalid, .aspNetDisabled input.is-invalid {
   border-color: #c00; }
-  .was-validated .form-check-input:invalid:checked, .was-validated .form-check-custom input:invalid:checked, .form-check-custom .was-validated input:invalid:checked, .form-check-input.is-invalid:checked, .form-check-custom input.is-invalid:checked {
+  .was-validated .form-check-input:invalid:checked, .was-validated .form-check-custom input:invalid:checked, .form-check-custom .was-validated input:invalid:checked, .was-validated .aspNetDisabled input:invalid:checked, .aspNetDisabled .was-validated input:invalid:checked, .form-check-input.is-invalid:checked, .form-check-custom input.is-invalid:checked, .aspNetDisabled input.is-invalid:checked {
     background-color: #c00; }
-  .was-validated .form-check-input:invalid:focus, .was-validated .form-check-custom input:invalid:focus, .form-check-custom .was-validated input:invalid:focus, .form-check-input.is-invalid:focus, .form-check-custom input.is-invalid:focus {
+  .was-validated .form-check-input:invalid:focus, .was-validated .form-check-custom input:invalid:focus, .form-check-custom .was-validated input:invalid:focus, .was-validated .aspNetDisabled input:invalid:focus, .aspNetDisabled .was-validated input:invalid:focus, .form-check-input.is-invalid:focus, .form-check-custom input.is-invalid:focus, .aspNetDisabled input.is-invalid:focus {
     -webkit-box-shadow: 0 0 0 0.25rem rgba(204, 0, 0, 0.25);
             box-shadow: 0 0 0 0.25rem rgba(204, 0, 0, 0.25); }
-  .was-validated .form-check-input:invalid ~ .form-check-label, .was-validated .form-check-custom input:invalid ~ .form-check-label, .form-check-custom .was-validated input:invalid ~ .form-check-label, .was-validated .form-check-custom .form-check-input:invalid ~ label, .form-check-custom .was-validated .form-check-input:invalid ~ label, .was-validated .form-check-custom input:invalid ~ label, .form-check-custom .was-validated input:invalid ~ label, .form-check-input.is-invalid ~ .form-check-label, .form-check-custom input.is-invalid ~ .form-check-label, .form-check-custom .form-check-input.is-invalid ~ label, .form-check-custom input.is-invalid ~ label {
+  .was-validated .form-check-input:invalid ~ .form-check-label, .was-validated .form-check-custom input:invalid ~ .form-check-label, .form-check-custom .was-validated input:invalid ~ .form-check-label, .was-validated .aspNetDisabled input:invalid ~ .form-check-label, .aspNetDisabled .was-validated input:invalid ~ .form-check-label, .was-validated .form-check-custom .form-check-input:invalid ~ label, .form-check-custom .was-validated .form-check-input:invalid ~ label, .was-validated .form-check-custom input:invalid ~ label, .form-check-custom .was-validated input:invalid ~ label, .was-validated .aspNetDisabled .form-check-custom input:invalid ~ label, .form-check-custom .aspNetDisabled .was-validated input:invalid ~ label, .was-validated .aspNetDisabled .form-check-input:invalid ~ label, .aspNetDisabled .was-validated .form-check-input:invalid ~ label, .was-validated .form-check-custom .aspNetDisabled input:invalid ~ label, .aspNetDisabled .was-validated .form-check-custom input:invalid ~ label, .form-check-custom .was-validated .aspNetDisabled input:invalid ~ label, .aspNetDisabled .form-check-custom .was-validated input:invalid ~ label, .was-validated .aspNetDisabled input:invalid ~ label, .aspNetDisabled .was-validated input:invalid ~ label, .form-check-input.is-invalid ~ .form-check-label, .form-check-custom input.is-invalid ~ .form-check-label, .aspNetDisabled input.is-invalid ~ .form-check-label, .form-check-custom .form-check-input.is-invalid ~ label, .form-check-custom input.is-invalid ~ label, .aspNetDisabled .form-check-input.is-invalid ~ label, .aspNetDisabled input.is-invalid ~ label {
     color: #c00; }
 
-.form-check-inline .form-check-input ~ .invalid-feedback, .form-check-inline li .form-check-input ~ .invalid-feedback, .form-check-inline .form-check-custom input ~ .invalid-feedback, .form-check-custom .form-check-inline input ~ .invalid-feedback, .form-check-custom .form-check-inline li input ~ .invalid-feedback {
+.form-check-inline .form-check-input ~ .invalid-feedback, .form-check-inline li .form-check-input ~ .invalid-feedback, .form-check-inline .form-check-custom input ~ .invalid-feedback, .form-check-custom .form-check-inline input ~ .invalid-feedback, .form-check-custom .form-check-inline li input ~ .invalid-feedback, .form-check-inline .aspNetDisabled input ~ .invalid-feedback, .aspNetDisabled .form-check-inline input ~ .invalid-feedback, .aspNetDisabled .form-check-inline li input ~ .invalid-feedback {
   margin-left: .5em; }
 
 .btn {
@@ -2421,7 +2421,7 @@ textarea.form-control-lg {
   background-color: transparent;
   border: 1px solid transparent;
   padding: 0.375rem 1rem;
-  font-size: 0.875rem;
+  font-size: 1rem;
   border-radius: 0.25rem;
   -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -2443,32 +2443,32 @@ textarea.form-control-lg {
     opacity: 0.65; }
 
 .btn-primary {
-  color: #000;
+  color: #fff;
   background-color: #2a9fd6;
   border-color: #2a9fd6; }
   .btn-primary:hover {
-    color: #000;
-    background-color: #4aaddc;
-    border-color: #3fa9da; }
+    color: #fff;
+    background-color: #2487b6;
+    border-color: #227fab; }
   .btn-check:focus + .btn-primary, .btn-primary:focus {
-    color: #000;
-    background-color: #4aaddc;
-    border-color: #3fa9da;
-    -webkit-box-shadow: 0 0 0 0.25rem rgba(36, 135, 182, 0.5);
-            box-shadow: 0 0 0 0.25rem rgba(36, 135, 182, 0.5); }
+    color: #fff;
+    background-color: #2487b6;
+    border-color: #227fab;
+    -webkit-box-shadow: 0 0 0 0.25rem rgba(74, 173, 220, 0.5);
+            box-shadow: 0 0 0 0.25rem rgba(74, 173, 220, 0.5); }
   .btn-check:checked + .btn-primary,
   .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active,
   .show > .btn-primary.dropdown-toggle {
-    color: #000;
-    background-color: #55b2de;
-    border-color: #3fa9da; }
+    color: #fff;
+    background-color: #227fab;
+    border-color: #2077a1; }
     .btn-check:checked + .btn-primary:focus,
     .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus,
     .show > .btn-primary.dropdown-toggle:focus {
-      -webkit-box-shadow: 0 0 0 0.25rem rgba(36, 135, 182, 0.5);
-              box-shadow: 0 0 0 0.25rem rgba(36, 135, 182, 0.5); }
+      -webkit-box-shadow: 0 0 0 0.25rem rgba(74, 173, 220, 0.5);
+              box-shadow: 0 0 0 0.25rem rgba(74, 173, 220, 0.5); }
   .btn-primary:disabled, .btn-primary.disabled {
-    color: #000;
+    color: #fff;
     background-color: #2a9fd6;
     border-color: #2a9fd6; }
 
@@ -2503,32 +2503,32 @@ textarea.form-control-lg {
     border-color: #555; }
 
 .btn-success {
-  color: #000;
+  color: #fff;
   background-color: #77b300;
   border-color: #77b300; }
   .btn-success:hover {
-    color: #000;
-    background-color: #8bbe26;
-    border-color: #85bb1a; }
+    color: #fff;
+    background-color: #659800;
+    border-color: #5f8f00; }
   .btn-check:focus + .btn-success, .btn-success:focus {
-    color: #000;
-    background-color: #8bbe26;
-    border-color: #85bb1a;
-    -webkit-box-shadow: 0 0 0 0.25rem rgba(101, 152, 0, 0.5);
-            box-shadow: 0 0 0 0.25rem rgba(101, 152, 0, 0.5); }
+    color: #fff;
+    background-color: #659800;
+    border-color: #5f8f00;
+    -webkit-box-shadow: 0 0 0 0.25rem rgba(139, 190, 38, 0.5);
+            box-shadow: 0 0 0 0.25rem rgba(139, 190, 38, 0.5); }
   .btn-check:checked + .btn-success,
   .btn-check:active + .btn-success, .btn-success:active, .btn-success.active,
   .show > .btn-success.dropdown-toggle {
-    color: #000;
-    background-color: #92c233;
-    border-color: #85bb1a; }
+    color: #fff;
+    background-color: #5f8f00;
+    border-color: #598600; }
     .btn-check:checked + .btn-success:focus,
     .btn-check:active + .btn-success:focus, .btn-success:active:focus, .btn-success.active:focus,
     .show > .btn-success.dropdown-toggle:focus {
-      -webkit-box-shadow: 0 0 0 0.25rem rgba(101, 152, 0, 0.5);
-              box-shadow: 0 0 0 0.25rem rgba(101, 152, 0, 0.5); }
+      -webkit-box-shadow: 0 0 0 0.25rem rgba(139, 190, 38, 0.5);
+              box-shadow: 0 0 0 0.25rem rgba(139, 190, 38, 0.5); }
   .btn-success:disabled, .btn-success.disabled {
-    color: #000;
+    color: #fff;
     background-color: #77b300;
     border-color: #77b300; }
 
@@ -2563,32 +2563,32 @@ textarea.form-control-lg {
     border-color: #93c; }
 
 .btn-warning {
-  color: #000;
+  color: #fff;
   background-color: #f80;
   border-color: #f80; }
   .btn-warning:hover {
-    color: #000;
-    background-color: #ff9a26;
-    border-color: #ff941a; }
+    color: #fff;
+    background-color: #d97400;
+    border-color: #cc6d00; }
   .btn-check:focus + .btn-warning, .btn-warning:focus {
-    color: #000;
-    background-color: #ff9a26;
-    border-color: #ff941a;
-    -webkit-box-shadow: 0 0 0 0.25rem rgba(217, 116, 0, 0.5);
-            box-shadow: 0 0 0 0.25rem rgba(217, 116, 0, 0.5); }
+    color: #fff;
+    background-color: #d97400;
+    border-color: #cc6d00;
+    -webkit-box-shadow: 0 0 0 0.25rem rgba(255, 154, 38, 0.5);
+            box-shadow: 0 0 0 0.25rem rgba(255, 154, 38, 0.5); }
   .btn-check:checked + .btn-warning,
   .btn-check:active + .btn-warning, .btn-warning:active, .btn-warning.active,
   .show > .btn-warning.dropdown-toggle {
-    color: #000;
-    background-color: #ffa033;
-    border-color: #ff941a; }
+    color: #fff;
+    background-color: #cc6d00;
+    border-color: #bf6600; }
     .btn-check:checked + .btn-warning:focus,
     .btn-check:active + .btn-warning:focus, .btn-warning:active:focus, .btn-warning.active:focus,
     .show > .btn-warning.dropdown-toggle:focus {
-      -webkit-box-shadow: 0 0 0 0.25rem rgba(217, 116, 0, 0.5);
-              box-shadow: 0 0 0 0.25rem rgba(217, 116, 0, 0.5); }
+      -webkit-box-shadow: 0 0 0 0.25rem rgba(255, 154, 38, 0.5);
+              box-shadow: 0 0 0 0.25rem rgba(255, 154, 38, 0.5); }
   .btn-warning:disabled, .btn-warning.disabled {
-    color: #000;
+    color: #fff;
     background-color: #f80;
     border-color: #f80; }
 
@@ -2686,7 +2686,7 @@ textarea.form-control-lg {
   color: #2a9fd6;
   border-color: #2a9fd6; }
   .btn-outline-primary:hover {
-    color: #000;
+    color: #fff;
     background-color: #2a9fd6;
     border-color: #2a9fd6; }
   .btn-check:focus + .btn-outline-primary, .btn-outline-primary:focus {
@@ -2694,7 +2694,7 @@ textarea.form-control-lg {
             box-shadow: 0 0 0 0.25rem rgba(42, 159, 214, 0.5); }
   .btn-check:checked + .btn-outline-primary,
   .btn-check:active + .btn-outline-primary, .btn-outline-primary:active, .btn-outline-primary.active, .btn-outline-primary.dropdown-toggle.show {
-    color: #000;
+    color: #fff;
     background-color: #2a9fd6;
     border-color: #2a9fd6; }
     .btn-check:checked + .btn-outline-primary:focus,
@@ -2732,7 +2732,7 @@ textarea.form-control-lg {
   color: #77b300;
   border-color: #77b300; }
   .btn-outline-success:hover {
-    color: #000;
+    color: #fff;
     background-color: #77b300;
     border-color: #77b300; }
   .btn-check:focus + .btn-outline-success, .btn-outline-success:focus {
@@ -2740,7 +2740,7 @@ textarea.form-control-lg {
             box-shadow: 0 0 0 0.25rem rgba(119, 179, 0, 0.5); }
   .btn-check:checked + .btn-outline-success,
   .btn-check:active + .btn-outline-success, .btn-outline-success:active, .btn-outline-success.active, .btn-outline-success.dropdown-toggle.show {
-    color: #000;
+    color: #fff;
     background-color: #77b300;
     border-color: #77b300; }
     .btn-check:checked + .btn-outline-success:focus,
@@ -2778,7 +2778,7 @@ textarea.form-control-lg {
   color: #f80;
   border-color: #f80; }
   .btn-outline-warning:hover {
-    color: #000;
+    color: #fff;
     background-color: #f80;
     border-color: #f80; }
   .btn-check:focus + .btn-outline-warning, .btn-outline-warning:focus {
@@ -2786,7 +2786,7 @@ textarea.form-control-lg {
             box-shadow: 0 0 0 0.25rem rgba(255, 136, 0, 0.5); }
   .btn-check:checked + .btn-outline-warning,
   .btn-check:active + .btn-outline-warning, .btn-outline-warning:active, .btn-outline-warning.active, .btn-outline-warning.dropdown-toggle.show {
-    color: #000;
+    color: #fff;
     background-color: #f80;
     border-color: #f80; }
     .btn-check:checked + .btn-outline-warning:focus,
@@ -2877,12 +2877,12 @@ textarea.form-control-lg {
 
 .btn-lg, .btn-group-lg > .btn {
   padding: 0.5rem 1rem;
-  font-size: 1.09375rem;
+  font-size: 1.25rem;
   border-radius: 0.3rem; }
 
 .btn-sm, .btn-group-sm > .btn {
   padding: 0.25rem 0.5rem;
-  font-size: 0.76563rem;
+  font-size: 0.875rem;
   border-radius: 0.2rem; }
 
 .fade {
@@ -2937,7 +2937,7 @@ textarea.form-control-lg {
   min-width: 10rem;
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: #adafae;
   text-align: left;
   list-style: none;
@@ -3118,7 +3118,7 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  font-size: 0.76563rem;
+  font-size: 0.875rem;
   color: #555;
   white-space: nowrap; }
 
@@ -3359,10 +3359,10 @@ textarea.form-control-lg {
             justify-content: space-between; }
 
 .navbar-brand {
-  padding-top: 0.33594rem;
-  padding-bottom: 0.33594rem;
+  padding-top: 0.3125rem;
+  padding-bottom: 0.3125rem;
   margin-right: 1rem;
-  font-size: 1.09375rem;
+  font-size: 1.25rem;
   text-decoration: none;
   white-space: nowrap; }
 
@@ -3395,7 +3395,7 @@ textarea.form-control-lg {
 
 .navbar-toggler {
   padding: 0.25rem 0.75rem;
-  font-size: 1.09375rem;
+  font-size: 1.25rem;
   line-height: 1;
   background-color: transparent;
   border: 1px solid transparent;
@@ -3781,7 +3781,7 @@ textarea.form-control-lg {
           align-items: center;
   width: 100%;
   padding: 1rem 1.25rem;
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: #adafae;
   background-color: transparent;
   border: 1px solid rgba(0, 0, 0, 0.125);
@@ -3879,9 +3879,10 @@ textarea.form-control-lg {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding: 0 0;
+  padding: 0.375rem 0.75rem;
   margin-bottom: 1rem;
-  list-style: none; }
+  list-style: none;
+  border-radius: 0.25rem; }
 
 .breadcrumb-item + .breadcrumb-item {
   padding-left: 0.5rem; }
@@ -3957,7 +3958,7 @@ textarea.form-control-lg {
 
 .pagination-lg .page-link {
   padding: 0.75rem 1.5rem;
-  font-size: 1.09375rem; }
+  font-size: 1.25rem; }
 
 .pagination-lg .page-item:first-child .page-link {
   border-top-left-radius: 0.3rem;
@@ -3969,7 +3970,7 @@ textarea.form-control-lg {
 
 .pagination-sm .page-link {
   padding: 0.25rem 0.5rem;
-  font-size: 0.76563rem; }
+  font-size: 0.875rem; }
 
 .pagination-sm .page-item:first-child .page-link {
   border-top-left-radius: 0.2rem;
@@ -4089,7 +4090,7 @@ textarea.form-control-lg {
   display: flex;
   height: 1rem;
   overflow: hidden;
-  font-size: 0.65625rem;
+  font-size: 0.75rem;
   background-color: #282828;
   border-radius: 0.25rem; }
 
@@ -4766,7 +4767,7 @@ textarea.form-control-lg {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.76563rem;
+  font-size: 0.875rem;
   word-wrap: break-word;
   opacity: 0; }
   .tooltip.show {
@@ -4851,7 +4852,7 @@ textarea.form-control-lg {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.76563rem;
+  font-size: 0.875rem;
   word-wrap: break-word;
   background-color: #282828;
   background-clip: padding-box;
@@ -4940,7 +4941,7 @@ textarea.form-control-lg {
 .popover-header {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: #fff;
   background-color: #262626;
   border-bottom: 1px solid #222222;
@@ -5227,7 +5228,7 @@ textarea.form-control-lg {
 .link-primary {
   color: #2a9fd6; }
   .link-primary:hover, .link-primary:focus {
-    color: #55b2de; }
+    color: #227fab; }
 
 .link-secondary {
   color: #555; }
@@ -5237,7 +5238,7 @@ textarea.form-control-lg {
 .link-success {
   color: #77b300; }
   .link-success:hover, .link-success:focus {
-    color: #92c233; }
+    color: #5f8f00; }
 
 .link-info {
   color: #93c; }
@@ -5247,7 +5248,7 @@ textarea.form-control-lg {
 .link-warning {
   color: #f80; }
   .link-warning:hover, .link-warning:focus {
-    color: #ffa033; }
+    color: #cc6d00; }
 
 .link-danger {
   color: #c00; }
@@ -6181,7 +6182,7 @@ textarea.form-control-lg {
   font-size: calc(1.275rem + 0.3vw) !important; }
 
 .fs-6 {
-  font-size: 0.875rem !important; }
+  font-size: 1rem !important; }
 
 .fst-italic {
   font-style: italic !important; }
@@ -8645,42 +8646,42 @@ table {
 .table-hover .table-primary:hover,
 .table-hover .table-primary:hover > th,
 .table-hover .table-primary:hover > td {
-  background-color: #2897cb; }
+  background-color: #258fc1; }
 
 .table-hover .table-secondary:hover,
 .table-hover .table-secondary:hover > th,
 .table-hover .table-secondary:hover > td {
-  background-color: #515151; }
+  background-color: #484848; }
 
 .table-hover .table-light:hover,
 .table-hover .table-light:hover > th,
 .table-hover .table-light:hover > td {
-  background-color: #202020; }
+  background-color: #151515; }
 
 .table-hover .table-dark:hover,
 .table-hover .table-dark:hover > th,
 .table-hover .table-dark:hover > td {
-  background-color: #a4a6a5; }
+  background-color: #a0a2a1; }
 
 .table-hover .table-success:hover,
 .table-hover .table-success:hover > th,
 .table-hover .table-success:hover > td {
-  background-color: #71aa00; }
+  background-color: #669a00; }
 
 .table-hover .table-info:hover,
 .table-hover .table-info:hover > th,
 .table-hover .table-info:hover > td {
-  background-color: #9130c2; }
+  background-color: #8a2eb8; }
 
 .table-hover .table-danger:hover,
 .table-hover .table-danger:hover > th,
 .table-hover .table-danger:hover > td {
-  background-color: #c20000; }
+  background-color: #b30000; }
 
 .table-hover .table-warning:hover,
 .table-hover .table-warning:hover > th,
 .table-hover .table-warning:hover > td {
-  background-color: #f28100; }
+  background-color: #e67a00; }
 
 .table-hover .table-active:hover,
 .table-hover .table-active:hover > th,
@@ -8793,7 +8794,7 @@ legend {
   display: block; }
 
 .blockquote-custom {
-  font-size: 0.875rem; }
+  font-size: 1rem; }
 
 /* Help sidebar */
 .sidebar-sticky li {
@@ -8866,7 +8867,7 @@ legend {
     background-color: #fff;
     border: 1px solid #fff;
     color: #adafae;
-    font-size: 0.875rem;
+    font-size: 1rem;
     outline: 0; }
     @media (prefers-reduced-motion: reduce) {
       .select2-container--bootstrap4 .select2-selection {
@@ -8883,7 +8884,7 @@ legend {
     background-color: #fff;
     border: 1px solid #fff;
     color: #adafae;
-    font-size: 0.875rem; }
+    font-size: 1rem; }
     @media (prefers-reduced-motion: reduce) {
       .select2-container--bootstrap4 .select2-search--dropdown .select2-search__field {
         -webkit-transition: none;
@@ -8952,7 +8953,7 @@ legend {
     color: #555;
     display: block;
     padding: 0.375rem 1rem;
-    font-size: 0.76563rem;
+    font-size: 0.875rem;
     line-height: 1.5;
     white-space: nowrap; }
   .select2-container--bootstrap4.select2-container--focus .select2-selection, .select2-container--bootstrap4.select2-container--open .select2-selection {
@@ -9098,7 +9099,7 @@ legend {
   .input-group-sm .select2-container--bootstrap4 .select2-selection--single,
   .form-group-sm .select2-container--bootstrap4 .select2-selection--single {
     border-radius: 0.2rem;
-    font-size: 0.76563rem;
+    font-size: 0.875rem;
     height: calc(1.5em + 0.5rem + 2px);
     line-height: 1.5;
     padding: 0.25rem 1.25rem 0.25rem 0.5rem;
@@ -9115,7 +9116,7 @@ legend {
     .select2-container--bootstrap4 .select2-selection--multiple.form-control-sm .select2-selection__choice,
     .input-group-sm .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice,
     .form-group-sm .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice {
-      font-size: 0.76563rem;
+      font-size: 0.875rem;
       line-height: 1.5;
       margin: calc(0.25rem - 1px) 0 0 0.25rem;
       padding: 0 0.25rem; }
@@ -9123,7 +9124,7 @@ legend {
     .input-group-sm .select2-container--bootstrap4 .select2-selection--multiple .select2-search--inline .select2-search__field,
     .form-group-sm .select2-container--bootstrap4 .select2-selection--multiple .select2-search--inline .select2-search__field {
       padding: 0 0.5rem;
-      font-size: 0.76563rem;
+      font-size: 0.875rem;
       height: calc(1.5em + 0.5rem + 2px);
       line-height: 1.5; }
     .select2-container--bootstrap4 .select2-selection--multiple.form-control-sm .select2-selection__clear,
@@ -9134,7 +9135,7 @@ legend {
   .input-group-lg .select2-container--bootstrap4 .select2-selection--single,
   .form-group-lg .select2-container--bootstrap4 .select2-selection--single {
     border-radius: 0.3rem;
-    font-size: 1.09375rem;
+    font-size: 1.25rem;
     height: calc(1.5em + 1rem + 2px);
     line-height: 1.5;
     padding: 0.5rem 1.9375rem 0.5rem 1rem;
@@ -9158,7 +9159,7 @@ legend {
     .select2-container--bootstrap4 .select2-selection--multiple.form-control-lg .select2-selection__choice,
     .input-group-lg .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice,
     .form-group-lg .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice {
-      font-size: 1.09375rem;
+      font-size: 1.25rem;
       line-height: 1.5;
       border-radius: 0.25rem;
       margin: calc(0.5rem - 1px) 0 0 0.5rem;
@@ -9167,7 +9168,7 @@ legend {
     .input-group-lg .select2-container--bootstrap4 .select2-selection--multiple .select2-search--inline .select2-search__field,
     .form-group-lg .select2-container--bootstrap4 .select2-selection--multiple .select2-search--inline .select2-search__field {
       padding: 0 1rem;
-      font-size: 1.09375rem;
+      font-size: 1.25rem;
       height: calc(1.5em + 1rem + 2px);
       line-height: 1.5; }
     .select2-container--bootstrap4 .select2-selection--multiple.form-control-lg .select2-selection__clear,

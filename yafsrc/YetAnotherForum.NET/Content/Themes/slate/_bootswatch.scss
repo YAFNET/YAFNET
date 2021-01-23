@@ -1,16 +1,16 @@
-// Slate 4.5.3
+// Slate 5.0.0-beta1
 // Bootswatch
 
 
 // Mixins ======================================================================
 
 @mixin btn-shadow($color){
-  @include gradient-y-three-colors(tint-color($color, 6%), $color, 60%, shade-color($color, 4%));
+  @include gradient-y-three-colors(lighten($color, 6%), $color, 60%, darken($color, 4%));
   filter: none;
 }
 
 @mixin btn-shadow-inverse($color){
-  @include gradient-y-three-colors(shade-color($color, 18%), shade-color($color, 15%), 40%, shade-color($color, 13%));
+  @include gradient-y-three-colors(darken($color, 18%), darken($color, 15%), 40%, darken($color, 13%));
   filter: none;
 }
 
@@ -311,7 +311,7 @@ h6 {
       &,
       > th,
       > td {
-        background-color: shade-color($primary, 5%);
+        background-color: darken($primary, 5%);
       }
     }
 
@@ -319,7 +319,7 @@ h6 {
       &,
       > th,
       > td {
-        background-color: shade-color($secondary, 5%);
+        background-color: darken($secondary, 5%);
       }
     }
 
@@ -327,7 +327,7 @@ h6 {
       &,
       > th,
       > td {
-        background-color: shade-color($light, 5%);
+        background-color: darken($light, 5%);
       }
     }
 
@@ -335,7 +335,7 @@ h6 {
       &,
       > th,
       > td {
-        background-color: shade-color($dark, 5%);
+        background-color: darken($dark, 5%);
       }
     }
 
@@ -343,7 +343,7 @@ h6 {
       &,
       > th,
       > td {
-        background-color: shade-color($success, 5%);
+        background-color: darken($success, 5%);
       }
     }
 
@@ -351,7 +351,7 @@ h6 {
       &,
       > th,
       > td {
-        background-color: shade-color($info, 5%);
+        background-color: darken($info, 5%);
       }
     }
 
@@ -359,7 +359,7 @@ h6 {
       &,
       > th,
       > td {
-        background-color: shade-color($danger, 5%);
+        background-color: darken($danger, 5%);
       }
     }
 
@@ -367,7 +367,7 @@ h6 {
       &,
       > th,
       > td {
-        background-color: shade-color($warning, 5%);
+        background-color: darken($warning, 5%);
       }
     }
 
@@ -481,33 +481,33 @@ legend {
 // Indicators ==================================================================
 
 .alert {
-    border: none;
+  border: none;
+  color: $white;
+
+  a,
+  .alert-link {
     color: $white;
+    text-decoration: underline;
+  }
 
-    a,
+  @each $color, $value in $theme-colors {
+    &-#{$color} {
+      background-color: $value;
+    }
+  }
+
+  &-light {
+    &,
+    a:not(.btn),
     .alert-link {
-        color: $white;
-        text-decoration: underline;
+      color: $body-bg;
     }
+  }
 
-    @each $color, $value in $theme-colors {
-        &-#{$color} {
-            background-color: $value;
-        }
-    }
-
-    &-light {
-        &,
-        a:not(.btn),
-        .alert-link {
-            color: $body-bg;
-        }
-    }
-
-    .close {
-        color: $btn-close-color;
-        text-decoration: none;
-    }
+  .close {
+    color: $btn-close-color;
+    text-decoration: none;
+  }
 }
 
 .badge {
@@ -525,7 +525,7 @@ legend {
 }
 
 .list-group {
-  &-item:hover {
-    background-color: shade-color($gray-900, 5%);
+  &-item-action:hover {
+    background-color: darken($gray-900, 5%);
   }
 }

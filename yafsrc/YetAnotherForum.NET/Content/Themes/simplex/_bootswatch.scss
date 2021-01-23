@@ -1,4 +1,4 @@
-// Simplex 4.5.3
+// Simplex 5.0.0-beta1
 // Bootswatch
 
 
@@ -10,9 +10,9 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700
 // Mixins ======================================================================
 
 @mixin btn-shadow($color){
-  @include gradient-y-three-colors(tint-color($color, 3%), $color, 6%, shade-color($color, 3%));
+  @include gradient-y-three-colors(lighten($color, 3%), $color, 6%, darken($color, 3%));
   filter: none;
-  border: 1px solid shade-color($color, 6.5%);
+  border: 1px solid darken($color, 6.5%);
 }
 
 // Navbar ======================================================================
@@ -33,15 +33,15 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700
 
 .bg-primary {
   background-color: $primary !important;
-  border-color: shade-color($primary, 6.5%) !important;
+  border-color: darken($primary, 6.5%) !important;
 }
 
 .bg-dark {
-  border-color: shade-color($dark, 6.5%) !important;
+  border-color: darken($dark, 6.5%) !important;
 }
 
 .bg-light {
-  border-color: shade-color($white, 6.5%);
+  border-color: darken($white, 6.5%);
 }
 
 // Buttons =====================================================================
@@ -118,7 +118,7 @@ label {
 // Navs =======================================================================
 
 .breadcrumb {
-  border: 1px solid shade-color($white, 6.5%);
+  border: 1px solid darken($white, 6.5%);
 }
 
 .pagination {

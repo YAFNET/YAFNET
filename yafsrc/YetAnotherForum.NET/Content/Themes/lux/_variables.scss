@@ -1,4 +1,4 @@
-// Lux 4.5.3
+// Lux 5.0.0-beta1
 // Bootswatch
 
 //
@@ -37,7 +37,7 @@ $danger:        $red !default;
 $light:         $white !default;
 $dark:          $gray-800 !default;
 
-$yiq-contrasted-threshold:  185 !default;
+$min-contrast-ratio:   2.3 !default;
 
 // Options
 
@@ -51,7 +51,6 @@ $body-color:                $gray-700 !default;
 
 // stylelint-disable-next-line value-keyword-case
 $font-family-sans-serif:      "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-$font-size-base:              .875rem !default;
 $h1-font-size:                2rem !default;
 $h2-font-size:                1.75rem !default;
 $h3-font-size:                1.5rem !default;

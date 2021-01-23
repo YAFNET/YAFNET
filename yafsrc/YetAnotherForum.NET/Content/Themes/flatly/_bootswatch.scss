@@ -1,4 +1,4 @@
-// Flatly 4.5.3
+// Flatly 5.0.0-beta1
 // Bootswatch
 
 
@@ -125,7 +125,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0
       &,
       > th,
       > td {
-        background-color: shade-color($primary, 5%);
+        background-color: darken($primary, 5%);
       }
     }
 
@@ -133,7 +133,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0
       &,
       > th,
       > td {
-        background-color: shade-color($secondary, 5%);
+        background-color: darken($secondary, 5%);
       }
     }
 
@@ -141,7 +141,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0
       &,
       > th,
       > td {
-        background-color: shade-color($light, 5%);
+        background-color: darken($light, 5%);
       }
     }
 
@@ -149,7 +149,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0
       &,
       > th,
       > td {
-        background-color: shade-color($dark, 5%);
+        background-color: darken($dark, 5%);
       }
     }
 
@@ -157,7 +157,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0
       &,
       > th,
       > td {
-        background-color: shade-color($success, 5%);
+        background-color: darken($success, 5%);
       }
     }
 
@@ -165,7 +165,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0
       &,
       > th,
       > td {
-        background-color: shade-color($info, 5%);
+        background-color: darken($info, 5%);
       }
     }
 
@@ -173,7 +173,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0
       &,
       > th,
       > td {
-        background-color: shade-color($danger, 5%);
+        background-color: darken($danger, 5%);
       }
     }
 
@@ -181,7 +181,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0
       &,
       > th,
       > td {
-        background-color: shade-color($warning, 5%);
+        background-color: darken($warning, 5%);
       }
     }
 

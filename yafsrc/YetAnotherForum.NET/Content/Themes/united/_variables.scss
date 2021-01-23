@@ -1,4 +1,4 @@
-// United 4.5.3
+// United 5.0.0-beta1
 // Bootswatch
 
 //
@@ -37,7 +37,7 @@ $danger:        $red !default;
 $light:         $gray-200 !default;
 $dark:          $purple !default;
 
-$yiq-contrasted-threshold: 200 !default;
+$min-contrast-ratio:   1.8 !default;
 
 // Body
 
@@ -51,4 +51,4 @@ $font-family-sans-serif:      Ubuntu, -apple-system, BlinkMacSystemFont, "Segoe 
 // Tables
 
 $table-dark-bg:               $dark !default;
-$table-dark-border-color:     shade-color($dark, 5%) !default;
+$table-dark-border-color:     darken($dark, 5%) !default;

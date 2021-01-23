@@ -1,4 +1,4 @@
-// Yeti 4.5.3
+// Yeti 5.0.0-beta1
 // Bootswatch
 
 
@@ -10,7 +10,6 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,
 // Navbar ======================================================================
 
 .navbar {
-  font-size: $font-size-sm;
   font-weight: $headings-font-weight;
 }
 
@@ -26,7 +25,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,
     .dropdown-item.active,
     .dropdown-item:hover,
     .dropdown-item:focus {
-      background-color: shade-color($primary, 5%);
+      background-color: darken($primary, 5%);
       color: $white;
     }
   }
@@ -46,7 +45,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,
     .dropdown-item.active,
     .dropdown-item:hover,
     .dropdown-item:focus  {
-      background-color: shade-color($gray-800, 5%);
+      background-color: darken($gray-800, 5%);
       color: $white;
     }
   }
@@ -64,7 +63,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,
     .dropdown-item.active,
     .dropdown-item:hover,
     .dropdown-item:focus  {
-      background-color: tint-color($gray-200, 5%);
+      background-color: lighten($gray-200, 5%);
       color: $navbar-light-hover-color;
     }
   }
@@ -74,37 +73,37 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,
 
 .btn {
   &-primary {
-    border-color: shade-color($primary, 5%);
+    border-color: darken($primary, 5%);
   }
 
   &-secondary {
-    border-color: shade-color($secondary, 5%);
+    border-color: darken($secondary, 5%);
   }
 
   &-success {
-    border-color: shade-color($success, 5%);
+    border-color: darken($success, 5%);
   }
 
   &-info {
-    border-color: shade-color($info, 5%);
+    border-color: darken($info, 5%);
     color: $white;
   }
 
   &-danger {
-    border-color: shade-color($danger, 5%);
+    border-color: darken($danger, 5%);
   }
 
   &-warning {
-    border-color: shade-color($warning, 5%);
+    border-color: darken($warning, 5%);
     color: $white;
   }
 
   &-light {
-    border-color: shade-color($light, 5%);
+    border-color: darken($light, 5%);
   }
 
   &-dark {
-    border-color: shade-color($dark, 5%);
+    border-color: darken($dark, 5%);
   }
 }
 
@@ -116,7 +115,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,
   .dropdown-toggle {
     &.btn-primary ~ .dropdown-menu {
       background-color: $primary;
-      border-color: shade-color($primary, 5%);
+      border-color: darken($primary, 5%);
 
       .dropdown-item {
         color: $white;
@@ -124,13 +123,13 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,
 
       .dropdown-item:hover,
       .dropdown-item:focus {
-        background-color: shade-color($primary, 8%);
+        background-color: darken($primary, 8%);
       }
     }
 
     &.btn-secondary ~ .dropdown-menu {
       background-color: $secondary;
-      border-color: shade-color($secondary, 5%);
+      border-color: darken($secondary, 5%);
 
       .dropdown-item {
         color: $body-color;
@@ -138,13 +137,13 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,
 
       .dropdown-item:hover,
       .dropdown-item:focus {
-        background-color: shade-color($secondary, 8%);
+        background-color: darken($secondary, 8%);
       }
     }
 
     &.btn-success ~ .dropdown-menu {
       background-color: $success;
-      border-color: shade-color($success, 5%);
+      border-color: darken($success, 5%);
 
       .dropdown-item {
         color: $white;
@@ -152,13 +151,13 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,
 
       .dropdown-item:hover,
       .dropdown-item:focus {
-        background-color: shade-color($success, 8%);
+        background-color: darken($success, 8%);
       }
     }
 
     &.btn-info ~ .dropdown-menu {
       background-color: $info;
-      border-color: shade-color($info, 5%);
+      border-color: darken($info, 5%);
 
       .dropdown-item {
         color: $white;
@@ -166,13 +165,13 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,
 
       .dropdown-item:hover,
       .dropdown-item:focus {
-        background-color: shade-color($info, 8%);
+        background-color: darken($info, 8%);
       }
     }
 
     &.btn-warning ~ .dropdown-menu {
       background-color: $warning;
-      border-color: shade-color($warning, 5%);
+      border-color: darken($warning, 5%);
 
       .dropdown-item {
         color: $white;
@@ -180,13 +179,13 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,
 
       .dropdown-item:hover,
       .dropdown-item:focus {
-        background-color: shade-color($warning, 8%);
+        background-color: darken($warning, 8%);
       }
     }
 
     &.btn-danger ~ .dropdown-menu {
       background-color: $danger;
-      border-color: shade-color($danger, 5%);
+      border-color: darken($danger, 5%);
 
       .dropdown-item {
         color: $white;
@@ -194,7 +193,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,
 
       .dropdown-item:hover,
       .dropdown-item:focus {
-        background-color: shade-color($danger, 8%);
+        background-color: darken($danger, 8%);
       }
     }
   }
@@ -302,7 +301,7 @@ table {
       &,
       > th,
       > td {
-        background-color: shade-color($primary, 5%);
+        background-color: darken($primary, 5%);
       }
     }
 
@@ -310,7 +309,7 @@ table {
       &,
       > th,
       > td {
-        background-color: shade-color($secondary, 5%);
+        background-color: darken($secondary, 5%);
       }
     }
 
@@ -318,7 +317,7 @@ table {
       &,
       > th,
       > td {
-        background-color: shade-color($light, 5%);
+        background-color: darken($light, 5%);
       }
     }
 
@@ -326,7 +325,7 @@ table {
       &,
       > th,
       > td {
-        background-color: shade-color($dark, 5%);
+        background-color: darken($dark, 5%);
       }
     }
 
@@ -334,7 +333,7 @@ table {
       &,
       > th,
       > td {
-        background-color: shade-color($success, 5%);
+        background-color: darken($success, 5%);
       }
     }
 
@@ -342,7 +341,7 @@ table {
       &,
       > th,
       > td {
-        background-color: shade-color($info, 5%);
+        background-color: darken($info, 5%);
       }
     }
 
@@ -350,7 +349,7 @@ table {
       &,
       > th,
       > td {
-        background-color: shade-color($danger, 5%);
+        background-color: darken($danger, 5%);
       }
     }
 
@@ -358,7 +357,7 @@ table {
       &,
       > th,
       > td {
-        background-color: shade-color($warning, 5%);
+        background-color: darken($warning, 5%);
       }
     }
 
@@ -404,19 +403,18 @@ label,
 
   .nav-link:hover,
   .nav-link:focus {
-    background-color: tint-color($gray-200, 5%);
+    background-color: lighten($gray-200, 5%);
   }
 }
 
 .nav-pills {
   .active {
-    border: 1px solid shade-color($primary, 5%);
+    border: 1px solid darken($primary, 5%);
   }
 }
 
 .breadcrumb {
   border: 1px solid $dropdown-border-color;
-  border-radius: 3px;
   font-size: $font-size-sm;
   font-weight: 300;
   text-transform: uppercase;

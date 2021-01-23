@@ -1,4 +1,4 @@
-// Slate 4.5.3
+// Slate 5.0.0-beta1
 // Bootswatch
 
 //
@@ -37,7 +37,7 @@ $danger:        $red !default;
 $light:         $gray-200 !default;
 $dark:          $gray-900 !default;
 
-$yiq-contrasted-threshold:  170 !default;
+$min-contrast-ratio:   2 !default;
 
 // Body
 
@@ -49,9 +49,6 @@ $body-color:                #aaa !default;
 $link-color:                $white !default;
 
 // Fonts
-
-$font-size-base:              .9375rem !default;
-$font-size-sm:                $font-size-base * .88 !default;
 
 // Tables
 
@@ -113,21 +110,21 @@ $pagination-disabled-border-color:  rgba($black, .6) !default;
 
 // Jumbotron
 
-$jumbotron-bg:                      shade-color($gray-900, 5%) !default;
+$jumbotron-bg:                      darken($gray-900, 5%) !default;
 
 // Cards
 
 $card-border-color:                 rgba($black, .6) !default;
-$card-cap-bg:                       tint-color($gray-800, 10%) !default;
-$card-bg:                           tint-color($body-bg, 5%) !default;
+$card-cap-bg:                       lighten($gray-800, 10%) !default;
+$card-bg:                           lighten($body-bg, 5%) !default;
 
 // Popovers
 
-$popover-bg:                        tint-color($body-bg, 5%) !default;
+$popover-bg:                        lighten($body-bg, 5%) !default;
 
 // Toasts
 
-$toast-background-color:            tint-color($body-bg, 5%) !default;
+$toast-background-color:            lighten($body-bg, 5%) !default;
 $toast-border-color:                rgba(0, 0, 0, .2) !default;
 $toast-header-color:                $body-color !default;
 $toast-header-background-color:     $toast-background-color !default;
@@ -135,19 +132,19 @@ $toast-header-border-color:         $toast-border-color !default;
 
 // Modals
 
-$modal-content-bg:                  tint-color($body-bg, 5%) !default;
+$modal-content-bg:                  lighten($body-bg, 5%) !default;
 $modal-header-border-color:         rgba(0, 0, 0, .2) !default;
 
 // Progress bars
 
-$progress-bg:                       shade-color($gray-900, 5%) !default;
+$progress-bg:                       darken($gray-900, 5%) !default;
 $progress-bar-color:                $gray-600 !default;
 
 // List group
 
-$list-group-bg:                     tint-color($body-bg, 5%) !default;
+$list-group-bg:                     lighten($body-bg, 5%) !default;
 $list-group-border-color:           rgba($black, .6) !default;
-$list-group-hover-bg:               tint-color($body-bg, 10%) !default;
+$list-group-hover-bg:               lighten($body-bg, 10%) !default;
 $list-group-active-color:           $white !default;
 $list-group-active-bg:              $list-group-hover-bg !default;
 $list-group-active-border-color:    $list-group-border-color !default;
@@ -156,7 +153,10 @@ $list-group-action-color:           $white !default;
 
 // Breadcrumbs
 
+$breadcrumb-padding-y:              .375rem !default;
+$breadcrumb-padding-x:              .75rem !default;
 $breadcrumb-active-color:           $gray-500 !default;
+$breadcrumb-border-radius:          .25rem !default;
 
 // Code
 

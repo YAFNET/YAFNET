@@ -1,4 +1,4 @@
-// Lumen 4.5.3
+// Lumen 5.0.0-beta1
 // Bootswatch
 
 
@@ -21,16 +21,16 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
 }
 
 .bg-primary {
-  border-color: shade-color($primary, 5%);
+  border-color: darken($primary, 5%);
 }
 
 .bg-dark {
-  border-color: shade-color($dark, 5%);
+  border-color: darken($dark, 5%);
 }
 
 .bg-light {
   background-color: $white !important;
-  border-color: shade-color($white, 5%);
+  border-color: darken($white, 5%);
 }
 
 // Buttons =====================================================================
@@ -51,35 +51,35 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
   }
 
   &-primary {
-    border-color: shade-color($primary, 5%);
+    border-color: darken($primary, 5%);
   }
 
   &-secondary {
-    border-color: shade-color($secondary, 5%);
+    border-color: darken($secondary, 5%);
   }
 
   &-success {
-    border-color: shade-color($success, 5%);
+    border-color: darken($success, 5%);
   }
 
   &-info {
-    border-color: shade-color($info, 5%);
+    border-color: darken($info, 5%);
   }
 
   &-danger {
-    border-color: shade-color($danger, 5%);
+    border-color: darken($danger, 5%);
   }
 
   &-warning {
-    border-color: shade-color($warning, 5%);
+    border-color: darken($warning, 5%);
   }
 
   &-light {
-    border-color: shade-color($light, 5%);
+    border-color: darken($light, 5%);
   }
 
   &-dark {
-    border-color: shade-color($dark, 5%);
+    border-color: darken($dark, 5%);
   }
 }
 
@@ -210,7 +210,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
       &,
       > th,
       > td {
-        background-color: shade-color($primary, 5%);
+        background-color: darken($primary, 5%);
       }
     }
 
@@ -218,7 +218,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
       &,
       > th,
       > td {
-        background-color: shade-color($secondary, 5%);
+        background-color: darken($secondary, 5%);
       }
     }
 
@@ -226,7 +226,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
       &,
       > th,
       > td {
-        background-color: shade-color($light, 5%);
+        background-color: darken($light, 5%);
       }
     }
 
@@ -234,7 +234,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
       &,
       > th,
       > td {
-        background-color: shade-color($dark, 5%);
+        background-color: darken($dark, 5%);
       }
     }
 
@@ -242,7 +242,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
       &,
       > th,
       > td {
-        background-color: shade-color($success, 5%);
+        background-color: darken($success, 5%);
       }
     }
 
@@ -250,7 +250,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
       &,
       > th,
       > td {
-        background-color: shade-color($info, 5%);
+        background-color: darken($info, 5%);
       }
     }
 
@@ -258,7 +258,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
       &,
       > th,
       > td {
-        background-color: shade-color($danger, 5%);
+        background-color: darken($danger, 5%);
       }
     }
 
@@ -266,7 +266,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
       &,
       > th,
       > td {
-        background-color: shade-color($warning, 5%);
+        background-color: darken($warning, 5%);
       }
     }
 
@@ -341,6 +341,7 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
 }
 
 .breadcrumb {
+  border-color: darken($breadcrumb-bg, 5%);
   @include shadow();
 }
 
@@ -351,7 +352,6 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
     top: 0;
     @include shadow();
     color: $pagination-color;
-    font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
 
@@ -414,42 +414,42 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,w
 
   &-primary {
     background-color: $primary;
-    border-color: shade-color($primary, 5%);
+    border-color: darken($primary, 5%);
   }
 
   &-secondary {
     background-color: $secondary;
-    border-color: shade-color($secondary, 5%);
+    border-color: darken($secondary, 5%);
   }
 
   &-success {
     background-color: $success;
-    border-color: shade-color($success, 5%);
+    border-color: darken($success, 5%);
   }
 
   &-info {
     background-color: $info;
-    border-color: shade-color($info, 5%);
+    border-color: darken($info, 5%);
   }
 
   &-danger {
     background-color: $danger;
-    border-color: shade-color($danger, 5%);
+    border-color: darken($danger, 5%);
   }
 
   &-warning {
     background-color: $warning;
-    border-color: shade-color($warning, 5%);
+    border-color: darken($warning, 5%);
   }
 
   &-dark {
     background-color: $dark;
-    border-color: shade-color($dark, 5%);
+    border-color: darken($dark, 5%);
   }
 
   &-light {
     background-color: $light;
-    border-color: shade-color($light, 5%);
+    border-color: darken($light, 5%);
   }
 
   .alert-link {
@@ -485,7 +485,7 @@ a.list-group-item {
 
     &.active:hover,
     &.active:focus {
-      background-color: shade-color($success, 5%);
+      background-color: darken($success, 5%);
     }
   }
 
@@ -496,7 +496,7 @@ a.list-group-item {
 
     &.active:hover,
     &.active:focus {
-      background-color: shade-color($warning, 5%);
+      background-color: darken($warning, 5%);
     }
   }
 
@@ -507,7 +507,7 @@ a.list-group-item {
 
     &.active:hover,
     &.active:focus {
-      background-color: shade-color($danger, 5%);
+      background-color: darken($danger, 5%);
     }
   }
 }
