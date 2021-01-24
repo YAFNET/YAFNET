@@ -26,7 +26,8 @@
         },
         autosave:
         {
-            saveDetectionSelectors: "a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']"
+            saveDetectionSelectors: "a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']",
+            delay: 60
         },
         wordcount:
         {
