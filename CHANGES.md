@@ -1,7 +1,13 @@
 YetAnotherForum.NET Changelog
 ====================
 
-# YetAnotherForum.NET v2.3.1.11
+# YetAnotherForum.NET v2.3.1.12
+* Upgraded to Bootstrap 4.6.0
+* [NEW] Success Message after Message Report
+* Increased auto save Delay in CKEditor to 60 Seconds
+* [FIXED] DNN Search
+
+* # YetAnotherForum.NET v2.3.1.11
 * [FIXED] Admin User page
 * [Fixed] publish solution
 
