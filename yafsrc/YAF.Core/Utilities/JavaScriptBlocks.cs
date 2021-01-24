@@ -759,7 +759,8 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 		                  contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
                           autosave:
                           {{
-                              saveDetectionSelectors: ""a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']""
+                              saveDetectionSelectors: ""a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']"",
+                              delay: 60
                           }},
                           codemirror: {{mode: ""bbcode"",  theme: ""monokai""}},
                           wordcount:

@@ -41,6 +41,7 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     
     using DateTime = System.DateTime;
@@ -105,7 +106,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetSuspendedTo()
         {
-            return this.Get<IDateTime>().GetUserDateTime(
+            return this.Get<IDateTimeService>().GetUserDateTime(
                 this.User.Suspended.Value,
                 this.User.TimeZoneInfo).ToString(CultureInfo.InvariantCulture); 
         }
@@ -123,7 +124,7 @@ namespace YAF.Controls
         {
             this.SuspendInfo.Text = this.GetTextFormatted(
                 "SUSPEND_INFO",
-                this.Get<IDateTime>().GetUserDateTime(DateTime.UtcNow, this.User.TimeZoneInfo)
+                this.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow, this.User.TimeZoneInfo)
                     .ToString(CultureInfo.InvariantCulture));
 
             // this needs to be done just once, not during post-back
@@ -232,7 +233,7 @@ namespace YAF.Controls
             }
 
             // time until when user is suspended
-            var suspend = this.Get<IDateTime>().GetUserDateTime(DateTime.UtcNow, this.User.TimeZoneInfo);
+            var suspend = this.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow, this.User.TimeZoneInfo);
 
             // number inserted by suspending user
             var count = int.Parse(this.SuspendCount.Text);

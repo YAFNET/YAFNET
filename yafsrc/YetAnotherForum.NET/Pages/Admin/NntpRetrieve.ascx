@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True"
 	Inherits="YAF.Pages.Admin.NntpRetrieve" Codebehind="NntpRetrieve.ascx.cs" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -43,7 +44,7 @@
                                                         LocalizedTag="LAST_UPDATE" 
                                                         LocalizedPage="ADMIN_NNTPRETRIEVE" />:&nbsp;
                                 </span>
-                                <%# this.Get<IDateTime>().FormatDateTime(this.Eval("Item1.LastUpdate")) %>
+                                <%# this.Get<IDateTimeService>().FormatDateTime(this.Eval("Item1.LastUpdate")) %>
                             </small>
                         </li>
                     </ItemTemplate>

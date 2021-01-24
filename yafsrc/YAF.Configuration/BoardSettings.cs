@@ -2382,6 +2382,6 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets or sets the board name.
         /// </summary>
-        protected virtual string BoardName { get; set;}
+        protected virtual string BoardName { get; set; }
     }
 }

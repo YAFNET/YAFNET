@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -25,7 +26,7 @@
                             <span class="fw-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
                             </span>
-                            <%# this.Get<IDateTime>().FormatDateShort((Container.DataItem as dynamic).Posted) %>
+                            <%# this.Get<IDateTimeService>().FormatDateShort((Container.DataItem as dynamic).Posted) %>
                             <span class="fw-bold ps-3">
                                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NUMBERREPORTED" />
                             </span>

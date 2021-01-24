@@ -39,20 +39,6 @@ namespace YAF.Core.Membership
     public class SQLPasswordHasher : PasswordHasher
     {
         /// <summary>
-        /// The hash password.
-        /// </summary>
-        /// <param name="password">
-        /// The password.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public override string HashPassword(string password)
-        {
-            return base.HashPassword(password);
-        }
-
-        /// <summary>
         /// The verify hashed password.
         /// </summary>
         /// <param name="hashedPassword">

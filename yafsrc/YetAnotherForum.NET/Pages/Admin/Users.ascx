@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 
 <%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/UsersImport.ascx" %>
 
@@ -214,7 +215,7 @@
                                         </li>
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" />:</strong>
-                                            <%# this.Get<IDateTime>().FormatDateTime(((PagedUser)Container.DataItem).LastVisit) %>
+                                            <%# this.Get<IDateTimeService>().FormatDateTime(((PagedUser)Container.DataItem).LastVisit) %>
                                         </li>
                                         <li class="list-inline-item" runat="server" 
                                             Visible="<%# ((PagedUser)Container.DataItem).Profile_FacebookId.IsSet() %>">

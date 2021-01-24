@@ -48,6 +48,7 @@ namespace YAF.Core.Modules
     using YAF.Core.Services.Startup;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models.Identity;
 
     /// <summary>
@@ -78,7 +79,7 @@ namespace YAF.Core.Modules
         private static void RegisterServices(ContainerBuilder builder)
         {
             // optional defaults.
-            builder.RegisterType<SendMail>().As<ISendMail>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<MailService>().As<IMailService>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<ActivityStream>().As<IActivityStream>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<SendNotification>().As<ISendNotification>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
@@ -112,7 +113,7 @@ namespace YAF.Core.Modules
 
             builder.RegisterType<Permissions>().As<IPermissions>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
-            builder.RegisterType<DateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<DateTimeService>().As<IDateTimeService>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<UserIgnored>().As<IUserIgnored>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
             builder.RegisterType<Friends>().As<IFriends>().InstancePerLifetimeScope().PreserveExistingDefaults();

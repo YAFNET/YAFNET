@@ -30,6 +30,7 @@ namespace YAF.Controls
     using YAF.Core.BaseControls;
     using YAF.Core.Utilities.Helpers;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -48,7 +49,7 @@ namespace YAF.Controls
         {
             base.OnPreRender(e);
 
-            this.TimeNow.Text = this.GetTextFormatted("Current_Time", this.Get<IDateTime>().FormatTime(DateTime.UtcNow));
+            this.TimeNow.Text = this.GetTextFormatted("Current_Time", this.Get<IDateTimeService>().FormatTime(DateTime.UtcNow));
 
             var lastVisit = this.Get<ISession>().LastVisit;
 
@@ -56,7 +57,7 @@ namespace YAF.Controls
             {
                 this.LastVisitHolder.Visible = true;
                 this.TimeLastVisit.Text = this.GetTextFormatted(
-                    "last_visit", this.Get<IDateTime>().FormatDateTime(lastVisit.Value));
+                    "last_visit", this.Get<IDateTimeService>().FormatDateTime(lastVisit.Value));
             }
             else
             {

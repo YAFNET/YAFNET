@@ -21,14 +21,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+
+namespace YAF.Types.Interfaces.Services
 {
     using System;
 
     /// <summary>
     /// The YAF DateTime Interface
     /// </summary>
-    public interface IDateTime
+    public interface IDateTimeService
     {
         /// <summary>
         ///   Gets the time zone offset 

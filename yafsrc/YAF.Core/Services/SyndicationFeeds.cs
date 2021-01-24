@@ -48,6 +48,7 @@ namespace YAF.Core.Services
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     #endregion
@@ -262,7 +263,7 @@ namespace YAF.Core.Services
                         HttpUtility.HtmlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("d"))),
                     out toActDate))
                 {
-                    toActDate = Convert.ToDateTime(this.Get<IDateTime>().FormatDateTimeShort(System.DateTime.UtcNow)) +
+                    toActDate = Convert.ToDateTime(this.Get<IDateTimeService>().FormatDateTimeShort(System.DateTime.UtcNow)) +
                                 TimeSpan.FromDays(-31);
                     toActText = this.Get<ILocalization>().GetText("MYTOPICS", "LAST_MONTH");
                 }
@@ -295,13 +296,13 @@ namespace YAF.Core.Services
             topics.Where(t => t.TopicMovedID.HasValue).ForEach(
                 t =>
                 {
-                    var lastPosted = t.LastPosted.Value + this.Get<IDateTime>().TimeOffset;
+                    var lastPosted = t.LastPosted.Value + this.Get<IDateTimeService>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
                     {
                         feed.Authors.Add(
                             SyndicationItemExtensions.NewSyndicationPerson(string.Empty, t.UserID, null, null));
-                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
+                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
                     }
 
                     feed.Contributors.Add(
@@ -399,13 +400,13 @@ namespace YAF.Core.Services
             list.ForEach(
                 t =>
                 {
-                    var lastPosted = t.LastPosted.Value + this.Get<IDateTime>().TimeOffset;
+                    var lastPosted = t.LastPosted.Value + this.Get<IDateTimeService>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
                     {
                         feed.Authors.Add(
                             SyndicationItemExtensions.NewSyndicationPerson(string.Empty, t.UserID, null, null));
-                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
+                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
                     }
 
                     feed.Contributors.Add(
@@ -462,7 +463,7 @@ namespace YAF.Core.Services
             forums.Where(x => x.LastPosted.HasValue && !x.TopicMovedID.HasValue).ForEach(
                 forum =>
                 {
-                    var lastPosted = forum.LastPosted.Value + this.Get<IDateTime>().TimeOffset;
+                    var lastPosted = forum.LastPosted.Value + this.Get<IDateTimeService>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
                     {
@@ -473,7 +474,7 @@ namespace YAF.Core.Services
                                 null,
                                 null));
 
-                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
+                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
                     }
 
                     feed.Contributors.Add(
@@ -564,10 +565,10 @@ namespace YAF.Core.Services
             topics.ForEach(
                 topic =>
                 {
-                    var lastPosted = topic.Item2.LastPosted.Value + this.Get<IDateTime>().TimeOffset;
+                    var lastPosted = topic.Item2.LastPosted.Value + this.Get<IDateTimeService>().TimeOffset;
                     if (syndicationItems.Count <= 0)
                     {
-                        feed.LastUpdatedTime = lastPosted + this.Get<IDateTime>().TimeOffset;
+                        feed.LastUpdatedTime = lastPosted + this.Get<IDateTimeService>().TimeOffset;
                         feed.Authors.Add(
                             SyndicationItemExtensions.NewSyndicationPerson(
                                 string.Empty,
@@ -674,13 +675,13 @@ namespace YAF.Core.Services
             posts.ForEach(
                 row =>
                 {
-                    var posted = row.Edited + this.Get<IDateTime>().TimeOffset;
+                    var posted = row.Edited + this.Get<IDateTimeService>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
                     {
                         feed.Authors.Add(
                             SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row.UserID, null, null));
-                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
+                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
                     }
 
                     List<SyndicationLink> attachmentLinks = null;
@@ -757,7 +758,7 @@ namespace YAF.Core.Services
             topics.ForEach(
                 topic =>
                 {
-                    var lastPosted = (System.DateTime)topic.LastPosted + this.Get<IDateTime>().TimeOffset;
+                    var lastPosted = (System.DateTime)topic.LastPosted + this.Get<IDateTimeService>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
                     {
@@ -767,7 +768,7 @@ namespace YAF.Core.Services
                                 (int)topic.LastUserID,
                                 null,
                                 null));
-                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
+                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
                     }
 
                     feed.Contributors.Add(

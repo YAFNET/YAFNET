@@ -33,6 +33,7 @@ namespace YAF.Core.Services
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -146,7 +147,7 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(boardMessage, "boardMessage");
             CodeContracts.VerifyNotNull(toEmail, "toEmail");
 
-            return this.Get<ISendMail>().CreateMessage(
+            return this.Get<IMailService>().CreateMessage(
                 boardMessage,
                 new MailAddress(toEmail, toName),
                 boardMessage,

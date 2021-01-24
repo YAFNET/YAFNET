@@ -36,6 +36,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Web.Extensions;
 
     #endregion
@@ -141,7 +142,7 @@ namespace YAF.Pages.Admin
                         this.TextSendEmail.Text.Trim(),
                         "Digest Send Test");
 
-                    this.Get<ISendMail>().SendAll(new List<MailMessage> { message });
+                    this.Get<IMailService>().SendAll(new List<MailMessage> { message });
 
                     this.PageContext.AddLoadMessage(
                         this.GetTextFormatted("MSG_SEND_SUC", "Direct"),

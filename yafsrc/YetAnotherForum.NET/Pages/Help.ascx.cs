@@ -229,9 +229,9 @@ namespace YAF.Pages
                 item =>
                 {
                     item.Content = this.Get<IFormatMessage>().SurroundWordList(
-                        item.Content, highlightWords, @"<span class=""highlight"">", @"</span>");
+                        item.Content, highlightWords, "<mark>", "</mark>");
                     item.Title = this.Get<IFormatMessage>().SurroundWordList(
-                        item.Title, highlightWords, @"<span class=""highlight"">", @"</span>");
+                        item.Title, highlightWords, "<mark>", "</mark>");
                 });
 
             if (searchList.Count.Equals(0))

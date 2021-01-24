@@ -6,6 +6,7 @@
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="YAF.Core.Utilities" %>
 
 <section class="text-center container">
     <div class="row">

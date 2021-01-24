@@ -38,6 +38,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Web.Extensions;
 
@@ -108,7 +109,7 @@ namespace YAF.Pages.Admin
 
                     var to = new MailAddress(email);
 
-                    this.Get<ISendMail>().Send(
+                    this.Get<IMailService>().Send(
                         from,
                         to,
                         from,
@@ -135,7 +136,7 @@ namespace YAF.Pages.Admin
         {
             try
             {
-                this.Get<ISendMail>().Send(
+                this.Get<IMailService>().Send(
                     this.TestFromEmail.Text.Trim(),
                     this.TestToEmail.Text.Trim(),
                     this.TestFromEmail.Text.Trim(),

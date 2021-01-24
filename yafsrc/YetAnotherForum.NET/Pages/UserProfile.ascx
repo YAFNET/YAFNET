@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
@@ -301,7 +302,7 @@
                                     <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" 
                                                         LocalizedTag="posted" />
                                     &nbsp;
-                                            <%# this.Get<IDateTime>().FormatDateTime(this.Eval("Item1.Posted").ToType<System.DateTime>())%>
+                                            <%# this.Get<IDateTimeService>().FormatDateTime(this.Eval("Item1.Posted").ToType<System.DateTime>())%>
                                 </small>
                             </div>
                         </div>

@@ -33,13 +33,14 @@ namespace YAF.Core.Services
 
     using YAF.Types;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
     /// <summary>
     ///     Functions to send email via SMTP
     /// </summary>
-    public class SendMail : ISendMail
+    public class MailService : IMailService
     {
         #region Public Methods and Operators
 

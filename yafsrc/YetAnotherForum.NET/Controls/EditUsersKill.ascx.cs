@@ -41,6 +41,7 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
 
@@ -338,7 +339,7 @@ namespace YAF.Controls
 
                 // is user suspended?
                 this.SuspendedTo.Text =
-                    $"<div class=\"alert alert-info\" role=\"alert\">{this.GetText("PROFILE", "ENDS")} {this.Get<IDateTime>().FormatDateTime(this.CurrentUser.Suspended)}</div>";
+                    $"<div class=\"alert alert-info\" role=\"alert\">{this.GetText("PROFILE", "ENDS")} {this.Get<IDateTimeService>().FormatDateTime(this.CurrentUser.Suspended)}</div>";
             }
 
             this.DataBind();

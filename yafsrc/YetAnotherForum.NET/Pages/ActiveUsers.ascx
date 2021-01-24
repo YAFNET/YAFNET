@@ -2,6 +2,7 @@
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Core.Utilities.Helpers" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -79,10 +80,10 @@
                                                 LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
 				        </td>
 				        <td>
-					        <%# this.Get<IDateTime>().FormatTime((DateTime)(Container.DataItem as dynamic).Login) %>
+					        <%# this.Get<IDateTimeService>().FormatTime((DateTime)(Container.DataItem as dynamic).Login) %>
 				        </td>				
 				        <td>
-					        <%# this.Get<IDateTime>().FormatTime((DateTime)(Container.DataItem as dynamic).LastActive) %>
+					        <%# this.Get<IDateTimeService>().FormatTime((DateTime)(Container.DataItem as dynamic).LastActive) %>
 				        </td>
 				        <td>
 					        <%# this.Get<ILocalization>().GetTextFormatted("minutes", (Container.DataItem as dynamic).Active)%>

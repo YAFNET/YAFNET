@@ -4,6 +4,8 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
+<%@ Import Namespace="YAF.Core.Utilities" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en">
@@ -13,14 +15,14 @@
 <body class="bg-light">
 <div class="container">
 <div class="mx-auto mt-4 mb-3 text-center" 
-     style="width:100px;height:40px;background: url('<%= "{0}/{1}/{2}/{3}".Fmt(this.PageContext.BoardSettings.BaseUrlMask, BoardInfo.ForumClientFileRoot, this.Get<BoardFolders>()Logos, this.BoardSettings.ForumLogo) %>') no-repeat;"></div>
+     style="width:100px;height:40px;background: url('<%= "{0}/{1}/{2}/{3}".Fmt(this.PageContext.BoardSettings.BaseUrlMask, BoardInfo.ForumClientFileRoot, this.Get<BoardFolders>().Logos, this.BoardSettings.ForumLogo) %>') no-repeat;"></div>
   <div class="card mb-4" style="border-top: 5px solid #3761b5;">
     <div class="card-body">
       <h4 class="text-center">
           <YAF:LocalizedLabel runat="server" LocalizedTag="ACTIVETOPICS"></YAF:LocalizedLabel>
       </h4>
       <h5 class="text-muted text-center">
-          <%= this.Get<IDateTime>().FormatDateLong(System.DateTime.UtcNow) %>
+          <%= this.Get<IDateTimeService>().FormatDateLong(System.DateTime.UtcNow) %>
       </h5>
     </div>
   </div>

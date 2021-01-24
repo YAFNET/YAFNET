@@ -33,6 +33,7 @@ namespace YAF.Controls
   using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Services;
   using YAF.Types.Models;
 
   #endregion
@@ -75,7 +76,7 @@ namespace YAF.Controls
       // TitleUserName.Text = HtmlEncode( userData.Membership.UserName );
       this.AccountEmail.Text = this.PageContext.User.Email;
       this.Name.Text = this.HtmlEncode(this.PageContext.User.Name);
-      this.Joined.Text = this.Get<IDateTime>().FormatDateTime(this.PageContext.User.Joined);
+      this.Joined.Text = this.Get<IDateTimeService>().FormatDateTime(this.PageContext.User.Joined);
       this.NumPosts.Text = $"{this.PageContext.User.NumPosts:N0}";
 
       this.DisplayNameHolder.Visible = this.PageContext.BoardSettings.EnableDisplayName;

@@ -44,6 +44,7 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
     using YAF.Web.Controls;
@@ -438,7 +439,7 @@ namespace YAF.Pages
             this.UserLabel1.ReplaceName = user.Item1.DisplayOrUserName();
             this.UserLabel1.Style = user.Item1.UserStyle;
 
-            this.Joined.Text = $"{this.Get<IDateTime>().FormatDateLong(Convert.ToDateTime(user.Item1.Joined))}";
+            this.Joined.Text = $"{this.Get<IDateTimeService>().FormatDateLong(Convert.ToDateTime(user.Item1.Joined))}";
 
             // vzrus: Show last visit only to admins if user is hidden
             if (!this.PageContext.IsAdmin && user.Item1.UserFlags.IsActiveExcluded)
@@ -554,7 +555,7 @@ namespace YAF.Pages
             if (user.Item2.Profile_Birthday >= DateTimeHelper.SqlDbMinTime())
             {
                 this.BirthdayTR.Visible = true;
-                this.Birthday.Text = this.Get<IDateTime>().FormatDateLong(
+                this.Birthday.Text = this.Get<IDateTimeService>().FormatDateLong(
                     user.Item2.Profile_Birthday.AddMinutes(-DateTimeHelper.GetTimeZoneOffset(user.Item1.TimeZoneInfo)));
             }
             else

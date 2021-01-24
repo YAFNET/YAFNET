@@ -51,6 +51,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Web.Extensions;
 
@@ -189,7 +190,7 @@ namespace YAF.Pages.Admin
                        ? this.GetText("COMMON", "NO")
                        : this.GetTextFormatted(
                            "USERSUSPENDED",
-                           this.Get<IDateTime>().FormatDateTime(suspendedUntil.ToType<DateTime>()));
+                           this.Get<IDateTimeService>().FormatDateTime(suspendedUntil.ToType<DateTime>()));
         }
 
         /// <summary>
@@ -259,7 +260,7 @@ namespace YAF.Pages.Admin
                 new ListItem(
                     this.GetTextFormatted(
                         "last_visit",
-                        this.Get<IDateTime>().FormatDateTime(
+                        this.Get<IDateTimeService>().FormatDateTime(
                             lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
                                 ? lastVisit.Value
                                 : DateTime.UtcNow)),

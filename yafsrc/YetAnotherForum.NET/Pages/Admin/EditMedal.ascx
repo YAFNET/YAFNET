@@ -6,6 +6,7 @@
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
@@ -261,7 +262,7 @@
                                                 LocalizedTag="DATE_AWARDED" 
                                                 LocalizedPage="ADMIN_EDITMEDAL" />:
                         </span>
-                        <%# this.Get<IDateTime>().FormatDateTimeTopic((DateTime)this.Eval("Item2.DateAwarded")) %>
+                        <%# this.Get<IDateTimeService>().FormatDateTimeTopic((DateTime)this.Eval("Item2.DateAwarded")) %>
                     </small>
                 </div>
                 <p class="mb-1">

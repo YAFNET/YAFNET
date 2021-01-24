@@ -36,6 +36,7 @@ namespace YAF.Controls
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     using DateTime = System.DateTime;
@@ -226,14 +227,14 @@ namespace YAF.Controls
                 this.MostUsersCount.Text = this.GetTextFormatted(
                     "MAX_ONLINE",
                     this.PageContext.BoardSettings.MaxUsers,
-                    this.Get<IDateTime>().FormatDateTimeTopic(this.PageContext.BoardSettings.MaxUsersWhen));
+                    this.Get<IDateTimeService>().FormatDateTimeTopic(this.PageContext.BoardSettings.MaxUsersWhen));
             }
             else
             {
                 this.MostUsersCount.Text = this.GetTextFormatted(
                     "MAX_ONLINE",
                     (int)activeStats.ActiveUsers,
-                    this.Get<IDateTime>().FormatDateTimeTopic(DateTime.UtcNow));
+                    this.Get<IDateTimeService>().FormatDateTimeTopic(DateTime.UtcNow));
             }
         }
 

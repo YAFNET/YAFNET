@@ -281,7 +281,6 @@ namespace YAF.Core.Nntp
             switch (part.ContentType.Substring(0, part.ContentType.IndexOf('/')).ToUpper())
             {
                 case "MULTIPART":
-                    MIMEPart newPart;
                     while ((line = sr.ReadLine()) != null && line != separator && line != $"{separator}--")
                     {
                         var m = Regex.Match(line, @"CONTENT-TYPE: ""?([^""\s;]+)", RegexOptions.IgnoreCase);
@@ -290,7 +289,7 @@ namespace YAF.Core.Nntp
                             continue;
                         }
 
-                        newPart = new MIMEPart
+                        var newPart = new MIMEPart
                         {
                             ContentType = m.Groups[1].ToString(),
                             Charset = "US-ASCII",
@@ -337,12 +336,11 @@ namespace YAF.Core.Nntp
                     break;
                 case "TEXT":
                     ms = new MemoryStream();
-                    long pos;
                     var msr = new StreamReader(ms, Encoding.GetEncoding(part.Charset));
                     var sb = new StringBuilder();
                     while ((line = sr.ReadLine()) != null && line != separator && line != $"{separator}--")
                     {
-                        pos = ms.Position;
+                        var pos = ms.Position;
                         if (line != string.Empty)
                         {
                             switch (part.ContentTransferEncoding.ToUpper())

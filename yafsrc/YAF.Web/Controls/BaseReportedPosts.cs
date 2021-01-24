@@ -36,6 +36,7 @@ namespace YAF.Web.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     using DateTime = System.DateTime;
@@ -120,7 +121,7 @@ namespace YAF.Web.Controls
                                 this.GetText("RESOLVEDBY"),
                                 this.Get<LinkBuilder>().GetUserProfileLink(this.ResolvedBy.ToType<int>(), resolvedByName),
                                 resolvedByName,
-                                this.Get<IDateTime>().FormatDateTimeTopic(this.ResolvedDate));
+                                this.Get<IDateTimeService>().FormatDateTimeTopic(this.ResolvedDate));
                         }
 
                         writer.Write(
@@ -149,7 +150,7 @@ namespace YAF.Web.Controls
 
                                     writer.Write(
                                         @"<p class=""card-text"">@</span><span class=""ps-1"">{0}</p>",
-                                        this.Get<IDateTime>().FormatDateTimeTopic(textString[0]));
+                                        this.Get<IDateTimeService>().FormatDateTimeTopic(textString[0]));
 
                                     if (textString.Length > 2)
                                     {

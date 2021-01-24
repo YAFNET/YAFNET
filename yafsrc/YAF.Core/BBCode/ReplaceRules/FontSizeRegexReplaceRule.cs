@@ -80,19 +80,15 @@ namespace YAF.Core.BBCode.ReplaceRules
             // try to parse the input string...
             int.TryParse(inputStr, out var size);
 
-            if (size > 9)
+            switch (size)
             {
-                return $"{size}%";
-            }
-
-            if (size == 9)
-            {
-                return $"{size}px"; 
-            }
-
-            if (size < 1)
-            {
-                size = 1;
+                case > 9:
+                    return $"{size}%";
+                case 9:
+                    return $"{size}px";
+                case < 1:
+                    size = 1;
+                    break;
             }
 
             if (size > sizes.Length)

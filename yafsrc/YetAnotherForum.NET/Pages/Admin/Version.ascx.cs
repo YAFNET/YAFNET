@@ -32,6 +32,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Web.Extensions;
 
     #endregion
@@ -62,7 +63,7 @@ namespace YAF.Pages.Admin
                     string lastVersion = version.Version;
                     var lastVersionDate = (DateTime)version.VersionDate;
 
-                    this.LatestVersion.Text = this.GetTextFormatted("LATEST_VERSION", lastVersion, this.Get<IDateTime>().FormatDateShort(lastVersionDate));
+                    this.LatestVersion.Text = this.GetTextFormatted("LATEST_VERSION", lastVersion, this.Get<IDateTimeService>().FormatDateShort(lastVersionDate));
 
                     this.UpgradeVersionHolder.Visible = lastVersionDate.ToUniversalTime() > BoardInfo.AppVersionDate.ToUniversalTime();
 
@@ -77,7 +78,7 @@ namespace YAF.Pages.Admin
                 this.RunningVersion.Text = this.GetTextFormatted(
                     "RUNNING_VERSION",
                     BoardInfo.AppVersionName,
-                    this.Get<IDateTime>().FormatDateShort(BoardInfo.AppVersionDate));
+                    this.Get<IDateTimeService>().FormatDateShort(BoardInfo.AppVersionDate));
             }
 
             this.DataBind();

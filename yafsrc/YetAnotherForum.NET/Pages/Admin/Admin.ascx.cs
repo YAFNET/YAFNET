@@ -48,6 +48,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
@@ -407,7 +408,7 @@ namespace YAF.Pages.Admin
             var span = System.DateTime.UtcNow - (System.DateTime)data.BoardStart;
             double days = span.Days;
 
-            this.BoardStart.Text = this.Get<IDateTime>().FormatDateTimeTopic(
+            this.BoardStart.Text = this.Get<IDateTimeService>().FormatDateTimeTopic(
                 this.PageContext.BoardSettings.UseFarsiCalender
                     ? PersianDateConverter.ToPersianDate((System.DateTime)data.BoardStart)
                     : data.BoardStart);

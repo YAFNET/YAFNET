@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Models" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
@@ -124,7 +125,7 @@
                         <YAF:Icon runat="server" 
                                   IconName="calendar-day"
                                   IconNameBadge="clock"></YAF:Icon>
-                        <%# this.Get<IDateTime>().FormatDateTime(((Tuple<Message, User>)Container.DataItem).Item1.Posted)%>
+                        <%# this.Get<IDateTimeService>().FormatDateTime(((Tuple<Message, User>)Container.DataItem).Item1.Posted)%>
                     </small>
                 </footer>
             </div>

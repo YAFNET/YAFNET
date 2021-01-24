@@ -169,7 +169,7 @@ namespace YAF.Core.Utilities.Helpers
                 return;
             }
 
-            if (userAgent.IndexOf("Windows NT ", StringComparison.Ordinal) >= 0)
+            if (userAgent.Contains("Windows NT "))
             {
                 if (userAgent.IndexOf("Windows NT 10", StringComparison.Ordinal) >= 0)
                 {

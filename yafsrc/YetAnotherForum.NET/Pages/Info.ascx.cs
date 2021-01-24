@@ -35,6 +35,7 @@ namespace YAF.Pages
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Web.Extensions;
 
     #endregion
@@ -113,13 +114,13 @@ namespace YAF.Pages
                         if (this.PageContext.SuspendedReason.IsSet())
                         {
                             this.InfoLabel.Text =
-                                $"{this.GetTextFormatted("SUSPENDED", this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil))}{this.GetTextFormatted("SUSPENDED_REASON", this.PageContext.SuspendedReason)}";
+                                $"{this.GetTextFormatted("SUSPENDED", this.Get<IDateTimeService>().GetUserDateTime(this.PageContext.SuspendedUntil))}{this.GetTextFormatted("SUSPENDED_REASON", this.PageContext.SuspendedReason)}";
                         }
                         else
                         {
                             this.InfoLabel.Text = this.GetTextFormatted(
                                 "SUSPENDED",
-                                this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil));
+                                this.Get<IDateTimeService>().GetUserDateTime(this.PageContext.SuspendedUntil));
                         }
 
                         break;

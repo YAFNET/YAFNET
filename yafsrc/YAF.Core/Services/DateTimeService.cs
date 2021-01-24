@@ -34,13 +34,14 @@ namespace YAF.Core.Services
     using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
     /// <summary>
     /// The YAF DateTime.
     /// </summary>
-    public class DateTime : IDateTime, IHaveServiceLocator
+    public class DateTimeService : IDateTimeService, IHaveServiceLocator
     {
         #region Constants and Fields
 
@@ -54,12 +55,12 @@ namespace YAF.Core.Services
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DateTime"/> class.
+        /// Initializes a new instance of the <see cref="DateTimeService"/> class.
         /// </summary>
         /// <param name="serviceLocator">
         /// The service locator.
         /// </param>
-        public DateTime(IServiceLocator serviceLocator)
+        public DateTimeService(IServiceLocator serviceLocator)
         {
             this.ServiceLocator = serviceLocator;
         }

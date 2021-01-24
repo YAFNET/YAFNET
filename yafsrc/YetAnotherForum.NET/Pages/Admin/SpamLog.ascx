@@ -6,6 +6,7 @@
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -101,7 +102,7 @@
                             <YAF:Icon runat="server" 
                                       IconName="calendar-day"
                                       IconNameBadge="clock"></YAF:Icon>
-                            <%# this.Get<IDateTime>().FormatDateTimeTopic(((PagedEventLog)Container.DataItem).EventTime) %>
+                            <%# this.Get<IDateTimeService>().FormatDateTimeTopic(((PagedEventLog)Container.DataItem).EventTime) %>
                         </small>
                     </div>
                     <p class="mb-1" 

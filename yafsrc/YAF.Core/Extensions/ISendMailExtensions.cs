@@ -30,6 +30,7 @@ namespace YAF.Core.Extensions
 
     using YAF.Types;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -50,7 +51,7 @@ namespace YAF.Core.Extensions
         /// <param name="subject">The subject.</param>
         /// <param name="body">The body.</param>
         public static void Send(
-            [NotNull] this ISendMail sendMail,
+            [NotNull] this IMailService sendMail,
             [NotNull] string fromEmail,
             [NotNull] string toEmail,
             [NotNull] string senderEmail,
@@ -82,7 +83,7 @@ namespace YAF.Core.Extensions
         /// <param name="bodyText">The body text.</param>
         /// <param name="bodyHtml">The body html.</param>
         public static void Send(
-            [NotNull] this ISendMail sendMail,
+            [NotNull] this IMailService sendMail,
             [NotNull] string fromEmail,
             [CanBeNull] string fromName,
             [NotNull] string toEmail,
@@ -112,7 +113,7 @@ namespace YAF.Core.Extensions
         /// <param name="subject">The subject.</param>
         /// <param name="bodyText">The body text.</param>
         public static void Send(
-            [NotNull] this ISendMail sendMail,
+            [NotNull] this IMailService sendMail,
             [NotNull] MailAddress fromAddress,
             [NotNull] MailAddress toAddress,
             [NotNull] MailAddress senderAddress,
@@ -133,7 +134,7 @@ namespace YAF.Core.Extensions
         /// <param name="bodyText">The body text.</param>
         /// <param name="bodyHtml">The body html.</param>
         public static void Send(
-            [NotNull] this ISendMail sendMail,
+            [NotNull] this IMailService sendMail,
             [NotNull] MailAddress fromAddress,
             [NotNull] MailAddress toAddress,
             [NotNull] MailAddress senderAddress,
@@ -180,7 +181,7 @@ namespace YAF.Core.Extensions
         /// The <see cref="MailMessage"/>.
         /// </returns>
         public static MailMessage CreateMessage(
-            [NotNull] this ISendMail sendMail,
+            [NotNull] this IMailService sendMail,
             [NotNull] MailAddress fromAddress,
             [NotNull] MailAddress toAddress,
             [NotNull] MailAddress senderAddress,

@@ -2,6 +2,8 @@
     CodeBehind="Admin.ascx.cs" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Utilities.Helpers" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <div class="row">
     <div class="col-xl-12">
@@ -20,10 +22,11 @@
                              Icon="cloud-download-alt"></YAF:ThemeButton>
         </YAF:Alert>
     </asp:PlaceHolder>
-    <div class="row">
+
+<div class="row">
              <div class="col-xl-12">
                     <div class="card mb-3">
-                        <div class="card-header ">
+                        <div class="card-header">
                             <div class="row row-cols-md-auto align-items-center">
                                 <div class="col-12">
                                     <YAF:Icon runat="server"
@@ -207,13 +210,15 @@
                     </div>
              </div>
     </div>
-    <p id="UpgradeNotice" runat="server" visible="false">
-        <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" 
-                            LocalizedTag="ADMIN_UPGRADE"
-                            LocalizedPage="ADMIN_ADMIN" />
-    </p>
+    
+<p id="UpgradeNotice" runat="server" visible="false">
+    <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" 
+                        LocalizedTag="ADMIN_UPGRADE"
+                        LocalizedPage="ADMIN_ADMIN" />
+</p>
+
 <div class="row">
-             <div class="col-xl-12">
+    <div class="col">
                     <div class="card mb-3">
                         <div class="card-header">
                             <div class="row justify-content-between align-items-center">
@@ -293,8 +298,6 @@
     </div>
 </div>
 
-
-
     <asp:PlaceHolder runat="server" ID="UnverifiedUsersHolder">
         <div class="row">
              <div class="col-xl-12">
@@ -340,7 +343,7 @@
                                                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="ADMIN_JOINED"
                                                                     LocalizedPage="ADMIN_ADMIN" />
                                             </span>
-                                            <%# this.Get<IDateTime>().FormatDateTime((DateTime)this.Eval("Joined")) %>
+                                            <%# this.Get<IDateTimeService>().FormatDateTime((DateTime)this.Eval("Joined")) %>
                                         </div>
                                         <div>
                                             <span class="fw-bold">

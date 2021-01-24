@@ -32,6 +32,7 @@ namespace YAF.Core.Services
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects;
 
@@ -214,7 +215,7 @@ namespace YAF.Core.Services
                                 " {0}",
                                 this.Get<ILocalization>().GetTextFormatted(
                                     "ONDATE",
-                                    this.Get<IDateTime>().FormatDateShort(dr.Item1.ThanksDate)));
+                                    this.Get<IDateTimeService>().FormatDateShort(dr.Item1.ThanksDate)));
                         }
 
                         filler.Append("</li>");

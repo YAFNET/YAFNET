@@ -39,6 +39,7 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Web.Extensions;
 
@@ -135,7 +136,7 @@ namespace YAF.Pages
                 var toUser = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.UserId);
 
                 // send it...
-                this.Get<ISendMail>().Send(
+                this.Get<IMailService>().Send(
                     new MailAddress(this.PageContext.MembershipUser.Email, this.PageContext.MembershipUser.UserName),
                     new MailAddress(toUser.Email.Trim(), toUser.UserName.Trim()),
                     new MailAddress(this.PageContext.BoardSettings.ForumEmail, this.PageContext.BoardSettings.Name),

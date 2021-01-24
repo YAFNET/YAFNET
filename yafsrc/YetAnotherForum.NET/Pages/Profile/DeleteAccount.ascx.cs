@@ -41,6 +41,7 @@ namespace YAF.Pages.Profile
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Web.Extensions;
 
@@ -126,7 +127,7 @@ namespace YAF.Pages.Profile
                     {
                         // Suspend User for 30 Days
                         // time until when user is suspended
-                        var suspend = this.Get<IDateTime>().GetUserDateTime(
+                        var suspend = this.Get<IDateTimeService>().GetUserDateTime(
                             DateTime.UtcNow,
                             this.PageContext.TimeZoneInfoUser).AddDays(30);
 

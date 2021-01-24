@@ -36,6 +36,7 @@ namespace YAF.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Objects.Model;
     using YAF.Web.Controls;
 
@@ -135,7 +136,7 @@ namespace YAF.Controls
                                             ? lastPostedDateTime.ToString(
                                                 "yyyy-MM-ddTHH:mm:ssZ",
                                                 CultureInfo.InvariantCulture)
-                                            : this.Get<IDateTime>().Format(
+                                            : this.Get<IDateTimeService>().Format(
                                                 DateTimeFormat.BothTopic,
                                                 lastPostedDateTime);
 

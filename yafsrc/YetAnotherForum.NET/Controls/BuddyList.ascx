@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.BuddyList" Codebehind="BuddyList.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 
 <div class="card mb-3">
     <div class="card-header">
@@ -69,7 +70,7 @@
             </asp:PlaceHolder>
             </div>
             <asp:PlaceHolder ID="pnlRequests" runat="server" Visible="false">
-                <%# this.Get<IDateTime>().FormatDateLong((DateTime)(Container.DataItem as dynamic).Requested) %>
+                <%# this.Get<IDateTimeService>().FormatDateLong((DateTime)(Container.DataItem as dynamic).Requested) %>
             </asp:PlaceHolder>
         </li>
     </ItemTemplate>

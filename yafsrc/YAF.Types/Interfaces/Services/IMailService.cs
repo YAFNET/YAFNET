@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Services
 {
     using System;
     using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace YAF.Types.Interfaces
     /// <summary>
     /// The SendMail interface.
     /// </summary>
-    public interface ISendMail
+    public interface IMailService
     {
         #region Public Methods and Operators
 

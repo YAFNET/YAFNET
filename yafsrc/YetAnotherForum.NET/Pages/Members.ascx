@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -193,7 +194,7 @@
                                         <strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                                     LocalizedTag="JOINED"
                                                                     LocalizedPage="POSTS"/>:</strong>
-                                        <%# this.Get<IDateTime>().FormatDateLong(((PagedUser)Container.DataItem).Joined) %>
+                                        <%# this.Get<IDateTimeService>().FormatDateLong(((PagedUser)Container.DataItem).Joined) %>
                                     </small>
                                 </div>
                                 <p class="mb-1">
@@ -208,7 +209,7 @@
                                         </li>
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" />:</strong>
-                                            <%# this.Get<IDateTime>().FormatDateLong(((PagedUser)Container.DataItem).LastVisit) %>
+                                            <%# this.Get<IDateTimeService>().FormatDateLong(((PagedUser)Container.DataItem).LastVisit) %>
                                         </li>
                                     </ul>
                                 </p>

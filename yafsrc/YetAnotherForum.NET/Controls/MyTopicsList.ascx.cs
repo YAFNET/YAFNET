@@ -41,6 +41,7 @@ namespace YAF.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects.Model;
     using YAF.Web.Controls;
@@ -247,7 +248,7 @@ namespace YAF.Controls
                     this.GetTextFormatted(
                         "last_visit",
                         !this.PageContext.IsMobileDevice
-                            ? this.Get<IDateTime>().FormatDateTime(
+                            ? this.Get<IDateTimeService>().FormatDateTime(
                                 lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
                                     ? lastVisit.Value
                                     : DateTime.UtcNow)

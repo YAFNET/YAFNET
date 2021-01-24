@@ -5,6 +5,7 @@
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -48,7 +49,7 @@
                                      <small class="d-none d-md-block">
                                          <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                              LocalizedPage="POSTMESSAGE" 
-                                                             LocalizedTag="EDITED" />: <%# this.Get<IDateTime>().FormatDateTimeTopic((Container.DataItem as MessageHistoryTopic).Edited) %>
+                                                             LocalizedTag="EDITED" />: <%# this.Get<IDateTimeService>().FormatDateTimeTopic((Container.DataItem as MessageHistoryTopic).Edited) %>
                                      </small>
                                  </div>
                             <p class="mb-1">

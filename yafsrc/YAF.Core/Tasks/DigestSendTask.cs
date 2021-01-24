@@ -42,6 +42,7 @@ namespace YAF.Core.Tasks
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     #endregion
@@ -246,7 +247,7 @@ namespace YAF.Core.Tasks
                         }
                     });
 
-            this.Get<ISendMail>().SendAll(mailMessages);
+            this.Get<IMailService>().SendAll(mailMessages);
 
             this.Get<ILogger>().Log(
                 $"Digest send to {mailMessages.Count} user(s)",

@@ -33,6 +33,7 @@ namespace YAF.Core.Services
     using YAF.Core.Utilities;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     ///     The YAF template email.
@@ -164,7 +165,7 @@ namespace YAF.Core.Services
             }
 
             // just send directly
-            this.Get<ISendMail>().Send(fromAddress, toAddress, fromAddress, subject, textBody, htmlBody);
+            this.Get<IMailService>().Send(fromAddress, toAddress, fromAddress, subject, textBody, htmlBody);
         }
 
         /// <summary>
@@ -194,7 +195,7 @@ namespace YAF.Core.Services
             }
 
             // Create Mail Message
-            return this.Get<ISendMail>().CreateMessage(fromAddress, toAddress, fromAddress, subject, textBody, htmlBody);
+            return this.Get<IMailService>().CreateMessage(fromAddress, toAddress, fromAddress, subject, textBody, htmlBody);
         }
 
         #endregion
