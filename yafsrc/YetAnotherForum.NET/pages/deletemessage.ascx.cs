@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -308,6 +308,7 @@ namespace YAF.Pages
 
             // populate the message preview with the message data-row...
             this.MessagePreview.Message = this._messageRow["message"].ToString();
+            this.MessagePreview.MessageID = this._messageRow["MessageID"].ToType<int>();
 
             var messageFlags = new MessageFlags(this._messageRow["Flags"]) { IsDeleted = false };
 
@@ -349,7 +350,8 @@ namespace YAF.Pages
             // Toggle delete message -- if the message is currently deleted it will be un-deleted.
             // If it's not deleted it will be marked deleted.
             // If it is the last message of the topic, the topic is also deleted
-            this.GetRepository<Message>().Delete(tmpMessageID.ToType<int>(),
+            this.GetRepository<Message>().Delete(
+                tmpMessageID.ToType<int>(),
                 this._isModeratorChanged,
                 HttpUtility.HtmlEncode(this.ReasonEditor.Text),
                 this.PostDeleted ? 0 : 1,
