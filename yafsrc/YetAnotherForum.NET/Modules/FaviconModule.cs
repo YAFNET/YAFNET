@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,6 +27,7 @@ namespace YAF.Modules
     using System;
     using System.Web.UI.HtmlControls;
 
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Utils;
@@ -53,10 +54,10 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var head = this.ForumControl.Page.Header
-                       ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
+            var head = this.ForumControl.Page.Header ??
+                       this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
-            if (head == null)
+            if (head == null || Config.IsAnyPortal)
             {
                 return;
             }
@@ -94,10 +95,9 @@ namespace YAF.Modules
             head.Controls.Add(new HtmlMeta { Name = "msapplication-TileColor", Content = "#da532c" });
             head.Controls.Add(
                 new HtmlMeta
-                    {
-                        Name = "msapplication-config",
-                        Content = BoardInfo.GetURLToContent("favicons/browserconfig.xml")
-                    });
+                {
+                    Name = "msapplication-config", Content = BoardInfo.GetURLToContent("favicons/browserconfig.xml")
+                });
             head.Controls.Add(new HtmlMeta { Name = "theme-color", Content = "#ffffff" });
         }
     }
