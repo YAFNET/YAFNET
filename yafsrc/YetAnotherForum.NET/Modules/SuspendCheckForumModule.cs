@@ -34,6 +34,7 @@ namespace YAF.Modules
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     using DateTime = System.DateTime;
@@ -83,8 +84,8 @@ namespace YAF.Modules
                 return;
             }
 
-            if (this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil)
-                <= this.Get<IDateTime>().GetUserDateTime(DateTime.UtcNow))
+            if (this.Get<IDateTimeService>().GetUserDateTime(this.PageContext.SuspendedUntil)
+                <= this.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow))
             {
                 this.GetRepository<User>().Suspend(this.PageContext.PageUserID);
 

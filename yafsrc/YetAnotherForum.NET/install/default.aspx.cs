@@ -53,6 +53,7 @@ namespace YAF.Install
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
 
@@ -332,7 +333,7 @@ namespace YAF.Install
         {
             try
             {
-                this.Get<ISendMail>().Send(
+                this.Get<IMailService>().Send(
                     this.txtTestFromEmail.Text.Trim(),
                     this.txtTestToEmail.Text.Trim(),
                     this.txtTestFromEmail.Text.Trim(),
