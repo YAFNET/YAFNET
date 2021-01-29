@@ -429,7 +429,7 @@
     <Resource tag="BOARD_JQ_THEME">jQuery UI Theme:</Resource>
     <Resource tag="BOARD_JQ_THEME_HELP">The jQuery UI Theme to use on this board for the Tabs and Accordion.</Resource>
     <Resource tag="BOARD_LOGO">Board Logo:</Resource>
-    <Resource tag="BOARD_LOGO_HELP">Select a Board Logo or use the default YAF Board Logo.</Resource>
+    <Resource tag="BOARD_LOGO_HELP">Select a Board Logo or use the default YAF Board Logo, Logos will be loaded from the Folder Images/Logos.</Resource>
     <Resource tag="BOARD_LOGO_SELECT">Select a Board logo</Resource>
     <Resource tag="BOARD_MOBILE_THEME">قالب موبایل:</Resource>
     <Resource tag="BOARD_MOBILE_THEME_HELP">قالب موبایل برای استفاده در این تابلو.</Resource>
