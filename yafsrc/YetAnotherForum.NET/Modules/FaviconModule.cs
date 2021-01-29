@@ -27,6 +27,7 @@ namespace YAF.Modules
     using System;
     using System.Web.UI.HtmlControls;
 
+    using YAF.Configuration;
     using YAF.Core.Utilities;
     using YAF.Core.Utilities.Helpers;
     using YAF.Types;
@@ -56,7 +57,7 @@ namespace YAF.Modules
             var head = this.ForumControl.Page.Header
                        ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
-            if (head == null)
+            if (head == null || Config.IsAnyPortal)
             {
                 return;
             }
