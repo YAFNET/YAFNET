@@ -11,7 +11,7 @@
                     <YAF:IconHeader runat="server" ID="IconHeader"
                                     IconName="comments"></YAF:IconHeader>
                 </div>
-                <div class="card-body">
+                <asp:Panel CssClass="card-body" runat="server" ID="Body">
                     <div class="row">
                         <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel3" runat="server" 
@@ -195,7 +195,7 @@
                                    LocalizedTag="STYLES" LocalizedPage="ADMIN_EDITFORUM" />
                     <asp:TextBox ID="Styles" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
-                </div>
+                </asp:Panel>
                 <div class="card-footer text-center">
                 <YAF:ThemeButton ID="Save" runat="server" 
                                  CssClass="me-2"

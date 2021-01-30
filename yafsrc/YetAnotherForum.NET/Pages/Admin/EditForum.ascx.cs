@@ -164,14 +164,17 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+
+            if (this.IsPostBack)
+            {
+                this.Body.CssClass = "card-body was-validated";
+
+
+                return;
+            }
 
             this.accessMaskList = this.GetRepository<AccessMask>().GetByBoardId();
 
@@ -431,7 +434,6 @@ namespace YAF.Pages.Admin
             }
 
             // Forum
-            // vzrus: it's stored in the DB as int
             var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
             var forumCopyId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("copy");
 
