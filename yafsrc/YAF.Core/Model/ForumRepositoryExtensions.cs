@@ -141,6 +141,7 @@ namespace YAF.Core.Model
                 var newForumId = repository.Insert(
                     new Forum
                     {
+                        ParentID = parentID,
                         Name = name,
                         Description = description,
                         SortOrder = sortOrder,
