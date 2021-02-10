@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -175,13 +175,13 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            this.topic.TopicFlags.IsLocked = true;
+            var flags = this.topic.TopicFlags;
 
-            this.GetRepository<Topic>().LockTopic(
-                this.PageContext.PageTopicID,
-                this.topic.TopicFlags.BitValue);
+            flags.IsLocked = true;
 
-             this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"), MessageTypes.info);
+            this.GetRepository<Topic>().LockTopic(this.PageContext.PageTopicID, flags.BitValue);
+
+            this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"), MessageTypes.info);
 
             this.LockTopic1.Visible = false;
             this.LockTopic2.Visible = false;
@@ -204,8 +204,8 @@ namespace YAF.Pages
 
             var connectControl = e.Item.FindControlAs<DisplayConnect>("DisplayConnect");
 
-            if (connectControl != null && this.PageContext.IsGuest
-                && this.Get<BoardSettings>().ShowConnectMessageInTopic)
+            if (connectControl != null && this.PageContext.IsGuest &&
+                this.Get<BoardSettings>().ShowConnectMessageInTopic)
             {
                 connectControl.Visible = true;
             }
@@ -260,17 +260,19 @@ namespace YAF.Pages
 
             // share menu...
             this.ShareMenu.Visible = this.ShareLink.Visible =
-                                         this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowShareTopicTo);
+                this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowShareTopicTo);
 
             if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowShareTopicTo))
             {
                 var topicUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.Posts, true, "t={0}", this.PageContext.PageTopicID);
+                    ForumPages.Posts,
+                    true,
+                    "t={0}",
+                    this.PageContext.PageTopicID);
 
                 if (this.Get<BoardSettings>().AllowEmailTopic)
                 {
-                    this.ShareMenu.AddPostBackItem(
-                        "email", this.GetText("EMAILTOPIC"), "fa fa-paper-plane");
+                    this.ShareMenu.AddPostBackItem("email", this.GetText("EMAILTOPIC"), "fa fa-paper-plane");
                 }
 
                 this.ShareMenu.AddClientScriptItem(
@@ -298,18 +300,15 @@ namespace YAF.Pages
                     this.GetText("FACEBOOK_SHARE_TOPIC"),
                     $@"window.open('{facebookShareUrl}','{this.GetText("FACEBOOK_SHARE_TOPIC")}','width=550,height=690,resizable=yes');",
                     "fab fa-facebook");
-                this.ShareMenu.AddPostBackItem(
-                    "reddit", this.GetText("REDDIT_TOPIC"), "fab fa-reddit");
+                this.ShareMenu.AddPostBackItem("reddit", this.GetText("REDDIT_TOPIC"), "fab fa-reddit");
 
-                this.ShareMenu.AddPostBackItem(
-                    "tumblr", this.GetText("TUMBLR_TOPIC"), "fab fa-tumblr");
+                this.ShareMenu.AddPostBackItem("tumblr", this.GetText("TUMBLR_TOPIC"), "fab fa-tumblr");
             }
             else
             {
                 if (this.Get<BoardSettings>().AllowEmailTopic)
                 {
-                    this.OptionsMenu.AddPostBackItem(
-                        "email", this.GetText("EMAILTOPIC"), "fa fa-email");
+                    this.OptionsMenu.AddPostBackItem("email", this.GetText("EMAILTOPIC"), "fa fa-email");
                 }
             }
 
@@ -319,21 +318,18 @@ namespace YAF.Pages
                 isWatched ? this.GetText("UNWATCHTOPIC") : this.GetText("WATCHTOPIC"),
                 isWatched ? "fa fa-eye-slash" : "fa fa-eye");
 
-            this.OptionsMenu.AddPostBackItem(
-                "print", this.GetText("PRINTTOPIC"), "fa fa-print");
+            this.OptionsMenu.AddPostBackItem("print", this.GetText("PRINTTOPIC"), "fa fa-print");
 
-            if (this.Get<BoardSettings>().ShowAtomLink
-                && this.Get<IPermissions>().Check(this.Get<BoardSettings>().PostsFeedAccess))
+            if (this.Get<BoardSettings>().ShowAtomLink &&
+                this.Get<IPermissions>().Check(this.Get<BoardSettings>().PostsFeedAccess))
             {
-                this.OptionsMenu.AddPostBackItem(
-                    "atomfeed", this.GetText("ATOMTOPIC"), "fa fa-rss");
+                this.OptionsMenu.AddPostBackItem("atomfeed", this.GetText("ATOMTOPIC"), "fa fa-rss");
             }
 
-            if (this.Get<BoardSettings>().ShowRSSLink
-                && this.Get<IPermissions>().Check(this.Get<BoardSettings>().PostsFeedAccess))
+            if (this.Get<BoardSettings>().ShowRSSLink &&
+                this.Get<IPermissions>().Check(this.Get<BoardSettings>().PostsFeedAccess))
             {
-                this.OptionsMenu.AddPostBackItem(
-                    "rssfeed", this.GetText("RSSTOPIC"), "fa fa-rss-square");
+                this.OptionsMenu.AddPostBackItem("rssfeed", this.GetText("RSSTOPIC"), "fa fa-rss-square");
             }
 
             // attach the menus to HyperLinks
@@ -375,7 +371,9 @@ namespace YAF.Pages
                                       JavaScriptBlocks.RemoveFavoriteTopicJs(tagButtonHtml);
 
                 this.PageContext.PageElements.RegisterJsBlockStartup("favoriteTopicJs", favoriteTopicJs);
-                this.PageContext.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){ console.log(res);alert('Error Occurred'); }");
+                this.PageContext.PageElements.RegisterJsBlockStartup(
+                    "asynchCallFailedJs",
+                    "function CallFailed(res){ console.log(res);alert('Error Occurred'); }");
 
                 // Has the user already tagged this topic as favorite?
                 if (this.Get<IFavoriteTopic>().IsFavoriteTopic(this.PageContext.PageTopicID))
@@ -413,12 +411,10 @@ namespace YAF.Pages
                 BuildLink.RedirectInfoPage(InfoMessage.Invalid);
             }
 
-            var dt = this.GetRepository<Forum>().List(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageForumID);
+            var dt = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, this.PageContext.PageForumID);
 
             this.forum = dt.FirstOrDefault();
-            
+
             this.forumFlags = this.forum.ForumFlags;
 
             if (this.PageContext.IsGuest && !this.PageContext.ForumReadAccess)
@@ -452,17 +448,16 @@ namespace YAF.Pages
                         BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
                 }
 
-                this.NewTopic2.NavigateUrl =
-                    this.NewTopic1.NavigateUrl =
-                    BuildLink.GetLinkNotEscaped(ForumPages.PostTopic, "f={0}", this.PageContext.PageForumID);
+                this.NewTopic2.NavigateUrl = this.NewTopic1.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                    ForumPages.PostTopic,
+                    "f={0}",
+                    this.PageContext.PageForumID);
 
-                this.PostReplyLink1.NavigateUrl =
-                    this.PostReplyLink2.NavigateUrl =
-                    BuildLink.GetLinkNotEscaped(
-                        ForumPages.PostMessage,
-                        "t={0}&f={1}",
-                        this.PageContext.PageTopicID,
-                        this.PageContext.PageForumID);
+                this.PostReplyLink1.NavigateUrl = this.PostReplyLink2.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                    ForumPages.PostMessage,
+                    "t={0}&f={1}",
+                    this.PageContext.PageTopicID,
+                    this.PageContext.PageForumID);
 
                 this.PageLinks.AddForum(this.PageContext.PageForumID);
                 this.PageLinks.AddLink(
@@ -471,8 +466,7 @@ namespace YAF.Pages
 
                 var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.TopicName));
 
-                if (this.topic.Description.IsSet()
-                    && yafBoardSettings.EnableTopicDescription)
+                if (this.topic.Description.IsSet() && yafBoardSettings.EnableTopicDescription)
                 {
                     this.TopicTitle.Text =
                         $"{topicSubject} - <em>{this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.Description))}</em>";
@@ -482,16 +476,18 @@ namespace YAF.Pages
                     this.TopicTitle.Text = this.Get<IBadWordReplace>().Replace(topicSubject);
                 }
 
-                this.TopicLink.ToolTip = this.Get<IBadWordReplace>().Replace(
-                    this.HtmlEncode(this.topic.Description));
+                this.TopicLink.ToolTip = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.Description));
                 this.TopicLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
+                    ForumPages.Posts,
+                    "t={0}",
+                    this.PageContext.PageTopicID);
 
                 this.QuickReplyDialog.Visible = yafBoardSettings.ShowQuickAnswer;
                 this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
                 this.QuickReplyLink2.Visible = yafBoardSettings.ShowQuickAnswer;
 
-                if (!this.PageContext.ForumPostAccess || this.forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
+                if (!this.PageContext.ForumPostAccess ||
+                    this.forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
                 {
                     this.NewTopic1.Visible = false;
                     this.NewTopic2.Visible = false;
@@ -499,7 +495,8 @@ namespace YAF.Pages
 
                 // Ederon : 9/9/2007 - moderators can reply in locked topics
                 if (!this.PageContext.ForumReplyAccess ||
-                    (this.topic.TopicFlags.IsLocked || this.forumFlags.IsLocked) && !this.PageContext.ForumModeratorAccess)
+                    (this.topic.TopicFlags.IsLocked || this.forumFlags.IsLocked) &&
+                    !this.PageContext.ForumModeratorAccess)
                 {
                     this.PostReplyLink1.Visible = this.PostReplyLink2.Visible = false;
                     this.QuickReplyDialog.Visible = false;
@@ -542,7 +539,8 @@ namespace YAF.Pages
                 }
 
                 if (this.PageContext.ForumReplyAccess ||
-                    (!this.topic.TopicFlags.IsLocked || !this.forumFlags.IsLocked) && this.PageContext.ForumModeratorAccess)
+                    (!this.topic.TopicFlags.IsLocked || !this.forumFlags.IsLocked) &&
+                    this.PageContext.ForumModeratorAccess)
                 {
                     this.PageContext.PageElements.RegisterJsBlockStartup(
                         "SelectedQuotingJs",
@@ -552,7 +550,7 @@ namespace YAF.Pages
                                 "t={0}&f={1}",
                                 this.PageContext.PageTopicID,
                                 this.PageContext.PageForumID),
-                                this.GetText("POSTS", "QUOTE_SELECTED")));
+                            this.GetText("POSTS", "QUOTE_SELECTED")));
                 }
             }
 
@@ -676,11 +674,11 @@ namespace YAF.Pages
                 BuildLink.AccessDenied(/*"You are not a forum moderator."*/);
             }
 
-            this.topic.TopicFlags.IsLocked = false;
+            var flags = this.topic.TopicFlags;
 
-            this.GetRepository<Topic>().LockTopic(
-                this.PageContext.PageTopicID,
-                this.topic.TopicFlags.BitValue);
+            flags.IsLocked = false;
+
+            this.GetRepository<Topic>().LockTopic(this.PageContext.PageTopicID, flags.BitValue);
 
             this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_UNLOCKED"), MessageTypes.info);
 
@@ -708,16 +706,15 @@ namespace YAF.Pages
             }
             catch (Exception)
             {
-               return;
+                return;
             }
-            
+
             if (this.Page.Header == null || !this.Get<BoardSettings>().AddDynamicPageMetaTags)
             {
                 return;
             }
 
-            var message = this.Get<IFormatMessage>().GetCleanedTopicMessage(
-                firstMessage, this.PageContext.PageTopicID);
+            var message = this.Get<IFormatMessage>().GetCleanedTopicMessage(firstMessage, this.PageContext.PageTopicID);
             var meta = this.Page.Header.FindControlType<HtmlMeta>();
 
             var htmlMetas = meta as IList<HtmlMeta> ?? meta.ToList();
@@ -730,12 +727,11 @@ namespace YAF.Pages
                 // Use Topic Description if set
                 if (!this.topic.Description.IsNullOrEmptyDBField())
                 {
-                    var topicDescription =
-                        this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.Description));
+                    var topicDescription = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.Description));
 
                     descriptionContent = topicDescription.Length > 50
-                                             ? topicDescription
-                                             : $"{topicDescription} - {message.MessageTruncated}";
+                        ? topicDescription
+                        : $"{topicDescription} - {message.MessageTruncated}";
                 }
                 else
                 {
@@ -812,14 +808,13 @@ namespace YAF.Pages
             var showDeleted = false;
             var userId = this.PageContext.PageUserID;
 
-            if (this.PageContext.IsAdmin
-                || this.PageContext.ForumModeratorAccess || this.Get<BoardSettings>().ShowDeletedMessagesToAll)
+            if (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
+                this.Get<BoardSettings>().ShowDeletedMessagesToAll)
             {
                 showDeleted = true;
             }
 
-            if (!this.Get<BoardSettings>().ShowDeletedMessages
-                || !this.Get<BoardSettings>().ShowDeletedMessagesToAll)
+            if (!this.Get<BoardSettings>().ShowDeletedMessages || !this.Get<BoardSettings>().ShowDeletedMessagesToAll)
             {
                 // normally, users can always see own deleted topics or stubs we set a false id to hide them.
                 userId = -1;
@@ -866,22 +861,22 @@ namespace YAF.Pages
 
                 postListDataTable.Columns.AddRange(
                     new[]
-                        {
-                            // How many times has this message been thanked.
-                            new DataColumn("IsThankedByUser", typeof(bool)),
+                    {
+                        // How many times has this message been thanked.
+                        new DataColumn("IsThankedByUser", typeof(bool)),
 
-                            //// How many times has the message poster thanked others?
-                            new DataColumn("MessageThanksNumber", typeof(int)),
+                        //// How many times has the message poster thanked others?
+                        new DataColumn("MessageThanksNumber", typeof(int)),
 
-                            //// How many times has the message poster been thanked?
-                            new DataColumn("ThanksFromUserNumber", typeof(int)),
+                        //// How many times has the message poster been thanked?
+                        new DataColumn("ThanksFromUserNumber", typeof(int)),
 
-                            //// In how many posts has the message poster been thanked?
-                            new DataColumn("ThanksToUserNumber", typeof(int)),
+                        //// In how many posts has the message poster been thanked?
+                        new DataColumn("ThanksToUserNumber", typeof(int)),
 
-                            //// In how many posts has the message poster been thanked?
-                            new DataColumn("ThanksToUserPostsNumber", typeof(int))
-                        });
+                        //// In how many posts has the message poster been thanked?
+                        new DataColumn("ThanksToUserPostsNumber", typeof(int))
+                    });
 
                 postListDataTable.AcceptChanges();
             }
@@ -931,7 +926,9 @@ namespace YAF.Pages
                 if (!this.PageContext.IsCrawler)
                 {
                     this.PageContext.PageElements.RegisterJsBlockStartup(
-                        this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor($"post{findMessageId}"));
+                        this,
+                        "GotoAnchorJs",
+                        JavaScriptBlocks.LoadGotoAnchor($"post{findMessageId}"));
                 }
             }
             else
@@ -992,8 +989,8 @@ namespace YAF.Pages
                 if (!this.Get<HttpRequestBase>().QueryString.Exists("find"))
                 {
                     if (this.Get<HttpRequestBase>().QueryString.Exists("m") && int.TryParse(
-                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
-                            out var messageId))
+                        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
+                        out var messageId))
                     {
                         // we find message position always by time.
                         using (var lastPost = this.GetRepository<Message>().FindUnreadAsDataTable(
@@ -1028,43 +1025,46 @@ namespace YAF.Pages
                     switch (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower())
                     {
                         case "unread":
-                            {
-                                // find first unread message
-                                var lastRead = !this.PageContext.IsCrawler
-                                    ? this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                                        this.PageContext.PageForumID,
-                                        this.PageContext.PageTopicID,
-                                        null,
-                                        null)
-                                    : System.DateTime.UtcNow;
-
-                                using (var unread = this.GetRepository<Message>().FindUnreadAsDataTable(
+                        {
+                            // find first unread message
+                            var lastRead = !this.PageContext.IsCrawler
+                                ? this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                                    this.PageContext.PageForumID,
                                     this.PageContext.PageTopicID,
-                                    0,
-                                    lastRead,
-                                    showDeleted,
-                                    userId))
+                                    null,
+                                    null)
+                                : System.DateTime.UtcNow;
+
+                            using (var unread = this.GetRepository<Message>().FindUnreadAsDataTable(
+                                this.PageContext.PageTopicID,
+                                0,
+                                lastRead,
+                                showDeleted,
+                                userId))
+                            {
+                                var unreadFirst = unread.AsEnumerable().FirstOrDefault();
+                                if (unreadFirst != null)
                                 {
-                                    var unreadFirst = unread.AsEnumerable().FirstOrDefault();
-                                    if (unreadFirst != null)
+                                    // if Message is deleted
+                                    if (unreadFirst["MessagePosition"] == DBNull.Value)
                                     {
-                                        // if Message is deleted
-                                        if (unreadFirst["MessagePosition"] == DBNull.Value)
-                                        {
-                                            findMessageId = 0;
-                                            return -1;
-                                        }
+                                        findMessageId = 0;
+                                        return -1;
+                                    }
 
-                                        findMessageId = unreadFirst.Field<int>("MessageID");
-                                        messagePosition = unreadFirst.Field<int>("MessagePosition");
+                                    findMessageId = unreadFirst.Field<int>("MessageID");
+                                    messagePosition = unreadFirst.Field<int>("MessagePosition");
 
-                                        if (this.Get<HttpRequestBase>().QueryString.Exists("m") && this.PageContext.CurrentUserData.Activity)
-                                        {
-                                            this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, findMessageId);
-                                        }
+                                    if (this.Get<HttpRequestBase>().QueryString.Exists("m") &&
+                                        this.PageContext.CurrentUserData.Activity)
+                                    {
+                                        this.GetRepository<Activity>().UpdateNotification(
+                                            this.PageContext.PageUserID,
+                                            findMessageId);
                                     }
                                 }
                             }
+                        }
 
                             break;
                         case "lastpost":
@@ -1115,7 +1115,9 @@ namespace YAF.Pages
                 return false;
             }
 
-            var watchTopicId = this.GetRepository<WatchTopic>().Check(this.PageContext.PageUserID, this.PageContext.PageTopicID);
+            var watchTopicId = this.GetRepository<WatchTopic>().Check(
+                this.PageContext.PageUserID,
+                this.PageContext.PageTopicID);
 
             // check if this forum is being watched by this user
             if (watchTopicId.HasValue)
@@ -1158,81 +1160,81 @@ namespace YAF.Pages
                     this.EmailTopic_Click(sender, e);
                     break;
                 case "tumblr":
+                {
+                    // process message... clean html, strip html, remove BBCode, etc...
+                    var tumblrTopicName = BBCodeHelper
+                        .StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.topic.TopicName)))
+                        .RemoveMultipleWhitespace();
+
+                    var meta = this.Page.Header.FindControlType<HtmlMeta>().ToList();
+
+                    var description = string.Empty;
+
+                    if (meta.Any(x => x.Name.Equals("description")))
                     {
-                        // process message... clean html, strip html, remove BBCode, etc...
-                        var tumblrTopicName =
-                            BBCodeHelper.StripBBCode(
-                                HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.topic.TopicName))).RemoveMultipleWhitespace();
-
-                        var meta = this.Page.Header.FindControlType<HtmlMeta>().ToList();
-
-                        var description = string.Empty;
-
-                        if (meta.Any(x => x.Name.Equals("description")))
+                        var descriptionMeta = meta.FirstOrDefault(x => x.Name.Equals("description"));
+                        if (descriptionMeta != null)
                         {
-                            var descriptionMeta = meta.FirstOrDefault(x => x.Name.Equals("description"));
-                            if (descriptionMeta != null)
-                            {
-                                description = $"&description={descriptionMeta.Content}";
-                            }
+                            description = $"&description={descriptionMeta.Content}";
                         }
-
-                        var tumblrUrl =
-                            $"http://www.tumblr.com/share/link?url={this.Server.UrlEncode(topicUrl)}&name={tumblrTopicName}{description}";
-
-                        this.Get<HttpResponseBase>().Redirect(tumblrUrl);
                     }
+
+                    var tumblrUrl =
+                        $"http://www.tumblr.com/share/link?url={this.Server.UrlEncode(topicUrl)}&name={tumblrTopicName}{description}";
+
+                    this.Get<HttpResponseBase>().Redirect(tumblrUrl);
+                }
 
                     break;
                 case "retweet":
+                {
+                    var twitterName = this.Get<BoardSettings>().TwitterUserName.IsSet()
+                        ? $"@{this.Get<BoardSettings>().TwitterUserName} "
+                        : string.Empty;
+
+                    // process message... clean html, strip html, remove bbcode, etc...
+                    var twitterMsg = BBCodeHelper
+                        .StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.topic.TopicName)))
+                        .RemoveMultipleWhitespace();
+
+                    var tweetUrl =
+                        $"http://twitter.com/share?url={this.Server.UrlEncode(topicUrl)}&text={this.Server.UrlEncode(string.Format("RT {1}Thread: {0}", twitterMsg.Truncate(100), twitterName))}";
+
+                    // Send Re-tweet directly thru the Twitter API if User is Twitter User
+                    if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet() &&
+                        this.Get<ISession>().TwitterToken.IsSet() && this.Get<ISession>().TwitterTokenSecret.IsSet() &&
+                        this.PageContext.IsTwitterUser)
                     {
-                        var twitterName = this.Get<BoardSettings>().TwitterUserName.IsSet()
-                                              ? $"@{this.Get<BoardSettings>().TwitterUserName} "
-                                              : string.Empty;
-
-                        // process message... clean html, strip html, remove bbcode, etc...
-                        var twitterMsg =
-                            BBCodeHelper.StripBBCode(
-                                HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.topic.TopicName))).RemoveMultipleWhitespace();
-
-                        var tweetUrl =
-                            $"http://twitter.com/share?url={this.Server.UrlEncode(topicUrl)}&text={this.Server.UrlEncode(string.Format("RT {1}Thread: {0}", twitterMsg.Truncate(100), twitterName))}";
-
-                        // Send Re-tweet directly thru the Twitter API if User is Twitter User
-                        if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet()
-                            && this.Get<ISession>().TwitterToken.IsSet()
-                            && this.Get<ISession>().TwitterTokenSecret.IsSet() && this.PageContext.IsTwitterUser)
+                        var auth = new OAuthTwitter
                         {
-                            var auth = new OAuthTwitter
-                                {
-                                    ConsumerKey = Config.TwitterConsumerKey,
-                                    ConsumerSecret = Config.TwitterConsumerSecret,
-                                    Token = this.Get<ISession>().TwitterToken,
-                                    TokenSecret = this.Get<ISession>().TwitterTokenSecret
-                                };
+                            ConsumerKey = Config.TwitterConsumerKey,
+                            ConsumerSecret = Config.TwitterConsumerSecret,
+                            Token = this.Get<ISession>().TwitterToken,
+                            TokenSecret = this.Get<ISession>().TwitterTokenSecret
+                        };
 
-                            var tweets = new TweetAPI(auth);
+                        var tweets = new TweetAPI(auth);
 
-                            tweets.UpdateStatus(
-                                TweetAPI.ResponseFormat.json,
-                                this.Server.UrlEncode(
-                                    string.Format("RT {1}: {0} {2}", twitterMsg.Truncate(100), twitterName, topicUrl)),
-                                string.Empty);
-                        }
-                        else
-                        {
-                            this.Get<HttpResponseBase>().Redirect(tweetUrl);
-                        }
+                        tweets.UpdateStatus(
+                            TweetAPI.ResponseFormat.json,
+                            this.Server.UrlEncode(
+                                string.Format("RT {1}: {0} {2}", twitterMsg.Truncate(100), twitterName, topicUrl)),
+                            string.Empty);
                     }
+                    else
+                    {
+                        this.Get<HttpResponseBase>().Redirect(tweetUrl);
+                    }
+                }
 
                     break;
                 case "reddit":
-                    {
-                        var redditUrl =
-                            $"http://www.reddit.com/submit?url={this.Server.UrlEncode(topicUrl)}&title={this.Server.UrlEncode(this.topic.TopicName)}";
+                {
+                    var redditUrl =
+                        $"http://www.reddit.com/submit?url={this.Server.UrlEncode(topicUrl)}&title={this.Server.UrlEncode(this.topic.TopicName)}";
 
-                        this.Get<HttpResponseBase>().Redirect(redditUrl);
-                    }
+                    this.Get<HttpResponseBase>().Redirect(redditUrl);
+                }
 
                     break;
                 default:
