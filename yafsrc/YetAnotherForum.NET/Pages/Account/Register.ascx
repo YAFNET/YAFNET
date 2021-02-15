@@ -107,13 +107,15 @@
 								<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" 
                                                     LocalizedTag="Captcha_Image" />
 							
-								<asp:Image ID="imgCaptcha" runat="server" />
+								<asp:Image ID="imgCaptcha" runat="server" CssClass="form-control w-25" />
                                 <br />
                                 <asp:LinkButton id="RefreshCaptcha" runat="server"></asp:LinkButton>
                             </div>
 							<div class="mb-3">
-								<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" 
-                                                    LocalizedTag="Captcha_Enter" />
+                                <asp:Label runat="server" AssociatedControlID="tbCaptcha">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" 
+                                                        LocalizedTag="Captcha_Enter" />
+                                </asp:Label>
                                 <asp:TextBox CssClass="form-control" ID="tbCaptcha" runat="server" />
                             </div>
 						</asp:PlaceHolder>

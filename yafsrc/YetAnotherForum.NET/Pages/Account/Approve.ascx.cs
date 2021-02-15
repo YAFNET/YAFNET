@@ -109,7 +109,7 @@ namespace YAF.Pages.Account
                 // tell the provider to update...
                 this.Get<IAspNetUsersHelper>().Update(user);
 
-                this.GetRepository<User>().Approve(userEmail.ID, userEmail.Email);
+                this.GetRepository<User>().Approve(userEmail.UserID, userEmail.Email);
 
                 this.GetRepository<CheckEmail>().DeleteById(userEmail.ID);
 
