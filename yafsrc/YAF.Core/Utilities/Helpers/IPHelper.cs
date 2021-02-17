@@ -211,31 +211,10 @@ namespace YAF.Core.Utilities.Helpers
                 bannedIP = "127.0.0.1";
             }
 
-            // handle IP v6 Addresses
-            var splitCharBannedIp = bannedIP.Contains(".") ? '.' : ':';
-            var splitCharChk = chk.Contains(".") ? '.' : ':';
+            var banCheck = StringToIP(bannedIP);
+            var ipCheck = StringToIP(chk);
 
-            var ipMask = bannedIP.Split(splitCharBannedIp);
-            var ip = bannedIP.Split(splitCharBannedIp);
-
-            for (var i = 0; i < ipMask.Length; i++)
-            {
-                if (ipMask[i] == "*")
-                {
-                    ipMask[i] = "0";
-                    ip[i] = "0";
-                }
-                else
-                {
-                    ipMask[i] = "255";
-                }
-            }
-
-            var banMask = StringToIP(ip);
-            var banCheck = StringToIP(ipMask);
-            var ipCheck = StringToIP(chk.Split(splitCharChk));
-
-            return (ipCheck & banCheck) == banMask;
+            return banCheck.Equals(ipCheck);
         }
 
         /// <summary>
@@ -247,30 +226,11 @@ namespace YAF.Core.Utilities.Helpers
         /// <returns>
         /// ulong representing an encoding IP address
         /// </returns>
-        public static ulong StringToIP([NotNull] string[] ip)
+        public static IPAddress StringToIP([NotNull] string ip)
         {
             CodeContracts.VerifyNotNull(ip, "ip");
 
-            if (ip.Length != 4)
-            {
-                if (ip.Length != 8)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(ip), "Invalid ip address.");
-                }
-            }
-
-            ulong num = 0;
-
-            ip.ForEach(section =>
-            {
-                num <<= 8;
-                if (ulong.TryParse(section, out var result))
-                {
-                    num |= result;
-                }
-            });
-
-            return num;
+            return IPAddress.Parse(ip);
         }
 
         #endregion
