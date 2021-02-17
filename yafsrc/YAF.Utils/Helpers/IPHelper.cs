@@ -49,8 +49,8 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// The non routable IP v4 networks.
         /// </summary>
-        private static readonly List<string> NonRoutableIPv4Networks = new List<string>
-                                                                           {
+        private static readonly List<string> NonRoutableIPv4Networks = new()
+        {
                                                                                "10.0.0.0/8",
                                                                                "172.16.0.0/12",
                                                                                "192.168.0.0/16",
@@ -62,8 +62,8 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// The non routable IP v6 networks.
         /// </summary>
-        private static readonly List<string> NonRoutableIPv6Networks = new List<string>
-                                                                           {
+        private static readonly List<string> NonRoutableIPv6Networks = new()
+        {
                                                                                "::/128",
                                                                                "::1/128",
                                                                                "2001:db8::/32",
@@ -92,32 +92,28 @@ namespace YAF.Utils.Helpers
                 return addressIpv6;
             }
 
+            // don't resolve ip regex
+            if (addressIpv6.IsSet() && addressIpv6.ToLower().Contains("*"))
+            {
+                return addressIpv6;
+            }
+
             try
             {
                 // Loop through all address InterNetwork - Address for IP version 4))
-                foreach (
-                    var ipAddress in
-                        Dns.GetHostAddresses(addressIpv6)
-                            .Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
-                {
-                    ip4Address = ipAddress.ToString();
-                    break;
-                }
+                var address = Dns.GetHostAddresses(addressIpv6)
+                    .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork);
 
-                if (ip4Address.IsSet())
+                if (address != null)
                 {
-                    return ip4Address;
+                    return address.ToString();
                 }
 
                 // to find by host name - is not in use so far.
-                foreach (
-                    var ipAddress in
-                        Dns.GetHostAddresses(Dns.GetHostName())
-                            .Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
-                {
-                    ip4Address = ipAddress.ToString();
-                    break;
-                }
+                address = Dns.GetHostAddresses(Dns.GetHostName())
+                    .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork);
+
+                return address.ToString();
             }
             catch (Exception ex)
             {
@@ -187,30 +183,7 @@ namespace YAF.Utils.Helpers
         }
 
         /// <summary>
-        /// The IP String to long.
-        /// </summary>
-        /// <param name="ipAddress">
-        /// The IP address.
-        /// </param>
-        /// <returns>
-        /// The IP as long.
-        /// </returns>
-        public static ulong IPStringToLong([NotNull] string ipAddress)
-        {
-            // not sure why it gives me this for local users on firefox--but it does...
-            CodeContracts.VerifyNotNull(ipAddress, "ipAddress");
-
-            if (ipAddress == "::1")
-            {
-                ipAddress = "127.0.0.1";
-            }
-
-            var ip = ipAddress.Split('.');
-            return StringToIP(ip);
-        }
-
-        /// <summary>
-        /// Verifies that an ip and mask aren't banned
+        /// Verifies that an IP and mask aren't banned
         /// </summary>
         /// <param name="ban">
         /// Banned IP
@@ -238,31 +211,10 @@ namespace YAF.Utils.Helpers
                 bannedIP = "127.0.0.1";
             }
 
-            // handle IP v6 Addresses
-            var splitCharBannedIp = bannedIP.Contains(".") ? '.' : ':';
-            var splitCharChk = chk.Contains(".") ? '.' : ':';
+            var banCheck = StringToIP(bannedIP);
+            var ipCheck = StringToIP(chk);
 
-            var ipmask = bannedIP.Split(splitCharBannedIp);
-            var ip = bannedIP.Split(splitCharBannedIp);
-
-            for (var i = 0; i < ipmask.Length; i++)
-            {
-                if (ipmask[i] == "*")
-                {
-                    ipmask[i] = "0";
-                    ip[i] = "0";
-                }
-                else
-                {
-                    ipmask[i] = "255";
-                }
-            }
-
-            var banmask = StringToIP(ip);
-            var banchk = StringToIP(ipmask);
-            var ipchk = StringToIP(chk.Split(splitCharChk));
-
-            return (ipchk & banchk) == banmask;
+            return banCheck.Equals(ipCheck);
         }
 
         /// <summary>
@@ -274,30 +226,11 @@ namespace YAF.Utils.Helpers
         /// <returns>
         /// ulong representing an encoding IP address
         /// </returns>
-        public static ulong StringToIP([NotNull] string[] ip)
+        public static IPAddress StringToIP([NotNull] string ip)
         {
             CodeContracts.VerifyNotNull(ip, "ip");
 
-            if (ip.Length != 4)
-            {
-                if (ip.Length != 8)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(ip), "Invalid ip address.");
-                }
-            }
-
-            ulong num = 0;
-
-            foreach (var section in ip)
-            {
-                num <<= 8;
-                if (ulong.TryParse(section, out var result))
-                {
-                    num |= result;
-                }
-            }
-
-            return num;
+            return IPAddress.Parse(ip);
         }
 
         #endregion
@@ -426,17 +359,14 @@ namespace YAF.Utils.Helpers
             // Reference: http://en.wikipedia.org/wiki/Reserved_IP_addresses
             var ipAddressBytes = ipAddress.GetAddressBytes();
 
-            if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
+            return ipAddress.AddressFamily switch
             {
-                return !NonRoutableIPv4Networks.Any(network => IsIpAddressInRange(ipAddressBytes, network));
-            }
-
-            if (ipAddress.AddressFamily == AddressFamily.InterNetworkV6)
-            {
-                return !NonRoutableIPv6Networks.Any(network => IsIpAddressInRange(ipAddressBytes, network));
-            }
-
-            return false;
+                AddressFamily.InterNetwork => !NonRoutableIPv4Networks.Any(
+                    network => IsIpAddressInRange(ipAddressBytes, network)),
+                AddressFamily.InterNetworkV6 => !NonRoutableIPv6Networks.Any(
+                    network => IsIpAddressInRange(ipAddressBytes, network)),
+                _ => false
+            };
         }
 
         /// <summary>
