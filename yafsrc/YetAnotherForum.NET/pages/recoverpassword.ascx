@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
 	Inherits="YAF.Pages.RecoverPassword" Codebehind="RecoverPassword.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Constants" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -116,8 +117,7 @@
                     </div>
                     <div class="card-footer text-center">
                         <YAF:ThemeButton ID="SubmitButton" runat="server" 
-                                         CommandName="Submit"
-                                         OnClick="SubmitButton_Click"
+                                         NavigateUrl="<%# BuildLink.GetLink(ForumPages.Login) %>"
                                          Type="Secondary"
                                          TextLocalizedTag="BACK"
                                          Icon="arrow-circle-left"/>
