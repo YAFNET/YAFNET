@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -207,7 +207,7 @@ namespace YAF.Pages
                 this.Logger.Log(
                     $"Login Failure: {userName.Text}",
                     this,
-                    $"Login Failure for User {userName.Text} with the IP Address {this.Get<HttpRequestBase>().GetUserRealIPAddress()} and User String {this.Get<HttpRequestBase>().UserAgent}",
+                    $"Login Failure for User: {userName.Text} with the IP Address: {this.Get<HttpRequestBase>().GetUserRealIPAddress()}",
                     EventLogTypes.LoginFailure);
 
                 this.PageContext.AddLoadMessage(this.Login1.FailureText, MessageTypes.danger);

@@ -102,8 +102,10 @@
                 </span>
                 <%# this.Get<IDateTime>().FormatDateTime( ( DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>#
             </p>
-                <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# ((System.Data.DataRowView )Container.DataItem).Row %>"
-                    ShowAttachments="false" ShowSignature="false">
+                <YAF:MessagePostData ID="MessagePost1" runat="server" 
+                                     DataRow="<%# ((System.Data.DataRowView)Container.DataItem).Row %>"
+                                     ShowAttachments="false" 
+                                     ShowSignature="false">
                 </YAF:MessagePostData>
         </li>
     </ItemTemplate>
