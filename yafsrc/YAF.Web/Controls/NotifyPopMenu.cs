@@ -33,49 +33,20 @@ namespace YAF.Web.Controls
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Interfaces;
-    using YAF.Web.EventsArgs;
-
+    
     #endregion
 
     /// <summary>
     /// Activity Notifications Menu
     /// </summary>
-    public class NotifyPopMenu : BaseControl, IPostBackEventHandler
+    public class NotifyPopMenu : BaseControl
     {
-        #region Events
-
-        /// <summary>
-        ///   The item click.
-        /// </summary>
-        public event PopMenu.PopEventHandler ItemClick;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///   Gets or sets Control.
         /// </summary>
         public string Control { get; set; } = string.Empty;
-
-        #endregion
-
-        #region Implemented Interfaces
-
-        #region IPostBackEventHandler
-
-        /// <summary>
-        /// The raise post back event.
-        /// </summary>
-        /// <param name="eventArgument">
-        /// The event argument.
-        /// </param>
-        public void RaisePostBackEvent([NotNull] string eventArgument)
-        {
-            this.ItemClick?.Invoke(this, new PopEventArgs(eventArgument));
-        }
-
-        #endregion
 
         #endregion
 
@@ -101,7 +72,7 @@ namespace YAF.Web.Controls
             sb.Append("<div id=\"AttachmentsListPager\"></div>");
             sb.Append("<div id=\"Loader\" class=\"px-2 mx-2\">");
             sb.AppendFormat(
-                "<p style=\"text-align:center\"><span>{0}</span><br /><div class=\"fa-3x\"><i class=\"fas fa-spinner fa-pulse\"></i></div></p>",
+                "<p class=\"text-center\"><span>{0}</span><br /><div class=\"fa-3x\"><i class=\"fas fa-spinner fa-pulse\"></i></div></p>",
                 this.Get<ILocalization>().GetText("COMMON", "LOADING"));
             sb.Append("</div>");
         
