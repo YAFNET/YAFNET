@@ -155,7 +155,7 @@ namespace YAF.Web.Controls
 
             output.BeginRender();
 
-            if (!this.IsGuest)
+            if (!this.IsGuest && this.CrawlerName.IsNotSet())
             {
                 output.WriteBeginTag("a");
 
@@ -217,7 +217,7 @@ namespace YAF.Web.Controls
             output.Write(HtmlTextWriter.TagRightChar);
 
             // show online icon
-            if (this.PageContext.BoardSettings.ShowUserOnlineStatus)
+            if (this.PageContext.BoardSettings.ShowUserOnlineStatus && this.CrawlerName.IsNotSet())
             {
                 var onlineStatusIcon = new OnlineStatusIcon { UserId = this.UserID, Suspended = userSuspended };
 
