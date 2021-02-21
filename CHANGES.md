@@ -1,13 +1,23 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.1.13
+* [NEW] Added Board Setting for Default Access Mask when creating a new forum
+* [FIXED] Deleting a Message with an Attachment
+* [FIXED #603] subforums are not saved
+* [FIXED] lock/unlock topic
+* [FIXED] Back Button on Forget Password Page
+* [FIXED] Dont Render Crawlers as Regular Users
+* [FIXED] IP Address Check for IPv6
+* Exclude Favicon inside a Portal (DNN)
+
 # YetAnotherForum.NET v2.3.1.12
 * Upgraded to Bootstrap 4.6.0
 * [NEW] Success Message after Message Report
 * Increased auto save Delay in CKEditor to 60 Seconds
 * [FIXED] DNN Search
 
-* # YetAnotherForum.NET v2.3.1.11
+# YetAnotherForum.NET v2.3.1.11
 * [FIXED] Admin User page
 * [Fixed] publish solution
 
