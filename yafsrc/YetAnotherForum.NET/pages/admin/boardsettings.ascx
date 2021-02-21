@@ -195,6 +195,16 @@
                     </div>
                 </div>
             </div>
+            <div class="mb-3">
+                <YAF:HelpLabel ID="HelpLabel7" runat="server"
+                               AssociatedControlID="ForumDefaultAccessMask"
+                               LocalizedTag="FORUM_DEFAULT_ACCESSMASK"
+                               LocalizedPage="ADMIN_BOARDSETTINGS"/>
+                <asp:DropDownList ID="ForumDefaultAccessMask" runat="server" 
+                                  CssClass="select2-select" 
+                                  placeholder='<%# this.GetText("FORUM_DEFAULT_ACCESSMASK") %>'>
+                </asp:DropDownList>
+            </div>
         </div>
         <div class="card-footer text-center">
             <YAF:ThemeButton ID="Save" Type="Primary" runat="server" OnClick="SaveClick"

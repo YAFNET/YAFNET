@@ -211,8 +211,15 @@ namespace YAF.Utils.Helpers
                 bannedIP = "127.0.0.1";
             }
 
-            var banCheck = StringToIP(bannedIP);
+            if (bannedIP.Contains("*"))
+            {
+                bannedIP = bannedIP.Replace("*", "0");
+            }
+
+
             var ipCheck = StringToIP(chk);
+
+            var banCheck = StringToIP(bannedIP);
 
             return banCheck.Equals(ipCheck);
         }

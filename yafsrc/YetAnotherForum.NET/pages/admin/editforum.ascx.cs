@@ -318,11 +318,22 @@ namespace YAF.Pages.Admin
             }
             catch (Exception)
             {
-                var item = list.Items.FindByText("Member Access");
+                // Load default from board settings
+                var item = list.Items.FindByValue(this.PageContext.BoardSettings.ForumDefaultAccessMask.ToString());
 
                 if (item != null)
                 {
                     item.Selected = true;
+                }
+                else
+                {
+                    // Fallback if default access mask from board settings doesn't exist
+                    item = list.Items.FindByText("Member Access");
+
+                    if (item != null)
+                    {
+                        item.Selected = true;
+                    }
                 }
             }
         }

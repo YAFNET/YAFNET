@@ -126,6 +126,13 @@ namespace YAF.Pages.Admin
             // Get first default full culture from a language file tag.
             var langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language) ?? "en-US";
 
+            this.ForumDefaultAccessMask.DataSource = this.GetRepository<AccessMask>().GetByBoardId();
+            this.ForumDefaultAccessMask.DataValueField = "ID";
+            this.ForumDefaultAccessMask.DataTextField = "Name";
+            this.ForumDefaultAccessMask.DataBind();
+
+            SetSelectedOnList(ref this.ForumDefaultAccessMask, boardSettings.ForumDefaultAccessMask.ToString());
+
             if (boardSettings.Theme.Contains(".xml"))
             {
                 SetSelectedOnList(ref this.Theme, "yaf");
@@ -265,7 +272,7 @@ namespace YAF.Pages.Admin
             boardSettings.Culture = this.Culture.SelectedValue;
             boardSettings.Theme = this.Theme.SelectedValue;
 
-            // allow null/empty as a mobile theme many not be desired.
+            boardSettings.ForumDefaultAccessMask = this.ForumDefaultAccessMask.SelectedValue.ToType<int>();
             boardSettings.ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>();
             boardSettings.FileExtensionAreAllowed = this.FileExtensionAllow.Checked;
             boardSettings.NotificationOnUserRegisterEmailList = this.NotificationOnUserRegisterEmailList.Text.Trim();

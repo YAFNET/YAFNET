@@ -217,6 +217,16 @@ namespace YAF.Configuration
         }
 
         /// <summary>
+        /// Gets or sets the forum default access mask.
+        /// </summary>
+        public int ForumDefaultAccessMask
+        {
+            get => this._regBoard.GetValue("ForumDefaultAccessMask", 3);
+
+            set => this._regBoard.SetValue("ForumDefaultAccessMask", value);
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether Allow Digest Email.
         /// </summary>
         public bool AllowDigestEmail
