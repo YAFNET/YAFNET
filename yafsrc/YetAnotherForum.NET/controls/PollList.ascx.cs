@@ -715,7 +715,6 @@ namespace YAF.Controls
                 {
                     var dtAllPollGroupVotesShow = this.GetRepository<Poll>().PollGroupVotecheckAsDataTable(
                         drowv.Row["PollGroupID"].ToType<int>(),
-                        null,
                         null);
                     dtAllPollGroupVotesShow.Rows.Cast<DataRow>().Count(row => (int)row["PollID"] == pollId);
                     pollChoiceList.Voters = dtAllPollGroupVotesShow;
@@ -1074,12 +1073,6 @@ namespace YAF.Controls
             {
                 // Check if the user is already voted in polls in the group 
                 object userId = null;
-                object remoteIp = null;
-
-                if (this.Get<BoardSettings>().PollVoteTiedToIP)
-                {
-                    remoteIp = IPHelper.IPStringToLong(this.Get<HttpRequestBase>().GetUserRealIPAddress()).ToString();
-                }
 
                 if (!this.PageContext.IsGuest)
                 {
@@ -1088,8 +1081,7 @@ namespace YAF.Controls
 
                 this._dtAllPollGroupVotes = this.GetRepository<Poll>().PollGroupVotecheckAsDataTable(
                     this._dtPollGroupAllChoices.Rows[0]["PollGroupID"].ToType<int>(),
-                    userId,
-                    remoteIp);
+                    userId);
 
                 this._isBound = this._dtPollGroupAllChoices.Rows[0]["IsBound"].ToType<bool>();
 

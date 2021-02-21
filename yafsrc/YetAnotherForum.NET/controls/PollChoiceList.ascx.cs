@@ -200,12 +200,6 @@ namespace YAF.Controls
             }
 
             int? userID = null;
-            var remoteIP = string.Empty;
-
-            if (this.PageContext.BoardSettings.PollVoteTiedToIP)
-            {
-                remoteIP = IPHelper.IPStringToLong(this.Get<HttpRequestBase>().ServerVariables["REMOTE_ADDR"]).ToString();
-            }
 
             if (!this.PageContext.IsGuest)
             {
@@ -216,7 +210,7 @@ namespace YAF.Controls
 
             this.GetRepository<Choice>().Vote(choiceId);
 
-            this.GetRepository<PollVote>().Vote(choiceId, userID, this.PollId, remoteIP);
+            this.GetRepository<PollVote>().Vote(choiceId, userID, this.PollId);
 
             // save the voting cookie...
             var cookieCurrent = string.Empty;
