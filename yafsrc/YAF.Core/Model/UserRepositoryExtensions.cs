@@ -1881,6 +1881,7 @@ namespace YAF.Core.Model
                             IsCrawler = 0,
                             UserCount = 1,
                             u.IsActiveExcluded,
+                            u.IsGuest,
                             u.UserStyle,
                             u.Suspended,
                             u.LastVisit

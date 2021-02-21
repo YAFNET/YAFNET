@@ -34,8 +34,10 @@ namespace YAF.Core.Utilities.Helpers
     using System.Net.Sockets;
     using System.Web;
 
+    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -196,8 +198,8 @@ namespace YAF.Core.Utilities.Helpers
         /// </returns>
         public static bool IsBanned([NotNull] string ban, [NotNull] string chk)
         {
-            CodeContracts.VerifyNotNull(ban, "ban");
-            CodeContracts.VerifyNotNull(chk, "chk");
+            CodeContracts.VerifyNotNull(ban);
+            CodeContracts.VerifyNotNull(chk);
 
             var bannedIP = ban.Trim();
 
@@ -211,8 +213,15 @@ namespace YAF.Core.Utilities.Helpers
                 bannedIP = "127.0.0.1";
             }
 
-            var banCheck = StringToIP(bannedIP);
+            if (bannedIP.Contains("*"))
+            {
+                bannedIP = bannedIP.Replace("*", "0");
+            }
+
+
             var ipCheck = StringToIP(chk);
+
+            var banCheck = StringToIP(bannedIP);
 
             return banCheck.Equals(ipCheck);
         }
@@ -228,7 +237,7 @@ namespace YAF.Core.Utilities.Helpers
         /// </returns>
         public static IPAddress StringToIP([NotNull] string ip)
         {
-            CodeContracts.VerifyNotNull(ip, "ip");
+            CodeContracts.VerifyNotNull(ip);
 
             return IPAddress.Parse(ip);
         }

@@ -26,6 +26,7 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
+    using System.Text;
     using System.Web;
     using System.Web.UI;
 
@@ -155,22 +156,26 @@ namespace YAF.Web.Controls
 
             output.BeginRender();
 
-            if (!this.IsGuest && this.CrawlerName.IsNotSet())
+            var isCrawler = this.CrawlerName.IsSet();
+
+            if (isCrawler)
+            {
+                this.IsGuest = true;
+            }
+
+            if (!this.IsGuest)
             {
                 output.WriteBeginTag("a");
 
                 output.WriteAttribute("href", this.Get<LinkBuilder>().GetUserProfileLink(this.UserID, displayName));
 
+                var cssClass = new StringBuilder();
+
+                cssClass.Append("btn-sm");
+
                 if (this.CanViewProfile && this.IsHoverCardEnabled)
                 {
-                    if (this.CssClass.IsSet())
-                    {
-                        this.CssClass += " btn-sm hc-user";
-                    }
-                    else
-                    {
-                        this.CssClass = " btn-sm hc-user";
-                    }
+                    cssClass.Append(" hc-user");
 
                     output.WriteAttribute(
                         "data-hovercard",
@@ -179,23 +184,9 @@ namespace YAF.Web.Controls
                 else
                 {
                     output.WriteAttribute("title", this.GetText("COMMON", "VIEW_USRPROFILE"));
-
-                    if (this.CssClass.IsSet())
-                    {
-                        if (this.CssClass.Equals("dropdown-toggle"))
-                        {
-                            output.WriteAttribute("data-bs-toggle", "dropdown");
-                            output.WriteAttribute("aria-haspopup", "true");
-                            output.WriteAttribute("aria-expanded", "false");
-                        }
-
-                        this.CssClass += " btn-sm";
-                    }
-                    else
-                    {
-                        this.CssClass = " btn-sm";
-                    }
                 }
+
+                this.CssClass = cssClass.ToString();
 
                 if (this.PageContext.BoardSettings.UseNoFollowLinks)
                 {
@@ -217,13 +208,18 @@ namespace YAF.Web.Controls
             output.Write(HtmlTextWriter.TagRightChar);
 
             // show online icon
-            if (this.PageContext.BoardSettings.ShowUserOnlineStatus && this.CrawlerName.IsNotSet())
+            if (this.PageContext.BoardSettings.ShowUserOnlineStatus && !isCrawler)
             {
                 var onlineStatusIcon = new OnlineStatusIcon { UserId = this.UserID, Suspended = userSuspended };
 
                 onlineStatusIcon.RenderControl(output);
+            }
 
-                output.Write("&nbsp;");
+            if (isCrawler)
+            {
+                var icon = new Icon { IconName = "robot" };
+
+                icon.RenderControl(output);
             }
 
             // Replace Name with Crawler Name if Set, otherwise use regular display name or Replace Name if set
@@ -231,7 +227,7 @@ namespace YAF.Web.Controls
             {
                 output.WriteEncodedText(this.CrawlerName);
             }
-            else if (!this.CrawlerName.IsSet() && this.ReplaceName.IsSet() && this.IsGuest)
+            else if (this.CrawlerName.IsNotSet() && this.ReplaceName.IsSet() && this.IsGuest)
             {
                 output.WriteEncodedText(this.ReplaceName);
             }

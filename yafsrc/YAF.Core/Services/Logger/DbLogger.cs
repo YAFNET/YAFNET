@@ -133,12 +133,14 @@ namespace YAF.Core.Services.Logger
         /// The exception.
         /// </param>
         public void Log(
-            string message,
-            EventLogTypes eventType = EventLogTypes.Error,
-            int? userId = null,
-            string source = null,
-            Exception exception = null)
+            [NotNull] string message,
+            [NotNull] EventLogTypes eventType = EventLogTypes.Error,
+            [CanBeNull] int? userId = null,
+            [CanBeNull] string source = null,
+            [CanBeNull] Exception exception = null)
         {
+            userId ??= BoardContext.Current.User.ID;
+
             if (!this.IsLogTypeEnabled(eventType))
             {
                 return;

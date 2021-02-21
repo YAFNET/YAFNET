@@ -88,17 +88,6 @@ namespace YAF.Web.Controls
             }
         }
 
-        /// <summary>
-        ///   Gets or sets a value indicating whether treat displaying of guest users same way as that of hidden users.
-        /// </summary>
-        public bool TreatGuestAsHidden
-        {
-            get =>
-                this.ViewState["TreatGuestAsHidden"] != null && Convert.ToBoolean(this.ViewState["TreatGuestAsHidden"]);
-
-            set => this.ViewState["TreatGuestAsHidden"] = value;
-        }
-
         /// <summary> 
         /// Gets or sets the Instant ID for this control. 
         /// </summary> 
@@ -190,7 +179,7 @@ namespace YAF.Web.Controls
 
                         // we might not want to add this user link if user is marked as hidden
                         if (user.IsActiveExcluded == true || // or if user is guest and guest should be hidden
-                            this.TreatGuestAsHidden && user.IsGuest == true)
+                            user.IsGuest == true)
                         {
                             // hidden user are always visible to admin and himself)
                             if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)
@@ -209,15 +198,8 @@ namespace YAF.Web.Controls
                         {
                             return;
                         }
-
-                        // vzrus: if guests or crawlers there can be a control with the same id. 
-                        var ul = this.FindControlRecursiveAs<UserLink>(userLink.ID);
-                        if (ul != null)
-                        {
-                            this.Controls.Remove(ul);
-                        }
-
-                        this.Controls.Add(userLink);
+						
+						this.Controls.Add(userLink);
                     });
         }
 
