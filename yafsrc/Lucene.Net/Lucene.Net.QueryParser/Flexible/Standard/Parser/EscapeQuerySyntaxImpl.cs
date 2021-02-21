@@ -1,4 +1,5 @@
-﻿using J2N.Text;
+﻿using J2N.Numerics;
+using J2N.Text;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Util;
@@ -275,7 +276,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
                 if (codePointMultiplier > 0)
                 {
                     codePoint += HexToInt32(curChar) * codePointMultiplier;
-                    codePointMultiplier = (int)((uint)codePointMultiplier >> 4);
+                    codePointMultiplier = codePointMultiplier.TripleShift(4);
                     if (codePointMultiplier == 0)
                     {
                         output[length++] = (char)codePoint;

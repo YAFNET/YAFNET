@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System;
 
 namespace YAF.Lucene.Net.Codecs.Lucene40
@@ -60,7 +60,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 output.WriteString(si.Version);
                 output.WriteInt32(si.DocCount);
 
-                output.WriteByte((byte)(sbyte)(si.UseCompoundFile ? SegmentInfo.YES : SegmentInfo.NO));
+                output.WriteByte((byte)(si.UseCompoundFile ? SegmentInfo.YES : SegmentInfo.NO));
                 output.WriteStringStringMap(si.Diagnostics);
                 output.WriteStringStringMap(Collections.EmptyMap<string, string>());
                 output.WriteStringSet(si.GetFiles());

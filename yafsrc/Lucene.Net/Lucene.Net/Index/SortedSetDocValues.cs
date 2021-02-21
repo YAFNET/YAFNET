@@ -1,3 +1,5 @@
+﻿using J2N.Numerics;
+
 namespace YAF.Lucene.Net.Index
 {
     /*
@@ -83,7 +85,7 @@ namespace YAF.Lucene.Net.Index
 
             while (low <= high)
             {
-                long mid = (int)((uint)(low + high) >> 1);
+                long mid = (low + high).TripleShift(1);
                 LookupOrd(mid, spare);
                 int cmp = spare.CompareTo(key);
 

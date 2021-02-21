@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+﻿using J2N.Numerics;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
@@ -287,7 +288,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
                 }
                 else
                 {
-                    return (int)@in.OrdAt((int)((uint)(count - 1)) >> 1);
+                    return (int)@in.OrdAt((count - 1).TripleShift(1));
                 }
             }
 
@@ -324,7 +325,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
                 }
                 else
                 {
-                    return (int)@in.OrdAt((int)((uint)count >> 1));
+                    return (int)@in.OrdAt(count.TripleShift(1));
                 }
             }
 

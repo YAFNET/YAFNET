@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+﻿using J2N.Numerics;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System.Diagnostics;
@@ -61,7 +62,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
 
             while (hi >= lo)
             {
-                mid = (int)((uint)(lo + hi) >> 1);
+                mid = (lo + hi).TripleShift(1);
                 if (currentOff < offsets[mid])
                 {
                     hi = mid - 1;

@@ -1,5 +1,4 @@
-#if FEATURE_CONCURRENTMERGESCHEDULER
-using J2N.Threading;
+﻿using J2N.Threading;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
@@ -748,4 +747,3 @@ namespace YAF.Lucene.Net.Index
         }
     }
 }
-#endif

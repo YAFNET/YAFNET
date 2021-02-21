@@ -102,7 +102,7 @@ namespace YAF.Lucene.Net.Tartarus.Snowball
         private readonly MethodInfo method;
 
         /// <summary>object to invoke method on</summary>
-        public SnowballProgram MethodObject => MethodObject;
+        public SnowballProgram MethodObject => methodobject;
 
         private readonly SnowballProgram methodobject;
     }

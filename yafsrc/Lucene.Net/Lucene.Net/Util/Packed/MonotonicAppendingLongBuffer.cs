@@ -1,3 +1,4 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
@@ -36,7 +37,7 @@ namespace YAF.Lucene.Net.Util.Packed
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static long ZigZagDecode(long n)
         {
-            return (((long)((ulong)n >> 1)) ^ -(n & 1));
+            return (n.TripleShift(1) ^ -(n & 1));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

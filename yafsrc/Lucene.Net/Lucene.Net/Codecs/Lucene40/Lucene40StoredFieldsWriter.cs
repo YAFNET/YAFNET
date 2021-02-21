@@ -1,4 +1,4 @@
-using J2N;
+﻿using J2N;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
 using System;
@@ -217,7 +217,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 }
             }
 
-            fieldsStream.WriteByte((byte)(sbyte)bits);
+            fieldsStream.WriteByte((byte)bits);
 
             if (bytes != null)
             {
