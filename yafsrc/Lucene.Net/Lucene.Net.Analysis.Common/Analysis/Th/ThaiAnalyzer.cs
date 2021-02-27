@@ -1,4 +1,5 @@
-﻿#if FEATURE_BREAKITERATOR
+// Lucene version compatibility level 4.8.1
+#if FEATURE_BREAKITERATOR
 using YAF.Lucene.Net.Analysis.Core;
 using YAF.Lucene.Net.Analysis.Standard;
 using YAF.Lucene.Net.Analysis.Util;

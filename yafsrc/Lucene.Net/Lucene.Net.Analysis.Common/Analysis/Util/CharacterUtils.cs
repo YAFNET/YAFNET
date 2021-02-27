@@ -1,4 +1,5 @@
-﻿using J2N;
+// Lucene version compatibility level 4.8.1
+using J2N;
 using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;

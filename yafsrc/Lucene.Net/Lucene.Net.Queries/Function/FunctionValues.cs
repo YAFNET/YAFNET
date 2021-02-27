@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Lucene version compatibility level 4.8.1
+using System;
 using System.Globalization;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;

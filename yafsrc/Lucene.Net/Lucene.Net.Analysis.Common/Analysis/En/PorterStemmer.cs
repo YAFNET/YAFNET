@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Support;
+// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Diagnostics.CodeAnalysis;

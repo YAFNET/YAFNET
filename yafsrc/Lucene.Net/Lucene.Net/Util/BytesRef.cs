@@ -1,4 +1,4 @@
-using J2N.Text;
+﻿using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
@@ -42,10 +42,8 @@ namespace YAF.Lucene.Net.Util
 #if FEATURE_SERIALIZABLE
     [Serializable]
 #endif
+    // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     public sealed class BytesRef : IComparable<BytesRef>, IComparable, IEquatable<BytesRef> // LUCENENET specific - implemented IComparable for FieldComparator, IEquatable<BytesRef>
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
     {
         /// <summary>
         /// An empty byte array for convenience </summary>

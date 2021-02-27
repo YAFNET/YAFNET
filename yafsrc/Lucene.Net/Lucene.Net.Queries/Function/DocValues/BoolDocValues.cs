@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Lucene version compatibility level 4.8.1
+using System;
 using YAF.Lucene.Net.Util.Mutable;
 
 namespace YAF.Lucene.Net.Queries.Function.DocValues

@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.Pt;
+// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.Pt;
 using YAF.Lucene.Net.Diagnostics;
 using System.Collections.Generic;
 

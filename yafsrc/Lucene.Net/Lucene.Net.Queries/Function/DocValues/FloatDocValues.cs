@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Util.Mutable;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Util.Mutable;
 using System;
 using System.Globalization;
 

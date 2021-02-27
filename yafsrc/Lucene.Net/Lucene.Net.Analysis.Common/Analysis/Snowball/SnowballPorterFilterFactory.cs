@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.Miscellaneous;
+// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.Miscellaneous;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Tartarus.Snowball;
 using System;

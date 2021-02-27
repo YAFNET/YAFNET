@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -36,10 +36,7 @@ namespace YAF.Lucene.Net.Util
 #if FEATURE_SERIALIZABLE
     [Serializable]
 #endif
-    public sealed class Int32sRef : IComparable<Int32sRef>
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public sealed class Int32sRef : IComparable<Int32sRef> // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         /// <summary>
         /// An empty integer array for convenience.

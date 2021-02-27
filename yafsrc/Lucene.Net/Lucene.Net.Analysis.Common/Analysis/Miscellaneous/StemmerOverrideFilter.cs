@@ -1,4 +1,5 @@
-﻿using J2N;
+// Lucene version compatibility level 4.8.1
+using J2N;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Fst;
