@@ -16,12 +16,20 @@
     "inputFile": "Content/bootstrap/bootstrap.scss"
   },
   {
+    "outputFile": "Content/Themes/zephyr/bootstrap-forum.css",
+    "inputFile": "Content/Themes/zephyr/bootstrap-forum.scss"
+  },
+  {
     "outputFile": "Content/Themes/yaf/bootstrap-forum.css",
     "inputFile": "Content/Themes/yaf/bootstrap-forum.scss"
   },
   {
     "outputFile": "Content/Themes/yeti/bootstrap-forum.css",
     "inputFile": "Content/Themes/yeti/bootstrap-forum.scss"
+  },
+  {
+    "outputFile": "Content/Themes/vapor/bootstrap-forum.css",
+    "inputFile": "Content/Themes/vapor/bootstrap-forum.scss"
   },
   {
     "outputFile": "Content/Themes/united/bootstrap-forum.css",
@@ -56,8 +64,16 @@
     "inputFile": "Content/Themes/sandstone/bootstrap-forum.scss"
   },
   {
+    "outputFile": "Content/Themes/quartz/bootstrap-forum.css",
+    "inputFile": "Content/Themes/quartz/bootstrap-forum.scss"
+  },
+  {
     "outputFile": "Content/Themes/pulse/bootstrap-forum.css",
     "inputFile": "Content/Themes/pulse/bootstrap-forum.scss"
+  },
+  {
+    "outputFile": "Content/Themes/morph/bootstrap-forum.css",
+    "inputFile": "Content/Themes/morph/bootstrap-forum.scss"
   },
   {
     "outputFile": "Content/Themes/minty/bootstrap-forum.css",
@@ -102,5 +118,9 @@
   {
     "outputFile": "Content/Themes/cerulean/bootstrap-forum.css",
     "inputFile": "Content/Themes/cerulean/bootstrap-forum.scss"
+  },
+  {
+    "outputFile": "Content/Themes/morph/bootstrap-forum.css",
+    "inputFile": "Content/Themes/morph/bootstrap-forum.scss"
   }
 ]
