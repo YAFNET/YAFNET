@@ -80,6 +80,7 @@ namespace YAF.Core.Model
                                 b.IsActiveExcluded,
                                 IsCrawler = a.Flags & 8,
                                 b.UserStyle,
+                                b.IsGuest,
                                 b.Suspended,
                                 UserCount = Sql.Custom($"({countSql})"),
                                 a.Browser
@@ -92,6 +93,7 @@ namespace YAF.Core.Model
                                 u.IsActiveExcluded,
                                 u.ID,
                                 u.UserStyle,
+                                u.IsGuest,
                                 u.Suspended,
                                 a.Flags,
                                 a.Browser
@@ -137,6 +139,7 @@ namespace YAF.Core.Model
                         b.IsActiveExcluded,
                         IsCrawler = a.Flags & 8,
                         b.UserStyle,
+                        b.IsGuest,
                         b.Suspended,
                         UserCount = Sql.Custom($"({countSql})"),
                         a.Browser
@@ -149,6 +152,7 @@ namespace YAF.Core.Model
                         u.IsActiveExcluded,
                         u.ID,
                         u.UserStyle,
+                        u.IsGuest,
                         u.Suspended,
                         a.Flags,
                         a.Browser
