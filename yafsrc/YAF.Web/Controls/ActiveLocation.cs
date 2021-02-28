@@ -30,7 +30,7 @@ namespace YAF.Web.Controls
     using System.Web.UI;
 
     using YAF.Configuration;
-    
+
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
@@ -278,9 +278,8 @@ namespace YAF.Web.Controls
                 if (this.HasForumAccess)
                 {
                     outText.AppendFormat(
-                        @"<a href=""{0}"" id=""topicid_{1}""  title=""{2}"" runat=""server""> {3} </a>",
+                        @"<a href=""{0}"" title=""{1}"" data-bs-toggle=""tooltip"">{2}</a>",
                         this.Get<LinkBuilder>().GetTopicLink(this.TopicID, this.TopicName),
-                        this.UserID,
                         this.GetText("COMMON", "VIEW_TOPIC"),
                         HttpUtility.HtmlEncode(this.TopicName));
 
@@ -288,9 +287,8 @@ namespace YAF.Web.Controls
                     {
                         outText.Append(this.GetText("ACTIVELOCATION", "TOPICINFORUM"));
                         outText.AppendFormat(
-                            @"<a href=""{0}"" id=""forumidtopic_{1}"" title=""{2}"" runat=""server""> {3} </a>",
+                            @"<a href=""{0}"" title=""{1}"" data-bs-toggle=""tooltip"">{2}</a>",
                             this.Get<LinkBuilder>().GetForumLink(this.ForumID, this.ForumName),
-                            this.UserID,
                             this.GetText("COMMON", "VIEW_FORUM"),
                             HttpUtility.HtmlEncode(this.ForumName));
                     }
@@ -299,16 +297,15 @@ namespace YAF.Web.Controls
             else if (this.ForumID > 0 && this.TopicID <= 0)
             {
                 // User views a forum
-                if (forumPageName == "topics")
+                if (forumPageName == "Topics")
                 {
                     outText.Append(this.GetText("ACTIVELOCATION", "FORUM"));
 
                     if (this.HasForumAccess)
                     {
                         outText.AppendFormat(
-                            @"<a href=""{0}"" id=""forumid_{1}"" title=""{2}"" runat=""server""> {3} </a>",
+                            @"<a href=""{0}"" title=""{1}"" data-bs-toggle=""tooltip"">{2}</a>",
                             this.Get<LinkBuilder>().GetForumLink(this.ForumID, this.ForumName),
-                            this.UserID,
                             this.GetText("COMMON", "VIEW_FORUM"),
                             HttpUtility.HtmlEncode(this.ForumName));
                     }
@@ -320,17 +317,17 @@ namespace YAF.Web.Controls
                 // an info about user name, etc. 
                 switch (forumPageName)
                 {
-                    case "profile":
-                        outText.Append(this.Profile(forumPageAttributes));
+                    case "Profile":
+                        outText.Append(this.Profile(forumPageAttributes, this.UserName));
                         break;
-                    case "albums":
-                        outText.Append(this.Albums(forumPageAttributes));
+                    case "Albums":
+                        outText.Append(this.Albums(forumPageAttributes, this.UserName));
                         break;
-                    case "album":
-                        outText.Append(this.Album(forumPageAttributes));
+                    case "Album":
+                        outText.Append(this.Album(forumPageAttributes, this.UserName));
                         break;
                     default:
-                        if (forumPageName == "forum" && this.TopicID <= 0 && this.ForumID <= 0)
+                        if (forumPageName == "Board" && this.TopicID <= 0 && this.ForumID <= 0)
                         {
                             outText.Append(
                                 this.ForumPage.Contains("c=")
@@ -342,7 +339,8 @@ namespace YAF.Web.Controls
                             // We shouldn't show moderators activity to all users but admins
                             outText.Append(this.GetText("ACTIVELOCATION", "MODERATE"));
                         }
-                        else if (!BoardContext.Current.User.UserFlags.IsHostAdmin && forumPageName.ToUpper().Contains("ADMIN_"))
+                        else if (!BoardContext.Current.User.UserFlags.IsHostAdmin &&
+                                 forumPageName.ToUpper().Contains("ADMIN_"))
                         {
                             // We shouldn't show admin activity to all users 
                             outText.Append(this.GetText("ACTIVELOCATION", "ADMINTASK"));
@@ -359,8 +357,8 @@ namespace YAF.Web.Controls
 
             var outputText = outText.ToString();
 
-            if (outputText.Contains("ACTIVELOCATION") || outputText.Trim().IsNotSet()
-                                                      || forumPageName.IndexOf("p=", StringComparison.Ordinal) == 0)
+            if (outputText.Contains("ACTIVELOCATION") || outputText.Trim().IsNotSet() ||
+                forumPageName.IndexOf("p=", StringComparison.Ordinal) == 0)
             {
                 if (forumPageName.Contains("p="))
                 {
@@ -391,10 +389,13 @@ namespace YAF.Web.Controls
         /// <param name="forumPageAttributes">
         /// A page query string cleared from page name.
         /// </param>
+        /// <param name="userOrDisplayName">
+        /// The user Or Display Name.
+        /// </param>
         /// <returns>
         /// The string
         /// </returns>
-        private string Album([NotNull] string forumPageAttributes)
+        private string Album([NotNull] string forumPageAttributes, [NotNull] string userOrDisplayName)
         {
             var outString = new StringBuilder();
             var userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2)
@@ -409,8 +410,8 @@ namespace YAF.Web.Controls
                 forumPageAttributes.Substring(forumPageAttributes.IndexOf("a=", StringComparison.Ordinal) + 2);
 
             albumID = albumID.Contains("&")
-                          ? albumID.Substring(0, albumID.IndexOf("&", StringComparison.Ordinal)).Trim()
-                          : albumID.Substring(0).Trim();
+                ? albumID.Substring(0, albumID.IndexOf("&", StringComparison.Ordinal)).Trim()
+                : albumID.Substring(0).Trim();
 
             if (ValidationHelper.IsValidInt(userID) && ValidationHelper.IsValidInt(albumID))
             {
@@ -425,29 +426,27 @@ namespace YAF.Web.Controls
                 // Render
                 if (userId != this.UserID)
                 {
-                    var displayName =
-                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetNameById(userId));
-
                     outString.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
+
                     outString.AppendFormat(
-                        @"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>",
+                        @"<a href=""{0}"">{1}</a>",
                         this.Get<LinkBuilder>().GetLink(ForumPages.Album, "a={0}", albumID),
-                        userID + this.PageContext.PageUserID,
                         HttpUtility.HtmlEncode(albumName));
                     outString.Append(this.GetText("ACTIVELOCATION", "ALBUM_OFUSER"));
+
                     outString.AppendFormat(
-                        @"<a href=""{0}"" id=""albumuserid_{1}"" runat=""server""> {2} </a>",
-                        this.Get<LinkBuilder>().GetUserProfileLink(userId, displayName),
-                        userID,
-                        HttpUtility.HtmlEncode(displayName));
+                        @"<a href=""{0}"" data-bs-toggle=""tooltip"" title=""{1}"">{2}</a>",
+                        this.Get<LinkBuilder>().GetUserProfileLink(userId, userOrDisplayName),
+                        this.GetText("COMMON", "VIEW_USRPROFILE"),
+                        HttpUtility.HtmlEncode(userOrDisplayName));
                 }
                 else
                 {
                     outString.Append(this.GetText("ACTIVELOCATION", "ALBUM_OWN"));
+
                     outString.AppendFormat(
-                        @"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>",
+                        @"<a href=""{0}"">{1}</a>",
                         this.Get<LinkBuilder>().GetLink(ForumPages.Album, "a={0}", albumID),
-                        userID + this.PageContext.PageUserID,
                         HttpUtility.HtmlEncode(albumName));
                 }
             }
@@ -465,10 +464,13 @@ namespace YAF.Web.Controls
         /// <param name="forumPageAttributes">
         /// A page query string cleared from page name.
         /// </param>
+        /// <param name="userOrDisplayName">
+        /// The user Or Display Name.
+        /// </param>
         /// <returns>
         /// The string
         /// </returns>
-        private string Albums([NotNull] string forumPageAttributes)
+        private string Albums([NotNull] string forumPageAttributes, [NotNull] string userOrDisplayName)
         {
             var outString = new StringBuilder();
 
@@ -485,15 +487,13 @@ namespace YAF.Web.Controls
                 }
                 else
                 {
-                    var displayName =
-                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetNameById(userId.ToType<int>()));
+                    outString.Append(this.GetText("ACTIVELOCATION", "ALBUMS_OFUSER"));
 
                     outString.AppendFormat(
-                        @"{3}<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>",
-                        this.Get<LinkBuilder>().GetUserProfileLink(userId, displayName),
-                        userId + this.PageContext.PageUserID,
-                        HttpUtility.HtmlEncode(displayName),
-                        this.GetText("ACTIVELOCATION", "ALBUMS_OFUSER"));
+                        @"<a href=""{0}"" data-bs-toggle=""tooltip"" title=""{1}"">{2}</a>",
+                        this.Get<LinkBuilder>().GetUserProfileLink(userId, userOrDisplayName),
+                        this.GetText("COMMON", "VIEW_USRPROFILE"),
+                        HttpUtility.HtmlEncode(userOrDisplayName));
                 }
             }
             else
@@ -510,17 +510,20 @@ namespace YAF.Web.Controls
         /// <param name="forumPageAttributes">
         /// The forum page attributes.
         /// </param>
+        /// <param name="userOrDisplayName">
+        /// The user Or Display Name.
+        /// </param>
         /// <returns>
         /// The profile.
         /// </returns>
-        private string Profile([NotNull] string forumPageAttributes)
+        private string Profile([NotNull] string forumPageAttributes, [NotNull] string userOrDisplayName)
         {
             var outString = new StringBuilder();
             var userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2);
 
             userID = userID.Contains("&")
-                         ? userID.Substring(0, userID.IndexOf("&", StringComparison.Ordinal)).Trim()
-                         : userID.Substring(0).Trim();
+                ? userID.Substring(0, userID.IndexOf("&", StringComparison.Ordinal)).Trim()
+                : userID.Substring(0).Trim();
 
             if (ValidationHelper.IsValidInt(userID.Trim()))
             {
@@ -528,16 +531,13 @@ namespace YAF.Web.Controls
 
                 if (userId != this.UserID)
                 {
-                    var displayName =
-                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetNameById(userId));
-
                     outString.Append(this.GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
+
                     outString.AppendFormat(
-                        @"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>",
-                        this.Get<LinkBuilder>().GetUserProfileLink(userId, displayName),
-                        userId + this.PageContext.PageUserID,
+                        @"<a href=""{0}"" data-bs-toggle=""tooltip"" title=""{1}"">{2}</a>",
+                        this.Get<LinkBuilder>().GetUserProfileLink(userId, userOrDisplayName),
                         this.GetText("COMMON", "VIEW_USRPROFILE"),
-                        HttpUtility.HtmlEncode(displayName));
+                        HttpUtility.HtmlEncode(userOrDisplayName));
                 }
                 else
                 {
