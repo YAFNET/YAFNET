@@ -272,7 +272,7 @@ namespace YAF.Web.Controls
         {
             writer.Write(
                 @"<div class=""alert alert-success"" role=""alert"">
-                      <a title=""{0}"" alt=""title=""{0}"" href=""{1}""><i class=""fa fa-check fa-fw""></i>{0}</a>
+                      <a title=""{0}"" href=""{1}""><i class=""fa fa-check fa-fw""></i>{0}</a>
                       <button type=""button"" class=""btn-close"" data-bs-dismiss=""alert"" aria-label=""Close"">
                       </button></div>",
                 this.GetText("GO_TO_ANSWER"),

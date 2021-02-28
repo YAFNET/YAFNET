@@ -79,7 +79,15 @@ namespace YAF.Controls
 
                     if (row.IsGroup)
                     {
-                        // Render Moderator User Link
+                        // render mod group
+                        content.Append(
+                            this.PageContext.BoardSettings.EnableDisplayName
+                                    ? row.DisplayName
+                                    : row.Name);
+                    }
+                    else
+                    {
+						// Render Moderator User Link
                         var userLink = new UserLink
                         {
                             Style = row.Style,
@@ -90,14 +98,6 @@ namespace YAF.Controls
                         };
 
                         content.Append(userLink.RenderToString());
-                    }
-                    else
-                    {
-                        // render mod group
-                        content.Append(
-                            this.PageContext.BoardSettings.EnableDisplayName
-                                    ? row.DisplayName
-                                    : row.Name);
                     }
 
                     content.Append(@"</li>");

@@ -145,26 +145,19 @@ namespace YAF.Web.Controls
 
                         reportString.ForEach(
                             t =>
-                                {
-                                    var textString = t.Split("??".ToCharArray());
+                            {
+                                var textString = t.Split("??".ToCharArray());
 
-                                    writer.Write(
-                                        @"<p class=""card-text"">@</span><span class=""ps-1"">{0}</p>",
-                                        this.Get<IDateTimeService>().FormatDateTimeTopic(textString[0]));
+                                writer.Write(
+                                    @"<p class=""card-text"">@<span class=""ps-1"">{0}</span></p>",
+                                    this.Get<IDateTimeService>().FormatDateTimeTopic(textString[0]));
 
-                                    if (textString.Length > 2)
-                                    {
-                                        writer.Write(@"<p class=""card-text"">");
-                                        writer.Write(textString[2]);
-                                        writer.WriteLine(@"</p>");
-                                    }
-                                    else
-                                    {
-                                        writer.WriteLine(@"<p class=""card-text"">");
-                                        writer.Write(t);
-                                        writer.WriteLine(@"</p>");
-                                    }
-                                });
+                                writer.Write(@"<p class=""card-text"">");
+
+                                writer.Write(textString.Length > 2 ? textString[2] : t);
+
+                                writer.WriteLine(@"</p>");
+                            });
 
                         writer.Write("</div>");
                     });

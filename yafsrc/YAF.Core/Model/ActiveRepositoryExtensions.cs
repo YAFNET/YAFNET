@@ -346,14 +346,14 @@ namespace YAF.Core.Model
                     var forumExpression = db.Connection.From<Forum>(db.Connection.TableAlias("f"));
                     forumExpression.Where(
                         $"f.{forumExpression.Column<Forum>(f => f.ID)}={expression.Column<Active>(a => a.ForumID, true)}");
-                    var forumSql = forumExpression.Select(Sql.Count($"{forumExpression.Column<Forum>(x => x.Name)}"))
+                    var forumSql = forumExpression.Select($"{forumExpression.Column<Forum>(x => x.Name)}")
                         .ToSelectStatement();
 
                     var topicExpression = db.Connection.From<Topic>(db.Connection.TableAlias("t"));
                     topicExpression.Where(
                         $"t.{topicExpression.Column<Topic>(f => f.ID)}={expression.Column<Active>(a => a.TopicID, true)}");
                     var topicSql = topicExpression
-                        .Select(Sql.Count($"{topicExpression.Column<Topic>(x => x.TopicName)}")).ToSelectStatement();
+                        .Select($"{topicExpression.Column<Topic>(x => x.TopicName)}").ToSelectStatement();
 
                     expression.Select<User, Rank, Active, ActiveAccess>(
                         (u, r, a, x) => new

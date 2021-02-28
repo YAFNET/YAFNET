@@ -4,6 +4,7 @@
 <%@ Import Namespace="YAF.Types.Models" %>
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -34,12 +35,12 @@
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
                             </span>
                             <%# this.Get<IDateTimeService>().FormatDateTimeShort(((Tuple<Topic, Message, User>)Container.DataItem).Item2.Posted)%>
-                            <span class="fw-bold">
+                            <span class="fw-bold ps-1">
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                     LocalizedTag="POSTEDBY" LocalizedPage="REPORTPOST" />
                             </span>
                             <YAF:UserLink ID="UserName" runat="server" 
-                                          ReplaceName="<%# this.Get<IUserDisplayName>().GetName(((Tuple<Topic, Message, User>)Container.DataItem).Item3) %>"
+                                          ReplaceName="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item3.DisplayOrUserName() %>"
                                           Suspended="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item3.Suspended %>"
                                           Style="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item3.UserStyle %>"
                                           UserID="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item2.UserID %>" />

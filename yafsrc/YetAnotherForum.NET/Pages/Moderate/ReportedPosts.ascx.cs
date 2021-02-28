@@ -208,9 +208,7 @@ namespace YAF.Pages.Moderate
                 case "viewhistory":
 
                     // go to history page
-                    var ff = e.CommandArgument.ToString().Split(',');
-                    this.Get<HttpResponseBase>().Redirect(
-                      this.Get<LinkBuilder>().GetLink(ForumPages.MessageHistory, "f={0}&m={1}", ff[0], ff[1]));
+                    this.Get<LinkBuilder>().Redirect(ForumPages.MessageHistory, "f={0}&m={1}", this.PageContext.PageForumID, e.CommandArgument.ToType<int>());
                     break;
                 case "resolved":
 

@@ -108,7 +108,7 @@
                         <YAF:ThemeButton ID="ViewHistoryBtn" runat="server" 
                                          TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="HISTORY" 
                                          Visible="<%# (string)(Container.DataItem as dynamic).OriginalMessage != (string)(Container.DataItem as dynamic).Message%>"
-                                         CommandName="ViewHistory" CommandArgument='<%# "{0},{1}".Fmt(this.PageContext.PageForumID, (int)(Container.DataItem as dynamic).MessageID) %>'
+                                         CommandName="ViewHistory" CommandArgument='<%# (Container.DataItem as dynamic).MessageID %>'
                                          Icon="history" 
                                          Type="Secondary" />
                     </div>

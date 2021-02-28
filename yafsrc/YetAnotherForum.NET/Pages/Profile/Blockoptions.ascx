@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Profile.BlockOptions" CodeBehind="BlockOptions.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Models" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -71,7 +72,7 @@
                             <YAF:UserLink runat="server" 
                                           Suspended="<%# ((User)Container.DataItem).Suspended %>"
                                           Style="<%# ((User)Container.DataItem).UserStyle %>"
-                                          ReplaceName="<%# this.Get<IUserDisplayName>().GetName((User)Container.DataItem) %>"
+                                          ReplaceName="<%# ((User)Container.DataItem).DisplayOrUserName() %>"
                                           UserID="<%# ((User)Container.DataItem).ID %>"/>
                             <YAF:ThemeButton runat="server"
                                              Type="Secondary"

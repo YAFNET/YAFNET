@@ -16,7 +16,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
-                                        IconName="globe"
+                                        IconName="folder"
                                         Text='<%# this.Eval( "Name") %>'
                                         LocalizedPage="ADMIN_BOARDS"></YAF:IconHeader>
                     </div>

@@ -59,13 +59,6 @@ namespace YAF.Types.Models
         public int? UserID { get; set; }
 
         /// <summary>
-        /// Gets or sets the remote IP.
-        /// </summary>
-        [Index]
-        [StringLength(39)]
-        public string RemoteIP { get; set; }
-
-        /// <summary>
         /// Gets or sets the choice id.
         /// </summary>
         public int? ChoiceID { get; set; }

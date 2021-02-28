@@ -28,6 +28,7 @@ namespace YAF.Controls
     using System;
 
     using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Utilities.Helpers;
     using YAF.Types;
@@ -120,9 +121,7 @@ namespace YAF.Controls
             // Newest Member
             this.StatsNewestMember.Text = this.GetText("stats_lastmember");
             this.NewestMemberUserLink.UserID = latestUser.ID;
-            this.NewestMemberUserLink.ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
-                ? latestUser.DisplayName
-                : latestUser.Name;
+            this.NewestMemberUserLink.ReplaceName = latestUser.DisplayOrUserName();
             this.NewestMemberUserLink.Style = latestUser.UserStyle;
             this.NewestMemberUserLink.Suspended = latestUser.Suspended;
 

@@ -133,7 +133,7 @@ namespace YAF.Web.Controls
                             sb.Append(workingMessage.Substring(0, match.Groups[0].Index));
 
                             // create/render the control...
-                            var module = BuildManager.GetType(codeRow.ModuleClass, true, false);
+                            var module = Type.GetType(codeRow.ModuleClass, true, false);
                             var customModule = (BBCodeControl)Activator.CreateInstance(module);
 
                             // assign parameters...
