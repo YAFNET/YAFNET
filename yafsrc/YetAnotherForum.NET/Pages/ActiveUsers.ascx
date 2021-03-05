@@ -70,7 +70,7 @@
 				        <td>				
 					        <YAF:ActiveLocation ID="ActiveLocation2" 
                                                 UserID="<%# (Container.DataItem as dynamic).UserID %>"
-                                                UserName="<%# (Container.DataItem as dynamic).UserName %>" 
+                                                UserName="<%# (this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).UserDisplayName : (Container.DataItem as dynamic).UserName %>" 
                                                 HasForumAccess="<%# (Container.DataItem as dynamic).HasForumAccess %>" 
                                                 ForumPage="<%#(Container.DataItem as dynamic).ForumPage %>"
                                                 ForumID="<%# (Container.DataItem as dynamic).ForumID == null ? 0 : (Container.DataItem as dynamic).ForumID %>" 
