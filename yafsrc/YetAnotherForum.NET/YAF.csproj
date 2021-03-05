@@ -1155,7 +1155,6 @@
       <LastGenOutput>Install.de.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Content Include="BuildScripts\MSBuild.ExtensionPack.Tasks.Targets" />
     <Content Include="Content\bootstrap-tagsinput.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap\bootstrap.css">
@@ -3250,9 +3249,6 @@
     <Content Include="App_Browsers\OceanAppleWebKit.browser" />
     <Content Include="App_Browsers\OceanSpiders.browser" />
     <Content Include="App_Browsers\w3cvalidator.browser" />
-    <None Include="BuildScripts\MSBuild.Community.Tasks.Targets">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="BuildScripts\YAF.Package.targets">
       <SubType>Designer</SubType>
     </None>
@@ -3478,7 +3474,6 @@ del *.xml</PostBuildEvent>
   <PropertyGroup>
     <Extension>zip</Extension>
     <PackageName>YAF</PackageName>
-    <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\BuildScripts</MSBuildCommunityTasksPath>
     <CreatePackages>false</CreatePackages>
   </PropertyGroup>
   <Import Project="BuildScripts\YAF.Package.Targets" />
@@ -3660,7 +3655,5 @@ del *.xml</PostBuildEvent>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
-    <Error Condition="!Exists('..\packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets'))" />
   </Target>
-  <Import Project="..\packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets" Condition="Exists('..\packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets')" />
 </Project>
