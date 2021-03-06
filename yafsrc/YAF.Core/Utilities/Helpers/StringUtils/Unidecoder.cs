@@ -59,7 +59,7 @@ namespace YAF.Core.Utilities.Helpers.StringUtils
             }
 
             var output = new StringBuilder();
-            foreach (var c in input.ToCharArray())
+            foreach (var c in input)
             {
                 if (c < 0x80)
                 {

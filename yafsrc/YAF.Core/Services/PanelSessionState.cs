@@ -93,7 +93,7 @@ namespace YAF.Core.Services
                 // create persistent cookie with visibility setting for panel
                 var c = new HttpCookie(sessionPanelID, ((int)value).ToString())
                 {
-                    Expires = System.DateTime.UtcNow.AddYears(1)
+                    Expires = System.DateTime.UtcNow.AddYears(1), HttpOnly = false
                 };
 
                 BoardContext.Current.Get<HttpResponseBase>().SetCookie(c);

@@ -69,8 +69,8 @@ namespace YAF.Core.Services
 
             try
             {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 |
-                                                       SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault |
+                                                       SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 
                 var test = "https://api.github.com/repos/YAFNET/YAFNET/releases/latest".GetJsonFromUrl(
                     x => x.UserAgent = "YAF.NET");

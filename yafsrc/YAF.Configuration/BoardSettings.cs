@@ -1963,7 +1963,7 @@ namespace YAF.Configuration
         /// </summary>
         public string IPInfoPageURL
         {
-            get => this.Registry.GetValue("IPInfoPageURL", "http://www.ip2location.com/{0}");
+            get => this.Registry.GetValue("IPInfoPageURL", "https://www.ip2location.com/{0}");
 
             set => this.Registry.SetValue("IPInfoPageURL", value);
         }
@@ -1973,7 +1973,7 @@ namespace YAF.Configuration
         /// </summary>
         public string IPLocatorUrlPath
         {
-            get => this.Registry.GetValue("IPLocatorUrlPath", "http://api.ipinfodb.com/v3/ip-city/?key=<your_api_key>&ip={0}");
+            get => this.Registry.GetValue("IPLocatorUrlPath", "https://api.ipinfodb.com/v3/ip-city/?key=<your_api_key>&ip={0}");
 
             set => this.Registry.SetValue("IPLocatorUrlPath", value);
         }

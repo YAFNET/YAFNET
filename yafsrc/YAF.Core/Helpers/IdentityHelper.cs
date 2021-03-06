@@ -71,8 +71,8 @@ namespace YAF.Core.Helpers
         {
             var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
 
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 |
-                                                   SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault |
+                                                   SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 
             BoardContext.Current.Get<IAuthenticationManager>().Challenge(properties, provider);
         }

@@ -58,7 +58,9 @@ namespace YAF.UrlRewriter.Conditions
                 return this._regex;
             }
 
-            lock (this)
+            var lockObj = new object();
+
+            lock (lockObj)
             {
                 this._regex ??= new Regex(context.ResolveLocation(this.Pattern), RegexOptions.IgnoreCase);
             }

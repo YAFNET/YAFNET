@@ -75,7 +75,7 @@ namespace YAF.Core.Services.CheckForSpam
         {
             try
             {
-                const string BotScoutUrl = "http://www.botscout.com/test/?multi";
+                const string BotScoutUrl = "https://www.botscout.com/test/?multi";
 
                 var url =
                     $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(BoardContext.Current.BoardSettings.BotScoutApiKey.IsSet() ? $"&key={BoardContext.Current.BoardSettings.BotScoutApiKey}" : string.Empty)}";

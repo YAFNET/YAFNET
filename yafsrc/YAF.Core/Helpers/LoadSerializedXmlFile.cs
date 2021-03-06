@@ -74,7 +74,9 @@ namespace YAF.Core.Helpers
                 return null;
             }
 
-            lock (this)
+            var lockObj = new object();
+
+            lock (lockObj)
             {
                 var serializer = new XmlSerializer(typeof(T));
                 var sourceEncoding = GetEncodingForXmlFile(xmlFileName);

@@ -534,8 +534,6 @@ namespace YAF.Web.Controls
         /// </returns>
         private static string GetApplicationStateTotals()
         {
-            HttpRuntime.Cache["Avbob.Security.User"] =
-                HttpRuntime.Cache["Avbob.Security.User"];
             var stringBuilder = new StringBuilder();
             var count = HttpRuntime.Cache.Count;
             var byteSize = 0L;

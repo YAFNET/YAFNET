@@ -67,7 +67,10 @@ namespace YAF.Controls
         protected void AcceptClick(object sender, EventArgs e)
         {
             this.PageContext.Get<HttpResponseBase>().SetCookie(
-                new HttpCookie("YAF-AcceptCookies", "true") { Expires = DateTime.UtcNow.AddYears(1) });
+                new HttpCookie("YAF-AcceptCookies", "true")
+                {
+                    Expires = DateTime.UtcNow.AddYears(1), HttpOnly = false
+                });
 
             this.Response.Redirect(this.Request.RawUrl);
 

@@ -139,7 +139,8 @@ namespace YAF.Core.Events
                 // set the last visit cookie...
                 var httpCookie = new HttpCookie(previousVisitKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture))
                     {
-                       Expires = DateTime.Now.AddMonths(6) 
+                       Expires = DateTime.Now.AddMonths(6),
+                       HttpOnly = false
                     };
                 this._responseBase.Cookies.Add(httpCookie);
             }
