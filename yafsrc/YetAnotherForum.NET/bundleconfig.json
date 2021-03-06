@@ -2,7 +2,7 @@
   {
     "outputFileName": "Scripts/InstallWizard.comb.js",
     "inputFiles": [
-      "Scripts/jquery-3.5.1.js",
+      "Scripts/jquery-3.6.0.js",
       "Scripts/select2.js",
       "Scripts/bootstrap.bundle.js",
       "Scripts/forum/InstallWizard.js"
