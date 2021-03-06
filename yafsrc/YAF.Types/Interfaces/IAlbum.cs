@@ -106,7 +106,7 @@ namespace YAF.Types.Interfaces
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="localizationFile">The localization file.</param>
-        /// <param name="preview">if set to <c>true</c> [preview cropped].</param>
-        void GetResponseImagePreview([NotNull] HttpContext context, string localizationFile, bool preview);
+        /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
+        void GetResponseImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped);
     }
 }

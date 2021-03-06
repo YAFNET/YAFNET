@@ -131,45 +131,45 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Gets the last time the forum was read.
         /// </summary>
-        /// <param name="forumID">
+        /// <param name="forumId">
         /// This is the ID of the forum you wish to get the last read date from.
         /// </param>
         /// <returns>
         /// A DateTime object of when the forum was last read.
         /// </returns>
-        DateTime GetForumRead(int forumID);
+        DateTime GetForumRead(int forumId);
 
         /// <summary>
-        /// Returns the last time that the topicID was read.
+        /// Returns the last time that the topic Id was read.
         /// </summary>
-        /// <param name="topicID">
+        /// <param name="topicId">
         /// The topicID you wish to find the DateTime object for.
         /// </param>
         /// <returns>
-        /// The DateTime object from the topicID.
+        /// The DateTime object from the topic Id.
         /// </returns>
-        DateTime GetTopicRead(int topicID);
+        DateTime GetTopicRead(int topicId);
 
         /// <summary>
         /// Sets the time that the forum was read.
         /// </summary>
-        /// <param name="forumID">
-        /// The forum ID that was read.
+        /// <param name="forumId">
+        /// The forum Id that was read.
         /// </param>
         /// <param name="date">
         /// The DateTime you wish to set the read to.
         /// </param>
-        void SetForumRead(int forumID, DateTime date);
+        void SetForumRead(int forumId, DateTime date);
 
         /// <summary>
-        /// Sets the time that the <paramref name="topicID"/> was read.
+        /// Sets the time that the <paramref name="topicId"/> was read.
         /// </summary>
-        /// <param name="topicID">
-        /// The topic ID that was read.
+        /// <param name="topicId">
+        /// The topic Id that was read.
         /// </param>
         /// <param name="date">
         /// The DateTime you wish to set the read to.
         /// </param>
-        void SetTopicRead(int topicID, DateTime date);
+        void SetTopicRead(int topicId, DateTime date);
     }
 }

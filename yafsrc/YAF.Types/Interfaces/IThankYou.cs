@@ -88,8 +88,8 @@ namespace YAF.Types.Interfaces
         /// <param name="username">
         /// The username.
         /// </param>
-        /// <param name="messageID">
-        /// The Message ID.
+        /// <param name="messageId">
+        /// The Message Id.
         /// </param>
         /// <param name="thanksInfoOnly">
         /// The thank Info Only.
@@ -97,6 +97,6 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The thanks info.
         /// </returns>
-        string ThanksInfo([NotNull] string username, int messageID, bool thanksInfoOnly);
+        string ThanksInfo([NotNull] string username, int messageId, bool thanksInfoOnly);
     }
 }

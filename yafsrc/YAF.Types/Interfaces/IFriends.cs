@@ -33,15 +33,15 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Adds a buddy request.
         /// </summary>
-        /// <param name="toUserID">
-        /// The to User ID.
+        /// <param name="toUserId">
+        /// The to User Id.
         /// </param>
         /// <returns>
         /// The name of the second user + whether this request is approved or not. (This request
         /// is approved without the target user's approval if the target user has sent a buddy request
         /// to current user too or if the current user is already in the target user's buddy list.
         /// </returns>
-        bool AddRequest(int toUserID);
+        bool AddRequest(int toUserId);
 
         /// <summary>
         /// Approves all buddy requests for the current user.
@@ -54,7 +54,7 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Approves a buddy request.
         /// </summary>
-        /// <param name="toUserID">
+        /// <param name="toUserId">
         /// the to user id.
         /// </param>
         /// <param name="mutual">
@@ -63,7 +63,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        bool ApproveRequest(int toUserID, bool mutual);
+        bool ApproveRequest(int toUserId, bool mutual);
 
         /// <summary>
         /// Gets all the buddies of the current user.
@@ -76,10 +76,10 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Clears the buddies cache for the current user.
         /// </summary>
-        /// <param name="userID">
-        /// The User ID.
+        /// <param name="userId">
+        /// The User Id.
         /// </param>
-        void ClearCache(int userID);
+        void ClearCache(int userId);
 
         /// <summary>
         /// Denies all buddy requests for the current user.
@@ -97,19 +97,19 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Gets all the buddies for the specified user.
         /// </summary>
-        /// <param name="userID">
+        /// <param name="userId">
         ///     The user id.
         /// </param>
         /// <returns>
         /// a List of all buddies.
         /// </returns>
-        List<dynamic> GetForUser(int userID);
+        List<dynamic> GetForUser(int userId);
 
         /// <summary>
-        /// determines if the "<paramref name="buddyUserID"/>" and current user are buddies.
+        /// determines if the "<paramref name="buddyUserId"/>" and current user are buddies.
         /// </summary>
-        /// <param name="buddyUserID">
-        /// The Buddy User ID.
+        /// <param name="buddyUserId">
+        /// The Buddy User Id.
         /// </param>
         /// <param name="approved">
         /// Just look into approved buddies?
@@ -117,17 +117,17 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// true if they are buddies, <see langword="false"/> if not.
         /// </returns>
-        bool IsBuddy(int buddyUserID, bool approved);
+        bool IsBuddy(int buddyUserId, bool approved);
 
         /// <summary>
-        /// Removes the "<paramref name="toUserID"/>" from current user's buddy list.
+        /// Removes the "<paramref name="toUserId"/>" from current user's buddy list.
         /// </summary>
-        /// <param name="toUserID">
+        /// <param name="toUserId">
         /// The to user id.
         /// </param>
         /// <returns>
         /// The name of the second user.
         /// </returns>
-        string Remove(int toUserID);
+        string Remove(int toUserId);
     }
 }
