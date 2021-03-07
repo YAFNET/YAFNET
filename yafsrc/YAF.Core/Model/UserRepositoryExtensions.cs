@@ -821,8 +821,24 @@ namespace YAF.Core.Model
 
             dynamic data = new ExpandoObject();
 
-            data.UsrSigChars = groupMax.usrSigChars > rankMax.usrSigChars ? groupMax.usrSigChars : rankMax.usrSigChars;
-            data.UsrSigBBCodes = groupMax.usrSigBBCodes.Length > rankMax.usrSigBBCodes.Length ? groupMax.usrSigBBCodes : rankMax.usrSigBBCodes;
+            try
+            {
+                data.UsrSigChars = groupMax.usrSigChars > rankMax.usrSigChars ? groupMax.usrSigChars : rankMax.usrSigChars;
+            }
+            catch (Exception exception)
+            {
+                data.UsrSigChars = 0;
+            }
+
+            try
+            {
+                data.UsrSigBBCodes = groupMax.usrSigBBCodes.Length > rankMax.usrSigBBCodes.Length ? groupMax.usrSigBBCodes : rankMax.usrSigBBCodes;
+            }
+            catch (Exception exception)
+            {
+                data.UsrSigBBCodes = string.Empty;
+            }
+            
 
             return data;
         }

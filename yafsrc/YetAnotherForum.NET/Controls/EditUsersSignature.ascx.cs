@@ -133,14 +133,32 @@ namespace YAF.Controls
         /// </summary>
         protected void BindData()
         {
-            this.user = this.PageContext.CurrentForumPage.IsAdminPage
-                ? this.GetRepository<User>().GetById(this.CurrentUserID)
-                : this.PageContext.User;
+            if (!this.Visible)
+            {
+                return;
+            }
+
+            this.user =
+                this.PageContext.CurrentForumPage.IsAdminPage ||
+                this.PageContext.ForumPageType == ForumPages.UserProfile
+                    ? this.GetRepository<User>().GetById(this.CurrentUserID)
+                    : this.PageContext.User;
 
             this.signatureEditor.Text = this.user.Signature;
 
             this.signaturePreview.Signature = this.signatureEditor.Text;
             this.signaturePreview.DisplayUserID = this.CurrentUserID;
+
+            var data = this.GetRepository<User>().SignatureData(this.CurrentUserID, this.PageContext.PageBoardID);
+
+            if (data == null)
+            {
+                return;
+            }
+
+            this.allowedBbcodes = (string)data.UsrSigBBCodes.Trim().Trim(',').Trim();
+
+            this.allowedNumberOfCharacters = (int)data.UsrSigChars;
         }
 
         /// <summary>
@@ -149,15 +167,6 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            var data = this.GetRepository<User>().SignatureData(this.CurrentUserID, this.PageContext.PageBoardID);
-
-            if (data != null)
-            {
-                this.allowedBbcodes = (string)data.UsrSigBBCodes.Trim().Trim(',').Trim();
-
-                this.allowedNumberOfCharacters = (int)data.UsrSigChars;
-            }
-
             // Quick Reply Modification Begin
             this.signatureEditor = new CKEditorBBCodeEditorBasic
                                        {

@@ -236,6 +236,8 @@ namespace YAF.Pages
 
             this.ModerateTab.Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
 
+            this.SignatureEditControl.Visible = this.ModerateTab.Visible;
+
             this.AdminUserButton.Visible = this.PageContext.IsAdmin;
 
             if (this.LastPosts.Visible)

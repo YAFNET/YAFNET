@@ -46,6 +46,17 @@ namespace YAF.Core.Services
     /// </summary>
     public class Permissions : IPermissions, IHaveServiceLocator
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Permissions"/> class.
+        /// </summary>
+        /// <param name="serviceLocator">
+        /// The service locator.
+        /// </param>
+        public Permissions([NotNull] IServiceLocator serviceLocator)
+        {
+            this.ServiceLocator = serviceLocator;
+        }
+
         #region Properties
 
         /// <summary>
