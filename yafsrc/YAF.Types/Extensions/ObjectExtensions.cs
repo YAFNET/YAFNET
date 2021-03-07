@@ -296,8 +296,7 @@ namespace YAF.Types.Extensions
                 // Make sure we're not dealing 
                 if (!getValue.StartsWith("{"))
                 {
-                    // with a string literal wrapped in {}
-                    // Get the object's value using DataBinder.Eval.
+                    // with a string literal wrapped in {} Get the object's value using DataBinder.Eval.
                     var resultAsObject = DataBinder.Eval(anObject, getValue);
 
                     // Format the value based on the incoming formatProvider 

@@ -163,19 +163,19 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static string GenerateRandomString(int length, [NotNull] string pickFrom)
         {
-            CodeContracts.VerifyNotNull(pickFrom, "pickfrom");
+            CodeContracts.VerifyNotNull(pickFrom);
 
             var r = new Random();
-            var result = string.Empty;
+            var result = new StringBuilder();
             var pickFromLength = pickFrom.Length - 1;
 
             for (var i = 0; i < length; i++)
             {
                 var index = r.Next(pickFromLength);
-                result += pickFrom.Substring(index, 1);
+                result.Append(pickFrom.Substring(index, 1));
             }
 
-            return result;
+            return result.ToString();
         }
 
         /// <summary>

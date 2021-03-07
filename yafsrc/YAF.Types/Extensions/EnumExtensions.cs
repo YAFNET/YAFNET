@@ -44,6 +44,7 @@ namespace YAF.Types.Extensions
         /// Gets all items for an enum type.
         /// </summary>
         /// <typeparam name="T">
+        /// the Typed Parameter
         /// </typeparam>
         /// <returns>
         /// The <see cref="IEnumerable"/>.
@@ -96,14 +97,12 @@ namespace YAF.Types.Extensions
         /// </typeparam>
         /// <returns>
         /// </returns>
-        /// <exception cref="ApplicationException">
-        /// </exception>
         public static T ToEnum<T>(this int value)
         {
             var enumType = typeof(T);
             if (enumType.BaseType != typeof(Enum))
             {
-                throw new ApplicationException("ToEnum does not support non-enum types");
+                throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
             }
 
             return (T)Enum.Parse(enumType, value.ToString());
@@ -118,15 +117,14 @@ namespace YAF.Types.Extensions
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
+        /// The <see cref="T"/>.
         /// </returns>
-        /// <exception cref="ApplicationException">
-        /// </exception>
         public static T ToEnum<T>(this string value)
         {
             var enumType = typeof(T);
             if (enumType.BaseType != typeof(Enum))
             {
-                throw new ApplicationException("ToEnum does not support non-enum types");
+                throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
             }
 
             return (T)Enum.Parse(enumType, value);
@@ -145,14 +143,12 @@ namespace YAF.Types.Extensions
         /// </typeparam>
         /// <returns>
         /// </returns>
-        /// <exception cref="ApplicationException">
-        /// </exception>
         public static T ToEnum<T>(this string value, bool ignoreCase)
         {
             var enumType = typeof(T);
             if (enumType.BaseType != typeof(Enum))
             {
-                throw new ApplicationException("ToEnum does not support non-enum types");
+                throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
             }
 
             return (T)Enum.Parse(enumType, value, ignoreCase);
@@ -168,14 +164,12 @@ namespace YAF.Types.Extensions
         /// </typeparam>
         /// <returns>
         /// </returns>
-        /// <exception cref="ApplicationException">
-        /// </exception>
         public static T ToEnum<T>(this object value)
         {
             var enumType = typeof(T);
             if (enumType.BaseType != typeof(Enum))
             {
-                throw new ApplicationException("ObjToEnum does not support non-enum types");
+                throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
             }
 
             return (T)Enum.Parse(enumType, value.ToString());
@@ -188,7 +182,7 @@ namespace YAF.Types.Extensions
         /// The value.
         /// </param>
         /// <returns>
-        /// The to int.
+        /// The Integer value.
         /// </returns>
         public static int ToInt(this Enum value)
         {

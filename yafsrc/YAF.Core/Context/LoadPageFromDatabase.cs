@@ -102,9 +102,6 @@ namespace YAF.Core.Context
         /// <param name="event">
         /// The event.
         /// </param>
-        /// <exception cref="ApplicationException">Failed to find guest user.</exception>
-        /// <exception cref="ApplicationException">Failed to create new user.</exception>
-        /// <exception cref="ApplicationException">Unable to find the Guest User!</exception>
         public void Handle([NotNull] InitPageLoadEvent @event)
         {
             try

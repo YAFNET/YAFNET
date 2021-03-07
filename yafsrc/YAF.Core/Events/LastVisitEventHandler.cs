@@ -140,7 +140,7 @@ namespace YAF.Core.Events
                 var httpCookie = new HttpCookie(previousVisitKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture))
                     {
                        Expires = DateTime.Now.AddMonths(6),
-                       HttpOnly = false
+                       HttpOnly = true
                     };
                 this._responseBase.Cookies.Add(httpCookie);
             }

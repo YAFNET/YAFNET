@@ -97,7 +97,7 @@ namespace YAF.Core.ForumModules
                 // Create the non-persistent CSRF cookie
                 var responseCookie = new HttpCookie(AntiXsrfTokenKey)
                 {
-                    HttpOnly = false,
+                    HttpOnly = true,
                     Value = this.antiXsrfTokenValue
                 };
 
