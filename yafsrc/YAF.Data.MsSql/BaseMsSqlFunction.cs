@@ -87,8 +87,8 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// The execute.
         /// </summary>
-        /// <param name="dbfunctionType">
-        /// The dbfunction type.
+        /// <param name="functionType">
+        /// The function type.
         /// </param>
         /// <param name="operationName">
         /// The operation name.
@@ -104,7 +104,7 @@ namespace YAF.Data.MsSql
         /// The execute.
         /// </returns>
         public virtual bool Execute(
-            DatabaseFunctionType dbfunctionType,
+            DatabaseFunctionType functionType,
             [NotNull] string operationName,
             [NotNull] IEnumerable<KeyValuePair<string, object>> parameters,
             [CanBeNull] out object result,
@@ -128,7 +128,7 @@ namespace YAF.Data.MsSql
                         var operationSuccessful = this.RunOperation(
                             sqlConnection,
                             transaction,
-                            dbfunctionType,
+                            functionType,
                             operationName,
                             parameters,
                             out result);
@@ -176,11 +176,11 @@ namespace YAF.Data.MsSql
         /// <param name="sqlConnection">
         /// The sql connection.
         /// </param>
-        /// <param name="dbTransaction">
+        /// <param name="transaction">
         /// The unit Of Work.
         /// </param>
-        /// <param name="dbfunctionType">
-        /// The dbfunction type.
+        /// <param name="functionType">
+        /// The function type.
         /// </param>
         /// <param name="operationName">
         /// The operation name.
@@ -196,8 +196,8 @@ namespace YAF.Data.MsSql
         /// </returns>
         protected abstract bool RunOperation(
             [NotNull] SqlConnection sqlConnection,
-            [NotNull] IDbTransaction dbTransaction,
-            DatabaseFunctionType dbfunctionType,
+            [NotNull] IDbTransaction transaction,
+            DatabaseFunctionType functionType,
             [NotNull] string operationName,
             [NotNull] IEnumerable<KeyValuePair<string, object>> parameters,
             [CanBeNull] out object result);

@@ -84,17 +84,17 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// Check if Tasks are Running.
         /// </summary>
-        /// <param name="instanceNames">
+        /// <param name="instanceName">
         /// The instance Names.
         /// </param>
         /// <returns>
         /// The tasks are running.
         /// </returns>
-        public virtual bool AreTasksRunning([NotNull] string[] instanceNames)
+        public virtual bool AreTasksRunning([NotNull] string[] instanceName)
         {
             var isRunning = false;
             
-            foreach (var s in instanceNames)
+            foreach (var s in instanceName)
             {
                 isRunning = this.TryGetTask(s, out var task) && task.IsRunning;
                 if (isRunning)
@@ -126,13 +126,13 @@ namespace YAF.Core.Tasks
         /// <param name="instanceName">
         /// Unique name of this task
         /// </param>
-        /// <param name="start">
+        /// <param name="startTask">
         /// Task to run
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public abstract bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> start);
+        public abstract bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> startTask);
 
         /// <summary>
         /// Stops a task from running if it's not critical

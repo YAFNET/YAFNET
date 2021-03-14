@@ -70,13 +70,13 @@ namespace YAF.Data.MsSql
         /// <param name="cmd">
         /// The cmd. 
         /// </param>
-        /// <param name="keyValueParams">
+        /// <param name="parameters">
         /// The key value params. 
         /// </param>
-        protected override void MapParameters(IDbCommand cmd, IEnumerable<KeyValuePair<string, object>> keyValueParams)
+        protected override void MapParameters(IDbCommand cmd, IEnumerable<KeyValuePair<string, object>> parameters)
         {
             // convert to list so there is no chance of multiple iterations.
-            var paramList = keyValueParams.ToList();
+            var paramList = parameters.ToList();
 
             // handle positional stored procedure parameter call
             if (cmd.CommandType == CommandType.StoredProcedure && paramList.Any() && !paramList.All(x => x.Key.IsSet()))

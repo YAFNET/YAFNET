@@ -102,7 +102,7 @@ namespace YAF.Core.Services
         /// </param>
         public void ApproveAllRequests(bool mutual)
         {
-            var dt = this.ListAll().Where(x => x.Approved == true && x.UserID == BoardContext.Current.PageUserID);
+            var dt = this.ListAll().Where(x => (bool)x.Approved && x.UserID == BoardContext.Current.PageUserID);
 
             dt.ForEach(drv => this.ApproveRequest((int)drv.FromUserID, mutual));
         }

@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <asp:Repeater runat="server" ID="List" OnItemCommand="List_ItemCommand">
+                <asp:Repeater runat="server" ID="List">
                     <HeaderTemplate>
                         <ul class="list-group list-group-flush">
                     </HeaderTemplate>
@@ -48,16 +48,6 @@
                             <span class="text-truncate">
                                 <%# this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
                             </span>
-                            <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
-                                                 CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>' 
-                                                 CssClass="ms-2"
-                                                 TitleLocalizedTag="DELETE" 
-                                                 Size="Small"
-                                                 TextLocalizedTag="DELETE"
-                                                 Icon="trash"
-                                                 Type="Danger"
-                                                 ReturnConfirmText='<%#this.GetText("ATTACHMENTS", "CONFIRM_DELETE") %>'>
-                                </YAF:ThemeButton>
                         </li>
                     </ItemTemplate>
                     <FooterTemplate>

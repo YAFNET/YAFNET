@@ -30,13 +30,11 @@ namespace YAF.Web.Controls
     using System.Web.UI;
 
     using YAF.Core.BaseControls;
-    using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Web.EventsArgs;
 
     #endregion
 
@@ -48,12 +46,7 @@ namespace YAF.Web.Controls
         #region Constants and Fields
 
         /// <summary>
-        ///   The _goto page form.
-        /// </summary>
-        private readonly GotoPageForm gotoPageForm = new();
-
-        /// <summary>
-        ///   The _ignore page index.
+        ///   The ignore page index.
         /// </summary>
         private bool ignorePageIndex;
 
@@ -180,33 +173,27 @@ namespace YAF.Web.Controls
                 this.CurrentPageIndex =
                     this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p")) - 1;
             }
-
-            this.gotoPageForm.ID = this.GetExtendedID("GotoPageForm");
-
-            this.Controls.Add(this.gotoPageForm);
-
-            // hook up events...
-            this.gotoPageForm.GotoPageClick += this.GotoPageClick;
         }
 
         /// <summary>
         /// The render.
         /// </summary>
-        /// <param name="output">
+        /// <param name="writer">
         /// The output.
         /// </param>
-        protected override void Render([NotNull] HtmlTextWriter output)
+        protected override void Render([NotNull] HtmlTextWriter writer)
         {
             if (this.PageCount() < 2)
             {
                 return;
             }
 
-            output.Write(@"<div class=""btn-toolbar pagination"" role=""toolbar"">");
+            writer.Write(@"<div class=""btn-toolbar pagination"" role=""toolbar"">");
 
-            output.WriteLine(
-                @"<div class=""btn-group me-2 mb-1"" role=""group"">
-                      <button type=""button"" title=""{0}"" class=""btn btn-secondary dropdown-toggle"" data-bs-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
+            writer.Write(@"<div class=""btn-group mb-1"" role=""group"">");
+
+            writer.WriteLine(
+                @"<button type=""button"" title=""{0}"" class=""btn btn-secondary disabled"" aria-disabled=""true"">
                           <i class=""fas fa-copy""></i>&nbsp;{1:N0} {2}
                       </button>",
                 this.Get<ILocalization>().TransPage.IsSet()
@@ -215,23 +202,9 @@ namespace YAF.Web.Controls
                 this.PageCount(),
                 this.GetText("COMMON", "PAGES"));
 
-            output.Write(@"<div class=""dropdown-menu"">");
+            this.OutputLinks(writer, this.UsePostBack);
 
-            output.Write(@"<div class=""px-3 py-1"">");
-            output.Write(@"<div class=""mb-3"" data-max=""{0}"" data-min=""1"">", this.PageCount());
-
-            this.gotoPageForm.RenderControl(output);
-
-            output.Write("</div></div>");
-
-            output.Write("</div>");
-            output.Write("</div>");
-
-            output.Write(@"<div class=""btn-group mb-1"" role=""group"">");
-
-            this.OutputLinks(output, this.UsePostBack);
-
-            output.WriteLine("</div></div>");
+            writer.WriteLine("</div></div>");
         }
 
         /// <summary>
@@ -354,25 +327,6 @@ namespace YAF.Web.Controls
                 DataToggle = "tooltip",
                 Icon = "angle-double-right"
             }.RenderControl(output);
-        }
-
-        /// <summary>
-        /// Handles the GotoPageClick event of the _gotoPageForm control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="GotoPageForumEventArgs"/> instance containing the event data.</param>
-        private void GotoPageClick([NotNull] object sender, [NotNull] GotoPageForumEventArgs e)
-        {
-            var newPage = e.GotoPage - 1;
-
-            if (newPage >= 0 && newPage < this.PageCount())
-            {
-                // set a new page index...
-                this.CurrentPageIndex = newPage;
-                this.ignorePageIndex = true;
-            }
-
-            this.PageChange?.Invoke(this, new EventArgs());
         }
 
         #endregion

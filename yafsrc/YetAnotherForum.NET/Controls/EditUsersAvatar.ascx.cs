@@ -295,7 +295,6 @@ namespace YAF.Controls
                 ? this.GetRepository<User>().GetById(this.currentUserId)
                 : this.PageContext.User;
 
-            this.AvatarImg.Visible = true;
             this.DeleteAvatar.Visible = false;
             this.NoAvatar.Visible = false;
 
@@ -370,7 +369,7 @@ namespace YAF.Controls
                 var emailHash = s.ToString();
 
                 var gravatarUrl =
-                    $"http://www.gravatar.com/avatar/{emailHash}.jpg?r={this.PageContext.BoardSettings.GravatarRating}";
+                    $"https://www.gravatar.com/avatar/{emailHash}.jpg?r={this.PageContext.BoardSettings.GravatarRating}";
 
                 this.AvatarImg.ImageUrl =
                     gravatarUrl;

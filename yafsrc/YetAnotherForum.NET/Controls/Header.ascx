@@ -72,14 +72,6 @@
                                                             LocalizedTag="admin_pageaccesslist"/>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="<%= this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Profiler) %>"
-                                       class="<%= this.PageContext.ForumPageType == ForumPages.Admin_Profiler ? "dropdown-item active" : "dropdown-item" %>">
-                                        <YAF:Icon runat="server" IconName="diagnoses" />
-                                        <YAF:LocalizedLabel runat="server" 
-                                                            LocalizedTag="admin_profiler"/>
-                                    </a>
-                                </li>
                         </ul>
                   </li>
                     </asp:PlaceHolder>

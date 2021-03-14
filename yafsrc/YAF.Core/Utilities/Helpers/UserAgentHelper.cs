@@ -123,7 +123,7 @@ namespace YAF.Core.Utilities.Helpers
                 .Select(m => m.Trim().ToLowerInvariant());
 
             return requestBase.UserAgent != null && requestBase.UserAgent.IsSet()
-                   && mobileContains.Any(s => requestBase.UserAgent.IndexOf(s, StringComparison.OrdinalIgnoreCase) > 0);
+                   && mobileContains.Any(s => requestBase.UserAgent.Contains(s));
         }
 
         /// <summary>
@@ -171,72 +171,72 @@ namespace YAF.Core.Utilities.Helpers
 
             if (userAgent.Contains("Windows NT "))
             {
-                if (userAgent.IndexOf("Windows NT 10", StringComparison.Ordinal) >= 0)
+                if (userAgent.Contains("Windows NT 10"))
                 {
                     platform = "Windows 10";
                 }
-                else if (userAgent.IndexOf("Windows NT 6.3", StringComparison.Ordinal) >= 0)
+                else if (userAgent.Contains("Windows NT 6.3"))
                 {
                     platform = "Windows 8.1";
                 }
-                else if (userAgent.IndexOf("Windows NT 6.2", StringComparison.Ordinal) >= 0)
+                else if (userAgent.Contains("Windows NT 6.2"))
                 {
                     platform = "Windows 8";
                 }
-                else if (userAgent.IndexOf("Windows NT 6.1", StringComparison.Ordinal) >= 0)
+                else if (userAgent.Contains("Windows NT 6.1"))
                 {
                     platform = "Windows 7";
                 }
-                else if (userAgent.IndexOf("Windows NT 6.0", StringComparison.Ordinal) >= 0)
+                else if (userAgent.Contains("Windows NT 6.0"))
                 {
                     platform = "Windows Vista";
                 }
-                else if (userAgent.IndexOf("Windows NT 5.1", StringComparison.Ordinal) >= 0)
+                else if (userAgent.Contains("Windows NT 5.1"))
                 {
                     platform = "Windows XP";
                 }
-                else if (userAgent.IndexOf("Windows NT 5.2", StringComparison.Ordinal) >= 0)
+                else if (userAgent.Contains("Windows NT 5.2"))
                 {
                     platform = "Windows 2003";
                 }
             }
-            else if (userAgent.IndexOf("Linux", StringComparison.Ordinal) >= 0)
+            else if (userAgent.Contains("Linux"))
             {
                 platform = "Linux";
             }
-            else if (userAgent.IndexOf("FreeBSD", StringComparison.Ordinal) >= 0)
+            else if (userAgent.Contains("FreeBSD"))
             {
                 platform = "FreeBSD";
             }
-            else if (userAgent.IndexOf("iPad", StringComparison.Ordinal) >= 0)
+            else if (userAgent.Contains("iPad"))
             {
                 platform = "iPad(iOS)";
             }
-            else if (userAgent.IndexOf("iPhone", StringComparison.Ordinal) >= 0)
+            else if (userAgent.Contains("iPhone"))
             {
                 platform = "iPhone(iOS)";
             }
-            else if (userAgent.IndexOf("iPod", StringComparison.Ordinal) >= 0)
+            else if (userAgent.Contains("iPod"))
             {
                 platform = "iPod(iOS)";
             }
-            else if (userAgent.IndexOf("WindowsMobile", StringComparison.Ordinal) >= 0)
+            else if (userAgent.Contains("WindowsMobile"))
             {
                 platform = "WindowsMobile";
             }
-            else if (userAgent.IndexOf("Windows Phone OS", StringComparison.Ordinal) >= 0)
+            else if (userAgent.Contains("Windows Phone OS"))
             {
                 platform = "Windows Phone";
             }
-            else if (userAgent.IndexOf("webOS", StringComparison.Ordinal) >= 0)
+            else if (userAgent.Contains("webOS"))
             {
                 platform = "WebOS";
             }
-            else if (userAgent.IndexOf("Android", StringComparison.Ordinal) >= 0)
+            else if (userAgent.Contains("Android"))
             {
                 platform = "Android";
             }
-            else if (userAgent.IndexOf("Mac OS X", StringComparison.Ordinal) >= 0)
+            else if (userAgent.Contains("Mac OS X"))
             {
                 platform = "Mac OS X";
             }

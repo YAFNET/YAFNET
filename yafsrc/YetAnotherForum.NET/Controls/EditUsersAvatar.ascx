@@ -11,28 +11,25 @@
                                 LocalizedTag="title" />
             </div>
             <div class="card-body">
-                <asp:PlaceHolder runat="server" ID="avatarImageTD">
-                    <h5 class="card-title">
-                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
-                                            LocalizedPage="EDIT_AVATAR"
-                                            LocalizedTag="AvatarCurrent" />
-                    </h5>
-                    <p class="card-text">
-                        <asp:Image ID="AvatarImg" runat="server" 
-                                   Visible="true" 
-                                   AlternateText="Image"
-                                   CssClass="img-thumbnail"/>
-                    </p>
-                    <asp:Label runat="server" ID="NoAvatar" Visible="false" />
-                    <YAF:ThemeButton runat="server" ID="DeleteAvatar"
-                                     Type="Danger"
-                                     Icon="trash"
-                                     TextLocalizedTag="AVATARDELETE"
-                                     ReturnConfirmText='<%# this.GetText("EDIT_AVATAR", "AVATARDELETE") %>'
-                                     Visible="false"
-                                     OnClick="DeleteAvatar_Click" />
-                    <hr />
-                </asp:PlaceHolder>
+                <h5 class="card-title">
+                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
+                                        LocalizedPage="EDIT_AVATAR"
+                                        LocalizedTag="AvatarCurrent" />
+                </h5>
+                <p class="card-text">
+                    <asp:Image ID="AvatarImg" runat="server" 
+                               AlternateText="Image"
+                               CssClass="img-thumbnail"/>
+                </p>
+                <asp:Label runat="server" ID="NoAvatar" Visible="false" />
+                <YAF:ThemeButton runat="server" ID="DeleteAvatar"
+                                 Type="Danger"
+                                 Icon="trash"
+                                 TextLocalizedTag="AVATARDELETE"
+                                 ReturnConfirmText='<%# this.GetText("EDIT_AVATAR", "AVATARDELETE") %>'
+                                 Visible="false"
+                                 OnClick="DeleteAvatar_Click" />
+                <hr />
                 <asp:PlaceHolder runat="server" ID="AvatarOurs">
                     <div class="mb-3">
                         <h4>

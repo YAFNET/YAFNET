@@ -205,13 +205,6 @@ namespace YAF.Pages.Admin
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            // setup jQuery and DatePicker JS...
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-                "DatePickerJs",
-                JavaScriptBlocks.DatePickerLoadJs(
-                    this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
-                    this.GetText("COMMON", "CAL_JQ_CULTURE")));
-
             this.PageContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
 
             this.PageContext.PageElements.RegisterJsBlock(
@@ -288,17 +281,17 @@ namespace YAF.Pages.Admin
             if (this.PageContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
             {
                 this.SinceDate.Text = PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
+
                 this.ToDate.Text = PersianDateConverter.ToPersianDate(PersianDate.Now).ToString("d");
             }
             else
             {
-                this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.PageContext.BoardSettings.EventLogMaxDays).ToString(
-                                             ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
-                this.ToDate.Text = DateTime.UtcNow.Date.ToString(
-                                             ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
-            }
+                this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.PageContext.BoardSettings.EventLogMaxDays).ToString("yyyy-MM-dd");
+                this.SinceDate.TextMode = TextBoxMode.Date;
 
-            this.ToDate.ToolTip = this.SinceDate.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
+                this.ToDate.Text = DateTime.UtcNow.Date.ToString("yyyy-MM-dd");
+                this.ToDate.TextMode = TextBoxMode.Date;
+            }
 
             // bind data to controls
             this.BindData();

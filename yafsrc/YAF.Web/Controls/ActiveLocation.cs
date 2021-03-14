@@ -185,10 +185,10 @@ namespace YAF.Web.Controls
         /// <summary>
         /// The render.
         /// </summary>
-        /// <param name="output">
+        /// <param name="writer">
         /// The output.
         /// </param>
-        protected override void Render([NotNull] HtmlTextWriter output)
+        protected override void Render([NotNull] HtmlTextWriter writer)
         {
             var forumPageName = this.ForumPage;
             string forumPageAttributes = null;
@@ -229,7 +229,7 @@ namespace YAF.Web.Controls
                     {
                         forumPageAttributes = forumPageName.Substring(
                             0,
-                            forumPageName.IndexOf("&", StringComparison.Ordinal) > 0
+                            forumPageName.Contains("&")
                                 ? forumPageName.IndexOf("&", StringComparison.Ordinal)
                                 : forumPageName.Length - 1);
 
@@ -238,7 +238,7 @@ namespace YAF.Web.Controls
                 }
             }
 
-            output.BeginRender();
+            writer.BeginRender();
 
             // All pages should be processed in call frequency order 
             // We are in messages
@@ -378,9 +378,9 @@ namespace YAF.Web.Controls
                 }
             }
 
-            output.Write(outputText);
+            writer.Write(outputText);
 
-            output.EndRender();
+            writer.EndRender();
         }
 
         /// <summary>

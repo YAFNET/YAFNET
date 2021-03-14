@@ -29,6 +29,7 @@ namespace YAF.Types.Exceptions
     /// <summary>
     /// The No TopicRow Exception
     /// </summary>
+    [Serializable]
     public class NoTopicRowException : Exception
     {
         /// <summary>

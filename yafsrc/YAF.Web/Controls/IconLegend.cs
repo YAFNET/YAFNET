@@ -55,17 +55,6 @@ namespace YAF.Web.Controls
 
         #region Methods
 
-        /// <summary>
-        /// The render.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected override void Render([NotNull] HtmlTextWriter writer)
-        {
-            base.Render(writer);
-        }
-
         /// <summary>Gets the topic icon.</summary>
         /// <param name="themeImageTag">The theme image tag.</param>
         /// <returns>Returns the topic icon.</returns>
@@ -142,7 +131,6 @@ namespace YAF.Web.Controls
             // add a table control
             var table = new HtmlGenericControl("div");
 
-            // table.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "container");
             this.Controls.Add(table);
 
             for (var i = 0; i < themeImageTags.Length; i++)

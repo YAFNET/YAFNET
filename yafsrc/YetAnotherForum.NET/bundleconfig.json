@@ -29,7 +29,6 @@
       "Scripts/moment-with-locales.js",
       "Scripts/bootstrap.bundle.js",
       "Scripts/bootbox.js",
-      "Scripts/bootstrap-datetimepicker.js",
       "Scripts/bootstrap-notify.js",
       "Scripts/jquery.bootstrap-touchspin.js",
       "Scripts/select2.js",
@@ -61,7 +60,6 @@
     "inputFiles": [
       "Scripts/moment-with-locales.js",
       "Scripts/bootbox.js",
-      "Scripts/bootstrap-datetimepicker.js",
       "Scripts/bootstrap-notify.js",
       "Scripts/jquery.bootstrap-touchspin.js",
       "Scripts/select2.js",

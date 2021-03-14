@@ -70,10 +70,10 @@ namespace YAF.Web.Controls
         /// <summary>
         /// The render.
         /// </summary>
-        /// <param name="output">
+        /// <param name="writer">
         /// The output.
         /// </param>
-        protected override void Render([NotNull] HtmlTextWriter output)
+        protected override void Render([NotNull] HtmlTextWriter writer)
         {
             if (!this.Visible)
             {
@@ -88,43 +88,43 @@ namespace YAF.Web.Controls
                     this.PageContext.BoardSettings.ActiveListTime),
                 TimeSpan.FromMilliseconds(BoardContext.Current.BoardSettings.OnlineStatusCacheTimeout));
 
-            output.BeginRender();
-            output.WriteBeginTag(HtmlTextWriterTag.Span.ToString());
-            output.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
+            writer.BeginRender();
+            writer.WriteBeginTag(HtmlTextWriterTag.Span.ToString());
+            writer.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
 
             if (this.Suspended.HasValue)
             {
                 // suspended
-                output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-warning user-suspended me-1");
-                output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetTextFormatted("USERSUSPENDED", this.Suspended.Value));
-                output.WriteAttribute("data-bs-toggle", "tooltip");
+                writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-warning user-suspended me-1");
+                writer.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetTextFormatted("USERSUSPENDED", this.Suspended.Value));
+                writer.WriteAttribute("data-bs-toggle", "tooltip");
             }
             else
             {
-                if (activeUsers.Any(x => (int)x.UserID == this.UserId && x.IsActiveExcluded == false))
+                if (activeUsers.Any(x => (int)x.UserID == this.UserId && !x.IsActiveExcluded))
                 {
                     // online
-                    output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-success user-online me-1");
-                    output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USERONLINESTATUS"));
-                    output.WriteAttribute("data-bs-toggle", "tooltip");
+                    writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-success user-online me-1");
+                    writer.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USERONLINESTATUS"));
+                    writer.WriteAttribute("data-bs-toggle", "tooltip");
                 }
                 else
                 {
                     // offline
-                    output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-danger user-offline me-1");
-                    output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USEROFFLINESTATUS"));
-                    output.WriteAttribute("data-bs-toggle", "tooltip");
+                    writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-danger user-offline me-1");
+                    writer.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USEROFFLINESTATUS"));
+                    writer.WriteAttribute("data-bs-toggle", "tooltip");
                 }
             }
 
-            output.Write(HtmlTextWriter.TagRightChar);
+            writer.Write(HtmlTextWriter.TagRightChar);
 
-            output.Write(@"<i class=""fas fa-user-circle"" style=""font-size: 1.5em""></i>");
+            writer.Write(@"<i class=""fas fa-user-circle"" style=""font-size: 1.5em""></i>");
 
             // render the optional controls (if any)
-            base.Render(output);
-            output.WriteEndTag(HtmlTextWriterTag.Span.ToString());
-            output.EndRender();
+            base.Render(writer);
+            writer.WriteEndTag(HtmlTextWriterTag.Span.ToString());
+            writer.EndRender();
         }
 
         #endregion

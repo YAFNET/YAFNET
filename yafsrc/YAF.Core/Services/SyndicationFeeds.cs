@@ -189,7 +189,7 @@ namespace YAF.Core.Services
                 var writer = new XmlTextWriter(this.Get<HttpResponseBase>().OutputStream, Encoding.UTF8);
                 writer.WriteStartDocument();
 
-                // write the feed to the response writer);
+                // write the feed to the response writer
                 var atomFormatter = new Atom10FeedFormatter(feed);
                 atomFormatter.WriteTo(writer);
 

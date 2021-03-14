@@ -827,7 +827,6 @@ namespace YAF.Core.Services
 
             var hitsLimit = this.Get<BoardSettings>().ReturnSearchMax;
 
-            // 0 => Lucene error;
             if (hitsLimit == 0)
             {
                 hitsLimit = pageSize;

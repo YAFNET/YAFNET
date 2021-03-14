@@ -111,7 +111,7 @@ namespace YAF.Core.Services
                         context.Server.MapPath(
                             $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload");
 
-                    var fileName = oldFileName;
+                    string fileName;
 
                     if (File.Exists(oldFileName))
                     {
@@ -214,7 +214,7 @@ namespace YAF.Core.Services
                         context.Server.MapPath(
                             $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload");
 
-                    var fileName = oldFileName;
+                    string fileName;
 
                     if (File.Exists(oldFileName))
                     {

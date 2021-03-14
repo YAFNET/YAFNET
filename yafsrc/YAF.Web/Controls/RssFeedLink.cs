@@ -73,8 +73,8 @@ namespace YAF.Web.Controls
         /// <summary>
         /// Renders the specified output.
         /// </summary>
-        /// <param name="output">The output.</param>
-        protected override void Render([NotNull] HtmlTextWriter output)
+        /// <param name="writer">The output.</param>
+        protected override void Render([NotNull] HtmlTextWriter writer)
         {
             if (!this.Visible)
             {
@@ -86,7 +86,7 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            output.BeginRender();
+            writer.BeginRender();
 
             new ThemeButton
             {
@@ -100,9 +100,9 @@ namespace YAF.Web.Controls
                     "feed={0}{1}",
                     this.FeedType.ToInt(),
                     this.AdditionalParameters.IsNotSet() ? string.Empty : $"&{this.AdditionalParameters}")
-            }.RenderControl(output);
+            }.RenderControl(writer);
 
-            output.EndRender();
+            writer.EndRender();
         }
 
         #endregion

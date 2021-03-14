@@ -85,7 +85,7 @@ namespace YAF.Web.Controls
             sb.Append("</ul>"); 
             
             sb.Append("</div>");
-            sb.AppendFormat("</div>");
+            sb.Append("</div>");
 
             writer.WriteLine(sb.ToString());
 

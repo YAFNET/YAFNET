@@ -724,13 +724,6 @@
     <Compile Include="Pages\Admin\BBCode_Edit.ascx.designer.cs">
       <DependentUpon>BBCode_Edit.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Admin\Profiler.ascx.cs">
-      <DependentUpon>Profiler.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\Admin\Profiler.ascx.designer.cs">
-      <DependentUpon>Profiler.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Admin\Boards.ascx.designer.cs">
       <DependentUpon>Boards.ascx</DependentUpon>
     </Compile>
@@ -2100,7 +2093,6 @@
     <Content Include="Pages\Admin\ProfileDefinitions.ascx" />
     <Content Include="Pages\Admin\BannedEmails.ascx" />
     <Content Include="Pages\Admin\BannedNames.ascx" />
-    <Content Include="Pages\Admin\Profiler.ascx" />
     <Content Include="Pages\Admin\Restore.ascx" />
     <Content Include="Pages\Admin\BoardAnnouncement.ascx" />
     <Content Include="Pages\Admin\SpamLog.ascx" />
@@ -2251,7 +2243,6 @@
     <Content Include="Scripts\blueimp-gallery\blueimp-gallery.js" />
     <Content Include="Scripts\blueimp-gallery\jquery.blueimp-gallery.js" />
     <Content Include="Scripts\bootbox.js" />
-    <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <None Include="Content\forum-admin.scss" />
     <None Include="bundleconfig.json" />
@@ -2788,13 +2779,6 @@
     <Content Include="Scripts\InstallWizard.comb.js" />
     <Content Include="Scripts\InstallWizard.comb.min.js">
       <DependentUpon>InstallWizard.comb.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery-3.5.1.js" />
-    <Content Include="Scripts\jquery-3.5.1.min.js">
-      <DependentUpon>jquery-3.5.1.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery-3.5.1.min.map">
-      <DependentUpon>jquery-3.5.1.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
@@ -3646,7 +3630,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

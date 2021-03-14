@@ -235,21 +235,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.PreRender" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-                "DatePickerJs",
-                JavaScriptBlocks.DatePickerLoadJs(
-                    this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
-                    this.GetText("COMMON", "CAL_JQ_CULTURE")));
-
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -614,12 +599,10 @@ namespace YAF.Controls
                 this.Birthday.Text =
                     this.User.Item2.Profile_Birthday > DateTimeHelper.SqlDbMinTime() ||
                     this.User.Item2.Profile_Birthday.IsNullOrEmptyField()
-                        ? this.User.Item2.Profile_Birthday.Date.ToString(
-                            this.CurrentCultureInfo.DateTimeFormat.ShortDatePattern,
-                            CultureInfo.InvariantCulture)
-                        : DateTimeHelper.SqlDbMinTime().Date.ToString(
-                            this.CurrentCultureInfo.DateTimeFormat.ShortDatePattern,
-                            CultureInfo.InvariantCulture);
+                        ? this.User.Item2.Profile_Birthday.Date.ToString("yyyy-MM-dd")
+                        : DateTimeHelper.SqlDbMinTime().Date.ToString("yyyy-MM-dd");
+
+                this.Birthday.TextMode = TextBoxMode.Date;
             }
 
             this.Birthday.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");

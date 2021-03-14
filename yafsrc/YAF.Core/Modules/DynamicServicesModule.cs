@@ -57,16 +57,16 @@ namespace YAF.Core.Modules
         /// <summary>
         /// The load.
         /// </summary>
-        /// <param name="containerBuilder">
+        /// <param name="builder">
         /// The container builder.
         /// </param>
-        protected override void Load(ContainerBuilder containerBuilder)
+        protected override void Load(ContainerBuilder builder)
         {
             // external first...
-            RegisterDynamicServices(containerBuilder, ExtensionAssemblies);
+            RegisterDynamicServices(builder, ExtensionAssemblies);
 
             // internal bindings next...
-            RegisterDynamicServices(containerBuilder, new[] { Assembly.GetExecutingAssembly() });
+            RegisterDynamicServices(builder, new[] { Assembly.GetExecutingAssembly() });
         }
 
         /// <summary>

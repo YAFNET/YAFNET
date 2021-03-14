@@ -170,7 +170,6 @@ namespace YAF.Core.Services
 
             this.Get<StartupInitializeDb>().Run();
 
-            // newTitle = System.Web.HttpUtility.HtmlEncode(newTitle);
             this.GetRepository<UserAlbum>().UpdateTitle(albumId, newTitle);
 
             var returnObject = new ReturnClass { NewTitle = newTitle };
@@ -201,7 +200,6 @@ namespace YAF.Core.Services
 
             this.Get<StartupInitializeDb>().Run();
 
-            // newCaption = System.Web.HttpUtility.HtmlEncode(newCaption);
             this.GetRepository<UserAlbumImage>().UpdateCaption(imageId, newCaption);
             var returnObject = new ReturnClass { NewTitle = newCaption };
 
@@ -253,8 +251,8 @@ namespace YAF.Core.Services
                 // output stream...
                 context.Response.OutputStream.Write(ms.ToArray(), 0, ms.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
-                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
+                context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 
                 ms.Dispose();
@@ -337,8 +335,8 @@ namespace YAF.Core.Services
                 // output stream...
                 context.Response.OutputStream.Write(data.ToArray(), 0, data.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
-                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
+                context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 
                 data.Dispose();
@@ -501,8 +499,8 @@ namespace YAF.Core.Services
                 // output stream...
                 context.Response.OutputStream.Write(data.ToArray(), 0, data.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
-                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
+                context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 
                 data.Dispose();

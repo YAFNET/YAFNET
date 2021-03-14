@@ -29,6 +29,7 @@ namespace YAF.Types.Exceptions
     /// <summary>
     ///     The DB function cancelled exception.
     /// </summary>
+    [Serializable]
     public class DbFunctionCancelledException : Exception
     {
         #region Constructors and Destructors

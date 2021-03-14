@@ -44,29 +44,19 @@
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                             <div class="px-3 py-1">
                                <div class="mb-3">
-                        <YAF:HelpLabel ID="SinceDateLabel" runat="server" 
-                                       AssociatedControlID="SinceDate"
-                                       LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="SINCEDATE" />
-                     
-                        <div class='input-group mb-3 date datepickerinput'>
-                            <button class="btn btn-secondary datepickerbutton" type="button">
-                                <i class="fa fa-calendar-day fa-fw"></i>
-                            </button>
-                            <asp:TextBox ID="SinceDate" runat="server" CssClass="form-control"></asp:TextBox>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <YAF:HelpLabel ID="ToDateLabel" runat="server" 
-                                       AssociatedControlID="ToDate"
-                                       LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TODATE" />
-                         
-                        <div class='input-group mb-3 date datepickerinput'>
-                            <button class="btn btn-secondary datepickerbutton" type="button">
-                                <i class="fa fa-calendar-day fa-fw"></i>
-                            </button>
-                            <asp:TextBox ID="ToDate" runat="server" CssClass="form-control"></asp:TextBox>
-                        </div>
-                    </div>
+                                   <YAF:HelpLabel ID="SinceDateLabel" runat="server" 
+                                                  AssociatedControlID="SinceDate"
+                                                  LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="SINCEDATE" />
+                                   <asp:TextBox ID="SinceDate" runat="server" 
+                                                CssClass="form-control"></asp:TextBox>
+                               </div>
+                                <div class="mb-3">
+                                    <YAF:HelpLabel ID="ToDateLabel" runat="server" 
+                                                   AssociatedControlID="ToDate"
+                                                   LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TODATE" />
+                                    <asp:TextBox ID="ToDate" runat="server" 
+                                                 CssClass="form-control"></asp:TextBox>
+                                </div>
                                 <div class="mb-3 d-grid gap-2">
                                     <YAF:ThemeButton ID="ApplyButton" runat="server"
                                                      Type="Primary" 

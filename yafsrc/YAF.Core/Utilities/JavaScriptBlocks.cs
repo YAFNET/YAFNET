@@ -327,42 +327,6 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         }
 
         /// <summary>
-        /// Generates a BootStrap DateTimePicker Script
-        /// </summary>
-        /// <param name="dateFormat">Localized Date Format</param>
-        /// <param name="culture">Current Culture</param>
-        /// <returns>
-        /// The Load JS.
-        /// </returns>
-        public static string DatePickerLoadJs([NotNull] string dateFormat, [NotNull] string culture)
-        {
-            var cultureJs = string.Empty;
-
-            dateFormat = dateFormat.ToUpper();
-
-            if (culture.IsSet())
-            {
-                cultureJs = $", locale: '{culture}'";
-            }
-
-            return $@"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadDatePicker);
-                  function loadDatePicker() {{	
-                                 {Config.JQueryAlias}(document).ready(function() {{ 
-                                {Config.JQueryAlias}('.datepickerinput').datetimepicker({{
-                                                        format: '{dateFormat}'{cultureJs},icons:{{
-                                                        time: 'fa fa-clock fa-fw',
-                                                        date: 'fa fa-calendar fa-fw',
-                                                        up: 'fa fa-chevron-up fa-fw',
-                                                        down: 'fa fa-chevron-down fa-fw',
-                                                        previous: 'fa fa-chevron-left fa-fw',
-                                                        next: 'fa fa-chevron-right fa-fw',
-                                                        today: 'fa fa-sun fa-fw',
-                                                        clear: 'fa fa-trash fa-fw',
-                                                        close: 'fa fa-times fa-fw'
-        }}}}); }});}} ";
-        }
-
-        /// <summary>
         /// Gets the Bootstrap Tab Load JS.
         /// </summary>
         /// <param name="tabId">The tab Id.</param>

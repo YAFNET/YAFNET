@@ -105,10 +105,10 @@ namespace YAF.Web.Controls
         /// <summary>
         /// Shows the localized text string (if available)
         /// </summary>
-        /// <param name="output">The output.</param>
-        protected override void Render(HtmlTextWriter output)
+        /// <param name="writer">The output.</param>
+        protected override void Render(HtmlTextWriter writer)
         {
-            output.BeginRender();
+            writer.BeginRender();
 
             if (string.IsNullOrEmpty(this.IconType))
             {
@@ -122,20 +122,20 @@ namespace YAF.Web.Controls
                 icon.IconStyle = this.IconStyle;
             }
 
-            icon.RenderControl(output);
+            icon.RenderControl(writer);
 
             if (this.Text.IsSet())
             {
-                output.Write(this.Text);
+                writer.Write(this.Text);
             }
             else
             {
                 var header = this.GetText(this.LocalizedPage, this.LocalizedTag).Fmt(this.Param0, this.Param1, this.Param2);
 
-                output.Write(header);
+                writer.Write(header);
             }
 
-            output.EndRender();
+            writer.EndRender();
         }
 
         #endregion

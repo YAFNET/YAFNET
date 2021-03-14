@@ -265,7 +265,7 @@ namespace YAF.Core.Services
         /// The formatted message.
         /// </returns>
         [NotNull]
-        [Obsolete]
+        [Obsolete("Remove Table")]
         public string FormatSyndicationMessage(
             [NotNull] string message,
             [NotNull] MessageFlags messageFlags,

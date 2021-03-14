@@ -593,12 +593,9 @@ namespace YAF.Core.Helpers
                     exists = true;
                 }
             }
-            else if (email != null)
+            else if (email != null && this.Get<IAspNetUsersHelper>().FindUsersByEmail(email).Any())
             {
-                if (this.Get<IAspNetUsersHelper>().FindUsersByEmail(email).Any())
-                {
-                    exists = true;
-                }
+                exists = true;
             }
 
             return exists;

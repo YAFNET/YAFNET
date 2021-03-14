@@ -37,6 +37,7 @@ namespace YAF.Pages.Profile
     using YAF.Core.Utilities;
     using YAF.Core.Utilities.Helpers;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -63,23 +64,6 @@ namespace YAF.Pages.Profile
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Handles the ItemCommand event of the List control.
-        /// </summary>
-        /// <param name="source">The source of the event.</param>
-        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-        {
-            switch (e.CommandName)
-            {
-                case "delete":
-                    this.GetRepository<Attachment>().Delete(e.CommandArgument.ToType<int>());
-
-                    this.BindData();
-                    break;
-            }
-        }
 
         /// <summary>
         /// The pager top_ page change.
@@ -172,12 +156,19 @@ namespace YAF.Pages.Profile
         /// </param>
         protected void DeleteAttachments_Click(object sender, EventArgs e)
         {
-            (from RepeaterItem item in this.List.Items
+            var items = (from RepeaterItem item in this.List.Items
              where item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem
              where item.FindControlAs<CheckBox>("Selected").Checked
-             select item).ForEach(
-                item => this.GetRepository<Attachment>().DeleteById(
-                    item.FindControlAs<ThemeButton>("ThemeButtonDelete").CommandArgument.ToType<int>()));
+             select item).ToList();
+
+            if (items.Any())
+            {
+                items.ForEach(
+                    item => this.GetRepository<Attachment>().DeleteById(
+                        item.FindControlAs<ThemeButton>("ThemeButtonDelete").CommandArgument.ToType<int>()));
+
+                this.PageContext.AddLoadMessage(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
+            }
             
             this.BindData();
         }

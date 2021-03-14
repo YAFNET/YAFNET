@@ -201,14 +201,11 @@ namespace YAF.Web.Controls
                 "data-bs-content",
                 $@"{topicStarterLink.RenderToString()}{dateTimeIcon}{span}{formattedStartedDatetime}</span>");
 
-            if (this.TopicItem.LastMessageID.HasValue)
+            if (this.TopicItem.LastMessageID.HasValue && this.TopicItem.LastPosted > lastRead)
             {
-                if (this.TopicItem.LastPosted > lastRead)
-                {
-                    var success = new Label { CssClass = "badge bg-success me-1", Text = this.GetText("NEW_POSTS") };
+                var success = new Label { CssClass = "badge bg-success me-1", Text = this.GetText("NEW_POSTS") };
 
-                    success.RenderControl(writer);
-                }
+                success.RenderControl(writer);
             }
 
             writer.Write(topicLink.RenderToString());
@@ -266,7 +263,7 @@ namespace YAF.Web.Controls
 
             if (this.PageContext.BoardSettings.ShowDeletedMessages)
             {
-                // add deleted posts not included in replies...");
+                // add deleted posts not included in replies...
                 actualPostCount += this.TopicItem.NumPostsDeleted;
             }
 
@@ -661,7 +658,7 @@ namespace YAF.Web.Controls
         /// </returns>
         protected ThemeButton MakeLink([NotNull] string text, [NotNull] string link, [NotNull] int pageId)
         {
-            return new()
+            return new ()
             {
                 NavigateUrl = link,
                 TitleLocalizedTag = "GOTO_POST_PAGER",

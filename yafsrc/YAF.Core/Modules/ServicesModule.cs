@@ -61,13 +61,13 @@ namespace YAF.Core.Modules
         /// <summary>
         /// Loads the specified container builder.
         /// </summary>
-        /// <param name="containerBuilder">The container builder.</param>
-        protected override void Load(ContainerBuilder containerBuilder)
+        /// <param name="builder">The container builder.</param>
+        protected override void Load(ContainerBuilder builder)
         {
-            RegisterServices(containerBuilder);
-            RegisterIdentityServices(containerBuilder);
-            RegisterBoardContextServices(containerBuilder);
-            RegisterStartupServices(containerBuilder);
+            RegisterServices(builder);
+            RegisterIdentityServices(builder);
+            RegisterBoardContextServices(builder);
+            RegisterStartupServices(builder);
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace YAF.Core.Modules
                 .InstancePerLifetimeScope();
 
             // board settings...
-            builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerBoardContext().PreserveExistingDefaults();
+            builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentBoardSettings>().Instance)
                 .ExternallyOwned().PreserveExistingDefaults();
 

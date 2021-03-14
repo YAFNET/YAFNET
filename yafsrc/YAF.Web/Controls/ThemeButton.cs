@@ -484,10 +484,10 @@ namespace YAF.Web.Controls
         /// <summary>
         /// The render.
         /// </summary>
-        /// <param name="output">
+        /// <param name="writer">
         /// The output.
         /// </param>
-        protected override void Render([NotNull] HtmlTextWriter output)
+        protected override void Render([NotNull] HtmlTextWriter writer)
         {
             if (this.CausesValidation)
             {
@@ -506,13 +506,13 @@ namespace YAF.Web.Controls
             // get the title...
             var title = this.GetLocalizedTitle();
 
-            output.BeginRender();
-            output.WriteBeginTag("a");
-            output.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
+            writer.BeginRender();
+            writer.WriteBeginTag("a");
+            writer.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
 
             string uniqueID = this.UniqueID;
 
-            output.WriteAttribute(HtmlTextWriterAttribute.Name.ToString(), uniqueID);
+            writer.WriteAttribute(HtmlTextWriterAttribute.Name.ToString(), uniqueID);
 
             var actionClass = GetAttributeValue(this.Type);
 
@@ -529,7 +529,7 @@ namespace YAF.Web.Controls
             {
                 cssClass.Append(" disabled");
 
-                output.WriteAttribute("aria-disabled", "true");
+                writer.WriteAttribute("aria-disabled", "true");
             }
 
             if (this.CssClass.IsSet())
@@ -537,25 +537,25 @@ namespace YAF.Web.Controls
                 cssClass.AppendFormat(" {0}", this.CssClass);
             }
 
-            output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), cssClass.ToString());
+            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), cssClass.ToString());
 
             if (title.IsSet())
             {
-                output.WriteAttribute("title", HttpUtility.HtmlEncode(title));
+                writer.WriteAttribute("title", HttpUtility.HtmlEncode(title));
             }
             else if (this.TitleNonLocalized.IsSet())
             {
-                output.WriteAttribute("title", HttpUtility.HtmlEncode(this.TitleNonLocalized));
+                writer.WriteAttribute("title", HttpUtility.HtmlEncode(this.TitleNonLocalized));
             }
 
-            output.WriteAttribute("role", "button");
+            writer.WriteAttribute("role", "button");
 
             if (this.DataToggle.IsSet() && (this.DataToggle == "dropdown" || this.DataToggle == "popover"))
             {
                 this.NavigateUrl = "#";
             }
 
-            output.WriteAttribute(
+            writer.WriteAttribute(
                 "href",
                 this.NavigateUrl.IsSet()
                     ? this.NavigateUrl.Replace("&", "&amp;")
@@ -572,13 +572,13 @@ namespace YAF.Web.Controls
                     if (key.ToLower() == "onclick")
                     {
                         // special handling... add to it...
-                        output.WriteAttribute(key, $"{this.Attributes[key]};");
+                        writer.WriteAttribute(key, $"{this.Attributes[key]};");
                     }
                     else if (key.ToLower().StartsWith("data-") || key.ToLower().StartsWith("on")
                                                                || key.ToLower() == "rel" || key.ToLower() == "target")
                     {
                         // only write javascript attributes -- and a few other attributes...
-                        output.WriteAttribute(key, this.Attributes[key]);
+                        writer.WriteAttribute(key, this.Attributes[key]);
                     }
                 });
             }
@@ -587,77 +587,77 @@ namespace YAF.Web.Controls
             if (this.ReturnConfirmText.IsSet())
             {
                 this.DataToggle = "confirm";
-                output.WriteAttribute("data-title", this.ReturnConfirmText);
-                output.WriteAttribute("data-yes", this.GetText("YES"));
-                output.WriteAttribute("data-no", this.GetText("NO"));
+                writer.WriteAttribute("data-title", this.ReturnConfirmText);
+                writer.WriteAttribute("data-yes", this.GetText("YES"));
+                writer.WriteAttribute("data-no", this.GetText("NO"));
 
                 if (this.ReturnConfirmEvent.IsSet())
                 {
-                    output.WriteAttribute("data-confirm-event", this.ReturnConfirmEvent);
+                    writer.WriteAttribute("data-confirm-event", this.ReturnConfirmEvent);
                 }
             }
 
             // Write Modal
             if (this.DataTarget.IsSet())
             {
-                output.WriteAttribute("data-bs-target", $"#{this.DataTarget}");
+                writer.WriteAttribute("data-bs-target", $"#{this.DataTarget}");
 
                 if (this.DataTarget == "modal")
                 {
-                    output.WriteAttribute("aria-haspopup", "true");
+                    writer.WriteAttribute("aria-haspopup", "true");
                 }
             }
 
             // Write popover content
             if (this.DataContent.IsSet())
             {
-                output.WriteAttribute("data-bs-content", this.DataContent.Replace("\"", "'"));
-                output.WriteAttribute("tabindex", "0");
+                writer.WriteAttribute("data-bs-content", this.DataContent.Replace("\"", "'"));
+                writer.WriteAttribute("tabindex", "0");
             }
 
             if (this.DataDismiss.IsSet())
             {
-                output.WriteAttribute("data-bs-dismiss", this.DataDismiss);
+                writer.WriteAttribute("data-bs-dismiss", this.DataDismiss);
             }
 
             // Write Dropdown
             if (this.DataToggle.IsSet())
             {
-                output.WriteAttribute("data-bs-toggle", this.DataToggle);
+                writer.WriteAttribute("data-bs-toggle", this.DataToggle);
 
-                output.WriteAttribute("aria-expanded", "false");
+                writer.WriteAttribute("aria-expanded", "false");
             }
 
             if (this.Text.IsNotSet() && this.Icon.IsSet())
             {
-                output.WriteAttribute("aria-label", this.Icon);
+                writer.WriteAttribute("aria-label", this.Icon);
             }
 
-            output.Write(HtmlTextWriter.TagRightChar);
+            writer.Write(HtmlTextWriter.TagRightChar);
 
             if (this.Icon.IsSet())
             {
                 var iconColorClass = this.IconColor.IsSet() ? $" {this.IconColor}" : this.IconColor;
 
-                output.Write("<i class=\"{2} fa-{0} fa-fw{1}\"></i>", this.Icon, iconColorClass, this.IconCssClass);
+                writer.Write("<i class=\"{2} fa-{0} fa-fw{1}\"></i>", this.Icon, iconColorClass, this.IconCssClass);
 
                 // space separator only for icon + text
                 if (this.TextLocalizedTag.IsSet() || this.Text.IsSet())
                 {
-                    output.Write("&nbsp;");
+                    writer.Write("&nbsp;");
                 }
             }
 
             if (this.Text.IsSet())
             {
-                output.Write(this.Text);
+                writer.Write(this.Text);
             }
 
             // render the optional controls (if any)
-            base.Render(output);
+            base.Render(writer);
 
-            output.WriteEndTag("a");
-            output.EndRender();
+            writer.WriteEndTag("a");
+            writer.EndRender();
         }
         /// <summary>
         /// Gets the CSS class value.

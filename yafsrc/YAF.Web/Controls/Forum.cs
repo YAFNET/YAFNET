@@ -58,19 +58,14 @@ namespace YAF.Web.Controls
         #region Constants and Fields
 
         /// <summary>
-        ///   The _current forum page.
+        ///   The current forum page.
         /// </summary>
         private ForumPage currentForumPage;
 
         /// <summary>
-        ///   The _page.
+        ///   The page.
         /// </summary>
         private ILocatablePage page;
-
-        /// <summary>
-        ///   The _topControl.
-        /// </summary>
-        private PlaceHolder topControl;
 
         #endregion
 
@@ -273,8 +268,8 @@ namespace YAF.Web.Controls
             this.BeforeForumPageLoad?.Invoke(this, new BeforeForumPageLoad());
 
             // add the forum header control...
-            this.topControl = new PlaceHolder();
-            this.Controls.AddAt(0, this.topControl);
+            var topControl = new PlaceHolder();
+            this.Controls.AddAt(0, topControl);
 
             // get the current page...
             var src = this.GetPageSource();
@@ -292,7 +287,7 @@ namespace YAF.Web.Controls
                 throw new ApplicationException($"Failed to load {src}.");
             }
 
-            this.currentForumPage.ForumTopControl = this.topControl;
+            this.currentForumPage.ForumTopControl = topControl;
             this.currentForumPage.ForumFooter = this.Footer;
 
             this.currentForumPage.ForumHeader = this.Header;

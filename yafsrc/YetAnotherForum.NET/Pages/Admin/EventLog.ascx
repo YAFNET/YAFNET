@@ -43,37 +43,27 @@
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                             <div class="px-3 py-1">
                                <div class="mb-3">
-                        <YAF:HelpLabel ID="SinceDateLabel" runat="server" 
-                                       AssociatedControlID="SinceDate"
-                                       LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="SINCEDATE" />
-                     
-                        <div class='input-group mb-3 date datepickerinput'>
-                            <button class="btn btn-secondary datepickerbutton" type="button">
-                                <i class="fa fa-calendar-day fa-fw"></i>
-                            </button>
-                            <asp:TextBox ID="SinceDate" runat="server" CssClass="form-control"></asp:TextBox>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <YAF:HelpLabel ID="ToDateLabel" runat="server" 
-                                       AssociatedControlID="ToDate"
-                                       LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TODATE" />
+                                   <YAF:HelpLabel ID="SinceDateLabel" runat="server" 
+                                                  AssociatedControlID="SinceDate"
+                                                  LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="SINCEDATE" />
+                                   <asp:TextBox ID="SinceDate" runat="server" 
+                                                CssClass="form-control"></asp:TextBox>
+                               </div>
+                                <div class="mb-3">
+                                    <YAF:HelpLabel ID="ToDateLabel" runat="server" 
+                                                   AssociatedControlID="ToDate"
+                                                   LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TODATE" />
                          
-                        <div class='input-group mb-3 date datepickerinput'>
-                            <button class="btn btn-secondary datepickerbutton" type="button">
-                                <i class="fa fa-calendar-day fa-fw"></i>
-                            </button>
-                            <asp:TextBox ID="ToDate" runat="server" 
-                                         CssClass="form-control"></asp:TextBox>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <YAF:HelpLabel ID="HelpLabel1" runat="server" 
-                                       AssociatedControlID="Types"
-                                       LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TYPES" />
-                        <asp:DropDownList ID="Types" runat="server" 
-                                          CssClass="select2-image-select"></asp:DropDownList>
-                    </div>
+                                    <asp:TextBox ID="ToDate" runat="server" 
+                                                 CssClass="form-control"></asp:TextBox>
+                                </div>
+                                <div class="mb-3">
+                                    <YAF:HelpLabel ID="HelpLabel1" runat="server" 
+                                                   AssociatedControlID="Types"
+                                                   LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TYPES" />
+                                    <asp:DropDownList ID="Types" runat="server" 
+                                                      CssClass="select2-image-select"></asp:DropDownList>
+                                </div>
                                 <div class="mb-3 d-grid gap-2">
                                     <YAF:ThemeButton ID="ApplyButton" runat="server"
                                                      Type="Primary" 
@@ -119,7 +109,7 @@
                                                 LocalizedTag="NAME" 
                                                 LocalizedPage="ADMIN_EVENTLOG" />:
                         </span>
-                        <%# this.UserLink(((PagedEventLog)Container.DataItem)) %>
+                        <%# this.UserLink((PagedEventLog)Container.DataItem) %>
                     </p>
                     <small>
                         <div class="btn-group btn-group-sm">
@@ -135,7 +125,7 @@
                             <YAF:ThemeButton runat="server" 
                                              Type="Danger"
                                              Size="Small"
-                                             CommandName="delete" CommandArgument='<%# ((PagedEventLog)Container.DataItem).ID %>'
+                                             CommandName="delete" CommandArgument="<%# ((PagedEventLog)Container.DataItem).ID %>"
                                              ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
                                              Icon="trash" 
                                              TextLocalizedTag="DELETE">
@@ -146,7 +136,7 @@
                         <YAF:ThemeButton runat="server" 
                                          Type="None" 
                                          CssClass="dropdown-item"
-                                         CommandName="delete" CommandArgument='<%# ((PagedEventLog)Container.DataItem).ID %>'
+                                         CommandName="delete" CommandArgument="<%# ((PagedEventLog)Container.DataItem).ID %>"
                                          ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
                                          Icon="trash" 
                                          TextLocalizedTag="DELETE">

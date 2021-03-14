@@ -494,11 +494,6 @@ namespace YAF.Types.Constants
         Admin_Digest,
 
         /// <summary>
-        /// The Host Admin Web Profiler page.
-        /// </summary>
-        Admin_Profiler,
-
-        /// <summary>
         /// The attachments.
         /// </summary>
         Profile_Attachments,

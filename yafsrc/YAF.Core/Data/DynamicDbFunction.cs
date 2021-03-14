@@ -160,11 +160,14 @@ namespace YAF.Core.Data
         /// <summary>
         /// The db specific functions.
         /// </summary>
-        public IEnumerable<IDbSpecificFunction> DbSpecificFunctions =>
-            this._serviceLocator.Get<IEnumerable<IDbSpecificFunction>>()
-                .WhereProviderName(this._dbAccessProvider.ProviderName)
-                .BySortOrder()
-                .ToList();
+        public IEnumerable<IDbSpecificFunction> DbSpecificFunctions
+        {
+            get
+            {
+                return this._serviceLocator.Get<IEnumerable<IDbSpecificFunction>>()
+                    .WhereProviderName(this._dbAccessProvider.ProviderName).BySortOrder().ToList();
+            }
+        }
 
         /// <summary>
         /// The db function execute.

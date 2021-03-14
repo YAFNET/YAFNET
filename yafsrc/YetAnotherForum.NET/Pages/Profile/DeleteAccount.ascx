@@ -37,7 +37,7 @@
                             <YAF:ThemeButton ID="Cancel" runat="server"
                                              TextLocalizedTag="CANCEL"
                                              Type="Secondary"
-                                             Icon="reply"/>
+                                             Icon="times"/>
                         </div>
                     </div>
                 </div>

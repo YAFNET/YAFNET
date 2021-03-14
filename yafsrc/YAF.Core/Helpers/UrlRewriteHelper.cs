@@ -38,7 +38,7 @@ namespace YAF.Core.Helpers
     /// <summary>
     /// URL Rewriter Helper Class
     /// </summary>
-    public class UrlRewriteHelper
+    public static class UrlRewriteHelper
     {
         #region Methods
 

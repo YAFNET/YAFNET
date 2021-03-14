@@ -178,8 +178,8 @@ namespace YAF.Web.Controls
                         var addControl = true;
 
                         // we might not want to add this user link if user is marked as hidden
-                        if (user.IsActiveExcluded == true || // or if user is guest and guest should be hidden
-                            user.IsGuest == true)
+                        if ((bool)user.IsActiveExcluded || // or if user is guest and guest should be hidden
+                            (bool)user.IsGuest)
                         {
                             // hidden user are always visible to admin and himself)
                             if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)

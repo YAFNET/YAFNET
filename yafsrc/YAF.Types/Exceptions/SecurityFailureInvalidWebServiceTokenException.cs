@@ -29,6 +29,7 @@ namespace YAF.Types.Exceptions
     /// <summary>
     /// The security failure invalid web service token exception.
     /// </summary>
+    [Serializable]
     public class SecurityFailureInvalidWebServiceTokenException : Exception
     {
         #region Constructors and Destructors

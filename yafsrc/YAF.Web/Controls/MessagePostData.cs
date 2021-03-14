@@ -33,7 +33,6 @@ namespace YAF.Web.Controls
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
@@ -164,13 +163,9 @@ namespace YAF.Web.Controls
         {
             CodeContracts.VerifyNotNull(this.MessageFlags, "MessageFlags");
 
-            if (!this.MessageFlags.IsDeleted)
+            if (!this.MessageFlags.IsDeleted && !this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentMessage.UserID))
             {
-                // populate DisplayUserID
-                if (!this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentMessage.UserID))
-                {
-                    this.DisplayUserID = this.CurrentMessage.UserID;
-                }
+                this.DisplayUserID = this.CurrentMessage.UserID;
             }
 
             base.OnPreRender(e);

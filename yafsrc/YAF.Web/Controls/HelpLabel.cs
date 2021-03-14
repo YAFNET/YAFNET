@@ -127,10 +127,10 @@ namespace YAF.Web.Controls
         /// <summary>
         /// Shows the localized text string (if available)
         /// </summary>
-        /// <param name="output">The output.</param>
-        protected override void Render(HtmlTextWriter output)
+        /// <param name="writer">The output.</param>
+        protected override void Render(HtmlTextWriter writer)
         {
-            output.BeginRender();
+            writer.BeginRender();
 
             var text = this.GetText(this.LocalizedPage, this.LocalizedTag).Fmt(this.Param0, this.Param1, this.Param2);
 
@@ -184,9 +184,9 @@ namespace YAF.Web.Controls
 
             label.Controls.Add(button);
 
-            label.RenderControl(output);
+            label.RenderControl(writer);
 
-            output.EndRender();
+            writer.EndRender();
         }
 
         #endregion

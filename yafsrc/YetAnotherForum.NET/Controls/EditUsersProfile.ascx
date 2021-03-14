@@ -31,13 +31,8 @@
                 LocalizedPage="EDIT_PROFILE"
                 LocalizedTag="BIRTHDAY" />
         </asp:Label>
-        <div class='input-group mb-3 date datepickerinput'>
-            <button class="btn btn-secondary datepickerbutton" type="button">
-                <i class="fa fa-calendar-day fa-fw"></i>
-            </button>
-            <asp:TextBox ID="Birthday" runat="server"
-                CssClass="form-control"></asp:TextBox>
-        </div>
+        <asp:TextBox ID="Birthday" runat="server"
+                     CssClass="form-control"></asp:TextBox>
     </div>
     <div class="mb-3">
         <asp:Label runat="server" AssociatedControlID="Occupation">

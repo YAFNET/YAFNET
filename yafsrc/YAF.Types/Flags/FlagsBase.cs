@@ -37,11 +37,6 @@ namespace YAF.Types.Flags
   {
     #region Constants and Fields
 
-    /// <summary>
-    ///   integer value stores up to 64 flags/bits
-    /// </summary>
-    protected int _bitValue;
-
     #endregion
 
     #region Constructors and Destructors
@@ -69,12 +64,12 @@ namespace YAF.Types.Flags
     /// </summary>
     protected FlagsBase(int bitValue)
     {
-      this._bitValue = bitValue;
+      this.BitValue = bitValue;
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FlagsBase"/> class. 
-    ///   Creates new instance with bits set according to param array.
+    ///   Creates new instance with bits set according to parameter array.
     /// </summary>
     /// <param name="bits">
     /// Boolean values to initialize class with. If their number is lower than 32, remaining bits are set to false. If more than 32 values is specified, excess values are ignored.
@@ -97,12 +92,7 @@ namespace YAF.Types.Flags
     /// <summary>
     ///   Gets or sets integer value of flags.
     /// </summary>
-    public int BitValue
-    {
-      get => this._bitValue;
-
-      set => this._bitValue = value;
-    }
+    public int BitValue { get; set; }
 
     #endregion
 
@@ -115,9 +105,9 @@ namespace YAF.Types.Flags
     /// <returns>Boolean value indicating whether bit at position specified by index is set or not.</returns>
     public bool this[int index]
     {
-      get => GetBitAsBool(this._bitValue, index);
+      get => GetBitAsBool(this.BitValue, index);
 
-      set => this._bitValue = SetBitFromBool(this._bitValue, index, value);
+      set => this.BitValue = SetBitFromBool(this.BitValue, index, value);
     }
 
     #endregion

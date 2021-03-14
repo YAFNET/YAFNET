@@ -42,7 +42,7 @@ namespace YAF.Core.Helpers
     /// <summary>
     /// The static data helper.
     /// </summary>
-    public class StaticDataHelper
+    public static class StaticDataHelper
     {
         #region Public Methods  
 

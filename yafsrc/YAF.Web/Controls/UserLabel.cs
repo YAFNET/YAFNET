@@ -122,10 +122,10 @@ namespace YAF.Web.Controls
         /// <summary>
         /// The render.
         /// </summary>
-        /// <param name="output">
+        /// <param name="writer">
         /// The output.
         /// </param>
-        protected override void Render([NotNull] HtmlTextWriter output)
+        protected override void Render([NotNull] HtmlTextWriter writer)
         {
             var displayName = this.ReplaceName;
 
@@ -134,26 +134,26 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            output.BeginRender();
+            writer.BeginRender();
 
-            output.WriteBeginTag("span");
+            writer.WriteBeginTag("span");
 
-            this.RenderMainTagAttributes(output);
+            this.RenderMainTagAttributes(writer);
 
-            output.Write(HtmlTextWriter.TagRightChar);
+            writer.Write(HtmlTextWriter.TagRightChar);
 
             displayName = this.CrawlerName.IsNotSet() ? displayName : this.CrawlerName;
 
-            output.WriteEncodedText(this.CrawlerName.IsNotSet() ? displayName : this.CrawlerName);
+            writer.WriteEncodedText(this.CrawlerName.IsNotSet() ? displayName : this.CrawlerName);
 
-            output.WriteEndTag("span");
+            writer.WriteEndTag("span");
 
             if (this.PostfixText.IsSet())
             {
-                output.Write(this.PostfixText);
+                writer.Write(this.PostfixText);
             }
 
-            output.EndRender();
+            writer.EndRender();
         }
 
         /// <summary>

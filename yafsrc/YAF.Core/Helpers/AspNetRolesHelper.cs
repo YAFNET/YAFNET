@@ -244,15 +244,15 @@ namespace YAF.Core.Helpers
         /// <param name="groupName">
         /// The group name.
         /// </param>
-        /// <param name="memberGroups">
+        /// <param name="groups">
         /// The member Groups.
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool IsMemberOfGroup([NotNull] string groupName, [NotNull] List<dynamic> memberGroups)
+        public bool IsMemberOfGroup([NotNull] string groupName, [NotNull] List<dynamic> groups)
         {
-            return memberGroups.Any(
+            return groups.Any(
                 row => (int)row.Member == 1 && row.Name == groupName);
         }
 

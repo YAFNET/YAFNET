@@ -144,16 +144,12 @@ namespace YAF.Core.Context
                         (bool)@event.Data.IsMobileDevice,
                         (bool)@event.Data.DontTrack);
                     
-                    // if the user doesn't exist...
-                    if (userKey != null && pageRow == null)
+                    // if the user doesn't exist create the user...
+                    if (userKey != null && pageRow == null && !this.Get<IAspNetRolesHelper>().DidCreateForumUser(
+                        BoardContext.Current.MembershipUser,
+                        BoardContext.Current.PageBoardID))
                     {
-                        // create the user...
-                        if (
-                            !this.Get<IAspNetRolesHelper>().DidCreateForumUser(
-                                BoardContext.Current.MembershipUser, BoardContext.Current.PageBoardID))
-                        {
-                            throw new ApplicationException("Failed to create new user.");
-                        }
+                        throw new ApplicationException("Failed to create new user.");
                     }
 
                     if (tries++ < 2)

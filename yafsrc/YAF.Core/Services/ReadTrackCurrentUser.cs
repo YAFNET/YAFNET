@@ -164,18 +164,8 @@ namespace YAF.Core.Services
 
             if (this.UseDatabaseReadTracking)
             {
-                if (readTimeOverride.HasValue)
-                {
-                    // use it if it's not the min value...
-                    /*readTime = readTimeOverride.Value > DateTimeHelper.SqlDbMinTime()
-                                   ? readTimeOverride.Value
-                                   : this.GetRepository<ForumReadTracking>().LastRead(this.CurrentUserId, forumId);*/
-                    readTime = readTimeOverride.Value;
-                }
-                else
-                {
-                    readTime = this.GetRepository<ForumReadTracking>().LastRead(this.CurrentUserId, forumId);
-                }
+                readTime = readTimeOverride ??
+                           this.GetRepository<ForumReadTracking>().LastRead(this.CurrentUserId, forumId);
             }
             else
             {
@@ -199,20 +189,8 @@ namespace YAF.Core.Services
 
             if (this.UseDatabaseReadTracking)
             {
-                if (readTimeOverride.HasValue)
-                {
-                    // use it if it's not the min value...
-                    /*readTime = readTimeOverride.Value > DateTimeHelper.SqlDbMinTime()
-                                   ? readTimeOverride.Value
-                                   : this.GetRepository<TopicReadTracking>().LastRead(this.CurrentUserId, topicId);*/
-
-                    readTime = readTimeOverride.Value;
-                }
-                else
-                {
-                    // last option is to load from the forum...
-                    readTime = this.GetRepository<TopicReadTracking>().LastRead(this.CurrentUserId, topicId);
-                }
+                readTime = readTimeOverride ??
+                           this.GetRepository<TopicReadTracking>().LastRead(this.CurrentUserId, topicId);
             }
             else
             {
