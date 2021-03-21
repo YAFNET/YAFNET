@@ -59,7 +59,7 @@ namespace YAF.Modules
         #region Public Methods
 
         /// <summary>
-        /// The init after page.
+        /// The initialization after page.
         /// </summary>
         public override void InitAfterPage()
         {
@@ -98,7 +98,7 @@ namespace YAF.Modules
 
                 if (head.Title.IsSet())
                 {
-                    addition = $" - {head.Title.Trim()}";
+                    addition = $" · {head.Title.Trim()}";
                 }
 
                 head.Title = $"{this.forumPageTitle}{addition}";
@@ -132,11 +132,9 @@ namespace YAF.Modules
 
                 if (currentPager != null && currentPager.CurrentPageIndex != 0)
                 {
-                    pageString = $"- Page {currentPager.CurrentPageIndex + 1}";
+                    pageString = $" · Page {currentPager.CurrentPageIndex + 1}";
                 }
             }
-
-            var addBoardName = true;
 
             if (!this.PageContext.CurrentForumPage.IsAdminPage)
             {
@@ -150,10 +148,10 @@ namespace YAF.Modules
                                 this.Get<IBadWordReplace>().Replace(this.PageContext.PageTopicName.Truncate(80)));
                         }
 
-                        addBoardName = false;
-
                         // Append Current Page
                         title.Append(pageString);
+
+                        title.Append(" · ");
 
                         break;
                     case ForumPages.Topics:
@@ -163,20 +161,20 @@ namespace YAF.Modules
                             title.Append(this.CurrentForumPage.HtmlEncode(this.PageContext.PageForumName.Truncate(80)));
                         }
 
-                        addBoardName = false;
-
                         // Append Current Page
                         title.Append(pageString);
+
+                        title.Append(" · ");
 
                         break;
                     case ForumPages.Board:
                         if (this.PageContext.PageCategoryName != string.Empty)
                         {
-                            addBoardName = false;
-
                             // Tack on the forum we're viewing
                             title.Append(
                                 this.CurrentForumPage.HtmlEncode(this.PageContext.PageCategoryName.Truncate(80)));
+
+                            title.Append(" · ");
                         }
 
                         break;
@@ -187,21 +185,18 @@ namespace YAF.Modules
 
                         if (activePageLink != null)
                         {
-                            addBoardName = false;
-
                             // Tack on the forum we're viewing
                             title.Append(this.CurrentForumPage.HtmlEncode(activePageLink.Title.Truncate(80)));
+
+                            title.Append(" · ");
                         }
 
                         break;
                 }
             }
 
-            if (addBoardName)
-            {
-                // and lastly, tack on the board's name
-                title.Append(this.CurrentForumPage.HtmlEncode(this.PageContext.BoardSettings.Name));
-            }
+            // and lastly, tack on the board's name
+            title.Append(this.CurrentForumPage.HtmlEncode(this.PageContext.BoardSettings.Name));
 
             this.forumPageTitle = title.ToString();
 
