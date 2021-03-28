@@ -27,7 +27,7 @@ jobs:
         run: dotnet restore yafsrc\YAF.NET.sln
 
       - name: Build
-        run: dotnet build --no-restore yafsrc\YAF.NET.sln /p:Configuration=Release /p:Platform="Any CPU" /t:rebuild /p:WarningLevel=0;CreatePackages=False
+        run: dotnet build --no-restore yafsrc\YAF.NET.sln /p:Configuration=Release /p:Platform="Any CPU" /t:rebuild /p:WarningLevel=0;
 
       - name: Convert sarif for uploading to GitHub
         uses: security-code-scan/security-code-scan-results-action@main
