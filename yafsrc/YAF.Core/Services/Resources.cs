@@ -143,15 +143,15 @@ namespace YAF.Core.Services
                 userName = HttpUtility.HtmlEncode(userName);
 
                 var location = userData.Profile.Country.IsSet()
-                                   ? BoardContext.Current.Get<IHaveLocalization>().GetText(
+                                   ? this.Get<ILocalization>().GetText(
                                        "COUNTRY", userData.Profile.Country.Trim())
-                                   : userData.Profile.Location;
+                                   : HttpUtility.HtmlEncode(userData.Profile.Location);
 
                 if (userData.Profile.Region.IsSet() && userData.Profile.Country.IsSet())
                 {
                     var tag = $"RGN_{userData.Profile.Country.Trim()}_{userData.Profile.Region}";
 
-                    location += $", {this.Get<IHaveLocalization>().GetText("REGION", tag)}";
+                    location += $", {this.Get<ILocalization>().GetText("REGION", tag)}";
                 }
 
                 var userInfo = new ForumUserInfo
@@ -165,7 +165,7 @@ namespace YAF.Core.Services
                     Rank = userData.RankName,
                     Location = location,
                     Joined =
-                        $"{this.Get<IHaveLocalization>().GetText("PROFILE", "JOINED")} {this.Get<IDateTime>().FormatDateLong(userData.Joined)}",
+                        $"{this.Get<ILocalization>().GetText("PROFILE", "JOINED")} {this.Get<IDateTime>().FormatDateLong(userData.Joined)}",
                     Online = userIsOnline/*,
                     ProfileLink = BuildLink.GetLink(ForumPages.Profile, true, "u={0}&name={1}", userId, userName)*/
                 };
