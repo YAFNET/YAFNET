@@ -33,8 +33,6 @@ namespace YAF.Types.Models
     /// A class which represents the TopicTag table.
     /// </summary>
     [Serializable]
-
-    [UniqueConstraint(nameof(TopicID), nameof(TagID))]
     public class TopicTag : IEntity
     {
         #region Properties
@@ -50,6 +48,7 @@ namespace YAF.Types.Models
         /// Gets or sets the topic id.
         /// </summary>
         [References(typeof(Topic))]
+        [Index]
         [Required]
         public int TopicID { get; set; }
 

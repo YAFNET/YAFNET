@@ -45,3 +45,7 @@ if exists(select top 1 1 from sys.indexes where name=N'IX_{objectQualifier}Check
 	alter table [{databaseOwner}].[{objectQualifier}CheckEmail] drop constraint [IX_{objectQualifier}CheckEmail]
 go
 
+
+if exists(select top 1 1 from sys.indexes where name=N'UC_{objectQualifier}TopicTag_TopicID_TagID' and object_id=object_id(N'[{databaseOwner}].[{objectQualifier}TopicTag]'))
+	alter table [{databaseOwner}].[{objectQualifier}TopicTag] drop constraint [UC_{objectQualifier}TopicTag_TopicID_TagID]
+go
