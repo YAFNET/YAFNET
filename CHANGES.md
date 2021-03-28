@@ -1,6 +1,57 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.1.14
+* added board name to page title
+* [FIXED] Add topic tag to new topic
+* [FIXED] XSS attack attack on fileupload (thanks to User @sushiwushi)
+* [FIXED] XSS on returnurl (thanks to User @sushiwushi)
+* [FIXED] XSS in Hovercard (thanks to User @sushiwushi)
+
+* # YetAnotherForum.NET v2.3.1.13
+* [NEW] Added Board Setting for Default Access Mask when creating a new forum
+* [FIXED] Deleting a Message with an Attachment
+* [FIXED #603] subforums are not saved
+* [FIXED] lock/unlock topic
+* [FIXED] Back Button on Forget Password Page
+* [FIXED] Dont Render Crawlers as Regular Users
+* [FIXED] IP Address Check for IPv6
+* Exclude Favicon inside a Portal (DNN)
+
+# YetAnotherForum.NET v2.3.1.12
+* Upgraded to Bootstrap 4.6.0
+* [NEW] Success Message after Message Report
+* Increased auto save Delay in CKEditor to 60 Seconds
+* [FIXED] DNN Search
+
+# YetAnotherForum.NET v2.3.1.11
+* [FIXED] Admin User page
+* [Fixed] publish solution
+
+# YetAnotherForum.NET v2.3.1.10
+* [FIXED] wrong lanuage code for hebrew
+* [FIXED] version info
+* [FIXED] youtube autoembed
+* Install Membership Provider Scripts on Upgrade for Azure if needed
+* Upgraded to Bootstrap 4.5.3
+
+# YetAnotherForum.NET v2.3.1.09
+* [NEW] added login failure logging
+* [SECURITY FIX] for Private Messages
+* [FIXED] duplicate topic title check
+* [FIXED] Attachments inside PMs
+* [FIXED #589] visiblity of profile
+* [FIXED] Remove line break after code block
+* [FIXED #588] creating of new medals
+* FIXED] show info message after shrink db
+* Removed Postback before logout dialog appears
+
+# YetAnotherForum.NET v2.3.1.08
+* Upgraded to Bootstrap 4.5.2
+* [FIXED] Cookie Alert 
+* [FIXED] Dropdowns for small devices
+* [FIXED] Attachments
+
 # YetAnotherForum.NET v2.3.1.07
 * Upgraded to jQuery 3.5.1
 * Upgraded to Bootstrap 4.5.0
@@ -11,7 +62,6 @@ YetAnotherForum.NET Changelog
 * [FIXED] Links to Moved topics
 * [FIXED #580] wrong DateTime format for Sitemap Urls
 * [FIXED #579] Clear cache on user delete
-
 
 # YetAnotherForum.NET v2.3.1.06
 * [FIXED] Emoji Button in CKEditor
