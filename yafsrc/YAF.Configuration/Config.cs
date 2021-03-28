@@ -294,7 +294,7 @@ namespace YAF.Configuration
         /// The j query version.
         /// </summary>
         public static string JQueryVersion => GetConfigValueAsString("YAF.JQueryVersion")
-                                                   ?? "3.5.1";
+                                                   ?? "3.6.0";
 
         /// <summary>
         ///     Gets MembershipProvider.
