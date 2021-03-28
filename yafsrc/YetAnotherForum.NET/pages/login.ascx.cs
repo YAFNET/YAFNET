@@ -235,16 +235,11 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(this.GetText("title"));
 
-            // Login1.CreateUserText = "Sign up for a new account.";
-            // Login1.CreateUserUrl = BuildLink.GetLink( ForumPages.register );
             this.Login1.PasswordRecoveryText = this.GetText("lostpassword");
             this.Login1.PasswordRecoveryUrl = BuildLink.GetLink(ForumPages.RecoverPassword);
             this.Login1.FailureText = this.GetText("password_error");
 
-            this.Login1.DestinationPageUrl =
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
-                    ? this.HtmlEncode(this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl")))
-                    : BuildLink.GetLink(ForumPages.forum);
+            this.Login1.DestinationPageUrl = BuildLink.GetLink(ForumPages.forum);
 
             // localize controls
             var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
