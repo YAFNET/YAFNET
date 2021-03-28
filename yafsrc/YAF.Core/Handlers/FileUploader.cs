@@ -27,15 +27,18 @@ namespace YAF.Core.Handlers
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Web;
     using System.Web.Script.Serialization;
     using System.Web.SessionState;
 
     using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services.Startup;
     using YAF.Core.UsersRoles;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -161,11 +164,26 @@ namespace YAF.Core.Handlers
 
             try
             {
+                var allowedExtensions = this.GetRepository<FileExtension>()
+                    .Get(e => e.BoardId == BoardContext.Current.PageBoardID).Select(x => x.Extension).ToList();
+
                 for (var i = 0; i < context.Request.Files.Count; i++)
                 {
                     var file = context.Request.Files[i];
 
                     var fileName = Path.GetFileName(file.FileName);
+
+                    var extension = Path.GetExtension(fileName).Replace(".", string.Empty).ToLower();
+
+                    if (!allowedExtensions.Contains(extension))
+                    {
+                        throw new HttpRequestValidationException("Invalid File");
+                    }
+
+                    if (!MimeTypes.FileMatchContentType(file))
+                    {
+                        throw new HttpRequestValidationException("Invalid File");
+                    }
 
                     if (fileName.IsSet())
                     {
@@ -249,12 +267,6 @@ namespace YAF.Core.Handlers
         /// </returns>
         private bool CheckAccessRights([NotNull] int boardId, [NotNull] int forumId)
         {
-            if (forumId == 0)
-            {
-                // is private message upload
-                return true;
-            }
-
             // Find user name
             var user = UserMembershipHelper.GetUser();
 
@@ -275,11 +287,21 @@ namespace YAF.Core.Handlers
 
             this.Get<StartupInitializeDb>().Run();
 
-            object userKey = DBNull.Value;
+            object userKey;
 
             if (user != null)
             {
                 userKey = user.ProviderUserKey;
+            }
+            else
+            {
+                return false;
+            }
+
+            if (forumId == 0)
+            {
+                // is private message upload
+                return true;
             }
 
             var pageRow = this.GetRepository<ActiveAccess>().PageLoadAsDataRow(
