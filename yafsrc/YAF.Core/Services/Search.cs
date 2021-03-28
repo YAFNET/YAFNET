@@ -30,9 +30,9 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Lucene.Net.Analysis;
@@ -514,12 +514,13 @@ namespace YAF.Core.Services
         /// <returns>
         /// Returns the search list
         /// </returns>
-        private static List<SearchMessage> MapSearchToDataList(
+        private List<SearchMessage> MapSearchToDataList(
             IndexSearcher searcher,
             IEnumerable<ScoreDoc> hits,
             List<vaccess> userAccessList)
         {
-            var results = hits.Select(hit => MapSearchDocumentToData(searcher.Doc(hit.Doc), userAccessList)).ToList();
+            var results = hits.Select(hit => this.MapSearchDocumentToData(searcher.Doc(hit.Doc), userAccessList))
+                .ToList();
 
             return results.Any()
                 ? results.Where(item => item != null).GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList()
@@ -534,7 +535,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// Returns the Search Message
         /// </returns>
-        private static SearchMessage MapSearchDocumentToData(Document doc, List<vaccess> userAccessList)
+        private SearchMessage MapSearchDocumentToData(Document doc, List<vaccess> userAccessList)
         {
             var forumId = doc.Get("ForumId").ToType<int>();
 
@@ -548,15 +549,15 @@ namespace YAF.Core.Services
                 Topic = doc.Get("Topic"),
                 TopicId = doc.Get("TopicId").ToType<int>(),
                 TopicUrl =
-                    BoardContext.Current.Get<LinkBuilder>().GetTopicLink(
+                    this.Get<LinkBuilder>().GetTopicLink(
                         doc.Get("TopicId").ToType<int>(),
                         doc.Get("Topic")),
                 Posted = doc.Get("Posted"),
                 UserId = doc.Get("UserId").ToType<int>(),
-                UserName = doc.Get("Author"),
-                UserDisplayName = doc.Get("AuthorDisplay"),
+                UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
+                UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
                 ForumName = doc.Get("ForumName"),
-                ForumUrl = BoardContext.Current.Get<LinkBuilder>().GetForumLink(
+                ForumUrl = this.Get<LinkBuilder>().GetForumLink(
                     doc.Get("ForumId").ToType<int>(),
                     doc.Get("ForumName")),
                 UserStyle = doc.Get("AuthorStyle")
@@ -973,7 +974,7 @@ namespace YAF.Core.Services
                 ? searcher.Search(query, booleanFilter, hitsLimit).ScoreDocs
                 : searcher.Search(query, hitsLimit).ScoreDocs;
 
-            var results = MapSearchToDataList(searcher, hits, userAccessList);
+            var results = this.MapSearchToDataList(searcher, hits, userAccessList);
 
             this.searcherManager.Release(searcher);
 

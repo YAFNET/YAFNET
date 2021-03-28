@@ -7,7 +7,7 @@
         <span class="badge bg-light text-dark p-0 border border-light me-1">
             <asp:Image runat="server" ID="UserAvatar" CssClass="img-navbar-avatar rounded"/>
         </span>
-        <%= this.PageContext.User.DisplayOrUserName() %>
+        <%= this.HtmlEncode(this.PageContext.User.DisplayOrUserName()) %>
         <asp:PlaceHolder runat="server" id="UnreadPlaceHolder">
             <asp:Label runat="server" ID="UnreadLabel" 
                        CssClass="ms-1 badge bg-danger">
