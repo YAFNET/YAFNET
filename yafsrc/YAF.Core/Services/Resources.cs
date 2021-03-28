@@ -113,8 +113,8 @@ namespace YAF.Core.Services
                 context.Response.ContentEncoding = Encoding.UTF8;
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
                 context.Response.Cache.SetExpires(
-                    System.DateTime.UtcNow.AddMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
-                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
+                    DateTime.UtcNow.AddMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
 
                 var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(user.Item1);
 
@@ -141,7 +141,7 @@ namespace YAF.Core.Services
                 var location = user.Item2.Profile_Country.IsSet()
                                    ? BoardContext.Current.Get<IHaveLocalization>().GetText(
                                        "COUNTRY", user.Item2.Profile_Country.Trim())
-                                   : user.Item2.Profile_Location;
+                                   : HttpUtility.HtmlEncode(user.Item2.Profile_Location);
 
                 if (user.Item2.Profile_Region.IsSet() && user.Item2.Profile_Country.IsSet())
                 {
@@ -209,8 +209,8 @@ namespace YAF.Core.Services
                 context.Response.ContentEncoding = Encoding.UTF8;
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
                 context.Response.Cache.SetExpires(
-                    System.DateTime.UtcNow.AddMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
-                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
+                    DateTime.UtcNow.AddMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
 
                 context.Response.Write(customBbCode.ToJson());
 
@@ -300,8 +300,8 @@ namespace YAF.Core.Services
 
                 context.Response.ContentType = contentType;
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
-                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
+                context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
 
                 context.Response.OutputStream.Write(data, 0, data.Length);
             }
