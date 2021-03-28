@@ -5,7 +5,7 @@
     <AssemblyVersion>5.0.0.0</AssemblyVersion>
     <Authors>ServiceStack</Authors>
     <Company>ServiceStack, Inc.</Company>
-    <Copyright>&#169; 2008-2020 ServiceStack, Inc</Copyright>
+    <Copyright>&#169; 2008-2021 ServiceStack, Inc</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/ServiceStack/ServiceStack</PackageProjectUrl>
     <PackageLicenseUrl>https://servicestack.net/terms</PackageLicenseUrl>

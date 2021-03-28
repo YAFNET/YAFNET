@@ -27,6 +27,7 @@ namespace YAF.Core.Handlers
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Web;
     using System.Web.Script.Serialization;
     using System.Web.SessionState;
@@ -36,6 +37,7 @@ namespace YAF.Core.Handlers
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Core.Services.Startup;
+    using YAF.Core.Utilities;
     using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -162,11 +164,25 @@ namespace YAF.Core.Handlers
 
             try
             {
+                var allowedExtensions = this.Get<BoardSettings>().AllowedFileExtensions.ToLower().Split(',');
+
                 for (var i = 0; i < context.Request.Files.Count; i++)
                 {
                     var file = context.Request.Files[i];
 
                     var fileName = Path.GetFileName(file.FileName);
+
+                    var extension = Path.GetExtension(fileName).Replace(".", string.Empty).ToLower();
+
+                    if (!allowedExtensions.Contains(extension))
+                    {
+                        throw new HttpRequestValidationException("Invalid File");
+                    }
+
+                    if (!MimeTypes.FileMatchContentType(file))
+                    {
+                        throw new HttpRequestValidationException("Invalid File");
+                    }
 
                     if (fileName.IsSet())
                     {
@@ -248,12 +264,6 @@ namespace YAF.Core.Handlers
         /// </returns>
         private bool CheckAccessRights([NotNull] int boardId, [NotNull] int forumId)
         {
-            if (forumId == 0)
-            {
-                // is private message upload
-                return true;
-            }
-
             // Find user name
             var user = this.Get<IAspNetUsersHelper>().GetUser();
 
@@ -274,11 +284,21 @@ namespace YAF.Core.Handlers
 
             this.Get<StartupInitializeDb>().Run();
 
-            string userKey = null;
+            string userKey;
 
             if (user != null)
             {
                 userKey = user.Id;
+            }
+            else
+            {
+                return false;
+            }
+
+            if (forumId == 0)
+            {
+                // is private message upload
+                return true;
             }
 
             var pageRow = this.Get<DataBroker>().GetPageLoad(
@@ -290,10 +310,10 @@ namespace YAF.Core.Handlers
                 HttpContext.Current.Request.QueryString.ToString(),
                 browser,
                 platform,
-                null,
+                0,
                 forumId,
-                null,
-                null,
+                0,
+                0,
                 isSearchEngine,
                 isMobileDevice,
                 doNotTrack);

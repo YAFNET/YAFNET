@@ -33,6 +33,7 @@ namespace YAF.Core.Services
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -145,6 +146,14 @@ namespace YAF.Core.Services
                     data = attachment.FileData;
                 }
 
+                if (!MimeTypes.FileMatchContentType(attachment.FileName, attachment.ContentType))
+                {
+                    // Illegal File
+                    context.Response.Write(
+                        "You have insufficient rights to download this resource. Contact forum administrator for further details.");
+                    return;
+                }
+
                 context.Response.ContentType = attachment.ContentType;
                 context.Response.AppendHeader(
                     "Content-Disposition",
@@ -239,6 +248,14 @@ namespace YAF.Core.Services
                 else
                 {
                     data = attachment.FileData;
+                }
+
+                if (!MimeTypes.FileMatchContentType(attachment.FileName, attachment.ContentType))
+                {
+                    // Illegal File
+                    context.Response.Write(
+                        "You have insufficient rights to download this resource. Contact forum administrator for further details.");
+                    return;
                 }
 
                 context.Response.ContentType = attachment.ContentType;
