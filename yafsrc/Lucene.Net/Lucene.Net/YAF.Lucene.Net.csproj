@@ -61,10 +61,5 @@
     <InternalsVisibleTo Include="YAF.Lucene.Net.Support" />
 
   </ItemGroup>
-  
-  <PropertyGroup>
-    <!-- Exclude the project from analysis -->
-    <SonarQubeExclude>true</SonarQubeExclude>
-  </PropertyGroup>
 
 </Project>

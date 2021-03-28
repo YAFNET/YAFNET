@@ -45,10 +45,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Lucene.Net\YAF.Lucene.Net.csproj" />
   </ItemGroup>
-  
-  <PropertyGroup>
-    <!-- Exclude the project from analysis -->
-    <SonarQubeExclude>true</SonarQubeExclude>
-  </PropertyGroup>
 
 </Project>
