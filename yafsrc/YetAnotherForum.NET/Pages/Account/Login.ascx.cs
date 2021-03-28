@@ -227,11 +227,7 @@ namespace YAF.Pages.Account
         {
             this.Get<IAspNetUsersHelper>().SignIn(user, this.RememberMe.Checked);
 
-            this.Page.Response.Redirect(
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
-                    ? this.HtmlEncode(
-                        this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl")))
-                    : this.Get<LinkBuilder>().GetLink(ForumPages.Board));
+            this.Get<LinkBuilder>().Redirect(ForumPages.Board);
         }
 
         /// <summary>
