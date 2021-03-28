@@ -6,9 +6,9 @@
         <span class="badge badge-light">
             <asp:Image runat="server" ID="UserAvatar" CssClass="img-navbar-avatar mr-1 rounded"/>
         </span>
-        <%= this.Get<BoardSettings>().EnableDisplayName ? 
+        <%= this.HtmlEncode(this.Get<BoardSettings>().EnableDisplayName ? 
                 this.PageContext.CurrentUserData.DisplayName : 
-                this.PageContext.CurrentUserData.UserName %>
+                this.PageContext.CurrentUserData.UserName) %>
         <asp:PlaceHolder runat="server" id="UnreadPlaceHolder">
             <asp:Label runat="server" ID="UnreadLabel" 
                        CssClass="ml-1 badge badge-danger">

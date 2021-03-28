@@ -30,6 +30,7 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Web;
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
@@ -551,8 +552,8 @@ namespace YAF.Core.Services
                            TopicUrl = BuildLink.GetLink(ForumPages.Posts, "t={0}", doc.Get("TopicId").ToType<int>()),
                            Posted = doc.Get("Posted"),
                            UserId = doc.Get("UserId").ToType<int>(),
-                           UserName = doc.Get("Author"),
-                           UserDisplayName = doc.Get("AuthorDisplay"),
+                           UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
+                           UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
                            ForumName = doc.Get("ForumName"),
                            ForumUrl = BuildLink.GetLink(ForumPages.forum, "f={0}", doc.Get("ForumId").ToType<int>()),
                            UserStyle = doc.Get("AuthorStyle")
@@ -876,13 +877,10 @@ namespace YAF.Core.Services
                     if (userAccessList.Any())
                     {
                         userAccessList.Where(a => !a.ReadAccess).ForEach(
-                            access =>
-                                {
-                                    fil.Add(
-                                        new FilterClause(
-                                            new TermsFilter(new Term("ForumId", access.ForumID.ToString())),
-                                            Occur.MUST_NOT));
-                                });
+                            access => fil.Add(
+                                new FilterClause(
+                                    new TermsFilter(new Term("ForumId", access.ForumID.ToString())),
+                                    Occur.MUST_NOT)));
                     }
                 }
 
