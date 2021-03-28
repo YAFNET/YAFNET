@@ -33,8 +33,6 @@ namespace YAF.Types.Models
     /// A class which represents the TopicTag table.
     /// </summary>
     [Serializable]
-
-    [UniqueConstraint(nameof(TopicID), nameof(TagID))]
     public partial class TopicTag : IEntity
     {
         /// <summary>
