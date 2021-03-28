@@ -1,7 +1,14 @@
 YetAnotherForum.NET Changelog
 ====================
 
-# YetAnotherForum.NET v2.3.1.13
+# YetAnotherForum.NET v2.3.1.14
+* added board name to page title
+* [FIXED] Add topic tag to new topic
+* [FIXED] XSS attack attack on fileupload (thanks to User @sushiwushi)
+* [FIXED] XSS on returnurl (thanks to User @sushiwushi)
+* [FIXED] XSS in Hovercard (thanks to User @sushiwushi)
+
+* # YetAnotherForum.NET v2.3.1.13
 * [NEW] Added Board Setting for Default Access Mask when creating a new forum
 * [FIXED] Deleting a Message with an Attachment
 * [FIXED #603] subforums are not saved
