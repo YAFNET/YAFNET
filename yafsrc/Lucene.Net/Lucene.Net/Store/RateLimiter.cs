@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System;
 using System.Threading;
 
@@ -120,18 +120,9 @@ namespace YAF.Lucene.Net.Store
                     var pauseNS = targetNS - curNS;
                     if (pauseNS > 0)
                     {
-//#if FEATURE_THREAD_INTERRUPT
-//                        try
-//                        {
-//#endif
-                            Thread.Sleep(TimeSpan.FromMilliseconds(pauseNS / 1000000));
-//#if FEATURE_THREAD_INTERRUPT // LUCENENET NOTE: Senseless to catch and rethrow the same exception type
-//                        }
-//                        catch (ThreadInterruptedException ie)
-//                        {
-//                            throw new ThreadInterruptedException(ie.ToString(), ie);
-//                        }
-//#endif
+                        Thread.Sleep(TimeSpan.FromMilliseconds(pauseNS / 1000000));
+                        // LUCENENET NOTE: No need to catch and rethrow same excepton type ThreadInterruptedException
+
                         curNS = Time.NanoTime();
                         continue;
                     }

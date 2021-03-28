@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -136,7 +136,7 @@ namespace YAF.Lucene.Net.Util
             }
             catch (NotSupportedException nsme)
             {
-                throw new ArgumentException(baseClass.Name + " has no such method: " + nsme.Message);
+                throw new ArgumentException(baseClass.Name + " has no such method: " + nsme.Message, nsme);
             }
         }
 
@@ -147,7 +147,7 @@ namespace YAF.Lucene.Net.Util
         public int GetImplementationDistance(Type subclazz)
         {
             // LUCENENET: Replaced WeakIdentityMap with ConditionalWeakTable - This operation is simplified over Lucene.
-            return cache.GetValue(subclazz, (key) => Convert.ToInt32(ReflectImplementationDistance(key), CultureInfo.InvariantCulture));
+            return cache.GetValue(subclazz, (key) => ReflectImplementationDistance(key));
         }
 
         /// <summary>

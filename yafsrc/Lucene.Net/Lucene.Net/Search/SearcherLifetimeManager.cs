@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -139,6 +139,7 @@ namespace YAF.Lucene.Net.Search
         // TODO: we could get by w/ just a "set"; need to have
         // Tracker hash by its version and have compareTo(Long)
         // compare to its version
+        // LUCENENET specific - use Lazy<T> to make the create operation atomic. See #417.
         private readonly ConcurrentDictionary<long, Lazy<SearcherTracker>> _searchers = new ConcurrentDictionary<long, Lazy<SearcherTracker>>();
 
         private void EnsureOpen()
