@@ -282,7 +282,7 @@
     <Resource tag="IMPORT_FILE_HELP">باید یک فایل *.txt شامل آدرس های ایمیل وجود داشته باشد. هر ایمیل را در یک خط نصب کنید</Resource>
     <Resource tag="IMPORT_NOTHING">چیزی درون ریزی نشد: آدرس ایمیل جدیدی هنگام آپلود یافت نشد</Resource>
     <Resource tag="IMPORT_SUCESS">{0} آدرس ایمیل جدید درون‌ریزی شد.</Resource>
-    <Resource tag="NOTE">شما می توانید لیستی از ربات های اسپم ایمیل را در StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;بیابید، که می تواند اینجا درون‌ریزی شوند</Resource>
+    <Resource tag="NOTE">شما می توانید لیستی از ربات های اسپم ایمیل را در StopForumSpam.com &lt;a href="https//www.stopforumspam.com/downloads/"&gt;https//www.stopforumspam.com/downloads/&lt;/a&gt;بیابید، که می تواند اینجا درون‌ریزی شوند</Resource>
     <Resource tag="TITLE">درون‌ریزی آدرس های ایمیل</Resource>
   </page>
   <page name="ADMIN_BANNEDIP">
@@ -319,7 +319,7 @@
     <Resource tag="IMPORT_FILE_HELP">باید یک فایل *.txt شامل آدرس های IP که هر IP در یک خط است داشته باشید</Resource>
     <Resource tag="IMPORT_NOTHING">چیزی درون‌ریزی نشد: آدرس آی پی جدیدی هنگام آپلود یافت نشد</Resource>
     <Resource tag="IMPORT_SUCESS">{0} آدرس آی پی جدید با موفقیت درون‌ریزی شد</Resource>
-    <Resource tag="NOTE">You can find a list of Spam Bot Ips on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot Ips on StopForumSpam.com &lt;a href="https//www.stopforumspam.com/downloads/"&gt;https//www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
     <Resource tag="TITLE">درون‌ریزی‌ آدرس‌های IP</Resource>
   </page>
   <page name="ADMIN_BANNEDNAME">
@@ -349,7 +349,7 @@
     <Resource tag="IMPORT_FILE_HELP">باید یک فایل *.txt شامل نام ها (هر نام در یک سطر) داشته باشید</Resource>
     <Resource tag="IMPORT_NOTHING">چیزی درون‌ریزی نشد: هیچ نامی در هنگام آپلود یافت نشد</Resource>
     <Resource tag="IMPORT_SUCESS">{0} new name(s) imported successfully.</Resource>
-    <Resource tag="NOTE">You can find a list of Spam Bot user names on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot user names on StopForumSpam.com &lt;a href="https//www.stopforumspam.com/downloads/"&gt;https//www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
     <Resource tag="TITLE">درون‌ریزی نام (ها)</Resource>
   </page>
   <page name="ADMIN_BBCODE">
@@ -1527,7 +1527,7 @@
     <Resource tag="STATS_CACHE_TIMEOUT">انقضای حافظه موقت آمار انجمن:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">به دقیقه</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
-    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;.</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="https//www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="STYLED_NICKS">از نیک های حالت دار استفاده کن:</Resource>
     <Resource tag="STYLED_NICKS_HELP">در صورت علامت زدن می توانید رنگ، قلم و اندازه برای نیک کاربران فعال استفاده نمائید.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Use styled Topic Titles:</Resource>
@@ -2029,6 +2029,7 @@
     <Resource tag="CONFIRM_DELETE">Delete attachment(s)?</Resource>
     <Resource tag="CURRENT_UPLOADS">آپلودهای فایل کنونی:</Resource>
     <Resource tag="DELETE">حذف</Resource>
+    <Resource tag="DELETED">{0} Attachment(s) deleted!</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">فایل های غیرمجاز</Resource>
     <Resource tag="DROP_HERE">فایل (ها) را اینجا بکشید</Resource>
     <Resource tag="FILEERROR">'{0}' فایل مجاز برای ارسال نمی باشد.</Resource>
@@ -5835,7 +5836,7 @@
 
       Thanks!
       The {forumname} Team
-      {forumurl}
+      {forumlink}
 
     </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER_HTML">
@@ -5856,7 +5857,7 @@
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -5874,7 +5875,7 @@
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_USER">
@@ -5888,7 +5889,7 @@
 
       Thanks!
       The {forumname} Team
-      {forumurl}
+      {forumlink}
 
     </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_HTML">
@@ -5913,7 +5914,7 @@
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -5935,7 +5936,7 @@
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
@@ -6009,7 +6010,7 @@
 
       Thanks!
       The {forumname} Team
-      {forumurl}
+      {forumlink}
 
     </Resource>
     <Resource tag="NOTIFICATION_ON_WELCOME_USER_HTML">
@@ -6039,7 +6040,7 @@
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -6064,7 +6065,7 @@
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT">
@@ -6076,7 +6077,7 @@
 
      Thanks!
      The {forumname} Team
-     {forumurl}
+     {forumlink}
 
    </Resource>
     <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT_HTML">
@@ -6099,7 +6100,7 @@
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -6120,7 +6121,7 @@
 
      Thanks!
      The {forumname} Team
-     {forumurl}
+     {forumlink}
 
    </Resource>
     <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT">
@@ -6132,7 +6133,7 @@
 
      Thanks!
      The {forumname} Team
-     {forumurl}
+     {forumlink}
 
    </Resource>
     <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT_HTML">
@@ -6155,7 +6156,7 @@
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -6176,7 +6177,7 @@
 
      Thanks!
      The {forumname} Team
-     {forumurl}
+     {forumlink}
 
    </Resource>
     <Resource tag="PASSWORDRETRIEVAL_ADMIN_HTML">
