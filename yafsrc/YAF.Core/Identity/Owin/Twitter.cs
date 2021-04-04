@@ -233,7 +233,7 @@ namespace YAF.Core.Identity.Owin
                 BoardContext.Current.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT"),
                 BoardContext.Current.BoardSettings.Name);
 
-            var notifyUser = new TemplateEmail
+            var notifyUser = new TemplateEmail("NOTIFICATION_ON_TWITTER_REGISTER")
             {
                 TemplateParams =
                                          {

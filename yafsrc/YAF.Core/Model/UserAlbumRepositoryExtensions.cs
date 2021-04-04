@@ -62,6 +62,33 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
+        /// Lists all the albums associated with the UserID or gets all the
+        ///   specifications for the specified album id.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<UserAlbum> ListByUserPaged([NotNull] this IRepository<UserAlbum> repository, [NotNull] int userId, [NotNull] int pageIndex, [NotNull] int pageSize)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            return repository.GetPaged(userAlbum => userAlbum.UserID == userId, pageIndex, pageSize)
+                .OrderByDescending(u => u.Updated).ToList();
+        }
+
+        /// <summary>
         /// The get title.
         /// </summary>
         /// <param name="repository">

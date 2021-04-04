@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Services
 {
+    using System;
+
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -71,7 +73,7 @@ namespace YAF.Core.Services
                 MessageID = messageID,
                 UserID = forumID,
                 Notification = false,
-                Created = System.DateTime.UtcNow
+                Created = DateTime.UtcNow
             };
 
             this.GetRepository<Activity>().Insert(activity);
@@ -96,7 +98,7 @@ namespace YAF.Core.Services
                 MessageID = messageID,
                 UserID = forumID,
                 Notification = false,
-                Created = System.DateTime.UtcNow
+                Created = DateTime.UtcNow
             };
 
             this.GetRepository<Activity>().Insert(activity);
@@ -129,7 +131,7 @@ namespace YAF.Core.Services
                                    MessageID = messageId,
                                    UserID = userId,
                                    Notification = true,
-                                   Created = System.DateTime.UtcNow
+                                   Created = DateTime.UtcNow
             };
 
             this.GetRepository<Activity>().Insert(activity);
@@ -165,7 +167,7 @@ namespace YAF.Core.Services
                                    MessageID = messageId,
                                    UserID = userId,
                                    Notification = true,
-                                   Created = System.DateTime.UtcNow
+                                   Created = DateTime.UtcNow
                                };
 
             this.GetRepository<Activity>().Insert(activity);
@@ -201,7 +203,7 @@ namespace YAF.Core.Services
                                    MessageID = messageId,
                                    UserID = userId,
                                    Notification = true,
-                                   Created = System.DateTime.UtcNow
+                                   Created = DateTime.UtcNow
             };
 
             this.GetRepository<Activity>().Insert(activity);
@@ -237,7 +239,7 @@ namespace YAF.Core.Services
                                    MessageID = messageId,
                                    UserID = userId,
                                    Notification = false,
-                                   Created = System.DateTime.UtcNow
+                                   Created = DateTime.UtcNow
             };
 
             this.GetRepository<Activity>().Insert(activity);

@@ -54,24 +54,6 @@ namespace YAF.Core.Controllers
         #endregion
 
         /// <summary>
-        /// The change album title.
-        /// </summary>
-        /// <param name="jsonData">
-        /// The JSON Data.
-        /// </param>
-        /// <returns>
-        /// the return object.
-        /// </returns>
-        [Route("Album/ChangeAlbumTitle")]
-        [HttpPost]
-        public IHttpActionResult ChangeAlbumTitle(JObject jsonData)
-        {
-            dynamic json = jsonData;
-
-            return this.Ok(this.Get<IAlbum>().ChangeAlbumTitle((int)json.AlbumId, (string)json.NewTitle));
-        }
-
-        /// <summary>
         /// The change image caption.
         /// </summary>
         /// <param name="jsonData">

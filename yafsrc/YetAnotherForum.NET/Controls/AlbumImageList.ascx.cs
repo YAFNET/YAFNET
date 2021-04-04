@@ -137,8 +137,7 @@ namespace YAF.Controls
                     "AlbumEventsJs",
                     JavaScriptBlocks.AlbumEventsJs(
                         this.GetText("ALBUM_CHANGE_TITLE").ToJsString(), this.GetText("ALBUM_IMAGE_CHANGE_CAPTION").ToJsString()));
-                this.PageContext.PageElements.RegisterJsBlockStartup(
-                    "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
+
                 this.PageContext.PageElements.RegisterJsBlockStartup(
                     "ChangeImageCaptionJs", JavaScriptBlocks.ChangeImageCaptionJs);
                 this.PageContext.PageElements.RegisterJsBlockStartup(
@@ -176,7 +175,10 @@ namespace YAF.Controls
             this.PagerTop.PageSize = this.PageContext.BoardSettings.AlbumImagesPerPage;
 
             // set the Data table
-            var albumImageList = this.GetRepository<UserAlbumImage>().List(this.UserAlbum.ID);
+            var albumImageList = this.GetRepository<UserAlbumImage>().ListPaged(
+                this.UserAlbum.ID,
+                this.PagerTop.CurrentPageIndex,
+                this.PagerTop.PageSize);
 
             // Does this album has a cover?
             this._coverImageID = this.UserAlbum.CoverImageID == null
@@ -188,18 +190,9 @@ namespace YAF.Controls
                 return;
             }
 
-            this.PagerTop.Count = albumImageList.Count;
-            
-            // Create paged data source for the album image list
-            var pds = new PagedDataSource
-                          {
-                              DataSource = albumImageList,
-                              AllowPaging = true,
-                              CurrentPageIndex = this.PagerTop.CurrentPageIndex,
-                              PageSize = this.PagerTop.PageSize
-                          };
+            this.PagerTop.Count = this.GetRepository<UserAlbumImage>().List(this.UserAlbum.ID).Count;
 
-            this.AlbumImages.DataSource = pds;
+            this.AlbumImages.DataSource = albumImageList;
             this.DataBind();
         }
 

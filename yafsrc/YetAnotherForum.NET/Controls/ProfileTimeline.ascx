@@ -77,8 +77,7 @@
             </div>
             <div class="card-body">
                 <asp:Repeater runat="server" ID="ActivityStream" 
-                              OnItemDataBound="ActivityStream_OnItemDataBound" 
-                              OnItemCommand="ActivityStream_OnItemCommand">
+                              OnItemDataBound="ActivityStream_OnItemDataBound">
                     <ItemTemplate>
                         <div class="row">
                             <div class="col-auto text-center flex-column d-none d-sm-flex">

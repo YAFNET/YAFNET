@@ -85,7 +85,7 @@ namespace YAF.Pages
 
             this.Subject.Text = this.PageContext.PageTopicName;
 
-            var emailTopic = new TemplateEmail
+            var emailTopic = new TemplateEmail("EMAILTOPIC")
             {
                 TemplateParams =
                 {

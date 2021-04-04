@@ -135,9 +135,6 @@ namespace YAF.Controls
             this.LoginInfo.Visible = true;
 
             // End Modifications for enhanced profile
-            this.ForumSettingsRows.Visible = this.PageContext.BoardSettings.AllowUserTheme
-                                             || this.PageContext.BoardSettings.AllowUserLanguage;
-
             this.UserThemeRow.Visible = this.PageContext.BoardSettings.AllowUserTheme;
             this.UserLanguageRow.Visible = this.PageContext.BoardSettings.AllowUserLanguage;
             this.LoginInfo.Visible = this.PageContext.BoardSettings.AllowEmailChange;

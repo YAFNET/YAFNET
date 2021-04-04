@@ -7,7 +7,7 @@
 <section class="text-center container mb-3">
     <div class="row">
         <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="font-weight-light">
+            <h1 class="fw-light">
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                     LocalizedTag="Albums_Title" />
             </h1>

@@ -6,7 +6,6 @@
 
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
-<%@ Register TagPrefix="YAF" TagName="BuddyList" Src="../controls/BuddyList.ascx" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -164,7 +163,7 @@
                             <span class="float-start fw-bold">
                                 <%# this.Eval("Item2.Name") %>:
                             </span>
-                            <%# this.Eval("Item1.Value") %>
+                            <%# this.HtmlEncode(this.Eval("Item1.Value")) %>
                         </li>
                     </ItemTemplate>
                 </asp:Repeater>
@@ -257,7 +256,7 @@
         </asp:PlaceHolder>
     </div>
     <!--/col-3-->
-    <div class="col-md-9" contenteditable="false" style="">
+    <div class="col-md-9">
         <asp:PlaceHolder runat="server" ID="InterestsTR" Visible="false">
 
             <div class="card mb-3">
@@ -350,13 +349,27 @@
                         LocalizedTag='<%# this.UserId == this.PageContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' />
                 </div>
                 <div class="card-body">
-                    <div runat="server" id="BuddyListTab" class="tab-pane" role="tabpanel">
-                        <YAF:BuddyList runat="server" ID="BuddyList" />
-                    </div>
+                    <asp:Repeater ID="Friends" runat="server">
+                        <HeaderTemplate>
+                            <ul class="list-group list-group-flush">
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <li class="list-group-item">
+                                <YAF:UserLink ID="UserProfileLink" runat="server" 
+                                              ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).DisplayName : (Container.DataItem as dynamic).Name %>"
+                                              Suspended="<%# (Container.DataItem as dynamic).Suspended %>"
+                                              Style="<%# (Container.DataItem as dynamic).UserStyle %>"
+                                              UserID="<%#  this.UserId == (int)(Container.DataItem as dynamic).UserID ? (Container.DataItem as dynamic).FromUserID: (Container.DataItem as dynamic).UserID %>" />
+            
+                            </li>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                        </ul>
+                        </FooterTemplate>
+                    </asp:Repeater>
                 </div>
             </div>
         </asp:PlaceHolder>
-
     </div>
 </div>
 

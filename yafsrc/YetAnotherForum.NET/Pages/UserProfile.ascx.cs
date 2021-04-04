@@ -27,7 +27,6 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data.Linq.SqlClient;
     using System.Linq;
     using System.Text;
     using System.Web;
@@ -240,9 +239,7 @@ namespace YAF.Pages
 
             this.AdminUserButton.Visible = this.PageContext.IsAdmin;
 
-            if (this.LastPosts.Visible)
-            {
-                this.LastPosts.DataSource = this.GetRepository<Message>().GetAllUserMessagesWithAccess(
+            this.LastPosts.DataSource = this.GetRepository<Message>().GetAllUserMessagesWithAccess(
                     this.PageContext.PageBoardID,
                     this.UserId,
                     this.PageContext.PageUserID,
@@ -252,7 +249,6 @@ namespace YAF.Pages
                     ForumPages.Search,
                     "postedby={0}",
                     userNameOrDisplayName);
-            }
 
             this.DataBind();
         }
@@ -290,8 +286,8 @@ namespace YAF.Pages
                 this.lnkBuddy.Visible = true;
                 this.lnkBuddy.Icon = "user-minus";
                 this.lnkBuddy.TextLocalizedTag = "REMOVEBUDDY";
-                this.lnkBuddy.Type = ButtonStyle.Warning;
                 this.lnkBuddy.TextLocalizedPage = "PAGE";
+                this.lnkBuddy.Type = ButtonStyle.Warning;
                 this.lnkBuddy.CommandArgument = "removebuddy";
                 this.lnkBuddy.ReturnConfirmText = this.GetText("FRIENDS", "NOTIFICATION_REMOVE");
             }
@@ -304,11 +300,10 @@ namespace YAF.Pages
                 if (!this.PageContext.IsGuest && !user.Item1.Block.BlockFriendRequests)
                 {
                     this.lnkBuddy.Visible = true;
+                    this.lnkBuddy.Icon = "user-plus";
                     this.lnkBuddy.TextLocalizedTag = "ADDBUDDY";
                     this.lnkBuddy.TextLocalizedPage = "PAGE";
-                    this.lnkBuddy.Icon = "user-plus";
                     this.lnkBuddy.Type = ButtonStyle.Success;
-
                     this.lnkBuddy.CommandArgument = "addbuddy";
                 }
                 else
@@ -317,10 +312,11 @@ namespace YAF.Pages
                 }
             }
 
-            this.BuddyList.CurrentUserID = userID;
-            this.BuddyList.Mode = 1;
+            this.Friends.DataSource = this.Get<IFriends>().GetForUser(userID)
+                .Where(x => x.Approved == true && x.FromUserID == userID).ToList();
+            this.Friends.DataBind();
 
-            this.BuddyCard.Visible = this.BuddyList.Count > 0;
+            this.BuddyCard.Visible = this.Friends.Items.Count > 0;
         }
 
         /// <summary>
@@ -357,6 +353,14 @@ namespace YAF.Pages
             this.Twitter.Visible = user.Item2.Profile_Twitter.IsSet();
             this.Twitter.NavigateUrl = $"http://twitter.com/{this.HtmlEncode(user.Item2.Profile_Twitter)}";
             this.Twitter.ParamTitle0 = userName;
+
+            this.XMPP.Visible = user.Item2.Profile_XMPP.IsSet();
+            this.XMPP.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Jabber, "u={0}", user.Item1.ID);
+            this.XMPP.ParamTitle0 = userName;
+
+            this.Skype.Visible = user.Item2.Profile_Skype.IsSet();
+            this.Skype.NavigateUrl = $"skype:{user.Item2.Profile_Skype}?call";
+            this.Skype.ParamTitle0 = userName;
 
             if (!this.Skype.Visible && !this.Blog.Visible && !this.XMPP.Visible && !this.Facebook.Visible &&
                 !this.Twitter.Visible)
@@ -419,14 +423,6 @@ namespace YAF.Pages
             }
 
             this.Email.ParamTitle0 = userName;
-
-            this.XMPP.Visible = user.Item2.Profile_XMPP.IsSet();
-            this.XMPP.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Jabber, "u={0}", user.Item1.ID);
-            this.XMPP.ParamTitle0 = userName;
-
-            this.Skype.Visible = user.Item2.Profile_Skype.IsSet();
-            this.Skype.NavigateUrl = $"skype:{user.Item2.Profile_Skype}?call";
-            this.Skype.ParamTitle0 = userName;
         }
 
         /// <summary>
@@ -441,7 +437,7 @@ namespace YAF.Pages
             this.UserLabel1.ReplaceName = user.Item1.DisplayOrUserName();
             this.UserLabel1.Style = user.Item1.UserStyle;
 
-            this.Joined.Text = $"{this.Get<IDateTimeService>().FormatDateLong(Convert.ToDateTime(user.Item1.Joined))}";
+            this.Joined.Text = this.Get<IDateTimeService>().FormatDateLong(user.Item1.Joined);
 
             // vzrus: Show last visit only to admins if user is hidden
             if (!this.PageContext.IsAdmin && user.Item1.UserFlags.IsActiveExcluded)
@@ -662,7 +658,7 @@ namespace YAF.Pages
                 allPosts = 100.0 * user.Item1.NumPosts / postsInBoard;
             }
 
-            var numberDays = SqlMethods.DateDiffDay(user.Item1.Joined, DateTime.UtcNow) + 1;
+            var numberDays = DateTimeHelper.DateDiffDay(user.Item1.Joined, DateTime.UtcNow) + 1;
 
             this.Stats.Text =
                 $"{user.Item1.NumPosts:N0} [{this.GetTextFormatted("NUMALL", allPosts)} / {this.GetTextFormatted("NUMDAY", (double)user.Item1.NumPosts / numberDays)}]";

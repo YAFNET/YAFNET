@@ -225,7 +225,7 @@ namespace YAF.Controls
                     ForumPages.UserProfile,
                     "u={0}&name={1}",
                     this.CurrentUserID,
-                    this.Get<IUserDisplayName>().GetNameById(this.CurrentUserID));
+                    this.user.DisplayOrUserName());
             }
             else
             {
@@ -248,6 +248,7 @@ namespace YAF.Controls
 
             // find forbidden BBCodes in signature
             var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this.allowedBbcodes, ',');
+
             if (this.allowedBbcodes.IndexOf("ALL", StringComparison.Ordinal) < 0)
             {
                 if (detectedBbCode.IsSet() && detectedBbCode != "ALL")

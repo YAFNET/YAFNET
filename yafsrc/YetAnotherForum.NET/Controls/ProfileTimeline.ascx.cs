@@ -147,7 +147,6 @@ namespace YAF.Controls
             var title = e.Item.FindControlAs<Literal>("Title");
             var messageHolder = e.Item.FindControlAs<PlaceHolder>("Message");
             var displayDateTime = e.Item.FindControlAs<DisplayDateTime>("DisplayDateTime");
-            var markRead = e.Item.FindControlAs<ThemeButton>("MarkRead");
 
             var message = string.Empty;
             var icon = string.Empty;
@@ -206,14 +205,6 @@ namespace YAF.Controls
             displayDateTime.DateTime = activity.Item1.Created;
 
             messageHolder.Controls.Add(new Literal { Text = message });
-
-            if (!activity.Item1.Notification)
-            {
-                return;
-            }
-
-            markRead.CommandArgument = activity.Item1.MessageID.Value.ToString();
-            markRead.Visible = true;
         }
 
         /// <summary>
@@ -224,29 +215,6 @@ namespace YAF.Controls
         protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             // rebind
-            this.BindData();
-        }
-
-        /// <summary>
-        /// The activity stream_ on item command.
-        /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void ActivityStream_OnItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-            if (e.CommandName != "read")
-            {
-                return;
-            }
-
-            this.GetRepository<Activity>().UpdateNotification(
-                this.PageContext.PageUserID,
-                e.CommandArgument.ToType<int>());
-
             this.BindData();
         }
 
@@ -327,7 +295,9 @@ namespace YAF.Controls
 
             this.ActivityStream.DataSource = paged;
 
-            this.ItemCount = paged.Any() ? paged.Count : 0;
+            this.ItemCount = paged.Any() ? stream.Count : 0;
+
+            this.PagerTop.Count = stream.Count;
 
             this.DataBind();
         }

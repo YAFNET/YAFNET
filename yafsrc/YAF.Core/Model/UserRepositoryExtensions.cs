@@ -825,7 +825,7 @@ namespace YAF.Core.Model
             {
                 data.UsrSigChars = groupMax.usrSigChars > rankMax.usrSigChars ? groupMax.usrSigChars : rankMax.usrSigChars;
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 data.UsrSigChars = 0;
             }
@@ -834,7 +834,7 @@ namespace YAF.Core.Model
             {
                 data.UsrSigBBCodes = groupMax.usrSigBBCodes.Length > rankMax.usrSigBBCodes.Length ? groupMax.usrSigBBCodes : rankMax.usrSigBBCodes;
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 data.UsrSigBBCodes = string.Empty;
             }
@@ -1650,7 +1650,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Suspends or Unsuspend the User
+        /// Suspends or Un-suspend the User
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="userId">The user identifier.</param>

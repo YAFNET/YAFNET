@@ -43,31 +43,6 @@ namespace YAF.Core.Utilities
         #region Properties
 
         /// <summary>
-        ///   Gets the script for changing the album title.
-        /// </summary>
-        /// <returns>
-        ///   the change album title js.
-        /// </returns>
-        [NotNull]
-        public static string ChangeAlbumTitleJs =>
-            $@"function changeAlbumTitle(albumId, txtTitleId){{
-                     var newTitleTxt = {Config.JQueryAlias}('#' + txtTitleId).val();
-            {Config.JQueryAlias}.ajax({{
-                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Album/ChangeAlbumTitle',
-                    type: 'POST',
-                    contentType: 'application/json;charset=utf-8',
-                    data: JSON.stringify({{ AlbumId: albumId, NewTitle: newTitleTxt  }}),
-                    dataType: 'json',
-                    success: changeTitleSuccess,
-                    error: function(x, e)  {{
-                             console.log('An Error has occured!');
-                             console.log(x.responseText);
-                             console.log(x.status);
-                    }}
-                 }});
-               }}";
-
-        /// <summary>
         ///   Gets the script for changing the image caption.
         /// </summary>
         /// <returns></returns>

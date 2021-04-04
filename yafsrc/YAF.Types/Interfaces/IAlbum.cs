@@ -50,20 +50,6 @@ namespace YAF.Types.Interfaces
         void AlbumImageDelete([NotNull] string uploadFolder, [CanBeNull] int? albumId, int userId, [CanBeNull] int? imageId);
 
         /// <summary>
-        /// The change album title.
-        /// </summary>
-        /// <param name="albumId">
-        /// The album id.
-        /// </param>
-        /// <param name="newTitle">
-        /// The New title.
-        /// </param>
-        /// <returns>
-        /// the return object.
-        /// </returns>
-        ReturnClass ChangeAlbumTitle(int albumId, [NotNull] string newTitle);
-
-        /// <summary>
         /// The change image caption.
         /// </summary>
         /// <param name="imageId">

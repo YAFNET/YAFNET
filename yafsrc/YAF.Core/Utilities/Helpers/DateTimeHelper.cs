@@ -104,5 +104,19 @@ namespace YAF.Core.Utilities.Helpers
 
             return (timeZone.ToType<decimal>() * 60).ToType<int>();
         }
+
+        /// <summary>
+        /// The date diff day.
+        /// </summary>
+        /// <param name="startDate">
+        /// The start date.
+        /// </param>
+        /// <param name="endDate">
+        /// The end date.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public static int DateDiffDay(DateTime startDate, DateTime endDate) => (endDate.Date - startDate.Date).Days;
     }
 }

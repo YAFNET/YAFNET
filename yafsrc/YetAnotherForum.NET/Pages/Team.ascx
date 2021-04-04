@@ -116,8 +116,7 @@
                                                    Style='<%# this.Eval("Style") %>'  />
                                  </h5>
                              </div>
-                                <p>
-                                        <span class="fw-bold">
+                                <span class="fw-bold">
                                             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
                                                                 LocalizedTag="FORUMS" />:
                                         </span>
@@ -130,7 +129,6 @@
                                         <asp:DropDownList ID="ModForums" runat="server" CssClass="form-control">
                                         </asp:DropDownList>
                                     </div>
-                                </p>
                             <small>
                                 <div class="btn-group" role="group">
                                     <YAF:ThemeButton ID="PM" runat="server" 

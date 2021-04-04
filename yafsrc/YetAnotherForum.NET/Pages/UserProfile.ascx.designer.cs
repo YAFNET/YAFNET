@@ -735,21 +735,12 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel44;
 
         /// <summary>
-        /// BuddyListTab control.
+        /// Friends control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl BuddyListTab;
-
-        /// <summary>
-        /// BuddyList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.BuddyList BuddyList;
+        protected global::System.Web.UI.WebControls.Repeater Friends;
     }
 }

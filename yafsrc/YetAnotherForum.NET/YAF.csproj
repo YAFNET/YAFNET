@@ -2237,6 +2237,7 @@
     <Content Include="Pages\Search.ascx" />
     <Content Include="Pages\Team.ascx" />
     <Content Include="Pages\Topics.ascx" />
+    <Content Include="Resources\EmailTemplate.html" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\blueimp-gallery\blueimp-gallery-indicator.js" />
@@ -3630,7 +3631,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

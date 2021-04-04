@@ -51,7 +51,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the Albums class.
         /// </summary>
         public Albums()
-            : base("ALBUM")
+            : base("ALBUMS")
         {
         }
 

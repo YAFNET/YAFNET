@@ -572,8 +572,7 @@ namespace YAF.Core.Services
                                             {
                                                 ["{user}"] = user.UserName,
                                                 ["{roles}"] = string.Join(", ", removedRoles.ToArray()),
-                                                ["{forumname}"] = this.BoardSettings.Name,
-                                                ["{forumurl}"] = this.Get<LinkBuilder>().ForumUrl
+                                                ["{forumname}"] = this.BoardSettings.Name
                                             }
                                     };
 
@@ -597,8 +596,7 @@ namespace YAF.Core.Services
                                             {
                                                 ["{user}"] = user.UserName,
                                                 ["{roles}"] = string.Join(", ", addedRoles.ToArray()),
-                                                ["{forumname}"] = this.BoardSettings.Name,
-                                                ["{forumurl}"] = this.Get<LinkBuilder>().ForumUrl
+                                                ["{forumname}"] = this.BoardSettings.Name
                                             }
                                     };
 
@@ -791,7 +789,7 @@ namespace YAF.Core.Services
         /// <param name="email">The email.</param>
         /// <param name="userName">Name of the user.</param>
         public void SendUserSuspensionNotification(
-            [NotNull] System.DateTime suspendedUntil,
+            [NotNull] DateTime suspendedUntil,
             [NotNull] string suspendReason,
             [NotNull] string email,
             [NotNull] string userName)
@@ -808,8 +806,7 @@ namespace YAF.Core.Services
                                              ["{suspendReason}"] = suspendReason,
                                              ["{suspendedUntil}"] =
                                                  suspendedUntil.ToString(CultureInfo.InvariantCulture),
-                                             ["{forumname}"] = this.BoardSettings.Name,
-                                             ["{forumurl}"] = this.Get<LinkBuilder>().ForumUrl
+                                             ["{forumname}"] = this.BoardSettings.Name
                                          }
                                  };
 
@@ -832,8 +829,7 @@ namespace YAF.Core.Services
                                      TemplateParams =
                                          {
                                              ["{user}"] = userName,
-                                             ["{forumname}"] = this.BoardSettings.Name,
-                                             ["{forumurl}"] = this.Get<LinkBuilder>().ForumUrl
+                                             ["{forumname}"] = this.BoardSettings.Name
                                          }
                                  };
 

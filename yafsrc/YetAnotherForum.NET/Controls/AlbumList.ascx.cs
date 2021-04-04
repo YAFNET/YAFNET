@@ -28,7 +28,6 @@ namespace YAF.Controls
 
     using System;
     using System.Linq;
-    using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
@@ -95,8 +94,6 @@ namespace YAF.Controls
                         this.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE").ToJsString(),
                         this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION").ToJsString()));
                 this.PageContext.PageElements.RegisterJsBlockStartup(
-                    "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
-                this.PageContext.PageElements.RegisterJsBlockStartup(
                     "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJs);
             }
 
@@ -122,8 +119,6 @@ namespace YAF.Controls
             var userAlbum = (int)this.GetRepository<User>().MaxAlbumData(
                 this.PageContext.PageUserID,
                 this.PageContext.PageBoardID).UserAlbum;
-
-            HttpContext.Current.Session["localizationFile"] = this.Get<ILocalization>().LanguageFileName;
 
             // Show Albums Max Info
             if (this.User.ID == this.PageContext.PageUserID)
@@ -170,25 +165,16 @@ namespace YAF.Controls
             this.PagerTop.PageSize = this.PageContext.BoardSettings.AlbumsPerPage;
 
             // set the Data table
-            var albumListDT = this.GetRepository<UserAlbum>().ListByUser(this.User.ID);
+            var albums = this.GetRepository<UserAlbum>().ListByUserPaged(this.User.ID, this.PagerTop.CurrentPageIndex, this.PagerTop.PageSize);
 
-            if (albumListDT == null || !albumListDT.Any())
+            if (albums == null || !albums.Any())
             {
                 return;
             }
 
-            this.PagerTop.Count = albumListDT.Count;
+            this.PagerTop.Count = this.GetRepository<UserAlbum>().ListByUser(this.User.ID).Count;
 
-            // create paged data source for the album list
-            var pds = new PagedDataSource
-                {
-                    DataSource = albumListDT,
-                    AllowPaging = true,
-                    CurrentPageIndex = this.PagerTop.CurrentPageIndex,
-                    PageSize = this.PagerTop.PageSize
-                };
-
-            this.Albums.DataSource = pds;
+            this.Albums.DataSource = albums;
             this.DataBind();
         }
 

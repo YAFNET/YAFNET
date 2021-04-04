@@ -111,7 +111,7 @@ namespace YAF.Web.Editors
             this.PreRender += this.Editor_PreRender;
 
             this.TextAreaControl = new HtmlTextArea { ID = "YafTextEditor", Rows = 15, Cols = 100 };
-            this.TextAreaControl.Attributes.Add("class", "YafTextEditor form-control");
+            this.TextAreaControl.Attributes.Add("class", "form-control");
 
             this.AddEditorControl(this.TextAreaControl);
 

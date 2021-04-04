@@ -14,13 +14,15 @@
             <div class="card-body">
                 <asp:PlaceHolder runat="server" id="UpgradeVersionHolder" visible="false">
                     <YAF:Alert runat="server" Type="info">
-                        <YAF:Icon runat="server" IconName="box-open" IconType="text-info"></YAF:Icon>
-                        <YAF:LocalizedLabel runat="server"
-                                            LocalizedTag="NEW_VERSION"></YAF:LocalizedLabel>
-                        <YAF:ThemeButton runat="server" ID="Download"
-                                         TextLocalizedTag="UPGRADE_VERSION"
-                                         Type="Info"
-                                         Icon="cloud-download-alt"></YAF:ThemeButton>
+					    <h6 class="alert-heading">
+                            <YAF:Icon runat="server" IconName="box-open" IconType="text-info"></YAF:Icon>
+                            <YAF:LocalizedLabel runat="server"
+                                                LocalizedTag="NEW_VERSION"></YAF:LocalizedLabel>
+                            <YAF:ThemeButton runat="server" ID="Download"
+                                             TextLocalizedTag="UPGRADE_VERSION"
+                                             Type="Info"
+                                             Icon="cloud-download-alt"></YAF:ThemeButton>
+                        </h6>
                     </YAF:Alert>
                 </asp:PlaceHolder>
                 <p class="card-text">

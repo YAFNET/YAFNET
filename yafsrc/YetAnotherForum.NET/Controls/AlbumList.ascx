@@ -44,7 +44,7 @@
                 <div class="col">
                     <div class="card mb-4 shadow-sm">
                         <a href='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Album, "u={0}&a={1}", this.Eval("UserID"), this.Eval("ID")) %>'
-                           target="_parent" title='<%# this.HtmlEncode(this.Eval("Title"))%>'>
+                           target="_parent" title='<%# this.HtmlEncode(this.Eval("Title"))%>' data-bs-toggle="tooltip">
                             <asp:Image runat="server" ID="coverImage" 
                                        ImageUrl='<%# "{0}resource.ashx?album={1}&cover={2}".Fmt(BoardInfo.ForumClientFileRoot, this.Eval("ID"), this.Eval("CoverImageID").ToType<int?>().HasValue ? this.Eval("CoverImageID") : "0") %>'
                                        ToolTip='<%# this.HtmlEncode(this.Eval("Title")) %>' 

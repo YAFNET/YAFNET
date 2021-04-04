@@ -200,10 +200,10 @@ namespace YAF.Core.Services
             [NotNull] string forumPage,
             [NotNull] string browser,
             [NotNull] string platform,
-            [CanBeNull] int? categoryId,
-            [CanBeNull] int? forumId,
-            [CanBeNull] int? topicId,
-            [CanBeNull] int? messageId,
+            [NotNull] int? categoryId,
+            [NotNull] int? forumId,
+            [NotNull] int? topicId,
+            [NotNull] int? messageId,
             [NotNull] bool isCrawler,
             [NotNull] bool isMobileDevice,
             [NotNull] bool doNotTrack)
@@ -215,7 +215,7 @@ namespace YAF.Core.Services
                 {
                     int userId;
                     bool isGuest;
-                    System.DateTime? previousVisit = null;
+                    DateTime? previousVisit = null;
                     User currentUser = null;
                     var activeUpdate = false;
 

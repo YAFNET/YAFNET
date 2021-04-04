@@ -28,6 +28,7 @@ namespace YAF.Controls
     using System;
     using System.Web;
 
+    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Services;
     using YAF.Types;

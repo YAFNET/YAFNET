@@ -69,19 +69,19 @@
                     </ItemTemplate>
                 </asp:Repeater>
                 <asp:PlaceHolder id="UploadHolder" runat="server">
-                    <asp:Label runat="server" AssociatedControlID="File">
+				    <h4>
+                        <asp:Label runat="server" AssociatedControlID="File">
                         <YAF:LocalizedLabel ID="UploadTitle" 
                                             LocalizedTag="UPLOAD_TITLE" runat="server" />
-                    </asp:Label>
-                    <div class="input-group">
-                        <div class="mb-3">
-                            <label for="<%# this.File.ClientID %>" class="form-label">
+                        </asp:Label>
+					</h4>
+					<label for="<%# this.File.ClientID %>" class="form-label">
                                 <YAF:LocalizedLabel ID="LocalizedLabel3" 
                                                     LocalizedTag="SELECT_FILE" 
                                                     LocalizedPage="EDIT_ALBUMIMAGES" runat="server" />
                             </label>
-                            <input type="file" id="File" class="form-control" runat="server" />
-                        </div>
+                    <div class="input-group mb-3">
+                        <input type="file" id="File" class="form-control mb-3" runat="server" />
                         <YAF:ThemeButton runat="server" ID="Upload" 
                                          CausesValidation="True"
                                          OnClick="Upload_Click" 
@@ -105,7 +105,7 @@
                 <YAF:ThemeButton runat="server" ID="Back" OnClick="Back_Click"
                                  TextLocalizedTag="BACK"
                                  Type="Secondary"
-                                 Icon="arrow-circle-left"/>
+                                 Icon="reply"/>
             </div>
         </div>
     </div>

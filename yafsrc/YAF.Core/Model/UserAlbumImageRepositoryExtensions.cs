@@ -76,12 +76,42 @@ namespace YAF.Core.Model
         /// </returns>
         public static List<UserAlbumImage> List(
             [NotNull] this IRepository<UserAlbumImage> repository,
-            int albumId)
+            [NotNull] int albumId)
         {
             CodeContracts.VerifyNotNull(repository);
 
             return repository.Get(albumImage => albumImage.AlbumID == albumId).OrderByDescending(a => a.Uploaded)
                 .ToList();
+        }
+
+        /// <summary>
+        /// Lists all the images associated with the Album Id.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="albumId">
+        /// The album Id.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
+        /// <returns>
+        /// a Data table containing the image(s).
+        /// </returns>
+        public static List<UserAlbumImage> ListPaged(
+            [NotNull] this IRepository<UserAlbumImage> repository,
+            [NotNull] int albumId,
+            [NotNull] int pageIndex,
+            [NotNull] int pageSize)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            return repository.GetPaged(albumImage => albumImage.AlbumID == albumId, pageIndex, pageSize)
+                .OrderByDescending(a => a.Uploaded).ToList();
         }
 
         /// <summary>

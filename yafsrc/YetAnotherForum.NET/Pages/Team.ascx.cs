@@ -35,7 +35,6 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Utilities;
     using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -60,7 +59,7 @@ namespace YAF.Pages
         /// <summary>
         ///   The Moderators List
         /// </summary>
-        private List<SimpleModerator> completeModsList = new();
+        private List<SimpleModerator> completeModsList = new ();
 
         #endregion
 
@@ -94,12 +93,16 @@ namespace YAF.Pages
             var gridItem = (RepeaterItem)forumButton.NamingContainer;
 
             var modForums = gridItem.FindControlAs<DropDownList>("ModForums");
-
+			
+			if (modForums.SelectedValue != "intro" && modForums.SelectedValue != "break")
+			{	
+		
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Topics,
                 "f={0}&name={1}",
                 modForums.SelectedValue,
                 modForums.SelectedItem.Text);
+			}
         }
 
         #endregion
@@ -172,24 +175,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Gets the avatar Url for the user
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="avatarString">The avatar string.</param>
-        /// <param name="hasAvatarImage">if set to <c>true</c> [has avatar image].</param>
-        /// <param name="email">The email.</param>
-        /// <returns>Returns the File Url</returns>
-        protected string GetAvatarUrlFileName(int userId, string avatarString, bool hasAvatarImage, string email)
-        {
-            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(
-                userId, avatarString, hasAvatarImage, email);
-
-            return avatarUrl.IsNotSet()
-                       ? $"{BoardInfo.ForumClientFileRoot}images/noavatar.svg"
-                       : avatarUrl;
-        }
-
-        /// <summary>
         /// Called when the page loads
         /// </summary>
         /// <param name="sender">
@@ -223,20 +208,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The pager_ page change.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.EventArgs
-        /// </param>
-        protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.BindData();
-        }
-
-        /// <summary>
         /// The admins list_ on item data bound.
         /// </summary>
         /// <param name="sender">
@@ -257,11 +228,7 @@ namespace YAF.Pages
             var user = (User)e.Item.DataItem;
             var displayName = user.DisplayOrUserName();
 
-            adminAvatar.ImageUrl = this.GetAvatarUrlFileName(
-                user.ID,
-                user.Avatar,
-                !user.AvatarImage.IsNullOrEmptyField(),
-                user.Email);
+            adminAvatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForUser(user);
 
             adminAvatar.AlternateText = displayName;
             adminAvatar.ToolTip = displayName; 
@@ -344,7 +311,6 @@ namespace YAF.Pages
 
             (from forumsItem in mod.ForumIDs
              let forumListItem = new ListItem { Value = forumsItem.ForumID.ToString(), Text = forumsItem.ForumName }
-             where !modForums.Items.Contains(forumListItem)
              select forumsItem).ForEach(
                 forumsItem => modForums.Items.Add(
                     new ListItem { Value = forumsItem.ForumID.ToString(), Text = forumsItem.ForumName }));
@@ -372,7 +338,11 @@ namespace YAF.Pages
 
             var modAvatar = e.Item.FindControlAs<Image>("ModAvatar");
 
-            modAvatar.ImageUrl = this.GetAvatarUrlFileName(userid, itemDataItem.Avatar, itemDataItem.AvatarImage, itemDataItem.Email);
+            modAvatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForUser(
+                userid,
+                itemDataItem.Avatar,
+                itemDataItem.AvatarImage,
+                itemDataItem.Email);
 
             modAvatar.AlternateText = displayName;
             modAvatar.ToolTip = displayName;
@@ -437,7 +407,7 @@ namespace YAF.Pages
             {
                 this.ModsTable.Visible = true;
 
-                this.ModeratorsList.DataSource = this.GetModerators();
+                this.ModeratorsList.DataSource = this.completeModsList;
             }
             else
             {

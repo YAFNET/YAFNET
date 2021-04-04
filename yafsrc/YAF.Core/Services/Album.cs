@@ -152,36 +152,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// The change album title.
-        /// </summary>
-        /// <param name="albumId">
-        /// The album id.
-        /// </param>
-        /// <param name="newTitle">
-        /// The New title.
-        /// </param>
-        /// <returns>
-        /// the return object.
-        /// </returns>
-        public ReturnClass ChangeAlbumTitle(int albumId, [NotNull] string newTitle)
-        {
-            // load the DB so BoardContext can work...
-            CodeContracts.VerifyNotNull(newTitle, "newTitle");
-
-            this.Get<StartupInitializeDb>().Run();
-
-            this.GetRepository<UserAlbum>().UpdateTitle(albumId, newTitle);
-
-            var returnObject = new ReturnClass { NewTitle = newTitle };
-
-            returnObject.NewTitle = newTitle == string.Empty
-                                        ? this.Get<ILocalization>().GetText("ALBUM", "ALBUM_CHANGE_TITLE")
-                                        : newTitle;
-            returnObject.Id = $"0{albumId.ToString()}";
-            return returnObject;
-        }
-
-        /// <summary>
         /// The change image caption.
         /// </summary>
         /// <param name="imageId">

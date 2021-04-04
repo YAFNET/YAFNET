@@ -204,9 +204,9 @@ namespace YAF.Core.Services
                 HttpContext.Current.Request.QueryString.ToString(),
                 browser,
                 platform,
-                null,
-                null,
-                null,
+                0,
+                0,
+                0,
                 messageId,
                 isSearchEngine, // don't track if this is a search engine
                 isMobileDevice,

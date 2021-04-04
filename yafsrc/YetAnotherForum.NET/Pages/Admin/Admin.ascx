@@ -13,13 +13,15 @@
 </div>
     <asp:PlaceHolder ID="UpdateHightlight" runat="server" Visible="false">
         <YAF:Alert runat="server" Type="info">
-            <YAF:Icon runat="server" IconName="box-open" IconType="text-info"></YAF:Icon>
-            <YAF:LocalizedLabel runat="server"
-                                LocalizedTag="NEW_VERSION"></YAF:LocalizedLabel>
-            <YAF:ThemeButton ID="UpdateLinkHighlight" runat="server" 
-                             TextLocalizedTag="UPGRADE_VERSION"
-                             Type="Info"
-                             Icon="cloud-download-alt"></YAF:ThemeButton>
+            <h6 class="alert-heading">
+                <YAF:Icon runat="server" IconName="box-open" IconType="text-info"></YAF:Icon>
+                <YAF:LocalizedLabel runat="server"
+                                    LocalizedTag="NEW_VERSION"></YAF:LocalizedLabel>
+                <YAF:ThemeButton ID="UpdateLinkHighlight" runat="server" 
+                                 TextLocalizedTag="UPGRADE_VERSION"
+                                 Type="Info"
+                                 Icon="cloud-download-alt"></YAF:ThemeButton>
+            </h6>
         </YAF:Alert>
     </asp:PlaceHolder>
 
