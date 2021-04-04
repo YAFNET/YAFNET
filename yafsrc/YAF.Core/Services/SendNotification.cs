@@ -601,8 +601,7 @@ namespace YAF.Core.Services
                                             {
                                                 ["{user}"] = user.UserName,
                                                 ["{roles}"] = string.Join(", ", removedRoles.ToArray()),
-                                                ["{forumname}"] = this.BoardSettings.Name,
-                                                ["{forumurl}"] = BoardInfo.ForumURL
+                                                ["{forumname}"] = this.BoardSettings.Name
                                             }
                                     };
 
@@ -626,8 +625,7 @@ namespace YAF.Core.Services
                                             {
                                                 ["{user}"] = user.UserName,
                                                 ["{roles}"] = string.Join(", ", addedRoles.ToArray()),
-                                                ["{forumname}"] = this.BoardSettings.Name,
-                                                ["{forumurl}"] = BoardInfo.ForumURL
+                                                ["{forumname}"] = this.BoardSettings.Name
                                             }
                                     };
 
@@ -888,8 +886,7 @@ namespace YAF.Core.Services
                                              ["{suspendReason}"] = suspendReason,
                                              ["{suspendedUntil}"] =
                                                  suspendedUntil.ToString(CultureInfo.InvariantCulture),
-                                             ["{forumname}"] = this.BoardSettings.Name,
-                                             ["{forumurl}"] = BoardInfo.ForumURL
+                                             ["{forumname}"] = this.BoardSettings.Name
                                          }
                                  };
 
@@ -908,14 +905,9 @@ namespace YAF.Core.Services
                 this.BoardSettings.Name);
 
             var notifyUser = new TemplateEmail("NOTIFICATION_ON_SUSPENDING_ENDED_USER")
-                                 {
-                                     TemplateParams =
-                                         {
-                                             ["{user}"] = userName,
-                                             ["{forumname}"] = this.BoardSettings.Name,
-                                             ["{forumurl}"] = BoardInfo.ForumURL
-                                         }
-                                 };
+            {
+                TemplateParams = { ["{user}"] = userName, ["{forumname}"] = this.BoardSettings.Name }
+            };
 
             notifyUser.SendEmail(new MailAddress(email, userName), subject);
         }

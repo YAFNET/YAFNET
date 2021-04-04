@@ -42,12 +42,11 @@ namespace YAF.Core.Model
             this IRepository<PollVote> repository,
             [NotNull] int choiceId,
             [CanBeNull] int? userId,
-            [NotNull] int pollId,
-            [NotNull] string remoteIP)
+            [NotNull] int pollId)
         {
             if (userId.HasValue)
             {
-                var entity = new PollVote { PollID = pollId, UserID = userId.Value, RemoteIP = remoteIP, ChoiceID = choiceId };
+                var entity = new PollVote { PollID = pollId, UserID = userId.Value, ChoiceID = choiceId };
 
                 repository.Insert(entity);
 
@@ -55,14 +54,9 @@ namespace YAF.Core.Model
             }
             else
             {
-                if (remoteIP.IsNotSet())
-                {
-                    return;
-                }
-
                 var entity = new PollVote
                                  {
-                                     PollID = pollId, UserID = null, RemoteIP = remoteIP, ChoiceID = choiceId
+                                     PollID = pollId, UserID = null, ChoiceID = choiceId
                                  };
 
                 repository.Insert(entity);

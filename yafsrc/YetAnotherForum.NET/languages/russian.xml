@@ -5718,7 +5718,7 @@ Spoiler Content
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER_HTML">
@@ -5739,7 +5739,7 @@ Spoiler Content
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -5757,7 +5757,7 @@ Spoiler Content
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_USER">
@@ -5771,7 +5771,7 @@ Spoiler Content
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_HTML">
@@ -5796,7 +5796,7 @@ Spoiler Content
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -5818,7 +5818,7 @@ Spoiler Content
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
@@ -5895,7 +5895,7 @@ Spoiler Content
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ON_WELCOME_USER_HTML">
@@ -5925,7 +5925,7 @@ Spoiler Content
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -5950,7 +5950,7 @@ Spoiler Content
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT">
@@ -5962,7 +5962,7 @@ Spoiler Content
 
      Thanks!
      The {forumname} Team
-     {forumurl}
+     {forumlink}
 
    </Resource>
     <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT_HTML">
@@ -5985,7 +5985,7 @@ Spoiler Content
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -6006,7 +6006,7 @@ Spoiler Content
 
      Thanks!
      The {forumname} Team
-     {forumurl}
+     {forumlink}
 
    </Resource>
     <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT">
@@ -6018,7 +6018,7 @@ Spoiler Content
 
      Thanks!
      The {forumname} Team
-     {forumurl}
+     {forumlink}
 
    </Resource>
     <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT_HTML">
@@ -6041,7 +6041,7 @@ Spoiler Content
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -6062,7 +6062,7 @@ Spoiler Content
 
      Thanks!
      The {forumname} Team
-     {forumurl}
+     {forumlink}
 
    </Resource>
     <Resource tag="PASSWORDRETRIEVAL_ADMIN_HTML">

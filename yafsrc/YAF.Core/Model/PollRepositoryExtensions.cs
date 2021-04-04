@@ -320,13 +320,12 @@ namespace YAF.Core.Model
         public static DataTable PollGroupVotecheckAsDataTable(
             this IRepository<Poll> repository,
             [NotNull] object pollGroupId,
-            [NotNull] object userId,
-            [NotNull] object remoteIp)
+            [NotNull] object userId)
         {
             return repository.DbFunction.GetData.pollgroup_votecheck(
                 PollGroupID: pollGroupId,
                 UserID: userId,
-                RemoteIP: remoteIp);
+                RemoteIP: null);
         }
 
         /// <summary>

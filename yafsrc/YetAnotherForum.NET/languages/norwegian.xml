@@ -5756,7 +5756,7 @@ The Message was posted in the {forumname} forum.
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER_HTML">
@@ -5777,7 +5777,7 @@ The Message was posted in the {forumname} forum.
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -5795,7 +5795,7 @@ The Message was posted in the {forumname} forum.
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_USER">
@@ -5809,7 +5809,7 @@ The Message was posted in the {forumname} forum.
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_HTML">
@@ -5834,7 +5834,7 @@ The Message was posted in the {forumname} forum.
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -5856,7 +5856,7 @@ The Message was posted in the {forumname} forum.
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
@@ -5933,7 +5933,7 @@ The Message was posted in the {forumname} forum.
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ON_WELCOME_USER_HTML">
@@ -5963,7 +5963,7 @@ The Message was posted in the {forumname} forum.
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -5988,7 +5988,7 @@ The Message was posted in the {forumname} forum.
 
     Thanks!
     The {forumname} Team
-    {forumurl}
+    {forumlink}
 
   </Resource>
     <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT">
@@ -6000,7 +6000,7 @@ The Message was posted in the {forumname} forum.
 
      Thanks!
      The {forumname} Team
-     {forumurl}
+     {forumlink}
 
    </Resource>
     <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT_HTML">
@@ -6023,7 +6023,7 @@ The Message was posted in the {forumname} forum.
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -6044,7 +6044,7 @@ The Message was posted in the {forumname} forum.
 
      Thanks!
      The {forumname} Team
-     {forumurl}
+     {forumlink}
 
    </Resource>
     <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT">
@@ -6056,7 +6056,7 @@ The Message was posted in the {forumname} forum.
 
      Thanks!
      The {forumname} Team
-     {forumurl}
+     {forumlink}
 
    </Resource>
     <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT_HTML">
@@ -6079,7 +6079,7 @@ The Message was posted in the {forumname} forum.
 
      &lt;p&gt;Thanks!&lt;br /&gt;
      The {forumname} Team&lt;br /&gt;
-     {forumurl}
+     {forumlink}
      &lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -6100,7 +6100,7 @@ The Message was posted in the {forumname} forum.
 
      Thanks!
      The {forumname} Team
-     {forumurl}
+     {forumlink}
 
    </Resource>
     <Resource tag="PASSWORDRETRIEVAL_ADMIN_HTML">
