@@ -2781,6 +2781,13 @@
     <Content Include="Scripts\InstallWizard.comb.min.js">
       <DependentUpon>InstallWizard.comb.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\jquery-3.6.0.js" />
+    <Content Include="Scripts\jquery-3.6.0.min.js">
+      <DependentUpon>jquery-3.6.0.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-3.6.0.min.map">
+      <DependentUpon>jquery-3.6.0.min.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
     <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.js" />
@@ -3381,6 +3388,9 @@
     <Content Include="Content\Themes\vapor\bootstrap-forum.scss" />
     <Content Include="Content\Themes\morph\bootstrap-forum.scss" />
     <Content Include="Content\Themes\quartz\bootstrap-forum.scss" />
+    <None Include="Scripts\jquery-3.6.0.intellisense.js">
+      <DependentUpon>jquery-3.6.0.js</DependentUpon>
+    </None>
     <None Include="web.config">
       <SubType>Designer</SubType>
     </None>
@@ -3631,7 +3641,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
