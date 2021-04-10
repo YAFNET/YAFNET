@@ -1527,6 +1527,10 @@
     <Resource tag="STYLED_NICKS_HELP">Wenn diese Option aktiviert, können Sie Farben, die Schriftgröße, usw. ändern für aktive Benutzer Nicknamen.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Themen Titel Stil verwenden:</Resource>
     <Resource tag="STYLED_TOPIC_TITLES_HELP">Wenn aktiviert, können Mods. und Admins Schriftfarbe, Schriftgröße und andere Stile von Themen Titeln verändernt.</Resource>
+    <Resource tag="TEMPLATE_TITLE">Page title template:</Resource>
+    <Resource tag="TEMPLATE_TITLE_HELP">Template for the title meta tag.</Resource>
+    <Resource tag="TEMPLATE_TITLE_PAGER">Pager page title template:</Resource>
+    <Resource tag="TEMPLATE_TITLE_PAGER_HELP">Template for the page title inside the page title.</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE">Danke von Vorlage:</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzers Danke von.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Danke an Vorlage:</Resource>
@@ -2261,6 +2265,7 @@
     <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT">{0} Forum Account Update</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="OR">oder</Resource>
+    <Resource tag="PAGE">Page</Resource>
     <Resource tag="PAGES">Seiten</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Neue private Nachricht von {0} am {1}</Resource>
     <Resource tag="POST">Beitrag</Resource>
@@ -4210,6 +4215,7 @@ Spoiler Content
     <Resource tag="SEND">Sende E-Mail</Resource>
     <Resource tag="SUBJECT">Betreff:</Resource>
     <Resource tag="TITLE">E-Mail an Benutzer verschicken</Resource>
+    <Resource tag="TITLE2">Send E-mail to {0}</Resource>
   </page>
   <page name="IM_ICQ">
     <Resource tag="BODY">Nachricht hier eingeben:</Resource>

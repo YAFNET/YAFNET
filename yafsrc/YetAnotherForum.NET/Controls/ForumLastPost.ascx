@@ -26,7 +26,7 @@
 </asp:PlaceHolder>
 
 <asp:PlaceHolder runat="server" ID="NoPostsPlaceHolder">
-    <span class="font-italic">
+    <span class="fst-italic">
         <YAF:LocalizedLabel ID="NoPostsLabel" runat="server" LocalizedTag="NO_POSTS" />
     </span>
 </asp:PlaceHolder>

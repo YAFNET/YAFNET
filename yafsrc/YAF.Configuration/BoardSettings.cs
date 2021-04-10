@@ -129,6 +129,32 @@ namespace YAF.Configuration
         public int BoardID => this.BoardId;
 
         /// <summary>
+        /// Gets or sets the title template.
+        /// </summary>
+        /// <value>
+        /// The title template.
+        /// </value>
+        public string TitleTemplate
+        {
+            get => this.RegistryBoard.GetValue("TitleTemplate", "{title} &#183; {boardName}");
+
+            set => this.RegistryBoard.SetValue("TitleTemplate", value);
+        }
+
+        /// <summary>
+        /// Gets or sets the paging title template.
+        /// </summary>
+        /// <value>
+        /// The paging title template.
+        /// </value>
+        public string PagingTitleTemplate
+        {
+            get => this.RegistryBoard.GetValue("PagingTitleTemplate", " &#183; {paging}");
+
+            set => this.RegistryBoard.SetValue("PagingTitleTemplate", value);
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether to enable Display Name.
         /// </summary>
         public bool EnableDisplayName

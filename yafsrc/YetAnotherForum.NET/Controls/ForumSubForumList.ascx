@@ -21,7 +21,9 @@
         </li>
     </ItemTemplate>
     <FooterTemplate>
+	<li class="list-inline-item">
             <asp:Label Text="..." Visible="false" ID="CutOff" runat="server" />
+			</li>
         </ul>
         </div></div>
 </FooterTemplate>

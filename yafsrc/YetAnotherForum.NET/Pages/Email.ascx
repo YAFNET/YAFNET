@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-xl-12">
         <h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
-                                LocalizedTag="TITLE" />
+                                LocalizedTag="TITLE2"/>
         </h2>
     </div>
 </div>
@@ -16,9 +16,10 @@
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                ID="IconHeader"
                                 IconName="envelope-open"
-                                LocalizedTag="TITLE"
-                                LocalizedPage="IM_EMAIL" />
+                                LocalizedTag="TITLE2"
+                                LocalizedPage="IM_EMAIL"/>
             </div>
             <div class="card-body">
                 <div class="mb-3">

@@ -1541,6 +1541,10 @@
     <Resource tag="STYLED_NICKS_HELP">Si está marcado, puedes usar colores, cambiar tamaño de fuentes, etc. para los nicks de los usuarios activos.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Usar títulos de temas con estilo:</Resource>
     <Resource tag="STYLED_TOPIC_TITLES_HELP">Si está marcado, moderadores y administradores pueden usar colores, cambios en la fuente de letra, etc. en los títulos de los temas.</Resource>
+    <Resource tag="TEMPLATE_TITLE">Page title template:</Resource>
+    <Resource tag="TEMPLATE_TITLE_HELP">Template for the title meta tag.</Resource>
+    <Resource tag="TEMPLATE_TITLE_PAGER">Pager page title template:</Resource>
+    <Resource tag="TEMPLATE_TITLE_PAGER_HELP">Template for the page title inside the page title.</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE">Plantilla de agradecimientos de:</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Plantilla para mostrar los agradecimientos de los usuarios.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Plantilla de agradecimientos a:</Resource>
@@ -2284,6 +2288,7 @@
     <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT">{0} Forum Account Update</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="OR">o</Resource>
+    <Resource tag="PAGE">Page</Resource>
     <Resource tag="PAGES">Páginas</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Nuevo mensaje privado de {0} a las {1}</Resource>
     <Resource tag="POST">Publicar</Resource>
@@ -4626,6 +4631,7 @@ public class Hello1
     <Resource tag="SEND">Enviar correo electrónico</Resource>
     <Resource tag="SUBJECT">Asunto:</Resource>
     <Resource tag="TITLE">Correo electrónico</Resource>
+    <Resource tag="TITLE2">Send E-mail to {0}</Resource>
   </page>
   <page name="IM_ICQ">
     <Resource tag="BODY">Tu mensaje aquí:</Resource>

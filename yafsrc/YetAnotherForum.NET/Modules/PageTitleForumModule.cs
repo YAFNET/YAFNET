@@ -47,15 +47,6 @@ namespace YAF.Modules
     [Module("Page Title Module", "Tiny Gecko", 1)]
     public class PageTitleForumModule : SimpleBaseForumModule
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The forum page title.
-        /// </summary>
-        private string forumPageTitle;
-
-        #endregion
-
         #region Public Methods
 
         /// <summary>
@@ -63,7 +54,6 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
-            this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
             this.CurrentForumPage.Load += this.ForumPage_Load;
         }
 
@@ -82,57 +72,33 @@ namespace YAF.Modules
         }
 
         /// <summary>
-        /// Handles the PreRender event of the ForumPage control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var head = this.ForumControl.Page.Header
-                            ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
-
-            if (head != null)
-            {
-                // setup the title...
-                var addition = string.Empty;
-
-                if (head.Title.IsSet())
-                {
-                    addition = $" · {head.Title.Trim()}";
-                }
-
-                head.Title = $"{this.forumPageTitle}{addition}";
-            }
-            else
-            {
-                // old style
-                var title = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlTitle>("ForumTitle");
-
-                if (title != null)
-                {
-                    title.Text = this.forumPageTitle;
-                }
-            }
-        }
-
-        /// <summary>
         /// Creates this pages title and fires a PageTitleSet event if one is set
         /// </summary>
         private void GeneratePageTitle()
         {
+            var head = this.ForumControl.Page.Header
+                       ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
+
+            if (head == null)
+            {
+                return;
+            }
+
             // compute page title..
             var title = new StringBuilder();
 
             var pageString = string.Empty;
 
-            if (this.ForumPageType == ForumPages.Posts || this.ForumPageType == ForumPages.Topics)
+            if (this.ForumPageType is ForumPages.Posts or ForumPages.Topics)
             {
                 // get current page...
                 var currentPager = this.CurrentForumPage.FindControlAs<Pager>("Pager");
 
                 if (currentPager != null && currentPager.CurrentPageIndex != 0)
                 {
-                    pageString = $" · Page {currentPager.CurrentPageIndex + 1}";
+                    pageString = this.PageContext.BoardSettings.PagingTitleTemplate.Replace(
+                        "{paging}",
+                        $"{this.GetText("COMMON", "PAGE")} {currentPager.CurrentPageIndex + 1}");
                 }
             }
 
@@ -151,8 +117,6 @@ namespace YAF.Modules
                         // Append Current Page
                         title.Append(pageString);
 
-                        title.Append(" · ");
-
                         break;
                     case ForumPages.Topics:
                         if (this.PageContext.PageForumName != string.Empty)
@@ -164,8 +128,6 @@ namespace YAF.Modules
                         // Append Current Page
                         title.Append(pageString);
 
-                        title.Append(" · ");
-
                         break;
                     case ForumPages.Board:
                         if (this.PageContext.PageCategoryName != string.Empty)
@@ -173,8 +135,6 @@ namespace YAF.Modules
                             // Tack on the forum we're viewing
                             title.Append(
                                 this.CurrentForumPage.HtmlEncode(this.PageContext.PageCategoryName.Truncate(80)));
-
-                            title.Append(" · ");
                         }
 
                         break;
@@ -187,20 +147,35 @@ namespace YAF.Modules
                         {
                             // Tack on the forum we're viewing
                             title.Append(this.CurrentForumPage.HtmlEncode(activePageLink.Title.Truncate(80)));
-
-                            title.Append(" · ");
                         }
 
                         break;
                 }
             }
+            else
+            {
+                var pageLinks = this.CurrentForumPage.FindControlAs<PageLinks>("PageLinks");
 
-            // and lastly, tack on the board's name
-            title.Append(this.CurrentForumPage.HtmlEncode(this.PageContext.BoardSettings.Name));
+                var activePageLink = pageLinks?.PageLinkList?.FirstOrDefault(link => link.URL.IsNotSet());
 
-            this.forumPageTitle = title.ToString();
+                if (activePageLink != null)
+                {
+                    // Tack on the forum we're viewing
+                    title.Append(this.CurrentForumPage.HtmlEncode(activePageLink.Title));
+                }
+            }
 
-            this.ForumControl.FirePageTitleSet(this, new ForumPageTitleArgs(this.forumPageTitle));
+            var boardName = this.CurrentForumPage.HtmlEncode(this.PageContext.BoardSettings.Name);
+
+            var forumPageTitle =
+                title.Length > 0
+                    ? this.PageContext.BoardSettings.TitleTemplate.Replace("{title}", title.ToString())
+                        .Replace("{boardName}", boardName)
+                    : boardName;
+
+            head.Title = forumPageTitle;
+
+            this.ForumControl.FirePageTitleSet(this, new ForumPageTitleArgs(forumPageTitle));
         }
 
         #endregion
