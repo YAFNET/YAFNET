@@ -1567,6 +1567,21 @@
                             <asp:CheckBox Text="&nbsp;" ID="ShowScrollBackToTopButton" runat="server"></asp:CheckBox>
                         </div>
                     </div>
+                        
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <YAF:HelpLabel ID="HelpLabel31" runat="server" 
+                                           AssociatedControlID="TitleTemplate"
+                                           LocalizedTag="TEMPLATE_TITLE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <asp:TextBox CssClass="form-control" ID="TitleTemplate" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <YAF:HelpLabel ID="HelpLabel40" runat="server" 
+                                           AssociatedControlID="PagingTitleTemplate"
+                                           LocalizedTag="TEMPLATE_TITLE_PAGER" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <asp:TextBox CssClass="form-control" ID="PagingTitleTemplate" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
                     </div>
                 <div class="card-footer text-lg-center">
                     <YAF:ThemeButton ID="ThemeButton4" runat="server"  Type="Primary" OnClick="SaveClick"
