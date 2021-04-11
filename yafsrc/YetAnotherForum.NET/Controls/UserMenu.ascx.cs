@@ -452,26 +452,14 @@ namespace YAF.Controls
             this.UserDropDown.DataToggle = "dropdown";
             this.UserDropDown.Type = ButtonStyle.None;
 
-            if (this.PageContext.ForumPageType == ForumPages.MyAccount
-                || this.PageContext.ForumPageType == ForumPages.Profile_EditProfile
-                || this.PageContext.ForumPageType == ForumPages.MyMessages
-                || this.PageContext.ForumPageType == ForumPages.Friends
-                || this.PageContext.ForumPageType == ForumPages.MyTopics
-                || this.PageContext.ForumPageType == ForumPages.Profile_EditProfile
-                || this.PageContext.ForumPageType == ForumPages.Profile_EditSettings
-                || this.PageContext.ForumPageType == ForumPages.Profile_ChangePassword
-                || this.PageContext.ForumPageType == ForumPages.Profile_Attachments
-                || this.PageContext.ForumPageType == ForumPages.Profile_EditAvatar
-                || this.PageContext.ForumPageType == ForumPages.Profile_EditSignature
-                || this.PageContext.ForumPageType == ForumPages.Profile_Subscriptions
-                || this.PageContext.ForumPageType == ForumPages.Profile_BlockOptions)
-            {
-                this.UserDropDown.CssClass = "nav-link active dropdown-toggle";
-            }
-            else
-            {
-                this.UserDropDown.CssClass = "nav-link dropdown-toggle";
-            }
+            this.UserDropDown.CssClass =
+                this.PageContext.ForumPageType is ForumPages.MyAccount or ForumPages.Profile_EditProfile or
+                    ForumPages.MyMessages or ForumPages.Friends or ForumPages.MyTopics or ForumPages.Profile_EditProfile
+                    or ForumPages.Profile_EditSettings or ForumPages.Profile_ChangePassword or
+                    ForumPages.Profile_Attachments or ForumPages.Profile_EditAvatar or ForumPages.Profile_EditSignature
+                    or ForumPages.Profile_Subscriptions or ForumPages.Profile_BlockOptions
+                    ? "nav-link active dropdown-toggle"
+                    : "nav-link dropdown-toggle";
 
             this.UserDropDown.NavigateUrl = "#";
 

@@ -107,10 +107,6 @@
     <Resource tag="ADMIN_SPAMWORDS_EDIT">نمایش لیست کلمات اسپم</Resource>
     <Resource tag="ADMIN_SPAMWORDS_IMPORT">کلمات اسپم درون‌ریزی</Resource>
     <Resource tag="ADMIN_TASKMANAGER">نمایش/مدیریت مدیر فرمان</Resource>
-    <Resource tag="ADMIN_TEST_DATA">نمایش/ویرایش تولید کننده آزمایشی داده</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS">مشاهده وضعیت موضوع در بخش مدیر</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS_EDIT">ویرایش وضعیت موضوع</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS_IMPORT">درون‌ریزی وضعیت موضوع</Resource>
     <Resource tag="ADMIN_USERS">نمایش کاربران در قسمت مدیریت</Resource>
     <Resource tag="ADMIN_USERS_IMPORT">درون‌ریزی کاربران</Resource>
     <Resource tag="ADMIN_VERSION">نمایش نسخه</Resource>
@@ -1855,6 +1851,11 @@
     <Resource tag="SELECT_IMPORT_HELP">(Must be *.xml file)</Resource>
     <Resource tag="TITLE">Import Spam Words</Resource>
   </page>
+  <page name="ADMIN_TAGS">
+    <Resource tag="SHOW_TOPICS">Show Topic(s)</Resource>
+    <Resource tag="TITLE">Topic Tags</Resource>
+    <Resource tag="USAGES">Usages:</Resource>
+  </page>
   <page name="ADMIN_TASKMANAGER">
     <Resource tag="DURATION">استمرار</Resource>
     <Resource tag="HEADER">مدیر فرمان : {0} فرمان در حال اجرا
@@ -1862,40 +1863,6 @@
     <Resource tag="RUNNING">در حال اجرا</Resource>
     <Resource tag="STOP_TASK">توقف فرمان</Resource>
     <Resource tag="TITLE">مدیر فرمان</Resource>
-  </page>
-  <page name="ADMIN_TEST_DATA">
-    <Resource tag="TITLE">ساخت داده های آزمایشی (فقط خطایابی)</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS">
-    <Resource tag="ADD">افزودن</Resource>
-    <Resource tag="CONFIRM_DELETE">حذف این وضعیت</Resource>
-    <Resource tag="DEFAULT_DESCRIPTION">وضعیت</Resource>
-    <Resource tag="EXPORT">برون‌بری به XML</Resource>
-    <Resource tag="HEADER">پسوند فایل‌های مجاز</Resource>
-    <Resource tag="ICON">Icon</Resource>
-    <Resource tag="IMPORT">درون‌ریزی از XML</Resource>
-    <Resource tag="TITLE">وضعیت موضوع</Resource>
-    <Resource tag="TOPICSTATUS_NAME">نام وضعیت</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS_EDIT">
-    <Resource tag="DEFAULT_DESCRIPTION">نام پیش فرض وضعیت</Resource>
-    <Resource tag="DEFAULT_DESCRIPTION_HELP">نام پیش‌فرض وضعیت، این نام زمانی استفاده می‌شود که در فایل زبان جاری هیچ نامی یافت نشود.</Resource>
-    <Resource tag="HEADER">افزودن/ویرایش وضعیت موضوع</Resource>
-    <Resource tag="MSG_ENTER">شما باید چیزی وارد کنید.</Resource>
-    <Resource tag="TITLE">افزودن/ ویرایش وضعیت موضوع</Resource>
-    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
-    <Resource tag="TOPICSTATUS_NAME">مقدار وضعیت موضوع:</Resource>
-    <Resource tag="TOPICSTATUS_NAME_HELP">این مقدار (value) برای گرفتن آیکون یا متن وضعیت موضوع استفاده می شود و نیاز است که در فایل های قالب و یا زبان تعریف شده باشد</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS_IMPORT">
-    <Resource tag="HEADER">درون‌ریزی لیست وضعیت موضوع</Resource>
-    <Resource tag="IMPORT">درون‌ریزی لیست</Resource>
-    <Resource tag="IMPORT_FAILED">خطا در درون‌ریزی: {0}</Resource>
-    <Resource tag="IMPORT_FILE">انتخاب فایل برای ورود اطلاعات:</Resource>
-    <Resource tag="IMPORT_FILE_HELP">باید یک فایل *.xml باشد</Resource>
-    <Resource tag="IMPORT_NOTHING">چیزی درون‌ریزی نشد: هیچ وضعیتی در فایلی که می خواهید آپلود کنید لیست</Resource>
-    <Resource tag="IMPORT_SUCESS">{0} وضعیت جدید با موفقیت بروزرسانی شد</Resource>
-    <Resource tag="TITLE">درون‌ریزی وضعیت‌های موضوع</Resource>
   </page>
   <page name="ADMIN_USERS">
     <Resource tag="APPROVED">تائید شده</Resource>
@@ -1953,6 +1920,7 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">قالب دسترسی</Resource>
     <Resource tag="admin_admin">فهرست مدیر</Resource>
+    <Resource tag="ADMIN_ATTACHMENTS">Attachments</Resource>
     <Resource tag="admin_bannedemail">ایمیل های مسدود شده</Resource>
     <Resource tag="admin_bannedip">IP های مسدود شده</Resource>
     <Resource tag="admin_bannedname">نام های مسدود شده</Resource>
@@ -1987,9 +1955,8 @@
     <Resource tag="admin_runsql">اجرای کوئری SQL</Resource>
     <Resource tag="ADMIN_SPAMLOG">لاگ اسپم</Resource>
     <Resource tag="admin_spamwords">بررسی کلمات اسپم</Resource>
+    <Resource tag="ADMIN_TAGS">Tags</Resource>
     <Resource tag="admin_taskmanager">مدیریت کارها</Resource>
-    <Resource tag="admin_test_data">تولید داده های آزمایشی</Resource>
-    <Resource tag="admin_topicstatus">وضعیت موضوع ها</Resource>
     <Resource tag="admin_users">کاربران</Resource>
     <Resource tag="admin_version">کنترل نسخه</Resource>
     <Resource tag="Database">پایگاه داده</Resource>

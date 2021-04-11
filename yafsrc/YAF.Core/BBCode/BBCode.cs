@@ -31,7 +31,6 @@ namespace YAF.Core.BBCode
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-    using System.Web.Compilation;
     using System.Web.UI;
 
     using YAF.Configuration;

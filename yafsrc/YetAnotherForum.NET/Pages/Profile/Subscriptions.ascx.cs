@@ -376,8 +376,7 @@ namespace YAF.Pages.Profile
         private void UpdateSubscribeUi(UserNotificationSetting selectedValue)
         {
             var showSubscribe =
-              !(selectedValue == UserNotificationSetting.AllTopics
-                || selectedValue == UserNotificationSetting.NoNotification);
+              !(selectedValue is UserNotificationSetting.AllTopics or UserNotificationSetting.NoNotification);
 
             this.SubscribeHolder.Visible = showSubscribe;
         }

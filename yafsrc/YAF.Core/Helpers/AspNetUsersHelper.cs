@@ -525,7 +525,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public bool IsGuestUser(object userID)
         {
-            return userID == null || userID is DBNull || this.Get<IAspNetUsersHelper>().IsGuestUser((int)userID);
+            return userID is null or DBNull || this.Get<IAspNetUsersHelper>().IsGuestUser((int)userID);
         }
 
         /// <summary>

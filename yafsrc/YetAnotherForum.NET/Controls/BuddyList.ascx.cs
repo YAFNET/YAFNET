@@ -206,14 +206,14 @@ namespace YAF.Controls
             switch (this.Mode)
             {
                 case 2:
-                    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+                    if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
                     {
                         e.Item.FindControlAs<PlaceHolder>("pnlRemove").Visible = true;
                     }
 
                     break;
                 case 3:
-                    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+                    if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
                     {
                         e.Item.FindControlAs<PlaceHolder>("pnlPending").Visible = true;
                     }
@@ -228,7 +228,7 @@ namespace YAF.Controls
 
                     break;
                 case 4:
-                    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+                    if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
                     {
                         e.Item.FindControlAs<PlaceHolder>("pnlRequests").Visible = true;
                     }

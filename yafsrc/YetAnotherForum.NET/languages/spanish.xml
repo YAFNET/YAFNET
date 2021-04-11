@@ -107,10 +107,6 @@
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_IMPORT">Imports spam words</Resource>
     <Resource tag="ADMIN_TASKMANAGER">Ver/administrar administrador de tareas</Resource>
-    <Resource tag="ADMIN_TEST_DATA">Ver/editar generador de datos de prueba</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS">Ver estado de temas de administración</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS_EDIT">Editar estado de temas</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Importar estado de temas</Resource>
     <Resource tag="ADMIN_USERS">Ver usuario en sección de administración</Resource>
     <Resource tag="ADMIN_USERS_IMPORT">Importar usuarios</Resource>
     <Resource tag="ADMIN_VERSION">Ver versión</Resource>
@@ -1850,46 +1846,17 @@
     <Resource tag="SELECT_IMPORT_HELP">(Must be *.xml file)</Resource>
     <Resource tag="TITLE">Import Spam Words</Resource>
   </page>
+  <page name="ADMIN_TAGS">
+    <Resource tag="SHOW_TOPICS">Show Topic(s)</Resource>
+    <Resource tag="TITLE">Topic Tags</Resource>
+    <Resource tag="USAGES">Usages:</Resource>
+  </page>
   <page name="ADMIN_TASKMANAGER">
     <Resource tag="DURATION">Duración</Resource>
     <Resource tag="HEADER">Administrador de tareas: {0} tareas en ejecución.</Resource>
     <Resource tag="RUNNING">En ejecución</Resource>
     <Resource tag="STOP_TASK">Detener tarea</Resource>
     <Resource tag="TITLE">Administrador de tareas</Resource>
-  </page>
-  <page name="ADMIN_TEST_DATA">
-    <Resource tag="TITLE">Crear datos de prueba (Solo depuración)</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS">
-    <Resource tag="ADD">Añadir</Resource>
-    <Resource tag="CONFIRM_DELETE">¿Eliminar este estado?</Resource>
-    <Resource tag="DEFAULT_DESCRIPTION">Estado</Resource>
-    <Resource tag="EXPORT">Exportar a XML</Resource>
-    <Resource tag="HEADER">Extensiones de fichero permitidas</Resource>
-    <Resource tag="ICON">Icon</Resource>
-    <Resource tag="IMPORT">Importar desde XML</Resource>
-    <Resource tag="TITLE">Estados de temas</Resource>
-    <Resource tag="TOPICSTATUS_NAME">Nombre de estado</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS_EDIT">
-    <Resource tag="DEFAULT_DESCRIPTION">Nombre de estado por defecto:</Resource>
-    <Resource tag="DEFAULT_DESCRIPTION_HELP">Nombre de estado por defecto. Este nombre es usado cuando no se encuentra en el fichero de idioma actual.</Resource>
-    <Resource tag="HEADER">Añadir/editar estado de tema</Resource>
-    <Resource tag="MSG_ENTER">Debes introducir algo.</Resource>
-    <Resource tag="TITLE">Añadir/editar estado de tema</Resource>
-    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
-    <Resource tag="TOPICSTATUS_NAME">Valor del estado de tema:</Resource>
-    <Resource tag="TOPICSTATUS_NAME_HELP">Este es el valor que se usa para obtener el icono del estado de tema y/o el texto. Necesita ser definido en los archivos de tema e idiomas.</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS_IMPORT">
-    <Resource tag="HEADER">Importar lista de estados de tema</Resource>
-    <Resource tag="IMPORT">Importar lista</Resource>
-    <Resource tag="IMPORT_FAILED">Fallo al importar: {0}</Resource>
-    <Resource tag="IMPORT_FILE">Seleccionar el fichero a importar:</Resource>
-    <Resource tag="IMPORT_FILE_HELP">Debe ser un *.xml</Resource>
-    <Resource tag="IMPORT_NOTHING">No se ha importado nada: No se han encontrado nuevos estados en el archivo subido.</Resource>
-    <Resource tag="IMPORT_SUCESS">{0} nuevos estados importados correctamente.</Resource>
-    <Resource tag="TITLE">Importar estados de tema</Resource>
   </page>
   <page name="ADMIN_USERS">
     <Resource tag="APPROVED">Aprobado</Resource>
@@ -1947,6 +1914,7 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Máscaras de acceso</Resource>
     <Resource tag="admin_admin">Índice de admin</Resource>
+    <Resource tag="ADMIN_ATTACHMENTS">Attachments</Resource>
     <Resource tag="admin_bannedemail">Banned Emails</Resource>
     <Resource tag="admin_bannedip">IPs baneadas</Resource>
     <Resource tag="admin_bannedname">Banned Names</Resource>
@@ -1981,9 +1949,8 @@
     <Resource tag="admin_runsql">Ejecutar query SQL</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
+    <Resource tag="ADMIN_TAGS">Tags</Resource>
     <Resource tag="admin_taskmanager">Administrador de tareas</Resource>
-    <Resource tag="admin_test_data">Crear datos de prueba</Resource>
-    <Resource tag="admin_topicstatus">Estado de temas</Resource>
     <Resource tag="admin_users">Usuarios</Resource>
     <Resource tag="admin_version">Comprobar versión</Resource>
     <Resource tag="Database">Base de datos</Resource>

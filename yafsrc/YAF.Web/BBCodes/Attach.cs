@@ -58,8 +58,7 @@ namespace YAF.Web.BBCodes
                 return;
             }
 
-            if (this.PageContext.ForumPageType == ForumPages.UserProfile
-                || this.PageContext.ForumPageType == ForumPages.Board)
+            if (this.PageContext.ForumPageType is ForumPages.UserProfile or ForumPages.Board)
             {
                 writer.Write(@"<i class=""fa fa-file fa-fw""></i>&nbsp;{0}", attachment.FileName);
 
@@ -161,12 +160,8 @@ namespace YAF.Web.BBCodes
         /// </returns>
         private bool UserHasDownloadAccess()
         {
-            if (this.PageContext.ForumPageType == ForumPages.PrivateMessage || this.PageContext.ForumPageType == ForumPages.PostPrivateMessage)
-            {
-                return true;
-            }
-
-            return this.PageContext.ForumDownloadAccess;
+            return this.PageContext.ForumPageType is ForumPages.PrivateMessage or ForumPages.PostPrivateMessage ||
+                   this.PageContext.ForumDownloadAccess;
         }
     }
 }

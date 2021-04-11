@@ -550,7 +550,7 @@ namespace YAF.Web.Controls
 
             writer.WriteAttribute("role", "button");
 
-            if (this.DataToggle.IsSet() && (this.DataToggle == "dropdown" || this.DataToggle == "popover"))
+            if (this.DataToggle.IsSet() && this.DataToggle is "dropdown" or "popover")
             {
                 this.NavigateUrl = "#";
             }
@@ -717,7 +717,7 @@ namespace YAF.Web.Controls
         /// </returns>
         private string GetLocalizedTitle()
         {
-            if (this.Site != null && this.Site.DesignMode && this.TitleLocalizedTag.IsSet())
+            if (this.Site is { DesignMode: true } && this.TitleLocalizedTag.IsSet())
             {
                 return $"[TITLE:{this.TitleLocalizedTag}]";
             }

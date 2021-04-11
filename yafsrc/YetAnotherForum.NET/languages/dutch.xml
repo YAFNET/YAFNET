@@ -107,10 +107,6 @@
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_IMPORT">Imports spam words</Resource>
     <Resource tag="ADMIN_TASKMANAGER">Bekijkt/bewerkt taakbeheer</Resource>
-    <Resource tag="ADMIN_TEST_DATA">Bekijkt/bewerkt test data generator</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS">Bekijkt admin topic status</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS_EDIT">Bewerkt Topic Status</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Importeert topic status</Resource>
     <Resource tag="ADMIN_USERS">Bekijkt gebruikers in het admin gedeelte</Resource>
     <Resource tag="ADMIN_USERS_IMPORT">Imports users</Resource>
     <Resource tag="ADMIN_VERSION">bekijkt versie</Resource>
@@ -1837,46 +1833,17 @@
     <Resource tag="SELECT_IMPORT_HELP">(Must be *.xml file)</Resource>
     <Resource tag="TITLE">Import Spam Words</Resource>
   </page>
+  <page name="ADMIN_TAGS">
+    <Resource tag="SHOW_TOPICS">Show Topic(s)</Resource>
+    <Resource tag="TITLE">Topic Tags</Resource>
+    <Resource tag="USAGES">Usages:</Resource>
+  </page>
   <page name="ADMIN_TASKMANAGER">
     <Resource tag="DURATION">Duur</Resource>
     <Resource tag="HEADER">Taakbeheer: {0} Ta(a)k(en) bezig</Resource>
     <Resource tag="RUNNING">Is bezig</Resource>
     <Resource tag="STOP_TASK">Stop Taak</Resource>
     <Resource tag="TITLE">Taakbeheer</Resource>
-  </page>
-  <page name="ADMIN_TEST_DATA">
-    <Resource tag="TITLE">Genereer Test Data (Alleen DEBUG)</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS">
-    <Resource tag="ADD">Voeg toe</Resource>
-    <Resource tag="CONFIRM_DELETE">Verwijder deze Status?</Resource>
-    <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
-    <Resource tag="EXPORT">Exporteer naar XML</Resource>
-    <Resource tag="HEADER">Toegestane bestandsextensies</Resource>
-    <Resource tag="ICON">Icon</Resource>
-    <Resource tag="IMPORT">Importeer uit XML</Resource>
-    <Resource tag="TITLE">Topic Status</Resource>
-    <Resource tag="TOPICSTATUS_NAME">Status Naam</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS_EDIT">
-    <Resource tag="DEFAULT_DESCRIPTION">Standaard Status Naam:</Resource>
-    <Resource tag="DEFAULT_DESCRIPTION_HELP">Standaard Status Naam, deze wordt gebruikt wanneer de waarde niet wordt gevonden in het huidige taal bestand.</Resource>
-    <Resource tag="HEADER">Voeg toe/Bewerk Topic Status</Resource>
-    <Resource tag="MSG_ENTER">Je moet iets invullen</Resource>
-    <Resource tag="TITLE">Voeg toe/Bewerk Topic Status</Resource>
-    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
-    <Resource tag="TOPICSTATUS_NAME">Topic Status Waarde:</Resource>
-    <Resource tag="TOPICSTATUS_NAME_HELP">Dit is de waarde die wordt gebruikt om de Topic statuspictogram en / of tekst op te halen. Dit moet worden gedefinieerd in de Thema-en taal bestanden.</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS_IMPORT">
-    <Resource tag="HEADER">Import Topic Status Lijst</Resource>
-    <Resource tag="IMPORT">Import Lijst</Resource>
-    <Resource tag="IMPORT_FAILED">Kon niet importeren: {0}</Resource>
-    <Resource tag="IMPORT_FILE">Selecteer Bestand:</Resource>
-    <Resource tag="IMPORT_FILE_HELP">Bestand moet een *.xml bestand zijn</Resource>
-    <Resource tag="IMPORT_NOTHING">Geen statussen gevonden in de upload, niets ge&amp;iuml;mporteerd.</Resource>
-    <Resource tag="IMPORT_SUCESS">{0} nieuwe status(sen) ge&amp;iuml;mporteerd.</Resource>
-    <Resource tag="TITLE">Import Topic Status</Resource>
   </page>
   <page name="ADMIN_USERS">
     <Resource tag="APPROVED">Goedgekeurd</Resource>
@@ -1934,6 +1901,7 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Toegangsmaskers</Resource>
     <Resource tag="admin_admin">Beheerdersindex</Resource>
+    <Resource tag="ADMIN_ATTACHMENTS">Attachments</Resource>
     <Resource tag="admin_bannedemail">Banned Emails</Resource>
     <Resource tag="admin_bannedip">Geblokkeerde IPs</Resource>
     <Resource tag="admin_bannedname">Banned Names</Resource>
@@ -1968,9 +1936,8 @@
     <Resource tag="admin_runsql">Draai SQL Query</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
+    <Resource tag="ADMIN_TAGS">Tags</Resource>
     <Resource tag="admin_taskmanager">Taakbeheer</Resource>
-    <Resource tag="admin_test_data">Maak Test Data</Resource>
-    <Resource tag="admin_topicstatus">Topic Status</Resource>
     <Resource tag="admin_users">Gebruikers</Resource>
     <Resource tag="admin_version">Versiecontrole</Resource>
     <Resource tag="Database">Database</Resource>

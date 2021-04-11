@@ -578,7 +578,7 @@ namespace YAF.Controls
             {
                 this.BindData();
 
-                if (!this.canChange && (this.PageContext.ForumPageType == ForumPages.PostMessage || this.PageContext.ForumPageType == ForumPages.EditMessage))
+                if (!this.canChange && (this.PageContext.ForumPageType is ForumPages.PostMessage or ForumPages.EditMessage))
                 {
                     this.PollListHolder.Visible = false;
                 }

@@ -146,11 +146,6 @@ namespace YAF.Types.Objects.Model
         public string LastTopicName { get; set; }
 
         /// <summary>
-        /// Gets or sets the last topic status.
-        /// </summary>
-        public string LastTopicStatus { get; set; }
-
-        /// <summary>
         /// Gets or sets the last topic styles.
         /// </summary>
         public string LastTopicStyles { get; set; }

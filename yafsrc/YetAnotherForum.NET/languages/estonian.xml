@@ -107,10 +107,6 @@
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_IMPORT">Imports spam words</Resource>
     <Resource tag="ADMIN_TASKMANAGER">Avab/haldab tegumihaldurit</Resource>
-    <Resource tag="ADMIN_TEST_DATA">Avab/redigeerib testandmete generaatorit</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS">Views admin topic status</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS_EDIT">Edits Topic Status</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Imports topic status</Resource>
     <Resource tag="ADMIN_USERS">Avab kasutajad admin peatükis</Resource>
     <Resource tag="ADMIN_USERS_IMPORT">Imports users</Resource>
     <Resource tag="ADMIN_VERSION">Avab versiooni</Resource>
@@ -1842,46 +1838,17 @@
     <Resource tag="SELECT_IMPORT_HELP">(Must be *.xml file)</Resource>
     <Resource tag="TITLE">Import Spam Words</Resource>
   </page>
+  <page name="ADMIN_TAGS">
+    <Resource tag="SHOW_TOPICS">Show Topic(s)</Resource>
+    <Resource tag="TITLE">Topic Tags</Resource>
+    <Resource tag="USAGES">Usages:</Resource>
+  </page>
   <page name="ADMIN_TASKMANAGER">
     <Resource tag="DURATION">Duration</Resource>
     <Resource tag="HEADER">Task Manager: {0} Task(s) Running</Resource>
     <Resource tag="RUNNING">Is Running</Resource>
     <Resource tag="STOP_TASK">Stop Task</Resource>
     <Resource tag="TITLE">Task Manger</Resource>
-  </page>
-  <page name="ADMIN_TEST_DATA">
-    <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS">
-    <Resource tag="ADD">Add</Resource>
-    <Resource tag="CONFIRM_DELETE">Delete this Status?</Resource>
-    <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
-    <Resource tag="EXPORT">Export to XML</Resource>
-    <Resource tag="HEADER">Allowed File Extensions</Resource>
-    <Resource tag="ICON">Icon</Resource>
-    <Resource tag="IMPORT">Import from XML</Resource>
-    <Resource tag="TITLE">Topic Status</Resource>
-    <Resource tag="TOPICSTATUS_NAME">Status Name</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS_EDIT">
-    <Resource tag="DEFAULT_DESCRIPTION">Default Status Name:</Resource>
-    <Resource tag="DEFAULT_DESCRIPTION_HELP">Default Status Name, this Name is used when its not found in the current Language File.</Resource>
-    <Resource tag="HEADER">Add/Edit Topic Status</Resource>
-    <Resource tag="MSG_ENTER">You must enter something.</Resource>
-    <Resource tag="TITLE">Add/Edit Topic Status</Resource>
-    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
-    <Resource tag="TOPICSTATUS_NAME">Topic Status Value:</Resource>
-    <Resource tag="TOPICSTATUS_NAME_HELP">This is the Value that is used to retrieve the Topic Status Icon and/or Text. That needs to be defined in the Theme Files and languages.</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS_IMPORT">
-    <Resource tag="HEADER">Import Topic Status List</Resource>
-    <Resource tag="IMPORT">Import List</Resource>
-    <Resource tag="IMPORT_FAILED">Failed to import: {0}</Resource>
-    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
-    <Resource tag="IMPORT_FILE_HELP">Must be *.xml file</Resource>
-    <Resource tag="IMPORT_NOTHING">Nothing imported: no new status was found in the upload.</Resource>
-    <Resource tag="IMPORT_SUCESS">{0} new status(es) imported successfully.</Resource>
-    <Resource tag="TITLE">Import Topic Status</Resource>
   </page>
   <page name="ADMIN_USERS">
     <Resource tag="APPROVED">Approved</Resource>
@@ -1939,6 +1906,7 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Access Masks</Resource>
     <Resource tag="admin_admin">Admin Index</Resource>
+    <Resource tag="ADMIN_ATTACHMENTS">Attachments</Resource>
     <Resource tag="admin_bannedemail">Banned Emails</Resource>
     <Resource tag="admin_bannedip">Banned IPs</Resource>
     <Resource tag="admin_bannedname">Banned Names</Resource>
@@ -1973,9 +1941,8 @@
     <Resource tag="admin_runsql">Run SQL Query</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
+    <Resource tag="ADMIN_TAGS">Tags</Resource>
     <Resource tag="admin_taskmanager">Task Manager</Resource>
-    <Resource tag="admin_test_data">Create Test Data</Resource>
-    <Resource tag="admin_topicstatus">Topic Status</Resource>
     <Resource tag="admin_users">Users</Resource>
     <Resource tag="admin_version">Version Check</Resource>
     <Resource tag="Database">Database</Resource>

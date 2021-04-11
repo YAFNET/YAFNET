@@ -300,17 +300,11 @@ namespace YAF.Controls
                 this.GetTextFormatted("MODERATE_NEW", this.PageContext.ModeratePosts),
                 this.PageContext.ForumPageType == ForumPages.Moderate_Index);
 
-            if (this.PageContext.ForumPageType == ForumPages.Admin_HostSettings || this.PageContext.ForumPageType == ForumPages.Admin_Boards
-                                                                                || this.PageContext.ForumPageType == ForumPages.Admin_EditBoard
-                                                                                || this.PageContext.ForumPageType == ForumPages.Admin_PageAccessEdit
-                                                                                || this.PageContext.ForumPageType == ForumPages.Admin_PageAccessList)
-            {
-                this.hostDropdown.CssClass = "nav-link dropdown-toggle active";
-            }
-            else
-            {
-                this.hostDropdown.CssClass = "nav-link dropdown-toggle";
-            }
+            this.hostDropdown.CssClass =
+                this.PageContext.ForumPageType is ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or
+                    ForumPages.Admin_EditBoard or ForumPages.Admin_PageAccessEdit or ForumPages.Admin_PageAccessList
+                    ? "nav-link dropdown-toggle active"
+                    : "nav-link dropdown-toggle";
         }
 
         /// <summary>

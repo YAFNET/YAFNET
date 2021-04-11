@@ -174,7 +174,7 @@ namespace YAF.Controls
         protected void DeleteAttachments_Click(object sender, EventArgs e)
         {
             (from RepeaterItem item in this.List.Items
-             where item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem
+             where item.ItemType is ListItemType.Item or ListItemType.AlternatingItem
              where item.FindControlAs<CheckBox>("Selected").Checked
              select item).ForEach(
                 item => this.GetRepository<Attachment>().DeleteById(

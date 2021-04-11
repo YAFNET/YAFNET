@@ -504,7 +504,6 @@ namespace YAF.Core.Model
                             LastTopicID = t.ID,
                             t.TopicMovedID,
                             LastTopicName = t.TopicName,
-                            LastTopicStatus = t.Status,
                             LastTopicStyles = t.Styles,
                             b.Flags,
                             Viewing = Sql.Custom($"({countViewsSql})"),

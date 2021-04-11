@@ -494,6 +494,16 @@ namespace YAF.Types.Constants
         Admin_Digest,
 
         /// <summary>
+        /// The admin attachments page
+        /// </summary>
+        Admin_Attachments,
+
+        /// <summary>
+        /// The admin tags page
+        /// </summary>
+        Admin_Tags,
+
+        /// <summary>
         /// The attachments.
         /// </summary>
         Profile_Attachments,

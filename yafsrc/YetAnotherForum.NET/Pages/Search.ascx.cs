@@ -159,13 +159,6 @@ namespace YAF.Pages
                 doSearch = true;
             }
 
-            if (doSearch)
-            {
-                this.PageContext.PageElements.RegisterJsBlockStartup(
-                    "openModalJs",
-                    JavaScriptBlocks.DoSearchJs());
-            }
-
             var tag = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("tag");
 
             if (tag.IsSet())

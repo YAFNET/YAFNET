@@ -283,7 +283,7 @@ namespace YAF.Controls
             }
 
             this.TopicList.Items.Cast<RepeaterItem>()
-                .Where(item => item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
+                .Where(item => item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
                 .ForEach(
                     item => this.Get<IReadTrackCurrentUser>().SetTopicRead(item.DataItem.ToType<PagedTopic>().TopicID));
 

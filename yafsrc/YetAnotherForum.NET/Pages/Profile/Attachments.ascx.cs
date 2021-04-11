@@ -33,7 +33,6 @@ namespace YAF.Pages.Profile
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
-    using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Core.Utilities.Helpers;
     using YAF.Types;
@@ -157,7 +156,7 @@ namespace YAF.Pages.Profile
         protected void DeleteAttachments_Click(object sender, EventArgs e)
         {
             var items = (from RepeaterItem item in this.List.Items
-             where item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem
+             where item.ItemType is ListItemType.Item or ListItemType.AlternatingItem
              where item.FindControlAs<CheckBox>("Selected").Checked
              select item).ToList();
 

@@ -107,10 +107,6 @@
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_IMPORT">Imports spam words</Resource>
     <Resource tag="ADMIN_TASKMANAGER">Betrachtet Aufgabenmanager</Resource>
-    <Resource tag="ADMIN_TEST_DATA">Betrachtet Test Datengenerator</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS">Betrachtet Themen Status</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS_EDIT">Bearbeitet einen Themen Status</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Importiert Themen Status</Resource>
     <Resource tag="ADMIN_USERS">Betrachtet Benutzer im Adminbereich</Resource>
     <Resource tag="ADMIN_USERS_IMPORT">Importiert Benutzer</Resource>
     <Resource tag="ADMIN_VERSION">Betrachtet Version</Resource>
@@ -1827,46 +1823,17 @@
     <Resource tag="SELECT_IMPORT_HELP">(Must be *.xml file)</Resource>
     <Resource tag="TITLE">Import Spam Words</Resource>
   </page>
+  <page name="ADMIN_TAGS">
+    <Resource tag="SHOW_TOPICS">Show Topic(s)</Resource>
+    <Resource tag="TITLE">Topic Tags</Resource>
+    <Resource tag="USAGES">Usages:</Resource>
+  </page>
   <page name="ADMIN_TASKMANAGER">
     <Resource tag="DURATION">Dauer</Resource>
     <Resource tag="HEADER">Task-Manager: {0} Aufgabe(n) laufen</Resource>
     <Resource tag="RUNNING">Läuft</Resource>
     <Resource tag="STOP_TASK">Task stoppen</Resource>
     <Resource tag="TITLE">Taskmanger</Resource>
-  </page>
-  <page name="ADMIN_TEST_DATA">
-    <Resource tag="TITLE">Testdaten generieren (Nur DEBUG)</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS">
-    <Resource tag="ADD">Hinzufügen</Resource>
-    <Resource tag="CONFIRM_DELETE">Diesen Status löschen?</Resource>
-    <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
-    <Resource tag="EXPORT">Export in XML</Resource>
-    <Resource tag="HEADER">Erlaubte Dateiendungen</Resource>
-    <Resource tag="ICON">Icon</Resource>
-    <Resource tag="IMPORT">Import von XML</Resource>
-    <Resource tag="TITLE">Themen Status</Resource>
-    <Resource tag="TOPICSTATUS_NAME">Status Name</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS_EDIT">
-    <Resource tag="DEFAULT_DESCRIPTION">Standard Status-Name:</Resource>
-    <Resource tag="DEFAULT_DESCRIPTION_HELP">Der Standard Name wird verwendet wenn keine Lokalisierung in der Sprachdatei gefunden wurde.</Resource>
-    <Resource tag="HEADER">Hinzufügen / Bearbeiten von Themen Status</Resource>
-    <Resource tag="MSG_ENTER">Sie müssen etwas eingeben.</Resource>
-    <Resource tag="TITLE">Hinzufügen / Bearbeiten von Themen Status</Resource>
-    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
-    <Resource tag="TOPICSTATUS_NAME">Themen Status Wert:</Resource>
-    <Resource tag="TOPICSTATUS_NAME_HELP">Dieser Wert wird verwendet um das Status Icon oder die Lokalisation zu laden. Dieser Eintrag sollte in den Skin und Sprachdateien vorhanden sein.</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS_IMPORT">
-    <Resource tag="HEADER">IP Adressen Liste Importieren</Resource>
-    <Resource tag="IMPORT">Importliste</Resource>
-    <Resource tag="IMPORT_FAILED">Import fehlgeschlagen! Falsches Format: {0}</Resource>
-    <Resource tag="IMPORT_FILE">Importdatei wählen:</Resource>
-    <Resource tag="IMPORT_FILE_HELP">Muss eine *.text Datei sein, und eine IP Adresse pro Zeile</Resource>
-    <Resource tag="IMPORT_NOTHING">Nichts importiert: keine neue IP Addresse gefunden.</Resource>
-    <Resource tag="IMPORT_SUCESS">{0} Neue IP Adressen wurden erfolgreich importiert.</Resource>
-    <Resource tag="TITLE">IP Adressen importieren</Resource>
   </page>
   <page name="ADMIN_USERS">
     <Resource tag="APPROVED">Genehmigt</Resource>
@@ -1924,6 +1891,7 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Zugriffsmasken</Resource>
     <Resource tag="admin_admin">Admin-Index</Resource>
+    <Resource tag="ADMIN_ATTACHMENTS">Attachments</Resource>
     <Resource tag="admin_bannedemail">Gebannte Emails</Resource>
     <Resource tag="admin_bannedip">Gesperrte IPs</Resource>
     <Resource tag="admin_bannedname">Gebannte Names</Resource>
@@ -1958,9 +1926,8 @@
     <Resource tag="admin_runsql">SQL Query ausführen</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Ereignisprotokoll</Resource>
     <Resource tag="admin_spamwords">Spam Check Wörter</Resource>
+    <Resource tag="ADMIN_TAGS">Tags</Resource>
     <Resource tag="admin_taskmanager">Task-Manager</Resource>
-    <Resource tag="admin_test_data">Testdaten generieren</Resource>
-    <Resource tag="admin_topicstatus">Topic Status</Resource>
     <Resource tag="admin_users">Benutzer</Resource>
     <Resource tag="admin_version">Versionen überprüfen</Resource>
     <Resource tag="Database">Datenbank</Resource>
