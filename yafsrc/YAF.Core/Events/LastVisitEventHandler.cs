@@ -46,14 +46,14 @@ namespace YAF.Core.Events
     public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandleEvent<ForumPageUnloadEvent>
     {
         /// <summary>
-        /// The _request base
+        /// The request base
         /// </summary>
-        private readonly HttpRequestBase _requestBase;
+        private readonly HttpRequestBase request;
 
         /// <summary>
-        /// The _response base
+        /// The response base
         /// </summary>
-        private readonly HttpResponseBase _responseBase;
+        private readonly HttpResponseBase response;
 
         #region Constructors and Destructors
 
@@ -66,8 +66,8 @@ namespace YAF.Core.Events
         public LastVisitEventHandler(
             [NotNull] ISession yafSession, HttpRequestBase requestBase, HttpResponseBase responseBase)
         {
-            this._requestBase = requestBase;
-            this._responseBase = responseBase;
+            this.request = requestBase;
+            this.response = responseBase;
             this.YafSession = yafSession;
         }
 
@@ -81,7 +81,7 @@ namespace YAF.Core.Events
         public int Order => 1000;
 
         /// <summary>
-        /// Gets or sets YafSession.
+        /// Gets or sets YAF Session.
         /// </summary>
         public ISession YafSession { get; set; }
 
@@ -121,10 +121,10 @@ namespace YAF.Core.Events
             }
             else if (BoardContext.Current.IsGuest && !this.YafSession.LastVisit.HasValue)
             {
-                if (this._requestBase.Cookies.Get(previousVisitKey) != null)
+                if (this.request.Cookies.Get(previousVisitKey) != null)
                 {
                     // have previous visit cookie...
-                    var previousVisitInsecure = this._requestBase.Cookies.Get(previousVisitKey).Value;
+                    var previousVisitInsecure = this.request.Cookies.Get(previousVisitKey).Value;
 
                     if (DateTime.TryParse(previousVisitInsecure, out var previousVisit))
                     {
@@ -140,9 +140,10 @@ namespace YAF.Core.Events
                 var httpCookie = new HttpCookie(previousVisitKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture))
                     {
                        Expires = DateTime.Now.AddMonths(6),
-                       HttpOnly = true
+                       HttpOnly = true,
+                       Secure = this.request.IsSecureConnection
                     };
-                this._responseBase.Cookies.Add(httpCookie);
+                this.response.Cookies.Add(httpCookie);
             }
         }
 

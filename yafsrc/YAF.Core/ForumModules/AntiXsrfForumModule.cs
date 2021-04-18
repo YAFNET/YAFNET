@@ -29,8 +29,10 @@ namespace YAF.Core.ForumModules
     using System.Web;
 
     using YAF.Core.BaseModules;
+    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Attributes;
+    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -98,7 +100,8 @@ namespace YAF.Core.ForumModules
                 var responseCookie = new HttpCookie(AntiXsrfTokenKey)
                 {
                     HttpOnly = true,
-                    Value = this.antiXsrfTokenValue
+                    Value = this.antiXsrfTokenValue,
+                    Secure = BoardContext.Current.Get<HttpRequestBase>().IsSecureConnection
                 };
 
                 if (HttpContext.Current.Request.IsSecureConnection)
