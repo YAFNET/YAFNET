@@ -73,7 +73,7 @@ namespace YAF.Lucene.Net.Analysis.No
         ///                     <see cref="NorwegianStandard.NYNORSK"/>, or both. </param>
         public NorwegianMinimalStemmer(NorwegianStandard flags)
         {
-            if (flags <= 0 || flags > (int)NorwegianStandard.BOKMAAL + NorwegianStandard.NYNORSK)
+            if (flags is <= 0 or > (int)NorwegianStandard.BOKMAAL + NorwegianStandard.NYNORSK)
             {
                 throw new ArgumentException("invalid flags");
             }

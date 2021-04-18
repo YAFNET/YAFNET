@@ -428,7 +428,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                         char c = buf[charPos];
                         if (eol == '\0')
                         {
-                            if ((c == '\n' || c == '\r'))
+                            if ((c is '\n' or '\r'))
                             {
                                 eol = c;
                             }

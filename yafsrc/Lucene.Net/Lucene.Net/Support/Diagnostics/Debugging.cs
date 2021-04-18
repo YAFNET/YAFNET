@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Diagnostics
         /// <see cref="Index.FreqProxTermsWriterPerField"/>, <see cref="Index.StoredFieldsProcessor"/>,
         /// <see cref="Index.TermVectorsConsumer"/>, and <see cref="Index.TermVectorsConsumerPerField"/>.
         /// </summary>
-        public static bool AssertsEnabled = SystemProperties.GetPropertyAsBoolean("assert", false);
+        public static bool AssertsEnabled = false;
 
         /// <summary>
         /// Checks for a condition; if the condition is <c>false</c>, throws an <see cref="AssertionException"/>.

@@ -56,7 +56,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 for (int i = 0; i < termLength; i++)
                 {
                     char ch = termBuffer[i];
-                    if (ch == '\'' || ch == '\u2019')
+                    if (ch is '\'' or '\u2019')
                     {
                         index = i;
                         break;

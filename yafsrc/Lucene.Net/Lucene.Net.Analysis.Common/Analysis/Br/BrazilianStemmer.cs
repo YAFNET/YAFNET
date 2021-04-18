@@ -120,7 +120,7 @@ namespace YAF.Lucene.Net.Analysis.Br
         /// <returns> true if is vowel </returns>
         private bool IsVowel(char value)
         {
-            return (value == 'a') || (value == 'e') || (value == 'i') || (value == 'o') || (value == 'u');
+            return value is 'a' or 'e' or 'i' or 'o' or 'u';
         }
 
         /// <summary>

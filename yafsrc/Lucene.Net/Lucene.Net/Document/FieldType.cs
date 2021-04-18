@@ -119,7 +119,7 @@ namespace YAF.Lucene.Net.Documents
 
         /// <summary>
         /// Set to <c>true</c> to tokenize this field's contents via the
-        /// configured <see cref="Analysis.Analyzer"/>. The default is <c>false</c>.
+        /// configured <see cref="Analysis.Analyzer"/>. The default is <c>true</c>.
         /// </summary>
         /// <exception cref="InvalidOperationException"> if this <see cref="FieldType"/> is frozen against
         ///         future modifications. </exception>
@@ -231,9 +231,11 @@ namespace YAF.Lucene.Net.Documents
         }
 
         /// <summary>
-        /// Specifies the field's numeric type, or set to <c>null</c> if the field has no numeric type.
-        /// If non-null then the field's value will be indexed numerically so that 
+        /// Specifies the field's numeric type, or set to <see cref="NumericType.NONE"/> if the field has no numeric type.
+        /// If not <see cref="NumericType.NONE"/> then the field's value will be indexed numerically so that 
         /// <see cref="Search.NumericRangeQuery"/> can be used at search time.
+        /// <para/>
+        /// The default is <see cref="NumericType.NONE"/>.
         /// </summary>
         /// <exception cref="InvalidOperationException"> if this <see cref="FieldType"/> is frozen against
         ///         future modifications. </exception>
@@ -250,7 +252,7 @@ namespace YAF.Lucene.Net.Documents
         /// <summary>
         /// Sets the numeric precision step for the field.
         /// <para/>
-        /// This has no effect if <see cref="NumericType"/> returns <see cref="NumericType.NONE"/>.
+        /// This has no effect if <see cref="NumericType"/> is <see cref="NumericType.NONE"/>.
         /// <para/>
         /// The default is <see cref="NumericUtils.PRECISION_STEP_DEFAULT"/>.
         /// </summary>

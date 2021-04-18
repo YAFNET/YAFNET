@@ -175,7 +175,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
                 for (int i = 0; i < termBufferLength; i++)
                 {
                     char c = termBuffer[i];
-                    if (c <= ' ' || c == '.')
+                    if (c is <= ' ' or '.')
                     {
                         int len = i - lastWordStart;
                         if (len > 0)

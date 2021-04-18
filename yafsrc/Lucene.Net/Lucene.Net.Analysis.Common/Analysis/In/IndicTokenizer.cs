@@ -46,9 +46,7 @@ namespace YAF.Lucene.Net.Analysis.In
             UnicodeCategory category = Character.GetType(c);
 
             return Character.IsLetter(c) ||
-                category == UnicodeCategory.NonSpacingMark ||
-                category == UnicodeCategory.Format ||
-                category == UnicodeCategory.SpacingCombiningMark;
+                   category is UnicodeCategory.NonSpacingMark or UnicodeCategory.Format or UnicodeCategory.SpacingCombiningMark;
         }
     }
 }

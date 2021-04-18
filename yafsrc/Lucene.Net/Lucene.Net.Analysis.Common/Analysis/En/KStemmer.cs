@@ -374,7 +374,7 @@ namespace YAF.Lucene.Net.Analysis.En
 
             ch = word[index];
 
-            if ((ch == 'a') || (ch == 'e') || (ch == 'i') || (ch == 'o') || (ch == 'u'))
+            if (ch is 'a' or 'e' or 'i' or 'o' or 'u')
             {
                 return false;
             }
@@ -1081,7 +1081,7 @@ namespace YAF.Lucene.Net.Analysis.En
             if (EndsIn('n', 'c', 'e'))
             {
                 word_char = word[j];
-                if (!((word_char == 'e') || (word_char == 'a')))
+                if (!(word_char is 'e' or 'a'))
                 {
                     return;
                 }
@@ -1865,7 +1865,7 @@ namespace YAF.Lucene.Net.Analysis.En
             result = null;
 
             k = len - 1;
-            if ((k <= 1) || (k >= MaxWordLen - 1))
+            if (this.k is <= 1 or >= MaxWordLen - 1)
             {
                 return false; // don't stem
             }

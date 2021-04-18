@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Analysis;
+﻿using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util;
@@ -72,7 +72,8 @@ namespace YAF.Lucene.Net.Documents
         /// </summary>
         // LUCENENET specific: Made into a property
         // so we can set the data type when it is set.
-        protected object FieldsData
+        // Marked internal for testing.
+        protected internal object FieldsData
         {
             get => fieldsData;
             set

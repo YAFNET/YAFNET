@@ -245,7 +245,7 @@ namespace YAF.Lucene.Net.Analysis.En
             else
             {
                 int ch = b[i];
-                if (ch == 'w' || ch == 'x' || ch == 'y')
+                if (ch is 'w' or 'x' or 'y')
                 {
                     return false;
                 }
@@ -361,7 +361,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 else if (DoubleC(k))
                 {
                     int ch = b[k--];
-                    if (ch == 'l' || ch == 's' || ch == 'z')
+                    if (ch is 'l' or 's' or 'z')
                     {
                         k++;
                     }

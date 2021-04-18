@@ -838,7 +838,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 {
                     sb.Append(FLAG_SEPARATOR);
                 }
-                else if (ch == MORPH_SEPARATOR || ch == FLAG_SEPARATOR)
+                else if (ch is MORPH_SEPARATOR or FLAG_SEPARATOR)
                 {
                     // BINARY EXECUTABLES EMBEDDED IN ZULU DICTIONARIES!!!!!!!
                 }
@@ -853,7 +853,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 for (int i = end; i < entry.Length; i++)
                 {
                     char c = entry[i];
-                    if (c == FLAG_SEPARATOR || c == MORPH_SEPARATOR)
+                    if (c is FLAG_SEPARATOR or MORPH_SEPARATOR)
                     {
                         // BINARY EXECUTABLES EMBEDDED IN ZULU DICTIONARIES!!!!!!!
                     }

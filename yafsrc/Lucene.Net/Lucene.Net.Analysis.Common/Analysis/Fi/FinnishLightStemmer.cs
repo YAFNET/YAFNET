@@ -297,7 +297,7 @@ namespace YAF.Lucene.Net.Analysis.Fi
                     char ch = s[0];
                     for (int i = 1; i < len; i++)
                     {
-                        if (s[i] == ch && (ch == 'k' || ch == 'p' || ch == 't'))
+                        if (s[i] == ch && (ch is 'k' or 'p' or 't'))
                         {
                             len = StemmerUtil.Delete(s, i--, len);
                         }
