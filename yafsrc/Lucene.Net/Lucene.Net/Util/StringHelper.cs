@@ -45,23 +45,7 @@ namespace YAF.Lucene.Net.Util
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int InitializeHashSeed()
         {
-            // LUCENENET specific - reformatted with :
-            string prop = null;//SystemProperties.GetProperty("tests:seed", null);
-
-            if (prop != null)
-            {
-                // So if there is a test failure that relied on hash
-                // order, we remain reproducible based on the test seed:
-                if (prop.Length > 8)
-                {
-                    prop = prop.Substring(prop.Length - 8);
-                }
-                return Convert.ToInt32(prop, 16);
-            }
-            else
-            {
-                return (int)J2N.Time.CurrentTimeMilliseconds();
-            }
+            return (int)J2N.Time.CurrentTimeMilliseconds();
         }
 
         /// <summary>
