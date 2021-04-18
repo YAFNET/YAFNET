@@ -122,17 +122,11 @@ namespace YAF.Pages
                         $"{faqPage}TITLE"),
                     string.Empty);
 
-                this.Page.Header.Title =
-                    $"{this.GetText("SUBTITLE")} - {this.GetText("HELP_INDEX", $"{faqPage}TITLE")}";
-
                 this.BindData();
             }
             else
             {
                 this.PageLinks.AddLink(this.GetText("HELP_INDEX", "SEARCHHELPTITLE"), string.Empty);
-
-                this.Page.Header.Title =
-                    $"{this.GetText("SUBTITLE")} - {this.GetText("HELP_INDEX", "SEARCHHELPTITLE")}";
 
                 // Load Index and Search
                 this.SearchHolder.Visible = true;

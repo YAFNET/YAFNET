@@ -136,9 +136,6 @@ namespace YAF.Pages.Admin
         {
             this.PageLinks.AddRoot().AddAdminIndex()
                 .AddLink(this.GetText("ADMIN_SPAMWORDS", "TITLE"));
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_SPAMWORDS", "TITLE")}";
         }
 
         /// <summary>

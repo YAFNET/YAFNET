@@ -162,11 +162,10 @@ namespace YAF.Pages.Admin
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddAdminIndex();
-            this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Admin_BBCodes));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_BBCODE", "TITLE"),
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_BBCodes));
             this.PageLinks.AddLink(string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BBCODE", "TITLE")} - {string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit)}";
         }
 
         #endregion

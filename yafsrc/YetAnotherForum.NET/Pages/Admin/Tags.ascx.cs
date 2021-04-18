@@ -120,6 +120,31 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Handles single record commands in a repeater.
+        /// </summary>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
+        protected void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        {
+            // what command are we serving?
+            switch (e.CommandName)
+            {
+                // delete log entry
+                case "delete":
+
+                    var tagId = e.CommandArgument.ToType<int>();
+
+                    this.GetRepository<TopicTag>().Delete(x => x.TagID == tagId);
+
+                    this.GetRepository<Tag>().DeleteById(tagId);
+
+                    // re-bind controls
+                    this.BindData();
+                    break;
+            }
+        }
+
+        /// <summary>
         /// Populates data source and binds data to controls.
         /// </summary>
         private void BindData()
@@ -144,31 +169,6 @@ namespace YAF.Pages.Admin
             if (this.List.Items.Count == 0)
             {
                 this.NoInfo.Visible = true;
-            }
-        }
-
-        /// <summary>
-        /// Handles single record commands in a repeater.
-        /// </summary>
-        /// <param name="source">The source of the event.</param>
-        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-        {
-            // what command are we serving?
-            switch (e.CommandName)
-            {
-                // delete log entry
-                case "delete":
-
-                    var tagId = e.CommandArgument.ToType<int>();
-
-                    this.GetRepository<TopicTag>().Delete(x => x.TagID == tagId);
-
-                    this.GetRepository<Tag>().DeleteById(tagId);
-
-                    // re-bind controls
-                    this.BindData();
-                    break;
             }
         }
 

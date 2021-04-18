@@ -249,9 +249,6 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_BOARDS", "TITLE"),
                 this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditBoard));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITBOARD", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BOARDS", "TITLE")} - {this.GetText("ADMIN_EDITBOARD", "TITLE")}";
         }
 
         /// <summary>

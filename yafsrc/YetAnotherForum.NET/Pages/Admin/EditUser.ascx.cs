@@ -116,9 +116,6 @@ namespace YAF.Pages.Admin
                 header,
                 string.Empty);
 
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_USERS", "TITLE")} - {string.Format(this.GetText("ADMIN_EDITUSER", "TITLE"), userName)}";
-
             // do a quick user membership sync...
             var aspNetUser = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.CurrentUserId);
 

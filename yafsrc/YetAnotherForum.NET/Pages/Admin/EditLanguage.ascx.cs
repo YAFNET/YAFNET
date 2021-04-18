@@ -83,7 +83,7 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///   The translations.
         /// </summary>
-        private List<Translation> translations = new();
+        private List<Translation> translations = new ();
 
         #endregion
 
@@ -92,12 +92,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///  Gets the List of attributes for Resources in destination translation file
         /// </summary>
-        private StringDictionary ResourcesAttributes { get; } = new();
+        private StringDictionary ResourcesAttributes { get; } = new ();
 
         /// <summary>
         ///  Gets the List of namespaces for Resources in destination translation file
         /// </summary>
-        private StringDictionary ResourcesNamespaces { get; } = new();
+        private StringDictionary ResourcesNamespaces { get; } = new ();
 
         #endregion
 
@@ -229,9 +229,6 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_LANGUAGES", "TITLE"),
                 this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Languages));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITLANGUAGE", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_LANGUAGES", "TITLE")} - {this.GetText("ADMIN_EDITLANGUAGE", "TITLE")}";
         }
 
         /// <summary>

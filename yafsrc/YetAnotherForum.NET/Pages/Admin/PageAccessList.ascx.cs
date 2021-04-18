@@ -61,9 +61,6 @@ namespace YAF.Pages.Admin
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_PAGEACCESSLIST", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_PAGEACCESSLIST", "TITLE")}";
         }
 
         /// <summary>

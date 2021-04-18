@@ -147,8 +147,6 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddAdminIndex();
 
             this.PageLinks.AddLink(this.GetText("ADMIN_SPAMLOG", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = this.GetText("ADMIN_SPAMLOG", "TITLE");
         }
 
         /// <summary>

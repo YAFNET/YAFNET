@@ -79,9 +79,6 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_ADMIN", "Administration"),
                 this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_RUNSQL", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_RUNSQL", "TITLE")}";
         }
 
         /// <summary>

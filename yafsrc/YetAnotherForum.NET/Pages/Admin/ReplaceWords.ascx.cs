@@ -74,14 +74,17 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot()
                 .AddAdminIndex()
                 .AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"));
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_REPLACEWORDS", "TITLE")}";
-
-            this.BindData();
         }
 
         /// <summary>
