@@ -1,5 +1,7 @@
-// Sandstone 5.0.0-beta1
+// Sandstone 5.0.0-beta3
 // Bootswatch
+
+$theme: "sandstone" !default;
 
 //
 // Color system
@@ -129,3 +131,9 @@ $breadcrumb-padding-y:              .375rem !default;
 $breadcrumb-padding-x:              .75rem !default;
 $breadcrumb-bg:                     $pagination-bg !default;
 $breadcrumb-border-radius:          .25rem !default;
+
+// Close
+
+$btn-close-color:            $white !default;
+$btn-close-opacity:          .8 !default;
+$btn-close-hover-opacity:    1 !default;

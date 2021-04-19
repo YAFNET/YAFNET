@@ -1,5 +1,7 @@
-// Litera 5.0.0-beta1
+// Litera 5.0.0-beta3
 // Bootswatch
+
+$theme: "litera" !default;
 
 //
 // Color system
@@ -56,6 +58,8 @@ $headings-font-weight:        700 !default;
 // Tables
 
 $table-border-color:          rgba(0, 0, 0, .1) !default;
+
+$table-bg-scale:              0 !default;
 
 // Buttons
 

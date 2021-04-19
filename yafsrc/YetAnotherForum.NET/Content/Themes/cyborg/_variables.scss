@@ -1,5 +1,7 @@
-// Cyborg 5.0.0-beta1
+// Cyborg 5.0.0-beta3
 // Bootswatch
+
+$theme: "cyborg" !default;
 
 //
 // Color system
@@ -65,6 +67,8 @@ $table-border-color:            $gray-700 !default;
 $table-dark-bg:                 $gray-500 !default;
 $table-dark-border-color:       darken($gray-500, 7.5%) !default;
 
+$table-bg-scale:              0 !default;
+
 // Buttons
 
 $input-btn-padding-x:       1rem !default;
@@ -72,12 +76,19 @@ $input-btn-padding-x:       1rem !default;
 // Forms
 
 $input-disabled-bg:                 $gray-400 !default;
+
+$input-color:                       $gray-900 !default;
 $input-border-color:                $white !default;
+$input-border-width:                0 !default;
+
 $input-group-addon-color:           $white !default;
 $input-group-addon-bg:              $gray-700 !default;
 $input-group-addon-border-color:    transparent !default;
-$custom-file-color:                 $white !default;
-$custom-file-border-color:          $gray-700 !default;
+
+$form-check-input-bg:                     $white !default;
+$form-check-input-border:                 none !default;
+
+$form-file-button-color:          $white !default;
 
 // Dropdowns
 
@@ -109,11 +120,6 @@ $pagination-hover-bg:                  $primary !default;
 $pagination-hover-border-color:        $pagination-border-color !default;
 $pagination-disabled-bg:               $pagination-bg !default;
 $pagination-disabled-border-color:     $pagination-border-color !default;
-
-
-// Jumbotron
-
-$jumbotron-bg:                      $gray-700 !default;
 
 // Cards
 
@@ -163,7 +169,9 @@ $breadcrumb-border-radius:          .25rem !default;
 
 // Close
 
-$btn-close-color:                       $white !default;
+$btn-close-color:            $white !default;
+$btn-close-opacity:          .6 !default;
+$btn-close-hover-opacity:    1 !default;
 
 // Code
 

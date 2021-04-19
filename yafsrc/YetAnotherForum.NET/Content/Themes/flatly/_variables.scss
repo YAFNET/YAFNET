@@ -1,5 +1,7 @@
-// Flatly 5.0.0-beta1
+// Flatly 5.0.0-beta3
 // Bootswatch
+
+$theme: "flatly" !default;
 
 //
 // Color system
@@ -37,7 +39,7 @@ $danger:        $red !default;
 $light:         $gray-200 !default;
 $dark:          $gray-700 !default;
 
-$min-contrast-ratio:   2.15 !default;
+$min-contrast-ratio:   2.05 !default;
 
 // Links
 
@@ -54,6 +56,7 @@ $h3-font-size:                2rem !default;
 // Tables
 
 $table-accent-bg:             $gray-200 !default;
+$table-bg-scale:              0 !default;
 
 // Dropdowns
 
@@ -72,7 +75,11 @@ $nav-tabs-border-color:             $gray-200 !default;
 
 $navbar-padding-y:                  1rem !default;
 $navbar-dark-color:                 $white !default;
-$navbar-dark-hover-color:           $success !default;
+$navbar-dark-hover-color:           $primary !default;
+$navbar-dark-active-color:          $primary !default;
+
+$navbar-dark-brand-color:                 $white !default;
+$navbar-dark-brand-hover-color:           $navbar-dark-brand-color !default;
 
 // Pagination
 
@@ -102,4 +109,6 @@ $breadcrumb-border-radius:          .25rem !default;
 
 // Close
 
-$btn-close-color:                       $white !default;
+$btn-close-color:            $white !default;
+$btn-close-opacity:          .4 !default;
+$btn-close-hover-opacity:    1 !default;

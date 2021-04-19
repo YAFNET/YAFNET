@@ -1,5 +1,7 @@
-// Sketchy 5.0.0-beta1
+// Sketchy 5.0.0-beta3
 // Bootswatch
+
+$theme: "sketchy" !default;
 
 //
 // Color system
@@ -104,10 +106,6 @@ $pagination-hover-border-color:     $gray-800 !default;
 $pagination-disabled-color:         $gray-400 !default;
 $pagination-disabled-border-color:  $gray-800 !default;
 
-// Jumbotron
-
-$jumbotron-bg:                      transparent !default;
-
 // Cards
 
 $card-border-width:                 2px !default;
@@ -157,4 +155,7 @@ $breadcrumb-border-radius:          .25rem !default;
 
 // Close
 
-$btn-close-color:                       $white !default;
+$btn-close-color:            inherit !default;
+$btn-close-opacity:          1 !default;
+$btn-close-hover-opacity:    1 !default;
+$btn-close-focus-shadow:     none !default;

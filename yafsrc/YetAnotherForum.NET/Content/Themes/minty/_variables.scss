@@ -1,5 +1,7 @@
-// Minty 5.0.0-beta1
+// Minty 5.0.0-beta3
 // Bootswatch
+
+$theme: "minty" !default;
 
 //
 // Color system
@@ -59,6 +61,8 @@ $headings-color:              $gray-700 !default;
 
 $table-border-color:          rgba(0, 0, 0, .05) !default;
 
+$table-bg-scale:              0 !default;
+
 // Dropdowns
 
 $dropdown-link-hover-color:         $white !default;
@@ -86,6 +90,11 @@ $pagination-active-border-color:    $pagination-active-bg !default;
 $pagination-disabled-color:         $white !default;
 $pagination-disabled-bg:            #cce8e0 !default;
 $pagination-disabled-border-color:  $pagination-disabled-bg !default;
+
+// Alerts
+
+$alert-color-scale:                 0% !default;
+$alert-bg-scale:                    0 !default;
 
 // Breadcrumbs
 

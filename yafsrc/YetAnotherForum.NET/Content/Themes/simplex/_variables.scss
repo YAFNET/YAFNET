@@ -1,5 +1,7 @@
-// Simplex 5.0.0-beta1
+// Simplex 5.0.0-beta3
 // Bootswatch
+
+$theme: "simplex" !default;
 
 //
 // Color system
@@ -72,10 +74,6 @@ $pagination-hover-bg:               $primary !default;
 $pagination-hover-border-color:     $primary !default;
 $pagination-disabled-color:         $gray-400 !default;
 $pagination-disabled-border-color:  $pagination-border-color !default;
-
-// Jumbotron
-
-$jumbotron-bg:                      $nav-tabs-border-color !default;
 
 // Cards
 

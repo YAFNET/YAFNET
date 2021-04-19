@@ -1,5 +1,7 @@
-// Lumen 5.0.0-beta1
+// Lumen 5.0.0-beta3
 // Bootswatch
+
+$theme: "lumen" !default;
 
 //
 // Color system
@@ -44,6 +46,10 @@ $min-contrast-ratio:   1.75 !default;
 // stylelint-disable-next-line value-keyword-case
 $font-family-sans-serif:      "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
+// Tables
+
+$table-bg-scale:              0 !default;
+
 // Buttons
 
 $btn-font-weight:             700 !default;
@@ -76,14 +82,12 @@ $breadcrumb-padding-x:              .75rem !default;
 $breadcrumb-bg:                     $pagination-bg !default;
 $breadcrumb-border-radius:          .25rem !default;
 
-// Jumbotron
-
-$jumbotron-bg:                      #fafafa !default;
-
 // Modals
 
 $modal-content-border-color:        rgba($black, .1) !default;
 
 // Close
 
-$btn-close-color:                       $white !default;
+$btn-close-color:            $white !default;
+$btn-close-opacity:          .4 !default;
+$btn-close-hover-opacity:    1 !default;

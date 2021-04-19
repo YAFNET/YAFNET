@@ -1,5 +1,7 @@
-// Slate 5.0.0-beta1
+// Slate 5.0.0-beta3
 // Bootswatch
+
+$theme: "slate" !default;
 
 //
 // Color system
@@ -59,6 +61,8 @@ $table-border-color:          rgba($black, .6) !default;
 $table-dark-border-color:     $table-border-color !default;
 $table-dark-color:            $white !default;
 
+$table-bg-scale:              0 !default;
+
 // Buttons
 
 $input-btn-padding-y:         .75rem !default;
@@ -67,6 +71,10 @@ $input-btn-padding-x:         1rem !default;
 // Forms
 
 $input-disabled-bg:                     #ccc !default;
+
+$input-color:                       $gray-900 !default;
+
+$form-check-input-bg:                     $white !default;
 
 // Dropdowns
 
@@ -106,11 +114,6 @@ $pagination-active-bg:              transparent !default;
 $pagination-active-border-color:    rgba($black, .6) !default;
 $pagination-disabled-bg:            transparent !default;
 $pagination-disabled-border-color:  rgba($black, .6) !default;
-
-
-// Jumbotron
-
-$jumbotron-bg:                      darken($gray-900, 5%) !default;
 
 // Cards
 
