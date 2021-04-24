@@ -1,4 +1,4 @@
-//
+﻿//
 // ServiceStack.OrmLite: Light-weight POCO ORM for .NET and Mono
 //
 // Authors:
@@ -17,6 +17,7 @@ using System.Reflection;
 using System.Threading;
 using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite.Converters;
+using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite
 {
@@ -51,10 +52,25 @@ namespace ServiceStack.OrmLite
             var modelAliasAttr = modelType.FirstAttribute<AliasAttribute>();
             var schemaAttr = modelType.FirstAttribute<SchemaAttribute>();
 
-            var preCreate = modelType.FirstAttribute<PreCreateTableAttribute>();
-            var postCreate = modelType.FirstAttribute<PostCreateTableAttribute>();
-            var preDrop = modelType.FirstAttribute<PreDropTableAttribute>();
-            var postDrop = modelType.FirstAttribute<PostDropTableAttribute>();
+            var preCreates = modelType.AllAttributes<PreCreateTableAttribute>();
+            var postCreates = modelType.AllAttributes<PostCreateTableAttribute>();
+            var preDrops = modelType.AllAttributes<PreDropTableAttribute>();
+            var postDrops = modelType.AllAttributes<PostDropTableAttribute>();
+
+            string JoinSql(List<string> statements)
+            {
+                if (statements.Count == 0)
+                    return null;
+                var sb = StringBuilderCache.Allocate();
+                foreach (var sql in statements)
+                {
+                    if (sb.Length > 0)
+                        sb.AppendLine(";");
+                    sb.Append(sql);
+                }
+                var to = StringBuilderCache.ReturnAndFree(sb);
+                return to;
+            }
 
             modelDef = new ModelDefinition
             {
@@ -62,10 +78,10 @@ namespace ServiceStack.OrmLite
                 Name = modelType.Name,
                 Alias = modelAliasAttr?.Name,
                 Schema = schemaAttr?.Name,
-                PreCreateTableSql = preCreate?.Sql,
-                PostCreateTableSql = postCreate?.Sql,
-                PreDropTableSql = preDrop?.Sql,
-                PostDropTableSql = postDrop?.Sql,
+                PreCreateTableSql = JoinSql(preCreates.Map(x => x.Sql)),
+                PostCreateTableSql = JoinSql(postCreates.Map(x => x.Sql)),
+                PreDropTableSql = JoinSql(preDrops.Map(x => x.Sql)),
+                PostDropTableSql = JoinSql(postDrops.Map(x => x.Sql)),
             };
 
             modelDef.CompositeIndexes.AddRange(
@@ -95,20 +111,20 @@ namespace ServiceStack.OrmLite
                 var decimalAttribute = propertyInfo.FirstAttribute<DecimalLengthAttribute>();
                 var belongToAttribute = propertyInfo.FirstAttribute<BelongToAttribute>();
                 var referenceAttr = propertyInfo.FirstAttribute<ReferenceAttribute>();
-                
+
                 var isRowVersion = propertyInfo.Name == ModelDefinition.RowVersionName
                     && (propertyInfo.PropertyType == typeof(ulong) || propertyInfo.PropertyType == typeof(byte[]));
 
                 var isNullableType = propertyInfo.PropertyType.IsNullableType();
 
                 var isNullable = (!propertyInfo.PropertyType.IsValueType
-                                   && !propertyInfo.HasAttributeNamed(typeof(RequiredAttribute).Name))
+                                   && !propertyInfo.HasAttributeNamed(nameof(RequiredAttribute)))
                                    || isNullableType;
 
                 var propertyType = isNullableType
                     ? Nullable.GetUnderlyingType(propertyInfo.PropertyType)
                     : propertyInfo.PropertyType;
-                
+
 
                 Type treatAsType = null;
 
@@ -129,17 +145,17 @@ namespace ServiceStack.OrmLite
                 var isAutoId = propertyInfo.HasAttributeCached<AutoIdAttribute>();
 
                 var isPrimaryKey = (!hasPkAttr && (propertyInfo.Name == OrmLiteConfig.IdField || (!hasIdField && isFirst)))
-                   || propertyInfo.HasAttributeNamed(typeof(PrimaryKeyAttribute).Name)
+                   || propertyInfo.HasAttributeNamed(nameof(PrimaryKeyAttribute))
                    || isAutoId;
 
                 var isAutoIncrement = isPrimaryKey && propertyInfo.HasAttributeCached<AutoIncrementAttribute>();
-                
+
                 if (isAutoIncrement && propertyInfo.PropertyType == typeof(Guid))
                     throw new NotSupportedException($"[AutoIncrement] is only valid for integer properties for {modelType.Name}.{propertyInfo.Name} Guid property use [AutoId] instead");
-                
+
                 if (isAutoId && (propertyInfo.PropertyType == typeof(int) || propertyInfo.PropertyType == typeof(long)))
                     throw new NotSupportedException($"[AutoId] is only valid for Guid properties for {modelType.Name}.{propertyInfo.Name} integer property use [AutoIncrement] instead");
-                
+
                 var aliasAttr = propertyInfo.FirstAttribute<AliasAttribute>();
 
                 var indexAttr = propertyInfo.FirstAttribute<IndexAttribute>();
@@ -171,7 +187,7 @@ namespace ServiceStack.OrmLite
                     IsUniqueIndex = isUnique,
                     IsClustered = indexAttr?.Clustered == true,
                     IsNonClustered = indexAttr?.NonClustered == true,
-                    IndexName = indexAttr?.Name, 
+                    IndexName = indexAttr?.Name,
                     IsRowVersion = isRowVersion,
                     IgnoreOnInsert = propertyInfo.HasAttributeCached<IgnoreOnInsertAttribute>(),
                     IgnoreOnUpdate = propertyInfo.HasAttributeCached<IgnoreOnUpdateAttribute>(),

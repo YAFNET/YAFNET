@@ -6,8 +6,6 @@ using ServiceStack.Text;
 
 namespace ServiceStack.Script
 {
-    using ServiceStack.Extensions;
-
     public class JsCallExpression : JsExpression
     {
         public JsToken Callee { get; }

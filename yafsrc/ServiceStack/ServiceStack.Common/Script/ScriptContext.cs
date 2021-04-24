@@ -14,8 +14,6 @@ using ServiceStack.Text;
 
 namespace ServiceStack.Script
 {
-    using ServiceStack.Extensions;
-
     public interface IConfigureScriptContext
     {
         void Configure(ScriptContext context);

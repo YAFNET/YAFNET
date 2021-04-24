@@ -23,11 +23,11 @@ using System.Reflection.Emit;
 
 namespace ServiceStack
 {
-    public class Net45PclExport : PclExport
+    public class Net48PclExport : PclExport
     {
-        public static Net45PclExport Provider = new Net45PclExport();
+        public static Net48PclExport Provider = new Net48PclExport();
 
-        public Net45PclExport()
+        public Net48PclExport()
         {
             this.DirSep = Path.DirectorySeparatorChar;
             this.AltDirSep = Path.DirectorySeparatorChar == '/' ? '\\' : '/';
@@ -37,7 +37,7 @@ namespace ServiceStack
             this.InvariantComparer = StringComparer.InvariantCulture;
             this.InvariantComparerIgnoreCase = StringComparer.InvariantCultureIgnoreCase;
 
-            this.PlatformName = Platforms.Net45;
+            this.PlatformName = Platforms.Net48;
             ReflectionOptimizer.Instance = EmitReflectionOptimizer.Provider;
         }
 
@@ -99,9 +99,6 @@ namespace ServiceStack
                 ? Directory.GetDirectories(dirPath, searchPattern)
                 : Directory.GetDirectories(dirPath);
         }
-
-        public const string AppSettingsKey = "servicestack:license";
-        public const string EnvironmentKey = "SERVICESTACK_LICENSE";
 
         public override string GetEnvironmentVariable(string name)
         {
@@ -472,9 +469,9 @@ namespace ServiceStack
 
         public static StringCollection ParseStringCollection<TS>(ReadOnlySpan<char> value) where TS : ITypeSerializer
         {
-            if ((value = DeserializeListWithElements<TS>.StripList(value)).IsNullOrEmpty()) 
+            if ((value = DeserializeListWithElements<TS>.StripList(value)).IsNullOrEmpty())
                 return value.IsEmpty ? null : new StringCollection();
-    
+
             return ToStringCollection(DeserializeListWithElements<TSerializer>.ParseStringList(value));
         }
 

@@ -23,12 +23,12 @@ namespace ServiceStack
         {
             public const string NetStandard = "NETStandard";
             public const string NetCore = "NetCore";
-            public const string Net45 = "Net48";
+            public const string Net48 = "Net48";
         }
 
         public static PclExport Instance
 #if NET48
-          = new Net45PclExport()
+          = new Net48PclExport()
 #elif NETCORE2_1
           = new NetCorePclExport()
 #else
@@ -261,7 +261,7 @@ namespace ServiceStack
             return new UTF8Encoding(emitBom);
         }
 
-        
+
         [Obsolete("ReflectionOptimizer.CreateGetter")]
         public GetMemberDelegate CreateGetter(PropertyInfo propertyInfo) => ReflectionOptimizer.Instance.CreateGetter(propertyInfo);
 
@@ -273,7 +273,7 @@ namespace ServiceStack
 
         [Obsolete("ReflectionOptimizer.CreateSetter")]
         public SetMemberDelegate<T> CreateSetter<T>(PropertyInfo propertyInfo) => ReflectionOptimizer.Instance.CreateSetter<T>(propertyInfo);
-        
+
 
         [Obsolete("ReflectionOptimizer.CreateGetter")]
         public virtual GetMemberDelegate CreateGetter(FieldInfo fieldInfo) => ReflectionOptimizer.Instance.CreateGetter(fieldInfo);
@@ -287,7 +287,7 @@ namespace ServiceStack
         [Obsolete("ReflectionOptimizer.CreateSetter")]
         public virtual SetMemberDelegate<T> CreateSetter<T>(FieldInfo fieldInfo) => ReflectionOptimizer.Instance.CreateSetter<T>(fieldInfo);
 
-        
+
         public virtual bool InSameAssembly(Type t1, Type t2)
         {
             return t1.AssemblyQualifiedName != null && t1.AssemblyQualifiedName.Equals(t2.AssemblyQualifiedName);

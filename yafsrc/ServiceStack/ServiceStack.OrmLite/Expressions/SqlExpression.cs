@@ -556,8 +556,15 @@ namespace ServiceStack.OrmLite
 
                 if (filterParam is SqlInValues sqlParams)
                 {
-                    var sqlIn = CreateInParamSql(sqlParams.GetValues());
-                    sqlFilter = sqlFilter.Replace(pLiteral, sqlIn);
+                    if (sqlParams.Count > 0)
+                    {
+                        var sqlIn = CreateInParamSql(sqlParams.GetValues());
+                        sqlFilter = sqlFilter.Replace(pLiteral, sqlIn);
+                    }
+                    else 
+                    {
+                        sqlFilter = sqlFilter.Replace(pLiteral, SqlInValues.EmptyIn);
+                    }
                 }
                 else
                 {
@@ -1404,7 +1411,7 @@ namespace ServiceStack.OrmLite
             }
 
             if (setFields.Length == 0)
-                throw new ArgumentException("No non-null or non-default values were provided for type: " + typeof(T).Name);
+                throw new ArgumentException($"No non-null or non-default values were provided for type: {typeof(T).Name}");
 
             var sql = $"UPDATE {DialectProvider.GetQuotedTableName(modelDef)} " +
                       $"SET {StringBuilderCache.ReturnAndFree(setFields)} {WhereExpression}";
@@ -1446,7 +1453,7 @@ namespace ServiceStack.OrmLite
             }
             
             if (setFields.Length == 0)
-                throw new ArgumentException("No non-null or non-default values were provided for type: " + typeof(T).Name);
+                throw new ArgumentException($"No non-null or non-default values were provided for type: {typeof(T).Name}");
 
             var sql = $"UPDATE {DialectProvider.GetQuotedTableName(modelDef)} " +
                       $"SET {StringBuilderCache.ReturnAndFree(setFields)} {WhereExpression}";
@@ -2185,9 +2192,11 @@ namespace ServiceStack.OrmLite
                 return new PartialSqlString(OrmLiteUtils.UnquotedColumnName(strExpr) != member.Name 
                     ? strExpr + " AS " + member.Name 
                     : strExpr);
-            } 
+            }
 
-            return UseSelectPropertiesAsAliases
+            var usePropertyAlias = UseSelectPropertiesAsAliases ||
+                (expr is PartialSqlString p && Equals(p, PartialSqlString.Null)); // new { Alias = (DateTime?)null }
+            return usePropertyAlias
                 ? new SelectItemExpression(DialectProvider, expr.ToString(), member.Name)
                 : expr;
         }
@@ -2249,7 +2258,7 @@ namespace ServiceStack.OrmLite
         protected virtual object VisitConstant(ConstantExpression c)
         {
             if (c.Value == null)
-                return new PartialSqlString("null");
+                return PartialSqlString.Null;
 
             return c.Value;
         }
@@ -3042,12 +3051,24 @@ namespace ServiceStack.OrmLite
 
     public class PartialSqlString
     {
+        public static PartialSqlString Null = new("null");
+        
         public PartialSqlString(string text)
         {
             Text = text;
         }
         public string Text { get; internal set; }
         public override string ToString() => Text;
+
+        protected bool Equals(PartialSqlString other) => Text == other.Text;
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((PartialSqlString) obj);
+        }
+        public override int GetHashCode() => (Text != null ? Text.GetHashCode() : 0);
     }
 
     public class EnumMemberAccess : PartialSqlString

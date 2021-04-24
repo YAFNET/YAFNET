@@ -1,4 +1,4 @@
-//Copyright (c) ServiceStack, Inc. All Rights Reserved.
+﻿//Copyright (c) ServiceStack, Inc. All Rights Reserved.
 //License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 using System;
@@ -25,7 +25,7 @@ namespace ServiceStack.Text
                 IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
                 IsOSX  = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
                 IsNetCore3 = RuntimeInformation.FrameworkDescription.StartsWith(".NET Core 3");
-                
+
                 var fxDesc = RuntimeInformation.FrameworkDescription;
                 IsMono = fxDesc.Contains("Mono");
                 IsNetCore = fxDesc.StartsWith(".NET Core", StringComparison.OrdinalIgnoreCase);
@@ -45,14 +45,14 @@ namespace ServiceStack.Text
                     IsWindows = true;
                 break;
             }
-            
+
             var platform = (int)Environment.OSVersion.Platform;
             IsUnix = platform == 4 || platform == 6 || platform == 128;
 
             if (File.Exists(@"/System/Library/CoreServices/SystemVersion.plist"))
                 IsOSX = true;
-            var osType = File.Exists(@"/proc/sys/kernel/ostype") 
-                ? File.ReadAllText(@"/proc/sys/kernel/ostype") 
+            var osType = File.Exists(@"/proc/sys/kernel/ostype")
+                ? File.ReadAllText(@"/proc/sys/kernel/ostype")
                 : null;
             IsLinux = osType?.IndexOf("Linux", StringComparison.OrdinalIgnoreCase) >= 0;
             try
@@ -85,12 +85,12 @@ namespace ServiceStack.Text
                         var runtimeDir = RuntimeEnvironment.GetRuntimeDirectory();
                         //iOS detection no longer trustworthy so assuming iOS based on some current heuristics. TODO: improve iOS detection
                         IsIOS = runtimeDir.StartsWith("/private/var") ||
-                                runtimeDir.Contains("/CoreSimulator/Devices/"); 
+                                runtimeDir.Contains("/CoreSimulator/Devices/");
                     }
                 }
                 catch (Exception) {}
             }
-            
+
             SupportsExpressions = true;
             SupportsEmit = !(IsUWP || IsIOS);
 
@@ -101,7 +101,7 @@ namespace ServiceStack.Text
 
             VersionString = ServiceStackVersion.ToString(CultureInfo.InvariantCulture);
 
-            ServerUserAgent = "ServiceStack/" 
+            ServerUserAgent = "ServiceStack/"
                               + VersionString + " "
                               + PclExport.Instance.PlatformName
                               + (IsMono ? "/Mono" : "")
@@ -113,7 +113,7 @@ namespace ServiceStack.Text
 
         public static string VersionString { get; set; }
 
-        public static decimal ServiceStackVersion = 5.102m;
+        public static decimal ServiceStackVersion = 5.11m;
 
         public static bool IsLinux { get; set; }
 
@@ -141,7 +141,7 @@ namespace ServiceStack.Text
         public static bool IsNetFramework { get; set; }
 
         public static bool IsNetCore { get; set; }
-        
+
         public static bool IsNetCore3 { get; set; }
 
         public static bool SupportsExpressions { get; private set; }
@@ -168,8 +168,8 @@ namespace ServiceStack.Text
         }
 
         [Obsolete("Use ReferenceAssemblyPath")]
-        public static string ReferenceAssembyPath => ReferenceAssemblyPath; 
-        
+        public static string ReferenceAssembyPath => ReferenceAssemblyPath;
+
         private static string referenceAssemblyPath;
 
         public static string ReferenceAssemblyPath
@@ -195,7 +195,7 @@ namespace ServiceStack.Text
                         {
                             var winPath = PclExport.Instance.GetEnvironmentVariable("SYSTEMROOT") ?? @"C:\Windows";
                             var gacPath = winPath + @"\Microsoft.NET\Framework\";
-                            v4Dirs = PclExport.Instance.GetDirectoryNames(gacPath, "v4*");                            
+                            v4Dirs = PclExport.Instance.GetDirectoryNames(gacPath, "v4*");
                         }
                         if (v4Dirs.Length > 0)
                         {
@@ -225,7 +225,7 @@ namespace ServiceStack.Text
             catch (Exception) {}
             return false;
         }
-        
+
         private static bool IsWindows7OrLower
         {
             get
@@ -235,13 +235,13 @@ namespace ServiceStack.Text
                 double version = versionMajor + (double)versionMinor / 10;
                 return version <= 6.1;
             }
-        } 
-        
+        }
+
         // From: https://github.com/dotnet/corefx/blob/master/src/CoreFx.Private.TestUtilities/src/System/PlatformDetection.Windows.cs
         private static int s_isInAppContainer = -1;
         private static bool IsInAppContainer
         {
-            // This actually checks whether code is running in a modern app. 
+            // This actually checks whether code is running in a modern app.
             // Currently this is the only situation where we run in app container.
             // If we want to distinguish the two cases in future,
             // EnvironmentHelpers.IsAppContainerProcess in desktop code shows how to check for the AC token.
@@ -304,20 +304,20 @@ namespace ServiceStack.Text
         public const bool ContinueOnCapturedContext = false;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ConfiguredTaskAwaitable ConfigAwait(this Task task) => 
+        public static ConfiguredTaskAwaitable ConfigAwait(this Task task) =>
             task.ConfigureAwait(ContinueOnCapturedContext);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ConfiguredTaskAwaitable<T> ConfigAwait<T>(this Task<T> task) => 
+        public static ConfiguredTaskAwaitable<T> ConfigAwait<T>(this Task<T> task) =>
             task.ConfigureAwait(ContinueOnCapturedContext);
 
 #if NETSTANDARD || NETCORE2_1
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task) => 
+        public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task) =>
             task.ConfigureAwait(ContinueOnCapturedContext);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ConfiguredValueTaskAwaitable<T> ConfigAwait<T>(this ValueTask<T> task) => 
+        public static ConfiguredValueTaskAwaitable<T> ConfigAwait<T>(this ValueTask<T> task) =>
             task.ConfigureAwait(ContinueOnCapturedContext);
 #endif
 

@@ -698,7 +698,8 @@ namespace ServiceStack
             return string.IsNullOrEmpty(text) || text.Length < 2
                 ? text
                 : (text[0] == '"' && text[text.Length - 1] == '"') ||
-                  (text[0] == '\'' && text[text.Length - 1] == '\'')
+                  (text[0] == '\'' && text[text.Length - 1] == '\'') ||
+                  (text[0] == '`' && text[text.Length - 1] == '`')
                     ? text.Substring(1, text.Length - 2)
                     : text;
         }
@@ -853,10 +854,13 @@ namespace ServiceStack
             return str.EndsWith(endsWith, PclExport.Instance.InvariantComparison);
         }
 
-        private static readonly Regex InvalidVarCharsRegex = new Regex(@"[^A-Za-z0-9_]", RegexOptions.Compiled);
-        private static readonly Regex InvalidVarRefCharsRegex = new Regex(@"[^A-Za-z0-9._]", RegexOptions.Compiled);
-        private static readonly Regex SplitCamelCaseRegex = new Regex("([A-Z]|[0-9]+)", RegexOptions.Compiled);
-        private static readonly Regex HttpRegex = new Regex(@"^http://",
+        private static readonly Regex InvalidVarCharsRegex = new(@"[^A-Za-z0-9_]", RegexOptions.Compiled);
+        private static readonly Regex ValidVarCharsRegex = new(@"^[A-Za-z0-9_]+$", RegexOptions.Compiled);
+        private static readonly Regex InvalidVarRefCharsRegex = new(@"[^A-Za-z0-9._]", RegexOptions.Compiled);
+        private static readonly Regex ValidVarRefCharsRegex = new(@"^[A-Za-z0-9._]+$", RegexOptions.Compiled);
+        
+        private static readonly Regex SplitCamelCaseRegex = new("([A-Z]|[0-9]+)", RegexOptions.Compiled);
+        private static readonly Regex HttpRegex = new(@"^http://",
             PclExport.Instance.RegexOptions | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
         public static T ToEnum<T>(this string value)
@@ -951,7 +955,8 @@ namespace ServiceStack
             return false;
         }
       
-        public static bool IsValidVarName(this string name) => InvalidVarCharsRegex.IsMatch(name);
+        public static bool IsValidVarName(this string name) => ValidVarCharsRegex.IsMatch(name);
+        public static bool IsValidVarRef(this string name) => ValidVarRefCharsRegex.IsMatch(name);
 
         public static string SafeVarName(this string text) => !string.IsNullOrEmpty(text) 
             ? InvalidVarCharsRegex.Replace(text, "_") : null;
@@ -1029,8 +1034,10 @@ namespace ServiceStack
 
         public static int ToInt(this string text, int defaultValue) => int.TryParse(text, out var ret) ? ret : defaultValue;
 
+        public static long ToLong(this string text) => long.Parse(text);
         public static long ToInt64(this string text) => long.Parse(text);
 
+        public static long ToLong(this string text, long defaultValue) => long.TryParse(text, out var ret) ? ret : defaultValue;
         public static long ToInt64(this string text, long defaultValue) => long.TryParse(text, out var ret) ? ret : defaultValue;
 
         public static float ToFloat(this string text) => text == null ? default(float) : float.Parse(text);

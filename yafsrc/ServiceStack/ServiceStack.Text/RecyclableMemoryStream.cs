@@ -66,8 +66,8 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                 : new MemoryStream(bytes, index, count, writable:true, publiclyVisible:true);
         }
     }
-    
-#if !NETSTANDARD    
+
+#if !NETSTANDARD
     public enum EventLevel
     {
         LogAlways = 0,
@@ -116,7 +116,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         }
     }
 #endif
-    
+
     public sealed partial class RecyclableMemoryStreamManager
     {
         /// <summary>
@@ -606,7 +606,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <summary>
         /// Causes an exception to be thrown if ToArray is ever called.
         /// </summary>
-        /// <remarks>Calling ToArray defeats the purpose of a pooled buffer. Use this property to discover code that is calling ToArray. If this is 
+        /// <remarks>Calling ToArray defeats the purpose of a pooled buffer. Use this property to discover code that is calling ToArray. If this is
         /// set and stream.ToArray() is called, a NotSupportedException will be thrown.</remarks>
         public bool ThrowExceptionOnToArray { get; set; }
 
@@ -1010,7 +1010,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                 throw;
             }
         }
-				
+
         /// <summary>
         /// Retrieve a new MemoryStream object with the contents copied from the provided
         /// buffer. The provided buffer is not wrapped or used after construction.
@@ -1157,20 +1157,20 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
     /// This implementation only copies the bytes when GetBuffer is called.
     /// 4. Memory fragmentation - By using homogeneous buffer sizes, it ensures that blocks of memory
     /// can be easily reused.
-    /// 
+    ///
     /// The stream is implemented on top of a series of uniformly-sized blocks. As the stream's length grows,
     /// additional blocks are retrieved from the memory manager. It is these blocks that are pooled, not the stream
     /// object itself.
-    /// 
-    /// The biggest wrinkle in this implementation is when GetBuffer() is called. This requires a single 
-    /// contiguous buffer. If only a single block is in use, then that block is returned. If multiple blocks 
-    /// are in use, we retrieve a larger buffer from the memory manager. These large buffers are also pooled, 
+    ///
+    /// The biggest wrinkle in this implementation is when GetBuffer() is called. This requires a single
+    /// contiguous buffer. If only a single block is in use, then that block is returned. If multiple blocks
+    /// are in use, we retrieve a larger buffer from the memory manager. These large buffers are also pooled,
     /// split by size--they are multiples/exponentials of a chunk size (1 MB by default).
-    /// 
-    /// Once a large buffer is assigned to the stream the small blocks are NEVER again used for this stream. All operations take place on the 
-    /// large buffer. The large buffer can be replaced by a larger buffer from the pool as needed. All blocks and large buffers 
+    ///
+    /// Once a large buffer is assigned to the stream the small blocks are NEVER again used for this stream. All operations take place on the
+    /// large buffer. The large buffer can be replaced by a larger buffer from the pool as needed. All blocks and large buffers
     /// are maintained in the stream until the stream is disposed (unless AggressiveBufferReturn is enabled in the stream manager).
-    /// 
+    ///
     /// </remarks>
     public sealed class RecyclableMemoryStream : MemoryStream
     {
@@ -1352,7 +1352,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
 
         #region Dispose and Finalize
         /// <summary>
-        /// The finalizer will be called when a stream is not disposed properly. 
+        /// The finalizer will be called when a stream is not disposed properly.
         /// </summary>
         /// <remarks>Failing to dispose indicates a bug in the code using streams. Care should be taken to properly account for stream lifetime.</remarks>
         ~RecyclableMemoryStream()
@@ -1453,11 +1453,11 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// Gets or sets the capacity
         /// </summary>
         /// <remarks>Capacity is always in multiples of the memory manager's block size, unless
-        /// the large buffer is in use.  Capacity never decreases during a stream's lifetime. 
-        /// Explicitly setting the capacity to a lower value than the current value will have no effect. 
-        /// This is because the buffers are all pooled by chunks and there's little reason to 
+        /// the large buffer is in use.  Capacity never decreases during a stream's lifetime.
+        /// Explicitly setting the capacity to a lower value than the current value will have no effect.
+        /// This is because the buffers are all pooled by chunks and there's little reason to
         /// allow stream truncation.
-        /// 
+        ///
         /// Writing past the current capacity will cause Capacity to automatically increase, until MaximumStreamCapacity is reached.
         /// </remarks>
         /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
@@ -1600,7 +1600,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <remarks>GetBuffer has no failure modes (it always returns something, even if it's an empty buffer), therefore this method
         /// always returns a valid ArraySegment to the same buffer returned by GetBuffer.</remarks>
 #if NET40 || NET48
-        public bool TryGetBuffer(out ArraySegment<byte> buffer)  
+        public bool TryGetBuffer(out ArraySegment<byte> buffer)
 #else
         public override bool TryGetBuffer(out ArraySegment<byte> buffer)
 #endif
@@ -1612,7 +1612,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         }
 
         /// <summary>
-        /// Returns a new array with a copy of the buffer's contents. You should almost certainly be using GetBuffer combined with the Length to 
+        /// Returns a new array with a copy of the buffer's contents. You should almost certainly be using GetBuffer combined with the Length to
         /// access the bytes in this stream. Calling ToArray will destroy the benefits of pooled buffers, but it is included
         /// for the sake of completeness.
         /// </summary>
@@ -1623,7 +1623,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         public override byte[] ToArray()
         {
             this.CheckDisposed();
-            
+
             string stack = this.memoryManager.GenerateCallStacks ? Environment.StackTrace : null;
             RecyclableMemoryStreamManager.Events.Writer.MemoryStreamToArray(this.id, this.tag, stack, this.length);
 

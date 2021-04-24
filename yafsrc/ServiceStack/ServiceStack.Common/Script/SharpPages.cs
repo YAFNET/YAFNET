@@ -5,8 +5,6 @@ using ServiceStack.IO;
 
 namespace ServiceStack.Script
 {
-    using ServiceStack.Extensions;
-
     public interface ISharpPages
     {
         SharpPage ResolveLayoutPage(SharpPage page, string layout);

@@ -302,6 +302,11 @@ namespace ServiceStack
         public string IconUrl { get; set; }
 
         /// <summary>
+        /// The configured JsConfig.TextCase
+        /// </summary>
+        public string JsTextCase { get; set; }
+        
+        /// <summary>
         /// Custom User-Defined Attributes
         /// </summary>
         public Dictionary<string, string> Meta { get; set; }
@@ -373,6 +378,27 @@ namespace ServiceStack
         public Dictionary<string, string> Meta { get; set; }
 
         public string GetFullName() => Namespace + "." + Name;
+
+        protected bool Equals(MetadataType other)
+        {
+            return Name == other.Name && Namespace == other.Namespace;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((MetadataType) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Name != null ? Name.GetHashCode() : 0) * 397) ^ (Namespace != null ? Namespace.GetHashCode() : 0);
+            }
+        }
     }
 
     public class MetadataTypeName
@@ -495,5 +521,15 @@ namespace ServiceStack
         public static List<MetadataOperationType> GetOperationsByTags(this MetadataTypes types, string[] tags) => 
             types.Operations.Where(x => x.Tags != null && x.Tags.Any(t => Array.IndexOf(tags, t) >= 0)).ToList();
 
+    
+        private static readonly char[] SystemTypeChars = { '<', '>', '+' };
+        public static bool IsSystemOrServiceStackType(this MetadataTypeName metaRef)
+        {
+            if (metaRef.Namespace == null)
+                return false;
+            return metaRef.Namespace.StartsWith("System") || 
+                   metaRef.Namespace.StartsWith("ServiceStack") ||
+                   metaRef.Name.IndexOfAny(SystemTypeChars) >= 0;
+        }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -27,9 +27,9 @@ namespace ServiceStack.Text
         /// </summary>
         /// <param name="config"></param>
         public static void Init() => Config.Init();
-        
+
         /// <summary>
-        /// Initialize global config and assert that it's no longer mutated 
+        /// Initialize global config and assert that it's no longer mutated
         /// </summary>
         /// <param name="config"></param>
         public static void Init(Config config) => Config.Init(config);
@@ -262,7 +262,7 @@ namespace ServiceStack.Text
             bool? alwaysUseUtc = null,
             bool? assumeUtc = null,
             bool? appendUtcOffset = null,
-            bool? escapeUnicode = null, 
+            bool? escapeUnicode = null,
             bool? includePublicFields = null,
             int? maxDepth = null,
             EmptyCtorFactoryDelegate modelFactory = null,
@@ -461,7 +461,7 @@ namespace ServiceStack.Text
         }
 
         /// <summary>
-        /// Emitting camelCase for property names 
+        /// Emitting camelCase for property names
         /// </summary>
         [Obsolete("Use TextCase = TextCase.CamelCase")]
         public static bool EmitCamelCaseNames
@@ -471,7 +471,7 @@ namespace ServiceStack.Text
         }
 
         /// <summary>
-        /// Emitting lowercase_underscore_casing for property names 
+        /// Emitting lowercase_underscore_casing for property names
         /// </summary>
         [Obsolete("Use TextCase = TextCase.SnakeCase")]
         public static bool EmitLowercaseUnderscoreNames
@@ -511,9 +511,9 @@ namespace ServiceStack.Text
             get => ThrowOnError;
             set => ThrowOnError = value;
         }
-    
+
         /// <summary>
-        /// Gets or sets a value indicating if the framework should always convert <see cref="DateTime"/> to UTC format instead of local time. 
+        /// Gets or sets a value indicating if the framework should always convert <see cref="DateTime"/> to UTC format instead of local time.
         /// </summary>
         public static bool AlwaysUseUtc
         {
@@ -525,7 +525,7 @@ namespace ServiceStack.Text
         /// Gets or sets a value indicating if the framework should skip automatic <see cref="DateTime"/> conversions.
         /// Dates will be handled literally, any included timezone encoding will be lost and the date will be treaded as DateTimeKind.Local
         /// Utc formatted input will result in DateTimeKind.Utc output. Any input without TZ data will be set DateTimeKind.Unspecified
-        /// This will take precedence over other flags like AlwaysUseUtc 
+        /// This will take precedence over other flags like AlwaysUseUtc
         /// JsConfig.DateHandler = DateHandler.ISO8601 should be used when set true for consistent de/serialization.
         /// </summary>
         public static bool SkipDateTimeConversion
@@ -536,7 +536,7 @@ namespace ServiceStack.Text
         }
 
         /// <summary>
-        /// Gets or sets a value indicating if the framework should always assume <see cref="DateTime"/> is in UTC format if Kind is Unspecified. 
+        /// Gets or sets a value indicating if the framework should always assume <see cref="DateTime"/> is in UTC format if Kind is Unspecified.
         /// </summary>
         public static bool AssumeUtc
         {
@@ -640,6 +640,12 @@ namespace ServiceStack.Text
             set => Config.AssertNotInit().ExcludeTypes = value;
         }
 
+        public static HashSet<string> ExcludeTypeNames
+        {
+            get => JsConfigScope.Current != null ? JsConfigScope.Current.ExcludeTypeNames : Config.Instance.ExcludeTypeNames;
+            set => Config.AssertNotInit().ExcludeTypeNames = value;
+        }
+
         public static string[] IgnoreAttributesNamed
         {
             set => ReflectionExtensions.IgnoreAttributesNamed = value;
@@ -680,7 +686,7 @@ namespace ServiceStack.Text
             __uniqueTypes = new HashSet<Type>();
 
             //Called when writing each string, too expensive to maintain as scoped config
-            
+
             AllowRuntimeType = null;
             AllowRuntimeTypeWithAttributesNamed = new HashSet<string>
             {
@@ -773,7 +779,7 @@ namespace ServiceStack.Text
         public static TextCase TextCase { get; set; }
 
         /// <summary>
-        /// Emitting camelCase for property names 
+        /// Emitting camelCase for property names
         /// </summary>
         [Obsolete("Use TextCase = TextCase.CamelCase")]
         public static bool? EmitCamelCaseNames
@@ -783,7 +789,7 @@ namespace ServiceStack.Text
         }
 
         /// <summary>
-        /// Emitting lowercase_underscore_casing for property names 
+        /// Emitting lowercase_underscore_casing for property names
         /// </summary>
         [Obsolete("Use TextCase = TextCase.SnakeCase")]
         public static bool? EmitLowercaseUnderscoreNames

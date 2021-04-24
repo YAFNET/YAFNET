@@ -293,7 +293,7 @@ namespace ServiceStack.Text
                 : new DynamicMethod(name, returnType, DynamicSetMethodArgs, memberInfo.Module, true);
         }
     }
-    
+
 
     public static class DynamicProxy
     {
@@ -444,7 +444,7 @@ namespace ServiceStack.Text
             propertyBuilder.SetSetMethod(backingSet);
         }
     }
-    
+
 }
 
 #endif

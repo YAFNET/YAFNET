@@ -584,12 +584,20 @@ namespace ServiceStack.OrmLite
         protected virtual bool ShouldSkipInsert(FieldDefinition fieldDef) => 
             fieldDef.ShouldSkipInsert();
 
+        public virtual string ColumnNameOnly(string columnExpr)
+        {
+            var nameOnly = columnExpr.LastRightPart('.');
+            var ret = nameOnly.StripDbQuotes();
+            return ret;
+        }
+
         public virtual FieldDefinition[] GetInsertFieldDefinitions(ModelDefinition modelDef, ICollection<string> insertFields)
         {
-            return insertFields != null 
+            var insertColumns = insertFields?.Map(ColumnNameOnly);
+            return insertColumns != null 
                 ? NamingStrategy.GetType() == typeof(OrmLiteNamingStrategyBase) 
-                    ? modelDef.GetOrderedFieldDefinitions(insertFields)
-                    : modelDef.GetOrderedFieldDefinitions(insertFields, name => NamingStrategy.GetColumnName(name)) 
+                    ? modelDef.GetOrderedFieldDefinitions(insertColumns)
+                    : modelDef.GetOrderedFieldDefinitions(insertColumns, name => NamingStrategy.GetColumnName(name)) 
                 : modelDef.FieldDefinitionsArray;
         }
 
@@ -929,6 +937,12 @@ namespace ServiceStack.OrmLite
 
         public virtual void DisableIdentityInsert<T>(IDbCommand cmd) {}
         public virtual Task DisableIdentityInsertAsync<T>(IDbCommand cmd, CancellationToken token=default) => TypeConstants.EmptyTask;
+
+        public virtual void EnableForeignKeysCheck(IDbCommand cmd) {}
+        public virtual Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token=default) => TypeConstants.EmptyTask;
+
+        public virtual void DisableForeignKeysCheck(IDbCommand cmd) {}
+        public virtual Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token=default) => TypeConstants.EmptyTask;
 
         public virtual void SetParameterValues<T>(IDbCommand dbCmd, object obj)
         {
@@ -1608,7 +1622,7 @@ namespace ServiceStack.OrmLite
 
         public virtual string GetQuotedValue(object value, Type fieldType)
         {
-            if (value == null) 
+            if (value == null || value == DBNull.Value) 
                 return "NULL";
 
             var converter = value.GetType().IsEnum

@@ -362,7 +362,9 @@ namespace ServiceStack.Text
 
             if (typeof(T).IsValueType || typeof(T) == typeof(string))
             {
-                return GetSingleRow(rows, typeof(T));
+                return rows.Count == 1
+                    ? GetSingleRow(CsvReader.ParseFields(rows[0]), typeof(T))
+                    : GetSingleRow(rows, typeof(T));
             }
 
             for (var rowIndex = headers == null ? 0 : 1; rowIndex < rows.Count; rowIndex++)

@@ -14,19 +14,19 @@ namespace ServiceStack.Text
             ExpressionReflectionOptimizer.Provider
 #endif
         ;
-        
+
         public abstract Type UseType(Type type);
-        
+
         public abstract GetMemberDelegate CreateGetter(PropertyInfo propertyInfo);
         public abstract GetMemberDelegate<T> CreateGetter<T>(PropertyInfo propertyInfo);
         public abstract SetMemberDelegate CreateSetter(PropertyInfo propertyInfo);
         public abstract SetMemberDelegate<T> CreateSetter<T>(PropertyInfo propertyInfo);
-        
+
         public abstract GetMemberDelegate CreateGetter(FieldInfo fieldInfo);
         public abstract GetMemberDelegate<T> CreateGetter<T>(FieldInfo fieldInfo);
         public abstract SetMemberDelegate CreateSetter(FieldInfo fieldInfo);
         public abstract SetMemberDelegate<T> CreateSetter<T>(FieldInfo fieldInfo);
-        
+
         public abstract SetMemberRefDelegate<T> CreateSetterRef<T>(FieldInfo fieldInfo);
 
         public abstract bool IsDynamic(Assembly assembly);
@@ -35,7 +35,7 @@ namespace ServiceStack.Text
 
     public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
     {
-        private static RuntimeReflectionOptimizer provider; 
+        private static RuntimeReflectionOptimizer provider;
         public static RuntimeReflectionOptimizer Provider => provider ??= new RuntimeReflectionOptimizer();
         private RuntimeReflectionOptimizer(){}
 
@@ -111,7 +111,7 @@ namespace ServiceStack.Text
 
     public sealed class ExpressionReflectionOptimizer : ReflectionOptimizer
     {
-        private static ExpressionReflectionOptimizer provider; 
+        private static ExpressionReflectionOptimizer provider;
         public static ExpressionReflectionOptimizer Provider => provider ?? (provider = new ExpressionReflectionOptimizer());
         private ExpressionReflectionOptimizer(){}
 
@@ -186,7 +186,7 @@ namespace ServiceStack.Text
                     propertySetMethod.Invoke(o, new[] { convertedValue });
             }
         }
-        
+
         public override SetMemberDelegate<T> CreateSetter<T>(PropertyInfo propertyInfo)
         {
             try
@@ -225,7 +225,7 @@ namespace ServiceStack.Text
             );
         }
 
-        
+
         public override GetMemberDelegate CreateGetter(FieldInfo fieldInfo)
         {
             var fieldDeclaringType = fieldInfo.DeclaringType;
@@ -291,7 +291,7 @@ namespace ServiceStack.Text
             var sourceParameter = Expression.Parameter(typeof(object), "source");
             var valueParameter = Expression.Parameter(typeof(object), "value");
 
-            var sourceExpression = declaringType.IsValueType && !declaringType.IsNullableType() 
+            var sourceExpression = declaringType.IsValueType && !declaringType.IsNullableType()
                 ? Expression.Unbox(sourceParameter, declaringType)
                 : GetCastOrConvertExpression(sourceParameter, declaringType);
 

@@ -1,4 +1,4 @@
-//Copyright (c) ServiceStack, Inc. All Rights Reserved.
+﻿//Copyright (c) ServiceStack, Inc. All Rights Reserved.
 //License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 using System;
@@ -43,11 +43,6 @@ namespace ServiceStack.Web
         /// Response DTO
         /// </summary>
         object Response { get; set; }
-
-        /// <summary>
-        /// if not provided, get's injected by ServiceStack
-        /// </summary>
-        IContentTypeWriter ResponseFilter { get; set; }
 
         /// <summary>
         /// Holds the request call context
