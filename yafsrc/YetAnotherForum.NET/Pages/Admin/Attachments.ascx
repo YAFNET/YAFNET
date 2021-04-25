@@ -15,8 +15,8 @@
                     <div class="row justify-content-between align-items-center">
                         <div class="col-auto">
                             <YAF:IconHeader runat="server"
-                                            IconName="tags"
-                                            LocalizedPage="ADMIN_TAGS"></YAF:IconHeader>
+                                            IconName="paperclip"
+                                            LocalizedPage="ADMIN_ATTACHMENTS"></YAF:IconHeader>
                             </div>
                             <div class="col-auto">
                                 <div class="btn-toolbar" role="toolbar">

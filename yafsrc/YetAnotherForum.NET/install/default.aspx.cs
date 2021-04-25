@@ -773,7 +773,7 @@ namespace YAF.Install
             }
 
             AspNetUsers user;
-            var applicationId = Guid.NewGuid(); 
+            var applicationId = Guid.NewGuid();
 
             if (this.UserChoice.SelectedValue == "create")
             {
@@ -1051,31 +1051,31 @@ namespace YAF.Install
             switch (this.rblYAFDatabase.SelectedValue)
             {
                 case "existing" when this.lbConnections.SelectedIndex >= 0:
-                {
-                    var selectedConnection = this.lbConnections.SelectedValue;
-                    if (selectedConnection == Config.ConnectionStringName)
                     {
-                        return UpdateDBFailureType.None;
-                    }
-
-                    try
-                    {
-                        // have to write to the appSettings...
-                        if (!this.config.WriteAppSetting("YAF.ConnectionStringName", selectedConnection))
+                        var selectedConnection = this.lbConnections.SelectedValue;
+                        if (selectedConnection == Config.ConnectionStringName)
                         {
-                            this.lblConnectionStringName.Text = selectedConnection;
+                            return UpdateDBFailureType.None;
+                        }
 
-                            // failure to write App Settings..
+                        try
+                        {
+                            // have to write to the appSettings...
+                            if (!this.config.WriteAppSetting("YAF.ConnectionStringName", selectedConnection))
+                            {
+                                this.lblConnectionStringName.Text = selectedConnection;
+
+                                // failure to write App Settings..
+                                return UpdateDBFailureType.AppSettingsWrite;
+                            }
+                        }
+                        catch
+                        {
                             return UpdateDBFailureType.AppSettingsWrite;
                         }
-                    }
-                    catch
-                    {
-                        return UpdateDBFailureType.AppSettingsWrite;
-                    }
 
-                    break;
-                }
+                        break;
+                    }
 
                 case "create":
                     try

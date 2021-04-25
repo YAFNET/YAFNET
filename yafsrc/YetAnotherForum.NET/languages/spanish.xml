@@ -251,6 +251,9 @@
     <Resource tag="TOPICS_DAY">Temas por día:</Resource>
     <Resource tag="USERS_DAY">Usuarios por día:</Resource>
   </page>
+  <page name="ADMIN_ATTACHMENTS">
+    <Resource tag="TITLE">User Attachments</Resource>
+  </page>
   <page name="ADMIN_BANNEDEMAIL">
     <Resource tag="ADD_IP">Add New Email</Resource>
     <Resource tag="IMPORT_IPS">Import Email(s)</Resource>

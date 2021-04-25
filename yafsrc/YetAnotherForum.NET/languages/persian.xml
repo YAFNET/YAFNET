@@ -251,6 +251,9 @@
     <Resource tag="TOPICS_DAY">موضوعات در روز:</Resource>
     <Resource tag="USERS_DAY">کاربران در روز:</Resource>
   </page>
+  <page name="ADMIN_ATTACHMENTS">
+    <Resource tag="TITLE">User Attachments</Resource>
+  </page>
   <page name="ADMIN_BANNEDEMAIL">
     <Resource tag="ADD_IP">افزون ایمیل جدید</Resource>
     <Resource tag="IMPORT_IPS">درون‌ریزی ایمیل (ها)</Resource>

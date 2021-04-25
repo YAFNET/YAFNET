@@ -202,6 +202,9 @@
     <Resource tag="TITLE">Dashboard</Resource>
     <Resource tag="USERS_DAY">Users per day:</Resource>
   </page>
+  <page name="ADMIN_ATTACHMENTS">
+    <Resource tag="TITLE">User Attachments</Resource>
+  </page>
   <page name="ADMIN_BANNEDEMAIL">
     <Resource tag="ADD_IP">Add New Email</Resource>
     <Resource tag="IMPORT_IPS">Import Email(s)</Resource>
