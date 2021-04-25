@@ -206,6 +206,9 @@
   <Resource tag="TOPICS_DAY">Topics per day:</Resource>
   <Resource tag="USERS_DAY">Users per day:</Resource>
  </page>
+  <page name="ADMIN_ATTACHMENTS">
+    <Resource tag="TITLE">User Attachments</Resource>
+  </page>
  <page name="ADMIN_BANNEDEMAIL">
   <Resource tag="ADD_IP">Add New Email</Resource>
   <Resource tag="IMPORT_IPS">Import Email(s)</Resource>
@@ -424,7 +427,7 @@
   <Resource tag="TITLE">Cookie Policy</Resource>
   <Resource tag="COOKIES_TEXT">
     Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.
-    
+
     [br]
     [b]Standard Cookies[/b][br]
     We’re using cookies for the following purposes:
@@ -438,7 +441,7 @@
 
     [b]Third Party Cookies[/b][br]
     The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.
-    
+
     [br]
 
     [b]How do I change my cookie settings?[/b][br]
@@ -1767,46 +1770,20 @@
   <Resource tag="SQL_COMMAND">SQL Command:</Resource>
   <Resource tag="TITLE">Run SQL Code</Resource>
  </page>
- <page name="ADMIN_SPAMLOG">
-  <Resource tag="TITLE">Spam Event Log</Resource>
- </page>
+  <page name="ADMIN_SPAMLOG">
+    <Resource tag="TITLE">Spam Event Log</Resource>
+  </page>
+  <page name="ADMIN_TAGS">
+    <Resource tag="SHOW_TOPICS">Show Topic(s)</Resource>
+    <Resource tag="TITLE">Topic Tags</Resource>
+    <Resource tag="USAGES">Usages:</Resource>
+  </page>
  <page name="ADMIN_TASKMANAGER">
   <Resource tag="DURATION">Duration</Resource>
   <Resource tag="HEADER">Task Manager: {0} Task(s) Running</Resource>
   <Resource tag="RUNNING">Is Running</Resource>
   <Resource tag="STOP_TASK">Stop Task</Resource>
   <Resource tag="TITLE">Task Manger</Resource>
- </page>
- <page name="ADMIN_TOPICSTATUS">
-  <Resource tag="ADD">Add</Resource>
-  <Resource tag="CONFIRM_DELETE">Delete this Status?</Resource>
-  <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
-  <Resource tag="EXPORT">Export to XML</Resource>
-  <Resource tag="HEADER">Allowed File Extensions</Resource>
-  <Resource tag="ICON">Icon</Resource>
-  <Resource tag="IMPORT">Import from XML</Resource>
-  <Resource tag="TITLE">Topic Status</Resource>
-  <Resource tag="TOPICSTATUS_NAME">Status Name</Resource>
- </page>
- <page name="ADMIN_TOPICSTATUS_EDIT">
-  <Resource tag="DEFAULT_DESCRIPTION">Default Status Name:</Resource>
-  <Resource tag="DEFAULT_DESCRIPTION_HELP">Default Status Name, this Name is used when its not found in the current Language File.</Resource>
-  <Resource tag="HEADER">Add/Edit Topic Status</Resource>
-  <Resource tag="MSG_ENTER">You must enter something.</Resource>
-  <Resource tag="TITLE">Add Topic Status</Resource>
-  <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
-  <Resource tag="TOPICSTATUS_NAME">Topic Status Value:</Resource>
-  <Resource tag="TOPICSTATUS_NAME_HELP">This is the Value that is used to retrieve the Topic Status Icon and/or Text. That needs to be defined in the Theme Files and languages.</Resource>
- </page>
- <page name="ADMIN_TOPICSTATUS_IMPORT">
-  <Resource tag="HEADER">Import Topic Status List</Resource>
-  <Resource tag="IMPORT">Import List</Resource>
-  <Resource tag="IMPORT_FAILED">Failed to import: {0}</Resource>
-  <Resource tag="IMPORT_FILE">Select Import File:</Resource>
-  <Resource tag="IMPORT_FILE_HELP">Must be *.xml file</Resource>
-  <Resource tag="IMPORT_NOTHING">Nothing imported: no new status was found in the upload.</Resource>
-  <Resource tag="IMPORT_SUCESS">{0} new status(es) imported successfully.</Resource>
-  <Resource tag="TITLE">Import Topic Status</Resource>
  </page>
  <page name="ADMIN_USERS">
   <Resource tag="APPROVED">Approved</Resource>
@@ -1864,6 +1841,7 @@
  <page name="ADMINMENU">
   <Resource tag="admin_accessmasks">Access Masks</Resource>
   <Resource tag="admin_admin">Admin Index</Resource>
+   <Resource tag="ADMIN_ATTACHMENTS">Attachments</Resource>
   <Resource tag="admin_bannedemail">Banned Emails</Resource>
   <Resource tag="admin_bannedip">Banned IPs</Resource>
   <Resource tag="admin_bannedname">Banned Names</Resource>
@@ -1895,8 +1873,8 @@
   <Resource tag="admin_spamwords">Spam Check Words</Resource>
   <Resource tag="admin_restartapp">Restart App</Resource>
   <Resource tag="admin_runsql">Run SQL Query</Resource>
+   <Resource tag="admin_tags">Tags</Resource>
   <Resource tag="admin_taskmanager">Task Manager</Resource>
-  <Resource tag="admin_test_data">Create Test Data</Resource>
   <Resource tag="admin_topicstatus">Topic Status</Resource>
   <Resource tag="admin_users">Users</Resource>
   <Resource tag="admin_version">Version Check</Resource>
@@ -4360,10 +4338,10 @@
   <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
   <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
    <Resource tag="REPORT_SUBJECT">Report a Private Message from User: {0}</Resource>
-   <Resource tag="REPORT_BODY">I would like to Report the Message: 
+   <Resource tag="REPORT_BODY">I would like to Report the Message:
 
-  {0} 
-     
+  {0}
+
   for the following Reason...</Resource>
   <Resource tag="SAVE">Post</Resource>
   <Resource tag="SUBJECT">Subject:</Resource>
@@ -5700,7 +5678,7 @@ The Message was posted in the {forumname} forum.
      Hello {user},
 
      Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
-     
+
      {roles}
 
 
@@ -5744,7 +5722,7 @@ The Message was posted in the {forumname} forum.
      Hello {user},
 
      Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
-     
+
      {roles}
 
 

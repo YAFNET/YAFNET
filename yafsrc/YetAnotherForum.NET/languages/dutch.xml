@@ -248,6 +248,9 @@
     <Resource tag="TOPICS_DAY">Topics per dag:</Resource>
     <Resource tag="USERS_DAY">Nieuwe gebruikers per dag:</Resource>
   </page>
+  <page name="ADMIN_ATTACHMENTS">
+    <Resource tag="TITLE">User Attachments</Resource>
+  </page>
   <page name="ADMIN_BANNEDEMAIL">
     <Resource tag="ADD_IP">Add New Email</Resource>
     <Resource tag="IMPORT_IPS">Import Email(s)</Resource>
@@ -1800,6 +1803,11 @@
     <Resource tag="SELECT_IMPORT_HELP">(Must be *.xml file)</Resource>
     <Resource tag="TITLE">Import Spam Words</Resource>
   </page>
+  <page name="ADMIN_TAGS">
+    <Resource tag="SHOW_TOPICS">Show Topic(s)</Resource>
+    <Resource tag="TITLE">Topic Tags</Resource>
+    <Resource tag="USAGES">Usages:</Resource>
+  </page>
   <page name="ADMIN_TASKMANAGER">
     <Resource tag="DURATION">Duur</Resource>
     <Resource tag="HEADER">Taakbeheer: {0} Ta(a)k(en) bezig</Resource>
@@ -1897,6 +1905,7 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Toegangsmaskers</Resource>
     <Resource tag="admin_admin">Beheerdersindex</Resource>
+    <Resource tag="ADMIN_ATTACHMENTS">Attachments</Resource>
     <Resource tag="admin_bannedemail">Banned Emails</Resource>
     <Resource tag="admin_bannedip">Geblokkeerde IPs</Resource>
     <Resource tag="admin_bannedname">Banned Names</Resource>
@@ -1928,6 +1937,7 @@
     <Resource tag="admin_runsql">Draai SQL Query</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
+    <Resource tag="admin_tags">Tags</Resource>
     <Resource tag="admin_taskmanager">Taakbeheer</Resource>
     <Resource tag="admin_test_data">Maak Test Data</Resource>
     <Resource tag="admin_topicstatus">Topic Status</Resource>

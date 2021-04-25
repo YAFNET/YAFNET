@@ -248,6 +248,9 @@
     <Resource tag="TOPICS_DAY">موضوعات در روز:</Resource>
     <Resource tag="USERS_DAY">کاربران در روز:</Resource>
   </page>
+  <page name="ADMIN_ATTACHMENTS">
+    <Resource tag="TITLE">User Attachments</Resource>
+  </page>
   <page name="ADMIN_BANNEDEMAIL">
     <Resource tag="ADD_IP">افزون ایمیل جدید</Resource>
     <Resource tag="IMPORT_IPS">درون‌ریزی ایمیل (ها)</Resource>
@@ -1817,6 +1820,11 @@
     <Resource tag="SELECT_IMPORT_HELP">(Must be *.xml file)</Resource>
     <Resource tag="TITLE">Import Spam Words</Resource>
   </page>
+  <page name="ADMIN_TAGS">
+    <Resource tag="SHOW_TOPICS">Show Topic(s)</Resource>
+    <Resource tag="TITLE">Topic Tags</Resource>
+    <Resource tag="USAGES">Usages:</Resource>
+  </page>
   <page name="ADMIN_TASKMANAGER">
     <Resource tag="DURATION">استمرار</Resource>
     <Resource tag="HEADER">مدیر فرمان : {0} فرمان در حال اجرا
@@ -1915,6 +1923,7 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">قالب دسترسی</Resource>
     <Resource tag="admin_admin">فهرست مدیر</Resource>
+    <Resource tag="ADMIN_ATTACHMENTS">Attachments</Resource>
     <Resource tag="admin_bannedemail">ایمیل های مسدود شده</Resource>
     <Resource tag="admin_bannedip">IP های مسدود شده</Resource>
     <Resource tag="admin_bannedname">نام های مسدود شده</Resource>
@@ -1946,6 +1955,7 @@
     <Resource tag="admin_runsql">اجرای کوئری SQL</Resource>
     <Resource tag="ADMIN_SPAMLOG">لاگ اسپم</Resource>
     <Resource tag="admin_spamwords">بررسی کلمات اسپم</Resource>
+    <Resource tag="admin_tags">Tags</Resource>
     <Resource tag="admin_taskmanager">مدیریت کارها</Resource>
     <Resource tag="admin_test_data">تولید داده های آزمایشی</Resource>
     <Resource tag="admin_topicstatus">وضعیت موضوع ها</Resource>

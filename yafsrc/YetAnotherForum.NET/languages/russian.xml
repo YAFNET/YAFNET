@@ -248,6 +248,9 @@
     <Resource tag="TOPICS_DAY">Тем в день:</Resource>
     <Resource tag="USERS_DAY">Пользователей в день:</Resource>
   </page>
+  <page name="ADMIN_ATTACHMENTS">
+    <Resource tag="TITLE">User Attachments</Resource>
+  </page>
   <page name="ADMIN_BANNEDEMAIL">
     <Resource tag="ADD_IP">Add New Email</Resource>
     <Resource tag="IMPORT_IPS">Import Email(s)</Resource>
@@ -1788,6 +1791,11 @@
     <Resource tag="SELECT_IMPORT_HELP">(Must be *.xml file)</Resource>
     <Resource tag="TITLE">Import Spam Words</Resource>
   </page>
+  <page name="ADMIN_TAGS">
+    <Resource tag="SHOW_TOPICS">Show Topic(s)</Resource>
+    <Resource tag="TITLE">Topic Tags</Resource>
+    <Resource tag="USAGES">Usages:</Resource>
+  </page>
   <page name="ADMIN_TASKMANAGER">
     <Resource tag="DURATION">Продолжительность</Resource>
     <Resource tag="HEADER">Диспетчер задач: {0} задач(s) в процессе</Resource>
@@ -1885,6 +1893,7 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Маски доступа</Resource>
     <Resource tag="admin_admin">Индекс админа</Resource>
+    <Resource tag="ADMIN_ATTACHMENTS">Attachments</Resource>
     <Resource tag="admin_bannedemail">Banned Emails</Resource>
     <Resource tag="admin_bannedip">Запрещённые IP</Resource>
     <Resource tag="admin_bannedname">Banned Names</Resource>
@@ -1916,6 +1925,7 @@
     <Resource tag="admin_runsql">Выполнить запрос SQL</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
+    <Resource tag="admin_tags">Tags</Resource>
     <Resource tag="admin_taskmanager">Менеджер задач</Resource>
     <Resource tag="admin_test_data">Тестовые данные</Resource>
     <Resource tag="admin_topicstatus">Статусы тем</Resource>
