@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -73,7 +73,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Attachment> GetByBoardPaged<T>(
+        public static List<Tuple<User, Attachment>> GetByBoardPaged<T>(
             [NotNull] this IRepository<T> repository,
             out int count,
             int boardId,
@@ -92,7 +92,7 @@ namespace YAF.Core.Model
 
             expression.OrderByDescending<Attachment>(item => item.ID).Page(pageIndex + 1, pageSize);
 
-            return repository.DbAccess.Execute(db => db.Connection.Select<Attachment>(expression));
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<User,Attachment>(expression));
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace YAF.Core.Model
                 }
                 catch (Exception e)
                 {
-                    // error deleting that file... 
+                    // error deleting that file...
                     BoardContext.Current.Get<ILogger>().Warn(e, "Error Deleting Attachment");
                 }
             }
