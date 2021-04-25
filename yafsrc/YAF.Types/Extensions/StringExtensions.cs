@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -34,6 +34,7 @@ namespace YAF.Types.Extensions
     using System.Text.RegularExpressions;
 
     using YAF.Types;
+    using YAF.Types.Attributes;
 
     #endregion
 
@@ -423,7 +424,7 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        /// Cleans a string into a proper Regular Expression statement. 
+        /// Cleans a string into a proper Regular Expression statement.
         ///   E.g. "[b]Whatever[/b]" will be converted to:
         ///   "\[b\]Whatever\[\/b\]"
         /// </summary>
@@ -513,8 +514,8 @@ namespace YAF.Types.Extensions
             // cut the string down to the maximum number of characters
             output = output.Substring(0, limit);
 
-            // Check if the space right after the truncate point 
-            // was a space. if not, we are in the middle of a word and 
+            // Check if the space right after the truncate point
+            // was a space. if not, we are in the middle of a word and
             // need to cut out the rest of it
             if (input.Substring(output.Length, 1) != " ")
             {

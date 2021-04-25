@@ -50,6 +50,52 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
+        /// Gets All User Attachments by Board ID as paged Result
+        /// </summary>
+        /// <typeparam name="T">
+        /// The type parameter.
+        /// </typeparam>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="count">
+        /// The count.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <param name="pageIndex">
+        /// Index of the page.
+        /// </param>
+        /// <param name="pageSize">
+        /// Size of the page.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<Attachment> GetByBoardPaged<T>(
+            [NotNull] this IRepository<T> repository,
+            out int count,
+            int boardId,
+            int? pageIndex = 0,
+            int? pageSize = 10000000)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            expression.Join<Attachment>((user, attach) => attach.UserID == user.ID);
+
+            expression.Where(u => u.BoardID == boardId);
+
+            count = repository.DbAccess.Execute(db => db.Connection.Count(expression)).ToType<int>();
+
+            expression.OrderByDescending<Attachment>(item => item.ID).Page(pageIndex + 1, pageSize);
+
+            return repository.DbAccess.Execute(db => db.Connection.Select<Attachment>(expression));
+        }
+
+        /// <summary>
         /// Gets all Messages with Attachments
         /// </summary>
         /// <param name="repository">
@@ -87,15 +133,15 @@ namespace YAF.Core.Model
 
             expression.Where(attach => attach.ID == attachId).Select(
                 attach => new
-                              {
-                                  attach.ID,
-                                  attach.Bytes,
-                                  attach.ContentType,
-                                  attach.Downloads,
-                                  attach.FileName,
-                                  attach.MessageID,
-                                  attach.UserID
-                              });
+                {
+                    attach.ID,
+                    attach.Bytes,
+                    attach.ContentType,
+                    attach.Downloads,
+                    attach.FileName,
+                    attach.MessageID,
+                    attach.UserID
+                });
 
             return repository.DbAccess.Execute(db => db.Connection.Select(expression)).FirstOrDefault();
         }
@@ -151,21 +197,21 @@ namespace YAF.Core.Model
 
             attachments.ForEach(
                 attachment =>
+                {
+                    try
                     {
-                        try
-                        {
-                            var fileName = $"{uploadDir}/{messageId}.{attachment.FileName}.yafupload";
+                        var fileName = $"{uploadDir}/{messageId}.{attachment.FileName}.yafupload";
 
-                            if (File.Exists(fileName))
-                            {
-                                File.Delete(fileName);
-                            }
-                        }
-                        catch
+                        if (File.Exists(fileName))
                         {
-                            // error deleting that file...
+                            File.Delete(fileName);
                         }
-                    });
+                    }
+                    catch
+                    {
+                        // error deleting that file...
+                    }
+                });
         }
 
         /// <summary>
@@ -201,15 +247,15 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository);
 
             var entity = new Attachment
-                             {
-                                 MessageID = 0,
-                                 Downloads = 0,
-                                 UserID = userId,
-                                 FileName = fileName,
-                                 Bytes = bytes,
-                                 ContentType = contentType,
-                                 FileData = fileData
-                             };
+            {
+                MessageID = 0,
+                Downloads = 0,
+                UserID = userId,
+                FileName = fileName,
+                Bytes = bytes,
+                ContentType = contentType,
+                FileData = fileData
+            };
 
             var newAttachmentId = repository.Insert(entity);
 

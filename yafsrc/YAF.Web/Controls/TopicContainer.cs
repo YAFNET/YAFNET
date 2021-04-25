@@ -304,7 +304,7 @@ namespace YAF.Web.Controls
                 var lastPostedDateTime = this.TopicItem.LastPosted;
 
                 var formattedDatetime = this.PageContext.BoardSettings.ShowRelativeTime
-                    ? lastPostedDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)
+                    ? lastPostedDateTime.Value.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)
                     : this.Get<IDateTimeService>().Format(DateTimeFormat.BothTopic, lastPostedDateTime);
 
                 var userLast = new UserLink
@@ -332,10 +332,10 @@ namespace YAF.Web.Controls
                 var gotoLastPost = new ThemeButton
                 {
                     NavigateUrl =
-                        this.Get<LinkBuilder>().GetLink(
+                       this.Get<LinkBuilder>().GetLink(
                             ForumPages.Posts,
-                            "m={0}&name={1}#post{0}",
-                            this.TopicItem.LastMessageID,
+                            "t={0}&name={1}",
+                            this.TopicItem.TopicID,
                             this.TopicItem.Subject),
                     Size = ButtonSize.Small,
                     Icon = "share-square",
@@ -344,25 +344,7 @@ namespace YAF.Web.Controls
                     DataToggle = "tooltip"
                 };
 
-                var gotoLastUnread = new ThemeButton
-                {
-                    NavigateUrl =
-                        this.Get<LinkBuilder>().GetLink(
-                            ForumPages.Posts,
-                            "t={0}&name={1}",
-                            this.TopicItem.TopicID,
-                            this.TopicItem.Subject),
-                    Size = ButtonSize.Small,
-                    Icon = "book-reader",
-                    Type = ButtonStyle.OutlineSecondary,
-                    TitleLocalizedTag = "GO_LASTUNREAD_POST",
-                    DataToggle = "tooltip"
-                };
-
-                writer.Write(@"<div class=""btn-group"" role=""group"">");
-                gotoLastUnread.RenderControl(writer);
                 gotoLastPost.RenderControl(writer);
-                writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());
 
                 writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());
             }
@@ -398,7 +380,7 @@ namespace YAF.Web.Controls
 
             writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
 
-            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "btn-group btn-group-sm");
+            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "btn-group btn-group-sm ms-2");
 
             writer.WriteAttribute("role", "group");
 
@@ -412,7 +394,6 @@ namespace YAF.Web.Controls
                     "1",
                     this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "t={0}&name={1}", topicID, this.TopicItem.Subject),
                     1).RenderControl(writer);
-                writer.Write(" ... ");
 
                 // show links from the end
                 for (var i = pageCount - (NumToDisplay - 1); i < pageCount; i++)

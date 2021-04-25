@@ -131,17 +131,20 @@ namespace YAF.Core.BasePages
         /// </param>
         private static void SetLanguageUsingThread(string selectedLanguage)
         {
-            var info = CultureInfo.CreateSpecificCulture("en-US");
+            CultureInfo info;
 
             try
             {
                 info = CultureInfo.CreateSpecificCulture(selectedLanguage);
             }
-            finally
+            catch
             {
-                Thread.CurrentThread.CurrentUICulture = info;
-                Thread.CurrentThread.CurrentCulture = info;
+                info = CultureInfo.CreateSpecificCulture("en-US");
             }
+
+            Thread.CurrentThread.CurrentUICulture = info;
+            Thread.CurrentThread.CurrentCulture = info;
+
         }
 
         #endregion

@@ -548,10 +548,7 @@ namespace YAF.Core.Services
             {
                 Topic = doc.Get("Topic"),
                 TopicId = doc.Get("TopicId").ToType<int>(),
-                TopicUrl =
-                    this.Get<LinkBuilder>().GetTopicLink(
-                        doc.Get("TopicId").ToType<int>(),
-                        doc.Get("Topic")),
+                TopicUrl = this.Get<LinkBuilder>().GetTopicLink(doc.Get("TopicId").ToType<int>(), doc.Get("Topic")),
                 Posted = doc.Get("Posted"),
                 UserId = doc.Get("UserId").ToType<int>(),
                 UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
@@ -775,6 +772,7 @@ namespace YAF.Core.Services
             List<vaccess> userAccessList)
         {
             var skip = pageSize * pageIndex;
+
             return hits.Select(
                     hit => this.MapSearchDocumentToData(highlighter, analyzer, searcher.Doc(hit.Doc), userAccessList))
                 .Where(item => item != null).OrderByDescending(item => item.MessageId).Skip(skip).Take(pageSize)

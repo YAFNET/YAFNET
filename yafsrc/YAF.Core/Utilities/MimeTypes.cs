@@ -34,7 +34,7 @@ namespace YAF.Core.Utilities
     /// https://forums.asp.net/t/1964610.aspx?How+to+check+the+uploaded+file+is+SECURE+
     /// The mime types.
     /// </summary>
-    public class MimeTypes
+    public static class MimeTypes
     {
         /// <summary>
         /// The known types.
@@ -57,16 +57,7 @@ namespace YAF.Core.Utilities
         /// </returns>
         public static bool FileMatchContentType(HttpPostedFile file)
         {
-            if (knownTypes == null || mimeTypes == null)
-            {
-                InitializeMimeTypeLists();
-            }
-
-            var extension = Path.GetExtension(file.FileName).Replace(".", string.Empty).ToLower();
-
-            var mime = mimeTypes.FirstOrDefault(m => m.Key == extension);
-
-            return mime.Value == file.ContentType;
+            return FileMatchContentType(file.FileName, file.ContentType);
         }
 
         /// <summary>
