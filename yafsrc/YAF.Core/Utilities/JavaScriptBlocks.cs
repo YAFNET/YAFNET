@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -71,7 +71,7 @@ namespace YAF.Core.Utilities
         public static string MomentLoadJs =>
             $@"function loadTimeAgo() {{
             
-		     moment.locale('{(BoardContext.Current.User.Culture.IsSet()
+             moment.locale('{(BoardContext.Current.User.Culture.IsSet()
                                   ? BoardContext.Current.User.Culture.Substring(0, 2)
                                   : BoardContext.Current.BoardSettings.Culture.Substring(0, 2))}');
              {Config.JQueryAlias}('abbr.timeago').each(function() {{
@@ -82,7 +82,7 @@ namespace YAF.Core.Utilities
             }});
 
             Prism.highlightAll();
-			      }}
+                  }}
                    Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);";
 
         /// <summary>
@@ -502,7 +502,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             return $@"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
             function loadGotoAnchor() {{
                document.getElementById('{anchor}').scrollIntoView();
-			      }}";
+                  }}";
         }
 
         /// <summary>
@@ -615,7 +615,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                              console.log(x.status);
                     }}
                  }});
-                          
+
                  }}";
         }
 
@@ -689,13 +689,13 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                           extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,bbcodeextensions,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,attachments,quote,codemirror"",
                           removePlugins: 'bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
                           toolbar: [{toolbar}],
-		                  entities_greek: false,
+                          entities_greek: false,
                           entities_latin: false,
                           language: '{editorLanguage}',
                           disableObjectResizing: true,
-		                  fontSize_sizes: ""30/30%;50/50%;100/100%;120/120%;150/150%;200/200%;300/300%"",
-		                  forcePasteAsPlainText: true,
-		                  contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
+                          fontSize_sizes: ""30/30%;50/50%;100/100%;120/120%;150/150%;200/200%;300/300%"",
+                          forcePasteAsPlainText: true,
+                          contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
                           autosave:
                           {{
                               saveDetectionSelectors: ""a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']"",
@@ -706,10 +706,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                           {{
                               maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
                           }},
-		                  mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
+                          mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
                                          itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pe-1""></i><strong class=""username"">{{name}}</strong></li>',
-		                                 outputTemplate: '@[userlink]{{name}}[/userlink]'
-          		                      }} ]
+                                         outputTemplate: '@[userlink]{{name}}[/userlink]'
+                                      }} ]
                           }});
 
                       {Config.JQueryAlias}(""a[id*='_PostReply'],a[id*='_Save'],a[id*='_Preview']"").click(function () {{
@@ -764,22 +764,22 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
                           extraPlugins: ""bbcode,mentions,wordcount,autolink,quote,codemirror"",
                           removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
-		                  toolbar: [{toolbar}],
-		                  entities_greek: false,
+                          toolbar: [{toolbar}],
+                          entities_greek: false,
                           entities_latin: false,
                           language: '{editorLanguage}',
                           disableObjectResizing: true,
-		                  forcePasteAsPlainText: true,
-		                  contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
+                          forcePasteAsPlainText: true,
+                          contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
                           wordcount:
                           {{
                               maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
                           }},
                           codemirror: {{mode: ""bbcode"",  theme: ""monokai""}},
-		                  mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
+                          mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
                                          itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pe-1""></i><strong class=""username"">{{name}}</strong></li>',
-		                                 outputTemplate: '@[userlink]{{name}}[/userlink]'
-          		                      }} ]
+                                         outputTemplate: '@[userlink]{{name}}[/userlink]'
+                                      }} ]
                           }});
 
                           {Config.JQueryAlias}(""a[id*='_QuickReplyDialog'],a[id*='_SignatureEdit']"").click(function () {{
@@ -840,7 +840,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 dataType: 'json',
                 {(maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty)}
                 done: function (e, data) {{
-                    var ckEditor = CKEDITOR.instances.{editorId}; 
+                    var ckEditor = CKEDITOR.instances.{editorId};
                     ckEditor.insertHtml( '[attach]' + data.result[0].fileID + '[/attach]' );
                 }},
                 formData: {{
@@ -1048,7 +1048,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         {Config.JQueryAlias}('#{passwordClientId}, #{confirmPasswordClientId}').on('keyup', function () {{
             if (password.val() !== '' && passwordConfirm.val() !== '' && password.val() === passwordConfirm.val()) {{
                 {Config.JQueryAlias}('#PasswordInvalid').hide();
-				password.removeClass('is-invalid');
+                password.removeClass('is-invalid');
                 passwordConfirm.removeClass('is-invalid');
             }} else {{
                 {Config.JQueryAlias}('#PasswordInvalid').show();
@@ -1058,24 +1058,24 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             }}
 
             var strongRegex=new RegExp(""^(?=.{{8,}})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$"",""g"");
-			var mediumRegex=new RegExp(""^(?=.{{7,}})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$"",""g"");
-			var okRegex=new RegExp(""(?=.{{{minimumChars},}}).*"",""g"");
+            var mediumRegex=new RegExp(""^(?=.{{7,}})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$"",""g"");
+            var okRegex=new RegExp(""(?=.{{{minimumChars},}}).*"",""g"");
 
             {Config.JQueryAlias}('#passwordStrength').removeClass(""d-none"");
 
             if (okRegex.test(password.val()) === false) {{
-			   {Config.JQueryAlias}('#passwordHelp').html('{passwordMinText}');
+               {Config.JQueryAlias}('#passwordHelp').html('{passwordMinText}');
                {Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-danger w-25');
-               
+
 
             }} else if (strongRegex.test(password.val())) {{
                 {Config.JQueryAlias}('#passwordHelp').html('{passwordGoodText}');
-				{Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-success w-100');
+                {Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-success w-100');
             }} else if (mediumRegex.test(password.val())) {{
                 {Config.JQueryAlias}('#passwordHelp').html('{passwordStrongerText}');
-				{Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-warning w-75');
+                {Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-warning w-75');
             }} else {{
-			    {Config.JQueryAlias}('#passwordHelp').html('{passwordWeakText}');
+                {Config.JQueryAlias}('#passwordHelp').html('{passwordWeakText}');
                 {Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-warning w-50');
             }}
         }});
@@ -1125,7 +1125,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull]
         public static string DoSearchJs()
         {
-            return "getSearchResultsData(0);";
+            return $"{Config.JQueryAlias}(document).ready(function() {{getSearchResultsData(0);}});";
         }
 
         /// <summary>
@@ -1227,9 +1227,9 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                       width: 350,
                                       loadingHTML: '{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}',
                                       errorHTML: '{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}',
-                                      pointsText: '{BoardContext.Current.Get<ILocalization>().GetText("REPUTATION").ToJsString()}', 
+                                      pointsText: '{BoardContext.Current.Get<ILocalization>().GetText("REPUTATION").ToJsString()}',
                                       postsText: '{BoardContext.Current.Get<ILocalization>().GetText("POSTS").ToJsString()}'
-                      }}); 
+                      }});
                  }}";
         }
 
@@ -1364,10 +1364,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             return $@"bootbox.prompt({{ 
                                       title: '{title}',
                                       message: '{message}',
-	                                  value: '{value}',
+                                      value: '{value}',
                                       buttons: {{cancel:{{label:'{cancel}'}}, confirm:{{label:'{ok}'}}}},
                                       callback: function(){{}}
-	                              }});";
+                                  }});";
         }
 
         /// <summary>
@@ -1430,7 +1430,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             cache: true,
             {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
         }});
-              
+
              {Config.JQueryAlias}('#{selectClientId}').on('select2:select', function (e) {{
                  var data = e.params.data;
                  {Config.JQueryAlias}('#{userClientId}').val(data.text);
