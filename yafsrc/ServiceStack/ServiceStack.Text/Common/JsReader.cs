@@ -111,7 +111,7 @@ namespace ServiceStack.Text.Common
             if (isEnumerable)
             {
                 var parseFn = DeserializeSpecializedCollections<T, TSerializer>.ParseStringSpan;
-                if (parseFn != null) 
+                if (parseFn != null)
                     return parseFn;
             }
 
@@ -121,7 +121,7 @@ namespace ServiceStack.Text.Common
                 var staticParseStringSpanMethod = StaticParseMethod<T>.ParseStringSpan;
                 if (staticParseStringSpanMethod != null)
                     return value => staticParseStringSpanMethod(Serializer.UnescapeSafeString(value));
-                
+
                 //then try to find `Parse` method
                 var staticParseMethod = StaticParseMethod<T>.Parse;
                 if (staticParseMethod != null)
@@ -143,7 +143,7 @@ namespace ServiceStack.Text.Common
                 return typeConstructor;
 
             var stringConstructor = DeserializeTypeUtils.GetParseStringSpanMethod(type);
-            if (stringConstructor != null) 
+            if (stringConstructor != null)
                 return stringConstructor;
 
             return DeserializeType<TSerializer>.ParseAbstractType<T>;

@@ -55,8 +55,8 @@ namespace ServiceStack.Script
         {
             var targetValue = Object.Evaluate(scope);
             var ret = GetValue(targetValue, scope);
-            return Equals(ret, JsNull.Value) 
-                ? null 
+            return Equals(ret, JsNull.Value)
+                ? null
                 : ret;
         }
 
@@ -71,10 +71,10 @@ namespace ServiceStack.Script
             }
 
             var methods = targetType.GetInstanceMethods();
-            var indexerMethod = 
+            var indexerMethod =
                 methods.FirstOrDefault(x => x.Name == "get_Item" && x.GetParameters().Any(p => p.ParameterType == typeof(string))) ??
                 methods.FirstOrDefault(x => x.Name == "get_Item" && x.GetParameters().Any(p => p.ParameterType != typeof(string)));
-            
+
             if (indexerMethod != null)
             {
                 var fn = indexerMethod.GetInvoker();
@@ -114,7 +114,7 @@ namespace ServiceStack.Script
 
                     if (targetType.IsArray)
                     {
-                        var array = (Array) targetValue;
+                        var array = (Array)targetValue;
                         if (indexValue is long l)
                             return array.GetValue(l);
                         var intValue = indexValue.ConvertTo<int>();
@@ -186,7 +186,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsMemberExpression) obj);
+            return Equals((JsMemberExpression)obj);
         }
 
         public override int GetHashCode()

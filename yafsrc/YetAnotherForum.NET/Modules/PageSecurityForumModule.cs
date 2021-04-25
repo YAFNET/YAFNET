@@ -32,7 +32,7 @@ namespace YAF.Modules
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
-    
+
     #endregion
 
     /// <summary>

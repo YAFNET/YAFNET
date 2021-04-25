@@ -32,8 +32,8 @@ namespace ServiceStack.Text
             if (type == null)
             {
                 var typeDef = new AssemblyTypeDefinition(typeName);
-                type = !string.IsNullOrEmpty(typeDef.AssemblyName) 
-                    ? FindType(typeDef.TypeName, typeDef.AssemblyName) 
+                type = !string.IsNullOrEmpty(typeDef.AssemblyName)
+                    ? FindType(typeDef.TypeName, typeDef.AssemblyName)
                     : FindTypeFromLoadedAssemblies(typeDef.TypeName);
             }
 

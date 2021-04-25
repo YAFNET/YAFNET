@@ -186,13 +186,13 @@ namespace YAF.Pages
         protected void ChangeTabClick(object sender, EventArgs e)
         {
             this.CurrentTab = this.hidLastTab.Value switch
-                {
-                    "UnansweredTopicsTab" => TopicListMode.Unanswered,
-                    "UnreadTopicsTab" => TopicListMode.Unread,
-                    "MyTopicsTab" => TopicListMode.User,
-                    "FavoriteTopicsTab" => TopicListMode.Favorite,
-                    _ => TopicListMode.Active
-                };
+            {
+                "UnansweredTopicsTab" => TopicListMode.Unanswered,
+                "UnreadTopicsTab" => TopicListMode.Unread,
+                "MyTopicsTab" => TopicListMode.User,
+                "FavoriteTopicsTab" => TopicListMode.Favorite,
+                _ => TopicListMode.Active
+            };
 
             this.RefreshTab();
         }

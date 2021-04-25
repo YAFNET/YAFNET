@@ -155,7 +155,7 @@ namespace YAF.Controls
             info.ParamText0 = this.PageContext.BoardSettings.EnableDisplayName
                                   ? item.UserDisplayName
                                   : item.UserName;
-            
+
             info.DataContent = $@"
                           {lastUserLink.RenderToString()}
                           <span class=""fa-stack"">

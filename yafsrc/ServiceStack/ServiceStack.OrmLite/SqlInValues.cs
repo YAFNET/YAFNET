@@ -5,13 +5,13 @@ namespace ServiceStack.OrmLite
     public class SqlInValues
     {
         public const string EmptyIn = "NULL";
-        
+
         private readonly IEnumerable values;
         private readonly IOrmLiteDialectProvider dialectProvider;
 
         public int Count { get; }
 
-        public SqlInValues(IEnumerable values, IOrmLiteDialectProvider dialectProvider=null)
+        public SqlInValues(IEnumerable values, IOrmLiteDialectProvider dialectProvider = null)
         {
             this.values = values;
             this.dialectProvider = dialectProvider ?? OrmLiteConfig.DialectProvider;
@@ -25,7 +25,7 @@ namespace ServiceStack.OrmLite
 
         public string ToSqlInString()
         {
-            return Count == 0 
+            return Count == 0
                 ? EmptyIn
                 : OrmLiteUtils.SqlJoin(values, dialectProvider);
         }

@@ -179,47 +179,47 @@ namespace YAF.Controls
             switch (this.View)
             {
                 case PmView.Inbox:
-                {
-                    var messages = this.GetRepository<UserPMessage>().Get(
-                        p => p.UserID == this.PageContext.PageUserID && p.IsDeleted == false && p.IsArchived == false);
+                    {
+                        var messages = this.GetRepository<UserPMessage>().Get(
+                            p => p.UserID == this.PageContext.PageUserID && p.IsDeleted == false && p.IsArchived == false);
 
-                    messages.ForEach(
-                        item =>
-                        {
-                            this.GetRepository<UserPMessage>().Delete(item.ID, false);
+                        messages.ForEach(
+                            item =>
+                            {
+                                this.GetRepository<UserPMessage>().Delete(item.ID, false);
 
-                            itemCount++;
-                        });
-                    break;
-                }
+                                itemCount++;
+                            });
+                        break;
+                    }
                 case PmView.Outbox:
-                {
-                    var messages = this.GetRepository<PMessage>().Get(
-                        p => p.FromUserID == this.PageContext.PageUserID && p.PMessageFlags.IsInOutbox && p.PMessageFlags.IsArchived == false);
+                    {
+                        var messages = this.GetRepository<PMessage>().Get(
+                            p => p.FromUserID == this.PageContext.PageUserID && p.PMessageFlags.IsInOutbox && p.PMessageFlags.IsArchived == false);
 
-                    messages.ForEach(
-                        item =>
-                        {
-                            this.GetRepository<UserPMessage>().Delete(item.ID, true);
+                        messages.ForEach(
+                            item =>
+                            {
+                                this.GetRepository<UserPMessage>().Delete(item.ID, true);
 
-                            itemCount++;
-                        });
-                    break;
-                }
+                                itemCount++;
+                            });
+                        break;
+                    }
                 case PmView.Archive:
-                {
-                    var messages = this.GetRepository<UserPMessage>().Get(
-                        p => p.UserID == this.PageContext.PageUserID && p.IsArchived == true);
+                    {
+                        var messages = this.GetRepository<UserPMessage>().Get(
+                            p => p.UserID == this.PageContext.PageUserID && p.IsArchived == true);
 
-                    messages.ForEach(
-                        item =>
-                        {
-                            this.GetRepository<UserPMessage>().Delete(item.ID, false);
+                        messages.ForEach(
+                            item =>
+                            {
+                                this.GetRepository<UserPMessage>().Delete(item.ID, false);
 
-                            itemCount++;
-                        });
-                    break;
-                }
+                                itemCount++;
+                            });
+                        break;
+                    }
             }
 
             this.BindData();
@@ -248,8 +248,8 @@ namespace YAF.Controls
                             item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>(),
                             this.View == PmView.Outbox);
 
-                            itemCount++;
-                        });
+                        itemCount++;
+                    });
 
             this.BindData();
 
@@ -390,7 +390,7 @@ namespace YAF.Controls
                             // Clearing cache with old permissions data...
                             this.ClearCache();
                         });
-            
+
 
             this.BindData();
         }
@@ -432,7 +432,7 @@ namespace YAF.Controls
         {
             return this.View switch
             {
-                PmView.Inbox => this.GetText("PM","INBOX"),
+                PmView.Inbox => this.GetText("PM", "INBOX"),
                 PmView.Outbox => this.GetText("PM", "SENTITEMS"),
                 PmView.Archive => this.GetText("PM", "ARCHIV"),
                 _ => this.GetText("PM", "INBOX")
@@ -520,30 +520,30 @@ namespace YAF.Controls
                     switch (this.View)
                     {
                         case PmView.Inbox:
-                        {
-                            if (!item.IsArchived)
                             {
-                                messageList.Add(item);
+                                if (!item.IsArchived)
+                                {
+                                    messageList.Add(item);
+                                }
                             }
-                        }
 
                             break;
                         case PmView.Outbox:
-                        {
-                            if (item.IsInOutbox)
                             {
-                                messageList.Add(item);
+                                if (item.IsInOutbox)
+                                {
+                                    messageList.Add(item);
+                                }
                             }
-                        }
 
                             break;
                         case PmView.Archive:
-                        {
-                            if (item.IsArchived)
                             {
-                                messageList.Add(item);
+                                if (item.IsArchived)
+                                {
+                                    messageList.Add(item);
+                                }
                             }
-                        }
 
                             break;
                     }
@@ -629,8 +629,7 @@ namespace YAF.Controls
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
             var list = messageList.Select(
-                message => new 
-                {
+                message => new {
                     message.FromUser,
                     message.ToUser,
                     message.Created,

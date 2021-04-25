@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,12 +27,10 @@ namespace YAF.Controls
 
     using System;
     using System.Collections.Generic;
-
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Web;
-
-    using ServiceStack;
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
@@ -311,7 +309,7 @@ namespace YAF.Controls
 
             this.YafHead.Controls.Add(
                 ControlHelper.MakeCssIncludeControl(
-                    BoardInfo.GetURLToContentThemes(theme.CombineWith("bootstrap-forum.min.css"))));
+                    BoardInfo.GetURLToContentThemes(Path.Combine(theme, "bootstrap-forum.min.css"))));
 
             if (subject.IsSet())
             {

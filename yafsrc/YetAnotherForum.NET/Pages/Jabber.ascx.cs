@@ -124,7 +124,7 @@ namespace YAF.Pages
 
                 var serverHe = userDataHe.Profile_XMPP
                     .Substring(userDataHe.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
-                
+
                 var serverMe = this.PageContext.MembershipUser.Profile_XMPP
                     .Substring(this.PageContext.MembershipUser.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
 

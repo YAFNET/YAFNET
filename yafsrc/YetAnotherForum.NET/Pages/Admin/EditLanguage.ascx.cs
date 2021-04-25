@@ -83,7 +83,7 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///   The translations.
         /// </summary>
-        private List<Translation> translations = new ();
+        private List<Translation> translations = new();
 
         #endregion
 
@@ -92,12 +92,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///  Gets the List of attributes for Resources in destination translation file
         /// </summary>
-        private StringDictionary ResourcesAttributes { get; } = new ();
+        private StringDictionary ResourcesAttributes { get; } = new();
 
         /// <summary>
         ///  Gets the List of namespaces for Resources in destination translation file
         /// </summary>
-        private StringDictionary ResourcesNamespaces { get; } = new ();
+        private StringDictionary ResourcesNamespaces { get; } = new();
 
         #endregion
 

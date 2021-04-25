@@ -13,7 +13,7 @@ namespace ServiceStack.OrmLite.SqlServer.Converters
     public class SqlServerStringConverter : StringConverter
     {
         public override string MaxColumnDefinition => UseUnicode ? "NVARCHAR(MAX)" : "VARCHAR(MAX)";
-        
+
         public override int MaxVarCharLength => UseUnicode ? 4000 : 8000;
 
         public override string GetColumnDefinition(int? stringLength)
@@ -22,7 +22,7 @@ namespace ServiceStack.OrmLite.SqlServer.Converters
                 return MaxColumnDefinition;
 
             var safeLength = Math.Min(
-                stringLength.GetValueOrDefault(StringLength), 
+                stringLength.GetValueOrDefault(StringLength),
                 UseUnicode ? 4000 : 8000);
 
             return UseUnicode

@@ -7,7 +7,7 @@ namespace ServiceStack.OrmLite
     public interface IOrmLiteConverter
     {
         IOrmLiteDialectProvider DialectProvider { get; set; }
-        
+
         DbType DbType { get; }
 
         string ColumnDefinition { get; }
@@ -89,7 +89,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public virtual object GetValue(IDataReader reader, int columnIndex, object[] values)
         {
-            var value = values != null 
+            var value = values != null
                 ? values[columnIndex]
                 : reader.GetValue(columnIndex);
 

@@ -33,7 +33,7 @@ namespace ServiceStack
         public static TypeCode GetTypeCode(this Type type)
         {
             return Type.GetTypeCode(type);
-        }        
+        }
 
         public static bool IsInstanceOf(this Type type, Type thisOrBaseType)
         {
@@ -334,7 +334,7 @@ namespace ServiceStack
         static Dictionary<Type, EmptyCtorDelegate> ConstructorMethods = new Dictionary<Type, EmptyCtorDelegate>();
         public static EmptyCtorDelegate GetConstructorMethod(Type type)
         {
-            if (ConstructorMethods.TryGetValue(type, out var emptyCtorFn)) 
+            if (ConstructorMethods.TryGetValue(type, out var emptyCtorFn))
                 return emptyCtorFn;
 
             emptyCtorFn = GetConstructorMethodToCache(type);
@@ -355,7 +355,7 @@ namespace ServiceStack
         static Dictionary<string, EmptyCtorDelegate> TypeNamesMap = new Dictionary<string, EmptyCtorDelegate>();
         public static EmptyCtorDelegate GetConstructorMethod(string typeName)
         {
-            if (TypeNamesMap.TryGetValue(typeName, out var emptyCtorFn)) 
+            if (TypeNamesMap.TryGetValue(typeName, out var emptyCtorFn))
                 return emptyCtorFn;
 
             var type = JsConfig.TypeFinder(typeName);
@@ -366,7 +366,8 @@ namespace ServiceStack
             do
             {
                 snapshot = TypeNamesMap;
-                newCache = new Dictionary<string, EmptyCtorDelegate>(TypeNamesMap) {
+                newCache = new Dictionary<string, EmptyCtorDelegate>(TypeNamesMap)
+                {
                     [typeName] = emptyCtorFn
                 };
 

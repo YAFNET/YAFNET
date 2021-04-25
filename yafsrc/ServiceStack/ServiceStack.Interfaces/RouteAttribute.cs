@@ -127,11 +127,11 @@ namespace ServiceStack
 
         protected bool Equals(RouteAttribute other)
         {
-            return base.Equals(other) 
-                && string.Equals(Path, other.Path) 
-                && string.Equals(Summary, other.Summary) 
-                && string.Equals(Notes, other.Notes) 
-                && string.Equals(Verbs, other.Verbs) 
+            return base.Equals(other)
+                && string.Equals(Path, other.Path)
+                && string.Equals(Summary, other.Summary)
+                && string.Equals(Notes, other.Notes)
+                && string.Equals(Verbs, other.Verbs)
                 && Priority == other.Priority;
         }
 
@@ -156,7 +156,7 @@ namespace ServiceStack
                 return hashCode;
             }
         }
-        
+
         public ReflectAttribute ToReflectAttribute()
         {
             if (Summary == null && Notes == null && Matches == null && Priority == default)
@@ -164,7 +164,8 @@ namespace ServiceStack
                 //Return ideal Constructor Args 
                 if (Path != null && Verbs != null)
                 {
-                    return new ReflectAttribute {
+                    return new ReflectAttribute
+                    {
                         ConstructorArgs = new List<KeyValuePair<PropertyInfo, object>> {
                             new(GetType().GetProperty(nameof(Path)), Path),
                             new(GetType().GetProperty(nameof(Verbs)), Verbs),
@@ -172,7 +173,8 @@ namespace ServiceStack
                     };
                 }
 
-                return new ReflectAttribute {
+                return new ReflectAttribute
+                {
                     ConstructorArgs = new List<KeyValuePair<PropertyInfo, object>> {
                         new(GetType().GetProperty(nameof(Path)), Path),
                     }
@@ -180,7 +182,8 @@ namespace ServiceStack
             }
 
             //Otherwise return Property Args
-            var to = new ReflectAttribute {
+            var to = new ReflectAttribute
+            {
                 PropertyArgs = new List<KeyValuePair<PropertyInfo, object>> {
                     new(GetType().GetProperty(nameof(Path)), Path),
                 }

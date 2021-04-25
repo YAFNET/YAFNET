@@ -14,9 +14,9 @@ namespace ServiceStack
     [Tag("PropertyOrder")]
     public class ValidateRequestAttribute : AttributeBase, IValidateRule, IReflectAttributeConverter
     {
-        public ValidateRequestAttribute() {}
+        public ValidateRequestAttribute() { }
         public ValidateRequestAttribute(string validator) => Validator = validator;
-        
+
         /// <summary>
         /// Script Expression to create an IPropertyValidator registered in Validators.Types
         /// </summary>
@@ -37,7 +37,7 @@ namespace ServiceStack
         [Ignore]
         public string[] Conditions
         {
-            get => new []{ Condition };
+            get => new[] { Condition };
             set => Condition = ValidateAttribute.Combine("&&", value);
         }
 
@@ -52,12 +52,12 @@ namespace ServiceStack
         ///  - {PropertyValue}
         /// </summary>
         public string Message { get; set; }
-        
+
         /// <summary>
         /// Custom Status Code to return when invalid
         /// </summary>
         public int StatusCode { get; set; }
-        
+
         [Ignore]
         public string[] AllConditions
         {
@@ -74,7 +74,8 @@ namespace ServiceStack
 
         public ReflectAttribute ToReflectAttribute()
         {
-            var to = new ReflectAttribute {
+            var to = new ReflectAttribute
+            {
                 Name = "ValidateRequest",
                 PropertyArgs = new List<KeyValuePair<PropertyInfo, object>>()
             };
@@ -112,9 +113,9 @@ namespace ServiceStack
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
     public class ValidateAttribute : AttributeBase, IValidateRule, IReflectAttributeConverter
     {
-        public ValidateAttribute() {}
+        public ValidateAttribute() { }
         public ValidateAttribute(string validator) => Validator = validator;
-        
+
         /// <summary>
         /// Script Expression to create an IPropertyValidator registered in Validators.Types
         /// </summary>
@@ -159,7 +160,7 @@ namespace ServiceStack
         public static string Combine(string comparand, params string[] conditions)
         {
             var sb = new StringBuilder();
-            var joiner = ") " + comparand + " ("; 
+            var joiner = ") " + comparand + " (";
             foreach (var condition in conditions)
             {
                 if (string.IsNullOrEmpty(condition))
@@ -176,7 +177,8 @@ namespace ServiceStack
 
         public ReflectAttribute ToReflectAttribute()
         {
-            var to = new ReflectAttribute {
+            var to = new ReflectAttribute
+            {
                 Name = "Validate",
                 PropertyArgs = new List<KeyValuePair<PropertyInfo, object>>()
             };
@@ -288,7 +290,7 @@ namespace ServiceStack
         string Message { get; set; }
     }
 
-    public class ValidateRule : IValidateRule 
+    public class ValidateRule : IValidateRule
     {
         public string Validator { get; set; }
         public string Condition { get; set; }
@@ -317,24 +319,24 @@ namespace ServiceStack
     {
         [AutoIncrement]
         public int Id { get; set; }
-        
+
         /// <summary>
         /// The name of the Type 
         /// </summary>
         [Required]
         public string Type { get; set; }
-        
+
         /// <summary>
         /// The property field for Property Validators, null for Type Validators 
         /// </summary>
         public string Field { get; set; }
-        
+
         public string CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
-        
+
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        
+
         public string SuspendedBy { get; set; }
         [Index]
         public DateTime? SuspendedDate { get; set; }
@@ -356,7 +358,7 @@ namespace ServiceStack
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((ValidationRule) obj);
+            return Equals((ValidationRule)obj);
         }
 
         public override int GetHashCode()

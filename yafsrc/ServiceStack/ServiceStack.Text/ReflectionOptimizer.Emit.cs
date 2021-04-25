@@ -31,8 +31,8 @@ namespace ServiceStack.Text
             var returnType = typeof(object);
 
             return !memberInfo.DeclaringType.IsInterface
-                ? new DynamicMethod(name, returnType, new[] {typeof(T)}, memberInfo.DeclaringType, true)
-                : new DynamicMethod(name, returnType, new[] {typeof(T)}, memberInfo.Module, true);
+                ? new DynamicMethod(name, returnType, new[] { typeof(T) }, memberInfo.DeclaringType, true)
+                : new DynamicMethod(name, returnType, new[] { typeof(T) }, memberInfo.Module, true);
         }
 
         public override GetMemberDelegate CreateGetter(PropertyInfo propertyInfo)
@@ -63,7 +63,7 @@ namespace ServiceStack.Text
 
             gen.Emit(OpCodes.Ret);
 
-            return (GetMemberDelegate) getter.CreateDelegate(typeof(GetMemberDelegate));
+            return (GetMemberDelegate)getter.CreateDelegate(typeof(GetMemberDelegate));
         }
 
         public override GetMemberDelegate<T> CreateGetter<T>(PropertyInfo propertyInfo)
@@ -105,7 +105,7 @@ namespace ServiceStack.Text
 
             gen.Emit(OpCodes.Ret);
 
-            return (GetMemberDelegate<T>) getter.CreateDelegate(typeof(GetMemberDelegate<T>));
+            return (GetMemberDelegate<T>)getter.CreateDelegate(typeof(GetMemberDelegate<T>));
         }
 
         public override SetMemberDelegate CreateSetter(PropertyInfo propertyInfo)
@@ -139,11 +139,11 @@ namespace ServiceStack.Text
                 gen.Emit(OpCodes.Castclass, propertyInfo.PropertyType);
             }
 
-            gen.EmitCall(mi.IsFinal ? OpCodes.Call : OpCodes.Callvirt, mi, (Type[]) null);
+            gen.EmitCall(mi.IsFinal ? OpCodes.Call : OpCodes.Callvirt, mi, (Type[])null);
 
             gen.Emit(OpCodes.Ret);
 
-            return (SetMemberDelegate) setter.CreateDelegate(typeof(SetMemberDelegate));
+            return (SetMemberDelegate)setter.CreateDelegate(typeof(SetMemberDelegate));
         }
 
         public override SetMemberDelegate<T> CreateSetter<T>(PropertyInfo propertyInfo) =>
@@ -176,7 +176,7 @@ namespace ServiceStack.Text
 
             gen.Emit(OpCodes.Ret);
 
-            return (GetMemberDelegate) getter.CreateDelegate(typeof(GetMemberDelegate));
+            return (GetMemberDelegate)getter.CreateDelegate(typeof(GetMemberDelegate));
         }
 
         public override GetMemberDelegate<T> CreateGetter<T>(FieldInfo fieldInfo)
@@ -196,7 +196,7 @@ namespace ServiceStack.Text
 
             gen.Emit(OpCodes.Ret);
 
-            return (GetMemberDelegate<T>) getter.CreateDelegate(typeof(GetMemberDelegate<T>));
+            return (GetMemberDelegate<T>)getter.CreateDelegate(typeof(GetMemberDelegate<T>));
         }
 
         public override SetMemberDelegate CreateSetter(FieldInfo fieldInfo)
@@ -225,10 +225,10 @@ namespace ServiceStack.Text
             gen.Emit(OpCodes.Stfld, fieldInfo);
             gen.Emit(OpCodes.Ret);
 
-            return (SetMemberDelegate) setter.CreateDelegate(typeof(SetMemberDelegate));
+            return (SetMemberDelegate)setter.CreateDelegate(typeof(SetMemberDelegate));
         }
 
-        static readonly Type[] DynamicGetMethodArgs = {typeof(object)};
+        static readonly Type[] DynamicGetMethodArgs = { typeof(object) };
 
         internal static DynamicMethod CreateDynamicGetMethod(MemberInfo memberInfo)
         {
@@ -273,14 +273,14 @@ namespace ServiceStack.Text
                 ilgen.Emit(OpCodes.Newobj, emptyCtor);
                 ilgen.Emit(OpCodes.Ret);
 
-                return (EmptyCtorDelegate) dm.CreateDelegate(typeof(EmptyCtorDelegate));
+                return (EmptyCtorDelegate)dm.CreateDelegate(typeof(EmptyCtorDelegate));
             }
 
             //Anonymous types don't have empty constructors
             return () => FormatterServices.GetUninitializedObject(type);
         }
 
-        static readonly Type[] DynamicSetMethodArgs = {typeof(object), typeof(object)};
+        static readonly Type[] DynamicSetMethodArgs = { typeof(object), typeof(object) };
 
         internal static DynamicMethod CreateDynamicSetMethod(MemberInfo memberInfo)
         {

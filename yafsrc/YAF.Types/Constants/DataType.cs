@@ -22,7 +22,7 @@
  * under the License.
  */
 
- namespace YAF.Types.Constants
+namespace YAF.Types.Constants
 {
     /// <summary>
     /// The data type.

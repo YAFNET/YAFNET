@@ -55,8 +55,8 @@ namespace ServiceStack.OrmLite.SqlServer
                 { OrmLiteVariables.SystemUtc, "SYSUTCDATETIME()" },
                 { OrmLiteVariables.MaxText, "VARCHAR(MAX)" },
                 { OrmLiteVariables.MaxTextUnicode, "NVARCHAR(MAX)" },
-                { OrmLiteVariables.True, SqlBool(true) },                
-                { OrmLiteVariables.False, SqlBool(false) },                
+                { OrmLiteVariables.True, SqlBool(true) },
+                { OrmLiteVariables.False, SqlBool(false) },
             };
         }
 
@@ -116,7 +116,7 @@ namespace ServiceStack.OrmLite.SqlServer
         public override string ToTableNamesWithRowCountsStatement(bool live, string schema)
         {
             var schemaSql = " AND s.Name = {0}".SqlFmt(this, schema ?? DefaultSchema);
-            
+
             var sql = @"SELECT t.NAME, p.rows FROM sys.tables t INNER JOIN sys.schemas s ON t.schema_id = s.schema_id 
                                INNER JOIN sys.indexes i ON t.OBJECT_ID = i.object_id 
                                INNER JOIN sys.partitions p ON i.object_id = p.OBJECT_ID AND i.index_id = p.index_id
@@ -128,14 +128,14 @@ namespace ServiceStack.OrmLite.SqlServer
         {
             var sql = $"SELECT count(*) FROM sys.schemas WHERE name = '{schemaName.SqlParam()}'";
             var result = dbCmd.ExecLongScalar(sql);
-            return result > 0; 
+            return result > 0;
         }
 
         public override async Task<bool> DoesSchemaExistAsync(IDbCommand dbCmd, string schemaName, CancellationToken token = default)
         {
             var sql = $"SELECT count(*) FROM sys.schemas WHERE name = '{schemaName.SqlParam()}'";
             var result = await dbCmd.ExecLongScalarAsync(sql, token);
-            return result > 0; 
+            return result > 0;
         }
 
         public override string ToCreateSchemaStatement(string schemaName)
@@ -272,8 +272,8 @@ namespace ServiceStack.OrmLite.SqlServer
 
         public override string GetAutoIdDefaultValue(FieldDefinition fieldDef)
         {
-            return fieldDef.FieldType == typeof(Guid) 
-                ? "newid()" 
+            return fieldDef.FieldType == typeof(Guid)
+                ? "newid()"
                 : null;
         }
 
@@ -305,7 +305,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
                 if (fieldDef.IsNonClustered)
                     sql.Append(" NONCLUSTERED");
- 
+
                 if (fieldDef.AutoIncrement)
                 {
                     sql.Append(" ").Append(GetAutoIncrementDefinition(fieldDef));
@@ -405,7 +405,7 @@ namespace ServiceStack.OrmLite.SqlServer
                    + GetQuotedName(sequence);
         }
 
-        protected override bool ShouldSkipInsert(FieldDefinition fieldDef) => 
+        protected override bool ShouldSkipInsert(FieldDefinition fieldDef) =>
             fieldDef.ShouldSkipInsert() || fieldDef.AutoId;
 
         protected virtual bool ShouldReturnOnInsert(ModelDefinition modelDef, FieldDefinition fieldDef) =>
@@ -422,7 +422,7 @@ namespace ServiceStack.OrmLite.SqlServer
             cmd.ExecNonQuery($"SET IDENTITY_INSERT {tableName} ON");
         }
 
-        public override Task EnableIdentityInsertAsync<T>(IDbCommand cmd, CancellationToken token=default)
+        public override Task EnableIdentityInsertAsync<T>(IDbCommand cmd, CancellationToken token = default)
         {
             var tableName = cmd.GetDialectProvider().GetQuotedTableName(ModelDefinition<T>.Definition);
             return cmd.ExecNonQueryAsync($"SET IDENTITY_INSERT {tableName} ON", null, token);
@@ -434,14 +434,14 @@ namespace ServiceStack.OrmLite.SqlServer
             cmd.ExecNonQuery($"SET IDENTITY_INSERT {tableName} OFF");
         }
 
-        public override Task DisableIdentityInsertAsync<T>(IDbCommand cmd, CancellationToken token=default)
+        public override Task DisableIdentityInsertAsync<T>(IDbCommand cmd, CancellationToken token = default)
         {
             var tableName = cmd.GetDialectProvider().GetQuotedTableName(ModelDefinition<T>.Definition);
             return cmd.ExecNonQueryAsync($"SET IDENTITY_INSERT {tableName} OFF", null, token);
         }
 
-        public override void PrepareParameterizedInsertStatement<T>(IDbCommand cmd, ICollection<string> insertFields = null, 
-            Func<FieldDefinition,bool> shouldInclude=null)
+        public override void PrepareParameterizedInsertStatement<T>(IDbCommand cmd, ICollection<string> insertFields = null,
+            Func<FieldDefinition, bool> shouldInclude = null)
         {
             var sbColumnNames = StringBuilderCache.Allocate();
             var sbColumnValues = StringBuilderCacheAlt.Allocate();
@@ -479,7 +479,7 @@ namespace ServiceStack.OrmLite.SqlServer
                     }
                     else
                     {
-                        sbColumnValues.Append(this.GetParam(SanitizeFieldNameForParamName(fieldDef.FieldName),fieldDef.CustomInsert));
+                        sbColumnValues.Append(this.GetParam(SanitizeFieldNameForParamName(fieldDef.FieldName), fieldDef.CustomInsert));
                         AddParameter(cmd, fieldDef);
                     }
                 }
@@ -503,7 +503,7 @@ namespace ServiceStack.OrmLite.SqlServer
             var strReturning = StringBuilderCacheAlt.ReturnAndFree(sbReturningColumns);
             strReturning = strReturning.Length > 0 ? "OUTPUT " + strReturning + " " : "";
             cmd.CommandText = sbColumnNames.Length > 0
-                ? $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) {strReturning}" +                              
+                ? $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) {strReturning}" +
                   $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})"
                 : $"INSERT INTO {GetQuotedTableName(modelDef)}{strReturning} DEFAULT VALUES";
         }
@@ -553,11 +553,11 @@ namespace ServiceStack.OrmLite.SqlServer
             var strReturning = StringBuilderCacheAlt.ReturnAndFree(sbReturningColumns);
             strReturning = strReturning.Length > 0 ? "OUTPUT " + strReturning + " " : "";
             dbCmd.CommandText = sbColumnNames.Length > 0
-                ? $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) {strReturning}" +                                
+                ? $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) {strReturning}" +
                   $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})"
                 : $"INSERT INTO {GetQuotedTableName(modelDef)} {strReturning}DEFAULT VALUES";
         }
- 
+
         public override string ToSelectStatement(ModelDefinition modelDef,
             string selectExpression,
             string bodyExpression,
@@ -668,7 +668,7 @@ namespace ServiceStack.OrmLite.SqlServer
             return base.GetLoadChildrenSubSelect(expr);
         }
 
-        public override string SqlCurrency(string fieldOrValue, string currencySymbol) => 
+        public override string SqlCurrency(string fieldOrValue, string currencySymbol) =>
             SqlConcat(new[] { "'" + currencySymbol + "'", $"CONVERT(VARCHAR, CONVERT(MONEY, {fieldOrValue}), 1)" });
 
         public override string SqlBool(bool value) => value ? "1" : "0";
@@ -679,7 +679,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 ? "OFFSET " + offset.GetValueOrDefault() + " ROWS FETCH NEXT " + rows + " ROWS ONLY"
                 : "OFFSET " + offset.GetValueOrDefault(int.MaxValue) + " ROWS";
 
-        public override string SqlCast(object fieldOrValue, string castAs) => 
+        public override string SqlCast(object fieldOrValue, string castAs) =>
             castAs == Sql.VARCHAR
                 ? $"CAST({fieldOrValue} AS VARCHAR(MAX))"
                 : $"CAST({fieldOrValue} AS {castAs})";
@@ -687,12 +687,12 @@ namespace ServiceStack.OrmLite.SqlServer
         public override string SqlRandom => "NEWID()";
 
         public override void EnableForeignKeysCheck(IDbCommand cmd) => cmd.ExecNonQuery("EXEC sp_msforeachtable \"ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all\"");
-        public override Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) => 
+        public override Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
             cmd.ExecNonQueryAsync("EXEC sp_msforeachtable \"ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all\"", null, token);
         public override void DisableForeignKeysCheck(IDbCommand cmd) => cmd.ExecNonQuery("EXEC sp_msforeachtable \"ALTER TABLE ? NOCHECK CONSTRAINT all\"");
-        public override Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) => 
+        public override Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
             cmd.ExecNonQueryAsync("EXEC sp_msforeachtable \"ALTER TABLE ? NOCHECK CONSTRAINT all\"", null, token);
-        
+
         protected SqlConnection Unwrap(IDbConnection db) => (SqlConnection)db.ToDbConnection();
 
         protected SqlCommand Unwrap(IDbCommand cmd) => (SqlCommand)cmd.ToDbCommand();

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace ServiceStack.OrmLite.SqlServer 
+namespace ServiceStack.OrmLite.SqlServer
 {
     public class SqlServer2008OrmLiteDialectProvider : SqlServerOrmLiteDialectProvider
     {
@@ -29,7 +29,7 @@ namespace ServiceStack.OrmLite.SqlServer
                     sb.Append($"CAST({arg} AS VARCHAR(MAX))");
                 }
             }
-            
+
             return sb.ToString();
         }
     }

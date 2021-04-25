@@ -23,18 +23,18 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// The i have service locator -- objects that have a reference to the service locator.
-  /// </summary>
-  public interface IHaveServiceLocator
-  {
-    #region Properties
-
     /// <summary>
-    /// Gets ServiceLocator.
+    /// The i have service locator -- objects that have a reference to the service locator.
     /// </summary>
-    IServiceLocator ServiceLocator { get; }
+    public interface IHaveServiceLocator
+    {
+        #region Properties
 
-    #endregion
-  }
+        /// <summary>
+        /// Gets ServiceLocator.
+        /// </summary>
+        IServiceLocator ServiceLocator { get; }
+
+        #endregion
+    }
 }

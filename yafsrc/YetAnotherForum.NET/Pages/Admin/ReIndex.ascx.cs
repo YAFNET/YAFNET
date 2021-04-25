@@ -80,7 +80,7 @@ namespace YAF.Pages.Admin
 
             this.Shrink.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_SHRINK");
             this.Shrink.ReturnConfirmEvent = "blockUIMessage";
-            
+
             this.Reindex.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_REINDEX");
             this.Reindex.ReturnConfirmEvent = "blockUIMessage";
 
@@ -130,12 +130,12 @@ namespace YAF.Pages.Admin
         protected void RecoveryModeClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             var recoveryMode = this.RadioButtonList1.SelectedIndex switch
-                {
-                    0 => "FULL",
-                    1 => "SIMPLE",
-                    2 => "BULK_LOGGED",
-                    _ => string.Empty
-                };
+            {
+                0 => "FULL",
+                1 => "SIMPLE",
+                2 => "BULK_LOGGED",
+                _ => string.Empty
+            };
 
             this.txtIndexStatistics.Text = this.Get<IDbFunction>().ChangeRecoveryMode(recoveryMode);
         }

@@ -12,11 +12,11 @@ using ServiceStack.Text.Json;
 namespace ServiceStack.Script
 {
     // ReSharper disable InconsistentNaming
-    
+
     public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     {
         public static readonly DefaultScripts Instance = new DefaultScripts();
-        
+
         public static List<string> RemoveNewLinesFor { get; } = new List<string> {
             nameof(to),
             nameof(toGlobal),
@@ -53,7 +53,7 @@ namespace ServiceStack.Script
             nameof(skipExecutingFiltersOnError),
             nameof(continueExecutingFiltersOnError),
         };
-        
+
         public static List<string> EvaluateWhenSkippingFilterExecution = new List<string> {
             nameof(ifError),
             nameof(lastError),
@@ -129,7 +129,7 @@ namespace ServiceStack.Script
         public object unless(object returnTarget, object test) => ifNot(returnTarget, test); //alias
 
         public object otherwise(object returnTarget, object elseReturn) => returnTarget ?? elseReturn;
-        
+
         public object ifElse(object returnTarget, object test, object defaultValue) => test is bool b && b ? returnTarget : defaultValue;
         public object ifNotElse(object returnTarget, object test, object defaultValue) => !isTrue(test) ? returnTarget : defaultValue;
         public object unlessElse(object returnTarget, object test, object defaultValue) => ifNotElse(returnTarget, test, defaultValue); //alias
@@ -174,7 +174,7 @@ namespace ServiceStack.Script
         }
 
         public bool IsNullOrWhiteSpace(object target) => target == null || target is string s && string.IsNullOrWhiteSpace(s);
-        
+
         public bool isEnum(Enum source, object value) => value is string strEnum
             ? Equals(source, Enum.Parse(source.GetType(), strEnum, ignoreCase: true))
             : value is Enum enumValue
@@ -182,10 +182,10 @@ namespace ServiceStack.Script
                 : Equals(source, Enum.ToObject(source.GetType(), value));
 
         public bool hasFlag(Enum source, object value) => value is string strEnum
-            ? source.HasFlag((Enum) Enum.Parse(source.GetType(), strEnum, ignoreCase: true))
+            ? source.HasFlag((Enum)Enum.Parse(source.GetType(), strEnum, ignoreCase: true))
             : value is Enum enumValue
                 ? source.HasFlag(enumValue)
-                : source.HasFlag((Enum) Enum.ToObject(source.GetType(), value));
+                : source.HasFlag((Enum)Enum.ToObject(source.GetType(), value));
 
         public StopExecution end() => StopExecution.Value;
         public Task end(ScriptScopeContext scope, object ignore) => TypeConstants.EmptyTask;
@@ -193,18 +193,18 @@ namespace ServiceStack.Script
 
         public object endIfNull(object target) => isNull(target) ? StopExecution.Value : target;
         public object endIfNull(object ignoreTarget, object target) => isNull(target) ? StopExecution.Value : target;
-        public object endIfNotNull(object target) => !isNull(target) ? (object) StopExecution.Value : IgnoreResult.Value;
-        public object endIfNotNull(object ignoreTarget, object target) => !isNull(target) ? (object) StopExecution.Value : IgnoreResult.Value;
-        public object endIfExists(object target) => !isNull(target) ? (object) StopExecution.Value : IgnoreResult.Value;
-        public object endIfExists(object ignoreTarget, object target) => !isNull(target) ? (object) StopExecution.Value : IgnoreResult.Value;
+        public object endIfNotNull(object target) => !isNull(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+        public object endIfNotNull(object ignoreTarget, object target) => !isNull(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+        public object endIfExists(object target) => !isNull(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+        public object endIfExists(object ignoreTarget, object target) => !isNull(target) ? (object)StopExecution.Value : IgnoreResult.Value;
         public object endIfEmpty(object target) => isEmpty(target) ? StopExecution.Value : target;
         public object endIfEmpty(object ignoreTarget, object target) => isEmpty(target) ? StopExecution.Value : target;
-        public object endIfNotEmpty(object target) => !isEmpty(target) ? (object) StopExecution.Value : IgnoreResult.Value;
-        public object endIfNotEmpty(object ignoreTarget, object target) => !isEmpty(target) ? (object) StopExecution.Value : IgnoreResult.Value;
-        public object endIfFalsy(object target) => isFalsy(target) ? (object) StopExecution.Value : target;
-        public object endIfFalsy(object ignoreTarget, object target) => isFalsy(target) ? (object) StopExecution.Value : target;
-        public object endIfTruthy(object target) => !isFalsy(target) ? (object) StopExecution.Value : IgnoreResult.Value;
-        public object endIfTruthy(object ignoreTarget, object target) => !isFalsy(target) ? (object) StopExecution.Value : IgnoreResult.Value;
+        public object endIfNotEmpty(object target) => !isEmpty(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+        public object endIfNotEmpty(object ignoreTarget, object target) => !isEmpty(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+        public object endIfFalsy(object target) => isFalsy(target) ? (object)StopExecution.Value : target;
+        public object endIfFalsy(object ignoreTarget, object target) => isFalsy(target) ? (object)StopExecution.Value : target;
+        public object endIfTruthy(object target) => !isFalsy(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+        public object endIfTruthy(object ignoreTarget, object target) => !isFalsy(target) ? (object)StopExecution.Value : IgnoreResult.Value;
         public object endIf(object test) => isTrue(test) ? (object)StopExecution.Value : IgnoreResult.Value;
 
         public object endIf(object returnTarget, bool test) => test ? StopExecution.Value : returnTarget;
@@ -226,26 +226,26 @@ namespace ServiceStack.Script
                 ? StopExecution.Value
                 : target;
         }
-        
+
         public object ifEnd(bool test) => test ? (object)StopExecution.Value : IgnoreResult.Value;
         public object ifEnd(object ignoreTarget, bool test) => test ? (object)StopExecution.Value : IgnoreResult.Value;
         public object ifNotEnd(bool test) => !test ? (object)StopExecution.Value : IgnoreResult.Value;
         public object ifNotEnd(object ignoreTarget, bool test) => !test ? (object)StopExecution.Value : IgnoreResult.Value;
-        
-        public object onlyIfNull(object target) => !isNull(target) ? (object) StopExecution.Value : IgnoreResult.Value;
-        public object onlyIfNull(object ignoreTarget, object target) => !isNull(target) ? (object) StopExecution.Value : IgnoreResult.Value;
+
+        public object onlyIfNull(object target) => !isNull(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+        public object onlyIfNull(object ignoreTarget, object target) => !isNull(target) ? (object)StopExecution.Value : IgnoreResult.Value;
         public object onlyIfNotNull(object target) => isNull(target) ? StopExecution.Value : target;
         public object onlyIfNotNull(object ignoreTarget, object target) => isNull(target) ? StopExecution.Value : target;
-        public object onlyIfExists(object target) => isNull(target) ? (object) StopExecution.Value : target;
-        public object onlyIfExists(object ignoreTarget, object target) => isNull(target) ? (object) StopExecution.Value : target;
-        public object onlyIfEmpty(object target) => !isEmpty(target) ? (object) StopExecution.Value : IgnoreResult.Value;
-        public object onlyIfEmpty(object ignoreTarget, object target) => !isEmpty(target) ? (object) StopExecution.Value : IgnoreResult.Value;
-        public object onlyIfNotEmpty(object target) => isEmpty(target) ? (object) StopExecution.Value : target;
-        public object onlyIfNotEmpty(object ignoreTarget, object target) => isEmpty(target) ? (object) StopExecution.Value : target;
-        public object onlyIfFalsy(object target) => !isFalsy(target) ? (object) StopExecution.Value : IgnoreResult.Value;
-        public object onlyIfFalsy(object ignoreTarget, object target) => !isFalsy(target) ? (object) StopExecution.Value : IgnoreResult.Value;
-        public object onlyIfTruthy(object target) => isFalsy(target) ? (object) StopExecution.Value : target;
-        public object onlyIfTruthy(object ignoreTarget, object target) => isFalsy(target) ? (object) StopExecution.Value : target;
+        public object onlyIfExists(object target) => isNull(target) ? (object)StopExecution.Value : target;
+        public object onlyIfExists(object ignoreTarget, object target) => isNull(target) ? (object)StopExecution.Value : target;
+        public object onlyIfEmpty(object target) => !isEmpty(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+        public object onlyIfEmpty(object ignoreTarget, object target) => !isEmpty(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+        public object onlyIfNotEmpty(object target) => isEmpty(target) ? (object)StopExecution.Value : target;
+        public object onlyIfNotEmpty(object ignoreTarget, object target) => isEmpty(target) ? (object)StopExecution.Value : target;
+        public object onlyIfFalsy(object target) => !isFalsy(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+        public object onlyIfFalsy(object ignoreTarget, object target) => !isFalsy(target) ? (object)StopExecution.Value : IgnoreResult.Value;
+        public object onlyIfTruthy(object target) => isFalsy(target) ? (object)StopExecution.Value : target;
+        public object onlyIfTruthy(object ignoreTarget, object target) => isFalsy(target) ? (object)StopExecution.Value : target;
         public object onlyIf(object test) => !isTrue(test) ? (object)StopExecution.Value : IgnoreResult.Value;
 
         public object onlyIf(object returnTarget, bool test) => !test ? StopExecution.Value : returnTarget;
@@ -270,7 +270,7 @@ namespace ServiceStack.Script
                 ? target
                 : StopExecution.Value;
         }
-        
+
         public object ifOnly(bool test) => !test ? (object)StopExecution.Value : IgnoreResult.Value;
         public object ifOnly(object ignoreTarget, bool test) => !test ? (object)StopExecution.Value : IgnoreResult.Value;
         public object ifNotOnly(bool test) => test ? (object)StopExecution.Value : IgnoreResult.Value;
@@ -284,7 +284,7 @@ namespace ServiceStack.Script
 
         public object ifUse(object test, object useValue) => isTrue(test) ? useValue : StopExecution.Value;
         public object ifShow(object test, object useValue) => isTrue(test) ? useValue : StopExecution.Value;
-        public object ifShowRaw(object test, object useValue) => isTrue(test) ? (object) raw(useValue) : StopExecution.Value;
+        public object ifShowRaw(object test, object useValue) => isTrue(test) ? (object)raw(useValue) : StopExecution.Value;
 
         public object useIf(object useValue, object test) => isTrue(test) ? useValue : StopExecution.Value;
         public object showIf(object useValue, object test) => isTrue(test) ? useValue : StopExecution.Value;
@@ -342,7 +342,7 @@ namespace ServiceStack.Script
         {
             if (target == null || type == null)
                 return target == type;
-            
+
             Type t = null;
             if (type is string typeName)
             {
@@ -444,7 +444,7 @@ namespace ServiceStack.Script
             {
                 args[varName] = value;
             }
-            
+
             return IgnoreResult.Value;
         }
 
@@ -454,7 +454,7 @@ namespace ServiceStack.Script
         public IgnoreResult appendToGlobal(ScriptScopeContext scope, string value, object argExpr) =>
             appendToArgs(scope, nameof(appendToGlobal), value, argExpr, scope.PageResult.Args);
 
-        private IgnoreResult appendToArgs(ScriptScopeContext scope, string filterName, string value, object argExpr, Dictionary<string,object> args)
+        private IgnoreResult appendToArgs(ScriptScopeContext scope, string filterName, string value, object argExpr, Dictionary<string, object> args)
         {
             if (value == null)
                 return IgnoreResult.Value;
@@ -472,7 +472,7 @@ namespace ServiceStack.Script
             {
                 args[varName] = value;
             }
-            
+
             return IgnoreResult.Value;
         }
 
@@ -482,7 +482,7 @@ namespace ServiceStack.Script
         public IgnoreResult addToStartGlobal(ScriptScopeContext scope, object value, object argExpr) =>
             addToStartArgs(scope, nameof(addToStartGlobal), value, argExpr, scope.PageResult.Args);
 
-        private IgnoreResult addToStartArgs(ScriptScopeContext scope, string filterName, object value, object argExpr, Dictionary<string,object> args)
+        private IgnoreResult addToStartArgs(ScriptScopeContext scope, string filterName, object value, object argExpr, Dictionary<string, object> args)
         {
             if (value == null)
                 return IgnoreResult.Value;
@@ -494,7 +494,7 @@ namespace ServiceStack.Script
                 if (collection is IList l)
                 {
                     l.Insert(0, value);
-                }                
+                }
                 else if (collection is IEnumerable e && !(collection is string))
                 {
                     var to = new List<object> { value };
@@ -513,7 +513,7 @@ namespace ServiceStack.Script
                 else
                     args[varName] = new List<object> { value };
             }
-            
+
             return IgnoreResult.Value;
         }
 
@@ -531,7 +531,7 @@ namespace ServiceStack.Script
             var varName = GetVarNameFromStringOrArrowExpression(filterName, argExprOrCollection);
             if (args.TryGetValue(varName, out object collection))
             {
-                if (TryAddToCollection(collection, value)) {}
+                if (TryAddToCollection(collection, value)) { }
                 else if (collection is IEnumerable e && !(collection is string))
                 {
                     var to = new List<object>();
@@ -561,7 +561,7 @@ namespace ServiceStack.Script
                 else
                     args[varName] = new List<object> { value };
             }
-            
+
             return IgnoreResult.Value;
         }
 
@@ -569,7 +569,7 @@ namespace ServiceStack.Script
         {
             if (collection == null)
                 return null;
-            
+
             if (!TryAddToCollection(collection, value))
                 throw new NotSupportedException($"{nameof(addItem)} can only add to an ICollection not a '{collection.GetType().Name}'");
 
@@ -660,14 +660,14 @@ namespace ServiceStack.Script
         public object resolveContextArg(ScriptScopeContext scope, string name) => scope.Context.Args.TryGetValue(name, out var value)
             ? value
             : null;
-        
+
         public object assign(ScriptScopeContext scope, string argExpr, object value) =>
             assignArgs(scope, argExpr, value, scope.ScopedParams);
 
         public object assignGlobal(ScriptScopeContext scope, string argExpr, object value) =>
             assignArgs(scope, argExpr, value, scope.PageResult.Args);
 
-        private object assignArgs(ScriptScopeContext scope, string argExpr, object value, Dictionary<string,object> args) //from filter
+        private object assignArgs(ScriptScopeContext scope, string argExpr, object value, Dictionary<string, object> args) //from filter
         {
             var targetEndPos = argExpr.IndexOfAny(new[] { '.', '[' });
             if (targetEndPos == -1)
@@ -690,15 +690,15 @@ namespace ServiceStack.Script
         public IgnoreResult to(ScriptScopeContext scope, object value, object argExpr)
         {
             var varName = GetVarNameFromStringOrArrowExpression(nameof(to), argExpr);
-            
+
             scope.ScopedParams[varName] = value;
             return IgnoreResult.Value;
         }
-        
+
         public IgnoreResult assignTo(ScriptScopeContext scope, object value, object argExpr)
         {
             var varName = GetVarNameFromStringOrArrowExpression(nameof(assignTo), argExpr);
-            
+
             scope.ScopedParams[varName] = value;
             return IgnoreResult.Value;
         }
@@ -707,7 +707,7 @@ namespace ServiceStack.Script
         public IgnoreResult toGlobal(ScriptScopeContext scope, object value, object argExpr)
         {
             var varName = GetVarNameFromStringOrArrowExpression(nameof(toGlobal), argExpr);
-            
+
             scope.PageResult.Args[varName] = value;
             return IgnoreResult.Value;
         }
@@ -715,7 +715,7 @@ namespace ServiceStack.Script
         public IgnoreResult assignToGlobal(ScriptScopeContext scope, object value, object argExpr)
         {
             var varName = GetVarNameFromStringOrArrowExpression(nameof(assignToGlobal), argExpr);
-            
+
             scope.PageResult.Args[varName] = value;
             return IgnoreResult.Value;
         }
@@ -749,7 +749,7 @@ namespace ServiceStack.Script
         {
             if (argExpr == null)
                 throw new ArgumentNullException(filterName);
-            
+
             if (argExpr is JsArrowFunctionExpression arrowExpr)
             {
                 if (!(arrowExpr.Body is JsIdentifier identifier))
@@ -782,10 +782,10 @@ namespace ServiceStack.Script
                 if (pageName[0] != '_')
                 {
                     if (!scope.TryGetPage('_' + pageName + "-partial", out page, out codePage))
-                        throw new FileNotFoundException($"Partial was not found: '{pageName}'");            
+                        throw new FileNotFoundException($"Partial was not found: '{pageName}'");
                 }
             }
-            
+
             if (page != null)
                 await page.Init();
 
@@ -856,14 +856,14 @@ namespace ServiceStack.Script
         public TimeSpan toTimeSpan(object target) => target.ConvertTo<TimeSpan>();
         public TimeSpan time(int hours, int mins, int secs) => new TimeSpan(0, hours, mins, secs);
         public TimeSpan time(int days, int hours, int mins, int secs) => new TimeSpan(days, hours, mins, secs);
-        
+
         public KeyValuePair<string, object> pair(string key, object value) => new KeyValuePair<string, object>(key, value);
 
         public List<string> toKeys(object target)
         {
             if (target == null)
                 return null;
-            
+
             if (target is IDictionary<string, object> objDictionary)
                 return objDictionary.Keys.ToList();
             if (target is IDictionary dictionary)
@@ -894,7 +894,7 @@ namespace ServiceStack.Script
         {
             if (target == null)
                 return null;
-            
+
             if (target is IDictionary<string, object> objDictionary)
                 return objDictionary.Values.ToList();
             if (target is IDictionary dictionary)
@@ -935,7 +935,7 @@ namespace ServiceStack.Script
             }
             return to;
         }
-        
+
         public List<string> splitStringList(IEnumerable strings) => ViewUtils.SplitStringList(strings);
 
         public List<string> toVarNames(IEnumerable names) => ViewUtils.SplitStringList(names);
@@ -960,7 +960,7 @@ namespace ServiceStack.Script
         }
 
         public IRawString typeName(object target) => (target?.GetType().Name ?? "null").ToRawString();
-        public IRawString typeFullName(object target) => 
+        public IRawString typeFullName(object target) =>
             (target != null ? Context.ProtectedMethods.typeQualifiedName(target.GetType()) : "null").ToRawString();
 
         public IEnumerable of(ScriptScopeContext scope, IEnumerable target, object scopeOptions)
@@ -981,7 +981,7 @@ namespace ServiceStack.Script
 
         public object @do(ScriptScopeContext scope, object expression)
         {
-            var token = scope.AssertExpression(nameof(@do), expression, scopeOptions:null, out var itemBinding);
+            var token = scope.AssertExpression(nameof(@do), expression, scopeOptions: null, out var itemBinding);
             var result = token.Evaluate(scope);
 
             return IgnoreResult.Value;
@@ -1029,7 +1029,7 @@ namespace ServiceStack.Script
         {
             if (o == null)
                 return TypeConstants<PropertyInfo>.EmptyArray;
-            
+
             var type = o is Type t
                 ? t
                 : o.GetType();
@@ -1050,7 +1050,7 @@ namespace ServiceStack.Script
         {
             if (o == null)
                 return TypeConstants<PropertyInfo>.EmptyArray;
-            
+
             var type = o is Type t
                 ? t
                 : o.GetType();
@@ -1071,7 +1071,7 @@ namespace ServiceStack.Script
         {
             if (o == null)
                 return TypeConstants<FieldInfo>.EmptyArray;
-            
+
             var type = o is Type t
                 ? t
                 : o.GetType();
@@ -1092,7 +1092,7 @@ namespace ServiceStack.Script
         {
             if (o == null)
                 return TypeConstants<FieldInfo>.EmptyArray;
-            
+
             var type = o is Type t
                 ? t
                 : o.GetType();
@@ -1127,7 +1127,7 @@ namespace ServiceStack.Script
             var value = fn(target);
             return value;
         }
-        
+
         public object map(ScriptScopeContext scope, object items, object expression) => map(scope, items, expression, null);
         public object map(ScriptScopeContext scope, object target, object expression, object scopeOptions)
         {
@@ -1143,7 +1143,7 @@ namespace ServiceStack.Script
             var result = token.Evaluate(scope.AddItemToScope(itemBinding, target));
             return result;
         }
-        
+
         public object scopeVars(object target)
         {
             if (isNull(target))
@@ -1195,7 +1195,7 @@ namespace ServiceStack.Script
         {
             if (target == null || names == null)
                 return null;
-            
+
             if (target is string || target.GetType().IsValueType)
                 throw new NotSupportedException(nameof(selectFields) + " requires an IEnumerable, IDictionary or POCO Target, received instead: " + target.GetType().Name);
 
@@ -1216,7 +1216,7 @@ namespace ServiceStack.Script
                 stringKeys = stringKey.Split(',').Map(x => x.Trim());
                 stringKey = null;
             }
-            
+
             var stringsSet = stringKeys != null
                 ? new HashSet<string>(stringKeys, StringComparer.OrdinalIgnoreCase)
                 : new HashSet<string> { stringKey };
@@ -1235,10 +1235,10 @@ namespace ServiceStack.Script
 
                 return to;
             }
-            else 
+            else
             {
-                var to = new List<Dictionary<string,object>>();
-                var e = (IEnumerable) target;
+                var to = new List<Dictionary<string, object>>();
+                var e = (IEnumerable)target;
                 foreach (var item in e)
                 {
                     var objDictionary = item.ToObjectDictionary();
@@ -1262,7 +1262,7 @@ namespace ServiceStack.Script
                 return;
 
             var scopedParams = scope.GetParamsWithItemBinding(nameof(select), scopeOptions, out string itemBinding);
-            var template = JsonTypeSerializer.Unescape(selectTemplate.ToString(), removeQuotes:false);
+            var template = JsonTypeSerializer.Unescape(selectTemplate.ToString(), removeQuotes: false);
             var itemScope = scope.CreateScopedContext(template, scopedParams);
 
             if (target is IEnumerable objs && !(target is IDictionary) && !(target is string))
@@ -1293,7 +1293,7 @@ namespace ServiceStack.Script
                 if (pageName[0] != '_')
                 {
                     if (!scope.TryGetPage('_' + pageName + "-partial", out page, out codePage))
-                        throw new FileNotFoundException($"Partial was not found: '{pageName}'");            
+                        throw new FileNotFoundException($"Partial was not found: '{pageName}'");
                 }
             }
 
@@ -1309,7 +1309,7 @@ namespace ServiceStack.Script
                     pageParams[pageArg.Key] = pageArg.Value;
                 }
             }
-            
+
             pageParams[ScriptConstants.PartialArg] = page;
 
             scope = scope.Clone();
@@ -1328,13 +1328,13 @@ namespace ServiceStack.Script
                 await scope.WritePageAsync(page, codePage, pageParams);
             }
         }
-        
+
         public object removeKeyFromDictionary(IDictionary dictionary, object keyToRemove)
         {
             var removeKeys = keyToRemove is IEnumerable e && !(keyToRemove is string)
                 ? e.Map(x => x)
                 : null;
-            
+
             foreach (var key in EnumerableUtils.ToList(dictionary.Keys))
             {
                 if (removeKeys != null)
@@ -1352,11 +1352,11 @@ namespace ServiceStack.Script
             }
             return dictionary;
         }
-        
+
         public object remove(object target, object keysToRemove)
         {
             var removeKeys = keysToRemove is string s
-                ? (IEnumerable) new[] {s}
+                ? (IEnumerable)new[] { s }
                 : keysToRemove is IEnumerable eKeys
                     ? eKeys.Map(x => x)
                     : null;
@@ -1367,15 +1367,15 @@ namespace ServiceStack.Script
 
             if (target is IDictionary d)
                 return removeKeyFromDictionary(d, removeKeys);
-            
+
             if (target is IEnumerable e)
             {
                 object first = null;
                 foreach (var item in e)
                 {
-                    if (item == null) 
+                    if (item == null)
                         continue;
-                    
+
                     first = item;
                     break;
                 }
@@ -1384,10 +1384,10 @@ namespace ServiceStack.Script
 
                 var itemType = first.GetType();
                 var props = TypeProperties.Get(itemType);
-                
+
                 if (!(first is IDictionary))
                     throw new NotSupportedException(nameof(remove) + " removes keys from a IDictionary or [IDictionary]");
-                
+
                 foreach (var item in e)
                 {
                     if (item == null)
@@ -1400,10 +1400,10 @@ namespace ServiceStack.Script
                 }
             }
             else throw new NotSupportedException(nameof(remove) + " removes keys from a IDictionary or [IDictionary]");
-            
+
             return target;
         }
-        
+
         public object withoutNullValues(object target)
         {
             if (target is IDictionary<string, object> objDictionary)
@@ -1432,7 +1432,7 @@ namespace ServiceStack.Script
             }
             return target;
         }
-        
+
         public object withoutEmptyValues(object target)
         {
             if (target is IDictionary<string, object> objDictionary)
@@ -1466,9 +1466,9 @@ namespace ServiceStack.Script
         {
             if (keys == null)
                 return target;
-            
+
             var strKeys = keys is string s
-                ? new List<string>{ s }
+                ? new List<string> { s }
                 : keys is IEnumerable e
                     ? e.Map(x => x.ToString())
                     : throw new NotSupportedException($"{nameof(withoutKeys)} expects a collection of key names but received ${keys.GetType().Name}");
@@ -1486,8 +1486,8 @@ namespace ServiceStack.Script
 
         private static readonly HashSet<string> InternalKeys = new HashSet<string> {
             ScriptConstants.It, ScriptConstants.PartialArg };
-        
-        public object ownProps(IEnumerable<KeyValuePair<string,object>> target)
+
+        public object ownProps(IEnumerable<KeyValuePair<string, object>> target)
         {
             var to = new List<KeyValuePair<string, object>>();
             foreach (var entry in target)
@@ -1503,9 +1503,9 @@ namespace ServiceStack.Script
         {
             if (keys == null)
                 return target;
-            
+
             var strKeys = keys is string s
-                ? new List<string>{ s }
+                ? new List<string> { s }
                 : keys is IEnumerable e
                     ? e.Map(x => x.ToString())
                     : throw new NotSupportedException($"{nameof(withoutKeys)} expects a collection of key names but received ${keys.GetType().Name}");
@@ -1525,7 +1525,7 @@ namespace ServiceStack.Script
         public object merge(IDictionary<string, object> target, object sources)
         {
             var srcArray = sources is IDictionary<string, object> d
-                ? new object[] {d}
+                ? new object[] { d }
                 : sources is List<IDictionary<string, object>> ld
                     ? ld.ToArray()
                     : sources is List<object> lo
@@ -1573,15 +1573,15 @@ namespace ServiceStack.Script
         {
             if (string.IsNullOrEmpty(source))
                 return null;
-            
+
             var context = scope.CreateNewContext(args);
-            
+
             using (var ms = MemoryStreamFactory.GetStream())
             {
                 var pageResult = new PageResult(context.OneTimePage(source));
                 if (args != null)
                     pageResult.Args = args;
-                
+
                 await pageResult.WriteToAsync(ms);
 
                 ms.Position = 0;
@@ -1626,13 +1626,13 @@ namespace ServiceStack.Script
 
     public partial class DefaultScripts //Methods named after common keywords breaks intelli-sense when trying to use them        
     {
-        public object @if(object test) => test is bool b && b ? (object) IgnoreResult.Value : StopExecution.Value;
+        public object @if(object test) => test is bool b && b ? (object)IgnoreResult.Value : StopExecution.Value;
         public object @if(object returnTarget, object test) => test is bool b && b ? returnTarget : StopExecution.Value;
         public object @default(object returnTarget, object elseReturn) => returnTarget ?? elseReturn;
 
         public object @throw(ScriptScopeContext scope, string message) => new Exception(message).InStopFilter(scope, null);
         public object @throw(ScriptScopeContext scope, string message, object options) => new Exception(message).InStopFilter(scope, options);
-        
+
         public StopExecution @return(ScriptScopeContext scope) => @return(scope, null, null);
         public StopExecution @return(ScriptScopeContext scope, object returnValue) => @return(scope, returnValue, null);
         public StopExecution @return(ScriptScopeContext scope, object returnValue, Dictionary<string, object> returnArgs) =>

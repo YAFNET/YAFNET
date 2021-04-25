@@ -393,9 +393,9 @@ namespace YAF.Pages.Admin
 
             // Load forum's themes
             var listItem = new ListItem
-                                 {
-                                     Text = this.GetText("ADMIN_EDITFORUM", "CHOOSE_THEME"), Value = string.Empty
-                                 };
+            {
+                Text = this.GetText("ADMIN_EDITFORUM", "CHOOSE_THEME"), Value = string.Empty
+            };
 
             this.ThemeList.DataSource = StaticDataHelper.Themes();
             this.ThemeList.DataBind();

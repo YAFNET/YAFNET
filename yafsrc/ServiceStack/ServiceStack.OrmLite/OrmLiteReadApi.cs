@@ -626,7 +626,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public static T LoadSingleById<T>(this IDbConnection dbConn, object idValue, Expression<Func<T, object>> include)
         {
-            return dbConn.Exec(dbCmd => dbCmd.LoadSingleById<T>(idValue, include.GetFieldNames() ));
+            return dbConn.Exec(dbCmd => dbCmd.LoadSingleById<T>(idValue, include.GetFieldNames()));
         }
 
         /// <summary>

@@ -47,7 +47,7 @@ namespace ServiceStack.OrmLite.Converters
         public int Scale { get; set; }
 
         public DecimalConverter()
-            : this(18, 12) {}
+            : this(18, 12) { }
 
         public DecimalConverter(int precision, int scale)
         {

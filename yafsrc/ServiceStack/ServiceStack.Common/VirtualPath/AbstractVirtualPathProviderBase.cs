@@ -58,7 +58,7 @@ namespace ServiceStack.VirtualPath
         {
             if (string.IsNullOrEmpty(virtualPath) || virtualPath == "/")
                 return RootDirectory;
-            
+
             return RootDirectory.GetDirectory(SanitizePath(virtualPath));
         }
 
@@ -103,13 +103,13 @@ namespace ServiceStack.VirtualPath
             var vfs = this as IVirtualFiles;
             if (vfs == null)
                 throw new NotSupportedException($"{GetType().Name} does not implement IVirtualFiles");
-            
+
             foreach (var entry in textFiles)
             {
                 vfs.WriteFile(entry.Key, entry.Value);
             }
         }
-        
+
         protected NotSupportedException CreateContentNotSupportedException(object value) =>
             new NotSupportedException($"Could not write '{value?.GetType().Name ?? "null"}' value. Only string, byte[], Stream or IVirtualFile content is supported.");
 
@@ -120,7 +120,7 @@ namespace ServiceStack.VirtualPath
 
             vfs.WriteFile(path, text.ToString());
         }
-        
+
         public virtual void WriteFile(string path, ReadOnlyMemory<byte> bytes)
         {
             if (!(this is IVirtualFiles vfs))
@@ -140,7 +140,7 @@ namespace ServiceStack.VirtualPath
         {
             if (!(this is IVirtualFiles vfs))
                 throw new NotSupportedException($"{GetType().Name} does not implement IVirtualFiles");
-            
+
             if (contents == null)
                 return;
 
@@ -164,7 +164,7 @@ namespace ServiceStack.VirtualPath
             else
                 throw CreateContentNotSupportedException(contents);
         }
-        
+
         public virtual void AppendFile(string path, ReadOnlyMemory<char> text)
         {
             if (!(this is IVirtualFiles vfs))
@@ -172,7 +172,7 @@ namespace ServiceStack.VirtualPath
 
             vfs.AppendFile(path, text.ToString());
         }
-        
+
         public virtual void AppendFile(string path, ReadOnlyMemory<byte> bytes)
         {
             if (!(this is IVirtualFiles vfs))
@@ -185,7 +185,7 @@ namespace ServiceStack.VirtualPath
         {
             if (!(this is IVirtualFiles vfs))
                 throw new NotSupportedException($"{GetType().Name} does not implement IVirtualFiles");
-            
+
             if (contents == null)
                 return;
 

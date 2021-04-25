@@ -35,7 +35,7 @@ namespace ServiceStack
             }
         }
 
-        public static async Task ExecAllAsync<T>(this IEnumerable<T> instances, Func<T,Task> action)
+        public static async Task ExecAllAsync<T>(this IEnumerable<T> instances, Func<T, Task> action)
         {
             foreach (var instance in instances)
             {
@@ -50,10 +50,10 @@ namespace ServiceStack
             }
         }
 
-        public static async Task<TReturn> ExecAllReturnFirstAsync<T,TReturn>(this IEnumerable<T> instances, Func<T,Task<TReturn>> action)
+        public static async Task<TReturn> ExecAllReturnFirstAsync<T, TReturn>(this IEnumerable<T> instances, Func<T, Task<TReturn>> action)
         {
             TReturn firstResult = default;
-            var i = 0; 
+            var i = 0;
             foreach (var instance in instances)
             {
                 try
@@ -131,7 +131,7 @@ namespace ServiceStack
             return default;
         }
 
-        public static void RetryUntilTrue(Func<bool> action, TimeSpan? timeOut=null)
+        public static void RetryUntilTrue(Func<bool> action, TimeSpan? timeOut = null)
         {
             var i = 0;
             var firstAttempt = DateTime.UtcNow;
@@ -149,7 +149,7 @@ namespace ServiceStack
             throw new TimeoutException($"Exceeded timeout of {timeOut.Value}");
         }
 
-        public static async Task RetryUntilTrueAsync(Func<Task<bool>> action, TimeSpan? timeOut=null)
+        public static async Task RetryUntilTrueAsync(Func<Task<bool>> action, TimeSpan? timeOut = null)
         {
             var i = 0;
             var firstAttempt = DateTime.UtcNow;
@@ -331,10 +331,10 @@ namespace ServiceStack
         /// <param name="retries"></param>
         /// <returns></returns>
         public static int CalculateMemoryLockDelay(int retries) => retries < 10
-            ? CalculateExponentialDelay(retries, baseDelay:5, maxBackOffMs:1000)
-            : CalculateFullJitterBackOffDelay(retries, baseDelay:10, maxBackOffMs:10000);
+            ? CalculateExponentialDelay(retries, baseDelay: 5, maxBackOffMs: 1000)
+            : CalculateFullJitterBackOffDelay(retries, baseDelay: 10, maxBackOffMs: 10000);
 
-        public static string ShellExec(string command, Dictionary<string, object> args=null) =>
+        public static string ShellExec(string command, Dictionary<string, object> args = null) =>
             new ProtectedScripts().sh(default, command, args);
     }
 }

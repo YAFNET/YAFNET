@@ -33,7 +33,8 @@ namespace ServiceStack.Text.Jsv
             do
             {
                 snapshot = ParseFnCache;
-                newCache = new Dictionary<Type, ParseFactoryDelegate>(ParseFnCache) {
+                newCache = new Dictionary<Type, ParseFactoryDelegate>(ParseFnCache)
+                {
                     [type] = parseFactoryFn
                 };
 
@@ -99,8 +100,8 @@ namespace ServiceStack.Text.Jsv
                 Refresh();
             }
 
-            return !value.IsEmpty 
-                ? ReadFn(value) 
+            return !value.IsEmpty
+                ? ReadFn(value)
                 : null;
         }
     }

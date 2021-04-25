@@ -174,7 +174,7 @@ namespace ServiceStack.Text
                         }
                         else if (c > '0' && c <= '9')
                         {
-                            preResult = (ulong) (c - '0');
+                            preResult = (ulong)(c - '0');
                             state = ParseState.Number;
                         }
                         else return false;
@@ -195,7 +195,7 @@ namespace ServiceStack.Text
                         }
                         else if (c > '0' && c <= '9')
                         {
-                            preResult = (ulong) (c - '0');
+                            preResult = (ulong)(c - '0');
                             state = ParseState.Number;
                         }
                         else return false;
@@ -217,7 +217,7 @@ namespace ServiceStack.Text
                             }
                             else
                             {
-                                preResult = 10 * preResult + (ulong) (c - '0');
+                                preResult = 10 * preResult + (ulong)(c - '0');
                                 if (preResult > ulong.MaxValue / 10 - 10)
                                 {
                                     isLargeNumber = true;
@@ -265,7 +265,7 @@ namespace ServiceStack.Text
                             }
                             else
                             {
-                                preResult = 10 * preResult + (ulong) (c - '0');
+                                preResult = 10 * preResult + (ulong)(c - '0');
                                 if (preResult > ulong.MaxValue / 10 - 10)
                                 {
                                     isLargeNumber = true;
@@ -306,12 +306,12 @@ namespace ServiceStack.Text
 
                             if (!expNegative)
                             {
-                                exp = (sbyte) -exp;
+                                exp = (sbyte)-exp;
                             }
 
                             if (exp >= 0 || scale > -exp)
                             {
-                                scale += (sbyte) exp;
+                                scale += (sbyte)exp;
                             }
                             else
                             {
@@ -353,14 +353,14 @@ namespace ServiceStack.Text
 
             if (!isLargeNumber)
             {
-                var mid = (int) (preResult >> 32);
-                var lo = (int) (preResult & 0xffffffff);
-                result = new decimal(lo, mid, 0, negative, (byte) scale);
+                var mid = (int)(preResult >> 32);
+                var lo = (int)(preResult & 0xffffffff);
+                result = new decimal(lo, mid, 0, negative, (byte)scale);
             }
             else
             {
                 var bits = decimal.GetBits(result);
-                result = new decimal(bits[0], bits[1], bits[2], negative, (byte) scale);
+                result = new decimal(bits[0], bits[1], bits[2], negative, (byte)scale);
             }
 
             return true;
@@ -468,7 +468,7 @@ namespace ServiceStack.Text
             // now do the write async - this returns to the pool
             return WriteAsyncAndReturn(stream, bytes, 0, bytesCount, token);
         }
-        
+
         private static async Task WriteAsyncAndReturn(Stream stream, byte[] bytes, int offset, int count, CancellationToken token)
         {
             try
@@ -480,7 +480,7 @@ namespace ServiceStack.Text
                 BufferPool.ReleaseBufferToPool(ref bytes);
             }
         }
-        
+
         public override Task WriteAsync(Stream stream, ReadOnlyMemory<char> value, CancellationToken token = default) =>
             WriteAsync(stream, value.Span, token);
 
@@ -545,10 +545,10 @@ namespace ServiceStack.Text
             DeserializeStringSpanDelegate deserializer)
         {
             var bytes = ms.GetBufferAsBytes();
-            var utf8 = CharPool.GetBuffer(Encoding.UTF8.GetCharCount(bytes, 0, (int) ms.Length));
+            var utf8 = CharPool.GetBuffer(Encoding.UTF8.GetCharCount(bytes, 0, (int)ms.Length));
             try
             {
-                var charsWritten = Encoding.UTF8.GetChars(bytes, 0, (int) ms.Length, utf8, 0);
+                var charsWritten = Encoding.UTF8.GetChars(bytes, 0, (int)ms.Length, utf8, 0);
                 var ret = deserializer(type, new ReadOnlySpan<char>(utf8, 0, charsWritten).WithoutBom());
                 return ret;
             }
@@ -621,8 +621,8 @@ namespace ServiceStack.Text
         public override byte[] ToUtf8Bytes(ReadOnlySpan<char> source) => Encoding.UTF8.GetBytes(source.ToArray());
 
         public override string FromUtf8Bytes(ReadOnlySpan<byte> source) => Encoding.UTF8.GetString(source.WithoutBom().ToArray());
-        
-        public override MemoryStream ToMemoryStream(ReadOnlySpan<byte> source) => 
+
+        public override MemoryStream ToMemoryStream(ReadOnlySpan<byte> source) =>
             MemoryStreamFactory.GetStream(source.ToArray());
 
         private static Guid ParseGeneralStyleGuid(ReadOnlySpan<char> value, out int len)
@@ -687,13 +687,13 @@ namespace ServiceStack.Text
             byte b1 = ParseHexByte(buf[n], buf[n + 1]);
             n += 2;
             byte b2 = ParseHexByte(buf[n], buf[n + 1]);
-            b = (short) ((b1 << 8) + b2);
+            b = (short)((b1 << 8) + b2);
             n += 2 + dash;
 
             byte c1 = ParseHexByte(buf[n], buf[n + 1]);
             n += 2;
             byte c2 = ParseHexByte(buf[n], buf[n + 1]);
-            c = (short) ((c1 << 8) + c2);
+            c = (short)((c1 << 8) + c2);
             n += 2 + dash;
 
             d = ParseHexByte(buf[n], buf[n + 1]);
@@ -726,7 +726,7 @@ namespace ServiceStack.Text
                 if (lo == 255 || hi == 255)
                     throw new FormatException(BadFormat);
 
-                return (byte) (hi + lo);
+                return (byte)(hi + lo);
             }
             catch (IndexOutOfRangeException)
             {
@@ -734,7 +734,7 @@ namespace ServiceStack.Text
             }
         }
     }
-    
+
     enum ParseState
     {
         LeadingWhite,
@@ -795,19 +795,19 @@ namespace ServiceStack.Text
             switch (typeCode)
             {
                 case TypeCode.SByte:
-                    return (sbyte) result;
+                    return (sbyte)result;
                 case TypeCode.Int16:
-                    return (short) result;
+                    return (short)result;
                 case TypeCode.Int32:
-                    return (int) result;
+                    return (int)result;
                 default:
                     return result;
             }
         }
 
-        public static sbyte ParseSByte(ReadOnlySpan<char> value) => (sbyte) ParseInt64(value);
-        public static short ParseInt16(ReadOnlySpan<char> value) => (short) ParseInt64(value);
-        public static int ParseInt32(ReadOnlySpan<char> value) => (int) ParseInt64(value);
+        public static sbyte ParseSByte(ReadOnlySpan<char> value) => (sbyte)ParseInt64(value);
+        public static short ParseInt16(ReadOnlySpan<char> value) => (short)ParseInt64(value);
+        public static int ParseInt32(ReadOnlySpan<char> value) => (int)ParseInt64(value);
 
         public static long ParseInt64(ReadOnlySpan<char> value)
         {
@@ -953,26 +953,26 @@ namespace ServiceStack.Text
 
             return ParseObject(value);
         }
-        
+
         internal static object ParseObject(ReadOnlySpan<char> value)
         {
             var result = ParseUInt64(value);
             switch (typeCode)
             {
                 case TypeCode.Byte:
-                    return (byte) result;
+                    return (byte)result;
                 case TypeCode.UInt16:
-                    return (ushort) result;
+                    return (ushort)result;
                 case TypeCode.UInt32:
-                    return (uint) result;
+                    return (uint)result;
                 default:
                     return result;
             }
         }
 
-        public static byte ParseByte(ReadOnlySpan<char> value) => (byte) ParseUInt64(value);
-        public static ushort ParseUInt16(ReadOnlySpan<char> value) => (ushort) ParseUInt64(value);
-        public static uint ParseUInt32(ReadOnlySpan<char> value) => (uint) ParseUInt64(value);
+        public static byte ParseByte(ReadOnlySpan<char> value) => (byte)ParseUInt64(value);
+        public static ushort ParseUInt16(ReadOnlySpan<char> value) => (ushort)ParseUInt64(value);
+        public static uint ParseUInt32(ReadOnlySpan<char> value) => (uint)ParseUInt64(value);
 
         internal static ulong ParseUInt64(ReadOnlySpan<char> value)
         {
@@ -1012,7 +1012,7 @@ namespace ServiceStack.Text
                         }
                         else if (c > '0' && c <= '9')
                         {
-                            result = (ulong) (c - '0');
+                            result = (ulong)(c - '0');
                             state = ParseState.Number;
                         }
                         else throw new FormatException(MemoryProvider.BadFormat);
@@ -1024,7 +1024,7 @@ namespace ServiceStack.Text
                         {
                             checked
                             {
-                                result = 10 * result + (ulong) (c - '0');
+                                result = 10 * result + (ulong)(c - '0');
                             }
 
                             if (result > maxValue
@@ -1053,6 +1053,6 @@ namespace ServiceStack.Text
                 throw new FormatException(MemoryProvider.BadFormat);
 
             return result;
-        }    
+        }
     }
 }

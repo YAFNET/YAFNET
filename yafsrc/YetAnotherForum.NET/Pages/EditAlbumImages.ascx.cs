@@ -195,7 +195,7 @@ namespace YAF.Pages
             var usrAlbumsAllowed = (int)data.UserAlbumImages;
 
             var albumSize = this.GetRepository<UserAlbum>().CountUserAlbum(this.PageContext.PageUserID);
-            
+
             switch (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"))
             {
                 // A new album is being created. check the permissions.
@@ -211,7 +211,7 @@ namespace YAF.Pages
                     this.UpdateTitle.Visible = false;
 
                     this.Header.LocalizedTag = "TITLE_NEW";
-                    
+
                     break;
             }
 

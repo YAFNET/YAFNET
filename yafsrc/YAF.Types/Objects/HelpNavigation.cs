@@ -22,7 +22,7 @@
  * under the License.
  */
 
- namespace YAF.Types.Objects
+namespace YAF.Types.Objects
 {
     using System.Collections.Generic;
 

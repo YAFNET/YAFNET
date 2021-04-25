@@ -23,31 +23,31 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System;
-  using System.Collections.Generic;
+    using System;
+    using System.Collections.Generic;
 
-  using YAF.Types.Objects;
+    using YAF.Types.Objects;
 
-  public interface IBadWordReplace
-  {
-    /// <summary>
-    ///   Gets ReplaceItems.
-    /// </summary>
-    IEnumerable<BadWordReplaceItem> ReplaceItems { get; }
+    public interface IBadWordReplace
+    {
+        /// <summary>
+        ///   Gets ReplaceItems.
+        /// </summary>
+        IEnumerable<BadWordReplaceItem> ReplaceItems { get; }
 
-    /// <summary>
-    /// Searches through SearchText and replaces "bad words" with "good words"
-    ///   as defined in the database.
-    /// </summary>
-    /// <param name="searchText">
-    /// The string to search through.
-    /// </param>
-    /// <returns>
-    /// The replace.
-    /// </returns>
-    /// <exception cref="Exception">
-    /// <c>Exception</c>.
-    /// </exception>
-    string Replace([NotNull] string searchText);
-  }
+        /// <summary>
+        /// Searches through SearchText and replaces "bad words" with "good words"
+        ///   as defined in the database.
+        /// </summary>
+        /// <param name="searchText">
+        /// The string to search through.
+        /// </param>
+        /// <returns>
+        /// The replace.
+        /// </returns>
+        /// <exception cref="Exception">
+        /// <c>Exception</c>.
+        /// </exception>
+        string Replace([NotNull] string searchText);
+    }
 }

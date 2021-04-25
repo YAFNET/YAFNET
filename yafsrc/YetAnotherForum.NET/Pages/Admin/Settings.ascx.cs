@@ -263,7 +263,7 @@ namespace YAF.Pages.Admin
             this.ForumDefaultAccessMask.DataTextField = "Name";
             this.ForumDefaultAccessMask.DataBind();
 
-            SetSelectedOnList(ref this.ForumDefaultAccessMask, boardSettings.ForumDefaultAccessMask.ToString()); 
+            SetSelectedOnList(ref this.ForumDefaultAccessMask, boardSettings.ForumDefaultAccessMask.ToString());
 
             if (boardSettings.Theme.Contains(".xml"))
             {

@@ -48,7 +48,7 @@ namespace ServiceStack.OrmLite
         public bool IsClustered { get; set; }
 
         public bool IsNonClustered { get; set; }
-        
+
         public string IndexName { get; set; }
 
         public bool IsRowVersion { get; set; }
@@ -62,7 +62,7 @@ namespace ServiceStack.OrmLite
         public string CheckConstraint { get; set; }
 
         public bool IsUniqueConstraint { get; set; }
-        
+
         public ForeignKeyConstraint ForeignKey { get; set; }
 
         public GetMemberDelegate GetValueFn { get; set; }
@@ -71,7 +71,7 @@ namespace ServiceStack.OrmLite
 
         public object GetValue(object instance)
         {
-            var type = instance.GetType(); 
+            var type = instance.GetType();
             if (PropertyInfo.DeclaringType?.IsAssignableFrom(type) != true)
             {
                 if (instance is IDictionary d)
@@ -80,7 +80,7 @@ namespace ServiceStack.OrmLite
                 var accessor = TypeProperties.Get(type).GetAccessor(Name);
                 return accessor?.PublicGetter(instance);
             }
-            
+
             return this.GetValueFn?.Invoke(instance);
         }
 
@@ -91,7 +91,7 @@ namespace ServiceStack.OrmLite
                 d[Name] = value;
                 return;
             }
-            
+
             this.SetValueFn?.Invoke(instance, value);
         }
 
@@ -184,7 +184,7 @@ namespace ServiceStack.OrmLite
                 SetValueFn = SetValueFn,
                 Sequence = Sequence,
                 IsComputed = IsComputed,
-                IsPersisted = IsPersisted, 
+                IsPersisted = IsPersisted,
                 ComputeExpression = ComputeExpression,
                 CustomSelect = CustomSelect,
                 BelongToModelName = BelongToModelName,

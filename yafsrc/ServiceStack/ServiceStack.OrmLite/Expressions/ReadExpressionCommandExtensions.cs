@@ -137,7 +137,7 @@ namespace ServiceStack.OrmLite
         {
             string sql = q.Limit(1).SelectInto<T>();
 
-            return dbCmd.ExprConvertTo<T>(sql, q.Params, onlyFields:q.OnlyFields);
+            return dbCmd.ExprConvertTo<T>(sql, q.Params, onlyFields: q.OnlyFields);
         }
 
         public static TKey Scalar<T, TKey>(this IDbCommand dbCmd, SqlExpression<T> expression)
@@ -197,14 +197,14 @@ namespace ServiceStack.OrmLite
         internal static long RowCount<T>(this IDbCommand dbCmd, SqlExpression<T> expression)
         {
             //ORDER BY throws when used in subselects in SQL Server. Removing OrderBy() clause since it doesn't impact results
-            var countExpr = expression.Clone().OrderBy(); 
+            var countExpr = expression.Clone().OrderBy();
             return dbCmd.Scalar<long>(dbCmd.GetDialectProvider().ToRowCountStatement(countExpr.ToSelectStatement()), countExpr.Params);
         }
 
         internal static long RowCount(this IDbCommand dbCmd, string sql, object anonType)
         {
             if (anonType != null)
-                dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql:ref sql);
+                dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql: ref sql);
 
             return dbCmd.Scalar<long>(dbCmd.GetDialectProvider().ToRowCountStatement(sql));
         }
@@ -238,10 +238,10 @@ namespace ServiceStack.OrmLite
             }
         }
 
-        public static ColumnSchema[] GetTableColumns(this IDbCommand dbCmd, Type table) => 
+        public static ColumnSchema[] GetTableColumns(this IDbCommand dbCmd, Type table) =>
             dbCmd.GetTableColumns($"SELECT * FROM {dbCmd.GetDialectProvider().GetQuotedTableName(table.GetModelDefinition())}");
 
-        public static ColumnSchema[] GetTableColumns(this IDbCommand dbCmd, string sql) => 
+        public static ColumnSchema[] GetTableColumns(this IDbCommand dbCmd, string sql) =>
             dbCmd.GetSchemaTable(sql).ToColumnSchemas(dbCmd);
 
         internal static ColumnSchema[] ToColumnSchemas(this DataTable dt, IDbCommand dbCmd)
@@ -261,7 +261,7 @@ namespace ServiceStack.OrmLite
                     to.DataTypeName = dbCmd.GetDialectProvider().GetConverter(to.DataType)?.ColumnDefinition.LeftPart('(');
                 if (to.DataTypeName == null)
                     continue;
-                
+
                 ret.Add(to);
             }
 

@@ -12,7 +12,7 @@ namespace ServiceStack.Script
 
         public virtual string ToJsAstType() => GetType().ToJsAstType();
     }
-    
+
     public class JsIdentifier : JsExpression
     {
         public string Name { get; }
@@ -20,7 +20,7 @@ namespace ServiceStack.Script
         public JsIdentifier(string name) => Name = name;
         public JsIdentifier(ReadOnlySpan<char> name) => Name = name.Value();
         public override string ToRawString() => ":" + Name;
-        
+
         public override object Evaluate(ScriptScopeContext scope)
         {
             var ret = scope.PageResult.GetValue(Name, scope);
@@ -29,7 +29,8 @@ namespace ServiceStack.Script
 
         protected bool Equals(JsIdentifier other) => string.Equals(Name, other.Name);
 
-        public override Dictionary<string, object> ToJsAst() => new Dictionary<string, object> {
+        public override Dictionary<string, object> ToJsAst() => new Dictionary<string, object>
+        {
             ["type"] = ToJsAstType(),
             ["name"] = Name,
         };
@@ -41,7 +42,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsIdentifier) obj);
+            return Equals((JsIdentifier)obj);
         }
 
         public override string ToString() => ToRawString();
@@ -51,7 +52,7 @@ namespace ServiceStack.Script
     {
         public static JsLiteral True = new JsLiteral(true);
         public static JsLiteral False = new JsLiteral(false);
-        
+
         public object Value { get; }
         public JsLiteral(object value) => Value = value;
         public override string ToRawString() => JsonValue(Value);
@@ -62,14 +63,15 @@ namespace ServiceStack.Script
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == this.GetType() && Equals((JsLiteral) obj);
+            return obj.GetType() == this.GetType() && Equals((JsLiteral)obj);
         }
 
         public override string ToString() => ToRawString();
 
         public override object Evaluate(ScriptScopeContext scope) => Value;
 
-        public override Dictionary<string, object> ToJsAst() => new Dictionary<string, object> {
+        public override Dictionary<string, object> ToJsAst() => new Dictionary<string, object>
+        {
             ["type"] = ToJsAstType(),
             ["value"] = Value,
             ["raw"] = JsonValue(Value),
@@ -81,7 +83,7 @@ namespace ServiceStack.Script
         public JsToken[] Elements { get; }
 
         public JsArrayExpression(params JsToken[] elements) => Elements = elements.ToArray();
-        public JsArrayExpression(IEnumerable<JsToken> elements) : this(elements.ToArray()) {}
+        public JsArrayExpression(IEnumerable<JsToken> elements) : this(elements.ToArray()) { }
 
         public override object Evaluate(ScriptScopeContext scope)
         {
@@ -113,9 +115,9 @@ namespace ServiceStack.Script
             sb.Append("[");
             for (var i = 0; i < Elements.Length; i++)
             {
-                if (i > 0) 
+                if (i > 0)
                     sb.Append(",");
-                
+
                 var element = Elements[i];
                 sb.Append(element.ToRawString());
             }
@@ -150,7 +152,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsArrayExpression) obj);
+            return Equals((JsArrayExpression)obj);
         }
 
         public override int GetHashCode()
@@ -164,7 +166,7 @@ namespace ServiceStack.Script
         public JsProperty[] Properties { get; }
 
         public JsObjectExpression(params JsProperty[] properties) => Properties = properties;
-        public JsObjectExpression(IEnumerable<JsProperty> properties) : this(properties.ToArray()) {}
+        public JsObjectExpression(IEnumerable<JsProperty> properties) : this(properties.ToArray()) { }
 
         public static string GetKey(JsToken token)
         {
@@ -174,7 +176,7 @@ namespace ServiceStack.Script
                 return identifierKey.Name;
             if (token is JsMemberExpression memberExpr && memberExpr.Property is JsIdentifier prop)
                 return prop.Name;
-            
+
             throw new SyntaxErrorException($"Invalid Key. Expected a Literal or Identifier but was {token.DebugToken()}");
         }
 
@@ -218,9 +220,9 @@ namespace ServiceStack.Script
             sb.Append("{");
             for (var i = 0; i < Properties.Length; i++)
             {
-                if (i > 0) 
+                if (i > 0)
                     sb.Append(",");
-                
+
                 var prop = Properties[i];
                 if (prop.Key != null)
                 {
@@ -252,11 +254,12 @@ namespace ServiceStack.Script
             var propType = typeof(JsProperty).ToJsAstType();
             foreach (var prop in Properties)
             {
-                properties.Add(new Dictionary<string, object> {
+                properties.Add(new Dictionary<string, object>
+                {
                     ["type"] = propType,
-                    ["key"] = prop.Key?.ToJsAst(), 
+                    ["key"] = prop.Key?.ToJsAst(),
                     ["computed"] = false, //syntax not supported: { ["a" + 1]: 2 }
-                    ["value"] = prop.Value.ToJsAst(), 
+                    ["value"] = prop.Value.ToJsAst(),
                     ["kind"] = "init",
                     ["method"] = false,
                     ["shorthand"] = prop.Shorthand,
@@ -276,7 +279,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsObjectExpression) obj);
+            return Equals((JsObjectExpression)obj);
         }
 
         public override int GetHashCode()
@@ -291,7 +294,7 @@ namespace ServiceStack.Script
         public JsToken Value { get; }
         public bool Shorthand { get; }
 
-        public JsProperty(JsToken key, JsToken value) : this(key, value, shorthand:false){}
+        public JsProperty(JsToken key, JsToken value) : this(key, value, shorthand: false) { }
         public JsProperty(JsToken key, JsToken value, bool shorthand)
         {
             Key = key;
@@ -301,8 +304,8 @@ namespace ServiceStack.Script
 
         protected bool Equals(JsProperty other)
         {
-            return Equals(Key, other.Key) && 
-                   Equals(Value, other.Value) && 
+            return Equals(Key, other.Key) &&
+                   Equals(Value, other.Value) &&
                    Shorthand == other.Shorthand;
         }
 
@@ -311,7 +314,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsProperty) obj);
+            return Equals((JsProperty)obj);
         }
 
         public override int GetHashCode()
@@ -360,7 +363,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsSpreadElement) obj);
+            return Equals((JsSpreadElement)obj);
         }
 
         public override int GetHashCode()
@@ -374,7 +377,7 @@ namespace ServiceStack.Script
         public JsIdentifier[] Params { get; }
         public JsToken Body { get; }
 
-        public JsArrowFunctionExpression(JsIdentifier param, JsToken body) : this(new[] {param}, body) {}
+        public JsArrowFunctionExpression(JsIdentifier param, JsToken body) : this(new[] { param }, body) { }
         public JsArrowFunctionExpression(JsIdentifier[] @params, JsToken body)
         {
             Params = @params ?? throw new SyntaxErrorException($"Params missing in Arrow Function Expression");
@@ -449,7 +452,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsArrowFunctionExpression) obj);
+            return Equals((JsArrowFunctionExpression)obj);
         }
 
         public override int GetHashCode()
@@ -460,5 +463,5 @@ namespace ServiceStack.Script
             }
         }
     }
-    
+
 }

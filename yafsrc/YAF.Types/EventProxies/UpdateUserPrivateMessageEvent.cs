@@ -23,48 +23,48 @@
  */
 namespace YAF.Types.EventProxies
 {
-  #region Using
+    #region Using
 
-  using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Events;
 
-  #endregion
-
-  /// <summary>
-  /// The update user private message event.
-  /// </summary>
-  public class UpdateUserPrivateMessageEvent : IAmEvent
-  {
-    #region Constructors and Destructors
+    #endregion
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UpdateUserPrivateMessageEvent"/> class.
+    /// The update user private message event.
     /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="userPmMessageId">
-    /// The user pm message id.
-    /// </param>
-    public UpdateUserPrivateMessageEvent(int userId, int userPmMessageId)
+    public class UpdateUserPrivateMessageEvent : IAmEvent
     {
-      this.UserId = userId;
-      this.UserPmMessageId = userPmMessageId;
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UpdateUserPrivateMessageEvent"/> class.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="userPmMessageId">
+        /// The user pm message id.
+        /// </param>
+        public UpdateUserPrivateMessageEvent(int userId, int userPmMessageId)
+        {
+            this.UserId = userId;
+            this.UserPmMessageId = userPmMessageId;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets UserId.
+        /// </summary>
+        public int UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets UserPmMessageId.
+        /// </summary>
+        public int UserPmMessageId { get; set; }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets UserId.
-    /// </summary>
-    public int UserId { get; set; }
-
-    /// <summary>
-    /// Gets or sets UserPmMessageId.
-    /// </summary>
-    public int UserPmMessageId { get; set; }
-
-    #endregion
-  }
 }

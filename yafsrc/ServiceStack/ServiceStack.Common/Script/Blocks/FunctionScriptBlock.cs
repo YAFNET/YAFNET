@@ -23,7 +23,8 @@ namespace ServiceStack.Script
         {
             // block.Argument key is unique to exact memory fragment, not string equality
             // Parse into AST once for all Page Results
-            var invokerCtx = (Tuple<string,StaticMethodInvoker>)scope.Context.CacheMemory.GetOrAdd(block.Argument, key => {
+            var invokerCtx = (Tuple<string, StaticMethodInvoker>)scope.Context.CacheMemory.GetOrAdd(block.Argument, key =>
+            {
                 var literal = block.Argument.Span.ParseVarName(out var name);
                 var strName = name.ToString();
                 literal = literal.AdvancePastWhitespace();
@@ -43,19 +44,22 @@ namespace ServiceStack.Script
                 StaticMethodInvoker invoker = null;
 
                 // Allow recursion by initializing lazy Delegate
-                MethodInvoker LazyInvoker = (instance, paramValues) => {
+                MethodInvoker LazyInvoker = (instance, paramValues) =>
+                {
                     if (invoker == null)
                         throw new NotSupportedException($"Uninitialized function '{strName}'");
 
                     return invoker(instance, paramValues);
                 };
 
-                invoker = (paramValues) => {
+                invoker = (paramValues) =>
+                {
                     scope.PageResult.StackDepth++;
                     try
                     {
                         var page = new SharpPage(Context, block.Body);
-                        var pageResult = new PageResult(page) {
+                        var pageResult = new PageResult(page)
+                        {
                             Args = {
                                 [strName] = LazyInvoker
                             },
@@ -79,7 +83,7 @@ namespace ServiceStack.Script
                         scope.PageResult.StackDepth--;
                     }
                 };
-                
+
                 return Tuple.Create(strName, invoker);
             });
 

@@ -211,10 +211,10 @@ namespace YAF.Types.Extensions
         /// The event type.
         /// </param>
         public static void Log(
-            [NotNull] this ILogger logger, 
-            [CanBeNull] int? userId, 
-            [CanBeNull] object source, 
-            [NotNull] string description, 
+            [NotNull] this ILogger logger,
+            [CanBeNull] int? userId,
+            [CanBeNull] object source,
+            [NotNull] string description,
             [NotNull] EventLogTypes eventType = EventLogTypes.Error)
         {
             CodeContracts.VerifyNotNull(logger, "logger");

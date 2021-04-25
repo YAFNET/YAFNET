@@ -7,8 +7,8 @@ namespace ServiceStack.OrmLite
 {
     public static partial class Sql
     {
-	    public static string VARCHAR = nameof(VARCHAR); 
-	    
+        public static string VARCHAR = nameof(VARCHAR);
+
         public static List<object> Flatten(IEnumerable list)
         {
             var ret = new List<object>();
@@ -62,23 +62,23 @@ namespace ServiceStack.OrmLite
 
         public static T AllFields<T>(T item) => item;
 
-	    [Obsolete("Use TableAlias")]
-	    public static string JoinAlias(string property, string tableAlias) => tableAlias;
+        [Obsolete("Use TableAlias")]
+        public static string JoinAlias(string property, string tableAlias) => tableAlias;
 
-	    public static string TableAlias(string property, string tableAlias) => tableAlias;
+        public static string TableAlias(string property, string tableAlias) => tableAlias;
 
-	    [Obsolete("Use TableAlias")]
-	    public static T JoinAlias<T>(T property, string tableAlias) => default(T);
+        [Obsolete("Use TableAlias")]
+        public static T JoinAlias<T>(T property, string tableAlias) => default(T);
 
-	    public static T TableAlias<T>(T property, string tableAlias) => default(T);
+        public static T TableAlias<T>(T property, string tableAlias) => default(T);
 
         public static string Custom(string customSql) => customSql;
 
         public static T Custom<T>(string customSql) => default(T);
 
-	    public static string Cast(object value, string castAs) => $"CAST({value} AS {castAs})";
+        public static string Cast(object value, string castAs) => $"CAST({value} AS {castAs})";
 
-        public const string EOT= "0 EOT";
+        public const string EOT = "0 EOT";
     }
 
     /// <summary>
@@ -140,40 +140,40 @@ namespace ServiceStack.OrmLite
         public static string JsonValue(string expression, string path) => string.Empty;
 
 
-		/// <summary>
-		/// Extracts an object or an array from a JSON string.<br/><br/>
-		/// To extract a scalar value from a JSON string instead of an object or an array, see <see cref="https://docs.microsoft.com/en-us/sql/t-sql/functions/json-value-transact-sql">JSON_VALUE(Transact-SQL)</see>. 
-		/// For info about the differences between <b>JSON_VALUE</b> and <b>JSON_QUERY</b>, see <see cref="https://docs.microsoft.com/en-us/sql/relational-databases/json/validate-query-and-change-json-data-with-built-in-functions-sql-server#JSONCompare">Compare JSON_VALUE and JSON_QUERY</see>.
-		/// </summary>
-		/// <typeparam name="T">Type of objects returned</typeparam>
-		/// <param name="expression">
-		/// An expression. Typically the name of a variable or a column that contains JSON text.<br/><br/>
-		/// If <b>JSON_QUERY</b> finds JSON that is not valid in <i>expression</i> before it finds the value identified by <i>path</i>, the function returns an error. If <b>JSON_QUERY</b> doesn't find the value identified by <i>path</i>, it scans the entire text and returns an error if it finds JSON that is not valid anywhere in <i>expression</i>.
-		/// </param>
-		/// <param name="path">
-		/// A JSON path that specifies the object or the array to extract.<br/><br/>
-		/// In SQL Server 2017 and in Azure SQL Database, you can provide a variable as the value of <i>path</i>.<br/><br/>
-		/// The JSON path can specify lax or strict mode for parsing.If you don't specify the parsing mode, lax mode is the default. For more info, see <see cref="https://docs.microsoft.com/en-us/sql/relational-databases/json/json-path-expressions-sql-server">JSON Path Expressions (SQL Server)</see>.<br/><br/>
-		/// The default value for path is '$'. As a result, if you don't provide a value for path, <b>JSON_QUERY</b> returns the input <i>expression</i>.<br/><br/>
-		/// If the format of <i>path</i> isn't valid, <b>JSON_QUERY</b> returns an error.
-		/// </param>
-		/// <returns>
-		/// Returns a JSON fragment of type T. The collation of the returned value is the same as the collation of the input expression.<br/><br/>
-		/// If the value is not an object or an array:
-		/// <ul>
-		/// <li>In lax mode, <b>JSON_QUERY</b> returns null.</li>
-		/// <li>In strict mode, <b>JSON_QUERY</b> returns an error.</li>
-		/// </ul>
-		/// </returns>
-		public static string JsonQuery(string expression) => string.Empty;
+        /// <summary>
+        /// Extracts an object or an array from a JSON string.<br/><br/>
+        /// To extract a scalar value from a JSON string instead of an object or an array, see <see cref="https://docs.microsoft.com/en-us/sql/t-sql/functions/json-value-transact-sql">JSON_VALUE(Transact-SQL)</see>. 
+        /// For info about the differences between <b>JSON_VALUE</b> and <b>JSON_QUERY</b>, see <see cref="https://docs.microsoft.com/en-us/sql/relational-databases/json/validate-query-and-change-json-data-with-built-in-functions-sql-server#JSONCompare">Compare JSON_VALUE and JSON_QUERY</see>.
+        /// </summary>
+        /// <typeparam name="T">Type of objects returned</typeparam>
+        /// <param name="expression">
+        /// An expression. Typically the name of a variable or a column that contains JSON text.<br/><br/>
+        /// If <b>JSON_QUERY</b> finds JSON that is not valid in <i>expression</i> before it finds the value identified by <i>path</i>, the function returns an error. If <b>JSON_QUERY</b> doesn't find the value identified by <i>path</i>, it scans the entire text and returns an error if it finds JSON that is not valid anywhere in <i>expression</i>.
+        /// </param>
+        /// <param name="path">
+        /// A JSON path that specifies the object or the array to extract.<br/><br/>
+        /// In SQL Server 2017 and in Azure SQL Database, you can provide a variable as the value of <i>path</i>.<br/><br/>
+        /// The JSON path can specify lax or strict mode for parsing.If you don't specify the parsing mode, lax mode is the default. For more info, see <see cref="https://docs.microsoft.com/en-us/sql/relational-databases/json/json-path-expressions-sql-server">JSON Path Expressions (SQL Server)</see>.<br/><br/>
+        /// The default value for path is '$'. As a result, if you don't provide a value for path, <b>JSON_QUERY</b> returns the input <i>expression</i>.<br/><br/>
+        /// If the format of <i>path</i> isn't valid, <b>JSON_QUERY</b> returns an error.
+        /// </param>
+        /// <returns>
+        /// Returns a JSON fragment of type T. The collation of the returned value is the same as the collation of the input expression.<br/><br/>
+        /// If the value is not an object or an array:
+        /// <ul>
+        /// <li>In lax mode, <b>JSON_QUERY</b> returns null.</li>
+        /// <li>In strict mode, <b>JSON_QUERY</b> returns an error.</li>
+        /// </ul>
+        /// </returns>
+        public static string JsonQuery(string expression) => string.Empty;
 
-		public static T JsonQuery<T>(string expression) => default(T);
+        public static T JsonQuery<T>(string expression) => default(T);
 
-		// SQL Server 2017+
-		public static string JsonQuery(string expression, string path) => string.Empty;
+        // SQL Server 2017+
+        public static string JsonQuery(string expression, string path) => string.Empty;
 
-		// SQL Server 2017+
-		public static T JsonQuery<T>(string expression, string path) => default(T);
-	}
+        // SQL Server 2017+
+        public static T JsonQuery<T>(string expression, string path) => default(T);
+    }
 }
 

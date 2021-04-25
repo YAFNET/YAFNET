@@ -149,7 +149,7 @@ namespace YAF.Pages.Account
             this.Get<LinkBuilder>().Redirect(
                 this.PageContext.BoardSettings.ShowRulesForRegistration ? ForumPages.RulesAndPrivacy : ForumPages.Account_Register);
         }
-        
+
         /// <summary>
         /// The sign in.
         /// </summary>
@@ -188,32 +188,32 @@ namespace YAF.Pages.Account
                     this.UserAuthenticated(user);
                     break;
                 default:
-                {
-                    // Lockout for 15 minutes if more than 10 failed attempts
-                    user.AccessFailedCount++;
-                    if (user.AccessFailedCount >= 10)
                     {
-                        user.LockoutEndDateUtc = DateTime.UtcNow.AddMinutes(15);
+                        // Lockout for 15 minutes if more than 10 failed attempts
+                        user.AccessFailedCount++;
+                        if (user.AccessFailedCount >= 10)
+                        {
+                            user.LockoutEndDateUtc = DateTime.UtcNow.AddMinutes(15);
 
-                        this.Logger.Info(
-                            $"User: {user.UserName} has reached the Limit of 10 failed login attempts and is locked out until {user.LockoutEndDateUtc}");
+                            this.Logger.Info(
+                                $"User: {user.UserName} has reached the Limit of 10 failed login attempts and is locked out until {user.LockoutEndDateUtc}");
 
-                        this.PageContext.LoadMessage.AddSession(
-                            this.GetText("LOGIN", "ERROR_LOCKEDOUT"),
-                            MessageTypes.danger);
-                    }
+                            this.PageContext.LoadMessage.AddSession(
+                                this.GetText("LOGIN", "ERROR_LOCKEDOUT"),
+                                MessageTypes.danger);
+                        }
 
-                    this.Get<IAspNetUsersHelper>().Update(user);
+                        this.Get<IAspNetUsersHelper>().Update(user);
 
-                    this.Logger.Log(
-                        $"Login Failure for User {this.UserName.Text.Trim()} with the IP Address {this.Get<HttpRequestBase>().GetUserRealIPAddress()}",
-                        EventLogTypes.LoginFailure,
-                        null,
-                        $"Login Failure: {this.UserName.Text.Trim()}");
+                        this.Logger.Log(
+                            $"Login Failure for User {this.UserName.Text.Trim()} with the IP Address {this.Get<HttpRequestBase>().GetUserRealIPAddress()}",
+                            EventLogTypes.LoginFailure,
+                            null,
+                            $"Login Failure: {this.UserName.Text.Trim()}");
 
                         this.PageContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
-                    break;
-                }
+                        break;
+                    }
             }
         }
 
@@ -264,13 +264,13 @@ namespace YAF.Pages.Account
                     }
 
                     break;
-               /* case AuthService.github:
-                    {
-                        var gitHubAccountAuth = new GitHub();
-                        gitHubAccountAuth.LoginOrCreateUser(out message);
-                    }
+                    /* case AuthService.github:
+                         {
+                             var gitHubAccountAuth = new GitHub();
+                             gitHubAccountAuth.LoginOrCreateUser(out message);
+                         }
 
-                    break;*/
+                         break;*/
             }
 
             if (message.IsSet())

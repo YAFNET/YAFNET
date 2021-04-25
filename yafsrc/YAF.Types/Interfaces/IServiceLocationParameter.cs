@@ -23,18 +23,18 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// A service location parameter
-  /// </summary>
-  public interface IServiceLocationParameter
-  {
-    #region Properties
-
     /// <summary>
-    /// Gets or sets Value.
+    /// A service location parameter
     /// </summary>
-    object Value { get; set; }
+    public interface IServiceLocationParameter
+    {
+        #region Properties
 
-    #endregion
-  }
+        /// <summary>
+        /// Gets or sets Value.
+        /// </summary>
+        object Value { get; set; }
+
+        #endregion
+    }
 }

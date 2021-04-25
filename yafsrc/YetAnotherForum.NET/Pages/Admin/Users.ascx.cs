@@ -107,7 +107,7 @@ namespace YAF.Pages.Admin
                     var userToDelete = this.GetRepository<User>().GetBoardUser(
                         e.CommandArgument.ToType<int>(),
                         this.PageContext.PageBoardID);
-                    
+
                     if (userToDelete.Item1.IsGuest == true)
                     {
                         // we cannot delete guest
@@ -455,7 +455,7 @@ namespace YAF.Pages.Admin
                 this.PagerTop.CurrentPageIndex,
                 this.PagerTop.PageSize,
                 this.name.Text.Trim(),
-                this.Email.Text.Trim(), 
+                this.Email.Text.Trim(),
                 sinceDate,
                 this.SuspendedOnly.Checked,
                 this.group.SelectedIndex <= 0 ? null : this.group.SelectedValue.ToType<int?>(),

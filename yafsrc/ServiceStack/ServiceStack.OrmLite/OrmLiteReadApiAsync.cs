@@ -545,7 +545,7 @@ namespace ServiceStack.OrmLite
         /// Returns the first result with all its references loaded, using a primary key id. E.g:
         /// <para>db.LoadSingleByIdAsync&lt;Person&gt;(1)</para>
         /// </summary>
-        public static Task<T> LoadSingleByIdAsync<T>(this IDbConnection dbConn, object idValue, string[] include = null, CancellationToken token=default(CancellationToken))
+        public static Task<T> LoadSingleByIdAsync<T>(this IDbConnection dbConn, object idValue, string[] include = null, CancellationToken token = default(CancellationToken))
         {
             return dbConn.Exec(dbCmd => dbCmd.LoadSingleByIdAsync<T>(idValue, include, token));
         }

@@ -23,28 +23,28 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// IEditorModule Interface for Editor classes.
-  /// </summary>
-  public interface IEditorModule : IModuleDefinition
-  {
-    #region Properties
-
     /// <summary>
-    /// Gets or sets Text.
+    /// IEditorModule Interface for Editor classes.
     /// </summary>
-    string Text { get; set; }
+    public interface IEditorModule : IModuleDefinition
+    {
+        #region Properties
 
-    /// <summary>
-    /// Gets a value indicating whether UsesBBCode.
-    /// </summary>
-    bool UsesBBCode { get; }
+        /// <summary>
+        /// Gets or sets Text.
+        /// </summary>
+        string Text { get; set; }
 
-    /// <summary>
-    /// Gets a value indicating whether UsesHTML.
-    /// </summary>
-    bool UsesHTML { get; }
+        /// <summary>
+        /// Gets a value indicating whether UsesBBCode.
+        /// </summary>
+        bool UsesBBCode { get; }
 
-    #endregion
-  }
+        /// <summary>
+        /// Gets a value indicating whether UsesHTML.
+        /// </summary>
+        bool UsesHTML { get; }
+
+        #endregion
+    }
 }

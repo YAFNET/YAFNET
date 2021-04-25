@@ -33,25 +33,26 @@ namespace ServiceStack.VirtualPath
 
         internal Assembly BackingAssembly => backingAssembly;
 
-        public ResourceVirtualDirectory(IVirtualPathProvider owningProvider, 
-            IVirtualDirectory parentDir, 
-            Assembly backingAsm, 
+        public ResourceVirtualDirectory(IVirtualPathProvider owningProvider,
+            IVirtualDirectory parentDir,
+            Assembly backingAsm,
             DateTime lastModified,
             string rootNamespace)
-        : this(owningProvider, 
-            parentDir, 
-            backingAsm, 
+        : this(owningProvider,
+            parentDir,
+            backingAsm,
             lastModified,
             rootNamespace,
-            rootNamespace, 
-            GetResourceNames(backingAsm, rootNamespace)) { }
+            rootNamespace,
+            GetResourceNames(backingAsm, rootNamespace))
+        { }
 
-        public ResourceVirtualDirectory(IVirtualPathProvider owningProvider, 
-            IVirtualDirectory parentDir, 
-            Assembly backingAsm, 
+        public ResourceVirtualDirectory(IVirtualPathProvider owningProvider,
+            IVirtualDirectory parentDir,
+            Assembly backingAsm,
             DateTime lastModified,
-            string rootNamespace, 
-            string directoryName, 
+            string rootNamespace,
+            string directoryName,
             List<string> manifestResourceNames)
             : base(owningProvider, parentDir)
         {

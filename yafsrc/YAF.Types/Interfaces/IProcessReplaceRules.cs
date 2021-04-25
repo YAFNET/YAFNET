@@ -23,46 +23,46 @@
  */
 namespace YAF.Types.Interfaces
 {
-  #region Using
+    #region Using
 
-  using System;
-
-  #endregion
-
-  /// <summary>
-  /// Replace Rules Interface
-  /// </summary>
-  public interface IProcessReplaceRules
-  {
-    #region Properties
-
-    /// <summary>
-    ///   Gets a value indicating whether any rules have been added.
-    /// </summary>
-    bool HasRules { get; }
+    using System;
 
     #endregion
 
-    #region Public Methods
-
     /// <summary>
-    /// The add rule.
+    /// Replace Rules Interface
     /// </summary>
-    /// <param name="newRule">
-    /// The new rule.
-    /// </param>
-    /// <exception cref="ArgumentNullException">
-    /// </exception>
-    void AddRule([NotNull] IReplaceRule newRule);
+    public interface IProcessReplaceRules
+    {
+        #region Properties
 
-    /// <summary>
-    /// Process text using the rules.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    void Process([NotNull] ref string text);
+        /// <summary>
+        ///   Gets a value indicating whether any rules have been added.
+        /// </summary>
+        bool HasRules { get; }
 
-    #endregion
-  }
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The add rule.
+        /// </summary>
+        /// <param name="newRule">
+        /// The new rule.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// </exception>
+        void AddRule([NotNull] IReplaceRule newRule);
+
+        /// <summary>
+        /// Process text using the rules.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        void Process([NotNull] ref string text);
+
+        #endregion
+    }
 }

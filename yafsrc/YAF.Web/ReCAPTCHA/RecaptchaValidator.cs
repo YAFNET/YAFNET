@@ -108,7 +108,7 @@ namespace YAF.Web.ReCAPTCHA
             CheckNotNull(this.SecretKey, "SecretKey");
             CheckNotNull(this.RemoteIP, "RemoteIp");
             CheckNotNull(this.Response, "Response");
-            
+
             if (this.Response.IsNotSet())
             {
                 return RecaptchaResponse.InvalidSolution;
@@ -124,7 +124,7 @@ namespace YAF.Web.ReCAPTCHA
 
             var s =
                 $"secret={HttpUtility.UrlEncode(this.SecretKey)}&remoteip={HttpUtility.UrlEncode(this.RemoteIP)}&response={HttpUtility.UrlEncode(this.Response)}";
-            
+
             var bytes = Encoding.ASCII.GetBytes(s);
             using (var stream = request.GetRequestStream())
             {

@@ -16,7 +16,7 @@ namespace ServiceStack
 
         public static object parseSpan(ReadOnlySpan<char> json)
         {
-            if (json.Length == 0) 
+            if (json.Length == 0)
                 return null;
             var firstChar = json[0];
 
@@ -25,18 +25,20 @@ namespace ServiceStack
 
             if (firstChar >= '0' && firstChar <= '9')
             {
-                try {
+                try
+                {
                     var longValue = MemoryProvider.Instance.ParseInt64(json);
                     return longValue >= int.MinValue && longValue <= int.MaxValue
-                        ? (int) longValue
+                        ? (int)longValue
                         : longValue;
-                } catch {}
+                }
+                catch { }
 
                 if (json.TryParseDouble(out var doubleValue))
                     return doubleValue;
             }
-            else if (firstChar == '{' || firstChar == '[' 
-                && !isEscapedJsonString(json.TrimStart())) 
+            else if (firstChar == '{' || firstChar == '['
+                && !isEscapedJsonString(json.TrimStart()))
             {
                 json.ParseJsToken(out var token);
                 return token.Evaluate(JS.CreateScope());
@@ -52,7 +54,7 @@ namespace ServiceStack
             {
                 return false;
             }
-                
+
             var unescapedString = JsonTypeSerializer.Unescape(json);
             return unescapedString.ToString();
         }
@@ -65,7 +67,7 @@ namespace ServiceStack
         public const string EvalCacheKeyPrefix = "scriptvalue:";
         public const string EvalScriptCacheKeyPrefix = "scriptvalue.script:";
         public const string EvalAstCacheKeyPrefix = "scriptvalue.ast:";
-        
+
         /// <summary>
         /// Configure ServiceStack.Text JSON Serializer to use Templates JS parsing
         /// </summary>
@@ -127,15 +129,15 @@ namespace ServiceStack
 
         public static object eval(ScriptContext context, string expr, Dictionary<string, object> args = null) =>
             eval(context, expr.AsSpan(), args);
-        public static object eval(ScriptContext context, ReadOnlySpan<char> expr, Dictionary<string, object> args=null)
+        public static object eval(ScriptContext context, ReadOnlySpan<char> expr, Dictionary<string, object> args = null)
         {
             return eval(expr, new ScriptScopeContext(new PageResult(context.EmptyPage), null, args));
         }
-        public static object eval(ScriptContext context, JsToken token, Dictionary<string, object> args=null)
+        public static object eval(ScriptContext context, JsToken token, Dictionary<string, object> args = null)
         {
             return ScriptLanguage.UnwrapValue(token.Evaluate(new ScriptScopeContext(new PageResult(context.EmptyPage), null, args)));
         }
-        
+
         /// <summary>
         /// Lightweight expression evaluator of a single JS Expression with results cached in global context cache
         /// </summary>

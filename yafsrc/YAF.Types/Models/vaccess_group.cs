@@ -35,7 +35,7 @@ namespace YAF.Types.Models
     [Serializable]
     public class vaccess_group : IEntity
     {
-       #region Public Properties
+        #region Public Properties
 
         [Required]
         public int UserID { get; set; }

@@ -33,7 +33,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsLogicalExpression) obj);
+            return Equals((JsLogicalExpression)obj);
         }
 
         public override int GetHashCode()

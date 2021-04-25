@@ -28,10 +28,10 @@ namespace ServiceStack
         public static readonly Task<object> EmptyTask;
 
         public static readonly object EmptyObject = new object();
-        
+
         public const char NonWidthWhiteSpace = (char)0x200B; //Use zero-width space marker to capture empty string
         public static char[] NonWidthWhiteSpaceChars = { (char)0x200B };
-        
+
         public static ReadOnlySpan<char> NullStringSpan => default;
         public static ReadOnlySpan<char> EmptyStringSpan => new ReadOnlySpan<char>(NonWidthWhiteSpaceChars);
 

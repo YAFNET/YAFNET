@@ -51,7 +51,7 @@ namespace ServiceStack.Script
                 scope.PageResult.Args[name] = existingString + capturedOutput;
                 return;
             }
-            
+
             scope.PageResult.Args[name] = capturedOutput;
         }
 
@@ -60,7 +60,7 @@ namespace ServiceStack.Script
         {
             if (block.Argument.IsNullOrWhiteSpace())
                 throw new NotSupportedException("'capture' block is missing name of variable to assign captured output to");
-            
+
             var literal = block.Argument.AdvancePastWhitespace();
             bool appendTo = false;
             if (literal.StartsWith("appendTo "))
@@ -68,7 +68,7 @@ namespace ServiceStack.Script
                 appendTo = true;
                 literal = literal.Advance("appendTo ".Length);
             }
-                
+
             literal = literal.ParseVarName(out var name);
             if (name.IsNullOrEmpty())
                 throw new NotSupportedException("'capture' block is missing name of variable to assign captured output to");

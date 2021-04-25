@@ -6,7 +6,7 @@ using ServiceStack.VirtualPath;
 
 namespace ServiceStack.IO
 {
-    public class ResourceVirtualFiles 
+    public class ResourceVirtualFiles
         : AbstractVirtualPathProviderBase
     {
         protected ResourceVirtualDirectory RootDir;
@@ -16,30 +16,30 @@ namespace ServiceStack.IO
         public override IVirtualDirectory RootDirectory => RootDir;
         public override string VirtualPathSeparator => "/";
         public override string RealPathSeparator => ".";
-        
-        public DateTime LastModified { get; set; } 
+
+        public DateTime LastModified { get; set; }
 
         public ResourceVirtualFiles(Type baseTypeInAssembly)
             : this(baseTypeInAssembly.Assembly, GetNamespace(baseTypeInAssembly)) { }
 
-        public ResourceVirtualFiles(Assembly backingAssembly, string rootNamespace=null)
+        public ResourceVirtualFiles(Assembly backingAssembly, string rootNamespace = null)
         {
             this.BackingAssembly = backingAssembly ?? throw new ArgumentNullException(nameof(backingAssembly));
             this.RootNamespace = rootNamespace ?? backingAssembly.GetName().Name;
 
             Initialize();
         }
-        
+
         //https://docs.microsoft.com/en-us/dotnet/api/system.resources.tools.stronglytypedresourcebuilder.verifyresourcename?redirectedfrom=MSDN&view=netframework-4.8#remarks
-        static readonly char [] NamespaceSpecialChars = { ' ', '\u00A0', ',', ';', '|', '~', '@', '#', '%', '^', '&', 
-            '*', '+', '-', /*'/', '\\',*/ '<', '>', '?', '[', ']', '(', ')', '{', 
+        static readonly char[] NamespaceSpecialChars = { ' ', '\u00A0', ',', ';', '|', '~', '@', '#', '%', '^', '&',
+            '*', '+', '-', /*'/', '\\',*/ '<', '>', '?', '[', ']', '(', ')', '{',
             '}', '\"', '\'', '!'};
 
         private static string CleanChars(string name)
         {
             var newChars = new char[name.Length];
             var nameChars = name.AsSpan();
-            for (var i = 0; i < nameChars.Length ;i++) 
+            for (var i = 0; i < nameChars.Length; i++)
             {
                 newChars[i] = nameChars[i];
                 foreach (var c in NamespaceSpecialChars)
@@ -51,9 +51,9 @@ namespace ServiceStack.IO
                     }
                 }
             }
-            return new string (newChars);
+            return new string(newChars);
         }
-        
+
         public static HashSet<string> PartialFileNames { get; set; } = new HashSet<string>
         {
             "min.js",
@@ -76,7 +76,7 @@ namespace ServiceStack.IO
                     dirPath = dirPath.LastLeftPart('/');
                     fileName = partialName + '.' + fileName;
                 }
-                
+
                 var cleanDir = CleanChars(dirPath); //only dirs are replaced 
                 var cleanPath = cleanDir + '/' + fileName;
                 return cleanPath;

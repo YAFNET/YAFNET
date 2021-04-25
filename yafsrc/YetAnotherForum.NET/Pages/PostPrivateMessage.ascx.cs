@@ -587,11 +587,11 @@ namespace YAF.Pages
                 // administrator is sending PMs to all users           
                 var body = this.editor.Text;
                 var messageFlags = new MessageFlags
-                                       {
-                                           IsHtml = this.editor.UsesHTML,
-                                           IsBBCode = this.editor.UsesBBCode
-                                       };
-                
+                {
+                    IsHtml = this.editor.UsesHTML,
+                    IsBBCode = this.editor.UsesBBCode
+                };
+
                 // test user's PM count
                 if (!this.VerifyMessageAllowed(1, body))
                 {
@@ -702,10 +702,10 @@ namespace YAF.Pages
                             var body = this.editor.Text;
 
                             var messageFlags = new MessageFlags
-                                                   {
-                                                       IsHtml = this.editor.UsesHTML,
-                                                       IsBBCode = this.editor.UsesBBCode
-                                                   };
+                            {
+                                IsHtml = this.editor.UsesHTML,
+                                IsBBCode = this.editor.UsesBBCode
+                            };
 
                             this.GetRepository<PMessage>().SendMessage(
                                 this.PageContext.PageUserID,
@@ -791,7 +791,7 @@ namespace YAF.Pages
 
                         break;
                 }
-                    
+
                 return false;
             }
 

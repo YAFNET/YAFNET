@@ -242,21 +242,21 @@ namespace YAF.Web.Controls
 
             // add a script manager since one doesn't exist...
             yafScriptManager = new ScriptManager
-                                   {
-                                       ID = "YafScriptManager",
-                                       EnablePartialRendering = true,
-                                       EnableCdn = this.Get<BoardSettings>().ScriptManagerScriptsCDNHosted,
-                                       EnableCdnFallback = this.Get<BoardSettings>().ScriptManagerScriptsCDNHosted,
-                                       EnableScriptLocalization =
+            {
+                ID = "YafScriptManager",
+                EnablePartialRendering = true,
+                EnableCdn = this.Get<BoardSettings>().ScriptManagerScriptsCDNHosted,
+                EnableCdnFallback = this.Get<BoardSettings>().ScriptManagerScriptsCDNHosted,
+                EnableScriptLocalization =
                                            !this.Get<BoardSettings>().ScriptManagerScriptsCDNHosted
-                                   };
+            };
 
             this.Controls.Add(yafScriptManager);
 
             base.OnInit(e);
         }
 
-        
+
 
         /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
@@ -364,7 +364,7 @@ namespace YAF.Web.Controls
 
             var src = $"{BoardInfo.ForumServerFileRoot}pages/{this.page.PageName}.ascx";
 
-            var replacementPaths = new List<string> { "Profile", "Account","moderate", "admin", "help" };
+            var replacementPaths = new List<string> { "Profile", "Account", "moderate", "admin", "help" };
 
             replacementPaths.Where(path => src.IndexOf($"/{path}_", StringComparison.Ordinal) >= 0)
                 .ForEach(path => src = src.Replace($"/{path}_", $"/{path}/"));

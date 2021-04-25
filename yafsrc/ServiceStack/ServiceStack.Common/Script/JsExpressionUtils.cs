@@ -42,8 +42,8 @@ namespace ServiceStack.Script
             }
 
             var ret = await token.EvaluateAsync(scope).ConfigAwait();
-            return ret == JsNull.Value 
-                ? null 
+            return ret == JsNull.Value
+                ? null
                 : ret;
         }
 
@@ -83,12 +83,12 @@ namespace ServiceStack.Script
 
             return token.EvaluateToBoolAsync(scope);
         }
-        
+
         public static JsToken GetCachedJsExpression(this ReadOnlyMemory<char> expr, ScriptScopeContext scope)
         {
             if (expr.IsEmpty)
                 return null;
-            
+
             if (scope.Context.JsTokenCache.TryGetValue(expr, out var token))
                 return token;
 
@@ -101,24 +101,24 @@ namespace ServiceStack.Script
 
         public static JsToken GetCachedJsExpression(this string expr, ScriptScopeContext scope) =>
             GetCachedJsExpression(expr.AsMemory(), scope);
-        
+
         public static ReadOnlySpan<char> ParseJsExpression(this string literal, out JsToken token) =>
             literal.AsSpan().ParseJsExpression(out token);
 
         public static ReadOnlySpan<char> ParseJsExpression(this ReadOnlySpan<char> literal, out JsToken token) =>
-            literal.ParseJsExpression(out token, filterExpression:false);
+            literal.ParseJsExpression(out token, filterExpression: false);
 
         public static ReadOnlySpan<char> ParseJsExpression(this ReadOnlyMemory<char> literal, out JsToken token) =>
-            literal.Span.ParseJsExpression(out token, filterExpression:false);
+            literal.Span.ParseJsExpression(out token, filterExpression: false);
 
         private const char ConditionalExpressionTestChar = '?';
 
         public static ReadOnlySpan<char> ParseJsExpression(this ReadOnlySpan<char> literal, out JsToken token, bool filterExpression)
         {
-            var peekLiteral = literal.ParseJsToken(out var node, filterExpression:filterExpression);
+            var peekLiteral = literal.ParseJsToken(out var node, filterExpression: filterExpression);
 
             peekLiteral = peekLiteral.AdvancePastWhitespace();
-            
+
             var peekChar = peekLiteral.SafeGetChar(0);
             if (literal.IsNullOrEmpty() || peekChar.IsExpressionTerminatorChar())
             {
@@ -126,7 +126,7 @@ namespace ServiceStack.Script
                 return peekLiteral;
             }
 
-            if (peekChar == ConditionalExpressionTestChar && 
+            if (peekChar == ConditionalExpressionTestChar &&
                 peekLiteral.SafeGetChar(1) != ConditionalExpressionTestChar) // not ??
             {
                 literal = peekLiteral.ParseJsConditionalExpression(node, out var expression);
@@ -138,7 +138,7 @@ namespace ServiceStack.Script
             {
                 if (peekLiteral.StartsWith("=>"))
                 {
-                    literal = peekLiteral.ParseArrowExpressionBody(new[]{ identifier }, out var arrowExpr);
+                    literal = peekLiteral.ParseArrowExpressionBody(new[] { identifier }, out var arrowExpr);
                     token = arrowExpr;
                     return literal;
                 }
@@ -180,7 +180,7 @@ namespace ServiceStack.Script
                     }
                 }
             }
-            
+
             peekLiteral = peekLiteral.ParseJsBinaryOperator(out var op);
             if (op != null)
             {
@@ -194,7 +194,7 @@ namespace ServiceStack.Script
                     token = conditionalExpr;
                     return literal;
                 }
-                
+
                 return literal;
             }
 
@@ -225,8 +225,8 @@ namespace ServiceStack.Script
         public static ReadOnlySpan<char> ParseBinaryExpression(this ReadOnlySpan<char> literal, out JsExpression expr, bool filterExpression)
         {
             literal = literal.AdvancePastWhitespace();
-            
-            literal = literal.ParseJsToken(out var lhs, filterExpression:filterExpression);
+
+            literal = literal.ParseJsToken(out var lhs, filterExpression: filterExpression);
 
             if (literal.IsNullOrEmpty())
             {
@@ -244,7 +244,7 @@ namespace ServiceStack.Script
                 var prec = JsTokenUtils.GetBinaryPrecedence(op.Token);
                 if (prec > 0 || op == JsAssignment.Operator)
                 {
-                    literal = literal.ParseJsToken(out JsToken rhs, filterExpression:filterExpression);
+                    literal = literal.ParseJsToken(out JsToken rhs, filterExpression: filterExpression);
 
                     var stack = new Stack<JsToken>();
                     stack.Push(lhs);
@@ -275,12 +275,12 @@ namespace ServiceStack.Script
                         }
 
                         literal = literal.ParseJsBinaryOperator(out op);
-                        
+
                         if (literal.IsNullOrEmpty())
                             throw new SyntaxErrorException($"Expected expression near: '{literal.DebugLiteral()}'");
 
-                        literal = literal.ParseJsToken(out var token, filterExpression:filterExpression);
-                        
+                        literal = literal.ParseJsToken(out var token, filterExpression: filterExpression);
+
                         stack.Push(op);
                         stack.Push(token);
                         precedences.Add(prec);
@@ -291,12 +291,12 @@ namespace ServiceStack.Script
 
                     while (stack.Count > 0)
                     {
-                        op = (JsBinaryOperator) stack.Pop();
+                        op = (JsBinaryOperator)stack.Pop();
                         lhs = stack.Pop();
                         ret = CreateJsExpression(lhs, op, ret);
                     }
 
-                    expr = (JsExpression) ret;
+                    expr = (JsExpression)ret;
                 }
                 else
                 {
@@ -315,7 +315,7 @@ namespace ServiceStack.Script
                 return new JsLogicalExpression(lhs, opAnd, rhs);
             if (op is JsOr opOr)
                 return new JsLogicalExpression(lhs, opOr, rhs);
-            
+
             if (op == JsAssignment.Operator)
                 return new JsAssignmentExpression(lhs, JsAssignment.Operator, rhs);
 
@@ -334,6 +334,6 @@ namespace ServiceStack.Script
             return 0;
         }
     }
-    
+
 
 }

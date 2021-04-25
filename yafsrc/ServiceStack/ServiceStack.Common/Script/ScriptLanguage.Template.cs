@@ -11,42 +11,42 @@ using System.Threading.Tasks;
 using ServiceStack.Extensions;
 using ServiceStack.Text;
 
-namespace ServiceStack.Script 
+namespace ServiceStack.Script
 {
     /// <summary>
     /// #Script Language which processes ```lang ... ``` blocks
     /// </summary>
     public sealed class SharpScript : ScriptLanguage
     {
-        private SharpScript() {} // force usage of singleton
+        private SharpScript() { } // force usage of singleton
 
         public static readonly ScriptLanguage Language = new SharpScript();
 
         public override string Name => "script";
-        
+
         public override List<PageFragment> Parse(ScriptContext context, ReadOnlyMemory<char> body, ReadOnlyMemory<char> modifiers)
         {
             return context.ParseScript(body);
         }
     }
-    
+
     /// <summary>
     /// The #Script Default Template Language (does not process ```lang ... ``` blocks)
     /// </summary>
     public sealed class ScriptTemplate : ScriptLanguage
     {
-        private ScriptTemplate() {} // force usage of singleton
+        private ScriptTemplate() { } // force usage of singleton
 
         public static readonly ScriptLanguage Language = new ScriptTemplate();
-        
+
         public override string Name => "template";
-        
+
         public override List<PageFragment> Parse(ScriptContext context, ReadOnlyMemory<char> body, ReadOnlyMemory<char> modifiers)
         {
             var pageFragments = context.ParseTemplate(body);
             return pageFragments;
         }
-        
+
         public override async Task<bool> WritePageFragmentAsync(ScriptScopeContext scope, PageFragment fragment, CancellationToken token)
         {
             if (fragment is PageStringFragment str)
@@ -61,7 +61,7 @@ namespace ServiceStack.Script
                     if (scope.PageResult.PageProcessed)
                         throw new NotSupportedException("{{page}} can only be called once per render, in the Layout page.");
                     scope.PageResult.PageProcessed = true;
-                    
+
                     await scope.PageResult.WritePageAsync(scope.PageResult.Page, scope.PageResult.CodePage, scope, token).ConfigAwait();
 
                     if (scope.PageResult.HaltExecution)
@@ -79,7 +79,7 @@ namespace ServiceStack.Script
             }
             else return false;
 
-            return true; 
+            return true;
         }
     }
 
@@ -88,26 +88,26 @@ namespace ServiceStack.Script
         /// <summary>
         /// Create SharpPage configured to use #Script 
         /// </summary>
-        public static SharpPage SharpScriptPage(this ScriptContext context, string code) 
+        public static SharpPage SharpScriptPage(this ScriptContext context, string code)
             => context.Pages.OneTimePage(code, context.PageFormats[0].Extension,
                 p => p.ScriptLanguage = SharpScript.Language);
 
         /// <summary>
         /// Create SharpPage configured to use #Script Templates 
         /// </summary>
-        public static SharpPage TemplateSharpPage(this ScriptContext context, string code) 
+        public static SharpPage TemplateSharpPage(this ScriptContext context, string code)
             => context.Pages.OneTimePage(code, context.PageFormats[0].Extension,
                 p => p.ScriptLanguage = ScriptTemplate.Language);
 
         /// <summary>
         /// Render #Script output to string
         /// </summary>
-        public static string RenderScript(this ScriptContext context, string script, out ScriptException error) => 
+        public static string RenderScript(this ScriptContext context, string script, out ScriptException error) =>
             context.RenderScript(script, null, out error);
         /// <summary>
         /// Alias for EvaluateScript 
         /// </summary>
-        public static string EvaluateScript(this ScriptContext context, string script, out ScriptException error) => 
+        public static string EvaluateScript(this ScriptContext context, string script, out ScriptException error) =>
             context.EvaluateScript(script, null, out error);
 
         /// <summary>
@@ -121,8 +121,9 @@ namespace ServiceStack.Script
         public static string EvaluateScript(this ScriptContext context, string script, Dictionary<string, object> args, out ScriptException error)
         {
             var pageResult = new PageResult(context.SharpScriptPage(script));
-            args.Each((x,y) => pageResult.Args[x] = y);
-            try { 
+            args.Each((x, y) => pageResult.Args[x] = y);
+            try
+            {
                 var output = pageResult.Result;
                 error = pageResult.LastFilterError != null ? new ScriptException(pageResult) : null;
                 return output;
@@ -143,10 +144,10 @@ namespace ServiceStack.Script
         /// <summary>
         /// Alias for RenderScript 
         /// </summary>
-        public static string EvaluateScript(this ScriptContext context, string script, Dictionary<string, object> args=null)
+        public static string EvaluateScript(this ScriptContext context, string script, Dictionary<string, object> args = null)
         {
             var pageResult = new PageResult(context.SharpScriptPage(script));
-            args.Each((x,y) => pageResult.Args[x] = y);
+            args.Each((x, y) => pageResult.Args[x] = y);
             return pageResult.RenderScript();
         }
 
@@ -158,30 +159,30 @@ namespace ServiceStack.Script
         /// <summary>
         /// Alias for RenderScriptAsync 
         /// </summary>
-        public static async Task<string> EvaluateScriptAsync(this ScriptContext context, string script, Dictionary<string, object> args=null)
+        public static async Task<string> EvaluateScriptAsync(this ScriptContext context, string script, Dictionary<string, object> args = null)
         {
             var pageResult = new PageResult(context.SharpScriptPage(script));
-            args.Each((x,y) => pageResult.Args[x] = y);
+            args.Each((x, y) => pageResult.Args[x] = y);
             return await pageResult.RenderScriptAsync().ConfigAwait();
         }
-        
+
         /// <summary>
         /// Evaluate #Script and convert returned value to T 
         /// </summary>
         public static T Evaluate<T>(this ScriptContext context, string script, Dictionary<string, object> args = null) =>
             context.Evaluate(script, args).ConvertTo<T>();
-        
+
         /// <summary>
         /// Evaluate #Script and return value 
         /// </summary>
-        public static object Evaluate(this ScriptContext context, string script, Dictionary<string, object> args=null)
+        public static object Evaluate(this ScriptContext context, string script, Dictionary<string, object> args = null)
         {
             var pageResult = new PageResult(context.SharpScriptPage(script));
-            args.Each((x,y) => pageResult.Args[x] = y);
+            args.Each((x, y) => pageResult.Args[x] = y);
 
             if (!pageResult.EvaluateResult(out var returnValue))
                 throw new NotSupportedException(ScriptContextUtils.ErrorNoReturn);
-            
+
             return ScriptLanguage.UnwrapValue(returnValue);
         }
 
@@ -190,23 +191,23 @@ namespace ServiceStack.Script
         /// </summary>
         public static async Task<T> EvaluateAsync<T>(this ScriptContext context, string script, Dictionary<string, object> args = null) =>
             (await context.EvaluateAsync(script, args).ConfigAwait()).ConvertTo<T>();
-        
+
         /// <summary>
         /// Evaluate #Script and convert returned value to T asynchronously
         /// </summary>
-        public static async Task<object> EvaluateAsync(this ScriptContext context, string script, Dictionary<string, object> args=null)
+        public static async Task<object> EvaluateAsync(this ScriptContext context, string script, Dictionary<string, object> args = null)
         {
             var pageResult = new PageResult(context.SharpScriptPage(script));
-            args.Each((x,y) => pageResult.Args[x] = y);
+            args.Each((x, y) => pageResult.Args[x] = y);
 
             var ret = await pageResult.EvaluateResultAsync().ConfigAwait();
             if (!ret.Item1)
                 throw new NotSupportedException(ScriptContextUtils.ErrorNoReturn);
-            
+
             return ScriptLanguage.UnwrapValue(ret.Item2);
         }
-        
-        
+
+
         public static List<PageFragment> ParseTemplate(string text)
         {
             return new ScriptContext().Init().ParseTemplate(text.AsMemory());
@@ -222,7 +223,7 @@ namespace ServiceStack.Script
         {
             var inStatements = 0;
             var pos = 0;
-            
+
             while (true)
             {
                 pos = literal.IndexOf("{{", pos);
@@ -268,7 +269,7 @@ namespace ServiceStack.Script
         //   {{else if a=b}}  {{else}}  {{/name}}
         //  ^
         // returns           ^         ^
-        public static ReadOnlyMemory<char> ParseTemplateElseBlock(this ReadOnlyMemory<char> literal, string blockName, 
+        public static ReadOnlyMemory<char> ParseTemplateElseBlock(this ReadOnlyMemory<char> literal, string blockName,
             out ReadOnlyMemory<char> elseArgument, out ReadOnlyMemory<char> elseBody)
         {
             var inStatements = 0;
@@ -276,7 +277,7 @@ namespace ServiceStack.Script
             var statementPos = -1;
             elseBody = default;
             elseArgument = default;
-            
+
             while (true)
             {
                 pos = literal.IndexOf("{{", pos);
@@ -312,7 +313,7 @@ namespace ServiceStack.Script
                             elseBody = literal.Slice(statementPos, pos - statementPos).TrimFirstNewLine();
                             return literal.Slice(pos);
                         }
-                        
+
                         var endExprPos = literal.IndexOf("}}", pos);
                         if (endExprPos == -1)
                             throw new SyntaxErrorException($"End expression for 'else' not found.");
@@ -327,7 +328,7 @@ namespace ServiceStack.Script
                 pos += 2;
             }
         }
-        
+
         public static List<PageFragment> ParseScript(this ScriptContext context, ReadOnlyMemory<char> text)
         {
             var to = new List<PageFragment>();
@@ -338,7 +339,7 @@ namespace ServiceStack.Script
             var cursorPos = 0;
             var lastBlockPos = 0;
             var inRawBlock = false;
-            
+
             const int delim = 3; // '```'.length
 
             while (text.TryReadLine(out var line, ref cursorPos))
@@ -401,7 +402,7 @@ namespace ServiceStack.Script
                 var templateFragments = ScriptTemplate.Language.Parse(context, remainingBlock);
                 to.AddRange(templateFragments);
             }
-            
+
             return to;
         }
 
@@ -411,7 +412,7 @@ namespace ServiceStack.Script
 
             if (text.IsNullOrWhiteSpace())
                 return to;
-            
+
             int pos;
             var lastPos = 0;
 
@@ -422,18 +423,18 @@ namespace ServiceStack.Script
 
                 if (c2 == -1)
                     return c1;
-                
+
                 return c1 == -1 ? c2 : c1 < c2 ? c1 : c2;
             }
-            
+
             while ((pos = nextPos()) != -1)
             {
                 var block = text.Slice(lastPos, pos - lastPos);
                 if (!block.IsNullOrEmpty())
                     to.Add(new PageStringFragment(block));
-                
+
                 var varStartPos = pos + 2;
-                
+
                 if (varStartPos >= text.Span.Length)
                     throw new SyntaxErrorException($"Unterminated '{{{{' expression, near '{text.Slice(lastPos).DebugLiteral()}'");
 
@@ -445,7 +446,7 @@ namespace ServiceStack.Script
                     if (literal.SafeGetChar(0).IsValidVarNameChar())
                     {
                         literal = literal.ParseVarName(out var langSpan);
-                    
+
                         lang = context.GetScriptLanguage(langSpan.ToString());
                         if (lang != null)
                         {
@@ -474,8 +475,8 @@ namespace ServiceStack.Script
                 if (firstChar == '*') //comment
                 {
                     lastPos = text.IndexOf("*}}", varStartPos) + 3;
-                    if (text.Span.SafeCharEquals(lastPos,'\r')) lastPos++;
-                    if (text.Span.SafeCharEquals(lastPos,'\n')) lastPos++;
+                    if (text.Span.SafeCharEquals(lastPos, '\r')) lastPos++;
+                    if (text.Span.SafeCharEquals(lastPos, '\n')) lastPos++;
                 }
                 else if (firstChar == '#') //block statement
                 {
@@ -486,7 +487,7 @@ namespace ServiceStack.Script
                     var length = text.Length - pos - literal.Length;
                     blockFragment.OriginalText = text.Slice(pos, length);
                     lastPos = pos + length;
-                    
+
                     to.Add(blockFragment);
                 }
                 else
@@ -583,7 +584,7 @@ namespace ServiceStack.Script
             var endBlock = "{{/" + blockName + "}}";
             var endExprPos = literal.IndexOf("}}");
             if (endExprPos == -1)
-                throw new SyntaxErrorException($"Unterminated '{blockName}' block expression, near '{literal.DebugLiteral()}'" );
+                throw new SyntaxErrorException($"Unterminated '{blockName}' block expression, near '{literal.DebugLiteral()}'");
 
             var argument = literal.Slice(0, endExprPos).Trim();
             literal = literal.Advance(endExprPos + 2);
@@ -591,7 +592,7 @@ namespace ServiceStack.Script
             var language = context.ParseAsLanguage.TryGetValue(blockName, out var lang)
                 ? lang
                 : ScriptTemplate.Language;
-            
+
             if (language.Name == ScriptVerbatim.Language.Name)
             {
                 var endBlockPos = literal.IndexOf(endBlock);
@@ -607,11 +608,11 @@ namespace ServiceStack.Script
 
             literal = literal.ParseTemplateBody(blockNameSpan, out var bodyText);
             var bodyFragments = language.Parse(context, bodyText);
-                
+
             var elseBlocks = new List<PageElseBlock>();
             while (literal.StartsWith("{{else"))
             {
-                literal = literal.ParseTemplateElseBlock(blockName, out var elseArgument,  out var elseBody);
+                literal = literal.ParseTemplateElseBlock(blockName, out var elseArgument, out var elseBody);
 
                 var elseBlock = new PageElseBlock(elseArgument, language.Parse(context, elseBody));
                 elseBlocks.Add(elseBlock);
@@ -631,7 +632,7 @@ namespace ServiceStack.Script
         public static IRawString ToRawString(this string value) => value != null
             ? new RawString(value)
             : RawString.Empty;
-        
+
         public static ConcurrentDictionary<string, Func<ScriptScopeContext, object, object>> BinderCache { get; } = new ConcurrentDictionary<string, Func<ScriptScopeContext, object, object>>();
 
         public static Func<ScriptScopeContext, object, object> GetMemberExpression(Type targetType, ReadOnlyMemory<char> expression)
@@ -650,7 +651,7 @@ namespace ServiceStack.Script
 
             return fn;
         }
-        
+
         public static Func<ScriptScopeContext, object, object> Compile(Type type, ReadOnlyMemory<char> expr)
         {
             var scope = Expression.Parameter(typeof(ScriptScopeContext), "scope");
@@ -693,7 +694,7 @@ namespace ServiceStack.Script
                         var value = JsToken.UnwrapValue(token);
 
                         var valueExpr = value == null
-                            ? (Expression) Expression.Call(
+                            ? (Expression)Expression.Call(
                                 typeof(ScriptTemplateUtils).GetStaticMethod(nameof(EvaluateBinding)),
                                 scope,
                                 Expression.Constant(token))
@@ -747,7 +748,7 @@ namespace ServiceStack.Script
                             }
                             else
                             {
-                                var indexMethod = currType.GetMethod("get_Item", new[] {value.GetType()});
+                                var indexMethod = currType.GetMethod("get_Item", new[] { value.GetType() });
                                 body = Expression.Call(body, indexMethod, valueExpr);
                                 currType = indexMethod.ReturnType;
                             }
@@ -778,7 +779,7 @@ namespace ServiceStack.Script
                                     if (fi != null)
                                         currType = fi.FieldType;
                                 }
-                                
+
                             }
                         }
                     }
@@ -791,7 +792,7 @@ namespace ServiceStack.Script
                 }
                 catch (Exception e)
                 {
-                    throw new BindingExpressionException($"Could not compile '{member}' from expression '{expr}'", 
+                    throw new BindingExpressionException($"Could not compile '{member}' from expression '{expr}'",
                         member.ToString(), expr.ToString(), e);
                 }
             }
@@ -815,7 +816,7 @@ namespace ServiceStack.Script
                 var indexExpr = propItemExpr.Arguments[0];
                 if (propItemExpr.Indexer.PropertyType != typeof(object))
                 {
-                    body = Expression.Call(propItemExpr.Object, mi, indexExpr, 
+                    body = Expression.Call(propItemExpr.Object, mi, indexExpr,
                         Expression.Call(CreateConvertMethod(propItemExpr.Indexer.DeclaringType.GetCollectionType()), valueToAssign));
                 }
                 else
@@ -831,13 +832,13 @@ namespace ServiceStack.Script
                 if (arrayInstance.Type != typeof(object))
                 {
                     body = Expression.Assign(
-                        Expression.ArrayAccess(arrayInstance, indexExpr), 
+                        Expression.ArrayAccess(arrayInstance, indexExpr),
                         Expression.Call(CreateConvertMethod(arrayInstance.Type.GetElementType()), valueToAssign));
                 }
                 else
                 {
                     body = Expression.Assign(
-                        Expression.ArrayAccess(arrayInstance, indexExpr), 
+                        Expression.ArrayAccess(arrayInstance, indexExpr),
                         valueToAssign);
                 }
             }
@@ -852,7 +853,7 @@ namespace ServiceStack.Script
                     body = Expression.Assign(propExpr, valueToAssign);
                 }
             }
-            else 
+            else
                 throw new BindingExpressionException($"Assignment expression for '{expr}' not supported yet", "valueToAssign", expr.ToString());
 
             return Expression.Lambda<Action<ScriptScopeContext, object, object>>(body, scope, instance, valueToAssign).Compile();
@@ -889,7 +890,7 @@ namespace ServiceStack.Script
             var converted = result.ConvertTo<T>();
             return converted;
         }
-        
+
         private static PropertyInfo AssertProperty(Type currType, string prop, ReadOnlyMemory<char> expr)
         {
             var pi = currType.GetProperty(prop);
@@ -901,6 +902,6 @@ namespace ServiceStack.Script
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsWhiteSpace(this char c) =>
-            c == ' ' || (c >= '\x0009' && c <= '\x000d') || c == '\x00a0' || c == '\x0085';        
+            c == ' ' || (c >= '\x0009' && c <= '\x000d') || c == '\x00a0' || c == '\x0085';
     }
 }

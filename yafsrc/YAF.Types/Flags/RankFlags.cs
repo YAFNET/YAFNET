@@ -23,158 +23,158 @@
  */
 namespace YAF.Types.Flags
 {
-  using System;
-
-  /// <summary>
-  /// The rank flags.
-  /// </summary>
-  [Serializable]
-  public class RankFlags : FlagsBase
-  {
-    #region Constructors
+    using System;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RankFlags"/> class.
+    /// The rank flags.
     /// </summary>
-    public RankFlags()
-      : this(0)
+    [Serializable]
+    public class RankFlags : FlagsBase
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankFlags"/> class.
+        /// </summary>
+        public RankFlags()
+          : this(0)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankFlags"/> class.
+        /// </summary>
+        /// <param name="flags">
+        /// The flags.
+        /// </param>
+        public RankFlags(Flags flags)
+          : this((int)flags)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankFlags"/> class.
+        /// </summary>
+        /// <param name="bitValue">
+        /// The bit value.
+        /// </param>
+        public RankFlags(object bitValue)
+          : this((int)bitValue)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankFlags"/> class.
+        /// </summary>
+        /// <param name="bitValue">
+        /// The bit value.
+        /// </param>
+        public RankFlags(int bitValue)
+          : base(bitValue)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankFlags"/> class.
+        /// </summary>
+        /// <param name="bits">
+        /// The bits.
+        /// </param>
+        public RankFlags(params bool[] bits)
+          : base(bits)
+        {
+        }
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// The op_ implicit.
+        /// </summary>
+        /// <param name="newBitValue">
+        /// The new bit value.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator RankFlags(int newBitValue)
+        {
+            return new(newBitValue);
+        }
+
+        /// <summary>
+        /// The op_ implicit.
+        /// </summary>
+        /// <param name="flags">
+        /// The flags.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator RankFlags(Flags flags)
+        {
+            return new(flags);
+        }
+
+        #endregion
+
+        #region Flags Enumeration
+
+        /// <summary>
+        /// Use for bit comparisons
+        /// </summary>
+        public enum Flags
+        {
+            None = 0,
+
+            /// <summary>
+            /// The is start.
+            /// </summary>
+            IsStart = 1,
+
+            /// <summary>
+            /// The is ladder.
+            /// </summary>
+            IsLadder = 2
+
+            /* for future use
+                  xxxxx = 4,
+                  xxxxx = 8,
+                  xxxxx = 16,
+                  xxxxx = 32,
+                  xxxxx = 64,
+                  xxxxx = 128,
+                  xxxxx = 256,
+                  xxxxx = 512
+                   */
+        }
+
+        #endregion
+
+        #region Single Flags (can be 32 of them)
+
+        /// <summary>
+        /// Gets or sets whether rank is default starting rank of new users.
+        /// </summary>
+        public bool IsStart
+        {
+            // int value 1
+            get => this[0];
+
+            set => this[0] = value;
+        }
+
+
+        /// <summary>
+        /// Gets or sets whether rank is ladder rank.
+        /// </summary>
+        public bool IsLadder
+        {
+            // int value 2
+            get => this[1];
+
+            set => this[1] = value;
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RankFlags"/> class.
-    /// </summary>
-    /// <param name="flags">
-    /// The flags.
-    /// </param>
-    public RankFlags(Flags flags)
-      : this((int) flags)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RankFlags"/> class.
-    /// </summary>
-    /// <param name="bitValue">
-    /// The bit value.
-    /// </param>
-    public RankFlags(object bitValue)
-      : this((int) bitValue)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RankFlags"/> class.
-    /// </summary>
-    /// <param name="bitValue">
-    /// The bit value.
-    /// </param>
-    public RankFlags(int bitValue)
-      : base(bitValue)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RankFlags"/> class.
-    /// </summary>
-    /// <param name="bits">
-    /// The bits.
-    /// </param>
-    public RankFlags(params bool[] bits)
-      : base(bits)
-    {
-    }
-
-    #endregion
-
-    #region Operators
-
-    /// <summary>
-    /// The op_ implicit.
-    /// </summary>
-    /// <param name="newBitValue">
-    /// The new bit value.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static implicit operator RankFlags(int newBitValue)
-    {
-      return new(newBitValue);
-    }
-
-    /// <summary>
-    /// The op_ implicit.
-    /// </summary>
-    /// <param name="flags">
-    /// The flags.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static implicit operator RankFlags(Flags flags)
-    {
-      return new(flags);
-    }
-
-    #endregion
-
-    #region Flags Enumeration
-
-    /// <summary>
-    /// Use for bit comparisons
-    /// </summary>
-    public enum Flags
-    {
-      None = 0,
-
-      /// <summary>
-      /// The is start.
-      /// </summary>
-      IsStart = 1, 
-
-      /// <summary>
-      /// The is ladder.
-      /// </summary>
-      IsLadder = 2
-
-      /* for future use
-            xxxxx = 4,
-            xxxxx = 8,
-            xxxxx = 16,
-            xxxxx = 32,
-            xxxxx = 64,
-            xxxxx = 128,
-            xxxxx = 256,
-            xxxxx = 512
-             */
-    }
-
-    #endregion
-
-    #region Single Flags (can be 32 of them)
-
-    /// <summary>
-    /// Gets or sets whether rank is default starting rank of new users.
-    /// </summary>
-    public bool IsStart
-    {
-      // int value 1
-      get => this[0];
-
-      set => this[0] = value;
-    }
-
-
-    /// <summary>
-    /// Gets or sets whether rank is ladder rank.
-    /// </summary>
-    public bool IsLadder
-    {
-      // int value 2
-      get => this[1];
-
-      set => this[1] = value;
-    }
-
-    #endregion
-  }
 }

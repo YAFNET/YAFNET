@@ -23,7 +23,7 @@
  */
 namespace YAF.Types.Extensions
 {
-  #region Using
+    #region Using
 
     using System;
     using System.Linq;
@@ -34,28 +34,28 @@ namespace YAF.Types.Extensions
 
     #endregion
 
-  /// <summary>
-  /// The type extensions.
-  /// </summary>
-  public static class TypeExtensions
-  {
-    #region Public Methods
-
     /// <summary>
-    /// The get signing key.
+    /// The type extensions.
     /// </summary>
-    /// <param name="sourceType">
-    /// The source type.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static StrongNamePublicKeyBlob GetSigningKey([NotNull] this Type sourceType)
+    public static class TypeExtensions
     {
-      CodeContracts.VerifyNotNull(sourceType, "sourceType");
+        #region Public Methods
 
-      return sourceType.Assembly.Evidence.OfType<StrongName>().Select(t => t.PublicKey).FirstOrDefault();
+        /// <summary>
+        /// The get signing key.
+        /// </summary>
+        /// <param name="sourceType">
+        /// The source type.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static StrongNamePublicKeyBlob GetSigningKey([NotNull] this Type sourceType)
+        {
+            CodeContracts.VerifyNotNull(sourceType, "sourceType");
+
+            return sourceType.Assembly.Evidence.OfType<StrongName>().Select(t => t.PublicKey).FirstOrDefault();
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }

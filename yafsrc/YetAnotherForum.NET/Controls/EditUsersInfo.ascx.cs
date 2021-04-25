@@ -43,7 +43,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
-    
+
     #endregion
 
     /// <summary>

@@ -181,7 +181,7 @@ namespace YAF.Pages.Admin
             if (!this.Get<HttpRequestBase>().QueryString.Exists("c"))
             {
                 this.IconHeader.Text = this.GetText("NEW_CATEGORY");
-                    
+
                 // Currently creating a New Category, and auto fill the Category Sort Order + 1
                 var sortOrder = 1;
 

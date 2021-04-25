@@ -43,7 +43,7 @@ namespace ServiceStack.Text
                 case PlatformID.Win32Windows:
                 case PlatformID.WinCE:
                     IsWindows = true;
-                break;
+                    break;
             }
 
             var platform = (int)Environment.OSVersion.Platform;
@@ -59,7 +59,7 @@ namespace ServiceStack.Text
             {
                 IsMono = AssemblyUtils.FindType("Mono.Runtime") != null;
             }
-            catch (Exception) {}
+            catch (Exception) { }
 
             SupportsDynamic = true;
 #endif
@@ -88,7 +88,7 @@ namespace ServiceStack.Text
                                 runtimeDir.Contains("/CoreSimulator/Devices/");
                     }
                 }
-                catch (Exception) {}
+                catch (Exception) { }
             }
 
             SupportsExpressions = true;
@@ -108,7 +108,7 @@ namespace ServiceStack.Text
                               + (IsLinux ? "/Linux" : IsOSX ? "/OSX" : IsUnix ? "/Unix" : IsWindows ? "/Windows" : "/UnknownOS")
                               + (IsIOS ? "/iOS" : IsAndroid ? "/Android" : IsUWP ? "/UWP" : "");
 
-            __releaseDate = new DateTime(2001,01,01);
+            __releaseDate = new DateTime(2001, 01, 01);
         }
 
         public static string VersionString { get; set; }
@@ -299,7 +299,7 @@ namespace ServiceStack.Text
 
         [DllImport("kernel32.dll", ExactSpelling = true)]
         private static extern int GetCurrentApplicationUserModelId(ref uint applicationUserModelIdLength, byte[] applicationUserModelId);
- #endif
+#endif
 
         public const bool ContinueOnCapturedContext = false;
 

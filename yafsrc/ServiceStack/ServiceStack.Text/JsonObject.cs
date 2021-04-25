@@ -28,8 +28,8 @@ namespace ServiceStack.Text
         {
             if (map == null)
                 return TypeConstants<T>.EmptyArray;
-            return map.TryGetValue(key, out var value) 
-                ? (map is JsonObject obj ? value.FromJson<T[]>() : value.FromJsv<T[]>()) 
+            return map.TryGetValue(key, out var value)
+                ? (map is JsonObject obj ? value.FromJson<T[]>() : value.FromJsv<T[]>())
                 : TypeConstants<T>.EmptyArray;
         }
 
@@ -40,8 +40,8 @@ namespace ServiceStack.Text
         {
             if (map == null)
                 return null;
-            return map.TryGetValue(key, out var strVal) 
-                ? JsonTypeSerializer.Instance.UnescapeString(strVal) 
+            return map.TryGetValue(key, out var strVal)
+                ? JsonTypeSerializer.Instance.UnescapeString(strVal)
                 : null;
         }
 

@@ -20,6 +20,6 @@ namespace ServiceStack.OrmLite.SqlServer.Converters
 
     public class SqlServerDecimalConverter : DecimalConverter
     {
-        public SqlServerDecimalConverter() : base(38, 6) {}
+        public SqlServerDecimalConverter() : base(38, 6) { }
     }
 }

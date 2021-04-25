@@ -37,7 +37,7 @@ namespace ServiceStack.IO
         }
 
         public DateTime LastRefresh { get; private set; }
-        
+
         public TimeSpan RefreshAfter { get; set; } = TimeSpan.MaxValue;
 
         public const char DirSep = '\\';
@@ -60,7 +60,7 @@ namespace ServiceStack.IO
             {
                 if (string.IsNullOrEmpty(base64String))
                     return TypeConstants.EmptyByteArray;
-                
+
                 return Convert.FromBase64String(base64String);
             }
             catch (Exception ex)
@@ -81,7 +81,7 @@ namespace ServiceStack.IO
             }
             return false;
         }
-        
+
         public static bool GetGistContents(string filePath, Gist gist, out string text, out MemoryStream stream)
         {
             var base64FilePath = filePath + Base64Modifier;
@@ -110,7 +110,7 @@ namespace ServiceStack.IO
                     else
                     {
                         var bytesMemory = MemoryProvider.Instance.ToUtf8(text.AsSpan());
-                        stream = MemoryProvider.Instance.ToMemoryStream(bytesMemory.Span); 
+                        stream = MemoryProvider.Instance.ToMemoryStream(bytesMemory.Span);
                     }
                     return true;
                 }
@@ -147,15 +147,16 @@ namespace ServiceStack.IO
             LastRefresh = DateTime.UtcNow;
             return gistCache = await Gateway.GetGistAsync(GistId).ConfigAwait();
         }
-        
+
         public async Task LoadAllTruncatedFilesAsync()
         {
             var gist = await GetGistAsync().ConfigAwait();
 
-            var files = gist.Files.Where(x => 
+            var files = gist.Files.Where(x =>
                 (string.IsNullOrEmpty(x.Value.Content) || x.Value.Content.Length < x.Value.Size) && x.Value.Truncated);
 
-            var tasks = files.Select(async x => {
+            var tasks = files.Select(async x =>
+            {
                 x.Value.Content = await x.Value.Raw_Url.GetStringFromUrlAsync().ConfigAwait();
             });
 
@@ -188,7 +189,7 @@ namespace ServiceStack.IO
             var parentDir = GetDirPath(dirPath.TrimEnd(DirSep));
             return parentDir != null
                 ? new GistVirtualDirectory(this, parentDir, GetParentDirectory(parentDir))
-                : (GistVirtualDirectory) RootDirectory;
+                : (GistVirtualDirectory)RootDirectory;
         }
 
         public override IVirtualDirectory GetDirectory(string virtualPath)
@@ -261,7 +262,7 @@ namespace ServiceStack.IO
         public static string ToBase64(Stream stream)
         {
             var base64 = stream is MemoryStream ms
-                ? Convert.ToBase64String(ms.GetBuffer(), 0, (int) ms.Length)
+                ? Convert.ToBase64String(ms.GetBuffer(), 0, (int)ms.Length)
                 : Convert.ToBase64String(stream.ReadFully());
             return base64;
         }
@@ -307,7 +308,8 @@ namespace ServiceStack.IO
 
         public void DeleteFiles(IEnumerable<string> virtualFilePaths)
         {
-            var filePaths = virtualFilePaths.Map(x => {
+            var filePaths = virtualFilePaths.Map(x =>
+            {
                 var filePath = SanitizePath(x);
                 return ResolveGistFileName(filePath) ?? filePath;
             });
@@ -426,7 +428,7 @@ namespace ServiceStack.IO
             this.PathProvider = pathProvider;
         }
 
-        public string DirPath => ((GistVirtualDirectory) base.Directory).DirPath;
+        public string DirPath => ((GistVirtualDirectory)base.Directory).DirPath;
 
         public string FilePath { get; set; }
 
@@ -466,8 +468,8 @@ namespace ServiceStack.IO
 
         public override object GetContents()
         {
-            return Text != null 
-                ? (object) Text.AsMemory() 
+            return Text != null
+                ? (object)Text.AsMemory()
                 : (Stream is MemoryStream ms
                     ? ms.GetBufferAsMemory()
                     : Stream?.CopyToNewMemoryStream().GetBufferAsMemory());

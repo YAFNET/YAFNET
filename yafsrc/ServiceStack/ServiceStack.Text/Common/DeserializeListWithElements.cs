@@ -34,7 +34,7 @@ namespace ServiceStack.Text.Common
             return (s, t, d) => func(s.AsSpan(), t, v => d(v.ToString()));
         }
 
-        private static readonly Type[] signature = {typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate)};
+        private static readonly Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate) };
 
         public static ParseListDelegate GetListTypeParseStringSpanFn(
             Type createListType, Type elementType, ParseStringSpanDelegate parseFn)
@@ -110,7 +110,7 @@ namespace ServiceStack.Text.Common
 
         public static List<int> ParseIntList(ReadOnlySpan<char> value)
         {
-            if ((value = StripList(value)).IsNullOrEmpty()) 
+            if ((value = StripList(value)).IsNullOrEmpty())
                 return value.IsEmpty ? null : new List<int>();
 
             var to = new List<int>();
@@ -131,7 +131,7 @@ namespace ServiceStack.Text.Common
 
         public static List<byte> ParseByteList(ReadOnlySpan<char> value)
         {
-            if ((value = StripList(value)).IsNullOrEmpty()) 
+            if ((value = StripList(value)).IsNullOrEmpty())
                 return value.IsEmpty ? null : new List<byte>();
 
             var to = new List<byte>();
@@ -170,7 +170,7 @@ namespace ServiceStack.Text.Common
             if (to is List<object> && objSerializer != null && typeof(TSerializer) == typeof(Json.JsonTypeSerializer))
                 return (ICollection<T>)objSerializer(value);
 
-            if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsEmpty) 
+            if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsEmpty)
                 return null;
 
             if (value.IsNullOrEmpty())
@@ -202,7 +202,7 @@ namespace ServiceStack.Text.Common
                 }
                 else
                 {
-                    
+
                     while (i < valueLength)
                     {
                         var startIndex = i;
@@ -271,7 +271,7 @@ namespace ServiceStack.Text.Common
 
             if (typeof(T) == typeof(List<int>))
                 return DeserializeListWithElements<TSerializer>.ParseIntList;
-            
+
             var elementType = listInterface.GetGenericArguments()[0];
 
             var supportedTypeParseMethod = DeserializeListWithElements<TSerializer>.Serializer.GetParseStringSpanFn(elementType);

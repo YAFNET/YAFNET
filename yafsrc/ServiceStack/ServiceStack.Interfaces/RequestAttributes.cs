@@ -218,7 +218,7 @@ namespace ServiceStack
             if ((RequestAttributes.Soap11 & attributes) == RequestAttributes.Soap11)
                 return Feature.Soap11;
             if ((RequestAttributes.Soap12 & attributes) == RequestAttributes.Soap12)
-                return Feature.Soap12;            
+                return Feature.Soap12;
             return Feature.None;
         }
     }

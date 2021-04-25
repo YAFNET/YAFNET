@@ -25,7 +25,7 @@ namespace ServiceStack.Text
             JsConfig.AddUniqueType(Type);
         }
     }
-    
+
     public static class TypeConfig<T>
     {
         internal static TypeConfig config;
@@ -87,7 +87,7 @@ namespace ServiceStack.Text
             Properties = properties.Where(x => x.GetIndexParameters().Length == 0).ToArray();
 
             Fields = config.Type.GetSerializableFields().ToArray();
-    
+
             if (!JsConfig<T>.HasDeserializingFn)
                 OnDeserializing = ReflectionExtensions.GetOnDeserializing<T>();
             else

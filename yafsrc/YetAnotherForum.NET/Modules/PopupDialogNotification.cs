@@ -30,7 +30,7 @@ namespace YAF.Modules
 
     using YAF.Core.BaseControls;
     using YAF.Types;
-    
+
     #endregion
 
     /// <summary>

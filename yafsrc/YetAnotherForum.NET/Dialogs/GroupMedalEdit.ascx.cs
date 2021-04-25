@@ -119,7 +119,7 @@ namespace YAF.Dialogs
                 // load data to controls
                 this.AvailableGroupList.SelectedIndex = -1;
                 this.AvailableGroupList.Items.FindByValue(row.Item2.GroupID.ToString()).Selected = true;
-                
+
                 this.GroupMessage.Text = row.Item2.Message.IsSet() ? row.Item2.Message : row.Item1.Message;
                 this.GroupSortOrder.Text = row.Item2.SortOrder.ToString();
                 this.GroupOnlyRibbon.Checked = row.Item2.OnlyRibbon;

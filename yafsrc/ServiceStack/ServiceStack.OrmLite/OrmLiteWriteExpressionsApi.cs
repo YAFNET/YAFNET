@@ -33,7 +33,7 @@ namespace ServiceStack.OrmLite
         ///   db.UpdateOnly(() => new Person { FirstName = "JJ" });
         ///   UPDATE "Person" SET "FirstName" = 'JJ'
         /// </summary>
-        public static int UpdateOnly<T>(this IDbConnection dbConn, 
+        public static int UpdateOnly<T>(this IDbConnection dbConn,
             Expression<Func<T>> updateFields,
             Expression<Func<T, bool>> where = null,
             Action<IDbCommand> commandFilter = null)

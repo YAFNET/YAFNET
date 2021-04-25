@@ -118,7 +118,7 @@ namespace ServiceStack.OrmLite.SqlServer
                         sbColumns.Append(", \n  ");
 
                     sbColumns.Append(columnDefinition);
-                    
+
                     var sqlConstraint = GetCheckConstraint(modelDef, fieldDef);
                     if (sqlConstraint != null)
                     {
@@ -171,7 +171,7 @@ namespace ServiceStack.OrmLite.SqlServer
                     sbTableOptions.Append(")");
                 }
             }
-            
+
             var uniqueConstraints = GetUniqueConstraints(modelDef);
             if (uniqueConstraints != null)
             {

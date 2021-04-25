@@ -12,7 +12,7 @@ namespace ServiceStack.MiniProfiler.Data
         /// </summary>
         public static ProfiledProviderFactory Instance = new ProfiledProviderFactory();
 
-        protected ProfiledProviderFactory() {}
+        protected ProfiledProviderFactory() { }
 
         protected IDbProfiler Profiler { get; private set; }
         protected DbProviderFactory WrappedFactory { get; private set; }
@@ -48,51 +48,51 @@ namespace ServiceStack.MiniProfiler.Data
         /// <summary>
         /// proxy
         /// </summary>
-        public override DbDataSourceEnumerator CreateDataSourceEnumerator() => 
+        public override DbDataSourceEnumerator CreateDataSourceEnumerator() =>
             WrappedFactory.CreateDataSourceEnumerator();
 #endif
 
         /// <summary>
         /// proxy
         /// </summary>
-        public override DbCommand CreateCommand() => 
+        public override DbCommand CreateCommand() =>
             new ProfiledCommand(WrappedFactory.CreateCommand(), null, Profiler);
 
         /// <summary>
         /// proxy
         /// </summary>
-        public override DbConnection CreateConnection() => 
+        public override DbConnection CreateConnection() =>
             new ProfiledConnection(WrappedFactory.CreateConnection(), Profiler);
 
         /// <summary>
         /// proxy
         /// </summary>
-        public override DbParameter CreateParameter() => 
+        public override DbParameter CreateParameter() =>
             WrappedFactory.CreateParameter();
 
         /// <summary>
         /// proxy
         /// </summary>
-        public override DbConnectionStringBuilder CreateConnectionStringBuilder() => 
+        public override DbConnectionStringBuilder CreateConnectionStringBuilder() =>
             WrappedFactory.CreateConnectionStringBuilder();
 
 #if !NETSTANDARD2_0
         /// <summary>
         /// proxy
         /// </summary>
-        public override DbCommandBuilder CreateCommandBuilder() => 
+        public override DbCommandBuilder CreateCommandBuilder() =>
             WrappedFactory.CreateCommandBuilder();
 
         /// <summary>
         /// proxy
         /// </summary>
-        public override DbDataAdapter CreateDataAdapter() => 
+        public override DbDataAdapter CreateDataAdapter() =>
             WrappedFactory.CreateDataAdapter();
 
         /// <summary>
         /// proxy
         /// </summary>
-        public override System.Security.CodeAccessPermission CreatePermission(System.Security.Permissions.PermissionState state) => 
+        public override System.Security.CodeAccessPermission CreatePermission(System.Security.Permissions.PermissionState state) =>
             WrappedFactory.CreatePermission(state);
 #endif
     }

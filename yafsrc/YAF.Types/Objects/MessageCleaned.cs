@@ -27,49 +27,49 @@ namespace YAF.Types.Objects
     using System.Collections.Generic;
 
     /// <summary>
-  /// The message cleaned class (internal)
-  /// </summary>
-  [Serializable]
-  public class MessageCleaned
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "MessageCleaned" /> class.
+    /// The message cleaned class (internal)
     /// </summary>
-    public MessageCleaned()
+    [Serializable]
+    public class MessageCleaned
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "MessageCleaned" /> class.
+        /// </summary>
+        public MessageCleaned()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageCleaned"/> class.
+        /// </summary>
+        /// <param name="messageTruncated">
+        /// The message truncated.
+        /// </param>
+        /// <param name="messageKeywords">
+        /// The message keywords.
+        /// </param>
+        public MessageCleaned([NotNull] string messageTruncated, [NotNull] List<string> messageKeywords)
+        {
+            this.MessageTruncated = messageTruncated;
+            this.MessageKeywords = messageKeywords;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets MessageKeywords.
+        /// </summary>
+        public List<string> MessageKeywords { get; set; }
+
+        /// <summary>
+        ///   Gets or sets MessageTruncated.
+        /// </summary>
+        public string MessageTruncated { get; set; }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MessageCleaned"/> class.
-    /// </summary>
-    /// <param name="messageTruncated">
-    /// The message truncated.
-    /// </param>
-    /// <param name="messageKeywords">
-    /// The message keywords.
-    /// </param>
-    public MessageCleaned([NotNull] string messageTruncated, [NotNull] List<string> messageKeywords)
-    {
-      this.MessageTruncated = messageTruncated;
-      this.MessageKeywords = messageKeywords;
-    }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    ///   Gets or sets MessageKeywords.
-    /// </summary>
-    public List<string> MessageKeywords { get; set; }
-
-    /// <summary>
-    ///   Gets or sets MessageTruncated.
-    /// </summary>
-    public string MessageTruncated { get; set; }
-
-    #endregion
-  }
 }

@@ -6,7 +6,7 @@ namespace ServiceStack.Text
     /// Allow Type to be deserialized into late-bound object Types using __type info
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class RuntimeSerializableAttribute : Attribute {}
+    public class RuntimeSerializableAttribute : Attribute { }
 
     /// <summary>
     /// Allow Type to be deserialized into late-bound object Types using __type info

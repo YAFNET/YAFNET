@@ -29,7 +29,7 @@ namespace YAF.Dialogs
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    
+
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;

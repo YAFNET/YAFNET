@@ -76,7 +76,7 @@ namespace YAF.Types.Models
         /// Gets or sets the user id.
         /// </summary>
         public int? UserID { get; set; }
-        
+
         #endregion
     }
 }

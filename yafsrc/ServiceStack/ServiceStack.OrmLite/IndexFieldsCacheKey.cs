@@ -11,7 +11,7 @@ namespace ServiceStack.OrmLite
 
         public ModelDefinition ModelDefinition { get; private set; }
 
-        public IOrmLiteDialectProvider Dialect { get; private set; } 
+        public IOrmLiteDialectProvider Dialect { get; private set; }
 
         public List<string> Fields { get; private set; }
 
@@ -28,7 +28,7 @@ namespace ServiceStack.OrmLite
             for (int i = startPos; i < endPos; i++)
                 Fields.Add(reader.GetName(i));
 
-            unchecked 
+            unchecked
             {
                 hashCode = 17;
                 hashCode = hashCode * 23 + ModelDefinition.GetHashCode();
@@ -39,18 +39,18 @@ namespace ServiceStack.OrmLite
             }
         }
 
-        public override bool Equals (object obj)
+        public override bool Equals(object obj)
         {
             var that = obj as IndexFieldsCacheKey;
-            
+
             if (obj == null) return false;
-            
+
             return this.ModelDefinition == that.ModelDefinition
                 && this.Dialect == that.Dialect
                 && this.Fields.Count == that.Fields.Count
                 && this.Fields.SequenceEqual(that.Fields);
         }
-        
+
         public override int GetHashCode()
         {
             return hashCode;

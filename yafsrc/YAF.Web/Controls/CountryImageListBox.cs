@@ -53,7 +53,7 @@ namespace YAF.Web.Controls
                 item => item.Attributes.Add(
                     "data-content",
                     $"<span class=\"select2-image-select-icon\"><span class=\"flag-icon flag-icon-{item.Value.ToLower()}\" /></span>&nbsp;{item.Text}</span>"));
-            
+
             base.Render(writer);
         }
 

@@ -127,7 +127,7 @@ namespace ServiceStack
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsEmpty(IEnumerable items) => EnumerableUtils.NullIfEmpty(items) == null;
     }
-    
+
     public static class EnumerableExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -205,7 +205,7 @@ namespace ServiceStack
             }
             return list;
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<object> ToObjects<T>(this IEnumerable<T> items)
         {
@@ -300,7 +300,7 @@ namespace ServiceStack
             return hasNoMoreLeftAsWell;
         }
 
-        public static bool EquivalentTo<K, V>(this IDictionary<K, V> a, IDictionary<K, V> b, Func<V,V,bool> comparer = null)
+        public static bool EquivalentTo<K, V>(this IDictionary<K, V> a, IDictionary<K, V> b, Func<V, V, bool> comparer = null)
         {
             if (comparer == null)
                 comparer = (v1, v2) => v1.Equals(v2);
@@ -446,6 +446,6 @@ namespace ServiceStack
             }
             return false;
         }
-        
+
     }
 }

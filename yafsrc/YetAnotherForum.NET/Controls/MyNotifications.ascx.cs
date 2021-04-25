@@ -347,7 +347,7 @@ namespace YAF.Controls
         /// <summary>
         /// The bind data.
         /// </summary>
-            private void BindData()
+        private void BindData()
         {
             this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 

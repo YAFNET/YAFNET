@@ -9,7 +9,7 @@ namespace ServiceStack.VirtualPath
     {
         protected readonly Assembly BackingAssembly;
         protected readonly string FileName;
-        
+
         public override string Name => FileName;
 
         public override string VirtualPath => GetVirtualPathToRoot();

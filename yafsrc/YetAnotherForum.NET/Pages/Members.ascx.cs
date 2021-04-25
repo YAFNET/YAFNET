@@ -198,7 +198,7 @@ namespace YAF.Pages
             this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSEQUAL"), "1"));
             this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSLESSOREQUAL"), "2"));
             this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSMOREOREQUAL"), "3"));
-            
+
             this.NumPostDDL.DataBind();
 
             // get list of user ranks for filtering
@@ -496,7 +496,7 @@ namespace YAF.Pages
                 selectedLetter,
                 this.UserSearchName.Text.Trim(),
                 out var totalCount);
-            
+
             this.Pager.Count = totalCount;
             this.MemberList.DataSource = this.userList;
             this.DataBind();

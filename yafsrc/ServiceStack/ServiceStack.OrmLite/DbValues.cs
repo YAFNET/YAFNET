@@ -12,7 +12,7 @@ namespace ServiceStack.OrmLite
 
         public override int GetHashCode() => Xml != null ? Xml.GetHashCode() : 0;
 
-        public static implicit operator XmlValue(string expandedName) => 
+        public static implicit operator XmlValue(string expandedName) =>
             expandedName != null ? new XmlValue(expandedName) : null;
     }
 }

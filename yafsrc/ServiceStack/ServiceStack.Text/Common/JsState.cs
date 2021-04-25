@@ -80,9 +80,9 @@ namespace ServiceStack.Text.Common
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool Traverse(object value)
         {
-            if (++Depth <= JsConfig.MaxDepth) 
+            if (++Depth <= JsConfig.MaxDepth)
                 return true;
-            
+
             Tracer.Instance.WriteError(
                 $"Exceeded MaxDepth limit of {JsConfig.MaxDepth} attempting to serialize {value.GetType().Name}");
             return false;

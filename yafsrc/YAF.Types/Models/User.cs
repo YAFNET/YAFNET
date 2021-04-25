@@ -321,7 +321,7 @@ namespace YAF.Types.Models
         /// </summary>
         [StringLength(10)]
         public string Culture { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the is guest.
         /// </summary>

@@ -8,6 +8,6 @@ namespace ServiceStack.DataAnnotations
     {
         public SqlServerBucketCountAttribute(int count) { Count = count; }
 
-        public int Count { get; set; } 
+        public int Count { get; set; }
     }
 }

@@ -23,90 +23,90 @@
  */
 namespace YAF.Modules
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web.UI.HtmlControls;
+    using System;
+    using System.Web.UI.HtmlControls;
 
-  using YAF.Core.Extensions;
-  using YAF.Core.Services;
-  using YAF.Core.Utilities.Helpers;
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.Constants;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for PageRssFeedLinkModule
-  /// </summary>
-  [Module("Page Rss Feed Link Module", "Tiny Gecko", 1)]
-  public class PageRssFeedLinkForumModule : SimpleBaseForumModule
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The init after page.
-    /// </summary>
-    public override void InitAfterPage()
-    {
-      this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
-    }
+    using YAF.Core.Extensions;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities.Helpers;
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The forum page_ pre render.
+    /// Summary description for PageRssFeedLinkModule
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    [Module("Page Rss Feed Link Module", "Tiny Gecko", 1)]
+    public class PageRssFeedLinkForumModule : SimpleBaseForumModule
     {
-      var head = this.ForumControl.Page.Header ??
-                      this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
+        #region Public Methods
 
-      if (head == null)
-      {
-          return;
-      }
+        /// <summary>
+        /// The init after page.
+        /// </summary>
+        public override void InitAfterPage()
+        {
+            this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
+        }
 
-      var groupAccess =
-          this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
+        #endregion
 
-      if (!this.PageContext.BoardSettings.ShowAtomLink || !groupAccess)
-      {
-          return;
-      }
+        #region Methods
 
-      // setup the rss link...
-      var atomLink = new HtmlLink
-                         {
-                             Href =
-                                 this.Get<LinkBuilder>().GetLink(
-                                     ForumPages.Feed,
-                                     true,
-                                     "feed={0}",
-                                     RssFeeds.LatestPosts.ToInt())
-                         };
+        /// <summary>
+        /// The forum page_ pre render.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            var head = this.ForumControl.Page.Header ??
+                            this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
-      // defaults to the "Active" rss.
-      atomLink.Attributes.Add("rel", "alternate");
-      atomLink.Attributes.Add("type", "application/atom+xml");
-      atomLink.Attributes.Add(
-          "title",
-          $"{this.GetText("ATOMFEED")} - {this.PageContext.BoardSettings.Name}");
+            if (head == null)
+            {
+                return;
+            }
 
-      head.Controls.Add(atomLink);
+            var groupAccess =
+                this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
+
+            if (!this.PageContext.BoardSettings.ShowAtomLink || !groupAccess)
+            {
+                return;
+            }
+
+            // setup the rss link...
+            var atomLink = new HtmlLink
+            {
+                Href =
+                                       this.Get<LinkBuilder>().GetLink(
+                                           ForumPages.Feed,
+                                           true,
+                                           "feed={0}",
+                                           RssFeeds.LatestPosts.ToInt())
+            };
+
+            // defaults to the "Active" rss.
+            atomLink.Attributes.Add("rel", "alternate");
+            atomLink.Attributes.Add("type", "application/atom+xml");
+            atomLink.Attributes.Add(
+                "title",
+                $"{this.GetText("ATOMFEED")} - {this.PageContext.BoardSettings.Name}");
+
+            head.Controls.Add(atomLink);
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }

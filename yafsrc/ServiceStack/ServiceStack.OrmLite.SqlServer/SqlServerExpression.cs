@@ -8,7 +8,7 @@ namespace ServiceStack.OrmLite.SqlServer
     public class SqlServerExpression<T> : SqlExpression<T>
     {
         public SqlServerExpression(IOrmLiteDialectProvider dialectProvider)
-            : base(dialectProvider) {}
+            : base(dialectProvider) { }
 
         public override void PrepareUpdateStatement(IDbCommand dbCmd, T item, bool excludeDefaults = false)
         {

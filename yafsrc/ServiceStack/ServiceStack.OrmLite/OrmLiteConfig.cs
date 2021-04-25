@@ -45,12 +45,12 @@ namespace ServiceStack.OrmLite
         }
 
         public static IOrmLiteDialectProvider GetDialectProvider(this IDbCommand dbCmd) =>
-            dbCmd is IHasDialectProvider hasDialectProvider 
+            dbCmd is IHasDialectProvider hasDialectProvider
                 ? hasDialectProvider.DialectProvider
                 : DialectProvider;
 
         public static IOrmLiteDialectProvider Dialect(this IDbCommand dbCmd) =>
-            dbCmd is IHasDialectProvider hasDialectProvider 
+            dbCmd is IHasDialectProvider hasDialectProvider
                 ? hasDialectProvider.DialectProvider
                 : DialectProvider;
 
@@ -64,20 +64,23 @@ namespace ServiceStack.OrmLite
                 ? hasDialectProvider.DialectProvider
                 : DialectProvider;
 
-        public static IOrmLiteExecFilter GetExecFilter(this IOrmLiteDialectProvider dialectProvider) {
+        public static IOrmLiteExecFilter GetExecFilter(this IOrmLiteDialectProvider dialectProvider)
+        {
             return dialectProvider != null
                 ? dialectProvider.ExecFilter ?? ExecFilter
                 : ExecFilter;
         }
 
-        public static IOrmLiteExecFilter GetExecFilter(this IDbCommand dbCmd) {
+        public static IOrmLiteExecFilter GetExecFilter(this IDbCommand dbCmd)
+        {
             var dialect = dbCmd is IHasDialectProvider hasDialectProvider
                 ? hasDialectProvider.DialectProvider
                 : DialectProvider;
             return dialect.GetExecFilter();
         }
 
-        public static IOrmLiteExecFilter GetExecFilter(this IDbConnection db) {
+        public static IOrmLiteExecFilter GetExecFilter(this IDbConnection db)
+        {
             var dialect = db is IHasDialectProvider hasDialectProvider
                 ? hasDialectProvider.DialectProvider
                 : DialectProvider;
@@ -97,7 +100,7 @@ namespace ServiceStack.OrmLite
         public static void SetCommandTimeout(this IDbConnection db, int? commandTimeout)
         {
             if (!(db is OrmLiteConnection ormLiteConn))
-                throw new NotImplementedException(string.Format(RequiresOrmLiteConnection,"CommandTimeout"));
+                throw new NotImplementedException(string.Format(RequiresOrmLiteConnection, "CommandTimeout"));
 
             ormLiteConn.CommandTimeout = commandTimeout;
         }
@@ -139,7 +142,7 @@ namespace ServiceStack.OrmLite
             return dbConn;
         }
 
-        public static void ResetLogFactory(ILogFactory logFactory=null)
+        public static void ResetLogFactory(ILogFactory logFactory = null)
         {
             logFactory ??= LogManager.LogFactory;
             LogManager.LogFactory = logFactory;
@@ -153,9 +156,9 @@ namespace ServiceStack.OrmLite
             OrmLiteResultsFilterExtensionsAsync.Log = logFactory.GetLogger(typeof(OrmLiteResultsFilterExtensionsAsync));
             OrmLiteConverter.Log = logFactory.GetLogger(typeof(OrmLiteConverter));
         }
-        
+
         public static bool DisableColumnGuessFallback { get; set; }
-        public static bool StripUpperInLike { get; set; } 
+        public static bool StripUpperInLike { get; set; }
 #if NETSTANDARD2_0
             = true;
 #endif
@@ -173,14 +176,14 @@ namespace ServiceStack.OrmLite
         private static IOrmLiteExecFilter execFilter;
         public static IOrmLiteExecFilter ExecFilter
         {
-            get 
+            get
             {
                 if (execFilter == null)
                     execFilter = new OrmLiteExecFilter();
 
-                return dialectProvider != null 
-                    ? dialectProvider.ExecFilter ?? execFilter 
-                    : execFilter; 
+                return dialectProvider != null
+                    ? dialectProvider.ExecFilter ?? execFilter
+                    : execFilter;
             }
             set => execFilter = value;
         }
@@ -214,11 +217,11 @@ namespace ServiceStack.OrmLite
         public static bool SkipForeignKeys { get; set; }
 
         public static bool IncludeTablePrefixes { get; set; }
-        
+
         public static Action<IUntypedSqlExpression> SqlExpressionInitFilter { get; set; }
 
         public static Func<string, string> ParamNameFilter { get; set; }
-        
+
         public static Action<ModelDefinition> OnModelDefinitionInit { get; set; }
     }
 }

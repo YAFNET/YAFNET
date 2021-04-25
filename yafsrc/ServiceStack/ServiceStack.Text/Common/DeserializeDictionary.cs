@@ -74,7 +74,7 @@ namespace ServiceStack.Text.Common
         }
 
         public static JsonObject ParseJsonObject(string value) => ParseJsonObject(value.AsSpan());
-        
+
         public static T ParseInheritedJsonObject<T>(ReadOnlySpan<char> value) where T : JsonObject, new()
         {
             if (value.Length == 0)
@@ -233,7 +233,7 @@ namespace ServiceStack.Text.Common
 
             var objDeserializer = Json.JsonTypeSerializer.Instance.ObjectDeserializer;
             if (to is Dictionary<string, object> && objDeserializer != null && typeof(TSerializer) == typeof(Json.JsonTypeSerializer))
-                return (IDictionary<TKey,TValue>) objDeserializer(value);
+                return (IDictionary<TKey, TValue>)objDeserializer(value);
 
             var config = JsConfig.GetConfig();
 
@@ -321,7 +321,7 @@ namespace ServiceStack.Text.Common
             ParseDictionaryType(value.AsSpan(), createMapType, argTypes,
                 v => keyParseFn(v.ToString()), v => valueParseFn(v.ToString()));
 
-        static readonly Type[] signature = {typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate), typeof(ParseStringSpanDelegate)};
+        static readonly Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate), typeof(ParseStringSpanDelegate) };
 
         public static object ParseDictionaryType(ReadOnlySpan<char> value, Type createMapType, Type[] argTypes,
             ParseStringSpanDelegate keyParseFn, ParseStringSpanDelegate valueParseFn)
@@ -338,7 +338,8 @@ namespace ServiceStack.Text.Common
             do
             {
                 snapshot = ParseDelegateCache;
-                newCache = new Dictionary<TypesKey, ParseDictionaryDelegate>(ParseDelegateCache) {
+                newCache = new Dictionary<TypesKey, ParseDictionaryDelegate>(ParseDelegateCache)
+                {
                     [key] = parseDelegate
                 };
 

@@ -38,14 +38,14 @@ namespace ServiceStack.OrmLite
         {
             if (options == null)
                 throw new ArgumentNullException(nameof(options));
-            
+
             if (options.Expression != null)
                 throw new ArgumentException("Can't set both Join Expression and TableOptions Expression");
-            
+
             return InternalJoin("INNER JOIN", joinExpr, options);
         }
-        
-        public SqlExpression<T> Join<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => 
+
+        public SqlExpression<T> Join<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) =>
             InternalJoin("INNER JOIN", joinExpr, joinFormat ?? throw new ArgumentNullException(nameof(joinFormat)));
 
         public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
@@ -53,10 +53,10 @@ namespace ServiceStack.OrmLite
             return InternalJoin("INNER JOIN", joinExpr);
         }
 
-        public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => 
+        public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) =>
             InternalJoin("INNER JOIN", joinExpr, joinFormat);
 
-        public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options) => 
+        public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options) =>
             InternalJoin("INNER JOIN", joinExpr, options);
 
         public SqlExpression<T> Join(Type sourceType, Type targetType, Expression joinExpr = null)
@@ -69,10 +69,10 @@ namespace ServiceStack.OrmLite
             return InternalJoin("LEFT JOIN", joinExpr);
         }
 
-        public SqlExpression<T> LeftJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => 
+        public SqlExpression<T> LeftJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) =>
             InternalJoin("LEFT JOIN", joinExpr, joinFormat ?? throw new ArgumentNullException(nameof(joinFormat)));
 
-        public SqlExpression<T> LeftJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, TableOptions options) => 
+        public SqlExpression<T> LeftJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, TableOptions options) =>
             InternalJoin("LEFT JOIN", joinExpr, options ?? throw new ArgumentNullException(nameof(options)));
 
         public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
@@ -80,10 +80,10 @@ namespace ServiceStack.OrmLite
             return InternalJoin("LEFT JOIN", joinExpr);
         }
 
-        public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => 
+        public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) =>
             InternalJoin("LEFT JOIN", joinExpr, joinFormat);
 
-        public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options) => 
+        public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options) =>
             InternalJoin("LEFT JOIN", joinExpr, options);
 
         public SqlExpression<T> LeftJoin(Type sourceType, Type targetType, Expression joinExpr = null)
@@ -96,10 +96,10 @@ namespace ServiceStack.OrmLite
             return InternalJoin("RIGHT JOIN", joinExpr);
         }
 
-        public SqlExpression<T> RightJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => 
+        public SqlExpression<T> RightJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) =>
             InternalJoin("RIGHT JOIN", joinExpr, joinFormat ?? throw new ArgumentNullException(nameof(joinFormat)));
 
-        public SqlExpression<T> RightJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, TableOptions options) => 
+        public SqlExpression<T> RightJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, TableOptions options) =>
             InternalJoin("RIGHT JOIN", joinExpr, options ?? throw new ArgumentNullException(nameof(options)));
 
         public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
@@ -107,10 +107,10 @@ namespace ServiceStack.OrmLite
             return InternalJoin("RIGHT JOIN", joinExpr);
         }
 
-        public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => 
+        public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) =>
             InternalJoin("RIGHT JOIN", joinExpr, joinFormat);
 
-        public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options) => 
+        public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options) =>
             InternalJoin("RIGHT JOIN", joinExpr, options);
 
         public SqlExpression<T> FullJoin<Target>(Expression<Func<T, Target, bool>> joinExpr = null)
@@ -143,7 +143,7 @@ namespace ServiceStack.OrmLite
 
             return InternalJoin(joinType, joinExpr, sourceDef, targetDef, options);
         }
-        
+
         protected SqlExpression<T> InternalJoin<Source, Target>(string joinType, Expression joinExpr)
         {
             var sourceDef = typeof(Source).GetModelDefinition();
@@ -162,27 +162,27 @@ namespace ServiceStack.OrmLite
         public SqlExpression<T> RightJoin<Source, Target, T3, T4>(Expression<Func<Source, Target, T3, T4, bool>> joinExpr) => InternalJoin<Source, Target>("RIGHT JOIN", joinExpr);
         public SqlExpression<T> FullJoin<Source, Target, T3, T4>(Expression<Func<Source, Target, T3, T4, bool>> joinExpr) => InternalJoin<Source, Target>("FULL JOIN", joinExpr);
 
-        private string InternalCreateSqlFromExpression(Expression joinExpr, bool isCrossJoin) 
+        private string InternalCreateSqlFromExpression(Expression joinExpr, bool isCrossJoin)
         {
             return $"{(isCrossJoin ? "WHERE" : "ON")} {VisitJoin(joinExpr)}";
         }
 
-        private string InternalCreateSqlFromDefinitions(ModelDefinition sourceDef, ModelDefinition targetDef, bool isCrossJoin) 
+        private string InternalCreateSqlFromDefinitions(ModelDefinition sourceDef, ModelDefinition targetDef, bool isCrossJoin)
         {
             var parentDef = sourceDef;
             var childDef = targetDef;
 
             var refField = parentDef.GetRefFieldDefIfExists(childDef);
-            if (refField == null) 
+            if (refField == null)
             {
                 parentDef = targetDef;
                 childDef = sourceDef;
                 refField = parentDef.GetRefFieldDefIfExists(childDef);
             }
 
-            if (refField == null) 
+            if (refField == null)
             {
-                if(!isCrossJoin)
+                if (!isCrossJoin)
                     throw new ArgumentException($"Could not infer relationship between {sourceDef.ModelName} and {targetDef.ModelName}");
 
                 return string.Empty;
@@ -210,7 +210,7 @@ namespace ServiceStack.OrmLite
             PrefixFieldWithTableName = true;
 
             Reset();
-            
+
             var joinFormat = options?.JoinFormat;
             if (options?.Alias != null) //Set joinAlias
             {
@@ -223,8 +223,8 @@ namespace ServiceStack.OrmLite
                     options.ModelDef = targetDef;
                     joinAlias = options;
                 }
-            } 
-            
+            }
+
 
             if (!tableDefs.Contains(sourceDef))
                 tableDefs.Add(sourceDef);
@@ -233,7 +233,7 @@ namespace ServiceStack.OrmLite
 
             var isCrossJoin = "CROSS JOIN" == joinType;
 
-            var sqlExpr = joinExpr != null 
+            var sqlExpr = joinExpr != null
                 ? InternalCreateSqlFromExpression(joinExpr, isCrossJoin)
                 : InternalCreateSqlFromDefinitions(sourceDef, targetDef, isCrossJoin);
 
@@ -274,7 +274,7 @@ namespace ServiceStack.OrmLite
             var selectDef = modelDef;
             var orderedDefs = tableDefs;
 
-            if (typeof(TModel) != typeof(List<object>) && 
+            if (typeof(TModel) != typeof(List<object>) &&
                 typeof(TModel) != typeof(Dictionary<string, object>) &&
                 typeof(TModel) != typeof(object) && //dynamic
                 !typeof(TModel).IsValueTuple())
@@ -342,12 +342,12 @@ namespace ServiceStack.OrmLite
                             var tableAlias = tableDef == modelDef // Use TableAlias if source modelDef
                                 ? TableAlias
                                 : null;
-                                    
+
                             if (fieldDef.CustomSelect == null)
                             {
                                 if (!fieldDef.IsRowVersion)
                                 {
-                                    sbSelect.Append(tableAlias == null 
+                                    sbSelect.Append(tableAlias == null
                                         ? GetQuotedColumnName(tableDef, tableFieldDef.Name)
                                         : GetQuotedColumnName(tableDef, tableAlias, tableFieldDef.Name));
 
@@ -390,9 +390,9 @@ namespace ServiceStack.OrmLite
                             var tableAlias = tableDef == modelDef // Use TableAlias if source modelDef
                                 ? TableAlias
                                 : null;
-                                    
+
                             sbSelect.Append($"{DialectProvider.GetQuotedColumnName(tableDef, tableAlias, matchingField)} as {SqlColumn(fieldDef.Name)}");
-                            
+
                             break;
                         }
                     }
@@ -505,11 +505,11 @@ namespace ServiceStack.OrmLite
 
         public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> predicate) => AppendToWhere("OR", predicate);
 
-        public Tuple<ModelDefinition,FieldDefinition> FirstMatchingField(string fieldName)
+        public Tuple<ModelDefinition, FieldDefinition> FirstMatchingField(string fieldName)
         {
             foreach (var tableDef in tableDefs)
             {
-                var firstField = tableDef.FieldDefinitions.FirstOrDefault(x => 
+                var firstField = tableDef.FieldDefinitions.FirstOrDefault(x =>
                     string.Compare(x.Name, fieldName, StringComparison.OrdinalIgnoreCase) == 0
                  || string.Compare(x.FieldName, fieldName, StringComparison.OrdinalIgnoreCase) == 0);
 

@@ -75,7 +75,7 @@ namespace ServiceStack.Text
         {
             return DeserializeFromString(reader.ReadToEnd(), type);
         }
-        
+
         public static string SerializeToString<T>(T value)
         {
             if (value == null || value is Delegate) return null;
@@ -171,7 +171,7 @@ namespace ServiceStack.Text
             }
             else
             {
-                var writer = new StreamWriter(stream, JsConfig.UTF8Encoding, BufferSize, leaveOpen:true);
+                var writer = new StreamWriter(stream, JsConfig.UTF8Encoding, BufferSize, leaveOpen: true);
                 JsonWriter<T>.WriteRootObject(writer, value);
                 writer.Flush();
             }
@@ -180,7 +180,7 @@ namespace ServiceStack.Text
         public static void SerializeToStream(object value, Type type, Stream stream)
         {
             OnSerialize?.Invoke(value);
-            var writer = new StreamWriter(stream, JsConfig.UTF8Encoding, BufferSize, leaveOpen:true);
+            var writer = new StreamWriter(stream, JsConfig.UTF8Encoding, BufferSize, leaveOpen: true);
             JsonWriter.GetWriteFn(type)(writer, value);
             writer.Flush();
         }

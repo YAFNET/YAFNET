@@ -156,11 +156,11 @@ namespace YAF.Web.Controls
             if (this.Signature.IsSet())
             {
                 var sig = new MessageSignature
-                    {
-                        Signature = this.Signature,
-                        DisplayUserId = this.DisplayUserID,
-                        MessageId = this.MessageID
-                    };
+                {
+                    Signature = this.Signature,
+                    DisplayUserId = this.DisplayUserID,
+                    MessageId = this.MessageID
+                };
 
                 this.Controls.Add(sig);
             }

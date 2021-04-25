@@ -157,9 +157,9 @@ namespace ServiceStack.OrmLite
         ///   db.UpdateOnlyAsync&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"FirstName", "JJ"} }, where:p => p.FirstName == "Jimi");
         ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("FirstName" = 'Jimi')
         /// </summary>
-        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn, 
-            Dictionary<string, object> updateFields, 
-            Expression<Func<T, bool>> where, 
+        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn,
+            Dictionary<string, object> updateFields,
+            Expression<Func<T, bool>> where,
             Action<IDbCommand> commandFilter = null,
             CancellationToken token = default)
         {
@@ -172,8 +172,8 @@ namespace ServiceStack.OrmLite
         ///   db.UpdateOnlyAsync&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"Id", 1}, {"FirstName", "JJ"} });
         ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("Id" = 1)
         /// </summary>
-        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn, 
-            Dictionary<string, object> updateFields, 
+        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn,
+            Dictionary<string, object> updateFields,
             Action<IDbCommand> commandFilter = null,
             CancellationToken token = default)
         {
@@ -186,10 +186,10 @@ namespace ServiceStack.OrmLite
         ///   db.UpdateOnlyAsync&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"FirstName", "JJ"} }, "FirstName == {0}", new[]{ "Jimi" });
         ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("FirstName" = 'Jimi')
         /// </summary>
-        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn, 
-            Dictionary<string, object> updateFields, 
-            string whereExpression, 
-            object[] whereParams, 
+        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn,
+            Dictionary<string, object> updateFields,
+            string whereExpression,
+            object[] whereParams,
             Action<IDbCommand> commandFilter = null,
             CancellationToken token = default)
         {
@@ -279,7 +279,7 @@ namespace ServiceStack.OrmLite
         ///   db.DeleteAsync&lt;Person&gt;(p => p.Age == 27);
         ///   DELETE FROM "Person" WHERE ("Age" = 27)
         /// </summary>
-        public static Task<int> DeleteAsync<T>(this IDbConnection dbConn, Expression<Func<T, bool>> where, 
+        public static Task<int> DeleteAsync<T>(this IDbConnection dbConn, Expression<Func<T, bool>> where,
             Action<IDbCommand> commandFilter = null, CancellationToken token = default)
         {
             return dbConn.Exec(dbCmd => dbCmd.DeleteAsync(where, commandFilter, token));
@@ -297,7 +297,7 @@ namespace ServiceStack.OrmLite
         {
             return dbConn.Exec(dbCmd => dbCmd.DeleteAsync(where, commandFilter, token));
         }
-    
+
         /// <summary>
         /// Delete the rows that matches the where filter, e.g:
         /// 

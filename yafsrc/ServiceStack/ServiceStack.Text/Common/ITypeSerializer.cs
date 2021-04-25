@@ -5,7 +5,7 @@ using ServiceStack.Text.Json;
 namespace ServiceStack.Text.Common
 {
     public delegate object ObjectDeserializerDelegate(ReadOnlySpan<char> value);
-    
+
     public interface ITypeSerializer
     {
         ObjectDeserializerDelegate ObjectDeserializer { get; set; }

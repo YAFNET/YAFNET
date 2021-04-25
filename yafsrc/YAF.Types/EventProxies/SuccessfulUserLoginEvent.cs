@@ -23,39 +23,39 @@
  */
 namespace YAF.Types.EventProxies
 {
-  #region Using
+    #region Using
 
-  using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Events;
 
-  #endregion
-
-  /// <summary>
-  /// The user login event.
-  /// </summary>
-  public class SuccessfulUserLoginEvent : IAmEvent
-  {
-    #region Constructors and Destructors
+    #endregion
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SuccessfulUserLoginEvent"/> class.
+    /// The user login event.
     /// </summary>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    public SuccessfulUserLoginEvent([NotNull] int userId)
+    public class SuccessfulUserLoginEvent : IAmEvent
     {
-      this.UserId = userId;
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SuccessfulUserLoginEvent"/> class.
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        public SuccessfulUserLoginEvent([NotNull] int userId)
+        {
+            this.UserId = userId;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets UserId.
+        /// </summary>
+        public int UserId { get; set; }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    ///   Gets or sets UserId.
-    /// </summary>
-    public int UserId { get; set; }
-
-    #endregion
-  }
 }

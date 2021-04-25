@@ -380,7 +380,7 @@ namespace ServiceStack.OrmLite.Dapper
                     && typeof(IEnumerable<IDataRecord>).IsAssignableFrom(type))
                 {
                     var argTypes = type.GetGenericArguments();
-                    if(typeof(IDataRecord).IsAssignableFrom(argTypes[0]))
+                    if (typeof(IDataRecord).IsAssignableFrom(argTypes[0]))
                     {
                         try
                         {

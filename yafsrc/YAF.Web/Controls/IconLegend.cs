@@ -61,22 +61,22 @@ namespace YAF.Web.Controls
         private static Icon GetTopicIcon(string themeImageTag)
         {
             var iconNew = new Icon
-                                 {
-                                     IconName = "comment",
-                                     IconStackName = "comment",
-                                     IconStackType = "fa-inverse",
-                                     IconStackSize = "fa-1x",
-                                     IconType = "text-success"
-                                 };
+            {
+                IconName = "comment",
+                IconStackName = "comment",
+                IconStackType = "fa-inverse",
+                IconStackSize = "fa-1x",
+                IconType = "text-success"
+            };
 
             var icon = new Icon
-                              {
-                                  IconName = "comment",
-                                  IconStackName = "comment",
-                                  IconStackType = "fa-inverse",
-                                  IconStackSize = "fa-1x",
-                                  IconType = "text-secondary"
-                              };
+            {
+                IconName = "comment",
+                IconStackName = "comment",
+                IconStackType = "fa-inverse",
+                IconStackSize = "fa-1x",
+                IconType = "text-secondary"
+            };
 
             switch (themeImageTag)
             {
@@ -152,10 +152,10 @@ namespace YAF.Web.Controls
                 col.Controls.Add(GetTopicIcon(localizedTags[i]));
 
                 var descriptionText = new Label
-                                          {
-                                              Text = this.GetText(localizedTags[i]),
-                                              CssClass = "small"
-                                          };
+                {
+                    Text = this.GetText(localizedTags[i]),
+                    CssClass = "small"
+                };
 
                 // localized text describing the image
                 col.Controls.Add(descriptionText);

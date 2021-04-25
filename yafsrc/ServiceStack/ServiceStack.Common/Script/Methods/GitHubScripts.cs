@@ -13,7 +13,7 @@ namespace ServiceStack.Script
             context.ScriptMethods.Add(new GitHubScripts());
         }
     }
-    
+
     public class GitHubScripts : ScriptMethods
     {
         public GistVirtualFiles gistVirtualFiles(string gistId) => new GistVirtualFiles(gistId);
@@ -29,21 +29,21 @@ namespace ServiceStack.Script
 
         public Task<object> githubSourceRepos(GitHubGateway gateway, string orgName) =>
             Task.FromResult<object>(gateway.GetSourceReposAsync(orgName));
-        
+
         public Task<object> githubUserAndOrgRepos(GitHubGateway gateway, string githubOrgOrUser) =>
             Task.FromResult<object>(gateway.GetUserAndOrgReposAsync(githubOrgOrUser));
 
         public List<GithubRepo> githubUserRepos(GitHubGateway gateway, string githubUser) =>
             gateway.GetUserRepos(githubUser);
-        
+
         public List<GithubRepo> githubOrgRepos(GitHubGateway gateway, string githubOrg) =>
             gateway.GetOrgRepos(githubOrg);
 
-        public GithubGist githubCreateGist(GitHubGateway gateway, string description, Dictionary<string, string> files) => 
-            gateway.CreateGithubGist(description:description, isPublic:true, textFiles:files);
+        public GithubGist githubCreateGist(GitHubGateway gateway, string description, Dictionary<string, string> files) =>
+            gateway.CreateGithubGist(description: description, isPublic: true, textFiles: files);
 
-        public GithubGist githubCreatePrivateGist(GitHubGateway gateway, string description, Dictionary<string, string> files) => 
-            gateway.CreateGithubGist(description:description, isPublic:false, textFiles:files);
+        public GithubGist githubCreatePrivateGist(GitHubGateway gateway, string description, Dictionary<string, string> files) =>
+            gateway.CreateGithubGist(description: description, isPublic: false, textFiles: files);
 
         public GithubGist githubGist(GitHubGateway gateway, string gistId) =>
             gateway.GetGithubGist(gistId);
@@ -59,13 +59,13 @@ namespace ServiceStack.Script
             gateway.WriteGistFile(gistId, filePath, contents);
             return IgnoreResult.Value;
         }
-        
+
         public IgnoreResult githuDeleteGistFiles(GitHubGateway gateway, string gistId, string filePath)
         {
             gateway.DeleteGistFiles(gistId, filePath);
             return IgnoreResult.Value;
         }
-        
+
         public IgnoreResult githuDeleteGistFiles(GitHubGateway gateway, string gistId, IEnumerable<string> filePaths)
         {
             gateway.DeleteGistFiles(gistId, filePaths.ToArray());

@@ -188,16 +188,16 @@ namespace YAF.Controls
             }
 
             var link = new ThemeButton
-                           {
-                               TitleLocalizedTag = linkToolTip,
-                               Type = ButtonStyle.None,
-                               TitleLocalizedPage = "TOOLBAR",
-                               NavigateUrl = linkUrl,
-                               Text = icon.IsSet()
+            {
+                TitleLocalizedTag = linkToolTip,
+                Type = ButtonStyle.None,
+                TitleLocalizedPage = "TOOLBAR",
+                NavigateUrl = linkUrl,
+                Text = icon.IsSet()
                                           ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}"
                                           : linkText,
-                               CssClass = cssClass
-                           };
+                CssClass = cssClass
+            };
 
             if (noFollow)
             {
@@ -358,7 +358,7 @@ namespace YAF.Controls
                     false,
                     false,
                     null,
-                    null, 
+                    null,
                     this.PageContext.ForumPageType == ForumPages.Team,
                     string.Empty);
             }
@@ -491,9 +491,9 @@ namespace YAF.Controls
 
                     // show register link
                     var registerLink = new HyperLink
-                                           {
-                                               Text = this.GetText("TOOLBAR", "REGISTER"),
-                                               NavigateUrl =
+                    {
+                        Text = this.GetText("TOOLBAR", "REGISTER"),
+                        NavigateUrl =
                                                    this.PageContext.BoardSettings.ShowRulesForRegistration
                                                        ? this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
                                                        : !this.PageContext.BoardSettings.UseSSLToRegister
@@ -501,8 +501,8 @@ namespace YAF.Controls
                                                            : this.Get<LinkBuilder>().GetLink(
                                                                ForumPages.Account_Register,
                                                                true).Replace("http:", "https:"),
-                                               CssClass = "alert-link"
-                                           };
+                        CssClass = "alert-link"
+                    };
 
                     this.GuestUserMessage.Controls.Add(registerLink);
 
@@ -529,6 +529,6 @@ namespace YAF.Controls
             }
         }
 
-#endregion
+        #endregion
     }
 }

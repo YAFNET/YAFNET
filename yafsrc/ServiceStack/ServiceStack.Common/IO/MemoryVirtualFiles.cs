@@ -8,7 +8,7 @@ using ServiceStack.VirtualPath;
 
 namespace ServiceStack.IO
 {
-    public class MemoryVirtualFiles 
+    public class MemoryVirtualFiles
         : AbstractVirtualPathProviderBase, IVirtualFiles
     {
         public MemoryVirtualFiles()
@@ -30,13 +30,13 @@ namespace ServiceStack.IO
 
         public override string RealPathSeparator => "/";
 
-        protected override void Initialize() {}
+        protected override void Initialize() { }
 
         public override IVirtualFile GetFile(string virtualPath)
         {
             if (Files.Count == 0)
                 return null;
-                
+
             var filePath = SanitizePath(virtualPath);
             return Files.FirstOrDefault(x => x.FilePath == filePath);
         }
@@ -48,7 +48,7 @@ namespace ServiceStack.IO
             var dirPath = SanitizePath(virtualPath);
             if (string.IsNullOrEmpty(dirPath))
                 return rootDirectory;
-            
+
             var dir = new InMemoryVirtualDirectory(this, dirPath, GetParentDirectory(dirPath));
             return forceDir || dir.HasFiles()
                 ? dir
@@ -65,7 +65,7 @@ namespace ServiceStack.IO
             {
                 var parentDir = dirPath.Substring(0, lastDirPos);
                 if (!string.IsNullOrEmpty(parentDir))
-                    return GetDirectory(parentDir, forceDir:true);
+                    return GetDirectory(parentDir, forceDir: true);
             }
 
             return this.rootDirectory;
@@ -159,12 +159,12 @@ namespace ServiceStack.IO
                 Interlocked.CompareExchange(ref files, newFiles, snapshot), snapshot));
         }
 
-        public void DeleteFile(string filePath) => DeleteFiles(new[]{ filePath });
+        public void DeleteFile(string filePath) => DeleteFiles(new[] { filePath });
 
         public void DeleteFiles(IEnumerable<string> filePaths)
         {
             var sanitizedFilePaths = filePaths.Select(SanitizePath).ToSet();
-            
+
             List<InMemoryVirtualFile> snapshot, newFiles;
             do
             {
@@ -177,14 +177,14 @@ namespace ServiceStack.IO
         public void DeleteFolder(string dirPath)
         {
             var subFiles = Files.Where(x => x.DirPath.StartsWith(dirPath));
-            DeleteFiles(subFiles.Map(x => x.VirtualPath));            
+            DeleteFiles(subFiles.Map(x => x.VirtualPath));
         }
 
         public IEnumerable<InMemoryVirtualDirectory> GetImmediateDirectories(string fromDirPath)
         {
             if (Files.Count == 0)
                 return TypeConstants<InMemoryVirtualDirectory>.EmptyArray;
-            
+
             var dirPaths = Files
                 .Map(x => x.DirPath)
                 .Distinct()
@@ -199,7 +199,7 @@ namespace ServiceStack.IO
         {
             if (Files.Count == 0)
                 return TypeConstants<InMemoryVirtualFile>.EmptyArray;
-            
+
             return Files.Where(x => x.DirPath == fromDirPath);
         }
 
@@ -226,7 +226,7 @@ namespace ServiceStack.IO
 
             if (fromDirPath == null)
             {
-                return subDirPath.CountOccurrencesOf(DirSep) == 0 
+                return subDirPath.CountOccurrencesOf(DirSep) == 0
                     ? subDirPath
                     : subDirPath.LeftPart(DirSep);
             }
@@ -234,7 +234,7 @@ namespace ServiceStack.IO
             if (!subDirPath.StartsWith(fromDirPath))
                 return null;
 
-            return fromDirPath.CountOccurrencesOf(DirSep) == subDirPath.CountOccurrencesOf(DirSep) - 1 
+            return fromDirPath.CountOccurrencesOf(DirSep) == subDirPath.CountOccurrencesOf(DirSep) - 1
                 ? subDirPath
                 : null;
         }
@@ -246,13 +246,13 @@ namespace ServiceStack.IO
     {
         private readonly MemoryVirtualFiles pathProvider;
 
-        public InMemoryVirtualDirectory(MemoryVirtualFiles pathProvider, string dirPath, IVirtualDirectory parentDir=null) 
+        public InMemoryVirtualDirectory(MemoryVirtualFiles pathProvider, string dirPath, IVirtualDirectory parentDir = null)
             : base(pathProvider, parentDir)
         {
             this.pathProvider = pathProvider;
             this.DirPath = dirPath;
         }
-        
+
         public DateTime DirLastModified { get; set; }
         public override DateTime LastModified => DirLastModified;
 
@@ -285,7 +285,7 @@ namespace ServiceStack.IO
         {
             if (pathProvider.Files.Count == 0)
                 return TypeConstants<IVirtualFile>.EmptyArray;
-            
+
             var matchingFilesInBackingDir = EnumerateFiles(globPattern);
             return matchingFilesInBackingDir;
         }
@@ -318,10 +318,10 @@ namespace ServiceStack.IO
         {
             if (pathProvider.Files.Count == 0)
                 return false;
-                
+
             if (IsRoot)
                 return pathProvider.Files.Count > 0;
-            
+
             var ret = pathProvider.Files.Any(x => x.DirPath != null && x.DirPath.StartsWith(DirPath));
             return ret;
         }
@@ -330,15 +330,15 @@ namespace ServiceStack.IO
         {
             if (pathProvider.Files.Count == 0)
                 return TypeConstants<IVirtualFile>.EmptyArray;
-            
+
             if (IsRoot)
-                return pathProvider.Files.Where(x => 
-                    (x.DirPath == null || x.DirPath.CountOccurrencesOf('/') < maxDepth-1)
+                return pathProvider.Files.Where(x =>
+                    (x.DirPath == null || x.DirPath.CountOccurrencesOf('/') < maxDepth - 1)
                     && x.Name.Glob(globPattern));
-            
-            return pathProvider.Files.Where(x => 
+
+            return pathProvider.Files.Where(x =>
                 x.DirPath != null
-                && x.DirPath.CountOccurrencesOf('/') < maxDepth-1
+                && x.DirPath.CountOccurrencesOf('/') < maxDepth - 1
                 && x.DirPath.StartsWith(DirPath)
                 && x.Name.Glob(globPattern));
         }
@@ -348,10 +348,10 @@ namespace ServiceStack.IO
     public class InMemoryVirtualFile : AbstractVirtualFileBase
     {
 
-        public InMemoryVirtualFile(IVirtualPathProvider owningProvider, IVirtualDirectory directory) 
+        public InMemoryVirtualFile(IVirtualPathProvider owningProvider, IVirtualDirectory directory)
             : base(owningProvider, directory)
         {
-            this.FileLastModified = DateTime.MinValue;            
+            this.FileLastModified = DateTime.MinValue;
         }
 
         public string DirPath => base.Directory.VirtualPath;
@@ -403,11 +403,11 @@ namespace ServiceStack.IO
 
         public override object GetContents()
         {
-            return TextContents != null 
-                ? (object) TextContents.AsMemory() 
+            return TextContents != null
+                ? (object)TextContents.AsMemory()
                 : ByteContents != null ? new ReadOnlyMemory<byte>(ByteContents) : null;
         }
-        
+
         public override void Refresh()
         {
             if (base.VirtualPathProvider.GetFile(VirtualPath) is InMemoryVirtualFile file && !ReferenceEquals(file, this))

@@ -255,12 +255,12 @@ namespace YAF.UrlRewriter
             var b = new UriBuilder(uri);
             b.Path += "/";
             uri = b.Uri;
-            
+
             if (uri.Host != this._httpContext.RequestUrl.Host)
             {
                 return false;
             }
-            
+
             var filename = this._httpContext.MapPath(uri.AbsolutePath);
 
             if (!Directory.Exists(filename))
@@ -297,7 +297,7 @@ namespace YAF.UrlRewriter
                 throw new HttpException((int)context.StatusCode, context.StatusCode.ToString());
             }
 
-            var handler = this._configuration.ErrorHandlers[(int) context.StatusCode];
+            var handler = this._configuration.ErrorHandlers[(int)context.StatusCode];
 
             try
             {

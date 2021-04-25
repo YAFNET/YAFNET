@@ -20,7 +20,7 @@ namespace ServiceStack.Script
             var afterUnary = Operator.Evaluate(result);
             return afterUnary;
         }
- 
+
         public override Dictionary<string, object> ToJsAst()
         {
             var to = new Dictionary<string, object>
@@ -39,7 +39,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsUnaryExpression) obj);
+            return Equals((JsUnaryExpression)obj);
         }
 
         public override int GetHashCode()

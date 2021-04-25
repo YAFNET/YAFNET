@@ -88,7 +88,7 @@ namespace ServiceStack.VirtualPath
         }
 
         protected override IEnumerable<IVirtualFile> GetMatchingFilesInDir(string globPattern)
-        { 
+        {
             try
             {
                 if (globPattern.IndexOf('/') >= 0)
@@ -104,7 +104,7 @@ namespace ServiceStack.VirtualPath
 
                         return matchingFilesInBackingDir;
                     }
-                    
+
                     return TypeConstants<IVirtualFile>.EmptyArray;
                 }
                 else

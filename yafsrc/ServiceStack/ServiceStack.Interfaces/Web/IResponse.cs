@@ -84,7 +84,7 @@ namespace ServiceStack.Web
         /// When used in a request or response filter, no more filters or processing is done on this request.
         /// </summary>
         void Close();
-        
+
         /// <summary>
         /// Close this Response Output Stream Async
         /// </summary>

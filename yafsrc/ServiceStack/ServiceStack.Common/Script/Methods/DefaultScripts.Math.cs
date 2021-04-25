@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace ServiceStack.Script
 {
     // ReSharper disable InconsistentNaming
-    
+
     public partial class DefaultScripts
     {
         public object add(object lhs, object rhs) => DynamicNumber.Add(lhs, rhs);

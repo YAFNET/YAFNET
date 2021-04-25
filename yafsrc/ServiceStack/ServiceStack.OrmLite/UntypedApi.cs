@@ -90,12 +90,12 @@ namespace ServiceStack.OrmLite
 
         public void InsertAll(IEnumerable objs)
         {
-            Exec(dbCmd => dbCmd.InsertAll((IEnumerable<T>)objs, commandFilter:null));
+            Exec(dbCmd => dbCmd.InsertAll((IEnumerable<T>)objs, commandFilter: null));
         }
 
         public void InsertAll(IEnumerable objs, Action<IDbCommand> commandFilter)
         {
-            Exec(dbCmd => dbCmd.InsertAll((IEnumerable<T>)objs, commandFilter:commandFilter));
+            Exec(dbCmd => dbCmd.InsertAll((IEnumerable<T>)objs, commandFilter: commandFilter));
         }
 
         public long Insert(object obj, bool selectIdentity = false)

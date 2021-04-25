@@ -77,7 +77,7 @@ namespace YAF.Types.Models.Identity
     /// </summary>
     /// <typeparam name="TKey">
     /// </typeparam>
-    public class AspNetRoles<TKey> : IRole<TKey>, IEntity,  IHasId<TKey>
+    public class AspNetRoles<TKey> : IRole<TKey>, IEntity, IHasId<TKey>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AspNetRoles{TKey}"/> class. 

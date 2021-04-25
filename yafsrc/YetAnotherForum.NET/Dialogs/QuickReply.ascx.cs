@@ -278,11 +278,11 @@ namespace YAF.Dialogs
                 }
 
                 var messageFlags = new MessageFlags
-                                       {
-                                           IsHtml = this.quickReplyEditor.UsesHTML,
-                                           IsBBCode = this.quickReplyEditor.UsesBBCode,
-                                           IsApproved = spamApproved
-                                       };
+                {
+                    IsHtml = this.quickReplyEditor.UsesHTML,
+                    IsBBCode = this.quickReplyEditor.UsesBBCode,
+                    IsApproved = spamApproved
+                };
 
                 // Bypass Approval if Admin or Moderator.
                 var messageId = this.GetRepository<Message>().SaveNew(
@@ -292,7 +292,7 @@ namespace YAF.Dialogs
                     message,
                     null,
                     this.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                    DateTime.UtcNow, 
+                    DateTime.UtcNow,
                     null,
                     messageFlags);
 

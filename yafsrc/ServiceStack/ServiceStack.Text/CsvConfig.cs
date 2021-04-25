@@ -144,7 +144,7 @@ namespace ServiceStack.Text
                 customHeadersMap = new Dictionary<string, string>();
                 foreach (var pi in propertyInfos)
                 {
-                    var getMethod = pi.GetGetMethod(nonPublic:true);
+                    var getMethod = pi.GetGetMethod(nonPublic: true);
                     if (getMethod == null) continue;
 
                     var oValue = getMethod.Invoke(value, TypeConstants.EmptyObjectArray);

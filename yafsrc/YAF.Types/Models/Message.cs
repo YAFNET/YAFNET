@@ -86,7 +86,7 @@ namespace YAF.Types.Models
             {
                 this.IsModeratorChanged = false;
             }
-            
+
             try
             {
                 this.DeleteReason = row.DeleteReason;
@@ -104,7 +104,7 @@ namespace YAF.Types.Models
             {
                 this.IP = string.Empty;
             }
-           
+
             try
             {
                 this.ExternalMessageId = row.ExternalMessageId;
@@ -113,7 +113,7 @@ namespace YAF.Types.Models
             {
                 this.ExternalMessageId = string.Empty;
             }
-            
+
             try
             {
                 this.ReferenceMessageId = row.ReferenceMessageId;

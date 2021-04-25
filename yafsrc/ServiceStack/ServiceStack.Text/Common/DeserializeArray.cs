@@ -30,7 +30,7 @@ namespace ServiceStack.Text.Common
             return (s, d) => func(s.AsSpan(), v => d(v.ToString()));
         }
 
-        private static readonly Type[] signature = {typeof(ReadOnlySpan<char>), typeof(ParseStringSpanDelegate)};
+        private static readonly Type[] signature = { typeof(ReadOnlySpan<char>), typeof(ParseStringSpanDelegate) };
 
         public static ParseArrayOfElementsDelegate GetParseStringSpanFn(Type type)
         {
@@ -64,7 +64,7 @@ namespace ServiceStack.Text.Common
 
         public static T[] ParseGenericArray(ReadOnlySpan<char> value, ParseStringSpanDelegate elementParseFn)
         {
-            if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty()) 
+            if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty())
                 return value.IsEmpty ? null : new T[0];
 
             if (value[0] == JsWriter.MapStartChar)
@@ -127,7 +127,7 @@ namespace ServiceStack.Text.Common
             do
             {
                 snapshot = ParseDelegateCache;
-                newCache = new Dictionary<Type, ParseStringSpanDelegate>(ParseDelegateCache) {[type] = parseFn};
+                newCache = new Dictionary<Type, ParseStringSpanDelegate>(ParseDelegateCache) { [type] = parseFn };
 
             } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ParseDelegateCache, newCache, snapshot), snapshot));
@@ -177,7 +177,7 @@ namespace ServiceStack.Text.Common
 
         public static string[] ParseStringArray(ReadOnlySpan<char> value)
         {
-            if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty()) 
+            if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty())
                 return value.IsEmpty ? null : TypeConstants.EmptyStringArray;
             return DeserializeListWithElements<TSerializer>.ParseStringList(value).ToArray();
         }
@@ -189,14 +189,14 @@ namespace ServiceStack.Text.Common
         public static byte[] ParseByteArray(ReadOnlySpan<char> value)
         {
             var isArray = value.Length > 1 && value[0] == '[';
-            
-            if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty()) 
+
+            if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty())
                 return value.IsEmpty ? null : TypeConstants.EmptyByteArray;
 
-            if ((value = Serializer.UnescapeString(value)).IsNullOrEmpty()) 
+            if ((value = Serializer.UnescapeString(value)).IsNullOrEmpty())
                 return TypeConstants.EmptyByteArray;
-            
-            return !isArray 
+
+            return !isArray
                 ? value.ParseBase64()
                 : DeserializeListWithElements<TSerializer>.ParseByteList(value).ToArray();
         }

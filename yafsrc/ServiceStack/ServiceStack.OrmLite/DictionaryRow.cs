@@ -13,7 +13,7 @@ namespace ServiceStack.OrmLite
         T Fields { get; }
     }
 
-    public struct DictionaryRow : IDynamicRow<Dictionary<string,object>>
+    public struct DictionaryRow : IDynamicRow<Dictionary<string, object>>
     {
         public Type Type { get; }
         public Dictionary<string, object> Fields { get; }
@@ -45,7 +45,8 @@ namespace ServiceStack.OrmLite
             ? null
             : type.IsInstanceOfType(row)
                 ? row
-                : row switch {
+                : row switch
+                {
                     Dictionary<string, object> obj => new DictionaryRow(type, obj),
                     _ => new ObjectRow(type, row),
                 };

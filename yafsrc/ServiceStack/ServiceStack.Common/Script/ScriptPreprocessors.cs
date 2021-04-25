@@ -25,7 +25,7 @@ namespace ServiceStack.Script
                         inCodeBlock = false;
                         continue;
                     }
-                    
+
                     var codeOnly = line.Trim();
                     if (string.IsNullOrEmpty(codeOnly))
                         continue;
@@ -68,7 +68,7 @@ namespace ServiceStack.Script
 
             if (hadCodeBlocks)
                 return StringBuilderCache.ReturnAndFree(processed);
-            
+
             // return original script if there were no code blocks
             StringBuilderCache.Free(processed);
             return script;

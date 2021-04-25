@@ -23,10 +23,10 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// Marker interface for a page that requires startup services.
-  /// </summary>
-  public interface IRequireStartupServices
-  {
-  }
+    /// <summary>
+    /// Marker interface for a page that requires startup services.
+    /// </summary>
+    public interface IRequireStartupServices
+    {
+    }
 }

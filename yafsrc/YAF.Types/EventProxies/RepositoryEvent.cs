@@ -38,12 +38,12 @@ namespace YAF.Types.EventProxies
         /// <summary>
         ///     The new.
         /// </summary>
-        New, 
+        New,
 
         /// <summary>
         ///     The update.
         /// </summary>
-        Update, 
+        Update,
 
         /// <summary>
         ///     The delete.

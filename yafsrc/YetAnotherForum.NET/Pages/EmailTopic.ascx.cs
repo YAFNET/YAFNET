@@ -131,9 +131,9 @@ namespace YAF.Pages
             try
             {
                 var emailTopic = new TemplateEmail("EMAILTOPIC")
-                                     {
-                                         TemplateParams = { ["{message}"] = this.Message.Text.Trim() }
-                                     };
+                {
+                    TemplateParams = { ["{message}"] = this.Message.Text.Trim() }
+                };
 
                 // send a change email message...
                 emailTopic.SendEmail(new MailAddress(this.EmailAddress.Text.Trim()), this.Subject.Text.Trim());

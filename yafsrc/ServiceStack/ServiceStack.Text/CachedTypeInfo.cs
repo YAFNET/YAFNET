@@ -38,15 +38,15 @@ namespace ServiceStack.Text
 
         public EnumInfo EnumInfo { get; }
     }
-    
+
     public class EnumInfo
     {
         public static EnumInfo GetEnumInfo(Type type)
         {
             if (type.IsEnum)
                 return new EnumInfo(type);
-            
-            var nullableType = Nullable.GetUnderlyingType(type);           
+
+            var nullableType = Nullable.GetUnderlyingType(type);
             if (nullableType?.IsEnum == true)
                 return new EnumInfo(nullableType);
 
@@ -99,9 +99,9 @@ namespace ServiceStack.Text
         {
             if (enumMemberReverseLookup.TryGetValue(serializedValue, out var enumValue))
                 return enumValue;
-            
+
             return Enum.Parse(enumType, serializedValue, ignoreCase: true); //Also parses quoted int values, e.g. "1"
         }
     }
-    
+
 }

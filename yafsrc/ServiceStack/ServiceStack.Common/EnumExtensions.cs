@@ -8,7 +8,7 @@ namespace ServiceStack
     {
         public static IEnumerable<T> GetValues<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>();
     }
-    
+
     public static class EnumExtensions
     {
         /// <summary>
@@ -41,9 +41,9 @@ namespace ServiceStack
 
             return @enum.ToString();
         }
-            
+
         public static List<KeyValuePair<string, string>> ToKeyValuePairs<T>(this IEnumerable<T> enums) where T : Enum
-            => enums.Map(x => new KeyValuePair<string,string>(
+            => enums.Map(x => new KeyValuePair<string, string>(
                 x.ToString(),
                 x.ToDescription()));
 

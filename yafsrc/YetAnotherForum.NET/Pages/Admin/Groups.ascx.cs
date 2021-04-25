@@ -281,9 +281,9 @@ namespace YAF.Pages.Admin
 
             // get all provider roles
             (from role in this.Get<IAspNetRolesHelper>().GetAllRoles()
-                                 let rows = groups.Select(g => g.Name == role)
-                                 where groups.Count == 0
-                                 select role).ForEach(role1 => this.availableRoles.Add(role1));
+             let rows = groups.Select(g => g.Name == role)
+             where groups.Count == 0
+             select role).ForEach(role1 => this.availableRoles.Add(role1));
 
             // check if there are any roles for syncing
             if (this.availableRoles.Count > 0 && !Config.IsDotNetNuke)

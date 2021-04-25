@@ -113,7 +113,7 @@ namespace YAF.Controls
 
                 // Last Topic User
                 var lastUserLink = new UserLink
-                { 
+                {
                     Suspended = this.DataSource.LastUserSuspended,
                     UserID = this.DataSource.LastUserID.Value,
                     IsGuest = true,

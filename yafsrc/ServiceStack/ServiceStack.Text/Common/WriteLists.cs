@@ -217,15 +217,16 @@ namespace ServiceStack.Text.Common
         static WriteListsOfElements()
         {
             var fn = JsWriter.GetTypeSerializer<TSerializer>().GetWriteFn<T>();
-            ElementWriteFn = (writer, obj) => {
-                try 
-                { 
+            ElementWriteFn = (writer, obj) =>
+            {
+                try
+                {
                     if (!JsState.Traverse(obj))
                         return;
-                    
+
                     fn(writer, obj);
                 }
-                finally 
+                finally
                 {
                     JsState.UnTraverse();
                 }

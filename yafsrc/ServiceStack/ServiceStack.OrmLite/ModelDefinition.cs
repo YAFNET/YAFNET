@@ -84,7 +84,7 @@ namespace ServiceStack.OrmLite
         private readonly object fieldDefLock = new object();
         private Dictionary<string, FieldDefinition> fieldDefinitionMap;
         private Func<string, string> fieldNameSanitizer;
-        
+
         public FieldDefinition[] AutoIdFields { get; private set; }
 
         public List<FieldDefinition> GetAutoIdFieldDefinitions()
@@ -100,17 +100,17 @@ namespace ServiceStack.OrmLite
             return to;
         }
 
-        public FieldDefinition[] GetOrderedFieldDefinitions(ICollection<string> fieldNames, Func<string, string> sanitizeFieldName=null)
+        public FieldDefinition[] GetOrderedFieldDefinitions(ICollection<string> fieldNames, Func<string, string> sanitizeFieldName = null)
         {
             if (fieldNames == null)
                 throw new ArgumentNullException(nameof(fieldNames));
-            
+
             var fieldDefs = new FieldDefinition[fieldNames.Count];
 
             var i = 0;
             foreach (var fieldName in fieldNames)
-            {                 
-                var fieldDef = sanitizeFieldName != null 
+            {
+                var fieldDef = sanitizeFieldName != null
                     ? AssertFieldDefinition(fieldName, sanitizeFieldName)
                     : AssertFieldDefinition(fieldName);
                 fieldDefs[i++] = fieldDef;
@@ -123,9 +123,9 @@ namespace ServiceStack.OrmLite
         {
             lock (fieldDefLock)
             {
-                if (fieldDefinitionMap != null && fieldNameSanitizer == sanitizeFieldName) 
+                if (fieldDefinitionMap != null && fieldNameSanitizer == sanitizeFieldName)
                     return fieldDefinitionMap;
-                
+
                 fieldDefinitionMap = new Dictionary<string, FieldDefinition>(StringComparer.OrdinalIgnoreCase);
                 fieldNameSanitizer = sanitizeFieldName;
                 foreach (var fieldDef in FieldDefinitionsArray)
@@ -144,7 +144,7 @@ namespace ServiceStack.OrmLite
         {
             return GetFieldDefinition(ExpressionUtils.GetMemberName(field));
         }
-        
+
         [MethodImpl(MethodImplOptions.NoInlining)]
         private void ThrowNoFieldException(string fieldName) =>
             throw new NotSupportedException($"'{fieldName}' is not a property of '{Name}'");
@@ -154,7 +154,7 @@ namespace ServiceStack.OrmLite
             var fieldDef = GetFieldDefinition(fieldName);
             if (fieldDef == null)
                 ThrowNoFieldException(fieldName);
-            
+
             return fieldDef;
         }
 
@@ -194,7 +194,7 @@ namespace ServiceStack.OrmLite
 
             return fieldDef;
         }
-        
+
         public FieldDefinition GetFieldDefinition(string fieldName, Func<string, string> sanitizeFieldName)
         {
             if (fieldName != null)
@@ -225,7 +225,7 @@ namespace ServiceStack.OrmLite
             return null;
         }
 
-        public string GetQuotedName(string fieldName, IOrmLiteDialectProvider dialectProvider) => 
+        public string GetQuotedName(string fieldName, IOrmLiteDialectProvider dialectProvider) =>
             GetFieldDefinition(fieldName)?.GetQuotedName(dialectProvider);
 
         public FieldDefinition GetFieldDefinition(Func<string, bool> predicate)

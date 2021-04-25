@@ -32,7 +32,7 @@ namespace YAF.Controls
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    
+
     #endregion
 
     /// <summary>

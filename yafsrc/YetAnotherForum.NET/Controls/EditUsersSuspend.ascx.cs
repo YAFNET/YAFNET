@@ -43,7 +43,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
-    
+
     using DateTime = System.DateTime;
 
     #endregion
@@ -108,7 +108,7 @@ namespace YAF.Controls
         {
             return this.Get<IDateTimeService>().GetUserDateTime(
                 this.User.Suspended.Value,
-                this.User.TimeZoneInfo).ToString(CultureInfo.InvariantCulture); 
+                this.User.TimeZoneInfo).ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>

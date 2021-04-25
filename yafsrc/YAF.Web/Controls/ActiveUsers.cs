@@ -165,7 +165,7 @@ namespace YAF.Web.Controls
                             };
                             userLink.ID = $"UserLink{this.InstantId}{userLink.UserID}";
                         }
-                        
+
                         // how many users of this type is present (valid for guests, others have it 1)
                         var userCount = (int)user.UserCount;
                         if (userCount > 1 && (!isCrawler || !this.PageContext.BoardSettings.ShowCrawlersInActiveList))
@@ -198,8 +198,8 @@ namespace YAF.Web.Controls
                         {
                             return;
                         }
-						
-						this.Controls.Add(userLink);
+
+                        this.Controls.Add(userLink);
                     });
         }
 

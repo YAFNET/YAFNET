@@ -116,9 +116,9 @@ namespace YAF.Modules
             {
                 // add error control...
                 this.errorPopup = new PopupDialogNotification
-                    {
-                        ID = "YafForumPageErrorPopup1"
-                    };
+                {
+                    ID = "YafForumPageErrorPopup1"
+                };
 
                 this.ForumControl.Controls.Add(this.errorPopup);
             }

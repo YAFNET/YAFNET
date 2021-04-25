@@ -89,7 +89,7 @@ namespace YAF.Modules
             var logoUrl = $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.PageContext.BoardSettings.ForumLogo}";
 
             bannerLink.Attributes.Add("style", $"background: url('{logoUrl}') no-repeat");
-            
+
             if (!this.CurrentForumPage.ShowToolBar)
             {
                 bannerLink.Visible = false;

@@ -24,7 +24,7 @@ namespace ServiceStack.Script
         public DateTime LastModifiedCheck { get; private set; }
         public bool HasInit { get; private set; }
         public bool IsLayout { get; private set; }
-        
+
         public bool IsImmutable { get; private set; }
 
         public ScriptContext Context { get; }
@@ -34,12 +34,12 @@ namespace ServiceStack.Script
         public bool IsTempFile => File.Directory.VirtualPath == ScriptConstants.TempFilePath;
         public string VirtualPath => IsTempFile ? "{temp file}" : File.VirtualPath;
 
-        public SharpPage(ScriptContext context, IVirtualFile file, PageFormat format=null)
+        public SharpPage(ScriptContext context, IVirtualFile file, PageFormat format = null)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
             ScriptLanguage = context.DefaultScriptLanguage;
             File = file ?? throw new ArgumentNullException(nameof(file));
-            
+
             Format = format ?? Context.GetFormat(File.Extension);
             if (Format == null)
                 throw new ArgumentException($"File with extension '{File.Extension}' is not a registered PageFormat in Context.PageFormats", nameof(file));
@@ -61,7 +61,7 @@ namespace ServiceStack.Script
         {
             if (IsImmutable)
                 return this;
-            
+
             if (HasInit)
             {
                 var skipCheck = !Context.DebugMode &&
@@ -69,7 +69,7 @@ namespace ServiceStack.Script
                         ? DateTime.UtcNow - LastModifiedCheck < Context.CheckForModifiedPagesAfter.Value
                         : !Context.CheckForModifiedPages) &&
                     (Context.InvalidateCachesBefore == null || LastModifiedCheck > Context.InvalidateCachesBefore.Value);
-                
+
                 if (skipCheck)
                     return this;
 
@@ -78,7 +78,7 @@ namespace ServiceStack.Script
                 if (File.LastModified == LastModified)
                     return this;
             }
-            
+
             return await Load().ConfigAwait();
         }
 
@@ -86,7 +86,7 @@ namespace ServiceStack.Script
         {
             if (IsImmutable)
                 return this;
-            
+
             string contents;
             using (var stream = File.OpenRead())
             {
@@ -127,13 +127,13 @@ namespace ServiceStack.Script
 
                     if (bracePos > 0 && spacePos > 0 && colonPos > spacePos)
                         sep = ' ';
-                    
+
                     line.SplitOnFirst(sep, out var first, out var last);
 
                     var key = first.Trim().ToString();
                     pageVars[key] = !last.IsEmpty ? last.Trim().ToString() : "";
                 }
-                
+
                 //When page has variables body starts from first non whitespace after variables end  
                 var argsSuffixPos = line.LastIndexOf(Format.ArgsSuffix);
                 if (argsSuffixPos >= 0)
@@ -144,9 +144,9 @@ namespace ServiceStack.Script
                 bodyContents = fileContents.SafeSlice(pos).AdvancePastWhitespace();
             }
 
-            var pageFragments = pageVars.TryGetValue("ignore", out object ignore) 
+            var pageFragments = pageVars.TryGetValue("ignore", out object ignore)
                     && ("page".Equals(ignore.ToString()) || "template".Equals(ignore.ToString()))
-                ? new List<PageFragment> { new PageStringFragment(bodyContents) } 
+                ? new List<PageFragment> { new PageStringFragment(bodyContents) }
                 : ScriptLanguage.Parse(Context, bodyContents);
 
             foreach (var fragment in pageFragments)
@@ -157,11 +157,11 @@ namespace ServiceStack.Script
                     break;
                 }
             }
-            
+
             lock (semaphore)
             {
                 LastModified = lastModified;
-                LastModifiedCheck = DateTime.UtcNow;                
+                LastModifiedCheck = DateTime.UtcNow;
                 FileContents = fileContents;
                 Args = pageVars;
                 BodyContents = bodyContents;
@@ -202,11 +202,11 @@ namespace ServiceStack.Script
         static IVirtualFile CreateFile(string name, string format) =>
             new InMemoryVirtualFile(TempFiles, TempDir)
             {
-                FilePath = name + "." + format, 
+                FilePath = name + "." + format,
                 TextContents = "",
             };
 
-        public SharpPartialPage(ScriptContext context, string name, IEnumerable<PageFragment> body, string format, Dictionary<string,object> args=null)
+        public SharpPartialPage(ScriptContext context, string name, IEnumerable<PageFragment> body, string format, Dictionary<string, object> args = null)
             : base(context, CreateFile(name, format), context.GetFormat(format))
         {
             PageFragments = body.ToArray();

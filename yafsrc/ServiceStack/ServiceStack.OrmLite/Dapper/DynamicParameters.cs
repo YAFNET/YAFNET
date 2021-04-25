@@ -448,8 +448,8 @@ namespace ServiceStack.OrmLite.Dapper
                 cache[lookup] = setter;
             }
 
-            // Queue the preparation to be fired off when adding parameters to the DbCommand
-            MAKECALLBACK:
+        // Queue the preparation to be fired off when adding parameters to the DbCommand
+        MAKECALLBACK:
             (outputCallbacks ??= new List<Action>()).Add(() =>
             {
                 // Finally, prep the parameter and attach the callback to it

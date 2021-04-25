@@ -104,7 +104,7 @@ namespace ServiceStack.Text
         {
             return DeserializeFromString(reader.ReadToEnd(), type);
         }
-        
+
         public static string SerializeToString<T>(T value)
         {
             if (value == null || value is Delegate) return null;
@@ -313,7 +313,7 @@ namespace ServiceStack.Text
             if (instance is Delegate fn)
                 return Dump(fn);
 
-            var dtoStr = !HasCircularReferences(instance) 
+            var dtoStr = !HasCircularReferences(instance)
                 ? SerializeToString(instance)
                 : SerializeToString(instance.ToSafePartialObjectDictionary());
             var formatStr = JsvFormatter.Format(dtoStr);
@@ -345,7 +345,7 @@ namespace ServiceStack.Text
         private static bool HasCircularReferences(object value, Stack<object> parentValues)
         {
             var type = value?.GetType();
-            
+
             if (type == null || !type.IsClass || value is string || value is Type)
                 return false;
 
@@ -354,7 +354,7 @@ namespace ServiceStack.Text
                 parentValues = new Stack<object>();
                 parentValues.Push(value);
             }
-            
+
             bool CheckValue(object key)
             {
                 if (parentValues.Contains(key))
@@ -382,19 +382,19 @@ namespace ServiceStack.Text
                         var props = TypeProperties.Get(itemType);
                         var key = props.GetPublicGetter("Key")(item);
 
-                        if (CheckValue(key)) 
+                        if (CheckValue(key))
                             return true;
 
                         var val = props.GetPublicGetter("Value")(item);
 
-                        if (CheckValue(val)) 
+                        if (CheckValue(val))
                             return true;
                     }
-                    
-                    if (CheckValue(item)) 
+
+                    if (CheckValue(item))
                         return true;
                 }
-            }            
+            }
             else
             {
                 var props = type.GetSerializableProperties();
@@ -404,7 +404,7 @@ namespace ServiceStack.Text
                     if (pi.GetIndexParameters().Length > 0)
                         continue;
 
-                    var mi = pi.GetGetMethod(nonPublic:false);
+                    var mi = pi.GetGetMethod(nonPublic: false);
                     var pValue = mi != null ? mi.Invoke(value, null) : null;
                     if (pValue == null)
                         continue;

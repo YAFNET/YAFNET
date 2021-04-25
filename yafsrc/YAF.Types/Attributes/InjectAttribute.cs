@@ -23,17 +23,17 @@
  */
 namespace YAF.Types.Attributes
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  #endregion
+    #endregion
 
-  /// <summary>
-  /// The inject attribute -- mark a property that needs injection. Must be public.
-  /// </summary>
-  [AttributeUsage(AttributeTargets.Property)]
-  public class Inject : Attribute
-  {
-  }
+    /// <summary>
+    /// The inject attribute -- mark a property that needs injection. Must be public.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
+    public class Inject : Attribute
+    {
+    }
 }

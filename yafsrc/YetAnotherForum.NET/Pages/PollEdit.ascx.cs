@@ -127,7 +127,7 @@ namespace YAF.Pages
 
             var count =
                 (from RepeaterItem ri in this.ChoiceRepeater.Items
-                    select ri.FindControlAs<TextBox>("PollChoice").Text.Trim()).Count(value => value.IsSet());
+                 select ri.FindControlAs<TextBox>("PollChoice").Text.Trim()).Count(value => value.IsSet());
 
             if (count < 2)
             {

@@ -162,74 +162,74 @@ namespace YAF.Controls
             switch (type)
             {
                 case DataType.Text:
-                {
-                    textBox.MaxLength = profileDef.Length;
-                    textBox.CssClass = "form-control";
-                    textBox.Visible = true;
-
-                    if (profileDef.DefaultValue.IsSet())
                     {
-                        textBox.Text = profileDef.DefaultValue;
+                        textBox.MaxLength = profileDef.Length;
+                        textBox.CssClass = "form-control";
+                        textBox.Visible = true;
+
+                        if (profileDef.DefaultValue.IsSet())
+                        {
+                            textBox.Text = profileDef.DefaultValue;
+                        }
+
+                        if (profileDef.Required)
+                        {
+                            textBox.Attributes.Add("required", "required");
+                        }
+
+                        if (userValue != null)
+                        {
+                            textBox.Text = userValue.Value;
+                        }
+
+                        label.AssociatedControlID = textBox.ID;
+
+                        break;
                     }
-
-                    if (profileDef.Required)
-                    {
-                        textBox.Attributes.Add("required", "required");
-                    }
-
-                    if (userValue != null)
-                    {
-                        textBox.Text = userValue.Value;
-                    }
-
-                    label.AssociatedControlID = textBox.ID;
-
-                    break;
-                }
                 case DataType.Number:
-                {
-                    textBox.TextMode = TextBoxMode.Number;
-                    textBox.MaxLength = profileDef.Length;
-                    textBox.CssClass = "form-control";
-                    textBox.Visible = true;
-
-                    if (profileDef.DefaultValue.IsSet())
                     {
-                        textBox.Text = profileDef.DefaultValue;
+                        textBox.TextMode = TextBoxMode.Number;
+                        textBox.MaxLength = profileDef.Length;
+                        textBox.CssClass = "form-control";
+                        textBox.Visible = true;
+
+                        if (profileDef.DefaultValue.IsSet())
+                        {
+                            textBox.Text = profileDef.DefaultValue;
+                        }
+
+                        if (profileDef.Required)
+                        {
+                            textBox.Attributes.Add("required", "required");
+                        }
+
+                        if (userValue != null)
+                        {
+                            textBox.Text = userValue.Value;
+                        }
+
+                        label.AssociatedControlID = textBox.ID;
+
+                        break;
                     }
-
-                    if (profileDef.Required)
-                    {
-                        textBox.Attributes.Add("required", "required");
-                    }
-
-                    if (userValue != null)
-                    {
-                        textBox.Text = userValue.Value;
-                    }
-
-                    label.AssociatedControlID = textBox.ID;
-
-                    break;
-                }
                 case DataType.Check:
-                {
-                    check.Visible = true;
-
-                    if (profileDef.Required)
                     {
-                        check.Attributes.Add("required", "required");
+                        check.Visible = true;
+
+                        if (profileDef.Required)
+                        {
+                            check.Attributes.Add("required", "required");
+                        }
+
+                        if (userValue != null)
+                        {
+                            check.Checked = userValue.Value.ToType<bool>();
+                        }
+
+                        label.AssociatedControlID = check.ClientID;
+
+                        break;
                     }
-
-                    if (userValue != null)
-                    {
-                        check.Checked = userValue.Value.ToType<bool>();
-                    }
-
-                    label.AssociatedControlID = check.ClientID;
-
-                    break;
-                }
             }
         }
 
@@ -452,47 +452,47 @@ namespace YAF.Controls
                         switch (type)
                         {
                             case DataType.Text:
-                            {
-                                if (textBox.Text.IsSet())
                                 {
-                                    this.GetRepository<ProfileCustom>().Insert(
-                                        new ProfileCustom
-                                        {
-                                            UserID = this.currentUserId,
-                                            ProfileDefinitionID = profileDef.ID,
-                                            Value = textBox.Text
-                                        });
-                                }
+                                    if (textBox.Text.IsSet())
+                                    {
+                                        this.GetRepository<ProfileCustom>().Insert(
+                                            new ProfileCustom
+                                            {
+                                                UserID = this.currentUserId,
+                                                ProfileDefinitionID = profileDef.ID,
+                                                Value = textBox.Text
+                                            });
+                                    }
 
-                                break;
-                            }
+                                    break;
+                                }
                             case DataType.Number:
-                            {
-                                if (textBox.Text.IsSet())
+                                {
+                                    if (textBox.Text.IsSet())
+                                    {
+                                        this.GetRepository<ProfileCustom>().Insert(
+                                               new ProfileCustom
+                                               {
+                                                   UserID = this.currentUserId,
+                                                   ProfileDefinitionID = profileDef.ID,
+                                                   Value = textBox.Text
+                                               });
+                                    }
+
+                                    break;
+                                }
+                            case DataType.Check:
                                 {
                                     this.GetRepository<ProfileCustom>().Insert(
                                            new ProfileCustom
-                                        {
-                                            UserID = this.currentUserId,
-                                            ProfileDefinitionID = profileDef.ID,
-                                            Value = textBox.Text
-                                        });
+                                           {
+                                               UserID = this.currentUserId,
+                                               ProfileDefinitionID = profileDef.ID,
+                                               Value = check.Checked.ToString()
+                                           });
+
+                                    break;
                                 }
-
-                                break;
-                            }
-                            case DataType.Check:
-                            {
-                                this.GetRepository<ProfileCustom>().Insert(
-                                       new ProfileCustom
-                                    {
-                                        UserID = this.currentUserId,
-                                        ProfileDefinitionID = profileDef.ID,
-                                        Value = check.Checked.ToString()
-                                    });
-
-                                break;
-                            }
                         }
                     });
             }

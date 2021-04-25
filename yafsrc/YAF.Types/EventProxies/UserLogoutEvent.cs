@@ -25,33 +25,33 @@ namespace YAF.Types.EventProxies
 {
     using YAF.Types.Interfaces.Events;
 
-  /// <summary>
-  /// The user logout event.
-  /// </summary>
-  public class UserLogoutEvent : IAmEvent
-  {
-    #region Constructors and Destructors
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="UserLogoutEvent"/> class.
+    /// The user logout event.
     /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    public UserLogoutEvent([NotNull] int userId)
+    public class UserLogoutEvent : IAmEvent
     {
-      this.UserId = userId;
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserLogoutEvent"/> class.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        public UserLogoutEvent([NotNull] int userId)
+        {
+            this.UserId = userId;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets UserId.
+        /// </summary>
+        public int UserId { get; set; }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets UserId.
-    /// </summary>
-    public int UserId { get; set; }
-
-    #endregion
-  }
 }

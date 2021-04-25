@@ -350,7 +350,7 @@ namespace YAF.Controls
                 {
                     return;
                 }
-                
+
                 this.AvatarImg.ImageUrl = user.Avatar;
 
                 item.Selected = true;

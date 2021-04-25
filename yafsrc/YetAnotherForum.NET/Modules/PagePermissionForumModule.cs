@@ -23,93 +23,93 @@
  */
 namespace YAF.Modules
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Core.Extensions;
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// Module that handles page permission feature
-  /// </summary>
-  [Module("Page Permission Module", "Tiny Gecko", 1)]
-  public class PagePermissionForumModule : SimpleBaseForumModule
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    /// The permissions.
-    /// </summary>
-    private readonly IPermissions permissions;
+    using YAF.Core.Extensions;
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
 
     #endregion
 
-    #region Constructors and Destructors
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="PagePermissionForumModule"/> class.
+    /// Module that handles page permission feature
     /// </summary>
-    /// <param name="permissions">
-    /// The permissions.
-    /// </param>
-    public PagePermissionForumModule([NotNull] IPermissions permissions)
+    [Module("Page Permission Module", "Tiny Gecko", 1)]
+    public class PagePermissionForumModule : SimpleBaseForumModule
     {
-      this.permissions = permissions;
+        #region Constants and Fields
+
+        /// <summary>
+        /// The permissions.
+        /// </summary>
+        private readonly IPermissions permissions;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PagePermissionForumModule"/> class.
+        /// </summary>
+        /// <param name="permissions">
+        /// The permissions.
+        /// </param>
+        public PagePermissionForumModule([NotNull] IPermissions permissions)
+        {
+            this.permissions = permissions;
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The init after page.
+        /// </summary>
+        public override void InitAfterPage()
+        {
+            this.CurrentForumPage.Load += this.CurrentPageLoad;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The current page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void CurrentPageLoad([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // check access permissions for specific pages...
+            switch (this.ForumPageType)
+            {
+                case ForumPages.ActiveUsers:
+                    this.permissions.HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
+                    break;
+                case ForumPages.Members:
+                    this.permissions.HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
+                    break;
+                case ForumPages.UserProfile:
+                case ForumPages.Albums:
+                case ForumPages.Album:
+                    this.permissions.HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);
+                    break;
+                case ForumPages.Search:
+                    this.permissions.HandleRequest(this.PageContext.BoardSettings.SearchPermissions);
+                    break;
+            }
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The init after page.
-    /// </summary>
-    public override void InitAfterPage()
-    {
-      this.CurrentForumPage.Load += this.CurrentPageLoad;
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The current page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void CurrentPageLoad([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // check access permissions for specific pages...
-      switch (this.ForumPageType)
-      {
-        case ForumPages.ActiveUsers:
-          this.permissions.HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
-          break;
-        case ForumPages.Members:
-          this.permissions.HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
-          break;
-        case ForumPages.UserProfile:
-        case ForumPages.Albums:
-        case ForumPages.Album:
-          this.permissions.HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);
-          break;
-        case ForumPages.Search:
-          this.permissions.HandleRequest(this.PageContext.BoardSettings.SearchPermissions);
-          break;
-      }
-    }
-
-    #endregion
-  }
 }

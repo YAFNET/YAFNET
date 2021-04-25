@@ -32,8 +32,6 @@ namespace YAF.Controls
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using ServiceStack;
-
     using YAF.Core.BaseControls;
     using YAF.Core.Context.Start;
     using YAF.Core.Extensions;
@@ -108,7 +106,7 @@ namespace YAF.Controls
                 return this.postDataHelperWrapper;
             }
         }
-        
+
         #endregion
 
         #region Methods
@@ -173,7 +171,7 @@ namespace YAF.Controls
                                            && !this.PostData.IsLocked)
             {
                 this.ContextMenu.Attributes.Add(
-                    "data-url", 
+                    "data-url",
                     this.Get<LinkBuilder>().GetLink(
                         ForumPages.PostMessage,
                         "t={0}&f={1}",
@@ -357,7 +355,7 @@ namespace YAF.Controls
 
             if (this.PostData.PostIsAnswer)
             {
-                // Remove Current Message 
+                // Remove Current Message
                 messageFlags.IsAnswer = false;
 
                 this.GetRepository<Message>().UpdateFlags(this.PostData.MessageId, messageFlags.BitValue);
@@ -580,24 +578,24 @@ namespace YAF.Controls
             {
                 this.UserDropHolder.Controls.Add(
                     new ThemeButton
-                        {
-                            Type = ButtonStyle.None,
-                            Icon = "cogs",
-                            TextLocalizedPage = "POSTS",
-                            TextLocalizedTag = "EDITUSER",
-                            CssClass = "dropdown-item",
-                            NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, "u={0}", this.PostData.UserId)
-                        });
+                    {
+                        Type = ButtonStyle.None,
+                        Icon = "cogs",
+                        TextLocalizedPage = "POSTS",
+                        TextLocalizedTag = "EDITUSER",
+                        CssClass = "dropdown-item",
+                        NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, "u={0}", this.PostData.UserId)
+                    });
                 this.UserDropHolder2.Controls.Add(
                     new ThemeButton
-                        {
-                            Type = ButtonStyle.None,
-                            Icon = "cogs",
-                            TextLocalizedPage = "POSTS",
-                            TextLocalizedTag = "EDITUSER",
-                            CssClass = "dropdown-item",
-                            NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, "u={0}", this.PostData.UserId)
-                        });
+                    {
+                        Type = ButtonStyle.None,
+                        Icon = "cogs",
+                        TextLocalizedPage = "POSTS",
+                        TextLocalizedTag = "EDITUSER",
+                        CssClass = "dropdown-item",
+                        NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, "u={0}", this.PostData.UserId)
+                    });
             }
 
             if (this.PageContext.PageUserID != this.PostData.UserId)
@@ -605,13 +603,13 @@ namespace YAF.Controls
                 if (this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
                 {
                     var showButton = new ThemeButton
-                                         {
-                                             Type = ButtonStyle.None,
-                                             Icon = "eye",
-                                             TextLocalizedPage = "POSTS",
-                                             TextLocalizedTag = "TOGGLEUSERPOSTS_SHOW",
-                                             CssClass = "dropdown-item"
-                                         };
+                    {
+                        Type = ButtonStyle.None,
+                        Icon = "eye",
+                        TextLocalizedPage = "POSTS",
+                        TextLocalizedTag = "TOGGLEUSERPOSTS_SHOW",
+                        CssClass = "dropdown-item"
+                    };
 
                     showButton.Click += (sender, args) =>
                         {
@@ -624,13 +622,13 @@ namespace YAF.Controls
                 else
                 {
                     var hideButton = new ThemeButton
-                                         {
-                                             Type = ButtonStyle.None,
-                                             Icon = "eye-slash",
-                                             TextLocalizedPage = "POSTS",
-                                             TextLocalizedTag = "TOGGLEUSERPOSTS_HIDE",
-                                             CssClass = "dropdown-item"
-                                         };
+                    {
+                        Type = ButtonStyle.None,
+                        Icon = "eye-slash",
+                        TextLocalizedPage = "POSTS",
+                        TextLocalizedTag = "TOGGLEUSERPOSTS_HIDE",
+                        CssClass = "dropdown-item"
+                    };
 
                     hideButton.Click += (sender, args) =>
                         {
@@ -644,7 +642,7 @@ namespace YAF.Controls
 
             if (this.PageContext.BoardSettings.EnableBuddyList && this.PageContext.PageUserID != this.PostData.UserId)
             {
-                var userBlockFlags = new UserBlockFlags(this.DataSource.BlockFlags); 
+                var userBlockFlags = new UserBlockFlags(this.DataSource.BlockFlags);
 
                 // Should we add the "Add Buddy" item?
                 if (!this.Get<IFriends>().IsBuddy(this.PostData.UserId, false) && !this.PageContext.IsGuest
@@ -652,13 +650,13 @@ namespace YAF.Controls
                                                                                  .BlockFriendRequests)
                 {
                     var addFriendButton = new ThemeButton
-                                              {
-                                                  Type = ButtonStyle.None,
-                                                  Icon = "user-plus",
-                                                  TextLocalizedPage = "BUDDY",
-                                                  TextLocalizedTag = "ADDBUDDY",
-                                                  CssClass = "dropdown-item"
-                                              };
+                    {
+                        Type = ButtonStyle.None,
+                        Icon = "user-plus",
+                        TextLocalizedPage = "BUDDY",
+                        TextLocalizedTag = "ADDBUDDY",
+                        CssClass = "dropdown-item"
+                    };
 
                     var userName = this.PageContext.BoardSettings.EnableDisplayName
                         ? this.DataSource.DisplayName
@@ -688,16 +686,16 @@ namespace YAF.Controls
                 {
                     // Are the users approved buddies? Add the "Remove buddy" item.
                     var removeFriendButton = new ThemeButton
-                                                 {
-                                                     Type = ButtonStyle.None,
-                                                     Icon = "user-times",
-                                                     TextLocalizedPage = "BUDDY",
-                                                     TextLocalizedTag = "REMOVEBUDDY",
-                                                     CssClass = "dropdown-item",
-                                                     ReturnConfirmText = this.GetText(
+                    {
+                        Type = ButtonStyle.None,
+                        Icon = "user-times",
+                        TextLocalizedPage = "BUDDY",
+                        TextLocalizedTag = "REMOVEBUDDY",
+                        CssClass = "dropdown-item",
+                        ReturnConfirmText = this.GetText(
                                                          "FRIENDS",
                                                          "NOTIFICATION_REMOVE")
-                                                 };
+                    };
 
                     removeFriendButton.Click += (sender, args) =>
                         {
@@ -779,10 +777,8 @@ namespace YAF.Controls
                 "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"far fa-heart fa-fw\"></i></a>'" :
                 "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"far fa-heart fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
 
-            var thanksJs = "{0}{1}{2}".Fmt(
-                JavaScriptBlocks.AddThanksJs(removeThankBoxHTML),
-                Environment.NewLine,
-                JavaScriptBlocks.RemoveThanksJs(addThankBoxHTML));
+            var thanksJs =
+                $"{JavaScriptBlocks.AddThanksJs(removeThankBoxHTML)}{Environment.NewLine}{JavaScriptBlocks.RemoveThanksJs(addThankBoxHTML)}";
 
             this.PageContext.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
 
@@ -833,17 +829,17 @@ namespace YAF.Controls
                                           thanksNumber,
                                           username);
 
-            this.ThanksDataLiteral.Text = $@"<a class=""btn btn-link thanks-popover"" 
-                           data-bs-toggle=""popover"" 
+            this.ThanksDataLiteral.Text = $@"<a class=""btn btn-link thanks-popover""
+                           data-bs-toggle=""popover""
                            data-bs-trigger=""click hover""
                            data-bs-html=""true""
                            data-messageid=""{this.PostData.MessageId}""
                            data-url=""{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}""
-                           title=""{thanksLabelText}"" 
+                           title=""{thanksLabelText}""
                            data-bs-content=""{this.FormatThanksInfo().ToJsString()}"">
                            <i class=""fa fa-heart"" style=""color:#e74c3c""></i>&nbsp;+{thanksNumber}
                   </a>";
-            
+
             this.ThanksDataLiteral.Visible = true;
         }
 

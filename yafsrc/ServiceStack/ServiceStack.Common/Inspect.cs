@@ -13,10 +13,10 @@ namespace ServiceStack
         public static class Config
         {
             public const string VarsName = "vars.json";
-            
+
             public static Action<object> VarsFilter { get; set; } = DefaultVarsFilter;
-            
-            public static Func<object,string> DumpTableFilter { get; set; }
+
+            public static Func<object, string> DumpTableFilter { get; set; }
 
             public static void DefaultVarsFilter(object anonArgs)
             {
@@ -25,14 +25,14 @@ namespace ServiceStack
                     var inspectVarsPath = Environment.GetEnvironmentVariable("INSPECT_VARS");
                     if (string.IsNullOrEmpty(inspectVarsPath)) // Disable
                         return;
-                    
+
                     var varsPath = Path.DirectorySeparatorChar == '\\'
-                        ? inspectVarsPath.Replace('/','\\')
-                        : inspectVarsPath.Replace('\\','/');
+                        ? inspectVarsPath.Replace('/', '\\')
+                        : inspectVarsPath.Replace('\\', '/');
 
                     if (varsPath.IndexOf(Path.DirectorySeparatorChar) >= 0)
                         Path.GetDirectoryName(varsPath).AssertDir();
-                    
+
                     File.WriteAllText(varsPath, anonArgs.ToSafeJson());
                 }
                 catch (Exception ex)
@@ -58,15 +58,15 @@ namespace ServiceStack
         /// Print Dump to Console.WriteLine
         /// </summary>
         public static void printDump<T>(T instance) => PclExport.Instance.WriteLine(dump(instance));
-        
+
         /// <summary>
         /// Dump object in Ascii Markdown table
         /// </summary>
-        public static string dumpTable(object instance) => DefaultScripts.TextDump(instance, null); 
-        
+        public static string dumpTable(object instance) => DefaultScripts.TextDump(instance, null);
+
         /// <summary>
         /// Print Dump object in Ascii Markdown table
         /// </summary>
-        public static void printDumpTable(object instance) => PclExport.Instance.WriteLine(dumpTable(instance)); 
+        public static void printDumpTable(object instance) => PclExport.Instance.WriteLine(dumpTable(instance));
     }
 }

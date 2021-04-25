@@ -27,105 +27,105 @@ namespace YAF.Types.Objects
     using System.Text.RegularExpressions;
 
     /// <summary>
-  /// The bad word replace item.
-  /// </summary>
-  [Serializable]
-  public class BadWordReplaceItem
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _active lock.
+    /// The bad word replace item.
     /// </summary>
-    private readonly object _activeLock = new();
-
-    /// <summary>
-    ///   The _active.
-    /// </summary>
-    private bool _active = true;
-
-    #endregion
-
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BadWordReplaceItem"/> class.
-    /// </summary>
-    /// <param name="goodWord">
-    /// The good word.
-    /// </param>
-    /// <param name="badWord">
-    /// The bad word.
-    /// </param>
-    /// <param name="options">
-    /// The options.
-    /// </param>
-    public BadWordReplaceItem([NotNull] string goodWord, [NotNull] string badWord, RegexOptions options)
+    [Serializable]
+    public class BadWordReplaceItem
     {
-      this.Options = options;
-      this.GoodWord = goodWord;
-      this.BadWord = badWord;
+        #region Constants and Fields
 
-      try
-      {
-          this.BadWordRegEx = new Regex(badWord, options);
-      }
-      catch (Exception)
-      {
-          this.BadWordRegEx = null;
-      }
-    }
+        /// <summary>
+        ///   The _active lock.
+        /// </summary>
+        private readonly object _activeLock = new();
 
-    #endregion
+        /// <summary>
+        ///   The _active.
+        /// </summary>
+        private bool _active = true;
 
-    #region Properties
+        #endregion
 
-    /// <summary>
-    ///   Gets or sets a value indicating whether Active.
-    /// </summary>
-    public bool Active
-    {
-      get
-      {
-        bool value;
+        #region Constructors and Destructors
 
-        lock (this._activeLock)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BadWordReplaceItem"/> class.
+        /// </summary>
+        /// <param name="goodWord">
+        /// The good word.
+        /// </param>
+        /// <param name="badWord">
+        /// The bad word.
+        /// </param>
+        /// <param name="options">
+        /// The options.
+        /// </param>
+        public BadWordReplaceItem([NotNull] string goodWord, [NotNull] string badWord, RegexOptions options)
         {
-          value = this._active;
+            this.Options = options;
+            this.GoodWord = goodWord;
+            this.BadWord = badWord;
+
+            try
+            {
+                this.BadWordRegEx = new Regex(badWord, options);
+            }
+            catch (Exception)
+            {
+                this.BadWordRegEx = null;
+            }
         }
 
-        return value;
-      }
+        #endregion
 
-      set
-      {
-        lock (this._activeLock)
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether Active.
+        /// </summary>
+        public bool Active
         {
-          this._active = value;
+            get
+            {
+                bool value;
+
+                lock (this._activeLock)
+                {
+                    value = this._active;
+                }
+
+                return value;
+            }
+
+            set
+            {
+                lock (this._activeLock)
+                {
+                    this._active = value;
+                }
+            }
         }
-      }
+
+        /// <summary>
+        ///   Gets BadWord.
+        /// </summary>
+        public string BadWord { get; }
+
+        /// <summary>
+        ///   Gets BadWordRegEx.
+        /// </summary>
+        public Regex BadWordRegEx { get; }
+
+        /// <summary>
+        ///   Gets GoodWord.
+        /// </summary>
+        public string GoodWord { get; }
+
+        /// <summary>
+        /// Gets or sets Options.
+        /// </summary>
+        public RegexOptions Options { get; protected set; }
+
+        #endregion
     }
-
-    /// <summary>
-    ///   Gets BadWord.
-    /// </summary>
-    public string BadWord { get; }
-
-    /// <summary>
-    ///   Gets BadWordRegEx.
-    /// </summary>
-    public Regex BadWordRegEx { get; }
-
-    /// <summary>
-    ///   Gets GoodWord.
-    /// </summary>
-    public string GoodWord { get; }
-
-    /// <summary>
-    /// Gets or sets Options.
-    /// </summary>
-    public RegexOptions Options { get; protected set; }
-
-    #endregion
-  }
 }

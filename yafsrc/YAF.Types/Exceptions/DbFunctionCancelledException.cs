@@ -46,5 +46,5 @@ namespace YAF.Types.Exceptions
         }
 
         #endregion
-    } 
+    }
 }

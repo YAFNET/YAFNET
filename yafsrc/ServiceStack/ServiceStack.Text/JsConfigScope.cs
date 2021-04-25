@@ -32,8 +32,8 @@ namespace ServiceStack.Text
 #endif
         }
 
-        internal static JsConfigScope Current => 
-#if NETSTANDARD        
+        internal static JsConfigScope Current =>
+#if NETSTANDARD
             head.Value;
 #else
             head;
@@ -54,7 +54,7 @@ namespace ServiceStack.Text
             }
         }
     }
-    
+
     public class Config
     {
         private static Config instance;
@@ -72,7 +72,7 @@ namespace ServiceStack.Text
         {
             if (HasInit && Env.StrictMode)
                 throw new NotSupportedException($"JsConfig has already been initialized at: {InitStackTrace}");
-            
+
             if (config != null)
                 instance = config;
 
@@ -134,13 +134,13 @@ namespace ServiceStack.Text
             }
         }
         ReadOnlyMemory<char>? typeAttrSpan = null;
-        public ReadOnlyMemory<char> TypeAttrMemory => typeAttrSpan ??= TypeAttr.AsMemory(); 
+        public ReadOnlyMemory<char> TypeAttrMemory => typeAttrSpan ??= TypeAttr.AsMemory();
         public string DateTimeFormat { get; set; }
         private string jsonTypeAttrInObject;
         internal string JsonTypeAttrInObject => jsonTypeAttrInObject ??= JsonTypeSerializer.GetTypeAttrInObject(TypeAttr);
         private string jsvTypeAttrInObject;
         internal string JsvTypeAttrInObject => jsvTypeAttrInObject ??= JsvTypeSerializer.GetTypeAttrInObject(TypeAttr);
-        
+
         public Func<Type, string> TypeWriter { get; set; }
         public Func<string, Type> TypeFinder { get; set; }
         public Func<string, object> ParsePrimitiveFn { get; set; }
@@ -149,7 +149,7 @@ namespace ServiceStack.Text
         public PropertyConvention PropertyConvention { get; set; }
 
         public TextCase TextCase { get; set; }
-        
+
         [Obsolete("Use TextCase = TextCase.CamelCase")]
         public bool EmitCamelCaseNames
         {
@@ -180,7 +180,8 @@ namespace ServiceStack.Text
         public bool EscapeUnicode { get; set; }
         public bool EscapeHtmlChars { get; set; }
 
-        public static Config Defaults => new Config(null) {
+        public static Config Defaults => new Config(null)
+        {
             ConvertObjectTypesIntoStringDictionary = false,
             TryToParsePrimitiveTypeValues = false,
             TryToParseNumericType = false,
@@ -221,7 +222,7 @@ namespace ServiceStack.Text
                 typeof(System.IO.Stream),
                 typeof(System.Reflection.MethodBase),
             },
-            ExcludeTypeNames = new HashSet<string> {}
+            ExcludeTypeNames = new HashSet<string> { }
         };
 
         public Config Populate(Config config)
@@ -266,6 +267,6 @@ namespace ServiceStack.Text
             return this;
         }
     }
-    
+
 }
 

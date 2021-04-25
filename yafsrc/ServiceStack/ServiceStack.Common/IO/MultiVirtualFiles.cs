@@ -7,7 +7,7 @@ using ServiceStack.VirtualPath;
 
 namespace ServiceStack.IO
 {
-    public class MultiVirtualFiles 
+    public class MultiVirtualFiles
         : AbstractVirtualPathProviderBase, IVirtualFiles
     {
         public List<IVirtualPathProvider> ChildProviders { get; set; }
@@ -17,7 +17,7 @@ namespace ServiceStack.IO
         public override string VirtualPathSeparator => "/";
         public override string RealPathSeparator => Convert.ToString(Path.DirectorySeparatorChar);
 
-        public MultiVirtualFiles(params IVirtualPathProvider[] childProviders) 
+        public MultiVirtualFiles(params IVirtualPathProvider[] childProviders)
         {
             if (childProviders == null || childProviders.Length == 0)
                 throw new ArgumentNullException(nameof(childProviders));
@@ -26,7 +26,7 @@ namespace ServiceStack.IO
             Initialize();
         }
 
-        protected sealed override void Initialize() {}
+        protected sealed override void Initialize() { }
 
         public override string CombineVirtualPath(string basePath, string relativePath)
         {
@@ -51,7 +51,7 @@ namespace ServiceStack.IO
                 .FirstOrDefault(file => file != null);
         }
 
-        public override IVirtualDirectory GetDirectory(string virtualPath) => 
+        public override IVirtualDirectory GetDirectory(string virtualPath) =>
             MultiVirtualDirectory.ToVirtualDirectory(ChildProviders.Select(p => p.GetDirectory(virtualPath)).Where(dir => dir != null));
 
         public override IEnumerable<IVirtualFile> GetAllMatchingFiles(string globPattern, int maxDepth = int.MaxValue)
@@ -65,7 +65,7 @@ namespace ServiceStack.IO
             return ChildProviders.SelectMany(x => x.GetAllFiles())
                 .Distinct();
         }
-        
+
         public override IEnumerable<IVirtualFile> GetRootFiles()
         {
             return ChildProviders.SelectMany(x => x.GetRootFiles());

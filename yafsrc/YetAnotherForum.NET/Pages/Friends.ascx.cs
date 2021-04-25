@@ -27,7 +27,7 @@ namespace YAF.Pages
 
     using System;
     using System.Collections.Generic;
-    
+
     using YAF.Controls;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;

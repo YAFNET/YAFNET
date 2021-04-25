@@ -23,17 +23,17 @@ namespace ServiceStack
         /// Display the Control inline 
         /// </summary>
         public bool Inline { get; set; }
-        
+
         /// <summary>
         /// Label for the control
         /// </summary>
         public string Label { get; set; }
-        
+
         /// <summary>
         /// Class for Label
         /// </summary>
         public string LabelClass { get; set; }
-        
+
         /// <summary>
         /// Override the class on the error message (default: invalid-feedback)
         /// </summary>
@@ -43,12 +43,12 @@ namespace ServiceStack
         /// Small Help Text displayed with the control
         /// </summary>
         public string Help { get; set; }
-        
+
         /// <summary>
         /// Bootstrap Size of the Control: sm, lg
         /// </summary>
         public string Size { get; set; }
-        
+
         /// <summary>
         /// Multiple Value Data Source for Checkboxes, Radio boxes and Select Controls 
         /// </summary>
@@ -84,7 +84,7 @@ namespace ServiceStack
         /// 'content:' (ContentRoot HostContext.VirtualFiles), 'filesystem:' (WebRoot FileSystem), 'memory:' (WebRoot Memory)
         /// </summary>
         public List<string> Sources { get; set; } = new List<string>();
-        
+
         /// <summary>
         /// Write bundled file to this Virtual Path
         /// </summary>
@@ -131,13 +131,13 @@ namespace ServiceStack
         public bool IncludeRowNumbers { get; set; } = true;
 
         public DefaultScripts Defaults { get; set; } = ViewUtils.DefaultScripts;
-        
+
         internal int Depth { get; set; }
         internal bool HasCaption { get; set; }
 
-        public static TextDumpOptions Parse(Dictionary<string, object> options, DefaultScripts defaults=null)
+        public static TextDumpOptions Parse(Dictionary<string, object> options, DefaultScripts defaults = null)
         {
-            return new TextDumpOptions 
+            return new TextDumpOptions
             {
                 HeaderStyle = options.TryGetValue("headerStyle", out var oHeaderStyle)
                     ? oHeaderStyle.ConvertTo<TextStyle>()
@@ -148,7 +148,7 @@ namespace ServiceStack
                 CaptionIfEmpty = options.TryGetValue("captionIfEmpty", out var captionIfEmpty)
                     ? captionIfEmpty?.ToString()
                     : null,
-                IncludeRowNumbers = !options.TryGetValue("rowNumbers", out var rowNumbers) 
+                IncludeRowNumbers = !options.TryGetValue("rowNumbers", out var rowNumbers)
                     || (!(rowNumbers is bool b) || b),
                 Defaults = defaults ?? ViewUtils.DefaultScripts,
             };
@@ -163,20 +163,20 @@ namespace ServiceStack
 
         public TextStyle HeaderStyle { get; set; }
         public string HeaderTag { get; set; }
-        
+
         public string Caption { get; set; }
         public string CaptionIfEmpty { get; set; }
 
         public DefaultScripts Defaults { get; set; } = ViewUtils.DefaultScripts;
-        
+
         public string Display { get; set; }
         internal int Depth { get; set; }
         internal int ChildDepth { get; set; } = 1;
         internal bool HasCaption { get; set; }
-        
-        public static HtmlDumpOptions Parse(Dictionary<string, object> options, DefaultScripts defaults=null)
+
+        public static HtmlDumpOptions Parse(Dictionary<string, object> options, DefaultScripts defaults = null)
         {
-            return new HtmlDumpOptions 
+            return new HtmlDumpOptions
             {
                 Id = options.TryGetValue("id", out var oId)
                     ? (string)oId
@@ -194,7 +194,7 @@ namespace ServiceStack
                 HeaderTag = options.TryGetValue("headerTag", out var oHeaderTag)
                     ? (string)oHeaderTag
                     : null,
-                
+
                 Caption = options.TryGetValue("caption", out var caption)
                     ? caption?.ToString()
                     : null,
@@ -218,7 +218,7 @@ namespace ServiceStack
         PascalCase,
         CamelCase,
     }
-    
+
     /// <summary>
     /// Generic collection of Nav Links
     /// </summary>
@@ -227,13 +227,14 @@ namespace ServiceStack
         public static string NavClass { get; set; } = "nav";
         public static string NavItemClass { get; set; } = "nav-item";
         public static string NavLinkClass { get; set; } = "nav-link";
-        
+
         public static string ChildNavItemClass { get; set; } = "nav-item dropdown";
         public static string ChildNavLinkClass { get; set; } = "nav-link dropdown-toggle";
         public static string ChildNavMenuClass { get; set; } = "dropdown-menu";
         public static string ChildNavMenuItemClass { get; set; } = "dropdown-item";
-        
-        public static NavOptions Create() => new NavOptions {
+
+        public static NavOptions Create() => new NavOptions
+        {
             NavClass = NavClass,
             NavItemClass = NavItemClass,
             NavLinkClass = NavLinkClass,
@@ -290,7 +291,7 @@ namespace ServiceStack
         public static NavOptions Create() => new NavOptions { NavClass = NavClass, NavItemClass = NavItemClass };
         public static NavOptions ForNavButtonGroup(this NavOptions options) => NavDefaults.OverrideDefaults(options, Create());
     }
-    
+
     public class NavOptions
     {
         /// <summary>
@@ -300,13 +301,13 @@ namespace ServiceStack
         ///  - perm:name - User Permission 
         /// </summary>
         public HashSet<string> Attributes { get; set; }
-        
+
         /// <summary>
         /// Path Info that should set as active 
         /// </summary>
         public string ActivePath { get; set; }
-        
-        
+
+
         /// <summary>
         /// Prefix to include before NavItem.Path (if any)
         /// </summary>
@@ -318,7 +319,7 @@ namespace ServiceStack
         public string NavClass { get; set; } = NavDefaults.NavClass;
         public string NavItemClass { get; set; } = NavDefaults.NavItemClass;
         public string NavLinkClass { get; set; } = NavDefaults.NavLinkClass;
-        
+
         public string ChildNavItemClass { get; set; } = NavDefaults.ChildNavItemClass;
         public string ChildNavLinkClass { get; set; } = NavDefaults.ChildNavLinkClass;
         public string ChildNavMenuClass { get; set; } = NavDefaults.ChildNavMenuClass;
@@ -347,7 +348,7 @@ namespace ServiceStack
 
         public static string NavItemsKey { get; set; } = "NavItems";
         public static string NavItemsMapKey { get; set; } = "NavItemsMap";
-        
+
         public static void Load(IAppSettings settings)
         {
             var navItems = settings?.Get<List<NavItem>>(NavItemsKey);
@@ -388,8 +389,8 @@ namespace ServiceStack
         {
             if (vfs == null || cssFiles == null || cssFiles.Count == 0)
                 return null;
-            
-            
+
+
             var sb = StringBuilderCache.Allocate();
             sb.AppendLine("<style>");
 
@@ -398,7 +399,7 @@ namespace ServiceStack
                 var virtualPath = !cssFile.StartsWith("/")
                     ? "/css/" + cssFile + ".css"
                     : cssFile;
-                
+
                 var file = vfs.GetFile(virtualPath.TrimStart('/'));
                 if (file == null)
                     continue;
@@ -412,17 +413,17 @@ namespace ServiceStack
                     }
                 }
             }
-            
+
             sb.AppendLine("</style>");
             return StringBuilderCache.ReturnAndFree(sb);
         }
-        
+
         public static string JsIncludes(IVirtualPathProvider vfs, List<string> jsFiles)
         {
             if (vfs == null || jsFiles == null || jsFiles.Count == 0)
                 return null;
-            
-            
+
+
             var sb = StringBuilderCache.Allocate();
             sb.AppendLine("<script>");
 
@@ -431,7 +432,7 @@ namespace ServiceStack
                 var virtualPath = !jsFile.StartsWith("/")
                     ? "/js/" + jsFile + ".js"
                     : jsFile;
-                
+
                 var file = vfs.GetFile(virtualPath.TrimStart('/'));
                 if (file == null)
                     continue;
@@ -445,11 +446,11 @@ namespace ServiceStack
                     }
                 }
             }
-            
+
             sb.AppendLine("</script>");
             return StringBuilderCache.ReturnAndFree(sb);
         }
-        
+
         /// <summary>
         ///  Display a list of NavItem's
         /// </summary>
@@ -457,7 +458,7 @@ namespace ServiceStack
         {
             if (navItems.IsEmpty())
                 return string.Empty;
-            
+
             var sb = StringBuilderCache.Allocate();
             sb.Append("<div class=\"")
                 .Append(options.NavClass)
@@ -482,13 +483,13 @@ namespace ServiceStack
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
-        static string ActiveClass(NavItem navItem, string activePath) => 
-            navItem.Href != null && (navItem.Exact == true || activePath.Length <= 1 
+        static string ActiveClass(NavItem navItem, string activePath) =>
+            navItem.Href != null && (navItem.Exact == true || activePath.Length <= 1
                 ? activePath?.TrimEnd('/').EqualsIgnoreCase(navItem.Href?.TrimEnd('/')) == true
                 : activePath.TrimEnd('/').StartsWithIgnoreCase(navItem.Href?.TrimEnd('/')))
                     ? " active"
                     : "";
-        
+
         /// <summary>
         /// Display a `nav-link` nav-item
         /// </summary>
@@ -496,7 +497,7 @@ namespace ServiceStack
         {
             if (!navItem.ShowNav(options.Attributes))
                 return;
-            
+
             var hasChildren = navItem.Children?.Count > 0;
             var navItemCls = hasChildren
                 ? options.ChildNavItemClass
@@ -512,14 +513,14 @@ namespace ServiceStack
                 .Append(navItem.ClassName).Append(navItem.ClassName != null ? " " : "")
                 .Append(navItemCls)
                 .AppendLine("\">");
-                
+
             sb.Append("  <a href=\"")
                 .Append(options.BaseHref?.TrimEnd('/'))
                 .Append(navItem.Href)
                 .Append("\"");
 
             sb.Append(" class=\"")
-                .Append(navLinkCls).Append(ActiveClass(navItem,options.ActivePath))
+                .Append(navLinkCls).Append(ActiveClass(navItem, options.ActivePath))
                 .Append("\"");
 
             if (id != null)
@@ -529,7 +530,7 @@ namespace ServiceStack
             {
                 sb.Append(" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"");
             }
-            
+
             sb.Append(">")
                 .Append(navItem.Label)
                 .AppendLine("</a>");
@@ -550,7 +551,7 @@ namespace ServiceStack
                     {
                         sb.Append("    <a class=\"")
                             .Append(options.ChildNavMenuItemClass)
-                            .Append(ActiveClass(childNav,options.ActivePath))
+                            .Append(ActiveClass(childNav, options.ActivePath))
                             .Append("\"")
                             .Append(" href=\"")
                             .Append(options.BaseHref?.TrimEnd('/'))
@@ -570,7 +571,7 @@ namespace ServiceStack
         {
             if (navItems.IsEmpty())
                 return string.Empty;
-            
+
             var sb = StringBuilderCache.Allocate();
             sb.Append("<div class=\"")
                 .Append(options.NavClass)
@@ -591,12 +592,12 @@ namespace ServiceStack
             NavLinkButton(sb, navItem, options);
             return StringBuilderCache.ReturnAndFree(sb);
         }
-        
+
         public static void NavLinkButton(StringBuilder sb, NavItem navItem, NavOptions options)
         {
             if (!navItem.ShowNav(options.Attributes))
                 return;
-            
+
             sb.Append("<a href=\"")
                 .Append(options.BaseHref?.TrimEnd('/'))
                 .Append(navItem.Href)
@@ -611,32 +612,32 @@ namespace ServiceStack
                 sb.Append(" id=\"").Append(navItem.Id).Append("\"");
 
             sb.Append(">")
-                .Append(!string.IsNullOrEmpty(navItem.IconClass) 
+                .Append(!string.IsNullOrEmpty(navItem.IconClass)
                     ? $"<i class=\"{navItem.IconClass}\"></i>" : "")
                 .Append(navItem.Label)
                 .AppendLine("</a>");
         }
-        
+
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNull(object test) => test == null || test == JsNull.Value;
-        
-        public static CultureInfo GetDefaultCulture(this DefaultScripts defaultScripts) => 
+
+        public static CultureInfo GetDefaultCulture(this DefaultScripts defaultScripts) =>
             defaultScripts?.Context?.Args[ScriptConstants.DefaultCulture] as CultureInfo ?? ScriptConfig.DefaultCulture;
-        
-        public static string GetDefaultTableClassName(this DefaultScripts defaultScripts) => 
+
+        public static string GetDefaultTableClassName(this DefaultScripts defaultScripts) =>
             defaultScripts?.Context?.Args[ScriptConstants.DefaultTableClassName] as string;
 
-        public static string TextDump(this object target) => DefaultScripts.TextDump(target, null); 
-        public static string TextDump(this object target, TextDumpOptions options) => DefaultScripts.TextDump(target, options); 
-        public static string DumpTable(this object target) => DefaultScripts.TextDump(target, null); 
-        public static void PrintDumpTable(this object target) => DumpTable(target).Print(); 
+        public static string TextDump(this object target) => DefaultScripts.TextDump(target, null);
+        public static string TextDump(this object target, TextDumpOptions options) => DefaultScripts.TextDump(target, options);
+        public static string DumpTable(this object target) => DefaultScripts.TextDump(target, null);
+        public static void PrintDumpTable(this object target) => DumpTable(target).Print();
         public static string DumpTable(this object target, TextDumpOptions options) => DefaultScripts.TextDump(target, options);
-        public static void PrintDumpTable(this object target, TextDumpOptions options) => DumpTable(target, options).Print(); 
-        
-        public static string HtmlDump(object target) => HtmlScripts.HtmlDump(target, null); 
-        public static string HtmlDump(object target, HtmlDumpOptions options) => HtmlScripts.HtmlDump(target, options); 
-        
+        public static void PrintDumpTable(this object target, TextDumpOptions options) => DumpTable(target, options).Print();
+
+        public static string HtmlDump(object target) => HtmlScripts.HtmlDump(target, null);
+        public static string HtmlDump(object target, HtmlDumpOptions options) => HtmlScripts.HtmlDump(target, options);
+
         public static string StyleText(string text, TextStyle textStyle)
         {
             if (text == null) return null;
@@ -655,11 +656,11 @@ namespace ServiceStack
             }
             return text;
         }
-        
+
         /// <summary>
         /// Emit HTML hidden input field for each specified Key/Value pair entry
         /// </summary>
-        public static string HtmlHiddenInputs(IEnumerable<KeyValuePair<string,object>> inputValues)
+        public static string HtmlHiddenInputs(IEnumerable<KeyValuePair<string, object>> inputValues)
         {
             if (inputValues != null)
             {
@@ -680,24 +681,24 @@ namespace ServiceStack
             httpReq.Items.TryGetValue(key, out var value);
             return value;
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ResponseStatus GetErrorStatus(IRequest req) => 
+        public static ResponseStatus GetErrorStatus(IRequest req) =>
             req.GetItem("__errorStatus") as ResponseStatus; // Keywords.ErrorStatus
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool HasErrorStatus(IRequest req) => GetErrorStatus(req) != null; 
-        
+        public static bool HasErrorStatus(IRequest req) => GetErrorStatus(req) != null;
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string FormQuery(IRequest req, string name) => req.FormData[name] ?? req.QueryString[name];
         public static string[] FormQueryValues(IRequest req, string name)
         {
-            var values = req.Verb == HttpMethods.Post 
-                ? req.FormData.GetValues(name) 
+            var values = req.Verb == HttpMethods.Post
+                ? req.FormData.GetValues(name)
                 : req.QueryString.GetValues(name);
 
             return values?.Length == 1 // if it's only a single item can be returned in comma-delimited list
-                ? values[0].Split(',') 
+                ? values[0].Split(',')
                 : values ?? TypeConstants.EmptyStringArray;
         }
 
@@ -705,13 +706,13 @@ namespace ServiceStack
         public static string FormValue(IRequest req, string name) => FormValue(req, name, null);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string FormValue(IRequest req, string name, string defaultValue) => HasErrorStatus(req) 
-            ? FormQuery(req, name) 
+        public static string FormValue(IRequest req, string name, string defaultValue) => HasErrorStatus(req)
+            ? FormQuery(req, name)
             : defaultValue;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string[] FormValues(IRequest req, string name) => HasErrorStatus(req) 
-            ? FormQueryValues(req, name) 
+        public static string[] FormValues(IRequest req, string name) => HasErrorStatus(req)
+            ? FormQueryValues(req, name)
             : null;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -749,11 +750,11 @@ namespace ServiceStack
         {
             if (arg == null)
                 return TypeConstants.EmptyStringArray;
-            
+
             var strings = arg is IEnumerable<string> ls
                 ? ls
                 : arg is string s
-                    ? (IEnumerable<string>)new [] { s }
+                    ? (IEnumerable<string>)new[] { s }
                     : arg is IEnumerable<object> e
                         ? e.Map(x => x.AsString())
                         : throw new NotSupportedException($"{filterName} expected a collection of strings but was '{arg.GetType().Name}'");
@@ -766,8 +767,8 @@ namespace ServiceStack
         /// as validation errors will be displayed along side the field instead
         /// </summary>
         public static string ValidationSummary(ResponseStatus errorStatus, string exceptFor) =>
-            ValidationSummary(errorStatus, ToVarNames(exceptFor), null); 
-        public static string ValidationSummary(ResponseStatus errorStatus, ICollection<string> exceptFields, Dictionary<string,object> divAttrs)
+            ValidationSummary(errorStatus, ToVarNames(exceptFor), null);
+        public static string ValidationSummary(ResponseStatus errorStatus, ICollection<string> exceptFields, Dictionary<string, object> divAttrs)
         {
             var errorSummaryMsg = exceptFields != null
                 ? ErrorResponseExcept(errorStatus, exceptFields)
@@ -778,30 +779,30 @@ namespace ServiceStack
 
             if (divAttrs == null)
                 divAttrs = new Dictionary<string, object>();
-            
+
             if (!divAttrs.ContainsKey("class") && !divAttrs.ContainsKey("className"))
                 divAttrs["class"] = ValidationSummaryCssClassNames;
-            
+
             return HtmlScripts.htmlDiv(errorSummaryMsg, divAttrs).ToRawString();
         }
-        
+
         public static string ValidationSummaryCssClassNames = "alert alert-danger";
         public static string ValidationSuccessCssClassNames = "alert alert-success";
 
         /// <summary>
         /// Display a "Success Alert Box"
         /// </summary>
-        public static string ValidationSuccess(string message, Dictionary<string,object> divAttrs)
+        public static string ValidationSuccess(string message, Dictionary<string, object> divAttrs)
         {
             if (divAttrs == null)
                 divAttrs = new Dictionary<string, object>();
-            
+
             if (!divAttrs.ContainsKey("class") && !divAttrs.ContainsKey("className"))
                 divAttrs["class"] = ValidationSuccessCssClassNames;
-            
+
             return HtmlScripts.htmlDiv(message, divAttrs).ToRawString();
         }
-        
+
         /// <summary>
         /// Return an error message unless there's an error in fieldNames
         /// </summary>
@@ -811,7 +812,7 @@ namespace ServiceStack
         {
             if (errorStatus == null)
                 return null;
-            
+
             var fieldNamesLookup = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (var fieldName in fieldNames)
             {
@@ -832,7 +833,7 @@ namespace ServiceStack
 
             return errorStatus.Message ?? errorStatus.ErrorCode;
         }
-        
+
         /// <summary>
         /// Return an error message unless there are field errors
         /// </summary>
@@ -845,7 +846,7 @@ namespace ServiceStack
                 ? errorStatus.Message ?? errorStatus.ErrorCode
                 : null;
         }
-        
+
         /// <summary>
         /// Return an error for the specified field (if any)  
         /// </summary>
@@ -871,15 +872,15 @@ namespace ServiceStack
             if (values != null)
             {
                 if (values is IEnumerable<KeyValuePair<string, object>> kvps)
-                    foreach (var kvp in kvps) to.Add(new KeyValuePair<string,string>(kvp.Key, kvp.Value?.ToString()));
+                    foreach (var kvp in kvps) to.Add(new KeyValuePair<string, string>(kvp.Key, kvp.Value?.ToString()));
                 else if (values is IEnumerable<KeyValuePair<string, string>> kvpsStr)
-                    foreach (var kvp in kvpsStr) to.Add(new KeyValuePair<string,string>(kvp.Key, kvp.Value));
+                    foreach (var kvp in kvpsStr) to.Add(new KeyValuePair<string, string>(kvp.Key, kvp.Value));
                 else if (values is IEnumerable<object> list)
                     to.AddRange(from string item in list select item.AsString() into s select new KeyValuePair<string, string>(s, s));
             }
             return to;
         }
-        
+
         public static List<string> SplitStringList(IEnumerable strings) => strings is null
             ? TypeConstants.EmptyStringList
             : strings is List<string> strList
@@ -891,19 +892,19 @@ namespace ServiceStack
                         : strings is string strFields
                             ? strFields.Split(',').Map(x => x.Trim())
                             : throw new NotSupportedException($"Cannot convert '{strings.GetType().Name}' to List<string>");
-        
+
         public static List<string> ToStringList(IEnumerable strings) => strings is List<string> l ? l
-            : strings is string s 
-            ? new List<string> { s } 
+            : strings is string s
+            ? new List<string> { s }
             : strings is IEnumerable<string> e
             ? new List<string>(e)
             : strings.Map(x => x.AsString());
 
-        public static string FormControl(IRequest req, Dictionary<string,object> args, string tagName, InputOptions inputOptions)
+        public static string FormControl(IRequest req, Dictionary<string, object> args, string tagName, InputOptions inputOptions)
         {
             if (tagName == null)
                 tagName = "input";
-            
+
             var options = inputOptions ?? new InputOptions();
 
             string id = null;
@@ -994,7 +995,7 @@ namespace ServiceStack
             var className = args.TryGetValue("class", out var oCls) || args.TryGetValue("className", out oCls)
                 ? HtmlScripts.htmlClassList(oCls)
                 : "";
-            
+
             className = HtmlScripts.htmlAddClass(className, inputClass);
 
             if (size != null)
@@ -1057,12 +1058,12 @@ namespace ServiceStack
                     var kvps = ToKeyValues(values);
 
                     var selectedValues = value != null && value != "true"
-                        ? new HashSet<string> {value}
+                        ? new HashSet<string> { value }
                         : oValue == null
                             ? TypeConstants<string>.EmptyHashSet
                             : (FormValues(req, name) ?? ToStringList(oValue as IEnumerable).ToArray())
                                   .ToSet();
-                                
+
                     foreach (var kvp in kvps)
                     {
                         var cls = inline ? " custom-control-inline" : "";
@@ -1080,8 +1081,8 @@ namespace ServiceStack
             {
                 if (values != null)
                 {
-                    args["html"] = HtmlScripts.htmlOptions(values, 
-                        new Dictionary<string, object> { {"selected",formValue ?? value} });
+                    args["html"] = HtmlScripts.htmlOptions(values,
+                        new Dictionary<string, object> { { "selected", formValue ?? value } });
                 }
                 else if (!args.ContainsKey("html"))
                     throw new NotSupportedException($"<select> requires either 'values' inputOption containing a collection of Key/Value Pairs or 'html' argument containing innerHTML <option>'s");
@@ -1093,7 +1094,7 @@ namespace ServiceStack
             if (isCheck)
             {
                 sb.AppendLine(inputHtml);
-                if (isSingleCheck) 
+                if (isSingleCheck)
                     sb.AppendLine(labelHtml);
             }
             else
@@ -1134,7 +1135,7 @@ namespace ServiceStack
             var html = StringBuilderCache.ReturnAndFree(sb);
             return html;
         }
-        
+
         private static IVirtualFiles ResolveWriteVfs(string filterName, IVirtualPathProvider webVfs, IVirtualPathProvider contentVfs, string outFile, bool toDisk, out string useOutFile)
         {
             if (outFile.IndexOf(':') >= 0)
@@ -1168,7 +1169,7 @@ namespace ServiceStack
                 : name == "web"
                     ? webVfs
                     : name == "filesystem"
-                        ? (IVirtualPathProvider) webVfs.GetFileSystemVirtualFiles()
+                        ? (IVirtualPathProvider)webVfs.GetFileSystemVirtualFiles()
                         : name == "memory"
                             ? webVfs.GetMemoryVirtualFiles()
                             : throw new NotSupportedException($"Unknown Virtual File System provider '{name}' used in '{filterName}'. Valid providers: web,content,filesystem,memory");
@@ -1177,7 +1178,7 @@ namespace ServiceStack
         public static IEnumerable<IVirtualFile> GetBundleFiles(string filterName, IVirtualPathProvider webVfs, IVirtualPathProvider contentVfs, IEnumerable<string> virtualPaths, string assetExt)
         {
             var excludeFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            
+
             foreach (var source in virtualPaths)
             {
                 ResolveVfsAndSource(filterName, webVfs, contentVfs, source, out var vfs, out var virtualPath);
@@ -1187,7 +1188,7 @@ namespace ServiceStack
                     excludeFiles.Add(virtualPath.Substring(1).TrimStart('/'));
                     continue;
                 }
-                
+
                 var dir = vfs.GetDirectory(virtualPath);
                 if (dir != null)
                 {
@@ -1198,7 +1199,7 @@ namespace ServiceStack
                             continue;
                         if (excludeFiles.Contains(dirFile.VirtualPath))
                             continue;
-                        
+
                         yield return dirFile;
                     }
                     continue;
@@ -1209,75 +1210,75 @@ namespace ServiceStack
                 {
                     if (excludeFiles.Contains(file.VirtualPath))
                         continue;
-                    
+
                     yield return file;
                 }
                 else throw new NotSupportedException($"Could not find resource at virtual path '{source}' in '{filterName}'");
             }
         }
 
-        public static string BundleJs(string filterName, 
-            IVirtualPathProvider webVfs, 
-            IVirtualPathProvider contentVfs, 
+        public static string BundleJs(string filterName,
+            IVirtualPathProvider webVfs,
+            IVirtualPathProvider contentVfs,
             ICompressor jsCompressor,
             BundleOptions options)
         {
             var assetExt = "js";
-            var outFile = options.OutputTo ?? (options.Minify 
+            var outFile = options.OutputTo ?? (options.Minify
                   ? $"/{assetExt}/bundle.min.{assetExt}" : $"/{assetExt}/bundle.{assetExt}");
             var htmlTagFmt = "<script src=\"{0}\"></script>";
 
-            return BundleAsset(filterName, 
-                webVfs, 
+            return BundleAsset(filterName,
+                webVfs,
                 contentVfs,
                 jsCompressor, options, outFile, options.OutputWebPath, htmlTagFmt, assetExt, options.PathBase);
         }
 
-        public static string BundleCss(string filterName, 
-            IVirtualPathProvider webVfs, 
-            IVirtualPathProvider contentVfs, 
+        public static string BundleCss(string filterName,
+            IVirtualPathProvider webVfs,
+            IVirtualPathProvider contentVfs,
             ICompressor cssCompressor,
             BundleOptions options)
         {
             var assetExt = "css";
-            var outFile = options.OutputTo ?? (options.Minify 
+            var outFile = options.OutputTo ?? (options.Minify
                 ? $"/{assetExt}/bundle.min.{assetExt}" : $"/{assetExt}/bundle.{assetExt}");
             var htmlTagFmt = "<link rel=\"stylesheet\" href=\"{0}\">";
 
-            return BundleAsset(filterName, 
-                webVfs, 
-                contentVfs, 
+            return BundleAsset(filterName,
+                webVfs,
+                contentVfs,
                 cssCompressor, options, outFile, options.OutputWebPath, htmlTagFmt, assetExt, options.PathBase);
         }
 
-        public static string BundleHtml(string filterName, 
-            IVirtualPathProvider webVfs, 
-            IVirtualPathProvider contentVfs, 
+        public static string BundleHtml(string filterName,
+            IVirtualPathProvider webVfs,
+            IVirtualPathProvider contentVfs,
             ICompressor htmlCompressor,
             BundleOptions options)
         {
             var assetExt = "html";
-            var outFile = options.OutputTo ?? (options.Minify 
+            var outFile = options.OutputTo ?? (options.Minify
                   ? $"/{assetExt}/bundle.min.{assetExt}" : $"/{assetExt}/bundle.{assetExt}");
             var id = options.OutputTo != null
                 ? $" id=\"{options.OutputTo.LastRightPart('/').LeftPart('.')}\"" : "";
             var htmlTagFmt = "<link rel=\"import\" href=\"{0}\"" + id + ">";
 
-            return BundleAsset(filterName, 
-                webVfs, 
+            return BundleAsset(filterName,
+                webVfs,
                 contentVfs,
                 htmlCompressor, options, outFile, options.OutputWebPath, htmlTagFmt, assetExt, options.PathBase);
         }
 
-        private static string BundleAsset(string filterName, 
-            IVirtualPathProvider webVfs, 
-            IVirtualPathProvider contentVfs, 
+        private static string BundleAsset(string filterName,
+            IVirtualPathProvider webVfs,
+            IVirtualPathProvider contentVfs,
             ICompressor jsCompressor,
-            BundleOptions options, 
-            string origOutFile, 
-            string outWebPath, 
-            string htmlTagFmt, 
-            string assetExt, 
+            BundleOptions options,
+            string origOutFile,
+            string outWebPath,
+            string htmlTagFmt,
+            string assetExt,
             string pathBase)
         {
             try
@@ -1295,7 +1296,7 @@ namespace ServiceStack
                     {
                         var memFs = webVfs.GetMemoryVirtualFiles();
 
-                        var existingBundleTag = webVfs.GetFile(outFilePath); 
+                        var existingBundleTag = webVfs.GetFile(outFilePath);
                         if (existingBundleTag == null)
                         {
                             // use existing bundle if file with matching hash pattern is found
@@ -1345,7 +1346,7 @@ namespace ServiceStack
                         .Append(assetExt == "html" ? "-->" : "*/");
                 }
 
-                
+
                 var minExt = ".min." + assetExt;
                 if (options.Bundle)
                 {
@@ -1357,7 +1358,7 @@ namespace ServiceStack
                             if (file.LastModified > maxDate)
                                 maxDate = file.LastModified;
                         }
-                        
+
                         string src;
                         try
                         {
@@ -1368,14 +1369,14 @@ namespace ServiceStack
                             LogWarning($"Could not read '{file.VirtualPath}': {e.Message}");
                             continue;
                         }
-                        
+
                         if (file.Name.EndsWith("bundle." + assetExt) ||
                             file.Name.EndsWith("bundle.min." + assetExt) ||
                             existing.Contains(file.VirtualPath))
                             continue;
 
                         if (options.IIFE) sb.AppendLine("(function(){");
-                        
+
                         if (options.Minify && !file.Name.EndsWith(minExt))
                         {
                             string minified;
@@ -1388,16 +1389,16 @@ namespace ServiceStack
                                 LogWarning($"Could not Compress '{file.VirtualPath}': {e.Message}");
                                 minified = src;
                             }
-                            
+
                             sb.Append(minified).Append(assetExt == "js" ? ";" : "").AppendLine();
                         }
                         else
                         {
                             sb.AppendLine(src);
                         }
-    
+
                         if (options.IIFE) sb.AppendLine("})();");
-                        
+
                         // Also define ES6 module in AMD's define(), required by /js/ss-require.js
                         if (options.RegisterModuleInAmd && assetExt == "js")
                         {
@@ -1414,10 +1415,10 @@ namespace ServiceStack
                         var hash = "." + maxDate.ToUnixTimeMs();
                         outHtmlTag = outHtmlTag.Replace("[hash]", hash);
                         webVfs.GetMemoryVirtualFiles().WriteFile(outFilePath, outHtmlTag); //have bundle[hash].ext return rendered html
-                        
+
                         outFilePath = outFilePath.Replace("[hash]", hash);
                     }
-                    
+
                     try
                     {
                         writeVfs.WriteFile(outFilePath, bundled);
@@ -1427,23 +1428,23 @@ namespace ServiceStack
                         LogWarning($"Could not write to '{origOutFile}': {e.Message}");
                     }
 
-                    if (sbLog.Length != 0) 
+                    if (sbLog.Length != 0)
                         return outHtmlTag + StringBuilderCacheAlt.ReturnAndFree(sbLog);
-                    
+
                     StringBuilderCacheAlt.Free(sbLog);
                     return outHtmlTag;
                 }
                 else
                 {
                     var filePaths = new List<string>();
-                    
+
                     foreach (var file in sources)
                     {
                         if (file.Name.EndsWith("bundle." + assetExt) ||
                             file.Name.EndsWith("bundle.min." + assetExt) ||
                             existing.Contains(file.VirtualPath))
                             continue;
-                        
+
                         filePaths.Add("/".CombineWith(file.VirtualPath));
                         existing.Add(file.VirtualPath);
                     }
@@ -1459,7 +1460,7 @@ namespace ServiceStack
 
                         sb.AppendLine(htmlTagFmt.Replace("{0}", filePath));
                     }
-                    
+
                     return StringBuilderCache.ReturnAndFree(sb);
                 }
             }
@@ -1469,5 +1470,5 @@ namespace ServiceStack
             }
         }
     }
-    
+
 }

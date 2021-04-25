@@ -18,11 +18,11 @@ namespace ServiceStack.Script
         ContextBlock,
     }
 
-    public interface IResultInstruction {}
+    public interface IResultInstruction { }
     public class IgnoreResult : IResultInstruction
     {
         public static readonly IgnoreResult Value = new IgnoreResult();
-        private IgnoreResult(){}
+        private IgnoreResult() { }
     }
 
     public class StopExecution : IResultInstruction
@@ -36,7 +36,7 @@ namespace ServiceStack.Script
         public ScriptScopeContext Scope { get; }
         public object Options { get; }
 
-        public StopFilterExecutionException(ScriptScopeContext scope, object options, Exception innerException) 
+        public StopFilterExecutionException(ScriptScopeContext scope, object options, Exception innerException)
             : base(nameof(StopFilterExecutionException), innerException)
         {
             Scope = scope;
@@ -46,11 +46,13 @@ namespace ServiceStack.Script
         public ResponseStatus ToResponseStatus()
         {
             var ex = InnerException ?? this;
-            return new ResponseStatus {
+            return new ResponseStatus
+            {
                 ErrorCode = ex.GetType().Name,
                 Message = ex.Message,
                 StackTrace = ex.StackTrace.LeftPart('\n'),
-                Meta = new Dictionary<string, string> {
+                Meta = new Dictionary<string, string>
+                {
                     [GetType().Name] = Message + "\n" + this.StackTrace.LeftPart('\n')
                 }
             };
@@ -74,7 +76,7 @@ namespace ServiceStack.Script
     {
         public ScriptContext Context { get; set; }
         public ISharpPages Pages { get; set; }
-        
+
         private readonly Dictionary<string, MethodInfo> lookupIndex = new Dictionary<string, MethodInfo>();
 
         public ScriptMethods()
@@ -145,7 +147,7 @@ namespace ServiceStack.Script
 
             return pageParams ?? new Dictionary<string, object>();
         }
-        
+
         public static Dictionary<string, object> AssertOptions(this object scopedParams, string filterName)
         {
             var pageParams = scopedParams as Dictionary<string, object>;
@@ -177,7 +179,7 @@ namespace ServiceStack.Script
                     }
                     return to;
                 }
-                
+
                 throw new ArgumentException(
                     $"{filterName} expects an IEnumerable but received a '{items.GetType().Name}' instead");
             }
@@ -187,7 +189,7 @@ namespace ServiceStack.Script
 
         public static string AssertExpression(this ScriptScopeContext scope, string filterName, object expression)
         {
-            if (!(expression is string literal)) 
+            if (!(expression is string literal))
                 throw new NotSupportedException($"'{filterName}' in '{scope.PageResult.VirtualPath}' requires a string Expression but received a '{expression?.GetType()?.Name}' instead");
             return literal;
         }
@@ -199,7 +201,7 @@ namespace ServiceStack.Script
                 itemBinding = arrowExpr.Params[0].Name;
                 return arrowExpr.Body;
             }
-            
+
             var literal = scope.AssertExpression(filterName, expression);
             var scopedParams = scope.GetParamsWithItemBinding(filterName, scopeOptions, out itemBinding);
 
@@ -223,14 +225,14 @@ namespace ServiceStack.Script
             itemBinding = pageParams.TryGetValue("it", out object bindingName) && bindingName is string binding
                 ? binding
                 : "it";
-            
+
             if (bindingName != null && !(bindingName is string))
                 throw new NotSupportedException($"'it' option in filter '{filterName}' should contain the name to bind to but contained a '{bindingName.GetType().Name}' instead");
 
             // page vars take precedence
             if (page != null && page.Args.TryGetValue("it", out object pageBinding))
                 itemBinding = (string)pageBinding;
-            
+
             return pageParams;
         }
 
@@ -271,7 +273,7 @@ namespace ServiceStack.Script
                 var oValue = token.Evaluate(scope);
                 return oValue.ConvertTo(returnType);
             }
-            
+
             return valueOrBinding.ConvertTo(returnType);
         }
 
@@ -282,10 +284,10 @@ namespace ServiceStack.Script
                 codePage = null;
                 return true;
             }
-            
+
             if (!scope.Context.TryGetPage(scope.PageResult.VirtualPath, virtualPath, out page, out codePage))
                 return false;
-            
+
             codePage?.Init();
 
             if (codePage is IRequiresRequest requiresRequest)
@@ -296,16 +298,16 @@ namespace ServiceStack.Script
 
             return true;
         }
-        
+
         public static ScriptContext CreateNewContext(this ScriptScopeContext scope, Dictionary<string, object> args)
         {
             if (args == null)
                 return new ScriptContext().Init();
-            
+
             var context = new ScriptContext();
             if (args.TryGetValue("use", out var oUse))
             {
-                var use = (Dictionary<string, object>) oUse;
+                var use = (Dictionary<string, object>)oUse;
                 if (use.TryGetValue("context", out var oContext) && oContext is bool useContext && useContext)
                 {
                     return scope.Context;
@@ -322,7 +324,7 @@ namespace ServiceStack.Script
                         var plugin = scope.Context.Plugins.FirstOrDefault(x => x.GetType().Name == name);
                         if (plugin == null)
                             throw new NotSupportedException($"Plugin '{name}' is not registered in parent context");
-                            
+
                         context.Plugins.Add(plugin);
                     }
                 }
@@ -340,11 +342,11 @@ namespace ServiceStack.Script
                         var filter = scope.Context.ScriptMethods.FirstOrDefault(x => x.GetType().Name == name);
                         if (filter == null)
                             throw new NotSupportedException($"Filter '{name}' is not registered in parent context");
-                            
+
                         context.ScriptMethods.Add(filter.GetType().CreateInstance<ScriptMethods>());
                     }
                 }
-                    
+
                 var blocks = use.TryGetValue("blocks", out var oBlocks)
                     ? ViewUtils.ToStrings("blocks", oBlocks)
                     : null;
@@ -355,7 +357,7 @@ namespace ServiceStack.Script
                         var useBlock = scope.Context.ScriptBlocks.FirstOrDefault(x => x.GetType().Name == name);
                         if (useBlock == null)
                             throw new NotSupportedException($"Block '{name}' is not registered in parent context");
-                            
+
                         context.ScriptBlocks.Add(useBlock.GetType().CreateInstance<ScriptBlock>());
                     }
                 }
@@ -366,6 +368,6 @@ namespace ServiceStack.Script
 
             return context;
         }
-        
+
     }
 }

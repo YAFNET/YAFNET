@@ -95,10 +95,10 @@ namespace YAF.Modules
             head.Controls.Add(new HtmlMeta { Name = "msapplication-TileColor", Content = "#da532c" });
             head.Controls.Add(
                 new HtmlMeta
-                    {
-                        Name = "msapplication-config",
-                        Content = BoardInfo.GetURLToContent("favicons/browserconfig.xml")
-                    });
+                {
+                    Name = "msapplication-config",
+                    Content = BoardInfo.GetURLToContent("favicons/browserconfig.xml")
+                });
             head.Controls.Add(new HtmlMeta { Name = "theme-color", Content = "#ffffff" });
         }
     }

@@ -78,11 +78,11 @@ namespace YAF.Controls
             var hasCategoryImage = forum.CategoryImage.IsSet();
 
             var image = new Image
-                            {
-                                ImageUrl =
+            {
+                ImageUrl =
                                     $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Categories}/{forum.CategoryImage}",
-                                AlternateText = forum.Category
-                            };
+                AlternateText = forum.Category
+            };
 
             var icon = new Icon { IconName = "folder", IconType = "text-warning" };
 

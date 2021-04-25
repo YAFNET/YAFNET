@@ -170,7 +170,7 @@ namespace ServiceStack.OrmLite
         internal static Task<long> RowCountAsync(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
         {
             if (anonType != null)
-                dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql:ref sql);
+                dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql: ref sql);
 
             return dbCmd.ScalarAsync<long>(dbCmd.GetDialectProvider().ToRowCountStatement(sql), token);
         }
@@ -205,17 +205,17 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExprConvertToListAsync<T>(sql, q.Params, q.OnlyFields, token);
         }
 
-        
+
         internal static async Task<DataTable> GetSchemaTableAsync(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             using var reader = await dbCmd.ExecReaderAsync(sql, token).ConfigAwait();
             return reader.GetSchemaTable();
         }
 
-        public static Task<ColumnSchema[]> GetTableColumnsAsync(this IDbCommand dbCmd, Type table, CancellationToken token) => 
+        public static Task<ColumnSchema[]> GetTableColumnsAsync(this IDbCommand dbCmd, Type table, CancellationToken token) =>
             dbCmd.GetTableColumnsAsync($"SELECT * FROM {dbCmd.GetDialectProvider().GetQuotedTableName(table.GetModelDefinition())}", token);
 
-        public static async Task<ColumnSchema[]> GetTableColumnsAsync(this IDbCommand dbCmd, string sql, CancellationToken token) => 
+        public static async Task<ColumnSchema[]> GetTableColumnsAsync(this IDbCommand dbCmd, string sql, CancellationToken token) =>
             (await dbCmd.GetSchemaTableAsync(sql, token).ConfigAwait()).ToColumnSchemas(dbCmd);
     }
 }

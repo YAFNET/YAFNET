@@ -23,29 +23,29 @@
  */
 namespace YAF.Types.Interfaces
 {
-  #region Using
+    #region Using
 
-  using System;
-
-  #endregion
-
-  /// <summary>
-  /// The i logger provider.
-  /// </summary>
-  public interface ILoggerProvider
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The create.
-    /// </summary>
-    /// <param name="type">
-    /// The type.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    ILogger Create([CanBeNull] Type type);
+    using System;
 
     #endregion
-  }
+
+    /// <summary>
+    /// The i logger provider.
+    /// </summary>
+    public interface ILoggerProvider
+    {
+        #region Public Methods
+
+        /// <summary>
+        /// The create.
+        /// </summary>
+        /// <param name="type">
+        /// The type.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        ILogger Create([CanBeNull] Type type);
+
+        #endregion
+    }
 }

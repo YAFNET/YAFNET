@@ -81,8 +81,8 @@ namespace ServiceStack.Text.Common
                 switch (typeCode)
                 {
                     case TypeCode.Boolean:
-                        return value => value.IsNullOrEmpty() 
-                            ? (bool?)null 
+                        return value => value.IsNullOrEmpty()
+                            ? (bool?)null
                             : value.ParseBoolean();
                     case TypeCode.SByte:
                         return SignedInteger<sbyte>.ParseNullableObject;

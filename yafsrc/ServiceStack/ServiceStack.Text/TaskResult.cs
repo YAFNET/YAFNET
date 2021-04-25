@@ -25,7 +25,7 @@ namespace ServiceStack
             var tcs = new TaskCompletionSource<object>();
             tcs.SetCanceled();
             Canceled = tcs.Task;
-        }         
+        }
     }
 
     internal class TaskResult<T>

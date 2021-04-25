@@ -10,14 +10,14 @@ namespace ServiceStack
     {
         public string VirtualPath { get; set; }
         public string Layout { get; set; }
-        
-        public PageAttribute(string virtualPath, string layout=null)
+
+        public PageAttribute(string virtualPath, string layout = null)
         {
             VirtualPath = virtualPath;
             Layout = layout;
         }
     }
-    
+
     /// <summary>
     /// Specify static page arguments
     /// </summary>

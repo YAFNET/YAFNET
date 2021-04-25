@@ -18,7 +18,7 @@ namespace ServiceStack.OrmLite
                 value = ((IDataParameter)dbCmd.Parameters[parameterName]).Value;
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 value = null;
                 return false;
@@ -35,7 +35,7 @@ namespace ServiceStack.OrmLite
         }
 
         public OrmLiteSPStatement(IDbCommand dbCmd)
-            : this(null, dbCmd) {}
+            : this(null, dbCmd) { }
 
         public OrmLiteSPStatement(IDbConnection db, IDbCommand dbCmd)
         {

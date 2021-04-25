@@ -124,7 +124,7 @@ namespace YAF.Pages
         /// Gets the sub forum title.
         /// </summary>
         /// <returns>The get sub forum title.</returns>
-            protected string GetSubForumTitle()
+        protected string GetSubForumTitle()
         {
             return this.GetTextFormatted("SUBFORUMS", this.HtmlEncode(this.PageContext.PageForumName));
         }
@@ -402,7 +402,7 @@ namespace YAF.Pages
 
             if (topicList != null && topicList.Any())
             {
-               this.Pager.Count = topicList.FirstOrDefault().TotalRows;
+                this.Pager.Count = topicList.FirstOrDefault().TotalRows;
             }
 
             if (this.Announcements.Items.Count == 0 && this.TopicList.Items.Count == 0)

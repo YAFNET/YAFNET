@@ -147,7 +147,7 @@ namespace YAF.Web.Controls
         ///   Gets Attributes.
         /// </summary>
         public AttributeCollection Attributes { get; }
-        
+
         [DefaultValue(false)]
         public bool CausesValidation
         {
@@ -502,7 +502,7 @@ namespace YAF.Web.Controls
 
                 this.Page.ClientScript.RegisterForEventValidation(postBackOptions);
             }
-            
+
             // get the title...
             var title = this.GetLocalizedTitle();
 
@@ -566,7 +566,7 @@ namespace YAF.Web.Controls
             {
                 // add attributes...
                 this.Attributes.Keys.Cast<string>().ForEach(key =>
-                    
+
                 {
                     // get the attribute and write it...
                     if (key.ToLower() == "onclick")

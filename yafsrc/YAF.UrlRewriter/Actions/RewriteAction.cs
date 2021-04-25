@@ -45,7 +45,7 @@ namespace YAF.UrlRewriter.Actions
         /// <returns>True if the rule matches.</returns>
         public bool IsMatch(IRewriteContext context)
         {
-             return this.Conditions.IsMatch(context);
+            return this.Conditions.IsMatch(context);
         }
 
         /// <summary>

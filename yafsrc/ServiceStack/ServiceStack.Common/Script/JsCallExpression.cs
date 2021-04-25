@@ -25,7 +25,7 @@ namespace ServiceStack.Script
 #if DEBUG            
             try
 #endif            
-            { 
+            {
                 if (fn is MethodInvoker methodInvoker)
                 {
                     if (target == null && !isMemberExpr && fnArgValues.Count > 0)
@@ -43,7 +43,7 @@ namespace ServiceStack.Script
                         target = fnArgValues[0];
                         fnArgValues.RemoveAt(0);
                     }
-                    
+
                     actionInvoker(target, fnArgValues.ToArray());
                     return IgnoreResult.Value;
                 }
@@ -51,7 +51,7 @@ namespace ServiceStack.Script
                 {
                     if (isMemberExpr)
                         fnArgValues.Insert(0, target);
-                    
+
                     return staticMethodInvoker(fnArgValues.ToArray());
                 }
                 if (fn is StaticActionInvoker staticActionInvoker)
@@ -83,9 +83,9 @@ namespace ServiceStack.Script
                     : fn.Method.DeclaringType.CreateInstance();
                 if (isStaticDelegate)
                     isMemberExpr = false;
-                
-                return InvokeDelegate(delegateInvoker, 
-                    target, 
+
+                return InvokeDelegate(delegateInvoker,
+                    target,
                     isMemberExpr, fnArgValues);
             }
 #if DEBUG            
@@ -150,7 +150,7 @@ namespace ServiceStack.Script
                         if (targetValue == StopExecution.Value)
                             return targetValue;
 
-                        value = result.InvokeFilter(invoker, filter, new[]{ targetValue }, name);
+                        value = result.InvokeFilter(invoker, filter, new[] { targetValue }, name);
                         return value;
                     }
 
@@ -161,7 +161,7 @@ namespace ServiceStack.Script
                         if (targetValue == StopExecution.Value)
                             return targetValue;
 
-                        value = result.InvokeFilter(invoker, filter, new[]{ scope, targetValue }, name);
+                        value = result.InvokeFilter(invoker, filter, new[] { scope, targetValue }, name);
                         return value;
                     }
                 }
@@ -311,7 +311,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsCallExpression) obj);
+            return Equals((JsCallExpression)obj);
         }
 
         public override int GetHashCode()
@@ -326,7 +326,8 @@ namespace ServiceStack.Script
         public override Dictionary<string, object> ToJsAst()
         {
             var arguments = new List<object>();
-            var to = new Dictionary<string, object> {
+            var to = new Dictionary<string, object>
+            {
                 ["type"] = ToJsAstType(),
                 ["callee"] = Callee.ToJsAst(),
                 ["arguments"] = arguments,

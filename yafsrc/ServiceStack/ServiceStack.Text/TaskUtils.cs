@@ -98,10 +98,10 @@ namespace ServiceStack
             return tcs.Task;
         }
 
-        static void StartNextIteration<T>(TaskCompletionSource<object> tcs, 
-            Func<T, int, Task> fn, 
-            IEnumerator<T> enumerator, 
-            ref int i, 
+        static void StartNextIteration<T>(TaskCompletionSource<object> tcs,
+            Func<T, int, Task> fn,
+            IEnumerator<T> enumerator,
+            ref int i,
             Action<Task> next)
         {
             bool moveNext;

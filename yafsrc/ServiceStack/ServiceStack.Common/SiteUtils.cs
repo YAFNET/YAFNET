@@ -7,8 +7,8 @@ namespace ServiceStack
 {
     public static class SiteUtils
     {
-        private static char[] UrlCharChecks = {':', '/', '('};
-        
+        private static char[] UrlCharChecks = { ':', '/', '(' };
+
         /// <summary>
         /// Allow slugs to capture URLs, Examples:
         /// techstacks.io                  => https://techstacks.io
@@ -27,7 +27,7 @@ namespace ServiceStack
                 : null;
             if (scheme != null)
                 url = url.RightPart(':');
-            
+
             var firstPos = url.IndexOf(':');
             if (!isUrl && firstPos >= 0)
             {
@@ -43,8 +43,8 @@ namespace ServiceStack
                             ? Math.Min(delim1Pos, delim2Pos)
                             : Math.Max(delim1Pos, delim2Pos);
                         var testPort = endPos >= 0
-                            ? atPort.Substring(0,endPos)
-                            : atPort.Substring(0,atPort.Length - 1);
+                            ? atPort.Substring(0, endPos)
+                            : atPort.Substring(0, atPort.Length - 1);
                         url = int.TryParse(testPort, out _)
                             ? url.LeftPart(':') + ':' + UnSlash(atPort)
                             : url.LeftPart(':') + '/' + UnSlash(atPort);
@@ -96,7 +96,7 @@ namespace ServiceStack
             slug = slug.Replace('/', ':');
             return slug;
         }
-        
+
         public static string ToUrlEncoded(List<string> args)
         {
             if (!args.IsEmpty())
@@ -109,7 +109,7 @@ namespace ServiceStack
                 {
                     if (sb.Length > 0)
                         sb.Append('&');
-                    
+
                     var key = args[i];
                     var val = args[i + 1];
                     val = val?.Replace((char)31, ','); // 31 1F US (unit separator) 
@@ -127,7 +127,7 @@ namespace ServiceStack
             {
                 appResponseJson = await baseUrl.CombineWith("/metadata/app.json")
                     .GetJsonFromUrlAsync();
-            
+
                 if (!appResponseJson.Trim().StartsWith("{"))
                     throw new Exception("Not a remote ServiceStack Instance");
             }
@@ -137,7 +137,7 @@ namespace ServiceStack
                 try
                 {
                     ssMetadata = await baseUrl.CombineWith("/metadata")
-                        .GetStringFromUrlAsync(requestFilter:req => req.UserAgent = "ServiceStack");
+                        .GetStringFromUrlAsync(requestFilter: req => req.UserAgent = "ServiceStack");
                 }
                 catch (Exception ssEx)
                 {

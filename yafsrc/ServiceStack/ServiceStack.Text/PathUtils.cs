@@ -114,7 +114,7 @@ namespace ServiceStack
         {
             if (string.IsNullOrEmpty(path) || chars == null || chars.Length == 0)
                 return path;
-                
+
             var lastChar = path[path.Length - 1];
             foreach (var c in chars)
             {
@@ -133,7 +133,7 @@ namespace ServiceStack
             var startPath = path.TrimEndIf(Slashes);
             return startPath + (withPath[0] == '/' ? withPath : "/" + withPath);
         }
-        
+
         public static string CombineWith(this string path, params string[] thesePaths)
         {
             if (path == null)
@@ -211,7 +211,7 @@ namespace ServiceStack
                 list.Add(converter(item));
             }
             return list;
-        }    
+        }
     }
 
 }

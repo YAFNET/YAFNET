@@ -5,22 +5,22 @@ namespace ServiceStack
     [Flags]
     public enum Lang
     {
-        CSharp =     1 << 0,
-        FSharp =     1 << 1,
-        Vb =         1 << 2,
+        CSharp = 1 << 0,
+        FSharp = 1 << 1,
+        Vb = 1 << 2,
         TypeScript = 1 << 3,
-        Dart =       1 << 4,
-        Swift =      1 << 5,
-        Java =       1 << 6,
-        Kotlin =     1 << 7,
+        Dart = 1 << 4,
+        Swift = 1 << 5,
+        Java = 1 << 6,
+        Kotlin = 1 << 7,
     }
-    
+
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = true)]
     public class EmitCodeAttribute : AttributeBase
     {
         public Lang Lang { get; set; }
         public string[] Statements { get; set; }
-        public EmitCodeAttribute(Lang lang, string statement) : this(lang, new[] {statement}) {}
+        public EmitCodeAttribute(Lang lang, string statement) : this(lang, new[] { statement }) { }
         public EmitCodeAttribute(Lang lang, string[] statements)
         {
             Lang = lang;

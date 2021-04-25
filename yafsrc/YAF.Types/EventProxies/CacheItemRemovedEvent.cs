@@ -23,53 +23,53 @@
  */
 namespace YAF.Types.EventProxies
 {
-  #region Using
+    #region Using
 
-  using System.Runtime.Caching;
-  
-  using YAF.Types.Interfaces.Events;
+    using System.Runtime.Caching;
 
-  #endregion
+    using YAF.Types.Interfaces.Events;
 
-  /// <summary>
-  /// The cache item removed event.
-  /// </summary>
-  public class CacheItemRemovedEvent : IAmEvent
-  {
-    #region Constructors and Destructors
+    #endregion
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CacheItemRemovedEvent"/> class.
+    /// The cache item removed event.
     /// </summary>
-    /// <param name="arguments">
-    /// The arguments.
-    /// </param>
-    public CacheItemRemovedEvent(CacheEntryRemovedArguments arguments)
+    public class CacheItemRemovedEvent : IAmEvent
     {
-        this.Key = arguments.CacheItem.Key;
-        this.Value = arguments.CacheItem.Value;
-        this.Reason = arguments.RemovedReason;
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CacheItemRemovedEvent"/> class.
+        /// </summary>
+        /// <param name="arguments">
+        /// The arguments.
+        /// </param>
+        public CacheItemRemovedEvent(CacheEntryRemovedArguments arguments)
+        {
+            this.Key = arguments.CacheItem.Key;
+            this.Value = arguments.CacheItem.Value;
+            this.Reason = arguments.RemovedReason;
         }
 
-    #endregion
+        #endregion
 
-    #region Properties
+        #region Properties
 
-    /// <summary>
-    /// Gets or sets Key.
-    /// </summary>
-    public string Key { get; set; }
+        /// <summary>
+        /// Gets or sets Key.
+        /// </summary>
+        public string Key { get; set; }
 
-    /// <summary>
-    /// Gets or sets Reason.
-    /// </summary>
-    public CacheEntryRemovedReason Reason { get; set; }
+        /// <summary>
+        /// Gets or sets Reason.
+        /// </summary>
+        public CacheEntryRemovedReason Reason { get; set; }
 
-    /// <summary>
-    /// Gets or sets Value.
-    /// </summary>
-    public object Value { get; set; }
+        /// <summary>
+        /// Gets or sets Value.
+        /// </summary>
+        public object Value { get; set; }
 
-    #endregion
-  }
+        #endregion
+    }
 }

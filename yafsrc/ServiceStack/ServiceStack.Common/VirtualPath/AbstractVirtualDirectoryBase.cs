@@ -22,9 +22,9 @@ namespace ServiceStack.VirtualPath
         public abstract IEnumerable<IVirtualDirectory> Directories { get; }
 
         public abstract string Name { get; }
-        
+
         protected AbstractVirtualDirectoryBase(IVirtualPathProvider owningProvider)
-            : this(owningProvider, null) {}
+            : this(owningProvider, null) { }
 
         protected AbstractVirtualDirectoryBase(IVirtualPathProvider owningProvider, IVirtualDirectory parentDirectory)
         {
@@ -52,7 +52,7 @@ namespace ServiceStack.VirtualPath
             var pathToken = virtualPath.Pop();
             if (virtualPath.Count == 0)
                 return GetFileFromBackingDirectoryOrDefault(pathToken);
-            
+
             var virtDir = GetDirectoryFromBackingDirectoryOrDefault(pathToken);
             return virtDir?.GetFile(virtualPath);
         }
@@ -113,8 +113,8 @@ namespace ServiceStack.VirtualPath
             if (parentPath == separator)
                 parentPath = string.Empty;
 
-            return parentPath == null 
-                ? Name 
+            return parentPath == null
+                ? Name
                 : string.Concat(parentPath, separator, Name);
         }
 

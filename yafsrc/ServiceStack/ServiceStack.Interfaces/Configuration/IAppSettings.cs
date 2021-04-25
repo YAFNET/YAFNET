@@ -5,7 +5,7 @@ namespace ServiceStack.Configuration
     public interface IAppSettings
     {
         Dictionary<string, string> GetAll();
-         
+
         List<string> GetAllKeys();
 
         bool Exists(string key);

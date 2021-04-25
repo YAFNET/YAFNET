@@ -21,7 +21,7 @@ namespace ServiceStack.OrmLite.Support
         {
             this.dbCmd = dbCmd;
             this.instance = instance;
-            
+
             modelDef = ModelDefinition<T>.Definition;
             fieldDefs = modelDef.AllFieldDefinitionsArray.Where(x => x.IsReference).ToList();
             pkValue = modelDef.PrimaryKey.GetValue(instance);
@@ -75,8 +75,8 @@ namespace ServiceStack.OrmLite.Support
 
     internal class LoadReferencesSync<T> : LoadReferences<T>
     {
-        public LoadReferencesSync(IDbCommand dbCmd, T instance) 
-            : base(dbCmd, instance) {}
+        public LoadReferencesSync(IDbCommand dbCmd, T instance)
+            : base(dbCmd, instance) { }
 
         public void SetRefFieldList(FieldDefinition fieldDef, Type refType)
         {

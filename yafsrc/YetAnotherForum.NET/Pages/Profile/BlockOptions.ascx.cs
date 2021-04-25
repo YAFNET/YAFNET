@@ -127,11 +127,11 @@ namespace YAF.Pages.Profile
         protected void SaveUser_OnClick(object sender, EventArgs e)
         {
             var blockFlags = new UserBlockFlags
-                                 {
-                                     BlockEmails = this.BlockEmails.Checked,
-                                     BlockFriendRequests = this.BlockFriendRequests.Checked,
-                                     BlockPMs = this.BlockPMs.Checked
-                                 };
+            {
+                BlockEmails = this.BlockEmails.Checked,
+                BlockFriendRequests = this.BlockFriendRequests.Checked,
+                BlockPMs = this.BlockPMs.Checked
+            };
 
             this.GetRepository<User>().UpdateBlockFlags(this.PageContext.PageUserID, blockFlags.BitValue);
 

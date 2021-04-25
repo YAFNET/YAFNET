@@ -151,7 +151,7 @@ namespace YAF.Data.MsSql.Functions
             method.Value.ForEach(param =>
             {
                 var global = globalParams.FirstOrDefault(p => p.Key == param.ParameterType);
-                
+
                 if (global.IsNotDefault())
                 {
                     mappedParameters.Add(global.Value);

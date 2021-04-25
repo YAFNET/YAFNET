@@ -75,7 +75,7 @@ namespace YAF.Modules
                     this.Get<HttpRequestBase>().QueryString.Exists("find"))
                 {
                     // add no-index tag
-                    head.Controls.Add(ControlHelper.MakeMetaNoIndexControl()); 
+                    head.Controls.Add(ControlHelper.MakeMetaNoIndexControl());
                 }
                 else
                 {

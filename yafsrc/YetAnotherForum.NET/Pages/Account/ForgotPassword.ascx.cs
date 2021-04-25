@@ -130,9 +130,9 @@ namespace YAF.Pages.Account
             }
 
             var code = HttpUtility.UrlEncode(this.Get<IAspNetUsersHelper>().GeneratePasswordResetToken(user.Id));
-           
+
             this.Get<ISendNotification>().SendPasswordReset(user, code);
-            
+
             this.PageContext.LoadMessage.AddSession(this.GetText("SUCCESS"), MessageTypes.success);
 
             this.Get<LinkBuilder>().Redirect(ForumPages.Board);

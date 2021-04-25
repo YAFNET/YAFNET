@@ -21,9 +21,9 @@ namespace ServiceStack.Script
             if (result != null)
             {
                 var resultAsMap = result.ToObjectDictionary();
-    
+
                 var withScope = scope.ScopeWithParams(resultAsMap);
-                
+
                 await WriteBodyAsync(withScope, block, token);
             }
             else

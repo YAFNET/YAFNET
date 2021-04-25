@@ -117,7 +117,7 @@ namespace ServiceStack
         public AppInfo App { get; set; }
         public Dictionary<string, string> ContentTypeFormats { get; set; }
         public PluginInfo Plugins { get; set; }
-        public Dictionary<string,CustomPlugin> CustomPlugins { get; set; }
+        public Dictionary<string, CustomPlugin> CustomPlugins { get; set; }
         public MetadataTypes Api { get; set; }
         public Dictionary<string, string> Meta { get; set; }
     }
@@ -142,7 +142,7 @@ namespace ServiceStack
         public bool? IncludesOAuthTokens { get; set; }
         public string HtmlRedirect { get; set; }
         public List<MetaAuthProvider> AuthProviders { get; set; }
-        public Dictionary<string,string[]> ServiceRoutes { get; set; }
+        public Dictionary<string, string[]> ServiceRoutes { get; set; }
         public Dictionary<string, string> Meta { get; set; }
     }
 
@@ -166,11 +166,11 @@ namespace ServiceStack
     {
         public bool? HasValidationSource { get; set; }
         public bool? HasValidationSourceAdmin { get; set; }
-        public Dictionary<string,string[]> ServiceRoutes { get; set; }
+        public Dictionary<string, string[]> ServiceRoutes { get; set; }
         public List<ScriptMethodType> TypeValidators { get; set; }
         public List<ScriptMethodType> PropertyValidators { get; set; }
         public string AccessRole { get; set; }
-        
+
         public Dictionary<string, string> Meta { get; set; }
     }
 
@@ -188,7 +188,7 @@ namespace ServiceStack
     {
         public string[] RequiredRoles { get; set; }
         public string RequestLogger { get; set; }
-        public Dictionary<string,string[]> ServiceRoutes { get; set; }
+        public Dictionary<string, string[]> ServiceRoutes { get; set; }
         public Dictionary<string, string> Meta { get; set; }
     }
 
@@ -213,17 +213,17 @@ namespace ServiceStack
         /// Which User Roles have access to this Plugins Services. See RoleNames for built-in Roles.
         /// </summary>
         public string AccessRole { get; set; }
-        
+
         /// <summary>
         /// What Services Types (and their user-defined routes) are enabled in this plugin
         /// </summary>
-        public Dictionary<string,string[]> ServiceRoutes { get; set; }
-        
+        public Dictionary<string, string[]> ServiceRoutes { get; set; }
+
         /// <summary>
         /// List of enabled features in this plugin
         /// </summary>
         public List<string> Enabled { get; set; }
-        
+
         /// <summary>
         /// Additional custom metadata about this plugin
         /// </summary>
@@ -305,7 +305,7 @@ namespace ServiceStack
         /// The configured JsConfig.TextCase
         /// </summary>
         public string JsTextCase { get; set; }
-        
+
         /// <summary>
         /// Custom User-Defined Attributes
         /// </summary>
@@ -349,7 +349,7 @@ namespace ServiceStack
 
         [IgnoreDataMember]
         public bool IsClass => Type?.IsClass ?? !(IsEnum == true || IsInterface == true);
-        
+
         public string Name { get; set; }
         public string Namespace { get; set; }
         public string[] GenericArgs { get; set; }
@@ -389,7 +389,7 @@ namespace ServiceStack
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((MetadataType) obj);
+            return Equals((MetadataType)obj);
         }
 
         public override int GetHashCode()
@@ -485,14 +485,14 @@ namespace ServiceStack
         public static bool ReferencesAny(this MetadataOperationType op, params string[] typeNames) =>
             (op.Request.Inherits != null && (typeNames.Contains(op.Request.Inherits.Name) ||
                                              op.Request.Inherits.GenericArgs?.Length > 0 &&
-                                             op.Request.Inherits.GenericArgs.Any(typeNames.Contains))) 
+                                             op.Request.Inherits.GenericArgs.Any(typeNames.Contains)))
             ||
             (op.Response != null && (typeNames.Contains(op.Response.Name) ||
                                      op.Response.GenericArgs?.Length > 0 &&
-                                     op.Response.GenericArgs.Any(typeNames.Contains))) 
+                                     op.Response.GenericArgs.Any(typeNames.Contains)))
             ||
             (op.Request.Implements != null && op.Request.Implements.Any(i =>
-                 i.GenericArgs?.Length > 0 && i.GenericArgs.Any(typeNames.Contains))) 
+                 i.GenericArgs?.Length > 0 && i.GenericArgs.Any(typeNames.Contains)))
             ||
             (op.Response?.Inherits != null && (typeNames.Contains(op.Response.Inherits.Name) ||
                                                op.Response.Inherits.GenericArgs?.Length > 0 &&
@@ -517,17 +517,17 @@ namespace ServiceStack
                     : $"{firstParam} |> {method.Name}(" + string.Join(", ", method.ParamNames?.Skip(1) ?? new string[0]) + $"){ret}";
             return sig;
         }
-        
-        public static List<MetadataOperationType> GetOperationsByTags(this MetadataTypes types, string[] tags) => 
+
+        public static List<MetadataOperationType> GetOperationsByTags(this MetadataTypes types, string[] tags) =>
             types.Operations.Where(x => x.Tags != null && x.Tags.Any(t => Array.IndexOf(tags, t) >= 0)).ToList();
 
-    
+
         private static readonly char[] SystemTypeChars = { '<', '>', '+' };
         public static bool IsSystemOrServiceStackType(this MetadataTypeName metaRef)
         {
             if (metaRef.Namespace == null)
                 return false;
-            return metaRef.Namespace.StartsWith("System") || 
+            return metaRef.Namespace.StartsWith("System") ||
                    metaRef.Namespace.StartsWith("ServiceStack") ||
                    metaRef.Name.IndexOfAny(SystemTypeChars) >= 0;
         }

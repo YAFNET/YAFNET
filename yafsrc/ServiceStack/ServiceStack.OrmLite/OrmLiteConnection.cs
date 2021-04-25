@@ -135,10 +135,10 @@ namespace ServiceStack.OrmLite
 
     public static class OrmLiteConnectionUtils
     {
-        public static bool InTransaction(this IDbConnection db) => 
+        public static bool InTransaction(this IDbConnection db) =>
             db is IHasDbTransaction setDb && setDb.DbTransaction != null;
 
-        public static IDbTransaction GetTransaction(this IDbConnection db) => 
+        public static IDbTransaction GetTransaction(this IDbConnection db) =>
             db is IHasDbTransaction setDb ? setDb.DbTransaction : null;
     }
 }

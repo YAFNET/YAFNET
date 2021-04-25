@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace ServiceStack.Text 
+namespace ServiceStack.Text
 {
     public static class CharMemoryExtensions
     {
@@ -42,7 +42,7 @@ namespace ServiceStack.Text
         public static ReadOnlyMemory<char> AdvancePastChar(this ReadOnlyMemory<char> literal, char delim)
         {
             var i = 0;
-            var c = (char) 0;
+            var c = (char)0;
             var span = literal.Span;
             while (i < span.Length && (c = span[i]) != delim)
                 i++;
@@ -65,61 +65,61 @@ namespace ServiceStack.Text
             MemoryProvider.Instance.TryParseDecimal(value.Span, out result);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryParseFloat(this ReadOnlyMemory<char> value, out float result) => 
+        public static bool TryParseFloat(this ReadOnlyMemory<char> value, out float result) =>
             MemoryProvider.Instance.TryParseFloat(value.Span, out result);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryParseDouble(this ReadOnlyMemory<char> value, out double result) => 
+        public static bool TryParseDouble(this ReadOnlyMemory<char> value, out double result) =>
             MemoryProvider.Instance.TryParseDouble(value.Span, out result);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static decimal ParseDecimal(this ReadOnlyMemory<char> value) => 
+        public static decimal ParseDecimal(this ReadOnlyMemory<char> value) =>
             MemoryProvider.Instance.ParseDecimal(value.Span);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float ParseFloat(this ReadOnlyMemory<char> value) => 
+        public static float ParseFloat(this ReadOnlyMemory<char> value) =>
             MemoryProvider.Instance.ParseFloat(value.Span);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ParseDouble(this ReadOnlyMemory<char> value) => 
+        public static double ParseDouble(this ReadOnlyMemory<char> value) =>
             MemoryProvider.Instance.ParseDouble(value.Span);
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static sbyte ParseSByte(this ReadOnlyMemory<char> value) => 
+        public static sbyte ParseSByte(this ReadOnlyMemory<char> value) =>
             MemoryProvider.Instance.ParseSByte(value.Span);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte ParseByte(this ReadOnlyMemory<char> value) => 
+        public static byte ParseByte(this ReadOnlyMemory<char> value) =>
             MemoryProvider.Instance.ParseByte(value.Span);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static short ParseInt16(this ReadOnlyMemory<char> value) => 
+        public static short ParseInt16(this ReadOnlyMemory<char> value) =>
             MemoryProvider.Instance.ParseInt16(value.Span);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ushort ParseUInt16(this ReadOnlyMemory<char> value) => 
+        public static ushort ParseUInt16(this ReadOnlyMemory<char> value) =>
             MemoryProvider.Instance.ParseUInt16(value.Span);
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ParseInt32(this ReadOnlyMemory<char> value) => 
+        public static int ParseInt32(this ReadOnlyMemory<char> value) =>
             MemoryProvider.Instance.ParseInt32(value.Span);
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint ParseUInt32(this ReadOnlyMemory<char> value) => 
+        public static uint ParseUInt32(this ReadOnlyMemory<char> value) =>
             MemoryProvider.Instance.ParseUInt32(value.Span);
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long ParseInt64(this ReadOnlyMemory<char> value) => 
+        public static long ParseInt64(this ReadOnlyMemory<char> value) =>
             MemoryProvider.Instance.ParseInt64(value.Span);
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ulong ParseUInt64(this ReadOnlyMemory<char> value) => 
+        public static ulong ParseUInt64(this ReadOnlyMemory<char> value) =>
             MemoryProvider.Instance.ParseUInt64(value.Span);
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Guid ParseGuid(this ReadOnlyMemory<char> value) =>
             MemoryProvider.Instance.ParseGuid(value.Span);
-        
+
         public static ReadOnlyMemory<char> LeftPart(this ReadOnlyMemory<char> strVal, char needle)
         {
             if (strVal.IsEmpty) return strVal;
@@ -191,7 +191,7 @@ namespace ServiceStack.Text
                 ? strVal
                 : strVal.Slice(pos + needle.Length);
         }
-        
+
         public static bool TryReadLine(this ReadOnlyMemory<char> text, out ReadOnlyMemory<char> line, ref int startIndex)
         {
             if (startIndex >= text.Length)
@@ -250,13 +250,13 @@ namespace ServiceStack.Text
                 return true;
             }
         }
-        
+
         public static void SplitOnFirst(this ReadOnlyMemory<char> strVal, char needle, out ReadOnlyMemory<char> first, out ReadOnlyMemory<char> last)
         {
             first = default;
             last = default;
             if (strVal.IsEmpty) return;
-            
+
             var pos = strVal.Span.IndexOf(needle);
             if (pos == -1)
             {
@@ -274,7 +274,7 @@ namespace ServiceStack.Text
             first = default;
             last = default;
             if (strVal.IsEmpty) return;
-            
+
             var pos = strVal.Span.IndexOf(needle.Span);
             if (pos == -1)
             {
@@ -292,7 +292,7 @@ namespace ServiceStack.Text
             first = default;
             last = default;
             if (strVal.IsEmpty) return;
-            
+
             var pos = strVal.Span.LastIndexOf(needle);
             if (pos == -1)
             {
@@ -310,7 +310,7 @@ namespace ServiceStack.Text
             first = default;
             last = default;
             if (strVal.IsEmpty) return;
-            
+
             var pos = strVal.Span.LastIndexOf(needle.Span);
             if (pos == -1)
             {

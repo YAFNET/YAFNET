@@ -6,7 +6,7 @@ namespace ServiceStack.OrmLite.Converters
 {
     public class StringConverter : OrmLiteConverter, IHasColumnDefinitionLength
     {
-        public StringConverter() : this(8000) {}
+        public StringConverter() : this(8000) { }
 
         public StringConverter(int stringLength)
         {
@@ -44,7 +44,7 @@ namespace ServiceStack.OrmLite.Converters
 
             if (p.Size == default && fieldType == typeof(string))
             {
-                p.Size = UseUnicode 
+                p.Size = UseUnicode
                     ? Math.Min(StringLength, 4000)
                     : StringLength;
             }
@@ -82,7 +82,7 @@ namespace ServiceStack.OrmLite.Converters
                 return strValue[0];
 
             if (value.GetType().IsIntegerType())
-                return (char) (int) this.ConvertNumber(typeof(int), value);
+                return (char)(int)this.ConvertNumber(typeof(int), value);
 
             return (char)value;
         }
@@ -93,19 +93,19 @@ namespace ServiceStack.OrmLite.Converters
                 return EnumConverter.ToCharValue(value);
             if (value is int i)
                 return (char)i;
-            
+
             return base.ToDbValue(fieldType, value);
         }
     }
 
     public class CharArrayConverter : StringConverter
     {
-        public CharArrayConverter() {}
-        public CharArrayConverter(int stringLength) : base(stringLength) {}
+        public CharArrayConverter() { }
+        public CharArrayConverter(int stringLength) : base(stringLength) { }
 
         public override object ToDbValue(Type fieldType, object value)
         {
-            var chars = (char[]) value;
+            var chars = (char[])value;
             return new string(chars);
         }
 

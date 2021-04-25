@@ -78,7 +78,7 @@ namespace ServiceStack.OrmLite
         {
             if (namedConnection == null)
                 throw new ArgumentNullException(nameof(namedConnection));
-            
+
             if (!NamedConnections.TryGetValue(namedConnection, out var factory))
                 throw new KeyNotFoundException("No factory registered is named " + namedConnection);
 
@@ -162,7 +162,7 @@ namespace ServiceStack.OrmLite
             if (!DialectProviders.TryGetValue(providerName, out var dialectProvider))
                 throw new ArgumentException($"{providerName} is not a registered DialectProvider");
 
-            var dbFactory = new OrmLiteConnectionFactory(connectionString, dialectProvider, setGlobalDialectProvider:false);
+            var dbFactory = new OrmLiteConnectionFactory(connectionString, dialectProvider, setGlobalDialectProvider: false);
 
             return dbFactory.OpenDbConnection();
         }
@@ -177,7 +177,7 @@ namespace ServiceStack.OrmLite
             if (!DialectProviders.TryGetValue(providerName, out var dialectProvider))
                 throw new ArgumentException($"{providerName} is not a registered DialectProvider");
 
-            var dbFactory = new OrmLiteConnectionFactory(connectionString, dialectProvider, setGlobalDialectProvider:false);
+            var dbFactory = new OrmLiteConnectionFactory(connectionString, dialectProvider, setGlobalDialectProvider: false);
 
             return await dbFactory.OpenDbConnectionAsync(token).ConfigAwait();
         }
@@ -293,25 +293,25 @@ namespace ServiceStack.OrmLite
         public static IOrmLiteDialectProvider GetDialectProvider(this IDbConnectionFactory connectionFactory, ConnectionInfo dbInfo)
         {
             return dbInfo != null
-                ? GetDialectProvider(connectionFactory, providerName:dbInfo.ProviderName, namedConnection:dbInfo.NamedConnection)
-                : ((OrmLiteConnectionFactory) connectionFactory).DialectProvider;
+                ? GetDialectProvider(connectionFactory, providerName: dbInfo.ProviderName, namedConnection: dbInfo.NamedConnection)
+                : ((OrmLiteConnectionFactory)connectionFactory).DialectProvider;
         }
-        
+
         public static IOrmLiteDialectProvider GetDialectProvider(this IDbConnectionFactory connectionFactory,
             string providerName = null, string namedConnection = null)
         {
-            var dbFactory = (OrmLiteConnectionFactory) connectionFactory;
+            var dbFactory = (OrmLiteConnectionFactory)connectionFactory;
 
             if (!string.IsNullOrEmpty(providerName))
                 return OrmLiteConnectionFactory.DialectProviders.TryGetValue(providerName, out var provider)
                     ? provider
                     : throw new NotSupportedException($"Dialect provider is not registered '{provider}'");
-            
+
             if (!string.IsNullOrEmpty(namedConnection))
                 return OrmLiteConnectionFactory.NamedConnections.TryGetValue(namedConnection, out var namedFactory)
                     ? namedFactory.DialectProvider
                     : throw new NotSupportedException($"Named connection is not registered '{namedConnection}'");
-            
+
             return dbFactory.DialectProvider;
         }
 
@@ -345,15 +345,15 @@ namespace ServiceStack.OrmLite
         {
             ((OrmLiteConnectionFactory)dbFactory).RegisterConnection(namedConnection, connectionFactory);
         }
-        
+
         public static IDbConnection OpenDbConnection(this IDbConnectionFactory dbFactory, ConnectionInfo connInfo)
-        {            
+        {
             if (dbFactory is IDbConnectionFactoryExtended dbFactoryExt && connInfo != null)
             {
                 if (connInfo.ConnectionString != null)
                 {
-                    return connInfo.ProviderName != null 
-                        ? dbFactoryExt.OpenDbConnectionString(connInfo.ConnectionString, connInfo.ProviderName) 
+                    return connInfo.ProviderName != null
+                        ? dbFactoryExt.OpenDbConnectionString(connInfo.ConnectionString, connInfo.ProviderName)
                         : dbFactoryExt.OpenDbConnectionString(connInfo.ConnectionString);
                 }
 
@@ -364,13 +364,13 @@ namespace ServiceStack.OrmLite
         }
 
         public static async Task<IDbConnection> OpenDbConnectionAsync(this IDbConnectionFactory dbFactory, ConnectionInfo connInfo)
-        {            
+        {
             if (dbFactory is IDbConnectionFactoryExtended dbFactoryExt && connInfo != null)
             {
                 if (connInfo.ConnectionString != null)
                 {
-                    return connInfo.ProviderName != null 
-                        ? await dbFactoryExt.OpenDbConnectionStringAsync(connInfo.ConnectionString, connInfo.ProviderName).ConfigAwait() 
+                    return connInfo.ProviderName != null
+                        ? await dbFactoryExt.OpenDbConnectionStringAsync(connInfo.ConnectionString, connInfo.ProviderName).ConfigAwait()
                         : await dbFactoryExt.OpenDbConnectionStringAsync(connInfo.ConnectionString).ConfigAwait();
                 }
 

@@ -29,7 +29,7 @@ namespace ServiceStack.OrmLite
         internal static bool CreateSchema<T>(this IDbCommand dbCmd)
         {
             var schemaName = typeof(T).FirstAttribute<SchemaAttribute>()?.Name;
-            if(schemaName == null) throw new InvalidOperationException($"Type {typeof(T).Name} does not have a schema attribute, just CreateSchema(string schemaName) instead");
+            if (schemaName == null) throw new InvalidOperationException($"Type {typeof(T).Name} does not have a schema attribute, just CreateSchema(string schemaName) instead");
             return CreateSchema(dbCmd, schemaName);
         }
 
@@ -269,7 +269,7 @@ namespace ServiceStack.OrmLite
         internal static int ExecuteSql(this IDbCommand dbCmd, string sql, object anonType, Action<IDbCommand> commandFilter = null)
         {
             if (anonType != null)
-                dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql:ref sql);
+                dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql: ref sql);
 
             dbCmd.CommandText = sql;
 
@@ -415,7 +415,7 @@ namespace ServiceStack.OrmLite
             return dbCmd.UpdateInternal<T>(obj, commandFilter);
         }
 
-        internal static int Update<T>(this IDbCommand dbCmd, Dictionary<string,object> obj, Action<IDbCommand> commandFilter = null)
+        internal static int Update<T>(this IDbCommand dbCmd, Dictionary<string, object> obj, Action<IDbCommand> commandFilter = null)
         {
             return dbCmd.UpdateInternal<T>(obj, commandFilter);
         }
@@ -551,7 +551,7 @@ namespace ServiceStack.OrmLite
         }
 
         private static int DeleteAll<T>(IDbCommand dbCmd, IEnumerable<T> objs,
-            Func<object,Dictionary<string,object>> fieldValuesFn, Action<IDbCommand> commandFilter = null)
+            Func<object, Dictionary<string, object>> fieldValuesFn, Action<IDbCommand> commandFilter = null)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -724,7 +724,7 @@ namespace ServiceStack.OrmLite
             return InsertInternal<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity);
         }
 
-        internal static long Insert<T>(this IDbCommand dbCmd, Dictionary<string,object> obj, Action<IDbCommand> commandFilter, bool selectIdentity = false)
+        internal static long Insert<T>(this IDbCommand dbCmd, Dictionary<string, object> obj, Action<IDbCommand> commandFilter, bool selectIdentity = false)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -945,14 +945,14 @@ namespace ServiceStack.OrmLite
                 if (modelDef.HasAutoIncrementId)
                 {
                     var dialectProvider = dbCmd.GetDialectProvider();
-                    var newId = dbCmd.Insert(obj, commandFilter:null, selectIdentity: true);
+                    var newId = dbCmd.Insert(obj, commandFilter: null, selectIdentity: true);
                     var safeId = dialectProvider.FromDbValue(newId, modelDef.PrimaryKey.FieldType);
                     modelDef.PrimaryKey.SetValue(obj, safeId);
                     id = newId;
                 }
                 else
                 {
-                    dbCmd.Insert(obj, commandFilter:null);
+                    dbCmd.Insert(obj, commandFilter: null);
                 }
 
                 modelDef.RowVersion?.SetValue(obj, dbCmd.GetRowVersion(modelDef, id));

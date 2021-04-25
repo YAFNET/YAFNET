@@ -20,7 +20,7 @@ namespace ServiceStack
         /// Create Value by evaluating #Script Code, results of same expression are cached per request
         /// </summary>
         string Eval { get; set; }
-        
+
         /// <summary>
         /// Whether to disable result caching for this Script Value
         /// </summary>
@@ -42,5 +42,5 @@ namespace ServiceStack
         public string Eval { get; set; }
         public bool NoCache { get; set; }
     }
-    
+
 }

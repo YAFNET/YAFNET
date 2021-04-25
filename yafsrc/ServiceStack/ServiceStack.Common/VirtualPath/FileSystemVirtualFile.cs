@@ -7,7 +7,7 @@ namespace ServiceStack.VirtualPath
     public class FileSystemVirtualFile : AbstractVirtualFileBase
     {
         protected FileInfo BackingFile;
-        
+
         public override string Name => BackingFile.Name;
 
         public override string RealPath => BackingFile.FullName;
@@ -16,7 +16,7 @@ namespace ServiceStack.VirtualPath
 
         public override long Length => BackingFile.Length;
 
-        public FileSystemVirtualFile(IVirtualPathProvider owningProvider, IVirtualDirectory directory, FileInfo fInfo) 
+        public FileSystemVirtualFile(IVirtualPathProvider owningProvider, IVirtualDirectory directory, FileInfo fInfo)
             : base(owningProvider, directory)
         {
             this.BackingFile = fInfo ?? throw new ArgumentNullException(nameof(fInfo));
@@ -27,7 +27,7 @@ namespace ServiceStack.VirtualPath
             var i = 0;
             var firstAttempt = DateTime.UtcNow;
             IOException originalEx = null;
-            
+
             while (DateTime.UtcNow - firstAttempt < VirtualPathUtils.MaxRetryOnExceptionTimeout)
             {
                 try
@@ -39,11 +39,11 @@ namespace ServiceStack.VirtualPath
                 {
                     if (originalEx == null)
                         originalEx = ex;
-                    
+
                     i.SleepBackOffMultiplier();
                 }
             }
-            
+
             throw new TimeoutException($"Exceeded timeout of {VirtualPathUtils.MaxRetryOnExceptionTimeout}", originalEx);
         }
 

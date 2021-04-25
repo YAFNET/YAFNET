@@ -59,7 +59,7 @@ namespace ServiceStack
             return list;
         }
 
-        public static async Task TimesAsync(this int times, Func<int,Task> actionFn, CancellationToken token=default)
+        public static async Task TimesAsync(this int times, Func<int, Task> actionFn, CancellationToken token = default)
         {
             for (var i = 0; i < times; i++)
             {
@@ -68,7 +68,7 @@ namespace ServiceStack
             }
         }
 
-        public static async Task<List<T>> TimesAsync<T>(this int times, Func<int,Task<T>> actionFn, CancellationToken token=default)
+        public static async Task<List<T>> TimesAsync<T>(this int times, Func<int, Task<T>> actionFn, CancellationToken token = default)
         {
             var list = new List<T>();
             for (var i = 0; i < times; i++)

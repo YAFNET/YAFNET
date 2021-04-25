@@ -23,10 +23,10 @@
  */
 namespace YAF.Types.Interfaces.Events
 {
-  /// <summary>
-  /// Marker interface for events
-  /// </summary>
-  public interface IAmEvent
-  {
-  }
+    /// <summary>
+    /// Marker interface for events
+    /// </summary>
+    public interface IAmEvent
+    {
+    }
 }

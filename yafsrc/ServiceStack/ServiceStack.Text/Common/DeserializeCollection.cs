@@ -85,8 +85,8 @@ namespace ServiceStack.Text.Common
             ParseCollectionType(value.AsSpan(), createType, elementType, v => parseFn(v.ToString()));
 
 
-        static Type[] arguments = { typeof (ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate) };
-        
+        static Type[] arguments = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate) };
+
         public static object ParseCollectionType(ReadOnlySpan<char> value, Type createType, Type elementType, ParseStringSpanDelegate parseFn)
         {
             if (ParseDelegateCache.TryGetValue(elementType, out var parseDelegate))

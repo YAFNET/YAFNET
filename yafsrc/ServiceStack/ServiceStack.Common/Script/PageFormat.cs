@@ -11,7 +11,7 @@ namespace ServiceStack.Script
         public string ArgsPrefix { get; set; } = "---";
 
         public string ArgsSuffix { get; set; } = "---";
-        
+
         public string Extension { get; set; }
 
         public string ContentType { get; set; } = MimeTypes.PlainText;
@@ -19,9 +19,9 @@ namespace ServiceStack.Script
         public Func<object, string> EncodeValue { get; set; }
 
         public Func<SharpPage, SharpPage> ResolveLayout { get; set; }
-        
+
         public Func<PageResult, Exception, object> OnExpressionException { get; set; }
-        
+
         public Func<PageResult, IRequest, Exception, Task> OnViewException { get; set; }
 
         public PageFormat()
@@ -36,7 +36,7 @@ namespace ServiceStack.Script
         {
             if (value is IRawString rawString)
                 return rawString.ToRawString();
-            
+
             var str = value.ToString();
             if (str == string.Empty)
                 return string.Empty;
@@ -54,7 +54,7 @@ namespace ServiceStack.Script
         {
             if (result.Page.Context.RenderExpressionExceptions)
                 return $"{ex.GetType().Name}: ${ex.Message}";
-            
+
             // Evaluate Null References in Binding Expressions to null
             if (ScriptConfig.CaptureAndEvaluateExceptionsToNull.Contains(ex.GetType()))
                 return JsNull.Value;
@@ -68,7 +68,7 @@ namespace ServiceStack.Script
             if (ContentType == MimeTypes.Html)
                 sb.AppendLine("<pre class='error'>");
             sb.AppendLine($"{ex.GetType().Name}: {ex.Message}");
-            if (pageResult.Context.DebugMode) 
+            if (pageResult.Context.DebugMode)
                 sb.AppendLine(ex.StackTrace);
 
             if (ex.InnerException != null)
@@ -79,9 +79,9 @@ namespace ServiceStack.Script
                 while (innerEx != null)
                 {
                     sb.AppendLine($"{innerEx.GetType().Name}: {innerEx.Message}");
-                    if (pageResult.Context.DebugMode) 
+                    if (pageResult.Context.DebugMode)
                         sb.AppendLine(innerEx.StackTrace);
-                    innerEx = innerEx.InnerException;;
+                    innerEx = innerEx.InnerException; ;
                 }
             }
             if (ContentType == MimeTypes.Html)
@@ -90,7 +90,7 @@ namespace ServiceStack.Script
             await req.Response.OutputStream.WriteAsync(html).ConfigAwait();
         }
     }
-    
+
     public class HtmlPageFormat : PageFormat
     {
         public HtmlPageFormat()
@@ -103,18 +103,18 @@ namespace ServiceStack.Script
             ResolveLayout = HtmlResolveLayout;
             OnExpressionException = HtmlExpressionException;
         }
-        
+
         public static string HtmlEncodeValue(object value)
         {
             if (value == null)
                 return string.Empty;
-            
+
             if (value is IHtmlString htmlString)
                 return htmlString.ToHtmlString();
 
             if (value is IRawString rawString)
                 return rawString.ToRawString();
-            
+
             var str = value.ToString();
             if (str == string.Empty)
                 return string.Empty;
@@ -130,12 +130,12 @@ namespace ServiceStack.Script
 
             return base.DefaultResolveLayout(page);
         }
-        
+
         public virtual object HtmlExpressionException(PageResult result, Exception ex)
         {
             if (result.Context.RenderExpressionExceptions)
                 return ("<div class='error'><span>" + (ex.GetType().Name + ": " + ex.Message).HtmlEncode() + "</span></div>").ToRawString();
-            
+
             // Evaluate Null References in Binding Expressions to null
             if (ScriptConfig.CaptureAndEvaluateExceptionsToNull.Contains(ex.GetType()))
                 return JsNull.Value;

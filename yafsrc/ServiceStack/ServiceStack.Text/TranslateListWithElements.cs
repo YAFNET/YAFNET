@@ -38,7 +38,8 @@ namespace ServiceStack.Text
             do
             {
                 snapshot = TranslateICollectionCache;
-                newCache = new Dictionary<Type, ConvertInstanceDelegate>(TranslateICollectionCache) {
+                newCache = new Dictionary<Type, ConvertInstanceDelegate>(TranslateICollectionCache)
+                {
                     [elementType] = translateToFn
                 };
 
@@ -66,7 +67,8 @@ namespace ServiceStack.Text
             do
             {
                 snapshot = TranslateConvertibleICollectionCache;
-                newCache = new Dictionary<ConvertibleTypeKey, ConvertInstanceDelegate>(TranslateConvertibleICollectionCache) {
+                newCache = new Dictionary<ConvertibleTypeKey, ConvertInstanceDelegate>(TranslateConvertibleICollectionCache)
+                {
                     [typeKey] = translateToFn
                 };
 

@@ -48,12 +48,12 @@ namespace ServiceStack.Script
 {
     public sealed class ScriptLisp : ScriptLanguage, IConfigureScriptContext
     {
-        private ScriptLisp() {} // force usage of singleton
+        private ScriptLisp() { } // force usage of singleton
 
         public static readonly ScriptLanguage Language = new ScriptLisp();
-        
+
         public override string Name => "lisp";
-        
+
         public override string LineComment => ";";
 
         public void Configure(ScriptContext context)
@@ -66,7 +66,7 @@ namespace ServiceStack.Script
         public override List<PageFragment> Parse(ScriptContext context, ReadOnlyMemory<char> body, ReadOnlyMemory<char> modifiers)
         {
             var quiet = false;
-            
+
             if (!modifiers.IsEmpty)
             {
                 quiet = modifiers.EqualsOrdinal("q") || modifiers.EqualsOrdinal("quiet") || modifiers.EqualsOrdinal("mute");
@@ -74,10 +74,10 @@ namespace ServiceStack.Script
                     throw new NotSupportedException($"Unknown modifier '{modifiers.ToString()}', expected 'code|q', 'code|quiet' or 'code|mute'");
             }
 
-            return new List<PageFragment> { 
+            return new List<PageFragment> {
                 new PageLispStatementFragment(context.ParseLisp(body)) {
                     Quiet = quiet
-                } 
+                }
             };
         }
 
@@ -87,14 +87,14 @@ namespace ServiceStack.Script
             {
                 if (blockFragment.Quiet && scope.OutputStream != Stream.Null)
                     scope = scope.ScopeWithStream(Stream.Null);
-                
+
                 await WriteStatementAsync(scope, blockFragment.LispStatements, token);
-                
+
                 return true;
             }
             return false;
         }
-        
+
         public override async Task<bool> WriteStatementAsync(ScriptScopeContext scope, JsStatement statement, CancellationToken token)
         {
             var page = scope.PageResult;
@@ -104,7 +104,7 @@ namespace ServiceStack.Script
                 page.ResetIterations();
 
                 var len = lispStatement.SExpressions.Length;
-                
+
                 foreach (var sExpr in lispStatement.SExpressions)
                 {
                     var value = lispCtx.Eval(sExpr, null);
@@ -112,25 +112,25 @@ namespace ServiceStack.Script
                     {
                         if (value is Lisp.Sym s)
                             continue;
-                        
+
                         var strValue = page.Format.EncodeValue(value);
                         if (!string.IsNullOrEmpty(strValue))
                         {
                             var bytes = strValue.ToUtf8Bytes();
                             await scope.OutputStream.WriteAsync(bytes, token);
                         }
-                        
+
                         if (len > 1) // don't emit new lines for single expressions
                             await scope.OutputStream.WriteAsync(JsTokenUtils.NewLineUtf8, token);
                     }
                 }
             }
             else return false;
-            
+
             return true;
         }
     }
-    
+
     public class LispStatements : JsStatement
     {
         public object[] SExpressions { get; }
@@ -142,17 +142,17 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((LispStatements) obj);
+            return Equals((LispStatements)obj);
         }
         public override int GetHashCode() => (SExpressions != null ? SExpressions.GetHashCode() : 0);
     }
-    
+
     public class PageLispStatementFragment : PageFragment
     {
         public LispStatements LispStatements { get; }
-        
+
         public bool Quiet { get; set; }
-        
+
         public PageLispStatementFragment(LispStatements statements) => LispStatements = statements;
 
         protected bool Equals(PageLispStatementFragment other) => Equals(LispStatements, other.LispStatements);
@@ -161,7 +161,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((PageJsBlockStatementFragment) obj);
+            return Equals((PageJsBlockStatementFragment)obj);
         }
         public override int GetHashCode() => (LispStatements != null ? LispStatements.GetHashCode() : 0);
     }
@@ -179,7 +179,7 @@ namespace ServiceStack.Script
             return Lisp.Interpreter.GetGistIndexLinks(scope);
         }
     }
-    
+
     /// <summary>
     /// Define and export a LISP function to the page
     /// Usage: {{#defn calc [a, b] }}
@@ -192,39 +192,40 @@ namespace ServiceStack.Script
     {
         public override string Name => "defn";
         public override ScriptLanguage Body => ScriptLanguage.Verbatim;
-        
+
         public override Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
         {
             // block.Argument key is unique to exact memory fragment, not string equality
             // Parse sExpression once for all Page Results
-            var sExpr = (List<object>) scope.Context.CacheMemory.GetOrAdd(block.Argument, key => {
+            var sExpr = (List<object>)scope.Context.CacheMemory.GetOrAdd(block.Argument, key =>
+            {
 
                 var literal = block.Argument.Span.ParseVarName(out var name);
                 var strName = name.ToString();
 
-                var strFragment = (PageStringFragment) block.Body[0];
+                var strFragment = (PageStringFragment)block.Body[0];
                 var lispDefnAndExport =
                     $@"(defn {block.Argument} {strFragment.Value}) (export {strName} (to-delegate {strName}))";
                 return Lisp.Parse(lispDefnAndExport);
             });
-            
+
             var interp = scope.PageResult.GetLispInterpreter(scope);
             interp.Eval(sExpr);
-            
+
             return TypeConstants.EmptyTask;
         }
     }
 
     /// <summary>Exception in evaluation</summary>
-    public class LispEvalException: Exception 
+    public class LispEvalException : Exception
     {
         /// <summary>Stack trace of Lisp evaluation</summary>
         public List<string> Trace { get; } = new List<string>();
 
         /// <summary>Construct with a base message, cause, and
         /// a flag whether to quote strings in the cause.</summary>
-        public LispEvalException(string msg, object x, bool quoteString=true)
-            : base(msg + ": " + Lisp.Str(x, quoteString)) {}
+        public LispEvalException(string msg, object x, bool quoteString = true)
+            : base(msg + ": " + Lisp.Str(x, quoteString)) { }
 
         /// <summary>Return a string representation which contains
         /// the message and the stack trace.</summary>
@@ -252,14 +253,14 @@ namespace ServiceStack.Script
             }
             else
             {
-                var interp = (Lisp.Interpreter) oInterp;
+                var interp = (Lisp.Interpreter)oInterp;
                 interp.Scope = scope;
                 return interp;
             }
         }
-        
-        public static SharpPage LispSharpPage(this ScriptContext context, string lisp) 
-            => context.Pages.OneTimePage(lisp, context.PageFormats[0].Extension,p => p.ScriptLanguage = ScriptLisp.Language);
+
+        public static SharpPage LispSharpPage(this ScriptContext context, string lisp)
+            => context.Pages.OneTimePage(lisp, context.PageFormats[0].Extension, p => p.ScriptLanguage = ScriptLisp.Language);
 
         private static void AssertLisp(this ScriptContext context)
         {
@@ -286,13 +287,13 @@ namespace ServiceStack.Script
             }
         }
 
-        public static string RenderLisp(this ScriptContext context, string lisp, Dictionary<string, object> args=null)
+        public static string RenderLisp(this ScriptContext context, string lisp, Dictionary<string, object> args = null)
         {
             var pageResult = GetLispPageResult(context, lisp, args);
             return pageResult.RenderScript();
         }
 
-        public static async Task<string> RenderLispAsync(this ScriptContext context, string lisp, Dictionary<string, object> args=null)
+        public static async Task<string> RenderLispAsync(this ScriptContext context, string lisp, Dictionary<string, object> args = null)
         {
             var pageResult = GetLispPageResult(context, lisp, args);
             return await pageResult.RenderScriptAsync();
@@ -309,35 +310,35 @@ namespace ServiceStack.Script
 
         public static T EvaluateLisp<T>(this ScriptContext context, string lisp, Dictionary<string, object> args = null) =>
             context.EvaluateLisp(lisp, args).ConvertTo<T>();
-        
-        public static object EvaluateLisp(this ScriptContext context, string lisp, Dictionary<string, object> args=null)
+
+        public static object EvaluateLisp(this ScriptContext context, string lisp, Dictionary<string, object> args = null)
         {
             var pageResult = GetLispPageResult(context, lisp, args);
 
             if (!pageResult.EvaluateResult(out var returnValue))
                 throw new NotSupportedException(ScriptContextUtils.ErrorNoReturn);
-            
+
             return ScriptLanguage.UnwrapValue(returnValue);
         }
 
         public static async Task<T> EvaluateLispAsync<T>(this ScriptContext context, string lisp, Dictionary<string, object> args = null) =>
             (await context.EvaluateLispAsync(lisp, args)).ConvertTo<T>();
-        
-        public static async Task<object> EvaluateLispAsync(this ScriptContext context, string lisp, Dictionary<string, object> args=null)
+
+        public static async Task<object> EvaluateLispAsync(this ScriptContext context, string lisp, Dictionary<string, object> args = null)
         {
             var pageResult = GetLispPageResult(context, lisp, args);
 
             var ret = await pageResult.EvaluateResultAsync();
             if (!ret.Item1)
                 throw new NotSupportedException(ScriptContextUtils.ErrorNoReturn);
-            
+
             return ScriptLanguage.UnwrapValue(ret.Item2);
         }
 
         public static string EnsureReturn(string lisp)
         {
             // if code doesn't contain a return, wrap and return the expression
-            if ((lisp ?? throw new ArgumentNullException(nameof(lisp))).IndexOf("(return",StringComparison.Ordinal) == -1)
+            if ((lisp ?? throw new ArgumentNullException(nameof(lisp))).IndexOf("(return", StringComparison.Ordinal) == -1)
                 lisp = "(return (let () " + lisp + " ))";
 
             return lisp;
@@ -369,7 +370,7 @@ namespace ServiceStack.Script
                 : DynamicNumber.IsNumber(a.GetType())
                     ? DynamicNumber.CompareTo(a, b)
                     : a is IComparable c
-                        ? (int) c.CompareTo(b)
+                        ? (int)c.CompareTo(b)
                         : throw new LispEvalException("not IComparable", a);
         }
 
@@ -448,18 +449,19 @@ namespace ServiceStack.Script
         {
             GlobalInterpreter.Globals[Sym.New(symbolName)] = value;
         }
-        
-        public static void Init() {} // Force running static initializers
+
+        public static void Init() { } // Force running static initializers
 
         /// <summary>Create a Lisp interpreter initialized pre-configured with Global Symbols.</summary>
-        public static Interpreter CreateInterpreter() {
+        public static Interpreter CreateInterpreter()
+        {
             Init();
             var interp = new Interpreter(GlobalInterpreter);
             return interp;
         }
 
         /// <summary>Cons cell</summary>
-        public sealed class Cell : IEnumerable  
+        public sealed class Cell : IEnumerable
         {
             /// <summary>Head part of the cons cell</summary>
             public object Car;
@@ -467,7 +469,8 @@ namespace ServiceStack.Script
             public object Cdr;
 
             /// <summary>Construct a cons cell with its head and tail.</summary>
-            public Cell(object car, object cdr) {
+            public Cell(object car, object cdr)
+            {
                 Car = car;
                 Cdr = cdr;
             }
@@ -479,11 +482,12 @@ namespace ServiceStack.Script
 
             /// <summary>Length as a list</summary>
             public int Length => FoldL(0, this, (i, e) => i + 1);
-            
+
             public IEnumerator GetEnumerator()
             {
                 var j = this;
-                do { 
+                do
+                {
                     yield return j.Car;
                 } while ((j = CdrCell(j)) != null);
             }
@@ -500,7 +504,8 @@ namespace ServiceStack.Script
 
 
         // MapCar((a b c), fn) => (fn(a) fn(b) fn(c))
-        static Cell MapCar(Cell j, Func<object, object> fn) {
+        static Cell MapCar(Cell j, Func<object, object> fn)
+        {
             if (j == null)
                 return null;
             object a = fn(j.Car);
@@ -513,28 +518,33 @@ namespace ServiceStack.Script
         }
 
         // FoldL(x, (a b c), fn) => fn(fn(fn(x, a), b), c)
-        static T FoldL<T> (T x, Cell j, Func<T, object, T> fn) {
-            while (j != null) {
+        static T FoldL<T>(T x, Cell j, Func<T, object, T> fn)
+        {
+            while (j != null)
+            {
                 x = fn(x, j.Car);
-                j = (Cell) j.Cdr;
+                j = (Cell)j.Cdr;
             }
             return x;
         }
-        
+
         // Supports both Cell + IEnumerable
-        static T FoldL<T> (T x, IEnumerable j, Func<T, object, T> fn) {
+        static T FoldL<T>(T x, IEnumerable j, Func<T, object, T> fn)
+        {
             foreach (var e in j)
                 x = fn(x, e);
             return x;
         }
 
         /// <summary>Lisp symbol</summary>
-        public class Sym {
+        public class Sym
+        {
             /// <summary>The symbol's name</summary>
             public string Name { get; }
-            
+
             /// <summary>Construct a symbol that is not interned.</summary>
-            public Sym(string name) {
+            public Sym(string name)
+            {
                 Name = name;
             }
 
@@ -550,9 +560,12 @@ namespace ServiceStack.Script
             /// <summary>Return an interned symbol for the name.</summary>
             /// <remarks>If the name is not interned yet, such a symbol
             /// will be constructed with <paramref name="make"/>.</remarks>
-            protected static Sym New(string name, Func<string, Sym> make) {
-                lock (Table) {
-                    if (! Table.TryGetValue(name, out Sym result)) {
+            protected static Sym New(string name, Func<string, Sym> make)
+            {
+                lock (Table)
+                {
+                    if (!Table.TryGetValue(name, out Sym result))
+                    {
                         result = make(name);
                         Table[name] = result;
                     }
@@ -564,9 +577,12 @@ namespace ServiceStack.Script
             public static Sym New(string name) => New(name, s => new Sym(s));
 
             /// <summary>Is it interned?</summary>
-            public bool IsInterned {
-                get {
-                    lock (Table) {
+            public bool IsInterned
+            {
+                get
+                {
+                    lock (Table)
+                    {
                         return Table.TryGetValue(Name, out Sym s) &&
                             Object.ReferenceEquals(this, s);
                     }
@@ -576,8 +592,9 @@ namespace ServiceStack.Script
 
 
         // Expression keyword
-        sealed class Keyword: Sym {
-            Keyword(string name): base(name) {}
+        sealed class Keyword : Sym
+        {
+            Keyword(string name) : base(name) { }
             internal static new Sym New(string name)
                 => New(name, s => new Keyword(s));
         }
@@ -597,7 +614,7 @@ namespace ServiceStack.Script
         static readonly Sym QUOTE = Keyword.New("quote");
         static readonly Sym SETQ = Keyword.New("setq");
         static readonly Sym EXPORT = Keyword.New("export");
-        
+
         static readonly Sym BOUND = Sym.New("bound?");
 
         static readonly Sym BACK_QUOTE = Sym.New("`");
@@ -628,11 +645,15 @@ namespace ServiceStack.Script
         //------------------------------------------------------------------
 
         // Get cdr of list x as a Cell or null.
-        static Cell CdrCell(Cell x) {
+        static Cell CdrCell(Cell x)
+        {
             var k = x.Cdr;
-            if (k == null) {
+            if (k == null)
+            {
                 return null;
-            } else {
+            }
+            else
+            {
                 if (k is Cell c)
                     return c;
                 else
@@ -642,7 +663,8 @@ namespace ServiceStack.Script
 
 
         /// <summary>Common base class of Lisp functions</summary>
-        public abstract class LispFunc {
+        public abstract class LispFunc
+        {
             /// <summary>Number of arguments, made negative if the function
             /// has &amp;rest</summary>
             public int Carity { get; }
@@ -654,17 +676,20 @@ namespace ServiceStack.Script
             int FixedArgs => (Carity < 0) ? -Carity - 1 : Carity;
 
             /// <summary>Construct with Carity.</summary>
-            protected LispFunc(int carity) {
+            protected LispFunc(int carity)
+            {
                 Carity = carity;
             }
 
             /// <summary>Make a frame for local variables from a list of
             /// actual arguments.</summary>
-            public object[] MakeFrame(Cell arg) {
+            public object[] MakeFrame(Cell arg)
+            {
                 var frame = new object[Arity];
                 int n = FixedArgs;
                 int i;
-                for (i = 0; i < n && arg != null; i++) {
+                for (i = 0; i < n && arg != null; i++)
+                {
                     // Set the list of fixed arguments.
                     frame[i] = arg.Car;
                     arg = CdrCell(arg);
@@ -677,15 +702,19 @@ namespace ServiceStack.Script
             }
 
             /// <summary>Evaluate each expression in a frame.</summary>
-            public void EvalFrame(object[] frame, Interpreter interp, Cell env) {
+            public void EvalFrame(object[] frame, Interpreter interp, Cell env)
+            {
                 int n = FixedArgs;
                 for (int i = 0; i < n; i++)
                     frame[i] = interp.Eval(frame[i], env);
-                if (HasRest) {
-                    if (frame[n] is Cell j) {
+                if (HasRest)
+                {
+                    if (frame[n] is Cell j)
+                    {
                         Cell z = null;
                         Cell y = null;
-                        do {
+                        do
+                        {
                             var e = interp.Eval(j.Car, env);
                             Cell x = new Cell(e, null);
                             if (z == null)
@@ -703,11 +732,13 @@ namespace ServiceStack.Script
 
 
         // Common base class of functions which are defined with Lisp expressions
-        abstract class DefinedFunc: LispFunc {
+        abstract class DefinedFunc : LispFunc
+        {
             // Lisp list as the function body
             public readonly Cell Body;
 
-            protected DefinedFunc(int carity, Cell body): base(carity) {
+            protected DefinedFunc(int carity, Cell body) : base(carity)
+            {
                 Body = body;
             }
         }
@@ -718,12 +749,14 @@ namespace ServiceStack.Script
 
 
         // Compiled macro expression
-        sealed class Macro: DefinedFunc {
-            Macro(int carity, Cell body): base(carity, body) {}
+        sealed class Macro : DefinedFunc
+        {
+            Macro(int carity, Cell body) : base(carity, body) { }
             public override string ToString() => $"#<macro:{Carity}:{Str(Body)}>";
 
             // Expand the macro with a list of actual arguments.
-            public object ExpandWith(Interpreter interp, Cell arg) {
+            public object ExpandWith(Interpreter interp, Cell arg)
+            {
                 object[] frame = MakeFrame(arg);
                 Cell env = new Cell(frame, null);
                 object x = null;
@@ -732,7 +765,8 @@ namespace ServiceStack.Script
                 return x;
             }
 
-            public static DefinedFunc Make(int carity, Cell body, Cell env) {
+            public static DefinedFunc Make(int carity, Cell body, Cell env)
+            {
                 Debug.Assert(env == null);
                 return new Macro(carity, body);
             }
@@ -740,11 +774,13 @@ namespace ServiceStack.Script
 
 
         // Compiled lambda expression (Within another function)
-        sealed class Lambda: DefinedFunc {
-            Lambda(int carity, Cell body): base(carity, body) {}
+        sealed class Lambda : DefinedFunc
+        {
+            Lambda(int carity, Cell body) : base(carity, body) { }
             public override string ToString() => $"#<lambda:{Carity}:{Str(Body)}>";
 
-            public static DefinedFunc Make(int carity, Cell body, Cell env) {
+            public static DefinedFunc Make(int carity, Cell body, Cell env)
+            {
                 Debug.Assert(env == null);
                 return new Lambda(carity, body);
             }
@@ -752,21 +788,24 @@ namespace ServiceStack.Script
 
 
         // Compiled lambda expression (Closure with environment)
-        sealed class Closure: DefinedFunc {
+        sealed class Closure : DefinedFunc
+        {
             // The environment of the closure
             public readonly Cell Env;
 
-            Closure(int carity, Cell body, Cell env): base(carity, body) {
+            Closure(int carity, Cell body, Cell env) : base(carity, body)
+            {
                 Env = env;
             }
 
-            public Closure(Lambda x, Cell env): this(x.Carity, x.Body, env) {}
+            public Closure(Lambda x, Cell env) : this(x.Carity, x.Body, env) { }
 
             public override string ToString() =>
                 $"#<closure:{Carity}:{Str(Env)}:{Str(Body)}>";
 
             // Make an environment to evaluate the body from a list of actual args.
-            public Cell MakeEnv(Interpreter interp, Cell arg, Cell interpEnv) {
+            public Cell MakeEnv(Interpreter interp, Cell arg, Cell interpEnv)
+            {
                 object[] frame = MakeFrame(arg);
                 EvalFrame(frame, interp, interpEnv);
                 return new Cell(frame, Env); // Prepend the frame to this Env.
@@ -782,7 +821,8 @@ namespace ServiceStack.Script
         public delegate object BuiltInFuncBody(Interpreter interp, object[] frame);
 
         /// <summary>Built-in function</summary>
-        public sealed class BuiltInFunc: LispFunc {
+        public sealed class BuiltInFunc : LispFunc
+        {
             /// <summary>Name of this function</summary>
             public string Name { get; }
             /// <summary>C# function as the body of this function</summary>
@@ -790,7 +830,8 @@ namespace ServiceStack.Script
 
             /// <summary>Construct with Name, Carity and Body.</summary>
             public BuiltInFunc(string name, int carity, BuiltInFuncBody body)
-                : base(carity) {
+                : base(carity)
+            {
                 Name = name;
                 Body = body;
             }
@@ -800,14 +841,20 @@ namespace ServiceStack.Script
 
             /// <summary>Invoke the built-in function with a list of
             /// actual arguments.</summary>
-            public object EvalWith(Interpreter interp, Cell arg, Cell interpEnv) {
+            public object EvalWith(Interpreter interp, Cell arg, Cell interpEnv)
+            {
                 object[] frame = MakeFrame(arg);
                 EvalFrame(frame, interp, interpEnv);
-                try {
+                try
+                {
                     return Body(interp, frame);
-                } catch (LispEvalException) {
+                }
+                catch (LispEvalException)
+                {
                     throw;
-                } catch (Exception ex) {
+                }
+                catch (Exception ex)
+                {
                     throw new LispEvalException($"{ex} -- {Name}", frame);
                 }
             }
@@ -815,32 +862,36 @@ namespace ServiceStack.Script
 
 
         // Bound variable in a compiled lambda/macro expression
-        sealed class Arg {
+        sealed class Arg
+        {
             public readonly int Level;
             public readonly int Offset;
             public readonly Sym Symbol;
 
-            public Arg(int level, int offset, Sym symbol) {
+            public Arg(int level, int offset, Sym symbol)
+            {
                 Level = level;
                 Offset = offset;
                 Symbol = symbol;
             }
-            
+
             public override string ToString() => $"#{Level}:{Offset}:{Symbol}";
 
             // Set a value x to the location corresponding to the variable in env.
-            public void SetValue(object x, Cell env) {
+            public void SetValue(object x, Cell env)
+            {
                 for (int i = 0; i < Level; i++)
-                    env = (Cell) env.Cdr;
-                object[] frame = (object[]) env.Car;
+                    env = (Cell)env.Cdr;
+                object[] frame = (object[])env.Car;
                 frame[Offset] = x;
             }
 
             // Get a value from the location corresponding to the variable in env.
-            public object GetValue(Cell env) {
+            public object GetValue(Cell env)
+            {
                 for (int i = 0; i < Level; i++)
-                    env = (Cell) env.Cdr;
-                object[] frame = (object[]) env.Car;
+                    env = (Cell)env.Cdr;
+                object[] frame = (object[])env.Car;
                 if (frame == null || Offset >= frame.Length)
                     throw new IndexOutOfRangeException();
                 return frame[Offset];
@@ -849,16 +900,17 @@ namespace ServiceStack.Script
 
 
         // Exception which indicates on absence of a variable
-        sealed class NotVariableException: LispEvalException {
-            public NotVariableException(object x): base("variable expected", x) {}
+        sealed class NotVariableException : LispEvalException
+        {
+            public NotVariableException(object x) : base("variable expected", x) { }
         }
 
         //------------------------------------------------------------------
         public static Cell ToCons(IEnumerable seq)
         {
-            if (!(seq is IEnumerable e)) 
+            if (!(seq is IEnumerable e))
                 return null;
-                
+
             Cell j = null;
             foreach (var item in e.Cast<object>().Reverse())
             {
@@ -874,7 +926,7 @@ namespace ServiceStack.Script
         {
             private static int totalEvaluations = 0;
             public static int TotalEvaluations => Interlocked.CompareExchange(ref totalEvaluations, 0, 0);
-            
+
             public int Evaluations { get; set; }
 
             /// <summary>Table of the global values of symbols</summary>
@@ -891,7 +943,8 @@ namespace ServiceStack.Script
 
             /// <summary>Set each built-in function/variable as the global value
             /// of symbol.</summary>
-            public Interpreter() {
+            public Interpreter()
+            {
                 InitGlobals();
             }
 
@@ -900,16 +953,17 @@ namespace ServiceStack.Script
                 Globals = new Dictionary<Sym, object>(globalInterp.Globals); // copy existing globals
             }
 
-            public string ReplEval(ScriptContext context, Stream outputStream, string lisp, Dictionary<string, object> args=null)
+            public string ReplEval(ScriptContext context, Stream outputStream, string lisp, Dictionary<string, object> args = null)
             {
                 var returnResult = ScriptLispUtils.EnsureReturn(lisp);
-                var page = new PageResult(context.LispSharpPage(returnResult)) {
+                var page = new PageResult(context.LispSharpPage(returnResult))
+                {
                     Args = {
                         [nameof(ScriptLisp)] = this
                     }
                 };
                 args?.Each(x => page.Args[x.Key] = x.Value);
-                
+
                 this.Scope = new ScriptScopeContext(page, outputStream, args);
 
                 var output = page.RenderScript();
@@ -924,10 +978,10 @@ namespace ServiceStack.Script
                         return Str(sym);
                     if (ret is string s)
                         return s;
-                    
+
                     if (Globals.TryGetValue(VERBOSE, out var verbose) && isTrue(verbose))
                         return ret.Dump();
-                    
+
                     return ret.ToSafeJsv();
                 }
                 return output;
@@ -935,7 +989,8 @@ namespace ServiceStack.Script
 
             Func<object, object> resolve1ArgFn(object f, Interpreter interp)
             {
-                switch (f) {
+                switch (f)
+                {
                     case Closure fnclosure:
                         return x => interp.invoke(fnclosure, x);
                     case Macro fnmacro:
@@ -951,15 +1006,16 @@ namespace ServiceStack.Script
 
             Func<object, object, object> resolve2ArgFn(object f, Interpreter interp)
             {
-                switch (f) {
+                switch (f)
+                {
                     case Closure fnclosure:
-                        return (x,y) => interp.invoke(fnclosure, x,y);
+                        return (x, y) => interp.invoke(fnclosure, x, y);
                     case Macro fnmacro:
-                        return (x,y) => interp.invoke(fnmacro, x, y);
+                        return (x, y) => interp.invoke(fnmacro, x, y);
                     case BuiltInFunc fnbulitin:
-                        return (x,y) => interp.invoke(fnbulitin, x, y);
+                        return (x, y) => interp.invoke(fnbulitin, x, y);
                     case Delegate fndel:
-                        return (x,y) => interp.invoke(fndel, x, y);
+                        return (x, y) => interp.invoke(fndel, x, y);
                     default:
                         throw new LispEvalException("not applicable", f);
                 }
@@ -1030,7 +1086,7 @@ namespace ServiceStack.Script
                         return objComparer;
                     if (x is Func<object, object, bool> fnEquals)
                         return new FnComparer(fnEquals);
-                    return (IEqualityComparer<object>) GetComparer(x, I);
+                    return (IEqualityComparer<object>)GetComparer(x, I);
                 }
             }
 
@@ -1071,10 +1127,10 @@ namespace ServiceStack.Script
                 public int GetHashCode(object obj) => obj.GetHashCode();
             }
 
-            static ReadOnlyMemory<char> DownloadCachedUrl(ScriptScopeContext scope, string url, string cachePrefix, bool force=false)
+            static ReadOnlyMemory<char> DownloadCachedUrl(ScriptScopeContext scope, string url, string cachePrefix, bool force = false)
             {
                 var cachedContents = GetCachedContents(scope, url, cachePrefix, out var vfsCache, out var cachedPath);
-                if (!force && cachedContents != null) 
+                if (!force && cachedContents != null)
                     return cachedContents.Value;
 
                 var text = url.GetStringFromUrl(requestFilter: req => req.UserAgent = "#Script " + nameof(Lisp));
@@ -1110,7 +1166,7 @@ namespace ServiceStack.Script
                 return cachedFile?.GetTextContentsAsMemory();
             }
 
-            private static GithubGist DownloadCachedGist(ScriptScopeContext scope, string gistId, bool force=false)
+            private static GithubGist DownloadCachedGist(ScriptScopeContext scope, string gistId, bool force = false)
             {
                 var gistUrl = GitHubGateway.ApiBaseUrl.CombineWith($"gists/{gistId}");
                 var gistJson = DownloadCachedUrl(scope, gistUrl, "gist_", force);
@@ -1155,7 +1211,7 @@ namespace ServiceStack.Script
                         var cachedContents = GetCachedContents(scope, path, "gist_", out var vfsCache, out var cachedPath);
                         if (cachedContents != null)
                             return cachedContents.Value;
-                        
+
                         var gistId = path.RightPart(':');
                         var specificFile = gistId.IndexOf('/') >= 0
                             ? gistId.RightPart('/')
@@ -1187,7 +1243,7 @@ namespace ServiceStack.Script
                         var cachedContents = GetCachedContents(scope, path, "index_", out var vfsCache, out var cachedPath);
                         if (cachedContents != null)
                             return cachedContents.Value;
-                        
+
                         if (IndexGistId == null)
                             throw new NotSupportedException("IndexGistId is unspecified");
 
@@ -1197,7 +1253,7 @@ namespace ServiceStack.Script
                             ? indexName.RightPart('/')
                             : null;
                         indexName = indexName.LeftPart('/');
-                        
+
                         var indexLinks = GetGistIndexLinks(scope);
                         var indexLink = indexLinks.FirstOrDefault(x => x.Name == indexName);
 
@@ -1206,7 +1262,7 @@ namespace ServiceStack.Script
                         {
                             indexLinks = GetGistIndexLinks(scope, force: true);
                             indexLink = indexLinks.FirstOrDefault(x => x.Name == indexName);
-                            
+
                             if (indexLink == null)
                                 throw new NotSupportedException($"Could not resolve '{indexName}' from Gist Index '{IndexGistId}'");
                         }
@@ -1216,7 +1272,7 @@ namespace ServiceStack.Script
 
                         var gistId = indexLink.Url.LastRightPart('/');
                         var gist = DownloadCachedGist(scope, gistId);
-                        
+
                         if (specificFile != null)
                         {
                             if (!gist.Files.TryGetValue(specificFile, out var gistFile))
@@ -1235,7 +1291,7 @@ namespace ServiceStack.Script
                         return WriteCacheFile(scope, vfsCache, cachedPath, StringBuilderCache.ReturnAndFree(sb).AsMemory());
                     }
                 }
-                
+
                 var file = scope.Context.VirtualFiles.GetFile(path);
                 if (file == null)
                     throw new NotSupportedException($"File does not exist '{path}'");
@@ -1244,7 +1300,7 @@ namespace ServiceStack.Script
                 return lisp;
             }
 
-            internal static List<GistLink> GetGistIndexLinks(ScriptScopeContext scope, bool force=false)
+            internal static List<GistLink> GetGistIndexLinks(ScriptScopeContext scope, bool force = false)
             {
                 var gistIndex = DownloadCachedGist(scope, IndexGistId, force);
                 if (!gistIndex.Files.TryGetValue("index.md", out var indexGistFile))
@@ -1264,7 +1320,8 @@ namespace ServiceStack.Script
                 Globals[TRUE] = Globals[BOOL_TRUE] = TRUE;
                 Globals[BOOL_FALSE] = null;
 
-                Def("load", 1, (I, a) => {
+                Def("load", 1, (I, a) =>
+                {
                     var scope = I.AssertScope();
 
                     var path = a[0] is string s
@@ -1274,7 +1331,8 @@ namespace ServiceStack.Script
                             : throw new LispEvalException("not a string or symbol name", a[0]);
 
                     var cacheKey = nameof(Lisp) + ":load:" + path;
-                    var importSymbols = (Dictionary<Sym, object>) scope.Context.Cache.GetOrAdd(cacheKey, k => {
+                    var importSymbols = (Dictionary<Sym, object>)scope.Context.Cache.GetOrAdd(cacheKey, k =>
+                    {
 
                         var span = lispContents(scope, path);
                         var interp = new Interpreter(I); // start from copy of these symbols
@@ -1296,8 +1354,9 @@ namespace ServiceStack.Script
                     }
                     return null;
                 });
-                
-                Def("load-src", 1, (I, a) => {
+
+                Def("load-src", 1, (I, a) =>
+                {
                     var scope = I.AssertScope();
 
                     var path = a[0] is string s
@@ -1305,7 +1364,7 @@ namespace ServiceStack.Script
                         : a[0] is Sym sym
                             ? sym.Name + ".l"
                             : throw new LispEvalException("not a string or symbol name", a[0]);
-                    
+
                     var span = lispContents(scope, path);
                     return span.ToString();
                 });
@@ -1313,51 +1372,55 @@ namespace ServiceStack.Script
                 Def("error", 1, a => throw new Exception(((string)a[0])));
 
                 Def("not", 1, a => a[0] == null || a[0] is false);
-                
-                Def("return", 1, (I, a) => {
+
+                Def("return", 1, (I, a) =>
+                {
                     var scope = I.AssertScope();
-                    var ret = a == null 
+                    var ret = a == null
                         ? null
-                        : a[0] is Cell c 
+                        : a[0] is Cell c
                             ? EvalArgs(c, I)
                             : a[0];
                     scope.ReturnValue(ret.fromLisp());
                     return null;
                 });
-                
-                Def("F", -1, (I, a) => {
+
+                Def("F", -1, (I, a) =>
+                {
                     var scope = I.AssertScope();
                     var args = EvalArgs(a[0] as Cell, I);
-                    if (!(args[0] is string fnName)) 
+                    if (!(args[0] is string fnName))
                         throw new LispEvalException($"F requires a string Function Reference", args[0]);
 
                     var fnArgs = new List<object>();
-                    for (var i=1; i<args.Length; i++)
+                    for (var i = 1; i < args.Length; i++)
                         fnArgs.Add(args[i]);
                     var fn = scope.Context.AssertProtectedMethods().F(fnName, fnArgs);
                     var ret = JsCallExpression.InvokeDelegate(fn, null, isMemberExpr: false, fnArgs);
                     return ret.unwrapScriptValue();
                 });
-                
-                Def("C", -1, (I, a) => {
+
+                Def("C", -1, (I, a) =>
+                {
                     var scope = I.AssertScope();
                     var args = EvalArgs(a[0] as Cell, I);
-                    if (!(args[0] is string fnName)) 
+                    if (!(args[0] is string fnName))
                         throw new LispEvalException($"C requires a string Constructor Reference", args[0]);
 
                     var fn = scope.Context.AssertProtectedMethods().C(fnName);
                     var fnArgs = new List<object>();
-                    for (var i=1; i<args.Length; i++)
+                    for (var i = 1; i < args.Length; i++)
                         fnArgs.Add(args[i]);
                     var ret = JsCallExpression.InvokeDelegate(fn, null, isMemberExpr: false, fnArgs);
                     return ret;
                 });
-                
-                Def("new", -1, (I, a) => {
+
+                Def("new", -1, (I, a) =>
+                {
                     var scope = I.AssertScope();
                     var args = EvalArgs(a[0] as Cell, I);
                     var fnArgs = new List<object>();
-                    for (var i=1; i<args.Length; i++)
+                    for (var i = 1; i < args.Length; i++)
                         fnArgs.Add(args[i]);
 
                     if (args[0] is string typeName)
@@ -1372,10 +1435,12 @@ namespace ServiceStack.Script
                     }
                     throw new LispEvalException("new requires Type Name or Type", a[0]);
                 });
-                
-                Def("to-delegate", 1, (I, a) => {
+
+                Def("to-delegate", 1, (I, a) =>
+                {
                     var f = a[0];
-                    switch (f) {
+                    switch (f)
+                    {
                         case Closure fnclosure:
                             return (StaticMethodInvoker)(p => I.invoke(fnclosure, p));
                         case Macro fnmacro:
@@ -1388,7 +1453,7 @@ namespace ServiceStack.Script
                             throw new LispEvalException("not applicable", f);
                     }
                 });
-                
+
                 Def("to-cons", 1, a => a[0] == null ? null : a[0] is IEnumerable e ? ToCons(e)
                     : throw new LispEvalException("not IEnumerable", a[0]));
                 Def("to-array", 1, a => toList(a[0] as IEnumerable).ToArray());
@@ -1398,7 +1463,8 @@ namespace ServiceStack.Script
                 Def("new-map", -1, (I, a) => EvalMapArgs(a[0] as Cell, I));
 
                 // can use (:key x) as indexer instead, e.g. (:i array) (:"key" map) (:Prop obj) or (.Prop obj) 
-                Def("nth", 2, a => {
+                Def("nth", 2, a =>
+                {
                     if (a[0] == null)
                         return null;
                     if (!(a[1] is int i))
@@ -1415,18 +1481,21 @@ namespace ServiceStack.Script
                 Def("skip", 2, a => EnumerableUtils.Skip(a[1].assertEnumerable(), DynamicInt.Instance.Convert(a[0])));
                 Def("take", 2, a => EnumerableUtils.Take(a[1].assertEnumerable(), DynamicInt.Instance.Convert(a[0])));
                 Def("enumerator", 1, a => a[0] == null ? TypeConstants.EmptyObjectArray.GetEnumerator() : a[0].assertEnumerable().GetEnumerator());
-                Def("enumeratorNext", 1, a => {
+                Def("enumeratorNext", 1, a =>
+                {
                     if (!(a[0] is IEnumerator e))
                         throw new LispEvalException("not IEnumerator", a[0]);
                     return e.MoveNext().lispBool();
                 });
-                Def("enumeratorCurrent", 1, a => {
+                Def("enumeratorCurrent", 1, a =>
+                {
                     if (!(a[0] is IEnumerator e))
                         throw new LispEvalException("not IEnumerator", a[0]);
                     return e.Current;
                 });
-                Def("dispose", 1, a => {
-                    using (a[0] as IDisposable) {}
+                Def("dispose", 1, a =>
+                {
+                    using (a[0] as IDisposable) { }
                     return null;
                 });
 
@@ -1434,18 +1503,20 @@ namespace ServiceStack.Script
                 Def("map-where", 3, (I, a) => EnumerableUtils.ToList(a[2]?.assertEnumerable()).Where(resolvePredicate(a[0], I)).Map(resolve1ArgFn(a[1], I)));
                 Def("where", 2, (I, a) => EnumerableUtils.ToList(a[1]?.assertEnumerable()).Where(resolvePredicate(a[0], I)).ToList());
 
-                Def("dorun", 2, (I, a) => {
+                Def("dorun", 2, (I, a) =>
+                {
                     var converter = resolve1ArgFn(a[0], I);
                     foreach (var x in a[1]?.assertEnumerable())
                     {
                         converter(x);
-                    } 
+                    }
                     return null;
                 });
 
                 Def("do", -1, (I, a) => enumerableArg(a).Cast<object>().Last());
 
-                Def("reduce", -2, (I, a) => {
+                Def("reduce", -2, (I, a) =>
+                {
                     var fn = resolve2ArgFn(a[0], I);
                     var varArgs = EnumerableUtils.ToList(a[1].assertEnumerable());
                     if (varArgs.Count == 1) // (reduce fn L)
@@ -1460,22 +1531,24 @@ namespace ServiceStack.Script
                         return list.Aggregate(seed, fn);
                     }
                 });
-                
-                Def("flatten", -1, (I,a) => I.AssertScope().Context.DefaultMethods.flatten(a[0] as IEnumerable ?? a));
 
-                Def("sort", 1, (I, a) => {
+                Def("flatten", -1, (I, a) => I.AssertScope().Context.DefaultMethods.flatten(a[0] as IEnumerable ?? a));
+
+                Def("sort", 1, (I, a) =>
+                {
                     var arr = a[0].assertEnumerable().Cast<object>().ToArray();
-                    Array.Sort(arr, (x,y) => x.compareTo(y));
+                    Array.Sort(arr, (x, y) => x.compareTo(y));
                     return arr;
                 });
 
-                Def("sort-by", -2, (I, a) => {
+                Def("sort-by", -2, (I, a) =>
+                {
                     var keyFn = resolve1ArgFn(a[0], I);
                     var varArgs = EnumerableUtils.ToList(a[1].assertEnumerable());
                     if (varArgs.Count == 1) // (sort-by keyfn list)
                     {
                         var list = EnumerableUtils.ToList(varArgs[0].assertEnumerable()).ToArray();
-                        Array.Sort(list, (x,y) => keyFn(x).compareTo(keyFn(y)));
+                        Array.Sort(list, (x, y) => keyFn(x).compareTo(keyFn(y)));
                         return list;
                     }
                     else // (sort-by keyfn comparer list)
@@ -1487,10 +1560,11 @@ namespace ServiceStack.Script
                         return results;
                     }
                 });
-                
-                Def("order-by", 2, (I, a) => {
+
+                Def("order-by", 2, (I, a) =>
+                {
                     var keyFns = EnumerableUtils.ToList(a[0].assertEnumerable());
-                    
+
                     var list = a[1].assertEnumerable().Cast<object>();
                     if (keyFns.Count == 0)
                         return list;
@@ -1508,17 +1582,17 @@ namespace ServiceStack.Script
                             var comparer = obj.TryGetValue("comparer", out var oComparer)
                                 ? ObjectComparer.GetComparer(oComparer, I)
                                 : Comparer<object>.Default;
-                            var desc = obj.TryGetValue("desc", out var oDesc) 
-                                && oDesc != null && (oDesc == TRUE || (bool) oDesc);
-                            
+                            var desc = obj.TryGetValue("desc", out var oDesc)
+                                && oDesc != null && (oDesc == TRUE || (bool)oDesc);
+
                             if (seq == null)
-                                seq = desc 
+                                seq = desc
                                     ? list.OrderByDescending(fn, comparer)
                                     : list.OrderBy(fn, comparer);
                             else
                                 seq = desc
                                     ? seq.ThenByDescending(fn, comparer)
-                                    : seq.ThenBy(fn, comparer); 
+                                    : seq.ThenBy(fn, comparer);
                         }
                         else
                         {
@@ -1533,8 +1607,9 @@ namespace ServiceStack.Script
                     return EnumerableUtils.ToList(seq);
                 });
 
-                Def("group-by", -2, (I, a) => {
-                    
+                Def("group-by", -2, (I, a) =>
+                {
+
                     var keyFn = resolve1ArgFn(a[0], I);
                     var varArgs = EnumerableUtils.ToList(a[1].assertEnumerable());
 
@@ -1552,113 +1627,121 @@ namespace ServiceStack.Script
                         var comparer = obj.TryGetValue("comparer", out var oComparer)
                             ? ObjectComparer.GetEqualityComparer(oComparer, I)
                             : EqualityComparer<object>.Default;
-                        
+
                         var list = EnumerableUtils.ToList(varArgs[1].assertEnumerable());
                         var ret = list.GroupBy(
-                            keyFn, 
-                            mapFn, 
+                            keyFn,
+                            mapFn,
                             comparer);
                         return ret;
                     }
-                    
+
                     throw new LispEvalException("syntax: (group-by keyFn list) (group-by keyFn { :map mapFn :comparer comparer } list)", varArgs.Last());
                 });
-                
-                Def("sum", 1, a => {
+
+                Def("sum", 1, a =>
+                {
                     object acc = 0;
                     foreach (var num in a[0].assertEnumerable())
                         acc = DynamicNumber.Add(acc, num);
                     return acc;
                 });
 
-                Def("str", -1, a => {
+                Def("str", -1, a =>
+                {
                     var sb = StringBuilderCache.Allocate();
-                    var c = (Cell) a[0];
+                    var c = (Cell)a[0];
                     foreach (var x in c)
                     {
                         sb.Append(Str(x, false));
                     }
                     return StringBuilderCache.ReturnAndFree(sb);
                 });
-                
+
                 Def("car", 1, a => (a[0] as Cell)?.Car);
                 Def("cdr", 1, a => (a[0] as Cell)?.Cdr);
-                
+
                 Def("cons", 2, a => new Cell(a[0], a[1]));
                 Def("atom", 1, a => (a[0] is Cell) ? null : TRUE);
                 Def("eq", 2, a => (a[0] == a[1]) ? TRUE : null);
 
                 Def("seq?", 1, a => a[0] is IEnumerable e ? TRUE : null);
                 Def("consp", 1, a => a[0] is Cell c ? TRUE : null);
-                Def("endp", 1, a => (a[0] is Cell c) 
+                Def("endp", 1, a => (a[0] is Cell c)
                     ? (c.Car == null ? TRUE : null)
-                    : a[0] == null 
-                        ? TRUE 
+                    : a[0] == null
+                        ? TRUE
                         : EnumerableUtils.FirstOrDefault(a[0].assertEnumerable()) == null ? TRUE : null);
 
                 Def("list", -1, a => a[0]);
-                Def("rplaca", 2, a => { ((Cell) a[0]).Car = a[1]; return a[1]; });
-                Def("rplacd", 2, a => { ((Cell) a[0]).Cdr = a[1]; return a[1]; });
-                Def("length", 1, a => {
-                        if (a[0] == null)
-                            return 0;
-                        return DefaultScripts.Instance.length(a[0]);
-                    });
+                Def("rplaca", 2, a => { ((Cell)a[0]).Car = a[1]; return a[1]; });
+                Def("rplacd", 2, a => { ((Cell)a[0]).Cdr = a[1]; return a[1]; });
+                Def("length", 1, a =>
+                {
+                    if (a[0] == null)
+                        return 0;
+                    return DefaultScripts.Instance.length(a[0]);
+                });
 
                 Def("string", 1, a => $"{a[0]}");
-                Def("string-downcase", 1, a => 
+                Def("string-downcase", 1, a =>
                     (a[0] is string s) ? s.ToLower() : a[0] != null ? throw new Exception("not a string") : "");
                 Def("string-upcase", 1, a => (a[0] is string s) ? s.ToUpper() : a[0] != null ? throw new LispEvalException("not a string", a[0]) : "");
                 Def("string?", 1, a => a[0] is string ? TRUE : null);
                 Def("number?", 1, a => DynamicNumber.IsNumber(a[0]?.GetType()) ? TRUE : null);
                 Def("instance?", 2, (I, a) => I.AssertScope().Context.DefaultMethods.instanceOf(a[1], a[0] is Sym s ? s.Name : a[0]) ? TRUE : null);
-                Def("eql", 2, a => a[0] == null 
-                    ? a[1] == null 
-                        ? TRUE : null 
-                        : a[0].Equals(a[1]) 
+                Def("eql", 2, a => a[0] == null
+                    ? a[1] == null
+                        ? TRUE : null
+                        : a[0].Equals(a[1])
                         ? TRUE : null);
                 Def("<", 2, a => a[0].compareTo(a[1]) < 0 ? TRUE : null);
 
-                Def("%", 2, a =>  DynamicNumber.Mod(a[0], a[1]));
-                Def("mod", 2, a => {
-                        var x = a[0];
-                        var y = a[1];
-                        if ((DynamicNumber.CompareTo(x, 0) < 0 && DynamicNumber.CompareTo(y, 0) > 0)
-                            || (DynamicNumber.CompareTo(x, 0) > 0 && DynamicNumber.CompareTo(y, 0) < 0))
-                            return DynamicNumber.Mod(x, DynamicNumber.Add(y, y));
-                        return DynamicNumber.Mod(x, y);
-                    });
+                Def("%", 2, a => DynamicNumber.Mod(a[0], a[1]));
+                Def("mod", 2, a =>
+                {
+                    var x = a[0];
+                    var y = a[1];
+                    if ((DynamicNumber.CompareTo(x, 0) < 0 && DynamicNumber.CompareTo(y, 0) > 0)
+                        || (DynamicNumber.CompareTo(x, 0) > 0 && DynamicNumber.CompareTo(y, 0) < 0))
+                        return DynamicNumber.Mod(x, DynamicNumber.Add(y, y));
+                    return DynamicNumber.Mod(x, y);
+                });
 
                 Def("+", -1, a => FoldL((object)0, a[0] as IEnumerable ?? a, DynamicNumber.Add));
                 Def("*", -1, a => FoldL((object)1, a[0] as IEnumerable ?? a, DynamicNumber.Mul));
-                Def("-", -1, a => {
+                Def("-", -1, a =>
+                {
                     var e = a[0] as IEnumerable ?? a;
                     var rest = EnumerableUtils.SplitOnFirst(e, out var first);
                     if (rest.Count == 0)
-                        return DynamicNumber.Mul(first,-1);
+                        return DynamicNumber.Mul(first, -1);
                     return FoldL(first, rest, DynamicNumber.Sub);
                 });
-                Def("/", -1, a => {
+                Def("/", -1, a =>
+                {
                     var e = a[0] as IEnumerable ?? a;
                     var rest = EnumerableUtils.SplitOnFirst(e, out var first);
                     if (rest.Count == 0)
                         return DynamicNumber.Div(1, first);
                     return FoldL(first, rest, DynamicNumber.Div);
                 });
-                
+
                 Def("count", 1, a => EnumerableUtils.Count(a[0].assertEnumerable()));
 
-                Def("remove", 2, a => {
+                Def("remove", 2, a =>
+                {
                     var oNeedle = a[0];
                     if (oNeedle is string needle)
-                        return a[1].ToString().Replace(needle,"");
+                        return a[1].ToString().Replace(needle, "");
                     else if (a[1] is Cell c)
                     {
                         var j = c;
-                        while (j != null) {
+                        while (j != null)
+                        {
                             var prev = j;
-                            j = (Cell) j.Cdr;
-                            if (j != null && Equals(j.Car,oNeedle))
+                            j = (Cell)j.Cdr;
+                            if (j != null && Equals(j.Car, oNeedle))
                                 prev.Cdr = j.Cdr;
                         }
                         return c;
@@ -1673,13 +1756,14 @@ namespace ServiceStack.Script
                                 continue;
                             to.Add(x);
                         }
-                        return to; 
+                        return to;
                     }
-                    
+
                     throw new LispEvalException("not IEnumerable", a[1]);
                 });
 
-                Def("glob", 2, (I, a) => {
+                Def("glob", 2, (I, a) =>
+                {
                     var search = a[0];
                     if (!(search is string pattern))
                         throw new LispEvalException("syntax: (glob <search> <list>)", a[0]);
@@ -1692,21 +1776,23 @@ namespace ServiceStack.Script
                     return to;
                 });
 
-                Def("subseq", -2, a => {
-                    var c = (Cell) a[1];
+                Def("subseq", -2, a =>
+                {
+                    var c = (Cell)a[1];
                     var startPos = c.Car != null ? DynamicInt.Instance.Convert(c.Car) : 0;
                     var endPos = c.Cdr is Cell c2 ? DynamicInt.Instance.Convert(c2.Car) : -1;
                     if (a[0] is string s)
                         return endPos >= 0 ? s.Substring(startPos, endPos - startPos) : s.Substring(startPos);
                     if (a[0] is IEnumerable e)
-                        return (endPos >= 0 ? e.Map(x => x).Skip(startPos).Take(endPos - startPos) : e.Map(x => x).Skip(startPos)); 
-                    
+                        return (endPos >= 0 ? e.Map(x => x).Skip(startPos).Take(endPos - startPos) : e.Map(x => x).Skip(startPos));
+
                     throw new Exception("not an IEnumerable");
                 });
-                
-                object fnMathDivisor(object[] a, Func<object,object> fn) {
+
+                object fnMathDivisor(object[] a, Func<object, object> fn)
+                {
                     var x = DynamicDouble.Instance.Convert(a[0]);
-                    var y = (Cell) a[1];
+                    var y = (Cell)a[1];
                     if (y == null)
                         return fn(x);
                     if (y.Cdr == null)
@@ -1727,37 +1813,41 @@ namespace ServiceStack.Script
                 Def("sqrt", 1, a => Math.Sqrt(DynamicDouble.Instance.Convert(a[0])));
                 Def("isqrt", 1, a => (int)Math.Sqrt(DynamicDouble.Instance.Convert(a[0])));
 
-                Def("logand", -1, a => (a[0] is Cell c) 
-                    ? FoldL(DynamicLong.Instance.Convert(c.Car), (Cell) a[0], (i, j) => 
-                        DynamicLong.Instance.Convert(i) & DynamicLong.Instance.Convert(j)) 
+                Def("logand", -1, a => (a[0] is Cell c)
+                    ? FoldL(DynamicLong.Instance.Convert(c.Car), (Cell)a[0], (i, j) =>
+                       DynamicLong.Instance.Convert(i) & DynamicLong.Instance.Convert(j))
                     : -1);
-                Def("logior", -1, a => (a[0] is Cell c) 
-                    ? FoldL(DynamicLong.Instance.Convert(c.Car), (Cell) a[0], (i, j) => 
-                        DynamicLong.Instance.Convert(i) | DynamicLong.Instance.Convert(j)) 
+                Def("logior", -1, a => (a[0] is Cell c)
+                    ? FoldL(DynamicLong.Instance.Convert(c.Car), (Cell)a[0], (i, j) =>
+                       DynamicLong.Instance.Convert(i) | DynamicLong.Instance.Convert(j))
                     : -1);
-                Def("logxor", -1, a => (a[0] is Cell c) 
-                    ? FoldL(DynamicLong.Instance.Convert(c.Car), (Cell) a[0], (i, j) => 
-                        DynamicLong.Instance.Convert(i) ^ DynamicLong.Instance.Convert(j)) 
+                Def("logxor", -1, a => (a[0] is Cell c)
+                    ? FoldL(DynamicLong.Instance.Convert(c.Car), (Cell)a[0], (i, j) =>
+                       DynamicLong.Instance.Convert(i) ^ DynamicLong.Instance.Convert(j))
                     : -1);
-                
-                Def("min", -1, a => {
+
+                Def("min", -1, a =>
+                {
                     var e = a[0] as IEnumerable ?? a;
                     var rest = EnumerableUtils.SplitOnFirst(e, out var first);
                     return FoldL(first, rest, DynamicNumber.Min);
                 });
-                Def("max", -1, a => {
+                Def("max", -1, a =>
+                {
                     var e = a[0] as IEnumerable ?? a;
                     var rest = EnumerableUtils.SplitOnFirst(e, out var first);
                     return FoldL(first, rest, DynamicNumber.Max);
                 });
-                Def("average", -1, a => {
+                Def("average", -1, a =>
+                {
                     var e = a[0] is Cell c ? (c.Car is Cell ca ? ca : c) : a[0] as IEnumerable ?? a;
                     var rest = EnumerableUtils.SplitOnFirst(e, out var first);
                     var ret = FoldL(first, rest, DynamicNumber.Add);
                     return DynamicDouble.Instance.div(ret, rest.Count + 1);
                 });
 
-                Def("random", 1, a => {
+                Def("random", 1, a =>
+                {
                     var d = (double)a[0];
                     return d % 1 > 0
                         ? new Random().NextDouble() * d
@@ -1774,17 +1864,19 @@ namespace ServiceStack.Script
                     return null;
                 }
 
-                IEnumerable enumerableArg(object[] a) => a.Length > 0 && a[0] is Cell cell ? (IEnumerable) cell : a;
-                
-                Def("print", -1, (I, a) => {
+                IEnumerable enumerableArg(object[] a) => a.Length > 0 && a[0] is Cell cell ? (IEnumerable)cell : a;
+
+                Def("print", -1, (I, a) =>
+                {
                     var c = enumerableArg(a);
                     foreach (var x in c)
                     {
-                        print(I, Str(x, false)); 
+                        print(I, Str(x, false));
                     }
                     return I.Scope != null ? null : a.lastArg();
                 });
-                Def("println", -1, (I, a) => {
+                Def("println", -1, (I, a) =>
+                {
                     var c = enumerableArg(a);
                     foreach (var x in c)
                     {
@@ -1793,12 +1885,13 @@ namespace ServiceStack.Script
                         else
                             COut.WriteLine(Str(a[0], true));
                     }
-                    print(I, "\n"); 
+                    print(I, "\n");
                     return I.Scope != null ? null : a.lastArg();
                 });
-                
+
                 // println with spaces
-                Def("printlns", -1, (I, a) => {
+                Def("printlns", -1, (I, a) =>
+                {
                     var c = enumerableArg(a);
                     foreach (var x in c)
                     {
@@ -1807,7 +1900,7 @@ namespace ServiceStack.Script
                         else
                             COut.WriteLine(Str(a[0] + " ", true));
                     }
-                    print(I, "\n"); 
+                    print(I, "\n");
                     return I.Scope != null ? null : a.lastArg();
                 });
 
@@ -1815,13 +1908,15 @@ namespace ServiceStack.Script
                 Def("textdump", 1, (I, a) => print(I, I.AssertScope().Context.DefaultMethods.textDump(a[0]).ToRawString()));
 
                 // html encodes
-                Def("pr", -1, (I, a) => {
+                Def("pr", -1, (I, a) =>
+                {
                     var c = enumerableArg(a);
                     foreach (var x in c)
-                        print(I, I.Scope.Value.Context.DefaultMethods.htmlEncode(Str(x, false))); 
+                        print(I, I.Scope.Value.Context.DefaultMethods.htmlEncode(Str(x, false)));
                     return I.Scope != null ? null : a.lastArg();
                 });
-                Def("prn", -1, (I, a) => {
+                Def("prn", -1, (I, a) =>
+                {
                     var c = enumerableArg(a);
                     foreach (var x in c)
                     {
@@ -1830,65 +1925,72 @@ namespace ServiceStack.Script
                         else
                             COut.WriteLine(Str(a[0], true));
                     }
-                    print(I, "\n"); 
+                    print(I, "\n");
                     return I.Scope != null ? null : a.lastArg();
                 });
-                
-                Def("dump", -1, (I, a) => {
+
+                Def("dump", -1, (I, a) =>
+                {
                     var c = enumerableArg(a);
                     var defaultScripts = I.AssertScope().Context.DefaultMethods;
                     foreach (var x in c)
                     {
                         defaultScripts.write(I.AssertScope(), defaultScripts.dump(x).ToRawString());
                     }
-                    print(I, "\n"); 
+                    print(I, "\n");
                     return null;
                 });
-                Def("dump-inline", -1, (I, a) => {
+                Def("dump-inline", -1, (I, a) =>
+                {
                     var c = enumerableArg(a);
                     var defaultScripts = I.AssertScope().Context.DefaultMethods;
                     foreach (var x in c)
                     {
                         defaultScripts.write(I.AssertScope(), defaultScripts.jsv(x).ToRawString());
                     }
-                    print(I, "\n"); 
+                    print(I, "\n");
                     return null;
                 });
 
                 Def("debug", 0, a =>
-                    Globals.Keys.Aggregate((Cell) null, (x, y) => new Cell(y, x)));
-                
+                    Globals.Keys.Aggregate((Cell)null, (x, y) => new Cell(y, x)));
+
                 //use symbols script method
                 //Def("symbols", 0, a =>  Globals.Keys.Map(x => x.Name).OrderBy(x => x).ToArray());
-                
+
                 //Use gistindex script method
                 //Def("gist-index", 0, (I, a) => GetGistIndexLinks(I.AssertScope()));
-                
-                Def("prin1", 1, (I, a) => {
-                        print(I, Str(a[0], true)); 
-                        return a[0];
-                    });
-                Def("princ", 1, (I, a) => {
-                        print(I, Str(a[0], false)); 
-                        return a[0];
-                    });
-                Def("terpri", 0, (I, a) => {
-                        print(I, "\n"); 
-                        return TRUE;
-                    });
+
+                Def("prin1", 1, (I, a) =>
+                {
+                    print(I, Str(a[0], true));
+                    return a[0];
+                });
+                Def("princ", 1, (I, a) =>
+                {
+                    print(I, Str(a[0], false));
+                    return a[0];
+                });
+                Def("terpri", 0, (I, a) =>
+                {
+                    print(I, "\n");
+                    return TRUE;
+                });
 
                 var gensymCounterSym = Sym.New("*gensym-counter*");
                 Globals[gensymCounterSym] = 1.0;
-                Def("gensym", 0, a => {
-                        var x = Interlocked.Increment(ref gensymCounter);
-                        Globals[gensymCounterSym] = x;
-                        return new Sym($"G{(int) x}");
-                    });
+                Def("gensym", 0, a =>
+                {
+                    var x = Interlocked.Increment(ref gensymCounter);
+                    Globals[gensymCounterSym] = x;
+                    return new Sym($"G{(int)x}");
+                });
 
-                Def("make-symbol", 1, a => new Sym((string) a[0]));
-                Def("intern", 1, a => Sym.New((string) a[0]));
-                Def("symbol-name", 1, a => ((Sym) a[0]).Name);
-                Def("symbol-type", 1, a => {
+                Def("make-symbol", 1, a => new Sym((string)a[0]));
+                Def("intern", 1, a => Sym.New((string)a[0]));
+                Def("symbol-name", 1, a => ((Sym)a[0]).Name);
+                Def("symbol-type", 1, a =>
+                {
                     var sym = a[0] as Sym ?? (a[0] is string s
                         ? Sym.New(s)
                         : throw new LispEvalException("Expected Symbol or Symbol Name", a[0]));
@@ -1897,14 +1999,15 @@ namespace ServiceStack.Script
                     return "nil";
                 });
 
-                Def("apply", 2, a => a[1] is Cell c 
+                Def("apply", 2, a => a[1] is Cell c
                     ? Eval(new Cell(a[0], MapCar(c, QqQuote)), null)
                     : Eval(new Cell(a[0], MapCar(ToCons(a[1].assertEnumerable()), QqQuote)), null));
 
-                Def("exit", 1, a => {
-                        Environment.Exit(DynamicInt.Instance.Convert(a[0]));
-                        return null;
-                    });
+                Def("exit", 1, a =>
+                {
+                    Environment.Exit(DynamicInt.Instance.Convert(a[0]));
+                    return null;
+                });
 
                 Globals[Sym.New("*version*")] =
                     new Cell(Env.VersionString,
@@ -1913,10 +2016,12 @@ namespace ServiceStack.Script
 
             /// <summary>Define a built-in function by a name, an arity,
             /// and a body.</summary>
-            public void Def(string name, int carity, BuiltInFuncBody body) {
+            public void Def(string name, int carity, BuiltInFuncBody body)
+            {
                 Globals[Sym.New(name)] = new BuiltInFunc(name, carity, body);
             }
-            public void Def(string name, int carity, Func<object[], object> body) {
+            public void Def(string name, int carity, Func<object[], object> body)
+            {
                 Globals[Sym.New(name)] = new BuiltInFunc(name, carity, (I, a) => body(a));
             }
 
@@ -1938,14 +2043,15 @@ namespace ServiceStack.Script
             {
                 if (Scope != null)
                     return Scope.Value;
-                
+
                 throw new NotSupportedException("Lisp Interpreter not configured with Required ScriptScopeContext");
             }
 
             public object Eval(object x) => Eval(x, null);
-            
+
             /// <summary>Evaluate a Lisp expression in an environment.</summary>
-            public object Eval(object x, Cell env) {
+            public object Eval(object x, Cell env)
+            {
                 try
                 {
                     ScriptScopeContext scope = default;
@@ -1962,254 +2068,283 @@ namespace ServiceStack.Script
                     Evaluations++;
                     Interlocked.Increment(ref totalEvaluations);
 
-                    for (;;)
+                    for (; ; )
                     {
                         object value;
-                        switch (x) {
-                        case Arg xarg:
-                            return xarg.GetValue(env);
-                        case Sym xsym:
-                            if (Globals.TryGetValue(xsym, out value))
-                                return value;
-                            if (hasScope)
-                            {
-                                var symName = xsym.Name;
-                                if (scope.TryGetValue(symName, out value))
+                        switch (x)
+                        {
+                            case Arg xarg:
+                                return xarg.GetValue(env);
+                            case Sym xsym:
+                                if (Globals.TryGetValue(xsym, out value))
                                     return value;
-                                
-                                const int argsCount = 1;
-                                // ScriptMethod or arg Delegate
-                                var isScriptMethod = symName[0] == '/'; 
-                                if ((isScriptMethod || symName[0].IsValidVarNameChar()) && 
-                                    scope.TryGetMethod(symName.Substring(1), argsCount, out var fnDel, out var scriptMethod, out var requiresScope))
+                                if (hasScope)
                                 {
-                                    return (StaticMethodInvoker)(a => 
-                                    {
-                                        var scriptMethodArgs = requiresScope
-                                            ? new List<object> {scope}
-                                            : new List<object>();
-                                        scriptMethodArgs.AddRange(a);
-                                        return JsCallExpression.InvokeDelegate(fnDel, scriptMethod, isMemberExpr: false, scriptMethodArgs).unwrapScriptValue();
-                                    });
-                                }
-                                if (symName[0] == ':')
-                                {
-                                    return (StaticMethodInvoker) (a => {
-                                        var name = symName.Substring(1);
-                                        var key = int.TryParse(name, out var index)
-                                            ? (object) index
-                                            : name;
-                                        var ret = scope.Context.DefaultMethods.get(a[0], key);
-                                        return ret.unwrapScriptValue();
-                                    });
-                                }
-                                if (symName[0] == '.')
-                                {
-                                    return (StaticMethodInvoker) (a => {
-                                        
-                                        var ret = scope.Context.AssertProtectedMethods().call(a[0], symName.Substring(1).Replace('+',','), TypeConstants.EmptyObjectList);
-                                        return ret.unwrapScriptValue();
-                                    });
-                                }
-                                if (symName.IndexOf('/') >= 0)
-                                {
-                                    var fnNet = scope.Context.AssertProtectedMethods().Function(
-                                        symName.Replace('/', '.').Replace('+',','));
-                                    if (fnNet != null)
-                                    {
-                                        return (StaticMethodInvoker) (a => 
-                                            JsCallExpression.InvokeDelegate(fnNet, null, isMemberExpr: false, new List<object>(a)).unwrapScriptValue());
-                                    }
-                                }
-                                else if (symName[symName.Length - 1] == '.') // constructor (Type. arg) https://clojure.org/reference/java_interop#_the_dot_special_form
-                                {
-                                    var typeName = symName.Substring(0, symName.Length - 1);
-                                    var fnCtor = scope.Context.AssertProtectedMethods().Constructor(typeName);
-                                    if (fnCtor != null)
-                                    {
-                                        return (StaticMethodInvoker) (a => 
-                                            JsCallExpression.InvokeDelegate(fnCtor, null, isMemberExpr: false, new List<object>(a)).unwrapScriptValue());
-                                    }
-                                    throw new NotSupportedException(ProtectedScripts.TypeNotFoundErrorMessage(typeName));
-                                }
-                            }
-                            throw new LispEvalException("void variable", x);
-                        case Cell xcell:
-                            var fn = xcell.Car;
-                            Cell arg = CdrCell(xcell);
-                            if (fn is Keyword) {
-                                if (fn == QUOTE) {
-                                    if (arg != null && arg.Cdr == null)
-                                        return arg.Car;
-                                    throw new LispEvalException("bad quote", x);
-                                } else if (fn == PROGN) {
-                                    x = EvalProgN(arg, env);
-                                } else if (fn == COND) {
-                                    x = EvalCond(arg, env);
-                                } else if (fn == SETQ) {
-                                    return EvalSetQ(arg, env);
-                                } else if (fn == EXPORT) {
-                                    return EvalExport(arg, env, scope);
-                                } else if (fn == LAMBDA || fn == FN) {
-                                    return Compile(arg.unwrapDataListArgs(), env, Closure.Make);
-                                } else if (fn == MACRO) {
-                                    if (env != null)
-                                        throw new LispEvalException("nested macro", x);
-                                    return Compile(arg, null, Macro.Make);
-                                } else if (fn == QUASIQUOTE) {
-                                    if (arg != null && arg.Cdr == null)
-                                        x = QqExpand(arg.Car);
-                                    else
-                                        throw new LispEvalException ("bad quasiquote",
-                                                                 x);
-                                } else {
-                                    throw new LispEvalException("bad keyword", fn);
-                                }
-                            } else { // Application of a function
-                                if (fn is Sym fnsym) 
-                                {
-                                    if (fnsym == BOUND)
-                                    {
-                                        foreach (var name in arg)
-                                        {
-                                            if (!(name is Sym checksym))
-                                                throw new LispEvalException("not Sym", name);
+                                    var symName = xsym.Name;
+                                    if (scope.TryGetValue(symName, out value))
+                                        return value;
 
-                                            var ret = Globals.ContainsKey(checksym) || hasScope && scope.TryGetValue(checksym.Name, out _);
-                                            if (!ret)
-                                                return null;
-                                        }
-                                        return TRUE;
-                                    }
-                                    
-                                    // Expand fn = Eval(fn, env) here for speed.
-                                    if (Globals.TryGetValue(fnsym, out value))
+                                    const int argsCount = 1;
+                                    // ScriptMethod or arg Delegate
+                                    var isScriptMethod = symName[0] == '/';
+                                    if ((isScriptMethod || symName[0].IsValidVarNameChar()) &&
+                                        scope.TryGetMethod(symName.Substring(1), argsCount, out var fnDel, out var scriptMethod, out var requiresScope))
                                     {
-                                        fn = value;
-                                    }
-                                    else if (hasScope)
-                                    {
-                                        var fnName = fnsym.Name;
-                                        var fnArgs = EvalArgs(arg, this, env);
-                                        var argLength = arg?.Length ?? 0;
-
-                                        // ScriptMethod or arg Delegate
-                                        var isScriptMethod = fnName[0] == '/'; 
-                                        if ((isScriptMethod || fnName[0].IsValidVarNameChar()) && scope.TryGetMethod(isScriptMethod ? fnName.Substring(1) : fnName, argLength,
-                                            out var fnDel, out var scriptMethod, out var requiresScope))
+                                        return (StaticMethodInvoker)(a =>
                                         {
                                             var scriptMethodArgs = requiresScope
-                                                ? new List<object> {scope}
+                                                ? new List<object> { scope }
                                                 : new List<object>();
-                                            scriptMethodArgs.AddRange(fnArgs);
-
-                                            var ret = JsCallExpression.InvokeDelegate(fnDel, scriptMethod, isMemberExpr: false, scriptMethodArgs);
-                                            return ret.unwrapScriptValue();
-                                        }
-                                        if (isScriptMethod)
-                                            throw new NotSupportedException($"Could not resolve #Script method '{fnName.Substring(1)}'");
-                                        
-                                        if (fnName[0] == ':')
+                                            scriptMethodArgs.AddRange(a);
+                                            return JsCallExpression.InvokeDelegate(fnDel, scriptMethod, isMemberExpr: false, scriptMethodArgs).unwrapScriptValue();
+                                        });
+                                    }
+                                    if (symName[0] == ':')
+                                    {
+                                        return (StaticMethodInvoker)(a =>
                                         {
-                                            var name = fnArgs.Length == 1
-                                                ? fnName.Substring(1)
-                                                : fnArgs.Length == 2 && fnArgs[0] is string s
-                                                  ? s
-                                                  : throw new NotSupportedException(":index access requires 1 instance target or a string key");      
-                                                
-                                            var target = fnArgs[fnArgs.Length - 1];
-                                            if (target == null)
-                                                return null;
+                                            var name = symName.Substring(1);
                                             var key = int.TryParse(name, out var index)
-                                                ? (object) index
+                                                ? (object)index
                                                 : name;
-                                            var ret = scope.Context.DefaultMethods.get(target, key);
+                                            var ret = scope.Context.DefaultMethods.get(a[0], key);
                                             return ret.unwrapScriptValue();
-                                        }
-                                        if (fnName[0] == '.') // member method https://clojure.org/reference/java_interop#_member_access
+                                        });
+                                    }
+                                    if (symName[0] == '.')
+                                    {
+                                        return (StaticMethodInvoker)(a =>
                                         {
-                                            if (fnArgs.Length == 0)
-                                                throw new NotSupportedException(".memberAccess requires an instance target");
-                                                
-                                            var target = fnArgs[0];
-                                            if (target == null)
-                                                return null;
-                                            var methodArgs = new List<object>();
-                                            for (var i=1; i<fnArgs.Length; i++)
-                                                methodArgs.Add(fnArgs[i]);
-                                            
-                                            var ret = scope.Context.AssertProtectedMethods().call(target, fnName.Substring(1), methodArgs);
+
+                                            var ret = scope.Context.AssertProtectedMethods().call(a[0], symName.Substring(1).Replace('+', ','), TypeConstants.EmptyObjectList);
                                             return ret.unwrapScriptValue();
-                                        }
-                                        if (fnName.IndexOf('/') >= 0) // static method https://clojure.org/reference/java_interop#_member_access
+                                        });
+                                    }
+                                    if (symName.IndexOf('/') >= 0)
+                                    {
+                                        var fnNet = scope.Context.AssertProtectedMethods().Function(
+                                            symName.Replace('/', '.').Replace('+', ','));
+                                        if (fnNet != null)
                                         {
-                                            var fnArgsList = new List<object>(fnArgs);
-                                            var fnNet = scope.Context.AssertProtectedMethods().Function(
-                                                fnName.Replace('/', '.').Replace('+',','), fnArgsList);
-                                                
-                                            if (fnNet != null)
-                                            {
-                                                var ret = JsCallExpression.InvokeDelegate(fnNet, null, isMemberExpr: false, fnArgsList);
-                                                return ret.unwrapScriptValue();
-                                            }
-                                        }
-                                        else if (fnName[fnName.Length - 1] == '.') // constructor (Type. arg) https://clojure.org/reference/java_interop#_the_dot_special_form
-                                        {
-                                            var typeName = fnName.Substring(0, fnName.Length - 1);
-                                            var ret = scope.Context.AssertProtectedMethods().@new(typeName, new List<object>(fnArgs));
-                                            if (ret == null)
-                                                throw new NotSupportedException(ProtectedScripts.TypeNotFoundErrorMessage(typeName));
-                                                
-                                            return ret;
+                                            return (StaticMethodInvoker)(a =>
+                                               JsCallExpression.InvokeDelegate(fnNet, null, isMemberExpr: false, new List<object>(a)).unwrapScriptValue());
                                         }
                                     }
-                                    if (fn == null) 
-                                        throw new LispEvalException("undefined", fnsym); 
-                                } else {
-                                    fn = Eval(fn, env);
+                                    else if (symName[symName.Length - 1] == '.') // constructor (Type. arg) https://clojure.org/reference/java_interop#_the_dot_special_form
+                                    {
+                                        var typeName = symName.Substring(0, symName.Length - 1);
+                                        var fnCtor = scope.Context.AssertProtectedMethods().Constructor(typeName);
+                                        if (fnCtor != null)
+                                        {
+                                            return (StaticMethodInvoker)(a =>
+                                               JsCallExpression.InvokeDelegate(fnCtor, null, isMemberExpr: false, new List<object>(a)).unwrapScriptValue());
+                                        }
+                                        throw new NotSupportedException(ProtectedScripts.TypeNotFoundErrorMessage(typeName));
+                                    }
                                 }
-                                switch (fn) {
-                                case Closure fnclosure:
-                                    env = fnclosure.MakeEnv(this, arg, env);
-                                    x = EvalProgN(fnclosure.Body, env);
-                                    break;
-                                case Macro fnmacro:
-                                    x = fnmacro.ExpandWith(this, arg);
-                                    break;
-                                case BuiltInFunc fnbulitin:
-                                    return fnbulitin.EvalWith(this, arg, env);
-                                case Delegate fnDel:
-                                    var scriptMethodArgs = new List<object>(EvalArgs(arg, this, env));
-                                    var ret = JsCallExpression.InvokeDelegate(fnDel, null, isMemberExpr: false, scriptMethodArgs);
-                                    return ret.unwrapScriptValue();
-                                default:
-                                    throw new LispEvalException("not applicable", fn);
+                                throw new LispEvalException("void variable", x);
+                            case Cell xcell:
+                                var fn = xcell.Car;
+                                Cell arg = CdrCell(xcell);
+                                if (fn is Keyword)
+                                {
+                                    if (fn == QUOTE)
+                                    {
+                                        if (arg != null && arg.Cdr == null)
+                                            return arg.Car;
+                                        throw new LispEvalException("bad quote", x);
+                                    }
+                                    else if (fn == PROGN)
+                                    {
+                                        x = EvalProgN(arg, env);
+                                    }
+                                    else if (fn == COND)
+                                    {
+                                        x = EvalCond(arg, env);
+                                    }
+                                    else if (fn == SETQ)
+                                    {
+                                        return EvalSetQ(arg, env);
+                                    }
+                                    else if (fn == EXPORT)
+                                    {
+                                        return EvalExport(arg, env, scope);
+                                    }
+                                    else if (fn == LAMBDA || fn == FN)
+                                    {
+                                        return Compile(arg.unwrapDataListArgs(), env, Closure.Make);
+                                    }
+                                    else if (fn == MACRO)
+                                    {
+                                        if (env != null)
+                                            throw new LispEvalException("nested macro", x);
+                                        return Compile(arg, null, Macro.Make);
+                                    }
+                                    else if (fn == QUASIQUOTE)
+                                    {
+                                        if (arg != null && arg.Cdr == null)
+                                            x = QqExpand(arg.Car);
+                                        else
+                                            throw new LispEvalException("bad quasiquote",
+                                                                     x);
+                                    }
+                                    else
+                                    {
+                                        throw new LispEvalException("bad keyword", fn);
+                                    }
                                 }
-                            }
-                            break;
-                        case Lambda xlambda:
-                            return new Closure(xlambda, env);
-                        default:
-                            return x; // numbers, strings, null etc.
+                                else
+                                { // Application of a function
+                                    if (fn is Sym fnsym)
+                                    {
+                                        if (fnsym == BOUND)
+                                        {
+                                            foreach (var name in arg)
+                                            {
+                                                if (!(name is Sym checksym))
+                                                    throw new LispEvalException("not Sym", name);
+
+                                                var ret = Globals.ContainsKey(checksym) || hasScope && scope.TryGetValue(checksym.Name, out _);
+                                                if (!ret)
+                                                    return null;
+                                            }
+                                            return TRUE;
+                                        }
+
+                                        // Expand fn = Eval(fn, env) here for speed.
+                                        if (Globals.TryGetValue(fnsym, out value))
+                                        {
+                                            fn = value;
+                                        }
+                                        else if (hasScope)
+                                        {
+                                            var fnName = fnsym.Name;
+                                            var fnArgs = EvalArgs(arg, this, env);
+                                            var argLength = arg?.Length ?? 0;
+
+                                            // ScriptMethod or arg Delegate
+                                            var isScriptMethod = fnName[0] == '/';
+                                            if ((isScriptMethod || fnName[0].IsValidVarNameChar()) && scope.TryGetMethod(isScriptMethod ? fnName.Substring(1) : fnName, argLength,
+                                                out var fnDel, out var scriptMethod, out var requiresScope))
+                                            {
+                                                var scriptMethodArgs = requiresScope
+                                                    ? new List<object> { scope }
+                                                    : new List<object>();
+                                                scriptMethodArgs.AddRange(fnArgs);
+
+                                                var ret = JsCallExpression.InvokeDelegate(fnDel, scriptMethod, isMemberExpr: false, scriptMethodArgs);
+                                                return ret.unwrapScriptValue();
+                                            }
+                                            if (isScriptMethod)
+                                                throw new NotSupportedException($"Could not resolve #Script method '{fnName.Substring(1)}'");
+
+                                            if (fnName[0] == ':')
+                                            {
+                                                var name = fnArgs.Length == 1
+                                                    ? fnName.Substring(1)
+                                                    : fnArgs.Length == 2 && fnArgs[0] is string s
+                                                      ? s
+                                                      : throw new NotSupportedException(":index access requires 1 instance target or a string key");
+
+                                                var target = fnArgs[fnArgs.Length - 1];
+                                                if (target == null)
+                                                    return null;
+                                                var key = int.TryParse(name, out var index)
+                                                    ? (object)index
+                                                    : name;
+                                                var ret = scope.Context.DefaultMethods.get(target, key);
+                                                return ret.unwrapScriptValue();
+                                            }
+                                            if (fnName[0] == '.') // member method https://clojure.org/reference/java_interop#_member_access
+                                            {
+                                                if (fnArgs.Length == 0)
+                                                    throw new NotSupportedException(".memberAccess requires an instance target");
+
+                                                var target = fnArgs[0];
+                                                if (target == null)
+                                                    return null;
+                                                var methodArgs = new List<object>();
+                                                for (var i = 1; i < fnArgs.Length; i++)
+                                                    methodArgs.Add(fnArgs[i]);
+
+                                                var ret = scope.Context.AssertProtectedMethods().call(target, fnName.Substring(1), methodArgs);
+                                                return ret.unwrapScriptValue();
+                                            }
+                                            if (fnName.IndexOf('/') >= 0) // static method https://clojure.org/reference/java_interop#_member_access
+                                            {
+                                                var fnArgsList = new List<object>(fnArgs);
+                                                var fnNet = scope.Context.AssertProtectedMethods().Function(
+                                                    fnName.Replace('/', '.').Replace('+', ','), fnArgsList);
+
+                                                if (fnNet != null)
+                                                {
+                                                    var ret = JsCallExpression.InvokeDelegate(fnNet, null, isMemberExpr: false, fnArgsList);
+                                                    return ret.unwrapScriptValue();
+                                                }
+                                            }
+                                            else if (fnName[fnName.Length - 1] == '.') // constructor (Type. arg) https://clojure.org/reference/java_interop#_the_dot_special_form
+                                            {
+                                                var typeName = fnName.Substring(0, fnName.Length - 1);
+                                                var ret = scope.Context.AssertProtectedMethods().@new(typeName, new List<object>(fnArgs));
+                                                if (ret == null)
+                                                    throw new NotSupportedException(ProtectedScripts.TypeNotFoundErrorMessage(typeName));
+
+                                                return ret;
+                                            }
+                                        }
+                                        if (fn == null)
+                                            throw new LispEvalException("undefined", fnsym);
+                                    }
+                                    else
+                                    {
+                                        fn = Eval(fn, env);
+                                    }
+                                    switch (fn)
+                                    {
+                                        case Closure fnclosure:
+                                            env = fnclosure.MakeEnv(this, arg, env);
+                                            x = EvalProgN(fnclosure.Body, env);
+                                            break;
+                                        case Macro fnmacro:
+                                            x = fnmacro.ExpandWith(this, arg);
+                                            break;
+                                        case BuiltInFunc fnbulitin:
+                                            return fnbulitin.EvalWith(this, arg, env);
+                                        case Delegate fnDel:
+                                            var scriptMethodArgs = new List<object>(EvalArgs(arg, this, env));
+                                            var ret = JsCallExpression.InvokeDelegate(fnDel, null, isMemberExpr: false, scriptMethodArgs);
+                                            return ret.unwrapScriptValue();
+                                        default:
+                                            throw new LispEvalException("not applicable", fn);
+                                    }
+                                }
+                                break;
+                            case Lambda xlambda:
+                                return new Closure(xlambda, env);
+                            default:
+                                return x; // numbers, strings, null etc.
                         }
                     }
-                } catch (LispEvalException ex) {
+                }
+                catch (LispEvalException ex)
+                {
                     if (ex.Trace.Count < 10)
                         ex.Trace.Add(Str(x));
                     throw ex;
                 }
             }
 
-            public static object[] EvalArgs(Cell arg, Interpreter interp, Cell env=null)
+            public static object[] EvalArgs(Cell arg, Interpreter interp, Cell env = null)
             {
                 if (arg == null)
                     return TypeConstants.EmptyObjectArray;
-                
+
                 var n = arg.Length;
                 var frame = new object[n];
 
                 int i;
-                for (i = 0; i < n && arg != null; i++) {
+                for (i = 0; i < n && arg != null; i++)
+                {
                     // Set the list of fixed arguments.
                     frame[i] = arg.Car;
                     arg = CdrCell(arg);
@@ -2217,21 +2352,22 @@ namespace ServiceStack.Script
 
                 for (i = 0; i < n; i++)
                     frame[i] = interp.Eval(frame[i], env);
-                
+
                 return frame;
             }
 
-            public static Dictionary<string, object> EvalMapArgs(Cell arg, Interpreter interp, Cell env=null)
+            public static Dictionary<string, object> EvalMapArgs(Cell arg, Interpreter interp, Cell env = null)
             {
                 if (arg == null)
                     return TypeConstants.EmptyObjectDictionary;
-                
+
                 var to = new Dictionary<string, object>();
                 var n = arg.Length;
                 var frame = new object[n];
 
                 int i;
-                for (i = 0; i < n && arg != null; i++) {
+                for (i = 0; i < n && arg != null; i++)
+                {
                     // Set the list of fixed arguments.
                     frame[i] = arg.Car;
                     arg = CdrCell(arg);
@@ -2250,19 +2386,21 @@ namespace ServiceStack.Script
 
                     if (!(c.Cdr is Cell v))
                         throw new LispEvalException("Expected Cell Value", c.Cdr);
-                    
+
                     var value = interp.Eval(v.Car, env);
                     to.Add(key, value);
                 }
-                
+
                 return to;
             }
 
             // (progn E1 ... En) => Evaluate E1, ... except for En and return it.
-            object EvalProgN(Cell j, Cell env) {
+            object EvalProgN(Cell j, Cell env)
+            {
                 if (j == null)
                     return null;
-                for (;;) {
+                for (; ; )
+                {
                     var x = j.Car;
                     j = CdrCell(j);
                     if (j == null)
@@ -2272,21 +2410,28 @@ namespace ServiceStack.Script
             }
 
             // Evaluate a conditional expression and return the selection.
-            object EvalCond(Cell j, Cell env) {
-                for (; j != null; j = CdrCell(j)) {
+            object EvalCond(Cell j, Cell env)
+            {
+                for (; j != null; j = CdrCell(j))
+                {
                     var clause = j.Car;
-                    if (clause != null) {
-                        if (clause is Cell k) {
+                    if (clause != null)
+                    {
+                        if (clause is Cell k)
+                        {
                             var result = Eval(k.Car, env);
                             var f = result is bool b && !b;
-                            if (result != null && !f) { // If the condition holds //DB: added false check
+                            if (result != null && !f)
+                            { // If the condition holds //DB: added false check
                                 Cell body = CdrCell(k);
                                 if (body == null)
                                     return QqQuote(result);
                                 else
                                     return EvalProgN(body, env);
                             }
-                        } else {
+                        }
+                        else
+                        {
                             throw new LispEvalException("cond test expected", clause);
                         }
                     }
@@ -2295,9 +2440,11 @@ namespace ServiceStack.Script
             }
 
             // (setq V1 E1 ..) => Evaluate Ei and assign it to Vi; return the last.
-            object EvalSetQ(Cell j, Cell env) {
+            object EvalSetQ(Cell j, Cell env)
+            {
                 object result = null;
-                for (; j != null; j = CdrCell(j)) {
+                for (; j != null; j = CdrCell(j))
+                {
                     var lval = j.Car;
                     if (lval == TRUE)
                         throw new LispEvalException("not assignable", lval);
@@ -2305,26 +2452,29 @@ namespace ServiceStack.Script
                     if (j == null)
                         throw new LispEvalException("right value expected", lval);
                     result = Eval(j.Car, env);
-                    switch (lval) {
-                    case Arg arg:
-                        arg.SetValue(result, env);
-                        break;
-                    case Sym sym when !(sym is Keyword):
-                        Globals[sym] = result;
-                        break;
-                    default:
-                        throw new NotVariableException(lval);
+                    switch (lval)
+                    {
+                        case Arg arg:
+                            arg.SetValue(result, env);
+                            break;
+                        case Sym sym when !(sym is Keyword):
+                            Globals[sym] = result;
+                            break;
+                        default:
+                            throw new NotVariableException(lval);
                     }
                 }
                 return result;
             }
 
             // (export V1 E1 ..) => Evaluate Ei and assign it to Vi in PageResult.Args; return null.
-            object EvalExport(Cell j, Cell env, ScriptScopeContext scope) {
+            object EvalExport(Cell j, Cell env, ScriptScopeContext scope)
+            {
                 if (scope.PageResult == null)
                     throw new NotSupportedException("scope is undefined");
                 object result = null;
-                for (; j != null; j = CdrCell(j)) {
+                for (; j != null; j = CdrCell(j))
+                {
                     var lval = j.Car;
                     if (lval == TRUE)
                         throw new LispEvalException("not assignable", lval);
@@ -2332,7 +2482,8 @@ namespace ServiceStack.Script
                     if (j == null)
                         throw new LispEvalException("right value expected", lval);
                     result = Eval(j.Car, env);
-                    switch (lval) {
+                    switch (lval)
+                    {
                         case Arg arg:
                             arg.SetValue(result, env);
                             break;
@@ -2347,9 +2498,11 @@ namespace ServiceStack.Script
             }
 
             // { :k1 v1 :k2 v2 } => Evaluate Object Dictionary (comma separators optional)
-            object EvalMap(Cell j, Cell env) {
+            object EvalMap(Cell j, Cell env)
+            {
                 object result = null;
-                for (; j != null; j = CdrCell(j)) {
+                for (; j != null; j = CdrCell(j))
+                {
                     var lval = j.Car;
                     if (lval == TRUE)
                         throw new LispEvalException("not assignable", lval);
@@ -2357,7 +2510,8 @@ namespace ServiceStack.Script
                     if (j == null)
                         throw new LispEvalException("right value expected", lval);
                     result = Eval(j.Car, env);
-                    switch (lval) {
+                    switch (lval)
+                    {
                         case Arg arg:
                             arg.SetValue(result, env);
                             break;
@@ -2372,7 +2526,8 @@ namespace ServiceStack.Script
             }
 
             // Compile a Lisp list (macro ...) or (lambda ...).
-            DefinedFunc Compile(Cell arg, Cell env, FuncFactory make) {
+            DefinedFunc Compile(Cell arg, Cell env, FuncFactory make)
+            {
                 if (arg == null)
                     throw new LispEvalException("arglist and body expected", arg);
                 var table = new Dictionary<Sym, Arg>();
@@ -2386,49 +2541,73 @@ namespace ServiceStack.Script
             }
 
             // Expand macros and quasi-quotations in an expression.
-            object ExpandMacros(object j, int count, Cell env) {
-                if ((j is Cell cell) && count > 0) {
+            object ExpandMacros(object j, int count, Cell env)
+            {
+                if ((j is Cell cell) && count > 0)
+                {
                     var k = cell.Car;
-                    if (k == QUOTE || k == LAMBDA || k == FN || k == MACRO) {
+                    if (k == QUOTE || k == LAMBDA || k == FN || k == MACRO)
+                    {
                         return cell;
-                    } else if (k == QUASIQUOTE) {
+                    }
+                    else if (k == QUASIQUOTE)
+                    {
                         Cell d = CdrCell(cell);
-                        if (d != null && d.Cdr == null) {
+                        if (d != null && d.Cdr == null)
+                        {
                             var z = QqExpand(d.Car);
                             return ExpandMacros(z, count, env);
                         }
                         throw new LispEvalException("bad quasiquote", cell);
-                    } else {
+                    }
+                    else
+                    {
                         if (k is Sym sym)
                             k = Globals.ContainsKey(sym) ? Globals[sym] : null;
-                        if (k is Macro macro) {
+                        if (k is Macro macro)
+                        {
                             Cell d = CdrCell(cell);
                             var z = macro.ExpandWith(this, d);
                             return ExpandMacros(z, count - 1, env);
-                        } else {
+                        }
+                        else
+                        {
                             return MapCar(cell, x => ExpandMacros(x, count, env));
                         }
                     }
-                } else {
+                }
+                else
+                {
                     return j;
                 }
             }
 
             // Replace inner lambda-expressions with Lambda instances.
-            object CompileInners(object j) {
-                if (j is Cell cell) {
+            object CompileInners(object j)
+            {
+                if (j is Cell cell)
+                {
                     var k = cell.Car;
-                    if (k == QUOTE) {
+                    if (k == QUOTE)
+                    {
                         return cell;
-                    } else if (k == LAMBDA || k == FN) {
+                    }
+                    else if (k == LAMBDA || k == FN)
+                    {
                         Cell d = CdrCell(cell).unwrapDataListArgs();
                         return Compile(d, null, Lambda.Make);
-                    } else if (k == MACRO) {
+                    }
+                    else if (k == MACRO)
+                    {
                         throw new LispEvalException("nested macro", cell);
-                    } else {
+                    }
+                    else
+                    {
                         return MapCar(cell, CompileInners);
                     }
-                } else {
+                }
+                else
+                {
                     return j;
                 }
             }
@@ -2437,17 +2616,23 @@ namespace ServiceStack.Script
         //------------------------------------------------------------------
 
         // Make an argument-table; return true if there is a rest argument.
-        static bool MakeArgTable(object arg, IDictionary<Sym, Arg> table) {
-            if (arg == null) {
+        static bool MakeArgTable(object arg, IDictionary<Sym, Arg> table)
+        {
+            if (arg == null)
+            {
                 return false;
-            } else if (arg is Cell argcell) {
+            }
+            else if (arg is Cell argcell)
+            {
                 int offset = 0;     // offset value within the call-frame
                 bool hasRest = false;
-                for (; argcell != null; argcell = CdrCell(argcell)) {
+                for (; argcell != null; argcell = CdrCell(argcell))
+                {
                     var j = argcell.Car;
                     if (hasRest)
                         throw new LispEvalException("2nd rest", j);
-                    if (j == REST) { // &rest var
+                    if (j == REST)
+                    { // &rest var
                         argcell = CdrCell(argcell);
                         if (argcell == null)
                             throw new NotVariableException(argcell);
@@ -2457,7 +2642,8 @@ namespace ServiceStack.Script
                         hasRest = true;
                     }
                     Sym sym = j as Sym;
-                    if (sym == null) {
+                    if (sym == null)
+                    {
                         Arg jarg = j as Arg;
                         if (jarg != null)
                             sym = jarg.Symbol;
@@ -2472,52 +2658,65 @@ namespace ServiceStack.Script
                     offset++;
                 }
                 return hasRest;
-            } else {
+            }
+            else
+            {
                 throw new LispEvalException("arglist expected", arg);
             }
         }
 
         // Scan 'j' for formal arguments in 'table' and replace them with Args.
         // And scan 'j' for free Args not in 'table' and promote their levels.
-        static object ScanForArgs(object j, IDictionary<Sym, Arg> table) {
-            switch (j) {
-            case Sym sym:
-                return ((table.TryGetValue(sym, out Arg a)) ? a :
-                        j);
-            case Arg arg:
-                return ((table.TryGetValue(arg.Symbol, out Arg k)) ? k :
-                        new Arg(arg.Level + 1, arg.Offset, arg.Symbol));
-            case Cell cell:
-                if (cell.Car == QUOTE)
+        static object ScanForArgs(object j, IDictionary<Sym, Arg> table)
+        {
+            switch (j)
+            {
+                case Sym sym:
+                    return ((table.TryGetValue(sym, out Arg a)) ? a :
+                            j);
+                case Arg arg:
+                    return ((table.TryGetValue(arg.Symbol, out Arg k)) ? k :
+                            new Arg(arg.Level + 1, arg.Offset, arg.Symbol));
+                case Cell cell:
+                    if (cell.Car == QUOTE)
+                        return j;
+                    else if (cell.Car == QUASIQUOTE)
+                        return new Cell(QUASIQUOTE,
+                                        ScanForQQ(cell.Cdr, table, 0));
+                    else
+                        return MapCar(cell, x => ScanForArgs(x, table));
+                default:
                     return j;
-                else if (cell.Car == QUASIQUOTE)
-                    return new Cell(QUASIQUOTE, 
-                                    ScanForQQ(cell.Cdr, table, 0));
-                else
-                    return MapCar(cell, x => ScanForArgs(x, table));
-            default:
-                return j;
             }
         }
 
         // Scan for quasi-quotes and ScanForArgs them depending on the nesting
         // level.
-        static object ScanForQQ(object j, IDictionary<Sym, Arg> table, int level) {
-            if (j is Cell cell) {
+        static object ScanForQQ(object j, IDictionary<Sym, Arg> table, int level)
+        {
+            if (j is Cell cell)
+            {
                 var car = cell.Car;
                 var cdr = cell.Cdr;
-                if (car == QUASIQUOTE) {
+                if (car == QUASIQUOTE)
+                {
                     return new Cell(car, ScanForQQ(cdr, table, level + 1));
-                } else if (car == UNQUOTE || car == UNQUOTE_SPLICING) {
+                }
+                else if (car == UNQUOTE || car == UNQUOTE_SPLICING)
+                {
                     var d = ((level == 0) ? ScanForArgs(cdr, table) :
                              ScanForQQ(cdr, table, level - 1));
                     if (d == cdr)
                         return j;
                     return new Cell(car, d);
-                } else {
+                }
+                else
+                {
                     return MapCar(cell, x => ScanForQQ(x, table, level));
                 }
-            } else {
+            }
+            else
+            {
                 return j;
             }
         }
@@ -2535,19 +2734,25 @@ namespace ServiceStack.Script
         public static object QqQuote(object x) =>
             (x is Sym || x is Cell) ? new Cell(QUOTE, new Cell(x, null)) : x;
 
-        static object QqExpand0(object x, int level) {
-            if (x is Cell cell) {
-                if (cell.Car == UNQUOTE) { // ,a
+        static object QqExpand0(object x, int level)
+        {
+            if (x is Cell cell)
+            {
+                if (cell.Car == UNQUOTE)
+                { // ,a
                     if (level == 0)
                         return CdrCell(cell).Car; // ,a => a
                 }
                 Cell t = QqExpand1(cell, level);
-                if ((t.Car is Cell k) && t.Cdr == null) {
+                if ((t.Car is Cell k) && t.Cdr == null)
+                {
                     if (k.Car == LIST || k.Car == CONS)
                         return k;
                 }
                 return new Cell(APPEND, t);
-            } else {
+            }
+            else
+            {
                 return QqQuote(x);
             }
         }
@@ -2556,35 +2761,49 @@ namespace ServiceStack.Script
         // Example 1: (,a b) => h=(list a) t=((list 'b)) => ((list a 'b))
         // Example 2: (,a ,@(cons 2 3)) => h=(list a) t=((cons 2 3))
         //                              => ((cons a (cons 2 3)))
-        static Cell QqExpand1(object x, int level) {
-            if (x is Cell cell) {
-                if (cell.Car == UNQUOTE) { // ,a
+        static Cell QqExpand1(object x, int level)
+        {
+            if (x is Cell cell)
+            {
+                if (cell.Car == UNQUOTE)
+                { // ,a
                     if (level == 0)
                         return CdrCell(cell); // ,a => (a)
                     level--;
-                } else if (cell.Car == QUASIQUOTE) { // `a
+                }
+                else if (cell.Car == QUASIQUOTE)
+                { // `a
                     level++;
                 }
                 var h = QqExpand2(cell.Car, level);
                 Cell t = QqExpand1(cell.Cdr, level); // != null
-                if (t.Car == null && t.Cdr == null) {
+                if (t.Car == null && t.Cdr == null)
+                {
                     return new Cell(h, null);
-                } else if (h is Cell hcell) {
-                    if (hcell.Car == LIST) {
-                        if (t.Car is Cell tcar) {
-                            if (tcar.Car == LIST) {
+                }
+                else if (h is Cell hcell)
+                {
+                    if (hcell.Car == LIST)
+                    {
+                        if (t.Car is Cell tcar)
+                        {
+                            if (tcar.Car == LIST)
+                            {
                                 var hh = QqConcat(hcell, tcar.Cdr);
                                 return new Cell(hh, t.Cdr);
                             }
                         }
-                        if (hcell.Cdr != null) {
+                        if (hcell.Cdr != null)
+                        {
                             var hh = QqConsCons(CdrCell(hcell), t.Car);
                             return new Cell(hh, t.Cdr);
                         }
                     }
                 }
                 return new Cell(h, t);
-            } else {
+            }
+            else
+            {
                 return new Cell(QqQuote(x), null);
             }
         }
@@ -2603,17 +2822,24 @@ namespace ServiceStack.Script
 
         // Expand x.car of `x so that the result can be used as an arg of append.
         // Example: ,a => (list a); ,@(foo 1 2) => (foo 1 2); b => (list 'b)
-        static object QqExpand2(object y, int level) { // Let y be x.car.
-            if (y is Cell cell) {
-                if (cell.Car == UNQUOTE) { // ,a
+        static object QqExpand2(object y, int level)
+        { // Let y be x.car.
+            if (y is Cell cell)
+            {
+                if (cell.Car == UNQUOTE)
+                { // ,a
                     if (level == 0)
                         return new Cell(LIST, cell.Cdr); // ,a => (list a)
                     level--;
-                } else if (cell.Car == UNQUOTE_SPLICING) { // ,@a
+                }
+                else if (cell.Car == UNQUOTE_SPLICING)
+                { // ,@a
                     if (level == 0)
                         return CdrCell(cell).Car; // ,@a => a
                     level--;
-                } else if (cell.Car == QUASIQUOTE) { // `a
+                }
+                else if (cell.Car == QUASIQUOTE)
+                { // `a
                     level++;
                 }
             }
@@ -2647,7 +2873,7 @@ namespace ServiceStack.Script
         private static object Run(Interpreter interp, Reader reader)
         {
             object lastResult = Reader.EOF;
-            for (;;)
+            for (; ; )
             {
                 var sExp = reader.Read();
                 if (sExp == Reader.EOF)
@@ -2663,7 +2889,7 @@ namespace ServiceStack.Script
         {
             object Token;
 
-            IEnumerator<string> Tokens = ((IEnumerable<string>) TypeConstants.EmptyStringArray).GetEnumerator();
+            IEnumerator<string> Tokens = ((IEnumerable<string>)TypeConstants.EmptyStringArray).GetEnumerator();
 
             int LineNo = 0;
 
@@ -2750,7 +2976,8 @@ namespace ServiceStack.Script
                     var body = ParseListBody();
 
                     var maxArg = 0;
-                    body.Walk(c => {
+                    body.Walk(c =>
+                    {
                         if (c.Car is Sym l && l.Name[0] == '%')
                         {
                             if (l == PERCENT)
@@ -2782,7 +3009,7 @@ namespace ServiceStack.Script
                             }
                         }
                     });
-                    
+
                     // #(* 2 %)     => (fn . ((_a . null) . ((* . (2 . (_a . null))) . null)))
                     // #(* 2 %1 %2) => (fn . ((_a1 . (_a2 . null)) . ((* . (2 . (_a1 . (_a2 . null)))) . null)))
 
@@ -2832,7 +3059,7 @@ namespace ServiceStack.Script
                     var e3 = ParseMapBody();
 
                     return new Cell(
-                        new Cell(LIST, new Cell(keyString, new Cell(e2, null))), 
+                        new Cell(LIST, new Cell(keyString, new Cell(e2, null))),
                         e3);
                 }
             }
@@ -2847,10 +3074,10 @@ namespace ServiceStack.Script
                 {
                     var e1 = ParseExpression();
                     ReadToken();
-                    
+
                     if (Token == COMMA)
                         ReadToken();
-                    
+
                     object e2;
                     if (Token == DOT)
                     {
@@ -2901,7 +3128,7 @@ namespace ServiceStack.Script
 
             private IEnumerator<object> TokenObjects;
             private static char[] TokenDelims = {
-                '"', ',', '(', ')', '`', '\'', '~', 
+                '"', ',', '(', ')', '`', '\'', '~',
                 '{','}',  //clojure map
                 '#',      //clojure fn
                 '[',']',  //clojure data list [e1 e2] => (list e1 e2)
@@ -2995,13 +3222,15 @@ namespace ServiceStack.Script
         /// <summary>Make a string representation of Lisp expression.</summary>
         /// <param name="x">Lisp expression</param>
         /// <param name="quoteString">flag whether to quote string</param>
-        public static string Str(object x, bool quoteString=true) {
+        public static string Str(object x, bool quoteString = true)
+        {
             // 4 is the threshold of ellipsis for circular lists
             return Str4(x, quoteString, 4, null);
         }
 
         // Mapping from a quote symbol to its string representation
-        static readonly Dictionary<Sym, string> Quotes = new Dictionary<Sym, string> {
+        static readonly Dictionary<Sym, string> Quotes = new Dictionary<Sym, string>
+        {
             [QUOTE] = "'",
             [QUASIQUOTE] = "`",
             [UNQUOTE] = ",",
@@ -3009,64 +3238,76 @@ namespace ServiceStack.Script
         };
 
         static string Str4(object x, bool quoteString, int count,
-                           HashSet<Cell> printed) {
-            switch (x) {
-            case null:
-                return "nil";
-            case Cell cell:
-                if ((cell.Car is Sym csym) && Quotes.ContainsKey(csym)) {
-                    if ((cell.Cdr is Cell xcdr) && xcdr.Cdr == null)
-                        return Quotes[csym]
-                            + Str4(xcdr.Car, true, count, printed);
-                }
-                return "(" + StrListBody(cell, count, printed) + ")";
-            case string st:
-                if (! quoteString)
-                    return st;
-                var bf = new StringBuilder();
-                bf.Append('"');
-                foreach (char ch in st) {
-                    switch (ch) {
-                    case '\b': bf.Append(@"\b"); break;
-                    case '\t': bf.Append(@"\t"); break;
-                    case '\n': bf.Append(@"\n"); break;
-                    case '\v': bf.Append(@"\v"); break;
-                    case '\f': bf.Append(@"\f"); break;
-                    case '\r': bf.Append(@"\r"); break;
-                    case '"':  bf.Append("\\\""); break;
-                    case '\\': bf.Append(@"\\"); break;
-                    default: bf.Append(ch); break;
+                           HashSet<Cell> printed)
+        {
+            switch (x)
+            {
+                case null:
+                    return "nil";
+                case Cell cell:
+                    if ((cell.Car is Sym csym) && Quotes.ContainsKey(csym))
+                    {
+                        if ((cell.Cdr is Cell xcdr) && xcdr.Cdr == null)
+                            return Quotes[csym]
+                                + Str4(xcdr.Car, true, count, printed);
                     }
-                }
-                bf.Append('"');
-                return bf.ToString();
-            case Sym sym:
-                if (sym == TRUE) return bool.TrueString;
-                return (sym.IsInterned) ? sym.Name : $"#:{x}";
-            default:
-                return x.ToString();
+                    return "(" + StrListBody(cell, count, printed) + ")";
+                case string st:
+                    if (!quoteString)
+                        return st;
+                    var bf = new StringBuilder();
+                    bf.Append('"');
+                    foreach (char ch in st)
+                    {
+                        switch (ch)
+                        {
+                            case '\b': bf.Append(@"\b"); break;
+                            case '\t': bf.Append(@"\t"); break;
+                            case '\n': bf.Append(@"\n"); break;
+                            case '\v': bf.Append(@"\v"); break;
+                            case '\f': bf.Append(@"\f"); break;
+                            case '\r': bf.Append(@"\r"); break;
+                            case '"': bf.Append("\\\""); break;
+                            case '\\': bf.Append(@"\\"); break;
+                            default: bf.Append(ch); break;
+                        }
+                    }
+                    bf.Append('"');
+                    return bf.ToString();
+                case Sym sym:
+                    if (sym == TRUE) return bool.TrueString;
+                    return (sym.IsInterned) ? sym.Name : $"#:{x}";
+                default:
+                    return x.ToString();
             }
         }
 
         // Make a string representation of list omitting its "(" and ")".
-        static string StrListBody(Cell x, int count, HashSet<Cell> printed) {
+        static string StrListBody(Cell x, int count, HashSet<Cell> printed)
+        {
             if (printed == null)
                 printed = new HashSet<Cell>();
             var s = new List<string>();
             object y;
-            for (y = x; y is Cell cell; y = cell.Cdr) {
-                if (printed.Add(cell)) {
+            for (y = x; y is Cell cell; y = cell.Cdr)
+            {
+                if (printed.Add(cell))
+                {
                     count = 4;
-                } else {
+                }
+                else
+                {
                     count--;
-                    if (count < 0) {
+                    if (count < 0)
+                    {
                         s.Add("..."); // an ellipsis for a circular list
                         return String.Join(" ", s);
                     }
                 }
                 s.Add(Str4(cell.Car, true, count, printed));
             }
-            if (y != null) {
+            if (y != null)
+            {
                 s.Add(".");
                 s.Add(Str4(y, true, count, printed));
             }
@@ -3085,10 +3326,11 @@ namespace ServiceStack.Script
             bool breakLoop = false;
             context.MaxQuota = int.MaxValue;
             context.MaxEvaluations = long.MaxValue;
-            
+
             var interp = CreateInterpreter();
-            
-            var sw = new StreamWriter(Console.OpenStandardOutput()) {
+
+            var sw = new StreamWriter(Console.OpenStandardOutput())
+            {
                 AutoFlush = true
             };
             Console.SetOut(sw);
@@ -3112,9 +3354,9 @@ namespace ServiceStack.Script
                             Console.WriteLine($"Goodbye.\n\n");
                             return;
                         }
-                        
+
                         sb.AppendLine(line);
-                        while (Console.KeyAvailable) 
+                        while (Console.KeyAvailable)
                             sb.AppendLine(Console.ReadLine());
 
                         if (sb.ToString().Trim().Length == 0)
@@ -3122,8 +3364,8 @@ namespace ServiceStack.Script
 
                         var response = interp.ReplEval(context, sw.BaseStream, sb.ToString());
                         Console.WriteLine(response);
-                    } 
-                    catch (Exception ex) 
+                    }
+                    catch (Exception ex)
                     {
                         interp.COut.WriteLine(ex.InnerException ?? ex);
                     }
@@ -3133,7 +3375,7 @@ namespace ServiceStack.Script
 
         /// <summary>Lisp initialization script</summary>
         public static string InitScript = Prelude + LispCore + Extensions;
-    
+
         public const string Prelude = @"
 (setq defmacro
       (macro (name args &rest body)

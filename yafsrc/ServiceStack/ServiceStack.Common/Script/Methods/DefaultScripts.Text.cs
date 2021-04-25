@@ -16,17 +16,17 @@ namespace ServiceStack.Script
         public string Caption { get; set; }
         public List<string> Headers { get; } = new List<string>();
         public List<List<string>> Rows { get; } = new List<List<string>>();
-        
+
         public string Render()
         {
             if (Rows.Count == 0)
                 return null;
-            
+
             var sb = StringBuilderCache.Allocate();
 
             var headersCount = Headers.Count;
             var colSize = new int[headersCount];
-            var i=0;
+            var i = 0;
 
             var rowNumLength = IncludeRowNumbers ? (Rows.Count + 1).ToString().Length : 0;
 
@@ -36,8 +36,8 @@ namespace ServiceStack.Script
 
             for (; i < noOfCols; i++)
             {
-                colSize[i] = IncludeHeaders && i < headersCount 
-                    ? Headers[i].Length 
+                colSize[i] = IncludeHeaders && i < headersCount
+                    ? Headers[i].Length
                     : 0;
 
                 foreach (var row in Rows)
@@ -67,7 +67,7 @@ namespace ServiceStack.Script
                 {
                     var header = Headers[i];
                     sb.Append(header.PadRight(colSize[i], ' '))
-                        .Append( i + 1 < headersCount ? " | " : " |");
+                        .Append(i + 1 < headersCount ? " | " : " |");
                 }
                 sb.AppendLine();
 
@@ -81,7 +81,7 @@ namespace ServiceStack.Script
                 for (i = 0; i < headersCount; i++)
                 {
                     sb.Append("".PadRight(colSize[i], '-'))
-                        .Append( i + 1 < headersCount ? "-|-" : "-|");
+                        .Append(i + 1 < headersCount ? "-|-" : "-|");
                 }
                 sb.AppendLine();
             }
@@ -96,12 +96,12 @@ namespace ServiceStack.Script
                     sb.Append($"{rowIndex + 1}".PadRight(rowNumLength, ' '))
                         .Append(" | ");
                 }
-                    
+
                 for (i = 0; i < headersCount; i++)
                 {
                     var field = i < row.Count ? row[i] : null;
                     sb.Append((field ?? "").PadRight(colSize[i], ' '))
-                        .Append( i + 1 < headersCount ? " | " : " |");
+                        .Append(i + 1 < headersCount ? " | " : " |");
                 }
                 sb.AppendLine();
             }
@@ -114,18 +114,18 @@ namespace ServiceStack.Script
     public partial class DefaultScripts
     {
         public IRawString textList(IEnumerable target) => TextList(target, new TextDumpOptions { Defaults = Context.DefaultMethods }).ToRawString();
-        public IRawString textList(IEnumerable target, Dictionary<string, object> options) => 
+        public IRawString textList(IEnumerable target, Dictionary<string, object> options) =>
             TextList(target, TextDumpOptions.Parse(options, Context.DefaultMethods)).ToRawString();
-        
+
         public IRawString textDump(object target) => TextDump(target, new TextDumpOptions { Defaults = Context.DefaultMethods }).ToRawString();
-        public IRawString textDump(object target, Dictionary<string, object> options) => 
+        public IRawString textDump(object target, Dictionary<string, object> options) =>
             TextDump(target, TextDumpOptions.Parse(options, Context.DefaultMethods)).ToRawString();
-        
+
         public static string TextList(IEnumerable items, TextDumpOptions options)
         {
             if (options == null)
                 options = new TextDumpOptions();
-            
+
             if (items is IDictionary<string, object> single)
                 items = new[] { single };
 
@@ -138,7 +138,8 @@ namespace ServiceStack.Script
 
                 List<string> keys = null;
 
-                var table = new MarkdownTable {
+                var table = new MarkdownTable
+                {
                     IncludeRowNumbers = options.IncludeRowNumbers
                 };
 
@@ -156,12 +157,12 @@ namespace ServiceStack.Script
                         }
 
                         var row = new List<string>();
-                        
+
                         foreach (var key in keys)
                         {
                             var value = d[key];
                             if (ReferenceEquals(value, items)) break; // Prevent cyclical deps like 'it' binding
-                            
+
                             if (!isComplexType(value))
                             {
                                 row.Add(GetScalarText(value, options.Defaults));
@@ -200,14 +201,14 @@ namespace ServiceStack.Script
         {
             if (options == null)
                 options = new TextDumpOptions();
-            
+
             var depth = options.Depth;
             options.Depth += 1;
 
             try
             {
                 target = ConvertDumpType(target);
-                
+
                 if (!isComplexType(target))
                     return GetScalarText(target, options.Defaults);
 
@@ -227,7 +228,7 @@ namespace ServiceStack.Script
 
                     var sb = StringBuilderCacheAlt.Allocate();
 
-                    string writeCaption = null; 
+                    string writeCaption = null;
                     var caption = options.Caption;
                     if (caption != null && !options.HasCaption)
                     {
@@ -244,7 +245,7 @@ namespace ServiceStack.Script
                         {
                             foreach (var kvp in kvps)
                             {
-                                if (kvp.Value == target) 
+                                if (kvp.Value == target)
                                     break; // Prevent cyclical deps like 'it' binding
 
                                 keys.Add(ViewUtils.StyleText(kvp.Key, headerStyle) ?? "");
@@ -291,16 +292,16 @@ namespace ServiceStack.Script
                                 {
                                     values.Add(GetScalarText(o, options.Defaults));
                                 }
-                                
+
                                 var valuesSize = values.Max(MaxLineLength);
                                 if (writeCaption?.Length > valuesSize)
                                     valuesSize = writeCaption.Length;
 
-                                sb.AppendLine(writeCaption != null 
-                                    ? $"| {writeCaption.PadRight(valuesSize)} |" 
+                                sb.AppendLine(writeCaption != null
+                                    ? $"| {writeCaption.PadRight(valuesSize)} |"
                                     : $"||");
-                                sb.AppendLine(writeCaption != null 
-                                    ? $"|-{"".PadRight(valuesSize,'-')}-|" 
+                                sb.AppendLine(writeCaption != null
+                                    ? $"|-{"".PadRight(valuesSize, '-')}-|"
                                     : "|-|");
 
                                 foreach (var value in values)
@@ -318,7 +319,7 @@ namespace ServiceStack.Script
                                     if (writeCaption != null)
                                         sb.AppendLine(writeCaption)
                                           .AppendLine();
-                            
+
                                     var rows = objs.Map(x => x.ToObjectDictionary());
                                     var list = TextList(rows, options);
                                     sb.AppendLine(list);
@@ -338,15 +339,15 @@ namespace ServiceStack.Script
                                             values.Add(body);
                                         }
                                     }
-                                    
+
                                     var valuesSize = values.Max(MaxLineLength);
                                     if (writeCaption?.Length > valuesSize)
                                         valuesSize = writeCaption.Length;
 
-                                    sb.AppendLine(writeCaption != null 
-                                        ? $"| {writeCaption.PadRight(valuesSize, ' ')} |" 
+                                    sb.AppendLine(writeCaption != null
+                                        ? $"| {writeCaption.PadRight(valuesSize, ' ')} |"
                                         : $"||");
-                                    sb.AppendLine(writeCaption != null ? $"|-{"".PadRight(valuesSize,'-')}-|" : "|-|");
+                                    sb.AppendLine(writeCaption != null ? $"|-{"".PadRight(valuesSize, '-')}-|" : "|-|");
 
                                     foreach (var value in values)
                                     {
@@ -397,7 +398,7 @@ namespace ServiceStack.Script
                     }
                     if (elType != null)
                     {
-                        targetType = typeof(List<>).MakeGenericType(elType); 
+                        targetType = typeof(List<>).MakeGenericType(elType);
                         var genericList = (IList)targetType.CreateInstance();
                         foreach (var item in e)
                         {
@@ -406,13 +407,13 @@ namespace ServiceStack.Script
                         target = genericList;
                     }
                 }
-                
+
                 if (targetType.GetKeyValuePairsTypes(out var keyType, out var valueType, out var kvpType))
                 {
                     var keyGetter = TypeProperties.Get(kvpType).GetPublicGetter("Key");
                     var valueGetter = TypeProperties.Get(kvpType).GetPublicGetter("Value");
 
-                    string key1 = null, key2 = null; 
+                    string key1 = null, key2 = null;
                     foreach (var kvp in e)
                     {
                         if (key1 == null)
@@ -430,11 +431,11 @@ namespace ServiceStack.Script
                         var to = new List<Dictionary<string, object>>();
                         foreach (var kvp in e)
                         {
-                            to.Add(new Dictionary<string, object> { {keyGetter(kvp).ConvertTo<string>(), valueGetter(kvp) } });
+                            to.Add(new Dictionary<string, object> { { keyGetter(kvp).ConvertTo<string>(), valueGetter(kvp) } });
                         }
                         return to;
                     }
-                    
+
                     return target.ToObjectDictionary();
                 }
             }
@@ -451,7 +452,7 @@ namespace ServiceStack.Script
             foreach (var line in s.ReadLines())
             {
                 if (line.Length > len)
-                    len = line.Length;                
+                    len = line.Length;
             }
             return len;
         }

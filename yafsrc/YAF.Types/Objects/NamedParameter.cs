@@ -26,41 +26,41 @@ namespace YAF.Types.Objects
     using YAF.Types.Interfaces;
 
     /// <summary>
-  /// The named parameter.
-  /// </summary>
-  public class NamedParameter : IServiceLocationParameter
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="NamedParameter"/> class.
+    /// The named parameter.
     /// </summary>
-    /// <param name="name">
-    /// The name.
-    /// </param>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    public NamedParameter([NotNull] string name, [NotNull] object value)
+    public class NamedParameter : IServiceLocationParameter
     {
-      this.Name = name;
-      this.Value = value;
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NamedParameter"/> class.
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        public NamedParameter([NotNull] string name, [NotNull] object value)
+        {
+            this.Name = name;
+            this.Value = value;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets Name.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets Value.
+        /// </summary>
+        public object Value { get; set; }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets Name.
-    /// </summary>
-    public string Name { get; set; }
-
-    /// <summary>
-    /// Gets or sets Value.
-    /// </summary>
-    public object Value { get; set; }
-
-    #endregion
-  }
 }

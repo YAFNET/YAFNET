@@ -106,7 +106,7 @@ namespace YAF.Pages.Admin
                     cssClass = "info";
                     break;
                 case EventLogTypes.Debug:
-                    icon = "exclamation-triangle"; 
+                    icon = "exclamation-triangle";
                     cssClass = "warning";
                     break;
                 case EventLogTypes.Trace:
@@ -246,26 +246,26 @@ namespace YAF.Pages.Admin
                 type =>
                     {
                         var icon = type switch
-                            {
-                                EventLogTypes.Error => "radiation",
-                                EventLogTypes.Warning => "exclamation-triangle",
-                                EventLogTypes.Information => "exclamation",
-                                EventLogTypes.Debug => "exclamation-triangle",
-                                EventLogTypes.Trace => "exclamation-triangle",
-                                EventLogTypes.SqlError => "exclamation-triangle",
-                                EventLogTypes.UserSuspended => "user-clock",
-                                EventLogTypes.UserUnsuspended => "user-check",
-                                EventLogTypes.LoginFailure => "user-injured",
-                                EventLogTypes.UserDeleted => "user-alt-slash",
-                                EventLogTypes.IpBanSet => "hand-paper",
-                                EventLogTypes.IpBanLifted => "slash",
-                                EventLogTypes.IpBanDetected => "hand-paper",
-                                EventLogTypes.SpamBotReported => "user-ninja",
-                                EventLogTypes.SpamBotDetected => "user-lock",
-                                EventLogTypes.SpamMessageReported => "flag",
-                                EventLogTypes.SpamMessageDetected => "shield-alt",
-                                _ => "exclamation-circle"
-                            };
+                        {
+                            EventLogTypes.Error => "radiation",
+                            EventLogTypes.Warning => "exclamation-triangle",
+                            EventLogTypes.Information => "exclamation",
+                            EventLogTypes.Debug => "exclamation-triangle",
+                            EventLogTypes.Trace => "exclamation-triangle",
+                            EventLogTypes.SqlError => "exclamation-triangle",
+                            EventLogTypes.UserSuspended => "user-clock",
+                            EventLogTypes.UserUnsuspended => "user-check",
+                            EventLogTypes.LoginFailure => "user-injured",
+                            EventLogTypes.UserDeleted => "user-alt-slash",
+                            EventLogTypes.IpBanSet => "hand-paper",
+                            EventLogTypes.IpBanLifted => "slash",
+                            EventLogTypes.IpBanDetected => "hand-paper",
+                            EventLogTypes.SpamBotReported => "user-ninja",
+                            EventLogTypes.SpamBotDetected => "user-lock",
+                            EventLogTypes.SpamMessageReported => "flag",
+                            EventLogTypes.SpamMessageDetected => "shield-alt",
+                            _ => "exclamation-circle"
+                        };
 
                         var item = new ListItem { Value = type.ToInt().ToString(), Text = type.ToString() };
 

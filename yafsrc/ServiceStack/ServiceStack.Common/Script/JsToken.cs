@@ -26,7 +26,7 @@ namespace ServiceStack.Script
         public override string ToString() => ToRawString();
 
         public abstract object Evaluate(ScriptScopeContext scope);
-            
+
         public static object UnwrapValue(JsToken token)
         {
             if (token is JsLiteral literal)
@@ -50,7 +50,7 @@ namespace ServiceStack.Script
         public static readonly byte[] NewLineUtf8;
 
         private const byte True = 1;
-        
+
         static JsTokenUtils()
         {
             NewLineUtf8 = new byte[] { 10 }; // UTF8.GetBytes("\n");
@@ -67,7 +67,7 @@ namespace ServiceStack.Script
             ExpressionTerminatorChars = e;
 
             var a = new byte['z' + 1];
-            for (var i = (int) '$'; i < a.Length; i++)
+            for (var i = (int)'$'; i < a.Length; i++)
             {
                 if (i >= 'A' && i <= 'Z' || i >= 'a' && i <= 'z' || i >= '0' && i <= '9' || i == '_' || i == '$')
                     a[i] = True;
@@ -139,11 +139,11 @@ namespace ServiceStack.Script
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool FirstCharEquals(this ReadOnlySpan<char> literal, char c) => 
+        public static bool FirstCharEquals(this ReadOnlySpan<char> literal, char c) =>
             !literal.IsNullOrEmpty() && literal[0] == c;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool FirstCharEquals(this string literal, char c) => 
+        public static bool FirstCharEquals(this string literal, char c) =>
             !string.IsNullOrEmpty(literal) && literal[0] == c;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -172,26 +172,26 @@ namespace ServiceStack.Script
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ReadOnlySpan<char> AdvancePastPipeOperator(this ReadOnlySpan<char> literal) =>
-            literal.SafeCharEquals(1,'>')
+            literal.SafeCharEquals(1, '>')
                 ? literal.Advance(2) // support new JS |> operator 
-                : ScriptConfig.AllowUnixPipeSyntax ? literal.Advance(1) 
+                : ScriptConfig.AllowUnixPipeSyntax ? literal.Advance(1)
                     : throw new SyntaxErrorException("Unix Pipe syntax is disallowed, use JS Pipeline Operator syntax '|>' or set ScriptConfig.AllowUnixPipeSyntax=true; ");
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static char SafeGetChar(this ReadOnlyMemory<char> literal, int index) => literal.Span.SafeGetChar(index);
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsEnd(this char c) => c == default(char);
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ReadOnlyMemory<char> Chop(this ReadOnlyMemory<char> literal, char c) => 
-            literal.IsEmpty || literal.Span[literal.Length -1] != c 
+        public static ReadOnlyMemory<char> Chop(this ReadOnlyMemory<char> literal, char c) =>
+            literal.IsEmpty || literal.Span[literal.Length - 1] != c
                 ? literal
                 : literal.Slice(0, literal.Length - 1);
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ReadOnlySpan<char> Chop(this ReadOnlySpan<char> literal, char c) => 
-            literal.IsEmpty || literal[literal.Length -1] != c 
+        public static ReadOnlySpan<char> Chop(this ReadOnlySpan<char> literal, char c) =>
+            literal.IsEmpty || literal[literal.Length - 1] != c
                 ? literal
                 : literal.Slice(0, literal.Length - 1);
 
@@ -232,9 +232,9 @@ namespace ServiceStack.Script
         internal static string DebugChar(this char c) => c == 0 ? "'<end>'" : $"'{c}'";
 
         internal static string DebugToken(this JsToken token) => $"'{token}'";
-        
+
         internal static string DebugLiteral(this ReadOnlySpan<char> literal) => $"'{literal.SubstringWithEllipsis(0, 50)}'";
-        
+
         internal static string DebugLiteral(this ReadOnlyMemory<char> literal) => $"'{literal.Span.SubstringWithEllipsis(0, 50)}'";
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -332,7 +332,7 @@ namespace ServiceStack.Script
             }
             return false;
         }
-        
+
         public static ReadOnlySpan<char> ParseJsToken(this ReadOnlySpan<char> literal, out JsToken token) => ParseJsToken(literal, out token, false);
         public static ReadOnlySpan<char> ParseJsToken(this ReadOnlySpan<char> literal, out JsToken token, bool filterExpression)
         {
@@ -343,7 +343,7 @@ namespace ServiceStack.Script
                 token = null;
                 return literal;
             }
-            
+
             var c = literal[0];
             if (c == '(')
             {
@@ -360,7 +360,7 @@ namespace ServiceStack.Script
 
                 if (!literal.FirstCharEquals(',') || !(bracketsExpr is JsIdentifier param1))
                     throw new SyntaxErrorException($"Expected ')' but instead found {literal.DebugFirstChar()} near: {literal.DebugLiteral()}");
-                
+
                 literal = literal.Advance(1);
                 var args = new List<JsIdentifier> { param1, };
                 while (true)
@@ -373,13 +373,13 @@ namespace ServiceStack.Script
                     args.Add(param);
 
                     literal = literal.AdvancePastWhitespace();
-                        
+
                     if (literal.FirstCharEquals(')'))
                         break;
-                        
+
                     if (!literal.FirstCharEquals(','))
                         throw new SyntaxErrorException($"Expected ',' or ')' but was instead '{literal.DebugFirstChar()}', near: {literal.DebugLiteral()}");
-                            
+
                     literal = literal.Advance(1);
                 }
 
@@ -390,7 +390,7 @@ namespace ServiceStack.Script
             }
 
             token = null;
-            c = (char) 0;
+            c = (char)0;
 
             if (literal.IsNullOrEmpty())
                 return default;
@@ -405,7 +405,7 @@ namespace ServiceStack.Script
                 i = literal.IndexOfQuotedString(quoteChar, out var hasEscapeChar);
                 if (i == -1)
                     throw new SyntaxErrorException($"Unterminated string literal: {literal.ToString()}");
-                
+
                 var rawString = literal.Slice(1, i - 1);
 
                 if (quoteChar == '`')
@@ -437,7 +437,7 @@ namespace ServiceStack.Script
                 {
                     token = new JsLiteral(rawString.ToString());
                 }
-                
+
                 return literal.Advance(i + 1);
             }
 
@@ -466,7 +466,7 @@ namespace ServiceStack.Script
                     }
                 }
 
-                var hasMemberSuffix = literal.SafeCharEquals(i-1, '.'); // 1.square()
+                var hasMemberSuffix = literal.SafeCharEquals(i - 1, '.'); // 1.square()
                 var numLiteral = literal.Slice(0, hasMemberSuffix ? i - 1 : i);
 
                 //don't convert into ternary to avoid Type coercion
@@ -475,7 +475,7 @@ namespace ServiceStack.Script
                 else
                     token = new JsLiteral(numLiteral.ParseSignedInteger());
 
-                if (hasMemberSuffix) 
+                if (hasMemberSuffix)
                 {
                     literal = literal.Advance(numLiteral.Length).ParseJsMemberExpression(ref token, filterExpression);
                     return literal;
@@ -503,34 +503,34 @@ namespace ServiceStack.Script
                     {
                         literal = literal.Advance(3);
                         literal = literal.ParseJsExpression(out mapValueToken);
-                        
+
                         props.Add(new JsProperty(null, new JsSpreadElement(mapValueToken)));
                     }
                     else
                     {
                         literal = literal.ParseJsToken(out var mapKeyToken);
 
-                        if (!(mapKeyToken is JsLiteral) && !(mapKeyToken is JsTemplateLiteral) && !(mapKeyToken is JsIdentifier) && !(mapKeyToken is JsMemberExpression)) 
+                        if (!(mapKeyToken is JsLiteral) && !(mapKeyToken is JsTemplateLiteral) && !(mapKeyToken is JsIdentifier) && !(mapKeyToken is JsMemberExpression))
                             throw new SyntaxErrorException($"{mapKeyToken.DebugToken()} is not a valid Object key, expected literal, identifier or member expression.");
-    
+
                         bool shorthand = false;
-    
+
                         literal = literal.AdvancePastWhitespace();
                         if (literal.Length > 0 && literal[0] == ':')
                         {
                             literal = literal.Advance(1);
                             literal = literal.ParseJsExpression(out mapValueToken);
-    
+
                         }
-                        else 
+                        else
                         {
                             shorthand = true;
                             if (literal.Length == 0 || (c = literal[0]) != ',' && c != '}')
                                 throw new SyntaxErrorException($"Unterminated object literal near: {literal.DebugLiteral()}");
-                                
+
                             mapValueToken = mapKeyToken;
                         }
-                        
+
                         props.Add(new JsProperty(mapKeyToken, mapValueToken, shorthand));
                     }
 
@@ -569,7 +569,7 @@ namespace ServiceStack.Script
                 token = new JsUnaryExpression(unaryOp, arg);
                 return literal;
             }
-            
+
             // identifier
             literal = literal.ParseIdentifier(out var node);
 
@@ -606,7 +606,7 @@ namespace ServiceStack.Script
 
             if (i >= literal.Length || literal[i] != quoteChar)
                 return -1;
-            
+
             return i;
         }
 
@@ -648,7 +648,7 @@ namespace ServiceStack.Script
 
             return literal;
         }
-        
+
         private static JsToken ParseJsTemplateLiteral(ReadOnlySpan<char> literal)
         {
             var quasis = new List<JsTemplateElement>();
@@ -658,23 +658,23 @@ namespace ServiceStack.Script
             for (var i = 0; i < literal.Length; i++)
             {
                 var c = literal[i];
-                var isExpr = c == '$' && literal.CountPrecedingOccurrences(i - 1, '\\') % 2 != 1 && literal.SafeGetChar(i + 1) == '{'; 
+                var isExpr = c == '$' && literal.CountPrecedingOccurrences(i - 1, '\\') % 2 != 1 && literal.SafeGetChar(i + 1) == '{';
                 if (!isExpr)
                     continue;
 
                 var lastChunk = literal.Slice(lastPos, i - lastPos);
                 quasis.Add(new JsTemplateElement(
-                    new JsTemplateElementValue(lastChunk.ToString(), lastChunk.CookRawString('`')), 
-                    tail:false));
+                    new JsTemplateElementValue(lastChunk.ToString(), lastChunk.CookRawString('`')),
+                    tail: false));
 
                 var exprStart = literal.Slice(i + 2);
                 var afterExpr = exprStart.ParseJsExpression(out var expr);
                 afterExpr = afterExpr.AdvancePastWhitespace();
-                
+
                 if (!afterExpr.FirstCharEquals('}'))
                     throw new SyntaxErrorException($"Expected end of template literal expression '}}' but was instead {literal.DebugFirstChar()}");
                 afterExpr = afterExpr.Advance(1);
-                
+
                 expressions.Add(expr);
 
                 lastPos = literal.Length - afterExpr.Length;
@@ -684,21 +684,21 @@ namespace ServiceStack.Script
             var endChunk = literal.Slice(lastPos);
 
             quasis.Add(new JsTemplateElement(
-                new JsTemplateElementValue(endChunk.ToString(), endChunk.CookRawString('`')), 
-                tail:true));
-            
+                new JsTemplateElementValue(endChunk.ToString(), endChunk.CookRawString('`')),
+                tail: true));
+
             return new JsTemplateLiteral(quasis.ToArray(), expressions.ToArray());
         }
 
         internal static ReadOnlySpan<char> ParseArrowExpressionBody(this ReadOnlySpan<char> literal, JsIdentifier[] args, out JsArrowFunctionExpression token)
         {
             literal = literal.AdvancePastWhitespace();
-            
+
             if (!literal.StartsWith("=>"))
                 throw new SyntaxErrorException($"Expected '=>' but instead found {literal.DebugFirstChar()} near: {literal.DebugLiteral()}");
 
             literal = literal.Advance(2);
-            literal = literal.ParseJsExpression(out var body, filterExpression:true);
+            literal = literal.ParseJsExpression(out var body, filterExpression: true);
             token = new JsArrowFunctionExpression(args, body);
             return literal;
         }
@@ -723,16 +723,16 @@ namespace ServiceStack.Script
                 {
                     declarations.Add(new JsDeclaration((JsIdentifier)id, null));
                 }
-                
+
                 literal = literal.AdvancePastWhitespace();
                 if (!literal.FirstCharEquals(','))
                     break;
-                
+
                 literal = literal.Advance(1);
             }
-            
+
             literal = literal.AdvancePastWhitespace();
-            
+
             token = new JsVariableDeclaration(kind, declarations.ToArray());
             return literal;
         }
@@ -758,7 +758,7 @@ namespace ServiceStack.Script
 
             if (literal.IsNullOrEmpty())
                 return literal;
-            
+
             var c = literal[0];
 
             while (c == '.' || c == '[' || c == '(' || (filterExpression && c == ':'))
@@ -796,14 +796,14 @@ namespace ServiceStack.Script
                     var peekLiteral = literal.AdvancePastWhitespace();
                     if (peekLiteral.StartsWith("=>"))
                     {
-                        literal = peekLiteral.ParseArrowExpressionBody(new[]{ new JsIdentifier("it") }, out var arrowExpr);
+                        literal = peekLiteral.ParseArrowExpressionBody(new[] { new JsIdentifier("it") }, out var arrowExpr);
                         node = arrowExpr;
                         return literal;
                     }
                 }
 
                 literal = literal.AdvancePastWhitespace();
-                    
+
                 if (literal.IsNullOrEmpty())
                     break;
 
@@ -827,10 +827,10 @@ namespace ServiceStack.Script
         {
             literal = literal.AdvancePastWhitespace();
             op = null;
-            
+
             if (literal.IsNullOrEmpty())
                 return literal;
-            
+
             var firstChar = literal[0];
             if (firstChar.IsOperatorChar())
             {
@@ -929,7 +929,7 @@ namespace ServiceStack.Script
                     case '%':
                         op = JsMod.Operator;
                         return literal.Advance(1);
-                    
+
                     case '?': // a single '?' is not a binary operator but is an op char used in '??'
                         return literal;
                     default:
@@ -961,7 +961,7 @@ namespace ServiceStack.Script
                 throw new SyntaxErrorException($"Expected start of identifier but was {c.DebugChar()} near: {literal.DebugLiteral()}");
 
             var i = 1;
-            
+
             while (i < literal.Length)
             {
                 c = literal[i];
@@ -987,7 +987,7 @@ namespace ServiceStack.Script
                 throw new SyntaxErrorException($"Expected start of identifier but was {c.DebugChar()} near: {literal.DebugLiteral()}");
 
             var i = 1;
-            
+
             var span = literal.Span;
             while (i < span.Length)
             {
@@ -1008,7 +1008,7 @@ namespace ServiceStack.Script
         internal static ReadOnlySpan<char> ParseIdentifier(this ReadOnlySpan<char> literal, out JsToken token)
         {
             literal = literal.ParseVarName(out var identifier);
-            
+
             if (identifier.EqualsOrdinal("true"))
                 token = JsLiteral.True;
             else if (identifier.EqualsOrdinal("false"))
@@ -1024,17 +1024,17 @@ namespace ServiceStack.Script
 
             return literal;
         }
-        
+
     }
 
     public static class CallExpressionUtils
     {
-        private const char WhitespaceArgument = ':'; 
-        
-        public static ReadOnlySpan<char> ParseJsCallExpression(this ReadOnlySpan<char> literal, out JsCallExpression expression, bool filterExpression=false)
+        private const char WhitespaceArgument = ':';
+
+        public static ReadOnlySpan<char> ParseJsCallExpression(this ReadOnlySpan<char> literal, out JsCallExpression expression, bool filterExpression = false)
         {
             literal = literal.ParseIdentifier(out var token);
-            
+
             if (!(token is JsIdentifier identifier))
                 throw new SyntaxErrorException($"Expected identifier but instead found {token.DebugToken()}");
 
@@ -1047,10 +1047,10 @@ namespace ServiceStack.Script
                 expression = new JsCallExpression(identifier, argument);
                 return literal;
             }
-            
+
             if (literal.StartsWith("=>"))
             {
-                literal = literal.ParseArrowExpressionBody(new[]{ new JsIdentifier("it") }, out var arrowExpr);
+                literal = literal.ParseArrowExpressionBody(new[] { new JsIdentifier("it") }, out var arrowExpr);
                 expression = new JsCallExpression(identifier, arrowExpr);
                 return literal;
             }
@@ -1060,7 +1060,7 @@ namespace ServiceStack.Script
                 expression = new JsCallExpression(identifier);
                 return literal;
             }
-            
+
             literal = literal.Advance(1);
 
             literal = literal.ParseArguments(out var args, termination: ')');
@@ -1075,15 +1075,15 @@ namespace ServiceStack.Script
             // replace everything after ':' up till new line and rewrite as single string to method
             var endStringPos = literal.IndexOf("\n");
             var endStatementPos = literal.IndexOf("}}");
-    
+
             if (endStringPos == -1 || (endStatementPos != -1 && endStatementPos < endStringPos))
                 endStringPos = endStatementPos;
-                            
+
             if (endStringPos == -1)
                 throw new SyntaxErrorException($"Whitespace sensitive syntax did not find a '\\n' new line to mark the end of the statement, near {literal.DebugLiteral()}");
 
             var originalArg = literal.Slice(0, endStringPos).Trim().ToString();
-            var rewrittenArgs = originalArg.Replace("{","{{").Replace("}","}}");
+            var rewrittenArgs = originalArg.Replace("{", "{{").Replace("}", "}}");
             var strArg = new JsLiteral(rewrittenArgs);
 
             argument = strArg;
@@ -1097,7 +1097,7 @@ namespace ServiceStack.Script
             while (!literal.IsNullOrEmpty())
             {
                 JsToken listValue;
-                
+
                 literal = literal.AdvancePastWhitespace();
                 if (literal[0] == termination)
                     break;
@@ -1106,9 +1106,9 @@ namespace ServiceStack.Script
                 {
                     literal = literal.Advance(3);
                     literal = literal.ParseJsExpression(out listValue);
-                    if (!(listValue is JsIdentifier) && !(listValue is JsArrayExpression) && !(listValue is JsCallExpression)) 
+                    if (!(listValue is JsIdentifier) && !(listValue is JsArrayExpression) && !(listValue is JsCallExpression))
                         throw new SyntaxErrorException($"Spread operator expected array but instead found {listValue.DebugToken()}");
-                    
+
                     listValue = new JsSpreadElement(listValue);
                 }
                 else
@@ -1121,7 +1121,7 @@ namespace ServiceStack.Script
                 literal = literal.AdvancePastWhitespace();
                 if (literal.IsNullOrEmpty())
                     break;
-                    
+
                 if (literal[0] == termination)
                     break;
 
@@ -1129,10 +1129,10 @@ namespace ServiceStack.Script
                 var c = literal.SafeGetChar(0);
                 if (c.IsEnd() || c == termination)
                     break;
-                    
+
                 if (c != ',')
                     throw new SyntaxErrorException($"Unterminated arguments expression near: {literal.DebugLiteral()}");
-                    
+
                 literal = literal.Advance(1);
                 literal = literal.AdvancePastWhitespace();
             }

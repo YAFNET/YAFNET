@@ -102,7 +102,7 @@ namespace YAF.Types.Models
         /// Gets or sets a value indicating whether edit access.
         /// </summary>
         public bool EditAccess { get; set; }
-        
+
 
         /// <summary>
         /// Gets or sets a value indicating whether delete access.

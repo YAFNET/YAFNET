@@ -152,7 +152,7 @@ namespace YAF.Pages.Moderate
                 // nope -- redirect back to the moderate main...
                 this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Index);
             }
-            
+
             this.List.DataSource = dt;
 
             // bind data to controls

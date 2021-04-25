@@ -155,21 +155,21 @@ namespace YAF.Controls
                 var forumIconNormal =
                     new Icon { IconName = "comments", IconSize = "fa-2x", IconType = "text-secondary" };
                 var forumIconLocked = new Icon
-                                          {
-                                              IconName = "comments",
-                                              IconStackName = "lock",
-                                              IconStackType = "text-warning",
-                                              IconStackSize = "fa-1x",
-                                              IconType = "text-secondary"
-                                          };
+                {
+                    IconName = "comments",
+                    IconStackName = "lock",
+                    IconStackType = "text-warning",
+                    IconStackSize = "fa-1x",
+                    IconType = "text-secondary"
+                };
 
                 var icon = new Literal
-                               {
-                                   Text =
+                {
+                    Text =
                                        $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"">
                                                       {forumIconNew.RenderToString()}
                                                   </a>"
-                               };
+                };
 
                 try
                 {
@@ -379,9 +379,9 @@ namespace YAF.Controls
         /// </returns>
         protected string Topics([NotNull] ForumRead item)
         {
-            return item.RemoteURL.IsNotSet()  ? $"{item.Topics:N0}" : "-";
+            return item.RemoteURL.IsNotSet() ? $"{item.Topics:N0}" : "-";
         }
 
         #endregion
     }
-} 
+}

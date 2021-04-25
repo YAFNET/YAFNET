@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -59,13 +59,13 @@ namespace ServiceStack
         {
             return (T)((Task)task).GetResult();
         }
-        
+
         private static readonly TaskFactory SyncTaskFactory = new TaskFactory(CancellationToken.None,
             TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
         public static void RunSync(Func<Task> task) => SyncTaskFactory.StartNew(task).Unwrap().GetAwaiter().GetResult();
         public static TResult RunSync<TResult>(Func<Task<TResult>> task) => SyncTaskFactory.StartNew(task).Unwrap().GetAwaiter().GetResult();
-        
-#if NET472 || NETSTANDARD2_0        
+
+#if NET48 || NETSTANDARD2_0
         public static ValueTask AsValueTask(this Task task) => new ValueTask(task);
         public static ValueTask<T> AsValueTask<T>(this Task<T> task) => new ValueTask<T>(task);
 #endif

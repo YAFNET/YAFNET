@@ -264,15 +264,15 @@ namespace YAF.Pages.Admin
 
             // data
             string ribbonUrl = null, smallRibbonUrl = null;
-            
+
             // flags
             var flags = new MedalFlags(0)
-                            {
-                                ShowMessage = this.ShowMessage.Checked,
-                                AllowRibbon = this.AllowRibbon.Checked,
-                                AllowReOrdering = false,
-                                AllowHiding = this.AllowHiding.Checked
-                            };
+            {
+                ShowMessage = this.ShowMessage.Checked,
+                AllowRibbon = this.AllowRibbon.Checked,
+                AllowReOrdering = false,
+                AllowHiding = this.AllowHiding.Checked
+            };
 
             // get medal images
             var imageUrl = this.MedalImage.SelectedItem.Text;

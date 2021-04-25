@@ -41,7 +41,7 @@ namespace ServiceStack
 
         public static object Convert<T>(object objCollection, Type toCollectionType)
         {
-            var collection = (ICollection<T>) objCollection;
+            var collection = (ICollection<T>)objCollection;
             var to = new T[collection.Count];
             collection.CopyTo(to, 0);
             return CreateAndPopulate(toCollectionType, to);

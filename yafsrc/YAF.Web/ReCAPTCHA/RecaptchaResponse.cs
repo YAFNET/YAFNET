@@ -26,94 +26,94 @@ namespace YAF.Web.ReCAPTCHA
     using YAF.Types;
 
     /// <summary>
-  /// The reCAPTCHA response.
-  /// </summary>
-  public class RecaptchaResponse
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The invalid solution.
+    /// The reCAPTCHA response.
     /// </summary>
-    public static readonly RecaptchaResponse InvalidSolution = new(false, "incorrect-captcha-sol");
-
-    /// <summary>
-    ///   The reCAPTCHA not reachable.
-    /// </summary>
-    public static readonly RecaptchaResponse RecaptchaNotReachable = new(
-      false, "recaptcha-not-reachable");
-
-    /// <summary>
-    ///   The valid.
-    /// </summary>
-    public static readonly RecaptchaResponse Valid = new(true, string.Empty);
-
-    #endregion
-
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RecaptchaResponse"/> class.
-    /// </summary>
-    /// <param name="isValid">
-    /// The is valid.
-    /// </param>
-    /// <param name="errorCode">
-    /// The error code.
-    /// </param>
-    internal RecaptchaResponse(bool isValid, [NotNull] string errorCode)
+    public class RecaptchaResponse
     {
-      this.IsValid = isValid;
-      this.ErrorCode = errorCode;
+        #region Constants and Fields
+
+        /// <summary>
+        ///   The invalid solution.
+        /// </summary>
+        public static readonly RecaptchaResponse InvalidSolution = new(false, "incorrect-captcha-sol");
+
+        /// <summary>
+        ///   The reCAPTCHA not reachable.
+        /// </summary>
+        public static readonly RecaptchaResponse RecaptchaNotReachable = new(
+          false, "recaptcha-not-reachable");
+
+        /// <summary>
+        ///   The valid.
+        /// </summary>
+        public static readonly RecaptchaResponse Valid = new(true, string.Empty);
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RecaptchaResponse"/> class.
+        /// </summary>
+        /// <param name="isValid">
+        /// The is valid.
+        /// </param>
+        /// <param name="errorCode">
+        /// The error code.
+        /// </param>
+        internal RecaptchaResponse(bool isValid, [NotNull] string errorCode)
+        {
+            this.IsValid = isValid;
+            this.ErrorCode = errorCode;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets ErrorCode.
+        /// </summary>
+        public string ErrorCode { get; }
+
+        /// <summary>
+        ///   Gets a value indicating whether IsValid.
+        /// </summary>
+        public bool IsValid { get; }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="recaptchaResponse">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        /// The equals.
+        /// </returns>
+        public override bool Equals([NotNull] object recaptchaResponse)
+        {
+            var response = (RecaptchaResponse)recaptchaResponse;
+            if (response == null)
+            {
+                return false;
+            }
+
+            return response.IsValid == this.IsValid && response.ErrorCode == this.ErrorCode;
+        }
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// The get hash code.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            return this.IsValid.GetHashCode() ^ this.ErrorCode.GetHashCode();
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    ///   Gets ErrorCode.
-    /// </summary>
-    public string ErrorCode { get; }
-
-    /// <summary>
-    ///   Gets a value indicating whether IsValid.
-    /// </summary>
-    public bool IsValid { get; }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
-    /// </summary>
-    /// <param name="recaptchaResponse">The <see cref="System.Object" /> to compare with this instance.</param>
-    /// <returns>
-    /// The equals.
-    /// </returns>
-    public override bool Equals([NotNull] object recaptchaResponse)
-    {
-      var response = (RecaptchaResponse)recaptchaResponse;
-      if (response == null)
-      {
-        return false;
-      }
-
-      return response.IsValid == this.IsValid && response.ErrorCode == this.ErrorCode;
-    }
-
-    /// <summary>
-    /// Returns a hash code for this instance.
-    /// </summary>
-    /// <returns>
-    /// The get hash code.
-    /// </returns>
-    public override int GetHashCode()
-    {
-      return this.IsValid.GetHashCode() ^ this.ErrorCode.GetHashCode();
-    }
-
-    #endregion
-  }
 }

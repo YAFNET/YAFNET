@@ -506,7 +506,7 @@ namespace ServiceStack.Text.Common
                 return DateTimeOffset.MinValue;
             if (wcfJsonDate == MaxDateTimeOffsetWcfValue)
                 return DateTimeOffset.MaxValue;
-            
+
             if (wcfJsonDate[0] == '\\')
             {
                 wcfJsonDate = wcfJsonDate.Substring(1);
@@ -615,7 +615,7 @@ namespace ServiceStack.Text.Common
         public static void WriteWcfJsonDate(TextWriter writer, DateTime dateTime)
         {
             var config = JsConfig.GetConfig();
-            
+
             dateTime = dateTime.UseConfigSpecifiedSetting();
             switch (config.DateHandler)
             {
@@ -668,7 +668,7 @@ namespace ServiceStack.Text.Common
                 return StringBuilderThreadStatic.ReturnAndFree(sb);
             }
         }
-        
+
         public static void WriteWcfJsonDateTimeOffset(TextWriter writer, DateTimeOffset dateTimeOffset)
         {
             if (JsConfig.DateHandler == DateHandler.ISO8601)

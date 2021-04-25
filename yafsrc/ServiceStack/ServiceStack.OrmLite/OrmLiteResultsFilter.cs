@@ -33,7 +33,7 @@ namespace ServiceStack.OrmLite
         HashSet<T> GetColumnDistinct<T>(IDbCommand dbCmd);
 
         Dictionary<K, V> GetDictionary<K, V>(IDbCommand dbCmd);
-        
+
         List<KeyValuePair<K, V>> GetKeyValuePairs<K, V>(IDbCommand dbCmd);
 
         Dictionary<K, List<V>> GetLookup<K, V>(IDbCommand dbCmd);

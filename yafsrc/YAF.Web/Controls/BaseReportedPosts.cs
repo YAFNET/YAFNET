@@ -109,7 +109,7 @@ namespace YAF.Web.Controls
 
                         // If the message was previously resolved we have not null string
                         // and can add an info about last user who resolved the message
-                        if (this.ResolvedDate.IsSet()  && DateTime.Parse(this.ResolvedDate) > DateTime.MinValue)
+                        if (this.ResolvedDate.IsSet() && DateTime.Parse(this.ResolvedDate) > DateTime.MinValue)
                         {
                             var resolvedBy = this.GetRepository<User>().GetById(
                                 this.ResolvedBy.Value);

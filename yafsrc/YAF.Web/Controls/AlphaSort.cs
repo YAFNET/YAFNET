@@ -111,17 +111,17 @@ namespace YAF.Web.Controls
                                 {
                                     // create a link to this letter
                                     var link = new HyperLink
-                                                   {
-                                                       ToolTip =
+                                    {
+                                        ToolTip =
                                                            this.GetTextFormatted(
                                                                "ALPHABET_FILTER_BY",
                                                                letter.ToString()),
-                                                       Text = letter.ToString(),
-                                                       NavigateUrl = this.Get<LinkBuilder>().GetLink(
+                                        Text = letter.ToString(),
+                                        NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                                            ForumPages.Members,
                                                            "letter={0}",
                                                            letter == '#' ? '_' : letter)
-                                                   };
+                                    };
 
                                     if (selectedLetter != char.MinValue && selectedLetter == letter)
                                     {

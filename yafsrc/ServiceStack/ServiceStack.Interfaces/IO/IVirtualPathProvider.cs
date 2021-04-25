@@ -5,7 +5,7 @@ namespace ServiceStack.IO
 {
     public interface IVirtualPathProvider
     {
-		IVirtualDirectory RootDirectory { get; }
+        IVirtualDirectory RootDirectory { get; }
         string VirtualPathSeparator { get; }
         string RealPathSeparator { get; }
 

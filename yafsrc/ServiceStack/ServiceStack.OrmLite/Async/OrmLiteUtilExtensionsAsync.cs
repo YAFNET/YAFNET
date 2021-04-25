@@ -24,24 +24,24 @@ namespace ServiceStack.OrmLite
         public static async Task<T> ConvertToAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
         {
             using (reader)
-            return await dialectProvider.ReaderRead(reader, () =>
-            {
-                if (typeof(T) == typeof(List<object>))
-                    return (T) (object) reader.ConvertToListObjects();
+                return await dialectProvider.ReaderRead(reader, () =>
+                {
+                    if (typeof(T) == typeof(List<object>))
+                        return (T)(object)reader.ConvertToListObjects();
 
-                if (typeof(T) == typeof(Dictionary<string, object>))
-                    return (T) (object) reader.ConvertToDictionaryObjects();
+                    if (typeof(T) == typeof(Dictionary<string, object>))
+                        return (T)(object)reader.ConvertToDictionaryObjects();
 
-                var values = new object[reader.FieldCount];
+                    var values = new object[reader.FieldCount];
 
-                if (typeof(T).IsValueTuple())
-                    return reader.ConvertToValueTuple<T>(values, dialectProvider);
+                    if (typeof(T).IsValueTuple())
+                        return reader.ConvertToValueTuple<T>(values, dialectProvider);
 
-                var row = CreateInstance<T>();
-                var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider);
-                row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
-                return row;
-            }, token).ConfigAwait();
+                    var row = CreateInstance<T>();
+                    var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider);
+                    row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
+                    return row;
+                }, token).ConfigAwait();
         }
 
         public static async Task<List<T>> ConvertToListAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, HashSet<string> onlyFields, CancellationToken token)
@@ -53,7 +53,7 @@ namespace ServiceStack.OrmLite
                     return await dialectProvider.ReaderEach(reader, () =>
                     {
                         var row = reader.ConvertToListObjects();
-                        return (T) (object) row;
+                        return (T)(object)row;
                     }, token).ConfigAwait();
                 }
             }
@@ -64,7 +64,7 @@ namespace ServiceStack.OrmLite
                     return await dialectProvider.ReaderEach(reader, () =>
                     {
                         var row = reader.ConvertToDictionaryObjects();
-                        return (T) (object) row;
+                        return (T)(object)row;
                     }, token).ConfigAwait();
                 }
             }
@@ -75,7 +75,7 @@ namespace ServiceStack.OrmLite
                     return await dialectProvider.ReaderEach(reader, () =>
                     {
                         var row = reader.ConvertToExpandoObject();
-                        return (T) (object) row;
+                        return (T)(object)row;
                     }, token).ConfigAwait();
                 }
             }
@@ -106,13 +106,13 @@ namespace ServiceStack.OrmLite
                     {
                         var tupleArgs = reader.ToMultiTuple(dialectProvider, modelIndexCaches, genericArgs, values);
                         var tuple = activator(tupleArgs.ToArray());
-                        return (T) tuple;
+                        return (T)tuple;
                     }, token).ConfigAwait();
                 }
             }
             else
             {
-                var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider, onlyFields:onlyFields);
+                var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider, onlyFields: onlyFields);
                 var values = new object[reader.FieldCount];
 
                 using (reader)
@@ -132,14 +132,14 @@ namespace ServiceStack.OrmLite
             var modelDef = type.GetModelDefinition();
             var indexCache = reader.GetIndexFieldsCache(modelDef, dialectProvider);
             var values = new object[reader.FieldCount];
-            
+
             using (reader)
-            return await dialectProvider.ReaderRead(reader, () =>
-            {
-                var row = type.CreateInstance();
-                row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
-                return row;
-            }, token).ConfigAwait();
+                return await dialectProvider.ReaderRead(reader, () =>
+                {
+                    var row = type.CreateInstance();
+                    row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
+                    return row;
+                }, token).ConfigAwait();
         }
 
         public static async Task<IList> ConvertToListAsync(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, Type type, CancellationToken token)

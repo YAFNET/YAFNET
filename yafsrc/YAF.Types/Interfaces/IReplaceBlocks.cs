@@ -23,35 +23,35 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// The i add replace block.
-  /// </summary>
-  public interface IReplaceBlocks
-  {
-    #region Public Methods
-
     /// <summary>
-    /// The add replacement.
+    /// The i add replace block.
     /// </summary>
-    /// <param name="newItem">
-    /// The new item.
-    /// </param>
-    /// <returns>
-    /// The <see cref="int"/>.
-    /// </returns>
-    int Add(string newItem);
+    public interface IReplaceBlocks
+    {
+        #region Public Methods
 
-    /// <summary>
-    /// Gets the replacement value from the index.
-    /// </summary>
-    /// <param name="index">
-    /// The index.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    string Get(int index);
+        /// <summary>
+        /// The add replacement.
+        /// </summary>
+        /// <param name="newItem">
+        /// The new item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        int Add(string newItem);
 
-    #endregion
-  }
+        /// <summary>
+        /// Gets the replacement value from the index.
+        /// </summary>
+        /// <param name="index">
+        /// The index.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        string Get(int index);
+
+        #endregion
+    }
 }

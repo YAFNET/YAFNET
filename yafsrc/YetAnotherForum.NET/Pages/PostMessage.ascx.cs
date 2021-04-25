@@ -29,7 +29,7 @@ namespace YAF.Pages
     using System;
     using System.Linq;
     using System.Web;
-    
+
     using YAF.Configuration;
     using YAF.Core.BaseModules;
     using YAF.Core.BasePages;
@@ -649,10 +649,10 @@ namespace YAF.Pages
             this.PreviewRow.Visible = true;
 
             this.PreviewMessagePost.MessageFlags = new MessageFlags
-                                                       {
-                                                           IsHtml = this.forumEditor.UsesHTML,
-                                                           IsBBCode = this.forumEditor.UsesBBCode
-                                                       };
+            {
+                IsHtml = this.forumEditor.UsesHTML,
+                IsBBCode = this.forumEditor.UsesBBCode
+            };
 
             this.PreviewMessagePost.MessageID = 0;
 
@@ -833,6 +833,6 @@ namespace YAF.Pages
             this.UploadDialog.Visible = this.PageContext.ForumUploadAccess;
         }
 
-#endregion
+        #endregion
     }
 }

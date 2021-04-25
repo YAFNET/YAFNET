@@ -43,19 +43,19 @@ namespace ServiceStack.Script
 
     public class ScopeVars : Dictionary<string, object>
     {
-        public ScopeVars() {}
-        public ScopeVars(IDictionary<string, object> dictionary) : base(dictionary) {}
-        public ScopeVars(IDictionary<string, object> dictionary, IEqualityComparer<string> comparer) : base(dictionary, comparer) {}
-        public ScopeVars(IEqualityComparer<string> comparer) : base(comparer) {}
-        public ScopeVars(int capacity) : base(capacity) {}
-        public ScopeVars(int capacity, IEqualityComparer<string> comparer) : base(capacity, comparer) {}
+        public ScopeVars() { }
+        public ScopeVars(IDictionary<string, object> dictionary) : base(dictionary) { }
+        public ScopeVars(IDictionary<string, object> dictionary, IEqualityComparer<string> comparer) : base(dictionary, comparer) { }
+        public ScopeVars(IEqualityComparer<string> comparer) : base(comparer) { }
+        public ScopeVars(int capacity) : base(capacity) { }
+        public ScopeVars(int capacity, IEqualityComparer<string> comparer) : base(capacity, comparer) { }
     }
 
     public static class ScriptScopeContextUtils
     {
-        public static StopExecution ReturnValue(this ScriptScopeContext scope, object returnValue, Dictionary<string, object> returnArgs=null)
+        public static StopExecution ReturnValue(this ScriptScopeContext scope, object returnValue, Dictionary<string, object> returnArgs = null)
         {
-            scope.PageResult.ReturnValue = new ReturnValue(returnValue, returnArgs); 
+            scope.PageResult.ReturnValue = new ReturnValue(returnValue, returnArgs);
             scope.PageResult.HaltExecution = true;
             return StopExecution.Value;
         }
@@ -64,28 +64,28 @@ namespace ServiceStack.Script
         /// Resolve value from stored arguments and filters 
         /// </summary>
         public static object GetValue(this ScriptScopeContext scope, string name) => scope.PageResult.GetValue(name, scope);
-        
+
         /// <summary>
         /// Resolve value from stored arguments only 
         /// </summary>
         public static object GetArgument(this ScriptScopeContext scope, string name) => scope.PageResult.GetArgument(name, scope);
-        
+
         /// <summary>
         /// Try Resolve value from stored arguments and filters 
         /// </summary>
-        public static bool TryGetValue(this ScriptScopeContext scope, string name, out object value) => 
-            scope.PageResult.TryGetValue(name, scope, argsOnly:false, out value);
+        public static bool TryGetValue(this ScriptScopeContext scope, string name, out object value) =>
+            scope.PageResult.TryGetValue(name, scope, argsOnly: false, out value);
 
         public static bool TryGetMethod(this ScriptScopeContext scope, string name, int fnArgValuesCount, out Delegate fn, out ScriptMethods scriptMethod, out bool requiresScope)
         {
             scriptMethod = null;
             requiresScope = false;
             var result = scope.PageResult;
-            
+
             fn = scope.GetValue(name) as Delegate;
             if (fn == null)
                 fn = result.GetFilterInvoker(name, fnArgValuesCount, out scriptMethod);
-            
+
             if (fn == null)
             {
                 fn = result.GetContextFilterInvoker(name, fnArgValuesCount + 1, out scriptMethod);
@@ -96,11 +96,12 @@ namespace ServiceStack.Script
                     {
                         // Other languages require captured output of Context Blocks
                         var filter = scriptMethod;
-                        fn = (StaticMethodInvoker) (args => {
-                            var ctxScope = (ScriptScopeContext) args[0];
+                        fn = (StaticMethodInvoker)(args =>
+                        {
+                            var ctxScope = (ScriptScopeContext)args[0];
                             using var ms = MemoryStreamFactory.GetStream();
                             args[0] = ctxScope.ScopeWithStream(ms);
-                            var task = (Task) contextFilter(filter, args);
+                            var task = (Task)contextFilter(filter, args);
                             task.Wait();
                             var discard = task.GetResult();
 
@@ -112,7 +113,7 @@ namespace ServiceStack.Script
                 if (fn != null)
                     requiresScope = true;
             }
-            
+
             return fn != null;
         }
 
@@ -121,8 +122,8 @@ namespace ServiceStack.Script
             expr.ParseJsExpression(out var token);
             return token.Evaluate(scope);
         }
-        
-        public static ScriptScopeContext CreateScopedContext(this ScriptScopeContext scope, string template, Dictionary<string, object> scopeParams = null, bool cachePage=true)
+
+        public static ScriptScopeContext CreateScopedContext(this ScriptScopeContext scope, string template, Dictionary<string, object> scopeParams = null, bool cachePage = true)
         {
             SharpPage dynamicPage = null;
 
@@ -143,7 +144,7 @@ namespace ServiceStack.Script
             }
 
             var newScopeParams = new Dictionary<string, object>(scope.ScopedParams);
-            scopeParams.Each((key,val) => newScopeParams[key] = val);
+            scopeParams.Each((key, val) => newScopeParams[key] = val);
 
             var pageResult = scope.PageResult.Clone(dynamicPage).Init().Result;
             var itemScope = new ScriptScopeContext(pageResult, scope.OutputStream, newScopeParams);
@@ -155,21 +156,21 @@ namespace ServiceStack.Script
 
         public static ScriptScopeContext ScopeWithParams(this ScriptScopeContext parentContext, Dictionary<string, object> scopedParams)
             => ScopeWith(parentContext, scopedParams, parentContext.OutputStream);
-        
-        public static ScriptScopeContext ScopeWith(this ScriptScopeContext parentContext, Dictionary<string, object> scopedParams=null, Stream outputStream=null)
+
+        public static ScriptScopeContext ScopeWith(this ScriptScopeContext parentContext, Dictionary<string, object> scopedParams = null, Stream outputStream = null)
         {
             if (scopedParams == null && outputStream == null)
                 return parentContext;
-            
+
             if (scopedParams == null)
                 scopedParams = parentContext.ScopedParams;
-            
+
             if (outputStream == null)
                 outputStream = parentContext.OutputStream;
 
             if (parentContext.ScopedParams.Count == 0)
                 return new ScriptScopeContext(parentContext.PageResult, outputStream, scopedParams);
-            
+
             var to = new Dictionary<string, object>();
             foreach (var entry in parentContext.ScopedParams)
             {
@@ -181,7 +182,7 @@ namespace ServiceStack.Script
             }
             return new ScriptScopeContext(parentContext.PageResult, outputStream, to);
         }
-        
+
         public static ScriptScopeContext ScopeWithStream(this ScriptScopeContext scope, Stream stream) =>
             new ScriptScopeContext(scope.PageResult, stream, scope.ScopedParams);
 

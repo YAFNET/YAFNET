@@ -24,7 +24,7 @@ namespace YAF.UrlRewriter.Transforms
         /// Gets the map.
         /// </summary>
         private readonly StringDictionary map;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="StaticMappingTransform"/> class. 
         /// Default constructor.
@@ -40,10 +40,10 @@ namespace YAF.UrlRewriter.Transforms
             this.Name = name;
             this.map = map;
         }
-        
+
         /// <summary>
-         /// Gets the name of the action.
-         /// </summary>
+        /// Gets the name of the action.
+        /// </summary>
         public string Name { get; }
 
         /// <summary>

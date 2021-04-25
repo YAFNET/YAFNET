@@ -23,38 +23,38 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// The i locatable page.
-  /// </summary>
-  public interface ILocatablePage
-  {
-    #region Properties
-
     /// <summary>
-    /// Gets a value indicating whether is account page.
+    /// The i locatable page.
     /// </summary>
-    bool IsAccountPage { get; }
+    public interface ILocatablePage
+    {
+        #region Properties
 
-    /// <summary>
-    ///   Gets a value indicating whether IsAdminPage.
-    /// </summary>
-    bool IsAdminPage { get; }
+        /// <summary>
+        /// Gets a value indicating whether is account page.
+        /// </summary>
+        bool IsAccountPage { get; }
 
-    /// <summary>
-    ///   Gets a value indicating whether IsHostAdminOnly.
-    /// </summary>
-    bool IsHostAdminOnly { get; }
+        /// <summary>
+        ///   Gets a value indicating whether IsAdminPage.
+        /// </summary>
+        bool IsAdminPage { get; }
 
-    /// <summary>
-    /// Gets a value indicating whether IsRegisteredPage.
-    /// </summary>
-    bool IsRegisteredPage { get; }
+        /// <summary>
+        ///   Gets a value indicating whether IsHostAdminOnly.
+        /// </summary>
+        bool IsHostAdminOnly { get; }
 
-    /// <summary>
-    ///   Gets PageName.
-    /// </summary>
-    string PageName { get; }
+        /// <summary>
+        /// Gets a value indicating whether IsRegisteredPage.
+        /// </summary>
+        bool IsRegisteredPage { get; }
 
-    #endregion
-  }
+        /// <summary>
+        ///   Gets PageName.
+        /// </summary>
+        string PageName { get; }
+
+        #endregion
+    }
 }

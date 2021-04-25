@@ -38,7 +38,7 @@ namespace ServiceStack.OrmLite.Support
             //Use .Clone() to prevent SqlExpressionSelectFilter from adding params to original query
             var parentQ = q.Clone();
             var sql = parentQ.SelectInto<Into>();
-            parentResults = dbCmd.ExprConvertToList<Into>(sql, parentQ.Params, onlyFields:q.OnlyFields);
+            parentResults = dbCmd.ExprConvertToList<Into>(sql, parentQ.Params, onlyFields: q.OnlyFields);
 
             modelDef = ModelDefinition<Into>.Definition;
             fieldDefs = modelDef.AllFieldDefinitionsArray.Where(x => x.IsReference).ToList();
@@ -125,7 +125,7 @@ namespace ServiceStack.OrmLite.Support
         {
             return OrmLiteConfig.IsCaseInsensitive
                 ? new Dictionary<object, object>(CaseInsensitiveObjectComparer.Instance)
-                : new Dictionary<object, object>(); 
+                : new Dictionary<object, object>();
         }
 
         public class CaseInsensitiveObjectComparer : IEqualityComparer<object>
@@ -195,7 +195,7 @@ namespace ServiceStack.OrmLite.Support
 
     internal class LoadListSync<Into, From> : LoadList<Into, From>
     {
-        public LoadListSync(IDbCommand dbCmd, SqlExpression<From> q) : base(dbCmd, q) {}
+        public LoadListSync(IDbCommand dbCmd, SqlExpression<From> q) : base(dbCmd, q) { }
 
         public void SetRefFieldList(FieldDefinition fieldDef, Type refType)
         {

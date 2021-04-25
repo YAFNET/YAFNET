@@ -46,7 +46,7 @@ namespace YAF.Types.Models.Identity
         /// Gets or sets the user id.
         /// </summary>
         [StringLength(56)]
-        [ForeignKey(typeof(AspNetUsers), OnDelete ="CASCADE")]
+        [ForeignKey(typeof(AspNetUsers), OnDelete = "CASCADE")]
         [Required]
         public TKey UserId { get; set; }
 

@@ -101,9 +101,9 @@ namespace YAF.Controls
                 this.StatsLastPost.Text = this.GetTextFormatted(
                     "stats_lastpost",
                     new DisplayDateTime
-                        {
-                            DateTime = (DateTime)postsStatistics.LastPost, Format = DateTimeFormat.BothTopic
-                        }.RenderToString());
+                    {
+                        DateTime = (DateTime)postsStatistics.LastPost, Format = DateTimeFormat.BothTopic
+                    }.RenderToString());
             }
             else
             {

@@ -23,7 +23,7 @@
  */
 namespace YAF.Types.Interfaces
 {
-  #region Using
+    #region Using
 
     using System;
     using System.Collections.Generic;
@@ -31,138 +31,138 @@ namespace YAF.Types.Interfaces
 
     #endregion
 
-  /// <summary>
-  /// The object store extensions.
-  /// </summary>
-  public static class IObjectStoreExtensions
-  {
-    #region Public Methods
-
     /// <summary>
-    /// The get.
+    /// The object store extensions.
     /// </summary>
-    /// <param name="objectStore">
-    /// The object store.
-    /// </param>
-    /// <param name="originalKey">
-    /// The original key.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <returns>
-    /// </returns>
-    public static T Get<T>([NotNull] this IObjectStore objectStore, [NotNull] string originalKey)
+    public static class IObjectStoreExtensions
     {
-      CodeContracts.VerifyNotNull(objectStore, "objectStore");
-      CodeContracts.VerifyNotNull(originalKey, "originalKey");
+        #region Public Methods
 
-      var item = objectStore.Get(originalKey);
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="objectStore">
+        /// The object store.
+        /// </param>
+        /// <param name="originalKey">
+        /// The original key.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// </returns>
+        public static T Get<T>([NotNull] this IObjectStore objectStore, [NotNull] string originalKey)
+        {
+            CodeContracts.VerifyNotNull(objectStore, "objectStore");
+            CodeContracts.VerifyNotNull(originalKey, "originalKey");
 
-      if (item is T)
-      {
-        return (T)item;
-      }
+            var item = objectStore.Get(originalKey);
 
-      return default;
+            if (item is T)
+            {
+                return (T)item;
+            }
+
+            return default;
+        }
+
+        /// <summary>
+        /// The remote all.
+        /// </summary>
+        /// <param name="objectStore">
+        /// The object store.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        public static void RemoveOf<T>([NotNull] this IObjectStore objectStore)
+        {
+            CodeContracts.VerifyNotNull(objectStore, "objectStore");
+
+            objectStore.GetAll<T>().ToList().ForEach(i => objectStore.Remove(i.Key));
+        }
+
+        /// <summary>
+        /// Clear the entire cache.
+        /// </summary>
+        /// <param name="objectStore">
+        /// The object store.
+        /// </param>
+        public static void Clear([NotNull] this IObjectStore objectStore)
+        {
+            // remove all objects in the cache...
+            CodeContracts.VerifyNotNull(objectStore, "objectStore");
+
+            objectStore.RemoveOf<object>();
+        }
+
+        /// <summary>
+        /// Count of objects in the cache.
+        /// </summary>
+        /// <param name="objectStore">
+        /// The object store.
+        /// </param>
+        public static int Count([NotNull] this IObjectStore objectStore)
+        {
+            // remove all objects in the cache...
+            CodeContracts.VerifyNotNull(objectStore, "objectStore");
+
+            return objectStore.GetAll<object>().Count();
+        }
+
+        /// <summary>
+        /// Count of T in the cache.
+        /// </summary>
+        /// <param name="objectStore">
+        /// The object store.
+        /// </param>
+        public static int CountOf<T>([NotNull] this IObjectStore objectStore)
+        {
+            // remove all objects in the cache...
+            CodeContracts.VerifyNotNull(objectStore, "objectStore");
+
+            return objectStore.GetAll<T>().Count();
+        }
+
+        /// <summary>
+        /// The remote all where.
+        /// </summary>
+        /// <param name="objectStore">
+        /// The object store.
+        /// </param>
+        /// <param name="whereFunc">
+        /// The where function.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        public static void RemoveOf<T>(
+          [NotNull] this IObjectStore objectStore, [NotNull] Func<KeyValuePair<string, T>, bool> whereFunc)
+        {
+            CodeContracts.VerifyNotNull(objectStore, "objectStore");
+            CodeContracts.VerifyNotNull(whereFunc, "whereFunc");
+
+            objectStore.GetAll<T>().Where(whereFunc).ToList().ForEach(i => objectStore.Remove(i.Key));
+        }
+
+        /// <summary>
+        /// The remote all where.
+        /// </summary>
+        /// <param name="objectStore">
+        /// The object store.
+        /// </param>
+        /// <param name="whereFunc">
+        /// The where function.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        public static void Remove(
+          [NotNull] this IObjectStore objectStore, [NotNull] Func<string, bool> whereFunc)
+        {
+            CodeContracts.VerifyNotNull(objectStore, "objectStore");
+            CodeContracts.VerifyNotNull(whereFunc, "whereFunc");
+
+            objectStore.GetAll<object>().Where(k => whereFunc(k.Key)).ToList().ForEach(i => objectStore.Remove(i.Key));
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// The remote all.
-    /// </summary>
-    /// <param name="objectStore">
-    /// The object store.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public static void RemoveOf<T>([NotNull] this IObjectStore objectStore)
-    {
-        CodeContracts.VerifyNotNull(objectStore, "objectStore");
-
-        objectStore.GetAll<T>().ToList().ForEach(i => objectStore.Remove(i.Key));
-    }
-
-    /// <summary>
-    /// Clear the entire cache.
-    /// </summary>
-    /// <param name="objectStore">
-    /// The object store.
-    /// </param>
-    public static void Clear([NotNull] this IObjectStore objectStore)
-    {
-      // remove all objects in the cache...
-      CodeContracts.VerifyNotNull(objectStore, "objectStore");
-
-      objectStore.RemoveOf<object>();
-    }
-
-    /// <summary>
-    /// Count of objects in the cache.
-    /// </summary>
-    /// <param name="objectStore">
-    /// The object store.
-    /// </param>
-    public static int Count([NotNull] this IObjectStore objectStore)
-    {
-      // remove all objects in the cache...
-      CodeContracts.VerifyNotNull(objectStore, "objectStore");
-
-      return objectStore.GetAll<object>().Count();
-    }
-
-    /// <summary>
-    /// Count of T in the cache.
-    /// </summary>
-    /// <param name="objectStore">
-    /// The object store.
-    /// </param>
-    public static int CountOf<T>([NotNull] this IObjectStore objectStore)
-    {
-      // remove all objects in the cache...
-      CodeContracts.VerifyNotNull(objectStore, "objectStore");
-
-      return objectStore.GetAll<T>().Count();
-    }
-
-    /// <summary>
-    /// The remote all where.
-    /// </summary>
-    /// <param name="objectStore">
-    /// The object store.
-    /// </param>
-    /// <param name="whereFunc">
-    /// The where function.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public static void RemoveOf<T>(
-      [NotNull] this IObjectStore objectStore, [NotNull] Func<KeyValuePair<string, T>, bool> whereFunc)
-    {
-        CodeContracts.VerifyNotNull(objectStore, "objectStore");
-        CodeContracts.VerifyNotNull(whereFunc, "whereFunc");
-
-        objectStore.GetAll<T>().Where(whereFunc).ToList().ForEach(i => objectStore.Remove(i.Key));
-    }
-
-    /// <summary>
-    /// The remote all where.
-    /// </summary>
-    /// <param name="objectStore">
-    /// The object store.
-    /// </param>
-    /// <param name="whereFunc">
-    /// The where function.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public static void Remove(
-      [NotNull] this IObjectStore objectStore, [NotNull] Func<string, bool> whereFunc)
-    {
-        CodeContracts.VerifyNotNull(objectStore, "objectStore");
-        CodeContracts.VerifyNotNull(whereFunc, "whereFunc");
-
-        objectStore.GetAll<object>().Where(k => whereFunc(k.Key)).ToList().ForEach(i => objectStore.Remove(i.Key));
-    }
-
-    #endregion
-  }
 }

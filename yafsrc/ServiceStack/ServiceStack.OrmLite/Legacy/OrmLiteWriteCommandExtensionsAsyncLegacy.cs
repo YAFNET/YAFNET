@@ -16,7 +16,7 @@ namespace ServiceStack.OrmLite.Legacy
 {
     internal static class OrmLiteWriteCommandExtensionsAsyncLegacy
     {
-         
+
     }
 }
 

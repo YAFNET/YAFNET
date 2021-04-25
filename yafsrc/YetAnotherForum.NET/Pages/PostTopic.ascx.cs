@@ -371,7 +371,7 @@ namespace YAF.Pages
 
             var forumInfo = this.GetRepository<Forum>()
                 .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
-            
+
             if (forumInfo != null)
             {
                 isForumModerated = this.CheckForumModerateStatus(forumInfo, true);
@@ -391,12 +391,12 @@ namespace YAF.Pages
 
             // make message flags
             var messageFlags = new MessageFlags
-                               {
-                                   IsHtml = this.forumEditor.UsesHTML,
-                                   IsBBCode = this.forumEditor.UsesBBCode,
-                                   IsPersistent = this.PostOptions1.PersistentChecked,
-                                   IsApproved = this.spamApproved
-                               };
+            {
+                IsHtml = this.forumEditor.UsesHTML,
+                IsBBCode = this.forumEditor.UsesBBCode,
+                IsPersistent = this.PostOptions1.PersistentChecked,
+                IsApproved = this.spamApproved
+            };
 
             // Save to Db
             topicId = this.GetRepository<Topic>().SaveNew(
@@ -661,10 +661,10 @@ namespace YAF.Pages
             this.PreviewRow.Visible = true;
 
             this.PreviewMessagePost.MessageFlags = new MessageFlags
-                                                       {
-                                                           IsHtml = this.forumEditor.UsesHTML,
-                                                           IsBBCode = this.forumEditor.UsesBBCode
-                                                       };
+            {
+                IsHtml = this.forumEditor.UsesHTML,
+                IsBBCode = this.forumEditor.UsesBBCode
+            };
 
             this.PreviewMessagePost.MessageID = null;
 

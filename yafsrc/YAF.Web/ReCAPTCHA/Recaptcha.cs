@@ -155,11 +155,11 @@ namespace YAF.Web.Controls
             }
 
             var validator = new RecaptchaValidator
-                                {
-                                    SecretKey = this.SecretKey,
-                                    RemoteIP = this.Page.Request.GetUserRealIPAddress(),
-                                    Response = this.Context.Request.Form["g-recaptcha-response"]
-                                };
+            {
+                SecretKey = this.SecretKey,
+                RemoteIP = this.Page.Request.GetUserRealIPAddress(),
+                Response = this.Context.Request.Form["g-recaptcha-response"]
+            };
             try
             {
                 this.recaptchaResponse = validator.Validate();

@@ -23,28 +23,28 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// The i navigatable page.
-  /// </summary>
-  public interface INavigatablePage
-  {
-    #region Properties
-
     /// <summary>
-    /// Gets a value indicating whether IsDebugOnly.
+    /// The i navigatable page.
     /// </summary>
-    bool IsDebugOnly { get; }
+    public interface INavigatablePage
+    {
+        #region Properties
 
-    /// <summary>
-    ///   Gets PageCategory.
-    /// </summary>
-    string PageCategory { get; }
+        /// <summary>
+        /// Gets a value indicating whether IsDebugOnly.
+        /// </summary>
+        bool IsDebugOnly { get; }
 
-    /// <summary>
-    ///   Gets ParentPageName.
-    /// </summary>
-    string ParentPageName { get; }
+        /// <summary>
+        ///   Gets PageCategory.
+        /// </summary>
+        string PageCategory { get; }
 
-    #endregion
-  }
+        /// <summary>
+        ///   Gets ParentPageName.
+        /// </summary>
+        string ParentPageName { get; }
+
+        #endregion
+    }
 }

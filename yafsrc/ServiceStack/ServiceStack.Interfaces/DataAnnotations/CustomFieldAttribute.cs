@@ -79,11 +79,11 @@ namespace ServiceStack.DataAnnotations
     {
         public PgSqlTimestampAttribute() : base("timestamp[]") { }
     }
-    
+
     [Obsolete("Use [PgSqlTimestampTzArray]")]
     public class PgSqlTimestampTzAttribute : CustomFieldAttribute
     {
         public PgSqlTimestampTzAttribute() : base("timestamp with time zone[]") { }
     }
-    
+
 }

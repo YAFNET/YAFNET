@@ -27,7 +27,7 @@ namespace ServiceStack.Text.Json
                 return parseFactoryFn();
 
             var genericType = typeof(JsonReader<>).MakeGenericType(type);
-            var mi = genericType.GetStaticMethod(nameof(GetParseStringSpanFn));    
+            var mi = genericType.GetStaticMethod(nameof(GetParseStringSpanFn));
             parseFactoryFn = (ParseFactoryDelegate)mi.MakeDelegate(typeof(ParseFactoryDelegate));
 
             Dictionary<Type, ParseFactoryDelegate> snapshot, newCache;
@@ -74,13 +74,13 @@ namespace ServiceStack.Text.Json
             ReadFn = JsonReader.Instance.GetParseStringSpanFn<T>();
         }
 
-        public static ParseStringDelegate GetParseFn() => ReadFn != null 
-            ? (ParseStringDelegate)(v => ReadFn(v.AsSpan())) 
+        public static ParseStringDelegate GetParseFn() => ReadFn != null
+            ? (ParseStringDelegate)(v => ReadFn(v.AsSpan()))
             : Parse;
 
         public static ParseStringSpanDelegate GetParseStringSpanFn() => ReadFn ?? Parse;
 
-        public static object Parse(string value) => value != null 
+        public static object Parse(string value) => value != null
             ? Parse(value.AsSpan())
             : null;
 
@@ -89,7 +89,7 @@ namespace ServiceStack.Text.Json
             TypeConfig<T>.Init();
 
             value = value.WithoutBom();
-            
+
             if (ReadFn == null)
             {
                 if (typeof(T).IsAbstract || typeof(T).IsInterface)

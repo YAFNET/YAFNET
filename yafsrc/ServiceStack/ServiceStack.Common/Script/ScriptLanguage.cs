@@ -8,15 +8,15 @@ namespace ServiceStack.Script
     public abstract class ScriptLanguage
     {
         public static ScriptLanguage Verbatim => ScriptVerbatim.Language;
-        
+
         public abstract string Name { get; }
 
-        public virtual string LineComment => null; 
+        public virtual string LineComment => null;
 
         public List<PageFragment> Parse(ScriptContext context, ReadOnlyMemory<char> body) => Parse(context, body, default);
 
         public abstract List<PageFragment> Parse(ScriptContext context, ReadOnlyMemory<char> body, ReadOnlyMemory<char> modifiers);
-        
+
         public virtual Task<bool> WritePageFragmentAsync(ScriptScopeContext scope, PageFragment fragment, CancellationToken token) => TypeConstants.FalseTask;
 
         public virtual Task<bool> WriteStatementAsync(ScriptScopeContext scope, JsStatement statement, CancellationToken token) => TypeConstants.FalseTask;
@@ -40,13 +40,13 @@ namespace ServiceStack.Script
 
     public sealed class ScriptVerbatim : ScriptLanguage
     {
-        private ScriptVerbatim() {} // force usage of singleton
+        private ScriptVerbatim() { } // force usage of singleton
 
         public static readonly ScriptLanguage Language = new ScriptVerbatim();
 
         public override string Name => "verbatim";
 
-        public override List<PageFragment> Parse(ScriptContext context, ReadOnlyMemory<char> body, ReadOnlyMemory<char> modifiers) => 
+        public override List<PageFragment> Parse(ScriptContext context, ReadOnlyMemory<char> body, ReadOnlyMemory<char> modifiers) =>
             new List<PageFragment> {
                 new PageStringFragment(body)
             };

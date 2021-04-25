@@ -26,7 +26,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsFilterExpressionStatement) obj);
+            return Equals((JsFilterExpressionStatement)obj);
         }
 
         public override int GetHashCode() => (FilterExpression != null ? FilterExpression.GetHashCode() : 0);
@@ -36,7 +36,7 @@ namespace ServiceStack.Script
     {
         public JsStatement[] Statements { get; }
         public JsBlockStatement(JsStatement[] statements) => Statements = statements;
-        public JsBlockStatement(JsStatement statement) => Statements = new[]{ statement };
+        public JsBlockStatement(JsStatement statement) => Statements = new[] { statement };
 
         protected bool Equals(JsBlockStatement other) => Statements.EquivalentTo(other.Statements);
 
@@ -45,7 +45,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsBlockStatement) obj);
+            return Equals((JsBlockStatement)obj);
         }
 
         public override int GetHashCode() => (Statements != null ? Statements.GetHashCode() : 0);
@@ -63,7 +63,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsExpressionStatement) obj);
+            return Equals((JsExpressionStatement)obj);
         }
 
         public override int GetHashCode() => (Expression != null ? Expression.GetHashCode() : 0);
@@ -81,7 +81,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsPageBlockFragmentStatement) obj);
+            return Equals((JsPageBlockFragmentStatement)obj);
         }
 
         public override int GetHashCode() => (Block != null ? Block.GetHashCode() : 0);

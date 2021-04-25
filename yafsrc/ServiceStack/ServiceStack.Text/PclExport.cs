@@ -38,7 +38,7 @@ namespace ServiceStack
 
         public static ReflectionOptimizer Reflection => ReflectionOptimizer.Instance;
 
-        static PclExport() {}
+        static PclExport() { }
 
         public static bool ConfigureProvider(string typeName)
         {
@@ -256,7 +256,7 @@ namespace ServiceStack
             return Encoding.UTF8.GetBytes(str);
         }
 
-        public virtual Encoding GetUTF8Encoding(bool emitBom=false)
+        public virtual Encoding GetUTF8Encoding(bool emitBom = false)
         {
             return new UTF8Encoding(emitBom);
         }
@@ -347,7 +347,8 @@ namespace ServiceStack
 
 
         public virtual void InitHttpWebRequest(HttpWebRequest httpReq,
-            long? contentLength = null, bool allowAutoRedirect = true, bool keepAlive = true) {}
+            long? contentLength = null, bool allowAutoRedirect = true, bool keepAlive = true)
+        { }
 
         public virtual void CloseStream(Stream stream)
         {
@@ -359,14 +360,14 @@ namespace ServiceStack
             stream.Position = 0;
         }
 
-        public virtual void BeginThreadAffinity() {}
-        public virtual void EndThreadAffinity() {}
+        public virtual void BeginThreadAffinity() { }
+        public virtual void EndThreadAffinity() { }
 
         public virtual DataContractAttribute GetWeakDataContract(Type type) => null;
         public virtual DataMemberAttribute GetWeakDataMember(PropertyInfo pi) => null;
         public virtual DataMemberAttribute GetWeakDataMember(FieldInfo pi) => null;
 
-        public virtual void RegisterForAot() {}
+        public virtual void RegisterForAot() { }
         public virtual string GetStackTrace() => null;
 
         public virtual Task WriteAndFlushAsync(Stream stream, byte[] bytes)

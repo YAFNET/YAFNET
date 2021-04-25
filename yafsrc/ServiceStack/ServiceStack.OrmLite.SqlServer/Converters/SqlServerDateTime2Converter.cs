@@ -21,7 +21,7 @@ namespace ServiceStack.OrmLite.SqlServer.Converters
         {
             if (value is string str && DateTime.TryParseExact(str, DateTimeFormat, null, DateTimeStyles.None, out var date))
                 return date;
-            
+
             return base.FromDbValue(fieldType, value);
         }
     }

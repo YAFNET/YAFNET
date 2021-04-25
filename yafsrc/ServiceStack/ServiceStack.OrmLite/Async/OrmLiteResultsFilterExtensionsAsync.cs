@@ -20,7 +20,7 @@ namespace ServiceStack.OrmLite
         public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token = default)
         {
             if (anonType != null)
-                dbCmd.SetParameters(anonType.ToObjectDictionary(), (bool)false, sql:ref sql);
+                dbCmd.SetParameters(anonType.ToObjectDictionary(), (bool)false, sql: ref sql);
 
             dbCmd.CommandText = sql;
 
@@ -38,7 +38,7 @@ namespace ServiceStack.OrmLite
         public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict, CancellationToken token = default)
         {
             if (dict != null)
-                dbCmd.SetParameters(dict, (bool)false, sql:ref sql);
+                dbCmd.SetParameters(dict, (bool)false, sql: ref sql);
 
             dbCmd.CommandText = sql;
 

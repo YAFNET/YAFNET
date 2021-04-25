@@ -24,7 +24,7 @@ namespace ServiceStack.VirtualPath
             if (alias == null)
                 throw new ArgumentNullException(nameof(alias));
 
-            if (alias.IndexOfAny(new []{ '/', '\\' }) >= 0)
+            if (alias.IndexOfAny(new[] { '/', '\\' }) >= 0)
                 throw new ArgumentException($"Alias '{alias}' cannot contain directory separators");
 
             this.Alias = alias;

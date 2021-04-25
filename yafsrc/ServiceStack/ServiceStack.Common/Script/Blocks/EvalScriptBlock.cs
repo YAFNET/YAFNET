@@ -31,7 +31,7 @@ namespace ServiceStack.Script
     {
         public override string Name => "eval";
         public override ScriptLanguage Body => ScriptTemplate.Language;
-        
+
         public override async Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
         {
             var argValue = block.Argument.GetJsExpressionAndEvaluate(scope);
@@ -43,9 +43,9 @@ namespace ServiceStack.Script
                 format = oFormat.ToString();
                 args.Remove(ScriptConstants.Format);
             }
-            
+
             var htmlDecode = false;
-            if (args.TryGetValue(nameof(htmlDecode), out var oHtmlDecode) 
+            if (args.TryGetValue(nameof(htmlDecode), out var oHtmlDecode)
                 && oHtmlDecode is bool b)
             {
                 htmlDecode = b;
@@ -56,7 +56,7 @@ namespace ServiceStack.Script
             var unrenderedBody = new SharpPartialPage(scope.Context, "eval-page", block.Body, format, args);
 
             using var ms = MemoryStreamFactory.GetStream();
-            var captureScope = scope.ScopeWith(outputStream:ms, scopedParams:args);
+            var captureScope = scope.ScopeWith(outputStream: ms, scopedParams: args);
             await scope.PageResult.WritePageAsync(unrenderedBody, captureScope, token).ConfigAwait();
             // ReSharper disable once MethodHasAsyncOverload
             var renderedBody = ms.ReadToEnd();
@@ -65,8 +65,9 @@ namespace ServiceStack.Script
             {
                 renderedBody = renderedBody.HtmlDecode();
             }
-                
-            var pageResult = new PageResult(context.OneTimePage(renderedBody)) {
+
+            var pageResult = new PageResult(context.OneTimePage(renderedBody))
+            {
                 Args = args,
             };
             await pageResult.WriteToAsync(scope.OutputStream, token).ConfigAwait();

@@ -17,18 +17,18 @@ namespace ServiceStack.Script
             typeof(NotImplementedException),
             typeof(StackOverflowException),
         };
-        
+
         public static HashSet<Type> CaptureAndEvaluateExceptionsToNull { get; set; } = new HashSet<Type>
         {
             typeof(NullReferenceException),
             typeof(ArgumentNullException),
         };
         public static CultureInfo DefaultCulture { get; set; } //Uses CurrentCulture by default
-        public static string DefaultDateFormat { get; set; }  = "yyyy-MM-dd";
+        public static string DefaultDateFormat { get; set; } = "yyyy-MM-dd";
         public static string DefaultDateTimeFormat { get; set; } = "u";
         public static string DefaultTimeFormat { get; set; } = @"h\:mm\:ss";
-        public static TimeSpan DefaultFileCacheExpiry { get; set; } =TimeSpan.FromMinutes(1);
-        public static TimeSpan DefaultUrlCacheExpiry { get; set; } =TimeSpan.FromMinutes(1);
+        public static TimeSpan DefaultFileCacheExpiry { get; set; } = TimeSpan.FromMinutes(1);
+        public static TimeSpan DefaultUrlCacheExpiry { get; set; } = TimeSpan.FromMinutes(1);
         public static string DefaultIndent { get; set; } = "\t";
         public static string DefaultNewLine { get; set; } = Environment.NewLine;
         public static string DefaultJsConfig { get; set; } = "excludetypeinfo";
@@ -48,7 +48,7 @@ namespace ServiceStack.Script
             }
             if (Equals(culture, CultureInfo.InvariantCulture))
             {
-                culture = (CultureInfo) culture.Clone();
+                culture = (CultureInfo)culture.Clone();
                 culture.NumberFormat.CurrencySymbol = "$";
             }
             return culture;

@@ -27,7 +27,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    
+
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;

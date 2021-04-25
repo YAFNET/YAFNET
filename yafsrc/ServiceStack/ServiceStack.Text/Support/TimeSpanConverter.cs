@@ -8,14 +8,14 @@ namespace ServiceStack.Text.Support
     {
         private const string MinSerializedValue = "-P10675199DT2H48M5.4775391S";
         private const string MaxSerializedValue = "P10675199DT2H48M5.4775391S";
-        
+
         public static string ToXsdDuration(TimeSpan timeSpan)
         {
             if (timeSpan == TimeSpan.MinValue)
                 return MinSerializedValue;
             if (timeSpan == TimeSpan.MaxValue)
                 return MaxSerializedValue;
-            
+
             var sb = StringBuilderThreadStatic.Allocate();
 
             sb.Append(timeSpan.Ticks < 0 ? "-P" : "P");
@@ -25,7 +25,7 @@ namespace ServiceStack.Text.Support
                 ticks = -ticks;
 
             double totalSeconds = ticks / TimeSpan.TicksPerSecond;
-            long wholeSeconds = (long) totalSeconds;
+            long wholeSeconds = (long)totalSeconds;
             long seconds = wholeSeconds;
             long sec = (seconds >= 60 ? seconds % 60 : seconds);
             long min = (seconds = (seconds / 60)) >= 60 ? seconds % 60 : seconds;
@@ -66,7 +66,7 @@ namespace ServiceStack.Text.Support
                 return TimeSpan.MinValue;
             if (xsdDuration == MaxSerializedValue)
                 return TimeSpan.MaxValue;
-            
+
             long days = 0;
             long hours = 0;
             long minutes = 0;
@@ -119,7 +119,7 @@ namespace ServiceStack.Text.Support
                     + (minutes * 60)
                     + (seconds);
 
-            var interval = (long) (totalSecs * TimeSpan.TicksPerSecond * sign);
+            var interval = (long)(totalSecs * TimeSpan.TicksPerSecond * sign);
 
             return TimeSpan.FromTicks(interval);
         }

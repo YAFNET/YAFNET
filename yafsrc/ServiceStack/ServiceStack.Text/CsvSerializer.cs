@@ -37,7 +37,7 @@ namespace ServiceStack.Text
                 do
                 {
                     snapshot = WriteFnCache;
-                    newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache) {[type] = writeFn};
+                    newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache) { [type] = writeFn };
 
                 } while (!ReferenceEquals(
                     Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
@@ -69,7 +69,7 @@ namespace ServiceStack.Text
                 do
                 {
                     snapshot = ReadFnCache;
-                    newCache = new Dictionary<Type, ParseStringDelegate>(ReadFnCache) {[type] = writeFn};
+                    newCache = new Dictionary<Type, ParseStringDelegate>(ReadFnCache) { [type] = writeFn };
 
                 } while (!ReferenceEquals(
                     Interlocked.CompareExchange(ref ReadFnCache, newCache, snapshot), snapshot));

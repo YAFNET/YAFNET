@@ -11,8 +11,8 @@ using ServiceStack.Text;
 
 namespace ServiceStack.Script
 {
-    public partial class SharpPages : ISharpPages, Templates.ITemplatePages {}
-    
+    public partial class SharpPages : ISharpPages, Templates.ITemplatePages { }
+
     public partial class ScriptContext
     {
         [Obsolete("Use DefaultScripts")]
@@ -26,13 +26,13 @@ namespace ServiceStack.Script
 namespace ServiceStack.Templates
 {
     [Obsolete("Use DefaultScripts")]
-    public class TemplateDefaultFilters : Script.DefaultScripts {}
-    
+    public class TemplateDefaultFilters : Script.DefaultScripts { }
+
     [Obsolete("Use HtmlScripts")]
-    public class TemplateHtmlFilters : Script.HtmlScripts {}
-    
+    public class TemplateHtmlFilters : Script.HtmlScripts { }
+
     [Obsolete("Use ProtectedScripts")]
-    public class TemplateProtectedFilters : Script.ProtectedScripts {}
+    public class TemplateProtectedFilters : Script.ProtectedScripts { }
 
     [Obsolete("Use ScriptBlock")]
     public abstract class TemplateBlock : ServiceStack.Script.ScriptBlock
@@ -43,7 +43,7 @@ namespace ServiceStack.Templates
     }
 
     [Obsolete("Use ScriptMethods")]
-    public class TemplateFilter : ServiceStack.Script.ScriptMethods {}
+    public class TemplateFilter : ServiceStack.Script.ScriptMethods { }
 
     [Obsolete("Use ScriptContext")]
     public class TemplateContext : Script.ScriptContext
@@ -70,9 +70,9 @@ namespace ServiceStack.Templates
             return this;
         }
     }
-    
+
     [Obsolete("Use ScriptScopeContext")]
-    public struct TemplateScopeContext 
+    public struct TemplateScopeContext
     {
         public Script.PageResult PageResult { get; }
         public Script.SharpPage Page => PageResult.Page;
@@ -87,26 +87,26 @@ namespace ServiceStack.Templates
             ScopedParams = scopedParams ?? new Dictionary<string, object>();
             OutputStream = outputStream;
         }
-        
+
         public static implicit operator Script.ScriptScopeContext(TemplateScopeContext from)
         {
             return new Script.ScriptScopeContext(from.PageResult, from.OutputStream, from.ScopedParams);
         }
     }
-    
+
     [Obsolete("Use ISharpPages")]
-    public interface ITemplatePages : ISharpPages {}
+    public interface ITemplatePages : ISharpPages { }
     [Obsolete("Use IScriptPlugin")]
     public interface ITemplatePlugin : IScriptPlugin { }
 
     [Obsolete("Use SharpPage")]
-    public class TemplatePage : Script.SharpPage 
+    public class TemplatePage : Script.SharpPage
     {
         public TemplatePage(TemplateContext context, IVirtualFile file, Script.PageFormat format = null) : base(context, file, format) { }
     }
-    
+
     [Obsolete("Use SharpCodePage")]
-    public class TemplateCodePage : Script.SharpCodePage {}
+    public class TemplateCodePage : Script.SharpCodePage { }
 
     public static class TemplateContextExtensions
     {
@@ -133,7 +133,7 @@ namespace ServiceStack.Templates
             }
         }
     }
-    
+
     [Obsolete("Use ScriptConstants")]
     public static class TemplateConstants
     {
@@ -171,7 +171,7 @@ namespace ServiceStack.Templates
         public static IRawString TrueRawString { get; } = ScriptConstants.TrueRawString;
         public static IRawString FalseRawString { get; } = ScriptConstants.FalseRawString;
     }
-    
+
     [Obsolete("Use ScriptConfig")]
     public static class TemplateConfig
     {
@@ -191,5 +191,5 @@ namespace ServiceStack.Templates
         public static string DefaultTableClassName => ScriptConfig.DefaultTableClassName;
         public static string DefaultErrorClassName => ScriptConfig.DefaultErrorClassName;
         public static CultureInfo CreateCulture() => ScriptConfig.CreateCulture();
-    }    
+    }
 }

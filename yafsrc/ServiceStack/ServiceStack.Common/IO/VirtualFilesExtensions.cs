@@ -195,7 +195,7 @@ namespace ServiceStack.IO
             writableFs.WriteFiles(srcFiles, toPath);
         }
 
-        public static void CopyFrom(this IVirtualPathProvider pathProvider, IEnumerable<IVirtualFile> srcFiles, Func<IVirtualFile, string> toPath=null)
+        public static void CopyFrom(this IVirtualPathProvider pathProvider, IEnumerable<IVirtualFile> srcFiles, Func<IVirtualFile, string> toPath = null)
         {
             foreach (var file in srcFiles)
             {
@@ -232,7 +232,7 @@ namespace ServiceStack.IO
         {
             return dir.Directories;
         }
-        
+
         /// <summary>
         /// Get All Files in current and all sub directories
         /// </summary>

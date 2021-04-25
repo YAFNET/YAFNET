@@ -169,9 +169,9 @@ namespace YAF.Controls
         {
             // Quick Reply Modification Begin
             this.signatureEditor = new CKEditorBBCodeEditorBasic
-                                       {
-                                           UserCanUpload = false, MaxCharacters = this.allowedNumberOfCharacters
-                                       };
+            {
+                UserCanUpload = false, MaxCharacters = this.allowedNumberOfCharacters
+            };
 
             this.EditorLine.Controls.Add(this.signatureEditor);
 
@@ -287,27 +287,27 @@ namespace YAF.Controls
                                                  after the user included a spam word in his/her signature: {result}");
                                     break;
                                 case 2:
-                                {
-                                    this.Logger.SpamBotDetected(
-                                        this.user.ID,
-                                        $@"Internal Spam Word Check detected a SPAM BOT: (
+                                    {
+                                        this.Logger.SpamBotDetected(
+                                            this.user.ID,
+                                            $@"Internal Spam Word Check detected a SPAM BOT: (
                                                        user name : '{this.user.Name}', 
                                                        user id : '{this.CurrentUserID}') 
                                                  after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.");
 
-                                    // Kill user
-                                    if (!this.PageContext.CurrentForumPage.IsAdminPage)
-                                    {
-                                        var membershipUser = this.Get<IAspNetUsersHelper>()
-                                            .GetMembershipUserById(this.user.ID);
-                                        this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                            this.CurrentUserID,
-                                            membershipUser,
-                                            this.user.IP);
-                                    }
+                                        // Kill user
+                                        if (!this.PageContext.CurrentForumPage.IsAdminPage)
+                                        {
+                                            var membershipUser = this.Get<IAspNetUsersHelper>()
+                                                .GetMembershipUserById(this.user.ID);
+                                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                                                this.CurrentUserID,
+                                                membershipUser,
+                                                this.user.IP);
+                                        }
 
-                                    break;
-                                }
+                                        break;
+                                    }
                             }
                         }
                     }

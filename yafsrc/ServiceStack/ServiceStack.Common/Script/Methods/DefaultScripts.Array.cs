@@ -52,7 +52,7 @@ namespace ServiceStack.Script
                         : throw new NotSupportedException($"{item.GetType().Name} not supported in indexOf");
             if (target is IList list)
                 return list.IndexOf(item);
-            
+
             throw new NotSupportedException($"{target.GetType().Name} not supported in indexOf");
         }
 
@@ -66,7 +66,7 @@ namespace ServiceStack.Script
                         : throw new NotSupportedException($"{item.GetType().Name} not supported in indexOf");
             if (target is List<object> list)
                 return list.IndexOf(item, startIndex);
-            
+
             throw new NotSupportedException($"{target.GetType().Name} not supported in indexOf");
         }
 
@@ -82,7 +82,7 @@ namespace ServiceStack.Script
                 return list.LastIndexOf(item);
             if (target is IList iList)
                 return iList.Cast<object>().ToList().LastIndexOf(item);
-            
+
             throw new NotSupportedException($"{target.GetType().Name} not supported in indexOf");
         }
 
@@ -96,10 +96,10 @@ namespace ServiceStack.Script
                         : throw new NotSupportedException($"{item.GetType().Name} not supported in indexOf");
             if (target is List<object> list)
                 return list.LastIndexOf(item, startIndex);
-            
+
             throw new NotSupportedException($"{target.GetType().Name} not supported in indexOf");
         }
-        
+
         public object splice(IList list, int removeAt)
         {
             if (list.Count > 0)
@@ -119,7 +119,7 @@ namespace ServiceStack.Script
             if (list.Count > 0)
             {
                 var ret = new List<object>();
-                for (var i = 0; i<deleteCount; i++)
+                for (var i = 0; i < deleteCount; i++)
                 {
                     ret.Add(list[removeAt]);
                     list.RemoveAt(removeAt);
@@ -158,7 +158,7 @@ namespace ServiceStack.Script
                     scope.ScopedParams[indexBinding] = i;
                     if (arrayBinding != null)
                         scope.ScopedParams[arrayBinding] = list;
-                
+
                     scope = scope.AddItemToScope(itemBinding, list[i]);
                     token.Evaluate(scope);
                 }
@@ -167,7 +167,7 @@ namespace ServiceStack.Script
             {
                 if (arrowExpr.Params.Length != 2)
                     throw new NotSupportedException("Dictionary.forEach requires 2 lambda params");
-                    
+
                 var keyBinding = arrowExpr.Params[0].Name;
                 var valueBinding = arrowExpr.Params[1].Name;
 
@@ -182,14 +182,14 @@ namespace ServiceStack.Script
 
             return IgnoreResult.Value;
         }
-        
-        public bool every(ScriptScopeContext scope, IList list, JsArrowFunctionExpression expression) => 
+
+        public bool every(ScriptScopeContext scope, IList list, JsArrowFunctionExpression expression) =>
             all(scope, list, expression, null);
 
-        public bool some(ScriptScopeContext scope, IList list, JsArrowFunctionExpression expression) => 
+        public bool some(ScriptScopeContext scope, IList list, JsArrowFunctionExpression expression) =>
             any(scope, list, expression, null);
 
-        public object find(ScriptScopeContext scope, IList list, JsArrowFunctionExpression expression) => 
+        public object find(ScriptScopeContext scope, IList list, JsArrowFunctionExpression expression) =>
             first(scope, list, expression, null);
 
         public int findIndex(ScriptScopeContext scope, IList list, JsArrowFunctionExpression expression)
@@ -211,16 +211,16 @@ namespace ServiceStack.Script
             return -1;
         }
 
-        public List<object> filter(ScriptScopeContext scope, IList list, JsArrowFunctionExpression expression) => 
+        public List<object> filter(ScriptScopeContext scope, IList list, JsArrowFunctionExpression expression) =>
             where(scope, list, expression, null).ToList();
 
         public List<object> flat(IList list) => flatten(list, 1);
         public List<object> flat(IList list, int depth) => flatten(list, depth);
 
-        public List<object> flatMap(ScriptScopeContext scope, IList list, JsArrowFunctionExpression expression) => 
+        public List<object> flatMap(ScriptScopeContext scope, IList list, JsArrowFunctionExpression expression) =>
             flat((IList)map(scope, list, expression, null));
 
-        public List<object> flatMap(ScriptScopeContext scope, IList list, JsArrowFunctionExpression expression, int depth) => 
+        public List<object> flatMap(ScriptScopeContext scope, IList list, JsArrowFunctionExpression expression, int depth) =>
             flat((IList)map(scope, list, expression, null), depth);
 
         public bool includes(IList list, object item) =>

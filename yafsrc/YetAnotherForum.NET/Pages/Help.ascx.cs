@@ -305,14 +305,14 @@ namespace YAF.Pages
 
                         break;
                 }
-                
+
                 this.helpContents.Add(
                     new HelpContent
-                        {
-                            HelpPage = helpPage.HelpPage,
-                            Title = this.GetText($"{helpPage.HelpPage}TITLE"),
-                            Content = helpContent
-                        });
+                    {
+                        HelpPage = helpPage.HelpPage,
+                        Title = this.GetText($"{helpPage.HelpPage}TITLE"),
+                        Content = helpContent
+                    });
             }
         }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ServiceStack.Script
 {
     // ReSharper disable InconsistentNaming
-    
+
     public partial class DefaultScripts
     {
         public object assignError(ScriptScopeContext scope, string errorBinding)
@@ -49,13 +49,13 @@ namespace ServiceStack.Script
         public object ifNoError(ScriptScopeContext scope, object value) => scope.PageResult.LastFilterError != null ? StopExecution.Value : value;
 
         public object ifError(ScriptScopeContext scope, object ignoreTarget) => ifError(scope);
-        public object ifError(ScriptScopeContext scope) => (object) scope.PageResult.LastFilterError ?? StopExecution.Value;
+        public object ifError(ScriptScopeContext scope) => (object)scope.PageResult.LastFilterError ?? StopExecution.Value;
         public object ifDebug(ScriptScopeContext scope, object ignoreTarget) => ifDebug(scope);
         public object ifDebug(ScriptScopeContext scope) => scope.Context.DebugMode ? (object)IgnoreResult.Value : StopExecution.Value;
         public object debugMode(ScriptScopeContext scope) => scope.Context.DebugMode;
 
         public bool hasError(ScriptScopeContext scope) => scope.PageResult.LastFilterError != null;
-        
+
         public Exception lastError(ScriptScopeContext scope) => scope.PageResult.LastFilterError;
         public string lastErrorMessage(ScriptScopeContext scope) => scope.PageResult.LastFilterError?.Message;
         public string lastErrorStackTrace(ScriptScopeContext scope) => scope.PageResult.LastFilterStackTrace?.Length > 0
@@ -69,22 +69,22 @@ namespace ServiceStack.Script
             {
                 var filterArgs = options.AssertOptions(nameof(ensureAllArgsNotNull));
                 var message = filterArgs.TryGetValue("message", out object oMessage) ? oMessage as string : null;
-                
+
                 if (args is IDictionary<string, object> argsMap)
                 {
                     if (argsMap.Count == 0)
                         throw new NotSupportedException($"'{nameof(ensureAllArgsNotNull)}' expects a non empty Object Dictionary");
-                    
+
                     var keys = argsMap.Keys.OrderBy(x => x);
                     foreach (var key in keys)
                     {
                         var value = argsMap[key];
-                        if (!isNull(value)) 
+                        if (!isNull(value))
                             continue;
-                        
+
                         if (message != null)
                             throw new ArgumentException(string.Format(message, key));
-                        
+
                         throw new ArgumentNullException(key);
                     }
                     return args;
@@ -104,12 +104,12 @@ namespace ServiceStack.Script
             {
                 var filterArgs = options.AssertOptions(nameof(ensureAnyArgsNotNull));
                 var message = filterArgs.TryGetValue("message", out object oMessage) ? oMessage as string : null;
-                
+
                 if (args is IDictionary<string, object> argsMap)
                 {
                     if (argsMap.Count == 0)
                         throw new NotSupportedException($"'{nameof(ensureAnyArgsNotNull)}' expects a non empty Object Dictionary");
-                    
+
                     var keys = argsMap.Keys.OrderBy(x => x);
                     foreach (var key in keys)
                     {
@@ -121,7 +121,7 @@ namespace ServiceStack.Script
                     var firstKey = argsMap.Keys.OrderBy(x => x).First();
                     if (message != null)
                         throw new ArgumentException(string.Format(message, firstKey));
-                        
+
                     throw new ArgumentNullException(firstKey);
                 }
                 throw new NotSupportedException($"'{nameof(ensureAnyArgsNotNull)}' expects an Object Dictionary but received a '{args.GetType().Name}'");
@@ -139,22 +139,22 @@ namespace ServiceStack.Script
             {
                 var filterArgs = options.AssertOptions(nameof(ensureAllArgsNotEmpty));
                 var message = filterArgs.TryGetValue("message", out object oMessage) ? oMessage as string : null;
-                
+
                 if (args is IDictionary<string, object> argsMap)
                 {
                     if (argsMap.Count == 0)
                         throw new NotSupportedException($"'{nameof(ensureAllArgsNotEmpty)}' expects a non empty Object Dictionary");
-                    
+
                     var keys = argsMap.Keys.OrderBy(x => x);
                     foreach (var key in keys)
                     {
                         var value = argsMap[key];
-                        if (!isEmpty(value)) 
+                        if (!isEmpty(value))
                             continue;
-                        
+
                         if (message != null)
                             throw new ArgumentException(string.Format(message, key));
-                        
+
                         throw new ArgumentNullException(key);
                     }
                     return args;
@@ -174,7 +174,7 @@ namespace ServiceStack.Script
             {
                 var filterArgs = options.AssertOptions(nameof(ensureAnyArgsNotEmpty));
                 var message = filterArgs.TryGetValue("message", out object oMessage) ? oMessage as string : null;
-                
+
                 if (args is IDictionary<string, object> argsMap)
                 {
                     if (argsMap.Count == 0)
@@ -184,14 +184,14 @@ namespace ServiceStack.Script
                     foreach (var key in keys)
                     {
                         var value = argsMap[key];
-                        if (!isEmpty(value)) 
+                        if (!isEmpty(value))
                             return args;
                     }
 
                     var firstKey = argsMap.Keys.OrderBy(x => x).First();
                     if (message != null)
                         throw new ArgumentException(string.Format(message, firstKey));
-                        
+
                     throw new ArgumentNullException(firstKey);
                 }
                 throw new NotSupportedException($"'{nameof(ensureAnyArgsNotEmpty)}' expects an Object Dictionary but received a '{args.GetType().Name}'");
@@ -201,51 +201,51 @@ namespace ServiceStack.Script
                 throw new StopFilterExecutionException(scope, options, ex);
             }
         }
-        
-        public object ifThrow(ScriptScopeContext scope, bool test, string message) => test 
+
+        public object ifThrow(ScriptScopeContext scope, bool test, string message) => test
             ? new Exception(message).InStopFilter(scope, null)
             : StopExecution.Value;
-        public object ifThrow(ScriptScopeContext scope, bool test, string message, object options) => test 
+        public object ifThrow(ScriptScopeContext scope, bool test, string message, object options) => test
             ? new Exception(message).InStopFilter(scope, options)
             : StopExecution.Value;
 
-        public object throwIf(ScriptScopeContext scope, string message, bool test) => test 
+        public object throwIf(ScriptScopeContext scope, string message, bool test) => test
             ? new Exception(message).InStopFilter(scope, null)
             : StopExecution.Value;
-        public object throwIf(ScriptScopeContext scope, string message, bool test, object options) => test 
+        public object throwIf(ScriptScopeContext scope, string message, bool test, object options) => test
             ? new Exception(message).InStopFilter(scope, options)
             : StopExecution.Value;
 
-        public object ifThrowArgumentException(ScriptScopeContext scope, bool test, string message) => test 
+        public object ifThrowArgumentException(ScriptScopeContext scope, bool test, string message) => test
             ? new ArgumentException(message).InStopFilter(scope, null)
             : StopExecution.Value;
 
         public object ifThrowArgumentException(ScriptScopeContext scope, bool test, string message, object options)
         {
-            if (!test) 
+            if (!test)
                 return StopExecution.Value;
-            
+
             if (options is string paramName)
                 return new ArgumentException(message, paramName).InStopFilter(scope, null);
 
             return new ArgumentException(message).InStopFilter(scope, options);
         }
 
-        public object ifThrowArgumentException(ScriptScopeContext scope, bool test, string message, string paramName, object options) => test 
+        public object ifThrowArgumentException(ScriptScopeContext scope, bool test, string message, string paramName, object options) => test
             ? new ArgumentException(message, paramName).InStopFilter(scope, options)
             : StopExecution.Value;
 
-        public object ifThrowArgumentNullException(ScriptScopeContext scope, bool test, string paramName) => test 
+        public object ifThrowArgumentNullException(ScriptScopeContext scope, bool test, string paramName) => test
             ? new ArgumentNullException(paramName).InStopFilter(scope, null)
             : StopExecution.Value;
-        public object ifThrowArgumentNullException(ScriptScopeContext scope, bool test, string paramName, object options) => test 
+        public object ifThrowArgumentNullException(ScriptScopeContext scope, bool test, string paramName, object options) => test
             ? new ArgumentNullException(paramName).InStopFilter(scope, options)
             : StopExecution.Value;
-        
-        public object throwArgumentNullExceptionIf(ScriptScopeContext scope, string paramName, bool test) => test 
+
+        public object throwArgumentNullExceptionIf(ScriptScopeContext scope, string paramName, bool test) => test
             ? new ArgumentNullException(paramName).InStopFilter(scope, null)
             : StopExecution.Value;
-        public object throwArgumentNullExceptionIf(ScriptScopeContext scope, string paramName, bool test, object options) => test 
+        public object throwArgumentNullExceptionIf(ScriptScopeContext scope, string paramName, bool test, object options) => test
             ? new ArgumentNullException(paramName).InStopFilter(scope, options)
             : StopExecution.Value;
 

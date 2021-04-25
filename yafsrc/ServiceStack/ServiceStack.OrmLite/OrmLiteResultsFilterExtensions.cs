@@ -17,7 +17,7 @@ namespace ServiceStack.OrmLite
         public static int ExecNonQuery(this IDbCommand dbCmd, string sql, object anonType = null)
         {
             if (anonType != null)
-                dbCmd.SetParameters(anonType.ToObjectDictionary(), (bool)false, sql:ref sql);
+                dbCmd.SetParameters(anonType.ToObjectDictionary(), (bool)false, sql: ref sql);
 
             dbCmd.CommandText = sql;
 
@@ -36,7 +36,7 @@ namespace ServiceStack.OrmLite
         {
 
             if (dict != null)
-                dbCmd.SetParameters(dict, (bool)false, sql:ref sql);
+                dbCmd.SetParameters(dict, (bool)false, sql: ref sql);
 
             dbCmd.CommandText = sql;
 
@@ -133,7 +133,7 @@ namespace ServiceStack.OrmLite
             return to;
         }
 
-        internal static List<T> ExprConvertToList<T>(this IDbCommand dbCmd, string sql = null, IEnumerable<IDbDataParameter> sqlParams = null, HashSet<string> onlyFields=null)
+        internal static List<T> ExprConvertToList<T>(this IDbCommand dbCmd, string sql = null, IEnumerable<IDbDataParameter> sqlParams = null, HashSet<string> onlyFields = null)
         {
             if (sql != null)
                 dbCmd.CommandText = sql;
@@ -145,7 +145,7 @@ namespace ServiceStack.OrmLite
 
             using (var reader = dbCmd.ExecReader(dbCmd.CommandText))
             {
-                return reader.ConvertToList<T>(dbCmd.GetDialectProvider(), onlyFields:onlyFields);
+                return reader.ConvertToList<T>(dbCmd.GetDialectProvider(), onlyFields: onlyFields);
             }
         }
 
@@ -341,7 +341,7 @@ namespace ServiceStack.OrmLite
             dbCmd.PopulateWith(expression);
 
             if (OrmLiteConfig.ResultsFilter != null)
-                return OrmLiteConfig.ResultsFilter.GetKeyValuePairs<K,V>(dbCmd);
+                return OrmLiteConfig.ResultsFilter.GetKeyValuePairs<K, V>(dbCmd);
 
             using (var reader = dbCmd.ExecReader(dbCmd.CommandText))
             {

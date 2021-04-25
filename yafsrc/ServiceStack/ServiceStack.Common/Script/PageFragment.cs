@@ -5,24 +5,24 @@ using ServiceStack.Text;
 
 namespace ServiceStack.Script
 {
-    public abstract class PageFragment {}
+    public abstract class PageFragment { }
 
     public class PageVariableFragment : PageFragment
     {
         public ReadOnlyMemory<char> OriginalText { get; set; }
-        
+
         private ReadOnlyMemory<byte> originalTextUtf8;
         public ReadOnlyMemory<byte> OriginalTextUtf8 => originalTextUtf8.IsEmpty ? (originalTextUtf8 = OriginalText.ToUtf8()) : OriginalTextUtf8;
-        
+
         public JsToken Expression { get; }
-        
+
         public string Binding { get; }
-        
+
         public object InitialValue { get; }
         public JsCallExpression InitialExpression { get; }
-        
+
         public JsCallExpression[] FilterExpressions { get; }
-        
+
         internal string LastFilterName { get; }
 
         public PageVariableFragment(ReadOnlyMemory<char> originalText, JsToken expr, List<JsCallExpression> filterCommands)
@@ -58,13 +58,13 @@ namespace ServiceStack.Script
         {
             if (ReferenceEquals(Expression, JsNull.Value))
                 return Expression;
-            
+
             return Expression.Evaluate(scope);
         }
 
         protected bool Equals(PageVariableFragment other)
         {
-            return OriginalText.Span.SequenceEqual(other.OriginalText.Span) 
+            return OriginalText.Span.SequenceEqual(other.OriginalText.Span)
                    && Equals(Expression, other.Expression)
                    && FilterExpressions.EquivalentTo(other.FilterExpressions);
         }
@@ -74,7 +74,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((PageVariableFragment) obj);
+            return Equals((PageVariableFragment)obj);
         }
 
         public override int GetHashCode()
@@ -92,14 +92,14 @@ namespace ServiceStack.Script
     public class PageStringFragment : PageFragment
     {
         public ReadOnlyMemory<char> Value { get; set; }
-        
+
         private string valueString;
         public string ValueString => valueString ?? (valueString = Value.ToString());
 
         private ReadOnlyMemory<byte> valueUtf8;
         public ReadOnlyMemory<byte> ValueUtf8 => valueUtf8.IsEmpty ? (valueUtf8 = Value.ToUtf8()) : valueUtf8;
 
-        public PageStringFragment(string value) : this(value.AsMemory()) {}
+        public PageStringFragment(string value) : this(value.AsMemory()) { }
         public PageStringFragment(ReadOnlyMemory<char> value) => Value = value;
 
         protected bool Equals(PageStringFragment other)
@@ -112,7 +112,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((PageStringFragment) obj);
+            return Equals((PageStringFragment)obj);
         }
 
         public override int GetHashCode()
@@ -134,21 +134,21 @@ namespace ServiceStack.Script
         public PageElseBlock[] ElseBlocks { get; }
 
         public PageBlockFragment(string originalText, string name, string argument,
-            JsStatement body, IEnumerable<PageElseBlock> elseStatements=null) 
-            : this (originalText.AsMemory(), name, argument.AsMemory(), new PageFragment[]{ new PageJsBlockStatementFragment(new JsBlockStatement(body)) }, elseStatements) {}
+            JsStatement body, IEnumerable<PageElseBlock> elseStatements = null)
+            : this(originalText.AsMemory(), name, argument.AsMemory(), new PageFragment[] { new PageJsBlockStatementFragment(new JsBlockStatement(body)) }, elseStatements) { }
         public PageBlockFragment(string originalText, string name, string argument,
-            JsBlockStatement body, IEnumerable<PageElseBlock> elseStatements=null) 
-            : this (originalText.AsMemory(), name, argument.AsMemory(), new PageFragment[]{ new PageJsBlockStatementFragment(body) }, elseStatements) {}
+            JsBlockStatement body, IEnumerable<PageElseBlock> elseStatements = null)
+            : this(originalText.AsMemory(), name, argument.AsMemory(), new PageFragment[] { new PageJsBlockStatementFragment(body) }, elseStatements) { }
 
         public PageBlockFragment(string originalText, string name, string argument,
-            List<PageFragment> body, List<PageElseBlock> elseStatements=null) 
-            : this (originalText.AsMemory(), name, argument.AsMemory(), body, elseStatements) {}
-        public PageBlockFragment(string name, ReadOnlyMemory<char> argument, 
-            List<PageFragment> body, List<PageElseBlock> elseStatements=null)
-            : this(default, name, argument, body, elseStatements) {}
-        
-        public PageBlockFragment(ReadOnlyMemory<char> originalText, string name, ReadOnlyMemory<char> argument, 
-            IEnumerable<PageFragment> body, IEnumerable<PageElseBlock> elseStatements=null)
+            List<PageFragment> body, List<PageElseBlock> elseStatements = null)
+            : this(originalText.AsMemory(), name, argument.AsMemory(), body, elseStatements) { }
+        public PageBlockFragment(string name, ReadOnlyMemory<char> argument,
+            List<PageFragment> body, List<PageElseBlock> elseStatements = null)
+            : this(default, name, argument, body, elseStatements) { }
+
+        public PageBlockFragment(ReadOnlyMemory<char> originalText, string name, ReadOnlyMemory<char> argument,
+            IEnumerable<PageFragment> body, IEnumerable<PageElseBlock> elseStatements = null)
         {
             OriginalText = originalText;
             Name = name;
@@ -159,9 +159,9 @@ namespace ServiceStack.Script
 
         protected bool Equals(PageBlockFragment other)
         {
-            return Name == other.Name && 
-                   Argument.Span.SequenceEqual(other.Argument.Span) && 
-                   Body.EquivalentTo(other.Body) && 
+            return Name == other.Name &&
+                   Argument.Span.SequenceEqual(other.Argument.Span) &&
+                   Body.EquivalentTo(other.Body) &&
                    ElseBlocks.EquivalentTo(other.ElseBlocks);
         }
 
@@ -170,7 +170,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((PageBlockFragment) obj);
+            return Equals((PageBlockFragment)obj);
         }
 
         public override int GetHashCode()
@@ -191,12 +191,12 @@ namespace ServiceStack.Script
         public ReadOnlyMemory<char> Argument { get; }
         public PageFragment[] Body { get; }
 
-        public PageElseBlock(string argument, List<PageFragment> body) : this(argument.AsMemory(), body) {}
-        public PageElseBlock(string argument, JsStatement statement) 
-            : this(argument, new JsBlockStatement(statement)) {}
-        public PageElseBlock(string argument, JsBlockStatement block) 
-            : this(argument.AsMemory(), new PageFragment[]{ new PageJsBlockStatementFragment(block) }) {}
-        public PageElseBlock(ReadOnlyMemory<char> argument, IEnumerable<PageFragment> body) : this(argument, body.ToArray()) {}
+        public PageElseBlock(string argument, List<PageFragment> body) : this(argument.AsMemory(), body) { }
+        public PageElseBlock(string argument, JsStatement statement)
+            : this(argument, new JsBlockStatement(statement)) { }
+        public PageElseBlock(string argument, JsBlockStatement block)
+            : this(argument.AsMemory(), new PageFragment[] { new PageJsBlockStatementFragment(block) }) { }
+        public PageElseBlock(ReadOnlyMemory<char> argument, IEnumerable<PageFragment> body) : this(argument, body.ToArray()) { }
         public PageElseBlock(ReadOnlyMemory<char> argument, PageFragment[] body)
         {
             Argument = argument;
@@ -214,7 +214,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((PageElseBlock) obj);
+            return Equals((PageElseBlock)obj);
         }
 
         public override int GetHashCode()
@@ -231,9 +231,9 @@ namespace ServiceStack.Script
     public class PageJsBlockStatementFragment : PageFragment
     {
         public JsBlockStatement Block { get; }
-        
+
         public bool Quiet { get; set; }
-        
+
         public PageJsBlockStatementFragment(JsBlockStatement statement)
         {
             Block = statement;
@@ -249,7 +249,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((PageJsBlockStatementFragment) obj);
+            return Equals((PageJsBlockStatementFragment)obj);
         }
 
         public override int GetHashCode()

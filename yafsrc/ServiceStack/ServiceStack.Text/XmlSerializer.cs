@@ -19,7 +19,7 @@ namespace ServiceStack.Text
             XmlWriterSettings.Encoding = PclExport.Instance.GetUTF8Encoding(false);
             XmlWriterSettings.OmitXmlDeclaration = omitXmlDeclaration;
             XmlReaderSettings.MaxCharactersInDocument = maxCharsInDocument;
-            
+
             //Prevent XML bombs by default: https://msdn.microsoft.com/en-us/magazine/ee335713.aspx
             XmlReaderSettings.DtdProcessing = DtdProcessing.Prohibit;
         }

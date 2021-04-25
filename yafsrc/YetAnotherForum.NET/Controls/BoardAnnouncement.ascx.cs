@@ -32,7 +32,7 @@ namespace YAF.Controls
     using YAF.Core.BoardSettings;
     using YAF.Types;
     using YAF.Types.Extensions;
-    
+
     #endregion
 
     /// <summary>
@@ -58,7 +58,7 @@ namespace YAF.Controls
 
             var dateTime = Convert.ToDateTime(
                 this.PageContext.BoardSettings.BoardAnnouncementUntil,
-                CultureInfo.InvariantCulture); 
+                CultureInfo.InvariantCulture);
 
             if (dateTime <= DateTime.Now)
             {

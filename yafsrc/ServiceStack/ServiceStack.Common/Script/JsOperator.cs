@@ -87,7 +87,7 @@ namespace ServiceStack.Script
         public override string Token => "!==";
     }
 
-    public class JsCoalescing  : JsBinaryOperator
+    public class JsCoalescing : JsBinaryOperator
     {
         public static JsCoalescing Operator = new JsCoalescing();
         private JsCoalescing() { }
@@ -250,7 +250,7 @@ namespace ServiceStack.Script
         public static JsAssignment Operator = new JsAssignment();
         private JsAssignment() { }
         public override string Token => "=";
-        
+
         public override object Evaluate(object lhs, object rhs)
         {
             throw new System.NotImplementedException();

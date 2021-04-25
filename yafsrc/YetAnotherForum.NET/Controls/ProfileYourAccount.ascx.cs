@@ -23,84 +23,84 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Core.BaseControls;
-  using YAF.Core.Extensions;
-  using YAF.Core.Model;
-  using YAF.Types;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Types.Interfaces.Services;
-  using YAF.Types.Models;
-
-  #endregion
-
-  /// <summary>
-  /// The profile your account.
-  /// </summary>
-  public partial class ProfileYourAccount : BaseUserControl
-  {
-    #region Methods
-
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (!this.IsPostBack)
-      {
-        this.BindData();
-      }
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      var groups = this.GetRepository<UserGroup>().List(this.PageContext.PageUserID);
-
-      this.Groups.DataSource = groups;
-
-      this.DataBind();
-
-      // TitleUserName.Text = HtmlEncode( userData.Membership.UserName );
-      this.AccountEmail.Text = this.PageContext.User.Email;
-      this.Name.Text = this.HtmlEncode(this.PageContext.User.Name);
-      this.Joined.Text = this.Get<IDateTimeService>().FormatDateTime(this.PageContext.User.Joined);
-      this.NumPosts.Text = $"{this.PageContext.User.NumPosts:N0}";
-
-      this.DisplayNameHolder.Visible = this.PageContext.BoardSettings.EnableDisplayName;
-
-      if (this.PageContext.BoardSettings.EnableDisplayName)
-      {
-        this.DisplayName.Text =
-          this.HtmlEncode(this.PageContext.User.DisplayOrUserName());
-      }
-
-      var avatarImg = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();
-
-      if (avatarImg.IsSet())
-      {
-        this.AvatarImage.ImageUrl = avatarImg; 
-        this.AvatarImage.Attributes.CssStyle.Add("max-width", this.PageContext.BoardSettings.AvatarWidth.ToString());
-        this.AvatarImage.Attributes.CssStyle.Add("max-height", this.PageContext.BoardSettings.AvatarHeight.ToString());
-      }
-      else
-      {
-        this.AvatarImage.Visible = false;
-      }
-    }
+    using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
+    using YAF.Types;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
+    using YAF.Types.Models;
 
     #endregion
-  }
+
+    /// <summary>
+    /// The profile your account.
+    /// </summary>
+    public partial class ProfileYourAccount : BaseUserControl
+    {
+        #region Methods
+
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (!this.IsPostBack)
+            {
+                this.BindData();
+            }
+        }
+
+        /// <summary>
+        /// The bind data.
+        /// </summary>
+        private void BindData()
+        {
+            var groups = this.GetRepository<UserGroup>().List(this.PageContext.PageUserID);
+
+            this.Groups.DataSource = groups;
+
+            this.DataBind();
+
+            // TitleUserName.Text = HtmlEncode( userData.Membership.UserName );
+            this.AccountEmail.Text = this.PageContext.User.Email;
+            this.Name.Text = this.HtmlEncode(this.PageContext.User.Name);
+            this.Joined.Text = this.Get<IDateTimeService>().FormatDateTime(this.PageContext.User.Joined);
+            this.NumPosts.Text = $"{this.PageContext.User.NumPosts:N0}";
+
+            this.DisplayNameHolder.Visible = this.PageContext.BoardSettings.EnableDisplayName;
+
+            if (this.PageContext.BoardSettings.EnableDisplayName)
+            {
+                this.DisplayName.Text =
+                  this.HtmlEncode(this.PageContext.User.DisplayOrUserName());
+            }
+
+            var avatarImg = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();
+
+            if (avatarImg.IsSet())
+            {
+                this.AvatarImage.ImageUrl = avatarImg;
+                this.AvatarImage.Attributes.CssStyle.Add("max-width", this.PageContext.BoardSettings.AvatarWidth.ToString());
+                this.AvatarImage.Attributes.CssStyle.Add("max-height", this.PageContext.BoardSettings.AvatarHeight.ToString());
+            }
+            else
+            {
+                this.AvatarImage.Visible = false;
+            }
+        }
+
+        #endregion
+    }
 }

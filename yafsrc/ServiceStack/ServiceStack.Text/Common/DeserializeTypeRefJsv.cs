@@ -26,7 +26,7 @@ namespace ServiceStack.Text.Common
             if (strType[index++] != JsWriter.MapStartChar)
                 throw DeserializeTypeRef.CreateSerializationError(type, strType.ToString());
 
-            if (JsonTypeSerializer.IsEmptyMap(strType)) 
+            if (JsonTypeSerializer.IsEmptyMap(strType))
                 return ctorFn();
 
             var config = JsConfig.GetConfig();

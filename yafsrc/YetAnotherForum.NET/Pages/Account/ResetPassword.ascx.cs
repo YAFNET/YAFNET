@@ -28,7 +28,7 @@ namespace YAF.Pages.Account
     using System;
     using System.Linq;
     using System.Web;
-    
+
     using YAF.Core.BasePages;
     using YAF.Core.Services;
     using YAF.Types;

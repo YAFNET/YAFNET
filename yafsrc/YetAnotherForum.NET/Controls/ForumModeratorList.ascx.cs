@@ -60,7 +60,7 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected override void OnPreRender(EventArgs e)
-        { 
+        {
             base.OnPreRender(e);
 
             this.PageContext.PageElements.RegisterJsBlockStartup(
@@ -87,7 +87,7 @@ namespace YAF.Controls
                     }
                     else
                     {
-						// Render Moderator User Link
+                        // Render Moderator User Link
                         var userLink = new UserLink
                         {
                             Style = row.Style,

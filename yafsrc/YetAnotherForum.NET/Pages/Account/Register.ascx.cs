@@ -449,27 +449,27 @@ namespace YAF.Pages.Account
             switch (this.PageContext.BoardSettings.CaptchaTypeRegister)
             {
                 case 1:
-                {
-                    // Check YAF Captcha
-                    if (!CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
+                        // Check YAF Captcha
+                        if (!CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
+                        {
+                            this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
 
-                        return false;
+                            return false;
+                        }
                     }
-                }
 
                     break;
                 case 2:
-                {
-                    // Check reCAPTCHA
-                    if (!this.Recaptcha1.IsValid)
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("BAD_RECAPTCHA"), MessageTypes.danger);
+                        // Check reCAPTCHA
+                        if (!this.Recaptcha1.IsValid)
+                        {
+                            this.PageContext.AddLoadMessage(this.GetText("BAD_RECAPTCHA"), MessageTypes.danger);
 
-                        return false;
+                            return false;
+                        }
                     }
-                }
 
                     break;
             }

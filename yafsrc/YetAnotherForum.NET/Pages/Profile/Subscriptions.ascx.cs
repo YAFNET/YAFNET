@@ -31,7 +31,7 @@ namespace YAF.Pages.Profile
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI.WebControls;
-    
+
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -279,13 +279,13 @@ namespace YAF.Pages.Profile
         private static List<int> GetCheckedIds(Repeater repeater, string checkBoxId, string idLabelId)
         {
             return (from item in repeater.Items.OfType<RepeaterItem>()
-                let checkBox = item.FindControlAs<CheckBox>(checkBoxId)
-                let idLabel = item.FindControlAs<Label>(idLabelId)
-                where checkBox.Checked
-                select idLabel.Text.ToTypeOrDefault<int?>(null)
+                    let checkBox = item.FindControlAs<CheckBox>(checkBoxId)
+                    let idLabel = item.FindControlAs<Label>(idLabelId)
+                    where checkBox.Checked
+                    select idLabel.Text.ToTypeOrDefault<int?>(null)
                 into id
-                where id.HasValue
-                select id.Value).ToList();
+                    where id.HasValue
+                    select id.Value).ToList();
         }
 
         /// <summary>
@@ -293,11 +293,11 @@ namespace YAF.Pages.Profile
         /// </summary>
         private void BindData()
         {
-           this.BindDataForums();
+            this.BindDataForums();
 
-           this.BindDataTopics();
+            this.BindDataTopics();
 
-           this.PMNotificationEnabled.Checked = this.PageContext.User.PMNotification;
+            this.PMNotificationEnabled.Checked = this.PageContext.User.PMNotification;
             this.DailyDigestEnabled.Checked = this.PageContext.User.DailyDigest;
 
             this.DataBind();

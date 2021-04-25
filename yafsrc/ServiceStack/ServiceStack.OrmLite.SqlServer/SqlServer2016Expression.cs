@@ -7,7 +7,7 @@ namespace ServiceStack.OrmLite.SqlServer
     public class SqlServer2016Expression<T> : SqlServerExpression<T>
     {
         public SqlServer2016Expression(IOrmLiteDialectProvider dialectProvider)
-            : base(dialectProvider) {}
+            : base(dialectProvider) { }
 
         protected override object VisitSqlMethodCall(MethodCallExpression m)
         {

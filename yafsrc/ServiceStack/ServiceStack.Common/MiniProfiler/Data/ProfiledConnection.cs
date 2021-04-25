@@ -22,33 +22,33 @@ namespace ServiceStack.MiniProfiler.Data
         /// <param name="autoDisposeConnection">Determines whether the ProfiledDbConnection will dispose the underlying connection.</param>
         public ProfiledConnection(DbConnection connection, IDbProfiler profiler, bool autoDisposeConnection = true)
         {
-        	Init(connection, profiler, autoDisposeConnection);
+            Init(connection, profiler, autoDisposeConnection);
         }
 
         private void Init(DbConnection connection, IDbProfiler profiler, bool autoDisposeConnection)
-    	{
-    		if (connection == null) throw new ArgumentNullException("connection");
+        {
+            if (connection == null) throw new ArgumentNullException("connection");
 
-    	    AutoDisposeConnection = autoDisposeConnection;
-    		_conn = connection;
-    		_conn.StateChange += StateChangeHandler;
+            AutoDisposeConnection = autoDisposeConnection;
+            _conn = connection;
+            _conn.StateChange += StateChangeHandler;
 
-    		if (profiler != null)
-    		{
-    			_profiler = profiler;
-    		}
-    	}
+            if (profiler != null)
+            {
+                _profiler = profiler;
+            }
+        }
 
         public ProfiledConnection(IDbConnection connection, IDbProfiler profiler, bool autoDisposeConnection = true)
         {
-    		var hasConn = connection as IHasDbConnection;
-			if (hasConn != null) connection = hasConn.DbConnection;
-    		var dbConn = connection as DbConnection;
+            var hasConn = connection as IHasDbConnection;
+            if (hasConn != null) connection = hasConn.DbConnection;
+            var dbConn = connection as DbConnection;
 
-			if (dbConn == null)
-				throw new ArgumentException(connection.GetType().FullName + " does not inherit DbConnection");
-			
-			Init(dbConn, profiler, autoDisposeConnection);
+            if (dbConn == null)
+                throw new ArgumentException(connection.GetType().FullName + " does not inherit DbConnection");
+
+            Init(dbConn, profiler, autoDisposeConnection);
         }
 
 
@@ -134,10 +134,10 @@ namespace ServiceStack.MiniProfiler.Data
                 _conn.Close();
         }
 
-		//public override void EnlistTransaction(System.Transactions.Transaction transaction)
-		//{
-		//    _conn.EnlistTransaction(transaction);
-		//}
+        //public override void EnlistTransaction(System.Transactions.Transaction transaction)
+        //{
+        //    _conn.EnlistTransaction(transaction);
+        //}
 #if !NETSTANDARD2_0
         public override DataTable GetSchema()
         {

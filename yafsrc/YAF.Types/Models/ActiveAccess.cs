@@ -26,7 +26,7 @@ namespace YAF.Types.Models
     using System;
 
     using ServiceStack.DataAnnotations;
-    
+
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -34,7 +34,7 @@ namespace YAF.Types.Models
     ///     A class which represents the ActiveAccess table.
     /// </summary>
     [Serializable]
-    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" + 
+    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" +
                      "alter table [{databaseOwner}].[{tableName}] with nocheck add constraint [PK_{tableName}] primary key clustered (UserID,ForumID)")]
     public class ActiveAccess : IEntity, IHaveBoardID
     {

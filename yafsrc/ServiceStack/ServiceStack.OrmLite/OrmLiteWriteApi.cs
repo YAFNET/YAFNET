@@ -58,7 +58,7 @@ namespace ServiceStack.OrmLite
         /// Execute any arbitrary raw SQL with db params.
         /// </summary>
         /// <returns>number of rows affected</returns>
-        public static int ExecuteSql(this IDbConnection dbConn, string sql, Dictionary<string,object> dbParams)
+        public static int ExecuteSql(this IDbConnection dbConn, string sql, Dictionary<string, object> dbParams)
         {
             return dbConn.Exec(dbCmd => dbCmd.ExecuteSql(sql, dbParams));
         }
@@ -85,7 +85,7 @@ namespace ServiceStack.OrmLite
         /// Insert 1 POCO, use selectIdentity to retrieve the last insert AutoIncrement id (if any). E.g:
         /// <para>var id = db.Insert(new Dictionary&lt;string,object&gt; { ["Id"] = 1, ["FirstName"] = "Jimi }, selectIdentity:true)</para>
         /// </summary>
-        public static long Insert<T>(this IDbConnection dbConn, Dictionary<string,object> obj, bool selectIdentity = false)
+        public static long Insert<T>(this IDbConnection dbConn, Dictionary<string, object> obj, bool selectIdentity = false)
         {
             return dbConn.Exec(dbCmd => dbCmd.Insert<T>(obj, commandFilter: null, selectIdentity: selectIdentity));
         }
@@ -94,7 +94,7 @@ namespace ServiceStack.OrmLite
         /// Insert 1 POCO, use selectIdentity to retrieve the last insert AutoIncrement id (if any). E.g:
         /// <para>var id = db.Insert(new Dictionary&lt;string,object&gt; { ["Id"] = 1, ["FirstName"] = "Jimi }, dbCmd => applyFilter(dbCmd))</para>
         /// </summary>
-        public static long Insert<T>(this IDbConnection dbConn, Action<IDbCommand> commandFilter, Dictionary<string,object> obj, bool selectIdentity = false)
+        public static long Insert<T>(this IDbConnection dbConn, Action<IDbCommand> commandFilter, Dictionary<string, object> obj, bool selectIdentity = false)
         {
             return dbConn.Exec(dbCmd => dbCmd.Insert<T>(obj, commandFilter: commandFilter, selectIdentity: selectIdentity));
         }
@@ -133,7 +133,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public static void InsertAll<T>(this IDbConnection dbConn, IEnumerable<T> objs)
         {
-            dbConn.Exec(dbCmd => dbCmd.InsertAll(objs, commandFilter:null));
+            dbConn.Exec(dbCmd => dbCmd.InsertAll(objs, commandFilter: null));
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace ServiceStack.OrmLite
         /// Updates 1 POCO. All fields are updated except for the PrimaryKey which is used as the identity selector. E.g:
         /// <para>db.Update(new Dictionary&lt;string,object&gt; { ["Id"] = 1, ["FirstName"] = "Jimi" })</para>
         /// </summary>
-        public static int Update<T>(this IDbConnection dbConn, Dictionary<string,object> obj, Action<IDbCommand> commandFilter = null)
+        public static int Update<T>(this IDbConnection dbConn, Dictionary<string, object> obj, Action<IDbCommand> commandFilter = null)
         {
             return dbConn.Exec(dbCmd => dbCmd.Update<T>(obj, commandFilter));
         }
@@ -192,7 +192,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public static int Update<T>(this IDbConnection dbConn, params T[] objs)
         {
-            return dbConn.Exec(dbCmd => dbCmd.Update(objs, commandFilter:null));
+            return dbConn.Exec(dbCmd => dbCmd.Update(objs, commandFilter: null));
         }
         public static int Update<T>(this IDbConnection dbConn, Action<IDbCommand> commandFilter, params T[] objs)
         {

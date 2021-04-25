@@ -24,23 +24,23 @@
 namespace YAF.Types.Objects.Nntp
 {
     /// <summary>
-  /// The article body.
-  /// </summary>
-  public class ArticleBody
-  {
-      /// <summary>
-    /// Gets or sets a value indicating whether IsHtml.
+    /// The article body.
     /// </summary>
-    public bool IsHtml { get; set; }
+    public class ArticleBody
+    {
+        /// <summary>
+        /// Gets or sets a value indicating whether IsHtml.
+        /// </summary>
+        public bool IsHtml { get; set; }
 
-    /// <summary>
-    /// Gets or sets Text.
-    /// </summary>
-    public string Text { get; set; }
+        /// <summary>
+        /// Gets or sets Text.
+        /// </summary>
+        public string Text { get; set; }
 
-    /// <summary>
-    /// Gets or sets Attachments.
-    /// </summary>
-    public NntpAttachment[] Attachments { get; set; }
-  }
+        /// <summary>
+        /// Gets or sets Attachments.
+        /// </summary>
+        public NntpAttachment[] Attachments { get; set; }
+    }
 }

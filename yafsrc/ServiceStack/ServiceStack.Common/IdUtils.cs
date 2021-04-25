@@ -40,7 +40,7 @@ namespace ServiceStack
                 }
 
                 var piId = typeof(T).GetIdProperty();
-                if (piId?.GetGetMethod(nonPublic:true) != null)
+                if (piId?.GetGetMethod(nonPublic: true) != null)
                 {
                     CanGetId = HasPropertyId<T>.GetId;
                     return;
@@ -52,7 +52,7 @@ namespace ServiceStack
                 CanGetId = x =>
                 {
                     var piId = x.GetType().GetIdProperty();
-                    if (piId?.GetGetMethod(nonPublic:true) != null)
+                    if (piId?.GetGetMethod(nonPublic: true) != null)
                         return x.GetObjectId();
 
                     return x.GetHashCode();
@@ -142,7 +142,7 @@ namespace ServiceStack
 
         public static object GetObjectId(this object entity)
         {
-            return entity.GetType().GetIdProperty().GetGetMethod(nonPublic:true).Invoke(entity, TypeConstants.EmptyObjectArray);
+            return entity.GetType().GetIdProperty().GetGetMethod(nonPublic: true).Invoke(entity, TypeConstants.EmptyObjectArray);
         }
 
         public static object ToId<T>(this T entity)

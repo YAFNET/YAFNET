@@ -96,12 +96,12 @@ namespace YAF.Modules
 
             this.PageContext.PageElements.AddPageElement("jquery");
         }
-        
+
         /// <summary>
-         /// Handles the Load event of the ForumPage control.
-         /// </summary>
-         /// <param name="sender">The source of the event.</param>
-         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// Handles the Load event of the ForumPage control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CurrentForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Load CSS First
@@ -130,26 +130,26 @@ namespace YAF.Modules
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "yafForumAdminExtensions",
                 new ScriptResourceDefinition
-                    {
-                        Path = BoardInfo.GetURLToScripts($"jquery.{adminForumJsName}.min.js?v={version}"),
-                        DebugPath = BoardInfo.GetURLToScripts($"jquery.{adminForumJsName}.js?v={version}")
+                {
+                    Path = BoardInfo.GetURLToScripts($"jquery.{adminForumJsName}.min.js?v={version}"),
+                    DebugPath = BoardInfo.GetURLToScripts($"jquery.{adminForumJsName}.js?v={version}")
                 });
 
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "yafForumExtensions",
                 new ScriptResourceDefinition
-                    {
-                        Path = BoardInfo.GetURLToScripts($"jquery.{forumJsName}.min.js?v={version}"),
-                        DebugPath = BoardInfo.GetURLToScripts($"jquery.{forumJsName}.js?v={version}")
+                {
+                    Path = BoardInfo.GetURLToScripts($"jquery.{forumJsName}.min.js?v={version}"),
+                    DebugPath = BoardInfo.GetURLToScripts($"jquery.{forumJsName}.js?v={version}")
                 });
 
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "FileUploadScript",
                 new ScriptResourceDefinition
-                    {
-                        Path = BoardInfo.GetURLToScripts("jquery.fileupload.comb.min.js"),
-                        DebugPath = BoardInfo.GetURLToScripts("jquery.fileupload.comb.js")
-                    });
+                {
+                    Path = BoardInfo.GetURLToScripts("jquery.fileupload.comb.min.js"),
+                    DebugPath = BoardInfo.GetURLToScripts("jquery.fileupload.comb.js")
+                });
 
             this.PageContext.PageElements.AddScriptReference(
                 this.PageContext.CurrentForumPage.IsAdminPage ? "yafForumAdminExtensions" : "yafForumExtensions");

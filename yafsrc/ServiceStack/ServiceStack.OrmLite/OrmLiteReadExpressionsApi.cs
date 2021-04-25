@@ -63,10 +63,10 @@ namespace ServiceStack.OrmLite
             return q;
         }
 
-        public static SqlExpression<T> From<T, JoinWith>(this IDbConnection dbConn, Expression<Func<T, JoinWith, bool>> joinExpr=null)
+        public static SqlExpression<T> From<T, JoinWith>(this IDbConnection dbConn, Expression<Func<T, JoinWith, bool>> joinExpr = null)
         {
             var sql = dbConn.GetExecFilter().SqlExpression<T>(dbConn);
-            sql.Join<T,JoinWith>(joinExpr);
+            sql.Join<T, JoinWith>(joinExpr);
             return sql;
         }
 
@@ -79,7 +79,7 @@ namespace ServiceStack.OrmLite
             expr.From(fromExpression);
             return expr;
         }
-                
+
         public static SqlExpression<T> From<T>(this IDbConnection dbConn, TableOptions tableOptions)
         {
             var expr = dbConn.GetExecFilter().SqlExpression<T>(dbConn);
@@ -111,7 +111,7 @@ namespace ServiceStack.OrmLite
         public static Task<List<string>> GetTableNamesAsync(this IDbConnection db) => GetTableNamesAsync(db, null);
         public static Task<List<string>> GetTableNamesAsync(this IDbConnection db, string schema) => db.ColumnAsync<string>(db.GetDialectProvider().ToTableNamesStatement(schema));
 
-        public static List<KeyValuePair<string,long>> GetTableNamesWithRowCounts(this IDbConnection db, bool live=false, string schema=null)
+        public static List<KeyValuePair<string, long>> GetTableNamesWithRowCounts(this IDbConnection db, bool live = false, string schema = null)
         {
             List<KeyValuePair<string, long>> GetResults()
             {
@@ -124,11 +124,11 @@ namespace ServiceStack.OrmLite
             }
 
             var results = GetResults();
-            results.Sort((x,y) => y.Value.CompareTo(x.Value)); //sort desc
+            results.Sort((x, y) => y.Value.CompareTo(x.Value)); //sort desc
             return results;
         }
 
-        public static async Task<List<KeyValuePair<string,long>>> GetTableNamesWithRowCountsAsync(this IDbConnection db, bool live = false, string schema = null)
+        public static async Task<List<KeyValuePair<string, long>>> GetTableNamesWithRowCountsAsync(this IDbConnection db, bool live = false, string schema = null)
         {
             Task<List<KeyValuePair<string, long>>> GetResultsAsync()
             {
@@ -141,7 +141,7 @@ namespace ServiceStack.OrmLite
             }
 
             var results = await GetResultsAsync().ConfigAwait();
-            results.Sort((x,y) => y.Value.CompareTo(x.Value)); //sort desc
+            results.Sort((x, y) => y.Value.CompareTo(x.Value)); //sort desc
             return results;
         }
 
@@ -157,9 +157,9 @@ namespace ServiceStack.OrmLite
             {
                 if (sb.Length > 0)
                     sb.Append(" UNION ");
-                
+
                 // retain *real* table names and skip using naming strategy
-                sb.AppendLine($"SELECT {OrmLiteUtils.QuotedLiteral(tableName)}, COUNT(*) FROM {dialect.GetQuotedTableName(tableName, schemaName, useStrategy:false)}");
+                sb.AppendLine($"SELECT {OrmLiteUtils.QuotedLiteral(tableName)}, COUNT(*) FROM {dialect.GetQuotedTableName(tableName, schemaName, useStrategy: false)}");
             }
 
             var sql = StringBuilderCache.ReturnAndFree(sb);
@@ -443,7 +443,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql"></param>
         /// <returns></returns>
         public static DataTable GetSchemaTable(this IDbConnection dbConn, string sql) => dbConn.Exec(dbCmd => dbCmd.GetSchemaTable(sql));
-        
+
         /// <summary>
         /// Get Table Column Schemas for specified table
         /// </summary>
@@ -456,7 +456,7 @@ namespace ServiceStack.OrmLite
         /// Get Table Column Schemas for result-set return from specified sql
         /// </summary>
         public static ColumnSchema[] GetTableColumns(this IDbConnection dbConn, string sql) => dbConn.Exec(dbCmd => dbCmd.GetTableColumns(sql));
-        
+
         public static void EnableForeignKeysCheck(this IDbConnection dbConn) => dbConn.Exec(dbConn.GetDialectProvider().EnableForeignKeysCheck);
         public static void DisableForeignKeysCheck(this IDbConnection dbConn) => dbConn.Exec(dbConn.GetDialectProvider().DisableForeignKeysCheck);
     }

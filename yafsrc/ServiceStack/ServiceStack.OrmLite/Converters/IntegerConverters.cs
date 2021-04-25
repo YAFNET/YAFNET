@@ -39,7 +39,7 @@ namespace ServiceStack.OrmLite.Converters
         public override DbType DbType => DbType.UInt16;
     }
 
-    public class Int32Converter : IntegerConverter {}
+    public class Int32Converter : IntegerConverter { }
 
     public class UInt32Converter : IntegerConverter
     {

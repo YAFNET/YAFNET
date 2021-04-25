@@ -106,15 +106,15 @@ namespace YAF.Pages.Admin
 
             // what time units are used for suspending
             boardAnnouncementUntil = this.BoardAnnouncementUntilUnit.SelectedValue switch
-                {
-                    // days
-                    "1" => boardAnnouncementUntil.AddDays(count),
-                    // hours
-                    "2" => boardAnnouncementUntil.AddHours(count),
-                    // month
-                    "3" => boardAnnouncementUntil.AddMonths(count),
-                    _ => boardAnnouncementUntil
-                };
+            {
+                // days
+                "1" => boardAnnouncementUntil.AddDays(count),
+                // hours
+                "2" => boardAnnouncementUntil.AddHours(count),
+                // month
+                "3" => boardAnnouncementUntil.AddMonths(count),
+                _ => boardAnnouncementUntil
+            };
 
             var boardSettings = this.PageContext.BoardSettings;
 

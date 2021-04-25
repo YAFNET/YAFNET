@@ -145,7 +145,7 @@ namespace ServiceStack.Script
     {
         public override string Tag => "dd";
     }
-    
+
     //Don't emit new line on in-line elements
     public class ScriptSpanBlock : ScriptHtmlBlock
     {
@@ -207,11 +207,11 @@ namespace ServiceStack.Script
     {
         public override string Name => Tag;
         public override ScriptLanguage Body => ScriptTemplate.Language;
-            
+
         public abstract string Tag { get; }
 
-        public virtual string Suffix { get; } = Environment.NewLine; 
-        
+        public virtual string Suffix { get; } = Environment.NewLine;
+
         public override async Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
         {
             var htmlAttrs = block.Argument.GetJsExpressionAndEvaluate(scope) as Dictionary<string, object>;
@@ -238,7 +238,7 @@ namespace ServiceStack.Script
                     where = whereExpr.GetCachedJsExpression(scope);
                     htmlAttrs.Remove(nameof(where));
                 }
-                
+
                 if (htmlAttrs.TryGetValue(nameof(each), out var oEach))
                 {
                     hasEach = true;
@@ -319,13 +319,13 @@ namespace ServiceStack.Script
             }
         }
     }
-    
+
     public class HtmlScriptBlocks : IScriptPlugin
     {
         /// <summary>
         /// Usages: {{#ul {each:items, class:'nav'} }} <li>{{it}}</li> {{/ul}}
         /// </summary>
-        
+
         public void Register(ScriptContext context)
         {
             context.ScriptBlocks.AddRange(new ScriptBlock[] {
@@ -333,33 +333,33 @@ namespace ServiceStack.Script
                 new ScriptOlBlock(),
                 new ScriptLiBlock(),
                 new ScriptDivBlock(),
-                new ScriptPBlock(), 
-                new ScriptFormBlock(), 
-                new ScriptInputBlock(), 
-                new ScriptSelectBlock(), 
+                new ScriptPBlock(),
+                new ScriptFormBlock(),
+                new ScriptInputBlock(),
+                new ScriptSelectBlock(),
                 new ScriptOptionBlock(),
-                new ScriptTextAreaBlock(), 
-                new ScriptButtonBlock(), 
+                new ScriptTextAreaBlock(),
+                new ScriptButtonBlock(),
                 new ScriptTableBlock(),
                 new ScriptTrBlock(),
                 new ScriptTdBlock(),
                 new ScriptTHeadBlock(),
                 new ScriptTBodyBlock(),
                 new ScriptTFootBlock(),
-                new ScriptDlBlock(), 
-                new ScriptDtBlock(), 
-                new ScriptDdBlock(), 
+                new ScriptDlBlock(),
+                new ScriptDtBlock(),
+                new ScriptDdBlock(),
                 new ScriptSpanBlock(),
                 new ScriptABlock(),
-                new ScriptImgBlock(), 
-                new ScriptEmBlock(), 
-                new ScriptBBlock(), 
-                new ScriptIBlock(), 
-                new ScriptStrongBlock(), 
+                new ScriptImgBlock(),
+                new ScriptEmBlock(),
+                new ScriptBBlock(),
+                new ScriptIBlock(),
+                new ScriptStrongBlock(),
                 new ScriptScriptBlock(),
-                new ScriptStyleBlock(), 
-                new ScriptLinkBlock(), 
-                new ScriptMetaBlock(), 
+                new ScriptStyleBlock(),
+                new ScriptLinkBlock(),
+                new ScriptMetaBlock(),
             });
         }
     }

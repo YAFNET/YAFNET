@@ -23,40 +23,40 @@
  */
 namespace YAF.Types.Interfaces.Events
 {
-  #region Using
+    #region Using
 
-  using System;
-
-  #endregion
-
-  /// <summary>
-  /// The event raiser interface
-  /// </summary>
-  public interface IRaiseEvent
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The raise event.
-    /// </summary>
-    /// <param name="eventObject">
-    /// The event object.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    void Raise<T>(T eventObject) where T : IAmEvent;
-
-    /// <summary>
-    /// Raise all events using try/catch block.
-    /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <param name="eventObject">
-    /// </param>
-    /// <param name="logExceptionAction">
-    /// </param>
-    void RaiseIssolated<T>(T eventObject, [CanBeNull] Action<string, Exception> logExceptionAction) where T : IAmEvent;
+    using System;
 
     #endregion
-  }
+
+    /// <summary>
+    /// The event raiser interface
+    /// </summary>
+    public interface IRaiseEvent
+    {
+        #region Public Methods
+
+        /// <summary>
+        /// The raise event.
+        /// </summary>
+        /// <param name="eventObject">
+        /// The event object.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        void Raise<T>(T eventObject) where T : IAmEvent;
+
+        /// <summary>
+        /// Raise all events using try/catch block.
+        /// </summary>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <param name="eventObject">
+        /// </param>
+        /// <param name="logExceptionAction">
+        /// </param>
+        void RaiseIssolated<T>(T eventObject, [CanBeNull] Action<string, Exception> logExceptionAction) where T : IAmEvent;
+
+        #endregion
+    }
 }

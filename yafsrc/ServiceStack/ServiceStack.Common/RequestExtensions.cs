@@ -15,7 +15,7 @@ namespace ServiceStack
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
-            
+
             var map = new Dictionary<string, string>();
 
             AddToMap(request.QueryString, map);
@@ -41,7 +41,7 @@ namespace ServiceStack
                         map[values[0]] = null;
                     continue;
                 }
-                
+
                 if (values == null || values.Length == 0)
                 {
                     map[name] = null;

@@ -245,10 +245,10 @@ namespace YAF.Pages
                     this.PageContext.PageUserID,
                     10);
 
-                this.SearchUser.NavigateUrl = this.Get<LinkBuilder>().GetLink(
-                    ForumPages.Search,
-                    "postedby={0}",
-                    userNameOrDisplayName);
+            this.SearchUser.NavigateUrl = this.Get<LinkBuilder>().GetLink(
+                ForumPages.Search,
+                "postedby={0}",
+                userNameOrDisplayName);
 
             this.DataBind();
         }
@@ -591,7 +591,7 @@ namespace YAF.Pages
             var ribbonBar = new StringBuilder();
             var medals = new StringBuilder();
 
-           // var inRow = 0;
+            // var inRow = 0;
 
             // do ribbon bar first
             userMedals.Where(x => x.OnlyRibbon).ForEach(

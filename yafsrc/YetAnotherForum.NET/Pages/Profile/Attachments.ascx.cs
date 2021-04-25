@@ -156,9 +156,9 @@ namespace YAF.Pages.Profile
         protected void DeleteAttachments_Click(object sender, EventArgs e)
         {
             var items = (from RepeaterItem item in this.List.Items
-             where item.ItemType is ListItemType.Item or ListItemType.AlternatingItem
-             where item.FindControlAs<CheckBox>("Selected").Checked
-             select item).ToList();
+                         where item.ItemType is ListItemType.Item or ListItemType.AlternatingItem
+                         where item.FindControlAs<CheckBox>("Selected").Checked
+                         select item).ToList();
 
             if (items.Any())
             {
@@ -168,10 +168,10 @@ namespace YAF.Pages.Profile
 
                 this.PageContext.AddLoadMessage(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
             }
-            
+
             this.BindData();
         }
-        
+
         /// <summary>
         /// Binds the data.
         /// </summary>

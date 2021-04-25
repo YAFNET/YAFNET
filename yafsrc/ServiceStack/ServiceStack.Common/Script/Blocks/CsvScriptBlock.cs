@@ -23,7 +23,7 @@ namespace ServiceStack.Script
         public override Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken ct)
         {
             var literal = block.Argument.ParseVarName(out var name);
-            
+
             var strFragment = (PageStringFragment)block.Body[0];
             var csvList = Context.DefaultMethods.parseCsv(strFragment.ValueString);
             scope.PageResult.Args[name.ToString()] = csvList;

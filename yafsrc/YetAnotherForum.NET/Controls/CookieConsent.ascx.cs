@@ -28,8 +28,8 @@ namespace YAF.Controls
     using System;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -70,10 +70,11 @@ namespace YAF.Controls
             this.PageContext.Get<HttpResponseBase>().SetCookie(
                 new HttpCookie("YAF-AcceptCookies", "true")
                 {
-                    Expires = DateTime.UtcNow.AddYears(1), HttpOnly = true
+                    Expires = DateTime.UtcNow.AddYears(1), HttpOnly = true,
+                    Secure = this.Request.IsSecureConnection
                 });
 
-            this.Response.Redirect(this.Request.RawUrl);
+            this.Response.Redirect(this.HtmlEncode(this.Request.RawUrl));
 
             this.DataBind();
         }

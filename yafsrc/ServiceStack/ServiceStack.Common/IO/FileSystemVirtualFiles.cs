@@ -122,7 +122,7 @@ namespace ServiceStack.IO
                 Directory.Delete(realPath, recursive: true);
 #endif
         }
-        
+
         public static void DeleteDirectoryRecursive(string path)
         {
             //modified from https://stackoverflow.com/a/1703799/85785
@@ -141,7 +141,7 @@ namespace ServiceStack.IO
             {
                 Directory.Delete(path, true);
             }
-            catch (IOException) 
+            catch (IOException)
             {
                 Directory.Delete(path, true);
             }
@@ -151,14 +151,15 @@ namespace ServiceStack.IO
             }
         }
 
-        public static string AssertDirectory(string dirPath, int timeoutMs=1000)
+        public static string AssertDirectory(string dirPath, int timeoutMs = 1000)
         {
             if (string.IsNullOrEmpty(dirPath))
                 return null;
 
             try
             {
-                ExecUtils.RetryOnException(() => {
+                ExecUtils.RetryOnException(() =>
+                {
                     if (!Directory.Exists(dirPath))
                         Directory.CreateDirectory(dirPath);
                 }, TimeSpan.FromMilliseconds(timeoutMs));
@@ -169,6 +170,6 @@ namespace ServiceStack.IO
                 throw e.InnerException ?? e;
             }
         }
-        
+
     }
 }

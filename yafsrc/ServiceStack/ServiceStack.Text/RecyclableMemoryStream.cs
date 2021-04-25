@@ -56,14 +56,14 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         {
             return UseRecyclableMemoryStream
                 ? RecyclableInstance.GetStream(nameof(MemoryStreamFactory), bytes, 0, bytes.Length)
-                : new MemoryStream(bytes, 0, bytes.Length, writable:true, publiclyVisible:true);
+                : new MemoryStream(bytes, 0, bytes.Length, writable: true, publiclyVisible: true);
         }
 
         public static MemoryStream GetStream(byte[] bytes, int index, int count)
         {
             return UseRecyclableMemoryStream
                 ? RecyclableInstance.GetStream(nameof(MemoryStreamFactory), bytes, index, count)
-                : new MemoryStream(bytes, index, count, writable:true, publiclyVisible:true);
+                : new MemoryStream(bytes, index, count, writable: true, publiclyVisible: true);
         }
     }
 
@@ -1986,17 +1986,17 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             int newPosition;
             switch (loc)
             {
-            case SeekOrigin.Begin:
-                newPosition = (int)offset;
-                break;
-            case SeekOrigin.Current:
-                newPosition = (int)offset + this.position;
-                break;
-            case SeekOrigin.End:
-                newPosition = (int)offset + this.length;
-                break;
-            default:
-                throw new ArgumentException("Invalid seek origin", nameof(loc));
+                case SeekOrigin.Begin:
+                    newPosition = (int)offset;
+                    break;
+                case SeekOrigin.Current:
+                    newPosition = (int)offset + this.position;
+                    break;
+                case SeekOrigin.End:
+                    newPosition = (int)offset + this.length;
+                    break;
+                default:
+                    throw new ArgumentException("Invalid seek origin", nameof(loc));
             }
             if (newPosition < 0)
             {
@@ -2062,9 +2062,9 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             }
 
         }
-#endregion
+        #endregion
 
-#region Helper Methods
+        #region Helper Methods
         private bool Disposed => Interlocked.Read(ref this.disposedState) != 0;
 
         [MethodImpl((MethodImplOptions)256)]
@@ -2223,6 +2223,6 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
 
             this.largeBuffer = null;
         }
-#endregion
+        #endregion
     }
 }

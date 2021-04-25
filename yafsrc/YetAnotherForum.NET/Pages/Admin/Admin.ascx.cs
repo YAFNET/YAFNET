@@ -346,7 +346,7 @@ namespace YAF.Pages.Admin
                 this.UpdateHightlight.Visible = false;
             }
         }
-        
+
         /// <summary>
         /// Binds the active user data.
         /// </summary>

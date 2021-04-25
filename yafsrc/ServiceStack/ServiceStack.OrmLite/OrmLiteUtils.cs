@@ -27,14 +27,14 @@ using ServiceStack.Reflection;
 
 namespace ServiceStack.OrmLite
 {
-    internal class EOT {}
+    internal class EOT { }
 
     public static class OrmLiteUtils
     {
         internal const string AsyncRequiresNet45Error = "Async support is only available in .NET 4.5 builds";
 
         const int maxCachedIndexFields = 10000;
-        private static readonly Dictionary<IndexFieldsCacheKey, Tuple<FieldDefinition, int, IOrmLiteConverter>[]> indexFieldsCache 
+        private static readonly Dictionary<IndexFieldsCacheKey, Tuple<FieldDefinition, int, IOrmLiteConverter>[]> indexFieldsCache
             = new Dictionary<IndexFieldsCacheKey, Tuple<FieldDefinition, int, IOrmLiteConverter>[]>(maxCachedIndexFields);
 
         internal static ILog Log = LogManager.GetLogger(typeof(OrmLiteUtils));
@@ -65,7 +65,7 @@ namespace ServiceStack.OrmLite
 
                 for (var i = 0; i < cmd.Parameters.Count; i++)
                 {
-                    var p = (IDataParameter) cmd.Parameters[i];
+                    var p = (IDataParameter)cmd.Parameters[i];
                     if (i > 0)
                         sb.Append(", ");
                     sb.Append($"{p.ParameterName}={p.Value}");
@@ -90,13 +90,13 @@ namespace ServiceStack.OrmLite
             return isScalar;
         }
 
-        public static T ConvertTo<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, HashSet<string> onlyFields=null)
+        public static T ConvertTo<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, HashSet<string> onlyFields = null)
         {
             using (reader)
             {
                 if (reader.Read())
                 {
-                    if (typeof(T) == typeof (List<object>))
+                    if (typeof(T) == typeof(List<object>))
                         return (T)(object)reader.ConvertToListObjects();
 
                     if (typeof(T) == typeof(Dictionary<string, object>))
@@ -140,7 +140,7 @@ namespace ServiceStack.OrmLite
 
         public static IDictionary<string, object> ConvertToExpandoObject(this IDataReader dataReader)
         {
-            var row = (IDictionary<string,object>)new ExpandoObject();
+            var row = (IDictionary<string, object>)new ExpandoObject();
             for (var i = 0; i < dataReader.FieldCount; i++)
             {
                 var dbValue = dataReader.GetValue(i);
@@ -164,7 +164,7 @@ namespace ServiceStack.OrmLite
 
                 var fieldType = field.FieldInfo.FieldType;
                 var converter = dialectProvider.GetConverterBestMatch(fieldType);
-                                
+
                 var dbValue = converter.GetValue(reader, i, values);
                 if (dbValue == null)
                     continue;
@@ -182,7 +182,7 @@ namespace ServiceStack.OrmLite
             return (T)row;
         }
 
-        public static List<T> ConvertToList<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, HashSet<string> onlyFields=null)
+        public static List<T> ConvertToList<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, HashSet<string> onlyFields = null)
         {
             if (typeof(T) == typeof(List<object>))
             {
@@ -199,7 +199,7 @@ namespace ServiceStack.OrmLite
             }
             if (typeof(T) == typeof(Dictionary<string, object>))
             {
-                var to = new List<Dictionary<string,object>>();
+                var to = new List<Dictionary<string, object>>();
                 using (reader)
                 {
                     while (reader.Read())
@@ -247,7 +247,7 @@ namespace ServiceStack.OrmLite
 
                     var values = new object[reader.FieldCount];
                     var genericTupleMi = typeof(T).GetGenericTypeDefinition().GetCachedGenericType(genericArgs);
-                    var activator = genericTupleMi.GetConstructor(genericArgs).GetActivator();                    
+                    var activator = genericTupleMi.GetConstructor(genericArgs).GetActivator();
 
                     while (reader.Read())
                     {
@@ -263,7 +263,7 @@ namespace ServiceStack.OrmLite
                 var to = new List<T>();
                 using (reader)
                 {
-                    var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider, onlyFields:onlyFields);
+                    var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider, onlyFields: onlyFields);
                     var values = new object[reader.FieldCount];
                     while (reader.Read())
                     {
@@ -276,10 +276,10 @@ namespace ServiceStack.OrmLite
             }
         }
 
-        internal static List<object> ToMultiTuple(this IDataReader reader, 
-            IOrmLiteDialectProvider dialectProvider, 
-            List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]> modelIndexCaches, 
-            Type[] genericArgs, 
+        internal static List<object> ToMultiTuple(this IDataReader reader,
+            IOrmLiteDialectProvider dialectProvider,
+            List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]> modelIndexCaches,
+            Type[] genericArgs,
             object[] values)
         {
             var tupleArgs = new List<object>();
@@ -294,9 +294,9 @@ namespace ServiceStack.OrmLite
         }
 
         internal static List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]> GetMultiIndexCaches(
-            this IDataReader reader, 
+            this IDataReader reader,
             IOrmLiteDialectProvider dialectProvider,
-            HashSet<string> onlyFields, 
+            HashSet<string> onlyFields,
             Type[] genericArgs)
         {
             var modelIndexCaches = new List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]>();
@@ -460,7 +460,7 @@ namespace ServiceStack.OrmLite
         public static Regex VerifySqlRegEx = new Regex("([^\\w]|^)+(--|;--|;|%|/\\*|\\*/|@@|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|table|update)([^\\w]|$)+",
             RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        public static Func<string,string> SqlVerifyFragmentFn { get; set; }
+        public static Func<string, string> SqlVerifyFragmentFn { get; set; }
 
         public static bool isUnsafeSql(string sql, Regex verifySql)
         {
@@ -563,13 +563,13 @@ namespace ServiceStack.OrmLite
         {
             if (values == null)
                 return string.Empty;
-            
+
             dialect ??= OrmLiteConfig.DialectProvider;
 
             var sb = StringBuilderCache.Allocate();
             foreach (var value in values)
             {
-                if (sb.Length > 0) 
+                if (sb.Length > 0)
                     sb.Append(",");
                 sb.Append(dialect.GetQuotedValue(value, value.GetType()));
             }
@@ -599,11 +599,11 @@ namespace ServiceStack.OrmLite
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
-        public static Tuple<FieldDefinition, int, IOrmLiteConverter>[] GetIndexFieldsCache(this IDataReader reader, 
-            ModelDefinition modelDefinition, 
-            IOrmLiteDialectProvider dialect, 
+        public static Tuple<FieldDefinition, int, IOrmLiteConverter>[] GetIndexFieldsCache(this IDataReader reader,
+            ModelDefinition modelDefinition,
+            IOrmLiteDialectProvider dialect,
             HashSet<string> onlyFields = null,
-            int startPos=0,
+            int startPos = 0,
             int? endPos = null)
         {
             var end = endPos.GetValueOrDefault(reader.FieldCount);
@@ -612,7 +612,7 @@ namespace ServiceStack.OrmLite
                             : null;
 
             Tuple<FieldDefinition, int, IOrmLiteConverter>[] value;
-            if (cacheKey != null) 
+            if (cacheKey != null)
             {
                 lock (indexFieldsCache)
                 {
@@ -630,13 +630,13 @@ namespace ServiceStack.OrmLite
 
             for (var i = startPos; i < end; i++)
             {
-                var columnName = reader.GetName(i);                
+                var columnName = reader.GetName(i);
                 var fieldDef = modelDefinition.GetFieldDefinition(columnName);
                 if (fieldDef == null)
                 {
                     foreach (var def in modelDefinition.FieldDefinitionsArray)
                     {
-                        if (string.Equals(dialect.NamingStrategy.GetColumnName(def.FieldName), columnName, 
+                        if (string.Equals(dialect.NamingStrategy.GetColumnName(def.FieldName), columnName,
                             StringComparison.OrdinalIgnoreCase))
                         {
                             fieldDef = def;
@@ -833,7 +833,7 @@ namespace ServiceStack.OrmLite
             CaptureSql(sb);
             return sb;
         }
-        
+
         public static void CaptureSql(StringBuilder sb) =>
             OrmLiteConfig.BeforeExecFilter = cmd => sb.AppendLine(cmd.GetDebugString());
 
@@ -870,9 +870,9 @@ namespace ServiceStack.OrmLite
 
             foreach (var fieldDef in modelDef.AllFieldDefinitionsArray)
             {
-                if ((fieldDef.FieldType != typeof (Child) && fieldDef.FieldType != typeof (List<Child>)) || !fieldDef.IsReference) 
+                if ((fieldDef.FieldType != typeof(Child) && fieldDef.FieldType != typeof(List<Child>)) || !fieldDef.IsReference)
                     continue;
-                
+
                 hasChildRef = true;
 
                 var listInterface = fieldDef.FieldType.GetTypeWithGenericInterfaceOf(typeof(IList<>));
@@ -985,15 +985,15 @@ namespace ServiceStack.OrmLite
         {
             return OrmLiteConfig.DialectProvider.GetNonDefaultValueInsertFields<T>(obj);
         }
-        
+
         public static void AssertNotAnonType<T>()
         {
             if (typeof(T) == typeof(object))
                 throw new ArgumentException("T generic argument should be a Table but was typeof(object)");
-            
-            if (typeof(T) == typeof(Dictionary<string,object>))
+
+            if (typeof(T) == typeof(Dictionary<string, object>))
                 throw new ArgumentException("T generic argument should be a Table but was typeof(Dictionary<string,object>)");
-            
+
             if (typeof(ISqlExpression).IsAssignableFrom(typeof(T)))
                 throw new ArgumentException("T generic argument should be a Table but was an ISqlExpression");
         }
@@ -1001,22 +1001,22 @@ namespace ServiceStack.OrmLite
         public static List<string> GetNonDefaultValueInsertFields<T>(this IOrmLiteDialectProvider dialectProvider, object obj)
         {
             AssertNotAnonType<T>();
-            
+
             var insertFields = new List<string>();
             var modelDef = typeof(T).GetModelDefinition();
             foreach (var fieldDef in modelDef.FieldDefinitionsArray)
             {
                 if (!string.IsNullOrEmpty(dialectProvider.GetDefaultValue(fieldDef)))
                 {
-                    var value = fieldDef.GetValue(obj);    
+                    var value = fieldDef.GetValue(obj);
                     if (value == null || value.Equals(fieldDef.FieldTypeDefaultValue))
                         continue;
                 }
                 insertFields.Add(fieldDef.Name);
             }
 
-            return insertFields.Count == modelDef.FieldDefinitionsArray.Length 
-                ? null 
+            return insertFields.Count == modelDef.FieldDefinitionsArray.Length
+                ? null
                 : insertFields;
         }
 
@@ -1066,7 +1066,7 @@ namespace ServiceStack.OrmLite
                 if (c == ')')
                 {
                     inBracesCount--;
-                    if(inBracesCount > 0)
+                    if (inBracesCount > 0)
                         continue;
 
                     var endPos = expr.IndexOf(',', i);
@@ -1120,7 +1120,7 @@ namespace ServiceStack.OrmLite
             return (dialect, tableDef, expr) =>
                 $"{dialect.GetQuotedTableName(tableDef)} {alias} {expr.Replace(dialect.GetQuotedTableName(tableDef), dialect.GetQuotedTableName(alias))}";
         }
-        
+
         /// <summary>
         /// RDBMS Quoted string 'literal' 
         /// </summary>
@@ -1135,7 +1135,7 @@ namespace ServiceStack.OrmLite
         {
             if (string.IsNullOrEmpty(orderBy))
                 return string.Empty;
-            
+
             var sb = StringBuilderCache.Allocate();
 
             var fields = orderBy.Split(',');
@@ -1147,7 +1147,7 @@ namespace ServiceStack.OrmLite
             {
                 if (sb.Length > 0)
                     sb.Append(", ");
-                
+
                 var reverse = fieldName.StartsWith("-");
                 var useSuffix = reverse
                     ? orderBySuffix == Asc ? Desc : Asc

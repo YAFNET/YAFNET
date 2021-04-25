@@ -133,10 +133,10 @@ namespace YAF.Web.Controls
         {
             // setup initial image state...
             this.Text = new Icon
-                            {
-                                IconName = GetCollapsiblePanelIcon(this.PanelID, this.DefaultState),
-                                IconType = "text-primary"
-                            }.RenderToString();
+            {
+                IconName = GetCollapsiblePanelIcon(this.PanelID, this.DefaultState),
+                IconType = "text-primary"
+            }.RenderToString();
 
             this.CssClass = "btn-collapse px-0";
 

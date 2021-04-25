@@ -239,7 +239,7 @@ namespace ServiceStack.Text.Jsv
 
         public void WriteEnum(TextWriter writer, object enumValue)
         {
-            if (enumValue == null) 
+            if (enumValue == null)
                 return;
             var serializedValue = CachedTypeInfo.Get(enumValue.GetType()).EnumInfo.GetSerializedValue(enumValue);
             if (serializedValue is string strEnum)
@@ -368,7 +368,7 @@ namespace ServiceStack.Text.Jsv
                 i++;
             else if (Env.StrictMode) throw new Exception(
                 $"Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'");
-            
+
             return success;
         }
 
@@ -383,11 +383,11 @@ namespace ServiceStack.Text.Jsv
                 i++;
             else if (Env.StrictMode) throw new Exception(
                 $"Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'");
-            
+
             return success;
         }
 
-        public void EatWhitespace(string value, ref int i) {}
+        public void EatWhitespace(string value, ref int i) { }
 
         public void EatWhitespace(ReadOnlySpan<char> value, ref int i) { }
 

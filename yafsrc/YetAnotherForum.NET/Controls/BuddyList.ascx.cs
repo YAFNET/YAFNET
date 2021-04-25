@@ -284,12 +284,12 @@ namespace YAF.Controls
                 this.Pager.Count = buddyListView.Count;
 
                 var pds = new PagedDataSource
-                              {
-                                  DataSource = buddyListView,
-                                  AllowPaging = true,
-                                  CurrentPageIndex = this.Pager.CurrentPageIndex,
-                                  PageSize = this.Pager.PageSize
-                              };
+                {
+                    DataSource = buddyListView,
+                    AllowPaging = true,
+                    CurrentPageIndex = this.Pager.CurrentPageIndex,
+                    PageSize = this.Pager.PageSize
+                };
 
                 this.rptBuddy.DataSource = pds;
             }

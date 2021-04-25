@@ -165,7 +165,7 @@ namespace ServiceStack
                 foreach (var key in map.Keys)
                 {
                     var dictionaryValue = map[key];
-                    if (dictionaryValue == null) 
+                    if (dictionaryValue == null)
                         continue;
 
                     if (writeKeyFn == null)
@@ -177,7 +177,7 @@ namespace ServiceStack
                     if (writeValueFn == null || isObjectDictionary)
                     {
                         writeValueFn = dictionaryValue is string
-                            ? (w,x) => w.Write(((string)x).UrlEncode())
+                            ? (w, x) => w.Write(((string)x).UrlEncode())
                             : Serializer.GetWriteFn(dictionaryValue.GetType());
                     }
 

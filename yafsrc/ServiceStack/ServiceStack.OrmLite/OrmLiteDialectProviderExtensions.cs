@@ -34,12 +34,12 @@ namespace ServiceStack.OrmLite
             return (dialect ?? OrmLiteConfig.DialectProvider).NamingStrategy.GetTableName(tableName);
         }
 
-        public static string FmtColumn(this string columnName, IOrmLiteDialectProvider dialect=null)
+        public static string FmtColumn(this string columnName, IOrmLiteDialectProvider dialect = null)
         {
             return (dialect ?? OrmLiteConfig.DialectProvider).NamingStrategy.GetColumnName(columnName);
         }
 
-        public static string GetQuotedColumnName(this IOrmLiteDialectProvider dialect, 
+        public static string GetQuotedColumnName(this IOrmLiteDialectProvider dialect,
             FieldDefinition fieldDef)
         {
             return dialect.GetQuotedColumnName(fieldDef.FieldName);
@@ -58,7 +58,7 @@ namespace ServiceStack.OrmLite
         {
             if (tableAlias == null)
                 return dialect.GetQuotedColumnName(tableDef, fieldDef);
-            
+
             return dialect.GetQuotedTableName(tableAlias) //aliases shouldn't have schemas
                    + "." +
                    dialect.GetQuotedColumnName(fieldDef.FieldName);
@@ -77,13 +77,13 @@ namespace ServiceStack.OrmLite
         {
             if (tableAlias == null)
                 return dialect.GetQuotedColumnName(tableDef, fieldName);
-            
+
             return dialect.GetQuotedTableName(tableAlias) //aliases shouldn't have schemas 
                 + "." +
                 dialect.GetQuotedColumnName(fieldName);
         }
 
-        public static object FromDbValue(this IOrmLiteDialectProvider dialect, 
+        public static object FromDbValue(this IOrmLiteDialectProvider dialect,
             IDataReader reader, int columnIndex, Type type)
         {
             return dialect.FromDbValue(dialect.GetValue(reader, columnIndex, type), type);
@@ -114,7 +114,7 @@ namespace ServiceStack.OrmLite
             return (DateTimeConverter)dialect.GetConverter(typeof(DateTime));
         }
 
-        public static bool IsMySqlConnector(this IOrmLiteDialectProvider dialect) => 
+        public static bool IsMySqlConnector(this IOrmLiteDialectProvider dialect) =>
             dialect.GetType().Name == "MySqlConnectorDialectProvider";
 
         public static void InitDbParam(this IOrmLiteDialectProvider dialect, IDbDataParameter dbParam, Type columnType)

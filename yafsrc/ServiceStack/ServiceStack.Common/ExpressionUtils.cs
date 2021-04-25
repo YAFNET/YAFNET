@@ -19,8 +19,8 @@ namespace ServiceStack
 
         public static PropertyInfo ToPropertyInfo(LambdaExpression lambda)
         {
-            return lambda?.Body.NodeType == ExpressionType.MemberAccess 
-                ? ToPropertyInfo(lambda.Body as MemberExpression) 
+            return lambda?.Body.NodeType == ExpressionType.MemberAccess
+                ? ToPropertyInfo(lambda.Body as MemberExpression)
                 : null;
         }
 

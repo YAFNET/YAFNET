@@ -137,7 +137,7 @@ namespace ServiceStack.OrmLite
         public IOrmLiteDialectProvider DialectProvider
         {
             get => q.DialectProvider;
-            set => q.DialectProvider  = value;
+            set => q.DialectProvider = value;
         }
 
         public List<IDbDataParameter> Params
@@ -149,7 +149,7 @@ namespace ServiceStack.OrmLite
         public string SelectExpression
         {
             get => q.SelectExpression;
-            set => q.SelectExpression  = value;
+            set => q.SelectExpression = value;
         }
 
         public string FromExpression
@@ -661,7 +661,7 @@ namespace ServiceStack.OrmLite
 
         public static string Table<T>(this IOrmLiteDialectProvider dialect) => dialect.GetQuotedTableName(typeof(T).GetModelDefinition());
 
-        public static string Column<Table>(this ISqlExpression sqlExpression, Expression<Func<Table, object>> propertyExpression, bool prefixTable = false) => 
+        public static string Column<Table>(this ISqlExpression sqlExpression, Expression<Func<Table, object>> propertyExpression, bool prefixTable = false) =>
             sqlExpression.ToDialectProvider().Column(propertyExpression, prefixTable);
 
         public static string Column<Table>(this IOrmLiteDialectProvider dialect, Expression<Func<Table, object>> propertyExpression, bool prefixTable = false)

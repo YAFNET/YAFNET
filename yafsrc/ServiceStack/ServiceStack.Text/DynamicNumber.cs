@@ -25,7 +25,7 @@ namespace ServiceStack
         object min(object lhs, object rhs);
         object max(object lhs, object rhs);
         int compareTo(object lhs, object rhs);
-        
+
         object bitwiseAnd(object lhs, object rhs);
         object bitwiseOr(object lhs, object rhs);
         object bitwiseXOr(object lhs, object rhs);
@@ -69,7 +69,7 @@ namespace ServiceStack
         public object pow(object lhs, object rhs) => Math.Pow(Convert(lhs), Convert(rhs));
         public object log(object lhs, object rhs) => Math.Log(Convert(lhs), Convert(rhs));
         public int compareTo(object lhs, object rhs) => Convert(lhs).CompareTo(Convert(rhs));
-        
+
         public object bitwiseAnd(object lhs, object rhs) => Convert(lhs) & Convert(rhs);
         public object bitwiseOr(object lhs, object rhs) => Convert(lhs) | Convert(rhs);
         public object bitwiseXOr(object lhs, object rhs) => Convert(lhs) ^ Convert(rhs);
@@ -218,7 +218,7 @@ namespace ServiceStack
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int Convert(object value) => System.Convert.ToInt32(this.ParseString(value) ?? value);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public object ConvertFrom(object value) => this.ParseString(value) 
+        public object ConvertFrom(object value) => this.ParseString(value)
             ?? System.Convert.ToInt32(value);
 
         public bool TryParse(string str, out object result)
@@ -506,8 +506,8 @@ namespace ServiceStack
         public object mod(object lhs, object rhs) => Convert(lhs) % Convert(rhs);
         public object min(object lhs, object rhs) => Math.Min(Convert(lhs), Convert(rhs));
         public object max(object lhs, object rhs) => Math.Max(Convert(lhs), Convert(rhs));
-        public object pow(object lhs, object rhs) => Math.Pow((double) Convert(lhs), (double) Convert(rhs));
-        public object log(object lhs, object rhs) => Math.Log((double) Convert(lhs), (double) Convert(rhs));
+        public object pow(object lhs, object rhs) => Math.Pow((double)Convert(lhs), (double)Convert(rhs));
+        public object log(object lhs, object rhs) => Math.Log((double)Convert(lhs), (double)Convert(rhs));
         public int compareTo(object lhs, object rhs) => Convert(lhs).CompareTo(Convert(rhs));
 
         public object bitwiseAnd(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
@@ -602,7 +602,7 @@ namespace ServiceStack
                 ? RankNumbers[lhsRanking]
                 : null;
         }
-        
+
         public static IDynamicNumber GetNumber(object lhs, object rhs)
         {
             if (lhs == null || rhs == null)
@@ -755,7 +755,7 @@ namespace ServiceStack
                 return false;
 
             var segValue = strValue.AsSpan();
-            result = segValue.ParseNumber(bestFit:true);
+            result = segValue.ParseNumber(bestFit: true);
             return result != null;
         }
     }

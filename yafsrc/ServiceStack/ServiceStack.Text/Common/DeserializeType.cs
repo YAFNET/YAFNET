@@ -35,7 +35,7 @@ namespace ServiceStack.Text.Common
             var ctorFn = JsConfig.ModelFactory(type);
             if (accessors == null)
                 return value => ctorFn();
-            
+
             if (typeof(TSerializer) == typeof(Json.JsonTypeSerializer))
                 return new StringToTypeContext(typeConfig, ctorFn, accessors).DeserializeJson;
 
@@ -47,7 +47,7 @@ namespace ServiceStack.Text.Common
             private readonly TypeConfig typeConfig;
             private readonly EmptyCtorDelegate ctorFn;
             private readonly KeyValuePair<string, TypeAccessor>[] accessors;
-            
+
             public StringToTypeContext(TypeConfig typeConfig, EmptyCtorDelegate ctorFn, KeyValuePair<string, TypeAccessor>[] accessors)
             {
                 this.typeConfig = typeConfig;
@@ -151,7 +151,7 @@ namespace ServiceStack.Text.Common
                     var fn = Serializer.GetParseStringSpanFn(concreteType);
                     if (fn == ParseAbstractType<T>)
                         return null;
-                    
+
                     var ret = fn(value);
                     return ret;
                 }
@@ -234,25 +234,25 @@ namespace ServiceStack.Text.Common
             return (ParsePrimitive(value) ?? ParseQuotedPrimitive(value));
         }
     }
-        
+
     internal static class TypeAccessorUtils
     {
         internal static TypeAccessor Get(this KeyValuePair<string, TypeAccessor>[] accessors, ReadOnlySpan<char> propertyName, bool lenient)
         {
             var testValue = FindPropertyAccessor(accessors, propertyName);
-            if (testValue != null) 
+            if (testValue != null)
                 return testValue;
 
             if (lenient)
-                return FindPropertyAccessor(accessors, 
+                return FindPropertyAccessor(accessors,
                     propertyName.ToString().Replace("-", string.Empty).Replace("_", string.Empty).AsSpan());
-            
+
             return null;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)] //Binary Search
         private static TypeAccessor FindPropertyAccessor(KeyValuePair<string, TypeAccessor>[] accessors, ReadOnlySpan<char> propertyName)
-        {            
+        {
             var lo = 0;
             var hi = accessors.Length - 1;
             var mid = (lo + hi + 1) / 2;
@@ -274,7 +274,7 @@ namespace ServiceStack.Text.Common
             return null;
         }
     }
-    
+
     internal class TypeAccessor
     {
         internal ParseStringSpanDelegate GetProperty;
@@ -325,7 +325,7 @@ namespace ServiceStack.Text.Common
         internal static ParseStringSpanDelegate GetPropertyMethod(ITypeSerializer serializer, PropertyInfo propertyInfo)
         {
             var getPropertyFn = serializer.GetParseStringSpanFn(propertyInfo.PropertyType);
-            if (propertyInfo.PropertyType == typeof(object) || 
+            if (propertyInfo.PropertyType == typeof(object) ||
                 propertyInfo.PropertyType.HasInterface(typeof(IEnumerable<object>)))
             {
                 var declaringTypeNamespace = propertyInfo.DeclaringType?.Namespace;
@@ -417,7 +417,7 @@ namespace ServiceStack.Text.Common
                 {
                     var result = singleDigit - 48;
                     if (bestFit)
-                        return (byte) result;
+                        return (byte)result;
                     return result;
                 }
             }

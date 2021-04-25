@@ -31,7 +31,7 @@ namespace ServiceStack.Script
             var args = new object[renderParams.Length];
 
             Dictionary<string, string> requestParams = null;
-                
+
             for (var i = 0; i < renderParams.Length; i++)
             {
                 var renderParam = renderParams[i];
@@ -44,7 +44,7 @@ namespace ServiceStack.Script
                     if (requestParams != null && requestParams.TryGetValue(renderParam.Name, out var reqParam))
                         arg = reqParam;
                 }
-                
+
                 args[i] = arg;
             }
 
@@ -62,7 +62,7 @@ namespace ServiceStack.Script
                 throw new TargetInvocationException($"Failed to invoke render method on '{GetType().Name}': {ex.Message}", ex);
             }
         }
-        
+
         public bool HasInit { get; private set; }
 
         public virtual SharpCodePage Init()
@@ -71,17 +71,17 @@ namespace ServiceStack.Script
             {
                 HasInit = true;
                 var type = GetType();
-                
+
                 if (Format == null)
                     Format = Context.PageFormats.First();
-                
+
                 var pageAttr = type.FirstAttribute<PageAttribute>();
                 VirtualPath = pageAttr.VirtualPath;
                 if (Layout == null)
                     Layout = pageAttr?.Layout;
 
                 LayoutPage = Pages.ResolveLayoutPage(this, Layout);
-    
+
                 var pageArgs = type.AllAttributes<PageArgAttribute>();
                 foreach (var pageArg in pageArgs)
                 {
@@ -89,11 +89,11 @@ namespace ServiceStack.Script
                 }
 
                 if (!Context.CodePageInvokers.TryGetValue(type, out var tuple))
-                {                    
+                {
                     var method = type.GetInstanceMethods().FirstOrDefault(x => x.Name.EndsWithIgnoreCase("render"));
                     if (method == null)
                         throw new NotSupportedException($"Template Code Page '{GetType().Name}' does not have a 'render' method");
-                    
+
                     var invoker = TypeExtensions.GetInvokerToCache(method);
                     Context.CodePageInvokers[type] = tuple = Tuple.Create(method, invoker);
                 }

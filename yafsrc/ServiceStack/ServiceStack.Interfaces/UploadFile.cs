@@ -10,13 +10,13 @@ namespace ServiceStack
         public string ContentType { get; set; }
 
         public UploadFile(Stream stream)
-            : this(null, stream, null, null) {}
+            : this(null, stream, null, null) { }
 
         public UploadFile(string fileName, Stream stream)
-            : this(fileName, stream, null, null) {}
+            : this(fileName, stream, null, null) { }
 
         public UploadFile(string fileName, Stream stream, string fieldName)
-            : this(fileName, stream, fieldName, null) {}
+            : this(fileName, stream, fieldName, null) { }
 
         public UploadFile(string fileName, Stream stream, string fieldName, string contentType)
         {

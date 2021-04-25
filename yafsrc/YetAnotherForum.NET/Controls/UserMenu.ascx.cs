@@ -71,7 +71,7 @@ namespace YAF.Controls
                         this.GetText("COMMON", "CANCEL"),
                         this.Get<LinkBuilder>().GetLink(ForumPages.Account_Logout)));
             }
-            
+
             base.OnPreRender(e);
         }
 
@@ -170,13 +170,13 @@ namespace YAF.Controls
             }
 
             var link = new HyperLink
-                           {
-                               Target = "_top",
-                               ToolTip = linkToolTip,
-                               NavigateUrl = linkUrl,
-                               Text = icon.IsSet() ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}" : linkText,
-                               CssClass = cssClass
-                           };
+            {
+                Target = "_top",
+                ToolTip = linkToolTip,
+                NavigateUrl = linkUrl,
+                Text = icon.IsSet() ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}" : linkText,
+                CssClass = cssClass
+            };
 
             if (noFollow)
             {

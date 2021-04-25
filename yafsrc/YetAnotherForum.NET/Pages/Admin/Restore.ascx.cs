@@ -256,16 +256,16 @@ namespace YAF.Pages.Admin
 
                     break;
                 case "restore":
-                {
-                    this.GetRepository<Message>().Delete(
-                        forumId,
-                        topicId,
-                        messageId,
-                        true,
-                        string.Empty,
-                        false,
-                        true,
-                        false);
+                    {
+                        this.GetRepository<Message>().Delete(
+                            forumId,
+                            topicId,
+                            messageId,
+                            true,
+                            string.Empty,
+                            false,
+                            true,
+                            false);
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_RESTORED"), MessageTypes.success);
 

@@ -45,7 +45,7 @@ namespace ServiceStack
 
         public ApiAttribute(string description) : this(description, GenerateBodyParameter.IfNotDisabled) { }
 
-        public ApiAttribute(string description, int generateBodyParameter) : this(description, generateBodyParameter, false) {}
+        public ApiAttribute(string description, int generateBodyParameter) : this(description, generateBodyParameter, false) { }
 
         public ApiAttribute(string description, int generateBodyParameter, bool isRequired)
         {

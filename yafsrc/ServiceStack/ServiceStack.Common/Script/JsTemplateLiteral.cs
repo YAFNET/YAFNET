@@ -7,11 +7,11 @@ namespace ServiceStack.Script
     {
         public JsTemplateElement[] Quasis { get; }
         public JsToken[] Expressions { get; }
-        
-        public JsTemplateLiteral(string cooked) 
-            : this(new []{ new JsTemplateElement(cooked, cooked, tail:true) }){}
 
-        public JsTemplateLiteral(JsTemplateElement[] quasis=null, JsToken[] expressions=null)
+        public JsTemplateLiteral(string cooked)
+            : this(new[] { new JsTemplateElement(cooked, cooked, tail: true) }) { }
+
+        public JsTemplateLiteral(JsTemplateElement[] quasis = null, JsToken[] expressions = null)
         {
             Quasis = quasis ?? TypeConstants<JsTemplateElement>.EmptyArray;
             Expressions = expressions ?? TypeConstants<JsToken>.EmptyArray;
@@ -45,7 +45,7 @@ namespace ServiceStack.Script
         public override object Evaluate(ScriptScopeContext scope)
         {
             var sb = StringBuilderCache.Allocate();
-            
+
             for (int i = 0; i < Quasis.Length; i++)
             {
                 var quasi = Quasis[i];
@@ -67,7 +67,8 @@ namespace ServiceStack.Script
 
         public override Dictionary<string, object> ToJsAst()
         {
-            var to = new Dictionary<string, object> {
+            var to = new Dictionary<string, object>
+            {
                 ["type"] = ToJsAstType(),
             };
 
@@ -75,9 +76,11 @@ namespace ServiceStack.Script
             var quasis = new List<object>();
             foreach (var quasi in Quasis)
             {
-                quasis.Add(new Dictionary<string, object> {
+                quasis.Add(new Dictionary<string, object>
+                {
                     ["type"] = quasiType,
-                    ["value"] = new Dictionary<string, object> {
+                    ["value"] = new Dictionary<string, object>
+                    {
                         ["raw"] = quasi.Value.Raw,
                         ["cooked"] = quasi.Value.Cooked,
                     },
@@ -98,7 +101,7 @@ namespace ServiceStack.Script
 
         protected bool Equals(JsTemplateLiteral other)
         {
-            return Quasis.EquivalentTo(other.Quasis) && 
+            return Quasis.EquivalentTo(other.Quasis) &&
                    Expressions.EquivalentTo(other.Expressions);
         }
 
@@ -107,7 +110,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsTemplateLiteral) obj);
+            return Equals((JsTemplateLiteral)obj);
         }
 
         public override int GetHashCode()
@@ -125,10 +128,11 @@ namespace ServiceStack.Script
     {
         public JsTemplateElementValue Value { get; }
         public bool Tail { get; }
-        
-        public JsTemplateElement(string raw, string cooked, bool tail=false) : 
-            this(new JsTemplateElementValue(raw, cooked), tail){}
-        
+
+        public JsTemplateElement(string raw, string cooked, bool tail = false) :
+            this(new JsTemplateElementValue(raw, cooked), tail)
+        { }
+
         public JsTemplateElement(JsTemplateElementValue value, bool tail)
         {
             Value = value;
@@ -145,7 +149,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsTemplateElement) obj);
+            return Equals((JsTemplateElement)obj);
         }
 
         public override int GetHashCode()
@@ -161,7 +165,7 @@ namespace ServiceStack.Script
     {
         public string Raw { get; }
         public string Cooked { get; }
-        
+
         public JsTemplateElementValue(string raw, string cooked)
         {
             Raw = raw;
@@ -178,7 +182,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsTemplateElementValue) obj);
+            return Equals((JsTemplateElementValue)obj);
         }
 
         public override int GetHashCode()

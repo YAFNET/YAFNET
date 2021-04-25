@@ -36,14 +36,14 @@ namespace ServiceStack.OrmLite
         public override string ToString()
         {
             var sql = StringBuilderCache.Allocate();
-            
+
             sql.Append(ColumnName.PadRight(20, ' ')).Append(' ');
             AppendDefinition(sql);
 
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
-        public string ColumnDefinition => 
+        public string ColumnDefinition =>
             StringBuilderCache.ReturnAndFree(AppendDefinition(StringBuilderCache.Allocate()));
 
         private StringBuilder AppendDefinition(StringBuilder sql)

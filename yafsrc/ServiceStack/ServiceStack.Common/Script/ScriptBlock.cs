@@ -12,7 +12,7 @@ namespace ServiceStack.Script
         /// Parse Body using Specified Language. Uses host language if unspecified.
         /// </summary>
         public virtual ScriptLanguage Body { get; }
-        
+
         public void Configure(ScriptContext context)
         {
             if (Body != null)
@@ -22,11 +22,11 @@ namespace ServiceStack.Script
         public ScriptContext Context { get; set; }
         public ISharpPages Pages { get; set; }
         public abstract string Name { get; }
-        
-        protected virtual string GetCallTrace(PageBlockFragment fragment) => "Block: " + Name + 
+
+        protected virtual string GetCallTrace(PageBlockFragment fragment) => "Block: " + Name +
            (fragment.Argument.IsNullOrEmpty() ? "" : " (" + fragment.Argument + ")");
 
-        protected virtual string GetElseCallTrace(PageElseBlock fragment) => "Block: " + Name + " > Else" + 
+        protected virtual string GetElseCallTrace(PageElseBlock fragment) => "Block: " + Name + " > Else" +
            (fragment.Argument.IsNullOrEmpty() ? "" : " (" + fragment.Argument + ")");
 
         public abstract Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token);
@@ -75,7 +75,7 @@ namespace ServiceStack.Script
             }
         }
 
-        protected bool CanExportScopeArgs(object element) => 
+        protected bool CanExportScopeArgs(object element) =>
             element != null && !(element is string) && (element.GetType().IsClass || element.GetType().Name == "KeyValuePair`2");
 
         protected int AssertWithinMaxQuota(int value) => Context.DefaultMethods.AssertWithinMaxQuota(value);
@@ -90,13 +90,13 @@ namespace ServiceStack.Script
                 new IfScriptBlock(),
                 new EachScriptBlock(),
                 new RawScriptBlock(),
-                new CaptureScriptBlock(), 
+                new CaptureScriptBlock(),
                 new PartialScriptBlock(),
                 new WithScriptBlock(),
                 new NoopScriptBlock(),
                 new KeyValuesScriptBlock(),
                 new CsvScriptBlock(),
-                new FunctionScriptBlock(), 
+                new FunctionScriptBlock(),
                 new WhileScriptBlock(),
             });
         }

@@ -60,7 +60,7 @@ namespace ServiceStack.Text
         }
 
         public static List<string> ParseFields(string line) => ParseFields(line, null);
-        public static List<string> ParseFields(string line, Func<string,string> parseFn)
+        public static List<string> ParseFields(string line, Func<string, string> parseFn)
         {
             var to = new List<string>();
             if (string.IsNullOrEmpty(line))
@@ -129,7 +129,7 @@ namespace ServiceStack.Text
                         endsToEat--;
                 }
                 if (endsToEat > 0)
-                { 
+                {
                     //Unmatched start and end char, give up
                     i = tokenStartPos;
                     valueChar = value[i];
@@ -211,7 +211,7 @@ namespace ServiceStack.Text
 
             foreach (var propertyInfo in TypeConfig<T>.Properties)
             {
-                if (!propertyInfo.CanWrite || propertyInfo.GetSetMethod(nonPublic:true) == null) continue;
+                if (!propertyInfo.CanWrite || propertyInfo.GetSetMethod(nonPublic: true) == null) continue;
                 if (!TypeSerializer.CanCreateFromString(propertyInfo.PropertyType)) continue;
 
                 var propertyName = propertyInfo.Name;
@@ -250,7 +250,7 @@ namespace ServiceStack.Text
                     PropertySettersMap.TryGetValue(oldHeader, out var setter);
                     PropertySettersMap.Remove(oldHeader);
                     PropertySettersMap[newHeader] = setter;
-                    
+
                     PropertyConvertersMap.TryGetValue(oldHeader, out var converter);
                     PropertyConvertersMap.Remove(oldHeader);
                     PropertyConvertersMap[newHeader] = converter;

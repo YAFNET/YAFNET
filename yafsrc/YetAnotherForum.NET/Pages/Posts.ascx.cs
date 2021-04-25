@@ -970,57 +970,57 @@ namespace YAF.Pages
                     this.EmailTopic_Click(sender, e);
                     break;
                 case "tumblr":
-                {
-                    // process message... clean html, strip html, remove BBCode, etc...
-                    var tumblrTopicName = BBCodeHelper
-                        .StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.topic.TopicName)))
-                        .RemoveMultipleWhitespace();
-
-                    var meta = this.Page.Header.FindControlType<HtmlMeta>().ToList();
-
-                    var description = string.Empty;
-
-                    if (meta.Any(x => x.Name.Equals("description")))
                     {
-                        var descriptionMeta = meta.FirstOrDefault(x => x.Name.Equals("description"));
-                        if (descriptionMeta != null)
+                        // process message... clean html, strip html, remove BBCode, etc...
+                        var tumblrTopicName = BBCodeHelper
+                            .StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.topic.TopicName)))
+                            .RemoveMultipleWhitespace();
+
+                        var meta = this.Page.Header.FindControlType<HtmlMeta>().ToList();
+
+                        var description = string.Empty;
+
+                        if (meta.Any(x => x.Name.Equals("description")))
                         {
-                            description = $"&description={descriptionMeta.Content}";
+                            var descriptionMeta = meta.FirstOrDefault(x => x.Name.Equals("description"));
+                            if (descriptionMeta != null)
+                            {
+                                description = $"&description={descriptionMeta.Content}";
+                            }
                         }
+
+                        var tumblrUrl =
+                            $"http://www.tumblr.com/share/link?url={this.Server.UrlEncode(topicUrl)}&name={tumblrTopicName}{description}";
+
+                        this.Get<HttpResponseBase>().Redirect(tumblrUrl);
                     }
-
-                    var tumblrUrl =
-                        $"http://www.tumblr.com/share/link?url={this.Server.UrlEncode(topicUrl)}&name={tumblrTopicName}{description}";
-
-                    this.Get<HttpResponseBase>().Redirect(tumblrUrl);
-                }
 
                     break;
                 case "retweet":
-                {
-                    var twitterName = this.PageContext.BoardSettings.TwitterUserName.IsSet()
-                        ? $"@{this.PageContext.BoardSettings.TwitterUserName} "
-                        : string.Empty;
+                    {
+                        var twitterName = this.PageContext.BoardSettings.TwitterUserName.IsSet()
+                            ? $"@{this.PageContext.BoardSettings.TwitterUserName} "
+                            : string.Empty;
 
-                    // process message... clean html, strip html, remove bbcode, etc...
-                    var twitterMsg = BBCodeHelper
-                        .StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.topic.TopicName)))
-                        .RemoveMultipleWhitespace();
+                        // process message... clean html, strip html, remove bbcode, etc...
+                        var twitterMsg = BBCodeHelper
+                            .StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.topic.TopicName)))
+                            .RemoveMultipleWhitespace();
 
-                    var tweetUrl =
-                        $"http://twitter.com/share?url={this.Server.UrlEncode(topicUrl)}&text={this.Server.UrlEncode(string.Format("RT {1}Thread: {0}", twitterMsg.Truncate(100), twitterName))}";
+                        var tweetUrl =
+                            $"http://twitter.com/share?url={this.Server.UrlEncode(topicUrl)}&text={this.Server.UrlEncode(string.Format("RT {1}Thread: {0}", twitterMsg.Truncate(100), twitterName))}";
 
-                    this.Get<HttpResponseBase>().Redirect(tweetUrl);
-                }
+                        this.Get<HttpResponseBase>().Redirect(tweetUrl);
+                    }
 
                     break;
                 case "reddit":
-                {
-                    var redditUrl =
-                        $"http://www.reddit.com/submit?url={this.Server.UrlEncode(topicUrl)}&title={this.Server.UrlEncode(this.topic.TopicName)}";
+                    {
+                        var redditUrl =
+                            $"http://www.reddit.com/submit?url={this.Server.UrlEncode(topicUrl)}&title={this.Server.UrlEncode(this.topic.TopicName)}";
 
-                    this.Get<HttpResponseBase>().Redirect(redditUrl);
-                }
+                        this.Get<HttpResponseBase>().Redirect(redditUrl);
+                    }
 
                     break;
                 default:

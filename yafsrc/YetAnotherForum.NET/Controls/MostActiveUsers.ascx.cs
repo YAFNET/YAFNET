@@ -112,14 +112,14 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-           var users = this.Get<IDataCache>().GetOrSet(
-                Constants.Cache.MostActiveUsers,
-                () => this.GetRepository<User>().LastActive(
-                    this.PageContext.PageBoardID,
-                    this.Get<IAspNetUsersHelper>().GuestUserId,
-                    DateTime.UtcNow.AddDays(-this.LastNumOfDays),
-                    this.DisplayNumber),
-                TimeSpan.FromMinutes(5));
+            var users = this.Get<IDataCache>().GetOrSet(
+                 Constants.Cache.MostActiveUsers,
+                 () => this.GetRepository<User>().LastActive(
+                     this.PageContext.PageBoardID,
+                     this.Get<IAspNetUsersHelper>().GuestUserId,
+                     DateTime.UtcNow.AddDays(-this.LastNumOfDays),
+                     this.DisplayNumber),
+                 TimeSpan.FromMinutes(5));
 
             this.Users.DataSource = users;
             this.Users.DataBind();

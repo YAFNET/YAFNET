@@ -23,42 +23,42 @@
  */
 namespace YAF.Types.Attributes
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces;
 
     #endregion
 
-  /// <summary>
-  /// The assembly sort order -- sorts the assembly load order in the modules.
-  /// </summary>
-  [AttributeUsage(AttributeTargets.Assembly)]
-  public class AssemblyModuleSortOrder : Attribute, IHaveSortOrder
-  {
-    #region Constructors and Destructors
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="AssemblyModuleSortOrder"/> class.
+    /// The assembly sort order -- sorts the assembly load order in the modules.
     /// </summary>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    public AssemblyModuleSortOrder(int value)
+    [AttributeUsage(AttributeTargets.Assembly)]
+    public class AssemblyModuleSortOrder : Attribute, IHaveSortOrder
     {
-      this.SortOrder = value;
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssemblyModuleSortOrder"/> class.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        public AssemblyModuleSortOrder(int value)
+        {
+            this.SortOrder = value;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets SortOrder.
+        /// </summary>
+        public int SortOrder { get; protected set; }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets SortOrder.
-    /// </summary>
-    public int SortOrder { get; protected set; }
-
-    #endregion
-  }
 }

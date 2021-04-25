@@ -25,7 +25,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsAssignmentExpression) obj);
+            return Equals((JsAssignmentExpression)obj);
         }
 
         public override int GetHashCode()
@@ -51,7 +51,7 @@ namespace ServiceStack.Script
                     return JsonValue(token.Evaluate(scope));
             }
         }
-        
+
         public override object Evaluate(ScriptScopeContext scope)
         {
             var rhs = Right.Evaluate(scope);

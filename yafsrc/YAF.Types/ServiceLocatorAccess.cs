@@ -23,29 +23,29 @@
  */
 namespace YAF.Types
 {
-  #region Using
+    #region Using
 
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// The service locator access -- kind of a hack. Will not be needed in the future.
-  /// </summary>
-  public class ServiceLocatorAccess : IHaveServiceLocator
-  {
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets CurrentServiceProvider.
-    /// </summary>
-    public static IServiceLocator CurrentServiceProvider { get; set; }
-
-    /// <summary>
-    ///   Gets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator => CurrentServiceProvider;
+    using YAF.Types.Interfaces;
 
     #endregion
-  }
+
+    /// <summary>
+    /// The service locator access -- kind of a hack. Will not be needed in the future.
+    /// </summary>
+    public class ServiceLocatorAccess : IHaveServiceLocator
+    {
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets CurrentServiceProvider.
+        /// </summary>
+        public static IServiceLocator CurrentServiceProvider { get; set; }
+
+        /// <summary>
+        ///   Gets ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator => CurrentServiceProvider;
+
+        #endregion
+    }
 }

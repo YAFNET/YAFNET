@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -30,7 +30,7 @@ namespace YAF.Pages.Admin
     using System.IO;
     using System.Linq;
     using System.Web;
-    
+
     using Core.Services.Import;
 
     using YAF.Configuration;
@@ -366,11 +366,10 @@ namespace YAF.Pages.Admin
                     }
 
                     // import into board...
-                    using (var stream = new StreamReader(fullFile))
-                    {
-                        streamAction(stream.BaseStream);
-                        stream.Close();
-                    }
+                    using var stream = new StreamReader(fullFile);
+
+                    streamAction(stream.BaseStream);
+                    stream.Close();
                 });
 
             // load default bbcode if available...

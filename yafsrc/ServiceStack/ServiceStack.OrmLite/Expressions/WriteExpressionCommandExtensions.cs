@@ -18,7 +18,7 @@ namespace ServiceStack.OrmLite
             Action<IDbCommand> commandFilter = null)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             UpdateOnlySql(dbCmd, model, onlyFields);
             commandFilter?.Invoke(dbCmd);
             return dbCmd.ExecNonQuery();
@@ -27,7 +27,7 @@ namespace ServiceStack.OrmLite
         internal static void UpdateOnlySql<T>(this IDbCommand dbCmd, T model, SqlExpression<T> onlyFields)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, model);
 
             var fieldsToUpdate = onlyFields.UpdateFields.Count == 0
@@ -48,7 +48,7 @@ namespace ServiceStack.OrmLite
             Action<IDbCommand> commandFilter = null)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             if (onlyFields == null)
                 throw new ArgumentNullException(nameof(onlyFields));
 
@@ -64,7 +64,7 @@ namespace ServiceStack.OrmLite
             Action<IDbCommand> commandFilter = null)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             if (onlyFields == null)
                 throw new ArgumentNullException(nameof(onlyFields));
 
@@ -80,7 +80,7 @@ namespace ServiceStack.OrmLite
             Action<IDbCommand> commandFilter = null)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             var cmd = dbCmd.InitUpdateOnly(updateFields, q);
             commandFilter?.Invoke(cmd);
             return cmd.ExecNonQuery();
@@ -108,7 +108,7 @@ namespace ServiceStack.OrmLite
             Action<IDbCommand> commandFilter = null)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             var cmd = dbCmd.InitUpdateOnly(updateFields, whereExpression, dbParams);
             commandFilter?.Invoke(cmd);
             return cmd.ExecNonQuery();
@@ -128,7 +128,7 @@ namespace ServiceStack.OrmLite
 
             return dbCmd;
         }
-        
+
         public static int UpdateAdd<T>(this IDbCommand dbCmd,
             Expression<Func<T>> updateFields,
             SqlExpression<T> q,
@@ -160,7 +160,7 @@ namespace ServiceStack.OrmLite
             Action<IDbCommand> commandFilter = null)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             if (updateFields == null)
                 throw new ArgumentNullException(nameof(updateFields));
 
@@ -172,7 +172,7 @@ namespace ServiceStack.OrmLite
             return dbCmd.UpdateAndVerify<T>(commandFilter, updateFields.ContainsKey(ModelDefinition.RowVersionName));
         }
 
-        internal static string GetUpdateOnlyWhereExpression<T>(this IOrmLiteDialectProvider dialectProvider, 
+        internal static string GetUpdateOnlyWhereExpression<T>(this IOrmLiteDialectProvider dialectProvider,
             Dictionary<string, object> updateFields, out object[] args)
         {
             var modelDef = typeof(T).GetModelDefinition();
@@ -263,7 +263,7 @@ namespace ServiceStack.OrmLite
         public static int Update<T>(this IDbCommand dbCmd, object updateOnly, Expression<Func<T, bool>> where = null, Action<IDbCommand> commandFilter = null)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateOnly.ToFilterType<T>());
 
             var q = dbCmd.GetDialectProvider().SqlExpression<T>();
@@ -286,7 +286,7 @@ namespace ServiceStack.OrmLite
                 foreach (DictionaryEntry entry in d)
                 {
                     var fieldDef = modelDef.GetFieldDefinition((string)entry.Key);
-                    if (fieldDef == null || fieldDef.ShouldSkipUpdate()) 
+                    if (fieldDef == null || fieldDef.ShouldSkipUpdate())
                         continue;
                     fieldDefs.Add(fieldDef);
                 }
@@ -302,7 +302,7 @@ namespace ServiceStack.OrmLite
                     fieldDefs.Add(fieldDef);
                 }
             }
-            
+
             var hadRowVersion = false;
             foreach (var fieldDef in fieldDefs)
             {

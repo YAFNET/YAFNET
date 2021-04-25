@@ -12,7 +12,7 @@ namespace ServiceStack.Script
         public override string Name => "noop";
         public override ScriptLanguage Body => ScriptVerbatim.Language;
 
-        public override Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token) => 
+        public override Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token) =>
             TypeConstants.EmptyTask;
     }
 }

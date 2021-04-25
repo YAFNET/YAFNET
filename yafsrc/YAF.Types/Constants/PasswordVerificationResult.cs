@@ -31,12 +31,12 @@ namespace YAF.Types.Constants
         /// Password verification failed
         /// </summary>
         Failed,
-        
+
         /// <summary>
         /// Success
         /// </summary>
         Success,
-        
+
         /// <summary>
         /// Success but should update and rehash the password
         /// </summary>

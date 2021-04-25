@@ -29,7 +29,7 @@ namespace ServiceStack.Script
                 throw new NotSupportedException("'each' block requires the collection to iterate");
 
             var cache = (EachArg)scope.Context.Cache.GetOrAdd(block.ArgumentString, _ => ParseArgument(scope, block));
-            
+
             var collection = cache.Source.Evaluate(scope, out var syncResult, out var asyncResult)
                 ? (IEnumerable)syncResult
                 : (IEnumerable)(await asyncResult.ConfigAwait());
@@ -49,7 +49,7 @@ namespace ServiceStack.Script
                             : new Dictionary<string, object>();
 
                         scopeArgs[cache.Binding] = element;
-                        scopeArgs[nameof(index)] = AssertWithinMaxQuota(index++); 
+                        scopeArgs[nameof(index)] = AssertWithinMaxQuota(index++);
                         var itemScope = scope.ScopeWithParams(scopeArgs);
 
                         if (cache.Where != null)
@@ -58,7 +58,7 @@ namespace ServiceStack.Script
                             if (!result)
                                 continue;
                         }
-                        
+
                         filteredResults.Add(scopeArgs);
                     }
 
@@ -112,11 +112,11 @@ namespace ServiceStack.Script
                         var scopeArgs = !cache.HasExplicitBinding && CanExportScopeArgs(element)
                             ? element.ToObjectDictionary()
                             : new Dictionary<string, object>();
-    
+
                         scopeArgs[cache.Binding] = element;
                         scopeArgs[nameof(index)] = AssertWithinMaxQuota(index++);
                         var itemScope = scope.ScopeWithParams(scopeArgs);
-    
+
                         await WriteBodyAsync(itemScope, block, token).ConfigAwait();
                     }
                 }
@@ -140,15 +140,15 @@ namespace ServiceStack.Script
 
             JsToken source, where, orderBy, orderByDescending, skip, take;
             where = orderBy = orderByDescending = skip = take = null;
-            
-            var hasExplicitBinding = literal.StartsWith("in "); 
+
+            var hasExplicitBinding = literal.StartsWith("in ");
             if (hasExplicitBinding)
             {
                 if (!(token is JsIdentifier identifier))
                     throw new NotSupportedException($"'each' block expected identifier but was {token.DebugToken()}");
 
                 binding = identifier.Name;
-                
+
                 literal = literal.Advance(3);
                 literal = literal.ParseJsExpression(out source);
                 if (source == null)
@@ -193,7 +193,7 @@ namespace ServiceStack.Script
                 literal = literal.Advance("take ".Length);
                 literal = literal.ParseJsExpression(out take);
             }
-            
+
             return new EachArg(binding, hasExplicitBinding, source, where, orderBy, orderByDescending, skip, take);
         }
 
@@ -207,8 +207,8 @@ namespace ServiceStack.Script
             public readonly JsToken OrderByDescending;
             public readonly JsToken Skip;
             public readonly JsToken Take;
-            
-            public EachArg(string binding, bool hasExplicitBinding, JsToken source, JsToken where, 
+
+            public EachArg(string binding, bool hasExplicitBinding, JsToken source, JsToken where,
                 JsToken orderBy, JsToken orderByDescending, JsToken skip, JsToken take)
             {
                 Binding = binding;

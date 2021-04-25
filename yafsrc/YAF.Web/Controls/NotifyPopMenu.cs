@@ -33,7 +33,7 @@ namespace YAF.Web.Controls
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Interfaces;
-    
+
     #endregion
 
     /// <summary>
@@ -75,15 +75,15 @@ namespace YAF.Web.Controls
                 "<p class=\"text-center\"><span>{0}</span><br /><div class=\"fa-3x\"><i class=\"fas fa-spinner fa-pulse\"></i></div></p>",
                 this.Get<ILocalization>().GetText("COMMON", "LOADING"));
             sb.Append("</div>");
-        
+
             sb.AppendFormat(
                 "<div id=\"NotifyListPlaceholder\" data-url=\"{0}\" data-userid=\"{1}\" style=\"clear: both;\">",
                 BoardInfo.ForumClientFileRoot,
                 BoardContext.Current.PageUserID);
 
             sb.Append("<ul class=\"list-group list-group-flush\">");
-            sb.Append("</ul>"); 
-            
+            sb.Append("</ul>");
+
             sb.Append("</div>");
             sb.Append("</div>");
 

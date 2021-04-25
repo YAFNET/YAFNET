@@ -27,7 +27,7 @@ namespace YAF.Dialogs
     #region Using
 
     using System;
-    
+
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Services;
@@ -117,7 +117,7 @@ namespace YAF.Dialogs
         {
             if (!this.IsPostBack)
             {
-               return;
+                return;
             }
 
             this.PageContext.PageElements.RegisterJsBlockStartup(

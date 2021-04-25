@@ -42,12 +42,12 @@ namespace ServiceStack.OrmLite.SqlServer
                 return AutoIncrementDefinition;
         }
 
-        protected override bool ShouldSkipInsert(FieldDefinition fieldDef) => 
+        protected override bool ShouldSkipInsert(FieldDefinition fieldDef) =>
             fieldDef.ShouldSkipInsert() && string.IsNullOrEmpty(fieldDef.Sequence);
 
-        protected override bool SupportsSequences(FieldDefinition fieldDef) => 
+        protected override bool SupportsSequences(FieldDefinition fieldDef) =>
             !string.IsNullOrEmpty(fieldDef.Sequence);
-        
+
         public override List<string> ToCreateSequenceStatements(Type tableType)
         {
             var modelDef = GetModel(tableType);
@@ -134,7 +134,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
                 if (fieldDef.IsNonClustered)
                     sql.Append(" NONCLUSTERED");
- 
+
                 if (fieldDef.AutoIncrement)
                 {
                     sql.Append(" ").Append(AutoIncrementDefinition);
@@ -255,10 +255,10 @@ namespace ServiceStack.OrmLite.SqlServer
                     .Append(".STEquals(")
                     .Append(this.GetParam(SanitizeFieldNameForParamName(fieldDef.FieldName)))
                     .Append(") = 1");
- 
+
                 AddParameter(cmd, fieldDef);
             }
-            else 
+            else
             {
                 base.AppendFieldCondition(sqlFilter, fieldDef, cmd);
             }
@@ -278,13 +278,13 @@ namespace ServiceStack.OrmLite.SqlServer
                     .Append(GetQuotedColumnName(fieldDef.FieldName))
                     .Append(".IsNull = 1");
             }
-            else 
+            else
             {
                 base.AppendNullFieldCondition(sqlFilter, fieldDef);
             }
         }
 
-        internal bool isSpatialField(FieldDefinition fieldDef) => 
+        internal bool isSpatialField(FieldDefinition fieldDef) =>
             fieldDef.FieldType.Name == "SqlGeography" || fieldDef.FieldType.Name == "SqlGeometry";
 
         internal bool hasIsNullProperty(FieldDefinition fieldDef) =>

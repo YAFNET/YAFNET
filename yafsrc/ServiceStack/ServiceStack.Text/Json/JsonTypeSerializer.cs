@@ -280,7 +280,7 @@ namespace ServiceStack.Text.Json
 
         public void WriteEnum(TextWriter writer, object enumValue)
         {
-            if (enumValue == null) 
+            if (enumValue == null)
                 return;
             var serializedValue = CachedTypeInfo.Get(enumValue.GetType()).EnumInfo.GetSerializedValue(enumValue);
             if (serializedValue is string strEnum)
@@ -351,26 +351,26 @@ namespace ServiceStack.Text.Json
             {
                 var c = json[index];
 
-                if (c == JsonUtils.QuoteChar) 
+                if (c == JsonUtils.QuoteChar)
                     break;
-                
+
                 if (c == JsonUtils.EscapeChar)
                 {
                     index++;
                     if (json[index] == 'u')
                         index += 4;
                 }
-                
+
             } while (index++ < jsonLength);
 
             if (index == jsonLength)
                 throw new Exception("Invalid unquoted string ending with: " + json.SafeSubstring(json.Length - 50, 50).ToString());
-            
+
             index++;
             var str = json.Slice(startIndex, Math.Min(index, jsonLength) - startIndex - 1);
             if (str.Length == 0)
-                return TypeConstants.EmptyStringSpan; 
-                    
+                return TypeConstants.EmptyStringSpan;
+
             return str;
         }
 
@@ -401,12 +401,12 @@ namespace ServiceStack.Text.Json
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ReadOnlySpan<char> UnescapeSafeString(ReadOnlySpan<char> value)
         {
-            if (value.IsEmpty) 
+            if (value.IsEmpty)
                 return value;
 
             if (value[0] == JsonUtils.QuoteChar && value[value.Length - 1] == JsonUtils.QuoteChar)
                 return value.Slice(1, value.Length - 2);
-            
+
             return value;
         }
 
@@ -421,20 +421,20 @@ namespace ServiceStack.Text.Json
 
         private static string UnescapeJsonString(string json, ref int index)
         {
-            return json != null 
-                ? UnescapeJsonString(json.AsSpan(), ref index).ToString() 
+            return json != null
+                ? UnescapeJsonString(json.AsSpan(), ref index).ToString()
                 : null;
         }
 
         private static ReadOnlySpan<char> UnescapeJsonString(ReadOnlySpan<char> json, ref int index) =>
-            UnescapeJsString(json, JsonUtils.QuoteChar, removeQuotes:true, ref index);
+            UnescapeJsString(json, JsonUtils.QuoteChar, removeQuotes: true, ref index);
 
         public static ReadOnlySpan<char> UnescapeJsString(ReadOnlySpan<char> json, char quoteChar)
         {
             var ignore = 0;
-            return UnescapeJsString(json, quoteChar, removeQuotes:false, ref ignore);
+            return UnescapeJsString(json, quoteChar, removeQuotes: false, ref ignore);
         }
-        
+
         public static ReadOnlySpan<char> UnescapeJsString(ReadOnlySpan<char> json, char quoteChar, bool removeQuotes, ref int index)
         {
             if (json.IsNullOrEmpty()) return json;
@@ -449,7 +449,7 @@ namespace ServiceStack.Text.Json
                 //MicroOp: See if we can short-circuit evaluation (to avoid StringBuilder)
                 var jsonAtIndex = json.Slice(index);
                 var strEndPos = jsonAtIndex.IndexOfAny(IsSafeJsonChars);
-                if (strEndPos == -1) 
+                if (strEndPos == -1)
                     return jsonAtIndex.Slice(0, jsonLength);
 
                 if (jsonAtIndex[strEndPos] == quoteChar)
@@ -473,13 +473,13 @@ namespace ServiceStack.Text.Json
                         break;
                     i++;
                 }
-                if (i == end) 
+                if (i == end)
                     return buffer.Slice(index, jsonLength - index);
             }
 
-            return Unescape(json, removeQuotes:removeQuotes, quoteChar:quoteChar);
+            return Unescape(json, removeQuotes: removeQuotes, quoteChar: quoteChar);
         }
-        
+
         public static string Unescape(string input) => Unescape(input, true);
         public static string Unescape(string input, bool removeQuotes) => Unescape(input.AsSpan(), removeQuotes).ToString();
 
@@ -617,7 +617,7 @@ namespace ServiceStack.Text.Json
             if (utf32 < 0x10000)
                 return new string((char)utf32, 1);
             utf32 -= 0x10000;
-            return new string(new[] {(char) ((utf32 >> 10) + 0xD800), (char) (utf32 % 0x0400 + 0xDC00)});
+            return new string(new[] { (char)((utf32 >> 10) + 0xD800), (char)(utf32 % 0x0400 + 0xDC00) });
         }
 
         public string EatTypeValue(string value, ref int i)
@@ -827,9 +827,9 @@ namespace ServiceStack.Text.Json
             }
 
             var strValue = value.Slice(tokenStartPos, i - tokenStartPos);
-            
-            return strValue.Equals(JsonUtils.Null.AsSpan(), StringComparison.Ordinal) 
-                ? default 
+
+            return strValue.Equals(JsonUtils.Null.AsSpan(), StringComparison.Ordinal)
+                ? default
                 : strValue;
         }
     }

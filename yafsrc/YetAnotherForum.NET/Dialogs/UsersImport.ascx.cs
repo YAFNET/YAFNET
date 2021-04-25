@@ -31,7 +31,7 @@ namespace YAF.Dialogs
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
-    
+
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
     using YAF.Core.Services;

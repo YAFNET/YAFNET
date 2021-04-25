@@ -92,7 +92,7 @@ namespace ServiceStack.OrmLite.Dapper
             static readonly string[] s_nixKeys = new string[0];
             public override IEnumerable<string> GetDynamicMemberNames()
             {
-                if(HasValue && Value is IDictionary<string, object> lookup) return lookup.Keys;
+                if (HasValue && Value is IDictionary<string, object> lookup) return lookup.Keys;
                 return s_nixKeys;
             }
         }

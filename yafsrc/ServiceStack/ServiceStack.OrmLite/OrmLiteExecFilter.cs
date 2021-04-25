@@ -32,12 +32,12 @@ namespace ServiceStack.OrmLite
 
             var dbCmd = dbConn.CreateCommand();
 
-            dbCmd.Transaction = ormLiteConn != null 
-                ? ormLiteConn.Transaction 
+            dbCmd.Transaction = ormLiteConn != null
+                ? ormLiteConn.Transaction
                 : OrmLiteContext.TSTransaction;
 
-            dbCmd.CommandTimeout = ormLiteConn != null 
-                ? (ormLiteConn.CommandTimeout ?? OrmLiteConfig.CommandTimeout) 
+            dbCmd.CommandTimeout = ormLiteConn != null
+                ? (ormLiteConn.CommandTimeout ?? OrmLiteConfig.CommandTimeout)
                 : OrmLiteConfig.CommandTimeout;
 
             ormLiteConn.SetLastCommandText(null);
@@ -114,7 +114,7 @@ namespace ServiceStack.OrmLite
             }
             catch (Exception ex)
             {
-                var useEx = ex.UnwrapIfSingleException(); 
+                var useEx = ex.UnwrapIfSingleException();
                 OrmLiteConfig.ExceptionFilter?.Invoke(dbCmd, useEx);
                 throw useEx;
             }
@@ -140,7 +140,7 @@ namespace ServiceStack.OrmLite
             }
             catch (Exception ex)
             {
-                var useEx = ex.UnwrapIfSingleException(); 
+                var useEx = ex.UnwrapIfSingleException();
                 OrmLiteConfig.ExceptionFilter?.Invoke(dbCmd, useEx);
                 throw useEx;
             }

@@ -99,23 +99,23 @@ namespace ServiceStack
         public static FieldInfo[] GetAllFields(this Type type) => type.IsInterface ? TypeConstants.EmptyFieldInfoArray : type.Fields();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static FieldInfo[] GetPublicFields(this Type type) => type.IsInterface 
-            ? TypeConstants.EmptyFieldInfoArray 
+        public static FieldInfo[] GetPublicFields(this Type type) => type.IsInterface
+            ? TypeConstants.EmptyFieldInfoArray
             : type.GetFields(BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance).ToArray();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MemberInfo[] GetPublicMembers(this Type type) => type.GetMembers(BindingFlags.Public | BindingFlags.Instance);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static MemberInfo[] GetAllPublicMembers(this Type type) => 
+        public static MemberInfo[] GetAllPublicMembers(this Type type) =>
             type.GetMembers(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static MethodInfo GetStaticMethod(this Type type, string methodName) => 
+        public static MethodInfo GetStaticMethod(this Type type, string methodName) =>
             type.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static MethodInfo GetInstanceMethod(this Type type, string methodName) => 
+        public static MethodInfo GetInstanceMethod(this Type type, string methodName) =>
             type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
         [Obsolete("Use fn.Method")]
@@ -145,14 +145,14 @@ namespace ServiceStack
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeOf<T>(this MethodInfo mi) => mi.AllAttributes().Any(x => x is T);
 
-        private static readonly ConcurrentDictionary<Tuple<MemberInfo,Type>, bool> hasAttributeCache = new();
+        private static readonly ConcurrentDictionary<Tuple<MemberInfo, Type>, bool> hasAttributeCache = new();
         public static bool HasAttributeCached<T>(this MemberInfo memberInfo)
         {
-            var key = new Tuple<MemberInfo,Type>(memberInfo, typeof(T));
-            if (hasAttributeCache.TryGetValue(key , out var hasAttr))
+            var key = new Tuple<MemberInfo, Type>(memberInfo, typeof(T));
+            if (hasAttributeCache.TryGetValue(key, out var hasAttr))
                 return hasAttr;
 
-            hasAttr = memberInfo is Type t 
+            hasAttr = memberInfo is Type t
                 ? t.AllAttributes().Any(x => x.GetType() == typeof(T))
                 : memberInfo is PropertyInfo pi
                 ? pi.AllAttributes().Any(x => x.GetType() == typeof(T))
@@ -167,14 +167,14 @@ namespace ServiceStack
             return hasAttr;
         }
 
-        private static readonly ConcurrentDictionary<Tuple<MemberInfo,Type>, bool> hasAttributeOfCache = new ConcurrentDictionary<Tuple<MemberInfo,Type>, bool>();
+        private static readonly ConcurrentDictionary<Tuple<MemberInfo, Type>, bool> hasAttributeOfCache = new ConcurrentDictionary<Tuple<MemberInfo, Type>, bool>();
         public static bool HasAttributeOfCached<T>(this MemberInfo memberInfo)
         {
-            var key = new Tuple<MemberInfo,Type>(memberInfo, typeof(T));
-            if (hasAttributeOfCache.TryGetValue(key , out var hasAttr))
+            var key = new Tuple<MemberInfo, Type>(memberInfo, typeof(T));
+            if (hasAttributeOfCache.TryGetValue(key, out var hasAttr))
                 return hasAttr;
 
-            hasAttr = memberInfo is Type t 
+            hasAttr = memberInfo is Type t
                 ? t.AllAttributes().Any(x => x is T)
                 : memberInfo is PropertyInfo pi
                 ? pi.AllAttributes().Any(x => x is T)
@@ -237,7 +237,7 @@ namespace ServiceStack
         public static Type[] Interfaces(this Type type) => type.GetInterfaces();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static PropertyInfo[] AllProperties(this Type type) => 
+        public static PropertyInfo[] AllProperties(this Type type) =>
             type.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 
         //Should only register Runtime Attributes on StartUp, So using non-ThreadSafe Dictionary is OK
@@ -386,8 +386,8 @@ namespace ServiceStack
         public static object[] AllAttributes(this MemberInfo memberInfo, Type attrType)
         {
             var prop = memberInfo as PropertyInfo;
-            return prop != null 
-                ? prop.AllAttributes(attrType) 
+            return prop != null
+                ? prop.AllAttributes(attrType)
                 : memberInfo.GetCustomAttributes(attrType, true);
         }
 
@@ -407,7 +407,7 @@ namespace ServiceStack
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static object[] AllAttributes(this Type type, Type attrType) => 
+        public static object[] AllAttributes(this Type type, Type attrType) =>
             type.GetCustomAttributes(attrType, true).Union(type.GetRuntimeAttributes(attrType)).ToArray();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -481,7 +481,7 @@ namespace ServiceStack
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static TAttribute FirstAttribute<TAttribute>(this PropertyInfo propertyInfo) => 
+        public static TAttribute FirstAttribute<TAttribute>(this PropertyInfo propertyInfo) =>
             propertyInfo.AllAttributesLazy<TAttribute>().FirstOrDefault();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -508,15 +508,15 @@ namespace ServiceStack
             : type.GetMethod(methodName, types);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static object InvokeMethod(this Delegate fn, object instance, object[] parameters = null) => 
+        public static object InvokeMethod(this Delegate fn, object instance, object[] parameters = null) =>
             fn.Method.Invoke(instance, parameters ?? new object[] { });
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static FieldInfo GetPublicStaticField(this Type type, string fieldName) => 
+        public static FieldInfo GetPublicStaticField(this Type type, string fieldName) =>
             type.GetField(fieldName, BindingFlags.Public | BindingFlags.Static);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Delegate MakeDelegate(this MethodInfo mi, Type delegateType, bool throwOnBindFailure = true) => 
+        public static Delegate MakeDelegate(this MethodInfo mi, Type delegateType, bool throwOnBindFailure = true) =>
             Delegate.CreateDelegate(delegateType, mi, throwOnBindFailure);
 
         [Obsolete("Use type.GetGenericArguments()")]
@@ -541,15 +541,15 @@ namespace ServiceStack
         public static FieldInfo GetFieldInfo(this Type type, string fieldName) => type.GetField(fieldName);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static FieldInfo[] GetWritableFields(this Type type) => 
+        public static FieldInfo[] GetWritableFields(this Type type) =>
             type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.SetField);
 
         [Obsolete("Use pi.GetSetMethod(nonPublic)")]
-        public static MethodInfo SetMethod(this PropertyInfo pi, bool nonPublic = true) => 
+        public static MethodInfo SetMethod(this PropertyInfo pi, bool nonPublic = true) =>
             pi.GetSetMethod(nonPublic);
 
         [Obsolete("Use pi.GetGetMethod(nonPublic)")]
-        public static MethodInfo GetMethodInfo(this PropertyInfo pi, bool nonPublic = true) => 
+        public static MethodInfo GetMethodInfo(this PropertyInfo pi, bool nonPublic = true) =>
             pi.GetGetMethod(nonPublic);
 
         [Obsolete("Use type.IsInstanceOfType(instance)")]
@@ -571,7 +571,7 @@ namespace ServiceStack
         public static bool IsUnderlyingEnum(this Type type) => type.IsEnum || type.UnderlyingSystemType.IsEnum;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static MethodInfo[] GetInstanceMethods(this Type type) => 
+        public static MethodInfo[] GetInstanceMethods(this Type type) =>
             type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
         [Obsolete("Use type.GetMethods()")]
@@ -662,7 +662,8 @@ namespace ServiceStack
             do
             {
                 snapshot = GenericTypeCache;
-                newCache = new Dictionary<string, Type>(GenericTypeCache) {
+                newCache = new Dictionary<string, Type>(GenericTypeCache)
+                {
                     [key] = genericType
                 };
 
@@ -759,7 +760,7 @@ namespace ServiceStack
         }
 
         private static Dictionary<string, object> MapToDictionary<T>(
-            this Func<string, object, object> mapper, 
+            this Func<string, object, object> mapper,
             IEnumerable<KeyValuePair<string, T>> collection)
         {
             return collection.ToDictionary(
@@ -837,7 +838,7 @@ namespace ServiceStack
             {
                 var keyGetter = TypeProperties.Get(kvpType).GetPublicGetter("Key");
                 var valueGetter = TypeProperties.Get(kvpType).GetPublicGetter("Value");
-                
+
                 foreach (var entry in e)
                 {
                     var key = keyGetter(entry);
@@ -860,9 +861,9 @@ namespace ServiceStack
                 object vv = objKvp.Value;
                 vv = mapper?.Invoke(vk, vv) ?? vv;
 
-                return new Dictionary<string, object> 
+                return new Dictionary<string, object>
                 {
-                    [kk] = kv, 
+                    [kk] = kv,
                     [vk] = vv
                 };
             }
@@ -917,9 +918,9 @@ namespace ServiceStack
         {
             //matches IDictionary<,>, IReadOnlyDictionary<,>, List<KeyValuePair<string, object>>
             var genericDef = dictType.GetTypeWithGenericTypeDefinitionOf(typeof(IEnumerable<>));
-            if (genericDef == null) 
+            if (genericDef == null)
                 return null;
-            
+
             var genericEnumType = genericDef.GetGenericArguments()[0];
             return GetKeyValuePairTypeDef(genericEnumType);
         }
@@ -928,7 +929,7 @@ namespace ServiceStack
 
         public static bool GetKeyValuePairsTypes(this Type dictType, out Type keyType, out Type valueType) =>
             dictType.GetKeyValuePairsTypes(out keyType, out valueType, out _);
-        
+
         public static bool GetKeyValuePairsTypes(this Type dictType, out Type keyType, out Type valueType, out Type kvpType)
         {
             //matches IDictionary<,>, IReadOnlyDictionary<,>, List<KeyValuePair<string, object>>
@@ -936,7 +937,7 @@ namespace ServiceStack
             if (genericDef != null)
             {
                 kvpType = genericDef.GetGenericArguments()[0];
-                if (GetKeyValuePairTypes(kvpType, out keyType, out valueType)) 
+                if (GetKeyValuePairTypes(kvpType, out keyType, out valueType))
                     return true;
             }
             kvpType = keyType = valueType = null;
@@ -962,7 +963,7 @@ namespace ServiceStack
         {
             if (values == null)
                 return null;
-            
+
             var alreadyDict = typeof(IEnumerable<KeyValuePair<string, object>>).IsAssignableFrom(type);
             if (alreadyDict)
                 return values;
@@ -991,7 +992,7 @@ namespace ServiceStack
             {
                 PopulateInstanceInternal(values, to, type);
             }
-            
+
             return to;
         }
 
@@ -999,7 +1000,7 @@ namespace ServiceStack
         {
             if (values == null || instance == null)
                 return;
-            
+
             PopulateInstanceInternal(values, instance, instance.GetType());
         }
 
@@ -1012,7 +1013,7 @@ namespace ServiceStack
             {
                 if (!def.FieldsMap.TryGetValue(entry.Key, out var fieldDef) &&
                     !def.FieldsMap.TryGetValue(entry.Key.ToPascalCase(), out fieldDef)
-                    || entry.Value == null 
+                    || entry.Value == null
                     || entry.Value == DBNull.Value)
                     continue;
 
@@ -1024,7 +1025,7 @@ namespace ServiceStack
         {
             if (values == null || instance == null)
                 return;
-            
+
             PopulateInstanceInternal(values, instance, instance.GetType());
         }
 
@@ -1039,7 +1040,7 @@ namespace ServiceStack
                     !def.FieldsMap.TryGetValue(entry.Key.ToPascalCase(), out fieldDef)
                     || entry.Value == null)
                     continue;
-                
+
                 fieldDef.SetValue(to, entry.Value);
             }
         }
@@ -1129,10 +1130,10 @@ namespace ServiceStack
         {
             var to = obj.ToObjectDictionary();
             foreach (var source in sources)
-            foreach (var entry in source.ToObjectDictionary())
-            {
-                to[entry.Key] = entry.Value;
-            }
+                foreach (var entry in source.ToObjectDictionary())
+                {
+                    to[entry.Key] = entry.Value;
+                }
             return to;
         }
 

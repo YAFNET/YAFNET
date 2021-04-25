@@ -23,28 +23,28 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// the module definition
-  /// </summary>
-  public interface IModuleDefinition
-  {
-    #region Properties
-
     /// <summary>
-    ///   Gets a value indicating whether Active.
+    /// the module definition
     /// </summary>
-    bool Active { get; }
+    public interface IModuleDefinition
+    {
+        #region Properties
 
-    /// <summary>
-    ///   Gets Description.
-    /// </summary>
-    string Description { get; }
+        /// <summary>
+        ///   Gets a value indicating whether Active.
+        /// </summary>
+        bool Active { get; }
 
-    /// <summary>
-    ///   Gets ModuleId.
-    /// </summary>
-    string ModuleId { get; }
+        /// <summary>
+        ///   Gets Description.
+        /// </summary>
+        string Description { get; }
 
-    #endregion
-  }
+        /// <summary>
+        ///   Gets ModuleId.
+        /// </summary>
+        string ModuleId { get; }
+
+        #endregion
+    }
 }

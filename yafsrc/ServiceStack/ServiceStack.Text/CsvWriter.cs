@@ -67,7 +67,7 @@ namespace ServiceStack.Text
             WriteObjectRow(writer, values);
         }
 
-        public static void Write(TextWriter writer, IEnumerable<IDictionary<string, object>> records) 
+        public static void Write(TextWriter writer, IEnumerable<IDictionary<string, object>> records)
         {
             if (records == null) return; //AOT
 
@@ -81,7 +81,7 @@ namespace ServiceStack.Text
 
                     requireHeaders = false;
                 }
-                if (record != null) 
+                if (record != null)
                     WriteObjectRow(writer, record.Values);
             }
         }
@@ -112,7 +112,7 @@ namespace ServiceStack.Text
             }
             foreach (var cachedRecord in cachedRecords)
             {
-                var fullRecord = headers.ConvertAll(header => 
+                var fullRecord = headers.ConvertAll(header =>
                     cachedRecord.ContainsKey(header) ? cachedRecord[header] : null);
                 WriteRow(writer, fullRecord);
             }
@@ -123,7 +123,7 @@ namespace ServiceStack.Text
     {
         public static bool HasAnyEscapeChars(string value)
         {
-            return !string.IsNullOrEmpty(value) 
+            return !string.IsNullOrEmpty(value)
                && (CsvConfig.EscapeStrings.Any(value.Contains)
                     || value[0] == JsWriter.ListStartChar
                     || value[0] == JsWriter.MapStartChar);
@@ -168,12 +168,12 @@ namespace ServiceStack.Text
             PropertyInfos = new List<PropertyInfo>();
             foreach (var propertyInfo in TypeConfig<T>.Properties)
             {
-                if (!propertyInfo.CanRead || propertyInfo.GetGetMethod(nonPublic:true) == null) continue;
+                if (!propertyInfo.CanRead || propertyInfo.GetGetMethod(nonPublic: true) == null) continue;
                 if (!TypeSerializer.CanCreateFromString(propertyInfo.PropertyType)) continue;
 
                 PropertyGetters.Add(propertyInfo.CreateGetter<T>());
                 PropertyInfos.Add(propertyInfo);
-                
+
                 var propertyName = propertyInfo.Name;
                 var dcsDataMemberName = propertyInfo.GetDataMemberName();
                 if (dcsDataMemberName != null)
@@ -288,7 +288,7 @@ namespace ServiceStack.Text
             var headers = Headers;
             var propGetters = PropertyGetters;
             var treatAsSingleRow = typeof(T).IsValueType || typeof(T) == typeof(string);
-            
+
             if (!treatAsSingleRow && JsConfig.ExcludeDefaultValues)
             {
                 var hasValues = new bool[headers.Count];
@@ -304,7 +304,7 @@ namespace ServiceStack.Text
                     {
                         var propGetter = propGetters[i];
                         var value = propGetter(record);
-                        
+
                         if (value != null && !value.Equals(defaultValues[i]))
                             hasValues[i] = true;
                     }
@@ -328,7 +328,7 @@ namespace ServiceStack.Text
                     propGetters = newGetters;
                 }
             }
-            
+
             if (!CsvConfig<T>.OmitHeaders && headers.Count > 0)
             {
                 var ranOnce = false;

@@ -25,33 +25,33 @@ namespace YAF.Types.EventProxies
 {
     using YAF.Types.Interfaces.Events;
 
-  /// <summary>
-  /// A basic event that includes a message.
-  /// </summary>
-  public class SimpleEvent : IAmEvent
-  {
-    #region Constructors and Destructors
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="SimpleEvent"/> class.
+    /// A basic event that includes a message.
     /// </summary>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    public SimpleEvent(string message)
+    public class SimpleEvent : IAmEvent
     {
-      this.Message = message;
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SimpleEvent"/> class.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public SimpleEvent(string message)
+        {
+            this.Message = message;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets Message.
+        /// </summary>
+        public string Message { get; set; }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets Message.
-    /// </summary>
-    public string Message { get; set; }
-
-    #endregion
-  }
 }

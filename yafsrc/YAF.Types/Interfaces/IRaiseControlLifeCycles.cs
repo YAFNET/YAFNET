@@ -23,28 +23,28 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// The i raise control life cycles.
-  /// </summary>
-  public interface IRaiseControlLifeCycles
-  {
-    #region Public Methods
-
     /// <summary>
-    /// The raise init.
+    /// The i raise control life cycles.
     /// </summary>
-    void RaiseInit();
+    public interface IRaiseControlLifeCycles
+    {
+        #region Public Methods
 
-    /// <summary>
-    /// The raise load.
-    /// </summary>
-    void RaiseLoad();
+        /// <summary>
+        /// The raise init.
+        /// </summary>
+        void RaiseInit();
 
-    /// <summary>
-    /// The raise pre render.
-    /// </summary>
-    void RaisePreRender();
+        /// <summary>
+        /// The raise load.
+        /// </summary>
+        void RaiseLoad();
 
-    #endregion
-  }
+        /// <summary>
+        /// The raise pre render.
+        /// </summary>
+        void RaisePreRender();
+
+        #endregion
+    }
 }

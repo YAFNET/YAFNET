@@ -31,27 +31,27 @@ namespace YAF.Types.Constants
         /// <summary>
         /// The debug.
         /// </summary>
-        Debug = -1000, 
+        Debug = -1000,
 
         /// <summary>
         /// The trace.
         /// </summary>
-        Trace = -500, 
+        Trace = -500,
 
         /// <summary>
         ///     The error.
         /// </summary>
-        Error = 0, 
+        Error = 0,
 
         /// <summary>
         ///     The warning.
         /// </summary>
-        Warning = 1, 
+        Warning = 1,
 
         /// <summary>
         ///     The information.
         /// </summary>
-        Information = 2, 
+        Information = 2,
 
         /// <summary>
         ///     The SQL error.
@@ -66,22 +66,22 @@ namespace YAF.Types.Constants
         /// <summary>
         ///     The user suspended.
         /// </summary>
-        UserSuspended = 1000, 
+        UserSuspended = 1000,
 
         /// <summary>
         ///     The user unsuspended.
         /// </summary>
-        UserUnsuspended = 1001, 
+        UserUnsuspended = 1001,
 
         /// <summary>
         ///     The user deleted.
         /// </summary>
-        UserDeleted = 1002, 
+        UserDeleted = 1002,
 
         /// <summary>
         ///     The ban set.
         /// </summary>
-        IpBanSet = 1003, 
+        IpBanSet = 1003,
 
         /// <summary>
         ///     The IP Ban Lifted.

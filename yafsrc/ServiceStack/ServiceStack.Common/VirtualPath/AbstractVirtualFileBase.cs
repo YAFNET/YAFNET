@@ -25,7 +25,7 @@ namespace ServiceStack.VirtualPath
         public virtual string RealPath => GetRealPathToRoot();
         public virtual bool IsDirectory => false;
         public abstract DateTime LastModified { get; }
-        
+
         public abstract long Length { get; }
 
         protected AbstractVirtualFileBase(IVirtualPathProvider owningProvider, IVirtualDirectory directory)
@@ -110,7 +110,7 @@ namespace ServiceStack.VirtualPath
         }
 
         public virtual void Refresh()
-        {            
+        {
         }
     }
 }
@@ -128,7 +128,7 @@ namespace ServiceStack
             }
             return false;
         }
-        
+
         public static IVirtualDirectory[] GetAllRootDirectories(this IVirtualPathProvider vfs) => vfs is MultiVirtualFiles mvfs
             ? mvfs.ChildProviders.Select(x => x.RootDirectory).ToArray()
             : new[] { vfs.RootDirectory };
@@ -140,7 +140,7 @@ namespace ServiceStack
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MemoryVirtualFiles GetMemoryVirtualFiles(this IVirtualPathProvider vfs) =>
             vfs.GetVirtualFileSource<MemoryVirtualFiles>();
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static FileSystemVirtualFiles GetFileSystemVirtualFiles(this IVirtualPathProvider vfs) =>
             vfs.GetVirtualFileSource<FileSystemVirtualFiles>();
@@ -182,7 +182,7 @@ namespace ServiceStack
             if (file is InMemoryVirtualFile m)
                 return m.ByteContents ?? MemoryProvider.Instance.ToUtf8Bytes(m.TextContents.AsSpan());
             if (file is GistVirtualFile g && g.Stream != null)
-                return ((MemoryStream) g.Stream).GetBufferAsBytes();
+                return ((MemoryStream)g.Stream).GetBufferAsBytes();
 
             var contents = file.GetContents();
             var bytes = contents is ReadOnlyMemory<byte> rom
@@ -196,5 +196,5 @@ namespace ServiceStack
         }
 
     }
-    
+
 }

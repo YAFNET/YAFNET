@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ServiceStack.Text;
 
-namespace ServiceStack.Script 
+namespace ServiceStack.Script
 {
     public class JsVariableDeclaration : JsExpression
     {
@@ -16,7 +16,7 @@ namespace ServiceStack.Script
             Declarations = declarations;
         }
 
-        protected bool Equals(JsVariableDeclaration other) => 
+        protected bool Equals(JsVariableDeclaration other) =>
             Kind == other.Kind && Declarations.SequenceEqual(other.Declarations);
 
         public override bool Equals(object obj)
@@ -24,14 +24,14 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsVariableDeclaration) obj);
+            return Equals((JsVariableDeclaration)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return ((int) Kind * 397) ^ (Declarations != null ? Declarations.GetHashCode() : 0);
+                return ((int)Kind * 397) ^ (Declarations != null ? Declarations.GetHashCode() : 0);
             }
         }
 
@@ -70,7 +70,7 @@ namespace ServiceStack.Script
             return to;
         }
     }
-    
+
 
     public enum JsVariableDeclarationKind
     {
@@ -82,7 +82,7 @@ namespace ServiceStack.Script
     public class JsDeclaration : JsExpression
     {
         public JsIdentifier Id { get; set; }
-        
+
         public JsToken Init { get; set; }
 
         public JsDeclaration(JsIdentifier id, JsToken init)
@@ -98,7 +98,7 @@ namespace ServiceStack.Script
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((JsDeclaration) obj);
+            return Equals((JsDeclaration)obj);
         }
 
         public override int GetHashCode()
@@ -128,5 +128,5 @@ namespace ServiceStack.Script
             };
             return to;
         }
-    }    
+    }
 }

@@ -340,7 +340,7 @@ namespace ServiceStack.Text.Common
             var valueWriter = (IValueWriter)value;
             valueWriter.WriteTo(Serializer, writer);
         }
-        
+
         void ThrowTaskNotSupported(TextWriter writer, object value) =>
             throw new NotSupportedException("Serializing Task's is not supported. Did you forget to await it?");
 
@@ -348,7 +348,7 @@ namespace ServiceStack.Text.Common
         {
             if (typeof(T).IsInstanceOf(typeof(System.Threading.Tasks.Task)))
                 return ThrowTaskNotSupported;
-            
+
             if (typeof(T).IsValueType && !JsConfig.TreatAsRefType(typeof(T)) || JsConfig<T>.HasSerializeFn)
             {
                 return JsConfig<T>.HasSerializeFn

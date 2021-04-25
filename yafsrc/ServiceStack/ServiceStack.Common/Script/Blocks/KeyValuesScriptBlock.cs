@@ -20,7 +20,7 @@ namespace ServiceStack.Script
     {
         public override string Name => "keyvalues";
         public override ScriptLanguage Body => ScriptVerbatim.Language;
-        
+
         public override Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken ct)
         {
             var literal = block.Argument.Span.ParseVarName(out var name);
@@ -34,7 +34,7 @@ namespace ServiceStack.Script
                     throw new NotSupportedException($"#keyvalues expected string delimiter but was {token.DebugToken()}");
                 delimiter = litToken.Value.ToString();
             }
-            
+
             var strFragment = (PageStringFragment)block.Body[0];
             var strDict = Context.DefaultMethods.parseKeyValues(strFragment.ValueString, delimiter);
             scope.PageResult.Args[name.ToString()] = strDict;

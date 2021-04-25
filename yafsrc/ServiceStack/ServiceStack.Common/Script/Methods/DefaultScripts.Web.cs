@@ -13,12 +13,12 @@ using ServiceStack.Web;
 namespace ServiceStack.Script
 {
     // ReSharper disable InconsistentNaming
-    
+
     public partial class DefaultScripts
     {
         internal IRequest req(ScriptScopeContext scope) => scope.GetValue(ScriptConstants.Request) as IRequest;
 
-        public bool matchesPathInfo(ScriptScopeContext scope, string pathInfo) => 
+        public bool matchesPathInfo(ScriptScopeContext scope, string pathInfo) =>
             scope.GetValue("PathInfo")?.ToString().TrimEnd('/') == pathInfo?.TrimEnd('/');
 
         public bool startsWithPathInfo(ScriptScopeContext scope, string pathInfo) => pathInfo == "/"
@@ -80,7 +80,7 @@ namespace ServiceStack.Script
 
         public async Task<object> requestBodyAsString(ScriptScopeContext scope) => await req(scope).GetRawBodyAsync().ConfigAwait();
         public async Task<object> requestBodyAsJson(ScriptScopeContext scope) => JSON.parse(await req(scope).GetRawBodyAsync().ConfigAwait());
-        
+
         public NameValueCollection form(ScriptScopeContext scope) => req(scope).FormData;
         public NameValueCollection query(ScriptScopeContext scope) => req(scope).QueryString;
         public NameValueCollection qs(ScriptScopeContext scope) => req(scope).QueryString;
@@ -92,10 +92,10 @@ namespace ServiceStack.Script
 
         public Dictionary<string, object> queryDictionary(ScriptScopeContext scope) =>
             req(scope).QueryString.ToObjectDictionary();
-        
+
         public Dictionary<string, object> formDictionary(ScriptScopeContext scope) =>
             req(scope).FormData.ToObjectDictionary();
-        
+
         public string toQueryString(object keyValuePairs)
         {
             var sb = StringBuilderCache.Allocate();
@@ -132,11 +132,11 @@ namespace ServiceStack.Script
                 }
             }
             else throw new NotSupportedException($"{nameof(toQueryString)} expects a collection of KeyValuePair's but was '{keyValuePairs.GetType().Name}'");
-            
-            return StringBuilderCache.ReturnAndFree(sb.Length > 0 ? sb.Insert(0,'?') : sb);
+
+            return StringBuilderCache.ReturnAndFree(sb.Length > 0 ? sb.Insert(0, '?') : sb);
         }
 
-        public Dictionary<string,object> toCoercedDictionary(object target)
+        public Dictionary<string, object> toCoercedDictionary(object target)
         {
             var objDictionary = target.ToObjectDictionary();
             var keys = objDictionary.Keys.ToList();
@@ -176,7 +176,7 @@ namespace ServiceStack.Script
 
         public string htmlEncode(string value) => value.HtmlEncode();
         public string htmlDecode(string value) => value.HtmlDecode();
-        
+
         public bool containsXss(object target)
         {
             try
@@ -216,10 +216,10 @@ namespace ServiceStack.Script
                 }
             }
             else throw new ArgumentException(nameof(target));
-            
+
             return false;
         }
-        
+
         // tests for https://www.owasp.org/index.php/OWASP_Testing_Guide_Appendix_C:_Fuzz_Vectors#Cross_Site_Scripting_.28XSS.29
         public static string[] XssFragments = { //greedy list
             "<script",

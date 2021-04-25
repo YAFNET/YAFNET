@@ -59,7 +59,7 @@ namespace YAF.Pages
         /// <summary>
         ///   The Moderators List
         /// </summary>
-        private List<SimpleModerator> completeModsList = new ();
+        private List<SimpleModerator> completeModsList = new();
 
         #endregion
 
@@ -93,16 +93,16 @@ namespace YAF.Pages
             var gridItem = (RepeaterItem)forumButton.NamingContainer;
 
             var modForums = gridItem.FindControlAs<DropDownList>("ModForums");
-			
-			if (modForums.SelectedValue != "intro" && modForums.SelectedValue != "break")
-			{	
-		
-            this.Get<LinkBuilder>().Redirect(
-                ForumPages.Topics,
-                "f={0}&name={1}",
-                modForums.SelectedValue,
-                modForums.SelectedItem.Text);
-			}
+
+            if (modForums.SelectedValue != "intro" && modForums.SelectedValue != "break")
+            {
+
+                this.Get<LinkBuilder>().Redirect(
+                    ForumPages.Topics,
+                    "f={0}&name={1}",
+                    modForums.SelectedValue,
+                    modForums.SelectedItem.Text);
+            }
         }
 
         #endregion
@@ -231,7 +231,7 @@ namespace YAF.Pages
             adminAvatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForUser(user);
 
             adminAvatar.AlternateText = displayName;
-            adminAvatar.ToolTip = displayName; 
+            adminAvatar.ToolTip = displayName;
 
             // User Buttons 
             var adminUserButton = e.Item.FindControlAs<ThemeButton>("AdminUserButton");

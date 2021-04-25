@@ -31,7 +31,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="J2N" Version="2.0.0-beta-0012" />
+    <PackageReference Include="J2N" Version="2.0.0-beta-0013" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="5.0.1" />
   </ItemGroup>

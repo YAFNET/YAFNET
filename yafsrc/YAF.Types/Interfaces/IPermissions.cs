@@ -23,44 +23,44 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using YAF.Types.Constants;
-
-  /// <summary>
-  /// The i permissions.
-  /// </summary>
-  public interface IPermissions
-  {
-    #region Public Methods
+    using YAF.Types.Constants;
 
     /// <summary>
-    /// The check.
+    /// The i permissions.
     /// </summary>
-    /// <param name="permission">
-    /// The permission.
-    /// </param>
-    /// <returns>
-    /// The check.
-    /// </returns>
-    bool Check(ViewPermissions permission);
+    public interface IPermissions
+    {
+        #region Public Methods
 
-    /// <summary>
-    /// The handle request.
-    /// </summary>
-    /// <param name="permission">
-    /// The permission.
-    /// </param>
-    void HandleRequest(ViewPermissions permission);
+        /// <summary>
+        /// The check.
+        /// </summary>
+        /// <param name="permission">
+        /// The permission.
+        /// </param>
+        /// <returns>
+        /// The check.
+        /// </returns>
+        bool Check(ViewPermissions permission);
 
-    /// <summary>
-    /// Checks the access rights.
-    /// </summary>
-    /// <param name="boardId">The board id.</param>
-    /// <param name="messageId">The message id.</param>
-    /// <returns>
-    /// The check access rights.
-    /// </returns>
-    bool CheckAccessRights([NotNull] int boardId, [NotNull] int messageId);
+        /// <summary>
+        /// The handle request.
+        /// </summary>
+        /// <param name="permission">
+        /// The permission.
+        /// </param>
+        void HandleRequest(ViewPermissions permission);
 
-    #endregion
-  }
+        /// <summary>
+        /// Checks the access rights.
+        /// </summary>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="messageId">The message id.</param>
+        /// <returns>
+        /// The check access rights.
+        /// </returns>
+        bool CheckAccessRights([NotNull] int boardId, [NotNull] int messageId);
+
+        #endregion
+    }
 }

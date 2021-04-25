@@ -72,7 +72,7 @@ namespace YAF.Types.Interfaces
         /// </summary>
         int? ActiveTopicSince { get; set; }
 
-         /// <summary>
+        /// <summary>
         ///   Gets or sets UnansweredTopicSince.
         /// </summary>
         int? UnansweredTopicSince { get; set; }

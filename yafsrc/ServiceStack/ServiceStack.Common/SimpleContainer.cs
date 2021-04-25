@@ -8,7 +8,7 @@ using ServiceStack.Configuration;
 
 namespace ServiceStack
 {
-    public class SimpleContainer : IContainer, IResolver 
+    public class SimpleContainer : IContainer, IResolver
     {
         public HashSet<string> IgnoreTypesNamed { get; } = new HashSet<string>();
 
@@ -45,7 +45,7 @@ namespace ServiceStack
             return this;
         }
 
-        public T TryResolve<T>() => (T) Resolve(typeof(T));
+        public T TryResolve<T>() => (T)Resolve(typeof(T));
 
         protected virtual bool IncludeProperty(PropertyInfo pi)
         {
@@ -82,7 +82,7 @@ namespace ServiceStack
 
             var constructorParameterInfos = ctorWithMostParameters.GetParameters();
             var regParams = constructorParameterInfos
-                .Select(x => 
+                .Select(x =>
                     Expression.TypeAs(Expression.Call(containerParam, GetType().GetMethod(nameof(RequiredResolve)), Expression.Constant(x.ParameterType), Expression.Constant(type)), x.ParameterType)
                 );
 
@@ -95,7 +95,7 @@ namespace ServiceStack
                 ), typeof(object))
             ).Compile();
         }
-        
+
         public void Dispose()
         {
             var hold = InstanceCache;
@@ -104,7 +104,7 @@ namespace ServiceStack
             {
                 try
                 {
-                    using (instance.Value as IDisposable) {}
+                    using (instance.Value as IDisposable) { }
                 }
                 catch { /* ignored */ }
             }
@@ -118,7 +118,7 @@ namespace ServiceStack
             var ret = container.TryResolve<T>();
             if (ret == null)
                 throw new Exception($"Error trying to resolve Service '{typeof(T).Name}' or one of its autowired dependencies.");
-                
+
             return ret;
         }
 
@@ -127,28 +127,28 @@ namespace ServiceStack
 
         public static bool Exists<T>(this IContainer container) => container.Exists(typeof(T));
 
-        public static IContainer AddTransient<TService>(this IContainer container) => 
+        public static IContainer AddTransient<TService>(this IContainer container) =>
             container.AddTransient(typeof(TService), container.CreateFactory(typeof(TService)));
 
-        public static IContainer AddTransient<TService>(this IContainer container, Func<TService> factory) => 
+        public static IContainer AddTransient<TService>(this IContainer container, Func<TService> factory) =>
             container.AddTransient(typeof(TService), () => factory());
 
-        public static IContainer AddTransient<TService, TImpl>(this IContainer container) where TImpl : TService => 
+        public static IContainer AddTransient<TService, TImpl>(this IContainer container) where TImpl : TService =>
             container.AddTransient(typeof(TService), container.CreateFactory(typeof(TImpl)));
 
-        public static IContainer AddTransient(this IContainer container, Type type) => 
+        public static IContainer AddTransient(this IContainer container, Type type) =>
             container.AddTransient(type, container.CreateFactory(type));
 
-        public static IContainer AddSingleton<TService>(this IContainer container) => 
+        public static IContainer AddSingleton<TService>(this IContainer container) =>
             container.AddSingleton(typeof(TService), container.CreateFactory(typeof(TService)));
 
-        public static IContainer AddSingleton<TService>(this IContainer container, Func<TService> factory) => 
+        public static IContainer AddSingleton<TService>(this IContainer container, Func<TService> factory) =>
             container.AddSingleton(typeof(TService), () => factory());
 
-        public static IContainer AddSingleton<TService, TImpl>(this IContainer container) where TImpl : TService => 
+        public static IContainer AddSingleton<TService, TImpl>(this IContainer container) where TImpl : TService =>
             container.AddSingleton(typeof(TService), container.CreateFactory(typeof(TImpl)));
 
-        public static IContainer AddSingleton(this IContainer container, Type type) => 
+        public static IContainer AddSingleton(this IContainer container, Type type) =>
             container.AddSingleton(type, container.CreateFactory(type));
     }
 }

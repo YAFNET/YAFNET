@@ -23,25 +23,25 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System;
+    using System;
 
-  /// <summary>
-  /// The base module interface.
-  /// </summary>
-  public interface IBaseForumModule : IModuleDefinition, IDisposable
-  {
     /// <summary>
-    /// Gets or sets ForumControlObj.
+    /// The base module interface.
     /// </summary>
-    object ForumControlObj
+    public interface IBaseForumModule : IModuleDefinition, IDisposable
     {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets ForumControlObj.
+        /// </summary>
+        object ForumControlObj
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// The initialization function.
-    /// </summary>
-    void Init();
-  }
+        /// <summary>
+        /// The initialization function.
+        /// </summary>
+        void Init();
+    }
 }

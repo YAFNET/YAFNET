@@ -23,42 +23,42 @@
  */
 namespace YAF.Types.Interfaces.Events
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  #endregion
-
-  /// <summary>
-  /// The event converter args.
-  /// </summary>
-  /// <typeparam name="T">
-  /// The type parameter
-  /// </typeparam>
-  public class EventConverterArgs<T> : EventArgs
-  {
-    #region Constructors and Destructors
+    #endregion
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EventConverterArgs{T}"/> class.
+    /// The event converter args.
     /// </summary>
-    /// <param name="eventData">
-    /// The event data.
-    /// </param>
-    public EventConverterArgs(T eventData)
+    /// <typeparam name="T">
+    /// The type parameter
+    /// </typeparam>
+    public class EventConverterArgs<T> : EventArgs
     {
-      this.EventData = eventData;
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventConverterArgs{T}"/> class.
+        /// </summary>
+        /// <param name="eventData">
+        /// The event data.
+        /// </param>
+        public EventConverterArgs(T eventData)
+        {
+            this.EventData = eventData;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets EventData.
+        /// </summary>
+        public T EventData { get; set; }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    ///   Gets or sets EventData.
-    /// </summary>
-    public T EventData { get; set; }
-
-    #endregion
-  }
 }

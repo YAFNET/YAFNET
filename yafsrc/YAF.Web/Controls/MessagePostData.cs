@@ -199,7 +199,7 @@ namespace YAF.Web.Controls
             }
             else if (this.CurrentMessage.Edited > this.CurrentMessage.Posted)
             {
-               this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
+                this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
 
                 // handle a message that's been edited...
                 var editedMessageDateTime = this.CurrentMessage.Posted;
@@ -257,7 +257,7 @@ namespace YAF.Web.Controls
                 }
             }
         }
-       
+
         #endregion
     }
 }
