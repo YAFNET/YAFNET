@@ -544,7 +544,7 @@ namespace YAF.Pages
                 if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)
                 {
                     // regular redirect...
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "m={0}&name={1}#post{0}", messageId, this.PageContext.PageTopicName);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "m={0}&name={1}", messageId, this.PageContext.PageTopicName);
                 }
                 else
                 {

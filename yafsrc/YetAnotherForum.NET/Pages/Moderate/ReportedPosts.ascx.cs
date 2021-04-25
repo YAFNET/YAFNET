@@ -194,7 +194,7 @@ namespace YAF.Pages.Moderate
                     // go to the message
                     this.Get<LinkBuilder>().Redirect(
                         ForumPages.Posts,
-                        "m={0}&name={1}#post{0}",
+                        "m={0}&name={1}",
                         e.CommandArgument,
                         this.GetRepository<Topic>().GetNameFromMessage(e.CommandArgument.ToType<int>()));
                     break;

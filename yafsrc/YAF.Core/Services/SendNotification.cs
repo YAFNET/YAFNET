@@ -392,7 +392,7 @@ namespace YAF.Core.Services
                                              ["{link}"] = this.Get<LinkBuilder>().GetLink(
                                                  ForumPages.Posts,
                                                  true,
-                                                 "m={0}&name={1}#post{0}",
+                                                 "m={0}&name={1}",
                                                  newMessageId, message.Topic),
                                              ["{subscriptionlink}"] = this.Get<LinkBuilder>().GetLink(
                                                  ForumPages.Profile_Subscriptions,

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -276,7 +276,7 @@ namespace YAF.Web.Controls
                       <button type=""button"" class=""btn-close"" data-bs-dismiss=""alert"" aria-label=""Close"">
                       </button></div>",
                 this.GetText("GO_TO_ANSWER"),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "m={0}&name={1}#post{0}", messageId, this.PageContext.PageTopicName));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "m={0}&name={1}", messageId, this.PageContext.PageTopicName));
         }
 
         /// <summary>

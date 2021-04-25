@@ -186,7 +186,7 @@
                                                      Type="Link"
                                                      Icon="external-link-alt"
                                                      Visible='<%# this.Eval("Item2.NumPosts").ToType<int>() > 0 %>'
-                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "m={0}&name={1}#post{0}", this.Eval("Item3.ID"), this.Eval("Item2.TopicName")) %>'>
+                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "m={0}&name={1}", this.Eval("Item3.ID"), this.Eval("Item2.TopicName")) %>'>
                                 </YAF:ThemeButton>
                                 </h5>
                             </div>

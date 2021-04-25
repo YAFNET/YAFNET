@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -182,7 +182,7 @@ namespace YAF.Core.Services
                     break;
             }
 
-            // update the feed with the item list... 
+            // update the feed with the item list...
             // the list should be added after all other feed properties are set
             if (feed != null)
             {
@@ -269,7 +269,7 @@ namespace YAF.Core.Services
                 }
                 else
                 {
-                    // To limit number of feeds items by timespan if we are getting an unreasonable time                
+                    // To limit number of feeds items by timespan if we are getting an unreasonable time
                     if (toActDate < System.DateTime.UtcNow + TimeSpan.FromDays(-31))
                     {
                         toActDate = System.DateTime.UtcNow + TimeSpan.FromDays(-31);
@@ -311,7 +311,7 @@ namespace YAF.Core.Services
                     var messageLink = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         true,
-                        "m={0}&name={1}#post{0}",
+                        "m={0}&name={1}",
                         t.LastMessageID,
                         t.Subject);
 
@@ -415,7 +415,7 @@ namespace YAF.Core.Services
                     syndicationItems.AddSyndicationItem(
                         t.Subject,
                         this.GetPostLatestContent(
-                            this.Get<LinkBuilder>().GetLink(ForumPages.Posts, true, "m={0}#post{0}", t.LastMessageID, t.Subject),
+                            this.Get<LinkBuilder>().GetLink(ForumPages.Posts, true, "m={0}", t.LastMessageID, t.Subject),
                             lastPostName,
                             lastPostName,
                             t.LastMessageFlags ?? 22,
@@ -587,7 +587,7 @@ namespace YAF.Core.Services
                     var messageLink = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         true,
-                        "m={0}&name={1}#post{0}",
+                        "m={0}&name={1}",
                         topic.Item2.LastMessageID,
                         topic.Item2.TopicName);
 
@@ -781,7 +781,7 @@ namespace YAF.Core.Services
                     var postLink = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         true,
-                        "m={0}&name={1}#post{0}",
+                        "m={0}&name={1}",
                         (int)topic.LastMessageID,
                         (string)topic.Topic);
 

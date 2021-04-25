@@ -328,7 +328,7 @@ namespace YAF.Dialogs
                     // redirect to newly posted message
                     this.Get<LinkBuilder>().Redirect(
                         ForumPages.Posts,
-                        "m={0}&name={1}&#post{0}",
+                        "m={0}&name={1}&",
                         messageId,
                         this.PageContext.PageTopicName);
                 }

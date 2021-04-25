@@ -385,7 +385,7 @@ namespace YAF.Controls
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
-                "m={0}&name={1}#post{0}",
+                "m={0}&name={1}",
                 this.PostData.MessageId,
                 this.PageContext.PageTopicID);
         }

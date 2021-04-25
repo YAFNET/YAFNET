@@ -214,7 +214,7 @@ namespace YAF.Pages
         protected void RedirectToPost()
         {
             // Redirect to reported post
-            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "m={0}&name={1}#post{0}", this.MessageId, this.topicName);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "m={0}&name={1}", this.MessageId, this.topicName);
         }
 
         #endregion

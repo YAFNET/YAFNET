@@ -115,7 +115,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (this.indexWriter != null && !this.indexWriter.IsClosed)
+                if (this.indexWriter is { IsClosed: false })
                 {
                     return this.indexWriter;
                 }
@@ -361,6 +361,30 @@ namespace YAF.Core.Services
                     this.Optimize();
                 }
             }
+        }
+
+        /// <summary>
+        /// Only Get Number of Search Results (Hits)
+        /// </summary>
+        /// <param name="input">
+        /// The input.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public int CountHits(string input)
+        {
+            var searcher = this.GetSearcher();
+
+            if (searcher == null)
+            {
+                return 0;
+            }
+
+            var parser = new QueryParser(MatchVersion, "Message", this.standardAnalyzer);
+            var query = ParseQuery(input, parser);
+
+            return searcher.Search(query, 1000).TotalHits;
         }
 
         /// <summary>
@@ -738,7 +762,7 @@ namespace YAF.Core.Services
                 MessageUrl =
                     this.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
-                        "m={0}&name={1}#post{0}",
+                        "m={0}&name={1}",
                         doc.Get("MessageId").ToType<int>(),
                         topic.IsSet() ? topic : doc.Get("Topic")),
                 ForumUrl =
