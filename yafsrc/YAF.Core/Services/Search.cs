@@ -365,6 +365,30 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
+        /// Only Get Number of Search Results (Hits)
+        /// </summary>
+        /// <param name="input">
+        /// The input.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public int CountHits(string input)
+        {
+            var searcher = this.GetSearcher();
+
+            if (searcher == null)
+            {
+                return 0;
+            }
+
+            var parser = new QueryParser(MatchVersion, "Message", this.standardAnalyzer);
+            var query = ParseQuery(input, parser);
+
+            return searcher.Search(query, 1000).TotalHits;
+        }
+
+        /// <summary>
         /// Searches the specified user identifier.
         /// </summary>
         /// <param name="forumId">The forum identifier.</param>

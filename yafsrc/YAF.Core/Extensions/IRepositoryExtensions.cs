@@ -392,7 +392,7 @@ namespace YAF.Core.Extensions
         /// <param name="criteria">The criteria.</param>
         /// <returns>Returns the Row Count</returns>
         public static long Count<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria)
-            where T : class, IEntity, IHaveID, new()
+            where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
             CodeContracts.VerifyNotNull(criteria, "criteria");

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,6 +24,7 @@
 namespace YAF.Core.Model
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web.Hosting;
@@ -45,6 +46,52 @@ namespace YAF.Core.Model
     public static class AttachmentRepositoryExtensions
     {
         #region Public Methods and Operators
+
+        /// <summary>
+        /// Gets All User Attachments by Board ID as paged Result
+        /// </summary>
+        /// <typeparam name="T">
+        /// The type parameter.
+        /// </typeparam>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="count">
+        /// The count.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <param name="pageIndex">
+        /// Index of the page.
+        /// </param>
+        /// <param name="pageSize">
+        /// Size of the page.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<Tuple<User, Attachment>> GetByBoardPaged<T>(
+            [NotNull] this IRepository<T> repository,
+            out int count,
+            int boardId,
+            int? pageIndex = 0,
+            int? pageSize = 10000000)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            expression.Join<Attachment>((user, attach) => attach.UserID == user.ID);
+
+            expression.Where(u => u.BoardID == boardId);
+
+            count = repository.DbAccess.Execute(db => db.Connection.Count(expression)).ToType<int>();
+
+            expression.OrderByDescending<Attachment>(item => item.ID).Page(pageIndex + 1, pageSize);
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<User, Attachment>(expression));
+        }
 
         /// <summary>
         /// Gets the Attachment by ID (without the FileData)
@@ -100,7 +147,7 @@ namespace YAF.Core.Model
                 }
                 catch (Exception e)
                 {
-                    // error deleting that file... 
+                    // error deleting that file...
                     BoardContext.Current.Get<ILogger>().Warn(e, "Error Deleting Attachment");
                 }
             }
