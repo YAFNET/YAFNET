@@ -29,7 +29,7 @@
                         </h5>
                         <small class="d-none d-md-block">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="USAGES"></YAF:LocalizedLabel>
-                            <span class="badge bg-secondary">
+                            <span class="badge badge-secondary">
                                 <%# this.Get<ISearch>().CountHits(string.Format("]{0}[", ((Tuple<User,Attachment>)Container.DataItem).Item2.ID))  %>
                             </span>
                         </small>
@@ -43,7 +43,7 @@
                                              ForumPages.Search,
                                              "search={0}",
                                              string.Format("]{0}[", ((Tuple<User,Attachment>)Container.DataItem).Item2.ID)) %>"
-                               class="btn btn-info"><YAF:LocalizedLabel runat="server" LocalizedTag="SHOW_TOPICS"></YAF:LocalizedLabel></a>
+                               class="btn btn-info btn-sm mb-1"><YAF:LocalizedLabel runat="server" LocalizedTag="SHOW_TOPICS"></YAF:LocalizedLabel></a>
                             <YAF:ThemeButton runat="server"
                                              Type="Danger"
                                              Size="Small"

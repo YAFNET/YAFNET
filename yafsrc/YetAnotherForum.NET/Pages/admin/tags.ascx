@@ -6,9 +6,6 @@
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 
-<%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
-
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
@@ -44,7 +41,7 @@
                                              ForumPages.Search,
                                              "tag={0}",
                                              this.Eval("TagName")) %>"
-                               class="btn btn-info btn-sm"><YAF:LocalizedLabel runat="server" LocalizedTag="SHOW_TOPICS"></YAF:LocalizedLabel></a>
+                               class="btn btn-info btn-sm mb-1"><YAF:LocalizedLabel runat="server" LocalizedTag="SHOW_TOPICS"></YAF:LocalizedLabel></a>
                             <YAF:ThemeButton runat="server"
                                              Type="Danger"
                                              Size="Small"
