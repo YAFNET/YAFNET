@@ -748,7 +748,7 @@ namespace YAF.Core.Services
                 Message = message,
                 Flags = flags,
                 Posted = doc.Get("Posted"),
-                UserName = doc.Get("Author"),
+                UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
                 UserId = doc.Get("UserId").ToType<int>(),
                 TopicId = doc.Get("TopicId").ToType<int>(),
                 Topic = topic.IsSet() ? topic : doc.Get("Topic"),
@@ -767,7 +767,7 @@ namespace YAF.Core.Services
                         topic.IsSet() ? topic : doc.Get("Topic")),
                 ForumUrl =
                     this.Get<LinkBuilder>().GetForumLink(doc.Get("ForumId").ToType<int>(), doc.Get("ForumName")),
-                UserDisplayName = doc.Get("AuthorDisplay"),
+                UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
                 ForumName = doc.Get("ForumName"),
                 UserStyle = doc.Get("AuthorStyle")
             };
