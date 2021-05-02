@@ -52,33 +52,6 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The get return url.
-        /// </summary>
-        /// <returns>
-        /// The url.
-        /// </returns>
-        protected string GetReturnUrl()
-        {
-            var returnUrl = string.Empty;
-
-            if (this.PageContext.ForumPageType != ForumPages.Login)
-            {
-                returnUrl = HttpContext.Current.Server.UrlEncode(General.GetSafeRawUrl());
-            }
-            else
-            {
-                // see if there is already one since we are on the login page
-                if (HttpContext.Current.Request.QueryString.GetFirstOrDefault("ReturnUrl").IsSet())
-                {
-                    returnUrl = HttpContext.Current.Server.UrlEncode(
-                        General.GetSafeRawUrl(HttpContext.Current.Request.QueryString.GetFirstOrDefault("ReturnUrl")));
-                }
-            }
-
-            return returnUrl;
-        }
-
-        /// <summary>
         /// The On PreRender event.
         /// </summary>
         /// <param name="e">
@@ -361,7 +334,7 @@ namespace YAF.Controls
                     false,
                     false,
                     null,
-                    null, 
+                    null,
                     this.PageContext.ForumPageType == ForumPages.Team,
                     string.Empty);
             }

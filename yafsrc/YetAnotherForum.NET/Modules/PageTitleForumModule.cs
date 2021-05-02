@@ -81,6 +81,7 @@ namespace YAF.Modules
 
             // compute page title..
             var forumPageTitle = this.CurrentForumPage.GeneratePageTitle();
+
             head.Title = forumPageTitle;
 
             this.ForumControl.FirePageTitleSet(this, new ForumPageTitleArgs(forumPageTitle));
