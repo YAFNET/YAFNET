@@ -1,4 +1,4 @@
-// Lucene version compatibility level 4.8.1
+﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Util;
 using System;
@@ -50,7 +50,7 @@ namespace YAF.Lucene.Net.Analysis.Core
 
             if (bufferSize <= 0)
             {
-                throw new ArgumentException("bufferSize must be > 0");
+                throw new ArgumentOutOfRangeException(nameof(bufferSize), "bufferSize must be > 0"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             termAtt.ResizeBuffer(bufferSize);
         }
@@ -63,7 +63,7 @@ namespace YAF.Lucene.Net.Analysis.Core
 
             if (bufferSize <= 0)
             {
-                throw new ArgumentException("bufferSize must be > 0");
+                throw new ArgumentOutOfRangeException(nameof(bufferSize), "bufferSize must be > 0"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             termAtt.ResizeBuffer(bufferSize);
         }

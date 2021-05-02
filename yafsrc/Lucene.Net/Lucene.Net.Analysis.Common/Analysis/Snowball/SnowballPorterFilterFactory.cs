@@ -1,4 +1,4 @@
-// Lucene version compatibility level 4.8.1
+﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.Miscellaneous;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Tartarus.Snowball;
@@ -78,9 +78,9 @@ namespace YAF.Lucene.Net.Analysis.Snowball
             {
                 program = (SnowballProgram)Activator.CreateInstance(stemClass);
             }
-            catch (Exception e)
+            catch (Exception e) when (e.IsException())
             {
-                throw new Exception("Error instantiating stemmer for language " + language + "from class " + stemClass, e);
+                throw RuntimeException.Create("Error instantiating stemmer for language " + language + "from class " + stemClass, e);
             }
 
             if (protectedWords != null)

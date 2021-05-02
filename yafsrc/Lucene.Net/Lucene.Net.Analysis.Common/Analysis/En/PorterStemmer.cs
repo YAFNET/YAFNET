@@ -1,4 +1,4 @@
-// Lucene version compatibility level 4.8.1
+﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
@@ -245,7 +245,7 @@ namespace YAF.Lucene.Net.Analysis.En
             else
             {
                 int ch = b[i];
-                if (ch is 'w' or 'x' or 'y')
+                if (ch == 'w' || ch == 'x' || ch == 'y')
                 {
                     return false;
                 }
@@ -361,7 +361,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 else if (DoubleC(k))
                 {
                     int ch = b[k--];
-                    if (ch is 'l' or 's' or 'z')
+                    if (ch == 'l' || ch == 's' || ch == 'z')
                     {
                         k++;
                     }
@@ -861,7 +861,7 @@ namespace YAF.Lucene.Net.Analysis.En
         //                }
         //            }
         //        }
-        //        catch (IOException e)
+        //        catch (Exception e) when (ex.IsIOException())
         //        {
         //            Console.WriteLine("error reading " + args[i]);
         //            Console.WriteLine(e.ToString());

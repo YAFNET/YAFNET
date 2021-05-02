@@ -1,4 +1,4 @@
-// Lucene version compatibility level 4.8.1
+﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.Core;
 using YAF.Lucene.Net.Analysis.Miscellaneous;
 using YAF.Lucene.Net.Analysis.Standard;
@@ -72,11 +72,11 @@ namespace YAF.Lucene.Net.Analysis.Cz
                         LuceneVersion.LUCENE_CURRENT);
 #pragma warning restore 612, 618
                 }
-                catch (IOException ex)
+                catch (Exception ex) when (ex.IsIOException())
                 {
                     // default set should always be present as it is part of the
                     // distribution (JAR)
-                    throw new Exception("Unable to load default stopword set", ex);
+                    throw RuntimeException.Create("Unable to load default stopword set", ex);
                 }
             }
         }

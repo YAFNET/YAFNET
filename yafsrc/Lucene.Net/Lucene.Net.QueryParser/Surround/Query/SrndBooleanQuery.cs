@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Search;
+﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Search;
 using System;
 using System.Collections.Generic;
 
@@ -40,7 +41,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
         {
             if (queries.Count <= 1)
             {
-                throw new InvalidOperationException("Too few subqueries: " + queries.Count);
+                throw AssertionError.Create("Too few subqueries: " + queries.Count);
             }
             BooleanQuery bq = new BooleanQuery();
             AddQueriesToBoolean(bq, queries, occur);

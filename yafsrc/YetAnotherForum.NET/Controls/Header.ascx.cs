@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -27,7 +27,6 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Web;
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
@@ -51,33 +50,6 @@ namespace YAF.Controls
     public partial class Header : BaseUserControl
     {
         #region Methods
-
-        /// <summary>
-        /// The get return url.
-        /// </summary>
-        /// <returns>
-        /// The url.
-        /// </returns>
-        protected string GetReturnUrl()
-        {
-            var returnUrl = string.Empty;
-
-            if (this.PageContext.ForumPageType != ForumPages.Account_Login)
-            {
-                returnUrl = HttpContext.Current.Server.UrlEncode(General.GetSafeRawUrl());
-            }
-            else
-            {
-                // see if there is already one since we are on the login page
-                if (HttpContext.Current.Request.QueryString.GetFirstOrDefault("ReturnUrl").IsSet())
-                {
-                    returnUrl = HttpContext.Current.Server.UrlEncode(
-                        General.GetSafeRawUrl(HttpContext.Current.Request.QueryString.GetFirstOrDefault("ReturnUrl")));
-                }
-            }
-
-            return returnUrl;
-        }
 
         /// <summary>
         /// The On PreRender event.

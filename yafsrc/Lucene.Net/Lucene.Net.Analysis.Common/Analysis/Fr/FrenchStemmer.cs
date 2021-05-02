@@ -341,7 +341,7 @@ namespace YAF.Lucene.Net.Analysis.Fr
                     {
                         if (!seenVowel)
                         {
-                            if (ch is 'é' or 'è')
+                            if (ch == 'é' || ch == 'è')
                             {
                                 pos = i;
                                 break;

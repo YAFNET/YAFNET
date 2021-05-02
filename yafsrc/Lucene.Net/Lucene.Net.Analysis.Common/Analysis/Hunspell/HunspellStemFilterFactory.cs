@@ -94,7 +94,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
 
                 this.dictionary = new Dictionary(affix, dictionaries, ignoreCase);
             }
-            catch (Exception e)
+            catch (Exception e) when (e.IsParseException())
             {
                 throw new IOException("Unable to load hunspell data! [dictionary=" + dictionaries + ",affix=" + affixFile + "]", e);
             }

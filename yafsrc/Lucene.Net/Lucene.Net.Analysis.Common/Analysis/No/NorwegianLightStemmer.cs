@@ -87,7 +87,7 @@ namespace YAF.Lucene.Net.Analysis.No
         /// <param name="flags"> set to <see cref="NorwegianStandard.BOKMAAL"/>, <see cref="NorwegianStandard.NYNORSK"/>, or both. </param>
         public NorwegianLightStemmer(NorwegianStandard flags)
         {
-            if (flags is <= 0 or > (int)NorwegianStandard.BOKMAAL + NorwegianStandard.NYNORSK)
+            if (flags <= 0 || flags > (int)NorwegianStandard.BOKMAAL + NorwegianStandard.NYNORSK)
             {
                 throw new ArgumentException("invalid flags");
             }

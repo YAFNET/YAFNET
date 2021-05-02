@@ -233,7 +233,7 @@ namespace YAF.Lucene.Net.Analysis.Cjk
                         }
 
                         // if the current character is a letter or "_" "+" "#"
-                        if (char.IsLetterOrDigit(c) || c is '_' or '+' or '#')
+                        if (char.IsLetterOrDigit(c) || ((c == '_') || (c == '+') || (c == '#')))
                         {
                             if (length == 0)
                             {
