@@ -14,7 +14,7 @@ namespace ServiceStack
     {
         /// <summary>
         /// .NET Core / Win throws Win32Exception (193): The specified executable is not a valid application for this OS platform.
-        /// This method converts it to a cmd.exe /c execute to workaround this 
+        /// This method converts it to a cmd.exe /c execute to workaround this
         /// </summary>
         public static ProcessStartInfo ConvertToCmdExec(this ProcessStartInfo startInfo)
         {
@@ -64,12 +64,15 @@ namespace ServiceStack
                     }
                 }
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
             return null;
         }
 
         /// <summary>
-        /// Run the command with the OS's command runner 
+        /// Run the command with the OS's command runner
         /// </summary>
         public static string RunShell(string arguments, string workingDir = null)
         {
@@ -229,7 +232,7 @@ namespace ServiceStack
                 : Task.WhenAny(processCompletionTask);
 
             // Let's now wait for something to end...
-            if ((await awaitingTask.ConfigureAwait(false)) == processCompletionTask)
+            if (await awaitingTask.ConfigureAwait(false) == processCompletionTask)
             {
                 // -> Process exited cleanly
                 result.ExitCode = process.ExitCode;
@@ -251,7 +254,7 @@ namespace ServiceStack
             result.EndAt = DateTime.UtcNow;
             if (callbackTicks > 0)
             {
-                var callbackMs = (callbackTicks / Stopwatch.Frequency) * 1000;
+                var callbackMs = callbackTicks / Stopwatch.Frequency * 1000;
                 result.CallbackDurationMs = callbackMs;
                 result.DurationMs = sw.ElapsedMilliseconds - callbackMs;
             }

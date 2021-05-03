@@ -79,7 +79,7 @@ namespace ServiceStack.MiniProfiler.Data
             {
                 this._tran = value;
                 var awesomeTran = value as ProfiledDbTransaction;
-                _cmd.Transaction = awesomeTran == null || !(awesomeTran.DbTransaction is DbTransaction) ?
+                _cmd.Transaction = awesomeTran == null || awesomeTran.DbTransaction is not System.Data.Common.DbTransaction ?
                     value : (DbTransaction)awesomeTran.DbTransaction;
             }
         }

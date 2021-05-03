@@ -23,7 +23,7 @@ namespace ServiceStack.Text
     public static class TranslateListWithElements
     {
         private static Dictionary<Type, ConvertInstanceDelegate> TranslateICollectionCache
-            = new Dictionary<Type, ConvertInstanceDelegate>();
+            = new();
 
         public static object TranslateToGenericICollectionCache(object from, Type toInstanceOfType, Type elementType)
         {
@@ -50,7 +50,7 @@ namespace ServiceStack.Text
         }
 
         private static Dictionary<ConvertibleTypeKey, ConvertInstanceDelegate> TranslateConvertibleICollectionCache
-            = new Dictionary<ConvertibleTypeKey, ConvertInstanceDelegate>();
+            = new();
 
         public static object TranslateToConvertibleGenericICollectionCache(
             object from, Type toInstanceOfType, Type fromElementType)

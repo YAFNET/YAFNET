@@ -22,9 +22,9 @@ namespace ServiceStack.Text
     public static class DateTimeExtensions
     {
         public const long UnixEpoch = 621355968000000000L;
-        private static readonly DateTime UnixEpochDateTimeUtc = new DateTime(UnixEpoch, DateTimeKind.Utc);
-        private static readonly DateTime UnixEpochDateTimeUnspecified = new DateTime(UnixEpoch, DateTimeKind.Unspecified);
-        private static readonly DateTime MinDateTimeUtc = new DateTime(1, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        private static readonly DateTime UnixEpochDateTimeUtc = new(UnixEpoch, DateTimeKind.Utc);
+        private static readonly DateTime UnixEpochDateTimeUnspecified = new(UnixEpoch, DateTimeKind.Unspecified);
+        private static readonly DateTime MinDateTimeUtc = new(1, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         public static DateTime FromUnixTime(this int unixTime)
         {
@@ -54,7 +54,7 @@ namespace ServiceStack.Text
 
         public static long ToUnixTime(this DateTime dateTime)
         {
-            return (dateTime.ToDateTimeSinceUnixEpoch().Ticks) / TimeSpan.TicksPerSecond;
+            return dateTime.ToDateTimeSinceUnixEpoch().Ticks / TimeSpan.TicksPerSecond;
         }
 
         private static TimeSpan ToDateTimeSinceUnixEpoch(this DateTime dateTime)
@@ -116,12 +116,12 @@ namespace ServiceStack.Text
 
         public static DateTime RoundToMs(this DateTime dateTime)
         {
-            return new DateTime((dateTime.Ticks / TimeSpan.TicksPerMillisecond) * TimeSpan.TicksPerMillisecond, dateTime.Kind);
+            return new(dateTime.Ticks / TimeSpan.TicksPerMillisecond * TimeSpan.TicksPerMillisecond, dateTime.Kind);
         }
 
         public static DateTime RoundToSecond(this DateTime dateTime)
         {
-            return new DateTime((dateTime.Ticks / TimeSpan.TicksPerSecond) * TimeSpan.TicksPerSecond, dateTime.Kind);
+            return new(dateTime.Ticks / TimeSpan.TicksPerSecond * TimeSpan.TicksPerSecond, dateTime.Kind);
         }
 
         public static DateTime Truncate(this DateTime dateTime, TimeSpan timeSpan)

@@ -802,7 +802,7 @@ namespace ServiceStack.OrmLite
                 var values = new object[reader.FieldCount];
                 var indexCache = reader.GetIndexFieldsCache(modelDef, dialectProvider);
                 dialectProvider.PopulateObjectWithSqlReader<T>(obj, reader, indexCache, values);
-                if ((modelDef.PrimaryKey != null) && (modelDef.PrimaryKey.AutoIncrement || modelDef.PrimaryKey.ReturnOnInsert))
+                if (modelDef.PrimaryKey != null && (modelDef.PrimaryKey.AutoIncrement || modelDef.PrimaryKey.ReturnOnInsert))
                 {
                     var id = modelDef.GetPrimaryKey(obj);
                     if (modelDef.PrimaryKey.AutoId)

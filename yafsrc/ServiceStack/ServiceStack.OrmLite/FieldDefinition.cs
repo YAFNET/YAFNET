@@ -137,21 +137,21 @@ namespace ServiceStack.OrmLite
 
         public override string ToString() => Name;
 
-        public bool ShouldSkipInsert() => IgnoreOnInsert || AutoIncrement || (IsComputed && !IsPersisted) || IsRowVersion;
+        public bool ShouldSkipInsert() => IgnoreOnInsert || AutoIncrement || IsComputed && !IsPersisted || IsRowVersion;
 
-        public bool ShouldSkipUpdate() => IgnoreOnUpdate || (IsComputed && !IsPersisted);
+        public bool ShouldSkipUpdate() => IgnoreOnUpdate || IsComputed && !IsPersisted;
 
-        public bool ShouldSkipDelete() => (IsComputed && !IsPersisted);
+        public bool ShouldSkipDelete() => IsComputed && !IsPersisted;
 
         public bool IsSelfRefField(FieldDefinition fieldDef)
         {
-            return (fieldDef.Alias != null && IsSelfRefField(fieldDef.Alias))
+            return fieldDef.Alias != null && IsSelfRefField(fieldDef.Alias)
                     || IsSelfRefField(fieldDef.Name);
         }
 
         public bool IsSelfRefField(string name)
         {
-            return (Alias != null && Alias + "Id" == name)
+            return Alias != null && Alias + "Id" == name
                     || Name + "Id" == name;
         }
 

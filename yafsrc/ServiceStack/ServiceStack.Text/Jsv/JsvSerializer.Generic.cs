@@ -12,7 +12,7 @@ namespace ServiceStack.Text.Jsv
 {
     internal class JsvSerializer<T>
     {
-        Dictionary<Type, ParseStringDelegate> DeserializerCache = new Dictionary<Type, ParseStringDelegate>();
+        Dictionary<Type, ParseStringDelegate> DeserializerCache = new();
 
         public T DeserializeFromString(string value, Type type)
         {

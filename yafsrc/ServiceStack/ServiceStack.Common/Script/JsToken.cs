@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -173,7 +173,7 @@ namespace ServiceStack.Script
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ReadOnlySpan<char> AdvancePastPipeOperator(this ReadOnlySpan<char> literal) =>
             literal.SafeCharEquals(1, '>')
-                ? literal.Advance(2) // support new JS |> operator 
+                ? literal.Advance(2) // support new JS |> operator
                 : ScriptConfig.AllowUnixPipeSyntax ? literal.Advance(1)
                     : throw new SyntaxErrorException("Unix Pipe syntax is disallowed, use JS Pipeline Operator syntax '|>' or set ScriptConfig.AllowUnixPipeSyntax=true; ");
 
@@ -244,7 +244,7 @@ namespace ServiceStack.Script
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static ReadOnlyMemory<char> TrimFirstNewLine(this ReadOnlyMemory<char> literal) => literal.StartsWith("\r\n")
             ? literal.Advance(2)
-            : (literal.StartsWith("\n") ? literal.Advance(1) : literal);
+            : literal.StartsWith("\n") ? literal.Advance(1) : literal;
 
         public static object Evaluate(this JsToken token) => token.Evaluate(JS.CreateScope());
 
@@ -358,7 +358,7 @@ namespace ServiceStack.Script
                     return literal;
                 }
 
-                if (!literal.FirstCharEquals(',') || !(bracketsExpr is JsIdentifier param1))
+                if (!literal.FirstCharEquals(',') || bracketsExpr is not JsIdentifier param1)
                     throw new SyntaxErrorException($"Expected ')' but instead found {literal.DebugFirstChar()} near: {literal.DebugLiteral()}");
 
                 literal = literal.Advance(1);
@@ -367,7 +367,7 @@ namespace ServiceStack.Script
                 {
                     literal = literal.AdvancePastWhitespace();
                     literal = literal.ParseIdentifier(out var arg);
-                    if (!(arg is JsIdentifier param))
+                    if (arg is not JsIdentifier param)
                         throw new SyntaxErrorException($"Expected identifier but was instead '{arg.DebugToken()}', near: {literal.DebugLiteral()}");
 
                     args.Add(param);
@@ -416,13 +416,13 @@ namespace ServiceStack.Script
                 {
                     if (quoteChar == '′')
                     {
-                        //All other quoted strings use unescaped strings  
+                        //All other quoted strings use unescaped strings
                         var sb = StringBuilderCache.Allocate();
                         for (var j = 0; j < rawString.Length; j++)
                         {
                             // strip the back-slash used to escape quote char in strings
                             var ch = rawString[j];
-                            if (ch != '\\' || (j + 1 >= rawString.Length || rawString[j + 1] != quoteChar))
+                            if (ch != '\\' || j + 1 >= rawString.Length || rawString[j + 1] != quoteChar)
                                 sb.Append(ch);
                         }
                         token = new JsLiteral(StringBuilderCache.ReturnAndFree(sb));
@@ -448,7 +448,7 @@ namespace ServiceStack.Script
                 var firstDecimalPos = -1;
 
                 while (i < literal.Length && IsNumericChar(c = literal[i]) ||
-                       (hasExponent = (c == 'e' || c == 'E')))
+                       (hasExponent = c == 'e' || c == 'E'))
                 {
                     i++;
 
@@ -470,7 +470,7 @@ namespace ServiceStack.Script
                 var numLiteral = literal.Slice(0, hasMemberSuffix ? i - 1 : i);
 
                 //don't convert into ternary to avoid Type coercion
-                if ((firstDecimalPos > 0 && firstDecimalPos < i) || hasExponent)
+                if (firstDecimalPos > 0 && firstDecimalPos < i || hasExponent)
                     token = new JsLiteral(ScriptConfig.ParseRealNumber(numLiteral));
                 else
                     token = new JsLiteral(numLiteral.ParseSignedInteger());
@@ -510,7 +510,7 @@ namespace ServiceStack.Script
                     {
                         literal = literal.ParseJsToken(out var mapKeyToken);
 
-                        if (!(mapKeyToken is JsLiteral) && !(mapKeyToken is JsTemplateLiteral) && !(mapKeyToken is JsIdentifier) && !(mapKeyToken is JsMemberExpression))
+                        if (mapKeyToken is not JsLiteral && mapKeyToken is not JsTemplateLiteral && mapKeyToken is not JsIdentifier && mapKeyToken is not JsMemberExpression)
                             throw new SyntaxErrorException($"{mapKeyToken.DebugToken()} is not a valid Object key, expected literal, identifier or member expression.");
 
                         bool shorthand = false;
@@ -573,7 +573,7 @@ namespace ServiceStack.Script
             // identifier
             literal = literal.ParseIdentifier(out var node);
 
-            if (!(node is JsOperator))
+            if (node is not JsOperator)
             {
                 literal = literal.ParseJsMemberExpression(ref node, filterExpression);
             }
@@ -584,9 +584,8 @@ namespace ServiceStack.Script
 
         public static int IndexOfQuotedString(this ReadOnlySpan<char> literal, char quoteChar, out bool hasEscapeChars)
         {
-            int i;
             char c;
-            i = 1;
+            int i = 1;
             hasEscapeChars = false;
 
             while (i < literal.Length)
@@ -595,7 +594,7 @@ namespace ServiceStack.Script
                 if (c == quoteChar)
                 {
                     if (!literal.SafeCharEquals(i - 1, '\\') ||
-                        (literal.SafeCharEquals(i - 2, '\\') && !literal.SafeCharEquals(i - 3, '\\')))
+                        literal.SafeCharEquals(i - 2, '\\') && !literal.SafeCharEquals(i - 3, '\\'))
                         break;
                 }
 
@@ -622,7 +621,7 @@ namespace ServiceStack.Script
                 {
                     literal = literal.AdvancePastWhitespace();
                     literal = literal.ParseIdentifier(out var arg);
-                    if (!(arg is JsIdentifier param))
+                    if (arg is not JsIdentifier param)
                         throw new SyntaxErrorException(
                             $"Expected identifier but was instead '{arg.DebugToken()}', near: {literal.DebugLiteral()}");
 
@@ -761,7 +760,7 @@ namespace ServiceStack.Script
 
             var c = literal[0];
 
-            while (c == '.' || c == '[' || c == '(' || (filterExpression && c == ':'))
+            while (c == '.' || c == '[' || c == '(' || filterExpression && c == ':')
             {
                 literal = literal.Advance(1);
 
@@ -1035,7 +1034,7 @@ namespace ServiceStack.Script
         {
             literal = literal.ParseIdentifier(out var token);
 
-            if (!(token is JsIdentifier identifier))
+            if (token is not JsIdentifier identifier)
                 throw new SyntaxErrorException($"Expected identifier but instead found {token.DebugToken()}");
 
             literal = literal.AdvancePastWhitespace();
@@ -1076,7 +1075,7 @@ namespace ServiceStack.Script
             var endStringPos = literal.IndexOf("\n");
             var endStatementPos = literal.IndexOf("}}");
 
-            if (endStringPos == -1 || (endStatementPos != -1 && endStatementPos < endStringPos))
+            if (endStringPos == -1 || endStatementPos != -1 && endStatementPos < endStringPos)
                 endStringPos = endStatementPos;
 
             if (endStringPos == -1)
@@ -1106,7 +1105,7 @@ namespace ServiceStack.Script
                 {
                     literal = literal.Advance(3);
                     literal = literal.ParseJsExpression(out listValue);
-                    if (!(listValue is JsIdentifier) && !(listValue is JsArrayExpression) && !(listValue is JsCallExpression))
+                    if (listValue is not JsIdentifier && listValue is not JsArrayExpression && listValue is not JsCallExpression)
                         throw new SyntaxErrorException($"Spread operator expected array but instead found {listValue.DebugToken()}");
 
                     listValue = new JsSpreadElement(listValue);

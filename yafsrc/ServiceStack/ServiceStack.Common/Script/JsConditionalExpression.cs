@@ -69,7 +69,7 @@ namespace ServiceStack.Script
         {
             unchecked
             {
-                var hashCode = (Test != null ? Test.GetHashCode() : 0);
+                var hashCode = Test != null ? Test.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (Consequent != null ? Consequent.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Alternate != null ? Alternate.GetHashCode() : 0);
                 return hashCode;

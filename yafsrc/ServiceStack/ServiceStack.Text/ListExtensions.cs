@@ -66,7 +66,7 @@ namespace ServiceStack
 
         public static List<T> InList<T>(this T value)
         {
-            return new List<T> { value };
+            return new() { value };
         }
 
         public static T[] InArray<T>(this T value)

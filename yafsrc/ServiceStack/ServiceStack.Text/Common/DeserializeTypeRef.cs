@@ -12,7 +12,7 @@ namespace ServiceStack.Text.Common
     {
         internal static SerializationException CreateSerializationError(Type type, string strType)
         {
-            return new SerializationException(String.Format(
+            return new(String.Format(
             "Type definitions should start with a '{0}', expecting serialized type '{1}', got string starting with: {2}",
             JsWriter.MapStartChar, type.Name, strType.Substring(0, strType.Length < 50 ? strType.Length : 50)));
         }
@@ -35,7 +35,7 @@ namespace ServiceStack.Text.Common
             return serializationException;
         }
 
-        private static Dictionary<Type, KeyValuePair<string, TypeAccessor>[]> TypeAccessorsCache = new Dictionary<Type, KeyValuePair<string, TypeAccessor>[]>();
+        private static Dictionary<Type, KeyValuePair<string, TypeAccessor>[]> TypeAccessorsCache = new();
 
         internal static KeyValuePair<string, TypeAccessor>[] GetCachedTypeAccessors(Type type, ITypeSerializer serializer)
         {

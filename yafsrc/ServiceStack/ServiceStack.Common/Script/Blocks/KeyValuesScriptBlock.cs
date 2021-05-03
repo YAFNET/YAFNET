@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using ServiceStack.Text;
@@ -30,7 +30,7 @@ namespace ServiceStack.Script
             if (literal.Length > 0)
             {
                 literal = literal.ParseJsToken(out var token);
-                if (!(token is JsLiteral litToken))
+                if (token is not JsLiteral litToken)
                     throw new NotSupportedException($"#keyvalues expected string delimiter but was {token.DebugToken()}");
                 delimiter = litToken.Value.ToString();
             }

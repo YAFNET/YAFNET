@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -237,7 +237,7 @@ namespace ServiceStack.Script
         {
             if (OutputTransformers.Count == 0)
             {
-                var bufferOutput = !DisableBuffering && !(responseStream is MemoryStream);
+                var bufferOutput = !DisableBuffering && responseStream is not MemoryStream;
                 if (bufferOutput)
                 {
                     using var ms = MemoryStreamFactory.GetStream();
@@ -415,7 +415,7 @@ namespace ServiceStack.Script
                  !Context.OnlyEvaluateFiltersWhenSkippingPageFilterExecution.Contains(var.InitialExpression.Name));
         }
 
-        public bool ShouldSkipFilterExecution(PageFragment fragment) => !(fragment is PageStringFragment)
+        public bool ShouldSkipFilterExecution(PageFragment fragment) => fragment is not PageStringFragment
             && (fragment is PageVariableFragment var
                 ? ShouldSkipFilterExecution(var)
                 : HaltExecution || SkipFilterExecution);
@@ -491,8 +491,8 @@ namespace ServiceStack.Script
         {
             if (pageArgs?.Count > 0)
             {
-                NoLayout = (pageArgs.TryGetValue("ignore", out object ignore) && "template".Equals(ignore?.ToString())) ||
-                           (pageArgs.TryGetValue("layout", out object layout) && "none".Equals(layout?.ToString()));
+                NoLayout = pageArgs.TryGetValue("ignore", out object ignore) && "template".Equals(ignore?.ToString()) ||
+                           pageArgs.TryGetValue("layout", out object layout) && "none".Equals(layout?.ToString());
             }
         }
 
@@ -1144,7 +1144,7 @@ namespace ServiceStack.Script
                                                 ? InvokeFilter(invoker, filter, new object[0], name)
                                                 : (invoker = GetContextFilterAsBinding(name, out filter)) != null
                                                     ? InvokeFilter(invoker, filter, new object[] { scope }, name)
-                                                    : ((ret = false) ? (object)null : null);
+                                                    : (ret = false) ? (object)null : null;
             return ret;
         }
 

@@ -31,7 +31,7 @@
             // Translate the double into sign, exponent and mantissa.
             long bits = BitConverter.DoubleToInt64Bits(d);
             // Note that the shift is sign-extended, hence the test against -1 not 1
-            bool negative = (bits < 0);
+            bool negative = bits < 0;
             int exponent = (int)((bits >> 52) & 0x7ffL);
             long mantissa = bits & 0xfffffffffffffL;
 
@@ -66,7 +66,7 @@
             }
 
             /// Construct a new decimal expansion with the mantissa
-            ArbitraryDecimal ad = new ArbitraryDecimal(mantissa);
+            ArbitraryDecimal ad = new(mantissa);
 
             // If the exponent is less than 0, we need to repeatedly
             // divide by 2 - which is the equivalent of multiplying
@@ -202,7 +202,7 @@
                 if (decimalPoint >= digitString.Length)
                 {
                     return "0." +
-                        new string('0', (decimalPoint - digitString.Length)) +
+                        new string('0', decimalPoint - digitString.Length) +
                         new string(digitString);
                 }
 

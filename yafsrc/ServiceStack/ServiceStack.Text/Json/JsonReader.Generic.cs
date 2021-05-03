@@ -11,9 +11,9 @@ namespace ServiceStack.Text.Json
 {
     public static class JsonReader
     {
-        public static readonly JsReader<JsonTypeSerializer> Instance = new JsReader<JsonTypeSerializer>();
+        public static readonly JsReader<JsonTypeSerializer> Instance = new();
 
-        private static Dictionary<Type, ParseFactoryDelegate> ParseFnCache = new Dictionary<Type, ParseFactoryDelegate>();
+        private static Dictionary<Type, ParseFactoryDelegate> ParseFnCache = new();
 
         internal static ParseStringDelegate GetParseFn(Type type) => v => GetParseStringSpanFn(type)(v.AsSpan());
 

@@ -216,7 +216,7 @@ namespace ServiceStack.Script
         }
 
         /// <summary>
-        /// Returns Type from type name syntax of .NET's typeof() 
+        /// Returns Type from type name syntax of .NET's typeof()
         /// </summary>
         public Type @typeof(string typeName)
         {
@@ -367,7 +367,10 @@ namespace ServiceStack.Script
                                 return nestedType;
                             }
                         }
-                        catch { }
+                        catch
+                        {
+                            // ignored
+                        }
                     }
                 }
 
@@ -483,7 +486,7 @@ namespace ServiceStack.Script
 
             var methods = type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
                 .Where(x => x.Name == name && (argsCount == null || x.GetParameters().Length == argsCount.Value)
-                    && ((genericArgs.Count == 0 && !x.IsGenericMethod) || (x.IsGenericMethod && x.GetGenericArguments().Length == genericArgsCount)))
+                    && (genericArgs.Count == 0 && !x.IsGenericMethod || x.IsGenericMethod && x.GetGenericArguments().Length == genericArgsCount))
                 .ToArray();
 
             MethodInfo targetMethod = null;
@@ -655,7 +658,7 @@ namespace ServiceStack.Script
 
         /// <summary>
         /// Resolve Function from qualified type name, when args Type list are unspecified fallback to use args to resolve ambiguous methods
-        /// 
+        ///
         /// Qualified Method Name Examples:
         ///  - Console.WriteLine ['string']
         ///  - Type.StaticMethod
@@ -934,7 +937,7 @@ namespace ServiceStack.Script
         public object fileContents(IVirtualPathProvider vfs, string virtualPath) =>
             vfs.GetFile(virtualPath).GetContents();
 
-        // string virtual filePath or IVirtualFile 
+        // string virtual filePath or IVirtualFile
         public object fileContents(object file) => file is null
             ? null
             : file is string path
@@ -1445,7 +1448,10 @@ namespace ServiceStack.Script
                     }
                 }
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
             return null;
         }
 
@@ -1735,7 +1741,11 @@ namespace ServiceStack.Script
                 if (!excludePaths.IsEmpty() && excludePaths?.Any(x => dirPath.StartsWith(x)) == true)
                     continue;
 
-                try { Directory.CreateDirectory(dirPath.Replace(src, dst)); } catch { }
+                try { Directory.CreateDirectory(dirPath.Replace(src, dst)); }
+                catch
+                {
+                    // ignored
+                }
             }
 
             foreach (string newPath in Directory.GetFiles(src, "*.*", SearchOption.AllDirectories))

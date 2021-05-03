@@ -37,7 +37,7 @@ namespace ServiceStack
 
         internal static readonly JsWriter<JsvTypeSerializer> Instance;
 
-        private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new Dictionary<Type, WriteObjectDelegate>();
+        private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new();
 
         public static WriteComplexTypeDelegate ComplexTypeStrategy { get; set; }
 
@@ -243,7 +243,7 @@ namespace ServiceStack
     public static class QueryStringStrategy
     {
         static readonly ConcurrentDictionary<Type, PropertyTypeConfig> typeConfigCache =
-            new ConcurrentDictionary<Type, PropertyTypeConfig>();
+            new();
 
         public static bool FormUrlEncoded(TextWriter writer, string propertyName, object obj)
         {

@@ -425,7 +425,7 @@ namespace ServiceStack
         {
             var sanitizedPath = string.IsNullOrEmpty(filePath)
                 ? null
-                : (IsDirSep(filePath[0]) ? filePath.Substring(1) : filePath);
+                : IsDirSep(filePath[0]) ? filePath.Substring(1) : filePath;
 
             return sanitizedPath?.Replace('/', '\\');
         }

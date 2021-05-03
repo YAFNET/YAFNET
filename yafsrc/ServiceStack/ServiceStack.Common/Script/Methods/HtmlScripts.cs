@@ -48,8 +48,8 @@ namespace ServiceStack.Script
             {
                 var parentClass = options.ClassName;
                 var childClass = options.ChildClass;
-                var className = ((depth < childDepth ? parentClass : childClass ?? parentClass)
-                                 ?? options.Defaults.GetDefaultTableClassName());
+                var className = (depth < childDepth ? parentClass : childClass ?? parentClass)
+                                ?? options.Defaults.GetDefaultTableClassName();
 
                 var headerStyle = options.HeaderStyle;
                 var headerTag = options.HeaderTag ?? "th";
@@ -161,8 +161,8 @@ namespace ServiceStack.Script
 
                 var parentClass = options.ClassName;
                 var childClass = options.ChildClass;
-                var className = ((depth < childDepth ? parentClass : childClass ?? parentClass)
-                                 ?? options.Defaults.GetDefaultTableClassName());
+                var className = (depth < childDepth ? parentClass : childClass ?? parentClass)
+                                ?? options.Defaults.GetDefaultTableClassName();
 
                 var headerStyle = options.HeaderStyle;
                 var headerTag = options.HeaderTag ?? "th";
@@ -505,7 +505,7 @@ namespace ServiceStack.Script
                 return false;
             }
             if (target is string className)
-                return ($" {className} ").IndexOf($" {name} ", StringComparison.Ordinal) >= 0;
+                return $" {className} ".IndexOf($" {name} ", StringComparison.Ordinal) >= 0;
 
             return false;
         }

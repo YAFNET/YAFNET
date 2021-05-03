@@ -46,7 +46,7 @@ namespace ServiceStack.Text.Common
         private static readonly int XsdTimeSeparatorIndex = XsdDateTimeFormat.IndexOf(XsdTimeSeparator);
         private const string XsdUtcSuffix = "Z";
         private static readonly char[] DateTimeSeparators = { '-', '/' };
-        private static readonly Regex UtcOffsetInfoRegex = new Regex("([+-](?:2[0-3]|[0-1][0-9]):[0-5][0-9])", PclExport.Instance.RegexOptions);
+        private static readonly Regex UtcOffsetInfoRegex = new("([+-](?:2[0-3]|[0-1][0-9]):[0-5][0-9])", PclExport.Instance.RegexOptions);
         public static Func<string, Exception, DateTime> OnParseErrorFn { get; set; }
 
         /// <summary>
@@ -160,7 +160,10 @@ namespace ServiceStack.Text.Common
                         if (manualDate != null)
                             return manualDate.Value;
                     }
-                    catch { }
+                    catch
+                    {
+                        // ignored
+                    }
                 }
 
                 try
@@ -219,7 +222,7 @@ namespace ServiceStack.Text.Common
         /// <returns>The repaired string. If no repairs were made, the original string is returned.</returns>
         private static string RepairXsdTimeSeparator(string dateTimeStr)
         {
-            if ((dateTimeStr.Length > XsdTimeSeparatorIndex) && (dateTimeStr[XsdTimeSeparatorIndex] == ' ') && dateTimeStr.EndsWith(XsdUtcSuffix))
+            if (dateTimeStr.Length > XsdTimeSeparatorIndex && dateTimeStr[XsdTimeSeparatorIndex] == ' ' && dateTimeStr.EndsWith(XsdUtcSuffix))
             {
                 dateTimeStr = dateTimeStr.Substring(0, XsdTimeSeparatorIndex) + XsdTimeSeparator +
                               dateTimeStr.Substring(XsdTimeSeparatorIndex + 1);
@@ -403,7 +406,7 @@ namespace ServiceStack.Text.Common
 
         public static string ToXsdTimeSpanString(TimeSpan? timeSpan)
         {
-            return (timeSpan != null) ? ToXsdTimeSpanString(timeSpan.Value) : null;
+            return timeSpan != null ? ToXsdTimeSpanString(timeSpan.Value) : null;
         }
 
         public static DateTime ParseXsdDateTime(string dateTimeStr)
@@ -461,8 +464,8 @@ namespace ServiceStack.Text.Common
             if (isStartOfDay && !config.SkipDateTimeConversion)
                 return dateTime.ToString(ShortDateTimeFormat, CultureInfo.InvariantCulture);
 
-            var hasFractionalSecs = (timeOfDay.Milliseconds != 0)
-                || (timeOfDay.Ticks % TimeSpan.TicksPerMillisecond != 0);
+            var hasFractionalSecs = timeOfDay.Milliseconds != 0
+                || timeOfDay.Ticks % TimeSpan.TicksPerMillisecond != 0;
 
             if (config.SkipDateTimeConversion)
             {
@@ -513,7 +516,7 @@ namespace ServiceStack.Text.Common
             }
 
             var suffixPos = wcfJsonDate.IndexOf(WcfJsonSuffix);
-            var timeString = (suffixPos < 0) ? wcfJsonDate : wcfJsonDate.Substring(WcfJsonPrefix.Length, suffixPos - WcfJsonPrefix.Length);
+            var timeString = suffixPos < 0 ? wcfJsonDate : wcfJsonDate.Substring(WcfJsonPrefix.Length, suffixPos - WcfJsonPrefix.Length);
 
             // for interop, do not assume format based on config
             if (!wcfJsonDate.StartsWith(WcfJsonPrefix, StringComparison.Ordinal))

@@ -90,8 +90,8 @@ namespace ServiceStack
 
         public static bool IsOrHasGenericInterfaceTypeOf(this Type type, Type genericTypeDefinition)
         {
-            return (type.GetTypeWithGenericTypeDefinitionOf(genericTypeDefinition) != null)
-                || (type == genericTypeDefinition);
+            return type.GetTypeWithGenericTypeDefinitionOf(genericTypeDefinition) != null
+                || type == genericTypeDefinition;
         }
 
         public static Type GetTypeWithGenericTypeDefinitionOf(this Type type, Type genericTypeDefinition)
@@ -331,7 +331,7 @@ namespace ServiceStack
             return true;
         }
 
-        static Dictionary<Type, EmptyCtorDelegate> ConstructorMethods = new Dictionary<Type, EmptyCtorDelegate>();
+        static Dictionary<Type, EmptyCtorDelegate> ConstructorMethods = new();
         public static EmptyCtorDelegate GetConstructorMethod(Type type)
         {
             if (ConstructorMethods.TryGetValue(type, out var emptyCtorFn))
@@ -352,7 +352,7 @@ namespace ServiceStack
             return emptyCtorFn;
         }
 
-        static Dictionary<string, EmptyCtorDelegate> TypeNamesMap = new Dictionary<string, EmptyCtorDelegate>();
+        static Dictionary<string, EmptyCtorDelegate> TypeNamesMap = new();
         public static EmptyCtorDelegate GetConstructorMethod(string typeName)
         {
             if (TypeNamesMap.TryGetValue(typeName, out var emptyCtorFn))

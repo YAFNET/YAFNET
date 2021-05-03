@@ -9,10 +9,10 @@ namespace ServiceStack.Text
 {
     public class XmlSerializer
     {
-        public static readonly XmlWriterSettings XmlWriterSettings = new XmlWriterSettings();
-        public static readonly XmlReaderSettings XmlReaderSettings = new XmlReaderSettings();
+        public static readonly XmlWriterSettings XmlWriterSettings = new();
+        public static readonly XmlReaderSettings XmlReaderSettings = new();
 
-        public static XmlSerializer Instance = new XmlSerializer();
+        public static XmlSerializer Instance = new();
 
         public XmlSerializer(bool omitXmlDeclaration = false, int maxCharsInDocument = 1024 * 1024)
         {

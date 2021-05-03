@@ -106,7 +106,7 @@ namespace ServiceStack.Script
             var bodyContents = fileContents;
             fileContents.AdvancePastWhitespace().TryReadLine(out ReadOnlyMemory<char> line, ref pos);
             var lineComment = ScriptLanguage.LineComment;
-            if (line.StartsWith(Format.ArgsPrefix) || (lineComment != null && line.StartsWith(lineComment + Format.ArgsPrefix)))
+            if (line.StartsWith(Format.ArgsPrefix) || lineComment != null && line.StartsWith(lineComment + Format.ArgsPrefix))
             {
                 while (fileContents.TryReadLine(out line, ref pos))
                 {
@@ -114,7 +114,7 @@ namespace ServiceStack.Script
                         continue;
 
 
-                    if (line.StartsWith(Format.ArgsSuffix) || (lineComment != null && line.StartsWith(lineComment + Format.ArgsSuffix)))
+                    if (line.StartsWith(Format.ArgsSuffix) || lineComment != null && line.StartsWith(lineComment + Format.ArgsSuffix))
                         break;
 
                     if (lineComment != null && line.StartsWith(lineComment))

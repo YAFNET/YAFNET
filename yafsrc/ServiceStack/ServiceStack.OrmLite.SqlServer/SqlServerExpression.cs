@@ -82,7 +82,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
                 var value = fieldDef.GetValue(item);
                 if (excludeDefaults
-                    && (value == null || (!fieldDef.IsNullable && value.Equals(value.GetType().GetDefaultValue()))))
+                    && (value == null || !fieldDef.IsNullable && value.Equals(value.GetType().GetDefaultValue())))
                     continue;
 
                 if (setFields.Length > 0)

@@ -117,8 +117,8 @@ namespace ServiceStack.OrmLite
 
                 var isNullableType = propertyInfo.PropertyType.IsNullableType();
 
-                var isNullable = (!propertyInfo.PropertyType.IsValueType
-                                   && !propertyInfo.HasAttributeNamed(nameof(RequiredAttribute)))
+                var isNullable = !propertyInfo.PropertyType.IsValueType
+                                 && !propertyInfo.HasAttributeNamed(nameof(RequiredAttribute))
                                    || isNullableType;
 
                 var propertyType = isNullableType
@@ -144,7 +144,7 @@ namespace ServiceStack.OrmLite
 
                 var isAutoId = propertyInfo.HasAttributeCached<AutoIdAttribute>();
 
-                var isPrimaryKey = (!hasPkAttr && (propertyInfo.Name == OrmLiteConfig.IdField || (!hasIdField && isFirst)))
+                var isPrimaryKey = !hasPkAttr && (propertyInfo.Name == OrmLiteConfig.IdField || !hasIdField && isFirst)
                    || propertyInfo.HasAttributeNamed(nameof(PrimaryKeyAttribute))
                    || isAutoId;
 

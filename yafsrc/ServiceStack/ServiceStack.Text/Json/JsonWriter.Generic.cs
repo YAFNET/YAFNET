@@ -12,9 +12,9 @@ namespace ServiceStack.Text.Json
 {
     public static class JsonWriter
     {
-        public static readonly JsWriter<JsonTypeSerializer> Instance = new JsWriter<JsonTypeSerializer>();
+        public static readonly JsWriter<JsonTypeSerializer> Instance = new();
 
-        private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new Dictionary<Type, WriteObjectDelegate>();
+        private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new();
 
         internal static void RemoveCacheFn(Type forType)
         {
@@ -61,7 +61,7 @@ namespace ServiceStack.Text.Json
             }
         }
 
-        private static Dictionary<Type, TypeInfo> JsonTypeInfoCache = new Dictionary<Type, TypeInfo>();
+        private static Dictionary<Type, TypeInfo> JsonTypeInfoCache = new();
 
         internal static TypeInfo GetTypeInfo(Type type)
         {

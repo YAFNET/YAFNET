@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -404,7 +404,7 @@ namespace ServiceStack.IO
         {
             var sanitizedPath = string.IsNullOrEmpty(filePath)
                 ? null
-                : (IsDirSep(filePath[0]) ? filePath.Substring(1) : filePath);
+                : IsDirSep(filePath[0]) ? filePath.Substring(1) : filePath;
 
             return sanitizedPath?.Replace('/', DirSep);
         }
@@ -470,9 +470,9 @@ namespace ServiceStack.IO
         {
             return Text != null
                 ? (object)Text.AsMemory()
-                : (Stream is MemoryStream ms
+                : Stream is MemoryStream ms
                     ? ms.GetBufferAsMemory()
-                    : Stream?.CopyToNewMemoryStream().GetBufferAsMemory());
+                    : Stream?.CopyToNewMemoryStream().GetBufferAsMemory();
         }
 
         public override void Refresh()
@@ -497,7 +497,7 @@ namespace ServiceStack.IO
     {
         internal GistVirtualFiles PathProvider { get; private set; }
 
-        public GistVirtualDirectory(GistVirtualFiles pathProvider, string dirPath, GistVirtualDirectory parentDir)
+        public GistVirtualDirectory(GistVirtualFiles pathProvider, string dirPath, IVirtualDirectory parentDir)
             : base(pathProvider, parentDir)
         {
             this.PathProvider = pathProvider;
@@ -571,7 +571,7 @@ namespace ServiceStack.IO
         {
             return string.IsNullOrEmpty(filePath)
                 ? filePath
-                : (filePath[0] == GistVirtualFiles.DirSep ? filePath.Substring(1) : filePath);
+                : filePath[0] == GistVirtualFiles.DirSep ? filePath.Substring(1) : filePath;
         }
 
         public override IEnumerable<IVirtualFile> GetAllMatchingFiles(string globPattern, int maxDepth = int.MaxValue)

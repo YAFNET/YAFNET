@@ -37,7 +37,7 @@ namespace ServiceStack.OrmLite
                 : OrmLiteContext.TSTransaction;
 
             dbCmd.CommandTimeout = ormLiteConn != null
-                ? (ormLiteConn.CommandTimeout ?? OrmLiteConfig.CommandTimeout)
+                ? ormLiteConn.CommandTimeout ?? OrmLiteConfig.CommandTimeout
                 : OrmLiteConfig.CommandTimeout;
 
             ormLiteConn.SetLastCommandText(null);

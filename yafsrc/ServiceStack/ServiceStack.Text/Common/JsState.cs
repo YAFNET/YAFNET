@@ -30,7 +30,7 @@ namespace ServiceStack.Text.Common
 
 
         [ThreadStatic]
-        internal static HashSet<Type> InSerializerFns = new HashSet<Type>();
+        internal static HashSet<Type> InSerializerFns = new();
 
         internal static void RegisterSerializer<T>()
         {

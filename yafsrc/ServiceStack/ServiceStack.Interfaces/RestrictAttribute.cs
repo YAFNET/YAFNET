@@ -218,37 +218,37 @@ namespace ServiceStack
             if (!HasAnyRestrictionsOf(restrictTo, RequestAttributes.AnyNetworkAccessType))
                 allowedAttrs |= RequestAttributes.AnyNetworkAccessType;
             else
-                allowedAttrs |= (restrictTo & RequestAttributes.AnyNetworkAccessType);
+                allowedAttrs |= restrictTo & RequestAttributes.AnyNetworkAccessType;
 
             //Security
             if (!HasAnyRestrictionsOf(restrictTo, RequestAttributes.AnySecurityMode))
                 allowedAttrs |= RequestAttributes.AnySecurityMode;
             else
-                allowedAttrs |= (restrictTo & RequestAttributes.AnySecurityMode);
+                allowedAttrs |= restrictTo & RequestAttributes.AnySecurityMode;
 
             //Http Method
             if (!HasAnyRestrictionsOf(restrictTo, RequestAttributes.AnyHttpMethod))
                 allowedAttrs |= RequestAttributes.AnyHttpMethod;
             else
-                allowedAttrs |= (restrictTo & RequestAttributes.AnyHttpMethod);
+                allowedAttrs |= restrictTo & RequestAttributes.AnyHttpMethod;
 
             //Call Style
             if (!HasAnyRestrictionsOf(restrictTo, RequestAttributes.AnyCallStyle))
                 allowedAttrs |= RequestAttributes.AnyCallStyle;
             else
-                allowedAttrs |= (restrictTo & RequestAttributes.AnyCallStyle);
+                allowedAttrs |= restrictTo & RequestAttributes.AnyCallStyle;
 
             //Format
             if (!HasAnyRestrictionsOf(restrictTo, RequestAttributes.AnyFormat))
                 allowedAttrs |= RequestAttributes.AnyFormat;
             else
-                allowedAttrs |= (restrictTo & RequestAttributes.AnyFormat);
+                allowedAttrs |= restrictTo & RequestAttributes.AnyFormat;
 
             //Endpoint
             if (!HasAnyRestrictionsOf(restrictTo, RequestAttributes.AnyEndpoint))
                 allowedAttrs |= RequestAttributes.AnyEndpoint;
             else
-                allowedAttrs |= (restrictTo & RequestAttributes.AnyEndpoint);
+                allowedAttrs |= restrictTo & RequestAttributes.AnyEndpoint;
 
             return allowedAttrs;
         }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -189,7 +189,7 @@ namespace ServiceStack.Script
 
         public static string AssertExpression(this ScriptScopeContext scope, string filterName, object expression)
         {
-            if (!(expression is string literal))
+            if (expression is not string literal)
                 throw new NotSupportedException($"'{filterName}' in '{scope.PageResult.VirtualPath}' requires a string Expression but received a '{expression?.GetType()?.Name}' instead");
             return literal;
         }
@@ -226,7 +226,7 @@ namespace ServiceStack.Script
                 ? binding
                 : "it";
 
-            if (bindingName != null && !(bindingName is string))
+            if (bindingName != null && bindingName is not string)
                 throw new NotSupportedException($"'it' option in filter '{filterName}' should contain the name to bind to but contained a '{bindingName.GetType().Name}' instead");
 
             // page vars take precedence

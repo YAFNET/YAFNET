@@ -12,9 +12,9 @@ namespace ServiceStack.Text.Jsv
 {
     public static class JsvWriter
     {
-        public static readonly JsWriter<JsvTypeSerializer> Instance = new JsWriter<JsvTypeSerializer>();
+        public static readonly JsWriter<JsvTypeSerializer> Instance = new();
 
-        private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new Dictionary<Type, WriteObjectDelegate>();
+        private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new();
 
         internal static void RemoveCacheFn(Type forType)
         {

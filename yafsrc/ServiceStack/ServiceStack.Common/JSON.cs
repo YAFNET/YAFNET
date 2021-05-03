@@ -32,7 +32,10 @@ namespace ServiceStack
                         ? (int)longValue
                         : longValue;
                 }
-                catch { }
+                catch
+                {
+                    // ignored
+                }
 
                 if (json.TryParseDouble(out var doubleValue))
                     return doubleValue;

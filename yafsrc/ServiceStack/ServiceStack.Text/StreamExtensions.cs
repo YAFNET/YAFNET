@@ -473,7 +473,7 @@ namespace ServiceStack
         /// </summary>
         public static MemoryStream InMemoryStream(this byte[] bytes)
         {
-            return new MemoryStream(bytes, 0, bytes.Length, writable: true, publiclyVisible: true);
+            return new(bytes, 0, bytes.Length, writable: true, publiclyVisible: true);
         }
 
         public static string ReadToEnd(this MemoryStream ms) => ReadToEnd(ms, JsConfig.UTF8Encoding);

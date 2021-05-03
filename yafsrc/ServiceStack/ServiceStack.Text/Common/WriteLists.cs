@@ -25,7 +25,7 @@ namespace ServiceStack.Text.Common
     {
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
-        static Dictionary<Type, WriteObjectDelegate> ListCacheFns = new Dictionary<Type, WriteObjectDelegate>();
+        static Dictionary<Type, WriteObjectDelegate> ListCacheFns = new();
 
         public static WriteObjectDelegate GetListWriteFn(Type elementType)
         {
@@ -50,7 +50,7 @@ namespace ServiceStack.Text.Common
         }
 
 
-        static Dictionary<Type, WriteObjectDelegate> IListCacheFns = new Dictionary<Type, WriteObjectDelegate>();
+        static Dictionary<Type, WriteObjectDelegate> IListCacheFns = new();
 
         public static WriteObjectDelegate GetIListWriteFn(Type elementType)
         {
@@ -74,7 +74,7 @@ namespace ServiceStack.Text.Common
             return writeFn;
         }
 
-        static Dictionary<Type, WriteObjectDelegate> CacheFns = new Dictionary<Type, WriteObjectDelegate>();
+        static Dictionary<Type, WriteObjectDelegate> CacheFns = new();
 
         public static WriteObjectDelegate GetGenericWriteArray(Type elementType)
         {
@@ -98,7 +98,7 @@ namespace ServiceStack.Text.Common
             return writeFn;
         }
 
-        static Dictionary<Type, WriteObjectDelegate> EnumerableCacheFns = new Dictionary<Type, WriteObjectDelegate>();
+        static Dictionary<Type, WriteObjectDelegate> EnumerableCacheFns = new();
 
         public static WriteObjectDelegate GetGenericWriteEnumerable(Type elementType)
         {
@@ -122,7 +122,7 @@ namespace ServiceStack.Text.Common
             return writeFn;
         }
 
-        static Dictionary<Type, WriteObjectDelegate> ListValueTypeCacheFns = new Dictionary<Type, WriteObjectDelegate>();
+        static Dictionary<Type, WriteObjectDelegate> ListValueTypeCacheFns = new();
 
         public static WriteObjectDelegate GetWriteListValueType(Type elementType)
         {
@@ -146,7 +146,7 @@ namespace ServiceStack.Text.Common
             return writeFn;
         }
 
-        static Dictionary<Type, WriteObjectDelegate> IListValueTypeCacheFns = new Dictionary<Type, WriteObjectDelegate>();
+        static Dictionary<Type, WriteObjectDelegate> IListValueTypeCacheFns = new();
 
         public static WriteObjectDelegate GetWriteIListValueType(Type elementType)
         {
@@ -182,7 +182,7 @@ namespace ServiceStack.Text.Common
             Type lastType = null;
             foreach (var valueItem in valueCollection)
             {
-                if ((toStringFn == null) || (valueItem != null && valueItem.GetType() != lastType))
+                if (toStringFn == null || valueItem != null && valueItem.GetType() != lastType)
                 {
                     if (valueItem != null)
                     {
@@ -362,7 +362,7 @@ namespace ServiceStack.Text.Common
                 JsWriter.WriteItemSeperatorIfRanOnce(writer, ref ranOnce);
                 indices[rank] = i;
 
-                if (rank < (array.Rank - 1))
+                if (rank < array.Rank - 1)
                     WriteGenericArrayMultiDimension(writer, array, rank + 1, indices);
                 else
                     ElementWriteFn(writer, array.GetValue(indices));

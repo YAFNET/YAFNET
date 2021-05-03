@@ -74,7 +74,7 @@ namespace ServiceStack.OrmLite.Converters
                 return DialectProvider.GetQuotedValue(ToCharValue(value).ToString());
 
             var isEnumFlags = fieldType.IsEnumFlags() ||
-                (!fieldType.IsEnum && fieldType.IsNumericType()); //i.e. is real int && not Enum
+                !fieldType.IsEnum && fieldType.IsNumericType(); //i.e. is real int && not Enum
 
             if (!isEnumFlags && long.TryParse(value.ToString(), out var enumValue))
                 value = Enum.ToObject(fieldType, enumValue);

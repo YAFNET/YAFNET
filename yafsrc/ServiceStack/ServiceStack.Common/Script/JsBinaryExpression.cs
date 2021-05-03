@@ -31,7 +31,7 @@ namespace ServiceStack.Script
         {
             unchecked
             {
-                var hashCode = (Operator != null ? Operator.GetHashCode() : 0);
+                var hashCode = Operator != null ? Operator.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (Left != null ? Left.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Right != null ? Right.GetHashCode() : 0);
                 return hashCode;

@@ -11,9 +11,9 @@ namespace ServiceStack.Text.Jsv
 {
     public static class JsvReader
     {
-        internal static readonly JsReader<JsvTypeSerializer> Instance = new JsReader<JsvTypeSerializer>();
+        internal static readonly JsReader<JsvTypeSerializer> Instance = new();
 
-        private static Dictionary<Type, ParseFactoryDelegate> ParseFnCache = new Dictionary<Type, ParseFactoryDelegate>();
+        private static Dictionary<Type, ParseFactoryDelegate> ParseFnCache = new();
 
         public static ParseStringDelegate GetParseFn(Type type) => v => GetParseStringSpanFn(type)(v.AsSpan());
 

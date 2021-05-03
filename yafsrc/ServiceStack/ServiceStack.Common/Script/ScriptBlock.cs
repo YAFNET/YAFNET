@@ -76,7 +76,7 @@ namespace ServiceStack.Script
         }
 
         protected bool CanExportScopeArgs(object element) =>
-            element != null && !(element is string) && (element.GetType().IsClass || element.GetType().Name == "KeyValuePair`2");
+            element != null && element is not string && (element.GetType().IsClass || element.GetType().Name == "KeyValuePair`2");
 
         protected int AssertWithinMaxQuota(int value) => Context.DefaultMethods.AssertWithinMaxQuota(value);
 

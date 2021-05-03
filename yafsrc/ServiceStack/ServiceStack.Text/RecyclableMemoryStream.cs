@@ -36,7 +36,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
     {
         public static bool UseRecyclableMemoryStream { get; set; }
 
-        public static RecyclableMemoryStreamManager RecyclableInstance = new RecyclableMemoryStreamManager();
+        public static RecyclableMemoryStreamManager RecyclableInstance = new();
 
         public static MemoryStream GetStream()
         {
@@ -128,7 +128,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             /// <summary>
             /// Static log object, through which all events are written.
             /// </summary>
-            public static Events Writer = new Events();
+            public static Events Writer = new();
 
             /// <summary>
             /// Type of buffer
@@ -459,8 +459,8 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
 
             this.smallPool = new ConcurrentStack<byte[]>();
             var numLargePools = useExponentialLargeBuffer
-                                    ? ((int)Math.Log(maximumBufferSize / largeBufferMultiple, 2) + 1)
-                                    : (maximumBufferSize / largeBufferMultiple);
+                                    ? (int)Math.Log(maximumBufferSize / largeBufferMultiple, 2) + 1
+                                    : maximumBufferSize / largeBufferMultiple;
 
             // +1 to store size of bytes in use that are too large to be pooled
             this.largeBufferInUseSize = new long[numLargePools + 1];
@@ -700,15 +700,15 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             }
             else
             {
-                return ((requiredSize + this.LargeBufferMultiple - 1) / this.LargeBufferMultiple) * this.LargeBufferMultiple;
+                return (requiredSize + this.LargeBufferMultiple - 1) / this.LargeBufferMultiple * this.LargeBufferMultiple;
             }
         }
 
         private bool IsLargeBufferSize(int value)
         {
-            return (value != 0) && (this.UseExponentialLargeBuffer
-                                        ? (value == RoundToLargeBufferSize(value))
-                                        : (value % this.LargeBufferMultiple) == 0);
+            return value != 0 && (this.UseExponentialLargeBuffer
+                                        ? value == RoundToLargeBufferSize(value)
+                                        : value % this.LargeBufferMultiple == 0);
         }
 
         private int GetPoolIndex(int length)
@@ -716,7 +716,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             if (this.UseExponentialLargeBuffer)
             {
                 int index = 0;
-                while ((this.LargeBufferMultiple << index) < length)
+                while (this.LargeBufferMultiple << index < length)
                 {
                     ++index;
                 }
@@ -1181,7 +1181,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <summary>
         /// All of these blocks must be the same size
         /// </summary>
-        private readonly List<byte[]> blocks = new List<byte[]>(1);
+        private readonly List<byte[]> blocks = new(1);
 
         private readonly Guid id;
 
@@ -2197,7 +2197,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             {
                 while (this.Capacity < newCapacity)
                 {
-                    blocks.Add((this.memoryManager.GetBlock()));
+                    blocks.Add(this.memoryManager.GetBlock());
                 }
             }
         }

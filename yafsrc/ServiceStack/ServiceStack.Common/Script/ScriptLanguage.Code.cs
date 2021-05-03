@@ -516,7 +516,7 @@ namespace ServiceStack.Script
                     {
                         if (statementPos >= 0)
                         {
-                            elseBody = literal.Slice(statementPos, (cursorPos - lineLength) - statementPos).Trim();
+                            elseBody = literal.Slice(statementPos, cursorPos - lineLength - statementPos).Trim();
                             var ret = literal.Slice(cursorPos - lineLength);
                             return ret;
                         }

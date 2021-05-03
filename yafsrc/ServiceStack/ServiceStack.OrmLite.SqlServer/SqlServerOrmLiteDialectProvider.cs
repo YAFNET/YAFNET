@@ -409,10 +409,10 @@ namespace ServiceStack.OrmLite.SqlServer
             fieldDef.ShouldSkipInsert() || fieldDef.AutoId;
 
         protected virtual bool ShouldReturnOnInsert(ModelDefinition modelDef, FieldDefinition fieldDef) =>
-            fieldDef.ReturnOnInsert || (fieldDef.IsPrimaryKey && fieldDef.AutoIncrement && HasInsertReturnValues(modelDef)) || fieldDef.AutoId;
+            fieldDef.ReturnOnInsert || fieldDef.IsPrimaryKey && fieldDef.AutoIncrement && HasInsertReturnValues(modelDef) || fieldDef.AutoId;
 
         public override bool HasInsertReturnValues(ModelDefinition modelDef) =>
-            modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert || (x.AutoId && x.FieldType == typeof(Guid)));
+            modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert || x.AutoId && x.FieldType == typeof(Guid));
 
         protected virtual bool SupportsSequences(FieldDefinition fieldDef) => false;
 
@@ -460,8 +460,8 @@ namespace ServiceStack.OrmLite.SqlServer
                     sbReturningColumns.Append("INSERTED." + GetQuotedColumnName(fieldDef.FieldName));
                 }
 
-                if ((ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
-                    && shouldInclude?.Invoke(fieldDef) != true)
+                if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId
+                                               && shouldInclude?.Invoke(fieldDef) != true)
                     continue;
 
                 if (sbColumnNames.Length > 0)

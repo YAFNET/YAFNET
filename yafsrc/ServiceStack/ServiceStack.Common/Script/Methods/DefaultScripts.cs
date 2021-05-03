@@ -316,7 +316,7 @@ namespace ServiceStack.Script
         public bool isFloat(object target) => target is float;
         public bool isDecimal(object target) => target is decimal;
         public bool isBool(object target) => target is bool;
-        public bool isList(object target) => target is IEnumerable && !(target is IDictionary) && !(target is string);
+        public bool isList(object target) => target is IEnumerable && target is not IDictionary && target is not string;
         public bool isEnumerable(object target) => target is IEnumerable;
         public bool isDictionary(object target) => target is IDictionary;
         public bool isChar(object target) => target is char;
@@ -426,7 +426,7 @@ namespace ServiceStack.Script
         public IgnoreResult prependToGlobal(ScriptScopeContext scope, string value, object argExpr) =>
             prependToArgs(scope, nameof(prependToGlobal), value, argExpr, scope.PageResult.Args);
 
-        private IgnoreResult prependToArgs(ScriptScopeContext scope, string filterName, string value, object argExpr, Dictionary<string, object> args)
+        private IgnoreResult prependToArgs(ScriptScopeContext scope, string filterName, string value, object argExpr, IDictionary<string, object> args)
         {
             if (value == null)
                 return IgnoreResult.Value;
@@ -495,7 +495,7 @@ namespace ServiceStack.Script
                 {
                     l.Insert(0, value);
                 }
-                else if (collection is IEnumerable e && !(collection is string))
+                else if (collection is IEnumerable e && collection is not string)
                 {
                     var to = new List<object> { value };
                     foreach (var item in e)
@@ -508,7 +508,7 @@ namespace ServiceStack.Script
             }
             else
             {
-                if (value is IEnumerable && !(value is string))
+                if (value is IEnumerable && value is not string)
                     args[varName] = value;
                 else
                     args[varName] = new List<object> { value };
@@ -532,14 +532,14 @@ namespace ServiceStack.Script
             if (args.TryGetValue(varName, out object collection))
             {
                 if (TryAddToCollection(collection, value)) { }
-                else if (collection is IEnumerable e && !(collection is string))
+                else if (collection is IEnumerable e && collection is not string)
                 {
                     var to = new List<object>();
                     foreach (var item in e)
                     {
                         to.Add(item);
                     }
-                    if (value is IEnumerable eValues && !(value is string))
+                    if (value is IEnumerable eValues && value is not string)
                     {
                         foreach (var item in eValues)
                         {
@@ -577,7 +577,7 @@ namespace ServiceStack.Script
         }
 
         /// <summary>
-        /// Puts value in dictionary at key  
+        /// Puts value in dictionary at key
         /// </summary>
         /// <returns>value</returns>
         public object putItem(IDictionary dictionary, object key, object value)
@@ -752,7 +752,7 @@ namespace ServiceStack.Script
 
             if (argExpr is JsArrowFunctionExpression arrowExpr)
             {
-                if (!(arrowExpr.Body is JsIdentifier identifier))
+                if (arrowExpr.Body is not JsIdentifier identifier)
                     throw new NotSupportedException($"{filterName} expression must return an identifer");
 
                 return identifier.Name;
@@ -995,12 +995,12 @@ namespace ServiceStack.Script
 
             var token = scope.AssertExpression(nameof(@do), expression, scopeOptions, out var itemBinding);
 
-            if (target is IEnumerable objs && !(target is IDictionary) && !(target is string))
+            if (target is IEnumerable objs && target is not IDictionary && target is not string)
             {
                 var items = target.AssertEnumerable(nameof(@do));
 
                 var i = 0;
-                var eagerItems = items.ToArray(); // assign on array expression can't be within enumerable 
+                var eagerItems = items.ToArray(); // assign on array expression can't be within enumerable
                 foreach (var item in eagerItems)
                 {
                     scope.AddItemToScope(itemBinding, item, i++);
@@ -1134,7 +1134,7 @@ namespace ServiceStack.Script
             var token = scope.AssertExpression(nameof(map), expression, scopeOptions, out var itemBinding);
 
             scope = scope.Clone();
-            if (target is IEnumerable items && !(target is IDictionary) && !(target is string))
+            if (target is IEnumerable items && target is not IDictionary && target is not string)
             {
                 var i = 0;
                 return items.Map(item => token.Evaluate(scope.AddItemToScope(itemBinding, item, i++)));
@@ -1221,7 +1221,7 @@ namespace ServiceStack.Script
                 ? new HashSet<string>(stringKeys, StringComparer.OrdinalIgnoreCase)
                 : new HashSet<string> { stringKey };
 
-            var singleItem = target is IDictionary || !(target is IEnumerable);
+            var singleItem = target is IDictionary || target is not IEnumerable;
             if (singleItem)
             {
                 var objDictionary = target.ToObjectDictionary();
@@ -1265,7 +1265,7 @@ namespace ServiceStack.Script
             var template = JsonTypeSerializer.Unescape(selectTemplate.ToString(), removeQuotes: false);
             var itemScope = scope.CreateScopedContext(template, scopedParams);
 
-            if (target is IEnumerable objs && !(target is IDictionary) && !(target is string))
+            if (target is IEnumerable objs && target is not IDictionary && target is not string)
             {
                 var i = 0;
                 foreach (var item in objs)
@@ -1313,7 +1313,7 @@ namespace ServiceStack.Script
             pageParams[ScriptConstants.PartialArg] = page;
 
             scope = scope.Clone();
-            if (target is IEnumerable objs && !(target is IDictionary) && !(target is string))
+            if (target is IEnumerable objs && target is not IDictionary && target is not string)
             {
                 var i = 0;
                 foreach (var item in objs)
@@ -1331,7 +1331,7 @@ namespace ServiceStack.Script
 
         public object removeKeyFromDictionary(IDictionary dictionary, object keyToRemove)
         {
-            var removeKeys = keyToRemove is IEnumerable e && !(keyToRemove is string)
+            var removeKeys = keyToRemove is IEnumerable e && keyToRemove is not string
                 ? e.Map(x => x)
                 : null;
 
@@ -1385,7 +1385,7 @@ namespace ServiceStack.Script
                 var itemType = first.GetType();
                 var props = TypeProperties.Get(itemType);
 
-                if (!(first is IDictionary))
+                if (first is not IDictionary)
                     throw new NotSupportedException(nameof(remove) + " removes keys from a IDictionary or [IDictionary]");
 
                 foreach (var item in e)
@@ -1624,7 +1624,7 @@ namespace ServiceStack.Script
         public object sync(object value) => unwrap(value);
     }
 
-    public partial class DefaultScripts //Methods named after common keywords breaks intelli-sense when trying to use them        
+    public partial class DefaultScripts //Methods named after common keywords breaks intelli-sense when trying to use them
     {
         public object @if(object test) => test is bool b && b ? (object)IgnoreResult.Value : StopExecution.Value;
         public object @if(object returnTarget, object test) => test is bool b && b ? returnTarget : StopExecution.Value;

@@ -8,13 +8,13 @@ using ServiceStack.Text;
 namespace ServiceStack.Script
 {
     /* Usages:
-     
+
     {{#ul {class:'nav'}}} <li>item</li> {{/ul}}
     {{#ul {each:items, class:'nav'}}} <li>{{it}}</li> {{/ul}}
     {{#ul {each:numbers, it:'num', class:'nav'}}} <li>{{num}}</li> {{/ul}}
 
-    {{#ul {if:hasAccess, each:items, where:'Age > 27', 
-           class:['nav', !disclaimerAccepted ? 'blur' : ''], 
+    {{#ul {if:hasAccess, each:items, where:'Age > 27',
+           class:['nav', !disclaimerAccepted ? 'blur' : ''],
            id:`ul-${id}`, selected:true} }}
         {{#li {class: {alt:isOdd(index), active:Name==highlight} }}
             {{Name}}
@@ -214,7 +214,7 @@ namespace ServiceStack.Script
 
         public override async Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
         {
-            var htmlAttrs = block.Argument.GetJsExpressionAndEvaluate(scope) as Dictionary<string, object>;
+            var htmlAttrs = await block.Argument.GetJsExpressionAndEvaluateAsync(scope) as Dictionary<string, object>;
             var hasEach = false;
             IEnumerable each = null;
             var binding = "it";
@@ -232,7 +232,7 @@ namespace ServiceStack.Script
 
                 if (htmlAttrs.TryGetValue(nameof(where), out var oWhere))
                 {
-                    if (!(oWhere is string whereExpr))
+                    if (oWhere is not string whereExpr)
                         throw new NotSupportedException($"'where' should be a string expression but instead found '{oWhere.GetType().Name}'");
 
                     where = whereExpr.GetCachedJsExpression(scope);
@@ -282,7 +282,7 @@ namespace ServiceStack.Script
                         var whereIndex = 0;
                         foreach (var element in each)
                         {
-                            // Add all properties into scope if called without explicit in argument 
+                            // Add all properties into scope if called without explicit in argument
                             var scopeArgs = !hasExplicitBinding && CanExportScopeArgs(element)
                                 ? element.ToObjectDictionary()
                                 : new Dictionary<string, object>();
@@ -293,7 +293,7 @@ namespace ServiceStack.Script
 
                             if (where != null)
                             {
-                                var result = where.EvaluateToBool(itemScope);
+                                var result = await @where.EvaluateToBoolAsync(itemScope);
                                 if (!result)
                                     continue;
                             }

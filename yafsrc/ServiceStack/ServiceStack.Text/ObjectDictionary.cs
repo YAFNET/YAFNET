@@ -41,7 +41,7 @@ namespace ServiceStack
         public KeyValuePairs(IEnumerable<KeyValuePair<string, object>> collection) : base(collection) { }
 
         public static KeyValuePair<string, object> Create(string key, object value) =>
-            new KeyValuePair<string, object>(key, value);
+            new(key, value);
     }
 
     /// <summary>
@@ -54,6 +54,6 @@ namespace ServiceStack
         public KeyValueStrings(IEnumerable<KeyValuePair<string, string>> collection) : base(collection) { }
 
         public static KeyValuePair<string, string> Create(string key, string value) =>
-            new KeyValuePair<string, string>(key, value);
+            new(key, value);
     }
 }

@@ -173,7 +173,7 @@ namespace ServiceStack.OrmLite.SqlServer
             {
                 foreach (var fieldDef in modelDef.FieldDefinitions)
                 {
-                    if (fieldDef.CustomSelect != null || (fieldDef.IsComputed && !fieldDef.IsPersisted))
+                    if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
                         continue;
 
                     var columnDefinition = GetColumnDefinition(fieldDef);
@@ -234,7 +234,7 @@ namespace ServiceStack.OrmLite.SqlServer
             }
 
             var sql = $"CREATE TABLE {GetQuotedTableName(modelDef)} ";
-            sql += (fileTableAttrib != null)
+            sql += fileTableAttrib != null
                 ? $"\n AS FILETABLE{StringBuilderCache.ReturnAndFree(sbTableOptions)};"
                 : $"\n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n){StringBuilderCache.ReturnAndFree(sbTableOptions)}; \n";
 

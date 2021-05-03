@@ -36,7 +36,7 @@ namespace ServiceStack
 
     public class DynamicSByte : IDynamicNumber
     {
-        public static DynamicSByte Instance = new DynamicSByte();
+        public static DynamicSByte Instance = new();
         public Type Type => typeof(sbyte);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -80,7 +80,7 @@ namespace ServiceStack
 
     public class DynamicByte : IDynamicNumber
     {
-        public static DynamicByte Instance = new DynamicByte();
+        public static DynamicByte Instance = new();
         public Type Type => typeof(byte);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -124,7 +124,7 @@ namespace ServiceStack
 
     public class DynamicShort : IDynamicNumber
     {
-        public static DynamicShort Instance = new DynamicShort();
+        public static DynamicShort Instance = new();
         public Type Type => typeof(short);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -168,7 +168,7 @@ namespace ServiceStack
 
     public class DynamicUShort : IDynamicNumber
     {
-        public static DynamicUShort Instance = new DynamicUShort();
+        public static DynamicUShort Instance = new();
         public Type Type => typeof(ushort);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -212,7 +212,7 @@ namespace ServiceStack
 
     public class DynamicInt : IDynamicNumber
     {
-        public static DynamicInt Instance = new DynamicInt();
+        public static DynamicInt Instance = new();
         public Type Type => typeof(int);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -256,7 +256,7 @@ namespace ServiceStack
 
     public class DynamicUInt : IDynamicNumber
     {
-        public static DynamicUInt Instance = new DynamicUInt();
+        public static DynamicUInt Instance = new();
         public Type Type => typeof(uint);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -300,7 +300,7 @@ namespace ServiceStack
 
     public class DynamicLong : IDynamicNumber
     {
-        public static DynamicLong Instance = new DynamicLong();
+        public static DynamicLong Instance = new();
         public Type Type => typeof(long);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -344,7 +344,7 @@ namespace ServiceStack
 
     public class DynamicULong : IDynamicNumber
     {
-        public static DynamicULong Instance = new DynamicULong();
+        public static DynamicULong Instance = new();
         public Type Type => typeof(ulong);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -388,7 +388,7 @@ namespace ServiceStack
 
     public class DynamicFloat : IDynamicNumber
     {
-        public static DynamicFloat Instance = new DynamicFloat();
+        public static DynamicFloat Instance = new();
         public Type Type => typeof(float);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -432,7 +432,7 @@ namespace ServiceStack
 
     public class DynamicDouble : IDynamicNumber
     {
-        public static DynamicDouble Instance = new DynamicDouble();
+        public static DynamicDouble Instance = new();
         public Type Type => typeof(double);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -476,7 +476,7 @@ namespace ServiceStack
 
     public class DynamicDecimal : IDynamicNumber
     {
-        public static DynamicDecimal Instance = new DynamicDecimal();
+        public static DynamicDecimal Instance = new();
         public Type Type => typeof(decimal);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -520,8 +520,7 @@ namespace ServiceStack
 
     public static class DynamicNumber
     {
-        static readonly Dictionary<int, IDynamicNumber> RankNumbers = new Dictionary<int, IDynamicNumber>
-        {
+        static readonly Dictionary<int, IDynamicNumber> RankNumbers = new() {
             {1, DynamicSByte.Instance},
             {2, DynamicByte.Instance},
             {3, DynamicShort.Instance},

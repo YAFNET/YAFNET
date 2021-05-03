@@ -20,7 +20,7 @@ namespace ServiceStack.Text.Common
         where TSerializer : ITypeSerializer
     {
         private static Dictionary<Type, ParseArrayOfElementsDelegate> ParseDelegateCache
-            = new Dictionary<Type, ParseArrayOfElementsDelegate>();
+            = new();
 
         public delegate object ParseArrayOfElementsDelegate(ReadOnlySpan<char> value, ParseStringSpanDelegate parseFn);
 
@@ -108,7 +108,7 @@ namespace ServiceStack.Text.Common
     internal static class DeserializeArray<TSerializer>
         where TSerializer : ITypeSerializer
     {
-        private static Dictionary<Type, ParseStringSpanDelegate> ParseDelegateCache = new Dictionary<Type, ParseStringSpanDelegate>();
+        private static Dictionary<Type, ParseStringSpanDelegate> ParseDelegateCache = new();
 
         public static ParseStringDelegate GetParseFn(Type type) => v => GetParseStringSpanFn(type)(v.AsSpan());
 

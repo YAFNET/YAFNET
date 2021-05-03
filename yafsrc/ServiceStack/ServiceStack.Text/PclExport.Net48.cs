@@ -25,7 +25,7 @@ namespace ServiceStack
 {
     public class Net48PclExport : PclExport
     {
-        public static Net48PclExport Provider = new Net48PclExport();
+        public static Net48PclExport Provider = new();
 
         public Net48PclExport()
         {
@@ -678,7 +678,7 @@ namespace ServiceStack.Text.FastMember
     public abstract class TypeAccessor
     {
         // hash-table has better read-without-locking semantics than dictionary
-        private static readonly Hashtable typeLookyp = new Hashtable();
+        private static readonly Hashtable typeLookyp = new();
 
         /// <summary>
         /// Does this type support new instances via a parameterless constructor?
@@ -884,8 +884,8 @@ namespace ServiceStack.Text.FastMember
             ILGenerator il;
             if (!IsFullyPublic(type))
             {
-                DynamicMethod dynGetter = new DynamicMethod(type.FullName + "_get", typeof(object), new Type[] { typeof(object), typeof(string) }, type, true),
-                              dynSetter = new DynamicMethod(type.FullName + "_set", null, new Type[] { typeof(object), typeof(string), typeof(object) }, type, true);
+                DynamicMethod dynGetter = new(type.FullName + "_get", typeof(object), new Type[] { typeof(object), typeof(string) }, type, true),
+                              dynSetter = new(type.FullName + "_set", null, new Type[] { typeof(object), typeof(string), typeof(object) }, type, true);
                 WriteGetter(dynGetter.GetILGenerator(), type, props, fields, true);
                 WriteSetter(dynSetter.GetILGenerator(), type, props, fields, true);
                 DynamicMethod dynCtor = null;
@@ -905,7 +905,7 @@ namespace ServiceStack.Text.FastMember
             // note this region is synchronized; only one is being created at a time so we don't need to stress about the builders
             if (assembly == null)
             {
-                AssemblyName name = new AssemblyName("FastMember_dynamic");
+                AssemblyName name = new("FastMember_dynamic");
                 assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
                 module = assembly.DefineDynamicModule(name.Name);
             }

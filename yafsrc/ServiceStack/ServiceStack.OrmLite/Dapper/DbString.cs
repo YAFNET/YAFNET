@@ -77,7 +77,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 param.Size = Length;
             }
-            param.DbType = IsAnsi ? (IsFixedLength ? DbType.AnsiStringFixedLength : DbType.AnsiString) : (IsFixedLength ? DbType.StringFixedLength : DbType.String);
+            param.DbType = IsAnsi ? IsFixedLength ? DbType.AnsiStringFixedLength : DbType.AnsiString : IsFixedLength ? DbType.StringFixedLength : DbType.String;
             if (add)
             {
                 command.Parameters.Add(param);

@@ -556,7 +556,7 @@ namespace ServiceStack.Script
                         var lastExpr = varFragment.FilterExpressions?.LastOrDefault();
                         var filterName = lastExpr?.Name ??
                                          varFragment?.InitialExpression?.Name ?? varFragment.Binding;
-                        if ((filterName != null && context.RemoveNewLineAfterFiltersNamed.Contains(filterName))
+                        if (filterName != null && context.RemoveNewLineAfterFiltersNamed.Contains(filterName)
                             || expr is JsVariableDeclaration)
                         {
                             lastPos += newLineLen;
@@ -902,6 +902,6 @@ namespace ServiceStack.Script
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsWhiteSpace(this char c) =>
-            c == ' ' || (c >= '\x0009' && c <= '\x000d') || c == '\x00a0' || c == '\x0085';
+            c == ' ' || c >= '\x0009' && c <= '\x000d' || c == '\x00a0' || c == '\x0085';
     }
 }

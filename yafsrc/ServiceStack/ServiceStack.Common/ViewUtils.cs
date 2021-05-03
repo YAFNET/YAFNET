@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -20,7 +20,7 @@ namespace ServiceStack
     public class InputOptions
     {
         /// <summary>
-        /// Display the Control inline 
+        /// Display the Control inline
         /// </summary>
         public bool Inline { get; set; }
 
@@ -50,7 +50,7 @@ namespace ServiceStack
         public string Size { get; set; }
 
         /// <summary>
-        /// Multiple Value Data Source for Checkboxes, Radio boxes and Select Controls 
+        /// Multiple Value Data Source for Checkboxes, Radio boxes and Select Controls
         /// </summary>
         public object Values { get; set; }
 
@@ -148,8 +148,7 @@ namespace ServiceStack
                 CaptionIfEmpty = options.TryGetValue("captionIfEmpty", out var captionIfEmpty)
                     ? captionIfEmpty?.ToString()
                     : null,
-                IncludeRowNumbers = !options.TryGetValue("rowNumbers", out var rowNumbers)
-                    || (!(rowNumbers is bool b) || b),
+                IncludeRowNumbers = !options.TryGetValue("rowNumbers", out var rowNumbers) || rowNumbers is not bool b || b,
                 Defaults = defaults ?? ViewUtils.DefaultScripts,
             };
         }
@@ -298,12 +297,12 @@ namespace ServiceStack
         /// User Attributes for conditional rendering, e.g:
         ///  - auth - User is Authenticated
         ///  - role:name - User Role
-        ///  - perm:name - User Permission 
+        ///  - perm:name - User Permission
         /// </summary>
         public HashSet<string> Attributes { get; set; }
 
         /// <summary>
-        /// Path Info that should set as active 
+        /// Path Info that should set as active
         /// </summary>
         public string ActivePath { get; set; }
 
@@ -848,7 +847,7 @@ namespace ServiceStack
         }
 
         /// <summary>
-        /// Return an error for the specified field (if any)  
+        /// Return an error for the specified field (if any)
         /// </summary>
         public static string ErrorResponse(ResponseStatus errorStatus, string fieldName)
         {

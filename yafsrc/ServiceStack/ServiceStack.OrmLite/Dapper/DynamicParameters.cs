@@ -345,8 +345,8 @@ namespace ServiceStack.OrmLite.Dapper
             var lastMemberAccess = expression.Body as MemberExpression;
 
             if (lastMemberAccess == null
-                || (!(lastMemberAccess.Member is PropertyInfo)
-                    && !(lastMemberAccess.Member is FieldInfo)))
+                || !(lastMemberAccess.Member is PropertyInfo)
+                && !(lastMemberAccess.Member is FieldInfo))
             {
                 if (expression.Body.NodeType == ExpressionType.Convert
                     && expression.Body.Type == typeof(object)
@@ -382,8 +382,8 @@ namespace ServiceStack.OrmLite.Dapper
                     break;
                 }
                 else if (diving == null
-                    || (!(diving.Member is PropertyInfo)
-                        && !(diving.Member is FieldInfo)))
+                    || !(diving.Member is PropertyInfo)
+                    && !(diving.Member is FieldInfo))
                 {
                     @throw();
                 }
@@ -454,7 +454,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 // Finally, prep the parameter and attach the callback to it
                 var targetMemberType = lastMemberAccess?.Type;
-                int sizeToSet = (!size.HasValue && targetMemberType == typeof(string)) ? DbString.DefaultLength : size ?? 0;
+                int sizeToSet = !size.HasValue && targetMemberType == typeof(string) ? DbString.DefaultLength : size ?? 0;
 
                 if (parameters.TryGetValue(dynamicParamName, out ParamInfo parameter))
                 {
@@ -467,7 +467,7 @@ namespace ServiceStack.OrmLite.Dapper
                 }
                 else
                 {
-                    dbType = (!dbType.HasValue)
+                    dbType = !dbType.HasValue
 #pragma warning disable 618
                     ? SqlMapper.LookupDbType(targetMemberType, targetMemberType?.Name, true, out SqlMapper.ITypeHandler handler)
 #pragma warning restore 618

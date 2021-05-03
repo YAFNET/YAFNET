@@ -55,13 +55,13 @@ namespace ServiceStack
     public static class AutoMappingUtils
     {
         internal static readonly ConcurrentDictionary<Tuple<Type, Type>, GetMemberDelegate> converters
-            = new ConcurrentDictionary<Tuple<Type, Type>, GetMemberDelegate>();
+            = new();
 
         internal static readonly ConcurrentDictionary<Tuple<Type, Type>, PopulateMemberDelegate> populators
-            = new ConcurrentDictionary<Tuple<Type, Type>, PopulateMemberDelegate>();
+            = new();
 
         internal static readonly ConcurrentDictionary<Tuple<Type, Type>, bool> ignoreMappings
-            = new ConcurrentDictionary<Tuple<Type, Type>, bool>();
+            = new();
 
         public static void Reset()
         {
@@ -97,7 +97,7 @@ namespace ServiceStack
         }
 
         public static T ConvertTo<T>(this object from, T defaultValue) =>
-            from == null || (from is string s && s == string.Empty)
+            from == null || @from is string s && s == string.Empty
                 ? defaultValue
                 : from.ConvertTo<T>();
 
@@ -336,7 +336,7 @@ namespace ServiceStack
             return TypeSerializer.DeserializeFromString(strValue, type);
         }
 
-        private static readonly Dictionary<Type, List<string>> TypePropertyNamesMap = new Dictionary<Type, List<string>>();
+        private static readonly Dictionary<Type, List<string>> TypePropertyNamesMap = new();
 
         public static List<string> GetPropertyNames(this Type type)
         {
@@ -412,7 +412,7 @@ namespace ServiceStack
             return obj;
         }
 
-        private static Dictionary<Type, object> DefaultValueTypes = new Dictionary<Type, object>();
+        private static Dictionary<Type, object> DefaultValueTypes = new();
 
         public static object GetDefaultValue(this Type type)
         {
@@ -438,10 +438,10 @@ namespace ServiceStack
 
         public static bool IsDefaultValue(object value) => IsDefaultValue(value, value?.GetType());
         public static bool IsDefaultValue(object value, Type valueType) => value == null
-            || (valueType.IsValueType && value.Equals(valueType.GetDefaultValue()));
+            || valueType.IsValueType && value.Equals(valueType.GetDefaultValue());
 
         private static readonly ConcurrentDictionary<string, AssignmentDefinition> AssignmentDefinitionCache
-            = new ConcurrentDictionary<string, AssignmentDefinition>();
+            = new();
 
         internal static AssignmentDefinition GetAssignmentDefinition(Type toType, Type fromType)
         {
@@ -602,7 +602,7 @@ namespace ServiceStack
             }
             catch (Exception ex)
             {
-                var name = (fieldInfo != null) ? fieldInfo.Name : propertyInfo.Name;
+                var name = fieldInfo != null ? fieldInfo.Name : propertyInfo.Name;
                 Tracer.Instance.WriteDebug("Could not set member: {0}. Error: {1}", name, ex.Message);
             }
         }

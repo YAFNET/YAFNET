@@ -48,7 +48,7 @@ namespace ServiceStack
 
         public static Dictionary<string, object> AssignedValues<T>(this Expression<Func<T>> expr)
         {
-            if (!(expr?.Body is MemberInitExpression initExpr))
+            if (expr?.Body is not MemberInitExpression initExpr)
                 return null;
 
             var to = new Dictionary<string, object>();

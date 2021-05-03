@@ -17,7 +17,7 @@ namespace ServiceStack.Text
         private const string FileUri = "file:///";
         private const char UriSeperator = '/';
 
-        private static Dictionary<string, Type> TypeCache = new Dictionary<string, Type>();
+        private static Dictionary<string, Type> TypeCache = new();
 
         /// <summary>
         /// Find the type from the name supplied
@@ -112,7 +112,7 @@ namespace ServiceStack.Text
             return assemblyPath;
         }
 
-        static readonly Regex versionRegEx = new Regex(", Version=[^\\]]+", PclExport.Instance.RegexOptions);
+        static readonly Regex versionRegEx = new(", Version=[^\\]]+", PclExport.Instance.RegexOptions);
         public static string ToTypeString(this Type type)
         {
             return versionRegEx.Replace(type.AssemblyQualifiedName, "");

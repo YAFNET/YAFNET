@@ -10,22 +10,22 @@ namespace ServiceStack.Script
     /// Special block which evaluates the rendered body as a ServiceStack Template
     ///
     /// Usages: {{#eval}}emit {{evaluateBodyOfArg}} at {{now}} {{/eval}}
-    /// 
+    ///
     ///         {{#eval {scopeArg:1} }}
     ///             emit {{evaluateBodyOfArg}} at {{now}} with {{scopeArg}}
     ///         {{/eval}}
-    /// 
+    ///
     ///         {{#eval {htmlDecode:true} }}
     ///             emit htmldecoded {{evaluateBodyOfArg}} at {{now}}
     ///         {{/eval}}
-    /// 
+    ///
     ///         {{#eval {use:{methods:'ServiceStackScripts',plugins:['MarkdownScriptPlugin']} }}
     ///              emit {{evaluateBodyOfArg}} at {{now}} in new context
     ///         {{/eval}}
-    /// 
+    ///
     ///         {{#eval { use:{context:true} } }}
     ///              emit {{evaluateBodyOfArg}} in host context
-    ///         {{/eval}} 
+    ///         {{/eval}}
     /// </summary>
     public class EvalScriptBlock : ScriptBlock
     {
@@ -34,7 +34,7 @@ namespace ServiceStack.Script
 
         public override async Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
         {
-            var argValue = block.Argument.GetJsExpressionAndEvaluate(scope);
+            var argValue = await block.Argument.GetJsExpressionAndEvaluateAsync(scope);
             var args = argValue as Dictionary<string, object> ?? new Dictionary<string, object>();
 
             var format = scope.Context.PageFormats.First().Extension;

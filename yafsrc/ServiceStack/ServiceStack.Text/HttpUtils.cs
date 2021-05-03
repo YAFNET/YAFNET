@@ -1375,7 +1375,7 @@ namespace ServiceStack
 {
     public static class MimeTypes
     {
-        public static Dictionary<string, string> ExtensionMimeTypes = new Dictionary<string, string>();
+        public static Dictionary<string, string> ExtensionMimeTypes = new();
         public const string Utf8Suffix = "; charset=utf-8";
 
         public const string Html = "text/html";
@@ -1957,7 +1957,7 @@ namespace ServiceStack
         public const string Host = "Host";
         public const string UserAgent = "User-Agent";
 
-        public static HashSet<string> RestrictedHeaders = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        public static HashSet<string> RestrictedHeaders = new(StringComparer.OrdinalIgnoreCase)
         {
             Accept,
             Connection,
@@ -1990,7 +1990,7 @@ namespace ServiceStack
             "POLL",  "SUBSCRIBE", "UNSUBSCRIBE" //MS Exchange WebDav: http://msdn.microsoft.com/en-us/library/aa142917.aspx
         };
 
-        public static HashSet<string> AllVerbs = new HashSet<string>(allVerbs);
+        public static HashSet<string> AllVerbs = new(allVerbs);
 
         public static bool Exists(string httpMethod) => AllVerbs.Contains(httpMethod.ToUpper());
         public static bool HasVerb(string httpVerb) => Exists(httpVerb);

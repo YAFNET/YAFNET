@@ -41,7 +41,7 @@
 
         public static PooledObject<T> GetPooledObject<T>(this ObjectPool<T> pool) where T : class
         {
-            return new PooledObject<T>(pool, p => p.Allocate(), (p, o) => p.Free(o));
+            return new(pool, p => p.Allocate(), (p, o) => p.Free(o));
         }
 
         public static StringBuilder AllocateAndClear(this ObjectPool<StringBuilder> pool)

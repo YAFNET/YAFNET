@@ -262,13 +262,13 @@ namespace ServiceStack.OrmLite
 
         public bool IsRefField(FieldDefinition fieldDef)
         {
-            return (fieldDef.Alias != null && IsRefField(fieldDef.Alias))
+            return fieldDef.Alias != null && IsRefField(fieldDef.Alias)
                     || IsRefField(fieldDef.Name);
         }
 
         private bool IsRefField(string name)
         {
-            return (Alias != null && Alias + "Id" == name)
+            return Alias != null && Alias + "Id" == name
                     || Name + "Id" == name;
         }
 

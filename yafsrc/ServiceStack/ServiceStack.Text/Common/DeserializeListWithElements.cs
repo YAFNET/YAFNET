@@ -23,7 +23,7 @@ namespace ServiceStack.Text.Common
         internal static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
         private static Dictionary<Type, ParseListDelegate> ParseDelegateCache
-            = new Dictionary<Type, ParseListDelegate>();
+            = new();
 
         public delegate object ParseListDelegate(ReadOnlySpan<char> value, Type createListType, ParseStringSpanDelegate parseFn);
 
@@ -161,8 +161,8 @@ namespace ServiceStack.Text.Common
 
         public static ICollection<T> ParseGenericList(ReadOnlySpan<char> value, Type createListType, ParseStringSpanDelegate parseFn)
         {
-            var isReadOnly = createListType != null && (createListType.IsGenericType && createListType.GetGenericTypeDefinition() == typeof(ReadOnlyCollection<>));
-            var to = (createListType == null || isReadOnly)
+            var isReadOnly = createListType != null && createListType.IsGenericType && createListType.GetGenericTypeDefinition() == typeof(ReadOnlyCollection<>);
+            var to = createListType == null || isReadOnly
                 ? new List<T>()
                 : (ICollection<T>)createListType.CreateInstance();
 

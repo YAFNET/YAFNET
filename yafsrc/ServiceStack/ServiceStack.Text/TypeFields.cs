@@ -31,7 +31,7 @@ namespace ServiceStack
 
     public class TypeFields<T> : TypeFields
     {
-        public static readonly TypeFields<T> Instance = new TypeFields<T>();
+        public static readonly TypeFields<T> Instance = new();
 
         static TypeFields()
         {
@@ -70,7 +70,7 @@ namespace ServiceStack
 
     public abstract class TypeFields
     {
-        static Dictionary<Type, TypeFields> CacheMap = new Dictionary<Type, TypeFields>();
+        static Dictionary<Type, TypeFields> CacheMap = new();
 
         public static Type FactoryType = typeof(TypeFields<>);
 
@@ -107,7 +107,7 @@ namespace ServiceStack
         public Type Type { get; protected set; }
 
         public readonly Dictionary<string, FieldAccessor> FieldsMap =
-            new Dictionary<string, FieldAccessor>(PclExport.Instance.InvariantComparerIgnoreCase);
+            new(PclExport.Instance.InvariantComparerIgnoreCase);
 
         public FieldInfo[] PublicFieldInfos { get; protected set; }
 

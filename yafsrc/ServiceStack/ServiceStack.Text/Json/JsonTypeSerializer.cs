@@ -239,7 +239,7 @@ namespace ServiceStack.Text.Json
             if (boolValue == null)
                 writer.Write(JsonUtils.Null);
             else
-                writer.Write(((bool)boolValue) ? JsonUtils.True : JsonUtils.False);
+                writer.Write((bool)boolValue ? JsonUtils.True : JsonUtils.False);
         }
 
         public void WriteFloat(TextWriter writer, object floatValue)
@@ -667,7 +667,7 @@ namespace ServiceStack.Text.Json
 
                 if (valueChar == JsWriter.ItemSeperator
                     //If it doesn't have quotes it's either a keyword or number so also has a ws boundary
-                    || (JsonUtils.IsWhiteSpace(valueChar))
+                    || JsonUtils.IsWhiteSpace(valueChar)
                 )
                 {
                     break;

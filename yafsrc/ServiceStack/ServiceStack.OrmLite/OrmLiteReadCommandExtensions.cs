@@ -144,11 +144,10 @@ namespace ServiceStack.OrmLite
             if (value is SqlInValues inValues)
                 return inValues.GetValues();
 
-            return (value is IEnumerable enumerable &&
-                    !(enumerable is string ||
-                      enumerable is IEnumerable<KeyValuePair<string, object>> ||
-                      enumerable is byte[])
-            ) ? enumerable : null;
+            return value is IEnumerable enumerable &&
+                   !(enumerable is string ||
+                     enumerable is IEnumerable<KeyValuePair<string, object>> ||
+                     enumerable is byte[]) ? enumerable : null;
         }
 
         internal static IDbCommand SetParameters(this IDbCommand dbCmd, Dictionary<string, object> dict, bool excludeDefaults, ref string sql)

@@ -227,7 +227,7 @@ namespace ServiceStack.Text.Common
         {
             if (value.IsEmpty) return null;
 
-            var to = (createMapType == null)
+            var to = createMapType == null
                 ? new Dictionary<TKey, TValue>()
                 : (IDictionary<TKey, TValue>)createMapType.CreateInstance();
 
@@ -311,7 +311,7 @@ namespace ServiceStack.Text.Common
         }
 
         private static Dictionary<TypesKey, ParseDictionaryDelegate> ParseDelegateCache
-            = new Dictionary<TypesKey, ParseDictionaryDelegate>();
+            = new();
 
         private delegate object ParseDictionaryDelegate(ReadOnlySpan<char> value, Type createMapType,
             ParseStringSpanDelegate keyParseFn, ParseStringSpanDelegate valueParseFn);

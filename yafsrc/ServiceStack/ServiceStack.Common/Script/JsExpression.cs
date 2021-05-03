@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,7 +57,7 @@ namespace ServiceStack.Script
         public JsLiteral(object value) => Value = value;
         public override string ToRawString() => JsonValue(Value);
 
-        public override int GetHashCode() => (Value != null ? Value.GetHashCode() : 0);
+        public override int GetHashCode() => Value != null ? Value.GetHashCode() : 0;
         protected bool Equals(JsLiteral other) => Equals(Value, other.Value);
         public override bool Equals(object obj)
         {
@@ -92,7 +92,7 @@ namespace ServiceStack.Script
             {
                 if (element is JsSpreadElement spread)
                 {
-                    if (!(spread.Argument.Evaluate(scope) is IEnumerable arr))
+                    if (spread.Argument.Evaluate(scope) is not IEnumerable arr)
                         continue;
 
                     foreach (var value in arr)
@@ -157,7 +157,7 @@ namespace ServiceStack.Script
 
         public override int GetHashCode()
         {
-            return (Elements != null ? Elements.GetHashCode() : 0);
+            return Elements != null ? Elements.GetHashCode() : 0;
         }
     }
 
@@ -284,7 +284,7 @@ namespace ServiceStack.Script
 
         public override int GetHashCode()
         {
-            return (Properties != null ? Properties.GetHashCode() : 0);
+            return Properties != null ? Properties.GetHashCode() : 0;
         }
     }
 
@@ -321,7 +321,7 @@ namespace ServiceStack.Script
         {
             unchecked
             {
-                var hashCode = (Key != null ? Key.GetHashCode() : 0);
+                var hashCode = Key != null ? Key.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (Value != null ? Value.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Shorthand.GetHashCode();
                 return hashCode;
@@ -368,7 +368,7 @@ namespace ServiceStack.Script
 
         public override int GetHashCode()
         {
-            return (Argument != null ? Argument.GetHashCode() : 0);
+            return Argument != null ? Argument.GetHashCode() : 0;
         }
     }
 

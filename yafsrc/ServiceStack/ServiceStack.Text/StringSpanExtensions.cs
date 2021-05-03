@@ -31,7 +31,7 @@ namespace ServiceStack.Text
                 : obj;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsNullOrEmpty(this ReadOnlySpan<char> value) => value.IsEmpty || (value.Length == 1 && value[0] == TypeConstants.NonWidthWhiteSpace);
+        public static bool IsNullOrEmpty(this ReadOnlySpan<char> value) => value.IsEmpty || value.Length == 1 && value[0] == TypeConstants.NonWidthWhiteSpace;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNullOrWhiteSpace(this ReadOnlySpan<char> value) => value.IsNullOrEmpty() || value.IsWhiteSpace();
@@ -617,7 +617,7 @@ namespace ServiceStack.Text
         {
             if (value.IsEmpty) return TypeConstants.NullStringSpan;
             if (startIndex < 0) startIndex = 0;
-            if (value.Length >= (startIndex + length))
+            if (value.Length >= startIndex + length)
                 return value.Slice(startIndex, length);
 
             return value.Length > startIndex ? value.Slice(startIndex) : TypeConstants.NullStringSpan;

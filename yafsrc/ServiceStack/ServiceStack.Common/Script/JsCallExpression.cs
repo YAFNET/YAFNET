@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -111,7 +111,7 @@ namespace ServiceStack.Script
                         return JsObjectExpression.GetKey(memberExpr.Property);
 
                     var propValue = memberExpr.Property.Evaluate(scope);
-                    if (!(propValue is string s))
+                    if (propValue is not string s)
                         throw new NotSupportedException($"Expected string method name but was '{propValue?.GetType().Name ?? "null"}'");
                     return s;
                 }
@@ -267,7 +267,7 @@ namespace ServiceStack.Script
             {
                 if (arg is JsSpreadElement spread)
                 {
-                    if (!(spread.Argument.Evaluate(scope) is IEnumerable spreadValues))
+                    if (spread.Argument.Evaluate(scope) is not IEnumerable spreadValues)
                         continue;
                     foreach (var argValue in spreadValues)
                     {

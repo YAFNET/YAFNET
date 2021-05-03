@@ -12,7 +12,7 @@ namespace ServiceStack.Script
         public ReadOnlyMemory<char> OriginalText { get; set; }
 
         private ReadOnlyMemory<byte> originalTextUtf8;
-        public ReadOnlyMemory<byte> OriginalTextUtf8 => originalTextUtf8.IsEmpty ? (originalTextUtf8 = OriginalText.ToUtf8()) : OriginalTextUtf8;
+        public ReadOnlyMemory<byte> OriginalTextUtf8 => originalTextUtf8.IsEmpty ? originalTextUtf8 = OriginalText.ToUtf8() : OriginalTextUtf8;
 
         public JsToken Expression { get; }
 
@@ -97,7 +97,7 @@ namespace ServiceStack.Script
         public string ValueString => valueString ?? (valueString = Value.ToString());
 
         private ReadOnlyMemory<byte> valueUtf8;
-        public ReadOnlyMemory<byte> ValueUtf8 => valueUtf8.IsEmpty ? (valueUtf8 = Value.ToUtf8()) : valueUtf8;
+        public ReadOnlyMemory<byte> ValueUtf8 => valueUtf8.IsEmpty ? valueUtf8 = Value.ToUtf8() : valueUtf8;
 
         public PageStringFragment(string value) : this(value.AsMemory()) { }
         public PageStringFragment(ReadOnlyMemory<char> value) => Value = value;
@@ -177,7 +177,7 @@ namespace ServiceStack.Script
         {
             unchecked
             {
-                var hashCode = (Name != null ? Name.GetHashCode() : 0);
+                var hashCode = Name != null ? Name.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ Argument.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Body != null ? Body.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (ElseBlocks != null ? ElseBlocks.GetHashCode() : 0);
@@ -254,7 +254,7 @@ namespace ServiceStack.Script
 
         public override int GetHashCode()
         {
-            return (Block != null ? Block.GetHashCode() : 0);
+            return Block != null ? Block.GetHashCode() : 0;
         }
     }
 

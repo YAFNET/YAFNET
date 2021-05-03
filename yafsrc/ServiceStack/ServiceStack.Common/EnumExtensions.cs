@@ -67,13 +67,13 @@ namespace ServiceStack
             switch (typeCode)
             {
                 case TypeCode.Byte:
-                    return (((byte)(object)@enum & (byte)(object)value) == (byte)(object)value);
+                    return ((byte)(object)@enum & (byte)(object)value) == (byte)(object)value;
                 case TypeCode.Int16:
-                    return (((short)(object)@enum & (short)(object)value) == (short)(object)value);
+                    return ((short)(object)@enum & (short)(object)value) == (short)(object)value;
                 case TypeCode.Int32:
-                    return (((int)(object)@enum & (int)(object)value) == (int)(object)value);
+                    return ((int)(object)@enum & (int)(object)value) == (int)(object)value;
                 case TypeCode.Int64:
-                    return (((long)(object)@enum & (long)(object)value) == (long)(object)value);
+                    return ((long)(object)@enum & (long)(object)value) == (long)(object)value;
                 default:
                     throw new NotSupportedException($"Enums of type {@enum.GetType().Name}");
             }

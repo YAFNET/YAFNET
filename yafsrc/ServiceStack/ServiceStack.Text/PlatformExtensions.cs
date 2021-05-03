@@ -167,7 +167,7 @@ namespace ServiceStack
             return hasAttr;
         }
 
-        private static readonly ConcurrentDictionary<Tuple<MemberInfo, Type>, bool> hasAttributeOfCache = new ConcurrentDictionary<Tuple<MemberInfo, Type>, bool>();
+        private static readonly ConcurrentDictionary<Tuple<MemberInfo, Type>, bool> hasAttributeOfCache = new();
         public static bool HasAttributeOfCached<T>(this MemberInfo memberInfo)
         {
             var key = new Tuple<MemberInfo, Type>(memberInfo, typeof(T));
@@ -632,7 +632,7 @@ namespace ServiceStack
                ?? (type.BaseType != null && type.BaseType != typeof(object) ? type.BaseType.GetCollectionType() : null); //e.g. ArrayOfString : List<string>
         }
 
-        static Dictionary<string, Type> GenericTypeCache = new Dictionary<string, Type>();
+        static Dictionary<string, Type> GenericTypeCache = new();
 
         public static Type GetCachedGenericType(this Type type, params Type[] argTypes)
         {
@@ -674,13 +674,13 @@ namespace ServiceStack
         }
 
         private static readonly ConcurrentDictionary<Type, ObjectDictionaryDefinition> toObjectMapCache =
-            new ConcurrentDictionary<Type, ObjectDictionaryDefinition>();
+            new();
 
         internal class ObjectDictionaryDefinition
         {
             public Type Type;
-            public readonly List<ObjectDictionaryFieldDefinition> Fields = new List<ObjectDictionaryFieldDefinition>();
-            public readonly Dictionary<string, ObjectDictionaryFieldDefinition> FieldsMap = new Dictionary<string, ObjectDictionaryFieldDefinition>();
+            public readonly List<ObjectDictionaryFieldDefinition> Fields = new();
+            public readonly Dictionary<string, ObjectDictionaryFieldDefinition> FieldsMap = new();
 
             public void Add(string name, ObjectDictionaryFieldDefinition fieldDef)
             {

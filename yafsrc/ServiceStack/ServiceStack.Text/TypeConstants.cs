@@ -27,13 +27,13 @@ namespace ServiceStack
         public static readonly Task<bool> FalseTask;
         public static readonly Task<object> EmptyTask;
 
-        public static readonly object EmptyObject = new object();
+        public static readonly object EmptyObject = new();
 
         public const char NonWidthWhiteSpace = (char)0x200B; //Use zero-width space marker to capture empty string
         public static char[] NonWidthWhiteSpaceChars = { (char)0x200B };
 
         public static ReadOnlySpan<char> NullStringSpan => default;
-        public static ReadOnlySpan<char> EmptyStringSpan => new ReadOnlySpan<char>(NonWidthWhiteSpaceChars);
+        public static ReadOnlySpan<char> EmptyStringSpan => new(NonWidthWhiteSpaceChars);
 
         public static ReadOnlyMemory<char> NullStringMemory => default;
         public static ReadOnlyMemory<char> EmptyStringMemory => "".AsMemory();
@@ -51,25 +51,25 @@ namespace ServiceStack
 
         public static readonly byte[][] EmptyByteArrayArray = new byte[0][];
 
-        public static readonly Dictionary<string, string> EmptyStringDictionary = new Dictionary<string, string>(0);
-        public static readonly Dictionary<string, object> EmptyObjectDictionary = new Dictionary<string, object>();
+        public static readonly Dictionary<string, string> EmptyStringDictionary = new(0);
+        public static readonly Dictionary<string, object> EmptyObjectDictionary = new();
 
-        public static readonly List<string> EmptyStringList = new List<string>(0);
-        public static readonly List<long> EmptyLongList = new List<long>(0);
-        public static readonly List<int> EmptyIntList = new List<int>(0);
-        public static readonly List<char> EmptyCharList = new List<char>(0);
-        public static readonly List<bool> EmptyBoolList = new List<bool>(0);
-        public static readonly List<byte> EmptyByteList = new List<byte>(0);
-        public static readonly List<object> EmptyObjectList = new List<object>(0);
-        public static readonly List<Type> EmptyTypeList = new List<Type>(0);
-        public static readonly List<FieldInfo> EmptyFieldInfoList = new List<FieldInfo>(0);
-        public static readonly List<PropertyInfo> EmptyPropertyInfoList = new List<PropertyInfo>(0);
+        public static readonly List<string> EmptyStringList = new(0);
+        public static readonly List<long> EmptyLongList = new(0);
+        public static readonly List<int> EmptyIntList = new(0);
+        public static readonly List<char> EmptyCharList = new(0);
+        public static readonly List<bool> EmptyBoolList = new(0);
+        public static readonly List<byte> EmptyByteList = new(0);
+        public static readonly List<object> EmptyObjectList = new(0);
+        public static readonly List<Type> EmptyTypeList = new(0);
+        public static readonly List<FieldInfo> EmptyFieldInfoList = new(0);
+        public static readonly List<PropertyInfo> EmptyPropertyInfoList = new(0);
     }
 
     public static class TypeConstants<T>
     {
         public static readonly T[] EmptyArray = new T[0];
-        public static readonly List<T> EmptyList = new List<T>(0);
-        public static readonly HashSet<T> EmptyHashSet = new HashSet<T>();
+        public static readonly List<T> EmptyList = new(0);
+        public static readonly HashSet<T> EmptyHashSet = new();
     }
 }

@@ -96,7 +96,7 @@ namespace ServiceStack.OrmLite.Dapper
                 public override Type ComponentType => typeof(DapperRow);
                 public override Type PropertyType => _type;
                 public override object GetValue(object component)
-                    => ((DapperRow)component).TryGetValue(_index, out var val) ? (val ?? DBNull.Value) : DBNull.Value;
+                    => ((DapperRow)component).TryGetValue(_index, out var val) ? val ?? DBNull.Value : DBNull.Value;
                 public override void SetValue(object component, object value)
                     => ((DapperRow)component).SetValue(_index, value is DBNull ? null : value);
             }

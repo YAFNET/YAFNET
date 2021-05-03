@@ -32,7 +32,7 @@ namespace ServiceStack.Script
 
             var collection = cache.Source.Evaluate(scope, out var syncResult, out var asyncResult)
                 ? (IEnumerable)syncResult
-                : (IEnumerable)(await asyncResult.ConfigAwait());
+                : (IEnumerable)await asyncResult.ConfigAwait();
 
             var index = 0;
             if (collection != null)
@@ -43,7 +43,7 @@ namespace ServiceStack.Script
                     var filteredResults = new List<Dictionary<string, object>>();
                     foreach (var element in collection)
                     {
-                        // Add all properties into scope if called without explicit in argument 
+                        // Add all properties into scope if called without explicit in argument
                         var scopeArgs = !cache.HasExplicitBinding && CanExportScopeArgs(element)
                             ? element.ToObjectDictionary()
                             : new Dictionary<string, object>();
@@ -108,7 +108,7 @@ namespace ServiceStack.Script
                 {
                     foreach (var element in collection)
                     {
-                        // Add all properties into scope if called without explicit in argument 
+                        // Add all properties into scope if called without explicit in argument
                         var scopeArgs = !cache.HasExplicitBinding && CanExportScopeArgs(element)
                             ? element.ToObjectDictionary()
                             : new Dictionary<string, object>();
@@ -138,13 +138,13 @@ namespace ServiceStack.Script
 
             literal = literal.AdvancePastWhitespace();
 
-            JsToken source, where, orderBy, orderByDescending, skip, take;
-            where = orderBy = orderByDescending = skip = take = null;
+            JsToken source, orderBy, orderByDescending, skip, take;
+            JsToken where = orderBy = orderByDescending = skip = take = null;
 
             var hasExplicitBinding = literal.StartsWith("in ");
             if (hasExplicitBinding)
             {
-                if (!(token is JsIdentifier identifier))
+                if (token is not JsIdentifier identifier)
                     throw new NotSupportedException($"'each' block expected identifier but was {token.DebugToken()}");
 
                 binding = identifier.Name;

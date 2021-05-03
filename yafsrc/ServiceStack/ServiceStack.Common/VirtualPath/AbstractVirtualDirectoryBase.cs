@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using ServiceStack.IO;
@@ -120,7 +120,7 @@ namespace ServiceStack.VirtualPath
 
         public override bool Equals(object obj)
         {
-            if (!(obj is AbstractVirtualDirectoryBase other))
+            if (obj is not AbstractVirtualDirectoryBase other)
                 return false;
 
             return other.VirtualPath == this.VirtualPath;

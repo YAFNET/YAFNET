@@ -32,7 +32,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public virtual IDictionary Items
         {
-            get => GetItems() ?? (CreateItems());
+            get => GetItems() ?? CreateItems();
             set => CreateItems(value);
         }
 

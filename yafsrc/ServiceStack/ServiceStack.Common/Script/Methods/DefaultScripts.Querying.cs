@@ -188,7 +188,7 @@ namespace ServiceStack.Script
             var items = target.AssertEnumerable(nameof(reduce));
             Type itemType = null;
 
-            if (!(expression is JsArrowFunctionExpression arrowExpr))
+            if (expression is not JsArrowFunctionExpression arrowExpr)
                 throw new NotSupportedException($"{nameof(reduce)} expects an arrow expression but was instead '{expression.GetType().Name}'");
 
             if (arrowExpr.Params.Length != 2)
@@ -202,7 +202,7 @@ namespace ServiceStack.Script
 
             var accumulator = scopedParams.TryGetValue("initialValue", out object initialValue)
                 ? initialValue.ConvertTo<double>()
-                : !(scopeOptions is IDictionary)
+                : scopeOptions is not IDictionary
                     ? scopeOptions.ConvertTo<double>()
                     : 0;
 
@@ -283,11 +283,11 @@ namespace ServiceStack.Script
             return to;
         }
 
-        private void _flatten(List<object> to, object target, int depth)
+        private void _flatten(ICollection<object> to, object target, int depth)
         {
             if (target != null)
             {
-                if (!(target is string) && !(target is IDictionary) && target is IEnumerable objs)
+                if (target is not string && target is not IDictionary && target is IEnumerable objs)
                 {
                     foreach (var o in objs)
                     {
@@ -360,7 +360,7 @@ namespace ServiceStack.Script
                         foreach (var entry in scopedParams)
                         {
                             var bindTo = entry.Key;
-                            if (!(entry.Value is string bindToLiteral))
+                            if (entry.Value is not string bindToLiteral)
                                 throw new NotSupportedException($"'{nameof(let)}' in '{scope.Page.VirtualPath}' expects a string Expression for its value but received '{entry.Value}' instead");
 
                             bindToLiteral.ParseJsExpression(out JsToken token);
@@ -556,7 +556,7 @@ namespace ServiceStack.Script
             var comparer = (IComparer<object>)Comparer<object>.Default;
             if (scopedParams.TryGetValue(ScriptConstants.Comparer, out object oComparer))
             {
-                if (!(oComparer is IComparer nonGenericComparer))
+                if (oComparer is not IComparer nonGenericComparer)
                     throw new NotSupportedException(
                         $"'{filterName}' in '{scope.Page.VirtualPath}' expects a IComparer but received a '{oComparer.GetType()?.Name}' instead");
                 comparer = new ComparerWrapper(nonGenericComparer);
@@ -581,7 +581,7 @@ namespace ServiceStack.Script
 
         public static IEnumerable<object> thenByInternal(string filterName, ScriptScopeContext scope, object target, object expression, object scopeOptions)
         {
-            if (!(target is IOrderedEnumerable<object> items))
+            if (target is not IOrderedEnumerable<object> items)
                 throw new NotSupportedException($"'{filterName}' in '{scope.Page.VirtualPath}' requires an IOrderedEnumerable but received a '{target?.GetType()?.Name}' instead");
 
             var expr = scope.AssertExpression(filterName, expression, scopeOptions, out var itemBinding);
@@ -621,7 +621,7 @@ namespace ServiceStack.Script
 
                 if (comparer == null)
                 {
-                    if (!(oComparer is IEqualityComparer nonGenericComparer))
+                    if (oComparer is not IEqualityComparer nonGenericComparer)
                         throw new NotSupportedException(
                             $"'{nameof(groupBy)}' in '{scope.Page.VirtualPath}' expects a IEqualityComparer but received a '{oComparer.GetType()?.Name}' instead");
                     comparer = new EqualityComparerWrapper(nonGenericComparer);

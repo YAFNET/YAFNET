@@ -38,7 +38,7 @@ namespace ServiceStack.Text
 
         public static JsConfigScope BeginScope()
         {
-            return new JsConfigScope(); //Populated with Config.Instance
+            return new(); //Populated with Config.Instance
         }
 
         public static JsConfigScope CreateScope(string config, JsConfigScope scope = null)
@@ -55,7 +55,7 @@ namespace ServiceStack.Text
                 var parts = item.SplitOnFirst(':');
                 var key = parts[0].ToLower();
                 var value = parts.Length == 2 ? parts[1].ToLower() : null;
-                var boolValue = parts.Length == 1 || (value != "false" && value != "0");
+                var boolValue = parts.Length == 1 || value != "false" && value != "0";
 
                 switch (key)
                 {
@@ -229,7 +229,7 @@ namespace ServiceStack.Text
             return scope;
         }
 
-        public static UTF8Encoding UTF8Encoding { get; set; } = new UTF8Encoding(false);
+        public static UTF8Encoding UTF8Encoding { get; set; } = new(false);
 
         public static JsConfigScope With(Config config) => (JsConfigScope)new JsConfigScope().Populate(config);
 
@@ -269,8 +269,7 @@ namespace ServiceStack.Text
             string[] excludePropertyReferences = null,
             bool? useSystemParseMethods = null) //Unused
         {
-            return new JsConfigScope
-            {
+            return new() {
                 ConvertObjectTypesIntoStringDictionary = convertObjectTypesIntoStringDictionary ?? Config.Instance.ConvertObjectTypesIntoStringDictionary,
                 TryToParsePrimitiveTypeValues = tryToParsePrimitiveTypeValues ?? Config.Instance.TryToParsePrimitiveTypeValues,
                 TryToParseNumericType = tryToParseNumericType ?? Config.Instance.TryToParseNumericType,
@@ -585,11 +584,11 @@ namespace ServiceStack.Text
             set => Config.AssertNotInit().OnDeserializationError = value;
         }
 
-        internal static HashSet<Type> HasSerializeFn = new HashSet<Type>();
+        internal static HashSet<Type> HasSerializeFn = new();
 
-        internal static HashSet<Type> HasIncludeDefaultValue = new HashSet<Type>();
+        internal static HashSet<Type> HasIncludeDefaultValue = new();
 
-        public static HashSet<Type> TreatValueAsRefTypes = new HashSet<Type>();
+        public static HashSet<Type> TreatValueAsRefTypes = new();
 
         /// <summary>
         /// If set to true, Interface types will be preferred over concrete types when serializing.
@@ -727,7 +726,7 @@ namespace ServiceStack.Text
             methodInfo.Invoke(null, null);
         }
 
-        internal static HashSet<Type> __uniqueTypes = new HashSet<Type>();
+        internal static HashSet<Type> __uniqueTypes = new();
         internal static int __uniqueTypesCount = 0;
 
         internal static void AddUniqueType(Type type)

@@ -179,14 +179,14 @@ namespace ServiceStack
         private static string UseCorrectInvokerErrorMessage(MethodInfo method)
         {
             var invokerName = method.ReturnType == typeof(void)
-                ? (method.IsStatic ? nameof(GetStaticActionInvoker) : nameof(GetActionInvoker))
-                : (method.IsStatic ? nameof(GetStaticInvoker) : nameof(GetInvoker));
+                ? method.IsStatic ? nameof(GetStaticActionInvoker) : nameof(GetActionInvoker)
+                : method.IsStatic ? nameof(GetStaticInvoker) : nameof(GetInvoker);
             var invokerType = method.ReturnType == typeof(void)
-                ? (method.IsStatic ? nameof(StaticMethodInvoker) : nameof(MethodInvoker))
-                : (method.IsStatic ? nameof(StaticActionInvoker) : nameof(ActionInvoker));
+                ? method.IsStatic ? nameof(StaticMethodInvoker) : nameof(MethodInvoker)
+                : method.IsStatic ? nameof(StaticActionInvoker) : nameof(ActionInvoker);
             var methodType = method.ReturnType == typeof(void)
-                ? (method.IsStatic ? "static void methods" : "instance void methods")
-                : (method.IsStatic ? "static methods" : "instance methods");
+                ? method.IsStatic ? "static void methods" : "instance void methods"
+                : method.IsStatic ? "static methods" : "instance methods";
             return $"Use {invokerName} to create a {invokerType} for invoking {methodType}";
         }
 

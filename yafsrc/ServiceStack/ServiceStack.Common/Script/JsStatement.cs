@@ -29,7 +29,7 @@ namespace ServiceStack.Script
             return Equals((JsFilterExpressionStatement)obj);
         }
 
-        public override int GetHashCode() => (FilterExpression != null ? FilterExpression.GetHashCode() : 0);
+        public override int GetHashCode() => FilterExpression != null ? FilterExpression.GetHashCode() : 0;
     }
 
     public class JsBlockStatement : JsStatement
@@ -48,7 +48,7 @@ namespace ServiceStack.Script
             return Equals((JsBlockStatement)obj);
         }
 
-        public override int GetHashCode() => (Statements != null ? Statements.GetHashCode() : 0);
+        public override int GetHashCode() => Statements != null ? Statements.GetHashCode() : 0;
     }
 
     public class JsExpressionStatement : JsStatement
@@ -66,7 +66,7 @@ namespace ServiceStack.Script
             return Equals((JsExpressionStatement)obj);
         }
 
-        public override int GetHashCode() => (Expression != null ? Expression.GetHashCode() : 0);
+        public override int GetHashCode() => Expression != null ? Expression.GetHashCode() : 0;
     }
 
     public class JsPageBlockFragmentStatement : JsStatement
@@ -84,6 +84,6 @@ namespace ServiceStack.Script
             return Equals((JsPageBlockFragmentStatement)obj);
         }
 
-        public override int GetHashCode() => (Block != null ? Block.GetHashCode() : 0);
+        public override int GetHashCode() => Block != null ? Block.GetHashCode() : 0;
     }
 }

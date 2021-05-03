@@ -180,7 +180,7 @@ namespace ServiceStack.Text
         public bool EscapeUnicode { get; set; }
         public bool EscapeHtmlChars { get; set; }
 
-        public static Config Defaults => new Config(null)
+        public static Config Defaults => new(null)
         {
             ConvertObjectTypesIntoStringDictionary = false,
             TryToParsePrimitiveTypeValues = false,

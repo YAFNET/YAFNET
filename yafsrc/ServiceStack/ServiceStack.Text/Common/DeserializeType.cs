@@ -196,7 +196,7 @@ namespace ServiceStack.Text.Common
             {
                 // check that we have RFC1123 date:
                 // ddd, dd MMM yyyy HH:mm:ss GMT
-                if (value.Length == 29 && (value.EndsWithInvariant("GMT")))
+                if (value.Length == 29 && value.EndsWithInvariant("GMT"))
                 {
                     return DateTimeSerializer.ParseRFC1123DateTime(value);
                 }
@@ -231,7 +231,7 @@ namespace ServiceStack.Text.Common
                     ? ParseQuotedPrimitive(value)
                     : ParsePrimitive(value);
             }
-            return (ParsePrimitive(value) ?? ParseQuotedPrimitive(value));
+            return ParsePrimitive(value) ?? ParseQuotedPrimitive(value);
         }
     }
 
@@ -314,8 +314,7 @@ namespace ServiceStack.Text.Common
 
         public static TypeAccessor Create(ITypeSerializer serializer, TypeConfig typeConfig, PropertyInfo propertyInfo)
         {
-            return new TypeAccessor
-            {
+            return new() {
                 PropertyType = propertyInfo.PropertyType,
                 GetProperty = GetPropertyMethod(serializer, propertyInfo),
                 SetProperty = GetSetPropertyMethod(typeConfig, propertyInfo),
@@ -329,8 +328,8 @@ namespace ServiceStack.Text.Common
                 propertyInfo.PropertyType.HasInterface(typeof(IEnumerable<object>)))
             {
                 var declaringTypeNamespace = propertyInfo.DeclaringType?.Namespace;
-                if (declaringTypeNamespace == null || (!JsConfig.AllowRuntimeTypeInTypesWithNamespaces.Contains(declaringTypeNamespace)
-                    && !JsConfig.AllowRuntimeTypeInTypes.Contains(propertyInfo.DeclaringType.FullName)))
+                if (declaringTypeNamespace == null || !JsConfig.AllowRuntimeTypeInTypesWithNamespaces.Contains(declaringTypeNamespace)
+                    && !JsConfig.AllowRuntimeTypeInTypes.Contains(propertyInfo.DeclaringType.FullName))
                 {
                     return value =>
                     {
@@ -383,8 +382,7 @@ namespace ServiceStack.Text.Common
 
         public static TypeAccessor Create(ITypeSerializer serializer, TypeConfig typeConfig, FieldInfo fieldInfo)
         {
-            return new TypeAccessor
-            {
+            return new() {
                 PropertyType = fieldInfo.FieldType,
                 GetProperty = serializer.GetParseStringSpanFn(fieldInfo.FieldType),
                 SetProperty = GetSetFieldMethod(typeConfig, fieldInfo),

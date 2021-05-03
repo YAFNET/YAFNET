@@ -365,7 +365,7 @@ namespace ServiceStack.IO
         public DateTime FileLastModified { get; set; }
         public override DateTime LastModified => FileLastModified;
 
-        public override long Length => (ByteContents?.Length ?? 0);
+        public override long Length => ByteContents?.Length ?? 0;
 
         private string textContents;
         public string TextContents

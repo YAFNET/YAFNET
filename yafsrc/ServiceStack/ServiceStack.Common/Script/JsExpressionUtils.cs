@@ -173,7 +173,7 @@ namespace ServiceStack.Script
                 {
                     var char1 = peekLiteral[0];
                     var char2 = peekLiteral[1];
-                    if ((char1 == '|' && char2 != '|') || (char1 == '}' && char2 == '}'))
+                    if (char1 == '|' && char2 != '|' || char1 == '}' && char2 == '}')
                     {
                         token = node;
                         return peekLiteral;
@@ -256,7 +256,7 @@ namespace ServiceStack.Script
                     while (true)
                     {
                         literal = literal.AdvancePastWhitespace();
-                        if (filterExpression && literal.Length > 2 && (literal[0] == '|' && literal[1] != '|'))
+                        if (filterExpression && literal.Length > 2 && literal[0] == '|' && literal[1] != '|')
                         {
                             break;
                         }
@@ -265,7 +265,7 @@ namespace ServiceStack.Script
                         if (prec == 0)
                             break;
 
-                        while ((stack.Count > 2) && prec <= precedences[precedences.Count - 1])
+                        while (stack.Count > 2 && prec <= precedences[precedences.Count - 1])
                         {
                             rhs = stack.Pop();
                             var operand = (JsBinaryOperator)stack.Pop();

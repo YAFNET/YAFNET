@@ -96,7 +96,7 @@ namespace ServiceStack.Text.Common
         }
 
         private static Dictionary<string, ParseKeyValuePairDelegate> ParseDelegateCache
-            = new Dictionary<string, ParseKeyValuePairDelegate>();
+            = new();
 
         private delegate object ParseKeyValuePairDelegate(ReadOnlySpan<char> value, Type createMapType,
             ParseStringSpanDelegate keyParseFn, ParseStringSpanDelegate valueParseFn);

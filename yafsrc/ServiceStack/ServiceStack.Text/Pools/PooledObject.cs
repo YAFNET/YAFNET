@@ -42,32 +42,32 @@
         #region factory
         public static PooledObject<StringBuilder> Create(ObjectPool<StringBuilder> pool)
         {
-            return new PooledObject<StringBuilder>(pool, Allocator, Releaser);
+            return new(pool, Allocator, Releaser);
         }
 
         public static PooledObject<Stack<TItem>> Create<TItem>(ObjectPool<Stack<TItem>> pool)
         {
-            return new PooledObject<Stack<TItem>>(pool, Allocator, Releaser);
+            return new(pool, Allocator, Releaser);
         }
 
         public static PooledObject<Queue<TItem>> Create<TItem>(ObjectPool<Queue<TItem>> pool)
         {
-            return new PooledObject<Queue<TItem>>(pool, Allocator, Releaser);
+            return new(pool, Allocator, Releaser);
         }
 
         public static PooledObject<HashSet<TItem>> Create<TItem>(ObjectPool<HashSet<TItem>> pool)
         {
-            return new PooledObject<HashSet<TItem>>(pool, Allocator, Releaser);
+            return new(pool, Allocator, Releaser);
         }
 
         public static PooledObject<Dictionary<TKey, TValue>> Create<TKey, TValue>(ObjectPool<Dictionary<TKey, TValue>> pool)
         {
-            return new PooledObject<Dictionary<TKey, TValue>>(pool, Allocator, Releaser);
+            return new(pool, Allocator, Releaser);
         }
 
         public static PooledObject<List<TItem>> Create<TItem>(ObjectPool<List<TItem>> pool)
         {
-            return new PooledObject<List<TItem>>(pool, Allocator, Releaser);
+            return new(pool, Allocator, Releaser);
         }
         #endregion
 

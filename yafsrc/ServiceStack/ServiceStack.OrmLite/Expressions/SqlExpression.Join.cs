@@ -263,7 +263,7 @@ namespace ServiceStack.OrmLite
 
         public string SelectInto<TModel>()
         {
-            if ((CustomSelect && OnlyFields == null) || (typeof(TModel) == typeof(T) && !PrefixFieldWithTableName))
+            if (CustomSelect && OnlyFields == null || typeof(TModel) == typeof(T) && !PrefixFieldWithTableName)
             {
                 return ToSelectStatement();
             }

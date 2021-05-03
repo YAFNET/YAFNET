@@ -77,7 +77,7 @@ namespace ServiceStack.Text.Common
         }
 
         private static Dictionary<Type, ParseCollectionDelegate> ParseDelegateCache
-            = new Dictionary<Type, ParseCollectionDelegate>();
+            = new();
 
         private delegate object ParseCollectionDelegate(ReadOnlySpan<char> value, Type createType, ParseStringSpanDelegate parseFn);
 

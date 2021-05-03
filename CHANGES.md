@@ -1,6 +1,11 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.1.15
+* [NEW] Added Page Title template option
+* [NEW] Added New Admin Page for managing Attachments
+* [NEW] Added New Admin Page for managing Topic Tags
+ 
 # YetAnotherForum.NET v2.3.1.14
 * added board name to page title
 * [FIXED] Add topic tag to new topic

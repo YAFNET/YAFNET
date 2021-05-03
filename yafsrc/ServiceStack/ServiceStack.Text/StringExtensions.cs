@@ -214,10 +214,10 @@ namespace ServiceStack
                 var number = (int)array[i];
 
                 if (number >= 'a' && number <= 'z')
-                    number += (number > 'm') ? -13 : 13;
+                    number += number > 'm' ? -13 : 13;
 
                 else if (number >= 'A' && number <= 'Z')
-                    number += (number > 'M') ? -13 : 13;
+                    number += number > 'M' ? -13 : 13;
 
                 array[i] = (char)number;
             }
@@ -679,7 +679,7 @@ namespace ServiceStack
             return fromText.Substring(startPos, endPos - startPos);
         }
 
-        static readonly Regex StripHtmlRegEx = new Regex(@"<(.|\n)*?>", PclExport.Instance.RegexOptions);
+        static readonly Regex StripHtmlRegEx = new(@"<(.|\n)*?>", PclExport.Instance.RegexOptions);
 
         public static string StripHtml(this string html)
         {
@@ -697,15 +697,15 @@ namespace ServiceStack
         {
             return string.IsNullOrEmpty(text) || text.Length < 2
                 ? text
-                : (text[0] == '"' && text[text.Length - 1] == '"') ||
-                  (text[0] == '\'' && text[text.Length - 1] == '\'') ||
-                  (text[0] == '`' && text[text.Length - 1] == '`')
+                : text[0] == '"' && text[text.Length - 1] == '"' ||
+                  text[0] == '\'' && text[text.Length - 1] == '\'' ||
+                  text[0] == '`' && text[text.Length - 1] == '`'
                     ? text.Substring(1, text.Length - 2)
                     : text;
         }
 
-        static readonly Regex StripBracketsRegEx = new Regex(@"\[(.|\n)*?\]", PclExport.Instance.RegexOptions);
-        static readonly Regex StripBracesRegEx = new Regex(@"\((.|\n)*?\)", PclExport.Instance.RegexOptions);
+        static readonly Regex StripBracketsRegEx = new(@"\[(.|\n)*?\]", PclExport.Instance.RegexOptions);
+        static readonly Regex StripBracesRegEx = new(@"\((.|\n)*?\)", PclExport.Instance.RegexOptions);
 
         public static string StripMarkdownMarkup(this string markdown)
         {
@@ -786,7 +786,7 @@ namespace ServiceStack
             var sb = StringBuilderThreadStatic.Allocate();
             foreach (char t in value)
             {
-                if (char.IsDigit(t) || (char.IsLetter(t) && char.IsLower(t)) || t == '_')
+                if (char.IsDigit(t) || char.IsLetter(t) && char.IsLower(t) || t == '_')
                 {
                     sb.Append(t);
                 }
@@ -819,7 +819,7 @@ namespace ServiceStack
         {
             if (String.IsNullOrEmpty(value) || length <= 0) return Empty;
             if (startIndex < 0) startIndex = 0;
-            if (value.Length >= (startIndex + length))
+            if (value.Length >= startIndex + length)
                 return value.Substring(startIndex, length);
 
             return value.Length > startIndex ? value.Substring(startIndex) : Empty;

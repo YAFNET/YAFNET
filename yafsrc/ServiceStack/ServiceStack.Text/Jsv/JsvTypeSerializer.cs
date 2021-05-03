@@ -29,7 +29,7 @@ namespace ServiceStack.Text.Jsv
 
         public WriteObjectDelegate GetWriteFn(Type type) => JsvWriter.GetWriteFn(type);
 
-        static readonly TypeInfo DefaultTypeInfo = new TypeInfo { EncodeMapKey = false };
+        static readonly TypeInfo DefaultTypeInfo = new() { EncodeMapKey = false };
 
         public TypeInfo GetTypeInfo(Type type) => DefaultTypeInfo;
 

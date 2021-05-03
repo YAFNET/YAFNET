@@ -202,7 +202,7 @@ namespace ServiceStack.OrmLite.Dapper
         public override Task<bool> NextResultAsync(CancellationToken cancellationToken) => _reader.NextResultAsync(cancellationToken);
         public override Task<bool> ReadAsync(CancellationToken cancellationToken) => _reader.ReadAsync(cancellationToken);
         public override int VisibleFieldCount => _reader.VisibleFieldCount;
-        protected override DbDataReader GetDbDataReader(int ordinal) => (((IDataReader)_reader).GetData(ordinal) as DbDataReader) ?? throw new NotSupportedException();
+        protected override DbDataReader GetDbDataReader(int ordinal) => ((IDataReader)_reader).GetData(ordinal) as DbDataReader ?? throw new NotSupportedException();
     }
 
     internal class BasicWrappedReader : IWrappedDataReader

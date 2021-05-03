@@ -193,7 +193,7 @@ namespace ServiceStack.Script
         {
             unchecked
             {
-                var hashCode = (Object != null ? Object.GetHashCode() : 0);
+                var hashCode = Object != null ? Object.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (Property != null ? Property.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Computed.GetHashCode();
                 return hashCode;
