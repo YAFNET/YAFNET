@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -83,7 +83,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (pending == null)
             {
-                throw new Exception("this buffer is frozen");
+                throw IllegalStateException.Create("this buffer is frozen");
             }
             if (pendingOff == pending.Length)
             {

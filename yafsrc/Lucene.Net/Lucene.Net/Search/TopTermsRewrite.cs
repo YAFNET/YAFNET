@@ -23,13 +23,13 @@ namespace YAF.Lucene.Net.Search
     * limitations under the License.
     */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using TermState = YAF.Lucene.Net.Index.TermState;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using TermState  = YAF.Lucene.Net.Index.TermState;
 
     internal interface ITopTermsRewrite
     {

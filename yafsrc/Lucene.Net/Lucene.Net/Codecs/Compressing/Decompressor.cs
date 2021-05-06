@@ -1,5 +1,5 @@
 ﻿using System;
-using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
 {
@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
 
     /// <summary>
     /// A decompressor.

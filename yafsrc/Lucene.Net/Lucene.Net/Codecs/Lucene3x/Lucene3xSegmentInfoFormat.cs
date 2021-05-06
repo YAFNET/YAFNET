@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Lucene3x ReadOnly <see cref="SegmentInfoFormat"/> implementation.
@@ -59,7 +59,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
         public override SegmentInfoReader SegmentInfoReader => reader;
 
-        public override SegmentInfoWriter SegmentInfoWriter => throw new NotSupportedException("this codec can only be used for reading");
+        public override SegmentInfoWriter SegmentInfoWriter => throw UnsupportedOperationException.Create("this codec can only be used for reading");
 
         // only for backwards compat
         public static readonly string DS_OFFSET_KEY = typeof(Lucene3xSegmentInfoFormat).Name + ".dsoffset";

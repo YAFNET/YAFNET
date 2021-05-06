@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using JCG = J2N.Collections.Generic;
-using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
 using J2N.Numerics;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
@@ -27,28 +27,28 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BlockPackedWriter = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
-    using BufferedChecksumIndexInput = YAF.Lucene.Net.Store.BufferedChecksumIndexInput;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using Fields = YAF.Lucene.Net.Index.Fields;
-    using GrowableByteArrayDataOutput = YAF.Lucene.Net.Util.GrowableByteArrayDataOutput;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using MergeState = YAF.Lucene.Net.Index.MergeState;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using SegmentReader = YAF.Lucene.Net.Index.SegmentReader;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using AtomicReader  = YAF.Lucene.Net.Index.AtomicReader;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using BlockPackedWriter  = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
+    using BufferedChecksumIndexInput  = YAF.Lucene.Net.Store.BufferedChecksumIndexInput;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using ChecksumIndexInput  = YAF.Lucene.Net.Store.ChecksumIndexInput;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using Fields  = YAF.Lucene.Net.Index.Fields;
+    using GrowableByteArrayDataOutput  = YAF.Lucene.Net.Util.GrowableByteArrayDataOutput;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using MergeState  = YAF.Lucene.Net.Index.MergeState;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using SegmentReader  = YAF.Lucene.Net.Index.SegmentReader;
+    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// <see cref="TermVectorsWriter"/> for <see cref="CompressingTermVectorsFormat"/>.
@@ -275,8 +275,8 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 CodecUtil.WriteHeader(vectorsStream, codecNameDat, VERSION_CURRENT);
                 if (Debugging.AssertsEnabled)
                 {
-                    Debugging.Assert(CodecUtil.HeaderLength(codecNameDat) == vectorsStream.GetFilePointer());
-                    Debugging.Assert(CodecUtil.HeaderLength(codecNameIdx) == indexStream.GetFilePointer());
+                    Debugging.Assert(CodecUtil.HeaderLength(codecNameDat) == vectorsStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
+                    Debugging.Assert(CodecUtil.HeaderLength(codecNameIdx) == indexStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 }
 
                 indexWriter = new CompressingStoredFieldsIndexWriter(indexStream);
@@ -399,7 +399,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             if (Debugging.AssertsEnabled) Debugging.Assert(chunkDocs > 0, "{0}", chunkDocs);
 
             // write the index file
-            indexWriter.WriteIndex(chunkDocs, vectorsStream.GetFilePointer());
+            indexWriter.WriteIndex(chunkDocs, vectorsStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
             int docBase = numDocs - chunkDocs;
             vectorsStream.WriteVInt32(docBase);
@@ -799,9 +799,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             }
             if (numDocs != this.numDocs)
             {
-                throw new Exception("Wrote " + this.numDocs + " docs, finish called with numDocs=" + numDocs);
+                throw RuntimeException.Create("Wrote " + this.numDocs + " docs, finish called with numDocs=" + numDocs);
             }
-            indexWriter.Finish(numDocs, vectorsStream.GetFilePointer());
+            indexWriter.Finish(numDocs, vectorsStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             CodecUtil.WriteFooter(vectorsStream);
         }
 
@@ -927,7 +927,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                         // We make sure to move the checksum input in any case, otherwise the final
                         // integrity check might need to read the whole file a second time
                         long startPointer = index.GetStartPointer(i);
-                        if (startPointer > vectorsStream.GetFilePointer())
+                        if (startPointer > vectorsStream.Position) // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                         {
                             vectorsStream.Seek(startPointer);
                         }
@@ -939,8 +939,8 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                             if (docBase + chunkDocs < matchingSegmentReader.MaxDoc && NextDeletedDoc(docBase, liveDocs, docBase + chunkDocs) == docBase + chunkDocs)
                             {
                                 long chunkEnd = index.GetStartPointer(docBase + chunkDocs);
-                                long chunkLength = chunkEnd - vectorsStream.GetFilePointer();
-                                indexWriter.WriteIndex(chunkDocs, this.vectorsStream.GetFilePointer());
+                                long chunkLength = chunkEnd - vectorsStream.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
+                                indexWriter.WriteIndex(chunkDocs, this.vectorsStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                                 this.vectorsStream.WriteVInt32(docCount);
                                 this.vectorsStream.WriteVInt32(chunkDocs);
                                 this.vectorsStream.CopyBytes(vectorsStream, chunkLength);

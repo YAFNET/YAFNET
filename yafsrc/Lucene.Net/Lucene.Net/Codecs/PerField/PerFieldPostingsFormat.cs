@@ -24,12 +24,12 @@ namespace YAF.Lucene.Net.Codecs.PerField
      * limitations under the License.
      */
 
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
-    using Terms = YAF.Lucene.Net.Index.Terms;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
 
     /// <summary>
     /// Enables per field postings support.
@@ -113,7 +113,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
                 PostingsFormat format = outerInstance.GetPostingsFormatForField(field.Name);
                 if (format == null)
                 {
-                    throw new InvalidOperationException("invalid null PostingsFormat for field=\"" + field.Name + "\"");
+                    throw IllegalStateException.Create("invalid null PostingsFormat for field=\"" + field.Name + "\"");
                 }
                 string formatName = format.Name;
 
@@ -192,7 +192,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
                 // TODO: support embedding; I think it should work but
                 // we need a test confirm to confirm
                 // return outerSegmentSuffix + "_" + segmentSuffix;
-                throw new InvalidOperationException("cannot embed PerFieldPostingsFormat inside itself (field \"" + fieldName + "\" returned PerFieldPostingsFormat)");
+                throw IllegalStateException.Create("cannot embed PerFieldPostingsFormat inside itself (field \"" + fieldName + "\" returned PerFieldPostingsFormat)");
             }
         }
 

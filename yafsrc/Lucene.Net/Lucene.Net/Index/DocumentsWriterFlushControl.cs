@@ -25,8 +25,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using ThreadState = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
+    using InfoStream  = YAF.Lucene.Net.Util.InfoStream;
+    using ThreadState  = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
 
     /// <summary>
     /// This class controls <see cref="DocumentsWriterPerThread"/> flushing during
@@ -539,7 +539,7 @@ namespace YAF.Lucene.Net.Index
 
             public void Reset()
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
         }
 
@@ -820,7 +820,7 @@ namespace YAF.Lucene.Net.Index
                             documentsWriter.SubtractFlushedNumDocs(dwpt.NumDocsInRAM);
                             dwpt.Abort(newFiles);
                         }
-                        catch (Exception)
+                        catch (Exception ex) when (ex.IsThrowable())
                         {
                             // ignore - keep on aborting the flush queue
                         }
@@ -837,7 +837,7 @@ namespace YAF.Lucene.Net.Index
                             documentsWriter.SubtractFlushedNumDocs(blockedFlush.Dwpt.NumDocsInRAM);
                             blockedFlush.Dwpt.Abort(newFiles);
                         }
-                        catch (Exception)
+                        catch (Exception ex) when (ex.IsThrowable())
                         {
                             // ignore - keep on aborting the blocked queue
                         }

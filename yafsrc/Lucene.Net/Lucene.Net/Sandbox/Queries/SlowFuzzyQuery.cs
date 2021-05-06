@@ -85,15 +85,15 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             if (minimumSimilarity >= 1.0f && minimumSimilarity != (int)minimumSimilarity)
                 throw new ArgumentException("fractional edit distances are not allowed");
             if (minimumSimilarity < 0.0f)
-                throw new ArgumentException("minimumSimilarity < 0");
+                throw new ArgumentOutOfRangeException(nameof(minimumSimilarity), "minimumSimilarity < 0"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             if (prefixLength < 0)
-                throw new ArgumentException("prefixLength < 0");
+                throw new ArgumentOutOfRangeException(nameof(prefixLength), "prefixLength < 0"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             if (maxExpansions < 0)
-                throw new ArgumentException("maxExpansions < 0");
+                throw new ArgumentOutOfRangeException(nameof(maxExpansions), "maxExpansions < 0"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
 
             MultiTermRewriteMethod = new MultiTermQuery.TopTermsScoringBooleanQueryRewrite(maxExpansions);
 
-            string text = term.Text();
+            string text = term.Text;
             int len = text.CodePointCount(0, text.Length);
             if (len > 0 && (minimumSimilarity >= 1f || len > 1.0f / (1.0f - minimumSimilarity)))
             {
@@ -163,7 +163,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
                 buffer.Append(m_term.Field);
                 buffer.Append(":");
             }
-            buffer.Append(m_term.Text());
+            buffer.Append(m_term.Text);
             buffer.Append('~');
             buffer.Append(Number.ToString(minimumSimilarity));
             buffer.Append(ToStringUtils.Boost(Boost));

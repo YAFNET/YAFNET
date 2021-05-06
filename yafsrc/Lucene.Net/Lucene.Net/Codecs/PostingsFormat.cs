@@ -155,7 +155,7 @@ namespace YAF.Lucene.Net.Codecs
                 }
                 else
                 {
-                    throw new NotSupportedException("The current PostingsFormat factory class does not implement IServiceListable.");
+                    throw UnsupportedOperationException.Create("The current PostingsFormat factory class does not implement IServiceListable.");
                 }
             }
         }

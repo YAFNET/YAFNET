@@ -20,10 +20,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using MultiSortedDocValues = YAF.Lucene.Net.Index.MultiDocValues.MultiSortedDocValues;
-    using MultiSortedSetDocValues = YAF.Lucene.Net.Index.MultiDocValues.MultiSortedSetDocValues;
-    using OrdinalMap = YAF.Lucene.Net.Index.MultiDocValues.OrdinalMap;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using MultiSortedDocValues  = YAF.Lucene.Net.Index.MultiDocValues.MultiSortedDocValues;
+    using MultiSortedSetDocValues  = YAF.Lucene.Net.Index.MultiDocValues.MultiSortedSetDocValues;
+    using OrdinalMap  = YAF.Lucene.Net.Index.MultiDocValues.OrdinalMap;
 
     /// <summary>
     /// This class forces a composite reader (eg a 

@@ -26,13 +26,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using Query = YAF.Lucene.Net.Search.Query;
-    using QueryWrapperFilter = YAF.Lucene.Net.Search.QueryWrapperFilter;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using DocIdSet  = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using InfoStream  = YAF.Lucene.Net.Util.InfoStream;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using Query  = YAF.Lucene.Net.Search.Query;
+    using QueryWrapperFilter  = YAF.Lucene.Net.Search.QueryWrapperFilter;
 
     /// <summary>
     /// Tracks the stream of BufferedDeletes.

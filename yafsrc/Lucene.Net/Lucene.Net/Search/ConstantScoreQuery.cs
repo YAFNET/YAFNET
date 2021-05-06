@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using YAF.Lucene.Net.Diagnostics;
@@ -23,11 +23,11 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// A query that wraps another query or a filter and simply returns a constant score equal to the
@@ -43,10 +43,12 @@ namespace YAF.Lucene.Net.Search
         /// Strips off scores from the passed in <see cref="Search.Query"/>. The hits will get a constant score
         /// dependent on the boost factor of this query.
         /// </summary>
+        /// <exception cref="ArgumentNullException">if <paramref name="query"/> is <c>null</c>.</exception>
         public ConstantScoreQuery(Query query)
         {
+            // LUCENENET specific: Changed guard clause to throw ArgumentNullException instead of NullPointerException
             this.m_filter = null;
-            this.m_query = query ?? throw new NullReferenceException("Query may not be null");
+            this.m_query = query ?? throw new ArgumentNullException(nameof(query), "Query may not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
         /// <summary>
@@ -56,9 +58,11 @@ namespace YAF.Lucene.Net.Search
         /// <c>new ConstantScoreQuery(new QueryWrapperFilter(query))</c>, instead
         /// use <see cref="ConstantScoreQuery(Query)"/>!
         /// </summary>
+        /// <exception cref="ArgumentNullException">if <paramref name="filter"/> is <c>null</c>.</exception>
         public ConstantScoreQuery(Filter filter)
         {
-            this.m_filter = filter ?? throw new NullReferenceException("Filter may not be null");
+            // LUCENENET specific: Changed guard clause to throw ArgumentNullException instead of NullPointerException
+            this.m_filter = filter ?? throw new ArgumentNullException(nameof(filter), "Filter may not be null");
             this.m_query = null;
         }
 

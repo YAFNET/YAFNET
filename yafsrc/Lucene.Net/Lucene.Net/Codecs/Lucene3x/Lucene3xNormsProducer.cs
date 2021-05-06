@@ -1,4 +1,4 @@
-using J2N.Runtime.CompilerServices;
+﻿using J2N.Runtime.CompilerServices;
 using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
 using System;
@@ -26,21 +26,21 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// Reads Lucene 3.x norms format and exposes it via <see cref="Index.DocValues"/> API.
@@ -269,22 +269,22 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
         public override BinaryDocValues GetBinary(FieldInfo field)
         {
-            throw new InvalidOperationException();
+            throw AssertionError.Create();
         }
 
         public override SortedDocValues GetSorted(FieldInfo field)
         {
-            throw new InvalidOperationException();
+            throw AssertionError.Create();
         }
 
         public override SortedSetDocValues GetSortedSet(FieldInfo field)
         {
-            throw new InvalidOperationException();
+            throw AssertionError.Create();
         }
 
         public override IBits GetDocsWithField(FieldInfo field)
         {
-            throw new InvalidOperationException();
+            throw AssertionError.Create();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

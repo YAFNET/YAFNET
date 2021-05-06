@@ -1,4 +1,4 @@
-using J2N.Threading.Atomic;
+﻿using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util.Fst;
 using System;
@@ -25,34 +25,34 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
      * limitations under the License.
      */
 
-    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using BlockPackedReader = YAF.Lucene.Net.Util.Packed.BlockPackedReader;
-    using ByteArrayDataInput = YAF.Lucene.Net.Store.ByteArrayDataInput;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using DocValues = YAF.Lucene.Net.Index.DocValues;
-    using DocValuesType = YAF.Lucene.Net.Index.DocValuesType;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using Int32sRef = YAF.Lucene.Net.Util.Int32sRef;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using MonotonicBlockPackedReader = YAF.Lucene.Net.Util.Packed.MonotonicBlockPackedReader;
-    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
-    using PositiveInt32Outputs = YAF.Lucene.Net.Util.Fst.PositiveInt32Outputs;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using Util = YAF.Lucene.Net.Util.Fst.Util;
+    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
+    using BlockPackedReader  = YAF.Lucene.Net.Util.Packed.BlockPackedReader;
+    using ByteArrayDataInput  = YAF.Lucene.Net.Store.ByteArrayDataInput;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using ChecksumIndexInput  = YAF.Lucene.Net.Store.ChecksumIndexInput;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
+    using DocValues  = YAF.Lucene.Net.Index.DocValues;
+    using DocValuesType  = YAF.Lucene.Net.Index.DocValuesType;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using Int32sRef  = YAF.Lucene.Net.Util.Int32sRef;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using MonotonicBlockPackedReader  = YAF.Lucene.Net.Util.Packed.MonotonicBlockPackedReader;
+    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes  = YAF.Lucene.Net.Util.PagedBytes;
+    using PositiveInt32Outputs  = YAF.Lucene.Net.Util.Fst.PositiveInt32Outputs;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using Util  = YAF.Lucene.Net.Util.Fst.Util;
 
     /// <summary>
     /// Reader for <see cref="Lucene42DocValuesFormat"/>.
@@ -288,7 +288,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                     return new NumericDocValuesAnonymousClass3(min, mult, quotientReader);
 
                 default:
-                    throw new InvalidOperationException();
+                    throw AssertionError.Create();
             }
         }
 
@@ -480,15 +480,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 {
                     @in.Position = 0;
                     fst.GetFirstArc(firstArc);
-                    Int32sRef output = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, @in, firstArc, scratchArc, scratchInts);
+                    Int32sRef output  = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, @in, firstArc, scratchArc, scratchInts);
                     result.Bytes = new byte[output.Length];
                     result.Offset = 0;
                     result.Length = 0;
                     Util.ToBytesRef(output, result);
                 }
-                catch (IOException bogus)
+                catch (Exception bogus) when (bogus.IsIOException())
                 {
-                    throw new Exception(bogus.ToString(), bogus);
+                    throw RuntimeException.Create(bogus);
                 }
             }
 
@@ -510,9 +510,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                         return (int)-o.Output.GetValueOrDefault() - 1;
                     }
                 }
-                catch (IOException bogus)
+                catch (Exception bogus) when (bogus.IsIOException())
                 {
-                    throw new Exception(bogus.ToString(), bogus);
+                    throw RuntimeException.Create(bogus);
                 }
             }
 
@@ -614,15 +614,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 {
                     @in.Position = 0;
                     fst.GetFirstArc(firstArc);
-                    Int32sRef output = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, @in, firstArc, scratchArc, scratchInts);
+                    Int32sRef output  = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, @in, firstArc, scratchArc, scratchInts);
                     result.Bytes = new byte[output.Length];
                     result.Offset = 0;
                     result.Length = 0;
                     Lucene.Net.Util.Fst.Util.ToBytesRef(output, result);
                 }
-                catch (IOException bogus)
+                catch (Exception bogus) when (bogus.IsIOException())
                 {
-                    throw new Exception(bogus.ToString(), bogus);
+                    throw RuntimeException.Create(bogus);
                 }
             }
 
@@ -644,9 +644,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                         return -o.Output.GetValueOrDefault() - 1;
                     }
                 }
-                catch (IOException bogus)
+                catch (Exception bogus) when (bogus.IsIOException())
                 {
-                    throw new Exception(bogus.ToString(), bogus);
+                    throw RuntimeException.Create(bogus);
                 }
             }
 
@@ -783,7 +783,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 // but we dont want to introduce a bug that corrupts our enum state!
                 bytesReader.Position = 0;
                 fst.GetFirstArc(firstArc);
-                Int32sRef output = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, bytesReader, firstArc, scratchArc, scratchInts);
+                Int32sRef output  = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, bytesReader, firstArc, scratchArc, scratchInts);
                 scratchBytes.Bytes = new byte[output.Length];
                 scratchBytes.Offset = 0;
                 scratchBytes.Length = 0;
@@ -796,18 +796,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
 
             public override long Ord => @in.Current.Output.GetValueOrDefault();
 
-            public override int DocFreq => throw new NotSupportedException();
+            public override int DocFreq => throw UnsupportedOperationException.Create();
 
-            public override long TotalTermFreq => throw new NotSupportedException();
+            public override long TotalTermFreq => throw UnsupportedOperationException.Create();
 
             public override DocsEnum Docs(IBits liveDocs, DocsEnum reuse, DocsFlags flags)
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
 
             public override DocsAndPositionsEnum DocsAndPositions(IBits liveDocs, DocsAndPositionsEnum reuse, DocsAndPositionsFlags flags)
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
         }
     }

@@ -1,6 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
-using Directory = YAF.Lucene.Net.Store.Directory;
+using Directory  = YAF.Lucene.Net.Store.Directory;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
 
     [Obsolete("Only for reading existing 3.x indexes")]
     internal class Lucene3xStoredFieldsFormat : StoredFieldsFormat
@@ -36,7 +36,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
         public override StoredFieldsWriter FieldsWriter(Directory directory, SegmentInfo si, IOContext context)
         {
-            throw new NotSupportedException("this codec can only be used for reading");
+            throw UnsupportedOperationException.Create("this codec can only be used for reading");
         }
     }
 }

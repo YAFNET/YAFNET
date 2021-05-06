@@ -22,13 +22,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using InPlaceMergeSorter = YAF.Lucene.Net.Util.InPlaceMergeSorter;
-    using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedGrowableWriter = YAF.Lucene.Net.Util.Packed.PagedGrowableWriter;
-    using PagedMutable = YAF.Lucene.Net.Util.Packed.PagedMutable;
+    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using FixedBitSet  = YAF.Lucene.Net.Util.FixedBitSet;
+    using InPlaceMergeSorter  = YAF.Lucene.Net.Util.InPlaceMergeSorter;
+    using NumericDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedGrowableWriter  = YAF.Lucene.Net.Util.Packed.PagedGrowableWriter;
+    using PagedMutable  = YAF.Lucene.Net.Util.Packed.PagedMutable;
 
     /// <summary>
     /// A <see cref="DocValuesFieldUpdates"/> which holds updates of documents, of a single
@@ -112,7 +112,7 @@ namespace YAF.Lucene.Net.Index
             // TODO: if the Sorter interface changes to take long indexes, we can remove that limitation
             if (size == int.MaxValue)
             {
-                throw new InvalidOperationException("cannot support more than System.Int32.MaxValue doc/value entries");
+                throw IllegalStateException.Create("cannot support more than System.Int32.MaxValue doc/value entries");
             }
 
             long? val = (long?)value;
@@ -207,7 +207,7 @@ namespace YAF.Lucene.Net.Index
             NumericDocValuesFieldUpdates otherUpdates = (NumericDocValuesFieldUpdates)other;
             if (size + otherUpdates.size > int.MaxValue)
             {
-                throw new InvalidOperationException("cannot support more than System.Int32.MaxValue doc/value entries; size=" + size + " other.size=" + otherUpdates.size);
+                throw IllegalStateException.Create("cannot support more than System.Int32.MaxValue doc/value entries; size=" + size + " other.size=" + otherUpdates.size);
             }
             docs = docs.Grow(size + otherUpdates.size);
             values = values.Grow(size + otherUpdates.size);

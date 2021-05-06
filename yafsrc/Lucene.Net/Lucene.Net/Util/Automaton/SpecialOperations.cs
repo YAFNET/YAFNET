@@ -38,7 +38,7 @@ using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util.Automaton
 {
-    using Util = YAF.Lucene.Net.Util.Fst.Util;
+    using Util  = YAF.Lucene.Net.Util.Fst.Util;
 
     /// <summary>
     /// Special automata operations.

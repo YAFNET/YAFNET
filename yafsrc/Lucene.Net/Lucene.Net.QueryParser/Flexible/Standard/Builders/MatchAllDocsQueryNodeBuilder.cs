@@ -1,7 +1,6 @@
 ﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
-using YAF.Lucene.Net.QueryParsers.Flexible.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser;
 using YAF.Lucene.Net.Search;
 
@@ -40,7 +39,8 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Builders
             // validates node
             if (!(queryNode is MatchAllDocsQueryNode))
             {
-                throw new QueryNodeException(new Message(
+                // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
+                throw new QueryNodeException(string.Format(
                     QueryParserMessages.LUCENE_QUERY_CONVERSION_ERROR, queryNode
                         .ToQueryString(new EscapeQuerySyntax()), queryNode.GetType()
                         .Name));

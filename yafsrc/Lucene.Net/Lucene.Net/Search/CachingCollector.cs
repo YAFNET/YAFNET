@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 
@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
 
     /// <summary>
     /// Caches all docs, and optionally also scores, coming from
@@ -93,16 +93,16 @@ namespace YAF.Lucene.Net.Search
 
             public override int Advance(int target)
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
 
             public override int DocID => doc;
 
-            public override int Freq => throw new NotSupportedException();
+            public override int Freq => throw UnsupportedOperationException.Create();
 
             public override int NextDoc()
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
 
             public override long GetCost()
@@ -510,12 +510,14 @@ namespace YAF.Lucene.Net.Search
         {
             if (!IsCached)
             {
-                throw new InvalidOperationException("cannot replay: cache was cleared because too much RAM was required");
+                throw IllegalStateException.Create("cannot replay: cache was cleared because too much RAM was required");
             }
 
             if (!other.AcceptsDocsOutOfOrder && this.m_other.AcceptsDocsOutOfOrder)
             {
-                throw new ArgumentException("cannot replay: given collector does not support " + "out-of-order collection, while the wrapped collector does. " + "Therefore cached documents may be out-of-order.");
+                throw new ArgumentException("cannot replay: given collector does not support " +
+                    "out-of-order collection, while the wrapped collector does. " +
+                    "Therefore cached documents may be out-of-order.");
             }
 
             //System.out.println("CC: replay totHits=" + (upto + base));

@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
 
     /// <summary>
     /// Efficient index format for block-based <see cref="Codec"/>s.
@@ -214,7 +214,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         {
             if (numDocs != totalDocs)
             {
-                throw new InvalidOperationException("Expected " + numDocs + " docs, but got " + totalDocs);
+                throw IllegalStateException.Create("Expected " + numDocs + " docs, but got " + totalDocs);
             }
             if (blockChunks > 0)
             {

@@ -24,11 +24,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using BytesRefHash = YAF.Lucene.Net.Util.BytesRefHash;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using Int32BlockPool = YAF.Lucene.Net.Util.Int32BlockPool;
+    using ByteBlockPool  = YAF.Lucene.Net.Util.ByteBlockPool;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRefHash  = YAF.Lucene.Net.Util.BytesRefHash;
+    using Counter  = YAF.Lucene.Net.Util.Counter;
+    using Int32BlockPool  = YAF.Lucene.Net.Util.Int32BlockPool;
 
     internal sealed class TermsHashPerField : InvertedDocConsumerPerField
     {

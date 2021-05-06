@@ -1,4 +1,4 @@
-using J2N.Threading.Atomic;
+﻿using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
@@ -28,10 +28,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
     using Document = Documents.Document;
     using DocumentStoredFieldVisitor = DocumentStoredFieldVisitor;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// <see cref="IndexReader"/> is an abstract class, providing an interface for accessing an
@@ -81,7 +81,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (!(this is CompositeReader || this is AtomicReader))
             {
-                throw new Exception("IndexReader should never be directly extended, subclass AtomicReader or CompositeReader instead.");
+                throw Error.Create("IndexReader should never be directly extended, subclass AtomicReader or CompositeReader instead.");
             }
         }
 
@@ -149,7 +149,7 @@ namespace YAF.Lucene.Net.Index
                     {
                         listener.OnClose(this);
                     }
-                    catch (Exception t)
+                    catch (Exception t) when (t.IsThrowable())
                     {
                         if (th == null)
                         {
@@ -266,7 +266,7 @@ namespace YAF.Lucene.Net.Index
             // still close the reader if it was made invalid by a child:
             if (refCount <= 0)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "this IndexReader is closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this IndexReader is disposed.");
             }
 
             int rc = refCount.DecrementAndGet();
@@ -278,7 +278,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     DoClose();
                 }
-                catch (Exception th)
+                catch (Exception th) when (th.IsThrowable())
                 {
                     throwable = th;
                 }
@@ -296,7 +296,7 @@ namespace YAF.Lucene.Net.Index
             }
             else if (rc < 0)
             {
-                throw new InvalidOperationException("too many decRef calls: refCount is " + rc + " after decrement");
+                throw IllegalStateException.Create("too many decRef calls: refCount is " + rc + " after decrement");
             }
         }
 
@@ -309,13 +309,13 @@ namespace YAF.Lucene.Net.Index
         {
             if (refCount <= 0)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "this IndexReader is closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this IndexReader is disposed.");
             }
             // the happens before rule on reading the refCount, which must be after the fake write,
             // ensures that we see the value:
             if (closedByChild)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "this IndexReader cannot be used anymore as one of its child readers was closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this IndexReader cannot be used anymore as one of its child readers was disposed.");
             }
         }
 

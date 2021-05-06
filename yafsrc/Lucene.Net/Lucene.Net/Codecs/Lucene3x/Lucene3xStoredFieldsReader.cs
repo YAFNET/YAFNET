@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
-using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
+using CompoundFileDirectory  = YAF.Lucene.Net.Store.CompoundFileDirectory;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -24,18 +24,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexFormatTooNewException = YAF.Lucene.Net.Index.IndexFormatTooNewException;
-    using IndexFormatTooOldException = YAF.Lucene.Net.Index.IndexFormatTooOldException;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using StoredFieldVisitor = YAF.Lucene.Net.Index.StoredFieldVisitor;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexFormatTooNewException  = YAF.Lucene.Net.Index.IndexFormatTooNewException;
+    using IndexFormatTooOldException  = YAF.Lucene.Net.Index.IndexFormatTooOldException;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using StoredFieldVisitor  = YAF.Lucene.Net.Index.StoredFieldVisitor;
 
     /// <summary>
     /// Class responsible for access to stored document fields.
@@ -224,7 +224,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                     {
                         Dispose();
                     } // keep our original exception
-                    catch (Exception) // LUCENENET: IDE0059: Remove unnecessary value assignment
+                    catch (Exception t) when (t.IsThrowable())
                     {
                         // ignored
                     }
@@ -238,7 +238,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         {
             if (closed)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "this FieldsReader is closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this FieldsReader is disposed.");
             }
         }
 
@@ -363,7 +363,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             else
             {
                 int length = fieldsStream.ReadVInt32();
-                fieldsStream.Seek(fieldsStream.GetFilePointer() + length);
+                fieldsStream.Seek(fieldsStream.Position + length); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             }
         }
 

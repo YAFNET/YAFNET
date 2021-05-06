@@ -19,8 +19,8 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
      * limitations under the License.
      */
 
-    using Attribute = YAF.Lucene.Net.Util.Attribute;
-    using IAttribute = YAF.Lucene.Net.Util.IAttribute;
+    using Attribute  = YAF.Lucene.Net.Util.Attribute;
+    using IAttribute  = YAF.Lucene.Net.Util.IAttribute;
 
     /// <summary>
     /// Default implementation of <see cref="IPositionLengthAttribute"/>. </summary>
@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
             {
                 if (value < 1)
                 {
-                    throw new ArgumentException("Position length must be 1 or greater: got " + value);
+                    throw new ArgumentOutOfRangeException(nameof(PositionLength), "Position length must be 1 or greater: got " + value); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 this.positionLength = value;
             }

@@ -20,11 +20,11 @@ namespace YAF.Lucene.Net.Search.Similarities
      */
 
     // javadoc
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
 
     // javadoc
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FieldInvertState = YAF.Lucene.Net.Index.FieldInvertState;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInvertState  = YAF.Lucene.Net.Index.FieldInvertState;
 
     // javadoc
 

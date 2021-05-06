@@ -117,7 +117,7 @@ namespace YAF.Lucene.Net.Search.Highlight
                     {
                         if ((fieldName == null) || (term.Field.Equals(fieldName, StringComparison.Ordinal)))
                         {
-                            terms.Add(new WeightedTerm(query.Boost, term.Text()));
+                            terms.Add(new WeightedTerm(query.Boost, term.Text));
                         }
                     }
                 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -19,8 +19,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// This class contains utility methods and constants for <see cref="DocValues"/>
@@ -127,10 +127,7 @@ namespace YAF.Lucene.Net.Index
                 throw new IndexOutOfRangeException();
             }
 
-            public override int Cardinality()
-            {
-                return 0;
-            }
+            public override int Cardinality => 0;
         }
 
         /// <summary>

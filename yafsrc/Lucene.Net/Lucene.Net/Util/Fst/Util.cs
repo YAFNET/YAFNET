@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
-using BitSet = YAF.Lucene.Net.Util.OpenBitSet;
+using BitSet  = YAF.Lucene.Net.Util.OpenBitSet;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util.Fst

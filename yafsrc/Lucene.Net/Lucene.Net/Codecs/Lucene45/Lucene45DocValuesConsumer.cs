@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,18 +24,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
      * limitations under the License.
      */
 
-    using BlockPackedWriter = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
-    using MonotonicBlockPackedWriter = YAF.Lucene.Net.Util.Packed.MonotonicBlockPackedWriter;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using BlockPackedWriter  = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using MathUtil  = YAF.Lucene.Net.Util.MathUtil;
+    using MonotonicBlockPackedWriter  = YAF.Lucene.Net.Util.Packed.MonotonicBlockPackedWriter;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RAMOutputStream  = YAF.Lucene.Net.Store.RAMOutputStream;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
+    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// Writer for <see cref="Lucene45DocValuesFormat"/> </summary>
@@ -204,7 +204,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
             meta.WriteVInt32(format);
             if (missing)
             {
-                meta.WriteInt64(data.GetFilePointer());
+                meta.WriteInt64(data.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 WriteMissingBitset(values);
             }
             else
@@ -212,7 +212,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
                 meta.WriteInt64(-1L);
             }
             meta.WriteVInt32(PackedInt32s.VERSION_CURRENT);
-            meta.WriteInt64(data.GetFilePointer());
+            meta.WriteInt64(data.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             meta.WriteVInt64(count);
             meta.WriteVInt32(BLOCK_SIZE);
 
@@ -259,7 +259,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
                     break;
 
                 default:
-                    throw new InvalidOperationException();
+                    throw AssertionError.Create();
             }
         }
 
@@ -296,7 +296,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
             meta.WriteByte((byte)Lucene45DocValuesFormat.BINARY);
             int minLength = int.MaxValue;
             int maxLength = int.MinValue;
-            long startFP = data.GetFilePointer();
+            long startFP = data.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             long count = 0;
             bool missing = false;
             foreach (BytesRef v in values)
@@ -322,7 +322,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
             meta.WriteVInt32(minLength == maxLength ? BINARY_FIXED_UNCOMPRESSED : BINARY_VARIABLE_UNCOMPRESSED);
             if (missing)
             {
-                meta.WriteInt64(data.GetFilePointer());
+                meta.WriteInt64(data.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 WriteMissingBitset(values);
             }
             else
@@ -338,7 +338,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
             // otherwise, we need to record the length fields...
             if (minLength != maxLength)
             {
-                meta.WriteInt64(data.GetFilePointer());
+                meta.WriteInt64(data.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 meta.WriteVInt32(PackedInt32s.VERSION_CURRENT);
                 meta.WriteVInt32(BLOCK_SIZE);
 
@@ -381,7 +381,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
                 meta.WriteVInt32(BINARY_PREFIX_COMPRESSED);
                 meta.WriteInt64(-1L);
                 // now write the bytes: sharing prefixes within a block
-                long startFP = data.GetFilePointer();
+                long startFP = data.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 // currently, we have to store the delta from expected for every 1/nth term
                 // we could avoid this, but its not much and less overall RAM than the previous approach!
                 RAMOutputStream addressBuffer = new RAMOutputStream();
@@ -392,7 +392,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
                 {
                     if (count % ADDRESS_INTERVAL == 0)
                     {
-                        termAddresses.Add(data.GetFilePointer() - startFP);
+                        termAddresses.Add(data.Position - startFP); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                         // force the first term in a block to be abs-encoded
                         lastTerm.Length = 0;
                     }
@@ -405,7 +405,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
                     lastTerm.CopyBytes(v);
                     count++;
                 }
-                long indexStartFP = data.GetFilePointer();
+                long indexStartFP = data.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 // write addresses of indexed terms
                 termAddresses.Finish();
                 addressBuffer.WriteTo(data);
@@ -468,7 +468,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
             meta.WriteVInt32(DELTA_COMPRESSED);
             meta.WriteInt64(-1L);
             meta.WriteVInt32(PackedInt32s.VERSION_CURRENT);
-            meta.WriteInt64(data.GetFilePointer());
+            meta.WriteInt64(data.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             meta.WriteVInt64(maxDoc);
             meta.WriteVInt32(BLOCK_SIZE);
 

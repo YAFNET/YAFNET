@@ -1,4 +1,4 @@
-using J2N.Threading.Atomic;
+﻿using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
 using System;
@@ -28,18 +28,18 @@ namespace YAF.Lucene.Net.Index
      */
 
     using BinaryDocValuesField = BinaryDocValuesField;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using LiveDocsFormat = YAF.Lucene.Net.Codecs.LiveDocsFormat;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using Codec  = YAF.Lucene.Net.Codecs.Codec;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using DocValuesConsumer  = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using DocValuesFormat  = YAF.Lucene.Net.Codecs.DocValuesFormat;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IMutableBits  = YAF.Lucene.Net.Util.IMutableBits;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using LiveDocsFormat  = YAF.Lucene.Net.Codecs.LiveDocsFormat;
     using NumericDocValuesField = NumericDocValuesField;
-    using TrackingDirectoryWrapper = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
+    using TrackingDirectoryWrapper  = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
 
     /// <summary>
     /// Used by <see cref="IndexWriter"/> to hold open <see cref="SegmentReader"/>s (for
@@ -440,7 +440,7 @@ namespace YAF.Lucene.Net.Index
                             {
                                 dir.DeleteFile(fileName);
                             }
-                            catch (Exception)
+                            catch (Exception t) when (t.IsThrowable())
                             {
                                 // Ignore so we throw only the first exc
                             }
@@ -512,7 +512,7 @@ namespace YAF.Lucene.Net.Index
                         // create new fields or update existing ones to have BinaryDV type
                         foreach (string f in dvUpdates.binaryDVUpdates.Keys)
                         {
-                            builder.AddOrUpdate(f, BinaryDocValuesField.fType);
+                            builder.AddOrUpdate(f, BinaryDocValuesField.TYPE);
                         }
 
                         fieldInfos = builder.Finish();
@@ -593,7 +593,7 @@ namespace YAF.Lucene.Net.Index
                             {
                                 dir.DeleteFile(fileName);
                             }
-                            catch (Exception)
+                            catch (Exception t) when (t.IsThrowable())
                             {
                                 // Ignore so we throw only the first exc
                             }

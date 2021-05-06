@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,8 +23,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// Stores information about how to sort documents by terms in an individual
@@ -467,10 +467,10 @@ namespace YAF.Lucene.Net.Search
                     return new FieldComparer.TermValComparer(numHits, field);
 
                 case SortFieldType.REWRITEABLE:
-                    throw new InvalidOperationException("SortField needs to be rewritten through Sort.rewrite(..) and SortField.rewrite(..)");
+                    throw IllegalStateException.Create("SortField needs to be rewritten through Sort.Rewrite(..) and SortField.Rewrite(..)");
 
                 default:
-                    throw new InvalidOperationException("Illegal sort type: " + type);
+                    throw IllegalStateException.Create("Illegal sort type: " + type);
             }
         }
 

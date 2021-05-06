@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
 using System;
 using System.Collections.Generic;
@@ -24,13 +24,13 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FilteredTermsEnum = YAF.Lucene.Net.Index.FilteredTermsEnum;
-    using NumericUtils = YAF.Lucene.Net.Util.NumericUtils;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using FilteredTermsEnum  = YAF.Lucene.Net.Index.FilteredTermsEnum;
+    using NumericUtils  = YAF.Lucene.Net.Util.NumericUtils;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// <para>A <see cref="Query"/> that matches numeric values within a
@@ -171,7 +171,7 @@ namespace YAF.Lucene.Net.Search
         {
             if (precisionStep < 1)
             {
-                throw new ArgumentException("precisionStep must be >=1");
+                throw new ArgumentOutOfRangeException(nameof(precisionStep), "precisionStep must be >=1"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.precisionStep = precisionStep;
             this.dataType = dataType;

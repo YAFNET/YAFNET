@@ -2,8 +2,8 @@ using YAF.Lucene.Net.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Runtime.CompilerServices;
-using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
 {
@@ -24,9 +24,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// A compression mode. Tells how much effort should be spent on compression and

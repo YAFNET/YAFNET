@@ -1,9 +1,10 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Runtime.ExceptionServices;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -24,12 +25,12 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using CodecUtil  = YAF.Lucene.Net.Codecs.CodecUtil;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// A <see cref="SnapshotDeletionPolicy"/> which adds a persistence layer so that
@@ -111,7 +112,7 @@ namespace YAF.Lucene.Net.Index
 
             if (mode == OpenMode.APPEND && nextWriteGen == 0)
             {
-                throw new InvalidOperationException("no snapshots stored in this directory");
+                throw IllegalStateException.Create("no snapshots stored in this directory");
             }
         }
 
@@ -139,9 +140,7 @@ namespace YAF.Lucene.Net.Index
                         {
                             base.Release(ic);
                         }
-#pragma warning disable 168
-                        catch (Exception e)
-#pragma warning restore 168
+                        catch (Exception e) when (e.IsException())
                         {
                             // Suppress so we keep throwing original exception
                         }
@@ -175,9 +174,7 @@ namespace YAF.Lucene.Net.Index
                         {
                             IncRef(commit);
                         }
-#pragma warning disable 168
-                        catch (Exception e)
-#pragma warning restore 168
+                        catch (Exception e) when (e.IsException())
                         {
                             // Suppress so we keep throwing original exception
                         }
@@ -229,9 +226,7 @@ namespace YAF.Lucene.Net.Index
                         {
                             dir.DeleteFile(fileName);
                         }
-#pragma warning disable 168
-                        catch (Exception e)
-#pragma warning restore 168
+                        catch (Exception e) when (e.IsException())
                         {
                             // Suppress so we keep throwing original exception
                         }
@@ -251,9 +246,7 @@ namespace YAF.Lucene.Net.Index
                     {
                         dir.DeleteFile(lastSaveFile);
                     }
-#pragma warning disable 168
-                    catch (IOException ioe)
-#pragma warning restore 168
+                    catch (Exception ioe) when (ioe.IsIOException())
                     {
                         // OK: likely it didn't exist
                     }
@@ -307,7 +300,7 @@ namespace YAF.Lucene.Net.Index
             lock (this)
             {
                 long genLoaded = -1;
-                IOException ioe = null;
+                Exception ioe = null; // LUCENENET: No need to cast to IOExcpetion
                 IList<string> snapshotFiles = new List<string>();
                 foreach (string file in dir.ListAll())
                 {
@@ -330,7 +323,7 @@ namespace YAF.Lucene.Net.Index
                                     m[commitGen] = refCount;
                                 }
                             }
-                            catch (IOException ioe2)
+                            catch (Exception ioe2) when (ioe2.IsIOException())
                             {
                                 // Save first exception & throw in the end
                                 if (ioe == null)
@@ -356,7 +349,7 @@ namespace YAF.Lucene.Net.Index
                     if (ioe != null)
                     {
                         // ... not for lack of trying:
-                        throw ioe;
+                        ExceptionDispatchInfo.Capture(ioe).Throw(); // LUCENENET: Rethrow to preserve stack details from the original throw
                     }
                 }
                 else

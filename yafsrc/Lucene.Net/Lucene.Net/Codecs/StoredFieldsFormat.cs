@@ -17,10 +17,10 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Controls the format of stored fields.

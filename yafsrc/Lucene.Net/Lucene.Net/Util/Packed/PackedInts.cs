@@ -25,11 +25,11 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
+    using CodecUtil  = YAF.Lucene.Net.Codecs.CodecUtil;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
 
     /// <summary>
     /// Simplistic compression for array of unsigned long values.
@@ -80,11 +80,11 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (version < VERSION_START)
             {
-                throw new ArgumentException("Version is too old, should be at least " + VERSION_START + " (got " + version + ")");
+                throw new ArgumentOutOfRangeException(nameof(version), "Version is too old, should be at least " + VERSION_START + " (got " + version + ")"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             else if (version > VERSION_CURRENT)
             {
-                throw new ArgumentException("Version is too new, should be at most " + VERSION_CURRENT + " (got " + version + ")");
+                throw new ArgumentOutOfRangeException(nameof(version), "Version is too new, should be at most " + VERSION_CURRENT + " (got " + version + ")"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
         }
 
@@ -965,7 +965,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
             else
             {
-                throw new InvalidOperationException("Unknown Writer format: " + format);
+                throw AssertionError.Create("Unknown Writer format: " + format);
             }
         }
 
@@ -1079,7 +1079,7 @@ namespace YAF.Lucene.Net.Util.Packed
                 if (byteCount != format.ByteCount(VERSION_CURRENT, valueCount, bitsPerValue))
                 {
                     if (Debugging.AssertsEnabled) Debugging.Assert(version == VERSION_START);
-                    long endPointer = @in.GetFilePointer() + byteCount;
+                    long endPointer = @in.Position + byteCount; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                     // Some consumers of direct readers assume that reading the last value
                     // will make the underlying IndexInput go to the end of the packed
                     // stream, but this is not true because packed ints storage used to be
@@ -1094,7 +1094,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
             else
             {
-                throw new InvalidOperationException("Unknwown format: " + format);
+                throw AssertionError.Create("Unknwown format: " + format);
             }
         }
 
@@ -1121,9 +1121,9 @@ namespace YAF.Lucene.Net.Util.Packed
                     {
                         @in.Seek(endPointer);
                     }
-                    catch (IOException e)
+                    catch (Exception e) when (e.IsIOException())
                     {
-                        throw new InvalidOperationException("failed", e);
+                        throw IllegalStateException.Create("failed", e);
                     }
                 }
                 return result;
@@ -1246,7 +1246,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
             else
             {
-                throw new InvalidOperationException();
+                throw AssertionError.Create();
             }
         }
 
@@ -1354,7 +1354,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (maxValue < 0)
             {
-                throw new ArgumentException("maxValue must be non-negative (got: " + maxValue + ")");
+                throw new ArgumentOutOfRangeException(nameof(maxValue), "maxValue must be non-negative (got: " + maxValue + ")"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             return Math.Max(1, 64 - maxValue.LeadingZeroCount());
         }

@@ -4,8 +4,8 @@ using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using QueryPhraseMap = YAF.Lucene.Net.Search.VectorHighlight.FieldQuery.QueryPhraseMap;
-using TermInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldTermStack.TermInfo;
+using QueryPhraseMap  = YAF.Lucene.Net.Search.VectorHighlight.FieldQuery.QueryPhraseMap;
+using TermInfo  = YAF.Lucene.Net.Search.VectorHighlight.FieldTermStack.TermInfo;
 
 namespace YAF.Lucene.Net.Search.VectorHighlight
 {

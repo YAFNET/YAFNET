@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// DataInput backed by a byte array.
@@ -153,7 +153,7 @@ namespace YAF.Lucene.Net.Store
             {
                 return i;
             }
-            throw new Exception("Invalid VInt32 detected (too many bits)");
+            throw RuntimeException.Create("Invalid VInt32 detected (too many bits)");
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace YAF.Lucene.Net.Store
             {
                 return i;
             }
-            throw new Exception("Invalid VInt64 detected (negative values disallowed)");
+            throw RuntimeException.Create("Invalid VInt64 detected (negative values disallowed)");
         }
 
         // NOTE: AIOOBE not EOF if you read too much

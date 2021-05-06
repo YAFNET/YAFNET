@@ -30,31 +30,31 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using ByteArrayDataInput = YAF.Lucene.Net.Store.ByteArrayDataInput;
-    using ByteSequenceOutputs = YAF.Lucene.Net.Util.Fst.ByteSequenceOutputs;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using CompiledAutomaton = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using RunAutomaton = YAF.Lucene.Net.Util.Automaton.RunAutomaton;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using TermState = YAF.Lucene.Net.Index.TermState;
-    using Transition = YAF.Lucene.Net.Util.Automaton.Transition;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using ByteArrayDataInput  = YAF.Lucene.Net.Store.ByteArrayDataInput;
+    using ByteSequenceOutputs  = YAF.Lucene.Net.Util.Fst.ByteSequenceOutputs;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using CompiledAutomaton  = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOptions  = YAF.Lucene.Net.Index.IndexOptions;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using RunAutomaton  = YAF.Lucene.Net.Util.Automaton.RunAutomaton;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using TermState  = YAF.Lucene.Net.Index.TermState;
+    using Transition  = YAF.Lucene.Net.Util.Automaton.Transition;
 
     /// <summary>
     /// A block-based terms index and dictionary that assigns
@@ -310,7 +310,7 @@ namespace YAF.Lucene.Net.Codecs
                 {
                     return b.Utf8ToString() + " " + b;
                 }
-                catch (Exception)
+                catch (Exception t) when (t.IsThrowable())
                 {
                     // If BytesRef isn't actually UTF8, or it's eg a
                     // prefix of UTF8 that ends mid-unicode-char, we
@@ -472,7 +472,7 @@ namespace YAF.Lucene.Net.Codecs
                 }
                 else
                 {
-                    throw new InvalidOperationException();
+                    throw IllegalStateException.Create();
                 }
                 endBlockCount++;
                 long otherBytes = frame.fpEnd - frame.fp - frame.suffixesReader.Length - frame.statsReader.Length;
@@ -637,7 +637,7 @@ namespace YAF.Lucene.Net.Codecs
             {
                 if (compiled.Type != CompiledAutomaton.AUTOMATON_TYPE.NORMAL)
                 {
-                    throw new ArgumentException("please use CompiledAutomaton.getTermsEnum instead");
+                    throw new ArgumentException("please use CompiledAutomaton.GetTermsEnum() instead");
                 }
                 return new IntersectEnum(this, compiled, startTerm);
             }
@@ -894,7 +894,7 @@ namespace YAF.Lucene.Net.Codecs
                         {
                             // Sub-blocks of a single floor block are always
                             // written one after another -- tail recurse:
-                            fpEnd = outerInstance.@in.GetFilePointer();
+                            fpEnd = outerInstance.@in.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                         }
                     }
 
@@ -1472,19 +1472,19 @@ namespace YAF.Lucene.Net.Codecs
 
                 public override bool SeekExact(BytesRef text)
                 {
-                    throw new NotSupportedException();
+                    throw UnsupportedOperationException.Create();
                 }
 
                 public override void SeekExact(long ord)
                 {
-                    throw new NotSupportedException();
+                    throw UnsupportedOperationException.Create();
                 }
 
-                public override long Ord => throw new NotSupportedException();
+                public override long Ord => throw UnsupportedOperationException.Create();
 
                 public override SeekStatus SeekCeil(BytesRef text)
                 {
-                    throw new NotSupportedException();
+                    throw UnsupportedOperationException.Create();
                 }
             }
 
@@ -1797,7 +1797,7 @@ namespace YAF.Lucene.Net.Codecs
                 {
                     if (outerInstance.index == null)
                     {
-                        throw new InvalidOperationException("terms index was not loaded");
+                        throw IllegalStateException.Create("terms index was not loaded");
                     }
 
                     if (term.Bytes.Length <= target.Length)
@@ -2084,7 +2084,7 @@ namespace YAF.Lucene.Net.Codecs
                 {
                     if (outerInstance.index == null)
                     {
-                        throw new InvalidOperationException("terms index was not loaded");
+                        throw IllegalStateException.Create("terms index was not loaded");
                     }
 
                     if (term.Bytes.Length <= target.Length)
@@ -2582,10 +2582,10 @@ namespace YAF.Lucene.Net.Codecs
 
                 public override void SeekExact(long ord)
                 {
-                    throw new NotSupportedException();
+                    throw UnsupportedOperationException.Create();
                 }
 
-                public override long Ord => throw new NotSupportedException();
+                public override long Ord => throw UnsupportedOperationException.Create();
 
                 // Not static -- references term, postingsReader,
                 // fieldInfo, in
@@ -2799,7 +2799,7 @@ namespace YAF.Lucene.Net.Codecs
 
                         // Sub-blocks of a single floor block are always
                         // written one after another -- tail recurse:
-                        fpEnd = outerInstance.@in.GetFilePointer();
+                        fpEnd = outerInstance.@in.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                         // if (DEBUG) {
                         //   System.out.println("      fpEnd=" + fpEnd);
                         // }

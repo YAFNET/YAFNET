@@ -19,8 +19,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
 
     internal class ParallelPostingsArray
     {

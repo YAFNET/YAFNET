@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Search;
+﻿using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
 
     /// <summary>
     /// <para>
@@ -315,7 +315,7 @@ namespace YAF.Lucene.Net.Util
                             }
                         }
                     }
-                    catch (ObjectDisposedException)
+                    catch (Exception ace) when (ace.IsAlreadyClosedException())
                     {
                         // ignore this reader
                     }
@@ -377,7 +377,8 @@ namespace YAF.Lucene.Net.Util
 
             public Insanity(InsanityType type, string msg, params FieldCache.CacheEntry[] entries)
             {
-                // LUCENENET specific - rearranged order to take advantage of throw expressions
+                // LUCENENET specific - rearranged order to take advantage of throw expressions and
+                // changed from IllegalArgumentException to ArgumentNullException (.NET convention)
                 this.type = type ?? throw new ArgumentNullException(nameof(type), "Insanity requires non-null InsanityType");
                 this.entries = entries ?? throw new ArgumentNullException(nameof(entries), "Insanity requires non-null CacheEntry[]");
                 if (0 == entries.Length)

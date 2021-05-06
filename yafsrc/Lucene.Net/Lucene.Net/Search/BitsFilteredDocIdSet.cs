@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// This implementation supplies a filtered <see cref="DocIdSet"/>, that excludes all
@@ -50,7 +50,7 @@ namespace YAF.Lucene.Net.Search
         public BitsFilteredDocIdSet(DocIdSet innerSet, IBits acceptDocs)
             : base(innerSet)
         {
-            this.acceptDocs = acceptDocs ?? throw new ArgumentNullException(nameof(acceptDocs), "acceptDocs can not be null");
+            this.acceptDocs = acceptDocs ?? throw new ArgumentNullException(nameof(acceptDocs), "acceptDocs can not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
         protected override bool Match(int docid)

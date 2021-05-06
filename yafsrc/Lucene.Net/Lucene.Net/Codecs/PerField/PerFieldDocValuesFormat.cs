@@ -25,17 +25,17 @@ namespace YAF.Lucene.Net.Codecs.PerField
      * limitations under the License.
      */
 
-    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
+    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
 
     /// <summary>
     /// Enables per field docvalues support.
@@ -155,7 +155,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
                 }
                 if (format == null)
                 {
-                    throw new InvalidOperationException("invalid null DocValuesFormat for field=\"" + field.Name + "\"");
+                    throw IllegalStateException.Create("invalid null DocValuesFormat for field=\"" + field.Name + "\"");
                 }
                 string formatName_ = format.Name;
 

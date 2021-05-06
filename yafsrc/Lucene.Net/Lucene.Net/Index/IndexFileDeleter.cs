@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
@@ -25,9 +25,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using CollectionUtil = YAF.Lucene.Net.Util.CollectionUtil;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
+    using CollectionUtil  = YAF.Lucene.Net.Util.CollectionUtil;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using InfoStream  = YAF.Lucene.Net.Util.InfoStream;
 
     /// <summary>
     /// This class keeps track of each SegmentInfos instance that
@@ -151,7 +151,7 @@ namespace YAF.Lucene.Net.Index
             {
                 files = directory.ListAll();
             }
-            catch (DirectoryNotFoundException) // LUCENENET: IDE0059: Remove unnecessary value assignment
+            catch (Exception e) when (e.IsNoSuchDirectoryException())
             {
                 // it means the directory is empty, so ignore it.
                 files = Arrays.Empty<string>();
@@ -182,9 +182,7 @@ namespace YAF.Lucene.Net.Index
                             {
                                 sis.Read(directory, fileName);
                             }
-#pragma warning disable 168
-                            catch (FileNotFoundException e)
-#pragma warning restore 168
+                            catch (Exception e) when (e.IsNoSuchFileExceptionOrFileNotFoundException())
                             {
                                 // LUCENE-948: on NFS (and maybe others), if
                                 // you have writers switching back and forth
@@ -199,40 +197,7 @@ namespace YAF.Lucene.Net.Index
                                 }
                                 sis = null;
                             }
-                            // LUCENENET specific - .NET (thankfully) only has one FileNotFoundException, so we don't need this
-                            //catch (NoSuchFileException)
-                            //{
-                            //    // LUCENE-948: on NFS (and maybe others), if
-                            //    // you have writers switching back and forth
-                            //    // between machines, it's very likely that the
-                            //    // dir listing will be stale and will claim a
-                            //    // file segments_X exists when in fact it
-                            //    // doesn't.  So, we catch this and handle it
-                            //    // as if the file does not exist
-                            //    if (infoStream.IsEnabled("IFD"))
-                            //    {
-                            //        infoStream.Message("IFD", "init: hit FileNotFoundException when loading commit \"" + fileName + "\"; skipping this commit point");
-                            //    }
-                            //    sis = null;
-                            //}
-                            // LUCENENET specific - since NoSuchDirectoryException subclasses FileNotFoundException
-                            // in Lucene, we need to catch it here to be on the safe side.
-                            catch (DirectoryNotFoundException)
-                            {
-                                // LUCENE-948: on NFS (and maybe others), if
-                                // you have writers switching back and forth
-                                // between machines, it's very likely that the
-                                // dir listing will be stale and will claim a
-                                // file segments_X exists when in fact it
-                                // doesn't.  So, we catch this and handle it
-                                // as if the file does not exist
-                                if (infoStream.IsEnabled("IFD"))
-                                {
-                                    infoStream.Message("IFD", "init: hit FileNotFoundException when loading commit \"" + fileName + "\"; skipping this commit point");
-                                }
-                                sis = null;
-                            }
-                            catch (IOException /*e*/)
+                            catch (Exception e) when (e.IsIOException())
                             {
                                 if (SegmentInfos.GenerationFromSegmentsFileName(fileName) <= currentGen && directory.FileLength(fileName) > 0)
                                 {
@@ -280,7 +245,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     sis.Read(directory, currentSegmentsFile);
                 }
-                catch (IOException e)
+                catch (Exception e) when (e.IsIOException())
                 {
                     throw new CorruptIndexException("failed to locate current segments_N file \"" + currentSegmentsFile + "\"" + e.ToString(), e);
                 }
@@ -330,7 +295,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (writer == null)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "this IndexWriter is closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this IndexWriter is disposed.");
             }
             else
             {
@@ -715,7 +680,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 directory.DeleteFile(fileName);
             } // if delete fails
-            catch (IOException e)
+            catch (Exception e) when (e.IsIOException())
             {
                 // Some operating systems (e.g. Windows) don't
                 // permit a file to be deleted while it is opened

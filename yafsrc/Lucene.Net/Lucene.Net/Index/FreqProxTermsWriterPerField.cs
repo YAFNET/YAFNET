@@ -26,13 +26,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FieldsConsumer = YAF.Lucene.Net.Codecs.FieldsConsumer;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using PostingsConsumer = YAF.Lucene.Net.Codecs.PostingsConsumer;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using TermsConsumer = YAF.Lucene.Net.Codecs.TermsConsumer;
-    using TermStats = YAF.Lucene.Net.Codecs.TermStats;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using FieldsConsumer  = YAF.Lucene.Net.Codecs.FieldsConsumer;
+    using FixedBitSet  = YAF.Lucene.Net.Util.FixedBitSet;
+    using PostingsConsumer  = YAF.Lucene.Net.Codecs.PostingsConsumer;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using TermsConsumer  = YAF.Lucene.Net.Codecs.TermsConsumer;
+    using TermStats  = YAF.Lucene.Net.Codecs.TermStats;
 
     // TODO: break into separate freq and prox writers as
     // codecs; make separate container (tii/tis/skip/*) that can
@@ -669,7 +669,7 @@ namespace YAF.Lucene.Net.Index
                 sumDocFreq += docFreq;
             }
 
-            termsConsumer.Finish(writeTermFreq ? sumTotalTermFreq : -1, sumDocFreq, visitedDocs.Cardinality());
+            termsConsumer.Finish(writeTermFreq ? sumTotalTermFreq : -1, sumDocFreq, visitedDocs.Cardinality);
         }
     }
 }

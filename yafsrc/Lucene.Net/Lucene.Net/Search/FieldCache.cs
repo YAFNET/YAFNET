@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -23,16 +23,16 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using NumericUtils = YAF.Lucene.Net.Util.NumericUtils;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using AtomicReader  = YAF.Lucene.Net.Index.AtomicReader;
+    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using NumericUtils  = YAF.Lucene.Net.Util.NumericUtils;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Expert: Maintains caches of term values.
@@ -378,7 +378,7 @@ namespace YAF.Lucene.Net.Search
             /// <paramref name="get"/> delegate method.
             /// </summary>
             /// <param name="get">A <see cref="Func{T, TResult}"/> that implements the <see cref="Get(int)"/> method body.</param>
-            public Bytes(Func<int, byte> get) 
+            public Bytes(Func<int, byte> get) // LUCENENET specific - Added constructor overload to simulate anonymous classes
             {
                 this.get = get ?? throw new ArgumentNullException(nameof(get));
                 this.hasGet = true;
@@ -415,7 +415,7 @@ namespace YAF.Lucene.Net.Search
             /// <paramref name="get"/> delegate method.
             /// </summary>
             /// <param name="get">A <see cref="Func{T, TResult}"/> that implements the <see cref="Get(int)"/> method body.</param>
-            public Int16s(Func<int, short> get)
+            public Int16s(Func<int, short> get) // LUCENENET specific - Added constructor overload to simulate anonymous classes
             {
                 this.get = get ?? throw new ArgumentNullException(nameof(get));
                 this.hasGet = true;
@@ -452,7 +452,7 @@ namespace YAF.Lucene.Net.Search
             /// <paramref name="get"/> delegate method.
             /// </summary>
             /// <param name="get">A <see cref="Func{T, TResult}"/> that implements the <see cref="Get(int)"/> method body.</param>
-            public Int32s(Func<int, int> get)
+            public Int32s(Func<int, int> get) // LUCENENET specific - Added constructor overload for to simulate anonymous classes
             {
                 this.get = get ?? throw new ArgumentNullException(nameof(get));
                 this.hasGet = true;
@@ -489,7 +489,7 @@ namespace YAF.Lucene.Net.Search
             /// <paramref name="get"/> delegate method.
             /// </summary>
             /// <param name="get">A <see cref="Func{T, TResult}"/> that implements the <see cref="Get(int)"/> method body.</param>
-            public Int64s(Func<int, long> get)
+            public Int64s(Func<int, long> get) // LUCENENET: Added constructor overload to simulate anonymous classes
             {
                 this.get = get ?? throw new ArgumentNullException(nameof(get));
                 this.hasGet = true;
@@ -526,7 +526,7 @@ namespace YAF.Lucene.Net.Search
             /// <paramref name="get"/> delegate method.
             /// </summary>
             /// <param name="get">A <see cref="Func{T, TResult}"/> that implements the <see cref="Get(int)"/> method body.</param>
-            public Singles(Func<int, float> get)
+            public Singles(Func<int, float> get) // LUCENENET: Added constructor overload to simulate anonymous classes
             {
                 this.get = get ?? throw new ArgumentNullException(nameof(get));
                 this.hasGet = true;
@@ -561,7 +561,7 @@ namespace YAF.Lucene.Net.Search
             /// <paramref name="get"/> delegate method.
             /// </summary>
             /// <param name="get">A <see cref="Func{T, TResult}"/> that implements the <see cref="Get(int)"/> method body.</param>
-            public Doubles(Func<int, double> get)
+            public Doubles(Func<int, double> get) // LUCENENET: Added constructor overload to simulate anonymous classes
             {
                 this.get = get ?? throw new ArgumentNullException(nameof(get));
                 this.hasGet = true;

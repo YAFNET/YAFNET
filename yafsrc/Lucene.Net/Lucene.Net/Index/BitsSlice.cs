@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Diagnostics;
 
@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// Exposes a slice of an existing <see cref="IBits"/> as a new <see cref="IBits"/>.
@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (doc >= length)
             {
-                throw new Exception("doc " + doc + " is out of bounds 0 .. " + (length - 1));
+                throw RuntimeException.Create("doc " + doc + " is out of bounds 0 .. " + (length - 1));
             }
             if (Debugging.AssertsEnabled) Debugging.Assert(doc < length,"doc={0} length={1}", doc, length);
             return parent.Get(doc + start);

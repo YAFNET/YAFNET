@@ -17,11 +17,11 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using FixedBitSet  = YAF.Lucene.Net.Util.FixedBitSet;
+    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
 
     /// <summary>
     /// A <see cref="Filter"/> that only accepts documents whose single

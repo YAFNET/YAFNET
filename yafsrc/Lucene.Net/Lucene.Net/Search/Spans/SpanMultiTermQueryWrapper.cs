@@ -21,11 +21,11 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermContext  = YAF.Lucene.Net.Index.TermContext;
 
     /// <summary>
     /// Wraps any <see cref="MultiTermQuery"/> as a <see cref="SpanQuery"/>,
@@ -80,7 +80,7 @@ namespace YAF.Lucene.Net.Search.Spans
                 MultiTermQuery.RewriteMethod m = m_query.MultiTermRewriteMethod;
                 if (!(m is SpanRewriteMethod spanRewriteMethod))
                 {
-                    throw new NotSupportedException("You can only use SpanMultiTermQueryWrapper with a suitable SpanRewriteMethod.");
+                    throw UnsupportedOperationException.Create("You can only use SpanMultiTermQueryWrapper with a suitable SpanRewriteMethod.");
                 }
                 return spanRewriteMethod;
             }
@@ -89,7 +89,7 @@ namespace YAF.Lucene.Net.Search.Spans
 
         public override Spans GetSpans(AtomicReaderContext context, IBits acceptDocs, IDictionary<Term, TermContext> termContexts)
         {
-            throw new NotSupportedException("Query should have been rewritten");
+            throw UnsupportedOperationException.Create("Query should have been rewritten");
         }
 
         public override string Field => m_query.Field;
@@ -117,7 +117,7 @@ namespace YAF.Lucene.Net.Search.Spans
             Query q = m_query.Rewrite(reader);
             if (!(q is SpanQuery))
             {
-                throw new NotSupportedException("You can only use SpanMultiTermQueryWrapper with a suitable SpanRewriteMethod.");
+                throw UnsupportedOperationException.Create("You can only use SpanMultiTermQueryWrapper with a suitable SpanRewriteMethod.");
             }
             q.Boost = q.Boost * Boost; // multiply boost
             return q;

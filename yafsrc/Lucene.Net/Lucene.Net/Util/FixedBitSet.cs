@@ -23,8 +23,8 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using DocIdSet  = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
 
     /// <summary>
     /// BitSet of fixed length (numBits), backed by accessible (<see cref="GetBits()"/>)
@@ -252,14 +252,14 @@ namespace YAF.Lucene.Net.Util
         }
 
         /// <summary>
-        /// Returns number of set bits.  NOTE: this visits every
+        /// Gets the number of set bits.  NOTE: this visits every
         /// <see cref="long"/> in the backing bits array, and the result is not
         /// internally cached!
         /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Cardinality()
+        public int Cardinality
         {
-            return (int)BitUtil.Pop_Array(bits, 0, bits.Length);
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => (int)BitUtil.Pop_Array(bits, 0, bits.Length);
         }
 
         public bool Get(int index)

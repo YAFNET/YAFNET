@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Support;
 using System;
@@ -27,23 +27,23 @@ namespace YAF.Lucene.Net.Search
 
     using J2N.Collections.Generic.Extensions;
     using System.Collections;
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using IndexReaderContext = YAF.Lucene.Net.Index.IndexReaderContext;
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
-    using SimScorer = YAF.Lucene.Net.Search.Similarities.Similarity.SimScorer;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using TermState = YAF.Lucene.Net.Index.TermState;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using AtomicReader  = YAF.Lucene.Net.Index.AtomicReader;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using IndexReaderContext  = YAF.Lucene.Net.Index.IndexReaderContext;
+    using Similarity  = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using SimScorer  = YAF.Lucene.Net.Search.Similarities.Similarity.SimScorer;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using TermState  = YAF.Lucene.Net.Index.TermState;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// <see cref="MultiPhraseQuery"/> is a generalized version of <see cref="PhraseQuery"/>, with an added
@@ -85,7 +85,7 @@ namespace YAF.Lucene.Net.Search
             set
             {
                 if (value < 0)
-                    throw new ArgumentException("slop value cannot be negative");
+                    throw new ArgumentOutOfRangeException(nameof(Slop), "slop value cannot be negative"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
 
                 slop = value;
             }
@@ -285,7 +285,7 @@ namespace YAF.Lucene.Net.Search
                         {
                             // term does exist, but has no positions
                             if (Debugging.AssertsEnabled) Debugging.Assert(termsEnum.Docs(liveDocs, null, DocsFlags.NONE) != null, "termstate found but no term exists in reader");
-                            throw new InvalidOperationException("field \"" + term.Field + "\" was indexed without position data; cannot run PhraseQuery (term=" + term.Text() + ")");
+                            throw IllegalStateException.Create("field \"" + term.Field + "\" was indexed without position data; cannot run PhraseQuery (term=" + term.Text + ")");
                         }
 
                         docFreq = termsEnum.DocFreq;
@@ -407,7 +407,7 @@ namespace YAF.Lucene.Net.Search
                     buffer.Append("(");
                     for (int j = 0; j < terms.Length; j++)
                     {
-                        buffer.Append(terms[j].Text());
+                        buffer.Append(terms[j].Text);
                         if (j < terms.Length - 1)
                         {
                             buffer.Append(" ");
@@ -417,7 +417,7 @@ namespace YAF.Lucene.Net.Search
                 }
                 else
                 {
-                    buffer.Append(terms[0].Text());
+                    buffer.Append(terms[0].Text);
                 }
                 lastPos = position;
                 ++k;
@@ -621,7 +621,7 @@ namespace YAF.Lucene.Net.Search
                 if (postings == null)
                 {
                     // term does exist, but has no positions
-                    throw new InvalidOperationException("field \"" + term.Field + "\" was indexed without position data; cannot run PhraseQuery (term=" + term.Text() + ")");
+                    throw IllegalStateException.Create("field \"" + term.Field + "\" was indexed without position data; cannot run PhraseQuery (term=" + term.Text + ")");
                 }
                 _cost += postings.GetCost();
                 docsEnums.Add(postings);

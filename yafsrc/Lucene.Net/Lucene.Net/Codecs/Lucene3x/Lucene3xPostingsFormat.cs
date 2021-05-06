@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
-using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -56,7 +56,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
         public override FieldsConsumer FieldsConsumer(SegmentWriteState state)
         {
-            throw new NotSupportedException("this codec can only be used for reading");
+            throw UnsupportedOperationException.Create("this codec can only be used for reading");
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

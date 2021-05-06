@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
-namespace YAF.Lucene.Net.Index.Memory
+namespace YAF.Lucene.Net.Util
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -19,28 +20,15 @@ namespace YAF.Lucene.Net.Index.Memory
      * limitations under the License.
      */
 
-    /// 
-    /// <summary>
-    /// @lucene.internal
-    /// </summary>
-    internal class MemoryIndexNormDocValues : NumericDocValues
+    public static class WAH8DocIdSetExtensions
     {
-        private readonly long value;
-        public MemoryIndexNormDocValues(long value)
+        /// <summary>
+        /// Return the number of documents in this <see cref="Lucene.Net.Search.DocIdSet"/> in constant time. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Obsolete("Use Cardinality property instead. This extension method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public static int Cardinality(this WAH8DocIdSet set)
         {
-            this.value = value;
-        }
-
-        public override long Get(int docID)
-        {
-            if (docID != 0)
-            {
-                throw new IndexOutOfRangeException();
-            }
-            else
-            {
-                return value;
-            }
+            return set.Cardinality;
         }
     }
 }

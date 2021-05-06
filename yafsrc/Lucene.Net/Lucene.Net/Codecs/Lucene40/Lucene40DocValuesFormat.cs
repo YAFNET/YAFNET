@@ -20,9 +20,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Lucene 4.0 DocValues format.
@@ -137,7 +137,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
         public override DocValuesConsumer FieldsConsumer(SegmentWriteState state)
         {
-            throw new NotSupportedException("this codec can only be used for reading");
+            throw UnsupportedOperationException.Create("this codec can only be used for reading");
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

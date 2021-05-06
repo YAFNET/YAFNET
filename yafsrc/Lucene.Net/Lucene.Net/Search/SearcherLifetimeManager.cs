@@ -23,8 +23,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using DirectoryReader = YAF.Lucene.Net.Index.DirectoryReader;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using DirectoryReader  = YAF.Lucene.Net.Index.DirectoryReader;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Keeps track of current plus old <see cref="IndexSearcher"/>s, disposing
@@ -146,7 +146,7 @@ namespace YAF.Lucene.Net.Search
         {
             if (_closed)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "this SearcherLifetimeManager instance is closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this SearcherLifetimeManager instance is disposed.");
             }
         }
 
@@ -242,7 +242,7 @@ namespace YAF.Lucene.Net.Search
             {
                 if (maxAgeSec < 0)
                 {
-                    throw new ArgumentException("maxAgeSec must be > 0 (got " + maxAgeSec + ")");
+                    throw new ArgumentOutOfRangeException("maxAgeSec must be > 0 (got " + maxAgeSec + ")"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 this.maxAgeSec = maxAgeSec;
             }
@@ -347,7 +347,7 @@ namespace YAF.Lucene.Net.Search
                     // Make some effort to catch mis-use:
                     if (_searchers.Count != 0)
                     {
-                        throw new InvalidOperationException("another thread called record while this SearcherLifetimeManager instance was being disposed; not all searchers were disposed");
+                        throw IllegalStateException.Create("another thread called record while this SearcherLifetimeManager instance was being disposed; not all searchers were disposed");
                     }
                 }
             }

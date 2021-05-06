@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
 
     /// <summary>
     /// Scorer for conjunctions, sets of queries, all of which are required. </summary>

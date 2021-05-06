@@ -1,4 +1,4 @@
-using J2N.Numerics;
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections;
@@ -24,11 +24,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using RAMFile = YAF.Lucene.Net.Store.RAMFile;
-    using RAMInputStream = YAF.Lucene.Net.Store.RAMInputStream;
-    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using RAMFile  = YAF.Lucene.Net.Store.RAMFile;
+    using RAMInputStream  = YAF.Lucene.Net.Store.RAMInputStream;
+    using RAMOutputStream  = YAF.Lucene.Net.Store.RAMOutputStream;
 
     /// <summary>
     /// Prefix codes term instances (prefixes are shared)
@@ -76,9 +76,9 @@ namespace YAF.Lucene.Net.Index
                 {
                     input = new RAMInputStream("PrefixCodedTermsIterator", buffer);
                 }
-                catch (IOException e)
+                catch (Exception e) when (e.IsIOException())
                 {
-                    throw new Exception(e.ToString(), e);
+                    throw RuntimeException.Create(e);
                 }
             }
 
@@ -104,8 +104,8 @@ namespace YAF.Lucene.Net.Index
             {
                 // LUCENENET specific - Since there is no way to check for a next element
                 // without calling this method in .NET, the assert is redundant and ineffective.
-                //if (Debugging.AssertsEnabled) Debugging.Assert(input.GetFilePointer() < input.Length); // Has next
-                if (input.GetFilePointer() < input.Length)
+                //if (Debugging.AssertsEnabled) Debugging.Assert(input.Position < input.Length); // Has next
+                if (input.Position < input.Length) // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 {
                     try
                     {
@@ -121,9 +121,9 @@ namespace YAF.Lucene.Net.Index
                         bytes.Length = prefix + suffix;
                         term.Set(field, bytes);
                     }
-                    catch (IOException e)
+                    catch (Exception e) when (e.IsIOException())
                     {
-                        throw new Exception(e.ToString(), e);
+                        throw RuntimeException.Create(e);
                     }
 
                     return true;
@@ -133,7 +133,7 @@ namespace YAF.Lucene.Net.Index
 
             public virtual void Reset()
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
         }
 
@@ -174,9 +174,9 @@ namespace YAF.Lucene.Net.Index
                     lastTerm.Bytes.CopyBytes(term.Bytes);
                     lastTerm.Field = term.Field;
                 }
-                catch (IOException e)
+                catch (Exception e) when (e.IsIOException())
                 {
-                    throw new Exception(e.ToString(), e);
+                    throw RuntimeException.Create(e);
                 }
             }
 
@@ -189,9 +189,9 @@ namespace YAF.Lucene.Net.Index
                     output.Dispose();
                     return new PrefixCodedTerms(buffer);
                 }
-                catch (IOException e)
+                catch (Exception e) when (e.IsIOException())
                 {
-                    throw new Exception(e.ToString(), e);
+                    throw RuntimeException.Create(e);
                 }
             }
 

@@ -1,10 +1,8 @@
 ﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
-using YAF.Lucene.Net.QueryParsers.Flexible.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Builders
 {
@@ -164,7 +162,8 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Builders
         {
             if (builder == null)
             {
-                throw new QueryNodeException(new Message(
+                // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
+                throw new QueryNodeException(string.Format(
                     QueryParserMessages.LUCENE_QUERY_CONVERSION_ERROR, node
                         .ToQueryString(new EscapeQuerySyntax()), node.GetType()
                         .Name));

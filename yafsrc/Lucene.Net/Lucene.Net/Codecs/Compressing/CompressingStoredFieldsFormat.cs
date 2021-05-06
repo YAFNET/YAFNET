@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
@@ -20,10 +20,10 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// A <see cref="StoredFieldsFormat"/> that is very similar to
@@ -97,7 +97,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             this.compressionMode = compressionMode;
             if (chunkSize < 1)
             {
-                throw new ArgumentException("chunkSize must be >= 1");
+                throw new ArgumentOutOfRangeException(nameof(chunkSize), "chunkSize must be >= 1"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.chunkSize = chunkSize;
         }

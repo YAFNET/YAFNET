@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Checks to see if the <see cref="SpanPositionCheckQuery.Match"/> lies between a start and end position

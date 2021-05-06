@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
 
     internal sealed class DirectPacked64SingleBlockReader : PackedInt32s.ReaderImpl
     {
@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Util.Packed
             : base(valueCount, bitsPerValue)
         {
             this.@in = @in;
-            startPointer = @in.GetFilePointer();
+            startPointer = @in.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             valuesPerBlock = 64 / bitsPerValue;
             mask = ~(~0L << bitsPerValue);
         }
@@ -52,9 +52,9 @@ namespace YAF.Lucene.Net.Util.Packed
                 int offsetInBlock = index % valuesPerBlock;
                 return (block.TripleShift(offsetInBlock * m_bitsPerValue)) & mask;
             }
-            catch (IOException e)
+            catch (Exception e) when (e.IsIOException())
             {
-                throw new InvalidOperationException("failed", e);
+                throw IllegalStateException.Create("failed", e);
             }
         }
 

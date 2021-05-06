@@ -23,9 +23,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
 
     /// <summary>
     /// LZ4 compression and decompression routines.

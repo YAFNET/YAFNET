@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
 
     // Packs high order byte first, to match
     // IndexOutput.writeInt/Long/Short byte order
@@ -62,7 +62,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
             if (m_valueCount != -1 && written >= m_valueCount)
             {
-                throw new EndOfStreamException("Writing past end of stream");
+                throw EOFException.Create("Writing past end of stream");
             }
             nextValues[off++] = v;
             if (off == nextValues.Length)

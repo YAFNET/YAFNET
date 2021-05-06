@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 
 namespace YAF.Lucene.Net.Search
@@ -20,8 +20,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// Expert: Calculate query weights and build query scorers.
@@ -149,7 +149,8 @@ namespace YAF.Lucene.Net.Search
 
             public DefaultBulkScorer(Scorer scorer)
             {
-                this.scorer = scorer ?? throw new NullReferenceException();
+                // LUCENENET: Changed from NullPointerException to ArgumentNullException
+                this.scorer = scorer ?? throw new ArgumentNullException(nameof(scorer));
             }
 
             public override bool Score(ICollector collector, int max)

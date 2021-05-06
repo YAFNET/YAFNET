@@ -1,4 +1,4 @@
-using J2N;
+﻿using J2N;
 using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
 using System;
@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
 
     /// <summary>
     /// A <see cref="Scorer"/> for OR like queries, counterpart of <see cref="ConjunctionScorer"/>.
@@ -89,11 +89,11 @@ namespace YAF.Lucene.Net.Search
 
             if (minimumNrMatchers <= 0)
             {
-                throw new ArgumentException("Minimum nr of matchers must be positive");
+                throw new ArgumentOutOfRangeException(nameof(minimumNrMatchers), "Minimum nr of matchers must be positive"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (numScorers <= 1)
             {
-                throw new ArgumentException("There must be at least 2 subScorers");
+                throw new ArgumentOutOfRangeException(nameof(numScorers), "There must be at least 2 subScorers"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
 
             this.mm = minimumNrMatchers;

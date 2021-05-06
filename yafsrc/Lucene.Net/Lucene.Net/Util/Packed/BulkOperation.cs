@@ -175,7 +175,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
             else
             {
-                throw new InvalidOperationException();
+                throw AssertionError.Create();
             }
         }
 

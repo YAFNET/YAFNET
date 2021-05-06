@@ -2,6 +2,7 @@
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
 using System;
+using System.IO;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -50,7 +51,7 @@ namespace YAF.Lucene.Net.Util.Packed
                 int bitsPerValue = token.TripleShift(AbstractBlockPackedWriter.BPV_SHIFT);
                 if (bitsPerValue > 64)
                 {
-                    throw new Exception("Corrupted");
+                    throw new IOException("Corrupted");
                 }
                 if ((token & AbstractBlockPackedWriter.MIN_VALUE_EQUALS_0) == 0)
                 {
@@ -69,7 +70,7 @@ namespace YAF.Lucene.Net.Util.Packed
                     int size = (int)Math.Min(blockSize, valueCount - (long)i * blockSize);
                     if (direct)
                     {
-                        long pointer = @in.GetFilePointer();
+                        long pointer = @in.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                         subReaders[i] = PackedInt32s.GetDirectReaderNoHeader(@in, PackedInt32s.Format.PACKED, packedIntsVersion, size, bitsPerValue);
                         @in.Seek(pointer + PackedInt32s.Format.PACKED.ByteCount(packedIntsVersion, size, bitsPerValue));
                     }

@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,11 +23,11 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// A query that applies a filter to the results of another query.
@@ -64,7 +64,8 @@ namespace YAF.Lucene.Net.Search
         /// <seealso cref="FilterStrategy"/>
         public FilteredQuery(Query query, Filter filter, FilterStrategy strategy)
         {
-            // LUCENENET specific - rearranged order to take advantage of throw expressions
+            // LUCENENET specific - rearranged order to take advantage of throw expressions and
+            // changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             this.query = query ?? throw new ArgumentNullException(nameof(query), "Query cannot be null.");
             this.filter = filter ?? throw new ArgumentNullException(nameof(filter), "filter can not be null");
             this.strategy = strategy ?? throw new ArgumentNullException(nameof(strategy), "FilterStrategy can not be null");

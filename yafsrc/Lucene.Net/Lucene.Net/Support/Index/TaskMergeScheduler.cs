@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Directory = YAF.Lucene.Net.Store.Directory;
+using Directory  = YAF.Lucene.Net.Store.Directory;
 
 namespace YAF.Lucene.Net.Index
 {

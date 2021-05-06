@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene41
@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
      * limitations under the License.
      */
 
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
 
     /// <summary>
     /// Write skip lists with multiple levels, and support skip within block ints.
@@ -97,17 +97,17 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         {
             base.ResetSkip();
             Arrays.Fill(lastSkipDoc, 0);
-            Arrays.Fill(lastSkipDocPointer, docOut.GetFilePointer());
+            Arrays.Fill(lastSkipDocPointer, docOut.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             if (fieldHasPositions)
             {
-                Arrays.Fill(lastSkipPosPointer, posOut.GetFilePointer());
+                Arrays.Fill(lastSkipPosPointer, posOut.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 if (fieldHasPayloads)
                 {
                     Arrays.Fill(lastPayloadByteUpto, 0);
                 }
                 if (fieldHasOffsets || fieldHasPayloads)
                 {
-                    Arrays.Fill(lastSkipPayPointer, payOut.GetFilePointer());
+                    Arrays.Fill(lastSkipPayPointer, payOut.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         public void BufferSkip(int doc, int numDocs, long posFP, long payFP, int posBufferUpto, int payloadByteUpto)
         {
             this.curDoc = doc;
-            this.curDocPointer = docOut.GetFilePointer();
+            this.curDocPointer = docOut.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             this.curPosPointer = posFP;
             this.curPayPointer = payFP;
             this.curPosBufferUpto = posBufferUpto;

@@ -1,4 +1,4 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Diagnostics;
 using System;
@@ -25,16 +25,16 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
-    using BooleanQuery = YAF.Lucene.Net.Search.BooleanQuery;
-    using CachingTokenFilter = YAF.Lucene.Net.Analysis.CachingTokenFilter;
-    using MultiPhraseQuery = YAF.Lucene.Net.Search.MultiPhraseQuery;
-    using Occur = YAF.Lucene.Net.Search.Occur;
-    using PhraseQuery = YAF.Lucene.Net.Search.PhraseQuery;
-    using Query = YAF.Lucene.Net.Search.Query;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermQuery = YAF.Lucene.Net.Search.TermQuery;
-    using TokenStream = YAF.Lucene.Net.Analysis.TokenStream;
+    using Analyzer  = YAF.Lucene.Net.Analysis.Analyzer;
+    using BooleanQuery  = YAF.Lucene.Net.Search.BooleanQuery;
+    using CachingTokenFilter  = YAF.Lucene.Net.Analysis.CachingTokenFilter;
+    using MultiPhraseQuery  = YAF.Lucene.Net.Search.MultiPhraseQuery;
+    using Occur  = YAF.Lucene.Net.Search.Occur;
+    using PhraseQuery  = YAF.Lucene.Net.Search.PhraseQuery;
+    using Query  = YAF.Lucene.Net.Search.Query;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermQuery  = YAF.Lucene.Net.Search.TermQuery;
+    using TokenStream  = YAF.Lucene.Net.Analysis.TokenStream;
 
     /// <summary>
     /// Creates queries from the <see cref="Analyzer"/> chain.
@@ -237,15 +237,15 @@ namespace YAF.Lucene.Net.Util
                             hasMoreTokens = buffer.IncrementToken();
                         }
                     }
-                    catch (IOException)
+                    catch (Exception e) when (e.IsIOException())
                     {
                         // ignore
                     }
                 }
             }
-            catch (IOException e)
+            catch (Exception e) when (e.IsIOException())
             {
-                throw new Exception("Error analyzing query text", e);
+                throw RuntimeException.Create("Error analyzing query text", e);
             }
             finally
             {
@@ -269,7 +269,7 @@ namespace YAF.Lucene.Net.Util
                     if (Debugging.AssertsEnabled) Debugging.Assert(hasNext == true);
                     termAtt.FillBytesRef();
                 }
-                catch (IOException)
+                catch (Exception e) when (e.IsIOException())
                 {
                     // safe to ignore, because we know the number of tokens
                 }
@@ -295,7 +295,7 @@ namespace YAF.Lucene.Net.Util
                                     if (Debugging.AssertsEnabled) Debugging.Assert(hasNext == true);
                                     termAtt.FillBytesRef();
                                 }
-                                catch (IOException)
+                                catch (Exception e) when (e.IsIOException())
                                 {
                                     // safe to ignore, because we know the number of tokens
                                 }
@@ -317,7 +317,7 @@ namespace YAF.Lucene.Net.Util
                                     if (Debugging.AssertsEnabled) Debugging.Assert(hasNext == true);
                                     termAtt.FillBytesRef();
                                 }
-                                catch (IOException)
+                                catch (Exception e) when (e.IsIOException())
                                 {
                                     // safe to ignore, because we know the number of tokens
                                 }
@@ -364,7 +364,7 @@ namespace YAF.Lucene.Net.Util
                                     positionIncrement = posIncrAtt.PositionIncrement;
                                 }
                             }
-                            catch (IOException)
+                            catch (Exception e) when (e.IsIOException())
                             {
                                 // safe to ignore, because we know the number of tokens
                             }
@@ -415,7 +415,7 @@ namespace YAF.Lucene.Net.Util
                                 positionIncrement = posIncrAtt.PositionIncrement;
                             }
                         }
-                        catch (IOException)
+                        catch (Exception e) when (e.IsIOException())
                         {
                             // safe to ignore, because we know the number of tokens
                         }

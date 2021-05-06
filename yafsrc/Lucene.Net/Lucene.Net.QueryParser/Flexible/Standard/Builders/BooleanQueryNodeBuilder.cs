@@ -2,7 +2,6 @@
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Builders;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
-using YAF.Lucene.Net.QueryParsers.Flexible.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser;
 using YAF.Lucene.Net.Search;
 using System.Collections.Generic;
@@ -66,7 +65,8 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Builders
                         }
                         catch (BooleanQuery.TooManyClausesException ex)
                         {
-                            throw new QueryNodeException(new Message(
+                            // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
+                            throw new QueryNodeException(string.Format(
                                 QueryParserMessages.TOO_MANY_BOOLEAN_CLAUSES, BooleanQuery
                                     .MaxClauseCount, queryNode
                                     .ToQueryString(new EscapeQuerySyntax())), ex);

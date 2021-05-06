@@ -22,8 +22,8 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using UnicodeUtil = YAF.Lucene.Net.Util.UnicodeUtil;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using UnicodeUtil  = YAF.Lucene.Net.Util.UnicodeUtil;
 
     /// <summary>
     /// Abstract base class for performing write operations of Lucene's low-level

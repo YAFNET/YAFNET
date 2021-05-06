@@ -1,6 +1,7 @@
 ﻿using J2N.Text;
 using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Index.Memory;
 using YAF.Lucene.Net.Queries;
 using YAF.Lucene.Net.Search.Spans;
 using YAF.Lucene.Net.Util;
@@ -12,8 +13,6 @@ using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search.Highlight
 {
-    using YAF.Lucene.Net.Index.Memory;
-
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
      * contributor license agreements.  See the NOTICE file distributed with
@@ -32,7 +31,7 @@ namespace YAF.Lucene.Net.Search.Highlight
      */
 
     /// <summary>
-    /// Class used to extract <see cref="WeightedSpanTerm"/>s from a <see cref="Query"/> based on whether
+    /// Class used to extract <see cref="WeightedSpanTerm"/>s from a <see cref="Query"/> based on whether 
     /// <see cref="Term"/>s from the <see cref="Query"/> are contained in a supplied <see cref="Analysis.TokenStream"/>.
     /// </summary>
     public class WeightedSpanTermExtractor
@@ -138,10 +137,10 @@ namespace YAF.Lucene.Net.Search.Highlight
             }
             else if (query is CommonTermsQuery)
             {
-                // specialized since rewriting would change the result query
+                // specialized since rewriting would change the result query 
                 // this query is TermContext sensitive.
                 ExtractWeightedTerms(terms, query);
-            }
+            } 
             else if (query is DisjunctionMaxQuery disjunctionMaxQuery)
             {
                 foreach (var q in disjunctionMaxQuery)
@@ -318,12 +317,12 @@ namespace YAF.Lucene.Net.Search.Highlight
             {
                 if (FieldNameComparer(queryTerm.Field))
                 {
-                    if (!terms.TryGetValue(queryTerm.Text(), out WeightedSpanTerm weightedSpanTerm) || weightedSpanTerm == null)
+                    if (!terms.TryGetValue(queryTerm.Text, out WeightedSpanTerm weightedSpanTerm) || weightedSpanTerm == null)
                     {
-                        weightedSpanTerm = new WeightedSpanTerm(spanQuery.Boost, queryTerm.Text());
+                        weightedSpanTerm = new WeightedSpanTerm(spanQuery.Boost, queryTerm.Text);
                         weightedSpanTerm.AddPositionSpans(spanPositions);
                         weightedSpanTerm.IsPositionSensitive = true;
-                        terms[queryTerm.Text()] = weightedSpanTerm;
+                        terms[queryTerm.Text] = weightedSpanTerm;
                     }
                     else
                     {
@@ -337,7 +336,7 @@ namespace YAF.Lucene.Net.Search.Highlight
         }
 
         /// <summary>
-        /// Fills a <see cref="T:IDictionary{string, WeightedSpanTerm}"/> with <see cref="WeightedSpanTerm"/>s using the terms from
+        /// Fills a <see cref="T:IDictionary{string, WeightedSpanTerm}"/> with <see cref="WeightedSpanTerm"/>s using the terms from 
         /// the supplied <see cref="Search.Spans.SpanQuery"/>.
         /// </summary>
         /// <param name="terms"><see cref="T:IDictionary{string, WeightedSpanTerm}"/> to place created <see cref="WeightedSpanTerm"/>s in</param>
@@ -353,8 +352,8 @@ namespace YAF.Lucene.Net.Search.Highlight
 
                 if (FieldNameComparer(queryTerm.Field))
                 {
-                    WeightedSpanTerm weightedSpanTerm = new WeightedSpanTerm(query.Boost, queryTerm.Text());
-                    terms[queryTerm.Text()] = weightedSpanTerm;
+                    WeightedSpanTerm weightedSpanTerm = new WeightedSpanTerm(query.Boost, queryTerm.Text);
+                    terms[queryTerm.Text] = weightedSpanTerm;
                 }
             }
         }
@@ -431,7 +430,7 @@ namespace YAF.Lucene.Net.Search.Highlight
             {
                 return base.GetBinaryDocValues(FIELD_NAME);
             }
-
+           
             public override SortedDocValues GetSortedDocValues(string field)
             {
                 return base.GetSortedDocValues(FIELD_NAME);

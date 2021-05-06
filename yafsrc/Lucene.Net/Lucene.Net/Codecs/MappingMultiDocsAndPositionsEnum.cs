@@ -22,10 +22,10 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using MergeState = YAF.Lucene.Net.Index.MergeState;
-    using MultiDocsAndPositionsEnum = YAF.Lucene.Net.Index.MultiDocsAndPositionsEnum;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using MergeState  = YAF.Lucene.Net.Index.MergeState;
+    using MultiDocsAndPositionsEnum  = YAF.Lucene.Net.Index.MultiDocsAndPositionsEnum;
 
     /// <summary>
     /// Exposes flex API, merged from flex API of sub-segments,
@@ -87,7 +87,7 @@ namespace YAF.Lucene.Net.Codecs
 
         public override int Advance(int target)
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         public override int NextDoc()

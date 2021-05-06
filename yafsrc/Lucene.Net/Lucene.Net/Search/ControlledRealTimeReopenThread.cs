@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using TrackingIndexWriter = YAF.Lucene.Net.Index.TrackingIndexWriter;
+    using TrackingIndexWriter  = YAF.Lucene.Net.Index.TrackingIndexWriter;
 
     /// <summary>
     /// Utility class that runs a thread to manage periodic
@@ -243,7 +243,7 @@ namespace YAF.Lucene.Net.Search
                     {
                         reopenCond.WaitOne(TimeSpan.FromMilliseconds(sleepNS / Time.MILLISECONDS_PER_NANOSECOND));//Convert NS to Ticks
                     }
-                    catch (ThreadInterruptedException)
+                    catch (Exception ie) when (ie.IsInterruptedException())
                     {
                         Thread.CurrentThread.Interrupt();
                         return;
@@ -263,9 +263,9 @@ namespace YAF.Lucene.Net.Search
                 {
                     manager.MaybeRefreshBlocking();
                 }
-                catch (IOException ioe)
+                catch (Exception ioe) when (ioe.IsIOException())
                 {
-                    throw new Exception(ioe.ToString(), ioe);
+                    throw RuntimeException.Create(ioe);
                 }
             }
             // this will set the searchingGen so that all waiting threads will exit

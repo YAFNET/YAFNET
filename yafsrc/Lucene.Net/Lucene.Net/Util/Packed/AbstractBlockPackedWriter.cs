@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Util.Packed
     * limitations under the License.
     */
 
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
 
     public abstract class AbstractBlockPackedWriter // LUCENENET NOTE: made public rather than internal because has public subclasses
     {
@@ -88,7 +88,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (m_finished)
             {
-                throw new InvalidOperationException("Already finished");
+                throw IllegalStateException.Create("Already finished");
             }
         }
 
@@ -111,7 +111,7 @@ namespace YAF.Lucene.Net.Util.Packed
             CheckNotFinished();
             if (m_off != 0 && m_off != m_values.Length)
             {
-                throw new InvalidOperationException("" + m_off);
+                throw IllegalStateException.Create("" + m_off);
             }
             if (m_off == m_values.Length)
             {

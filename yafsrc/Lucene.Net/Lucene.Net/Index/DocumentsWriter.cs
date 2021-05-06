@@ -1,4 +1,4 @@
-using J2N.Threading.Atomic;
+﻿using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Concurrent;
@@ -26,17 +26,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
-    using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FlushedSegment = YAF.Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
-    using IEvent = YAF.Lucene.Net.Index.IndexWriter.IEvent;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
-    using Query = YAF.Lucene.Net.Search.Query;
-    using SegmentFlushTicket = YAF.Lucene.Net.Index.DocumentsWriterFlushQueue.SegmentFlushTicket;
-    using ThreadState = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
+    using Analyzer  = YAF.Lucene.Net.Analysis.Analyzer;
+    using BinaryDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FlushedSegment  = YAF.Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
+    using IEvent  = YAF.Lucene.Net.Index.IndexWriter.IEvent;
+    using InfoStream  = YAF.Lucene.Net.Util.InfoStream;
+    using NumericDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
+    using Query  = YAF.Lucene.Net.Search.Query;
+    using SegmentFlushTicket  = YAF.Lucene.Net.Index.DocumentsWriterFlushQueue.SegmentFlushTicket;
+    using ThreadState  = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
 
     /// <summary>
     /// This class accepts multiple added documents and directly
@@ -229,7 +229,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (closed)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "this IndexWriter is closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this IndexWriter is disposed.");
             }
         }
 

@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Matches spans near the beginning of a field.

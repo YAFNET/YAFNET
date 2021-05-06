@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 
@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
-    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
+    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using MathUtil  = YAF.Lucene.Net.Util.MathUtil;
+    using RAMOutputStream  = YAF.Lucene.Net.Store.RAMOutputStream;
 
     /// <summary>
     /// This abstract class writes skip lists with multiple levels.
@@ -167,7 +167,7 @@ namespace YAF.Lucene.Net.Codecs
             {
                 WriteSkipData(level, skipBuffer[level]);
 
-                long newChildPointer = skipBuffer[level].GetFilePointer();
+                long newChildPointer = skipBuffer[level].Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
                 if (level != 0)
                 {
@@ -187,7 +187,7 @@ namespace YAF.Lucene.Net.Codecs
         /// <returns> The pointer the skip list starts. </returns>
         public virtual long WriteSkip(IndexOutput output)
         {
-            long skipPointer = output.GetFilePointer();
+            long skipPointer = output.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             //System.out.println("skipper.writeSkip fp=" + skipPointer);
             if (skipBuffer == null || skipBuffer.Length == 0)
             {
@@ -196,7 +196,7 @@ namespace YAF.Lucene.Net.Codecs
 
             for (int level = m_numberOfSkipLevels - 1; level > 0; level--)
             {
-                long length = skipBuffer[level].GetFilePointer();
+                long length = skipBuffer[level].Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 if (length > 0)
                 {
                     output.WriteVInt64(length);

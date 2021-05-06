@@ -19,12 +19,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene46
      * limitations under the License.
      */
 
-    using Lucene40LiveDocsFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40LiveDocsFormat;
-    using Lucene41StoredFieldsFormat = YAF.Lucene.Net.Codecs.Lucene41.Lucene41StoredFieldsFormat;
-    using Lucene42NormsFormat = YAF.Lucene.Net.Codecs.Lucene42.Lucene42NormsFormat;
-    using Lucene42TermVectorsFormat = YAF.Lucene.Net.Codecs.Lucene42.Lucene42TermVectorsFormat;
-    using PerFieldDocValuesFormat = YAF.Lucene.Net.Codecs.PerField.PerFieldDocValuesFormat;
-    using PerFieldPostingsFormat = YAF.Lucene.Net.Codecs.PerField.PerFieldPostingsFormat;
+    using Lucene40LiveDocsFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40LiveDocsFormat;
+    using Lucene41StoredFieldsFormat  = YAF.Lucene.Net.Codecs.Lucene41.Lucene41StoredFieldsFormat;
+    using Lucene42NormsFormat  = YAF.Lucene.Net.Codecs.Lucene42.Lucene42NormsFormat;
+    using Lucene42TermVectorsFormat  = YAF.Lucene.Net.Codecs.Lucene42.Lucene42TermVectorsFormat;
+    using PerFieldDocValuesFormat  = YAF.Lucene.Net.Codecs.PerField.PerFieldDocValuesFormat;
+    using PerFieldPostingsFormat  = YAF.Lucene.Net.Codecs.PerField.PerFieldPostingsFormat;
 
     /// <summary>
     /// Implements the Lucene 4.6 index format, with configurable per-field postings

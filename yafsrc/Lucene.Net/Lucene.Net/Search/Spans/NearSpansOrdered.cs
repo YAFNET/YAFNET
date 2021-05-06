@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
@@ -24,12 +24,12 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using InPlaceMergeSorter = YAF.Lucene.Net.Util.InPlaceMergeSorter;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using InPlaceMergeSorter  = YAF.Lucene.Net.Util.InPlaceMergeSorter;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermContext  = YAF.Lucene.Net.Index.TermContext;
 
     /// <summary>
     /// A <see cref="Spans"/> that is formed from the ordered subspans of a <see cref="SpanNearQuery"/>
@@ -111,6 +111,10 @@ namespace YAF.Lucene.Net.Search.Spans
 
         public NearSpansOrdered(SpanNearQuery spanNearQuery, AtomicReaderContext context, IBits acceptDocs, IDictionary<Term, TermContext> termContexts, bool collectPayloads)
         {
+            // LUCENENET: Added guard clauses for null
+            if (spanNearQuery is null)
+                throw new ArgumentNullException(nameof(spanNearQuery));
+
             sorter = new InPlaceMergeSorterAnonymousClass(this);
             if (spanNearQuery.GetClauses().Length < 2)
             {

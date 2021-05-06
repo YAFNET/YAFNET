@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using JCG = J2N.Collections.Generic;
-using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
-using Directory = YAF.Lucene.Net.Store.Directory;
+using CompoundFileDirectory  = YAF.Lucene.Net.Store.CompoundFileDirectory;
+using Directory  = YAF.Lucene.Net.Store.Directory;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
@@ -28,15 +28,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexFormatTooNewException = YAF.Lucene.Net.Index.IndexFormatTooNewException;
-    using IndexFormatTooOldException = YAF.Lucene.Net.Index.IndexFormatTooOldException;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using SegmentCommitInfo = YAF.Lucene.Net.Index.SegmentCommitInfo;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using SegmentInfos = YAF.Lucene.Net.Index.SegmentInfos;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexFormatTooNewException  = YAF.Lucene.Net.Index.IndexFormatTooNewException;
+    using IndexFormatTooOldException  = YAF.Lucene.Net.Index.IndexFormatTooOldException;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentCommitInfo  = YAF.Lucene.Net.Index.SegmentCommitInfo;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using SegmentInfos  = YAF.Lucene.Net.Index.SegmentInfos;
 
     /// <summary>
     /// Lucene 3x implementation of <see cref="SegmentInfoReader"/>.

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Resources;
 
-namespace YAF.Lucene.Net.Util
+namespace YAF.Lucene.Net.Index
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -20,17 +19,17 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    /// <summary>
-    /// LUCENENET specific interface used to inject instances of
-    /// <see cref="ResourceManager"/>. This
-    /// extension point can be used to override the default behavior
-    /// to, for example, retrieve resources from a persistent data store,
-    /// rather than getting them from resource files.
-    /// </summary>
-    public interface IResourceManagerFactory
+    public static class TermExtensions
     {
-        ResourceManager Create(Type resourceSource);
-
-        void Release(ResourceManager manager);
+        /// <summary>
+        /// Returns the text of this term.  In the case of words, this is simply the
+        /// text of the word.  In the case of dates and other types, this is an
+        /// encoding of the object as a string.
+        /// </summary>
+        [Obsolete("Use Text property instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public static string Text(this Term term)
+        {
+            return term.Text;
+        }
     }
 }

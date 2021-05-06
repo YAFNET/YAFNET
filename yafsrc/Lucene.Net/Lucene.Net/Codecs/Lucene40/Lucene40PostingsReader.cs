@@ -24,21 +24,21 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using TermState = YAF.Lucene.Net.Index.TermState;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOptions  = YAF.Lucene.Net.Index.IndexOptions;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using TermState  = YAF.Lucene.Net.Index.TermState;
 
     /// <summary>
     /// Concrete class that reads the 4.0 frq/prox
@@ -1139,7 +1139,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 if (payloadPending && payloadLength > 0)
                 {
                     // payload of last position was never retrieved -- skip it
-                    proxIn.Seek(proxIn.GetFilePointer() + payloadLength);
+                    proxIn.Seek(proxIn.Position + payloadLength); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                     payloadPending = false;
                 }
 
@@ -1170,7 +1170,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
                     if (storePayloads)
                     {
-                        proxIn.Seek(proxIn.GetFilePointer() + payloadLength);
+                        proxIn.Seek(proxIn.Position + payloadLength); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                     }
 
                     posPendingCount--;
@@ -1184,7 +1184,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 if (payloadPending && payloadLength > 0)
                 {
                     // payload wasn't retrieved for last position
-                    proxIn.Seek(proxIn.GetFilePointer() + payloadLength);
+                    proxIn.Seek(proxIn.Position + payloadLength); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 }
 
                 int code_ = proxIn.ReadVInt32();

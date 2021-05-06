@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Documents.Extensions;
 using System;
@@ -25,11 +25,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using Counter  = YAF.Lucene.Net.Util.Counter;
+    using DocValuesConsumer  = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using DocValuesFormat  = YAF.Lucene.Net.Codecs.DocValuesFormat;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
 
     internal sealed class DocValuesProcessor : StoredFieldsConsumer
     {
@@ -225,7 +225,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     writer.Abort();
                 }
-                catch (Exception) // LUCENENET: IDE0059: Remove unnecessary value assignment
+                catch (Exception t) when (t.IsThrowable())
                 {
                     // ignore
                 }

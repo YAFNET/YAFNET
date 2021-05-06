@@ -20,8 +20,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using ThreadState = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
+    using InfoStream  = YAF.Lucene.Net.Util.InfoStream;
+    using ThreadState  = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
 
     /// <summary>
     /// <see cref="FlushPolicy"/> controls when segments are flushed from a RAM resident

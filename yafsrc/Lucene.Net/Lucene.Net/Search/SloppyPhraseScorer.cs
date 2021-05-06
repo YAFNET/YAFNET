@@ -1,4 +1,4 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
@@ -24,9 +24,9 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
-    using Term = YAF.Lucene.Net.Index.Term;
+    using FixedBitSet  = YAF.Lucene.Net.Util.FixedBitSet;
+    using Similarity  = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using Term  = YAF.Lucene.Net.Index.Term;
 
     internal sealed class SloppyPhraseScorer : Scorer
     {
@@ -193,7 +193,7 @@ namespace YAF.Lucene.Net.Search
             int n = 0;
             // TODO would be good if we can avoid calling cardinality() in each iteration!
             int numBits = bits.Length; // larges bit we set
-            while (bits.Cardinality() > 0)
+            while (bits.Cardinality > 0)
             {
                 PhrasePositions pp2 = pq.Pop();
                 rptStack[n++] = pp2;

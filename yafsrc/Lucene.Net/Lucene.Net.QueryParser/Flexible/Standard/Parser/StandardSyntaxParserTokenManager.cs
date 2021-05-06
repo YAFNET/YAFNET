@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System;
 using System.IO;
-using Console = YAF.Lucene.Net.Util.SystemConsole;
+using Console  = YAF.Lucene.Net.Util.SystemConsole;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
 {

@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using FlushedSegment = YAF.Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
+    using FlushedSegment  = YAF.Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
 
     /// <summary>
     /// @lucene.internal

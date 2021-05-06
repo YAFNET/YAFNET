@@ -1,4 +1,5 @@
-using J2N.Threading.Atomic;
+﻿using J2N.Threading.Atomic;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -23,24 +24,24 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    //using LegacyDocValuesType = YAF.Lucene.Net.Codecs.Lucene40.LegacyDocValuesType;
-    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using CompoundFileDirectory  = YAF.Lucene.Net.Store.CompoundFileDirectory;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    //using LegacyDocValuesType  = YAF.Lucene.Net.Codecs.Lucene40.LegacyDocValuesType;
+    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes  = YAF.Lucene.Net.Util.PagedBytes;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
 
     /// <summary>
     /// Reads the 4.0 format of norms/docvalues.
@@ -116,7 +117,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                         }
                         else
                         {
-                            throw new InvalidOperationException();
+                            throw AssertionError.Create();
                         }
 
                         CodecUtil.CheckEOF(input);
@@ -454,7 +455,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                     }
                     else
                     {
-                        throw new InvalidOperationException();
+                        throw AssertionError.Create();
                     }
                     binaryInstances[field.Number] = instance;
                 }
@@ -724,7 +725,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                         }
                         else
                         {
-                            throw new InvalidOperationException();
+                            throw AssertionError.Create();
                         }
 
                         CodecUtil.CheckEOF(data);
@@ -887,7 +888,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
         public override SortedSetDocValues GetSortedSet(FieldInfo field)
         {
-            throw new InvalidOperationException("Lucene 4.0 does not support SortedSet: how did you pull this off?");
+            throw IllegalStateException.Create("Lucene 4.0 does not support SortedSet: how did you pull this off?");
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

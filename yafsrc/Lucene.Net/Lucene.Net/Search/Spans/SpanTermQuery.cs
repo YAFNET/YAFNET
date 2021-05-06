@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Index;
+﻿using YAF.Lucene.Net.Index;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,16 +22,16 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using Fields = YAF.Lucene.Net.Index.Fields;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using TermState = YAF.Lucene.Net.Index.TermState;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using Fields  = YAF.Lucene.Net.Index.Fields;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using TermState  = YAF.Lucene.Net.Index.TermState;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Matches spans containing a term. </summary>
@@ -62,7 +62,7 @@ namespace YAF.Lucene.Net.Search.Spans
             StringBuilder buffer = new StringBuilder();
             if (m_term.Field.Equals(field, StringComparison.Ordinal))
             {
-                buffer.Append(m_term.Text());
+                buffer.Append(m_term.Text);
             }
             else
             {
@@ -164,7 +164,7 @@ namespace YAF.Lucene.Net.Search.Spans
             else
             {
                 // term does exist, but has no positions
-                throw new InvalidOperationException("field \"" + m_term.Field + "\" was indexed without position data; cannot run SpanTermQuery (term=" + m_term.Text() + ")");
+                throw IllegalStateException.Create("field \"" + m_term.Field + "\" was indexed without position data; cannot run SpanTermQuery (term=" + m_term.Text + ")");
             }
         }
     }

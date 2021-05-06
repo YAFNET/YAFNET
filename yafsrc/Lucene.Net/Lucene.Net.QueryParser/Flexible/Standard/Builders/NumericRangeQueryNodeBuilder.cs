@@ -3,7 +3,6 @@ using YAF.Lucene.Net.QueryParsers.Flexible.Core;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Util;
-using YAF.Lucene.Net.QueryParsers.Flexible.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes;
 using YAF.Lucene.Net.Search;
@@ -83,7 +82,8 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Builders
                         maxInclusive);
 
                 default:
-                    throw new QueryNodeException(new Message(
+                    // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
+                    throw new QueryNodeException(string.Format(
                       QueryParserMessages.UNSUPPORTED_NUMERIC_DATA_TYPE, numberType));
             }
         }

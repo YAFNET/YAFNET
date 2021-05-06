@@ -1,4 +1,4 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
@@ -25,17 +25,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using FieldInfosWriter = YAF.Lucene.Net.Codecs.FieldInfosWriter;
-    using FieldsConsumer = YAF.Lucene.Net.Codecs.FieldsConsumer;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using StoredFieldsWriter = YAF.Lucene.Net.Codecs.StoredFieldsWriter;
-    using TermVectorsWriter = YAF.Lucene.Net.Codecs.TermVectorsWriter;
+    using Codec  = YAF.Lucene.Net.Codecs.Codec;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using DocValuesConsumer  = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using FieldInfosWriter  = YAF.Lucene.Net.Codecs.FieldInfosWriter;
+    using FieldsConsumer  = YAF.Lucene.Net.Codecs.FieldsConsumer;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using InfoStream  = YAF.Lucene.Net.Util.InfoStream;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using StoredFieldsWriter  = YAF.Lucene.Net.Codecs.StoredFieldsWriter;
+    using TermVectorsWriter  = YAF.Lucene.Net.Codecs.TermVectorsWriter;
 
     /// <summary>
     /// The <see cref="SegmentMerger"/> class combines two or more Segments, represented by an
@@ -89,7 +89,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (!ShouldMerge)
             {
-                throw new InvalidOperationException("Merge would result in 0 document segment");
+                throw IllegalStateException.Create("Merge would result in 0 document segment");
             }
             // NOTE: it's important to add calls to
             // checkAbort.work(...) if you make any changes to this
@@ -251,7 +251,7 @@ namespace YAF.Lucene.Net.Index
                         }
                         else
                         {
-                            throw new InvalidOperationException("type=" + type);
+                            throw AssertionError.Create("type=" + type);
                         }
                     }
                 }

@@ -23,10 +23,10 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
-    using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using DocIdSet  = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using MonotonicAppendingInt64Buffer  = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
 
     /// <summary>
     /// <see cref="DocIdSet"/> implementation based on pfor-delta encoding.
@@ -114,7 +114,7 @@ namespace YAF.Lucene.Net.Util
             {
                 if (indexInterval < 1)
                 {
-                    throw new ArgumentException("indexInterval must be >= 1");
+                    throw new ArgumentOutOfRangeException(nameof(indexInterval), "indexInterval must be >= 1"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 this.indexInterval = indexInterval;
                 return this;
@@ -616,12 +616,8 @@ namespace YAF.Lucene.Net.Util
         }
 
         /// <summary>
-        /// Return the number of documents in this <see cref="DocIdSet"/> in constant time. </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Cardinality()
-        {
-            return cardinality;
-        }
+        /// Gets the number of documents in this <see cref="DocIdSet"/> in constant time. </summary>
+        public int Cardinality => cardinality;
 
         /// <summary>
         /// Return the memory usage of this instance. </summary>

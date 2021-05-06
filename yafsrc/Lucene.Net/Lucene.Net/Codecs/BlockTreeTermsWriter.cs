@@ -27,21 +27,21 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using ByteSequenceOutputs = YAF.Lucene.Net.Util.Fst.ByteSequenceOutputs;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using Int32sRef = YAF.Lucene.Net.Util.Int32sRef;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using NoOutputs = YAF.Lucene.Net.Util.Fst.NoOutputs;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
-    using Util = YAF.Lucene.Net.Util.Fst.Util;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using ByteSequenceOutputs  = YAF.Lucene.Net.Util.Fst.ByteSequenceOutputs;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOptions  = YAF.Lucene.Net.Index.IndexOptions;
+    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using Int32sRef  = YAF.Lucene.Net.Util.Int32sRef;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using NoOutputs  = YAF.Lucene.Net.Util.Fst.NoOutputs;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RAMOutputStream  = YAF.Lucene.Net.Store.RAMOutputStream;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
+    using Util  = YAF.Lucene.Net.Util.Fst.Util;
 
     /*
       TODO:
@@ -287,11 +287,11 @@ namespace YAF.Lucene.Net.Codecs
         {
             if (minItemsInBlock <= 1)
             {
-                throw new ArgumentException("minItemsInBlock must be >= 2; got " + minItemsInBlock);
+                throw new ArgumentOutOfRangeException(nameof(minItemsInBlock), "minItemsInBlock must be >= 2; got " + minItemsInBlock); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (maxItemsInBlock <= 0)
             {
-                throw new ArgumentException("maxItemsInBlock must be >= 1; got " + maxItemsInBlock);
+                throw new ArgumentOutOfRangeException(nameof(maxItemsInBlock), "maxItemsInBlock must be >= 1; got " + maxItemsInBlock); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (minItemsInBlock > maxItemsInBlock)
             {
@@ -501,7 +501,7 @@ namespace YAF.Lucene.Net.Codecs
                     // it might contain garbage that cannot be converted into text.
                     Debugging.Assert((IsFloor && floorBlocks != null && floorBlocks.Count != 0) || (!IsFloor && floorBlocks == null), "isFloor={0} floorBlocks={1}", IsFloor, new PendingBlocksFormatter(floorBlocks));
 
-                    Debugging.Assert(scratchBytes.GetFilePointer() == 0);
+                    Debugging.Assert(scratchBytes.Position == 0); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 }
 
                 // TODO: try writing the leading vLong in MSB order
@@ -525,7 +525,7 @@ namespace YAF.Lucene.Net.Codecs
 
                 ByteSequenceOutputs outputs = ByteSequenceOutputs.Singleton;
                 Builder<BytesRef> indexBuilder = new Builder<BytesRef>(FST.INPUT_TYPE.BYTE1, 0, 0, true, false, int.MaxValue, outputs, null, false, PackedInt32s.COMPACT, true, 15);
-                var bytes = new byte[(int)scratchBytes.GetFilePointer()];
+                var bytes = new byte[(int)scratchBytes.Position]; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 if (Debugging.AssertsEnabled) Debugging.Assert(bytes.Length > 0);
                 scratchBytes.WriteTo(bytes, 0);
                 indexBuilder.Add(Util.ToInt32sRef(Prefix, scratchIntsRef), new BytesRef(bytes, 0, bytes.Length));
@@ -941,7 +941,7 @@ namespace YAF.Lucene.Net.Codecs
                 {
                     return b.Utf8ToString() + " " + b;
                 }
-                catch (Exception)
+                catch (Exception t) when (t.IsThrowable())
                 {
                     // If BytesRef isn't actually UTF8, or it's eg a
                     // prefix of UTF8 that ends mid-unicode-char, we
@@ -964,7 +964,7 @@ namespace YAF.Lucene.Net.Codecs
 
                 IList<PendingEntry> slice = pending.SubList(start, start + length);
 
-                long startFP = outerInstance.@out.GetFilePointer();
+                long startFP = outerInstance.@out.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
                 BytesRef prefix = new BytesRef(indexPrefixLength);
                 for (int m = 0; m < indexPrefixLength; m++)
@@ -1138,17 +1138,17 @@ namespace YAF.Lucene.Net.Codecs
                 // search on lookup
 
                 // Write suffixes byte[] blob to terms dict output:
-                outerInstance.@out.WriteVInt32((int)(suffixWriter.GetFilePointer() << 1) | (isLeafBlock ? 1 : 0));
+                outerInstance.@out.WriteVInt32((int)(suffixWriter.Position << 1) | (isLeafBlock ? 1 : 0)); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 suffixWriter.WriteTo(outerInstance.@out);
                 suffixWriter.Reset();
 
                 // Write term stats byte[] blob
-                outerInstance.@out.WriteVInt32((int)statsWriter.GetFilePointer());
+                outerInstance.@out.WriteVInt32((int)statsWriter.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 statsWriter.WriteTo(outerInstance.@out);
                 statsWriter.Reset();
 
                 // Write term meta data byte[] blob
-                outerInstance.@out.WriteVInt32((int)metaWriter.GetFilePointer());
+                outerInstance.@out.WriteVInt32((int)metaWriter.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 metaWriter.WriteTo(outerInstance.@out);
                 metaWriter.Reset();
 
@@ -1245,7 +1245,7 @@ namespace YAF.Lucene.Net.Codecs
                     this.docCount = docCount;
 
                     // Write FST to index
-                    indexStartFP = outerInstance.indexOut.GetFilePointer();
+                    indexStartFP = outerInstance.indexOut.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                     root.Index.Save(outerInstance.indexOut);
                     //System.out.println("  write FST " + indexStartFP + " field=" + fieldInfo.name);
 
@@ -1283,11 +1283,11 @@ namespace YAF.Lucene.Net.Codecs
         {
             if (disposing)
             {
-                IOException ioe = null;
+                Exception ioe = null; // LUCENENET: No need to cast to IOExcpetion
                 try
                 {
-                    long dirStart = @out.GetFilePointer();
-                    long indexDirStart = indexOut.GetFilePointer();
+                    long dirStart = @out.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
+                    long indexDirStart = indexOut.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
                     @out.WriteVInt32(fields.Count);
 
@@ -1312,7 +1312,7 @@ namespace YAF.Lucene.Net.Codecs
                     WriteIndexTrailer(indexOut, indexDirStart);
                     CodecUtil.WriteFooter(indexOut);
                 }
-                catch (IOException ioe2)
+                catch (Exception ioe2) when (ioe2.IsIOException())
                 {
                     ioe = ioe2;
                 }

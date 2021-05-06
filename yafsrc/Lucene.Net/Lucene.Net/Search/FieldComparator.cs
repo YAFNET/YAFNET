@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.IO;
@@ -23,11 +23,11 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
 
     /// <summary>
     /// Expert: a <see cref="FieldComparer"/> compares hits so as to determine their
@@ -1482,9 +1482,9 @@ namespace YAF.Lucene.Net.Search
 
             public override void SetTopValue(object value)
             {
-                if (value == null)
+                if (value is null)
                 {
-                    throw new ArgumentException("value cannot be null");
+                    throw new ArgumentNullException(nameof(value), "value cannot be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
                 }
                 topValue = (BytesRef)value;
             }

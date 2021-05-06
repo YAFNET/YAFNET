@@ -22,12 +22,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      */
 
     // javadocs
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using SegmentCommitInfo = YAF.Lucene.Net.Index.SegmentCommitInfo;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IMutableBits  = YAF.Lucene.Net.Util.IMutableBits;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using SegmentCommitInfo  = YAF.Lucene.Net.Index.SegmentCommitInfo;
 
     /// <summary>
     /// Lucene 4.0 Live Documents Format.

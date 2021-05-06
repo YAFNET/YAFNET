@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
@@ -27,22 +27,22 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Allocator = YAF.Lucene.Net.Util.ByteBlockPool.Allocator;
-    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using Constants = YAF.Lucene.Net.Util.Constants;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using DeleteSlice = YAF.Lucene.Net.Index.DocumentsWriterDeleteQueue.DeleteSlice;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DirectTrackingAllocator = YAF.Lucene.Net.Util.ByteBlockPool.DirectTrackingAllocator;
-    using FlushInfo = YAF.Lucene.Net.Store.FlushInfo;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using Int32BlockPool = YAF.Lucene.Net.Util.Int32BlockPool;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
-    using TrackingDirectoryWrapper = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
+    using Allocator  = YAF.Lucene.Net.Util.ByteBlockPool.Allocator;
+    using Analyzer  = YAF.Lucene.Net.Analysis.Analyzer;
+    using Codec  = YAF.Lucene.Net.Codecs.Codec;
+    using Constants  = YAF.Lucene.Net.Util.Constants;
+    using Counter  = YAF.Lucene.Net.Util.Counter;
+    using DeleteSlice  = YAF.Lucene.Net.Index.DocumentsWriterDeleteQueue.DeleteSlice;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using DirectTrackingAllocator  = YAF.Lucene.Net.Util.ByteBlockPool.DirectTrackingAllocator;
+    using FlushInfo  = YAF.Lucene.Net.Store.FlushInfo;
+    using InfoStream  = YAF.Lucene.Net.Util.InfoStream;
+    using Int32BlockPool  = YAF.Lucene.Net.Util.Int32BlockPool;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IMutableBits  = YAF.Lucene.Net.Util.IMutableBits;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using Similarity  = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using TrackingDirectoryWrapper  = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
 
     internal class DocumentsWriterPerThread
     {
@@ -175,7 +175,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     consumer.Abort();
                 }
-                catch (Exception) // LUCENENET: IDE0059: Remove unnecessary value assignment
+                catch (Exception t) when (t.IsThrowable())
                 {
                     // ignore
                 }

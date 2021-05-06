@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -19,12 +19,12 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// An abstract <see cref="Query"/> that matches documents
@@ -253,13 +253,13 @@ namespace YAF.Lucene.Net.Search
             public override int TermCountCutoff
             {
                 get => base.TermCountCutoff; // LUCENENET specific - adding getter for API consistency check
-                set => throw new NotSupportedException("Please create a private instance");
+                set => throw UnsupportedOperationException.Create("Please create a private instance");
             }
 
             public override double DocCountPercent
             {
                 get => base.DocCountPercent; // LUCENENET specific - adding getter for API consistency check
-                set => throw new NotSupportedException("Please create a private instance");
+                set => throw UnsupportedOperationException.Create("Please create a private instance");
             }
         }
 
@@ -269,7 +269,7 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         protected MultiTermQuery(string field) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {
-            this.m_field = field ?? throw new ArgumentNullException(nameof(field), "field must not be null");
+            this.m_field = field ?? throw new ArgumentNullException(nameof(field), "field must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
         /// <summary>

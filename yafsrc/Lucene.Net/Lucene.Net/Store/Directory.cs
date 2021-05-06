@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// A <see cref="Directory"/> is a flat list of files.  Files may be written once, when they
@@ -195,14 +195,14 @@ namespace YAF.Lucene.Net.Store
         {
             IndexOutput os = null;
             IndexInput @is = null;
-            IOException priorException = null;
+            Exception priorException = null; // LUCENENET: No need to cast to IOExcpetion
             try
             {
                 os = to.CreateOutput(dest, context);
                 @is = OpenInput(src, context);
                 os.CopyBytes(@is, @is.Length);
             }
-            catch (IOException ioe)
+            catch (Exception ioe) when (ioe.IsIOException())
             {
                 priorException = ioe;
             }
@@ -222,7 +222,7 @@ namespace YAF.Lucene.Net.Store
                         {
                             to.DeleteFile(dest);
                         }
-                        catch (Exception)
+                        catch (Exception t) when (t.IsThrowable())
                         {
                         }
                     }
@@ -354,10 +354,10 @@ namespace YAF.Lucene.Net.Store
             /// <param name="len"> the number of bytes to read </param>
             protected override void ReadInternal(byte[] b, int offset, int len)
             {
-                long start = GetFilePointer();
+                long start = Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 if (start + len > length)
                 {
-                    throw new Exception("read past EOF: " + this);
+                    throw EOFException.Create("read past EOF: " + this);
                 }
                 @base.Seek(fileOffset + start);
                 @base.ReadBytes(b, offset, len, false);

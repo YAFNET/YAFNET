@@ -17,8 +17,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
      * limitations under the License.
      */
 
-    using CompressingTermVectorsFormat = YAF.Lucene.Net.Codecs.Compressing.CompressingTermVectorsFormat;
-    using CompressionMode = YAF.Lucene.Net.Codecs.Compressing.CompressionMode;
+    using CompressingTermVectorsFormat  = YAF.Lucene.Net.Codecs.Compressing.CompressingTermVectorsFormat;
+    using CompressionMode  = YAF.Lucene.Net.Codecs.Compressing.CompressionMode;
 
     /// <summary>
     /// Lucene 4.2 term vectors format (<see cref="TermVectorsFormat"/>).

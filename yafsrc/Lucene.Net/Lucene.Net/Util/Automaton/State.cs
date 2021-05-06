@@ -127,7 +127,7 @@ namespace YAF.Lucene.Net.Util.Automaton
 
                 public void Reset()
                 {
-                    throw new NotSupportedException();
+                    throw UnsupportedOperationException.Create();
                 }
 
                 public void Dispose()

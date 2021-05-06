@@ -20,13 +20,13 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using Automaton = YAF.Lucene.Net.Util.Automaton.Automaton;
-    using CompiledAutomaton = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+    using Automaton  = YAF.Lucene.Net.Util.Automaton.Automaton;
+    using CompiledAutomaton  = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// A <see cref="Query"/> that will match terms against a finite-state machine.

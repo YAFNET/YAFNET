@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 
 namespace YAF.Lucene.Net.Search
@@ -20,13 +20,13 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using LevenshteinAutomata = YAF.Lucene.Net.Util.Automaton.LevenshteinAutomata;
-    using SingleTermsEnum = YAF.Lucene.Net.Index.SingleTermsEnum;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+    using LevenshteinAutomata  = YAF.Lucene.Net.Util.Automaton.LevenshteinAutomata;
+    using SingleTermsEnum  = YAF.Lucene.Net.Index.SingleTermsEnum;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Implements the fuzzy search query. The similarity measurement
@@ -86,15 +86,15 @@ namespace YAF.Lucene.Net.Search
         {
             if (maxEdits < 0 || maxEdits > LevenshteinAutomata.MAXIMUM_SUPPORTED_DISTANCE)
             {
-                throw new ArgumentException("maxEdits must be between 0 and " + LevenshteinAutomata.MAXIMUM_SUPPORTED_DISTANCE);
+                throw new ArgumentOutOfRangeException(nameof(maxEdits), "maxEdits must be between 0 and " + LevenshteinAutomata.MAXIMUM_SUPPORTED_DISTANCE); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (prefixLength < 0)
             {
-                throw new ArgumentException("prefixLength cannot be negative.");
+                throw new ArgumentOutOfRangeException(nameof(prefixLength), "prefixLength cannot be negative."); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (maxExpansions < 0)
             {
-                throw new ArgumentException("maxExpansions cannot be negative.");
+                throw new ArgumentOutOfRangeException(nameof(maxExpansions), "maxExpansions cannot be negative."); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
 
             this.term = term;
@@ -148,7 +148,7 @@ namespace YAF.Lucene.Net.Search
 
         protected override TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
         {
-            if (maxEdits == 0 || prefixLength >= term.Text().Length) // can only match if it's exact
+            if (maxEdits == 0 || prefixLength >= term.Text.Length) // can only match if it's exact
             {
                 return new SingleTermsEnum(terms.GetEnumerator(), term.Bytes);
             }
@@ -168,7 +168,7 @@ namespace YAF.Lucene.Net.Search
                 buffer.Append(term.Field);
                 buffer.Append(":");
             }
-            buffer.Append(term.Text());
+            buffer.Append(term.Text);
             buffer.Append('~');
             buffer.Append(Convert.ToString(maxEdits));
             buffer.Append(ToStringUtils.Boost(Boost));

@@ -1,4 +1,4 @@
-using J2N;
+﻿using J2N;
 using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
@@ -29,24 +29,24 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using Attribute = YAF.Lucene.Net.Util.Attribute;
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using Automaton = YAF.Lucene.Net.Util.Automaton.Automaton;
-    using BasicAutomata = YAF.Lucene.Net.Util.Automaton.BasicAutomata;
-    using BasicOperations = YAF.Lucene.Net.Util.Automaton.BasicOperations;
-    using ByteRunAutomaton = YAF.Lucene.Net.Util.Automaton.ByteRunAutomaton;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using CompiledAutomaton = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
-    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using FilteredTermsEnum = YAF.Lucene.Net.Index.FilteredTermsEnum;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using LevenshteinAutomata = YAF.Lucene.Net.Util.Automaton.LevenshteinAutomata;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using TermState = YAF.Lucene.Net.Index.TermState;
-    using UnicodeUtil = YAF.Lucene.Net.Util.UnicodeUtil;
+    using Attribute  = YAF.Lucene.Net.Util.Attribute;
+    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+    using Automaton  = YAF.Lucene.Net.Util.Automaton.Automaton;
+    using BasicAutomata  = YAF.Lucene.Net.Util.Automaton.BasicAutomata;
+    using BasicOperations  = YAF.Lucene.Net.Util.Automaton.BasicOperations;
+    using ByteRunAutomaton  = YAF.Lucene.Net.Util.Automaton.ByteRunAutomaton;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using CompiledAutomaton  = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
+    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
+    using FilteredTermsEnum  = YAF.Lucene.Net.Index.FilteredTermsEnum;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using LevenshteinAutomata  = YAF.Lucene.Net.Util.Automaton.LevenshteinAutomata;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using TermState  = YAF.Lucene.Net.Index.TermState;
+    using UnicodeUtil  = YAF.Lucene.Net.Util.UnicodeUtil;
 
     /// <summary>
     /// Subclass of <see cref="TermsEnum"/> for enumerating all terms that are similar
@@ -114,17 +114,17 @@ namespace YAF.Lucene.Net.Search
             }
             if (minSimilarity < 0.0f)
             {
-                throw new ArgumentException("minimumSimilarity cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(minSimilarity), "minimumSimilarity cannot be less than 0"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (prefixLength < 0)
             {
-                throw new ArgumentException("prefixLength cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(prefixLength), "prefixLength cannot be less than 0"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.m_terms = terms;
             this.term = term;
 
             // convert the string into a utf32 int[] representation for fast comparisons
-            string utf16 = term.Text();
+            string utf16 = term.Text;
             this.m_termText = new int[utf16.CodePointCount(0, utf16.Length)];
             for (int cp, i = 0, j = 0; i < utf16.Length; i += Character.CharCount(cp))
             {
@@ -152,7 +152,7 @@ namespace YAF.Lucene.Net.Search
             }
             if (transpositions && m_maxEdits > LevenshteinAutomata.MAXIMUM_SUPPORTED_DISTANCE)
             {
-                throw new NotSupportedException("with transpositions enabled, distances > " + LevenshteinAutomata.MAXIMUM_SUPPORTED_DISTANCE + " are not supported ");
+                throw UnsupportedOperationException.Create("with transpositions enabled, distances > " + LevenshteinAutomata.MAXIMUM_SUPPORTED_DISTANCE + " are not supported ");
             }
             this.transpositions = transpositions;
             this.m_scaleFactor = 1.0f / (1.0f - this.m_minSimilarity);
@@ -375,7 +375,7 @@ namespace YAF.Lucene.Net.Search
                 {
                     this.matchers[i] = compiled[i].RunAutomaton;
                 }
-                termRef = new BytesRef(outerInstance.term.Text());
+                termRef = new BytesRef(outerInstance.term.Text);
             }
 
             /// <summary>

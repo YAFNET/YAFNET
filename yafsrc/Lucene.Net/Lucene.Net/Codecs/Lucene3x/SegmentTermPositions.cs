@@ -3,7 +3,7 @@ using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using System;
 using System.Runtime.CompilerServices;
-using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -24,9 +24,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using Term = YAF.Lucene.Net.Index.Term;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using Term  = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// @lucene.experimental 
@@ -150,7 +150,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
         public sealed override int Read(int[] docs, int[] freqs)
         {
-            throw new NotSupportedException("TermPositions does not support processing multiple documents in one call. Use TermDocs instead.");
+            throw UnsupportedOperationException.Create("TermPositions does not support processing multiple documents in one call. Use TermDocs instead.");
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         {
             if (needToLoadPayload && payloadLength > 0)
             {
-                proxStream.Seek(proxStream.GetFilePointer() + payloadLength);
+                proxStream.Seek(proxStream.Position + payloadLength); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             }
             needToLoadPayload = false;
         }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -22,17 +22,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AppendingDeltaPackedInt64Buffer = YAF.Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using AppendingDeltaPackedInt64Buffer  = YAF.Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using Counter  = YAF.Lucene.Net.Util.Counter;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
+    using DocValuesConsumer  = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using FixedBitSet  = YAF.Lucene.Net.Util.FixedBitSet;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes  = YAF.Lucene.Net.Util.PagedBytes;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
 
     /// <summary>
     /// Buffers up pending <see cref="T:byte[]"/> per doc, then flushes when
@@ -73,11 +73,11 @@ namespace YAF.Lucene.Net.Index
         {
             if (docID < addedValues)
             {
-                throw new ArgumentException("DocValuesField \"" + fieldInfo.Name + "\" appears more than once in this document (only one value is allowed per field)");
+                throw new ArgumentOutOfRangeException(nameof(docID), "DocValuesField \"" + fieldInfo.Name + "\" appears more than once in this document (only one value is allowed per field)"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
-            if (value == null)
+            if (value is null)
             {
-                throw new ArgumentException("field=\"" + fieldInfo.Name + "\": null value not allowed");
+                throw new ArgumentNullException("field=\"" + fieldInfo.Name + "\": null value not allowed"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             }
             if (value.Length > MAX_LENGTH)
             {
@@ -96,10 +96,10 @@ namespace YAF.Lucene.Net.Index
             {
                 bytesOut.WriteBytes(value.Bytes, value.Offset, value.Length);
             }
-            catch (IOException ioe)
+            catch (Exception ioe) when (ioe.IsIOException())
             {
                 // Should never happen!
-                throw new Exception(ioe.ToString(), ioe);
+                throw RuntimeException.Create(ioe);
             }
             docsWithField = FixedBitSet.EnsureCapacity(docsWithField, docID);
             docsWithField.Set(docID);
@@ -158,10 +158,10 @@ namespace YAF.Lucene.Net.Index
                     {
                         bytesIterator.ReadBytes(value.Bytes, value.Offset, value.Length);
                     }
-                    catch (IOException ioe)
+                    catch (Exception ioe) when (ioe.IsIOException())
                     {
                         // Should never happen!
-                        throw new Exception(ioe.ToString(), ioe);
+                        throw RuntimeException.Create(ioe);
                     }
 
                     if (docsWithField.Get(upto))

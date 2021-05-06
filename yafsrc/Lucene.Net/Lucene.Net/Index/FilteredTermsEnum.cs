@@ -22,9 +22,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// Abstract class for enumerating a subset of all terms.
@@ -160,7 +160,7 @@ namespace YAF.Lucene.Net.Index
         ///         support seeking. </exception>
         public override bool SeekExact(BytesRef term)
         {
-            throw new NotSupportedException(this.GetType().Name + " does not support seeking");
+            throw UnsupportedOperationException.Create(this.GetType().Name + " does not support seeking");
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace YAF.Lucene.Net.Index
         ///         support seeking. </exception>
         public override SeekStatus SeekCeil(BytesRef term)
         {
-            throw new NotSupportedException(this.GetType().Name + " does not support seeking");
+            throw UnsupportedOperationException.Create(this.GetType().Name + " does not support seeking");
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace YAF.Lucene.Net.Index
         ///         support seeking. </exception>
         public override void SeekExact(long ord)
         {
-            throw new NotSupportedException(this.GetType().Name + " does not support seeking");
+            throw UnsupportedOperationException.Create(this.GetType().Name + " does not support seeking");
         }
 
         public override long Ord => tenum.Ord;
@@ -199,7 +199,7 @@ namespace YAF.Lucene.Net.Index
         ///         support seeking. </exception>
         public override void SeekExact(BytesRef term, TermState state)
         {
-            throw new NotSupportedException(this.GetType().Name + " does not support seeking");
+            throw UnsupportedOperationException.Create(this.GetType().Name + " does not support seeking");
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DirectAllocator = YAF.Lucene.Net.Util.ByteBlockPool.DirectAllocator;
+    using DirectAllocator  = YAF.Lucene.Net.Util.ByteBlockPool.DirectAllocator;
 
     /// <summary>
     /// <see cref="BytesRefHash"/> is a special purpose hash-map like data-structure
@@ -575,7 +575,7 @@ namespace YAF.Lucene.Net.Util
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
     [Serializable]
 #endif
-        public class MaxBytesLengthExceededException : Exception
+        public class MaxBytesLengthExceededException : Exception, IRuntimeException // LUCENENET specific: Added IRuntimeException for identification of the Java superclass in .NET
         {
             internal MaxBytesLengthExceededException(string message)
                 : base(message)

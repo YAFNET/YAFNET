@@ -1,10 +1,10 @@
 using YAF.Lucene.Net.Diagnostics;
 using System;
-using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-using FieldInvertState = YAF.Lucene.Net.Index.FieldInvertState;
-using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
-using SmallSingle = YAF.Lucene.Net.Util.SmallSingle;
+using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+using FieldInvertState  = YAF.Lucene.Net.Index.FieldInvertState;
+using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
+using SmallSingle  = YAF.Lucene.Net.Util.SmallSingle;
 
 namespace YAF.Lucene.Net.Search.Similarities
 {

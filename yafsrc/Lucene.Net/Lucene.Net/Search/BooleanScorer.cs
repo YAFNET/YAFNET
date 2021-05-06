@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using BooleanWeight = YAF.Lucene.Net.Search.BooleanQuery.BooleanWeight;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using BooleanWeight  = YAF.Lucene.Net.Search.BooleanQuery.BooleanWeight;
 
     /// <summary>
     /// Description from Doug Cutting (excerpted from

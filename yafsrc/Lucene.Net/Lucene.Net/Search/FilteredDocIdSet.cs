@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// Abstract decorator class for a <see cref="DocIdSet"/> implementation
