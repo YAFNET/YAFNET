@@ -6,6 +6,7 @@
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Core.Utilities" %>
+<%@ Import Namespace="YAF.Configuration" %>
 
 
 <div class="bg-light">

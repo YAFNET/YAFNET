@@ -539,7 +539,7 @@ namespace YAF.Core.Nntp
 
             var length = (int)line2[0];
 
-            if ((int)((length / 3.0) + 0.999999999) * 4 > line.Length - 1)
+            if ((int)(length / 3.0 + 0.999999999) * 4 > line.Length - 1)
             {
                 throw new InvalidOperationException($"Invalid length({length}) with line: {new string(line)}.");
             }

@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="ServiceStack" %>
+<%@ Import Namespace="YAF.Configuration" %>
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 <%@ Import Namespace="YAF.Core.Utilities" %>

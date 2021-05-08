@@ -7,6 +7,7 @@
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Core.Utilities" %>
+<%@ Import Namespace="YAF.Configuration" %>
 
 <section class="text-center container">
     <div class="row">

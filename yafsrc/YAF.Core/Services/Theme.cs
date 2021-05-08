@@ -29,6 +29,7 @@ namespace YAF.Core.Services
 
     using ServiceStack;
 
+    using YAF.Configuration;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Extensions;

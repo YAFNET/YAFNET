@@ -33,6 +33,7 @@ namespace YAF.Pages
     using System.Web;
     using System.Xml.Serialization;
 
+    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Services;

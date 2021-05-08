@@ -29,6 +29,7 @@ namespace YAF.Core.Utilities.Helpers
     using System.Linq;
     using System.Text.RegularExpressions;
 
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Objects;

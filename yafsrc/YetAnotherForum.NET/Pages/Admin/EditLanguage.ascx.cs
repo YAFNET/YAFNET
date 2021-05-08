@@ -38,6 +38,7 @@ namespace YAF.Pages.Admin
     using System.Xml;
     using System.Xml.XPath;
 
+    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Services;
     using YAF.Core.Utilities;

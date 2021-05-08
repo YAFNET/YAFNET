@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.PostTopic" CodeBehind="PostTopic.ascx.cs" %>
 <%@ Import Namespace="YAF.Core.Utilities" %>
+<%@ Import Namespace="YAF.Configuration" %>
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../Dialogs/AttachmentsUpload.ascx" %>
 

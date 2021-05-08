@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Core.Utilities
+namespace YAF.Configuration
 {
     using System;
     using System.Collections.Generic;
@@ -30,7 +30,6 @@ namespace YAF.Core.Utilities
     using System.Text;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

@@ -30,6 +30,7 @@ namespace YAF.Dialogs
     using System.Threading;
     using System.Web;
 
+    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.BaseModules;
     using YAF.Core.Extensions;

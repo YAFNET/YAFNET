@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -180,6 +180,9 @@ namespace YAF.Pages
 
             this.ForumJumpHolder.Visible = this.PageContext.BoardSettings.ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;
+
+            this.ForumSearchHolder.Visible =
+                this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions);
 
             if (this.ForumSearchHolder.Visible)
             {

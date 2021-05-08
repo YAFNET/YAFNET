@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -151,52 +151,18 @@ namespace YAF.Core.Utilities
         /// <returns>Returns the version string.</returns>
         private static string CheckFor45PlusVersion(int releaseKey)
         {
-            if (releaseKey >= 528040)
-            {
-                return "4.8 or later";
-            }
-
-            if (releaseKey >= 461808)
-            {
-                return "4.7.2";
-            }
-
-            if (releaseKey >= 461308)
-            {
-                return "4.7.1";
-            }
-
-            if (releaseKey >= 460798)
-            {
-                return "4.7";
-            }
-
-            if (releaseKey >= 394802)
-            {
-                return "4.6.2";
-            }
-
-            if (releaseKey >= 394254)
-            {
-                return "4.6.1";
-            }
-
-            if (releaseKey >= 393295)
-            {
-                return "4.6";
-            }
-
-            if (releaseKey >= 379893)
-            {
-                return "4.5.2";
-            }
-
-            if (releaseKey >= 378675)
-            {
-                return "4.5.1";
-            }
-
-            return releaseKey >= 378389 ? "4.5" : "No 4.5 or later version detected";
+            return releaseKey switch {
+                >= 528040 => "4.8 or later",
+                >= 461808 => "4.7.2",
+                >= 461308 => "4.7.1",
+                >= 460798 => "4.7",
+                >= 394802 => "4.6.2",
+                >= 394254 => "4.6.1",
+                >= 393295 => "4.6",
+                >= 379893 => "4.5.2",
+                >= 378675 => "4.5.1",
+                _ => releaseKey >= 378389 ? "4.5" : "No 4.5 or later version detected"
+            };
         }
 
         #endregion

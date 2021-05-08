@@ -106,43 +106,47 @@ namespace YAF.Core.Services
 
             if (permission == ViewPermissions.RegisteredUsers)
             {
-                if (!Config.AllowLoginAndLogoff && this.Get<BoardSettings>().CustomLoginRedirectUrl.IsSet())
+                switch (Config.AllowLoginAndLogoff)
                 {
-                    var loginRedirectUrl = this.Get<BoardSettings>().CustomLoginRedirectUrl;
-
-                    if (loginRedirectUrl.Contains("{0}"))
+                    case false when this.Get<BoardSettings>().CustomLoginRedirectUrl.IsSet():
                     {
-                        // process for return url..
-                        loginRedirectUrl = string.Format(
-                            loginRedirectUrl, HttpUtility.UrlEncode(
-                                General.GetSafeRawUrl(this.Get<HttpRequestBase>().Url.ToString())));
-                    }
+                        var loginRedirectUrl = this.Get<BoardSettings>().CustomLoginRedirectUrl;
 
-                    // allow custom redirect...
-                    this.Get<HttpResponseBase>().Redirect(loginRedirectUrl);
-                    noAccess = false;
-                }
-                else if (!Config.AllowLoginAndLogoff && Config.IsDotNetNuke)
-                {
-                    // automatic DNN redirect...
-                    var appPath = HostingEnvironment.ApplicationVirtualPath;
-                    if (!appPath.EndsWith("/"))
+                        if (loginRedirectUrl.Contains("{0}"))
+                        {
+                            // process for return url..
+                            loginRedirectUrl = string.Format(
+                                loginRedirectUrl, HttpUtility.UrlEncode(
+                                    General.GetSafeRawUrl(this.Get<HttpRequestBase>().Url.ToString())));
+                        }
+
+                        // allow custom redirect...
+                        this.Get<HttpResponseBase>().Redirect(loginRedirectUrl);
+                        noAccess = false;
+                        break;
+                    }
+                    case false when Config.IsDotNetNuke:
                     {
-                        appPath += "/";
-                    }
+                        // automatic DNN redirect...
+                        var appPath = HostingEnvironment.ApplicationVirtualPath;
+                        if (!appPath.EndsWith("/"))
+                        {
+                            appPath += "/";
+                        }
 
-                    // redirect to DNN login...
-                    this.Get<HttpResponseBase>().Redirect(
-                        $"{appPath}Login.aspx?ReturnUrl={HttpUtility.UrlEncode(General.GetSafeRawUrl())}");
-                    noAccess = false;
-                }
-                else if (Config.AllowLoginAndLogoff)
-                {
-                    this.Get<LinkBuilder>().Redirect(
-                        ForumPages.Account_Login,
-                        "ReturnUrl={0}",
-                        HttpUtility.UrlEncode(General.GetSafeRawUrl()));
-                    noAccess = false;
+                        // redirect to DNN login...
+                        this.Get<HttpResponseBase>().Redirect(
+                            $"{appPath}Login.aspx?ReturnUrl={HttpUtility.UrlEncode(General.GetSafeRawUrl())}");
+                        noAccess = false;
+                        break;
+                    }
+                    case true:
+                        this.Get<LinkBuilder>().Redirect(
+                            ForumPages.Account_Login,
+                            "ReturnUrl={0}",
+                            HttpUtility.UrlEncode(General.GetSafeRawUrl()));
+                        noAccess = false;
+                        break;
                 }
             }
 

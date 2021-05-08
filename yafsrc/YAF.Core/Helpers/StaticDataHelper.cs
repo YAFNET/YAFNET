@@ -32,6 +32,7 @@ namespace YAF.Core.Helpers
     using System.Web;
     using System.Xml;
 
+    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Services.Localization;
     using YAF.Core.Utilities;
