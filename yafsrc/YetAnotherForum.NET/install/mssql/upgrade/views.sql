@@ -1,5 +1,5 @@
- -- vzrus: drop indexes on views here
-  
+﻿ -- vzrus: drop indexes on views here
+
 /****** Object:  Index [{objectQualifier}vaccess_user_UserForum]    Script Date: 09/28/2009 22:30:20 ******/
 IF  exists (select top 1 1 from sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_user]') AND name = N'{objectQualifier}vaccess_user_UserForum_PK')
 DROP INDEX  [{objectQualifier}vaccess_user_UserForum_PK] ON [{databaseOwner}].[{objectQualifier}vaccess_user]
@@ -72,7 +72,7 @@ AS
             [{databaseOwner}].[{objectQualifier}UserGroup] b
             INNER JOIN [{databaseOwner}].[{objectQualifier}ForumAccess] c on c.GroupID=b.GroupID
             INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] d on d.AccessMaskID=c.AccessMaskID
-            INNER JOIN [{databaseOwner}].[{objectQualifier}Group] e on e.GroupID=b.GroupID' 
+            INNER JOIN [{databaseOwner}].[{objectQualifier}Group] e on e.GroupID=b.GroupID'
 GO
 
 IF NOT exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_null]') AND type in (N'V'))
@@ -97,7 +97,7 @@ AS
             DownloadAccess	= convert(int,0),
             AdminGroup		= convert(int,0)
         from
-            [{databaseOwner}].[{objectQualifier}User] a' 
+            [{databaseOwner}].[{objectQualifier}User] a'
 GO
 
 
@@ -124,7 +124,7 @@ AS
             AdminGroup		= convert(int,0)
         from
             [{databaseOwner}].[{objectQualifier}UserForum] b
-            INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c on c.AccessMaskID=b.AccessMaskID' 
+            INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c on c.AccessMaskID=b.AccessMaskID'
 GO
 
 
@@ -133,11 +133,11 @@ EXEC sys.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQual
 WITH SCHEMABINDING
 AS
 
-select 
+select
             UserID,
             ForumID,
-                      MAX(ReadAccess) AS ReadAccess, MAX(PostAccess) AS PostAccess, MAX(ReplyAccess) AS ReplyAccess, MAX(PriorityAccess) AS PriorityAccess, 
-                      MAX(PollAccess) AS PollAccess, MAX(VoteAccess) AS VoteAccess, MAX(ModeratorAccess) AS ModeratorAccess, MAX(EditAccess) AS EditAccess, 
+                      MAX(ReadAccess) AS ReadAccess, MAX(PostAccess) AS PostAccess, MAX(ReplyAccess) AS ReplyAccess, MAX(PriorityAccess) AS PriorityAccess,
+                      MAX(PollAccess) AS PollAccess, MAX(VoteAccess) AS VoteAccess, MAX(ModeratorAccess) AS ModeratorAccess, MAX(EditAccess) AS EditAccess,
                       MAX(DeleteAccess) AS DeleteAccess, MAX(UploadAccess) AS UploadAccess, MAX(DownloadAccess) AS DownloadAccess, MAX(AdminGroup) as AdminGroup
         FROM (
         select
@@ -154,12 +154,12 @@ select
             DeleteAccess	,
             UploadAccess	,
             DownloadAccess	,
-            AdminGroup		
+            AdminGroup
         from
             [{databaseOwner}].[{objectQualifier}vaccess_user] b
-        
+
         union all
-        
+
         select
             UserID,
             ForumID,
@@ -174,7 +174,7 @@ select
             DeleteAccess	,
             UploadAccess	,
             DownloadAccess	,
-            AdminGroup	
+            AdminGroup
         from
             [{databaseOwner}].[{objectQualifier}vaccess_group] b
 
@@ -194,12 +194,12 @@ select
             DeleteAccess	,
             UploadAccess	,
             DownloadAccess	,
-            AdminGroup	
+            AdminGroup
         from
             [{databaseOwner}].[{objectQualifier}vaccess_null] b
 ) access
     GROUP BY
-        UserID,ForumID' 
+        UserID,ForumID'
 GO
 
 
@@ -222,12 +222,12 @@ AS
         ModeratorAccess		= max(x.ModeratorAccess),
         EditAccess			= max(x.EditAccess),
         DeleteAccess		= max(x.DeleteAccess),
-        UploadAccess		= max(x.UploadAccess),		
-        DownloadAccess		= max(x.DownloadAccess)			
+        UploadAccess		= max(x.UploadAccess),
+        DownloadAccess		= max(x.DownloadAccess)
     FROM
         [{databaseOwner}].[{objectQualifier}vaccessfull] as x WITH(NOLOCK)
         INNER JOIN [{databaseOwner}].[{objectQualifier}UserGroup] a WITH(NOLOCK) on a.UserID=x.UserID
         INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) on b.GroupID=a.GroupID
     GROUP BY
-        a.UserID,x.ForumID' 
+        a.UserID,x.ForumID'
 GO
