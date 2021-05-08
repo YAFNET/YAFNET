@@ -2,11 +2,11 @@
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Target Name="Resources" Condition=" ('$(PublishProfileName)' == '' And '$(WebPublishProfileFile)' == '') ">
     <ItemGroup>
-      <languages-Include 
+      <languages-Include
         Include="$(MSBuildProjectDirectory)\bin\**\YAF.resources.dll"
         Exclude="$(MSBuildProjectDirectory)\bin\languages\**\YAF.resources.dll"/>
     </ItemGroup>
-    <Move SourceFiles="@(languages-Include)" 
+    <Move SourceFiles="@(languages-Include)"
           DestinationFolder="$(MSBuildProjectDirectory)\bin\languages\%(RecursiveDir)" />
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\ar\" />
@@ -88,6 +88,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensionsDnn.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\moment-with-locales.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.6.0.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.6.0.intellisense.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\prism.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\select2.js" />
@@ -110,6 +111,32 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum-admin.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\prism.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\select2\select2.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\zephyr\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\yaf\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\yeti\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\vapor\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\united\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\superhero\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\spacelab\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\solar\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\slate\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\sketchy\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\simplex\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\sandstone\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\quartz\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\pulse\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\morph\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\minty\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\materia\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\lux\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\lumen\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\litera\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\journal\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\flatly\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\darkly\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\cyborg\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\cosmo\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\cerulean\bootstrap-forum.css" />
     </ItemGroup>
 
     <ItemGroup>
@@ -149,29 +176,29 @@
     </ItemGroup>
 
     <ItemGroup>
-      <yafsrcInclude Include="$(MSBuildProjectDirectory)\..\**\*.*" 
+      <yafsrcInclude Include="$(MSBuildProjectDirectory)\..\**\*.*"
                      Exclude="$(MSBuildProjectDirectory)\..\.nuget\nuget.exe;$(MSBuildProjectDirectory)\..\packages\**\*.*;$(MSBuildProjectDirectory)\..\YAF.Extras\YAF.SampleWebApplication\**\*.*;$(MSBuildProjectDirectory)\..\**\*.ReSharper;$(MSBuildProjectDirectory)\..\**\*.testsettings;$(MSBuildProjectDirectory)\..\**\*.chm;$(MSBuildProjectDirectory)\..\**\*.psd;$(MSBuildProjectDirectory)\..\**\TestResults\**;$(MSBuildProjectDirectory)\..\**\nStuff.UpdateControls\**;$(MSBuildProjectDirectory)\..\**\Dependencies\**;$(MSBuildProjectDirectory)\..\**\obj\**;$(MSBuildProjectDirectory)\..\**\_ReSharper*\**;$(MSBuildProjectDirectory)\..\**\bin\**;$(MSBuildProjectDirectory)\..\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\..\**\*.user;$(MSBuildProjectDirectory)\..\**\.svn\**;$(MSBuildProjectDirectory)\..\**\*.suo;" />
     </ItemGroup>
 
     <Delete Files="$(MSBuildProjectDirectory)\bin\YAF.DotNetNuke.Module.dll" />
-    
+
 
     <ItemGroup>
      <LibaryFiles Include="$(MSBuildProjectDirectory)\**\*.dll"
                   Exclude="$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\BuildScripts\**;$(MSBuildProjectDirectory)\**\bin\net48\**;"></LibaryFiles>
     </ItemGroup>
 
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\CHANGES.md" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\CHANGES.md"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\LICENSE.md" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\LICENSE.md"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\README.md" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\README.md"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
-    <Copy SourceFiles="@(yafInstall-Include)" 
+    <Copy SourceFiles="@(yafInstall-Include)"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
-    <Copy SourceFiles="@(LibaryFiles)" 
+    <Copy SourceFiles="@(LibaryFiles)"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)"/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\robots.txt"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\"/>
@@ -181,12 +208,12 @@
     </CreateItem>
 
     <!-- Create the Install package -->
-    <Zip Files="@(OutputContentInstall)" 
-         WorkingDirectory="$(MSBuildProjectDirectory)\Package\" 
+    <Zip Files="@(OutputContentInstall)"
+         WorkingDirectory="$(MSBuildProjectDirectory)\Package\"
          ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Install.$(Extension)" />
 
     <!-- Copy the Install package to the Packages folder -->
-    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Install.$(Extension)" 
+    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Install.$(Extension)"
           DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
     <!--Create Deploy Package -->
@@ -196,19 +223,19 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
     </ItemGroup>
 
-    <Copy SourceFiles="@(yafInstall-Include)" 
+    <Copy SourceFiles="@(yafInstall-Include)"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\%(RecursiveDir)" />
-    <Copy SourceFiles="@(LibaryFiles)" 
+    <Copy SourceFiles="@(LibaryFiles)"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\%(RecursiveDir)"/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\web.config"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\robots.txt"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\"/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\InstallSQL.sql" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\InstallSQL.sql"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\Manifest.xml" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\Manifest.xml"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\Parameters.xml" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\Parameters.xml"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy" />
 
     <CreateItem Include="$(MSBuildProjectDirectory)\Package\deploy\**\*.*">
@@ -216,28 +243,28 @@
     </CreateItem>
 
     <!-- Create the Deploy package -->
-    <Zip Files="@(OutputContentDeploy)" 
-         WorkingDirectory="$(MSBuildProjectDirectory)\Package\deploy" 
+    <Zip Files="@(OutputContentDeploy)"
+         WorkingDirectory="$(MSBuildProjectDirectory)\Package\deploy"
          ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Deploy.$(Extension)" />
 
     <!-- Copy the Deploy package to the Packages folder -->
-    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Deploy.$(Extension)" 
+    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Deploy.$(Extension)"
           DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package\deploy" />
 
     <!-- / END Deploy Package-->
 
-    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\app.config" 
+    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\app.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\app.config"/>
-    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\db.config" 
+    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\db.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\db.config"/>
-    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\mail.config" 
+    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\mail.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\mail.config"/>
-    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config" 
+    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\recommended.web.config"/>
 
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\v1.9.1.upgrade.web.config" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\v1.9.1.upgrade.web.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\v1.9.1.upgrade.web.config"/>
 
     <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
@@ -245,12 +272,12 @@
     </CreateItem>
 
     <!-- Create the Upgrade package -->
-    <Zip Files="@(OutputContentUpgrade)" 
-         WorkingDirectory="$(MSBuildProjectDirectory)\Package\" 
+    <Zip Files="@(OutputContentUpgrade)"
+         WorkingDirectory="$(MSBuildProjectDirectory)\Package\"
          ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Upgrade.$(Extension)" />
 
     <!-- Copy the Upgrade package to the Packages folder -->
-    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Upgrade.$(Extension)" 
+    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Upgrade.$(Extension)"
           DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package" />
