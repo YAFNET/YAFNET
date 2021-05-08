@@ -1,4 +1,4 @@
-// Darkly 5.0.0-beta3
+// Darkly 5.0.0
 // Bootswatch
 
 
@@ -72,21 +72,5 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0
         background-color: $value;
       }
     }
-  }
-}
-
-// Containers
-
-.list-group-item-action {
-  color: $white;
-
-  &:hover,
-  &:focus {
-    background-color: $gray-700;
-    color: $white;
-  }
-
-  .list-group-item-heading {
-    color: $white;
   }
 }
