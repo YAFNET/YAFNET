@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -151,15 +151,15 @@ namespace YAF.Types.Models.Identity
     public class AspNetUsers<TKey> : IUser<TKey>, IEntity, IHasId<TKey>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AspNetUsers{TKey}"/> class. 
-        /// Default constructor 
+        /// Initializes a new instance of the <see cref="AspNetUsers{TKey}"/> class.
+        /// Default constructor
         /// </summary>
         public AspNetUsers()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AspNetUsers{TKey}"/> class. 
+        /// Initializes a new instance of the <see cref="AspNetUsers{TKey}"/> class.
         /// Constructor that takes user name as argument
         /// </summary>
         /// <param name="userName">
@@ -313,11 +313,6 @@ namespace YAF.Types.Models.Identity
         /// Gets or sets Google Id
         /// </summary>
         public string Profile_GoogleId { get; set; }
-
-        /// <summary>
-        /// Gets or sets GitHub Id
-        /// </summary>
-        public string Profile_GitHubId { get; set; }
 
         /// <summary>
         /// Gets or sets Homepage.

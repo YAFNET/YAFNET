@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -115,7 +115,6 @@ namespace YAF.Controls
         [NotNull]
         private Tuple<User, AspNetUsers, Rank, vaccess> User =>
             this.user ??= this.GetRepository<User>().GetBoardUser(this.currentUserId);
-
         private IEnumerable<ProfileCustom> UserProfileCustom =>
             this.userProfileCustom ??= this.GetRepository<ProfileCustom>().Get(p => p.UserID == this.currentUserId);
 
@@ -306,30 +305,34 @@ namespace YAF.Controls
                     // Check for spam
                     if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out _))
                     {
-                        // Log and Send Message to Admins
-                        if (this.PageContext.BoardSettings.BotHandlingOnRegister.Equals(1))
+                        switch (this.PageContext.BoardSettings.BotHandlingOnRegister)
                         {
-                            this.Logger.Log(
-                                null,
-                                "Bot Detected",
-                                $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}",
-                                EventLogTypes.SpamBotDetected);
-                        }
-                        else if (this.PageContext.BoardSettings.BotHandlingOnRegister.Equals(2))
-                        {
-                            this.Logger.Log(
-                                null,
-                                "Bot Detected",
-                                $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}, user was deleted and the name, email and IP Address are banned.",
-                                EventLogTypes.SpamBotDetected);
-
-                            // Kill user
-                            if (!this.PageContext.CurrentForumPage.IsAdminPage)
+                            // Log and Send Message to Admins
+                            case 1:
+                                this.Logger.Log(
+                                    null,
+                                    "Bot Detected",
+                                    $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}",
+                                    EventLogTypes.SpamBotDetected);
+                                break;
+                            case 2:
                             {
-                                this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                    this.currentUserId,
-                                    this.User.Item2,
-                                    this.User.Item1.IP);
+                                this.Logger.Log(
+                                    null,
+                                    "Bot Detected",
+                                    $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}, user was deleted and the name, email and IP Address are banned.",
+                                    EventLogTypes.SpamBotDetected);
+
+                                // Kill user
+                                if (!this.PageContext.CurrentForumPage.IsAdminPage)
+                                {
+                                    this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                                        this.currentUserId,
+                                        this.User.Item2,
+                                        this.User.Item1.IP);
+                                }
+
+                                break;
                             }
                         }
                     }
@@ -716,7 +719,6 @@ namespace YAF.Controls
             this.User.Item2.Profile_Blog = userProfile.Blog;
             this.User.Item2.Profile_Gender = userProfile.Gender;
             this.User.Item2.Profile_GoogleId = userProfile.GoogleId;
-            this.User.Item2.Profile_GitHubId = userProfile.GitHubId;
             this.User.Item2.Profile_Homepage = userProfile.Homepage;
             this.User.Item2.Profile_ICQ = userProfile.ICQ;
             this.User.Item2.Profile_Facebook = userProfile.Facebook;

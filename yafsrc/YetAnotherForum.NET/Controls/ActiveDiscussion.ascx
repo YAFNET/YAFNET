@@ -9,7 +9,7 @@
                             IconSize="fa-2x"
                             LocalizedTag="ACTIVE_DISCUSSIONS" />
             </div>
-        <asp:Repeater runat="server" ID="LatestPosts" 
+        <asp:Repeater runat="server" ID="LatestPosts"
                       OnItemDataBound="LatestPosts_ItemDataBound">
             <HeaderTemplate>
                 <ul class="list-group list-group-flush">
@@ -36,14 +36,13 @@
                                      Type="Link"
                                      DataToggle="popover"
                                      CssClass="topic-link-popover p-0"/>
-                            
                 </li>
             </ItemTemplate>
             <FooterTemplate>
                 </ul>
             </FooterTemplate>
         </asp:Repeater>
-        <asp:Panel runat="server" ID="Footer" 
+        <asp:Panel runat="server" ID="Footer"
                    CssClass="card-footer">
             <div class="btn-group float-end" role="group" aria-label="Tools">
                 <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts" />

@@ -6,6 +6,8 @@ using ServiceStack.Text;
 
 namespace ServiceStack.Script
 {
+    using ServiceStack.Extensions;
+
     public class JsCallExpression : JsExpression
     {
         public JsToken Callee { get; }
@@ -22,9 +24,9 @@ namespace ServiceStack.Script
 
         public static object InvokeDelegate(Delegate fn, object target, bool isMemberExpr, List<object> fnArgValues)
         {
-#if DEBUG            
+#if DEBUG
             try
-#endif            
+#endif
             {
                 if (fn is MethodInvoker methodInvoker)
                 {
@@ -88,14 +90,14 @@ namespace ServiceStack.Script
                     target,
                     isMemberExpr, fnArgValues);
             }
-#if DEBUG            
+#if DEBUG
             catch (Exception e)
             {
                 var ex = e.GetInnerMostException().UnwrapIfSingleException().GetInnerMostException();
                 Logging.LogManager.GetLogger(typeof(JsCallExpression)).Error(ex.Message + "\n" + ex.StackTrace, ex);
                 throw;
             }
-#endif            
+#endif
         }
 
         public override object Evaluate(ScriptScopeContext scope)

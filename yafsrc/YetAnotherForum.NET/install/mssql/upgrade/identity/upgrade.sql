@@ -1,4 +1,4 @@
-/* Create AspNetUsers Table */
+﻿/* Create AspNetUsers Table */
 SET ANSI_NULLS ON
 GO
 
@@ -43,7 +43,6 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUsers](
     [Profile_Blog] NVARCHAR (255) NULL,
     [Profile_Gender] INT NULL,
     [Profile_GoogleId] NVARCHAR (255) NULL,
-    [Profile_GitHubId] NVARCHAR (255) NULL,
     [Profile_Homepage] NVARCHAR (255) NULL,
     [Profile_ICQ] NVARCHAR (255) NULL,
     [Profile_Facebook] NVARCHAR (400) NULL,
@@ -70,61 +69,61 @@ GO
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='GoogleId')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add GoogleId nvarchar(255)  Null
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add GoogleId nvarchar(255)  Null
 end
 GO
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Facebook')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Facebook nvarchar(255)  Null
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Facebook nvarchar(255)  Null
 end
 GO
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='FacebookId')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add FacebookId nvarchar(255)  Null
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add FacebookId nvarchar(255)  Null
 end
 GO
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Twitter')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Twitter nvarchar(255) Null
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Twitter nvarchar(255) Null
 end
 GO
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='TwitterId')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add TwitterId nvarchar(255) Null
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add TwitterId nvarchar(255) Null
 end
 GO
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Country')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Country nvarchar(255) Null
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Country nvarchar(255) Null
 end
 GO
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Region')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Region nvarchar(255) Null
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Region nvarchar(255) Null
 end
 GO
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='City')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add City nvarchar(255) Null
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add City nvarchar(255) Null
 end
 GO
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='XMPP')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add XMPP nvarchar(255) Null
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add XMPP nvarchar(255) Null
 end
 GO
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='LastSyncedWithDNN')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add LastSyncedWithDNN nvarchar(255) Null
+    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add LastSyncedWithDNN nvarchar(255) Null
 end
 GO
 
@@ -161,18 +160,18 @@ begin
         PasswordQuestion,
         PasswordAnswer
       )
-  SELECT 
-      [{databaseOwner}].[aspnet_Users].ApplicationId,  
-      [{databaseOwner}].[aspnet_Users].UserId, 
+  SELECT
+      [{databaseOwner}].[aspnet_Users].ApplicationId,
+      [{databaseOwner}].[aspnet_Users].UserId,
       [{databaseOwner}].[aspnet_Users].UserName,
       ([{databaseOwner}].[aspnet_Membership].Password+'|'+CAST([{databaseOwner}].[aspnet_Membership].PasswordFormat as varchar)+'|'+ [{databaseOwner}].[aspnet_Membership].PasswordSalt),
-      NewID(), 
-      1, 
-      NULL, 
-      0, 
-      1, 
-      CASE WHEN [{databaseOwner}].[aspnet_Membership].IsLockedOut = 1 THEN DATEADD(YEAR, 1000, SYSUTCDATETIME()) ELSE NULL END, 
-      1, 
+      NewID(),
+      1,
+      NULL,
+      0,
+      1,
+      CASE WHEN [{databaseOwner}].[aspnet_Membership].IsLockedOut = 1 THEN DATEADD(YEAR, 1000, SYSUTCDATETIME()) ELSE NULL END,
+      1,
       0,
       [{databaseOwner}].[aspnet_Membership].Email,
       [{databaseOwner}].[aspnet_Users].LoweredUserName,
@@ -180,21 +179,21 @@ begin
       [{databaseOwner}].[aspnet_Membership].IsApproved,
       [{databaseOwner}].[aspnet_Membership].IsLockedOut,
       [{databaseOwner}].[aspnet_Membership].CreateDate,
-      [{databaseOwner}].[aspnet_Membership].LastLoginDate, 
-      [{databaseOwner}].[aspnet_Membership].LastPasswordChangedDate, 
+      [{databaseOwner}].[aspnet_Membership].LastLoginDate,
+      [{databaseOwner}].[aspnet_Membership].LastPasswordChangedDate,
       [{databaseOwner}].[aspnet_Membership].LastLockOutDate,
-      [{databaseOwner}].[aspnet_Membership].FailedPasswordAttemptCount, 
+      [{databaseOwner}].[aspnet_Membership].FailedPasswordAttemptCount,
       [{databaseOwner}].[aspnet_Membership].FailedPasswordAnswerAttemptWindowStart,
       [{databaseOwner}].[aspnet_Membership].FailedPasswordAnswerAttemptCount,
       [{databaseOwner}].[aspnet_Membership].FailedPasswordAttemptWindowStart,
       [{databaseOwner}].[aspnet_Membership].PasswordQuestion,
       [{databaseOwner}].[aspnet_Membership].PasswordAnswer
-  FROM 
+  FROM
       [{databaseOwner}].[aspnet_Users]
-      LEFT OUTER JOIN [{databaseOwner}].[aspnet_Membership] ON [{databaseOwner}].[aspnet_Membership].ApplicationId = [{databaseOwner}].[aspnet_Users].ApplicationId 
+      LEFT OUTER JOIN [{databaseOwner}].[aspnet_Membership] ON [{databaseOwner}].[aspnet_Membership].ApplicationId = [{databaseOwner}].[aspnet_Users].ApplicationId
       AND [{databaseOwner}].[aspnet_Users].UserId = [{databaseOwner}].[aspnet_Membership].UserId
       LEFT OUTER JOIN [{databaseOwner}].[{objectQualifier}AspNetUsers] ON [{databaseOwner}].[aspnet_Membership].UserId = [{databaseOwner}].[{objectQualifier}AspNetUsers].Id
-  WHERE 
+  WHERE
       [{databaseOwner}].[{objectQualifier}AspNetUsers].Id IS NULL and [{databaseOwner}].[aspnet_Membership].IsApproved is not null
       end
 GO
@@ -219,7 +218,7 @@ GO
        LoweredUserName,
        LastActivityDate,
        IsApproved,
-       IsLockedOut, 
+       IsLockedOut,
        CreateDate,
        LastLoginDate,
        LastPasswordChangedDate,
@@ -251,24 +250,24 @@ GO
        Profile_XMPP,
        Profile_LastSyncedWithDNN
       )
-  SELECT  
-       [{databaseOwner}].[{objectQualifier}prov_Membership].ApplicationId, 
-       [{databaseOwner}].[{objectQualifier}prov_Membership].UserId, 
+  SELECT
+       [{databaseOwner}].[{objectQualifier}prov_Membership].ApplicationId,
+       [{databaseOwner}].[{objectQualifier}prov_Membership].UserId,
        [{databaseOwner}].[{objectQualifier}prov_Membership].UserName,
       ([{databaseOwner}].[{objectQualifier}prov_Membership].Password+'|'+CAST([{databaseOwner}].[{objectQualifier}prov_Membership].PasswordFormat as varchar)+'|'+ [{databaseOwner}].[{objectQualifier}prov_Membership].PasswordSalt),
-      NewID(), 
-      1, 
-      NULL, 
-      0, 
-      1, 
-      CASE WHEN [{databaseOwner}].[{objectQualifier}prov_Membership].IsLockedOut = 1 THEN DATEADD(YEAR, 1000, SYSUTCDATETIME()) ELSE NULL END, 
-      1, 
+      NewID(),
+      1,
+      NULL,
+      0,
+      1,
+      CASE WHEN [{databaseOwner}].[{objectQualifier}prov_Membership].IsLockedOut = 1 THEN DATEADD(YEAR, 1000, SYSUTCDATETIME()) ELSE NULL END,
+      1,
       0,
       [{databaseOwner}].[{objectQualifier}prov_Membership].Email,
-      [{databaseOwner}].[{objectQualifier}prov_Membership].UsernameLwd, 
+      [{databaseOwner}].[{objectQualifier}prov_Membership].UsernameLwd,
       IsNull([{databaseOwner}].[{objectQualifier}prov_Membership].LastActivity,cast('1753-1-1' as datetime)),
-      [{databaseOwner}].[{objectQualifier}prov_Membership].IsApproved, 
-      0, 
+      [{databaseOwner}].[{objectQualifier}prov_Membership].IsApproved,
+      0,
       IsNull([{databaseOwner}].[{objectQualifier}prov_Membership].Joined,cast('1753-1-1' as datetime)),
       IsNull([{databaseOwner}].[{objectQualifier}prov_Membership].Joined,cast('1753-1-1' as datetime)),
       cast('1753-1-1' as datetime),
@@ -299,7 +298,7 @@ GO
       p.Skype,
       p.XMPP,
       p.LastSyncedWithDNN
-  FROM 
+  FROM
       [{databaseOwner}].[{objectQualifier}prov_Membership]
       LEFT OUTER JOIN [{databaseOwner}].[{objectQualifier}AspNetUsers] ON [{databaseOwner}].[{objectQualifier}prov_Membership].UserId = [{databaseOwner}].[{objectQualifier}AspNetUsers].Id
       iNNER JOIN [{databaseOwner}].[{objectQualifier}prov_Profile] p ON (p.UserID = [{databaseOwner}].[{objectQualifier}prov_Membership].UserId)
@@ -319,7 +318,7 @@ GO
 CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetRoles](
   [Id] [nvarchar](128) NOT NULL,
   [Name] [nvarchar](256) NOT NULL,
- CONSTRAINT [PK_AspNetRoles] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AspNetRoles] PRIMARY KEY CLUSTERED
 (
   [Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
@@ -338,7 +337,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUserLogins](
   [LoginProvider] [nvarchar](128) NOT NULL,
   [ProviderKey] [nvarchar](128) NOT NULL,
   [UserId] [nvarchar](128) NOT NULL,
- CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY CLUSTERED
 (
   [LoginProvider] ASC,
   [ProviderKey] ASC,
@@ -368,7 +367,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUserClaims](
   [UserId] [nvarchar](128) NOT NULL,
   [ClaimType] [nvarchar](max) NULL,
   [ClaimValue] [nvarchar](max) NULL,
- CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY CLUSTERED
 (
   [Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
@@ -439,21 +438,21 @@ insert into [{databaseOwner}].[{objectQualifier}Registry](Name,Value) values('ap
 go
 
 if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Application]') and type in (N'U'))
-	drop table [{databaseOwner}].[{objectQualifier}prov_Application]
+    drop table [{databaseOwner}].[{objectQualifier}prov_Application]
 GO
 
 if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Membership]') and type in (N'U'))
-	drop table [{databaseOwner}].[{objectQualifier}prov_Membership]
+    drop table [{databaseOwner}].[{objectQualifier}prov_Membership]
 GO
 
 if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Profile]') and type in (N'U'))
-	drop table [{databaseOwner}].[{objectQualifier}prov_Profile]
+    drop table [{databaseOwner}].[{objectQualifier}prov_Profile]
 GO
 
 if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Role]') and type in (N'U'))
-	drop table [{databaseOwner}].[{objectQualifier}prov_Role]
+    drop table [{databaseOwner}].[{objectQualifier}prov_Role]
 GO
 
 if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_RoleMembership]') and type in (N'U'))
-	drop table [{databaseOwner}].[{objectQualifier}prov_RoleMembership]
+    drop table [{databaseOwner}].[{objectQualifier}prov_RoleMembership]
 GO

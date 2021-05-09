@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,9 +24,8 @@
 
 using System.Reflection;
 
+
+[assembly: AssemblyInformationalVersion("3.0.0")]
 [assembly: AssemblyVersion("3.0.0.0")]
 [assembly: AssemblyFileVersion("3.0.0.0")]
 [assembly: AssemblyCopyright("Copyright © YetAnotherForum.NET")]
-
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("..\\YetAnotherForum.NET.snk")]

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -31,7 +31,7 @@ using YAF.Types.Attributes;
 
 using Startup = YAF.Core.Context.Start.Startup;
 
-// General Information about an assembly is controlled through the following 
+// General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("YAF.Core")]
@@ -43,8 +43,8 @@ using Startup = YAF.Core.Context.Start.Startup;
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyModuleSortOrder(10)]
 
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
+// Setting ComVisible to false makes the types in this assembly not visible
+// to COM components.  If you need to access a type in this assembly from
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
@@ -52,3 +52,6 @@ using Startup = YAF.Core.Context.Start.Startup;
 [assembly: Guid("5d0e8405-371c-4cf8-817d-bd1000631c65")]
 
 [assembly: OwinStartup(typeof(Startup))]
+
+[assembly: AssemblyDelaySign(false)]
+[assembly: AssemblyKeyFile("..\\YetAnotherForum.NET.snk")]

@@ -14,6 +14,8 @@ using ServiceStack.Text;
 
 namespace ServiceStack.Script
 {
+    using ServiceStack.Extensions;
+
     public interface IConfigureScriptContext
     {
         void Configure(ScriptContext context);
@@ -37,7 +39,7 @@ namespace ServiceStack.Script
         public IVirtualPathProvider VirtualFiles { get; set; } = new MemoryVirtualFiles();
 
         /// <summary>
-        /// Where to store cached files, if unspecified falls back to configured VirtualFiles if it implements IVirtualFiles (i.e. writable)  
+        /// Where to store cached files, if unspecified falls back to configured VirtualFiles if it implements IVirtualFiles (i.e. writable)
         /// </summary>
         public IVirtualFiles CacheFiles { get; set; }
 
@@ -73,7 +75,7 @@ namespace ServiceStack.Script
         public List<string> ScriptNamespaces { get; set; } = new List<string>();
 
         /// <summary>
-        /// Allow scripting of all Types in loaded Assemblies 
+        /// Allow scripting of all Types in loaded Assemblies
         /// </summary>
         public bool AllowScriptingOfAllTypes { get; set; }
 
@@ -101,14 +103,14 @@ namespace ServiceStack.Script
         public List<ScriptMethods> ScriptMethods { get; } = new List<ScriptMethods>();
 
         /// <summary>
-        /// Insert additional Methods at the start so they have priority over default Script Methods   
+        /// Insert additional Methods at the start so they have priority over default Script Methods
         /// </summary>
         public List<ScriptMethods> InsertScriptMethods { get; } = new List<ScriptMethods>();
 
         public List<ScriptBlock> ScriptBlocks { get; } = new List<ScriptBlock>();
 
         /// <summary>
-        /// Insert additional Blocks at the start so they have priority over default Script Blocks   
+        /// Insert additional Blocks at the start so they have priority over default Script Blocks
         /// </summary>
         public List<ScriptBlock> InsertScriptBlocks { get; } = new List<ScriptBlock>();
 
@@ -161,7 +163,7 @@ namespace ServiceStack.Script
         public TimeSpan? CheckForModifiedPagesAfter { get; set; }
 
         /// <summary>
-        /// Existing caches and pages created prior to specified date should be invalidated 
+        /// Existing caches and pages created prior to specified date should be invalidated
         /// </summary>
         public DateTime? InvalidateCachesBefore { get; set; }
 

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -58,11 +58,6 @@ namespace YAF.Types.Models.Identity
         /// Gets or sets Google Id
         /// </summary>
         public string GoogleId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the github id.
-        /// </summary>
-        public string GitHubId { get; set; }
 
         /// <summary>
         /// Gets or sets Homepage.
