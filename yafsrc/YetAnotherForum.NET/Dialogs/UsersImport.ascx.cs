@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -337,7 +337,6 @@ namespace YAF.Dialogs
                 Profile_Blog = userProfile.Blog,
                 Profile_Gender = userProfile.Gender,
                 Profile_GoogleId = userProfile.GoogleId,
-                Profile_GitHubId = userProfile.GitHubId,
                 Profile_Homepage = userProfile.Homepage,
                 Profile_ICQ = userProfile.ICQ,
                 Profile_Facebook = userProfile.Facebook,
