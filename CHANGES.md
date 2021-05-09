@@ -1,6 +1,16 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.0.0
+* Minimum .NET Version v4.8
+* Upgraded to Bootstrap 5.0.0
+* [NEW] Custom Profile Properties
+* [NEW] CKEditor is now standard editor
+* [NEW] Html Email Template
+* Replaced obsolete Membership/Role/Profile Provider with ASP.NET Identity
+* Automatic Migration of all old Attachments on Uprade
+* Completed DAL changes
+
 # YetAnotherForum.NET v2.3.1.15
 * [NEW] Added Page Title template option
 * [NEW] Added New Admin Page for managing Attachments
