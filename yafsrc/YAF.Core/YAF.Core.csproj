@@ -41,7 +41,7 @@
     <PackageReference Include="Microsoft.Owin.Security" Version="4.1.1" />
     <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="4.1.1" />
     <PackageReference Include="Microsoft.Owin.Security.Facebook" Version="4.1.1" />
-    <PackageReference Include="Microsoft.Owin.Security.Google" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Owin.Security.Google" Version="4.2.0" />
     <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.1.1" />
     <PackageReference Include="Microsoft.Owin.Security.Twitter" Version="4.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
