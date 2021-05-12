@@ -688,6 +688,20 @@
     <Compile Include="Pages\ActiveUsers.ascx.designer.cs">
       <DependentUpon>ActiveUsers.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Admin\Attachments.ascx.cs">
+      <DependentUpon>Attachments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\Attachments.ascx.designer.cs">
+      <DependentUpon>Attachments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\Tags.ascx.cs">
+      <DependentUpon>Tags.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\Tags.ascx.designer.cs">
+      <DependentUpon>Tags.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Admin\ProfileDefinitions.ascx.cs">
       <DependentUpon>ProfileDefinitions.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1165,6 +1179,7 @@
     <Content Include="Content\favicons\mstile-150x150.png" />
     <Content Include="Content\favicons\safari-pinned-tab.svg" />
     <Content Include="Content\fontawesome\LICENSE-fontawesome.txt" />
+    <Content Include="Content\jquery.fileupload.comb.min.css" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\images\spacer.gif" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
@@ -1938,10 +1953,6 @@
     <Content Include="Content\jQuery.FileUpload\jquery.fileupload.css" />
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\jQuery.FileUpload\jquery.fileupload-ui.css" />
-    <Content Include="Content\jquery.fileupload.comb.css" />
-    <Content Include="Content\jquery.fileupload.comb.min.css">
-      <DependentUpon>jquery.fileupload.comb.css</DependentUpon>
-    </Content>
     <Content Include="Content\prism.css" />
     <Content Include="Content\tablesorter\theme.bootstrap_4.min.css" />
     <Content Include="Content\Themes\cyborg\bootstrap-forum.css">
@@ -2052,6 +2063,7 @@
     <Content Include="default.aspx" />
     <Content Include="error.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Gruntfile.js" />
     <Content Include="Images\Avatars\SampleAvatar.gif" />
     <Content Include="Images\Medals\award_star_bronze_3.png" />
     <Content Include="Images\Medals\award_star_bronze_3_small.png" />
@@ -2090,6 +2102,8 @@
     </Content>
     <Content Include="languages\estonian.xml" />
     <Content Include="Pages\Account\ResetPassword.ascx" />
+    <Content Include="Pages\Admin\Attachments.ascx" />
+    <Content Include="Pages\Admin\Tags.ascx" />
     <Content Include="Pages\Admin\ProfileDefinitions.ascx" />
     <Content Include="Pages\Admin\BannedEmails.ascx" />
     <Content Include="Pages\Admin\BannedNames.ascx" />
@@ -2246,8 +2260,6 @@
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <None Include="Content\forum-admin.scss" />
-    <None Include="bundleconfig.json" />
-    <None Include="compilerconfig.json" />
     <Content Include="Scripts\bootstrap-typeahead.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js">
@@ -2826,9 +2838,6 @@
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.js" />
-    <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.min.js">
-      <DependentUpon>jquery.tablesorter.pager.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.js" />
     <Content Include="Scripts\forum\yaf.Utilities.js" />
     <Content Include="Scripts\tablesorter\widgets\widget-reflow.js" />
@@ -3247,9 +3256,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="compilerconfig.json.defaults">
-      <DependentUpon>compilerconfig.json</DependentUpon>
-    </None>
     <Content Include="Content\Themes\yaf\bootstrap-forum.scss" />
     <Content Include="Content\forum\dropdowns.scss" />
     <Content Include="Content\forum\social-icons.scss" />
@@ -3351,9 +3357,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="UrlRewriter.config" />
-    <Content Include="v1.9.1.upgrade.web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="Content\select2\select2-bootstrap.scss" />
     <Content Include="Content\Themes\cerulean\LICENSE.md" />
     <Content Include="Content\Themes\cosmo\LICENSE.md" />
@@ -3388,6 +3391,8 @@
     <Content Include="Content\Themes\vapor\bootstrap-forum.scss" />
     <Content Include="Content\Themes\morph\bootstrap-forum.scss" />
     <Content Include="Content\Themes\quartz\bootstrap-forum.scss" />
+    <Content Include="package-lock.json" />
+    <None Include="package.json" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js">
       <DependentUpon>jquery-3.6.0.js</DependentUpon>
     </None>
@@ -3397,12 +3402,8 @@
     <Content Include="YetAnotherForum.NET.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ServiceStack\ServiceStack.Interfaces\ServiceStack.Interfaces.csproj">
-      <Project>{7092fefb-a69a-4f4f-b856-dfca83b6cd0c}</Project>
-      <Name>ServiceStack.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ServiceStack\ServiceStack.Text\ServiceStack.Text.csproj">
-      <Project>{35d4c8bf-4acc-4cdf-b239-8766e69bcda5}</Project>
+      <Project>{aa001480-3713-4927-8650-ed1e16afb791}</Project>
       <Name>ServiceStack.Text</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj">
@@ -3641,7 +3642,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
