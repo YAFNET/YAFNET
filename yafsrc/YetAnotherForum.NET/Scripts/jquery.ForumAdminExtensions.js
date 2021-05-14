@@ -14068,6 +14068,49 @@
     global.bootstrap = factory());
 })(this, function() {
     "use strict";
+    const NODE_TEXT = 3;
+    const SelectorEngine = {
+        find(selector, element = document.documentElement) {
+            return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
+        },
+        findOne(selector, element = document.documentElement) {
+            return Element.prototype.querySelector.call(element, selector);
+        },
+        children(element, selector) {
+            return [].concat(...element.children).filter(child => child.matches(selector));
+        },
+        parents(element, selector) {
+            const parents = [];
+            let ancestor = element.parentNode;
+            while (ancestor && ancestor.nodeType === Node.ELEMENT_NODE && ancestor.nodeType !== NODE_TEXT) {
+                if (ancestor.matches(selector)) {
+                    parents.push(ancestor);
+                }
+                ancestor = ancestor.parentNode;
+            }
+            return parents;
+        },
+        prev(element, selector) {
+            let previous = element.previousElementSibling;
+            while (previous) {
+                if (previous.matches(selector)) {
+                    return [ previous ];
+                }
+                previous = previous.previousElementSibling;
+            }
+            return [];
+        },
+        next(element, selector) {
+            let next = element.nextElementSibling;
+            while (next) {
+                if (next.matches(selector)) {
+                    return [ next ];
+                }
+                next = next.nextElementSibling;
+            }
+            return [];
+        }
+    };
     const MAX_UID = 1e6;
     const MILLISECONDS_MULTIPLIER = 1e3;
     const TRANSITION_END = "transitionend";
@@ -14128,7 +14171,24 @@
     const triggerTransitionEnd = element => {
         element.dispatchEvent(new Event(TRANSITION_END));
     };
-    const isElement$1 = obj => (obj[0] || obj).nodeType;
+    const isElement$1 = obj => {
+        if (!obj || typeof obj !== "object") {
+            return false;
+        }
+        if (typeof obj.jquery !== "undefined") {
+            obj = obj[0];
+        }
+        return typeof obj.nodeType !== "undefined";
+    };
+    const getElement = obj => {
+        if (isElement$1(obj)) {
+            return obj.jquery ? obj[0] : obj;
+        }
+        if (typeof obj === "string" && obj.length > 0) {
+            return SelectorEngine.findOne(obj);
+        }
+        return null;
+    };
     const emulateTransitionEnd = (element, duration) => {
         let called = false;
         const durationPadding = 5;
@@ -14212,10 +14272,11 @@
         }
     };
     const isRTL = () => document.documentElement.dir === "rtl";
-    const defineJQueryPlugin = (name, plugin) => {
+    const defineJQueryPlugin = plugin => {
         onDOMContentLoaded(() => {
             const $ = getjQuery();
             if ($) {
+                const name = plugin.NAME;
                 const JQUERY_NO_CONFLICT = $.fn[name];
                 $.fn[name] = plugin.jQueryInterface;
                 $.fn[name].Constructor = plugin;
@@ -14475,10 +14536,10 @@
             return evt;
         }
     };
-    const VERSION = "5.0.0";
+    const VERSION = "5.0.1";
     class BaseComponent {
         constructor(element) {
-            element = typeof element === "string" ? document.querySelector(element) : element;
+            element = getElement(element);
             if (!element) {
                 return;
             }
@@ -14487,14 +14548,34 @@
         }
         dispose() {
             Data.remove(this._element, this.constructor.DATA_KEY);
-            EventHandler.off(this._element, `.${this.constructor.DATA_KEY}`);
-            this._element = null;
+            EventHandler.off(this._element, this.constructor.EVENT_KEY);
+            Object.getOwnPropertyNames(this).forEach(propertyName => {
+                this[propertyName] = null;
+            });
+        }
+        _queueCallback(callback, element, isAnimated = true) {
+            if (!isAnimated) {
+                execute(callback);
+                return;
+            }
+            const transitionDuration = getTransitionDurationFromElement(element);
+            EventHandler.one(element, "transitionend", () => execute(callback));
+            emulateTransitionEnd(element, transitionDuration);
         }
         static getInstance(element) {
             return Data.get(element, this.DATA_KEY);
         }
         static get VERSION() {
             return VERSION;
+        }
+        static get NAME() {
+            throw new Error('You have to implement the static method "NAME", for each component!');
+        }
+        static get DATA_KEY() {
+            return `bs.${this.NAME}`;
+        }
+        static get EVENT_KEY() {
+            return `.${this.DATA_KEY}`;
         }
     }
     const NAME$c = "alert";
@@ -14509,8 +14590,8 @@
     const CLASS_NAME_FADE$6 = "fade";
     const CLASS_NAME_SHOW$9 = "show";
     class Alert extends BaseComponent {
-        static get DATA_KEY() {
-            return DATA_KEY$b;
+        static get NAME() {
+            return NAME$c;
         }
         close(element) {
             const rootElement = element ? this._getRootElement(element) : this._element;
@@ -14528,13 +14609,8 @@
         }
         _removeElement(element) {
             element.classList.remove(CLASS_NAME_SHOW$9);
-            if (!element.classList.contains(CLASS_NAME_FADE$6)) {
-                this._destroyElement(element);
-                return;
-            }
-            const transitionDuration = getTransitionDurationFromElement(element);
-            EventHandler.one(element, "transitionend", () => this._destroyElement(element));
-            emulateTransitionEnd(element, transitionDuration);
+            const isAnimated = element.classList.contains(CLASS_NAME_FADE$6);
+            this._queueCallback(() => this._destroyElement(element), element, isAnimated);
         }
         _destroyElement(element) {
             if (element.parentNode) {
@@ -14563,7 +14639,7 @@
         }
     }
     EventHandler.on(document, EVENT_CLICK_DATA_API$7, SELECTOR_DISMISS, Alert.handleDismiss(new Alert()));
-    defineJQueryPlugin(NAME$c, Alert);
+    defineJQueryPlugin(Alert);
     const NAME$b = "button";
     const DATA_KEY$a = "bs.button";
     const EVENT_KEY$a = `.${DATA_KEY$a}`;
@@ -14572,8 +14648,8 @@
     const SELECTOR_DATA_TOGGLE$5 = '[data-bs-toggle="button"]';
     const EVENT_CLICK_DATA_API$6 = `click${EVENT_KEY$a}${DATA_API_KEY$7}`;
     class Button extends BaseComponent {
-        static get DATA_KEY() {
-            return DATA_KEY$a;
+        static get NAME() {
+            return NAME$b;
         }
         toggle() {
             this._element.setAttribute("aria-pressed", this._element.classList.toggle(CLASS_NAME_ACTIVE$3));
@@ -14599,7 +14675,7 @@
         }
         data.toggle();
     });
-    defineJQueryPlugin(NAME$b, Button);
+    defineJQueryPlugin(Button);
     function normalizeData(val) {
         if (val === "true") {
             return true;
@@ -14652,49 +14728,6 @@
                 top: element.offsetTop,
                 left: element.offsetLeft
             };
-        }
-    };
-    const NODE_TEXT = 3;
-    const SelectorEngine = {
-        find(selector, element = document.documentElement) {
-            return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
-        },
-        findOne(selector, element = document.documentElement) {
-            return Element.prototype.querySelector.call(element, selector);
-        },
-        children(element, selector) {
-            return [].concat(...element.children).filter(child => child.matches(selector));
-        },
-        parents(element, selector) {
-            const parents = [];
-            let ancestor = element.parentNode;
-            while (ancestor && ancestor.nodeType === Node.ELEMENT_NODE && ancestor.nodeType !== NODE_TEXT) {
-                if (ancestor.matches(selector)) {
-                    parents.push(ancestor);
-                }
-                ancestor = ancestor.parentNode;
-            }
-            return parents;
-        },
-        prev(element, selector) {
-            let previous = element.previousElementSibling;
-            while (previous) {
-                if (previous.matches(selector)) {
-                    return [ previous ];
-                }
-                previous = previous.previousElementSibling;
-            }
-            return [];
-        },
-        next(element, selector) {
-            let next = element.nextElementSibling;
-            while (next) {
-                if (next.matches(selector)) {
-                    return [ next ];
-                }
-                next = next.nextElementSibling;
-            }
-            return [];
         }
     };
     const NAME$a = "carousel";
@@ -14777,8 +14810,8 @@
         static get Default() {
             return Default$9;
         }
-        static get DATA_KEY() {
-            return DATA_KEY$9;
+        static get NAME() {
+            return NAME$a;
         }
         next() {
             if (!this._isSliding) {
@@ -14836,16 +14869,6 @@
             }
             const order = index > activeIndex ? ORDER_NEXT : ORDER_PREV;
             this._slide(order, this._items[index]);
-        }
-        dispose() {
-            this._items = null;
-            this._config = null;
-            this._interval = null;
-            this._isPaused = null;
-            this._isSliding = null;
-            this._activeElement = null;
-            this._indicatorsElement = null;
-            super.dispose();
         }
         _getConfig(config) {
             config = {
@@ -15011,37 +15034,32 @@
             }
             this._setActiveIndicatorElement(nextElement);
             this._activeElement = nextElement;
-            if (this._element.classList.contains(CLASS_NAME_SLIDE)) {
-                nextElement.classList.add(orderClassName);
-                reflow(nextElement);
-                activeElement.classList.add(directionalClassName);
-                nextElement.classList.add(directionalClassName);
-                const transitionDuration = getTransitionDurationFromElement(activeElement);
-                EventHandler.one(activeElement, "transitionend", () => {
-                    nextElement.classList.remove(directionalClassName, orderClassName);
-                    nextElement.classList.add(CLASS_NAME_ACTIVE$2);
-                    activeElement.classList.remove(CLASS_NAME_ACTIVE$2, orderClassName, directionalClassName);
-                    this._isSliding = false;
-                    setTimeout(() => {
-                        EventHandler.trigger(this._element, EVENT_SLID, {
-                            relatedTarget: nextElement,
-                            direction: eventDirectionName,
-                            from: activeElementIndex,
-                            to: nextElementIndex
-                        });
-                    }, 0);
-                });
-                emulateTransitionEnd(activeElement, transitionDuration);
-            } else {
-                activeElement.classList.remove(CLASS_NAME_ACTIVE$2);
-                nextElement.classList.add(CLASS_NAME_ACTIVE$2);
-                this._isSliding = false;
+            const triggerSlidEvent = () => {
                 EventHandler.trigger(this._element, EVENT_SLID, {
                     relatedTarget: nextElement,
                     direction: eventDirectionName,
                     from: activeElementIndex,
                     to: nextElementIndex
                 });
+            };
+            if (this._element.classList.contains(CLASS_NAME_SLIDE)) {
+                nextElement.classList.add(orderClassName);
+                reflow(nextElement);
+                activeElement.classList.add(directionalClassName);
+                nextElement.classList.add(directionalClassName);
+                const completeCallBack = () => {
+                    nextElement.classList.remove(directionalClassName, orderClassName);
+                    nextElement.classList.add(CLASS_NAME_ACTIVE$2);
+                    activeElement.classList.remove(CLASS_NAME_ACTIVE$2, orderClassName, directionalClassName);
+                    this._isSliding = false;
+                    setTimeout(triggerSlidEvent, 0);
+                };
+                this._queueCallback(completeCallBack, activeElement, true);
+            } else {
+                activeElement.classList.remove(CLASS_NAME_ACTIVE$2);
+                nextElement.classList.add(CLASS_NAME_ACTIVE$2);
+                this._isSliding = false;
+                triggerSlidEvent();
             }
             if (isCycling) {
                 this.cycle();
@@ -15125,7 +15143,7 @@
             Carousel.carouselInterface(carousels[i], Data.get(carousels[i], DATA_KEY$9));
         }
     });
-    defineJQueryPlugin(NAME$a, Carousel);
+    defineJQueryPlugin(Carousel);
     const NAME$9 = "collapse";
     const DATA_KEY$8 = "bs.collapse";
     const EVENT_KEY$8 = `.${DATA_KEY$8}`;
@@ -15178,8 +15196,8 @@
         static get Default() {
             return Default$8;
         }
-        static get DATA_KEY() {
-            return DATA_KEY$8;
+        static get NAME() {
+            return NAME$9;
         }
         toggle() {
             if (this._element.classList.contains(CLASS_NAME_SHOW$8)) {
@@ -15247,9 +15265,7 @@
             };
             const capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
             const scrollSize = `scroll${capitalizedDimension}`;
-            const transitionDuration = getTransitionDurationFromElement(this._element);
-            EventHandler.one(this._element, "transitionend", complete);
-            emulateTransitionEnd(this._element, transitionDuration);
+            this._queueCallback(complete, this._element, true);
             this._element.style[dimension] = `${this._element[scrollSize]}px`;
         }
         hide() {
@@ -15284,19 +15300,10 @@
                 EventHandler.trigger(this._element, EVENT_HIDDEN$5);
             };
             this._element.style[dimension] = "";
-            const transitionDuration = getTransitionDurationFromElement(this._element);
-            EventHandler.one(this._element, "transitionend", complete);
-            emulateTransitionEnd(this._element, transitionDuration);
+            this._queueCallback(complete, this._element, true);
         }
         setTransitioning(isTransitioning) {
             this._isTransitioning = isTransitioning;
-        }
-        dispose() {
-            super.dispose();
-            this._config = null;
-            this._parent = null;
-            this._triggerArray = null;
-            this._isTransitioning = null;
         }
         _getConfig(config) {
             config = {
@@ -15314,13 +15321,7 @@
             let {
                 parent
             } = this._config;
-            if (isElement$1(parent)) {
-                if (typeof parent.jquery !== "undefined" || typeof parent[0] !== "undefined") {
-                    parent = parent[0];
-                }
-            } else {
-                parent = SelectorEngine.findOne(parent);
-            }
+            parent = getElement(parent);
             const selector = `${SELECTOR_DATA_TOGGLE$4}[data-bs-parent="${parent}"]`;
             SelectorEngine.find(selector, parent).forEach(element => {
                 const selected = getElementFromSelector(element);
@@ -15390,7 +15391,7 @@
             Collapse.collapseInterface(element, config);
         });
     });
-    defineJQueryPlugin(NAME$9, Collapse);
+    defineJQueryPlugin(Collapse);
     var top = "top";
     var bottom = "bottom";
     var right = "right";
@@ -16748,8 +16749,8 @@
         static get DefaultType() {
             return DefaultType$7;
         }
-        static get DATA_KEY() {
-            return DATA_KEY$7;
+        static get NAME() {
+            return NAME$8;
         }
         toggle() {
             if (isDisabled(this._element)) {
@@ -16784,10 +16785,7 @@
                 if (this._config.reference === "parent") {
                     referenceElement = parent;
                 } else if (isElement$1(this._config.reference)) {
-                    referenceElement = this._config.reference;
-                    if (typeof this._config.reference.jquery !== "undefined") {
-                        referenceElement = this._config.reference[0];
-                    }
+                    referenceElement = getElement(this._config.reference);
                 } else if (typeof this._config.reference === "object") {
                     referenceElement = this._config.reference;
                 }
@@ -16817,10 +16815,8 @@
             this._completeHide(relatedTarget);
         }
         dispose() {
-            this._menu = null;
             if (this._popper) {
                 this._popper.destroy();
-                this._popper = null;
             }
             super.dispose();
         }
@@ -16957,13 +16953,8 @@
             });
         }
         static clearMenus(event) {
-            if (event) {
-                if (event.button === RIGHT_MOUSE_BUTTON || event.type === "keyup" && event.key !== TAB_KEY) {
-                    return;
-                }
-                if (/input|select|option|textarea|form/i.test(event.target.tagName)) {
-                    return;
-                }
+            if (event && (event.button === RIGHT_MOUSE_BUTTON || event.type === "keyup" && event.key !== TAB_KEY)) {
+                return;
             }
             const toggles = SelectorEngine.find(SELECTOR_DATA_TOGGLE$3);
             for (let i = 0, len = toggles.length; i < len; i++) {
@@ -16983,7 +16974,7 @@
                     if (composedPath.includes(context._element) || context._config.autoClose === "inside" && !isMenuTarget || context._config.autoClose === "outside" && isMenuTarget) {
                         continue;
                     }
-                    if (event.type === "keyup" && event.key === TAB_KEY && context._menu.contains(event.target)) {
+                    if (context._menu.contains(event.target) && (event.type === "keyup" && event.key === TAB_KEY || /input|select|option|textarea|form/i.test(event.target.tagName))) {
                         continue;
                     }
                     if (event.type === "click") {
@@ -17034,7 +17025,7 @@
         event.preventDefault();
         Dropdown.dropdownInterface(this);
     });
-    defineJQueryPlugin(NAME$8, Dropdown);
+    defineJQueryPlugin(Dropdown);
     const SELECTOR_FIXED_CONTENT = ".fixed-top, .fixed-bottom, .is-fixed, .sticky-top";
     const SELECTOR_STICKY_CONTENT = ".sticky-top";
     const getWidth = () => {
@@ -17147,6 +17138,7 @@
                 ...Default$6,
                 ...typeof config === "object" ? config : {}
             };
+            config.rootElement = config.rootElement || document.body;
             typeCheckConfig(NAME$7, config, DefaultType$6);
             return config;
         }
@@ -17198,7 +17190,7 @@
     const EVENT_HIDDEN$3 = `hidden${EVENT_KEY$6}`;
     const EVENT_SHOW$3 = `show${EVENT_KEY$6}`;
     const EVENT_SHOWN$3 = `shown${EVENT_KEY$6}`;
-    const EVENT_FOCUSIN$1 = `focusin${EVENT_KEY$6}`;
+    const EVENT_FOCUSIN$2 = `focusin${EVENT_KEY$6}`;
     const EVENT_RESIZE = `resize${EVENT_KEY$6}`;
     const EVENT_CLICK_DISMISS$2 = `click.dismiss${EVENT_KEY$6}`;
     const EVENT_KEYDOWN_DISMISS$1 = `keydown.dismiss${EVENT_KEY$6}`;
@@ -17226,8 +17218,8 @@
         static get Default() {
             return Default$5;
         }
-        static get DATA_KEY() {
-            return DATA_KEY$6;
+        static get NAME() {
+            return NAME$6;
         }
         toggle(relatedTarget) {
             return this._isShown ? this.hide() : this.show(relatedTarget);
@@ -17279,29 +17271,17 @@
             }
             this._setEscapeEvent();
             this._setResizeEvent();
-            EventHandler.off(document, EVENT_FOCUSIN$1);
+            EventHandler.off(document, EVENT_FOCUSIN$2);
             this._element.classList.remove(CLASS_NAME_SHOW$5);
             EventHandler.off(this._element, EVENT_CLICK_DISMISS$2);
             EventHandler.off(this._dialog, EVENT_MOUSEDOWN_DISMISS);
-            if (isAnimated) {
-                const transitionDuration = getTransitionDurationFromElement(this._element);
-                EventHandler.one(this._element, "transitionend", event => this._hideModal(event));
-                emulateTransitionEnd(this._element, transitionDuration);
-            } else {
-                this._hideModal();
-            }
+            this._queueCallback(() => this._hideModal(), this._element, isAnimated);
         }
         dispose() {
             [ window, this._dialog ].forEach(htmlElement => EventHandler.off(htmlElement, EVENT_KEY$6));
-            super.dispose();
-            EventHandler.off(document, EVENT_FOCUSIN$1);
-            this._config = null;
-            this._dialog = null;
             this._backdrop.dispose();
-            this._backdrop = null;
-            this._isShown = null;
-            this._ignoreBackdropClick = null;
-            this._isTransitioning = null;
+            super.dispose();
+            EventHandler.off(document, EVENT_FOCUSIN$2);
         }
         handleUpdate() {
             this._adjustDialog();
@@ -17351,17 +17331,11 @@
                     relatedTarget: relatedTarget
                 });
             };
-            if (isAnimated) {
-                const transitionDuration = getTransitionDurationFromElement(this._dialog);
-                EventHandler.one(this._dialog, "transitionend", transitionComplete);
-                emulateTransitionEnd(this._dialog, transitionDuration);
-            } else {
-                transitionComplete();
-            }
+            this._queueCallback(transitionComplete, this._dialog, isAnimated);
         }
         _enforceFocus() {
-            EventHandler.off(document, EVENT_FOCUSIN$1);
-            EventHandler.on(document, EVENT_FOCUSIN$1, event => {
+            EventHandler.off(document, EVENT_FOCUSIN$2);
+            EventHandler.on(document, EVENT_FOCUSIN$2, event => {
                 if (document !== event.target && this._element !== event.target && !this._element.contains(event.target)) {
                     this._element.focus();
                 }
@@ -17491,7 +17465,7 @@
         const data = Modal.getInstance(target) || new Modal(target);
         data.toggle(this);
     });
-    defineJQueryPlugin(NAME$6, Modal);
+    defineJQueryPlugin(Modal);
     const NAME$5 = "offcanvas";
     const DATA_KEY$5 = "bs.offcanvas";
     const EVENT_KEY$5 = `.${DATA_KEY$5}`;
@@ -17514,7 +17488,7 @@
     const EVENT_SHOWN$2 = `shown${EVENT_KEY$5}`;
     const EVENT_HIDE$2 = `hide${EVENT_KEY$5}`;
     const EVENT_HIDDEN$2 = `hidden${EVENT_KEY$5}`;
-    const EVENT_FOCUSIN = `focusin${EVENT_KEY$5}`;
+    const EVENT_FOCUSIN$1 = `focusin${EVENT_KEY$5}`;
     const EVENT_CLICK_DATA_API$1 = `click${EVENT_KEY$5}${DATA_API_KEY$2}`;
     const EVENT_CLICK_DISMISS$1 = `click.dismiss${EVENT_KEY$5}`;
     const EVENT_KEYDOWN_DISMISS = `keydown.dismiss${EVENT_KEY$5}`;
@@ -17528,11 +17502,11 @@
             this._backdrop = this._initializeBackDrop();
             this._addEventListeners();
         }
+        static get NAME() {
+            return NAME$5;
+        }
         static get Default() {
             return Default$4;
-        }
-        static get DATA_KEY() {
-            return DATA_KEY$5;
         }
         toggle(relatedTarget) {
             return this._isShown ? this.hide() : this.show(relatedTarget);
@@ -17563,9 +17537,7 @@
                     relatedTarget: relatedTarget
                 });
             };
-            const transitionDuration = getTransitionDurationFromElement(this._element);
-            EventHandler.one(this._element, "transitionend", completeCallBack);
-            emulateTransitionEnd(this._element, transitionDuration);
+            this._queueCallback(completeCallBack, this._element, true);
         }
         hide() {
             if (!this._isShown) {
@@ -17575,7 +17547,7 @@
             if (hideEvent.defaultPrevented) {
                 return;
             }
-            EventHandler.off(document, EVENT_FOCUSIN);
+            EventHandler.off(document, EVENT_FOCUSIN$1);
             this._element.blur();
             this._isShown = false;
             this._element.classList.remove(CLASS_NAME_SHOW$4);
@@ -17590,16 +17562,12 @@
                 }
                 EventHandler.trigger(this._element, EVENT_HIDDEN$2);
             };
-            const transitionDuration = getTransitionDurationFromElement(this._element);
-            EventHandler.one(this._element, "transitionend", completeCallback);
-            emulateTransitionEnd(this._element, transitionDuration);
+            this._queueCallback(completeCallback, this._element, true);
         }
         dispose() {
             this._backdrop.dispose();
             super.dispose();
-            EventHandler.off(document, EVENT_FOCUSIN);
-            this._config = null;
-            this._backdrop = null;
+            EventHandler.off(document, EVENT_FOCUSIN$1);
         }
         _getConfig(config) {
             config = {
@@ -17619,8 +17587,8 @@
             });
         }
         _enforceFocusOnElement(element) {
-            EventHandler.off(document, EVENT_FOCUSIN);
-            EventHandler.on(document, EVENT_FOCUSIN, event => {
+            EventHandler.off(document, EVENT_FOCUSIN$1);
+            EventHandler.on(document, EVENT_FOCUSIN$1, event => {
                 if (document !== event.target && element !== event.target && !element.contains(event.target)) {
                     element.focus();
                 }
@@ -17671,7 +17639,7 @@
     EventHandler.on(window, EVENT_LOAD_DATA_API$1, () => {
         SelectorEngine.find(OPEN_SELECTOR).forEach(el => (Data.get(el, DATA_KEY$5) || new Offcanvas(el)).show());
     });
-    defineJQueryPlugin(NAME$5, Offcanvas);
+    defineJQueryPlugin(Offcanvas);
     const uriAttrs = new Set([ "background", "cite", "href", "itemtype", "longdesc", "poster", "src", "xlink:href" ]);
     const ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
     const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^#&/:?]*(?:[#/?]|$))/i;
@@ -17836,7 +17804,7 @@
             this._hoverState = "";
             this._activeTrigger = {};
             this._popper = null;
-            this.config = this._getConfig(config);
+            this._config = this._getConfig(config);
             this.tip = null;
             this._setListeners();
         }
@@ -17846,14 +17814,8 @@
         static get NAME() {
             return NAME$4;
         }
-        static get DATA_KEY() {
-            return DATA_KEY$4;
-        }
         static get Event() {
             return Event$2;
-        }
-        static get EVENT_KEY() {
-            return EVENT_KEY$4;
         }
         static get DefaultType() {
             return DefaultType$3;
@@ -17893,16 +17855,9 @@
             if (this.tip && this.tip.parentNode) {
                 this.tip.parentNode.removeChild(this.tip);
             }
-            this._isEnabled = null;
-            this._timeout = null;
-            this._hoverState = null;
-            this._activeTrigger = null;
             if (this._popper) {
                 this._popper.destroy();
             }
-            this._popper = null;
-            this.config = null;
-            this.tip = null;
             super.dispose();
         }
         show() {
@@ -17923,13 +17878,15 @@
             tip.setAttribute("id", tipId);
             this._element.setAttribute("aria-describedby", tipId);
             this.setContent();
-            if (this.config.animation) {
+            if (this._config.animation) {
                 tip.classList.add(CLASS_NAME_FADE$3);
             }
-            const placement = typeof this.config.placement === "function" ? this.config.placement.call(this, tip, this._element) : this.config.placement;
+            const placement = typeof this._config.placement === "function" ? this._config.placement.call(this, tip, this._element) : this._config.placement;
             const attachment = this._getAttachment(placement);
             this._addAttachmentClass(attachment);
-            const container = this._getContainer();
+            const {
+                container
+            } = this._config;
             Data.set(tip, this.constructor.DATA_KEY, this);
             if (!this._element.ownerDocument.documentElement.contains(this.tip)) {
                 container.appendChild(tip);
@@ -17941,7 +17898,7 @@
                 this._popper = createPopper(this._element, tip, this._getPopperConfig(attachment));
             }
             tip.classList.add(CLASS_NAME_SHOW$3);
-            const customClass = typeof this.config.customClass === "function" ? this.config.customClass() : this.config.customClass;
+            const customClass = typeof this._config.customClass === "function" ? this._config.customClass() : this._config.customClass;
             if (customClass) {
                 tip.classList.add(...customClass.split(" "));
             }
@@ -17958,13 +17915,8 @@
                     this._leave(null, this);
                 }
             };
-            if (this.tip.classList.contains(CLASS_NAME_FADE$3)) {
-                const transitionDuration = getTransitionDurationFromElement(this.tip);
-                EventHandler.one(this.tip, "transitionend", complete);
-                emulateTransitionEnd(this.tip, transitionDuration);
-            } else {
-                complete();
-            }
+            const isAnimated = this.tip.classList.contains(CLASS_NAME_FADE$3);
+            this._queueCallback(complete, this.tip, isAnimated);
         }
         hide() {
             if (!this._popper) {
@@ -17997,13 +17949,8 @@
             this._activeTrigger[TRIGGER_CLICK] = false;
             this._activeTrigger[TRIGGER_FOCUS] = false;
             this._activeTrigger[TRIGGER_HOVER] = false;
-            if (this.tip.classList.contains(CLASS_NAME_FADE$3)) {
-                const transitionDuration = getTransitionDurationFromElement(tip);
-                EventHandler.one(tip, "transitionend", complete);
-                emulateTransitionEnd(tip, transitionDuration);
-            } else {
-                complete();
-            }
+            const isAnimated = this.tip.classList.contains(CLASS_NAME_FADE$3);
+            this._queueCallback(complete, this.tip, isAnimated);
             this._hoverState = "";
         }
         update() {
@@ -18019,7 +17966,7 @@
                 return this.tip;
             }
             const element = document.createElement("div");
-            element.innerHTML = this.config.template;
+            element.innerHTML = this._config.template;
             this.tip = element.children[0];
             return this.tip;
         }
@@ -18032,11 +17979,9 @@
             if (element === null) {
                 return;
             }
-            if (typeof content === "object" && isElement$1(content)) {
-                if (content.jquery) {
-                    content = content[0];
-                }
-                if (this.config.html) {
+            if (isElement$1(content)) {
+                content = getElement(content);
+                if (this._config.html) {
                     if (content.parentNode !== element) {
                         element.innerHTML = "";
                         element.appendChild(content);
@@ -18046,9 +17991,9 @@
                 }
                 return;
             }
-            if (this.config.html) {
-                if (this.config.sanitize) {
-                    content = sanitizeHtml(content, this.config.allowList, this.config.sanitizeFn);
+            if (this._config.html) {
+                if (this._config.sanitize) {
+                    content = sanitizeHtml(content, this._config.allowList, this._config.sanitizeFn);
                 }
                 element.innerHTML = content;
             } else {
@@ -18058,7 +18003,7 @@
         getTitle() {
             let title = this._element.getAttribute("data-bs-original-title");
             if (!title) {
-                title = typeof this.config.title === "function" ? this.config.title.call(this._element) : this.config.title;
+                title = typeof this._config.title === "function" ? this._config.title.call(this._element) : this._config.title;
             }
             return title;
         }
@@ -18083,7 +18028,7 @@
         _getOffset() {
             const {
                 offset
-            } = this.config;
+            } = this._config;
             if (typeof offset === "string") {
                 return offset.split(",").map(val => Number.parseInt(val, 10));
             }
@@ -18098,7 +18043,7 @@
                 modifiers: [ {
                     name: "flip",
                     options: {
-                        fallbackPlacements: this.config.fallbackPlacements
+                        fallbackPlacements: this._config.fallbackPlacements
                     }
                 }, {
                     name: "offset",
@@ -18108,7 +18053,7 @@
                 }, {
                     name: "preventOverflow",
                     options: {
-                        boundary: this.config.boundary
+                        boundary: this._config.boundary
                     }
                 }, {
                     name: "arrow",
@@ -18129,34 +18074,25 @@
             };
             return {
                 ...defaultBsPopperConfig,
-                ...typeof this.config.popperConfig === "function" ? this.config.popperConfig(defaultBsPopperConfig) : this.config.popperConfig
+                ...typeof this._config.popperConfig === "function" ? this._config.popperConfig(defaultBsPopperConfig) : this._config.popperConfig
             };
         }
         _addAttachmentClass(attachment) {
             this.getTipElement().classList.add(`${CLASS_PREFIX$1}-${this.updateAttachment(attachment)}`);
         }
-        _getContainer() {
-            if (this.config.container === false) {
-                return document.body;
-            }
-            if (isElement$1(this.config.container)) {
-                return this.config.container;
-            }
-            return SelectorEngine.findOne(this.config.container);
-        }
         _getAttachment(placement) {
             return AttachmentMap[placement.toUpperCase()];
         }
         _setListeners() {
-            const triggers = this.config.trigger.split(" ");
+            const triggers = this._config.trigger.split(" ");
             triggers.forEach(trigger => {
                 if (trigger === "click") {
-                    EventHandler.on(this._element, this.constructor.Event.CLICK, this.config.selector, event => this.toggle(event));
+                    EventHandler.on(this._element, this.constructor.Event.CLICK, this._config.selector, event => this.toggle(event));
                 } else if (trigger !== TRIGGER_MANUAL) {
                     const eventIn = trigger === TRIGGER_HOVER ? this.constructor.Event.MOUSEENTER : this.constructor.Event.FOCUSIN;
                     const eventOut = trigger === TRIGGER_HOVER ? this.constructor.Event.MOUSELEAVE : this.constructor.Event.FOCUSOUT;
-                    EventHandler.on(this._element, eventIn, this.config.selector, event => this._enter(event));
-                    EventHandler.on(this._element, eventOut, this.config.selector, event => this._leave(event));
+                    EventHandler.on(this._element, eventIn, this._config.selector, event => this._enter(event));
+                    EventHandler.on(this._element, eventOut, this._config.selector, event => this._leave(event));
                 }
             });
             this._hideModalHandler = () => {
@@ -18165,9 +18101,9 @@
                 }
             };
             EventHandler.on(this._element.closest(`.${CLASS_NAME_MODAL}`), "hide.bs.modal", this._hideModalHandler);
-            if (this.config.selector) {
-                this.config = {
-                    ...this.config,
+            if (this._config.selector) {
+                this._config = {
+                    ...this._config,
                     trigger: "manual",
                     selector: ""
                 };
@@ -18197,7 +18133,7 @@
             }
             clearTimeout(context._timeout);
             context._hoverState = HOVER_STATE_SHOW;
-            if (!context.config.delay || !context.config.delay.show) {
+            if (!context._config.delay || !context._config.delay.show) {
                 context.show();
                 return;
             }
@@ -18205,7 +18141,7 @@
                 if (context._hoverState === HOVER_STATE_SHOW) {
                     context.show();
                 }
-            }, context.config.delay.show);
+            }, context._config.delay.show);
         }
         _leave(event, context) {
             context = this._initializeOnDelegatedTarget(event, context);
@@ -18217,7 +18153,7 @@
             }
             clearTimeout(context._timeout);
             context._hoverState = HOVER_STATE_OUT;
-            if (!context.config.delay || !context.config.delay.hide) {
+            if (!context._config.delay || !context._config.delay.hide) {
                 context.hide();
                 return;
             }
@@ -18225,7 +18161,7 @@
                 if (context._hoverState === HOVER_STATE_OUT) {
                     context.hide();
                 }
-            }, context.config.delay.hide);
+            }, context._config.delay.hide);
         }
         _isWithActiveTrigger() {
             for (const trigger in this._activeTrigger) {
@@ -18242,14 +18178,12 @@
                     delete dataAttributes[dataAttr];
                 }
             });
-            if (config && typeof config.container === "object" && config.container.jquery) {
-                config.container = config.container[0];
-            }
             config = {
                 ...this.constructor.Default,
                 ...dataAttributes,
                 ...typeof config === "object" && config ? config : {}
             };
+            config.container = config.container === false ? document.body : getElement(config.container);
             if (typeof config.delay === "number") {
                 config.delay = {
                     show: config.delay,
@@ -18270,10 +18204,10 @@
         }
         _getDelegateConfig() {
             const config = {};
-            if (this.config) {
-                for (const key in this.config) {
-                    if (this.constructor.Default[key] !== this.config[key]) {
-                        config[key] = this.config[key];
+            if (this._config) {
+                for (const key in this._config) {
+                    if (this.constructor.Default[key] !== this._config[key]) {
+                        config[key] = this._config[key];
                     }
                 }
             }
@@ -18316,7 +18250,7 @@
             });
         }
     }
-    defineJQueryPlugin(NAME$4, Tooltip);
+    defineJQueryPlugin(Tooltip);
     const NAME$3 = "popover";
     const DATA_KEY$3 = "bs.popover";
     const EVENT_KEY$3 = `.${DATA_KEY$3}`;
@@ -18357,14 +18291,8 @@
         static get NAME() {
             return NAME$3;
         }
-        static get DATA_KEY() {
-            return DATA_KEY$3;
-        }
         static get Event() {
             return Event$1;
-        }
-        static get EVENT_KEY() {
-            return EVENT_KEY$3;
         }
         static get DefaultType() {
             return DefaultType$2;
@@ -18386,7 +18314,7 @@
             this.getTipElement().classList.add(`${CLASS_PREFIX}-${this.updateAttachment(attachment)}`);
         }
         _getContent() {
-            return this._element.getAttribute("data-bs-content") || this.config.content;
+            return this._element.getAttribute("data-bs-content") || this._config.content;
         }
         _cleanTipClass() {
             const tip = this.getTipElement();
@@ -18415,7 +18343,7 @@
             });
         }
     }
-    defineJQueryPlugin(NAME$3, Popover);
+    defineJQueryPlugin(Popover);
     const NAME$2 = "scrollspy";
     const DATA_KEY$2 = "bs.scrollspy";
     const EVENT_KEY$2 = `.${DATA_KEY$2}`;
@@ -18461,8 +18389,8 @@
         static get Default() {
             return Default$1;
         }
-        static get DATA_KEY() {
-            return DATA_KEY$2;
+        static get NAME() {
+            return NAME$2;
         }
         refresh() {
             const autoMethod = this._scrollElement === this._scrollElement.window ? METHOD_OFFSET : METHOD_POSITION;
@@ -18488,15 +18416,8 @@
             });
         }
         dispose() {
-            super.dispose();
             EventHandler.off(this._scrollElement, EVENT_KEY$2);
-            this._scrollElement = null;
-            this._config = null;
-            this._selector = null;
-            this._offsets = null;
-            this._targets = null;
-            this._activeTarget = null;
-            this._scrollHeight = null;
+            super.dispose();
         }
         _getConfig(config) {
             config = {
@@ -18592,7 +18513,7 @@
     EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
         SelectorEngine.find(SELECTOR_DATA_SPY).forEach(spy => new ScrollSpy(spy));
     });
-    defineJQueryPlugin(NAME$2, ScrollSpy);
+    defineJQueryPlugin(ScrollSpy);
     const NAME$1 = "tab";
     const DATA_KEY$1 = "bs.tab";
     const EVENT_KEY$1 = `.${DATA_KEY$1}`;
@@ -18614,8 +18535,8 @@
     const SELECTOR_DROPDOWN_TOGGLE = ".dropdown-toggle";
     const SELECTOR_DROPDOWN_ACTIVE_CHILD = ":scope > .dropdown-menu .active";
     class Tab extends BaseComponent {
-        static get DATA_KEY() {
-            return DATA_KEY$1;
+        static get NAME() {
+            return NAME$1;
         }
         show() {
             if (this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE && this._element.classList.contains(CLASS_NAME_ACTIVE)) {
@@ -18659,10 +18580,8 @@
             const isTransitioning = callback && active && active.classList.contains(CLASS_NAME_FADE$1);
             const complete = () => this._transitionComplete(element, active, callback);
             if (active && isTransitioning) {
-                const transitionDuration = getTransitionDurationFromElement(active);
                 active.classList.remove(CLASS_NAME_SHOW$1);
-                EventHandler.one(active, "transitionend", complete);
-                emulateTransitionEnd(active, transitionDuration);
+                this._queueCallback(complete, element, true);
             } else {
                 complete();
             }
@@ -18723,11 +18642,15 @@
         const data = Data.get(this, DATA_KEY$1) || new Tab(this);
         data.show();
     });
-    defineJQueryPlugin(NAME$1, Tab);
+    defineJQueryPlugin(Tab);
     const NAME = "toast";
     const DATA_KEY = "bs.toast";
     const EVENT_KEY = `.${DATA_KEY}`;
     const EVENT_CLICK_DISMISS = `click.dismiss${EVENT_KEY}`;
+    const EVENT_MOUSEOVER = `mouseover${EVENT_KEY}`;
+    const EVENT_MOUSEOUT = `mouseout${EVENT_KEY}`;
+    const EVENT_FOCUSIN = `focusin${EVENT_KEY}`;
+    const EVENT_FOCUSOUT = `focusout${EVENT_KEY}`;
     const EVENT_HIDE = `hide${EVENT_KEY}`;
     const EVENT_HIDDEN = `hidden${EVENT_KEY}`;
     const EVENT_SHOW = `show${EVENT_KEY}`;
@@ -18752,6 +18675,8 @@
             super(element);
             this._config = this._getConfig(config);
             this._timeout = null;
+            this._hasMouseInteraction = false;
+            this._hasKeyboardInteraction = false;
             this._setListeners();
         }
         static get DefaultType() {
@@ -18760,8 +18685,8 @@
         static get Default() {
             return Default;
         }
-        static get DATA_KEY() {
-            return DATA_KEY;
+        static get NAME() {
+            return NAME;
         }
         show() {
             const showEvent = EventHandler.trigger(this._element, EVENT_SHOW);
@@ -18776,22 +18701,12 @@
                 this._element.classList.remove(CLASS_NAME_SHOWING);
                 this._element.classList.add(CLASS_NAME_SHOW);
                 EventHandler.trigger(this._element, EVENT_SHOWN);
-                if (this._config.autohide) {
-                    this._timeout = setTimeout(() => {
-                        this.hide();
-                    }, this._config.delay);
-                }
+                this._maybeScheduleHide();
             };
             this._element.classList.remove(CLASS_NAME_HIDE);
             reflow(this._element);
             this._element.classList.add(CLASS_NAME_SHOWING);
-            if (this._config.animation) {
-                const transitionDuration = getTransitionDurationFromElement(this._element);
-                EventHandler.one(this._element, "transitionend", complete);
-                emulateTransitionEnd(this._element, transitionDuration);
-            } else {
-                complete();
-            }
+            this._queueCallback(complete, this._element, this._config.animation);
         }
         hide() {
             if (!this._element.classList.contains(CLASS_NAME_SHOW)) {
@@ -18806,13 +18721,7 @@
                 EventHandler.trigger(this._element, EVENT_HIDDEN);
             };
             this._element.classList.remove(CLASS_NAME_SHOW);
-            if (this._config.animation) {
-                const transitionDuration = getTransitionDurationFromElement(this._element);
-                EventHandler.one(this._element, "transitionend", complete);
-                emulateTransitionEnd(this._element, transitionDuration);
-            } else {
-                complete();
-            }
+            this._queueCallback(complete, this._element, this._config.animation);
         }
         dispose() {
             this._clearTimeout();
@@ -18820,7 +18729,6 @@
                 this._element.classList.remove(CLASS_NAME_SHOW);
             }
             super.dispose();
-            this._config = null;
         }
         _getConfig(config) {
             config = {
@@ -18831,8 +18739,45 @@
             typeCheckConfig(NAME, config, this.constructor.DefaultType);
             return config;
         }
+        _maybeScheduleHide() {
+            if (!this._config.autohide) {
+                return;
+            }
+            if (this._hasMouseInteraction || this._hasKeyboardInteraction) {
+                return;
+            }
+            this._timeout = setTimeout(() => {
+                this.hide();
+            }, this._config.delay);
+        }
+        _onInteraction(event, isInteracting) {
+            switch (event.type) {
+              case "mouseover":
+              case "mouseout":
+                this._hasMouseInteraction = isInteracting;
+                break;
+
+              case "focusin":
+              case "focusout":
+                this._hasKeyboardInteraction = isInteracting;
+                break;
+            }
+            if (isInteracting) {
+                this._clearTimeout();
+                return;
+            }
+            const nextElement = event.relatedTarget;
+            if (this._element === nextElement || this._element.contains(nextElement)) {
+                return;
+            }
+            this._maybeScheduleHide();
+        }
         _setListeners() {
             EventHandler.on(this._element, EVENT_CLICK_DISMISS, SELECTOR_DATA_DISMISS, () => this.hide());
+            EventHandler.on(this._element, EVENT_MOUSEOVER, event => this._onInteraction(event, true));
+            EventHandler.on(this._element, EVENT_MOUSEOUT, event => this._onInteraction(event, false));
+            EventHandler.on(this._element, EVENT_FOCUSIN, event => this._onInteraction(event, true));
+            EventHandler.on(this._element, EVENT_FOCUSOUT, event => this._onInteraction(event, false));
         }
         _clearTimeout() {
             clearTimeout(this._timeout);
@@ -18854,7 +18799,7 @@
             });
         }
     }
-    defineJQueryPlugin(NAME, Toast);
+    defineJQueryPlugin(Toast);
     var index_umd = {
         Alert: Alert,
         Button: Button,
@@ -35372,7 +35317,7 @@ jQuery(document).ready(function() {
     $("a.btn-login,input.btn-login").click(function() {
         $(this).html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...");
     });
-    $(".dropdown-menu a.dropdown-toggle").on("show.bs.dropdown", function() {
+    $(".dropdown-menu a.dropdown-toggle").on("click", function(e) {
         var $el = $(this);
         var $parent = $el.parents(".dropdown-menu");
         var parentDropDown = $parent.prev();
@@ -35388,7 +35333,7 @@ jQuery(document).ready(function() {
             top: $el[0].offsetTop - 10,
             left: $el.outerWidth() - 4
         });
-        return false;
+        e.stopPropagation();
     });
     $("input[type='number']").each(function() {
         if ($(this).hasClass("form-pager")) {

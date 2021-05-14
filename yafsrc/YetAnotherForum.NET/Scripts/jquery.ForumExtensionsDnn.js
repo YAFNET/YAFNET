@@ -32244,7 +32244,7 @@ jQuery(document).ready(function() {
     $("a.btn-login,input.btn-login").click(function() {
         $(this).html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...");
     });
-    $(".dropdown-menu a.dropdown-toggle").on("show.bs.dropdown", function() {
+    $(".dropdown-menu a.dropdown-toggle").on("click", function(e) {
         var $el = $(this);
         var $parent = $el.parents(".dropdown-menu");
         var parentDropDown = $parent.prev();
@@ -32260,7 +32260,7 @@ jQuery(document).ready(function() {
             top: $el[0].offsetTop - 10,
             left: $el.outerWidth() - 4
         });
-        return false;
+        e.stopPropagation();
     });
     $("input[type='number']").each(function() {
         if ($(this).hasClass("form-pager")) {
