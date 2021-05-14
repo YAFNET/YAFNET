@@ -26,9 +26,9 @@
                                                                         this.PageContext.ForumPageType == ForumPages.Profile_Subscriptions  ||
                                                                         this.PageContext.ForumPageType == ForumPages.Profile_BlockOptions  ? " active" : ""%>"><i class="fa fa-user-cog fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server"
                                                                            LocalizedTag="MYSETTINGS" LocalizedPage="TOOLBAR"></YAF:LocalizedLabel></a>
-            <ul class="dropdown-menu">
+            <div class="dropdown-menu">
                 <asp:PlaceHolder runat="server" ID="MySettings"></asp:PlaceHolder>
-            </ul>
+            </div>
 
         <div class="dropdown-divider"></div>
         <asp:PlaceHolder ID="MyInboxItem" runat="server"></asp:PlaceHolder>
