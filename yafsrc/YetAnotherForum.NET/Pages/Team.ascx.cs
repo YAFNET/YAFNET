@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -59,7 +59,7 @@ namespace YAF.Pages
         /// <summary>
         ///   The Moderators List
         /// </summary>
-        private List<SimpleModerator> completeModsList = new();
+        private List<SimpleModerator> completeModsList = new ();
 
         #endregion
 
@@ -96,7 +96,6 @@ namespace YAF.Pages
 
             if (modForums.SelectedValue != "intro" && modForums.SelectedValue != "break")
             {
-
                 this.Get<LinkBuilder>().Redirect(
                     ForumPages.Topics,
                     "f={0}&name={1}",
@@ -233,7 +232,7 @@ namespace YAF.Pages
             adminAvatar.AlternateText = displayName;
             adminAvatar.ToolTip = displayName;
 
-            // User Buttons 
+            // User Buttons
             var adminUserButton = e.Item.FindControlAs<ThemeButton>("AdminUserButton");
             var pm = e.Item.FindControlAs<ThemeButton>("PM");
             var email = e.Item.FindControlAs<ThemeButton>("Email");
@@ -325,7 +324,7 @@ namespace YAF.Pages
                 modForums.Visible = false;
             }
 
-            // User Buttons 
+            // User Buttons
             var adminUserButton = e.Item.FindControlAs<ThemeButton>("AdminUserButton");
             var pm = e.Item.FindControlAs<ThemeButton>("PM");
             var email = e.Item.FindControlAs<ThemeButton>("Email");
@@ -341,8 +340,7 @@ namespace YAF.Pages
             modAvatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForUser(
                 userid,
                 itemDataItem.Avatar,
-                itemDataItem.AvatarImage,
-                itemDataItem.Email);
+                itemDataItem.AvatarImage);
 
             modAvatar.AlternateText = displayName;
             modAvatar.ToolTip = displayName;

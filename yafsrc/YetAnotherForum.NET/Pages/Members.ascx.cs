@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -124,7 +124,7 @@ namespace YAF.Pages
         /// <returns>Returns the File Url</returns>
         protected string GetAvatarUrlFileName(int userId, string avatarString, bool hasAvatarImage, string email)
         {
-            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId, avatarString, hasAvatarImage, email);
+            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId, avatarString, hasAvatarImage);
 
             return avatarUrl.IsNotSet()
                        ? $"{BoardInfo.ForumClientFileRoot}images/noavatar.svg"
@@ -599,7 +599,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Helper function for setting up the current sort on 
+        /// Helper function for setting up the current sort on
         /// the member list view
         /// </summary>
         /// <param name="field">

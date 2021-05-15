@@ -258,8 +258,7 @@ namespace YAF.Controls
             var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(
                 this.PostData.UserId,
                 this.DataSource.Avatar,
-                this.DataSource.HasAvatarImage,
-                string.Empty);
+                this.DataSource.HasAvatarImage);
 
             var displayName = this.PageContext.BoardSettings.EnableDisplayName
                 ? this.DataSource.DisplayName
