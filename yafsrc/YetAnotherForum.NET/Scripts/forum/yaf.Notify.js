@@ -9,13 +9,13 @@
 
     var ajaxURL = $("#NotifyListPlaceholder").data("url") + "api/Notify/GetNotifications";
 
-	$.ajax({
-		type: "POST",
-		url: ajaxURL,
+    $.ajax({
+        type: "POST",
+        url: ajaxURL,
         data: JSON.stringify(pagedResults),
-		contentType: "application/json; charset=utf-8",
-		dataType: "json",
-		success: function(data) {
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data) {
             $("#NotifyListPlaceholder ul").empty();
 
             $("#Loader").hide();
@@ -42,12 +42,12 @@
                 }
             }
         },
-		error:  function(request) {
+        error:  function(request) {
             $("#Loader").hide();
 
             $("#NotifyListPlaceholder").html(request.statusText).fadeIn(1000);
-		}
-	});
+        }
+    });
 }
 
 function setPageNumberNotify(pageSize, pageNumber, total) {

@@ -1,4 +1,4 @@
-// Generic Functions
+﻿// Generic Functions
 jQuery(document).ready(function () {
     $("a.btn-login,input.btn-login").click(function () {
         // add spinner to button
@@ -8,7 +8,7 @@ jQuery(document).ready(function () {
     });
 
     // Main Menu
-    $(".dropdown-menu a.dropdown-toggle").on("show.bs.dropdown", function () {
+    $(".dropdown-menu a.dropdown-toggle").on("click", function (e) {
         var $el = $(this);
         var $parent = $el.parents(".dropdown-menu");
         var parentDropDown = $parent.prev();
@@ -16,7 +16,7 @@ jQuery(document).ready(function () {
 
         if (!$subMenu.hasClass("show")) {
             $(".dropdown-menu").find(".show").removeClass("show");
-        } 
+        }
 
         if (!$parent.hasClass("show")) {
             parentDropDown.dropdown("show");
@@ -26,7 +26,7 @@ jQuery(document).ready(function () {
 
         $subMenu.css({ "top": $el[0].offsetTop - 10, "left": $el.outerWidth() - 4 });
 
-        return false;
+        e.stopPropagation();
     });
 
 
@@ -86,7 +86,7 @@ jQuery(document).ready(function () {
         templateSelection: formatState
     });
 
-    
+
 
     if (jQuery("#PostAttachmentListPlaceholder").length) {
         var pageSize = 5;
