@@ -1033,8 +1033,6 @@
     <Resource tag="ALLOW_EMAIL_TOPIC_HELP">Wenn aktiviert, können Benutzer ein Thema mailen.</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME">Foren mit gleichem Namen zu lassen:</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME_HELP">Wenn diese Option aktiviert Foren mit dupliziert Namen können erstellt werden.</Resource>
-    <Resource tag="ALLOW_GRAVATARS">Gravatare erlauben:</Resource>
-    <Resource tag="ALLOW_GRAVATARS_HELP">Automatisch Benutzer Gravatare benutzen falls sie existieren.</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL">Gäste erlauben Umfrage Optionen anzusehen</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">Wenn aktiviert Gäste können die Umfrage Optionen ansehen</Resource>
     <Resource tag="ALLOW_HIDE_POLLRESULTS">Benutzer erlauben Abstimmungsergebnisse zu verbergen</Resource>
@@ -1205,8 +1203,6 @@
     <Resource tag="FORUM_FEEDS_ACCESS_HELP">Anzeige Beschränken für den Feed.</Resource>
     <Resource tag="GENDER_TEMPLATE">Geschlechter Vorlage:</Resource>
     <Resource tag="GENDER_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzer Geschlechts.</Resource>
-    <Resource tag="GRAVATAR_RATING">Gravatar Bewertung:</Resource>
-    <Resource tag="GRAVATAR_RATING_HELP">Max. Bewertung von Gravataren wenn erlaubt.</Resource>
     <Resource tag="GROUPS_TEMPLATE">Gruppen Vorlage:</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">Vorlage für die Darstellung von Benutzer-Gruppen.</Resource>
     <Resource tag="HEADER_ADVERTS">Werbeeinstellungen</Resource>

@@ -1034,8 +1034,6 @@
     <Resource tag="ALLOW_EMAIL_TOPIC_HELP">Als deze is aangevinkt, kunnen gebruikers topics versturen via e-mail.</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME">Sta meerdere Forums met dezelfde naam toe:</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME_HELP">Als aangevinkt, kunnen meerdere forums met dezelfde naam voorkomen.</Resource>
-    <Resource tag="ALLOW_GRAVATARS">Sta Gravatars toe:</Resource>
-    <Resource tag="ALLOW_GRAVATARS_HELP">Gebruik Gravatars automatisch als ze bestaan (nb: kan extra processorkracht vereisen).</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL">Sta Uitslagen bekijken door Gasten toe:</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">Als deze is aangevinkt, kunnen Gasten Uitslagen van de Polls bekijken.</Resource>
     <Resource tag="ALLOW_HIDE_POLLRESULTS">Sta verbergen van Poll uitslagen toe:</Resource>
@@ -1207,8 +1205,6 @@
     <Resource tag="FORUM_FEEDS_ACCESS_HELP">Beperkt weergave van forum feeds.</Resource>
     <Resource tag="GENDER_TEMPLATE">Geslacht:</Resource>
     <Resource tag="GENDER_TEMPLATE_HELP">Sjabloon om het geslacht van de gebruiker op te bouwen.</Resource>
-    <Resource tag="GRAVATAR_RATING">Gravatar Waardering:</Resource>
-    <Resource tag="GRAVATAR_RATING_HELP">Maximale waardering van Gravatar (indien toegestaan).</Resource>
     <Resource tag="GROUPS_TEMPLATE">Groep sjabloon:</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">Sjabloon om de groepen van de gebruiker op te bouwen.</Resource>
     <Resource tag="HEADER_ADVERTS">Advertentie instellingen</Resource>

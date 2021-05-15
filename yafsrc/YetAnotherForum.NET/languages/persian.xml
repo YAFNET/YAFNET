@@ -1033,8 +1033,6 @@
     <Resource tag="ALLOW_EMAIL_TOPIC_HELP">کاربر مجاز به ارسال موضوعات خواهد شد (از طریق ایمیل)</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME">مجوز انجمن با نام مشابه:</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME_HELP">در صورت انتخاب این گزینه انجمن هایی با نام یکسان می تواند ایجاد گردد</Resource>
-    <Resource tag="ALLOW_GRAVATARS">مجوز Gravatars :</Resource>
-    <Resource tag="ALLOW_GRAVATARS_HELP">به صورت خودکار Gravatar کاربر را در صورت وجود استفاده می کند.</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL">مجوز نمایش گزینه های نظر سنجی به کاربران میهمان:</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">در صورت فعال شدن میهمان ها می توانند گزینه های نظر سنجی را ببینند.</Resource>
     <Resource tag="ALLOW_HIDE_POLLRESULTS">مجوز  اینکه کاربران بتوانند نتایج نظرسنجی را مخفی نمایند</Resource>
@@ -1206,8 +1204,6 @@
     <Resource tag="FORUM_FEEDS_ACCESS_HELP">محدود کردن فید انجمن.</Resource>
     <Resource tag="GENDER_TEMPLATE">جنسیت :</Resource>
     <Resource tag="GENDER_TEMPLATE_HELP">قالب نمایش جنسیت کاربران</Resource>
-    <Resource tag="GRAVATAR_RATING">رتبه بندی Gravatar :</Resource>
-    <Resource tag="GRAVATAR_RATING_HELP">حداکثر رتبه بندی Gravatar در صورت مجاز بودن.</Resource>
     <Resource tag="GROUPS_TEMPLATE">قالب گروه ها:</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">قالب نمایش گروه‌های کاربری</Resource>
     <Resource tag="HEADER_ADVERTS">تنظیمات تبلیغات</Resource>

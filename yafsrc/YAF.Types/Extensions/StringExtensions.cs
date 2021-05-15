@@ -29,7 +29,6 @@ namespace YAF.Types.Extensions
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Security.Cryptography;
     using System.Text;
     using System.Text.RegularExpressions;
 
@@ -311,33 +310,6 @@ namespace YAF.Types.Extensions
 
             var r = new Regex(@"\s+");
             return r.Replace(text, @" ");
-        }
-
-        /// <summary>
-        /// Converts a string into it's hexadecimal representation.
-        /// </summary>
-        /// <param name="inputString">The input string.</param>
-        /// <returns>
-        /// The string to hex bytes.
-        /// </returns>
-        public static string StringToHexBytes(this string inputString)
-        {
-            var result = string.Empty;
-            if (inputString.IsNotSet())
-            {
-                return result;
-            }
-
-            var cryptoServiceProvider = new MD5CryptoServiceProvider();
-
-            var emailBytes = Encoding.UTF8.GetBytes(inputString);
-            emailBytes = cryptoServiceProvider.ComputeHash(emailBytes);
-
-            var s = new StringBuilder();
-
-            emailBytes.ForEach(b => s.Append(b.ToString("x2").ToLower()));
-
-            return s.ToString();
         }
 
         /// <summary>

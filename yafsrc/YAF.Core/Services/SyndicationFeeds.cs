@@ -40,7 +40,6 @@ namespace YAF.Core.Services
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Syndication;
-    using YAF.Core.Utilities;
     using YAF.Core.Utilities.Helpers;
     using YAF.Core.Utilities.Helpers.StringUtils;
     using YAF.Types;
@@ -247,7 +246,7 @@ namespace YAF.Core.Services
         public FeedItem GetActiveFeed([NotNull] RssFeeds feedType, [NotNull] string lastPostName)
         {
             var syndicationItems = new List<SyndicationItem>();
-            var toActDate = System.DateTime.UtcNow;
+            var toActDate = DateTime.UtcNow;
             var toActText = this.Get<ILocalization>().GetText("MYTOPICS", "LAST_MONTH");
 
             if (this.Get<HttpRequestBase>().QueryString.Exists("txt"))
@@ -258,21 +257,21 @@ namespace YAF.Core.Services
 
             if (this.Get<HttpRequestBase>().QueryString.Exists("d"))
             {
-                if (!System.DateTime.TryParse(
+                if (!DateTime.TryParse(
                     HttpUtility.UrlDecode(
                         HttpUtility.HtmlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("d"))),
                     out toActDate))
                 {
-                    toActDate = Convert.ToDateTime(this.Get<IDateTimeService>().FormatDateTimeShort(System.DateTime.UtcNow)) +
+                    toActDate = Convert.ToDateTime(this.Get<IDateTimeService>().FormatDateTimeShort(DateTime.UtcNow)) +
                                 TimeSpan.FromDays(-31);
                     toActText = this.Get<ILocalization>().GetText("MYTOPICS", "LAST_MONTH");
                 }
                 else
                 {
                     // To limit number of feeds items by timespan if we are getting an unreasonable time
-                    if (toActDate < System.DateTime.UtcNow + TimeSpan.FromDays(-31))
+                    if (toActDate < DateTime.UtcNow + TimeSpan.FromDays(-31))
                     {
-                        toActDate = System.DateTime.UtcNow + TimeSpan.FromDays(-31);
+                        toActDate = DateTime.UtcNow + TimeSpan.FromDays(-31);
                         toActText = this.Get<ILocalization>().GetText("MYTOPICS", "LAST_MONTH");
                     }
                 }
@@ -288,7 +287,7 @@ namespace YAF.Core.Services
             var topics = this.GetRepository<Topic>().ListActivePaged(
                 BoardContext.Current.PageUserID,
                 toActDate,
-                System.DateTime.UtcNow,
+                DateTime.UtcNow,
                 0, // page index in db which is returned back  is +1 based!
                 20, // set the page size here
                 this.Get<BoardSettings>().UseReadTrackingByDatabase);
@@ -302,7 +301,7 @@ namespace YAF.Core.Services
                     {
                         feed.Authors.Add(
                             SyndicationItemExtensions.NewSyndicationPerson(string.Empty, t.UserID, null, null));
-                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
+                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
                     }
 
                     feed.Contributors.Add(
@@ -352,7 +351,7 @@ namespace YAF.Core.Services
         {
             var syndicationItems = new List<SyndicationItem>();
 
-            System.DateTime toFavDate;
+            DateTime toFavDate;
 
             var toFavText = this.Get<ILocalization>().GetText("MYTOPICS", "LAST_MONTH");
 
@@ -364,7 +363,7 @@ namespace YAF.Core.Services
 
             if (this.Get<HttpRequestBase>().QueryString.Exists("d"))
             {
-                if (!System.DateTime.TryParse(
+                if (!DateTime.TryParse(
                     HttpUtility.UrlDecode(
                         HttpUtility.HtmlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("d"))),
                     out toFavDate))
@@ -384,7 +383,7 @@ namespace YAF.Core.Services
             var list = this.GetRepository<Types.Models.FavoriteTopic>().ListPaged(
                 BoardContext.Current.PageUserID,
                 toFavDate,
-                System.DateTime.UtcNow,
+                DateTime.UtcNow,
                 0, // page index in db is 1 based!
                 20, // set the page size here
                 false);
@@ -406,7 +405,7 @@ namespace YAF.Core.Services
                     {
                         feed.Authors.Add(
                             SyndicationItemExtensions.NewSyndicationPerson(string.Empty, t.UserID, null, null));
-                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
+                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
                     }
 
                     feed.Contributors.Add(
@@ -474,7 +473,7 @@ namespace YAF.Core.Services
                                 null,
                                 null));
 
-                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
+                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
                     }
 
                     feed.Contributors.Add(
@@ -658,7 +657,7 @@ namespace YAF.Core.Services
                 false,
                 showDeleted,
                 DateTimeHelper.SqlDbMinTime(),
-                System.DateTime.UtcNow,
+                DateTime.UtcNow,
                 0,
                 BoardContext.Current.BoardSettings.PostsPerPage,
                 -1);
@@ -681,7 +680,7 @@ namespace YAF.Core.Services
                     {
                         feed.Authors.Add(
                             SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row.UserID, null, null));
-                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
+                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
                     }
 
                     List<SyndicationLink> attachmentLinks = null;
@@ -758,7 +757,7 @@ namespace YAF.Core.Services
             topics.ForEach(
                 topic =>
                 {
-                    var lastPosted = (System.DateTime)topic.LastPosted + this.Get<IDateTimeService>().TimeOffset;
+                    var lastPosted = (DateTime)topic.LastPosted + this.Get<IDateTimeService>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
                     {
@@ -768,7 +767,7 @@ namespace YAF.Core.Services
                                 (int)topic.LastUserID,
                                 null,
                                 null));
-                        feed.LastUpdatedTime = System.DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
+                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
                     }
 
                     feed.Contributors.Add(
@@ -822,14 +821,14 @@ namespace YAF.Core.Services
         {
             var formattedUrl = inputUrl;
 
-            if (formattedUrl.Contains(@"http://www."))
+            /*if (formattedUrl.Contains(@"http://www."))
             {
                 formattedUrl = formattedUrl.Replace("http://www.", string.Empty);
             }
             else if (formattedUrl.Contains(@"http://"))
             {
                 formattedUrl = formattedUrl.Replace("http://", string.Empty);
-            }
+            }*/
 
             formattedUrl = formattedUrl.Replace(".", "-").Replace("/", "-");
 

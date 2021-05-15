@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,11 +26,8 @@ namespace YAF.Core.Services
 {
     #region Using
 
-    using System;
-    
     using YAF.Configuration;
     using YAF.Core.Context;
-    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -73,7 +70,7 @@ namespace YAF.Core.Services
         /// The get avatar url for current user.
         /// </summary>
         /// <returns>
-        /// Returns the Avatar Url 
+        /// Returns the Avatar Url
         /// </returns>
         public string GetAvatarUrlForCurrentUser()
         {
@@ -87,54 +84,34 @@ namespace YAF.Core.Services
         /// The user.
         /// </param>
         /// <returns>
-        /// Returns the Avatar Url 
+        /// Returns the Avatar Url
         /// </returns>
         public string GetAvatarUrlForUser([NotNull] User user)
         {
             CodeContracts.VerifyNotNull(user, "user");
 
-            var getUserEmail = new Func<string>(
-                () =>
-                    {
-                        string userEmail;
-                        try
-                        {
-                            userEmail = user.Email;
-                        }
-                        catch (Exception)
-                        {
-                            userEmail = string.Empty;
-                        }
-
-                        return userEmail;
-                    });
-
             return this.GetAvatarUrlForUser(
                 user.ID,
                 user.Avatar,
-                user.AvatarImage != null,
-                this.boardSettings.AvatarGravatar ? getUserEmail() : string.Empty);
+                user.AvatarImage != null);
         }
 
         /// <summary>
         /// The get avatar url for user.
         /// </summary>
         /// <param name="userId">
-        /// The user Id. 
+        /// The user Id.
         /// </param>
         /// <param name="avatarString">
-        /// The avatarString. 
+        /// The avatarString.
         /// </param>
         /// <param name="hasAvatarImage">
-        /// The hasAvatarImage. 
-        /// </param>
-        /// <param name="email">
-        /// The email. 
+        /// The hasAvatarImage.
         /// </param>
         /// <returns>
-        /// Returns the Avatar Url 
+        /// Returns the Avatar Url
         /// </returns>
-        public string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage, string email)
+        public string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage)
         {
             var avatarUrl = string.Empty;
 
@@ -145,16 +122,6 @@ namespace YAF.Core.Services
             else if (avatarString.IsSet() && avatarString.StartsWith("/"))
             {
                 avatarUrl = avatarString;
-            }
-            else if (this.boardSettings.AvatarGravatar && email.IsSet())
-            {
-                const string GravatarBaseUrl = "https://www.gravatar.com/avatar/";
-
-                // JoeOuts added 8/17/09 for Gravatar use
-                var gravatarUrl =
-                    $@"{GravatarBaseUrl}{email.StringToHexBytes()}.jpg?r={this.boardSettings.GravatarRating}&s={this.boardSettings.AvatarWidth}";
-
-                avatarUrl = gravatarUrl;
             }
 
             // Return NoAvatar Image is no Avatar available for that user.

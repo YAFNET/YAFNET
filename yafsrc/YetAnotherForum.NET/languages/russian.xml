@@ -1034,8 +1034,6 @@
     <Resource tag="ALLOW_EMAIL_TOPIC_HELP">Если включено, пользователям разрешено отправлять темы по электронной почте.</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME">Разрешить форумы с тем же названием:</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME_HELP">Форумы с совпадающим именем разрешены.</Resource>
-    <Resource tag="ALLOW_GRAVATARS">Разрешить Gravatar:</Resource>
-    <Resource tag="ALLOW_GRAVATARS_HELP">Автоматически загружать Gravatarы если они существуют(внимание: это требует дополнительной обработки и замедляет решение).</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL">Разрешить гостям просматривать опции опросов:</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">Гости могут видеть опции опросов.</Resource>
     <Resource tag="ALLOW_HIDE_POLLRESULTS">Разрешить пользователям скрывать результаты опросов:</Resource>
@@ -1206,8 +1204,6 @@
     <Resource tag="FORUM_FEEDS_ACCESS_HELP">Ограничить доступ к лентам форума.</Resource>
     <Resource tag="GENDER_TEMPLATE">Пол:</Resource>
     <Resource tag="GENDER_TEMPLATE_HELP">Шаблон отображения пола пользователя.</Resource>
-    <Resource tag="GRAVATAR_RATING">Рейтинг Gravatar:</Resource>
-    <Resource tag="GRAVATAR_RATING_HELP">Максимально разрешённый рейтинг Gravatar, если это включено.</Resource>
     <Resource tag="GROUPS_TEMPLATE">Шаблон ролей:</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">Шаблон для отображения ролей.</Resource>
     <Resource tag="HEADER_ADVERTS">Настройки рекламы</Resource>

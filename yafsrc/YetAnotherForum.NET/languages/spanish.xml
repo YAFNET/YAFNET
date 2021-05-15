@@ -1035,8 +1035,6 @@
     <Resource tag="ALLOW_EMAIL_TOPIC_HELP">Si está seleccionado, los usuarios podrán enviar temas por email.</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME">Permitir foros con el mismo nombre:</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME_HELP">Si está marcado, podrán ser creados foros con nombres duplicados.</Resource>
-    <Resource tag="ALLOW_GRAVATARS">Permitir Gravatars:</Resource>
-    <Resource tag="ALLOW_GRAVATARS_HELP">Automáticamente usa los Gravatars de los usuarios si ellos existen (nota: puede requerir procesamiento adicional).</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL">Permitir visualizar opciones de encuestas a los invitados:</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">Si está activado, los invitados pueden ver las opciones de una encuesta.</Resource>
     <Resource tag="ALLOW_HIDE_POLLRESULTS">Permitir a los usuarios ocultar los resultados de una encuenta:</Resource>
@@ -1209,8 +1207,6 @@
     <Resource tag="FORUM_FEEDS_ACCESS_HELP">Restringe la visualización de los feeds del foro.</Resource>
     <Resource tag="GENDER_TEMPLATE">Genero:</Resource>
     <Resource tag="GENDER_TEMPLATE_HELP">Plantilla para renderizar el genero de los usuarios.</Resource>
-    <Resource tag="GRAVATAR_RATING">Clasificación de Gravatar:</Resource>
-    <Resource tag="GRAVATAR_RATING_HELP">Claficación máxima de GRavatar si está activado.</Resource>
     <Resource tag="GROUPS_TEMPLATE">Plantilla de grupos:</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">Plantilla para renderizar los grupos de los usuarios.</Resource>
     <Resource tag="GUESTS_VIEW_IRKOO">Permitir a los invitados ver la reputación de los usuarios:</Resource>

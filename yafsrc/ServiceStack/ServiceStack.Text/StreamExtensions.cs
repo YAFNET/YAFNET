@@ -1,4 +1,4 @@
-//Copyright (c) ServiceStack, Inc. All Rights Reserved.
+﻿//Copyright (c) ServiceStack, Inc. All Rights Reserved.
 //License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 using System;
@@ -449,17 +449,6 @@ namespace ServiceStack
         public static string ToMd5Hash(this Stream stream)
         {
             var hash = System.Security.Cryptography.MD5.Create().ComputeHash(stream);
-            var sb = StringBuilderCache.Allocate();
-            foreach (byte b in hash)
-            {
-                sb.Append(b.ToString("x2"));
-            }
-            return StringBuilderCache.ReturnAndFree(sb);
-        }
-
-        public static string ToMd5Hash(this byte[] bytes)
-        {
-            var hash = System.Security.Cryptography.MD5.Create().ComputeHash(bytes);
             var sb = StringBuilderCache.Allocate();
             foreach (byte b in hash)
             {

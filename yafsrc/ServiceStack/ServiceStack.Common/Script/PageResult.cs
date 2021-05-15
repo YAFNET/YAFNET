@@ -28,7 +28,7 @@ namespace ServiceStack.Script
         public SharpCodePage CodePage { get; }
 
         /// <summary>
-        /// Use specified Layout 
+        /// Use specified Layout
         /// </summary>
         public SharpPage LayoutPage { get; set; }
 
@@ -48,7 +48,7 @@ namespace ServiceStack.Script
         public object Model { get; set; }
 
         /// <summary>
-        /// Add additional Args available to all pages 
+        /// Add additional Args available to all pages
         /// </summary>
         public Dictionary<string, object> Args { get; set; }
 
@@ -77,7 +77,7 @@ namespace ServiceStack.Script
         public IDictionary<string, string> Options { get; set; }
 
         /// <summary>
-        /// Specify the Content-Type of the Response 
+        /// Specify the Content-Type of the Response
         /// </summary>
         public string ContentType
         {
@@ -111,7 +111,7 @@ namespace ServiceStack.Script
         public Exception LastFilterError { get; set; }
 
         /// <summary>
-        /// The StackTrace where the Last Error Occured 
+        /// The StackTrace where the Last Error Occured
         /// </summary>
         public string[] LastFilterStackTrace { get; set; }
 
@@ -131,7 +131,7 @@ namespace ServiceStack.Script
         public bool SkipFilterExecution { get; set; }
 
         /// <summary>
-        /// Overrides Context to specify whether to Ignore or Continue executing filters on error 
+        /// Overrides Context to specify whether to Ignore or Continue executing filters on error
         /// </summary>
         public bool? SkipExecutingFiltersIfError { get; set; }
 
@@ -693,7 +693,7 @@ namespace ServiceStack.Script
                 {
                     if (var.Expression is JsMemberExpression memberExpr)
                     {
-                        //allow nested null bindings from an existing target to evaluate to an empty string 
+                        //allow nested null bindings from an existing target to evaluate to an empty string
                         var targetValue = memberExpr.Object.Evaluate(scope);
                         if (targetValue != null)
                             return string.Empty;
@@ -755,7 +755,7 @@ namespace ServiceStack.Script
                     if (invoker == null && contextFilterInvoker == null && contextBlockInvoker == null && delegateInvoker == null)
                     {
                         if (i == 0)
-                            return null; // ignore on server (i.e. assume it's on client) if first filter is missing  
+                            return null; // ignore on server (i.e. assume it's on client) if first filter is missing
 
                         var errorMsg = CreateMissingFilterErrorMessage(filterName);
                         throw new NotSupportedException(errorMsg);
@@ -917,7 +917,7 @@ namespace ServiceStack.Script
                         }
                     }
 
-                    //continueExecutingFiltersOnError == false / skipExecutingFiltersOnError == true 
+                    //continueExecutingFiltersOnError == false / skipExecutingFiltersOnError == true
                     if (SkipExecutingFiltersIfError.HasValue || Context.SkipExecutingFiltersIfError)
                         return string.Empty;
 
@@ -1144,7 +1144,7 @@ namespace ServiceStack.Script
                                                 ? InvokeFilter(invoker, filter, new object[0], name)
                                                 : (invoker = GetContextFilterAsBinding(name, out filter)) != null
                                                     ? InvokeFilter(invoker, filter, new object[] { scope }, name)
-                                                    : (ret = false) ? (object)null : null;
+                                                    : null;
             return ret;
         }
 

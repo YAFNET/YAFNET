@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -31,8 +31,6 @@ namespace YAF.Controls
     using System.Drawing;
     using System.IO;
     using System.Linq;
-    using System.Security.Cryptography;
-    using System.Text;
     using System.Web;
 
     using YAF.Configuration;
@@ -40,7 +38,6 @@ namespace YAF.Controls
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Utilities;
     using YAF.Core.Utilities.Helpers;
     using YAF.Core.Utilities.Helpers.ImageUtils;
     using YAF.Types;
@@ -356,26 +353,6 @@ namespace YAF.Controls
                 item.Selected = true;
 
                 this.DeleteAvatar.Visible = true;
-            }
-            else if (this.PageContext.BoardSettings.AvatarGravatar)
-            {
-                var x = new MD5CryptoServiceProvider();
-                var bs = Encoding.UTF8.GetBytes(this.PageContext.MembershipUser.Email);
-                bs = x.ComputeHash(bs);
-                var s = new StringBuilder();
-
-                bs.ForEach(b => s.Append(b.ToString("x2").ToLower()));
-
-                var emailHash = s.ToString();
-
-                var gravatarUrl =
-                    $"https://www.gravatar.com/avatar/{emailHash}.jpg?r={this.PageContext.BoardSettings.GravatarRating}";
-
-                this.AvatarImg.ImageUrl =
-                    gravatarUrl;
-
-                this.NoAvatar.Text = "Gravatar Image";
-                this.NoAvatar.Visible = true;
             }
             else
             {

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,6 +25,7 @@
 namespace YAF.Types.Exceptions
 {
     using System;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// The No TopicRow Exception
@@ -35,9 +36,30 @@ namespace YAF.Types.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="NoTopicRowException"/> class.
         /// </summary>
+        public NoTopicRowException()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NoTopicRowException"/> class.
+        /// </summary>
         /// <param name="topicRowID">The topic row identifier.</param>
         public NoTopicRowException(int? topicRowID)
             : base($"No topic row found for topic row id [{topicRowID ?? 0}]")
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NoTopicRowException"/> class.
+        /// </summary>
+        /// <param name="info">
+        /// The info.
+        /// </param>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        protected NoTopicRowException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }

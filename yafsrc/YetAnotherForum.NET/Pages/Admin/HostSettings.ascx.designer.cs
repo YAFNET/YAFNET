@@ -3525,42 +3525,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox AvatarHeight;
 
         /// <summary>
-        /// HelpLabel52 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel52;
-
-        /// <summary>
-        /// AvatarGravatar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AvatarGravatar;
-
-        /// <summary>
-        /// HelpLabel53 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel53;
-
-        /// <summary>
-        /// GravatarRating control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList GravatarRating;
-
-        /// <summary>
         /// ThemeButton9 control.
         /// </summary>
         /// <remarks>

@@ -1060,8 +1060,6 @@
     <Resource tag="ALLOW_EMAIL_TOPIC_HELP">If checked, users will be allowed to email topics.</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME">Allow Forums With Same Name:</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME_HELP">If checked forums with duplicated names can be created.</Resource>
-    <Resource tag="ALLOW_GRAVATARS">Allow Gravatars:</Resource>
-    <Resource tag="ALLOW_GRAVATARS_HELP">Automatically use users Gravatars if they exist (note: may require additional processing).</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL">Allow Guests View Poll Options:</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">If enabled Guests can see poll choices.</Resource>
     <Resource tag="ALLOW_HIDE_POLLRESULTS">Allow Users Hide Poll Results:</Resource>
@@ -1232,8 +1230,6 @@
     <Resource tag="FORUM_FEEDS_ACCESS_HELP">Restrict display of forum feeds.</Resource>
     <Resource tag="GENDER_TEMPLATE">Gender:</Resource>
     <Resource tag="GENDER_TEMPLATE_HELP">Template for rendering user's gender.</Resource>
-    <Resource tag="GRAVATAR_RATING">Gravatar Rating:</Resource>
-    <Resource tag="GRAVATAR_RATING_HELP">Max. rating of Gravatar if allowed.</Resource>
     <Resource tag="GROUPS_TEMPLATE">Groups template:</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">Template for rendering user's groups.</Resource>
     <Resource tag="HEADER_ADVERTS">Advert Settings</Resource>

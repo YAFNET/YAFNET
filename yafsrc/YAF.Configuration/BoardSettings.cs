@@ -1433,16 +1433,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether Avatar Gravatar.
-        /// </summary>
-        public bool AvatarGravatar
-        {
-            get => this.Registry.GetValue("AvatarGravatar", false);
-
-            set => this.Registry.SetValue("AvatarGravatar", value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether AllowEmailChange.
         /// </summary>
         public bool AllowEmailChange
@@ -2112,16 +2102,6 @@ namespace YAF.Configuration
             get => this.Registry.GetValue("RecaptchaPrivateKey", string.Empty);
 
             set => this.Registry.SetValue("RecaptchaPrivateKey", value);
-        }
-
-        /// <summary>
-        /// Gets or sets GravatarRating.
-        /// </summary>
-        public string GravatarRating
-        {
-            get => this.Registry.GetValue("GravatarRating", "G");
-
-            set => this.Registry.SetValue("GravatarRating", value);
         }
 
         /// <summary>

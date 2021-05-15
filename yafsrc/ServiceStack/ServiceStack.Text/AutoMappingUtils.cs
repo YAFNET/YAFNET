@@ -14,7 +14,7 @@ using ServiceStack.Text.Common;
 
 namespace ServiceStack
 {
-    [DataContract(Namespace = "http://schemas.servicestack.net/types")]
+    [DataContract(Namespace = "https://schemas.servicestack.net/types")]
     public class CustomHttpResult { }
 
     /// <summary>
@@ -23,7 +23,7 @@ namespace ServiceStack
     public static class AutoMapping
     {
         /// <summary>
-        /// Register Type to Type AutoMapping converter 
+        /// Register Type to Type AutoMapping converter
         /// </summary>
         public static void RegisterConverter<From, To>(Func<From, To> converter)
         {
@@ -32,12 +32,12 @@ namespace ServiceStack
         }
 
         /// <summary>
-        /// Ignore Type to Type Mapping (including collections containing them) 
+        /// Ignore Type to Type Mapping (including collections containing them)
         /// </summary>
         public static void IgnoreMapping<From, To>() => IgnoreMapping(typeof(From), typeof(To));
 
         /// <summary>
-        /// Ignore Type to Type Mapping (including collections containing them) 
+        /// Ignore Type to Type Mapping (including collections containing them)
         /// </summary>
         public static void IgnoreMapping(Type fromType, Type toType)
         {
@@ -845,7 +845,7 @@ namespace ServiceStack
                     var genericKvps = genericEnumType.GetTypeWithGenericTypeDefinitionOf(typeof(KeyValuePair<,>));
                     if (genericKvps != null)
                     {
-                        // Improve perf with Specialized handling of common KVP combinations 
+                        // Improve perf with Specialized handling of common KVP combinations
                         var obj = toType.CreateInstance();
                         if (fromValue is IEnumerable<KeyValuePair<string, string>> sKvps)
                         {
@@ -1092,7 +1092,7 @@ namespace ServiceStack
                 var toGenericDef = writeMember.Type.GetTypeWithGenericTypeDefinitionOf(typeof(IDictionary<,>));
                 if (fromGenericDef != null && toGenericDef != null)
                 {
-                    // Check if to/from Key or Value Types are ignored   
+                    // Check if to/from Key or Value Types are ignored
                     var fromArgs = fromGenericDef.GetGenericArguments();
                     var toArgs = toGenericDef.GetGenericArguments();
                     if (AutoMappingUtils.ShouldIgnoreMapping(fromArgs[0], toArgs[0]))
