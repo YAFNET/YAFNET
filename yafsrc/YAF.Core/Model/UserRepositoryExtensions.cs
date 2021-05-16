@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -126,7 +126,7 @@ namespace YAF.Core.Model
                                     join {expression.Table<User>()} u on u.RankID = r.RankID
                                     where u.UserID = d.UserID ))
                                from  {expression.Table<User>()} d
-		                       where d.BoardID = {boardId}");
+                               where d.BoardID = {boardId}");
                 });
         }
 
@@ -157,7 +157,7 @@ namespace YAF.Core.Model
                                     join {expression.Table<User>()} u on u.RankID = r.RankID
                                     where u.UserID = d.UserID ))
                                from  {expression.Table<User>()} d
-		                       where d.UserID = {userId}");
+                               where d.UserID = {userId}");
                 });
         }
 
@@ -687,14 +687,14 @@ namespace YAF.Core.Model
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
 
             expression.Join<User>((a, b) => b.ID == a.UserID).Where<WatchTopic, User>(
-                (a, b) => b.ID == userId && b.NotificationType != 10 && b.NotificationType != 20 &&
+                (a, b) => b.ID != userId && b.NotificationType != 10 && b.NotificationType != 20 &&
                           a.TopicID == topicId && (a.LastMail == null || a.LastMail < b.LastVisit)).Select<User>(x => x);
 
             var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<WatchForum>();
 
             expression2.Join<User>((a, b) => b.ID == a.UserID).Join<Topic>((a, c) => c.ForumID == a.ForumID)
                 .Where<WatchForum, User, Topic>(
-                    (a, b, c) => b.ID == userId && b.NotificationType != 10 && b.NotificationType != 20 &&
+                    (a, b, c) => b.ID != userId && b.NotificationType != 10 && b.NotificationType != 20 &&
                                  c.ID == topicId && (a.LastMail == null || a.LastMail < b.LastVisit)).Select<User>(x => x);
 
             return repository.DbAccess.Execute(
@@ -838,7 +838,7 @@ namespace YAF.Core.Model
             {
                 data.UsrSigBBCodes = string.Empty;
             }
-            
+
 
             return data;
         }
@@ -905,7 +905,7 @@ namespace YAF.Core.Model
 
                             expression.Where<User>(u => u.ID == userId);
 
-                            // -- moderate Posts 
+                            // -- moderate Posts
                             var moderatePostsExpression = OrmLiteConfig.DialectProvider.SqlExpression<Message>()
                                 .Join<Topic>((a, b) => b.ID == a.TopicID)
                                 .Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
@@ -1159,7 +1159,7 @@ namespace YAF.Core.Model
 
                     if (startLetter == char.MinValue)
                     {
-                        // filter by name 
+                        // filter by name
                         if (name.IsSet())
                         {
                             countTotalExpression.And<User>(u => u.Name.Contains(name) || u.DisplayName.Contains(name));
@@ -1176,7 +1176,7 @@ namespace YAF.Core.Model
                         expression.And<User>(u => u.Name.StartsWith(startLetter.ToString()) ||
                                                   u.DisplayName.StartsWith(startLetter.ToString()));
                     }
-                    
+
                     // filter by posts
                     if (numPosts.HasValue)
                     {
@@ -1766,7 +1766,7 @@ namespace YAF.Core.Model
 
                     expression.Where(whereCriteria);
 
-                    // filter by name 
+                    // filter by name
                     if (name.IsSet())
                     {
                         countTotalExpression.And<User>(u => u.Name.Contains(name) || u.DisplayName.Contains(name));
@@ -1933,7 +1933,7 @@ namespace YAF.Core.Model
                         .Join<ForumAccess, AccessMask>((a, c) => c.ID == a.AccessMaskID)
                         .Where<Group, AccessMask>((b, c) => b.BoardID == repository.BoardID && (c.Flags & 64) != 0)
                         .Select<Forum, ForumAccess, Group>(
-                            (f, a, b) => new 
+                            (f, a, b) => new
                             {
                                 a.ForumID,
                                 ForumName = f.Name,
@@ -1956,7 +1956,7 @@ namespace YAF.Core.Model
         ModeratorID = usr.UserID,
         Name = usr.Name,
         Email = usr.Email,
-		ModeratorBlockFlags = usr.BlockFlags,
+        ModeratorBlockFlags = usr.BlockFlags,
         Avatar = ISNULL(usr.Avatar, ''),
         AvatarImage = CAST((select count(1) from {expression.Table<User>()} x where x.UserID=usr.UserID and AvatarImage is not null)as bit),
         DisplayName = usr.DisplayName,
@@ -1976,7 +1976,7 @@ namespace YAF.Core.Model
                 INNER JOIN {expression.Table<Group>()} b  on b.GroupID=a.GroupID
             WHERE
                 b.BoardID = {repository.BoardID} and
-		        ModeratorAccess <> 0
+                ModeratorAccess <> 0
             GROUP BY a.UserID, x.ForumID
         ) access ON usr.UserID = access.UserID
         JOIN    {expression.Table<Forum>()} f
