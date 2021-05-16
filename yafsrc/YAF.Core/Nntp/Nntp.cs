@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,7 +29,7 @@ namespace YAF.Core.Nntp
     using System.Data.SqlClient;
     using System.Linq;
     using System.Runtime.Caching;
-    
+
     using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types;
@@ -143,7 +143,6 @@ namespace YAF.Core.Nntp
 
             var guestUserId = BoardContext.Current.Get<IAspNetUsersHelper>().GuestUserId; // Use guests user-id
 
-            // string hostAddress = BoardContext.Current.Get<HttpRequestBase>().UserHostAddress;     
             var dateTimeStart = DateTime.UtcNow;
             var articleCount = 0;
             var count = 0;
@@ -241,12 +240,12 @@ namespace YAF.Core.Nntp
                                     continue;
                                 }
 
-                                if (fromName.IsSet() && fromName.LastIndexOf('<') > 0)
+                                if (fromName.IsSet() && fromName.Contains("<"))
                                 {
                                     fromName = fromName.Substring(0, fromName.LastIndexOf('<') - 1);
                                     fromName = fromName.Replace("\"", string.Empty).Trim();
                                 }
-                                else if (fromName.IsSet() && fromName.LastIndexOf('(') > 0)
+                                else if (fromName.IsSet() && fromName.Contains("("))
                                 {
                                     fromName = fromName.Substring(0, fromName.LastIndexOf('(') - 1).Trim();
                                 }
@@ -366,20 +365,6 @@ namespace YAF.Core.Nntp
             // These are spotted ones.
             body = body.Replace("<br>", "<br />");
             body = body.Replace("<hr>", "<hr />");
-
-            //// not used
-            /*
-            // body = body.Replace("&amp;lt;", "&lt;");
-            // body = body.Replace("&amp;gt;", "&gt;");
-            // body = body.Replace("&lt;br&gt;", "");
-            // body = body.Replace("&lt;hr&gt;", "<hr />");
-
-            // body = body.Replace("&amp;quot;", @"&#34;");
-
-            // Innerquote class in yaf terms, should be replaced while displaying     
-            // body = body.Replace("&lt;quote&gt;", @"[quote]");
-            // body = body.Replace("&lt;/quote&gt;", @"[/quote]");
-            */
 
             return body;
         }

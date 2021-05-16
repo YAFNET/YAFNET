@@ -1786,16 +1786,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether EnableActiveLocationErrorsLog. A temporary debug setting.
-        /// </summary>
-        public bool EnableActiveLocationErrorsLog
-        {
-            get => this.Registry.GetValue("EnableActiveLocationErrorsLog", false);
-
-            set => this.Registry.SetValue("EnableActiveLocationErrorsLog", value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether Log UserAgent strings unhandled by YAF.
         /// </summary>
         public bool UserAgentBadLog

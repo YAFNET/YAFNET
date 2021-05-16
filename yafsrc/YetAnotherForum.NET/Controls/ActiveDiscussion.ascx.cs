@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -153,8 +153,8 @@ namespace YAF.Controls
             info.TextLocalizedTag = "by";
             info.TextLocalizedPage = "DEFAULT";
             info.ParamText0 = this.PageContext.BoardSettings.EnableDisplayName
-                                  ? item.UserDisplayName
-                                  : item.UserName;
+                                  ? item.LastUserDisplayName
+                                  : item.LastUserName;
 
             info.DataContent = $@"
                           {lastUserLink.RenderToString()}

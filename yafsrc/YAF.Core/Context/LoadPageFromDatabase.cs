@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -115,14 +115,14 @@ namespace YAF.Core.Context
 
                 var tries = 0;
                 PageLoad pageRow;
-                var forumPage = this.Get<HttpRequestBase>().QueryString.ToString();
-                var location = this.Get<HttpRequestBase>().FilePath;
+
+                var forumPage = string.Empty;
+                var location = this.Get<HttpRequestBase>().QueryString.ToString();
 
                 // resources are not handled by ActiveLocation control so far.
-                if (location.Contains("resource.ashx"))
+                if (!this.Get<HttpRequestBase>().Path.Contains("resource.ashx"))
                 {
-                    forumPage = string.Empty;
-                    location = string.Empty;
+                    forumPage = BoardContext.Current.ForumPageType.ToString();
                 }
 
                 do
@@ -143,7 +143,7 @@ namespace YAF.Core.Context
                         (bool)@event.Data.IsSearchEngine,
                         (bool)@event.Data.IsMobileDevice,
                         (bool)@event.Data.DontTrack);
-                    
+
                     // if the user doesn't exist create the user...
                     if (userKey != null && pageRow == null && !this.Get<IAspNetRolesHelper>().DidCreateForumUser(
                         BoardContext.Current.MembershipUser,

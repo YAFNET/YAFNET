@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -145,61 +145,17 @@ namespace YAF.Data.MsSql.Functions
         /// <param name="scriptFile">
         /// The script file.
         /// </param>
-        /// <param name="useTransactions">
-        /// The use transactions.
-        /// </param>
         public static void SystemInitializeExecuteScripts(
             this IDbAccess dbAccess,
             [NotNull] string script,
-            [NotNull] string scriptFile,
-            bool useTransactions)
+            [NotNull] string scriptFile)
         {
             script = CommandTextHelpers.GetCommandTextReplaced(script);
 
             var statements = Regex.Split(script, "\\sGO\\s", RegexOptions.IgnoreCase).ToList();
 
-            // use transactions...
-            if (useTransactions)
+            using (var trans = dbAccess.CreateConnectionOpen().BeginTransaction())
             {
-                using (var trans = dbAccess.CreateConnectionOpen().BeginTransaction())
-                {
-                    foreach (var sql in statements.Select(sql0 => sql0.Trim()))
-                    {
-                        try
-                        {
-                            if (sql.ToLower().IndexOf("setuser", StringComparison.Ordinal) >= 0)
-                            {
-                                continue;
-                            }
-
-                            if (sql.Length <= 0)
-                            {
-                                continue;
-                            }
-
-                            using (var cmd = trans.Connection.CreateCommand())
-                            {
-                                // added so command won't timeout anymore...
-                                cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
-                                cmd.Transaction = trans;
-                                cmd.CommandType = CommandType.Text;
-                                cmd.CommandText = sql.Trim();
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
-                        catch (Exception x)
-                        {
-                            trans.Rollback();
-                            throw new Exception($"FILE:\n{scriptFile}\n\nERROR:\n{x.Message}\n\nSTATEMENT:\n{sql}");
-                        }
-                    }
-
-                    trans.Commit();
-                }
-            }
-            else
-            {
-                // don't use transactions
                 foreach (var sql in statements.Select(sql0 => sql0.Trim()))
                 {
                     try
@@ -214,13 +170,24 @@ namespace YAF.Data.MsSql.Functions
                             continue;
                         }
 
-                        dbAccess.Execute(db => db.Connection.Scalar<string>(sql.Trim()));
+                        using (var cmd = trans.Connection.CreateCommand())
+                        {
+                            // added so command won't timeout anymore...
+                            cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
+                            cmd.Transaction = trans;
+                            cmd.CommandType = CommandType.Text;
+                            cmd.CommandText = sql.Trim();
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                     catch (Exception x)
                     {
+                        trans.Rollback();
                         throw new Exception($"FILE:\n{scriptFile}\n\nERROR:\n{x.Message}\n\nSTATEMENT:\n{sql}");
                     }
                 }
+
+                trans.Commit();
             }
         }
 

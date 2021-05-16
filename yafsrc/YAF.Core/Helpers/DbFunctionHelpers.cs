@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,7 +26,7 @@ namespace YAF.Core.Helpers
 {
     using System;
     using System.Linq;
-    
+
     using YAF.Types;
     using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
@@ -136,20 +136,16 @@ namespace YAF.Core.Helpers
         /// <param name="scriptFile">
         /// The script file.
         /// </param>
-        /// <param name="useTransactions">
-        /// The use transactions.
-        /// </param>
         public static void SystemInitializeExecuteScripts(
             [NotNull] this IDbFunction dbFunction,
             [NotNull] string script,
-            [NotNull] string scriptFile,
-            bool useTransactions)
+            [NotNull] string scriptFile)
         {
             CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
 
             dbFunction.ValidateAndExecute(
                 "SystemInitializeExecuteScripts",
-                f => f.Scalar.SystemInitializeExecuteScripts(script, scriptFile, useTransactions));
+                f => f.Scalar.SystemInitializeExecuteScripts(script, scriptFile));
         }
 
         /// <summary>

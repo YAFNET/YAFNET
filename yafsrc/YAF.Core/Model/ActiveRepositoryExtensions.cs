@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -166,16 +166,16 @@ namespace YAF.Core.Model
         /// The list.
         /// </summary>
         /// <param name="repository">
-        /// The repository. 
+        /// The repository.
         /// </param>
         /// <param name="showGuests">
         /// The show Guests.
         /// </param>
         /// <param name="showCrawlers">
-        /// The show crawlers. 
+        /// The show crawlers.
         /// </param>
         /// <param name="activeTime">
-        /// The active time. 
+        /// The active time.
         /// </param>
         /// <param name="boardId">
         /// The board Id.
@@ -381,7 +381,7 @@ namespace YAF.Core.Model
                                 $"DATEDIFF(minute,{expression.Column<Active>(ac => ac.Login, true)}, {expression.Column<Active>(ac => ac.LastActive, true)})"),
                             a.Browser,
                             a.Platform,
-                            ForumPage = a.ForumPage == null ? "MAINPAGE" : a.ForumPage
+                            a.ForumPage
                         });
 
                     return db.Connection.Select<dynamic>(expression);
@@ -392,7 +392,7 @@ namespace YAF.Core.Model
         /// The stats.
         /// </summary>
         /// <param name="repository">
-        /// The repository. 
+        /// The repository.
         /// </param>
         /// <param name="boardId">
         /// The board Id.

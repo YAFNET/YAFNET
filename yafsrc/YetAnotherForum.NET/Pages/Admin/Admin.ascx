@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Admin"
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Admin"
     CodeBehind="Admin.ascx.cs" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Utilities.Helpers" %>
@@ -7,7 +7,7 @@
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <div class="row">
     <div class="col-xl-12">
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" 
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel18" runat="server"
                                 LocalizedTag="TITLE" LocalizedPage="ADMIN_ADMIN" /></h1>
     </div>
 </div>
@@ -17,7 +17,7 @@
                 <YAF:Icon runat="server" IconName="box-open" IconType="text-info"></YAF:Icon>
                 <YAF:LocalizedLabel runat="server"
                                     LocalizedTag="NEW_VERSION"></YAF:LocalizedLabel>
-                <YAF:ThemeButton ID="UpdateLinkHighlight" runat="server" 
+                <YAF:ThemeButton ID="UpdateLinkHighlight" runat="server"
                                  TextLocalizedTag="UPGRADE_VERSION"
                                  Type="Info"
                                  Icon="cloud-download-alt"></YAF:ThemeButton>
@@ -41,11 +41,11 @@
                                                                 LocalizedTag="HEADER3"
                                                                 LocalizedPage="ADMIN_ADMIN" />
                                         </div>
-                                        <asp:DropDownList ID="BoardStatsSelect" runat="server" 
-                                                          DataTextField="Name" 
+                                        <asp:DropDownList ID="BoardStatsSelect" runat="server"
+                                                          DataTextField="Name"
                                                           DataValueField="ID"
-                                                          OnSelectedIndexChanged="BoardStatsSelectChanged" 
-                                                          AutoPostBack="true" 
+                                                          OnSelectedIndexChanged="BoardStatsSelectChanged"
+                                                          AutoPostBack="true"
                                                           CssClass="form-select" />
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <h5 class="card-title text-uppercase text-muted mb-0">
-                                                        <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
+                                                        <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server"
                                                                             LocalizedTag="NUM_POSTS"
                                                                             LocalizedPage="ADMIN_ADMIN" />
                                                     </h5>
@@ -75,7 +75,7 @@
                                                 </div>
                                             </div>
                                             <p class="mt-3 mb-0 text-muted small">
-                                                <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" 
+                                                <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server"
                                                                     LocalizedTag="POSTS_DAY"
                                                                     LocalizedPage="ADMIN_ADMIN" />
                                                 <span class="text-nowrap">
@@ -91,7 +91,7 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <h5 class="card-title text-uppercase text-muted mb-0">
-                                                        <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" 
+                                                        <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server"
                                                                             LocalizedTag="NUM_TOPICS"
                                                                             LocalizedPage="ADMIN_ADMIN" />
                                                     </h5>
@@ -107,7 +107,7 @@
                                                 </div>
                                             </div>
                                             <p class="mt-3 mb-0 text-muted small">
-                                                <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" 
+                                                <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server"
                                                                     LocalizedTag="TOPICS_DAY"
                                                                     LocalizedPage="ADMIN_ADMIN" />
                                                 <span class="text-nowrap">
@@ -123,7 +123,7 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <h5 class="card-title text-uppercase text-muted mb-0">
-                                                        <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" 
+                                                        <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server"
                                                                             LocalizedTag="NUM_USERS"
                                                                             LocalizedPage="ADMIN_ADMIN" />
                                                     </h5>
@@ -139,7 +139,7 @@
                                                 </div>
                                             </div>
                                             <p class="mt-3 mb-0 text-muted small">
-                                                <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" 
+                                                <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server"
                                                                     LocalizedTag="USERS_DAY"
                                                                     LocalizedPage="ADMIN_ADMIN" />
                                                 <span class="text-nowrap">
@@ -155,7 +155,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <h5 class="card-title text-uppercase text-muted mb-0">
-                                                <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" 
+                                                <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server"
                                                                     LocalizedTag="BOARD_STARTED"
                                                                     LocalizedPage="ADMIN_ADMIN" />
                                             </h5>
@@ -184,7 +184,7 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <h5 class="card-title text-uppercase text-muted mb-0">
-                                                        <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" 
+                                                        <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server"
                                                                             LocalizedTag="SIZE_DATABASE"
                                                                             LocalizedPage="ADMIN_ADMIN" />
                                                     </h5>
@@ -206,15 +206,15 @@
                             </div>
                         <div class="card-footer text-muted">
                             <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server"
-                                                LocalizedTag="STATS_DONTCOUNT" 
+                                                LocalizedTag="STATS_DONTCOUNT"
                                                 LocalizedPage="ADMIN_ADMIN" />
                         </div>
                     </div>
              </div>
     </div>
-    
+
 <p id="UpgradeNotice" runat="server" visible="false">
-    <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" 
+    <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server"
                         LocalizedTag="ADMIN_UPGRADE"
                         LocalizedPage="ADMIN_ADMIN" />
 </p>
@@ -255,7 +255,7 @@
                             <div class="me-2">
                                 <YAF:UserLabel ID="ActiveUserLink"
                                                ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).UserDisplayName : (Container.DataItem as dynamic).UserName %>"
-                                               UserID="<%# (Container.DataItem as dynamic).UserID %>" 
+                                               UserID="<%# (Container.DataItem as dynamic).UserID %>"
                                                CrawlerName="<%# (Container.DataItem as dynamic).IsCrawler > 0 ? (string)(Container.DataItem as dynamic).Browser : string.Empty %>"
                                                Style="<%# (Container.DataItem as dynamic).UserStyle %>" runat="server" />
                             </div>
@@ -273,10 +273,10 @@
                                     <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
                                                         LocalizedTag="BOARD_LOCATION" LocalizedPage="ADMIN_ADMIN" />
                                 </span>
-                                <YAF:ActiveLocation ID="ActiveLocation2" 
-                                                    UserID="<%# (Container.DataItem as dynamic).UserID == null ? 0 : (Container.DataItem as dynamic).UserID %>" 
-                                                    UserName="<%# (Container.DataItem as dynamic).UserName %>" 
-                                                    ForumPage="<%# (Container.DataItem as dynamic).ForumPage %>" 
+                                <YAF:ActiveLocation ID="ActiveLocation2"
+                                                    UserID="<%# (Container.DataItem as dynamic).UserID == null ? 0 : (Container.DataItem as dynamic).UserID %>"
+                                                    Location="<%#(Container.DataItem as dynamic).Location %>"
+                                                    ForumPage="<%# (Container.DataItem as dynamic).ForumPage %>"
                                                     ForumID="<%# (Container.DataItem as dynamic).ForumID == null ? 0 : (Container.DataItem as dynamic).ForumID %>"
                                                     ForumName="<%# (Container.DataItem as dynamic).ForumName %>" TopicID="<%# (Container.DataItem as dynamic).TopicID == null ? 0 : (Container.DataItem as dynamic).TopicID %>"
                                                     TopicName="<%# (Container.DataItem as dynamic).TopicName %>" LastLinkOnly="false" runat="server">
@@ -295,7 +295,7 @@
             </div>
 <div class="row justify-content-end">
     <div class="col-auto">
-        <YAF:Pager ID="PagerTop" runat="server" 
+        <YAF:Pager ID="PagerTop" runat="server"
                    OnPageChange="PagerTopChange" />
     </div>
 </div>
@@ -327,7 +327,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <asp:Repeater ID="UserList" runat="server" 
+                            <asp:Repeater ID="UserList" runat="server"
                                           OnItemCommand="UserListItemCommand">
                                 <HeaderTemplate>
                                     <ul class="list-group">
@@ -363,34 +363,34 @@
                                     DataToggle="dropdown"
                                     Icon="ellipsis-v" />
                         <div class="dropdown-menu">
-                        <YAF:ThemeButton runat="server" 
-                                         CommandName="resendEmail" 
+                        <YAF:ThemeButton runat="server"
+                                         CommandName="resendEmail"
                                          CommandArgument='<%# "{0};{1}".Fmt(this.Eval("Email"), this.Eval("Name")) %>'
-                                         Icon="share" 
+                                         Icon="share"
                                          TextLocalizedTag="ADMIN_RESEND_EMAIL"
                                          Type="None"
                                          CssClass="dropdown-item">
                         </YAF:ThemeButton>
-                        <YAF:ThemeButton runat="server" 
-                                         CommandName="approve" 
+                        <YAF:ThemeButton runat="server"
+                                         CommandName="approve"
                                          CommandArgument='<%# this.Eval("ID") %>'
                                          Type="None"
                                          CssClass="dropdown-item"
                                          ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
-                                         Icon="check" 
+                                         Icon="check"
                                          TextLocalizedTag="ADMIN_APPROVE">
                         </YAF:ThemeButton>
-                        <YAF:ThemeButton runat="server" 
-                                         CommandName="delete" 
+                        <YAF:ThemeButton runat="server"
+                                         CommandName="delete"
                                          CommandArgument='<%# this.Eval("ID") %>'
                                          Type="None"
-                                         CssClass="dropdown-item" 
+                                         CssClass="dropdown-item"
                                          ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE") %>'
-                                         Icon="trash" 
+                                         Icon="trash"
                                          TextLocalizedTag="ADMIN_DELETE">
                         </YAF:ThemeButton>
 
-					    </div>
+                        </div>
                 </small>
                                     </li>
                                 </ItemTemplate>
@@ -400,26 +400,26 @@
                                 <div class="card-footer">
                                     <div class="d-lg-flex">
                                         <div>
-                                            <YAF:ThemeButton runat="server" 
-                                                             CommandName="approveall" 
-                                                             Type="Primary" 
-                                                             Icon="check" 
-                                                             TextLocalizedTag="APROVE_ALL" 
+                                            <YAF:ThemeButton runat="server"
+                                                             CommandName="approveall"
+                                                             Type="Primary"
+                                                             Icon="check"
+                                                             TextLocalizedTag="APROVE_ALL"
                                                              CssClass="mb-1"
                                                              ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'/>
                                             <YAF:ThemeButton runat="server"
-                                                             CommandName="deleteall" 
-                                                             Type="Danger" 
-                                                             Icon="trash" 
-                                                             TextLocalizedTag="DELETE_ALL" 
+                                                             CommandName="deleteall"
+                                                             Type="Danger"
+                                                             Icon="trash"
+                                                             TextLocalizedTag="DELETE_ALL"
                                                              ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
                                                              CssClass="me-1 mb-1"/>
                                         </div>
                                         <div>
                                             <div class="input-group">
-                                                <asp:TextBox ID="DaysOld" runat="server" 
-                                                             MaxLength="5" 
-                                                             Text="14" 
+                                                <asp:TextBox ID="DaysOld" runat="server"
+                                                             MaxLength="5"
+                                                             Text="14"
                                                              CssClass="form-control"
                                                              TextMode="Number">
                                                 </asp:TextBox>
@@ -435,7 +435,7 @@
         </div>
     <div class="row justify-content-end">
         <div class="col-auto">
-            <YAF:Pager ID="PagerUnverified" runat="server" 
+            <YAF:Pager ID="PagerUnverified" runat="server"
                        OnPageChange="PagerUnverifiedChange" />
         </div>
     </div>

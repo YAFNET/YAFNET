@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -39,7 +39,7 @@ namespace YAF.Data.MsSql.Functions
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// The ms sql get stats function.
+    /// The MS SQL get stats function.
     /// </summary>
     [ExportService(ServiceLifetimeScope.OwnedByContainer)]
     public class MsSqlGetStatsFunction : BaseMsSqlFunction
@@ -71,40 +71,24 @@ namespace YAF.Data.MsSql.Functions
         #region Public Methods
 
         /// <summary>
-        /// The supported operation.
-        /// </summary>
-        /// <param name="operationName">
-        /// The operation name.
-        /// </param>
-        /// <returns>
-        /// True if the operation is supported.
-        /// </returns>
-        public override bool IsSupportedOperation([NotNull] string operationName)
-        {
-            return operationName.Equals("getstats", StringComparison.InvariantCultureIgnoreCase);
-        }
-
-        /// <summary>
-        /// The get db type and size from string.
+        /// Gets the Database type and size from string.
         /// </summary>
         /// <param name="providerData">
-        ///  The provider data.
+        /// The provider data.
         /// </param>
-        /// <param name="dbType">
-        /// The db type.
+        /// <param name="type">
+        /// The database type.
         /// </param>
         /// <param name="size">
         /// The size.
         /// </param>
         /// <returns>
-        /// The get db type and size from string.
+        /// The <see cref="bool"/>.
         /// </returns>
-        /// <exception cref="ArgumentException">
-        /// </exception>
-        public static bool GetDbTypeAndSizeFromString(string providerData, out SqlDbType dbType, out int size)
+        public static bool GetDbTypeAndSizeFromString(string providerData, out SqlDbType type, out int size)
         {
             size = -1;
-            dbType = SqlDbType.NVarChar;
+            type = SqlDbType.NVarChar;
 
             if (providerData.IsNotSet())
             {
@@ -115,7 +99,7 @@ namespace YAF.Data.MsSql.Functions
             var chunk = providerData.Split(';');
 
             // get the data type and ignore case...
-            dbType = (SqlDbType)Enum.Parse(typeof(SqlDbType), chunk[1], true);
+            type = (SqlDbType)Enum.Parse(typeof(SqlDbType), chunk[1], true);
 
             if (chunk.Length <= 2)
             {
@@ -131,6 +115,20 @@ namespace YAF.Data.MsSql.Functions
             return true;
         }
 
+        /// <summary>
+        /// The supported operation.
+        /// </summary>
+        /// <param name="operationName">
+        /// The operation name.
+        /// </param>
+        /// <returns>
+        /// True if the operation is supported.
+        /// </returns>
+        public override bool IsSupportedOperation([NotNull] string operationName)
+        {
+            return operationName.Equals("getstats", StringComparison.InvariantCultureIgnoreCase);
+        }
+
         #endregion
 
         #region Methods
@@ -138,19 +136,31 @@ namespace YAF.Data.MsSql.Functions
         /// <summary>
         /// The run operation.
         /// </summary>
-        /// <param name="sqlConnection">The sql connection.</param>
-        /// <param name="dbTransaction">The db unit of work.</param>
-        /// <param name="dbfunctionType">The dbfunction type.</param>
-        /// <param name="operationName">The operation name.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="result">The result.</param>
+        /// <param name="sqlConnection">
+        /// The SQL connection.
+        /// </param>
+        /// <param name="transaction">
+        /// The transaction.
+        /// </param>
+        /// <param name="functionType">
+        /// The function type.
+        /// </param>
+        /// <param name="operationName">
+        /// The operation name.
+        /// </param>
+        /// <param name="parameters">
+        /// The parameters.
+        /// </param>
+        /// <param name="result">
+        /// The result.
+        /// </param>
         /// <returns>
-        /// The run operation.
+        /// The <see cref="bool"/>.
         /// </returns>
         protected override bool RunOperation(
             SqlConnection sqlConnection,
-            IDbTransaction dbTransaction,
-            DatabaseFunctionType dbfunctionType,
+            IDbTransaction transaction,
+            DatabaseFunctionType functionType,
             string operationName,
             IEnumerable<KeyValuePair<string, object>> parameters,
             out object result)
@@ -174,7 +184,7 @@ namespace YAF.Data.MsSql.Functions
 
             using (var cmd = this.DbAccess.GetCommand(sb.ToString(), CommandType.Text))
             {
-                this.DbAccess.ExecuteNonQuery(cmd, dbTransaction);
+                this.DbAccess.ExecuteNonQuery(cmd, transaction);
             }
 
             result = this._sqlMessages.Select(s => s.Message).ToDelimitedString("\r\n");

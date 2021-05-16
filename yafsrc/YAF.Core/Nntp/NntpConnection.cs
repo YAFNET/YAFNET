@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -365,52 +365,38 @@ namespace YAF.Core.Nntp
             string response;
             while ((response = this.sr.ReadLine()) != null && response != ".")
             {
-                Article article;
+                Article article = null;
+
                 try
                 {
-                    article = new Article { Header = new ArticleHeader() };
                     var values = response.Split('\t');
 
-                    // article id...
-                    article.ArticleId = int.Parse(values[0]);
-
-                    // subject
-                    article.Header.Subject = NntpUtil.Base64HeaderDecode(values[1]);
-
-                    // from
-                    article.Header.From = NntpUtil.Base64HeaderDecode(values[2]);
-
-                    // date
                     var i = values[3].IndexOf(',');
-                    article.Header.Date = NntpUtil.DecodeUTC(
-                        values[3].Substring(i + 1, values[3].Length - 7 - i),
-                        out var offTz);
-                    article.Header.TimeZoneOffset = offTz;
 
-                    // message id
-                    article.MessageId = values[4];
-
-                    // reference ids
-                    article.Header.ReferenceIds = values[5].Trim().Length == 0 ? new string[0] : values[5].Split(' ');
-
-                    if (values.Length < 8 || values[7].Trim() == string.Empty)
+                    var header = new ArticleHeader
                     {
-                        article.Header.LineCount = 0;
-                    }
-                    else
-                    {
-                        article.Header.LineCount = int.Parse(values[7]);
-                    }
+                        Subject = NntpUtil.Base64HeaderDecode(values[1]),
+                        From = NntpUtil.Base64HeaderDecode(values[2]),
+                        Date = NntpUtil.DecodeUTC(
+                            values[3].Substring(i + 1, values[3].Length - 7 - i),
+                            out var offTz),
+                        TimeZoneOffset = offTz,
+                        ReferenceIds = values[5].Trim().Length == 0 ? new string[0] : values[5].Split(' '),
+                        LineCount = values.Length < 8 || values[7].Trim() == string.Empty ? 0 : int.Parse(values[7])
+                    };
 
-                    // no body...
-                    article.Body = null;
+                    article = new Article
+                    {
+                        Header = header, ArticleId = int.Parse(values[0]), MessageId = values[4], Body = null
+                    };
                 }
-                catch (Exception e)
+                finally
                 {
-                    throw new Exception(response, e);
+                    if (article != null)
+                    {
+                        list.Add(article);
+                    }
                 }
-
-                list.Add(article);
             }
 
             return list;

@@ -1938,13 +1938,6 @@
             <hr />
                     <div class="row">
                         <div class="mb-3 col-md-6">
-                            <YAF:HelpLabel ID="HelpLabel150" runat="server"
-                                           LocalizedTag="ENABLE_LOCATIONPATH_ERRORS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                            <div class="form-check form-switch">
-                                <asp:CheckBox Text="&nbsp;" ID="EnableActiveLocationErrorsLog" runat="server"></asp:CheckBox>
-                            </div>
-                        </div>
-                        <div class="mb-3 col-md-6">
                             <YAF:HelpLabel ID="HelpLabel151" runat="server"
                                            LocalizedTag="UNHANDLED_USERAGENT_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
                             <div class="form-check form-switch">

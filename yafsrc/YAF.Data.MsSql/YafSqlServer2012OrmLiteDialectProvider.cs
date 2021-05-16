@@ -39,15 +39,6 @@ namespace YAF.Data.MsSql
     /// </summary>
     public class YafSqlServer2012OrmLiteDialectProvider : SqlServer2012OrmLiteDialectProvider
     {
-        #region Static Fields
-
-        /// <summary>
-        /// The instance.
-        /// </summary>
-        public static new YafSqlServer2012OrmLiteDialectProvider Instance = new();
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -57,6 +48,11 @@ namespace YAF.Data.MsSql
         {
             this.NamingStrategy = new YafNamingStrategyBaseOverride();
         }
+
+        /// <summary>
+        /// Gets or sets the instance.
+        /// </summary>
+        public static new YafSqlServer2012OrmLiteDialectProvider Instance { get; set; } = new ();
 
         /// <summary>
         /// The to post create table statement.

@@ -38,7 +38,6 @@ namespace YAF.Core.Services
     using YAF.Core.Model;
     using YAF.Core.Services.Import;
     using YAF.Core.Tasks;
-    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -254,13 +253,13 @@ namespace YAF.Core.Services
                 {
                     this.ExecuteUpgradeScripts();
 
-                    this.ExecuteScript(this.DbAccess.Information.FullTextUpgradeScript, false);
+                    this.ExecuteScript(this.DbAccess.Information.FullTextUpgradeScript);
                 }
 
                 if (prevVersion < 80)
                 {
                     // Upgrade to ASPNET Identity
-                    this.DbAccess.Information.IdentityUpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
+                    this.DbAccess.Information.IdentityUpgradeScripts.ForEach(this.ExecuteScript);
 
                     this.Get<ITaskModuleManager>().StartTask(MigrateAttachmentsTask.TaskName, () => new MigrateAttachmentsTask());
 
@@ -302,12 +301,12 @@ namespace YAF.Core.Services
             }
 
             // run custom script...
-            this.ExecuteScript("custom/custom.sql", true);
+            this.ExecuteScript("custom/custom.sql");
 
             if (Config.IsDotNetNuke)
             {
                 // run dnn custom script...
-                this.ExecuteScript("custom/dnn.sql", true);
+                this.ExecuteScript("custom/dnn.sql");
             }
 
             return true;
@@ -332,7 +331,7 @@ namespace YAF.Core.Services
             //////
 
             // Run other
-            this.DbAccess.Information.InstallScripts.ForEach(script => this.ExecuteScript(script, true));
+            this.DbAccess.Information.InstallScripts.ForEach(this.ExecuteScript);
         }
 
         /// <summary>
@@ -340,7 +339,7 @@ namespace YAF.Core.Services
         /// </summary>
         private void ExecuteUpgradeScripts()
         {
-            this.DbAccess.Information.UpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
+            this.DbAccess.Information.UpgradeScripts.ForEach(this.ExecuteScript);
         }
 
         /// <summary>
@@ -348,7 +347,7 @@ namespace YAF.Core.Services
         /// </summary>
         private void ExecuteNewUpgradeScripts()
         {
-            this.DbAccess.Information.NewUpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
+            this.DbAccess.Information.NewUpgradeScripts.ForEach(this.ExecuteScript);
         }
 
         /// <summary>
@@ -448,10 +447,7 @@ namespace YAF.Core.Services
         /// <param name="scriptFile">
         /// The script file.
         /// </param>
-        /// <param name="useTransactions">
-        /// The use transactions.
-        /// </param>
-        private void ExecuteScript([NotNull] string scriptFile, bool useTransactions)
+        private void ExecuteScript([NotNull] string scriptFile)
         {
             string script;
             var fileName = this.Get<HttpRequestBase>().MapPath(scriptFile);
@@ -469,7 +465,7 @@ namespace YAF.Core.Services
                 throw new IOException($"Failed to read {fileName}", x);
             }
 
-            this.Get<IDbFunction>().SystemInitializeExecuteScripts(script, scriptFile, useTransactions);
+            this.Get<IDbFunction>().SystemInitializeExecuteScripts(script, scriptFile);
         }
 
         /// <summary>

@@ -3894,24 +3894,6 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel27;
 
         /// <summary>
-        /// HelpLabel150 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel150;
-
-        /// <summary>
-        /// EnableActiveLocationErrorsLog control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox EnableActiveLocationErrorsLog;
-
-        /// <summary>
         /// HelpLabel151 control.
         /// </summary>
         /// <remarks>

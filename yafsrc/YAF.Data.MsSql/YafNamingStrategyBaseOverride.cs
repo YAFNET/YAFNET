@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -81,6 +81,18 @@ namespace YAF.Data.MsSql
         }
 
         /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <returns>Returns the name of the table.</returns>
+        public string GetTableName(string name)
+        {
+            return $"{Config.DatabaseObjectQualifier}{name}";
+        }
+
+        /// <summary>
         /// Gets the name of the schema.
         /// </summary>
         /// <param name="name">The name.</param>
@@ -98,18 +110,6 @@ namespace YAF.Data.MsSql
         public string GetSchemaName(ModelDefinition modelDef)
         {
             return this.GetSchemaName(modelDef.Schema);
-        }
-
-        /// <summary>
-        /// Gets the name of the table.
-        /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <returns>Returns the name of the table.</returns>
-        public string GetTableName(string name)
-        {
-            return $"{Config.DatabaseObjectQualifier}{name}";
         }
 
         #endregion
