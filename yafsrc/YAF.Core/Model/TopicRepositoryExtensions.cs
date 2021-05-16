@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -673,10 +673,10 @@ namespace YAF.Core.Model
                                 t.Views,
                                 t.Posted,
                                 LastMessage = m.MessageText,
-                                LastUserName = lastUser.Name,
-                                LastUserDisplayName = lastUser.DisplayName,
-                                LastUserStyle = lastUser.UserStyle,
-                                LastUserSuspended = lastUser.Suspended,
+                                LastUserName = Sql.TableAlias(lastUser.Name, "lastUser"),
+                                LastUserDisplayName = Sql.TableAlias(lastUser.DisplayName, "lastUser"),
+                                LastUserStyle = Sql.TableAlias(lastUser.UserStyle, "lastUser"),
+                                LastUserSuspended = Sql.TableAlias(lastUser.Suspended, "lastUser"),
                                 LastForumAccess = Sql.Custom($"({forumReadTrackSql})"),
                                 LastTopicAccess = Sql.Custom($"({topicReadTrackSql})")
                             });
@@ -704,10 +704,10 @@ namespace YAF.Core.Model
                                 t.Views,
                                 t.Posted,
                                 LastMessage = m.MessageText,
-                                LastUserName = u.Name,
-                                LastUserDisplayName = u.DisplayName,
-                                LastUserStyle = lastUser.UserStyle,
-                                LastUserSuspended = lastUser.Suspended,
+                                LastUserName = Sql.TableAlias(lastUser.Name, "lastUser"),
+                                LastUserDisplayName = Sql.TableAlias(lastUser.DisplayName, "lastUser"),
+                                LastUserStyle = Sql.TableAlias(lastUser.UserStyle, "lastUser"),
+                                LastUserSuspended = Sql.TableAlias(lastUser.Suspended, "lastUser"),
                                 LastForumAccess = Sql.Custom("(NULL)"),
                                 LastTopicAccess = Sql.Custom("(NULL)")
                             });
