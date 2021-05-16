@@ -25,14 +25,11 @@
 namespace YAF.Configuration
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
     using System.Web;
 
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Objects;
 
     /// <summary>
@@ -77,41 +74,12 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets the Current YAF Application Version string
         /// </summary>
-        public static string AppVersionName => AppVersionNameFromCode(AppVersionCode);
+        public static string AppVersionName => AppVersionNameFromCode();
 
         /// <summary>
         /// Gets the Current YAF Database Version
         /// </summary>
         public static int AppVersion => 80;
-
-        /// <summary>
-        /// Gets the Current YAF Application Version
-        /// </summary>
-        public static byte[] AppVersionCode
-        {
-            get
-            {
-                const int Major = 3;
-                const byte Minor = 0;
-                const byte Build = 0;
-                const byte Sub = 0;
-
-                const ReleaseType ReleaseType = ReleaseType.BETA;
-                const byte ReleaseNumber = 1;
-
-                var list = new List<int>
-                               {
-                                   Major,
-                                   Minor,
-                                   Build,
-                                   Sub,
-                                   ReleaseType.ToType<int>(),
-                                   ReleaseNumber
-                               };
-
-                return list.SelectMany(BitConverter.GetBytes).ToArray();
-            }
-        }
 
         /// <summary>
         /// Gets the Current YAF Build Date
@@ -121,34 +89,23 @@ namespace YAF.Configuration
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value
         /// </summary>
-        /// <param name="code">
-        /// Value of Current Version
-        /// </param>
         /// <returns>
         /// Application Version String
         /// </returns>
-        public static string AppVersionNameFromCode(byte[] code)
+        public static string AppVersionNameFromCode()
         {
-            var originalList = code.ToListOf(BitConverter.ToInt32);
-
             var version = new YafVersion
-                              {
-                                  Major = originalList[0],
-                                  Minor = originalList[1],
-                                  Build = originalList[2],
-                                  Sub = originalList[3],
-                                  ReleaseType = originalList[4].ToEnum<ReleaseType>(),
-                                  ReleaseNumber = originalList[5]
-                              };
+            {
+                Major = 3,
+                Minor = 0,
+                Build = 0,
+                ReleaseType = ReleaseType.BETA,
+                ReleaseNumber = 1
+            };
 
             var versionString = new StringBuilder();
 
             versionString.AppendFormat("{0}.{1}.{2}", version.Major, version.Minor, version.Build);
-
-            if (version.Sub > 0)
-            {
-                versionString.AppendFormat(".{0}", version.Sub);
-            }
 
             if (version.ReleaseType == ReleaseType.Regular)
             {
@@ -189,7 +146,7 @@ namespace YAF.Configuration
         /// </returns>
         public static string GetURLToContentThemes([NotNull] string resourceName)
         {
-            CodeContracts.VerifyNotNull(resourceName, "resourceName");
+            CodeContracts.VerifyNotNull(resourceName);
 
             return $"{ForumClientFileRoot}Content/Themes/{resourceName}";
         }
@@ -203,7 +160,7 @@ namespace YAF.Configuration
         /// </returns>
         public static string GetURLToScripts([NotNull] string resourceName)
         {
-            CodeContracts.VerifyNotNull(resourceName, "resourceName");
+            CodeContracts.VerifyNotNull(resourceName);
 
             return $"{ForumClientFileRoot}Scripts/{resourceName}";
         }
