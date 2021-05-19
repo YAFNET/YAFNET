@@ -1,17 +1,17 @@
-<%@ Control Language="C#" AutoEventWireup="true"
-	Inherits="YAF.Controls.EditUsersSuspend" Codebehind="EditUsersSuspend.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true"
+    Inherits="YAF.Controls.EditUsersSuspend" Codebehind="EditUsersSuspend.ascx.cs" %>
 
 
 <h2 runat="server" id="trHeader">
-			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_USER" />
-		</h2>
+            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_USER" />
+        </h2>
 
     <asp:PlaceHolder runat="server" ID="SuspendedHolder">
         <div class="alert alert-warning" role="alert">
             <h4 class="alert-heading">
                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_CURRENT" />
             </h4>
-            <p><strong><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_REASON" /></strong> 
+            <p><strong><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_REASON" /></strong>
                 <asp:Label runat="server" ID="CurrentSuspendedReason" />
                 <strong><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_BY" /></strong>
                 <YAF:UserLink runat="server" ID="SuspendedBy" />
@@ -20,9 +20,9 @@
             </p>
             <hr/>
             <p class="mb-0">
-                <YAF:ThemeButton runat="server" ID="RemoveSuspension" 
-                                 Type="Danger" 
-                                 Size="Small" 
+                <YAF:ThemeButton runat="server" ID="RemoveSuspension"
+                                 Type="Danger"
+                                 Size="Small"
                                  OnClick="RemoveSuspension_Click"
                                  TextLocalizedTag="REMOVESUSPENSION"
                                  Icon="flag"/>
@@ -47,7 +47,7 @@
     <asp:TextBox runat="server" ID="SuspendCount" CssClass="form-control" TextMode="Number" />
     <div class="form-check form-check-inline mt-1">
         <asp:RadioButtonList
-            runat="server" ID="SuspendUnit" 
+            runat="server" ID="SuspendUnit"
             RepeatLayout="UnorderedList"
             CssClass="list-unstyled d-inline-flex mt-2" />
     </div>
@@ -57,7 +57,7 @@
 </YAF:Alert>
 
 <div class="text-center">
-    <YAF:ThemeButton runat="server" ID="Suspend" OnClick="Suspend_Click" 
+    <YAF:ThemeButton runat="server" ID="Suspend" OnClick="Suspend_Click"
                      Type="Primary"
                      Icon="flag"
                      TextLocalizedTag="SUSPEND"/>

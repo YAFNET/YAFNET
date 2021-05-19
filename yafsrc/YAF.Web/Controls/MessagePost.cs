@@ -39,8 +39,6 @@ namespace YAF.Web.Controls
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
 
-    using DateTime = System.DateTime;
-
     #endregion
 
     /// <summary>

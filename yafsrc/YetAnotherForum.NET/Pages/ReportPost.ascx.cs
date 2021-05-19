@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -40,8 +40,6 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Web.Extensions;
-
-    using DateTime = System.DateTime;
 
     #endregion
 
@@ -175,7 +173,7 @@ namespace YAF.Pages
                 return;
             }
 
-            // Checking if the user has a right to view the message and getting data  
+            // Checking if the user has a right to view the message and getting data
             if (this.Message != null)
             {
                 this.topicName = this.Message.Item1.TopicName;

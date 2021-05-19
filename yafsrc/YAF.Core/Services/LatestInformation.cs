@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -78,8 +78,8 @@ namespace YAF.Core.Services
                 var json = DynamicJson.Deserialize(test);
 
                 var tagName = (string)json.tag_name;
-                var date = System.DateTime.SpecifyKind(
-                    System.DateTime.Parse(json.published_at),
+                var date = DateTime.SpecifyKind(
+                    DateTime.Parse(json.published_at),
                     DateTimeKind.Unspecified);
 
                 version.UpgradeUrl = (string)json.assets[2].browser_download_url;

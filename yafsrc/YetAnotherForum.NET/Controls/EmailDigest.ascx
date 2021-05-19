@@ -6,7 +6,6 @@
 <%@ Import Namespace="YAF.Configuration" %>
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
-<%@ Import Namespace="YAF.Core.Utilities" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en">
@@ -23,7 +22,7 @@
           <YAF:LocalizedLabel runat="server" LocalizedTag="ACTIVETOPICS"></YAF:LocalizedLabel>
       </h4>
       <h5 class="text-muted text-center">
-          <%= this.Get<IDateTimeService>().FormatDateLong(System.DateTime.UtcNow) %>
+          <%= this.Get<IDateTimeService>().FormatDateLong(DateTime.UtcNow) %>
       </h5>
     </div>
   </div>

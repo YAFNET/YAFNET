@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -48,7 +48,6 @@ namespace YAF.Pages
     using YAF.Types.Models;
     using YAF.Web.Extensions;
 
-    using DateTime = System.DateTime;
     using ListItem = System.Web.UI.WebControls.ListItem;
 
     #endregion

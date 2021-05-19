@@ -51,7 +51,6 @@ namespace YAF.Controls
     using YAF.Web.Controls;
 
     using ButtonStyle = YAF.Types.Constants.ButtonStyle;
-    using DateTime = System.DateTime;
 
     #endregion
 

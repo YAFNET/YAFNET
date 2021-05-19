@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Mail" Codebehind="Mail.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Mail" Codebehind="Mail.ascx.cs" %>
 
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
@@ -10,27 +10,27 @@
                     <YAF:IconHeader runat="server"
                                     IconName="envelope"
                                     LocalizedPage="ADMIN_MAIL"></YAF:IconHeader>
-			     </div>
+                 </div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <asp:Label runat="server" 
+                        <asp:Label runat="server"
                                    AssociatedControlID="ToList">
-                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
                                                 LocalizedTag="MAIL_TO" LocalizedPage="ADMIN_MAIL" />
                         </asp:Label>
-                        <asp:DropDownList ID="ToList" runat="server" 
-                                          DataValueField="ID" 
-                                          DataTextField="Name" 
+                        <asp:DropDownList ID="ToList" runat="server"
+                                          DataValueField="ID"
+                                          DataTextField="Name"
                                           CssClass="select2-select">
                         </asp:DropDownList>
                     </div>
                     <div class="mb-3">
-                        <asp:Label runat="server" 
+                        <asp:Label runat="server"
                                    AssociatedControlID="Subject">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
                                                 LocalizedTag="MAIL_SUBJECT" LocalizedPage="ADMIN_MAIL" />
                         </asp:Label>
-                        <asp:TextBox ID="Subject" runat="server" 
+                        <asp:TextBox ID="Subject" runat="server"
                                      CssClass="form-control"
                                      required="required" />
                         <div class="invalid-feedback">
@@ -39,20 +39,20 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <asp:Label runat="server" 
+                        <asp:Label runat="server"
                                    AssociatedControlID="Body">
-                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server"
                                                 LocalizedTag="MAIL_MESSAGE" LocalizedPage="ADMIN_MAIL" />
                         </asp:Label>
-                        <asp:TextBox ID="Body" runat="server" 
-                                     TextMode="MultiLine" 
-                                     CssClass="form-control" 
+                        <asp:TextBox ID="Body" runat="server"
+                                     TextMode="MultiLine"
+                                     CssClass="form-control"
                                      Rows="16" />
                     </div>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton ID="Send" runat="server" 
-                                     OnClick="SendClick" 
+                    <YAF:ThemeButton ID="Send" runat="server"
+                                     OnClick="SendClick"
                                      CausesValidation="True"
                                      Type="Primary"
                                      Icon="paper-plane"
@@ -72,12 +72,12 @@
             <div class="card-body">
                 <div class="row">
                     <div class="mb-3 col-md-6">
-                        <YAF:HelpLabel runat="server" 
+                        <YAF:HelpLabel runat="server"
                                        LocalizedTag="FROM_MAIL"
                                        AssociatedControlID="TestFromEmail">
                         </YAF:HelpLabel>
                         <asp:TextBox ID="TestFromEmail" runat="server"
-                                     Placeholder="<%# YAF.App_GlobalResources.Install.FromEmail %>" 
+                                     Placeholder="<%# YAF.App_GlobalResources.Install.FromEmail %>"
                                      Type="Email"
                                      CssClass="form-control" />
                     </div>
@@ -86,29 +86,29 @@
                                        LocalizedTag="TO_MAIL"
                                        AssociatedControlID="TestToEmail">
                         </YAF:HelpLabel>
-                        <asp:TextBox ID="TestToEmail" runat="server" 
-                                     Placeholder="<%# YAF.App_GlobalResources.Install.ToEmail %>" 
+                        <asp:TextBox ID="TestToEmail" runat="server"
+                                     Placeholder="<%# YAF.App_GlobalResources.Install.ToEmail %>"
                                      CssClass="form-control" />
                     </div>
                 </div>
                 <div class="mb-3">
-                    <asp:Label runat="server" 
+                    <asp:Label runat="server"
                                AssociatedControlID="TestSubject">
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
                                             LocalizedTag="MAIL_SUBJECT" LocalizedPage="ADMIN_MAIL" />
                     </asp:Label>
-                    <asp:TextBox ID="TestSubject" runat="server" 
+                    <asp:TextBox ID="TestSubject" runat="server"
                                  CssClass="form-control"  />
                 </div>
                 <div class="mb-3">
-                    <asp:Label runat="server" 
+                    <asp:Label runat="server"
                                AssociatedControlID="TestBody">
-                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
+                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server"
                                             LocalizedTag="MAIL_MESSAGE" LocalizedPage="ADMIN_MAIL" />
                     </asp:Label>
-                    <asp:TextBox ID="TestBody" runat="server" 
-                                 TextMode="MultiLine" 
-                                 CssClass="form-control" 
+                    <asp:TextBox ID="TestBody" runat="server"
+                                 TextMode="MultiLine"
+                                 CssClass="form-control"
                                  Rows="16" />
                 </div>
             </div>

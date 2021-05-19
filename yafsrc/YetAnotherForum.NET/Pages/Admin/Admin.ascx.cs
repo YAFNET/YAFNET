@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -40,7 +40,6 @@ namespace YAF.Pages.Admin
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Utilities;
     using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -151,7 +150,7 @@ namespace YAF.Pages.Admin
 
                     if (!Config.IsAnyPortal)
                     {
-                        this.Get<IAspNetUsersHelper>().DeleteAllUnapproved(System.DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
+                        this.Get<IAspNetUsersHelper>().DeleteAllUnapproved(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
                     }
                     else
                     {
@@ -330,7 +329,7 @@ namespace YAF.Pages.Admin
                     () => this.Get<ILatestInformation>().GetLatestVersion(),
                     TimeSpan.FromDays(1));
 
-                var latestVersion = (System.DateTime)version.VersionDate;
+                var latestVersion = (DateTime)version.VersionDate;
 
                 if (latestVersion.ToUniversalTime() <= BoardInfo.AppVersionDate.ToUniversalTime())
                 {
@@ -403,17 +402,17 @@ namespace YAF.Pages.Admin
             this.NumTopics.Text = $"{(int)data.Topics:N0}";
             this.NumUsers.Text = $"{(int)data.Users:N0}";
 
-            var span = System.DateTime.UtcNow - (System.DateTime)data.BoardStart;
+            var span = DateTime.UtcNow - (DateTime)data.BoardStart;
             double days = span.Days;
 
             this.BoardStart.Text = this.Get<IDateTimeService>().FormatDateTimeTopic(
                 this.PageContext.BoardSettings.UseFarsiCalender
-                    ? PersianDateConverter.ToPersianDate((System.DateTime)data.BoardStart)
+                    ? PersianDateConverter.ToPersianDate((DateTime)data.BoardStart)
                     : data.BoardStart);
 
             this.BoardStartAgo.Text = new DisplayDateTime
             {
-                DateTime = (System.DateTime)data.BoardStart, Format = DateTimeFormat.BothTopic
+                DateTime = (DateTime)data.BoardStart, Format = DateTimeFormat.BothTopic
             }.RenderToString();
 
             if (days < 1)

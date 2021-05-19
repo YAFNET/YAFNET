@@ -39,7 +39,6 @@ namespace YAF.Controls
     using YAF.Core.Services;
     using YAF.Core.Services.Localization;
     using YAF.Core.Services.Startup;
-    using YAF.Core.Utilities;
     using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -96,8 +95,8 @@ namespace YAF.Controls
                 var topicsFlattened = this.forumData.SelectMany(x => x.Topics);
 
                 return topicsFlattened.Where(
-                    t => t.LastPostDate > System.DateTime.Now.AddHours(this.topicHours)
-                         && t.CreatedDate < System.DateTime.Now.AddHours(this.topicHours)).GroupBy(x => x.Forum);
+                    t => t.LastPostDate > DateTime.Now.AddHours(this.topicHours)
+                         && t.CreatedDate < DateTime.Now.AddHours(this.topicHours)).GroupBy(x => x.Forum);
             }
         }
 
@@ -130,7 +129,7 @@ namespace YAF.Controls
                 // flatten...
                 var topicsFlattened = this.forumData.SelectMany(x => x.Topics);
 
-                return topicsFlattened.Where(t => t.CreatedDate > System.DateTime.Now.AddHours(this.topicHours)).OrderByDescending(x => x.LastPostDate)
+                return topicsFlattened.Where(t => t.CreatedDate > DateTime.Now.AddHours(this.topicHours)).OrderByDescending(x => x.LastPostDate)
                     .GroupBy(x => x.Forum);
             }
         }
@@ -281,7 +280,7 @@ namespace YAF.Controls
             this.forumData = this.Get<DataBroker>().GetSimpleForumTopic(
                 this.BoardID,
                 this.CurrentUserID,
-                System.DateTime.Now.AddHours(this.topicHours),
+                DateTime.Now.AddHours(this.topicHours),
                 9999);
 
             if (!this.NewTopics.Any() && !this.ActiveTopics.Any())

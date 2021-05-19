@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
@@ -72,9 +73,9 @@ namespace YAF.Core.Services
                 return true;
             }
 
-            var reputationVoteDate = voteDateToCheck.ToType<System.DateTime>();
+            var reputationVoteDate = voteDateToCheck.ToType<DateTime>();
 
-            return reputationVoteDate < System.DateTime.UtcNow.AddHours(-24);
+            return reputationVoteDate < DateTime.UtcNow.AddHours(-24);
         }
 
         /// <summary>
@@ -96,10 +97,10 @@ namespace YAF.Core.Services
             var percentage = this.Get<IReputation>().ConvertPointsToPercentage(points);
 
             return $@"<div class=""progress"">
-                      <div class=""progress-bar progress-bar-striped{this.Get<IReputation>().GetReputationBarColor(percentage)}"" 
+                      <div class=""progress-bar progress-bar-striped{this.Get<IReputation>().GetReputationBarColor(percentage)}""
                            role=""progressbar""
-                           style=""width:{percentage.ToString(formatInfo)}%;"" 
-                           aria-valuenow=""{percentage.ToString(formatInfo)}"" 
+                           style=""width:{percentage.ToString(formatInfo)}%;""
+                           aria-valuenow=""{percentage.ToString(formatInfo)}""
                            aria-valuemax=""100"">
                       {percentage.ToString(formatInfo)}% ({this.GetReputationBarText(percentage)})
                       </div>

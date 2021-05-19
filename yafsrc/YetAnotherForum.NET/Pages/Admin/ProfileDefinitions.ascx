@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.ProfileDefinitions" Codebehind="ProfileDefinitions.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.ProfileDefinitions" Codebehind="ProfileDefinitions.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 
 
@@ -20,14 +20,14 @@
                 <ul class="list-group">
             </HeaderTemplate>
             <ItemTemplate>
-				<li class="list-group-item list-group-item-action list-group-item-menu">
+                <li class="list-group-item list-group-item-action list-group-item-menu">
                     <div class="d-flex w-100 justify-content-between">
-					<h5 class="mb-1">
+                    <h5 class="mb-1">
                         <%# this.Eval("Name") %>
                     </h5>
                         <small class="d-none d-md-block">
                             <span class="fw-bold">
-                                <YAF:LocalizedLabel runat="server" 
+                                <YAF:LocalizedLabel runat="server"
                                                     LocalizedTag="REQUIRED"></YAF:LocalizedLabel>
                             </span>
                             <span class='badge bg-<%# this.Eval("Required").ToType<bool>() ? "danger" : "secondary" %>'>
@@ -41,18 +41,18 @@
                     <small>
                         <div class="btn-group btn-group-sm">
                             <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
-                                             Type="Info" 
+                                             Type="Info"
                                              Size="Small"
-                                             CommandName="edit" 
+                                             CommandName="edit"
                                              CommandArgument='<%# this.Eval( "ID") %>'
                                              TitleLocalizedTag="EDIT"
                                              Icon="edit"
                                              TextLocalizedTag="EDIT">
                             </YAF:ThemeButton>
                             <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
-                                             Type="Danger" 
+                                             Type="Danger"
                                              Size="Small"
-                                             CommandName="delete" 
+                                             CommandName="delete"
                                              CommandArgument='<%# this.Eval( "ID") %>'
                                              TitleLocalizedTag="DELETE"
                                              Icon="trash"
@@ -60,12 +60,12 @@
                                              ReturnConfirmText='<%# this.GetText("ADMIN_PROFILEDEFINITIONS", "CONFIRM_DELETE") %>'>
                             </YAF:ThemeButton>
                         </div>
-                        
+
                         <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                             <YAF:ThemeButton ID="ThemeButton1" runat="server"
-                                             Type="None" 
+                                             Type="None"
                                              CssClass="dropdown-item"
-                                             CommandName="edit" 
+                                             CommandName="edit"
                                              CommandArgument='<%# this.Eval( "ID") %>'
                                              TitleLocalizedTag="EDIT"
                                              Icon="edit"
@@ -74,7 +74,7 @@
                             <YAF:ThemeButton ID="ThemeButton2" runat="server"
                                              Type="None"
                                              CssClass="dropdown-item"
-                                             CommandName="delete" 
+                                             CommandName="delete"
                                              CommandArgument='<%# this.Eval( "ID") %>'
                                              TitleLocalizedTag="DELETE"
                                              Icon="trash"
@@ -82,24 +82,24 @@
                                              ReturnConfirmText='<%# this.GetText("ADMIN_PROFILEDEFINITIONS", "CONFIRM_DELETE") %>'>
                             </YAF:ThemeButton>
                             <div class="dropdown-divider"></div>
-                            <YAF:ThemeButton ID="New" runat="server" 
+                            <YAF:ThemeButton ID="New" runat="server"
                                              CommandName="new"
-                                             Type="None" 
+                                             Type="None"
                                              CssClass="dropdown-item"
-                                             Icon="plus-square" 
+                                             Icon="plus-square"
                                              TextLocalizedTag="NEW_DEF" />
                         </div>
                     </small>
                 </li>
-			</ItemTemplate>
+            </ItemTemplate>
             <FooterTemplate>
                 </ul>
             </div>
             <div class="card-footer text-center">
-                <YAF:ThemeButton ID="New" runat="server" 
+                <YAF:ThemeButton ID="New" runat="server"
                                  CommandName="new"
-                                 Type="Primary" 
-                                 Icon="plus-square" 
+                                 Type="Primary"
+                                 Icon="plus-square"
                                  TextLocalizedTag="NEW_DEF" />
                     </div>
                 </div>

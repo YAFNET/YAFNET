@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -23,6 +23,7 @@
  */
 namespace YAF.Core.Services
 {
+    using System;
     using System.Web;
 
     using YAF.Core.Context;
@@ -93,7 +94,7 @@ namespace YAF.Core.Services
                 // create persistent cookie with visibility setting for panel
                 var c = new HttpCookie(sessionPanelID, ((int)value).ToString())
                 {
-                    Expires = System.DateTime.UtcNow.AddYears(1), HttpOnly = true,
+                    Expires = DateTime.UtcNow.AddYears(1), HttpOnly = true,
                     Secure = BoardContext.Current.Get<HttpRequestBase>().IsSecureConnection
                 };
 

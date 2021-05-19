@@ -12,7 +12,7 @@
                                     LocalizedPage="ADMIN_MEDALS"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
-                    <asp:Repeater ID="MedalList" 
+                    <asp:Repeater ID="MedalList"
                                   OnItemCommand="MedalListItemCommand" runat="server">
                         <HeaderTemplate>
                             <ul class="list-group">
@@ -26,8 +26,8 @@
                                  </h5>
                                  <small class="d-none d-md-block">
                                      <span class="fw-bold">
-                                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
-                                                             LocalizedTag="CATEGORY" 
+                                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
+                                                             LocalizedTag="CATEGORY"
                                                              LocalizedPage="MODERATE_DEFAULT" />:
                                      </span>
                                      <%# this.Eval("Category") %>
@@ -35,27 +35,27 @@
                              </div>
                                 <p class="mb-1">
                                 <span class="fw-bold">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
-                                                        LocalizedTag="DESCRIPTION" 
+                                    <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server"
+                                                        LocalizedTag="DESCRIPTION"
                                                         LocalizedPage="ADMIN_BBCODE" />:
                                 </span>
                                 <%# this.Eval("Description") %>
                             </p>
                             <small>
                                 <div class="btn-group btn-group-sm">
-                                    <YAF:ThemeButton ID="ThemeButtonEdit" 
-                                                     Type="Info" 
+                                    <YAF:ThemeButton ID="ThemeButtonEdit"
+                                                     Type="Info"
                                                      Size="Small"
-                                                     CommandName="edit" 
+                                                     CommandName="edit"
                                                      CommandArgument='<%# this.Eval( "ID") %>'
                                                      TitleLocalizedTag="EDIT"
                                                      Icon="edit"
                                                      TextLocalizedTag="EDIT"
                                                      runat="server" />
-                                    <YAF:ThemeButton ID="ThemeButtonDelete" 
-                                                     Type="Danger" 
+                                    <YAF:ThemeButton ID="ThemeButtonDelete"
+                                                     Type="Danger"
                                                      Size="Small"
-                                                     CommandName="delete" 
+                                                     CommandName="delete"
                                                      CommandArgument='<%# this.Eval( "ID") %>'
                                                      TitleLocalizedTag="DELETE"
                                                      Icon="trash"
@@ -65,20 +65,20 @@
                                 </div>
                             </small>
                                 <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                                    <YAF:ThemeButton ID="ThemeButton1" 
-                                                     Type="None" 
+                                    <YAF:ThemeButton ID="ThemeButton1"
+                                                     Type="None"
                                                      CssClass="dropdown-item"
-                                                 CommandName="edit" 
+                                                 CommandName="edit"
                                                  CommandArgument='<%# this.Eval( "ID") %>'
                                                  TitleLocalizedTag="EDIT"
                                                  Icon="edit"
                                                  TextLocalizedTag="EDIT"
                                                  runat="server">
                                 </YAF:ThemeButton>
-                                    <YAF:ThemeButton ID="ThemeButton4" 
-                                                     Type="None" 
+                                    <YAF:ThemeButton ID="ThemeButton4"
+                                                     Type="None"
                                                      CssClass="dropdown-item"
-                                                     CommandName="delete" 
+                                                     CommandName="delete"
                                                      CommandArgument='<%# this.Eval( "ID") %>'
                                                      TitleLocalizedTag="DELETE"
                                                      Icon="trash"
@@ -87,25 +87,25 @@
                                                      runat="server">
                                     </YAF:ThemeButton>
                                     <div class="dropdown-divider"></div>
-                                    <YAF:ThemeButton ID="NewMedal" runat="server" 
-                                                     OnClick="NewMedalClick" 
-                                                     Type="None" 
+                                    <YAF:ThemeButton ID="NewMedal" runat="server"
+                                                     OnClick="NewMedalClick"
+                                                     Type="None"
                                                      CssClass="dropdown-item"
-                                                     Icon="plus-square" 
+                                                     Icon="plus-square"
                                                      TextLocalizedTag="NEW_MEDAL" />
                                 </div>
                             </li>
-			            </ItemTemplate>
+                        </ItemTemplate>
                         <FooterTemplate>
                             </ul>
                         </FooterTemplate>
                     </asp:Repeater>
                 </div>
                 <div class="card-footer text-center">
-				    <YAF:ThemeButton ID="NewMedal" runat="server" 
-                                     OnClick="NewMedalClick" 
+                    <YAF:ThemeButton ID="NewMedal" runat="server"
+                                     OnClick="NewMedalClick"
                                      Type="Primary"
-				                     Icon="plus-square" 
+                                     Icon="plus-square"
                                      TextLocalizedTag="NEW_MEDAL" />
                 </div>
             </div>

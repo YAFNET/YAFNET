@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -43,7 +43,6 @@ namespace YAF.Pages.Account
     using YAF.Web.Extensions;
 
     using Config = YAF.Configuration.Config;
-    using DateTime = System.DateTime;
 
     #endregion
 
@@ -79,10 +78,10 @@ namespace YAF.Pages.Account
         /// The page_ load.
         /// </summary>
         /// <param name="sender">
-        /// The sender. 
+        /// The sender.
         /// </param>
         /// <param name="e">
-        /// The e. 
+        /// The e.
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
@@ -129,10 +128,10 @@ namespace YAF.Pages.Account
         /// Called when Password Recovery is Clicked
         /// </summary>
         /// <param name="sender">
-        /// standard event object sender 
+        /// standard event object sender
         /// </param>
         /// <param name="e">
-        /// event args 
+        /// event args
         /// </param>
         protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
         {

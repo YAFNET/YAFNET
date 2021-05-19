@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -45,7 +45,6 @@ namespace YAF.Controls
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
 
-    using DateTime = System.DateTime;
     using ListItem = System.Web.UI.WebControls.ListItem;
 
     #endregion
@@ -312,7 +311,7 @@ namespace YAF.Controls
             this.IPAddresses.Take(5).ForEach(
                 ipAddress => this.IpAddresses.Text +=
                                  $@"<a href=""{string.Format(this.PageContext.BoardSettings.IPInfoPageURL, ipAddress)}""
-                                       target=""_blank"" 
+                                       target=""_blank""
                                        title=""{this.GetText("COMMON", "TT_IPDETAILS")}"">
                                        {ipAddress}
                                     </a>

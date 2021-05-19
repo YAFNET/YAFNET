@@ -6,7 +6,6 @@
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Core.Services" %>
-<%@ Import Namespace="YAF.Core.Utilities" %>
 <%@ Import Namespace="YAF.Configuration" %>
 
 <section class="text-center container">
@@ -21,7 +20,7 @@
                 <asp:Label ID="albumsInfo" Visible="false" runat="server"></asp:Label>
             </p>
             <p>
-                <YAF:ThemeButton ID="AddAlbum" runat="server" 
+                <YAF:ThemeButton ID="AddAlbum" runat="server"
                                  Visible="false" OnClick="AddAlbum_Click"
                                  Type="Primary"
                                  Icon="images"
@@ -33,7 +32,7 @@
 
 <div class="bg-light">
     <div class="container">
-        <asp:Repeater runat="server" ID="Albums" 
+        <asp:Repeater runat="server" ID="Albums"
                       OnItemCommand="Albums_ItemCommand">
             <HeaderTemplate>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -46,9 +45,9 @@
                     <div class="card mb-4 shadow-sm">
                         <a href='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Album, "u={0}&a={1}", this.Eval("UserID"), this.Eval("ID")) %>'
                            target="_parent" title='<%# this.HtmlEncode(this.Eval("Title"))%>' data-bs-toggle="tooltip">
-                            <asp:Image runat="server" ID="coverImage" 
+                            <asp:Image runat="server" ID="coverImage"
                                        ImageUrl='<%# "{0}resource.ashx?album={1}&cover={2}".Fmt(BoardInfo.ForumClientFileRoot, this.Eval("ID"), this.Eval("CoverImageID").ToType<int?>().HasValue ? this.Eval("CoverImageID") : "0") %>'
-                                       ToolTip='<%# this.HtmlEncode(this.Eval("Title")) %>' 
+                                       ToolTip='<%# this.HtmlEncode(this.Eval("Title")) %>'
                                        AlternateText='<%# this.Eval("ID") %>'
                                        CssClass="card-img-top"/>
                         </a>
@@ -66,7 +65,7 @@
                                     <YAF:ThemeButton ID="Edit" runat="server"
                                                      TextLocalizedTag="EDIT"
                                                      TextLocalizedPage="BUTTON"
-                                                     Visible="<%# this.User.ID == this.PageContext.PageUserID %>" runat="server" 
+                                                     Visible="<%# this.User.ID == this.PageContext.PageUserID %>" runat="server"
                                                      CommandName="edit"
                                                      CommandArgument='<%# this.Eval("ID") %>'
                                                      Size="Small"
@@ -80,7 +79,7 @@
         </asp:Repeater>
     <div class="row justify-content-end">
         <div class="col-auto">
-            <YAF:Pager runat="server" ID="PagerTop" 
+            <YAF:Pager runat="server" ID="PagerTop"
                        OnPageChange="Pager_PageChange" />
         </div>
     </div>

@@ -13,34 +13,34 @@
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <YAF:HelpLabel ID="HelpLabel11" runat="server" 
+                        <YAF:HelpLabel ID="HelpLabel11" runat="server"
                                        AssociatedControlID="MoveTopics"
                                        LocalizedTag="MOVE_TOPICS" LocalizedPage="ADMIN_DELETEFORUM" />
                         <div class="form-check form-switch">
-                            <asp:CheckBox ID="MoveTopics" runat="server" 
-                                          AutoPostBack="True" 
+                            <asp:CheckBox ID="MoveTopics" runat="server"
+                                          AutoPostBack="True"
                                           Text="&nbsp;"></asp:CheckBox>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <YAF:HelpLabel ID="HelpLabel2" runat="server" 
+                        <YAF:HelpLabel ID="HelpLabel2" runat="server"
                                        AssociatedControlID="ForumList"
                                        LocalizedTag="NEW_FORUM" LocalizedPage="ADMIN_DELETEFORUM" />
-                        <asp:DropDownList ID="ForumList" runat="server" 
-                                          Enabled="false" 
+                        <asp:DropDownList ID="ForumList" runat="server"
+                                          Enabled="false"
                                           CssClass="select2-image-select">
                         </asp:DropDownList>
                     </div>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton ID="Delete" runat="server" 
+                    <YAF:ThemeButton ID="Delete" runat="server"
                                      CssClass="btn btn-danger"
-                                     Icon="trash" 
+                                     Icon="trash"
                                      TextLocalizedTag="DELETE_FORUM" TextLocalizedPage="ADMIN_DELETEFORUM">
                     </YAF:ThemeButton>
-                    <YAF:ThemeButton ID="Cancel" runat="server" 
+                    <YAF:ThemeButton ID="Cancel" runat="server"
                                      Type="Secondary"
-                                     Icon="times" 
+                                     Icon="times"
                                      TextLocalizedTag="CANCEL"></YAF:ThemeButton>
                 </div>
             </div>
@@ -49,16 +49,16 @@
 
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-	<ContentTemplate>
-		<asp:Timer ID="UpdateStatusTimer" runat="server" Enabled="false" Interval="4000" OnTick="UpdateStatusTimerTick" />
-	</ContentTemplate>
+    <ContentTemplate>
+        <asp:Timer ID="UpdateStatusTimer" runat="server" Enabled="false" Interval="4000" OnTick="UpdateStatusTimerTick" />
+    </ContentTemplate>
 </asp:UpdatePanel>
 
 <div>
-	<div id="DeleteForumMessage" style="display:none">
-		<div class="card link-light text-center bg-danger mb-3">
-		    <div class="card-body">
-		        <blockquote class="blockquote">
+    <div id="DeleteForumMessage" style="display:none">
+        <div class="card link-light text-center bg-danger mb-3">
+            <div class="card-body">
+                <blockquote class="blockquote">
                     <p>
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE_TITLE" LocalizedPage="ADMIN_DELETEFORUM" />
                     </p>

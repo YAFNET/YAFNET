@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.EditMedal" Codebehind="EditMedal.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.EditMedal" Codebehind="EditMedal.ascx.cs" %>
 
 <%@ Register TagPrefix="modal" TagName="GroupEdit" Src="../../Dialogs/GroupMedalEdit.ascx" %>
 <%@ Register TagPrefix="modal" TagName="UserEdit" Src="../../Dialogs/UserMedalEdit.ascx" %>
@@ -20,11 +20,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="mb-3 col-md-6">
-                            <YAF:HelpLabel ID="HelpLabel1" runat="server" 
+                            <YAF:HelpLabel ID="HelpLabel1" runat="server"
                                            AssociatedControlID="Name"
                                            LocalizedTag="MEDAL_NAME" LocalizedPage="ADMIN_EDITMEDAL" />
-                            <asp:TextBox ID="Name" runat="server" 
-                                         MaxLength="100" 
+                            <asp:TextBox ID="Name" runat="server"
+                                         MaxLength="100"
                                          CssClass="form-control"
                                          required="required" />
                             <div class="invalid-feedback">
@@ -40,13 +40,13 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <YAF:HelpLabel ID="HelpLabel2" runat="server" 
-                                       AssociatedControlID="Description" 
+                        <YAF:HelpLabel ID="HelpLabel2" runat="server"
+                                       AssociatedControlID="Description"
                                        LocalizedTag="MEDAL_DESC" LocalizedPage="ADMIN_EDITMEDAL" />
-		     
-			 
+
+
                         <asp:TextBox ID="Description" runat="server"
-                                     TextMode="MultiLine" 
+                                     TextMode="MultiLine"
                                      CssClass="form-control"
                                      Height="100" />
                     </div>
@@ -55,15 +55,15 @@
                             <YAF:HelpLabel ID="HelpLabel3" runat="server"
                                            AssociatedControlID="Message"
                                            LocalizedTag="MEDAL_MESSAGE" LocalizedPage="ADMIN_EDITMEDAL" />
-                            <asp:TextBox  ID="Message" runat="server" 
-                                          MaxLength="100" 
+                            <asp:TextBox  ID="Message" runat="server"
+                                          MaxLength="100"
                                           CssClass="form-control" />
                         </div>
                         <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel10" runat="server"
                                            AssociatedControlID="ShowMessage"
                                            LocalizedTag="SHOW_MESSAGE" LocalizedPage="ADMIN_EDITMEDAL" />
-             
+
                             <div class="form-check form-switch">
                                 <asp:CheckBox ID="ShowMessage" runat="server" Checked="true" Text="&nbsp;" />
                             </div>
@@ -99,10 +99,10 @@
                                            AssociatedControlID="AllowRibbon"
                                            LocalizedTag="ALLOW_RIBBON" LocalizedPage="ADMIN_EDITMEDAL" />
                             <div class="form-check form-switch">
-                                <asp:CheckBox ID="AllowRibbon" runat="server" 
-                                              Checked="true" 
+                                <asp:CheckBox ID="AllowRibbon" runat="server"
+                                              Checked="true"
                                               Text="&nbsp;" />
-                            </div> 
+                            </div>
                         </div>
                         <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel12" runat="server"
@@ -110,24 +110,24 @@
                                            LocalizedTag="ALLOW_HIDING" LocalizedPage="ADMIN_EDITMEDAL" />
                             <div class="form-check form-switch">
                                 <asp:CheckBox ID="AllowHiding" runat="server"
-                                              Checked="true" 
+                                              Checked="true"
                                               Text="&nbsp;" />
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton ID="Save" runat="server" 
+                    <YAF:ThemeButton ID="Save" runat="server"
                                      CssClass="me-2"
-                                     OnClick="SaveClick" 
+                                     OnClick="SaveClick"
                                      CausesValidation="True"
-                                     Type="Primary" 
-                                     Icon="save" 
+                                     Type="Primary"
+                                     Icon="save"
                                      TextLocalizedTag="SAVE" />
-                    <YAF:ThemeButton ID="Cancel" runat="server" 
-                                     OnClick="CancelClick" 
+                    <YAF:ThemeButton ID="Cancel" runat="server"
+                                     OnClick="CancelClick"
                                      Type="Secondary"
-                                     Icon="times" 
+                                     Icon="times"
                                      TextLocalizedTag="CANCEL" />
                 </div>
             </div>
@@ -140,15 +140,15 @@
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
                                     IconName="medal"
-                                    LocalizedTag="HEADER2" 
+                                    LocalizedTag="HEADER2"
                                     LocalizedPage="ADMIN_EDITMEDAL"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
-		<asp:Repeater ID="GroupList" runat="server" OnItemCommand="GroupListItemCommand">
-			<HeaderTemplate>
+        <asp:Repeater ID="GroupList" runat="server" OnItemCommand="GroupListItemCommand">
+            <HeaderTemplate>
                 <ul class="list-group">
             </HeaderTemplate>
-			<ItemTemplate>
+            <ItemTemplate>
                 <li class="list-group-item list-group-item-action list-group-item-menu">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1 text-break">
@@ -158,8 +158,8 @@
                 </div>
                 <p class="mb-1">
                     <span class="fw-bold">
-                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
-                                            LocalizedTag="MESSAGE" 
+                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
+                                            LocalizedTag="MESSAGE"
                                             LocalizedPage="COMMON" />
                     </span>
                     <%# this.Eval("Item2.Message").ToString().IsSet() ? this.Eval("Item2.Message") :  this.Eval("Item1.Message")%>
@@ -167,18 +167,18 @@
                 <small>
                     <div class="btn-group btn-group-sm">
                         <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
-                                         Type="Info" 
+                                         Type="Info"
                                          Size="Small"
-                                         CommandName="edit" 
+                                         CommandName="edit"
                                          CommandArgument='<%# this.Eval( "Item2.GroupID") %>'
                                          TitleLocalizedTag="EDIT"
                                          Icon="edit"
                                          TextLocalizedTag="EDIT">
                         </YAF:ThemeButton>
-                        <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
-                                         Type="Danger" 
+                        <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
+                                         Type="Danger"
                                          Size="Small"
-                                         CommandName="delete" 
+                                         CommandName="delete"
                                          CommandArgument='<%# this.Eval( "Item2.GroupID") %>'
                                          TitleLocalizedTag="REMOVE"
                                          Icon="trash"
@@ -189,18 +189,18 @@
                 </small>
                     <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                         <YAF:ThemeButton ID="ThemeButton1" runat="server"
-                                         Type="None" 
+                                         Type="None"
                                          CssClass="dropdown-item"
-                                         CommandName="edit" 
+                                         CommandName="edit"
                                          CommandArgument='<%# this.Eval( "Item2.GroupID") %>'
                                          TitleLocalizedTag="EDIT"
                                          Icon="edit"
                                          TextLocalizedTag="EDIT">
                         </YAF:ThemeButton>
-                        <YAF:ThemeButton ID="ThemeButton2" runat="server" 
-                                         Type="None" 
+                        <YAF:ThemeButton ID="ThemeButton2" runat="server"
+                                         Type="None"
                                          CssClass="dropdown-item"
-                                         CommandName="delete" 
+                                         CommandName="delete"
                                          CommandArgument='<%# this.Eval( "Item2.GroupID") %>'
                                          TitleLocalizedTag="REMOVE"
                                          Icon="trash"
@@ -208,31 +208,31 @@
                                          ReturnConfirmText='<%# this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_USER") %>'>
                         </YAF:ThemeButton>
                         <div class="dropdown-divider"></div>
-                        <YAF:ThemeButton runat="server" 
-                                         OnClick="AddGroupClick" 
-                                         ID="AddGroup" 
-                                         Type="None" 
+                        <YAF:ThemeButton runat="server"
+                                         OnClick="AddGroupClick"
+                                         ID="AddGroup"
+                                         Type="None"
                                          CssClass="dropdown-item"
-                                         Icon="plus-square" 
+                                         Icon="plus-square"
                                          TextLocalizedTag="ADD_GROUP">
                         </YAF:ThemeButton>
                     </div>
             </li>
-			</ItemTemplate>
+            </ItemTemplate>
             <FooterTemplate>
                 </ul>
             </FooterTemplate>
-		</asp:Repeater>
+        </asp:Repeater>
                 </div>
                 <div class="card-footer text-center">
-				   <YAF:ThemeButton runat="server" 
-                                    OnClick="AddGroupClick" 
-                                    ID="AddGroup" 
+                   <YAF:ThemeButton runat="server"
+                                    OnClick="AddGroupClick"
+                                    ID="AddGroup"
                                     Type="Primary"
-                                    Icon="plus-square" 
+                                    Icon="plus-square"
                                     TextLocalizedTag="ADD_GROUP">
                    </YAF:ThemeButton>
-			    </div>
+                </div>
             </div>
         </div>
 </div>
@@ -242,15 +242,15 @@
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
                                     IconName="medal"
-                                    LocalizedTag="HEADER3" 
+                                    LocalizedTag="HEADER3"
                                     LocalizedPage="ADMIN_EDITMEDAL"></YAF:IconHeader>
                     </div>
                 <div class="card-body">
         <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserListItemCommand">
-			<HeaderTemplate>
+            <HeaderTemplate>
                 <ul class="list-group">
-			</HeaderTemplate>
-			<ItemTemplate>
+            </HeaderTemplate>
+            <ItemTemplate>
                 <li class="list-group-item list-group-item-action list-group-item-menu">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1 text-break">
@@ -258,8 +258,8 @@
                     </h5>
                     <small class="d-none d-md-block">
                         <span class="fw-bold">
-                            <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
-                                                LocalizedTag="DATE_AWARDED" 
+                            <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server"
+                                                LocalizedTag="DATE_AWARDED"
                                                 LocalizedPage="ADMIN_EDITMEDAL" />:
                         </span>
                         <%# this.Get<IDateTimeService>().FormatDateTimeTopic((DateTime)this.Eval("Item2.DateAwarded")) %>
@@ -267,75 +267,75 @@
                 </div>
                 <p class="mb-1">
                     <span class="fw-bold">
-                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
-                                            LocalizedTag="MESSAGE" 
+                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server"
+                                            LocalizedTag="MESSAGE"
                                             LocalizedPage="COMMON" />
                     </span>
                     <%# this.Eval("Item2.Message").ToString().IsSet() ? this.Eval("Item2.Message") :  this.Eval("Item1.Message")%>
                 </p>
                 <small>
                     <div class="btn-group btn-group-sm">
-                        <YAF:ThemeButton runat="server" 
-                                         CommandName="edit" 
-                                         CommandArgument='<%# this.Eval("Item2.UserID") %>' 
+                        <YAF:ThemeButton runat="server"
+                                         CommandName="edit"
+                                         CommandArgument='<%# this.Eval("Item2.UserID") %>'
                                          TextLocalizedTag="EDIT"
-                                         Type="Info" 
+                                         Type="Info"
                                          Size="Small"
                                          Icon="edit">
                         </YAF:ThemeButton>
-                        <YAF:ThemeButton runat="server" 
-                                         CommandName="remove" 
-                                         CommandArgument='<%# this.Eval("Item2.UserID") %>' 
+                        <YAF:ThemeButton runat="server"
+                                         CommandName="remove"
+                                         CommandArgument='<%# this.Eval("Item2.UserID") %>'
                                          TextLocalizedTag="REMOVE"
-                                         Type="Danger" 
+                                         Type="Danger"
                                          Size="Small"
                                          Icon="trash">
                         </YAF:ThemeButton>
                     </div>
                 </small>
                     <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                        <YAF:ThemeButton runat="server" 
-                                         CommandName="edit" 
-                                         CommandArgument='<%# this.Eval("Item2.UserID") %>' 
+                        <YAF:ThemeButton runat="server"
+                                         CommandName="edit"
+                                         CommandArgument='<%# this.Eval("Item2.UserID") %>'
                                          TextLocalizedTag="EDIT"
-                                         Type="None" 
+                                         Type="None"
                                          CssClass="dropdown-item"
                                          Icon="edit">
                         </YAF:ThemeButton>
-                        <YAF:ThemeButton runat="server" 
-                                         CommandName="remove" 
-                                         CommandArgument='<%# this.Eval("Item2.UserID") %>' 
+                        <YAF:ThemeButton runat="server"
+                                         CommandName="remove"
+                                         CommandArgument='<%# this.Eval("Item2.UserID") %>'
                                          TextLocalizedTag="REMOVE"
-                                         Type="None" 
+                                         Type="None"
                                          CssClass="dropdown-item"
                                          Icon="trash">
                         </YAF:ThemeButton>
                         <div class="dropdown-divider"></div>
-                        <YAF:ThemeButton runat="server" 
-                                         OnClick="AddUserClick" 
-                                         ID="AddUser" 
-                                         Type="None" 
+                        <YAF:ThemeButton runat="server"
+                                         OnClick="AddUserClick"
+                                         ID="AddUser"
+                                         Type="None"
                                          CssClass="dropdown-item"
-                                         Icon="plus-square" 
+                                         Icon="plus-square"
                                          TextLocalizedTag="ADD_USER">
                         </YAF:ThemeButton>
                     </div>
             </li>
-			</ItemTemplate>
+            </ItemTemplate>
             <FooterTemplate>
                 </ul>
             </FooterTemplate>
-		</asp:Repeater>
+        </asp:Repeater>
                 </div>
                 <div class="card-footer text-center">
-				   <YAF:ThemeButton runat="server" 
-                                    OnClick="AddUserClick" 
-                                    ID="AddUser" 
+                   <YAF:ThemeButton runat="server"
+                                    OnClick="AddUserClick"
+                                    ID="AddUser"
                                     Type="Primary"
-				                    Icon="plus-square" 
+                                    Icon="plus-square"
                                     TextLocalizedTag="ADD_USER">
                    </YAF:ThemeButton>
-			    </div>
+                </div>
              </div>
         </div>
     </div>

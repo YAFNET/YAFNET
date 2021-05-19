@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
-	Inherits="YAF.Pages.Account.ForgotPassword" Codebehind="ForgotPassword.ascx.cs" %>
+    Inherits="YAF.Pages.Account.ForgotPassword" Codebehind="ForgotPassword.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -8,14 +8,14 @@
         <div class="card w-25 mx-auto">
             <div class="card-body">
                 <h5 class="card-title">
-                    <YAF:LocalizedLabel runat="server" 
+                    <YAF:LocalizedLabel runat="server"
                                         LocalizedTag="PAGE1_INSTRUCTIONS"/>
                 </h5>
                 <div class="mb-3">
-                    <asp:Label ID="UserNameLabel" runat="server" 
+                    <asp:Label ID="UserNameLabel" runat="server"
                                AssociatedControlID="UserName">
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
-                                            LocalizedPage="LOGIN" 
+                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
+                                            LocalizedPage="LOGIN"
                                             LocalizedTag="USERNAME" />
                     </asp:Label>
                     <asp:TextBox runat="server" ID="UserName"
@@ -30,7 +30,7 @@
                     <YAF:ThemeButton runat="server" ID="Forgot"
                                      CausesValidation="True"
                                      TextLocalizedTag="SUBMIT"
-                                     OnClick="ForgotPasswordClick"/> 
+                                     OnClick="ForgotPasswordClick"/>
                 </div>
             </div>
         </div>

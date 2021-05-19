@@ -39,7 +39,7 @@ namespace YAF.Core.Services
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.Syndication;
+    using YAF.Core.Services.Syndication;
     using YAF.Core.Utilities.Helpers;
     using YAF.Core.Utilities.Helpers.StringUtils;
     using YAF.Types;

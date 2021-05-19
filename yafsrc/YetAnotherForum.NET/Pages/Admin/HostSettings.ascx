@@ -20,11 +20,11 @@
             <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server"
                                 LocalizedTag="HEADER_SETUP" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-		<a href="#View2" class="nav-link" data-bs-toggle="pill" role="tab">
+        <a href="#View2" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server"
                                 LocalizedTag="HOST_FEATURES" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-		<a href="#View3" class="nav-link" data-bs-toggle="pill" role="tab">
+        <a href="#View3" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server"
                                 LocalizedTag="HOST_DISPLAY" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
@@ -68,11 +68,11 @@
             <YAF:LocalizedLabel ID="LocalizedLabel36" runat="server"
                                 LocalizedTag="HEADER_SETUP" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-		<a href="#View2" class="nav-link" data-bs-toggle="pill" role="tab">
+        <a href="#View2" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel45" runat="server"
                                 LocalizedTag="HOST_FEATURES" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-		<a href="#View3" class="nav-link" data-bs-toggle="pill" role="tab">
+        <a href="#View3" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel46" runat="server"
                                 LocalizedTag="HOST_DISPLAY" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
@@ -1953,9 +1953,7 @@
                                    <asp:CheckBox Text="&nbsp;" ID="LogError" runat="server"></asp:CheckBox>
                                </div>
                            </div>
-                    </div>
-                    <div class="row">
-                           <div class="mb-3 col-md-6">
+                <div class="mb-3 col-md-6">
                                <YAF:HelpLabel ID="HelpLabel142" runat="server"
                                               LocalizedTag="LOG_WARNING" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                <div class="form-check form-switch">

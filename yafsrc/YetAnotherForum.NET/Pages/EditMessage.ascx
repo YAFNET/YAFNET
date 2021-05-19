@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.EditMessage" CodeBehind="EditMessage.ascx.cs" %>
-<%@ Import Namespace="YAF.Core.Utilities" %>
 <%@ Import Namespace="YAF.Configuration" %>
 
 <%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../controls/LastPosts.ascx" %>
@@ -95,7 +94,7 @@
                         <asp:Label runat="server" AssociatedControlID="Tags">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="TAGS" />
                         </asp:Label>
-                        <asp:TextBox runat="server" ID="Tags" 
+                        <asp:TextBox runat="server" ID="Tags"
                                      CssClass="form-control">
                         </asp:TextBox>
                     </div>
@@ -121,7 +120,7 @@
                 <asp:PlaceHolder ID="tr_captcha2" runat="server" Visible="false">
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="tbCaptcha">
-                            <YAF:LocalizedLabel runat="server" 
+                            <YAF:LocalizedLabel runat="server"
                                                 LocalizedTag="Captcha_Enter" />
                         </asp:Label>
                         <asp:TextBox ID="tbCaptcha" runat="server" CssClass="form-control" />
@@ -130,7 +129,7 @@
                 <asp:PlaceHolder ID="EditReasonRow" runat="server">
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="ReasonEditor">
-                            <YAF:LocalizedLabel runat="server" 
+                            <YAF:LocalizedLabel runat="server"
                                                 LocalizedTag="EditReason" />
                         </asp:Label>
                         <asp:TextBox ID="ReasonEditor" runat="server" CssClass="form-control" />
@@ -142,19 +141,19 @@
                                  CssClass="mt-1"
                                  OnClick="Preview_Click"
                                  TextLocalizedTag="PREVIEW" TitleLocalizedTag="PREVIEW_TITLE"
-                                 Type="Secondary" 
+                                 Type="Secondary"
                                  Icon="image" />
                 <YAF:ThemeButton ID="PostReply" runat="server"
                                  CssClass="mt-1"
                                  OnClick="PostReply_Click"
                                  TextLocalizedTag="SAVE" TitleLocalizedTag="SAVE_TITLE"
-                                 Type="Primary" 
+                                 Type="Primary"
                                  Icon="save" />
                 <YAF:ThemeButton ID="Cancel" runat="server"
                                  CssClass="mt-1"
                                  OnClick="Cancel_Click"
                                  TextLocalizedTag="CANCEL"
-                                 Type="Secondary" 
+                                 Type="Secondary"
                                  Icon="times" />
             </div>
         </div>

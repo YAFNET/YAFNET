@@ -49,8 +49,6 @@ namespace YAF.Controls
     using YAF.Types.Models;
     using YAF.Types.Objects;
 
-    using DateTime = System.DateTime;
-
     #endregion
 
     /// <summary>

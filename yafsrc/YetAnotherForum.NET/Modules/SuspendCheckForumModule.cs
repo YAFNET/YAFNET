@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,6 +25,8 @@ namespace YAF.Modules
 {
     #region Using
 
+    using System;
+
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -36,8 +38,6 @@ namespace YAF.Modules
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
-
-    using DateTime = System.DateTime;
 
     #endregion
 

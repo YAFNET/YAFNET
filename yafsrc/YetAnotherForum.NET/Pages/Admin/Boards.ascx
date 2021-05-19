@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Boards" Codebehind="Boards.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Boards" Codebehind="Boards.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Extensions" %>
 
@@ -14,28 +14,28 @@
                 </div>
                 <div class="card-body">
                     <asp:Repeater ID="List" runat="server">
-		                <HeaderTemplate>
+                        <HeaderTemplate>
                             <ul class="list-group">
-		    </HeaderTemplate>
-			<ItemTemplate>
-                <li 
+            </HeaderTemplate>
+            <ItemTemplate>
+                <li
                     class='list-group-item list-group-item-action list-group-item-menu <%# this.Eval("ID").ToType<int>() != this.PageContext.PageBoardID ? "" : "active" %>'>
-				<div class="d-flex w-100 justify-content-between">
+                <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">
                         <%# this.HtmlEncode(this.Eval( "Name")) %>
                     </h5>
                     <small>
-                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
-                                            LocalizedTag="ID" 
+                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server"
+                                            LocalizedTag="ID"
                                             LocalizedPage="ADMIN_BOARDS" />: <%# this.Eval( "ID") %>
                     </small>
                 </div>
                 <small>
                     <div class="btn-group btn-group-sm">
                         <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
-                                         Type="Info" 
+                                         Type="Info"
                                          Size="Small"
-                                         CommandName="edit" 
+                                         CommandName="edit"
                                          CommandArgument='<%# this.Eval( "ID") %>'
                                          TitleLocalizedTag="EDIT"
                                          TextLocalizedTag="EDIT"
@@ -44,7 +44,7 @@
                         <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
                                          Type="Danger"
                                          Size="Small"
-                                         CommandName="delete" 
+                                         CommandName="delete"
                                          CommandArgument='<%# this.Eval( "ID") %>'
                                          TitleLocalizedTag="DELETE"
                                          TextLocalizedTag="DELETE"
@@ -58,16 +58,16 @@
                         <YAF:ThemeButton ID="ThemeButton1" runat="server"
                                          Type="None"
                                          CssClass="dropdown-item"
-                                         CommandName="edit" 
+                                         CommandName="edit"
                                          CommandArgument='<%# this.Eval( "ID") %>'
                                          TitleLocalizedTag="EDIT"
                                          TextLocalizedTag="EDIT"
                                          Icon="edit">
                         </YAF:ThemeButton>
-                        <YAF:ThemeButton ID="ThemeButton2" runat="server" 
+                        <YAF:ThemeButton ID="ThemeButton2" runat="server"
                                          Type="None"
                                          CssClass="dropdown-item"
-                                         CommandName="delete" 
+                                         CommandName="delete"
                                          CommandArgument='<%# this.Eval( "ID") %>'
                                          TitleLocalizedTag="DELETE"
                                          TextLocalizedTag="DELETE"
@@ -75,22 +75,22 @@
                                          ReturnConfirmText='<%# this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE") %>'>
                         </YAF:ThemeButton>
                         <div class="dropdown-divider"></div>
-                        <YAF:ThemeButton ID="New" runat="server" 
+                        <YAF:ThemeButton ID="New" runat="server"
                                          Type="None"
                                          CssClass="dropdown-item"
                                          TextLocalizedTag="NEW_BOARD"
                                          Icon="plus-square"></YAF:ThemeButton>
                     </div>
                 </li>
-			</ItemTemplate>
+            </ItemTemplate>
             <FooterTemplate>
                 </ul>
             </FooterTemplate>
-		</asp:Repeater>
+        </asp:Repeater>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton ID="New" runat="server" 
-                                     Type="Primary" 
+                    <YAF:ThemeButton ID="New" runat="server"
+                                     Type="Primary"
                                      TextLocalizedTag="NEW_BOARD"
                                      Icon="plus-square"></YAF:ThemeButton>
                 </div>

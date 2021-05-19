@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Languages" Codebehind="Languages.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Languages" Codebehind="Languages.ascx.cs" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -12,10 +12,10 @@
                                     LocalizedPage="ADMIN_LANGUAGES"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
-		<asp:Repeater runat="server" ID="List">
-			<HeaderTemplate>
+        <asp:Repeater runat="server" ID="List">
+            <HeaderTemplate>
                 <div class="table-responsive">
-			    <table class="table tablesorter table-bordered table-striped" id="language-table">
+                <table class="table tablesorter table-bordered table-striped" id="language-table">
                     <thead class="table-light">
                         <tr>
                             <th>
@@ -36,21 +36,21 @@
                         </tr>
                     </thead>
                 <tbody>
-			</HeaderTemplate>
-			<ItemTemplate>
-				<tr>
+            </HeaderTemplate>
+            <ItemTemplate>
+                <tr>
                     <td>
-						<%# this.Eval("CultureEnglishName")%>
-					</td>
+                        <%# this.Eval("CultureEnglishName")%>
+                    </td>
                     <td>
-						<%# this.Eval("CultureTag")%>
-					</td>
+                        <%# this.Eval("CultureTag")%>
+                    </td>
                      <td>
-						<%# this.Eval("CultureNativeName")%>
-					</td>
-					<td>
-						<%# this.Eval("CultureFile")%>
-					</td>
+                        <%# this.Eval("CultureNativeName")%>
+                    </td>
+                    <td>
+                        <%# this.Eval("CultureFile")%>
+                    </td>
                     <td>
                         <span class="float-end">
                         <YAF:ThemeButton ID="btnEdit"
@@ -63,13 +63,13 @@
                             runat="server">
                         </YAF:ThemeButton>
                             </span>
-					</td>
-				</tr>
-			</ItemTemplate>
+                    </td>
+                </tr>
+            </ItemTemplate>
             <FooterTemplate>
                  </table>
                         </div>
-						</div>
+                        </div>
             <div class="card-footer">
                 <div id="LanguagesPager" class="row justify-content-between align-items-center">
                 <div class="col-auto mb-1">
@@ -79,26 +79,26 @@
                         </div>
                         <select class="pagesize form-select form-select-sm w-25">
                             <option selected="selected" value="5">
-                                <YAF:LocalizedLabel runat="server" 
+                                <YAF:LocalizedLabel runat="server"
                                                     LocalizedPage="COMMON" LocalizedTag="ENTRIES_5" />
                             </option>
                             <option value="10">
-                                <YAF:LocalizedLabel runat="server" 
+                                <YAF:LocalizedLabel runat="server"
                                                     LocalizedPage="COMMON" LocalizedTag="ENTRIES_10" />
 
                             </option>
                             <option value="20">
-                                <YAF:LocalizedLabel runat="server" 
+                                <YAF:LocalizedLabel runat="server"
                                                     LocalizedPage="COMMON" LocalizedTag="ENTRIES_20" />
 
                             </option>
                             <option value="25">
-                                <YAF:LocalizedLabel runat="server" 
+                                <YAF:LocalizedLabel runat="server"
                                                     LocalizedPage="COMMON" LocalizedTag="ENTRIES_25" />
 
                             </option>
                             <option value="50">
-                                <YAF:LocalizedLabel runat="server" 
+                                <YAF:LocalizedLabel runat="server"
                                                     LocalizedPage="COMMON" LocalizedTag="ENTRIES_50" />
 
                             </option>
@@ -119,7 +119,7 @@
             </div>
         </div>
                 </FooterTemplate>
-		</asp:Repeater>
+        </asp:Repeater>
             </div>
         </div>
     </div>

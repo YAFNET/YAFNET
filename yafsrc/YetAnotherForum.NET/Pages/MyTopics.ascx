@@ -30,11 +30,11 @@
                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MyTopics" LocalizedPage="MyTopics" />
                        </a>
                    </li>
-		           <li class="nav-item">
-		               <a href="#FavoriteTopicsTab" class="nav-link" data-bs-toggle="tab" role="tab">
-		                   <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FavoriteTopics" LocalizedPage="MyTopics" />
-		               </a>
-		           </li>
+                   <li class="nav-item">
+                       <a href="#FavoriteTopicsTab" class="nav-link" data-bs-toggle="tab" role="tab">
+                           <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FavoriteTopics" LocalizedPage="MyTopics" />
+                       </a>
+                   </li>
                  </asp:PlaceHolder>
                </ul>
               <div class="tab-content">

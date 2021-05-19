@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Search" CodeBehind="Search.ascx.cs" %>
-<%@ Import Namespace="YAF.Core.Utilities" %>
 <%@ Import Namespace="YAF.Configuration" %>
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
@@ -104,6 +103,6 @@
          data-topic='<%= this.Get<ILocalization>().GetAttributeText("COMMON","VIEW_TOPIC") %>'
          style="clear: both;">
     </div>
-    
+
     <div id="SearchResultsPagerBottom" class="mt-3"></div>
 </div>

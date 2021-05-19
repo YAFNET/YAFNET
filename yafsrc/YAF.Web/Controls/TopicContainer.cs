@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -40,8 +40,6 @@ namespace YAF.Web.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Objects.Model;
-
-    using DateTime = System.DateTime;
 
     /// <summary>
     /// Topic Container Control
@@ -475,7 +473,7 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        /// Format the Topic Name and Add Status Icon/Text 
+        /// Format the Topic Name and Add Status Icon/Text
         /// if enabled and available
         /// </summary>
         /// <returns>
@@ -639,7 +637,7 @@ namespace YAF.Web.Controls
         /// </returns>
         protected ThemeButton MakeLink([NotNull] string text, [NotNull] string link, [NotNull] int pageId)
         {
-            return new()
+            return new ()
             {
                 NavigateUrl = link,
                 TitleLocalizedTag = "GOTO_POST_PAGER",

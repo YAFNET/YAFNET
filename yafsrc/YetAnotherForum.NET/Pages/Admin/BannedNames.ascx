@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.BannedNames" Codebehind="BannedNames.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.BannedNames" Codebehind="BannedNames.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
@@ -46,14 +46,14 @@
                                     <YAF:HelpLabel ID="HelpLabel1" runat="server"
                                                    AssociatedControlID="SearchInput"
                                                    LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDNAME" />
-                                    <asp:TextBox ID="SearchInput" runat="server" 
+                                    <asp:TextBox ID="SearchInput" runat="server"
                                                  CssClass="form-control"></asp:TextBox>
                                 </div>
                                 <div class="mb-3 d-grid gap-2">
-                                    <YAF:ThemeButton ID="search" runat="server" 
-                                                     Type="Primary" 
-                                                     TextLocalizedTag="BTNSEARCH" 
-                                                     TextLocalizedPage="SEARCH" 
+                                    <YAF:ThemeButton ID="search" runat="server"
+                                                     Type="Primary"
+                                                     TextLocalizedTag="BTNSEARCH"
+                                                     TextLocalizedPage="SEARCH"
                                                      Icon="search"
                                                      OnClick="Search_Click">
                                     </YAF:ThemeButton>
@@ -67,10 +67,10 @@
                 </div>
                 <div class="card-body">
     <asp:Repeater ID="list" runat="server" OnItemCommand="List_ItemCommand">
-		<HeaderTemplate>
+        <HeaderTemplate>
             <ul class="list-group">
-			</HeaderTemplate>
-		<ItemTemplate>
+            </HeaderTemplate>
+        <ItemTemplate>
             <li class="list-group-item list-group-item-action list-group-item-menu">
                 <div class="d-flex w-100 justify-content-between">
                     <asp:HiddenField ID="fID" Value='<%# this.Eval("ID") %>' runat="server"/>
@@ -92,87 +92,87 @@
                 </p>
                 <small>
                     <div class="btn-group btn-group-sm">
-                        <YAF:ThemeButton ID="ThemeButtonEdit" 
-                                         Type="Info" Size="Small" 
+                        <YAF:ThemeButton ID="ThemeButtonEdit"
+                                         Type="Info" Size="Small"
                                          CommandName="edit" CommandArgument='<%# this.Eval("ID") %>'
                                          TextLocalizedTag="EDIT"
-                                         TitleLocalizedTag="EDIT" 
+                                         TitleLocalizedTag="EDIT"
                                          Icon="edit" runat="server"></YAF:ThemeButton>
-                        <YAF:ThemeButton ID="ThemeButtonDelete" 
-                                         Type="Danger" Size="Small" 
+                        <YAF:ThemeButton ID="ThemeButtonDelete"
+                                         Type="Danger" Size="Small"
                                          CommandName="delete" CommandArgument='<%# this.Eval("ID") %>'
                                          TextLocalizedTag="DELETE" ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
                                          TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
                     </div>
                 </small>
                 <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                    <YAF:ThemeButton ID="ThemeButton1" 
-                                     Type="None" 
+                    <YAF:ThemeButton ID="ThemeButton1"
+                                     Type="None"
                                      CssClass="dropdown-item"
                                      CommandName="edit" CommandArgument='<%# this.Eval("ID") %>'
                                      TextLocalizedTag="EDIT"
-                                     TitleLocalizedTag="EDIT" 
+                                     TitleLocalizedTag="EDIT"
                                      Icon="edit" runat="server"></YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButton2" 
-                                     Type="None" 
+                    <YAF:ThemeButton ID="ThemeButton2"
+                                     Type="None"
                                      CssClass="dropdown-item"
                                      CommandName="delete" CommandArgument='<%# this.Eval("ID") %>'
                                      TextLocalizedTag="DELETE" ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
                                      TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
                     <div class="dropdown-divider"></div>
-                    <YAF:ThemeButton runat="server" 
-                                     Icon="plus-square" 
-                                     Type="None" 
+                    <YAF:ThemeButton runat="server"
+                                     Icon="plus-square"
+                                     Type="None"
                                      CssClass="dropdown-item"
-                                     TextLocalizedTag="ADD_IP" TextLocalizedPage="ADMIN_BANNEDNAME" 
+                                     TextLocalizedTag="ADD_IP" TextLocalizedPage="ADMIN_BANNEDNAME"
                                      CommandName="add"></YAF:ThemeButton>
                     <div class="dropdown-divider"></div>
-                    <YAF:ThemeButton runat="server" 
-                                     Icon="upload" 
-                                     DataToggle="modal" 
-                                     DataTarget="ImportDialog" 
-                                     Type="None" 
+                    <YAF:ThemeButton runat="server"
+                                     Icon="upload"
+                                     DataToggle="modal"
+                                     DataTarget="ImportDialog"
+                                     Type="None"
                                      CssClass="dropdown-item"
                                      TextLocalizedTag="IMPORT_IPS" TextLocalizedPage="ADMIN_BANNEDNAME"></YAF:ThemeButton>
-                    <YAF:ThemeButton runat="server" 
-                                     CommandName="export" 
-                                     ID="Linkbutton4" 
-                                     Type="None" 
+                    <YAF:ThemeButton runat="server"
+                                     CommandName="export"
+                                     ID="Linkbutton4"
+                                     Type="None"
                                      CssClass="dropdown-item"
-                                     Icon="download" 
+                                     Icon="download"
                                      TextLocalizedPage="ADMIN_BANNEDIP" TextLocalizedTag="EXPORT"></YAF:ThemeButton>
                 </div>
             </li>
-			</ItemTemplate>
-		<FooterTemplate>
+            </ItemTemplate>
+        <FooterTemplate>
         </ul>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton runat="server" 
+                    <YAF:ThemeButton runat="server"
                                      CssClass="mb-1"
-                                     Icon="plus-square" 
+                                     Icon="plus-square"
                                      Type="Primary"
-                                     TextLocalizedTag="ADD_IP" TextLocalizedPage="ADMIN_BANNEDNAME" 
+                                     TextLocalizedTag="ADD_IP" TextLocalizedPage="ADMIN_BANNEDNAME"
                                      CommandName="add"></YAF:ThemeButton>
-                    <YAF:ThemeButton runat="server"  
+                    <YAF:ThemeButton runat="server"
                                      CssClass="mb-1"
-                                     Icon="upload" 
-                                     DataToggle="modal" 
-                                     DataTarget="ImportDialog" 
+                                     Icon="upload"
+                                     DataToggle="modal"
+                                     DataTarget="ImportDialog"
                                      Type="Info"
                                      TextLocalizedTag="IMPORT_IPS" TextLocalizedPage="ADMIN_BANNEDNAME"></YAF:ThemeButton>
-                    <YAF:ThemeButton runat="server"  
+                    <YAF:ThemeButton runat="server"
                                      CssClass="mb-1"
-                                     CommandName="export" 
-                                     ID="Linkbutton4" 
-                                     Type="Warning" 
-                                     Icon="download" 
+                                     CommandName="export"
+                                     ID="Linkbutton4"
+                                     Type="Warning"
+                                     Icon="download"
                                      TextLocalizedPage="ADMIN_BANNEDIP" TextLocalizedTag="EXPORT"></YAF:ThemeButton>
                 </div>
             </div>
 
-			</FooterTemplate>
-		</asp:Repeater>
+            </FooterTemplate>
+        </asp:Repeater>
             </div>
         </div>
     </div>

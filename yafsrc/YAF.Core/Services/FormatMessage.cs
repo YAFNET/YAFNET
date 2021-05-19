@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -90,7 +90,7 @@ namespace YAF.Core.Services
         #region Public Methods
 
         /// <summary>
-        /// The method to detect a forbidden BBCode tag from delimited delimiter list 
+        /// The method to detect a forbidden BBCode tag from delimited delimiter list
         ///   'stringToMatch'
         /// </summary>
         /// <param name="stringToClear">
@@ -199,7 +199,7 @@ namespace YAF.Core.Services
             [NotNull] string message,
             [NotNull] MessageFlags messageFlags,
             bool targetBlankOverride,
-            System.DateTime messageLastEdited)
+            DateTime messageLastEdited)
         {
             var boardSettings = this.Get<BoardSettings>();
 
@@ -208,7 +208,7 @@ namespace YAF.Core.Services
             // check to see if no follow should be disabled since the message is properly aged
             if (useNoFollow && boardSettings.DisableNoFollowLinksAfterDay > 0)
             {
-                var messageAge = messageLastEdited - System.DateTime.UtcNow;
+                var messageAge = messageLastEdited - DateTime.UtcNow;
                 if (messageAge.Days > boardSettings.DisableNoFollowLinksAfterDay)
                 {
                     // disable no follow

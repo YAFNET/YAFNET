@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -364,7 +364,7 @@ namespace YAF.Core.Services
 
                     // -- update active access and ensure that access right are in place
                     /*var access = this.GetRepository<vaccess>().GetSingle(x => x.UserID == userId);
-        
+
                     if (!repository.Exists(a => a.UserID == userId))
                     {
                         repository.Insert(
@@ -391,7 +391,6 @@ namespace YAF.Core.Services
                                 DownloadAccess = access.DownloadAccess
                             });
                     }*/
-
                     this.GetRepository<ActiveAccess>().DbAccess.Execute(
                         db =>
                         {
@@ -465,7 +464,7 @@ namespace YAF.Core.Services
 
                             // -- update last visit
                             this.GetRepository<User>().UpdateOnly(
-                                () => new User { LastVisit = System.DateTime.UtcNow, IP = ip },
+                                () => new User { LastVisit = DateTime.UtcNow, IP = ip },
                                 u => u.ID == userId);
                         }
                     }
@@ -484,7 +483,7 @@ namespace YAF.Core.Services
                                     {
                                         UserID = userId,
                                         IP = ip,
-                                        LastActive = System.DateTime.UtcNow,
+                                        LastActive = DateTime.UtcNow,
                                         Location = location,
                                         ForumID = forumId,
                                         TopicID = topicId,
@@ -503,7 +502,7 @@ namespace YAF.Core.Services
                                     {
                                         UserID = userId,
                                         IP = ip,
-                                        LastActive = System.DateTime.UtcNow,
+                                        LastActive = DateTime.UtcNow,
                                         Location = location,
                                         ForumID = forumId,
                                         TopicID = topicId,
@@ -525,8 +524,8 @@ namespace YAF.Core.Services
                                     SessionID = sessionID,
                                     BoardID = boardId,
                                     IP = ip,
-                                    Login = System.DateTime.UtcNow,
-                                    LastActive = System.DateTime.UtcNow,
+                                    Login = DateTime.UtcNow,
+                                    LastActive = DateTime.UtcNow,
                                     Location = location,
                                     ForumID = forumId,
                                     TopicID = topicId,
@@ -636,7 +635,7 @@ namespace YAF.Core.Services
         /// <param name="timeFrame"> The time Frame. </param>
         /// <param name="maxCount"> The max Count. </param>
         /// <returns> The get simple forum topic. </returns>
-        public List<SimpleForum> GetSimpleForumTopic(int boardId, int userId, System.DateTime timeFrame, int maxCount)
+        public List<SimpleForum> GetSimpleForumTopic(int boardId, int userId, DateTime timeFrame, int maxCount)
         {
             var forumData = this.GetRepository<Forum>().ListAllWithAccess(boardId, userId)
                 .Select(x => new SimpleForum { ForumID = x.Item1.ID, Name = x.Item1.Name }).ToList();
@@ -661,7 +660,7 @@ namespace YAF.Core.Services
                         forum1.ForumID,
                         userId,
                         timeFrame,
-                        System.DateTime.UtcNow,
+                        DateTime.UtcNow,
                         0,
                         maxCount,
                         false,
@@ -700,10 +699,10 @@ namespace YAF.Core.Services
         /// The topic.
         /// </param>
         /// <param name="forum">
-        /// The forum. 
+        /// The forum.
         /// </param>
         /// <returns>
-        /// Returns the simple topic. 
+        /// Returns the simple topic.
         /// </returns>
         [NotNull]
         private SimpleTopic LoadSimpleTopic([NotNull] PagedTopic topic, [NotNull] SimpleForum forum)

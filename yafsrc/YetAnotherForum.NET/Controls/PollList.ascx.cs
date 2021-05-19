@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -40,8 +40,6 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-
-    using DateTime = System.DateTime;
 
     #endregion
 
@@ -135,10 +133,10 @@ namespace YAF.Controls
         /// </returns>
         protected bool CanEditPoll()
         {
-            // The host admin can forbid a user to change poll after first vote to avoid fakes.    
+            // The host admin can forbid a user to change poll after first vote to avoid fakes.
             if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
             {
-                // Only if show buttons are enabled user can edit poll 
+                // Only if show buttons are enabled user can edit poll
                 return this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
                        this.PageContext.PageUserID == this.poll.UserID && this.PollHasNoVotes() &&
                        !this.IsPollClosed();
@@ -362,10 +360,10 @@ namespace YAF.Controls
 
             if (this.pollAndChoices.Any())
             {
-                // Check if the user is already voted in polls in the group 
+                // Check if the user is already voted in polls in the group
                 this.userPollVotes = this.GetRepository<PollVote>().VoteCheck(this.poll.ID, this.PageContext.PageUserID);
 
-                // We don't display poll command row to everyone 
+                // We don't display poll command row to everyone
                 this.PollCommandRow.Visible = this.HasOwnerExistingGroupAccess();
 
                 this.QuestionLabel.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.poll.Question));
@@ -402,7 +400,7 @@ namespace YAF.Controls
                 pollChoiceList.PollId = this.poll.ID;
                 pollChoiceList.Votes = this.pollAndChoices.Sum(x => x.Item2.Votes);
 
-                // returns number of day to run - null if poll has no expiration date 
+                // returns number of day to run - null if poll has no expiration date
                 var daysToRun = this.DaysToRun(out var closesSoon);
                 var isPollClosed = this.IsPollClosed();
 
@@ -419,8 +417,8 @@ namespace YAF.Controls
                     this.showResults = true;
                 }
 
-                // The poll had an expiration date and expired without voting 
-                // show results anyway if poll has no expiration date days to run is null  
+                // The poll had an expiration date and expired without voting
+                // show results anyway if poll has no expiration date days to run is null
                 if (daysToRun == 0)
                 {
                     this.showResults = true;
@@ -484,7 +482,7 @@ namespace YAF.Controls
                 pollChoiceList.CanVote = this.HasVoteAccess() && isNotVoted;
                 pollChoiceList.DaysToRun = daysToRun;
 
-                // we should double bind if it is not a vote event bubble. 
+                // we should double bind if it is not a vote event bubble.
                 if (this.isVoteEvent)
                 {
                     pollChoiceList.DataBind();
@@ -592,7 +590,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// A method to return parameters string. 
+        /// A method to return parameters string.
         ///   Constructs parameters string to send to other forms.
         /// </summary>
         /// <returns>

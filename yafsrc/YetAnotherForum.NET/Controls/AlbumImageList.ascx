@@ -5,13 +5,12 @@
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="YAF.Core.Utilities" %>
 <%@ Import Namespace="YAF.Configuration" %>
 
 
 <div class="bg-light">
     <div class="container">
-        <asp:Repeater runat="server" ID="AlbumImages" 
+        <asp:Repeater runat="server" ID="AlbumImages"
                   OnItemDataBound="AlbumImages_ItemDataBound"
                   OnItemCommand="AlbumImages_ItemCommand">
             <HeaderTemplate>
@@ -28,11 +27,11 @@
                              data-gallery>
                               <img src='<%# "{0}resource.ashx?imgprv={1}".Fmt(BoardInfo.ForumClientFileRoot, this.Eval("ID")) %>'
                                    class="card-img-top"
-                                   alt='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>' 
+                                   alt='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>'
                                    title='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>' />
                           </a>
                           <div class="card-body">
-                              <asp:Label runat="server" 
+                              <asp:Label runat="server"
                                          Visible="<%# this.UserID != this.PageContext.PageUserID %>"
                                          CssClass="card-text">
                                   <%# this.HtmlEncode(this.Eval("Caption"))%>
@@ -47,14 +46,14 @@
                                       <YAF:Icon runat="server" IconName="pen" IconType="text-secondary"/>
                                       <%# this.Eval("Caption").IsNullOrEmptyField() ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.HtmlEncode(this.Eval("Caption"))%>
                                   </span>
-                                  <input type="text" id='<%# "txtTitle{0}".Fmt(this.Eval("ID")) %>' 
+                                  <input type="text" id='<%# "txtTitle{0}".Fmt(this.Eval("ID")) %>'
                                          class="form-control"
                                          onkeydown="checkKey(event, this,'<%# this.Eval("ID") %>',false)"
                                          onblur="blurTextBox(this.id, '<%# this.Eval("ID")%>', false)" style="display: none;" />
                               </asp:Label>
                               <div class="d-flex justify-content-between align-items-center">
                                   <div class="btn-group">
-                                      <YAF:ThemeButton ID="SetCover" runat="server" 
+                                      <YAF:ThemeButton ID="SetCover" runat="server"
                                                        CommandArgument='<%# this.Eval("ID") %>'
                                                        Size="Small"
                                                        Type="OutlineSecondary"
@@ -68,7 +67,7 @@
         </asp:Repeater>
     <div class="row justify-content-end">
         <div class="col-auto">
-        <YAF:Pager runat="server" ID="PagerTop" 
+        <YAF:Pager runat="server" ID="PagerTop"
                    OnPageChange="Pager_PageChange" />
             </div>
         </div>

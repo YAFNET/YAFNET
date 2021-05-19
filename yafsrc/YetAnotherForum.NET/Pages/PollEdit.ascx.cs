@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -43,8 +43,6 @@ namespace YAF.Pages
     using YAF.Types.Models;
     using YAF.Web.Extensions;
 
-    using DateTime = System.DateTime;
-
     #endregion
 
     /// <summary>
@@ -74,7 +72,7 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PollEdit"/> class. 
+        /// Initializes a new instance of the <see cref="PollEdit"/> class.
         ///   Initializes a new instance of the ReportPost class.
         /// </summary>
         public PollEdit()
@@ -303,7 +301,7 @@ namespace YAF.Pages
 
             if (pollId.HasValue)
             {
-                // we edit existing poll 
+                // we edit existing poll
                 var pollAndChoices = this.GetRepository<Poll>().GetPollAndChoices(this.PollId.Value);
 
                 var poll = pollAndChoices.FirstOrDefault().Item1;
@@ -359,7 +357,7 @@ namespace YAF.Pages
 
                 choices = new List<Choice>();
 
-                // we add dummy rows to data table to fill in repeater empty fields   
+                // we add dummy rows to data table to fill in repeater empty fields
                 var dummyRowsCount = this.PageContext.BoardSettings.AllowedPollChoiceNumber - 1;
                 for (var i = 0; i <= dummyRowsCount; i++)
                 {
@@ -415,7 +413,7 @@ namespace YAF.Pages
                 }
             }
 
-            // Check if the user has the page access and variables are correct. 
+            // Check if the user has the page access and variables are correct.
             this.CheckAccess();
 
             // handle poll

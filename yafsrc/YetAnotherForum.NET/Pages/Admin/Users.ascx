@@ -45,13 +45,13 @@
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                                     <div class="px-3 py-1 dropdown-sm">
                                         <div class="mb-3">
-                                            <YAF:HelpLabel runat="server" 
+                                            <YAF:HelpLabel runat="server"
                                                            AssociatedControlID="YearsOld"
                                                            LocalizedTag="LOCK_INACTIVE"></YAF:HelpLabel>
                                             <div class="input-group">
-                                                <asp:TextBox ID="YearsOld" runat="server" 
-                                                             MaxLength="5" 
-                                                             Text="5" 
+                                                <asp:TextBox ID="YearsOld" runat="server"
+                                                             MaxLength="5"
+                                                             Text="5"
                                                              CssClass="form-control"
                                                              TextMode="Number">
                                                 </asp:TextBox>
@@ -62,9 +62,9 @@
                                         </div>
                                         <div class="mb-3 d-grid gap-2">
                                             <YAF:ThemeButton runat="server"
-                                                             Type="Danger" 
-                                                             Icon="trash" 
-                                                             TextLocalizedTag="LOCK_INACTIVE" 
+                                                             Type="Danger"
+                                                             Icon="trash"
+                                                             TextLocalizedTag="LOCK_INACTIVE"
                                                              TitleLocalizedTag="LOCK_INACTIVE_HELP"
                                                              OnClick="LockAccountsClick"/>
                                         </div>
@@ -85,16 +85,16 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="name">
-                                            <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" 
-                                                                LocalizedTag="NAME_CONTAINS" 
+                                            <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server"
+                                                                LocalizedTag="NAME_CONTAINS"
                                                                 LocalizedPage="ADMIN_USERS" />
                                         </asp:Label>
                                         <asp:TextBox ID="name" runat="server" CssClass="form-control"></asp:TextBox>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="Email">
-                                            <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" 
-                                                                LocalizedTag="EMAIL_CONTAINS" 
+                                            <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server"
+                                                                LocalizedTag="EMAIL_CONTAINS"
                                                                 LocalizedPage="ADMIN_USERS" />
                                         </asp:Label>
                                         <asp:TextBox ID="Email" runat="server" CssClass="form-control"></asp:TextBox>
@@ -103,23 +103,23 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="group">
-                                            <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" 
-                                                                LocalizedTag="ROLE" 
+                                            <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server"
+                                                                LocalizedTag="ROLE"
                                                                 LocalizedPage="ADMIN_USERS" />
                                         </asp:Label>
-                                        <asp:DropDownList ID="group" runat="server" 
-                                                          CssClass="form-select" 
+                                        <asp:DropDownList ID="group" runat="server"
+                                                          CssClass="form-select"
                                                           data-placeholder='<%# this.GetText("ADMIN_USERS", "FILTER_BY_GROUP") %>'>
                                         </asp:DropDownList>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="rank">
-                                            <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" 
-                                                                LocalizedTag="RANK" 
+                                            <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server"
+                                                                LocalizedTag="RANK"
                                                                 LocalizedPage="ADMIN_USERS" />
                                         </asp:Label>
-                                        <asp:DropDownList ID="rank" runat="server" 
-                                                          CssClass="form-select" 
+                                        <asp:DropDownList ID="rank" runat="server"
+                                                          CssClass="form-select"
                                                           data-placeholder='<%# this.GetText("ADMIN_USERS", "FILTER_BY_RANK") %>'>
                                         </asp:DropDownList>
                                     </div>
@@ -127,8 +127,8 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="Since">
-                                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
-                                                                LocalizedTag="FILTER" 
+                                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
+                                                                LocalizedTag="FILTER"
                                                                 LocalizedPage="ADMIN_USERS" />
                                         </asp:Label>
                                         <asp:DropDownList ID="Since" runat="server"
@@ -136,8 +136,8 @@
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="SuspendedOnly">
-                                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
-                                                                LocalizedTag="SUSPENDED_ONLY" 
+                                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
+                                                                LocalizedTag="SUSPENDED_ONLY"
                                                                 LocalizedPage="ADMIN_USERS" />
                                         </asp:Label>
                                         <div class="form-check form-switch">
@@ -147,12 +147,12 @@
 
                                 </div>
                                 <div class="mb-3">
-                                    <YAF:ThemeButton ID="search" runat="server" 
-                                                     OnClick="SearchClick" 
+                                    <YAF:ThemeButton ID="search" runat="server"
+                                                     OnClick="SearchClick"
                                                      CssClass="me-2"
                                                      Type="Primary"
-                                                     Icon="search" 
-                                                     TextLocalizedTag="SEARCH" 
+                                                     Icon="search"
+                                                     TextLocalizedTag="SEARCH"
                                                      TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                                     <YAF:ThemeButton ID="ResetUserSearch" runat="server"
                                                      OnClick="Reset_Click"
@@ -181,19 +181,19 @@
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 text-break">
                                         <%# this.GetIsUserDisabledLabel(((PagedUser)Container.DataItem).Flags)%>
-                                        <asp:LinkButton ID="NameEdit" runat="server" 
-                                                        CommandName="edit" 
+                                        <asp:LinkButton ID="NameEdit" runat="server"
+                                                        CommandName="edit"
                                                         CommandArgument="<%# ((PagedUser)Container.DataItem).UserID %>"
                                                         Text="<%# this.HtmlEncode( ((PagedUser)Container.DataItem).Name) %>" />
-                                        (<asp:LinkButton ID="DisplayNameEdit" runat="server" 
-                                                         CommandName="edit" 
+                                        (<asp:LinkButton ID="DisplayNameEdit" runat="server"
+                                                         CommandName="edit"
                                                          CommandArgument="<%# ((PagedUser)Container.DataItem).UserID %>"
                                                          Text="<%# this.HtmlEncode( ((PagedUser)Container.DataItem).DisplayName) %>" />)
                                     </h5>
                                     <small class="d-none d-md-block">
                                         <span style="font-weight:bold">
-                                            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
-                                                                LocalizedTag="TITLE_SUSPENDED" 
+                                            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
+                                                                LocalizedTag="TITLE_SUSPENDED"
                                                                 LocalizedPage="INFO" />&nbsp;:&nbsp;
                                         </span>
                                         <asp:Label runat="server" ID="Suspended" CssClass='<%# ((PagedUser)Container.DataItem).Suspended.HasValue ? "badge bg-danger" : "badge bg-success"  %>'><%# this.GetSuspendedString(((PagedUser)Container.DataItem).Suspended.ToString())%></asp:Label>
@@ -217,31 +217,31 @@
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" />:</strong>
                                             <%# this.Get<IDateTimeService>().FormatDateTime(((PagedUser)Container.DataItem).LastVisit) %>
                                         </li>
-                                        <li class="list-inline-item" runat="server" 
+                                        <li class="list-inline-item" runat="server"
                                             Visible="<%# ((PagedUser)Container.DataItem).Profile_FacebookId.IsSet() %>">
                                             <span title='<%# this.GetText("ADMIN_EDITUSER", "FACEBOOK_USER_HELP") %>'>
-                                                <YAF:Icon runat="server" 
-                                                          IconName="facebook" 
-                                                          IconStyle="fab" 
+                                                <YAF:Icon runat="server"
+                                                          IconName="facebook"
+                                                          IconStyle="fab"
                                                           IconType="text-info" />
                                             </span>
                                         </li>
-                                        <li class="list-inline-item" runat="server" 
+                                        <li class="list-inline-item" runat="server"
                                             Visible="<%#((PagedUser)Container.DataItem).Profile_TwitterId.IsSet() %>" >
                                             <span title='<%# this.GetText("ADMIN_EDITUSER", "TWITTER_USER_HELP") %>'>
-                                                
-                                                <YAF:Icon runat="server" 
-                                                          IconName="twitter" 
-                                                          IconStyle="fab" 
+
+                                                <YAF:Icon runat="server"
+                                                          IconName="twitter"
+                                                          IconStyle="fab"
                                                           IconType="text-info" />
                                             </span>
                                         </li>
-                                        <li class="list-inline-item" runat="server" 
+                                        <li class="list-inline-item" runat="server"
                                             Visible="<%# ((PagedUser)Container.DataItem).Profile_GoogleId.IsSet() %>">
                                             <span title='<%# this.GetText("ADMIN_EDITUSER", "GOOGLE_USER_HELP") %>'>
-                                                <YAF:Icon runat="server" 
-                                                          IconName="google" 
-                                                          IconStyle="fab" 
+                                                <YAF:Icon runat="server"
+                                                          IconName="google"
+                                                          IconStyle="fab"
                                                           IconType="text-info" />
                                             </span>
                                         </li>
@@ -249,55 +249,55 @@
                                 </p>
                                 <small>
                                     <div class="btn-group btn-group-sm">
-                                        <YAF:ThemeButton ID="ThemeButtonEdit" runat="server" 
-                                                         Type="Info" 
-                                                         Size="Small" 
-                                                         CommandName="edit" 
+                                        <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
+                                                         Type="Info"
+                                                         Size="Small"
+                                                         CommandName="edit"
                                                          CommandArgument="<%# ((PagedUser)Container.DataItem).UserID %>"
-                                                         TextLocalizedTag="EDIT" 
-                                                         TitleLocalizedTag="EDIT" 
+                                                         TextLocalizedTag="EDIT"
+                                                         TitleLocalizedTag="EDIT"
                                                          Icon="edit">
                                         </YAF:ThemeButton>
                                         <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
-                                                         ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_DELETE") %>' 
-                                                         Type="Danger" 
-                                                         Size="Small" 
-                                                         CommandName="delete" 
+                                                         ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_DELETE") %>'
+                                                         Type="Danger"
+                                                         Size="Small"
+                                                         CommandName="delete"
                                                          CommandArgument="<%# ((PagedUser)Container.DataItem).UserID %>"
-                                                         TextLocalizedTag="DELETE" 
+                                                         TextLocalizedTag="DELETE"
                                                          TitleLocalizedTag="DELETE"
-                                                         Icon="trash" 
+                                                         Icon="trash"
                                                          Visible="<%# ((PagedUser)Container.DataItem).IsGuest == false && !YAF.Configuration.Config.IsDotNetNuke %>">
                                         </YAF:ThemeButton>
                                     </div>
                                 </small>
                                 <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                                    <YAF:ThemeButton ID="ThemeButton1" runat="server" 
-                                                     Type="None" 
+                                    <YAF:ThemeButton ID="ThemeButton1" runat="server"
+                                                     Type="None"
                                                      CssClass="dropdown-item"
-                                                     CommandName="edit" 
+                                                     CommandName="edit"
                                                      CommandArgument="<%# ((PagedUser)Container.DataItem).UserID %>"
-                                                     TextLocalizedTag="EDIT" 
-                                                     TitleLocalizedTag="EDIT" 
+                                                     TextLocalizedTag="EDIT"
+                                                     TitleLocalizedTag="EDIT"
                                                      Icon="edit">
                                     </YAF:ThemeButton>
                                     <YAF:ThemeButton ID="ThemeButton2" runat="server"
-                                                     ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_DELETE") %>' 
-                                                     Type="None" 
+                                                     ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_DELETE") %>'
+                                                     Type="None"
                                                      CssClass="dropdown-item"
-                                                     CommandName="delete" 
+                                                     CommandName="delete"
                                                      CommandArgument="<%# ((PagedUser)Container.DataItem).UserID %>"
-                                                     TextLocalizedTag="DELETE" 
+                                                     TextLocalizedTag="DELETE"
                                                      TitleLocalizedTag="DELETE"
-                                                     Icon="trash" 
+                                                     Icon="trash"
                                                      Visible="<%# ((PagedUser)Container.DataItem).IsGuest == false && !YAF.Configuration.Config.IsDotNetNuke %>">
                                     </YAF:ThemeButton>
                                 </div>
                             </li>
                         </ItemTemplate>
                     </asp:Repeater>
-                    <YAF:Alert runat="server" ID="NoInfo" 
-                               Type="warning" 
+                    <YAF:Alert runat="server" ID="NoInfo"
+                               Type="warning"
                                Visible="False">
                         <i class="fa fa-exclamation-triangle fa-fw text-warning"></i>
                         <YAF:LocalizedLabel runat="server"
@@ -308,45 +308,45 @@
                     <asp:PlaceHolder runat="server" ID="ImportAndSyncHolder">
                         <YAF:ThemeButton id="NewUser" runat="server"
                                          CssClass="mt-1 me-1"
-                                         OnClick="NewUserClick" 
+                                         OnClick="NewUserClick"
                                          Type="Primary"
-                                         Icon="plus-square" 
-                                         TextLocalizedTag="NEW_USER" 
+                                         Icon="plus-square"
+                                         TextLocalizedTag="NEW_USER"
                                          TextLocalizedPage="ADMIN_USERS">
                         </YAF:ThemeButton>
-                        <YAF:ThemeButton id="SyncUsers" runat="server" 
+                        <YAF:ThemeButton id="SyncUsers" runat="server"
                                          CssClass="mt-1 me-1"
-                                         OnClick="SyncUsersClick" 
+                                         OnClick="SyncUsersClick"
                                          Type="Secondary"
-                                         Icon="sync" 
-                                         TextLocalizedTag="SYNC_ALL" 
-                                         TextLocalizedPage="ADMIN_USERS" 
+                                         Icon="sync"
+                                         TextLocalizedTag="SYNC_ALL"
+                                         TextLocalizedPage="ADMIN_USERS"
                                          ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_SYNC") %>'>
                         </YAF:ThemeButton>
-                        <YAF:ThemeButton id="ImportUsers" runat="server" 
+                        <YAF:ThemeButton id="ImportUsers" runat="server"
                                          CssClass="mt-1 me-1"
-                                         Icon="upload" 
-                                         DataTarget="UsersImportDialog"  
-                                         DataToggle="modal" 
+                                         Icon="upload"
+                                         DataTarget="UsersImportDialog"
+                                         DataToggle="modal"
                                          Type="Info"
-                                         TextLocalizedTag="IMPORT" 
+                                         TextLocalizedTag="IMPORT"
                                          TextLocalizedPage="ADMIN_USERS">
                         </YAF:ThemeButton>
                     </asp:PlaceHolder>
-                    <YAF:ThemeButton id="ExportUsersXml" runat="server" 
+                    <YAF:ThemeButton id="ExportUsersXml" runat="server"
                                      CssClass="mt-1 me-1"
-                                     OnClick="ExportUsersXmlClick" 
+                                     OnClick="ExportUsersXmlClick"
                                      Type="Warning"
-                                     Icon="download" 
-                                     TextLocalizedTag="EXPORT_XML" 
+                                     Icon="download"
+                                     TextLocalizedTag="EXPORT_XML"
                                      TextLocalizedPage="ADMIN_USERS">
                     </YAF:ThemeButton>
-                    <YAF:ThemeButton id="ExportUsersCsv" runat="server" 
+                    <YAF:ThemeButton id="ExportUsersCsv" runat="server"
                                      CssClass="mt-1"
-                                     OnClick="ExportUsersCsvClick" 
+                                     OnClick="ExportUsersCsvClick"
                                      Type="Warning"
-                                     Icon="download" 
-                                     TextLocalizedTag="EXPORT_CSV" 
+                                     Icon="download"
+                                     TextLocalizedTag="EXPORT_CSV"
                                      TextLocalizedPage="ADMIN_USERS">
                     </YAF:ThemeButton>
                 </div>
@@ -356,7 +356,7 @@
 <div class="row justify-content-end">
 <div class="col-auto">
     <YAF:Pager ID="PagerTop" runat="server"
-               OnPageChange="PagerTopPageChange" 
+               OnPageChange="PagerTopPageChange"
                UsePostBack="True" />
     </div>
 </div>
@@ -371,9 +371,9 @@
 </asp:UpdatePanel>
 <div>
     <div id="SyncUsersMessage" style="display: none">
-		<div class="card link-light bg-danger mb-3 text-center">
-		    <div class="card-body">
-		        <blockquote class="blockquote mb-0 card-body">
+        <div class="card link-light bg-danger mb-3 text-center">
+            <div class="card-body">
+                <blockquote class="blockquote mb-0 card-body">
                     <p>
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SYNC_TITLE" LocalizedPage="ADMIN_USERS" />
                     </p>

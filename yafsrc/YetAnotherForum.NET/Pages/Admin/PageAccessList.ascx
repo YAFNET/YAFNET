@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.PageAccessList" Codebehind="PageAccessList.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.PageAccessList" Codebehind="PageAccessList.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">
@@ -10,11 +10,11 @@
                                     LocalizedPage="ADMIN_PAGEACCESSLIST"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
-		<asp:Repeater ID="List" runat="server" OnItemCommand="ListItemCommand">
+        <asp:Repeater ID="List" runat="server" OnItemCommand="ListItemCommand">
             <HeaderTemplate>
                 <ul class="list-group">
             </HeaderTemplate>
-			<ItemTemplate>
+            <ItemTemplate>
                 <li class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">
@@ -22,14 +22,13 @@
                             <%# this.HtmlEncode(this.PageContext.BoardSettings.EnableDisplayName ? this.Eval("DisplayName") : this.Eval("Name"))%>
                         </h5>
                     </div>
-                    
                     <small>
                         <div class="btn-group btn-group-sm">
-                            <YAF:ThemeButton ID="ThemeButtonEdit" runat="server" 
-                                             Type="Info" 
+                            <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
+                                             Type="Info"
                                              Size="Small"
-                                             TitleLocalizedPage="ADMIN_PAGEACCESSLIST" 
-                                             CommandName="edit" 
+                                             TitleLocalizedPage="ADMIN_PAGEACCESSLIST"
+                                             CommandName="edit"
                                              CommandArgument='<%# this.Eval( "ID") %>'
                                              TitleLocalizedTag="EDIT"
                                              Icon="edit"
@@ -38,12 +37,12 @@
                         </div>
                     </small>
                 </li>
-			</ItemTemplate>
+            </ItemTemplate>
             <FooterTemplate>
                 </ul>
             </FooterTemplate>
-		</asp:Repeater>
-                    
+        </asp:Repeater>
+
             </div>
         </div>
     </div>

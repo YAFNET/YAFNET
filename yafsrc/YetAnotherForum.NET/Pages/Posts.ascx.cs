@@ -52,8 +52,6 @@ namespace YAF.Pages
     using YAF.Web.EventsArgs;
     using YAF.Web.Extensions;
 
-    using DateTime = System.DateTime;
-
     #endregion
 
     /// <summary>

@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.PostTopic" CodeBehind="PostTopic.ascx.cs" %>
-<%@ Import Namespace="YAF.Core.Utilities" %>
 <%@ Import Namespace="YAF.Configuration" %>
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../Dialogs/AttachmentsUpload.ascx" %>
@@ -27,7 +26,7 @@
                 <asp:PlaceHolder ID="SubjectRow" runat="server">
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="TopicSubjectTextBox">
-                            <YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server" 
+                            <YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server"
                                                 LocalizedTag="subject" />
                         </asp:Label>
                         <asp:TextBox ID="TopicSubjectTextBox" runat="server"
@@ -42,7 +41,7 @@
                 </asp:PlaceHolder>
                 <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="TopicDescriptionTextBox">
-                        <YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server" 
+                        <YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server"
                                             LocalizedTag="description" />
                     </asp:Label>
                     <asp:TextBox ID="TopicDescriptionTextBox" runat="server"
@@ -69,10 +68,10 @@
                 <asp:PlaceHolder ID="StyleRow" runat="server">
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="TopicStylesTextBox">
-                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
                                                 LocalizedTag="STYLES" />
                         </asp:Label>
-                        <asp:TextBox ID="TopicStylesTextBox" runat="server" 
+                        <asp:TextBox ID="TopicStylesTextBox" runat="server"
                                      CssClass="form-control" />
                     </div>
                 </asp:PlaceHolder>
@@ -80,7 +79,7 @@
                     <asp:Label runat="server" AssociatedControlID="Tags">
                         <YAF:LocalizedLabel runat="server" LocalizedTag="TAGS" />
                     </asp:Label>
-                    <asp:TextBox runat="server" ID="Tags" 
+                    <asp:TextBox runat="server" ID="Tags"
                                  CssClass="form-control">
                     </asp:TextBox>
                 </div>
@@ -108,7 +107,7 @@
                 <asp:PlaceHolder ID="tr_captcha1" runat="server" Visible="false">
                     <div class="mb-3">
                         <asp:Label runat="server">
-                            <YAF:LocalizedLabel runat="server" 
+                            <YAF:LocalizedLabel runat="server"
                                                 LocalizedTag="Captcha_Image" />
                         </asp:Label>
                         <asp:Image ID="imgCaptcha" runat="server" />
@@ -117,10 +116,10 @@
                 <asp:PlaceHolder ID="tr_captcha2" runat="server" Visible="false">
                     <div class="mb-3">
                         <asp:Label runat="server" AssociatedControlID="tbCaptcha">
-                            <YAF:LocalizedLabel runat="server" 
+                            <YAF:LocalizedLabel runat="server"
                                                 LocalizedTag="Captcha_Enter" />
                         </asp:Label>
-                        <asp:TextBox ID="tbCaptcha" runat="server" 
+                        <asp:TextBox ID="tbCaptcha" runat="server"
                                      CssClass="form-control" />
                     </div>
                 </asp:PlaceHolder>
@@ -130,19 +129,19 @@
                                  CssClass="mt-1"
                                  OnClick="Preview_Click"
                                  TextLocalizedTag="PREVIEW" TitleLocalizedTag="PREVIEW_TITLE"
-                                 Type="Secondary" 
+                                 Type="Secondary"
                                  Icon="image" />
                 <YAF:ThemeButton ID="PostReply" runat="server"
                                  CssClass="mt-1"
                                  OnClick="PostReply_Click"
                                  TextLocalizedTag="NEWTOPIC"
-                                 Type="Primary" 
+                                 Type="Primary"
                                  Icon="comment-medical" />
                 <YAF:ThemeButton ID="Cancel" runat="server"
                                  CssClass="mt-1"
                                  OnClick="Cancel_Click"
                                  TextLocalizedTag="CANCEL"
-                                 Type="Secondary" 
+                                 Type="Secondary"
                                  Icon="times" />
             </div>
         </div>

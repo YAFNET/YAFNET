@@ -17,7 +17,7 @@
             <div class="card-header">
                 <YAF:IconHeader runat="server"
                                 IconName="user-shield"
-                                LocalizedTag="Admins" 
+                                LocalizedTag="Admins"
                                 LocalizedPage="TEAM"></YAF:IconHeader>
             </div>
             <div class="card-body">
@@ -33,19 +33,19 @@
                              <div class="d-flex w-100 justify-content-between mb-3">
                                  <h5 class="mb-1 text-break">
                                      <asp:Image ID="AdminAvatar" runat="server"
-                                                Width="40px" 
+                                                Width="40px"
                                                 Height="40px"
                                                 CssClass="rounded img-fluid"/>
-                                     <YAF:UserLink ID="AdminLink" runat="server" 
-                                                   IsGuest="False" 
-                                                   ReplaceName='<%#  this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name").ToString() %>' 
-                                                   Suspended='<%# this.Eval("Suspended").ToType<System.DateTime?>() %>'
-                                                   UserID='<%# this.Eval("ID").ToType<int>() %>' 
+                                     <YAF:UserLink ID="AdminLink" runat="server"
+                                                   IsGuest="False"
+                                                   ReplaceName='<%#  this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name").ToString() %>'
+                                                   Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
+                                                   UserID='<%# this.Eval("ID").ToType<int>() %>'
                                                    Style='<%# this.Eval("UserStyle") %>'  />
                                  </h5>
                                  <small>
                                      <span class="fw-bold">
-                                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
                                                              LocalizedTag="FORUMS" />:
                                      </span>
                                      <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="FORUMS_ALL" LocalizedPage="TEAM" />
@@ -54,29 +54,29 @@
                             <small>
                                 <div class="btn-group" role="group">
                                     <YAF:ThemeButton ID="PM" runat="server"
-                                                     Size="Small" 
-                                                     Visible="false" 
+                                                     Size="Small"
+                                                     Visible="false"
                                                      TextLocalizedPage="POSTS" TextLocalizedTag="PM"
                                                      TitleLocalizedPage="POSTS" TitleLocalizedTag="PM_TITLE"
                                                      Icon="envelope" Type="Secondary"/>
-                                    <YAF:ThemeButton ID="Email" runat="server" 
+                                    <YAF:ThemeButton ID="Email" runat="server"
                                                      Size="Small" Visible="false"
                                                      TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL"
                                                      TitleLocalizedPage="POSTS" TitleLocalizedTag="EMAIL_TITLE"
                                                      Icon="at" Type="Secondary" />
-                                    <YAF:ThemeButton ID="AdminUserButton" runat="server" 
+                                    <YAF:ThemeButton ID="AdminUserButton" runat="server"
                                                      TitleLocalizedPage="PROFILE" TitleLocalizedTag="ADMIN_USER"
-                                                     TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE" 
-                                                     Size="Small" 
+                                                     TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
+                                                     Size="Small"
                                                      Visible="false"
-                                                     Icon="user-cog" 
+                                                     Icon="user-cog"
                                                      Type="Danger"
                                                      NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser,"u={0}", this.Eval("ID").ToType<int>() ) %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>
                             </li>
-			            </ItemTemplate>
+                        </ItemTemplate>
                         <FooterTemplate>
                             </ul>
                         </FooterTemplate>
@@ -89,7 +89,7 @@
             <div class="card-header">
                 <YAF:IconHeader runat="server"
                                 IconName="user-secret"
-                                LocalizedTag="MODS" 
+                                LocalizedTag="MODS"
                                 LocalizedPage="TEAM"></YAF:IconHeader>
             </div>
             <div class="card-body">
@@ -105,55 +105,55 @@
                              <div class="d-flex w-100 justify-content-between mb-3">
                                  <h5 class="mb-1 text-break">
                                      <asp:Image ID="ModAvatar" runat="server"
-                                                Width="40px" 
+                                                Width="40px"
                                                 Height="40px"
                                                 CssClass="rounded img-fluid"/>
-                                     <YAF:UserLink ID="ModLink" runat="server" 
-                                                   Suspended='<%# this.Eval("Suspended").ToType<System.DateTime?>() %>'
-                                                   ReplaceName='<%#  this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name").ToString() %>' 
-                                                   UserID='<%# this.Eval("ModeratorID").ToType<int>() %>' 
-                                                   IsGuest="False" 
+                                     <YAF:UserLink ID="ModLink" runat="server"
+                                                   Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
+                                                   ReplaceName='<%#  this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name").ToString() %>'
+                                                   UserID='<%# this.Eval("ModeratorID").ToType<int>() %>'
+                                                   IsGuest="False"
                                                    Style='<%# this.Eval("Style") %>'  />
                                  </h5>
                              </div>
                                 <span class="fw-bold">
-                                            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                                            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
                                                                 LocalizedTag="FORUMS" />:
                                         </span>
                                     <div class="input-group">
-                                        <YAF:ThemeButton ID="GoToForumButton" runat="server" 
-                                                         Icon="external-link-alt" 
+                                        <YAF:ThemeButton ID="GoToForumButton" runat="server"
+                                                         Icon="external-link-alt"
                                                          Type="Secondary"
-                                                         TextLocalizedTag="GO" 
+                                                         TextLocalizedTag="GO"
                                                          OnClick="GoToForum"></YAF:ThemeButton>
                                         <asp:DropDownList ID="ModForums" runat="server" CssClass="form-control">
                                         </asp:DropDownList>
                                     </div>
                             <small>
                                 <div class="btn-group" role="group">
-                                    <YAF:ThemeButton ID="PM" runat="server" 
-                                                     Size="Small" Visible="false" 
-                                                     TextLocalizedPage="POSTS" TextLocalizedTag="PM" 
+                                    <YAF:ThemeButton ID="PM" runat="server"
+                                                     Size="Small" Visible="false"
+                                                     TextLocalizedPage="POSTS" TextLocalizedTag="PM"
                                                      TitleLocalizedPage="POSTS" TitleLocalizedTag="PM_TITLE"
                                                      Icon="envelope" Type="Secondary" />
-                                    <YAF:ThemeButton ID="Email" runat="server" 
-                                                     Size="Small" Visible="false" 
+                                    <YAF:ThemeButton ID="Email" runat="server"
+                                                     Size="Small" Visible="false"
                                                      TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL"
                                                      TitleLocalizedPage="POSTS" TitleLocalizedTag="EMAIL_TITLE"
                                                      Icon="at" Type="Secondary" />
-                                    <YAF:ThemeButton ID="AdminUserButton" runat="server" 
-                                                     Size="Small" 
+                                    <YAF:ThemeButton ID="AdminUserButton" runat="server"
+                                                     Size="Small"
                                                      Visible="false"
                                                      TitleLocalizedPage="PROFILE" TitleLocalizedTag="ADMIN_USER"
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
-                                                     Icon="user-cog" 
+                                                     Icon="user-cog"
                                                      Type="Danger"
                                                      NavigateUrl='<%# this.Get<LinkBuilder>().GetLink( ForumPages.Admin_EditUser,"u={0}", this.Eval("ModeratorID").ToType<int>() ) %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>
                             </li>
-			            </ItemTemplate>
+                        </ItemTemplate>
                         <FooterTemplate>
                             </ul>
                         </FooterTemplate>

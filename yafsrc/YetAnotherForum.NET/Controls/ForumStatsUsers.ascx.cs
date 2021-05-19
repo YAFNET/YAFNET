@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -38,8 +38,6 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
-
-    using DateTime = System.DateTime;
 
     #endregion
 
@@ -92,7 +90,7 @@ namespace YAF.Controls
                                                       || this.PageContext.BoardSettings.ShowCrawlersInActiveList);
             if (canViewActive && (showGuestTotal || activeMembers > 0 && activeGuests <= 0))
             {
-                // always show active users...       
+                // always show active users...
                 sb.AppendFormat(
                     "<a href=\"{1}\" title=\"{2}\"{3}>{0}</a>",
                     this.GetTextFormatted(
@@ -176,7 +174,7 @@ namespace YAF.Controls
 
             this.ActiveUsers1.ActiveUsersList = activeUsers;
 
-            // "Active Users" Count and Most Users Count 
+            // "Active Users" Count and Most Users Count
             var activeStats = this.GetRepository<Active>().Stats(this.PageContext.PageBoardID);
 
             this.ActiveUserCount.Text = this.FormatActiveUsers(activeStats);

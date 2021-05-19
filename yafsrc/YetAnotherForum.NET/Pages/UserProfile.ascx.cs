@@ -37,7 +37,6 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Utilities;
     using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -51,7 +50,6 @@ namespace YAF.Pages
     using YAF.Web.Extensions;
 
     using ButtonStyle = YAF.Types.Constants.ButtonStyle;
-    using DateTime = System.DateTime;
 
     #endregion
 

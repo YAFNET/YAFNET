@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -75,7 +75,7 @@ namespace YAF.Core.Services
         public IServiceLocator ServiceLocator { get; set; }
 
         /// <summary>
-        ///   Gets the time zone offset 
+        ///   Gets the time zone offset
         ///   for the current user.
         /// </summary>
         public TimeSpan TimeOffset
@@ -110,7 +110,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The format date long.
         /// </returns>
-        public string FormatDateLong(System.DateTime dateTime)
+        public string FormatDateLong(DateTime dateTime)
         {
             string dateFormat;
             dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
@@ -142,7 +142,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// Short formatted date.
         /// </returns>
-        public string FormatDateShort([NotNull] System.DateTime dateTime)
+        public string FormatDateShort([NotNull] DateTime dateTime)
         {
             string dateFormat;
             dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
@@ -172,9 +172,9 @@ namespace YAF.Core.Services
         /// The date Time.
         /// </param>
         /// <returns>
-        /// Formatted  <see cref="string"/> of the formatted <see cref="System.DateTime"/> Object.
+        /// Formatted  <see cref="string"/> of the formatted <see cref="DateTime"/> Object.
         /// </returns>
-        public string FormatDateTime([NotNull] System.DateTime dateTime)
+        public string FormatDateTime([NotNull] DateTime dateTime)
         {
             dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
 
@@ -209,7 +209,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The formatted string created from the DateTime object.
         /// </returns>
-        public string FormatDateTimeShort([NotNull] System.DateTime dateTime)
+        public string FormatDateTimeShort([NotNull] DateTime dateTime)
         {
             string dateFormat;
 
@@ -236,7 +236,7 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Formats a DateTime value into 07.03.2003 00:00:00 except if 
+        /// Formats a DateTime value into 07.03.2003 00:00:00 except if
         ///   the date is yesterday or today -- in which case it says that.
         /// </summary>
         /// <param name="dateTime">
@@ -245,15 +245,15 @@ namespace YAF.Core.Services
         /// <returns>
         /// Formatted string of DateTime object
         /// </returns>
-        public string FormatDateTimeTopic([NotNull] System.DateTime dateTime)
+        public string FormatDateTimeTopic([NotNull] DateTime dateTime)
         {
             if (dateTime.Kind == DateTimeKind.Local)
             {
-                dateTime = System.DateTime.SpecifyKind(dateTime, DateTimeKind.Unspecified);
+                dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Unspecified);
             }
 
             dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
-            var nowDateTime = TimeZoneInfo.ConvertTimeFromUtc(System.DateTime.UtcNow, BoardContext.Current.TimeZoneInfoUser);
+            var nowDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, BoardContext.Current.TimeZoneInfoUser);
 
             string dateFormat;
             try
@@ -302,7 +302,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The format time.
         /// </returns>
-        public string FormatTime(System.DateTime dateTime)
+        public string FormatTime(DateTime dateTime)
         {
             string dateFormat;
 
@@ -331,7 +331,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="dateTime">The Date Time.</param>
         /// <returns>Returns the user Date Time</returns>
-        public System.DateTime GetUserDateTime(System.DateTime dateTime)
+        public DateTime GetUserDateTime(DateTime dateTime)
         {
             return TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
         }
@@ -344,7 +344,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// Returns the user Date Time
         /// </returns>
-        public System.DateTime GetUserDateTime(System.DateTime dateTime, TimeZoneInfo timeZone)
+        public DateTime GetUserDateTime(DateTime dateTime, TimeZoneInfo timeZone)
         {
             return TimeZoneInfo.ConvertTimeFromUtc(dateTime, timeZone);
         }

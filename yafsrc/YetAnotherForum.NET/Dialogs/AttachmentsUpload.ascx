@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Dialogs.AttachmentsUpload" CodeBehind="AttachmentsUpload.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Dialogs.AttachmentsUpload" CodeBehind="AttachmentsUpload.ascx.cs" %>
 
 
 <div class="modal fade" id="UploadDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -12,8 +12,8 @@
       </div>
       <div class="modal-body">
         <h4>
-            <YAF:LocalizedLabel ID="SelectFile" 
-                                LocalizedTag="SELECT_FILE" 
+            <YAF:LocalizedLabel ID="SelectFile"
+                                LocalizedTag="SELECT_FILE"
                                 LocalizedPage="ATTACHMENTS" runat="server" />
         </h4>
         <div>
@@ -39,8 +39,8 @@
                           </div>
                           <div class="col-lg-5 fileupload-progress fade">
                               <!-- The global progress bar -->
-                              <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                  <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                              <div class="progress active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                  <div class="progress-bar progress-bar-striped bg-success" style="width:0%;"></div>
                               </div>
                               <!-- The extended global progress state -->
                               <div class="progress-extended">&nbsp;</div>
@@ -69,7 +69,7 @@
                                       <button class="btn btn-danger btn-sm cancel"><i class="fa fa-times fa-fw"></i>&nbsp;<%= this.Get<ILocalization>().GetText("COMMON", "CANCEL") %></button>
                                   {% } %}</div></small>
   </li>
-                         
+
                       {% } %}
                   </script>
 
@@ -85,7 +85,7 @@
       </div>
       <div class="modal-footer">
         <div class="alert alert-info" role="alert">
-                <strong><YAF:LocalizedLabel ID="ExtensionTitle" 
+                <strong><YAF:LocalizedLabel ID="ExtensionTitle"
                                             LocalizedTag="ALLOWED_EXTENSIONS" runat="server" /></strong>
             &nbsp;
             <asp:Label ID="ExtensionsList" runat="server"></asp:Label>

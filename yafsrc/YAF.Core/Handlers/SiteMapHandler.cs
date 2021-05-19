@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,6 +26,7 @@ namespace YAF.Core.Handlers
 {
     #region Using
 
+    using System;
     using System.Globalization;
     using System.Web;
     using System.Xml.Serialization;
@@ -39,7 +40,6 @@ namespace YAF.Core.Handlers
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
 
-    using DateTime = System.DateTime;
     using SiteMap = YAF.Types.Objects.SiteMap;
 
     #endregion
@@ -97,13 +97,13 @@ namespace YAF.Core.Handlers
                     }));
 
             context.Response.Clear();
-            
+
             var xs = new XmlSerializer(typeof(SiteMap));
-            
+
             context.Response.ContentType = "text/xml";
-            
+
             xs.Serialize(context.Response.Output, siteMap);
-            
+
             context.Response.End();
         }
 

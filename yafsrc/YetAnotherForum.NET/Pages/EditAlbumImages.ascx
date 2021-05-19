@@ -21,11 +21,11 @@
             <div class="card-body">
                 <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="txtTitle">
-                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
                                             LocalizedTag="ALBUM_TITLE"/>
                     </asp:Label>
                     <div class="input-group">
-                        <asp:TextBox ID="txtTitle" runat="server" 
+                        <asp:TextBox ID="txtTitle" runat="server"
                                      required="required"
                                      CssClass="form-control"
                                      MaxLength="255" />
@@ -34,19 +34,19 @@
                                                 LocalizedTag="NEED_USERNAME" />
                         </div>
                         <YAF:ThemeButton ID="UpdateTitle" runat="server"
-                                         OnClick="UpdateTitle_Click" 
+                                         OnClick="UpdateTitle_Click"
                                          TextLocalizedTag="UPDATE"
-                                         Type="Secondary" 
+                                         Type="Secondary"
                                          Icon="pen"/>
                     </div>
                 </div>
-                
-                <asp:Repeater runat="server" ID="List" 
+
+                <asp:Repeater runat="server" ID="List"
                               OnItemCommand="List_ItemCommand">
                     <HeaderTemplate>
                         <div class="mb-3">
                         <asp:Label runat="server">
-                            <YAF:LocalizedLabel runat="server" 
+                            <YAF:LocalizedLabel runat="server"
                                                 LocalizedTag="IMAGES" />
                         </asp:Label>
                         <ul class="list-group">
@@ -58,9 +58,9 @@
                         <li class="list-group-item">
                             <%# this.Eval( "FileName") %>
                             (<%# (int)this.Eval("Bytes") / 1024%> Kb)
-                            <YAF:ThemeButton ID="ImageDelete" runat="server" 
-                                             ReturnConfirmText='<%# this.GetText("ASK_DELETEIMAGE") %>' 
-                                             CommandName="delete" 
+                            <YAF:ThemeButton ID="ImageDelete" runat="server"
+                                             ReturnConfirmText='<%# this.GetText("ASK_DELETEIMAGE") %>'
+                                             CommandName="delete"
                                              CommandArgument='<%# this.Eval( "ID") %>'
                                              TextLocalizedTag="DELETE"
                                              Type="Danger"
@@ -69,25 +69,25 @@
                     </ItemTemplate>
                 </asp:Repeater>
                 <asp:PlaceHolder id="UploadHolder" runat="server">
-				    <h4>
+                    <h4>
                         <asp:Label runat="server" AssociatedControlID="File">
-                        <YAF:LocalizedLabel ID="UploadTitle" 
+                        <YAF:LocalizedLabel ID="UploadTitle"
                                             LocalizedTag="UPLOAD_TITLE" runat="server" />
                         </asp:Label>
-					</h4>
-					<label for="<%# this.File.ClientID %>" class="form-label">
-                                <YAF:LocalizedLabel ID="LocalizedLabel3" 
-                                                    LocalizedTag="SELECT_FILE" 
+                    </h4>
+                    <label for="<%# this.File.ClientID %>" class="form-label">
+                                <YAF:LocalizedLabel ID="LocalizedLabel3"
+                                                    LocalizedTag="SELECT_FILE"
                                                     LocalizedPage="EDIT_ALBUMIMAGES" runat="server" />
                             </label>
                     <div class="input-group mb-3">
                         <input type="file" id="File" class="form-control mb-3" runat="server" />
-                        <YAF:ThemeButton runat="server" ID="Upload" 
+                        <YAF:ThemeButton runat="server" ID="Upload"
                                          CausesValidation="True"
-                                         OnClick="Upload_Click" 
+                                         OnClick="Upload_Click"
                                          TextLocalizedTag="UPLOAD"
                                          CssClass="mb-3"
-                                         Type="Success" 
+                                         Type="Success"
                                          Icon="upload"/>
                     </div>
                 </asp:PlaceHolder>

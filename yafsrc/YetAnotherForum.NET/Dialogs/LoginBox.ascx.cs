@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -40,8 +40,6 @@ namespace YAF.Dialogs
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models.Identity;
-
-    using DateTime = System.DateTime;
 
     #endregion
 
@@ -102,10 +100,10 @@ namespace YAF.Dialogs
         /// Called when Password Recovery is Clicked
         /// </summary>
         /// <param name="sender">
-        /// standard event object sender 
+        /// standard event object sender
         /// </param>
         /// <param name="e">
-        /// event args 
+        /// event args
         /// </param>
         protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
         {

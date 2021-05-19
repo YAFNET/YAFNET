@@ -44,8 +44,6 @@ namespace YAF.Dialogs
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
 
-    using DateTime = System.DateTime;
-
     #endregion
 
     /// <summary>
