@@ -99,7 +99,7 @@ namespace YAF.Data.MsSql
         /// <returns>Returns the name of the schema</returns>
         public string GetSchemaName(string name)
         {
-            return name;
+            return Config.DatabaseOwner;
         }
 
         /// <summary>
