@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Linq.Expressions;
 
@@ -31,6 +31,14 @@ namespace ServiceStack.OrmLite
         public static void AlterTable(this IDbConnection dbConn, Type modelType, string command)
         {
             var sql = $"ALTER TABLE {dbConn.GetDialectProvider().GetQuotedTableName(modelType.GetModelDefinition())} {command};";
+            dbConn.ExecuteSql(sql);
+        }
+
+        public static void AddColumnWithCommand<T>(this IDbConnection dbConn, string command)
+        {
+            var modelDef = ModelDefinition<T>.Definition;
+
+            var sql = $"ALTER TABLE {dbConn.GetDialectProvider().GetQuotedTableName(modelDef)} ADD {command};";
             dbConn.ExecuteSql(sql);
         }
 
@@ -112,14 +120,22 @@ namespace ServiceStack.OrmLite
             dbConn.ExecuteSql(command);
         }
 
-
-        public static void DropForeignKey<T>(this IDbConnection dbConn, string foreignKeyName)
+        public static void DropPrimaryKey<T>(this IDbConnection dbConn, string name, bool online = true)
         {
             var provider = dbConn.GetDialectProvider();
             var modelDef = ModelDefinition<T>.Definition;
-            var command = string.Format(provider.GetDropForeignKeyConstraints(modelDef),
-                provider.GetQuotedTableName(modelDef.ModelName),
-                provider.GetQuotedName(foreignKeyName));
+
+            var command = provider.GetDropPrimaryKeyConstraint(modelDef, name);
+
+            dbConn.ExecuteSql(command);
+        }
+
+        public static void DropForeignKey<T>(this IDbConnection dbConn, string name)
+        {
+            var provider = dbConn.GetDialectProvider();
+            var modelDef = ModelDefinition<T>.Definition;
+
+            var command = provider.GetDropForeignKeyConstraint(modelDef, name);
 
             dbConn.ExecuteSql(command);
         }
@@ -132,11 +148,23 @@ namespace ServiceStack.OrmLite
             dbConn.ExecuteSql(command);
         }
 
-
-        public static void DropIndex<T>(this IDbConnection dbConn, string indexName)
+        /// <summary>
+        /// Drop Index of table
+        /// </summary>
+        /// <param name="dbConn">
+        /// The db conn.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        public static void DropIndex<T>(this IDbConnection dbConn)
         {
             var provider = dbConn.GetDialectProvider();
-            var command = $"ALTER TABLE {provider.GetQuotedTableName(ModelDefinition<T>.Definition.ModelName)} " +
+
+            var modelDef = ModelDefinition<T>.Definition;
+
+            var indexName = $"IX_{provider.GetTableName(modelDef)}";
+
+            var command = $"ALTER TABLE {provider.GetQuotedTableName(modelDef.ModelName)} " +
                           $"DROP INDEX  {provider.GetQuotedName(indexName)};";
             dbConn.ExecuteSql(command);
         }

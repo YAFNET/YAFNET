@@ -1,4 +1,4 @@
-//
+﻿//
 // ServiceStack.OrmLite: Light-weight POCO ORM for .NET and Mono
 //
 // Authors:
@@ -42,53 +42,53 @@ namespace ServiceStack.OrmLite
 
         #region ADO.NET supported types
         /* ADO.NET UNDERSTOOD DATA TYPES:
-			COUNTER	DbType.Int64
-			AUTOINCREMENT	DbType.Int64
-			IDENTITY	DbType.Int64
-			LONG	DbType.Int64
-			TINYINT	DbType.Byte
-			INTEGER	DbType.Int64
-			INT	DbType.Int32
-			VARCHAR	DbType.String
-			NVARCHAR	DbType.String
-			CHAR	DbType.String
-			NCHAR	DbType.String
-			TEXT	DbType.String
-			NTEXT	DbType.String
-			STRING	DbType.String
-			DOUBLE	DbType.Double
-			FLOAT	DbType.Double
-			REAL	DbType.Single
-			BIT	DbType.Boolean
-			YESNO	DbType.Boolean
-			LOGICAL	DbType.Boolean
-			BOOL	DbType.Boolean
-			NUMERIC	DbType.Decimal
-			DECIMAL	DbType.Decimal
-			MONEY	DbType.Decimal
-			CURRENCY	DbType.Decimal
-			TIME	DbType.DateTime
-			DATE	DbType.DateTime
-			TIMESTAMP	DbType.DateTime
-			DATETIME	DbType.DateTime
-			BLOB	DbType.Binary
-			BINARY	DbType.Binary
-			VARBINARY	DbType.Binary
-			IMAGE	DbType.Binary
-			GENERAL	DbType.Binary
-			OLEOBJECT	DbType.Binary
-			GUID	DbType.Guid
-			UNIQUEIDENTIFIER	DbType.Guid
-			MEMO	DbType.String
-			NOTE	DbType.String
-			LONGTEXT	DbType.String
-			LONGCHAR	DbType.String
-			SMALLINT	DbType.Int16
-			BIGINT	DbType.Int64
-			LONGVARCHAR	DbType.String
-			SMALLDATE	DbType.DateTime
-			SMALLDATETIME	DbType.DateTime
-		 */
+            COUNTER	DbType.Int64
+            AUTOINCREMENT	DbType.Int64
+            IDENTITY	DbType.Int64
+            LONG	DbType.Int64
+            TINYINT	DbType.Byte
+            INTEGER	DbType.Int64
+            INT	DbType.Int32
+            VARCHAR	DbType.String
+            NVARCHAR	DbType.String
+            CHAR	DbType.String
+            NCHAR	DbType.String
+            TEXT	DbType.String
+            NTEXT	DbType.String
+            STRING	DbType.String
+            DOUBLE	DbType.Double
+            FLOAT	DbType.Double
+            REAL	DbType.Single
+            BIT	DbType.Boolean
+            YESNO	DbType.Boolean
+            LOGICAL	DbType.Boolean
+            BOOL	DbType.Boolean
+            NUMERIC	DbType.Decimal
+            DECIMAL	DbType.Decimal
+            MONEY	DbType.Decimal
+            CURRENCY	DbType.Decimal
+            TIME	DbType.DateTime
+            DATE	DbType.DateTime
+            TIMESTAMP	DbType.DateTime
+            DATETIME	DbType.DateTime
+            BLOB	DbType.Binary
+            BINARY	DbType.Binary
+            VARBINARY	DbType.Binary
+            IMAGE	DbType.Binary
+            GENERAL	DbType.Binary
+            OLEOBJECT	DbType.Binary
+            GUID	DbType.Guid
+            UNIQUEIDENTIFIER	DbType.Guid
+            MEMO	DbType.String
+            NOTE	DbType.String
+            LONGTEXT	DbType.String
+            LONGCHAR	DbType.String
+            SMALLINT	DbType.Int16
+            BIGINT	DbType.Int64
+            LONGVARCHAR	DbType.String
+            SMALLDATE	DbType.DateTime
+            SMALLDATETIME	DbType.DateTime
+         */
         #endregion
 
         protected void InitColumnTypeMap()
@@ -915,7 +915,7 @@ namespace ServiceStack.OrmLite
         }
 
         /// <summary>
-        /// Used for adding updated DB params in INSERT and UPDATE statements  
+        /// Used for adding updated DB params in INSERT and UPDATE statements
         /// </summary>
         protected IDbDataParameter AddParameter(IDbCommand cmd, FieldDefinition fieldDef)
         {
@@ -1450,6 +1450,21 @@ namespace ServiceStack.OrmLite
             return DoesColumnExist(db, columnName, tableName, schema).InTask();
         }
 
+        public virtual string GetColumnDataType(IDbConnection db, string columnName, string tableName, string schema = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool ColumnIsNullable(IDbConnection db, string columnName, string tableName, string schema = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual long GetColumnMaxLength(IDbConnection db, string columnName, string tableName, string schema = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual bool DoesSequenceExist(IDbCommand dbCmd, string sequenceName)
         {
             throw new NotImplementedException();
@@ -1542,6 +1557,16 @@ namespace ServiceStack.OrmLite
         public IDbCommand CreateParameterizedDeleteStatement(IDbConnection connection, object objWithProperties)
         {
             throw new NotImplementedException();
+        }
+
+        public virtual string GetDropPrimaryKeyConstraint(ModelDefinition modelDef, string name)
+        {
+            return null;
+        }
+
+        public virtual string GetDropForeignKeyConstraint(ModelDefinition modelDef, string name)
+        {
+            return null;
         }
 
         public virtual string GetDropForeignKeyConstraints(ModelDefinition modelDef)

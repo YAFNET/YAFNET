@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -36,10 +36,6 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [UniqueConstraint(nameof(CategoryID), nameof(Name))]
-    [PostCreateTable("alter table {tableName} add [IsLocked]		as (CONVERT([bit],sign([Flags]&(1)),(0)))" +
-                         "alter table {tableName} add [IsHidden]	as (CONVERT([bit],sign([Flags]&(2)),(0)))" +
-                         "alter table {tableName} add [IsNoCount]   as (CONVERT([bit],sign([Flags]&(4)),(0)))" +
-                         "alter table {tableName} add [IsModerated] as (CONVERT([bit],sign([Flags]&(8)),(0)))")]
     public class Forum : IEntity, IHaveID
     {
         #region Properties
@@ -172,24 +168,6 @@ namespace YAF.Types.Models
         /// </summary>
         [StringLength(255)]
         public string Styles { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is locked.
-        /// </summary>
-        [Compute]
-        public bool? IsLocked { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is no count.
-        /// </summary>
-        [Compute]
-        public bool? IsNoCount { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is moderated.
-        /// </summary>
-        [Compute]
-        public bool? IsModerated { get; set; }
 
         /// <summary>
         /// Gets or sets the user id.

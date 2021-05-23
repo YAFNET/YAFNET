@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -45,11 +45,7 @@ namespace YAF.Types.Models
                          "alter table [{databaseOwner}].[{tableName}] add [IsCaptchaExcluded] as (CONVERT([bit],sign([Flags]&(8)),(0)))" +
                          "alter table [{databaseOwner}].[{tableName}] add [IsActiveExcluded]  as (CONVERT([bit],sign([Flags]&(16)),(0)))" +
                          "alter table [{databaseOwner}].[{tableName}] add [IsDST]	          as (CONVERT([bit],sign([Flags]&(32)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [IsDirty]	          as (CONVERT([bit],sign([Flags]&(64)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [Moderated]	      as (CONVERT([bit],sign([Flags]&(128)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [IsUserStyle]       as (CONVERT([bit],sign([StyleFlags]&(1)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [IsGroupStyle]      as (CONVERT([bit],sign([StyleFlags]&(2)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [IsRankStyle]       as (CONVERT([bit],sign([StyleFlags]&(4)),(0)))")]
+                         "alter table [{databaseOwner}].[{tableName}] add [IsDirty]	          as (CONVERT([bit],sign([Flags]&(64)),(0)))")]
     public class User : IEntity, IHaveBoardID, IHaveID
     {
         /// <summary>
@@ -346,13 +342,6 @@ namespace YAF.Types.Models
         [Index]
         [StringLength(510)]
         public string UserStyle { get; set; }
-
-        /// <summary>
-        /// Gets or sets the style flags.
-        /// </summary>
-        [Required]
-        [Default(0)]
-        public int StyleFlags { get; set; }
 
         /// <summary>
         /// Gets or sets the suspended reason.

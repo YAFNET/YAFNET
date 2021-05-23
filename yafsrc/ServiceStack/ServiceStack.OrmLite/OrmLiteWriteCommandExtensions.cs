@@ -189,6 +189,21 @@ namespace ServiceStack.OrmLite
             return false;
         }
 
+        internal static void DropTable(this IDbCommand dbCmd, string tableName)
+        {
+            try
+            {
+                var dialectProvider = dbCmd.GetDialectProvider();
+
+                dbCmd.ExecuteSql("DROP TABLE " + dialectProvider.GetQuotedTableName(tableName, string.Empty));
+            }
+            catch (Exception ex)
+            {
+                Log.DebugFormat("Could not drop table '{0}': {1}", tableName, ex.Message);
+                throw;
+            }
+        }
+
         internal static void DropTable<T>(this IDbCommand dbCmd)
         {
             DropTable(dbCmd, ModelDefinition<T>.Definition);

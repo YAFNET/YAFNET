@@ -14,7 +14,12 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public static bool TableExists(this IDbConnection dbConn, string tableName, string schema = null)
         {
-            return dbConn.GetDialectProvider().DoesTableExist(dbConn, tableName, schema);
+            var dialectProvider = dbConn.GetDialectProvider();
+
+            return dbConn.GetDialectProvider().DoesTableExist(
+                dbConn,
+                dialectProvider.NamingStrategy.GetTableName(tableName),
+                dialectProvider.NamingStrategy.GetSchemaName(schema));
         }
 
         /// <summary>
@@ -72,6 +77,27 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Checks whether a Table Column Exists. E.g:
+        /// <para>
+        /// db.ColumnExists&lt;Person&gt;("Age")
+        /// </para>
+        /// </summary>
+        /// <param name="dbConn">
+        /// The db Conn.
+        /// </param>
+        /// <param name="columnName">
+        /// The column Name.
+        /// </param>
+        public static bool ColumnExists<T>(this IDbConnection dbConn, string columnName)
+        {
+            var dialectProvider = dbConn.GetDialectProvider();
+            var modelDef = typeof(T).GetModelDefinition();
+            var schema = modelDef.Schema == null ? null : dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
+            var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef);
+            return dialectProvider.DoesColumnExist(dbConn, columnName, tableName, schema);
+        }
+
+        /// <summary>
+        /// Checks whether a Table Column Exists. E.g:
         /// <para>db.ColumnExists&lt;Person&gt;(x =&gt; x.Age)</para>
         /// </summary>
         public static bool ColumnExists<T>(this IDbConnection dbConn, Expression<Func<T, object>> field)
@@ -101,8 +127,53 @@ namespace ServiceStack.OrmLite
         }
 
         /// <summary>
+        /// Checks if The Column allows Null Values or not. E.g:
+        /// <para>db.ColumnIsNullable&lt;Person&gt;(x =&gt; x.Age)</para>
+        /// </summary>
+        public static string ColumnDataType<T>(this IDbConnection dbConn, Expression<Func<T, object>> field)
+        {
+            var dialectProvider = dbConn.GetDialectProvider();
+            var modelDef = typeof(T).GetModelDefinition();
+            var schema = modelDef.Schema == null ? null : dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
+            var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef);
+            var fieldDef = modelDef.GetFieldDefinition(field);
+            var fieldName = dialectProvider.NamingStrategy.GetColumnName(fieldDef.FieldName);
+            return dialectProvider.GetColumnDataType(dbConn, fieldName, tableName, schema);
+        }
+
+        /// <summary>
+        /// Checks if The Column allows Null Values or not. E.g:
+        /// <para>db.ColumnIsNullable&lt;Person&gt;(x =&gt; x.Age)</para>
+        /// </summary>
+        public static bool ColumnIsNullable<T>(this IDbConnection dbConn, Expression<Func<T, object>> field)
+        {
+            var dialectProvider = dbConn.GetDialectProvider();
+            var modelDef = typeof(T).GetModelDefinition();
+            var schema = modelDef.Schema == null ? null : dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
+            var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef);
+            var fieldDef = modelDef.GetFieldDefinition(field);
+            var fieldName = dialectProvider.NamingStrategy.GetColumnName(fieldDef.FieldName);
+            return dialectProvider.ColumnIsNullable(dbConn, fieldName, tableName, schema);
+        }
+
+        /// <summary>
+        /// Gets the Max. Length for the Column. E.g:
+        /// <para>db.ColumnExists&lt;Person&gt;(x =&gt; x.Age)</para>
+        /// </summary>
+        public static long ColumnMaxLength<T>(this IDbConnection dbConn, Expression<Func<T, object>> field)
+        {
+            var dialectProvider = dbConn.GetDialectProvider();
+            var modelDef = typeof(T).GetModelDefinition();
+            var schema = modelDef.Schema == null ? null : dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
+            var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef);
+            var fieldDef = modelDef.GetFieldDefinition(field);
+            var fieldName = dialectProvider.NamingStrategy.GetColumnName(fieldDef.FieldName);
+            return dialectProvider.GetColumnMaxLength(dbConn, fieldName, tableName, schema);
+        }
+
+        /// <summary>
         /// Create a DB Schema from the Schema attribute on the generic type. E.g:
-        /// <para>db.CreateSchema&lt;Person&gt;() //default</para> 
+        /// <para>db.CreateSchema&lt;Person&gt;() //default</para>
         /// </summary>
         public static void CreateSchema<T>(this IDbConnection dbConn)
         {
@@ -111,7 +182,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Create a DB Schema. E.g:
-        /// <para>db.CreateSchema("schemaName")</para> 
+        /// <para>db.CreateSchema("schemaName")</para>
         /// </summary>
         public static bool CreateSchema(this IDbConnection dbConn, string schemaName)
         {
@@ -120,7 +191,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Create DB Tables from the schemas of runtime types. E.g:
-        /// <para>db.CreateTables(typeof(Table1), typeof(Table2))</para> 
+        /// <para>db.CreateTables(typeof(Table1), typeof(Table2))</para>
         /// </summary>
         public static void CreateTables(this IDbConnection dbConn, bool overwrite, params Type[] tableTypes)
         {
@@ -129,7 +200,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Create DB Table from the schema of the runtime type. Use overwrite to drop existing Table. E.g:
-        /// <para>db.CreateTable(true, typeof(Table))</para> 
+        /// <para>db.CreateTable(true, typeof(Table))</para>
         /// </summary>
         public static void CreateTable(this IDbConnection dbConn, bool overwrite, Type modelType)
         {
@@ -138,7 +209,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Only Create new DB Tables from the schemas of runtime types if they don't already exist. E.g:
-        /// <para>db.CreateTableIfNotExists(typeof(Table1), typeof(Table2))</para> 
+        /// <para>db.CreateTableIfNotExists(typeof(Table1), typeof(Table2))</para>
         /// </summary>
         public static void CreateTableIfNotExists(this IDbConnection dbConn, params Type[] tableTypes)
         {
@@ -147,7 +218,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Drop existing DB Tables and re-create them from the schemas of runtime types. E.g:
-        /// <para>db.DropAndCreateTables(typeof(Table1), typeof(Table2))</para> 
+        /// <para>db.DropAndCreateTables(typeof(Table1), typeof(Table2))</para>
         /// </summary>
         public static void DropAndCreateTables(this IDbConnection dbConn, params Type[] tableTypes)
         {
@@ -156,8 +227,8 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Create a DB Table from the generic type. Use overwrite to drop the existing table or not. E.g:
-        /// <para>db.CreateTable&lt;Person&gt;(overwrite=false) //default</para> 
-        /// <para>db.CreateTable&lt;Person&gt;(overwrite=true)</para> 
+        /// <para>db.CreateTable&lt;Person&gt;(overwrite=false) //default</para>
+        /// <para>db.CreateTable&lt;Person&gt;(overwrite=true)</para>
         /// </summary>
         public static void CreateTable<T>(this IDbConnection dbConn, bool overwrite = false)
         {
@@ -166,7 +237,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Only create a DB Table from the generic type if it doesn't already exist. E.g:
-        /// <para>db.CreateTableIfNotExists&lt;Person&gt;()</para> 
+        /// <para>db.CreateTableIfNotExists&lt;Person&gt;()</para>
         /// </summary>
         public static bool CreateTableIfNotExists<T>(this IDbConnection dbConn)
         {
@@ -175,7 +246,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Only create a DB Table from the runtime type if it doesn't already exist. E.g:
-        /// <para>db.CreateTableIfNotExists(typeof(Person))</para> 
+        /// <para>db.CreateTableIfNotExists(typeof(Person))</para>
         /// </summary>
         public static bool CreateTableIfNotExists(this IDbConnection dbConn, Type modelType)
         {
@@ -184,7 +255,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Drop existing table if exists and re-create a DB Table from the generic type. E.g:
-        /// <para>db.DropAndCreateTable&lt;Person&gt;()</para> 
+        /// <para>db.DropAndCreateTable&lt;Person&gt;()</para>
         /// </summary>
         public static void DropAndCreateTable<T>(this IDbConnection dbConn)
         {
@@ -193,7 +264,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Drop existing table if exists and re-create a DB Table from the runtime type. E.g:
-        /// <para>db.DropAndCreateTable(typeof(Person))</para> 
+        /// <para>db.DropAndCreateTable(typeof(Person))</para>
         /// </summary>
         public static void DropAndCreateTable(this IDbConnection dbConn, Type modelType)
         {
@@ -202,7 +273,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Drop any existing tables from their runtime types. E.g:
-        /// <para>db.DropTables(typeof(Table1),typeof(Table2))</para> 
+        /// <para>db.DropTables(typeof(Table1),typeof(Table2))</para>
         /// </summary>
         public static void DropTables(this IDbConnection dbConn, params Type[] tableTypes)
         {
@@ -211,7 +282,16 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Drop any existing tables from the runtime type. E.g:
-        /// <para>db.DropTable(typeof(Person))</para> 
+        /// <para>db.DropTable("Person")</para>
+        /// </summary>
+        public static void DropTable(this IDbConnection dbConn, string tableName)
+        {
+            dbConn.Exec(dbCmd => dbCmd.DropTable(tableName));
+        }
+
+        /// <summary>
+        /// Drop any existing tables from the runtime type. E.g:
+        /// <para>db.DropTable(typeof(Person))</para>
         /// </summary>
         public static void DropTable(this IDbConnection dbConn, Type modelType)
         {
@@ -220,7 +300,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Drop any existing tables from the generic type. E.g:
-        /// <para>db.DropTable&lt;Person&gt;()</para> 
+        /// <para>db.DropTable&lt;Person&gt;()</para>
         /// </summary>
         public static void DropTable<T>(this IDbConnection dbConn)
         {

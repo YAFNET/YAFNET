@@ -1,4 +1,4 @@
-//
+﻿//
 // ServiceStack.OrmLite: Light-weight POCO ORM for .NET and Mono
 //
 // Authors:
@@ -74,7 +74,7 @@ namespace ServiceStack.OrmLite
 
         object GetParamValue(object value, Type fieldType);
 
-        // Customize DB Parameters in SELECT or WHERE queries 
+        // Customize DB Parameters in SELECT or WHERE queries
         void InitQueryParam(IDbDataParameter param);
 
         // Customize UPDATE or INSERT DB Parameters
@@ -195,6 +195,9 @@ namespace ServiceStack.OrmLite
         Task<bool> DoesTableExistAsync(IDbCommand dbCmd, string tableName, string schema = null, CancellationToken token = default);
         bool DoesColumnExist(IDbConnection db, string columnName, string tableName, string schema = null);
         Task<bool> DoesColumnExistAsync(IDbConnection db, string columnName, string tableName, string schema = null, CancellationToken token = default);
+        string GetColumnDataType(IDbConnection db, string columnName, string tableName, string schema = null);
+        bool ColumnIsNullable(IDbConnection db, string columnName, string tableName, string schema = null);
+        long GetColumnMaxLength(IDbConnection db, string columnName, string tableName, string schema = null);
         bool DoesSequenceExist(IDbCommand dbCmd, string sequenceName);
         Task<bool> DoesSequenceExistAsync(IDbCommand dbCmd, string sequenceName, CancellationToken token = default);
 
@@ -211,6 +214,10 @@ namespace ServiceStack.OrmLite
         SqlExpression<T> SqlExpression<T>();
 
         IDbDataParameter CreateParam();
+
+        string GetDropPrimaryKeyConstraint(ModelDefinition modelDef, string name);
+
+        string GetDropForeignKeyConstraint(ModelDefinition modelDef, string name);
 
         //DDL
         string GetDropForeignKeyConstraints(ModelDefinition modelDef);

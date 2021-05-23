@@ -1,4 +1,4 @@
-/*
+﻿/*
   Drop All
 
 
@@ -1323,4 +1323,47 @@ GO
 
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}init_styles]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}init_styles]
+GO
+
+-- display names upgrade routine can run really for ages on large forums
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_initdisplayname]'))
+DROP procedure [{databaseOwner}].[{objectQualifier}forum_initdisplayname]
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}forum_initdisplayname] as
+
+begin
+    declare @tmpUserName nvarchar(255)
+    declare @tmpUserDisplayName nvarchar(255)
+    declare @tmpLastUserName nvarchar(255)
+    declare @tmpLastUserDisplayName nvarchar(255)
+    declare @tmp int
+    declare @tmpUserID int
+    declare @tmpLastUserID int
+
+     update d
+      set    d.LastUserDisplayName = ISNULL((select top 1 f.LastUserDisplayName FROM [{databaseOwner}].[{objectQualifier}Forum] f
+          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = f.UserID where u.UserID = d.UserID),
+           (select top 1 f.LastUserName FROM [{databaseOwner}].[{objectQualifier}Forum] f
+          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = f.UserID where u.UserID = d.UserID ))
+       from  [{databaseOwner}].[{objectQualifier}Forum] d where d.LastUserDisplayName IS NULL OR d.LastUserDisplayName = d.LastUserName;
+
+      update d
+       set    d.UserDisplayName = ISNULL((select top 1 m.UserDisplayName FROM [{databaseOwner}].[{objectQualifier}Message] m
+          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = m.UserID where u.UserID = d.UserID),
+           (select top 1 m.UserName FROM [{databaseOwner}].[{objectQualifier}Message] m
+          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = m.UserID where u.UserID = d.UserID ))
+       from  [{databaseOwner}].[{objectQualifier}Message] d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;
+
+      update d
+       set    d.UserDisplayName = ISNULL((select top 1 t.UserDisplayName FROM [{databaseOwner}].[{objectQualifier}Topic] t
+          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = t.UserID where u.UserID = d.UserID),
+           (select top 1 t.UserName FROM [{databaseOwner}].[{objectQualifier}Topic] t
+          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = t.UserID where u.UserID = d.UserID ))
+       from  [{databaseOwner}].[{objectQualifier}Message] d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;
+end
+GO
+
+if exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}Message] where UserDisplayName IS NULL)
+exec('[{databaseOwner}].[{objectQualifier}forum_initdisplayname]')
 GO

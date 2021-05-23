@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -278,12 +278,6 @@ namespace YAF.Types.Models
         /// </summary>
         [Compute]
         public bool? IsApproved { get; set; }
-
-        /// <summary>
-        /// Gets or sets the blog post id.
-        /// </summary>
-        [StringLength(50)]
-        public string BlogPostID { get; set; }
 
         /// <summary>
         /// Gets or sets the edited by.

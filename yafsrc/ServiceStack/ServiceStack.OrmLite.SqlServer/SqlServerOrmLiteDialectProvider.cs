@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 #if MSDATA
@@ -201,6 +201,42 @@ namespace ServiceStack.OrmLite.SqlServer
             return result > 0;
         }
 
+        public override string GetColumnDataType(IDbConnection db, string columnName, string tableName, string schema = null)
+        {
+            var sql = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
+                .SqlFmt(this, tableName, columnName);
+
+            if (schema != null)
+            {
+                sql += " AND TABLE_SCHEMA = @schema";
+            }
+
+            return db.SqlScalar<string>(sql, new { tableName, columnName, schema });
+        }
+        public override bool ColumnIsNullable(IDbConnection db, string columnName, string tableName, string schema = null)
+        {
+            var sql = "SELECT is_nullable FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
+                .SqlFmt(this, tableName, columnName);
+
+            if (schema != null)
+            {
+                sql += " AND TABLE_SCHEMA = @schema";
+            }
+
+            return db.SqlScalar<string>(sql, new { tableName, columnName, schema }) == "YES";
+        }
+
+        public override long GetColumnMaxLength(IDbConnection db, string columnName, string tableName, string schema = null)
+        {
+            var sql = "SELECT character_maximum_length FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
+                .SqlFmt(this, tableName, columnName);
+
+            if (schema != null)
+                sql += " AND TABLE_SCHEMA = @schema";
+
+            return db.SqlScalar<long>(sql, new { tableName, columnName, schema });
+        }
+
         public override string GetForeignKeyOnDeleteClause(ForeignKeyConstraint foreignKey)
         {
             return "RESTRICT" == (foreignKey.OnDelete ?? "").ToUpper()
@@ -213,6 +249,36 @@ namespace ServiceStack.OrmLite.SqlServer
             return "RESTRICT" == (foreignKey.OnUpdate ?? "").ToUpper()
                 ? ""
                 : base.GetForeignKeyOnUpdateClause(foreignKey);
+        }
+
+        public override string GetDropPrimaryKeyConstraint(ModelDefinition modelDef, string name)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var foreignKeyName = $"PK_{NamingStrategy.GetTableName(modelDef)}_{name}";
+
+            var tableName = GetQuotedTableName(modelDef);
+            sb.AppendLine($"IF EXISTS (SELECT name FROM sys.foreign_keys WHERE name = '{foreignKeyName}')");
+            sb.AppendLine("BEGIN");
+            sb.AppendLine($"  ALTER TABLE {tableName} DROP constraint {foreignKeyName};");
+            sb.AppendLine("END");
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        public override string GetDropForeignKeyConstraint(ModelDefinition modelDef, string name)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var foreignKeyName = $"FK_{NamingStrategy.GetTableName(modelDef)}_{name}";
+
+            var tableName = GetQuotedTableName(modelDef);
+            sb.AppendLine($"IF EXISTS (SELECT name FROM sys.foreign_keys WHERE name = '{foreignKeyName}')");
+            sb.AppendLine("BEGIN");
+            sb.AppendLine($"  ALTER TABLE {tableName} DROP constraint {foreignKeyName};");
+            sb.AppendLine("END");
+
+            return StringBuilderCache.ReturnAndFree(sb);
         }
 
         public override string GetDropForeignKeyConstraints(ModelDefinition modelDef)
@@ -371,7 +437,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 }
             }
 
-            foreach (var fieldDef in modelDef.AutoIdFields) // need to include any AutoId fields that weren't included 
+            foreach (var fieldDef in modelDef.AutoIdFields) // need to include any AutoId fields that weren't included
             {
                 if (fieldDefs.Contains(fieldDef))
                     continue;
@@ -490,7 +556,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 }
             }
 
-            foreach (var fieldDef in modelDef.AutoIdFields) // need to include any AutoId fields that weren't included 
+            foreach (var fieldDef in modelDef.AutoIdFields) // need to include any AutoId fields that weren't included
             {
                 if (fieldDefs.Contains(fieldDef))
                     continue;
