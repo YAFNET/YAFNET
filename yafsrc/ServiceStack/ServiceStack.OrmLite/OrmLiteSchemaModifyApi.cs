@@ -159,13 +159,10 @@ namespace ServiceStack.OrmLite
         public static void DropIndex<T>(this IDbConnection dbConn)
         {
             var provider = dbConn.GetDialectProvider();
-
             var modelDef = ModelDefinition<T>.Definition;
 
-            var indexName = $"IX_{provider.GetTableName(modelDef)}";
+            var command = provider.GetDropIndexConstraint(modelDef);
 
-            var command = $"ALTER TABLE {provider.GetQuotedTableName(modelDef.ModelName)} " +
-                          $"DROP INDEX  {provider.GetQuotedName(indexName)};";
             dbConn.ExecuteSql(command);
         }
 

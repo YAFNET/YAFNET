@@ -1,11 +1,11 @@
-﻿using System;
-using System.Data;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace ServiceStack.OrmLite
+﻿namespace ServiceStack.OrmLite
 {
+    using System;
+    using System.Data;
+    using System.Linq.Expressions;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public static class OrmLiteSchemaApi
     {
         /// <summary>
@@ -39,7 +39,7 @@ namespace ServiceStack.OrmLite
         {
             var dialectProvider = dbConn.GetDialectProvider();
             var modelDef = typeof(T).GetModelDefinition();
-            var schema = modelDef.Schema == null ? null : dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
+            var schema = /*modelDef.Schema == null ? null :*/ dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
             var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef);
             return dialectProvider.DoesTableExist(dbConn, tableName, schema);
         }
@@ -52,7 +52,7 @@ namespace ServiceStack.OrmLite
         {
             var dialectProvider = dbConn.GetDialectProvider();
             var modelDef = typeof(T).GetModelDefinition();
-            var schema = modelDef.Schema == null ? null : dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
+            var schema = /*modelDef.Schema == null ? null :*/ dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
             var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef);
             return dialectProvider.DoesTableExistAsync(dbConn, tableName, schema, token);
         }
@@ -91,7 +91,7 @@ namespace ServiceStack.OrmLite
         {
             var dialectProvider = dbConn.GetDialectProvider();
             var modelDef = typeof(T).GetModelDefinition();
-            var schema = modelDef.Schema == null ? null : dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
+            var schema = /*modelDef.Schema == null ? null :*/ dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
             var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef);
             return dialectProvider.DoesColumnExist(dbConn, columnName, tableName, schema);
         }
@@ -104,7 +104,7 @@ namespace ServiceStack.OrmLite
         {
             var dialectProvider = dbConn.GetDialectProvider();
             var modelDef = typeof(T).GetModelDefinition();
-            var schema = modelDef.Schema == null ? null : dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
+            var schema = /*modelDef.Schema == null ? null :*/ dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
             var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef);
             var fieldDef = modelDef.GetFieldDefinition(field);
             var fieldName = dialectProvider.NamingStrategy.GetColumnName(fieldDef.FieldName);
@@ -119,7 +119,7 @@ namespace ServiceStack.OrmLite
         {
             var dialectProvider = dbConn.GetDialectProvider();
             var modelDef = typeof(T).GetModelDefinition();
-            var schema = modelDef.Schema == null ? null : dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
+            var schema = /*modelDef.Schema == null ? null :*/ dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
             var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef);
             var fieldDef = modelDef.GetFieldDefinition(field);
             var fieldName = dialectProvider.NamingStrategy.GetColumnName(fieldDef.FieldName);
@@ -134,7 +134,7 @@ namespace ServiceStack.OrmLite
         {
             var dialectProvider = dbConn.GetDialectProvider();
             var modelDef = typeof(T).GetModelDefinition();
-            var schema = modelDef.Schema == null ? null : dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
+            var schema = /*modelDef.Schema == null ? null :*/ dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
             var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef);
             var fieldDef = modelDef.GetFieldDefinition(field);
             var fieldName = dialectProvider.NamingStrategy.GetColumnName(fieldDef.FieldName);
@@ -149,7 +149,7 @@ namespace ServiceStack.OrmLite
         {
             var dialectProvider = dbConn.GetDialectProvider();
             var modelDef = typeof(T).GetModelDefinition();
-            var schema = modelDef.Schema == null ? null : dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
+            var schema = /*modelDef.Schema == null ? null :*/ dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
             var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef);
             var fieldDef = modelDef.GetFieldDefinition(field);
             var fieldName = dialectProvider.NamingStrategy.GetColumnName(fieldDef.FieldName);
@@ -164,7 +164,7 @@ namespace ServiceStack.OrmLite
         {
             var dialectProvider = dbConn.GetDialectProvider();
             var modelDef = typeof(T).GetModelDefinition();
-            var schema = modelDef.Schema == null ? null : dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
+            var schema = /*modelDef.Schema == null ? null :*/ dialectProvider.NamingStrategy.GetSchemaName(modelDef.Schema);
             var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef);
             var fieldDef = modelDef.GetFieldDefinition(field);
             var fieldName = dialectProvider.NamingStrategy.GetColumnName(fieldDef.FieldName);

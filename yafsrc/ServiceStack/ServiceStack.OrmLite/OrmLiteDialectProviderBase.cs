@@ -389,8 +389,8 @@ namespace ServiceStack.OrmLite
 
         public virtual string GetQuotedTableName(string tableName, string schema = null)
         {
-            if (schema == null)
-                return GetQuotedName(NamingStrategy.GetTableName(tableName));
+            /*if (schema == null)
+                return GetQuotedName(NamingStrategy.GetTableName(tableName));*/
 
             var escapedSchema = NamingStrategy.GetSchemaName(schema)
                 .Replace(".", "\".\"");
@@ -1557,6 +1557,11 @@ namespace ServiceStack.OrmLite
         public IDbCommand CreateParameterizedDeleteStatement(IDbConnection connection, object objWithProperties)
         {
             throw new NotImplementedException();
+        }
+
+        public virtual string GetDropIndexConstraint(ModelDefinition modelDef)
+        {
+            return null;
         }
 
         public virtual string GetDropPrimaryKeyConstraint(ModelDefinition modelDef, string name)

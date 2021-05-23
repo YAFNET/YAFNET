@@ -215,6 +215,8 @@ namespace ServiceStack.OrmLite
 
         IDbDataParameter CreateParam();
 
+        string GetDropIndexConstraint(ModelDefinition modelDef);
+
         string GetDropPrimaryKeyConstraint(ModelDefinition modelDef, string name);
 
         string GetDropForeignKeyConstraint(ModelDefinition modelDef, string name);
