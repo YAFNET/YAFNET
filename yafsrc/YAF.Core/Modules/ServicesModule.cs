@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -45,6 +45,7 @@ namespace YAF.Core.Modules
     using YAF.Core.Identity;
     using YAF.Core.Services;
     using YAF.Core.Services.Cache;
+    using YAF.Core.Services.Migrations;
     using YAF.Core.Services.Startup;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
@@ -152,7 +153,10 @@ namespace YAF.Core.Modules
             builder.RegisterInstance(new BoardFolders()).AsSelf().SingleInstance();
             builder.RegisterInstance(new ControlSettings()).AsSelf().SingleInstance();
 
-            // Caching 
+            // Migrations
+            builder.RegisterType<V80_Migration>().AsSelf().PreserveExistingDefaults();
+
+            // Caching
             //builder.RegisterType<MemoryCache>().As<IMemoryCache>().SingleInstance();
         }
 

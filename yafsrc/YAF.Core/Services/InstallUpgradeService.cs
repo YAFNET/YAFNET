@@ -37,6 +37,7 @@ namespace YAF.Core.Services
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services.Import;
+    using YAF.Core.Services.Migrations;
     using YAF.Core.Tasks;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -245,19 +246,10 @@ namespace YAF.Core.Services
 
             if (isForumInstalled)
             {
-                if (prevVersion >= 80)
-                {
-                    this.ExecuteNewUpgradeScripts();
-                }
-                else
-                {
-                    this.ExecuteUpgradeScripts();
-
-                    this.ExecuteScript(this.DbAccess.Information.FullTextUpgradeScript);
-                }
-
                 if (prevVersion < 80)
                 {
+                    this.Get<V80_Migration>().MigrateDatabase(this.DbAccess);
+
                     // Upgrade to ASPNET Identity
                     this.DbAccess.Information.IdentityUpgradeScripts.ForEach(this.ExecuteScript);
 
@@ -270,6 +262,9 @@ namespace YAF.Core.Services
 
                     // Delete old registry Settings
                     this.GetRepository<Registry>().DeleteLegacy();
+
+                    // update default points from 0 to 1
+                    this.GetRepository<User>().UpdateOnly(() => new User { Points = 1 }, u => u.Points == 0);
                 }
 
                 if (prevVersion < 30 || updateExtensions)
@@ -300,9 +295,6 @@ namespace YAF.Core.Services
                 this.Get<IDataCache>().Remove(Constants.Cache.Version);
             }
 
-            // run custom script...
-            this.ExecuteScript("custom/custom.sql");
-
             if (Config.IsDotNetNuke)
             {
                 // run dnn custom script...
@@ -331,23 +323,11 @@ namespace YAF.Core.Services
             //////
 
             // Run other
-            this.DbAccess.Information.InstallScripts.ForEach(this.ExecuteScript);
-        }
+            this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateViews(this.DbAccess, dbCommand));
 
-        /// <summary>
-        /// Executes the upgrade scripts.
-        /// </summary>
-        private void ExecuteUpgradeScripts()
-        {
-            this.DbAccess.Information.UpgradeScripts.ForEach(this.ExecuteScript);
-        }
+            this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateIndexViews(this.DbAccess, dbCommand));
 
-        /// <summary>
-        /// Executes the New upgrade scripts.
-        /// </summary>
-        private void ExecuteNewUpgradeScripts()
-        {
-            this.DbAccess.Information.NewUpgradeScripts.ForEach(this.ExecuteScript);
+            this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateFunctions(this.DbAccess, dbCommand));
         }
 
         /// <summary>
@@ -356,8 +336,6 @@ namespace YAF.Core.Services
         private void CreateOrUpdateTables()
         {
             this.CreateTablesIfNotExists();
-
-            this.UpdateTables();
         }
 
         /// <summary>
@@ -421,24 +399,6 @@ namespace YAF.Core.Services
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicTag>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileDefinition>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileCustom>());
-        }
-
-        /// <summary>
-        /// Update Tables.
-        /// </summary>
-        private void UpdateTables()
-        {
-            // Add Missing Ids
-            /*this.DbAccess.Execute(
-                db =>
-                {
-                    if (!db.Connection.ColumnExists<ActiveAccess>(x => x.Id))
-                    {
-                        db.Connection.AddColumn<ActiveAccess>(x => x.Id);
-                    }
-
-                    return true;
-                });*/
         }
 
         /// <summary>

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,7 +29,7 @@ namespace YAF.Core.Model
     using System.Linq;
 
     using ServiceStack.OrmLite;
-    
+
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Utilities.Helpers;
@@ -315,7 +315,6 @@ namespace YAF.Core.Model
                             m.IsDeleted,
                             m.Position,
                             m.DeleteReason,
-                            m.BlogPostID,
                             m.ExternalMessageId,
                             m.ReferenceMessageId,
                             UserName = m.UserName != null ? m.UserName : b.Name,
@@ -492,11 +491,11 @@ namespace YAF.Core.Model
             var flags = message.Item1.MessageFlags;
 
             flags.IsApproved = true;
-            
+
             // -- update Message table, set message flag to approved
             repository.UpdateFlags(messageId, flags.BitValue);
 
-            if (!BoardContext.Current.GetRepository<Forum>().Exists(f => f.ID == forumId && f.IsNoCount == true))
+            if (!BoardContext.Current.GetRepository<Forum>().Exists(f => f.ID == forumId && (f.Flags & 4) == 4))
             {
                 // -- update User table to increase post count
                 BoardContext.Current.GetRepository<User>().UpdateAdd(
@@ -954,7 +953,6 @@ namespace YAF.Core.Model
                 Position = position,
                 Indent = 0,
                 Flags = flags.BitValue,
-                BlogPostID = null,
                 ExternalMessageId = null,
                 ReferenceMessageId = null
             });
@@ -1400,7 +1398,7 @@ namespace YAF.Core.Model
 
             // -- update user post count
             if (!BoardContext.Current.GetRepository<Forum>()
-                .Exists(f => f.ID == message.Item2.ForumID && f.IsNoCount == true))
+                .Exists(f => f.ID == message.Item2.ForumID && (f.Flags & 4) != 4))
             {
                 var postCount = repository.Count(
                         x => x.UserID == message.Item1.UserID && x.IsDeleted == false && x.IsApproved == true)

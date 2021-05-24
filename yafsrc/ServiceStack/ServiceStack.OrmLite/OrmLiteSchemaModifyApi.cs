@@ -1,9 +1,10 @@
-﻿using System;
-using System.Data;
-using System.Linq.Expressions;
-
-namespace ServiceStack.OrmLite
+﻿namespace ServiceStack.OrmLite
 {
+    using System;
+    using System.Data;
+    using System.Linq.Expressions;
+    using System.Text;
+
     public enum OnFkOption
     {
         Cascade,
@@ -156,15 +157,63 @@ namespace ServiceStack.OrmLite
         /// </param>
         /// <typeparam name="T">
         /// </typeparam>
-        public static void DropIndex<T>(this IDbConnection dbConn)
+        public static void DropIndex<T>(this IDbConnection dbConn, string name = null)
         {
             var provider = dbConn.GetDialectProvider();
             var modelDef = ModelDefinition<T>.Definition;
 
-            var command = provider.GetDropIndexConstraint(modelDef);
+            var command = provider.GetDropIndexConstraint(modelDef, name);
 
             dbConn.ExecuteSql(command);
         }
 
+        public static void CreateViewIndex<T>(this IDbConnection dbConn, string name, string selectSql)
+        {
+            var provider = dbConn.GetDialectProvider();
+            var modelDef = ModelDefinition<T>.Definition;
+
+            var command = provider.GetCreateIndexView(modelDef, name, selectSql);
+
+            dbConn.ExecuteSql(command);
+        }
+
+        public static void DropViewIndex<T>(this IDbConnection dbConn, string name)
+        {
+            var provider = dbConn.GetDialectProvider();
+            var modelDef = ModelDefinition<T>.Definition;
+
+            var command = provider.GetDropIndexView(modelDef, name);
+
+            dbConn.ExecuteSql(command);
+        }
+
+        public static void CreateView<T>(this IDbConnection dbConn, StringBuilder selectSql)
+        {
+            var provider = dbConn.GetDialectProvider();
+            var modelDef = ModelDefinition<T>.Definition;
+
+            var command = provider.GetCreateView(modelDef, selectSql);
+
+            dbConn.ExecuteSql(command);
+        }
+
+        public static void DropView<T>(this IDbConnection dbConn)
+        {
+            var provider = dbConn.GetDialectProvider();
+            var modelDef = ModelDefinition<T>.Definition;
+
+            var command = provider.GetDropView(modelDef);
+
+            dbConn.ExecuteSql(command);
+        }
+
+        public static void DropFunction(this IDbConnection dbConn, string functionName)
+        {
+            var provider = dbConn.GetDialectProvider();
+
+            var command = provider.GetDropFunction(functionName);
+
+            dbConn.ExecuteSql(command);
+        }
     }
 }

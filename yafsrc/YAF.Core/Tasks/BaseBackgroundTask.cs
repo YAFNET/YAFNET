@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -46,15 +46,14 @@ namespace YAF.Core.Tasks
         protected bool isRunning;
 
         /// <summary>
-        /// The _lock object.
+        /// The lock object.
         /// </summary>
         protected object lockObject = new();
 
         /// <summary>
-        /// The _started.
+        /// The started.
         /// </summary>
         protected DateTime started;
-
 
         #region Implementation of IHaveServiceLocator
 

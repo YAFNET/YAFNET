@@ -9,17 +9,18 @@
 // Licensed under the same terms of ServiceStack.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
-using ServiceStack.OrmLite.Converters;
-using ServiceStack.Text;
-
 namespace ServiceStack.OrmLite
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq.Expressions;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using ServiceStack.Text;
+
     public interface IOrmLiteDialectProvider
     {
         void RegisterConverter<T>(IOrmLiteConverter converter);
@@ -28,7 +29,6 @@ namespace ServiceStack.OrmLite
         /// Invoked when a DB Connection is opened
         /// </summary>
         Action<IDbConnection> OnOpenConnection { get; set; }
-
 
         IOrmLiteExecFilter ExecFilter { get; set; }
 
@@ -215,7 +215,17 @@ namespace ServiceStack.OrmLite
 
         IDbDataParameter CreateParam();
 
-        string GetDropIndexConstraint(ModelDefinition modelDef);
+        string GetDropFunction(string functionName);
+
+        string GetCreateView(ModelDefinition modelDef, StringBuilder selectSql);
+
+        string GetDropView(ModelDefinition modelDef);
+
+        string GetCreateIndexView(ModelDefinition modelDef, string name, string selectSql);
+
+        string GetDropIndexView(ModelDefinition modelDef, string name);
+
+        string GetDropIndexConstraint(ModelDefinition modelDef, string name = null);
 
         string GetDropPrimaryKeyConstraint(ModelDefinition modelDef, string name);
 

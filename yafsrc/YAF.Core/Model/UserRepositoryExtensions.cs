@@ -290,7 +290,7 @@ namespace YAF.Core.Model
 
                   expression.CustomJoin(
                           $@" inner join (
-                                           select m.UserID as ID, Count(m.UserID) as NumOfPosts 
+                                           select m.UserID as ID, Count(m.UserID) as NumOfPosts
                                            from {expression.Table<Message>()} m
                                            where m.Posted >= '{startDate.ToString(CultureInfo.InvariantCulture)}'
                                            group by m.UserID

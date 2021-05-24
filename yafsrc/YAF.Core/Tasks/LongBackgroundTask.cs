@@ -33,7 +33,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// The lock object.
         /// </summary>
-        private readonly object lockObject = new ();
+        private readonly object lockObj = new ();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LongBackgroundTask"/> class.
@@ -52,7 +52,7 @@ namespace YAF.Core.Tasks
         /// </param>
         protected override void TimerCallback(object sender)
         {
-            lock (this.lockObject)
+            lock (this.lockObj)
             {
                 // we're done with this timer...
                 this.intermittentTimer.Dispose();

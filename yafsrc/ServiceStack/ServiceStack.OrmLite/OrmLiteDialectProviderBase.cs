@@ -382,6 +382,16 @@ namespace ServiceStack.OrmLite
                 : QuoteIfRequired(table);
         }
 
+        public virtual string GetTableNameWithBrackets(ModelDefinition modelDef)
+        {
+            return GetTableNameWithBrackets(modelDef.ModelName, modelDef.Schema);
+        }
+
+        public virtual string GetTableNameWithBrackets(string tableName, string schema = null)
+        {
+            return $"[{NamingStrategy.GetSchemaName(schema)}].[{NamingStrategy.GetTableName(tableName)}]";
+        }
+
         public virtual string GetQuotedTableName(ModelDefinition modelDef)
         {
             return GetQuotedTableName(modelDef.ModelName, modelDef.Schema);
@@ -1559,7 +1569,32 @@ namespace ServiceStack.OrmLite
             throw new NotImplementedException();
         }
 
-        public virtual string GetDropIndexConstraint(ModelDefinition modelDef)
+        public virtual string GetDropFunction(string functionName)
+        {
+            return null;
+        }
+
+        public virtual string GetCreateView(ModelDefinition modelDef, StringBuilder selectSql)
+        {
+            return null;
+        }
+
+        public virtual string GetDropView(ModelDefinition modelDef)
+        {
+            return null;
+        }
+
+        public virtual string GetCreateIndexView(ModelDefinition modelDef, string name, string selectSql)
+        {
+            return null;
+        }
+
+        public virtual string GetDropIndexView(ModelDefinition modelDef, string name)
+        {
+            return null;
+        }
+
+        public virtual string GetDropIndexConstraint(ModelDefinition modelDef, string name = null)
         {
             return null;
         }

@@ -137,7 +137,7 @@ namespace YAF.Configuration
         public static bool CreateDistinctRoles => GetConfigValueAsBool("YAF.CreateDistinctRoles", false);
 
         /// <summary>
-        ///     Gets DatabaseObjectQualifier.
+        ///     Gets the Database Object Qualifier.
         /// </summary>
         [NotNull]
         public static string DatabaseObjectQualifier
@@ -151,7 +151,7 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        ///     Gets DatabaseOwner.
+        ///    Gets the Database Schema.
         /// </summary>
         [NotNull]
         public static string DatabaseOwner => GetConfigValueAsString("YAF.DatabaseOwner") ?? "dbo";
@@ -160,22 +160,6 @@ namespace YAF.Configuration
         ///     Gets a value indicating whether Is Url Rewriting enabled? -- default is "true".
         /// </summary>
         public static bool EnableURLRewriting => GetConfigValueAsBool("YAF.EnableUrlRewriting", true);
-
-        /* FOR FUTURE USE
-        /// <summary>
-        /// TODO: The GitHub client id.
-        /// </summary>
-        public static string GitHubClientID => GetConfigValueAsString("YAF.GithubClientID");
-
-        /// <summary>
-        /// TODO: The GitHub client secret.
-        /// </summary>
-        public static string GitHubClientSecret => GetConfigValueAsString("YAF.GithubClientSecret");
-
-        public static string MicrosoftAccountClientID => GetConfigValueAsString("YAF.MicrosoftAccountClientID");
-
-        public static string MicrosoftAccountClientSecret => GetConfigValueAsString("YAF.MicrosoftAccountClientSecret");
-        */
 
         /// <summary>
         /// Gets the google client ID.

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,21 +27,21 @@ namespace YAF.Core.Tasks
     using System.Threading;
 
     using YAF.Types.Extensions;
-    
+
     /// <summary>
     /// The intermittent background task.
     /// </summary>
     public class IntermittentBackgroundTask : BaseBackgroundTask
     {
         /// <summary>
-        /// The intermittent timer.
-        /// </summary>
-        protected Timer intermittentTimer;
-
-        /// <summary>
         /// The primary thread identity
         /// </summary>
         private WindowsIdentity primaryThreadIdentity;
+
+        /// <summary>
+        /// Gets or sets the intermittent timer.
+        /// </summary>
+        public Timer intermittentTimer { get; set; }
 
         /// <summary>
         /// Gets or sets Start Delay.

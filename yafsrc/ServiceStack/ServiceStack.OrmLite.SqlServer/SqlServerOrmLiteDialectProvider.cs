@@ -19,6 +19,8 @@ using ApplicationException = System.InvalidOperationException;
 
 namespace ServiceStack.OrmLite.SqlServer
 {
+    using System.Text;
+
     public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlServerOrmLiteDialectProvider>
     {
         public static SqlServerOrmLiteDialectProvider Instance = new SqlServerOrmLiteDialectProvider();
@@ -249,22 +251,147 @@ namespace ServiceStack.OrmLite.SqlServer
 
         public override string GetForeignKeyOnUpdateClause(ForeignKeyConstraint foreignKey)
         {
-            return "RESTRICT" == (foreignKey.OnUpdate ?? string.Empty).ToUpper()
+            return (foreignKey.OnUpdate ?? string.Empty).ToUpper() == "RESTRICT"
                 ? string.Empty
                 : base.GetForeignKeyOnUpdateClause(foreignKey);
         }
 
-        public override string GetDropIndexConstraint(ModelDefinition modelDef)
+        public override string GetDropFunction(string functionName)
         {
             var sb = StringBuilderCache.Allocate();
 
-            var indexName = $"IX_{this.NamingStrategy.GetTableName(modelDef)}";
+            var tableName = this.GetTableNameWithBrackets(functionName);
+
+            sb.Append("IF EXISTS (");
+            sb.Append("SELECT top 1 1 FROM sys.objects WHERE ");
+            sb.AppendFormat(
+                "object_id = OBJECT_ID(N'{0}')",
+                tableName);
+            sb.Append("and type in (N'FN', N'IF', N'TF') )");
+            sb.Append(" begin");
+            sb.AppendFormat(" drop function {0}", tableName);
+            sb.Append(" end");
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        public override string GetCreateView(ModelDefinition modelDef, StringBuilder selectSql)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var tableName = this.GetTableNameWithBrackets(modelDef);
+
+            sb.Append("IF NOT EXISTS (");
+            sb.Append("SELECT top 1 1 FROM sys.objects WHERE ");
+            sb.AppendFormat("object_id = OBJECT_ID(N'{0}')", tableName);
+            sb.Append("and type in (N'V'))");
+            sb.Append(" begin ");
+
+            sb.AppendFormat("EXEC sys.sp_executesql @statement = N'CREATE VIEW {0}", tableName);
+            sb.Append(" WITH SCHEMABINDING");
+            sb.Append(" AS");
+
+            sb.Append(selectSql);
+
+            sb.Append("'");
+
+            sb.Append(" end");
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        public override string GetDropView(ModelDefinition modelDef)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var tableName = this.GetTableNameWithBrackets(modelDef);
+
+            sb.Append("IF EXISTS (");
+            sb.Append("SELECT top 1 1 FROM sys.objects WHERE ");
+            sb.AppendFormat(
+                "object_id = OBJECT_ID(N'{0}')",
+                tableName);
+            sb.Append("and type in (N'V'))");
+            sb.Append(" begin");
+            sb.AppendFormat(" drop view {0}", tableName);
+            sb.Append(" end");
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        public override string GetCreateIndexView(ModelDefinition modelDef, string name, string selectSql)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var indexName = $"{this.NamingStrategy.GetTableName(modelDef)}_{name}";
+
+            var tableName = this.GetTableNameWithBrackets(modelDef);
+
+            sb.Append("IF NOT EXISTS (");
+            sb.Append("SELECT top 1 1 FROM sys.indexes WHERE ");
+            sb.AppendFormat(
+                "object_id = OBJECT_ID(N'{0}')",
+                tableName);
+            sb.AppendFormat("and name = N'{0}')", indexName);
+            sb.Append(" BEGIN");
+
+            sb.Append(" SET ARITHABORT ON ");
+
+            sb.AppendFormat("CREATE UNIQUE CLUSTERED INDEX [{0}] ", indexName);
+            sb.AppendFormat("ON {0}", tableName);
+
+            sb.Append(" ( ");
+
+            sb.Append(selectSql);
+
+            sb.Append(
+                ") WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ");
+            sb.Append("DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY] ");
+
+            sb.Append(" END");
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        public override string GetDropIndexView(ModelDefinition modelDef, string name)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var indexName = $"{this.NamingStrategy.GetTableName(modelDef)}_{name}";
+
+            var tableName = this.GetTableNameWithBrackets(modelDef);
+
+            sb.Append("IF EXISTS (");
+            sb.Append("SELECT top 1 1 FROM sys.indexes WHERE ");
+            sb.AppendFormat(
+                "object_id = OBJECT_ID(N'{0}')",
+                tableName);
+            sb.AppendFormat("and name = N'{0}')", indexName);
+            sb.Append(" BEGIN");
+            sb.AppendFormat(" drop index [{0}] on {1}", indexName, tableName);
+            sb.Append(" END");
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        public override string GetDropIndexConstraint(ModelDefinition modelDef, string name = null)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var indexName = name.IsNullOrEmpty() ? $"IX_{this.NamingStrategy.GetTableName(modelDef)}" : name;
 
             var tableName = this.GetQuotedTableName(modelDef);
-            sb.AppendLine($"IF EXISTS (SELECT top 1 1 FROM sys.indexes WHERE name = '{indexName}')");
-            sb.AppendLine("BEGIN");
-            sb.AppendLine($"  ALTER TABLE {tableName} DROP constraint {indexName};");
-            sb.AppendLine("END");
+
+            sb.Append("IF EXISTS (");
+            sb.Append("SELECT top 1 1 FROM sys.indexes WHERE ");
+            sb.AppendFormat(
+                "object_id = OBJECT_ID(N'[{0}].[{1}]')",
+                this.NamingStrategy.GetSchemaName(modelDef),
+                this.NamingStrategy.GetTableName(modelDef));
+            sb.AppendFormat("and name = N'{0}')", indexName);
+            sb.Append(" BEGIN");
+            sb.AppendFormat("  ALTER TABLE {1} DROP constraint {0}", indexName, tableName);
+            sb.Append(" END");
 
             return StringBuilderCache.ReturnAndFree(sb);
         }
@@ -276,10 +403,17 @@ namespace ServiceStack.OrmLite.SqlServer
             var foreignKeyName = $"PK_{this.NamingStrategy.GetTableName(modelDef)}_{name}";
 
             var tableName = this.GetQuotedTableName(modelDef);
-            sb.AppendLine($"IF EXISTS (SELECT top 1 1 FROM sys.foreign_keys WHERE name = '{foreignKeyName}')");
-            sb.AppendLine("BEGIN");
-            sb.AppendLine($"  ALTER TABLE {tableName} DROP constraint {foreignKeyName};");
-            sb.AppendLine("END");
+
+            sb.Append("IF EXISTS (");
+            sb.Append("SELECT top 1 1 FROM sys.foreign_keys WHERE ");
+            sb.AppendFormat(
+                "object_id = OBJECT_ID(N'[{0}].[{1}]')",
+                this.NamingStrategy.GetSchemaName(modelDef),
+                this.NamingStrategy.GetTableName(modelDef));
+            sb.AppendFormat("and name = N'{0}')", foreignKeyName);
+            sb.Append(" BEGIN");
+            sb.AppendFormat("  ALTER TABLE {1} DROP constraint {0}", foreignKeyName, tableName);
+            sb.Append(" END");
 
             return StringBuilderCache.ReturnAndFree(sb);
         }
@@ -291,10 +425,17 @@ namespace ServiceStack.OrmLite.SqlServer
             var foreignKeyName = $"FK_{this.NamingStrategy.GetTableName(modelDef)}_{name}";
 
             var tableName = this.GetQuotedTableName(modelDef);
-            sb.AppendLine($"IF EXISTS (SELECT top 1 1 FROM sys.foreign_keys WHERE name = '{foreignKeyName}')");
-            sb.AppendLine("BEGIN");
-            sb.AppendLine($"  ALTER TABLE {tableName} DROP constraint {foreignKeyName};");
-            sb.AppendLine("END");
+
+            sb.Append("IF EXISTS (");
+            sb.Append("SELECT top 1 1 FROM sys.foreign_keys WHERE ");
+            sb.AppendFormat(
+                "object_id = OBJECT_ID(N'[{0}].[{1}]')",
+                this.NamingStrategy.GetSchemaName(modelDef),
+                this.NamingStrategy.GetTableName(modelDef));
+            sb.AppendFormat("and name = N'{0}')", foreignKeyName);
+            sb.Append("BEGIN");
+            sb.AppendFormat("  ALTER TABLE {1} DROP constraint {0}", foreignKeyName, tableName);
+            sb.Append(" END");
 
             return StringBuilderCache.ReturnAndFree(sb);
         }

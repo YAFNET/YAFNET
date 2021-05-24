@@ -2089,12 +2089,7 @@
     <Content Include="Images\Medals\medal_small.png" />
     <Content Include="Images\Logos\YAFLogo.svg" />
     <Content Include="Images\noavatar.svg" />
-    <Content Include="Install\custom\custom.sql" />
     <Content Include="Install\custom\dnn.sql" />
-    <Content Include="Install\mssql\install\constraints.sql" />
-    <Content Include="Install\mssql\install\functions.sql" />
-    <Content Include="Install\mssql\install\views.sql" />
-    <Content Include="Install\mssql\upgrade\fulltext.sql" />
     <Content Include="Install\mssql\upgrade\identity\upgrade.sql" />
     <Content Include="Install\SpamWords.xml" />
     <Content Include="languages\arabic.xml">
@@ -2123,11 +2118,6 @@
     <Content Include="Install\default.aspx">
       <SubType>Form</SubType>
     </Content>
-    <Content Include="Install\mssql\upgrade\constraints.sql" />
-    <Content Include="Install\mssql\upgrade\functions.sql" />
-    <Content Include="Install\mssql\upgrade\procedures.sql" />
-    <Content Include="Install\mssql\upgrade\triggers.sql" />
-    <Content Include="Install\mssql\upgrade\views.sql" />
     <Content Include="languages\china.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -3641,7 +3631,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
