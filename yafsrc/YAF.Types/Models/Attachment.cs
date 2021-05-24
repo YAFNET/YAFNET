@@ -87,6 +87,13 @@ namespace YAF.Types.Models
         /// </summary>
         public byte[] FileData { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether
+        /// selected for editing.
+        /// </summary>
+        [Ignore]
+        public bool Selected { get; set; }
+
         #endregion
     }
 }

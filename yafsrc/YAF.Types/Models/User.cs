@@ -43,9 +43,7 @@ namespace YAF.Types.Models
     [PostCreateTable("alter table [{databaseOwner}].[{tableName}] add [IsApproved]        as (CONVERT([bit],sign([Flags]&(2)),(0)))" +
                          "alter table [{databaseOwner}].[{tableName}] add [IsGuest]	          as (CONVERT([bit],sign([Flags]&(4)),(0)))" +
                          "alter table [{databaseOwner}].[{tableName}] add [IsCaptchaExcluded] as (CONVERT([bit],sign([Flags]&(8)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [IsActiveExcluded]  as (CONVERT([bit],sign([Flags]&(16)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [IsDST]	          as (CONVERT([bit],sign([Flags]&(32)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [IsDirty]	          as (CONVERT([bit],sign([Flags]&(64)),(0)))")]
+                         "alter table [{databaseOwner}].[{tableName}] add [IsActiveExcluded]  as (CONVERT([bit],sign([Flags]&(16)),(0)))")]
     public class User : IEntity, IHaveBoardID, IHaveID
     {
         /// <summary>

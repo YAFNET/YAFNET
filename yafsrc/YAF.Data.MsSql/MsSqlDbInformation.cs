@@ -137,8 +137,8 @@ namespace YAF.Data.MsSql
             vaccessGroupSelect.Append("VoteAccess = convert(int,d.Flags & 32),");
             vaccessGroupSelect.Append("ModeratorAccess = convert(int,d.Flags & 64),");
             vaccessGroupSelect.Append("EditAccess = convert(int,d.Flags & 128),");
-            vaccessGroupSelect.Append("DeleteAccess	= convert(int,d.Flags & 256),");
-            vaccessGroupSelect.Append("UploadAccess	= convert(int,d.Flags & 512),");
+            vaccessGroupSelect.Append("DeleteAccess = convert(int,d.Flags & 256),");
+            vaccessGroupSelect.Append("UploadAccess = convert(int,d.Flags & 512),");
             vaccessGroupSelect.Append("DownloadAccess = convert(int,d.Flags & 1024),");
             vaccessGroupSelect.Append("AdminGroup = convert(int,e.Flags & 1)");
 
@@ -247,7 +247,7 @@ namespace YAF.Data.MsSql
                 " UserID, ForumID, ReadAccess, PostAccess, ReplyAccess, PriorityAccess, PollAccess, VoteAccess, ModeratorAccess,");
             vaccessFullSelect.Append(" EditAccess, DeleteAccess, UploadAccess, DownloadAccess, AdminGroup");
 
-            vaccessFullSelect.AppendFormat(" from ");
+            vaccessFullSelect.Append(" from ");
             vaccessFullSelect.AppendFormat(
                 "[{0}].[{1}vaccess_user] b",
                 Config.DatabaseOwner,

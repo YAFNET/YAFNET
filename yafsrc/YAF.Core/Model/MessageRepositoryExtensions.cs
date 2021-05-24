@@ -591,7 +591,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.Delete(forumId, topicId, messageId, isModeratorChanged, deleteReason, isDeleteAction, deleteLinked, false);
+            repository.Delete(forumId, topicId, messageId, isModeratorChanged, deleteReason, isDeleteAction, deleteLinked, true);
 
             repository.FireDeleted(messageId);
         }

@@ -150,9 +150,9 @@ namespace YAF.Core.Services.Migrations
             dbAccess.Execute(
                 dbCommand =>
                 {
-                    this.DeleteStoredProcedures(dbAccess, dbCommand);
+                    this.DeleteStoredProcedures(dbCommand);
 
-                    this.DeleteTriggers(dbAccess, dbCommand);
+                    this.DeleteTriggers(dbCommand);
 
                     return true;
                 });
@@ -161,7 +161,7 @@ namespace YAF.Core.Services.Migrations
                 dbCommand =>
                 {
                     // display names upgrade routine can run really for ages on large forums
-                    this.InitDisplayNames(dbAccess, dbCommand);
+                    this.InitDisplayNames(dbCommand);
 
                     return true;
                 });
@@ -169,7 +169,7 @@ namespace YAF.Core.Services.Migrations
             dbAccess.Execute(
                 dbCommand =>
                 {
-                    this.RemoveLegacyFullTextSearch(dbAccess, dbCommand);
+                    this.RemoveLegacyFullTextSearch(dbCommand);
 
                     return true;
                 });
@@ -193,7 +193,7 @@ namespace YAF.Core.Services.Migrations
             dbAccess.Execute(
                 dbCommand =>
                 {
-                    this.DropFunctions(dbAccess, dbCommand);
+                    this.DropFunctions(dbCommand);
 
                     dbAccess.Information.CreateFunctions(dbAccess, dbCommand);
 
@@ -1502,9 +1502,8 @@ namespace YAF.Core.Services.Migrations
         /// <summary>
         /// Deletes all the stored procedures.
         /// </summary>
-        /// <param name="dbAccess">The database access.</param>
         /// <param name="dbCommand">The database command.</param>
-        private void DeleteStoredProcedures(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void DeleteStoredProcedures(IDbCommand dbCommand)
         {
             var list = dbCommand.Connection.SqlList<string>(
                 $@"DECLARE @DropScript varchar(max)
@@ -1525,9 +1524,8 @@ namespace YAF.Core.Services.Migrations
         /// <summary>
         /// Deletes the triggers.
         /// </summary>
-        /// <param name="dbAccess">The database access.</param>
         /// <param name="dbCommand">The database command.</param>
-        private void DeleteTriggers(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void DeleteTriggers(IDbCommand dbCommand)
         {
             var list = dbCommand.Connection.SqlList<string>(
                 $@"DECLARE @DropScript varchar(max)
@@ -1547,9 +1545,8 @@ namespace YAF.Core.Services.Migrations
         /// <summary>
         /// Initializes the display names.
         /// </summary>
-        /// <param name="dbAccess">The database access.</param>
         /// <param name="dbCommand">The database command.</param>
-        private void InitDisplayNames(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void InitDisplayNames(IDbCommand dbCommand)
         {
             var expression = dbCommand.Connection.From<Message>().Where(x => x.UserDisplayName == null)
                 .Select(Sql.Count("*"));
@@ -1586,7 +1583,11 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        private void RemoveLegacyFullTextSearch(IDbAccess dbAccess, IDbCommand dbCommand)
+        /// <summary>
+        /// Removes the legacy full text search.
+        /// </summary>
+        /// <param name="dbCommand">The database command.</param>
+        private void RemoveLegacyFullTextSearch(IDbCommand dbCommand)
         {
             var sb = new StringBuilder();
 
@@ -1632,9 +1633,8 @@ namespace YAF.Core.Services.Migrations
         /// <summary>
         /// Drops the scalar functions.
         /// </summary>
-        /// <param name="dbAccess">The database access.</param>
         /// <param name="dbCommand">The database command.</param>
-        private void DropFunctions(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void DropFunctions(IDbCommand dbCommand)
         {
             dbCommand.Connection.DropFunction("registry_value");
             dbCommand.Connection.DropFunction("bitset");

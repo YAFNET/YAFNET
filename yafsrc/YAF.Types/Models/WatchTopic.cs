@@ -71,6 +71,16 @@ namespace YAF.Types.Models
         /// </summary>
         public DateTime? LastMail { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether
+        /// selected for editing.
+        /// </summary>
+        [Ignore]
+        public bool Selected { get; set; }
+
+        [Ignore]
+        public string TopicName { get; set; }
+
         #endregion
     }
 }
