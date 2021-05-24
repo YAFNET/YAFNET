@@ -293,6 +293,7 @@ namespace YAF.Core.Model
                                            select m.UserID as ID, Count(m.UserID) as NumOfPosts
                                            from {expression.Table<Message>()} m
                                            where m.Posted >= '{startDate.ToString(CultureInfo.InvariantCulture)}'
+                                           and m.IsApproved = 1
                                            group by m.UserID
                                          ) as counter on {expression.Column<User>(u => u.ID, true)} = counter.ID ")
                       .Where<User>((u) => u.BoardID == boardId && u.ID != guestUserId).Select(
