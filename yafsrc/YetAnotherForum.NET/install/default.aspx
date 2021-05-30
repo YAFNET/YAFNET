@@ -537,7 +537,7 @@
                                  Text="<%# YAF.App_GlobalResources.Install.Finish %>" />
             </FinishNavigationTemplate>
             <LayoutTemplate>
-                <div class="yafWizard modal fade" data-backdrop="false">
+                <div class="yafWizard modal fade" data-bs-backdrop="static">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
