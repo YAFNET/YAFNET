@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,6 +25,7 @@ namespace YAF.Core.Services.Startup
 {
     #region Using
 
+    using System;
     using System.Linq;
     using System.Web;
 
@@ -103,10 +104,10 @@ namespace YAF.Core.Services.Startup
         public ILogger Logger { get; set; }
 
         /// <summary>
-        ///   Gets InitVarName.
+        ///   Gets the service name.
         /// </summary>
         [NotNull]
-        protected override string InitVarName => "CheckBannedIps_Init";
+        protected override string ServiceName => "CheckBannedIps_Init";
 
         #endregion
 
@@ -120,35 +121,43 @@ namespace YAF.Core.Services.Startup
         /// </returns>
         protected override bool RunService()
         {
-            var bannedIPs = this.DataCache.GetOrSet(
-                Constants.Cache.BannedIP,
-                () => this.BannedIpRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID).Select(x => x.Mask.Trim()).ToList());
-
-            var ipToCheck = this.HttpRequestBase.ServerVariables["REMOTE_ADDR"];
-
-            // check for this user in the list...
-            if (bannedIPs == null || !bannedIPs.Any(row => IPHelper.IsBanned(row, ipToCheck)))
+            try
             {
+                var bannedIPs = this.DataCache.GetOrSet(
+                    Constants.Cache.BannedIP,
+                    () => this.BannedIpRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID).Select(x => x.Mask.Trim()).ToList());
+
+                var ipToCheck = this.HttpRequestBase.ServerVariables["REMOTE_ADDR"];
+
+                // check for this user in the list...
+                if (bannedIPs == null || !bannedIPs.Any(row => IPHelper.IsBanned(row, ipToCheck)))
+                {
+                    return true;
+                }
+
+                if (BoardContext.Current.BoardSettings.LogBannedIP)
+                {
+                    this.Logger.Log(
+                        null,
+                        "Banned IP Blocked",
+                        $@"Ending Response for Banned User at IP ""{ipToCheck}""",
+                        EventLogTypes.IpBanDetected);
+                }
+
+                if (Config.BannedIpRedirectUrl.IsSet())
+                {
+                    this.HttpResponseBase.Redirect(Config.BannedIpRedirectUrl);
+                }
+
+                this.HttpResponseBase.End();
+
+                return false;
+            }
+            catch (Exception)
+            {
+                // Fails if YAF is not installed
                 return true;
             }
-
-            if (BoardContext.Current.BoardSettings.LogBannedIP)
-            {
-                this.Logger.Log(
-                    null,
-                    "Banned IP Blocked",
-                    $@"Ending Response for Banned User at IP ""{ipToCheck}""",
-                    EventLogTypes.IpBanDetected);
-            }
-
-            if (Config.BannedIpRedirectUrl.IsSet())
-            {
-                this.HttpResponseBase.Redirect(Config.BannedIpRedirectUrl);
-            }
-
-            this.HttpResponseBase.End();
-
-            return false;
         }
 
         #endregion

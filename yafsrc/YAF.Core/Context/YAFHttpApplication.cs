@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Context
 {
+    using Autofac;
+
     using System;
     using System.Web;
     using System.Web.Http;
@@ -73,7 +75,7 @@ namespace YAF.Core.Context
                 this.Get<HttpSessionStateBase>().Abandon();
             }
         }
-        
+
         /// <summary>
         /// The application_ start.
         /// </summary>
@@ -104,6 +106,11 @@ namespace YAF.Core.Context
         {
             // run startup services...
             this.RunStartupServices();
+
+            // set the httpApplication as early as possible...
+            GlobalContainer.Container.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance =
+                new HttpApplicationStateWrapper(this.Application);
+
 
             // app init notification...
             this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(this), null);

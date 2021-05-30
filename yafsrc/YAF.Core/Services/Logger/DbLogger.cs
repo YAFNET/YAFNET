@@ -139,7 +139,14 @@ namespace YAF.Core.Services.Logger
             [CanBeNull] string source = null,
             [CanBeNull] Exception exception = null)
         {
-            userId ??= BoardContext.Current.User.ID;
+            try
+            {
+                userId ??= BoardContext.Current.User.ID;
+            }
+            catch (Exception)
+            {
+                userId = null;
+            }
 
             if (!this.IsLogTypeEnabled(eventType))
             {

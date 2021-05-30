@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2021 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,39 +23,55 @@
  */
 namespace YAF.Core.Helpers
 {
-    #region Using
+  #region Using
 
-    using System.Runtime.Caching;
+  using System.Web;
 
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
+
+  #endregion
+
+  /// <summary>
+  /// The current http application provider.
+  /// </summary>
+  public class CurrentHttpApplicationStateBaseProvider : IReadWriteProvider<HttpApplicationStateBase>
+  {
+    #region Constants and Fields
+
+    /// <summary>
+    /// The application state base.
+    /// </summary>
+    private HttpApplicationStateBase applicationStateBase;
 
     #endregion
 
+    #region Properties
+
     /// <summary>
-    /// The current task module provider.
+    ///   Gets or sets the Instance.
     /// </summary>
-    public class CurrentTaskModuleProvider : IReadWriteProvider<ITaskModuleManager>
+    [CanBeNull]
+    public HttpApplicationStateBase Instance
     {
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the instance.
-        /// </summary>
-        [CanBeNull]
-        public ITaskModuleManager Instance
+      get
+      {
+        if (this.applicationStateBase == null && HttpContext.Current != null)
         {
-            get => MemoryCache.Default[Constants.Cache.TaskModule] as ITaskModuleManager;
-
-            set
-            {
-                CodeContracts.VerifyNotNull(value, "value");
-
-                MemoryCache.Default[Constants.Cache.TaskModule] = value;
-            }
+          this.applicationStateBase = new HttpApplicationStateWrapper(HttpContext.Current.Application);
         }
 
-        #endregion
+        return this.applicationStateBase;
+      }
+
+      set
+      {
+        CodeContracts.VerifyNotNull(value, "value");
+
+        this.applicationStateBase = value;
+      }
     }
+
+    #endregion
+  }
 }

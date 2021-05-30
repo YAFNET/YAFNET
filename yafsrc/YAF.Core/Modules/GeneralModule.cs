@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -121,6 +121,12 @@ namespace YAF.Core.Modules
             builder.RegisterType<BoardContextPageProvider>().AsSelf().As<IReadOnlyProvider<BoardContext>>().SingleInstance()
                 .PreserveExistingDefaults();
             builder.Register((k) => k.Resolve<IComponentContext>().Resolve<BoardContextPageProvider>().Instance)
+                .ExternallyOwned().PreserveExistingDefaults();
+
+            // Http Application Base
+            builder.RegisterType<CurrentHttpApplicationStateBaseProvider>().SingleInstance().PreserveExistingDefaults();
+            builder.Register(
+                    k => k.Resolve<IComponentContext>().Resolve<CurrentHttpApplicationStateBaseProvider>().Instance)
                 .ExternallyOwned().PreserveExistingDefaults();
 
             // Task Module
