@@ -27,12 +27,15 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Text;
     using System.Web.UI.WebControls;
 
+    using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Helpers;
     using YAF.Core.Utilities;
     using YAF.Types;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Web.Extensions;
@@ -114,7 +117,7 @@ namespace YAF.Pages.Admin
         {
             try
             {
-                this.txtIndexStatistics.Text = (string)this.Get<IDbFunction>().Query.getstats();
+                this.txtIndexStatistics.Text = this.Get<IDbAccess>().GetDatabaseFragmentationInfo();
             }
             catch (Exception ex)
             {
@@ -137,7 +140,7 @@ namespace YAF.Pages.Admin
                 _ => string.Empty
             };
 
-            this.txtIndexStatistics.Text = this.Get<IDbFunction>().ChangeRecoveryMode(recoveryMode);
+            this.txtIndexStatistics.Text = this.Get<IDbAccess>().ChangeRecoveryMode(recoveryMode);
         }
 
         /// <summary>
@@ -147,7 +150,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReindexClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.txtIndexStatistics.Text = string.Empty + this.Get<IDbFunction>().ReIndexDatabase();
+            this.txtIndexStatistics.Text = this.Get<IDbAccess>().ReIndexDatabase(Config.DatabaseObjectQualifier);
         }
 
         /// <summary>
@@ -160,11 +163,17 @@ namespace YAF.Pages.Admin
         {
             try
             {
-                this.Get<IDbFunction>().ShrinkDatabase();
-                this.txtIndexStatistics.Text = string.Empty;
-                this.txtIndexStatistics.Text = this.GetTextFormatted(
+                var result = new StringBuilder();
+
+                result.Append(this.Get<IDbAccess>().ShrinkDatabase());
+
+                result.Append(" ");
+
+                result.AppendLine(this.GetTextFormatted(
                     "INDEX_SHRINK",
-                    this.Get<IDbFunction>().GetDBSize());
+                    this.Get<IDbAccess>().GetDatabaseSize()));
+
+                this.txtIndexStatistics.Text = result.ToString();
             }
             catch (Exception error)
             {

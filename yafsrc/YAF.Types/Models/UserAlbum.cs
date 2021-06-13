@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -30,23 +30,41 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_UserAlbum table.
+    /// A class which represents the UserAlbum table.
     /// </summary>
     [Serializable]
     public class UserAlbum : IEntity, IHaveID
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [Alias("AlbumID")]
         [AutoIncrement]
         [Index]
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [Required]
         public int UserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
         [StringLength(255)]
         public string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the cover image id.
+        /// </summary>
         public int? CoverImageID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the updated.
+        /// </summary>
         [Required]
         public DateTime Updated { get; set; }
 

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -44,22 +44,13 @@ namespace YAF.Core.Data
     /// </summary>
     public abstract class DbAccessBase : IDbAccess
     {
-        #region Fields
-
-        /// <summary>
-        ///     The provider name.
-        /// </summary>
-        protected readonly string ProviderName;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DbAccessBase"/> class.
         /// </summary>
         /// <param name="dbProviderFactory">
-        /// The db provider factory. 
+        /// The db provider factory.
         /// </param>
         /// <param name="profiler">
         /// The profiler.
@@ -91,7 +82,7 @@ namespace YAF.Core.Data
         #endregion
 
         #region Public Methods and Operators
-        
+
         /// <summary>
         /// The execute.
         /// </summary>
@@ -117,7 +108,7 @@ namespace YAF.Core.Data
 
             if (dbTransaction == null)
             {
-                if (command.Connection != null && command.Connection.State == ConnectionState.Open)
+                if (command.Connection is { State: ConnectionState.Open })
                 {
                     result = execFunc(command);
                 }
@@ -148,14 +139,14 @@ namespace YAF.Core.Data
         /// The get command.
         /// </summary>
         /// <param name="sql">
-        /// The sql. 
+        /// The sql.
         /// </param>
         /// <param name="commandType"></param>
         /// <param name="parameters">
-        /// The parameters. 
+        /// The parameters.
         /// </param>
         /// <returns>
-        /// The <see cref="DbCommand"/> . 
+        /// The <see cref="DbCommand"/> .
         /// </returns>
         public virtual IDbCommand GetCommand(
             [NotNull] string sql, CommandType commandType = CommandType.StoredProcedure, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
@@ -182,10 +173,10 @@ namespace YAF.Core.Data
         /// The format procedure text.
         /// </summary>
         /// <param name="functionName">
-        /// The function name. 
+        /// The function name.
         /// </param>
         /// <returns>
-        /// The format procedure text. 
+        /// The format procedure text.
         /// </returns>
         protected virtual string FormatProcedureText(string functionName)
         {
@@ -196,15 +187,15 @@ namespace YAF.Core.Data
         /// The map parameters.
         /// </summary>
         /// <param name="cmd">
-        /// The cmd. 
+        /// The cmd.
         /// </param>
         /// <param name="parameters">
-        /// The parameters. 
+        /// The parameters.
         /// </param>
         protected virtual void MapParameters([NotNull] IDbCommand cmd, [NotNull] IEnumerable<KeyValuePair<string, object>> parameters)
         {
-            CodeContracts.VerifyNotNull(cmd, "cmd");
-            CodeContracts.VerifyNotNull(parameters, "parameters");
+            CodeContracts.VerifyNotNull(cmd);
+            CodeContracts.VerifyNotNull(parameters);
 
             // add all/any parameters...
             parameters.ForEach(cmd.AddParam);

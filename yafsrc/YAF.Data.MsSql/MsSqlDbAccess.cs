@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -38,7 +38,7 @@ namespace YAF.Data.MsSql
     #endregion
 
     /// <summary>
-    ///     The i db setup.
+    /// The MS SQL Database access.
     /// </summary>
     public class MsSqlDbAccess : DbAccessBase
     {
@@ -53,7 +53,7 @@ namespace YAF.Data.MsSql
         /// Initializes a new instance of the <see cref="MsSqlDbAccess"/> class.
         /// </summary>
         /// <param name="dbProviderFactory">
-        /// The db provider factory. 
+        /// The database provider factory.
         /// </param>
         public MsSqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
             : base(dbProviderFactory, new MsSqlDbInformation())
@@ -68,10 +68,10 @@ namespace YAF.Data.MsSql
         /// The map parameters.
         /// </summary>
         /// <param name="cmd">
-        /// The cmd. 
+        /// The Database Command.
         /// </param>
         /// <param name="parameters">
-        /// The key value params. 
+        /// The key value parameters.
         /// </param>
         protected override void MapParameters(IDbCommand cmd, IEnumerable<KeyValuePair<string, object>> parameters)
         {

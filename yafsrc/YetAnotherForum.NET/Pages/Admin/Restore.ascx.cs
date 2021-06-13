@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -203,7 +203,7 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete_zero":
                     {
-                        var deletedTopics = this.GetRepository<Topic>().Get(t => t.IsDeleted == true && t.NumPosts.Equals(0));
+                        var deletedTopics = this.GetRepository<Topic>().Get(t => (t.Flags & 8) == 8 && t.NumPosts.Equals(0));
 
                         deletedTopics.ForEach(
                             topic => this.GetRepository<Topic>().Delete(topic.ForumID, topic.ID, true));

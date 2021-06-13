@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,7 +25,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    
+
     using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
@@ -189,7 +189,7 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository);
 
             repository.Delete(x => x.FromUserID == fromUserId && x.ToUserID == toUserId);
-            
+
             repository.FireDeleted();
         }
 
@@ -208,7 +208,7 @@ namespace YAF.Core.Model
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
             expression.Join<Rank>((u, r) => r.ID == u.RankID)
-                .Join<Buddy>((u, b) => b.ToUserID == u.ID && b.FromUserID == fromUserId && u.IsApproved == true)
+                .Join<Buddy>((u, b) => b.ToUserID == u.ID && b.FromUserID == fromUserId && (u.Flags & 2) == 2)
                 .Select<User, Rank, Buddy>(
                     (a, b, c) => new
                     {
@@ -229,8 +229,8 @@ namespace YAF.Core.Model
             var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
             expression2.Join<Rank>((u, r) => r.ID == u.RankID)
-                .Join<Buddy>((u, b) => b.ToUserID == fromUserId && b.FromUserID == u.ID && u.IsApproved == true)
-                .OrderBy(u => u.Name).Select<User, Rank, Buddy>(
+                .Join<Buddy>((u, b) => b.ToUserID == fromUserId && b.FromUserID == u.ID && (u.Flags & 2) == 2)
+                /*.OrderBy(u => u.Name)*/.Select<User, Rank, Buddy>(
                     (a, b, c) => new
                     {
                         UserID = fromUserId,

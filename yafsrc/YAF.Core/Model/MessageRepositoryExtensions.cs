@@ -160,7 +160,7 @@ namespace YAF.Core.Model
 
             expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                 .Join<Topic>((f, t) => t.ForumID == f.ID).Join<Topic, Message>((t, m) => m.TopicID == t.ID)
-                .Where<Message, Category>((m, category) => category.BoardID == boardId && m.IsDeleted == true);
+                .Where<Message, Category>((m, category) => category.BoardID == boardId && (m.Flags & 8) == 8);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic, Message>(expression));
         }
@@ -241,20 +241,20 @@ namespace YAF.Core.Model
                         .Join<User, Rank>((u, r) => r.ID == u.RankID);
 
                     expression.Where<Message>(
-                        m => m.TopicID == topicId && m.IsApproved == true && m.Posted >= sincePostedDate &&
+                        m => m.TopicID == topicId && (m.Flags & 16) == 16 && m.Posted >= sincePostedDate &&
                              m.Posted <= toPostedDate);
 
                     // -- find total returned count
                     var countTotalExpression = db.Connection.From<Message>();
 
                     countTotalExpression.Where<Message>(
-                        m => m.TopicID == topicId && m.IsApproved == true && m.Posted >= sincePostedDate &&
+                        m => m.TopicID == topicId && (m.Flags & 16) == 16 && m.Posted >= sincePostedDate &&
                              m.Posted <= toPostedDate);
 
                     if (!showDeleted)
                     {
-                        countTotalExpression.And(m => m.IsDeleted == false);
-                        expression.And(m => m.IsDeleted == false);
+                        countTotalExpression.And(m => (m.Flags & 8) != 8);
+                        expression.And(m => (m.Flags & 8) != 8);
                     }
 
                     expression.OrderBy<Message>(m => m.Posted).Page(pageIndex + 1, pageSize);
@@ -312,7 +312,7 @@ namespace YAF.Core.Model
                             m.Flags,
                             m.EditReason,
                             m.IsModeratorChanged,
-                            m.IsDeleted,
+                            IsDeleted = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<Message>(x => x.Flags, true)}&8")})"),
                             m.Position,
                             m.DeleteReason,
                             m.ExternalMessageId,
@@ -326,8 +326,8 @@ namespace YAF.Core.Model
                             b.Signature,
                             Posts = b.NumPosts,
                             b.Points,
-                            ReputationVoteDate = Sql.Custom($"CAST(ISNULL(({reputationSql}), null) as datetime)"),
-                            b.IsGuest,
+                            ReputationVoteDate = Sql.Custom($"CAST({OrmLiteConfig.DialectProvider.IsNullFunction(reputationSql, "null")} as datetime)"),
+                            IsGuest = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
                             d.Views,
                             d.ForumID,
                             RankName = c.Name,
@@ -432,8 +432,8 @@ namespace YAF.Core.Model
                 .Join<Category, ActiveAccess>((d, x) => x.ForumID == d.ID)
                 .Where<Topic, Message, ActiveAccess, Category>(
                     (topic, message, x, e) => message.UserID == userId && x.UserID == pageUserId && x.ReadAccess &&
-                                              e.BoardID == boardId && topic.IsDeleted == false &&
-                                              message.IsDeleted == false)
+                                              e.BoardID == boardId && (topic.Flags & 8) != 8 &&
+                                              (message.Flags & 8) != 8)
                 .OrderByDescending<Message>(x => x.Posted).Take(count);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic, User>(expression));
@@ -462,8 +462,8 @@ namespace YAF.Core.Model
             expression.Join<Topic>((forum, topic) => topic.ForumID == forum.ID)
                 .Join<Topic, Message>((topic, message) => message.TopicID == topic.ID)
                 .Join<Message, User>((message, user) => user.ID == message.UserID).Where<Forum, Topic, Message>(
-                    (forum, topic, message) => forum.ID == forumId && topic.IsDeleted == false &&
-                                               message.IsDeleted == false && message.IsApproved == true &&
+                    (forum, topic, message) => forum.ID == forumId && (topic.Flags & 8) != 8 &&
+                                               (message.Flags & 8) != 8 && (message.Flags & 16) == 16 &&
                                                topic.TopicMovedID == null).OrderByDescending<Message>(x => x.Posted);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic, Message, User>(expression))
@@ -518,7 +518,7 @@ namespace YAF.Core.Model
                 },
                 x => x.ID == message.Item2.ForumID);
 
-            var numPostsCount = repository.Count(m => m.TopicID == message.Item1.TopicID && m.IsDeleted == false).ToType<int>();
+            var numPostsCount = repository.Count(m => m.TopicID == message.Item1.TopicID && (m.Flags & 8) != 8).ToType<int>();
 
             // -- update Topic table with info about last post in topic
             BoardContext.Current.GetRepository<Topic>().UpdateOnly(
@@ -716,7 +716,7 @@ namespace YAF.Core.Model
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
             expression.Join<User>((message, user) => user.ID == message.UserID).Where<Message>(
-                    m => m.IsApproved.Value && m.ReplyTo == messageId);
+                    m => (m.Flags & 16) == 16 && m.ReplyTo == messageId);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, User>(expression));
         }
@@ -757,29 +757,41 @@ namespace YAF.Core.Model
 
             var minDateTime = DateTimeHelper.SqlDbMinTime().AddYears(-1);
 
-            List<(int MessagePosition, int MessageID)> list;
+            (int MessagePosition, int MessageID) message = new(0, 0);
 
             if (messageId.HasValue)
             {
-                list = repository.DbAccess.Execute(
+                message = repository.DbAccess.Execute(
                     db =>
                     {
-                        var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+                        var expression = db.Connection.From<Message>();
 
-                        return db.Connection.SqlList<(int MessagePosition, int MessageID)>(
-                            $@"select tbl.Position, tbl.MessageID from (
-                                      select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.Position, m.MessageID     
-                                      from {expression.Table<Message>()} m
-                                      where m.TopicID = {topicId} AND m.IsApproved = 1
-                                            and ({(showDeleted ? 1 : 0)} = 1 or m.IsDeleted = 0 or ({authorUserId} > 0 and m.UserID = {authorUserId}))
-                                      ) as tbl
-                               where tbl.MessageID = {messageId}
-                               order by tbl.RowNum ASC;");
+                        if (showDeleted)
+                        {
+                            expression.Where<Message>(m => m.ID == messageId && m.TopicID == topicId && (m.Flags & 16) == 16);
+                        }
+                        else
+                        {
+                            expression.Where<Message>(
+                                m => m.ID == messageId && m.TopicID == topicId && (m.Flags & 16) == 16 && (m.Flags & 8) != 8);
+                        }
+
+                        expression.OrderByDescending(m => m.Posted);
+
+                        expression.Limit(1);
+
+                        expression.Select(
+                            m => new {
+                                MessagePosition = m.Position,
+                                MessageID = m.ID
+                            });
+
+                        return db.Connection.Select<(int MessagePosition, int MessageID)>(expression).FirstOrDefault();
                     });
 
-                if (list.Any())
+                if (message.MessageID > 0)
                 {
-                    return list.FirstOrDefault();
+                    return message;
                 }
             }
 
@@ -787,45 +799,74 @@ namespace YAF.Core.Model
             if (lastRead > minDateTime)
             {
                 // -- a message with the id was not found or we are looking for first unread or last post
-                list = repository.DbAccess.Execute(
+                message = repository.DbAccess.Execute(
                     db =>
                     {
-                        var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+                        var expression = db.Connection.From<Message>();
 
-                        return db.Connection.SqlList<(int MessagePosition, int MessageID)>(
-                            $@"select top 1 tbl.Position, tbl.MessageID from (
-                                      select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.Position, m.MessageID, m.Posted    
-                                      from {expression.Table<Message>()} m
-                                      where m.TopicID = {topicId} AND m.IsApproved = 1
-                                            and ({(showDeleted ? 1 : 0)} = 1 or m.IsDeleted = 0 or ({authorUserId} > 0 and m.UserID = {authorUserId}))
-                                      ) as tbl
-                               where tbl.Posted > '{lastRead.ToString(CultureInfo.InvariantCulture)}'
-                               order by tbl.RowNum ASC;");
+                        if (showDeleted)
+                        {
+                            expression.Where<Message>(
+                                m => m.TopicID == topicId && (m.Flags & 16) == 16 && m.Posted > lastRead);
+                        }
+                        else
+                        {
+                            expression.Where<Message>(
+                                m => m.TopicID == topicId && (m.Flags & 16) == 16 && (m.Flags & 8) != 8 && m.Posted > lastRead);
+                        }
+
+                        expression.OrderByDescending(m => m.Posted);
+
+                        expression.Limit(1);
+
+                        expression.Select(
+                            m => new {
+                                MessagePosition = m.Position,
+                                MessageID = m.ID
+                            });
+
+                        return db.Connection.Select<(int MessagePosition, int MessageID)>(expression).FirstOrDefault();
+
                     });
 
-                if (list.Any())
+                if (message.MessageID > 0)
                 {
-                    return list.FirstOrDefault();
+                    return message;
                 }
             }
 
             // -- if first unread was not found or we looking for last posted
-            list = repository.DbAccess.Execute(
+            message = repository.DbAccess.Execute(
                 db =>
                 {
-                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+                    var expression = db.Connection.From<Message>();
 
-                    return db.Connection.SqlList<(int MessagePosition, int MessageID)>(
-                        $@"select top 1 tbl.Position, tbl.MessageID from (
-                                      select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.Position, m.MessageID, m.Posted    
-                                      from {expression.Table<Message>()} m
-                                      where m.TopicID = {topicId} AND m.IsApproved = 1
-                                            and ({(showDeleted ? 1 : 0)} = 1 or m.IsDeleted = 0 or ({authorUserId} > 0 and m.UserID = {authorUserId}))
-                                      ) as tbl
-                               order by tbl.RowNum ASC;");
+                    if (showDeleted)
+                    {
+                        expression.Where<Message>(
+                            m => m.TopicID == topicId && (m.Flags & 16) == 16);
+                    }
+                    else
+                    {
+                        expression.Where<Message>(
+                            m => m.TopicID == topicId && (m.Flags & 16) == 16 && (m.Flags & 8) != 8);
+                    }
+
+                    expression.OrderByDescending(m => m.Posted);
+
+                    expression.Limit(1);
+
+                    expression.Select(
+                        m => new {
+                            MessagePosition = m.Position,
+                            MessageID = m.ID
+                        });
+
+                    return db.Connection.Select<(int MessagePosition, int MessageID)>(expression).FirstOrDefault();
+
                 });
 
-            return list.FirstOrDefault();
+            return message;
         }
 
         /// <summary>
@@ -1009,8 +1050,8 @@ namespace YAF.Core.Model
 
             expression.Join<Message>((topic, message) => message.TopicID == topic.ID)
                 .Join<Message, User>((message, user) => message.UserID == user.ID).Where<Topic, Message>(
-                    (topic, message) => topic.ForumID == forumId && message.IsApproved == false &&
-                                        topic.IsDeleted == false && message.IsDeleted == false);
+                    (topic, message) => topic.ForumID == forumId && (message.Flags & 16) != 16 &&
+                                        (topic.Flags & 8) != 8 && (message.Flags & 8) != 8);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Topic, Message, User>(expression));
         }
@@ -1373,7 +1414,7 @@ namespace YAF.Core.Model
                 // -- finally delete the message we want to delete
                 repository.DeleteById(messageId);
 
-                if (repository.Count(x => x.TopicID == message.Item1.TopicID && x.IsDeleted == false) == 0)
+                if (repository.Count(x => x.TopicID == message.Item1.TopicID && (x.Flags & 8) != 8) == 0)
                 {
                     BoardContext.Current.GetRepository<Topic>().Delete(
                         message.Item2.ForumID,
@@ -1401,7 +1442,7 @@ namespace YAF.Core.Model
                 .Exists(f => f.ID == message.Item2.ForumID && (f.Flags & 4) != 4))
             {
                 var postCount = repository.Count(
-                        x => x.UserID == message.Item1.UserID && x.IsDeleted == false && x.IsApproved == true)
+                        x => x.UserID == message.Item1.UserID && (x.Flags & 8) != 8 && (x.Flags & 16) == 16)
                     .ToType<int>();
 
                 BoardContext.Current.GetRepository<User>().UpdateOnly(
@@ -1507,7 +1548,7 @@ namespace YAF.Core.Model
                 x => x.ID == messageId);
 
             // -- Delete topic if there are no more messages
-            if (repository.Count(x => x.TopicID == message.Item1.TopicID && x.IsDeleted == false) == 0)
+            if (repository.Count(x => x.TopicID == message.Item1.TopicID && (x.Flags & 8) != 8) == 0)
             {
                 BoardContext.Current.GetRepository<Topic>().Delete(
                     message.Item2.ForumID,

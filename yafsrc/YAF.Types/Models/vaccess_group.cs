@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,15 +27,24 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
     ///     A class which represents the yaf_vaccess_group views.
     /// </summary>
     [Serializable]
-    public class vaccess_group : IEntity
+    public class vaccess_group : IEntity, IHaveBoardID
     {
         #region Public Properties
+
+
+        /// <summary>
+        /// Gets or sets the board id.
+        /// </summary>
+        [References(typeof(Board))]
+        [Required]
+        public int BoardID { get; set; }
 
         [Required]
         public int UserID { get; set; }

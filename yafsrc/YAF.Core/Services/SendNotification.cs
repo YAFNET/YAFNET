@@ -435,7 +435,7 @@ namespace YAF.Core.Services
             if (this.BoardSettings.AllowNotificationAllPostsAllTopics)
             {
                 var usersWithAll = this.GetRepository<User>().Get(
-                    u => u.BoardID == this.Get<BoardSettings>().BoardID && u.IsApproved == true && u.IsGuest == false &&
+                    u => u.BoardID == this.Get<BoardSettings>().BoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
                          u.NotificationType == UserNotificationSetting.AllTopics.ToInt());
 
                 // create individual watch emails for all users who have All Posts on...

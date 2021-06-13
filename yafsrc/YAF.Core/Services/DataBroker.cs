@@ -147,7 +147,7 @@ namespace YAF.Core.Services
             [CanBeNull] int? categoryId,
             [CanBeNull] int? parentId)
         {
-            if (categoryId.HasValue && categoryId == 0)
+            if (categoryId is 0)
             {
                 categoryId = null;
             }
@@ -223,7 +223,7 @@ namespace YAF.Core.Services
                     var activeFlags = 1;
 
                     // -- find a guest id should do it every time to be sure that guest access rights are in ActiveAccess table
-                    var guest = this.GetRepository<User>().Get(u => u.BoardID == boardId && u.IsGuest == true);
+                    var guest = this.GetRepository<User>().Get(u => u.BoardID == boardId && (u.Flags & 4) == 4);
 
                     if (guest == null)
                     {
@@ -362,93 +362,38 @@ namespace YAF.Core.Services
                         categoryId = category.ID;
                     }
 
-                    // -- update active access and ensure that access right are in place
-                    /*var access = this.GetRepository<vaccess>().GetSingle(x => x.UserID == userId);
+                    var accessList = this.GetRepository<vaccess>().Get(x => x.UserID == userId);
 
-                    if (!repository.Exists(a => a.UserID == userId))
+                    if (!this.GetRepository<ActiveAccess>().Exists(a => a.UserID == userId))
                     {
-                        repository.Insert(
-                            new ActiveAccess
-                            {
-                                UserID = userId,
-                                BoardID = boardId,
-                                ForumID = access.ForumID,
-                                IsAdmin = access.IsAdmin,
-                                IsForumModerator = access.IsForumModerator,
-                                IsModerator = access.IsModerator,
-                                IsGuestX = isGuest,
-                                LastActive = DateTime.UtcNow,
-                                ReadAccess = access.ReadAccess,
-                                PostAccess = access.PostAccess,
-                                ReplyAccess = access.ReplyAccess,
-                                PriorityAccess = access.PriorityAccess,
-                                PollAccess = access.PollAccess,
-                                VoteAccess = access.VoteAccess,
-                                ModeratorAccess = access.ModeratorAccess,
-                                EditAccess = access.EditAccess,
-                                DeleteAccess = access.DeleteAccess,
-                                UploadAccess = access.UploadAccess,
-                                DownloadAccess = access.DownloadAccess
-                            });
-                    }*/
-                    this.GetRepository<ActiveAccess>().DbAccess.Execute(
-                        db =>
-                        {
-                            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
-
-                            // TODO : Add typed for insert From Table
-                            return db.Connection.ExecuteSql(
-                                $@" if not exists (select top 1
-            UserID
-            from {expression.Table<ActiveAccess>()}
-            where UserID = {userId} )
-            begin
-            insert into {expression.Table<ActiveAccess>()}(
-            UserID,
-            BoardID,
-            ForumID,
-            IsAdmin,
-            IsForumModerator,
-            IsModerator,
-            IsGuestX,
-            LastActive,
-            ReadAccess,
-            PostAccess,
-            ReplyAccess,
-            PriorityAccess,
-            PollAccess,
-            VoteAccess,
-            ModeratorAccess,
-            EditAccess,
-            DeleteAccess,
-            UploadAccess,
-            DownloadAccess)
-            select
-            UserID,
-            {boardId},
-            ForumID,
-            IsAdmin,
-            IsForumModerator,
-            IsModerator,
-            {isGuest.ToType<int>()},
-            getutcdate(),
-            ReadAccess,
-            (CONVERT([bit],sign([PostAccess]&(2)),(0))),
-            ReplyAccess,
-            PriorityAccess,
-            PollAccess,
-            VoteAccess,
-            ModeratorAccess,
-            EditAccess,
-            DeleteAccess,
-            UploadAccess,
-            DownloadAccess
-            from {expression.Table<vaccess>()}
-            where UserID = {userId}
-            end");
-                        });
+                        accessList.ForEach(
+                            access => this.GetRepository<ActiveAccess>().Insert(
+                                new ActiveAccess
+                                {
+                                    UserID = userId,
+                                    BoardID = boardId,
+                                    ForumID = access.ForumID,
+                                    IsAdmin = access.IsAdmin,
+                                    IsForumModerator = access.IsForumModerator,
+                                    IsModerator = access.IsModerator,
+                                    IsGuestX = isGuest,
+                                    LastActive = DateTime.UtcNow,
+                                    ReadAccess = access.ReadAccess,
+                                    PostAccess = access.PostAccess,
+                                    ReplyAccess = access.ReplyAccess,
+                                    PriorityAccess = access.PriorityAccess,
+                                    PollAccess = access.PollAccess,
+                                    VoteAccess = access.VoteAccess,
+                                    ModeratorAccess = access.ModeratorAccess,
+                                    EditAccess = access.EditAccess,
+                                    DeleteAccess = access.DeleteAccess,
+                                    UploadAccess = access.UploadAccess,
+                                    DownloadAccess = access.DownloadAccess
+                                }));
+                    }
 
                     var idForum2 = forumId ?? 0;
+
                     if (this.GetRepository<ActiveAccess>().Exists(
                         x => x.UserID == userId && x.ForumID == idForum2 &&
                             idForum2 == 0 || x.ReadAccess))
@@ -592,7 +537,7 @@ namespace YAF.Core.Services
                                     x.UploadAccess,
                                     x.UserID,
                                     x.VoteAccess,
-                                    IsModeratorAny = Sql.Custom($"sign(isnull(({isModeratorAnySql}),0))"),
+                                    IsModeratorAny = Sql.Custom($"sign({OrmLiteConfig.DialectProvider.IsNullFunction(isModeratorAnySql, 0)})"),
                                     IsCrawler = isCrawler,
                                     IsMobileDevice = isMobileDevice,
                                     CategoryID = Sql.Custom($"{(category != null ? category.ID : 0)}"),

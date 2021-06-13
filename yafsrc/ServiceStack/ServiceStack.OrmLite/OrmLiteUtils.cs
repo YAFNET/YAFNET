@@ -13,17 +13,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using ServiceStack.Logging;
 using ServiceStack.Text;
-using ServiceStack.OrmLite.Dapper;
-using ServiceStack.Reflection;
 
 namespace ServiceStack.OrmLite
 {
@@ -35,7 +31,7 @@ namespace ServiceStack.OrmLite
 
         const int maxCachedIndexFields = 10000;
         private static readonly Dictionary<IndexFieldsCacheKey, Tuple<FieldDefinition, int, IOrmLiteConverter>[]> indexFieldsCache
-            = new Dictionary<IndexFieldsCacheKey, Tuple<FieldDefinition, int, IOrmLiteConverter>[]>(maxCachedIndexFields);
+            = new(maxCachedIndexFields);
 
         internal static ILog Log = LogManager.GetLogger(typeof(OrmLiteUtils));
 
@@ -457,7 +453,7 @@ namespace ServiceStack.OrmLite
         public static Regex VerifyFragmentRegEx = new Regex("([^\\w]|^)+(--|;--|;|%|/\\*|\\*/|@@|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|select|sys|sysobjects|syscolumns|table|update)([^\\w]|$)+",
             RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        public static Regex VerifySqlRegEx = new Regex("([^\\w]|^)+(--|;--|;|%|/\\*|\\*/|@@|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|table|update)([^\\w]|$)+",
+        public static Regex VerifySqlRegEx = new("([^\\w]|^)+(--|;--|;|%|/\\*|\\*/|@@|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|table|update)([^\\w]|$)+",
             RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public static Func<string, string> SqlVerifyFragmentFn { get; set; }
@@ -579,7 +575,7 @@ namespace ServiceStack.OrmLite
 
         public static SqlInValues SqlInValues<T>(this T[] values, IOrmLiteDialectProvider dialect = null)
         {
-            return new SqlInValues(values, dialect);
+            return new(values, dialect);
         }
 
         public static string SqlInParams<T>(this T[] values, IOrmLiteDialectProvider dialect = null)
@@ -720,7 +716,7 @@ namespace ServiceStack.OrmLite
             return NotFound;
         }
 
-        private static readonly Regex AllowedPropertyCharsRegex = new Regex(@"[^0-9a-zA-Z_]",
+        private static readonly Regex AllowedPropertyCharsRegex = new(@"[^0-9a-zA-Z_]",
             RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         private static int TryGuessColumnIndex(string fieldName, Dictionary<string, int> dbFieldMap)
@@ -1122,7 +1118,7 @@ namespace ServiceStack.OrmLite
         }
 
         /// <summary>
-        /// RDBMS Quoted string 'literal' 
+        /// RDBMS Quoted string 'literal'
         /// </summary>
         /// <returns></returns>
         public static string QuotedLiteral(string text) => text == null || text.IndexOf('\'') >= 0

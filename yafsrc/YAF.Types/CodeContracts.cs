@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -49,6 +49,7 @@ namespace YAF.Types
         ///     <c>null</c>.
         /// </exception>
         [ContractAnnotation("obj:null => halt")]
+        [Obsolete("Use VerfifyNotNull(argumentName) instead")]
         public static void VerifyNotNull<T>([CanBeNull] T obj, string argumentName) where T : class
         {
             if (obj == null)

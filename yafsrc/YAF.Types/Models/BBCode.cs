@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,6 +26,7 @@ namespace YAF.Types.Models
     using System;
 
     using ServiceStack.DataAnnotations;
+    using ServiceStack.OrmLite;
 
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -66,34 +67,39 @@ namespace YAF.Types.Models
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the on click js.
+        /// Gets or sets the on click JS.
         /// </summary>
         [StringLength(1000)]
         public string OnClickJS { get; set; }
 
         /// <summary>
-        /// Gets or sets the display js.
+        /// Gets or sets the display JS.
         /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string DisplayJS { get; set; }
 
         /// <summary>
-        /// Gets or sets the edit js.
+        /// Gets or sets the edit JS.
         /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string EditJS { get; set; }
 
         /// <summary>
-        /// Gets or sets the display css.
+        /// Gets or sets the display CSS.
         /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string DisplayCSS { get; set; }
 
         /// <summary>
         /// Gets or sets the search regex.
         /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string SearchRegex { get; set; }
 
         /// <summary>
         /// Gets or sets the replace regex.
         /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string ReplaceRegex { get; set; }
 
         /// <summary>

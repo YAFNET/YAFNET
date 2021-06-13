@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -34,10 +34,6 @@ namespace YAF.Types.Models
     /// A class which represents the UserPMessage table.
     /// </summary>
     [Serializable]
-    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] add [IsRead]	   as (CONVERT([bit],sign([Flags]&(1)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [IsInOutbox] as (CONVERT([bit],sign([Flags]&(2)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [IsArchived] as (CONVERT([bit],sign([Flags]&(4)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [IsDeleted]  as (CONVERT([bit],sign([Flags]&(8)),(0)))")]
     public class UserPMessage : IEntity, IHaveID
     {
         #region Properties
@@ -81,30 +77,6 @@ namespace YAF.Types.Models
 
             set => this.Flags = value.BitValue;
         }
-
-        /// <summary>
-        /// Gets or sets the is read.
-        /// </summary>
-        [Compute]
-        public bool? IsRead { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is in outbox.
-        /// </summary>
-        [Compute]
-        public bool? IsInOutbox { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is archived.
-        /// </summary>
-        [Compute]
-        public bool? IsArchived { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is deleted.
-        /// </summary>
-        [Compute]
-        public bool? IsDeleted { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether is reply.

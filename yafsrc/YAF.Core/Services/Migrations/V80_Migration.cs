@@ -105,8 +105,6 @@ namespace YAF.Core.Services.Migrations
 
                     this.UpgradeTableAttachment(dbAccess, dbCommand);
 
-                    this.UpgradeTableActivity(dbAccess, dbCommand);
-
                     this.UpgradeTablePollVote(dbAccess, dbCommand);
 
                     ///////////////////////////////////////////////////////////
@@ -284,23 +282,6 @@ namespace YAF.Core.Services.Migrations
                 dbCommand.Connection.AddColumn<User>(x => x.NotificationType);
             }
 
-            if (!dbCommand.Connection.ColumnExists<User>(x => x.IsApproved))
-            {
-                dbCommand.Connection.AddColumnWithCommand<User>(
-                    "[IsApproved] as (CONVERT([bit],sign([Flags]&(2)),(0)))");
-            }
-
-            if (!dbCommand.Connection.ColumnExists<User>(x => x.IsActiveExcluded))
-            {
-                dbCommand.Connection.AddColumnWithCommand<User>(
-                    "[IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0)))");
-            }
-
-            if (!dbCommand.Connection.ColumnExists<User>(x => x.IsGuest))
-            {
-                dbCommand.Connection.AddColumnWithCommand<User>("[IsGuest] AS (CONVERT([bit],sign([Flags]&(4)),(0)))");
-            }
-
             if (!dbCommand.Connection.ColumnExists<User>(x => x.ProviderUserKey))
             {
                 dbCommand.Connection.AddColumn<User>(x => x.ProviderUserKey);
@@ -444,12 +425,6 @@ namespace YAF.Core.Services.Migrations
                 dbCommand.Connection.AddColumn<Topic>(x => x.LinkDate);
             }
 
-            if (!dbCommand.Connection.ColumnExists<Topic>("IsDeleted"))
-            {
-                dbCommand.Connection.AddColumnWithCommand<Topic>(
-                    "[IsDeleted] AS (CONVERT([bit],sign([Flags]&(8)),(0)))");
-            }
-
             if (!dbCommand.Connection.ColumnExists<Topic>(x => x.Status))
             {
                 dbCommand.Connection.AddColumn<Topic>(x => x.Status);
@@ -568,41 +543,6 @@ namespace YAF.Core.Services.Migrations
 
         public void UpgradeTableActivity(IDbAccess dbAccess, IDbCommand dbCommand)
         {
-            if (!dbCommand.Connection.ColumnExists<Activity>("CreatedTopic"))
-            {
-                dbCommand.Connection.AddColumnWithCommand<Activity>(
-                    "[CreatedTopic] AS (CONVERT([bit],sign([Flags]&(1)),(0)))");
-            }
-
-            if (!dbCommand.Connection.ColumnExists<Activity>("CreatedReply"))
-            {
-                dbCommand.Connection.AddColumnWithCommand<Activity>(
-                    "[CreatedReply] AS (CONVERT([bit],sign([Flags]&(8)),(0)))");
-            }
-
-            if (!dbCommand.Connection.ColumnExists<Activity>("WasMentioned"))
-            {
-                dbCommand.Connection.AddColumnWithCommand<Activity>(
-                    "[WasMentioned] AS (CONVERT([bit],sign([Flags]&(512)),(0)))");
-            }
-
-            if (!dbCommand.Connection.ColumnExists<Activity>("ReceivedThanks"))
-            {
-                dbCommand.Connection.AddColumnWithCommand<Activity>(
-                    "[ReceivedThanks] AS (CONVERT([bit],sign([Flags]&(1024)),(0)))");
-            }
-
-            if (!dbCommand.Connection.ColumnExists<Activity>("GivenThanks"))
-            {
-                dbCommand.Connection.AddColumnWithCommand<Activity>(
-                    "[GivenThanks] AS (CONVERT([bit],sign([Flags]&(2048)),(0)))");
-            }
-
-            if (!dbCommand.Connection.ColumnExists<Activity>("WasQuoted"))
-            {
-                dbCommand.Connection.AddColumnWithCommand<Activity>(
-                    "[WasQuoted] AS (CONVERT([bit],sign([Flags]&(4096)),(0)))");
-            }
         }
 
         public void UpgradeTableBoard(IDbAccess dbAccess, IDbCommand dbCommand)
@@ -851,30 +791,6 @@ namespace YAF.Core.Services.Migrations
             if (!dbCommand.Connection.ColumnExists<Poll>(x => x.Flags))
             {
                 dbCommand.Connection.AddColumn<Poll>(x => x.Flags);
-            }
-
-            if (!dbCommand.Connection.ColumnExists<Poll>("IsClosedBound"))
-            {
-                dbCommand.Connection.AddColumnWithCommand<Poll>(
-                    "[IsClosedBound] AS (CONVERT([bit],sign([Flags]&(4)),(0)))");
-            }
-
-            if (!dbCommand.Connection.ColumnExists<Poll>("AllowMultipleChoices"))
-            {
-                dbCommand.Connection.AddColumnWithCommand<Poll>(
-                    "[AllowMultipleChoices] AS (CONVERT([bit],sign([Flags]&(8)),(0)))");
-            }
-
-            if (!dbCommand.Connection.ColumnExists<Poll>("ShowVoters"))
-            {
-                dbCommand.Connection.AddColumnWithCommand<Poll>(
-                    "[ShowVoters] AS (CONVERT([bit],sign([Flags]&(16)),(0)))");
-            }
-
-            if (!dbCommand.Connection.ColumnExists<Poll>("AllowSkipVote"))
-            {
-                dbCommand.Connection.AddColumnWithCommand<Poll>(
-                    "[AllowSkipVote] AS (CONVERT([bit],sign([Flags]&(32)),(0)))");
             }
 
             if (dbCommand.Connection.ColumnExists<Poll>("MimeType"))
@@ -1244,18 +1160,6 @@ namespace YAF.Core.Services.Migrations
             if (dbCommand.Connection.ColumnMaxLength<Message>(x => x.UserName) < 255)
             {
                 dbCommand.Connection.AlterColumn<Message>(x => x.UserName);
-            }
-
-            if (!dbCommand.Connection.ColumnExists<Message>("IsDeleted"))
-            {
-                dbCommand.Connection.AddColumnWithCommand<Message>(
-                    "[IsDeleted] AS (CONVERT([bit],sign([Flags]&(8)),(0)))");
-            }
-
-            if (!dbCommand.Connection.ColumnExists<Message>("IsApproved"))
-            {
-                dbCommand.Connection.AddColumnWithCommand<Message>(
-                    "[IsApproved] AS (CONVERT([bit],sign([Flags]&(16)),(0)))");
             }
 
             if (dbCommand.Connection.ColumnExists<Message>("Approved"))

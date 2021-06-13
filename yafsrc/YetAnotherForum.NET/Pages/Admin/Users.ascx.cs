@@ -106,7 +106,7 @@ namespace YAF.Pages.Admin
                         e.CommandArgument.ToType<int>(),
                         this.PageContext.PageBoardID);
 
-                    if (userToDelete.Item1.IsGuest == true)
+                    if (userToDelete.Item1.UserFlags.IsGuest)
                     {
                         // we cannot delete guest
                         this.PageContext.AddLoadMessage(

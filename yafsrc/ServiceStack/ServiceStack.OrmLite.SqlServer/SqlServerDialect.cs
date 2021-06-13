@@ -8,12 +8,6 @@ namespace ServiceStack.OrmLite
         public static SqlServerOrmLiteDialectProvider Instance => SqlServer2012Dialect.Instance;
     }
 
-    public static class SqlServer2008Dialect
-    {
-        public static IOrmLiteDialectProvider Provider => SqlServer2008OrmLiteDialectProvider.Instance;
-        public static SqlServer2008OrmLiteDialectProvider Instance => SqlServer2008OrmLiteDialectProvider.Instance;
-    }
-
     public static class SqlServer2012Dialect
     {
         public static IOrmLiteDialectProvider Provider => SqlServer2012OrmLiteDialectProvider.Instance;

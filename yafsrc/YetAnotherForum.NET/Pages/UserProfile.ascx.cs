@@ -381,7 +381,7 @@ namespace YAF.Pages
 
             var isFriend = this.Get<IFriends>().IsBuddy(user.Item1.ID, true);
 
-            this.PM.Visible = !user.Item1.IsGuest.Value && this.PageContext.BoardSettings.AllowPrivateMessages;
+            this.PM.Visible = !user.Item1.UserFlags.IsGuest && this.PageContext.BoardSettings.AllowPrivateMessages;
 
             if (this.PM.Visible)
             {
@@ -400,7 +400,7 @@ namespace YAF.Pages
             this.PM.ParamTitle0 = userName;
 
             // email link
-            this.Email.Visible = !user.Item1.IsGuest.Value && this.PageContext.BoardSettings.AllowEmailSending;
+            this.Email.Visible = !user.Item1.UserFlags.IsGuest && this.PageContext.BoardSettings.AllowEmailSending;
 
             if (this.Email.Visible)
             {
@@ -650,7 +650,7 @@ namespace YAF.Pages
             var allPosts = 0.0;
 
             var postsInBoard = this.GetRepository<Message>()
-                .Count(m => m.IsApproved.Value && m.IsDeleted.Value == false);
+                .Count(m => (m.Flags & 16) == 16 && (m.Flags & 8) != 8);
 
             if (postsInBoard > 0)
             {

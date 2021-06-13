@@ -326,7 +326,7 @@ namespace YAF.Core.Model
                         .Join<Forum, Category>((c, d) => d.ID == c.CategoryID).Join<User>((a, e) => e.ID == a.UserID);
 
                     expression.Where<Message, Topic, Forum, Category>(
-                        (a, b, c, d) => (a.Flags & 24) == 16 && b.IsDeleted == false && d.BoardID == boardId);
+                        (a, b, c, d) => (a.Flags & 24) == 16 && (b.Flags & 8) != 8 && d.BoardID == boardId);
 
                     if (!showNoCountPosts)
                     {
@@ -482,7 +482,7 @@ namespace YAF.Core.Model
                     // -- count Users
                     var countUsersExpression = expression;
 
-                    countUsersExpression.Where(u => u.IsApproved == true && u.BoardID == boardId);
+                    countUsersExpression.Where(u => (u.Flags & 2) == 2 && u.BoardID == boardId);
 
                     var countUsersSql = countUsersExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 

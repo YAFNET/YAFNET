@@ -93,7 +93,7 @@ namespace YAF.Controls
         {
             long archivedCount = 0;
             var messages = this.GetRepository<UserPMessage>().Get(
-                p => p.UserID == this.PageContext.PageUserID && p.IsDeleted == false && p.IsArchived == false);
+                p => p.UserID == this.PageContext.PageUserID && (p.Flags & 8) != 8 && (p.Flags & 4) != 4);
 
             messages.ForEach(
                 item =>
@@ -179,7 +179,7 @@ namespace YAF.Controls
                 case PmView.Inbox:
                     {
                         var messages = this.GetRepository<UserPMessage>().Get(
-                            p => p.UserID == this.PageContext.PageUserID && p.IsDeleted == false && p.IsArchived == false);
+                            p => p.UserID == this.PageContext.PageUserID && (p.Flags & 8) != 8 && (p.Flags & 4) != 4);
 
                         messages.ForEach(
                             item =>
@@ -207,7 +207,7 @@ namespace YAF.Controls
                 case PmView.Archive:
                     {
                         var messages = this.GetRepository<UserPMessage>().Get(
-                            p => p.UserID == this.PageContext.PageUserID && p.IsArchived == true);
+                            p => p.UserID == this.PageContext.PageUserID && (p.Flags & 4) == 4);
 
                         messages.ForEach(
                             item =>
@@ -275,13 +275,14 @@ namespace YAF.Controls
                 return;
             }
 
-            if (this.ExportType.SelectedItem.Value.Equals("xml"))
+            switch (this.ExportType.SelectedItem.Value)
             {
-                this.ExportXmlFile(messageList);
-            }
-            else if (this.ExportType.SelectedItem.Value.Equals("csv"))
-            {
-                this.ExportCsvFile(messageList);
+                case "xml":
+                    this.ExportXmlFile(messageList);
+                    break;
+                case "csv":
+                    this.ExportCsvFile(messageList);
+                    break;
             }
         }
 
@@ -311,13 +312,14 @@ namespace YAF.Controls
             var messageList = this.GetMessagesForExport(exportPmIds);
 
 
-            if (this.ExportType.SelectedItem.Value.Equals("xml"))
+            switch (this.ExportType.SelectedItem.Value)
             {
-                this.ExportXmlFile(messageList);
-            }
-            else if (this.ExportType.SelectedItem.Value.Equals("csv"))
-            {
-                this.ExportCsvFile(messageList);
+                case "xml":
+                    this.ExportXmlFile(messageList);
+                    break;
+                case "csv":
+                    this.ExportCsvFile(messageList);
+                    break;
             }
 
             this.BindData();

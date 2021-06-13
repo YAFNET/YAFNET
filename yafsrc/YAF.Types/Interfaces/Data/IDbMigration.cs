@@ -34,7 +34,7 @@ namespace YAF.Types.Interfaces.Data
         /// The migrate database.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         void MigrateDatabase(IDbAccess dbAccess);
 
@@ -42,10 +42,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table access mask.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableAccessMask(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -53,10 +53,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table active.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableActive(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -64,10 +64,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table active access.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableActiveAccess(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -75,10 +75,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table activity.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableActivity(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -86,10 +86,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table admin page user access.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableAdminPageUserAccess(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -97,10 +97,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table attachment.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableAttachment(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -108,10 +108,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table banned email.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableBannedEmail(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -119,10 +119,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table banned ip.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableBannedIP(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -130,10 +130,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table banned name.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableBannedName(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -141,10 +141,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table bb code.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableBBCode(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -152,10 +152,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table board.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableBoard(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -163,10 +163,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table buddy.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableBuddy(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -174,10 +174,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table category.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableCategory(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -185,10 +185,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table check email.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableCheckEmail(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -196,10 +196,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table choice.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableChoice(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -207,10 +207,10 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table event log.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The Database access.
         /// </param>
         /// <param name="dbCommand">
-        /// The db command.
+        /// The Database command.
         /// </param>
         void UpgradeTableEventLog(IDbAccess dbAccess, IDbCommand dbCommand);
 
@@ -218,29 +218,110 @@ namespace YAF.Types.Interfaces.Data
         /// The upgrade table favorite topic.
         /// </summary>
         /// <param name="dbAccess">
+        /// The Database access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The Database command.
+        /// </param>
+        void UpgradeTableFavoriteTopic(IDbAccess dbAccess, IDbCommand dbCommand);
+
+        /// <summary>
+        /// The upgrade table forum.
+        /// </summary>
+        /// <param name="dbAccess">
         /// The db access.
         /// </param>
         /// <param name="dbCommand">
         /// The db command.
         /// </param>
-        void UpgradeTableFavoriteTopic(IDbAccess dbAccess, IDbCommand dbCommand);
-
         void UpgradeTableForum(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table forum access.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableForumAccess(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table forum read tracking.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableForumReadTracking(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table group.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableGroup(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table group medal.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableGroupMedal(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table ignore user.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableIgnoreUser(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table medal.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableMedal(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table message.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableMessage(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table message history.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableMessageHistory(IDbAccess dbAccess, IDbCommand dbCommand);
 
         void UpgradeTableMessageReported(IDbAccess dbAccess, IDbCommand dbCommand);

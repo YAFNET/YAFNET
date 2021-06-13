@@ -104,115 +104,82 @@ namespace YAF.Core.Context
         /// </param>
         public void Handle([NotNull] InitPageLoadEvent @event)
         {
-            try
+            string userKey = null;
+
+            if (BoardContext.Current.MembershipUser != null)
             {
-                string userKey = null;
-
-                if (BoardContext.Current.MembershipUser != null)
-                {
-                    userKey = BoardContext.Current.MembershipUser.Id;
-                }
-
-                var tries = 0;
-                PageLoad pageRow;
-
-                var forumPage = string.Empty;
-                var location = this.Get<HttpRequestBase>().QueryString.ToString();
-
-                // resources are not handled by ActiveLocation control so far.
-                if (!this.Get<HttpRequestBase>().Path.Contains("resource.ashx"))
-                {
-                    forumPage = BoardContext.Current.ForumPageType.ToString();
-                }
-
-                do
-                {
-                    pageRow = this.Get<DataBroker>().GetPageLoad(
-                        this.Get<HttpSessionStateBase>().SessionID,
-                        BoardContext.Current.PageBoardID,
-                        userKey,
-                        this.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                        location,
-                        forumPage,
-                        (string)@event.Data.Browser,
-                        (string)@event.Data.Platform,
-                        (int?)@event.Data.CategoryID,
-                        (int?)@event.Data.ForumID,
-                        (int?)@event.Data.TopicID,
-                        (int?)@event.Data.MessageID,
-                        (bool)@event.Data.IsSearchEngine,
-                        (bool)@event.Data.IsMobileDevice,
-                        (bool)@event.Data.DontTrack);
-
-                    // if the user doesn't exist create the user...
-                    if (userKey != null && pageRow == null && !this.Get<IAspNetRolesHelper>().DidCreateForumUser(
-                        BoardContext.Current.MembershipUser,
-                        BoardContext.Current.PageBoardID))
-                    {
-                        throw new ApplicationException("Failed to create new user.");
-                    }
-
-                    if (tries++ < 2)
-                    {
-                        continue;
-                    }
-
-                    if (userKey != null && pageRow == null)
-                    {
-                        // probably no permissions, use guest user instead...
-                        userKey = null;
-                        continue;
-                    }
-
-                    // fail...
-                    break;
-                }
-                while (pageRow == null && userKey != null);
-
-                if (pageRow == null)
-                {
-                    throw new ApplicationException("Unable to find the Guest User!");
-                }
-
-                // add all loaded page data into our data dictionary...
-                @event.DataDictionary.AddRange(pageRow.ToObjectDictionary());
-
-                // clear active users list
-                if (@event.DataDictionary["ActiveUpdate"].ToType<bool>())
-                {
-                    // purge the cache if something has changed...
-                    this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
-                }
+                userKey = BoardContext.Current.MembershipUser.Id;
             }
 
-#if !DEBUG
-            catch (Exception x)
-            {
-                // log the exception...
-                this.Logger.Fatal(
-                    x,
-                    "Failure Initializing User/Page (URL: {0}).",
-                    this.Get<HttpRequestBase>().Url.ToString());
+            var tries = 0;
+            PageLoad pageRow;
 
-                // log the user out...
-                // FormsAuthentication.SignOut();
-                if (BoardContext.Current.ForumPageType != ForumPages.Info)
+            var forumPage = string.Empty;
+            var location = this.Get<HttpRequestBase>().QueryString.ToString();
+
+            // resources are not handled by ActiveLocation control so far.
+            if (!this.Get<HttpRequestBase>().Path.Contains("resource.ashx"))
+            {
+                forumPage = BoardContext.Current.ForumPageType.ToString();
+            }
+
+            do
+            {
+                pageRow = this.Get<DataBroker>().GetPageLoad(
+                    this.Get<HttpSessionStateBase>().SessionID,
+                    BoardContext.Current.PageBoardID,
+                    userKey,
+                    this.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                    location,
+                    forumPage,
+                    (string)@event.Data.Browser,
+                    (string)@event.Data.Platform,
+                    (int?)@event.Data.CategoryID,
+                    (int?)@event.Data.ForumID,
+                    (int?)@event.Data.TopicID,
+                    (int?)@event.Data.MessageID,
+                    (bool)@event.Data.IsSearchEngine,
+                    (bool)@event.Data.IsMobileDevice,
+                    (bool)@event.Data.DontTrack);
+
+                // if the user doesn't exist create the user...
+                if (userKey != null && pageRow == null && !this.Get<IAspNetRolesHelper>().DidCreateForumUser(
+                    BoardContext.Current.MembershipUser,
+                    BoardContext.Current.PageBoardID))
                 {
-                    // show a failure notice since something is probably up with membership...
-                    this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
-                }
-                else
-                {
-                    // totally failing... just re-throw the exception...
-                    throw;
+                    throw new ApplicationException("Failed to create new user.");
                 }
 
-#else
-            catch (Exception)
+                if (tries++ < 2)
+                {
+                    continue;
+                }
+
+                if (userKey != null && pageRow == null)
+                {
+                    // probably no permissions, use guest user instead...
+                    userKey = null;
+                    continue;
+                }
+
+                // fail...
+                break;
+            }
+            while (pageRow == null && userKey != null);
+
+            if (pageRow == null)
             {
-                // re-throw exception...
-                throw;
-#endif
+                throw new ApplicationException("Unable to find the Guest User!");
+            }
+
+            // add all loaded page data into our data dictionary...
+            @event.DataDictionary.AddRange(pageRow.ToObjectDictionary());
+
+            // clear active users list
+            if (@event.DataDictionary["ActiveUpdate"].ToType<bool>())
+            {
+                // purge the cache if something has changed...
+                this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
             }
         }
 

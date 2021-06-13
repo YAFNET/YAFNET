@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,7 +25,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    
+
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
@@ -148,7 +148,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            return repository.Get(r => r.BoardID == boardId); 
+            return repository.Get(r => r.BoardID == boardId);
         }
 
         /// <summary>
@@ -170,11 +170,14 @@ namespace YAF.Core.Model
 
             if (boardId.HasValue)
             {
-                if (repository.Exists(r => r.Name.ToLower() == settingName.ToLower() && r.BoardID == boardId.Value))
+                var registry = repository.GetSingle(
+                    r => r.Name.ToLower() == settingName.ToLower() && r.BoardID == boardId.Value);
+
+                if (registry != null)
                 {
-                    repository.UpdateOnly(
-                        () => new Registry { Value = settingValue.ToString() },
-                        r => r.Name.ToLower() == settingName.ToLower() && r.BoardID == boardId.Value);
+                    registry.Value = settingValue.ToString();
+
+                    repository.Update(registry);
                 }
                 else
                 {
@@ -187,11 +190,14 @@ namespace YAF.Core.Model
             }
             else
             {
-                if (repository.Exists(r => r.Name.ToLower() == settingName.ToLower()))
+                var registry = repository.GetSingle(
+                    r => r.Name.ToLower() == settingName.ToLower() && r.BoardID == null);
+
+                if (registry != null)
                 {
-                    repository.UpdateOnly(
-                        () => new Registry { Value = settingValue.ToString() },
-                        r => r.Name.ToLower() == settingName.ToLower() && r.BoardID == null);
+                    registry.Value = settingValue.ToString();
+
+                    repository.Update(registry);
                 }
                 else
                 {
@@ -294,7 +300,7 @@ namespace YAF.Core.Model
                 // needs to be setup...
                 redirect = "install/default.aspx";
             }
-            
+
 
             return redirect;
         }

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -118,9 +118,9 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository);
 
             return view == PmView.Archive
-                ? repository.Get(p => p.UserID == userId && p.IsRead == false && p.IsArchived == true)
+                ? repository.Get(p => p.UserID == userId && (p.Flags & 1) != 1 && (p.Flags & 4) == 4)
                 : repository.Get(
-                    p => p.UserID == userId && p.IsRead == false && p.IsDeleted == false && p.IsArchived == false);
+                    p => p.UserID == userId && (p.Flags & 1) != 1 && (p.Flags & 8) != 8 && (p.Flags & 4) != 4);
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace YAF.Core.Model
             repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, x => x.ID == userPmMessageId);
 
             // -- see if there are no longer references to this PM.
-            if (!repository.Exists(p => p.ID == userPmMessageId && p.IsInOutbox == false && p.IsDeleted == true))
+            if (!repository.Exists(p => p.ID == userPmMessageId && (p.Flags & 2) != 2 && (p.Flags & 8) == 8))
             {
                 return;
             }

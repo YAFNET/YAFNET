@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -144,10 +144,10 @@ namespace YAF.Dialogs
         /// The page_ load.
         /// </summary>
         /// <param name="sender">
-        /// The sender. 
+        /// The sender.
         /// </param>
         /// <param name="e">
-        /// The e. 
+        /// The e.
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
@@ -197,7 +197,7 @@ namespace YAF.Dialogs
         {
             // try to find users by user name
             var users = this.GetRepository<User>().Get(
-                u => u.BoardID == this.PageContext.PageBoardID && u.IsApproved == true && u.IsGuest == false &&
+                u => u.BoardID == this.PageContext.PageBoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
                     u.Name.Contains(this.UserName.Text) || u.DisplayName.Contains(this.UserName.Text));
 
             if (!users.Any())
@@ -258,7 +258,7 @@ namespace YAF.Dialogs
             {
                 // only username is specified, we must find id for it
                 var users = this.GetRepository<User>().Get(
-                    u => u.BoardID == this.PageContext.PageBoardID && u.IsApproved == true && u.IsGuest == false &&
+                    u => u.BoardID == this.PageContext.PageBoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
                         u.Name.Contains(this.UserName.Text) || u.DisplayName.Contains(this.UserName.Text));
 
                 if (users.Count > 1)

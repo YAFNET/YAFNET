@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -22,29 +22,30 @@
  * under the License.
  */
 
-namespace YAF.Data.MsSql.Functions
+namespace YAF.Data.MySql
 {
-    using YAF.Types.Attributes;
-    using YAF.Types.Interfaces.Data;
+    using ServiceStack.OrmLite.MySql;
 
     /// <summary>
-    /// The reflect ms sql specific functions.
+    /// The YAF MySQL ORM lite dialect provider.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.OwnedByContainer)]
-    public class ReflectMsSqlSpecificFunctions : BaseReflectedSpecificFunctions
+    public class YafMySqlDialectProvider : MySqlDialectProvider
     {
+        #region Constructors and Destructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReflectMsSqlSpecificFunctions"/> class.
+        /// Initializes a new instance of the <see cref="YafMySqlDialectProvider"/> class.
         /// </summary>
-        /// <param name="dbAccess">The db access.</param>
-        public ReflectMsSqlSpecificFunctions(IDbAccess dbAccess)
-            : base(typeof(MsSqlSpecificFunctions), dbAccess)
+        public YafMySqlDialectProvider()
         {
+            this.NamingStrategy = new YafNamingStrategyBaseOverride();
         }
 
         /// <summary>
-        /// Gets SortOrder.
+        /// Gets or sets the instance.
         /// </summary>
-        public override int SortOrder => 1000;
+        public static new YafMySqlDialectProvider Instance { get; set; } = new ();
+
+        #endregion
     }
 }

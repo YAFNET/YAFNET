@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -51,13 +51,13 @@ namespace YAF.Core.Extensions
         /// The delete by id.
         /// </summary>
         /// <param name="repository">
-        /// The repository. 
+        /// The repository.
         /// </param>
         /// <typeparam name="T">
         /// The type parameter.
         /// </typeparam>
         /// <returns>
-        /// The <see cref="bool"/> . 
+        /// The <see cref="bool"/> .
         /// </returns>
         public static bool DeleteAll<T>([NotNull] this IRepository<T> repository)
             where T : class, IEntity, new()
@@ -73,7 +73,7 @@ namespace YAF.Core.Extensions
 
             return success;
         }
-        
+
         /// <summary>
         /// The delete.
         /// </summary>
@@ -101,16 +101,16 @@ namespace YAF.Core.Extensions
         /// The delete by id.
         /// </summary>
         /// <param name="repository">
-        /// The repository. 
+        /// The repository.
         /// </param>
         /// <param name="id">
-        /// The id. 
+        /// The id.
         /// </param>
         /// <typeparam name="T">
         /// The type parameter.
         /// </typeparam>
         /// <returns>
-        /// The <see cref="bool"/> . 
+        /// The <see cref="bool"/> .
         /// </returns>
         public static bool DeleteById<T>([NotNull] this IRepository<T> repository, int id)
             where T : class, IEntity, IHaveID, new()
@@ -157,10 +157,10 @@ namespace YAF.Core.Extensions
         /// Get a all entities by the board Id or current board id if none is specified.
         /// </summary>
         /// <param name="repository">
-        /// The repository. 
+        /// The repository.
         /// </param>
         /// <param name="boardId">
-        /// The board id. 
+        /// The board id.
         /// </param>
         /// <typeparam name="T">
         /// The type parameter.
@@ -182,19 +182,19 @@ namespace YAF.Core.Extensions
         /// Inserts the entity. Updates the entity with the id if successful.
         /// </summary>
         /// <param name="repository">
-        /// The repository. 
+        /// The repository.
         /// </param>
         /// <param name="entity">
-        /// The entity. 
+        /// The entity.
         /// </param>
         /// <param name="transaction">
-        /// The transaction. 
+        /// The transaction.
         /// </param>
         /// <typeparam name="T">
         /// The type parameter.
         /// </typeparam>
         /// <returns>
-        /// The <see cref="bool"/> . 
+        /// The <see cref="bool"/> .
         /// </returns>
         public static int Insert<T>(
             [NotNull] this IRepository<T> repository,
@@ -253,10 +253,10 @@ namespace YAF.Core.Extensions
         /// The update.
         /// </summary>
         /// <param name="repository">
-        /// The repository. 
+        /// The repository.
         /// </param>
         /// <param name="entity">
-        /// The entity. 
+        /// The entity.
         /// </param>
         /// <param name="transaction">
         /// The transaction.
@@ -265,7 +265,7 @@ namespace YAF.Core.Extensions
         /// The type parameter.
         /// </typeparam>
         /// <returns>
-        /// The <see cref="bool"/> . 
+        /// The <see cref="bool"/> .
         /// </returns>
         public static bool Update<T>(
             [NotNull] this IRepository<T> repository,
@@ -285,15 +285,15 @@ namespace YAF.Core.Extensions
         /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
         /// Numeric fields generates an increment sql which is useful to increment counters, etc...
         /// avoiding concurrency conflicts
-        /// 
+        ///
         ///   db.UpdateAdd(() =&gt; new Person { Age = 5 }, where: p =&gt; p.LastName == "Hendrix");
         ///   UPDATE "Person" SET "Age" = "Age" + 5 WHERE ("LastName" = 'Hendrix')
-        /// 
+        ///
         ///   db.UpdateAdd(() =&gt; new Person { Age = 5 });
         ///   UPDATE "Person" SET "Age" = "Age" + 5
         /// </summary>
         /// <param name="repository">
-        /// The repository. 
+        /// The repository.
         /// </param>
         /// <param name="updateFields">
         /// The update Fields.
@@ -308,7 +308,7 @@ namespace YAF.Core.Extensions
         /// The type parameter.
         /// </typeparam>
         /// <returns>
-        /// The <see cref="bool"/> . 
+        /// The <see cref="bool"/> .
         /// </returns>
         public static int UpdateAdd<T>(
             [NotNull] this IRepository<T> repository,
@@ -324,7 +324,7 @@ namespace YAF.Core.Extensions
 
         /// <summary>
         ///  Update only fields in the specified expression that matches the where condition (if any), E.g:
-        ///   
+        ///
         ///   db.UpdateOnly(() => new Person { FirstName = "JJ" }, where: p => p.LastName == "Hendrix");
         ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
         ///
@@ -385,16 +385,16 @@ namespace YAF.Core.Extensions
         /// Gets a single entity by its ID.
         /// </summary>
         /// <param name="repository">
-        /// The repository. 
+        /// The repository.
         /// </param>
         /// <param name="id">
-        /// The id. 
+        /// The id.
         /// </param>
         /// <typeparam name="T">
         /// The type parameter.
         /// </typeparam>
         /// <returns>
-        /// The <see cref="T"/> . 
+        /// The <see cref="T"/> .
         /// </returns>
         public static T GetById<T>([NotNull] this IRepository<T> repository, int id)
             where T : IEntity, IHaveID, new()

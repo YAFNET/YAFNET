@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -48,20 +48,6 @@ namespace YAF.Core.Data
             commandText = commandText.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
 
             return commandText;
-        }
-
-        /// <summary>
-        /// Gets qualified object name
-        /// </summary>
-        /// <param name="name">
-        /// Base name of an object
-        /// </param>
-        /// <returns>
-        /// Returns qualified object name of format {databaseOwner}.{objectQualifier}name
-        /// </returns>
-        public static string GetObjectName([NotNull] string name)
-        {
-            return $"[{Config.DatabaseOwner}].[{Config.DatabaseObjectQualifier}{name}]";
         }
     }
 }

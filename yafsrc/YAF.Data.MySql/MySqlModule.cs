@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 BjÃ¸rnar Henden
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,28 +21,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Data
+
+namespace YAF.Data.MySql
 {
-    using System.Collections.Generic;
+    using Autofac;
+
+    using YAF.Types.Interfaces.Data;
 
     /// <summary>
-	/// The i data loadable.
-	/// </summary>
-	public interface IDataLoadable
+    /// The MySQL module.
+    /// </summary>
+    public class MySqlModule : Module
     {
-        #region Public Methods
-
         /// <summary>
-        /// The load from dictionary.
+        /// The load.
         /// </summary>
-        /// <param name="dictionary">
-        /// The dictionary.
+        /// <param name="builder">
+        /// The builder.
         /// </param>
-        /// <param name="clear">
-        /// The clear.
-        /// </param>
-        void LoadFromDictionary([NotNull] IDictionary<string, object> dictionary, bool clear = true);
-
-        #endregion
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterType<MySqlDbAccess>()
+                .Named<IDbAccess>(MySqlDbAccess.ProviderTypeName)
+                .InstancePerLifetimeScope();
+        }
     }
 }

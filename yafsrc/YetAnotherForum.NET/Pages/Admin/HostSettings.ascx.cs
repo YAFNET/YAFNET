@@ -31,13 +31,13 @@ namespace YAF.Pages.Admin
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.BoardSettings;
-    using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Web.Extensions;
@@ -522,7 +522,7 @@ namespace YAF.Pages.Admin
                                                ? this.PageContext.BoardSettings.AlbumImagesSizeMax.ToString()
                                                : string.Empty;
 
-            this.SQLVersion.Text = this.HtmlEncode(this.Get<IDbFunction>().GetSQLVersion());
+            this.SQLVersion.Text = this.HtmlEncode(this.Get<IDbAccess>().GetSQLVersion());
 
             this.AppCores.Text = SystemInfo.Processors;
             this.AppMemory.Text =

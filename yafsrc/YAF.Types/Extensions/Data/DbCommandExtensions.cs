@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -32,7 +32,7 @@ namespace YAF.Types.Extensions.Data
     using YAF.Types;
 
     /// <summary>
-    /// The db command extensions.
+    /// The Database command extensions.
     /// </summary>
     public static class DbCommandExtensions
     {
@@ -52,8 +52,8 @@ namespace YAF.Types.Extensions.Data
         /// </param>
         public static void AddParam([NotNull] this IDbCommand cmd, [NotNull] string name, [CanBeNull] object item)
         {
-            CodeContracts.VerifyNotNull(cmd, "cmd");
-            CodeContracts.VerifyNotNull(name, "name");
+            CodeContracts.VerifyNotNull(cmd);
+            CodeContracts.VerifyNotNull(name);
 
             AddParam(cmd, new KeyValuePair<string, object>(name, item));
         }
@@ -69,7 +69,7 @@ namespace YAF.Types.Extensions.Data
         /// </param>
         public static void AddParam([NotNull] this IDbCommand cmd, KeyValuePair<string, object> param)
         {
-            CodeContracts.VerifyNotNull(cmd, "cmd");
+            CodeContracts.VerifyNotNull(cmd);
 
             var item = param.Value;
 

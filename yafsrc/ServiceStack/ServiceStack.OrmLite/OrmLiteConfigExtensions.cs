@@ -9,21 +9,21 @@
 // Licensed under the same terms of ServiceStack.
 //
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite.Converters;
-using ServiceStack.Text;
-
 namespace ServiceStack.OrmLite
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading;
+
+    using ServiceStack.DataAnnotations;
+    using ServiceStack.OrmLite.Converters;
+    using ServiceStack.Text;
+
     internal static class OrmLiteConfigExtensions
     {
-        private static Dictionary<Type, ModelDefinition> typeModelDefinitionMap = new Dictionary<Type, ModelDefinition>();
+        private static Dictionary<Type, ModelDefinition> typeModelDefinitionMap = new ();
 
         internal static bool CheckForIdField(IEnumerable<PropertyInfo> objProperties)
         {
@@ -44,10 +44,14 @@ namespace ServiceStack.OrmLite
         internal static ModelDefinition GetModelDefinition(this Type modelType)
         {
             if (typeModelDefinitionMap.TryGetValue(modelType, out var modelDef))
+            {
                 return modelDef;
+            }
 
             if (modelType.IsValueType || modelType == typeof(string))
+            {
                 return null;
+            }
 
             var modelAliasAttr = modelType.FirstAttribute<AliasAttribute>();
             var schemaAttr = modelType.FirstAttribute<SchemaAttribute>();
@@ -57,17 +61,25 @@ namespace ServiceStack.OrmLite
             var preDrops = modelType.AllAttributes<PreDropTableAttribute>();
             var postDrops = modelType.AllAttributes<PostDropTableAttribute>();
 
-            string JoinSql(List<string> statements)
+            string JoinSql(IReadOnlyCollection<string> statements)
             {
                 if (statements.Count == 0)
+                {
                     return null;
+                }
+
                 var sb = StringBuilderCache.Allocate();
+
                 foreach (var sql in statements)
                 {
                     if (sb.Length > 0)
+                    {
                         sb.AppendLine(";");
+                    }
+
                     sb.Append(sql);
                 }
+
                 var to = StringBuilderCache.ReturnAndFree(sb);
                 return to;
             }
@@ -84,14 +96,13 @@ namespace ServiceStack.OrmLite
                 PostDropTableSql = JoinSql(postDrops.Map(x => x.Sql)),
             };
 
-            modelDef.CompositeIndexes.AddRange(
-                modelType.AllAttributes<CompositeIndexAttribute>().ToList());
+            modelDef.CompositePrimaryKeys.AddRange(modelType.AllAttributes<CompositePrimaryKeyAttribute>().ToList());
 
-            modelDef.UniqueConstraints.AddRange(
-                modelType.AllAttributes<UniqueConstraintAttribute>().ToList());
+            modelDef.CompositeIndexes.AddRange(modelType.AllAttributes<CompositeIndexAttribute>().ToList());
 
-            var objProperties = modelType.GetProperties(
-                BindingFlags.Public | BindingFlags.Instance).ToList();
+            modelDef.UniqueConstraints.AddRange(modelType.AllAttributes<UniqueConstraintAttribute>().ToList());
+
+            var objProperties = modelType.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
 
             var hasPkAttr = objProperties.Any(p => p.HasAttributeCached<PrimaryKeyAttribute>());
 
@@ -100,8 +111,11 @@ namespace ServiceStack.OrmLite
             var i = 0;
             foreach (var propertyInfo in objProperties)
             {
+                // Is Indexer
                 if (propertyInfo.GetIndexParameters().Length > 0)
-                    continue; //Is Indexer
+                {
+                    continue;
+                }
 
                 var sequenceAttr = propertyInfo.FirstAttribute<SequenceAttribute>();
                 var computeAttr = propertyInfo.FirstAttribute<ComputeAttribute>();
@@ -112,29 +126,34 @@ namespace ServiceStack.OrmLite
                 var belongToAttribute = propertyInfo.FirstAttribute<BelongToAttribute>();
                 var referenceAttr = propertyInfo.FirstAttribute<ReferenceAttribute>();
 
-                var isRowVersion = propertyInfo.Name == ModelDefinition.RowVersionName
-                    && (propertyInfo.PropertyType == typeof(ulong) || propertyInfo.PropertyType == typeof(byte[]));
+                var isRowVersion = propertyInfo.Name == ModelDefinition.RowVersionName &&
+                                   (propertyInfo.PropertyType == typeof(ulong) ||
+                                    propertyInfo.PropertyType == typeof(byte[]));
 
                 var isNullableType = propertyInfo.PropertyType.IsNullableType();
 
-                var isNullable = !propertyInfo.PropertyType.IsValueType
-                                 && !propertyInfo.HasAttributeNamed(nameof(RequiredAttribute))
-                                   || isNullableType;
+                var isNullable =
+                    !propertyInfo.PropertyType.IsValueType &&
+                    !propertyInfo.HasAttributeNamed(nameof(RequiredAttribute)) || isNullableType;
 
                 var propertyType = isNullableType
                     ? Nullable.GetUnderlyingType(propertyInfo.PropertyType)
                     : propertyInfo.PropertyType;
 
-
                 Type treatAsType = null;
 
                 if (propertyType.IsEnum)
                 {
-                    var enumKind = Converters.EnumConverter.GetEnumKind(propertyType);
+                    var enumKind = EnumConverter.GetEnumKind(propertyType);
+
                     if (enumKind == EnumKind.Int)
+                    {
                         treatAsType = Enum.GetUnderlyingType(propertyType);
+                    }
                     else if (enumKind == EnumKind.Char)
+                    {
                         treatAsType = typeof(char);
+                    }
                 }
 
                 var isReference = referenceAttr != null && propertyType.IsClass;
@@ -144,17 +163,23 @@ namespace ServiceStack.OrmLite
 
                 var isAutoId = propertyInfo.HasAttributeCached<AutoIdAttribute>();
 
-                var isPrimaryKey = !hasPkAttr && (propertyInfo.Name == OrmLiteConfig.IdField || !hasIdField && isFirst)
-                   || propertyInfo.HasAttributeNamed(nameof(PrimaryKeyAttribute))
-                   || isAutoId;
+                var isPrimaryKey =
+                    !hasPkAttr && (propertyInfo.Name == OrmLiteConfig.IdField || !hasIdField && isFirst) ||
+                    propertyInfo.HasAttributeNamed(nameof(PrimaryKeyAttribute)) || isAutoId;
 
                 var isAutoIncrement = isPrimaryKey && propertyInfo.HasAttributeCached<AutoIncrementAttribute>();
 
                 if (isAutoIncrement && propertyInfo.PropertyType == typeof(Guid))
-                    throw new NotSupportedException($"[AutoIncrement] is only valid for integer properties for {modelType.Name}.{propertyInfo.Name} Guid property use [AutoId] instead");
+                {
+                    throw new NotSupportedException(
+                        $"[AutoIncrement] is only valid for integer properties for {modelType.Name}.{propertyInfo.Name} Guid property use [AutoId] instead");
+                }
 
                 if (isAutoId && (propertyInfo.PropertyType == typeof(int) || propertyInfo.PropertyType == typeof(long)))
-                    throw new NotSupportedException($"[AutoId] is only valid for Guid properties for {modelType.Name}.{propertyInfo.Name} integer property use [AutoIncrement] instead");
+                {
+                    throw new NotSupportedException(
+                        $"[AutoId] is only valid for Guid properties for {modelType.Name}.{propertyInfo.Name} integer property use [AutoIncrement] instead");
+                }
 
                 var aliasAttr = propertyInfo.FirstAttribute<AliasAttribute>();
 
@@ -196,9 +221,14 @@ namespace ServiceStack.OrmLite
                     DefaultValue = defaultValueAttr?.DefaultValue,
                     CheckConstraint = chkConstraintAttr?.Constraint,
                     IsUniqueConstraint = propertyInfo.HasAttributeCached<UniqueAttribute>(),
-                    ForeignKey = fkAttr == null
-                        ? referencesAttr != null ? new ForeignKeyConstraint(referencesAttr.Type) : null
-                        : new ForeignKeyConstraint(fkAttr.Type, fkAttr.OnDelete, fkAttr.OnUpdate, fkAttr.ForeignKeyName),
+                    ForeignKey =
+                        fkAttr == null
+                            ? referencesAttr != null ? new ForeignKeyConstraint(referencesAttr.Type) : null
+                            : new ForeignKeyConstraint(
+                                fkAttr.Type,
+                                fkAttr.OnDelete,
+                                fkAttr.OnUpdate,
+                                fkAttr.ForeignKeyName),
                     IsReference = isReference,
                     GetValueFn = propertyInfo.CreateGetter(),
                     SetValueFn = propertyInfo.CreateSetter(),
@@ -216,12 +246,18 @@ namespace ServiceStack.OrmLite
                 };
 
                 if (isIgnored)
+                {
                     modelDef.IgnoredFieldDefinitions.Add(fieldDefinition);
+                }
                 else
+                {
                     modelDef.FieldDefinitions.Add(fieldDefinition);
+                }
 
                 if (isRowVersion)
+                {
                     modelDef.RowVersion = fieldDefinition;
+                }
             }
 
             modelDef.AfterInit();
@@ -231,9 +267,10 @@ namespace ServiceStack.OrmLite
             {
                 snapshot = typeModelDefinitionMap;
                 newCache = new Dictionary<Type, ModelDefinition>(typeModelDefinitionMap) { [modelType] = modelDef };
-
-            } while (!ReferenceEquals(
-                Interlocked.CompareExchange(ref typeModelDefinitionMap, newCache, snapshot), snapshot));
+            }
+            while (!ReferenceEquals(
+                Interlocked.CompareExchange(ref typeModelDefinitionMap, newCache, snapshot),
+                snapshot));
 
             return modelDef;
         }
@@ -241,14 +278,18 @@ namespace ServiceStack.OrmLite
         public static StringLengthAttribute CalculateStringLength(this PropertyInfo propertyInfo, DecimalLengthAttribute decimalAttribute)
         {
             var attr = propertyInfo.FirstAttribute<StringLengthAttribute>();
-            if (attr != null) return attr;
+            if (attr != null)
+            {
+                return attr;
+            }
 
             var componentAttr = propertyInfo.FirstAttribute<System.ComponentModel.DataAnnotations.StringLengthAttribute>();
             if (componentAttr != null)
+            {
                 return new StringLengthAttribute(componentAttr.MaximumLength);
+            }
 
             return decimalAttribute != null ? new StringLengthAttribute(decimalAttribute.Precision) : null;
         }
-
     }
 }

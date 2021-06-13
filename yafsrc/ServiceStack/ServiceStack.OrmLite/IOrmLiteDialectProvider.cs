@@ -97,6 +97,12 @@ namespace ServiceStack.OrmLite
         string GetTableName(string table, string schema = null);
         string GetTableName(string table, string schema, bool useStrategy);
 
+        string GetTableNameWithBrackets<T>();
+
+        string GetTableNameWithBrackets(ModelDefinition modelDef);
+
+        string GetTableNameWithBrackets(string tableName, string schema = null);
+
         string GetQuotedTableName(ModelDefinition modelDef);
 
         string GetQuotedTableName(string tableName, string schema = null);
@@ -111,6 +117,8 @@ namespace ServiceStack.OrmLite
         string SanitizeFieldNameForParamName(string fieldName);
 
         string GetColumnDefinition(FieldDefinition fieldDef);
+
+        string GetColumnDefinition(FieldDefinition fieldDef, ModelDefinition modelDef);
 
         long GetLastInsertId(IDbCommand command);
 
@@ -215,11 +223,13 @@ namespace ServiceStack.OrmLite
 
         IDbDataParameter CreateParam();
 
-        string GetDropFunction(string functionName);
+        string GetFunctionName(string database, string functionName);
 
-        string GetCreateView(ModelDefinition modelDef, StringBuilder selectSql);
+        string GetDropFunction(string database, string functionName);
 
-        string GetDropView(ModelDefinition modelDef);
+        string GetCreateView(string database, ModelDefinition modelDef, StringBuilder selectSql);
+
+        string GetDropView(string database, ModelDefinition modelDef);
 
         string GetCreateIndexView(ModelDefinition modelDef, string name, string selectSql);
 
@@ -283,5 +293,27 @@ namespace ServiceStack.OrmLite
         string SqlLimit(int? offset = null, int? rows = null);
         string SqlCast(object fieldOrValue, string castAs);
         string SqlRandom { get; }
+
+        string GetUtcDateFunction();
+
+        string DateDiffFunction(string interval, string date1, string date2);
+
+        string IsNullFunction(string expression, object alternateValue);
+
+        string ConvertFlag(string expression);
+
+        string DatabaseFragmentationInfo(string database);
+
+        string DatabaseSize(string database);
+
+        string SQLVersion();
+
+        string ShrinkDatabase(string database);
+
+        string ReIndexDatabase(string database, string objectQualifier);
+
+        string ChangeRecoveryMode(string database, string mode);
+
+        string InnerRunSqlExecuteReader(IDbCommand command);
     }
 }

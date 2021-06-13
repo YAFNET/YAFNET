@@ -79,8 +79,6 @@ namespace YAF.Core.Modules
             builder.Register((c, p) => DbProviderFactories.GetFactory(p.TypedAs<string>())).ExternallyOwned()
                 .PreserveExistingDefaults();
 
-            builder.RegisterType<DynamicDbFunction>().As<IDbFunction>().InstancePerDependency();
-
             // register generic IRepository handler, which can be easily overriden by more advanced repository handler
             builder.RegisterGeneric(typeof(BasicRepository<>)).As(typeof(IRepository<>)).InstancePerDependency();
 

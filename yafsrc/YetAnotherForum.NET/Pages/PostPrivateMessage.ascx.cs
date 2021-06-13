@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -69,7 +69,7 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "PostPrivateMessage" /> class. 
+        ///   Initializes a new instance of the <see cref = "PostPrivateMessage" /> class.
         ///   Default constructor.
         /// </summary>
         public PostPrivateMessage()
@@ -423,13 +423,13 @@ namespace YAF.Pages
                         .FirstOrDefault();
 
                 // there is such a message
-                // message info should be always returned as 1 row 
+                // message info should be always returned as 1 row
                 if (reporter == null)
                 {
                     return;
                 }
 
-                // handle subject                                           
+                // handle subject
                 this.PmSubjectTextBox.Text = this.GetText("REPORTED_SUBJECT");
 
                 var displayName =
@@ -442,7 +442,7 @@ namespace YAF.Pages
                 this.AllUsers.Visible = false;
                 this.AllBuddies.Visible = false;
 
-                // Parse content with delimiter '|'  
+                // Parse content with delimiter '|'
                 var quoteList = reporter.Item2.ReportText.Split('|');
 
                 // Quoted replies should have bad words in them
@@ -453,7 +453,7 @@ namespace YAF.Pages
                     // Add quote codes
                     quoteList[i] = $"[QUOTE={displayName}]{quoteList[i]}[/QUOTE]\r\n";
 
-                    // Replace DateTime delimiter '??' by ': ' 
+                    // Replace DateTime delimiter '??' by ': '
                     // we don't want any whitespaces at the beginning of message
                     this.editor.Text = quoteList[i].Replace("??", ": ") + this.editor.Text.TrimStart();
                 }
@@ -584,7 +584,7 @@ namespace YAF.Pages
 
             if (this.ToList.SelectedItem != null && this.ToList.SelectedItem.Value == "0")
             {
-                // administrator is sending PMs to all users           
+                // administrator is sending PMs to all users
                 var body = this.editor.Text;
                 var messageFlags = new MessageFlags
                 {
@@ -665,7 +665,7 @@ namespace YAF.Pages
                         return;
                     }
 
-                    if (user.IsGuest.Value)
+                    if (user.UserFlags.IsGuest)
                     {
                         this.PageContext.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.danger);
                         return;

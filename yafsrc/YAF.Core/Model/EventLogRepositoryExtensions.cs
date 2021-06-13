@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,7 +25,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    
+
     using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
@@ -42,7 +42,7 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// The list.
+        /// Gets the Event Log (Paged)
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -75,7 +75,7 @@ namespace YAF.Core.Model
         /// The spam Only.
         /// </param>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// Returns a Paged List of the Event Log
         /// </returns>
         public static List<PagedEventLog> ListPaged(
             this IRepository<EventLog> repository,
@@ -171,30 +171,16 @@ namespace YAF.Core.Model
 
             repository.Delete(x => x.EventTime < agesAgo);
 
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<EventLog>();
+
+            expression.OrderBy(x => x.EventTime).Limit(100);
+
+            var entries = repository.DbAccess.Execute(db => db.Connection.Select(expression));
+
             // -- or if there are more then 1000
-            var total = repository.DbAccess.Execute(
-                db =>
-                {
-                    var expression = db.Connection.From<EventLog>().Select(Sql.Count("1"));
-
-                    return db.Connection.SqlScalar<int>(expression);
-                });
-
-            if (total >= maxRows + 50)
+            if (entries.Count >= maxRows + 50)
             {
-                repository.DbAccess.Execute(
-                    db =>
-                    {
-                        var expression = db.Connection.From<EventLog>(db.Connection.TableAlias("x"));
-
-                        expression.UnsafeWhere(
-                            $@"{expression.Column<EventLog>(x => x.ID, true)} in
-                                        (select top 100 x.{expression.Column<EventLog>(x => x.ID)}
-                                         from {expression.Table<EventLog>()} x 
-                                         order by x.{expression.Column<EventLog>(x => x.EventTime)})");
-
-                        return db.Connection.Delete(expression);
-                    });
+                repository.DbAccess.Execute(db => db.Connection.DeleteAll(entries));
             }
         }
 

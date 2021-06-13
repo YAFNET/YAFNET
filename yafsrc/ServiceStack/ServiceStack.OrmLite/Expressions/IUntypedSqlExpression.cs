@@ -664,6 +664,29 @@ namespace ServiceStack.OrmLite
         public static string Column<Table>(this ISqlExpression sqlExpression, Expression<Func<Table, object>> propertyExpression, bool prefixTable = false) =>
             sqlExpression.ToDialectProvider().Column(propertyExpression, prefixTable);
 
+        public static Type ColumnDbType<Table>(this IOrmLiteDialectProvider dialect, Expression<Func<Table, object>> propertyExpression, bool prefixTable = false)
+        {
+            string propertyName = null;
+            Expression expr = propertyExpression;
+
+            if (expr is LambdaExpression lambda)
+                expr = lambda.Body;
+
+            if (expr.NodeType == ExpressionType.Convert && expr is UnaryExpression unary)
+                expr = unary.Operand;
+
+            if (expr is MemberExpression member)
+                propertyName = member.Member.Name;
+
+            if (propertyName == null)
+                propertyName = expr.ToPropertyInfo()?.Name;
+
+            if (propertyName != null)
+                return dialect.ColumnDbType<Table>(propertyName, prefixTable);
+
+            throw new ArgumentException("Expected Lambda MemberExpression but received: " + propertyExpression.Name);
+        }
+
         public static string Column<Table>(this IOrmLiteDialectProvider dialect, Expression<Func<Table, object>> propertyExpression, bool prefixTable = false)
         {
             string propertyName = null;
@@ -689,6 +712,15 @@ namespace ServiceStack.OrmLite
 
         public static string Column<Table>(this ISqlExpression sqlExpression, string propertyName, bool prefixTable = false) =>
             sqlExpression.ToDialectProvider().Column<Table>(propertyName, prefixTable);
+
+        public static Type ColumnDbType<Table>(this IOrmLiteDialectProvider dialect, string propertyName, bool prefixTable = false)
+        {
+            var tableDef = typeof(Table).GetModelDefinition();
+
+            var fieldDef = tableDef.FieldDefinitions.FirstOrDefault(x => x.Name == propertyName);
+
+            return fieldDef.ColumnType;
+        }
 
         public static string Column<Table>(this IOrmLiteDialectProvider dialect, string propertyName, bool prefixTable = false)
         {

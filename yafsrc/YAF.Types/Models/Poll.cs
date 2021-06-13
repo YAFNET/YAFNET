@@ -34,8 +34,6 @@ namespace YAF.Types.Models
     /// A class which represents the Poll table.
     /// </summary>
     [Serializable]
-    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] add IsDeleted  as (CONVERT([bit],sign([Flags]&(8)),0))" +
-                         "alter table [{databaseOwner}].[{tableName}] add IsApproved as (CONVERT([bit],sign([Flags]&(16)),(0)))")]
     public class Poll : IEntity, IHaveID
     {
         #region Properties
@@ -88,12 +86,6 @@ namespace YAF.Types.Models
 
             set => this.Flags = value.BitValue;
         }
-
-        /// <summary>
-        /// Gets or sets the allow skip vote.
-        /// </summary>
-        [Compute]
-        public bool? AllowSkipVote { get; set; }
 
         #endregion
     }

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,7 +24,7 @@
 namespace YAF.Core.Model
 {
     using System;
-    
+
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
@@ -118,10 +118,10 @@ namespace YAF.Core.Model
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
 
                     expression.Where(
-                        $@"DATEDIFF(
-                                             minute, 
-                                             {expression.Column<ActiveAccess>(x => x.LastActive, true)}, 
-                                             GETUTCDATE()) > {activeTime} and {expression.Column<ActiveAccess>(x => x.IsGuestX, true)} = 0");
+                        $@"{OrmLiteConfig.DialectProvider.DateDiffFunction(
+                                             "minute",
+                                             expression.Column<ActiveAccess>(x => x.LastActive, true),
+                                             OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {activeTime} and {expression.Column<ActiveAccess>(x => x.IsGuestX, true)} = 0");
 
                     return db.Connection.Delete(expression);
                 });

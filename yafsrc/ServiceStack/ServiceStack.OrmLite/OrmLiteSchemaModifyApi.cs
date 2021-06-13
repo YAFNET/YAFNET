@@ -192,7 +192,7 @@
             var provider = dbConn.GetDialectProvider();
             var modelDef = ModelDefinition<T>.Definition;
 
-            var command = provider.GetCreateView(modelDef, selectSql);
+            var command = provider.GetCreateView(dbConn.Database, modelDef, selectSql);
 
             dbConn.ExecuteSql(command);
         }
@@ -202,7 +202,7 @@
             var provider = dbConn.GetDialectProvider();
             var modelDef = ModelDefinition<T>.Definition;
 
-            var command = provider.GetDropView(modelDef);
+            var command = provider.GetDropView(dbConn.Database, modelDef);
 
             dbConn.ExecuteSql(command);
         }
@@ -211,7 +211,7 @@
         {
             var provider = dbConn.GetDialectProvider();
 
-            var command = provider.GetDropFunction(functionName);
+            var command = provider.GetDropFunction(dbConn.Database, functionName);
 
             dbConn.ExecuteSql(command);
         }

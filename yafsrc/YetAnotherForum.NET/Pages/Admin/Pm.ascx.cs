@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -87,7 +87,7 @@ namespace YAF.Pages.Admin
             this.Days1.Text = "60";
             this.Days2.Text = "180";
 
-            this.Count.Text = this.GetRepository<UserPMessage>().Count(m => m.IsDeleted == false).ToString();
+            this.Count.Text = this.GetRepository<UserPMessage>().Count(m => (m.Flags & 8) != 8).ToString();
         }
 
         /// <summary>

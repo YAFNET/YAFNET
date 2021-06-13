@@ -34,6 +34,7 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     ///     The active repository extensions.
@@ -54,7 +55,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<dynamic> ListForum(this IRepository<Active> repository, [NotNull] int forumId)
+        public static List<ActiveUser> ListForum(this IRepository<Active> repository, [NotNull] int forumId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -77,29 +78,32 @@ namespace YAF.Core.Model
                                 a.UserID,
                                 UserName = b.Name,
                                 UserDisplayName = b.DisplayName,
-                                b.IsActiveExcluded,
-                                IsCrawler = a.Flags & 8,
+                                IsActiveExcluded =
+                                    Sql.Custom<bool>(
+                                        $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&16")})"),
+                                IsCrawler =
+                                    Sql.Custom<bool>(
+                                        $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&8")})"),
                                 b.UserStyle,
-                                b.IsGuest,
+                                IsGuest = Sql.Custom<bool>(
+                                    $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
                                 b.Suspended,
-                                UserCount = Sql.Custom($"({countSql})"),
+                                UserCount = Sql.Custom<int>($"({countSql})"),
                                 a.Browser
                             }).GroupBy<Active, User>(
-                            (a, u) => new
+                            (a, b) => new
                             {
                                 a.UserID,
-                                u.DisplayName,
-                                u.Name,
-                                u.IsActiveExcluded,
-                                u.ID,
-                                u.UserStyle,
-                                u.IsGuest,
-                                u.Suspended,
-                                a.Flags,
+                                b.DisplayName,
+                                b.Name,
+                                b.ID,
+                                b.Flags,
+                                b.UserStyle,
+                                b.Suspended,
                                 a.Browser
                             }).OrderBy<User>(u => u.Name);
 
-                    return db.Connection.Select<object>(expression);
+                    return db.Connection.Select<ActiveUser>(expression);
                 });
         }
 
@@ -115,7 +119,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<dynamic> ListTopic(this IRepository<Active> repository, [NotNull] int topicId)
+        public static List<ActiveUser> ListTopic(this IRepository<Active> repository, [NotNull] int topicId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -136,29 +140,27 @@ namespace YAF.Core.Model
                         a.UserID,
                         UserName = b.Name,
                         UserDisplayName = b.DisplayName,
-                        b.IsActiveExcluded,
-                        IsCrawler = a.Flags & 8,
+                        IsActiveExcluded = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&16")})"),
+                        IsCrawler = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&8")})"),
                         b.UserStyle,
-                        b.IsGuest,
+                        IsGuest = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
                         b.Suspended,
-                        UserCount = Sql.Custom($"({countSql})"),
+                        UserCount = Sql.Custom<int>($"({countSql})"),
                         a.Browser
                     }).GroupBy<Active, User>(
-                    (a, u) => new
+                    (a, b) => new
                     {
                         a.UserID,
-                        u.DisplayName,
-                        u.Name,
-                        u.IsActiveExcluded,
-                        u.ID,
-                        u.UserStyle,
-                        u.IsGuest,
-                        u.Suspended,
-                        a.Flags,
+                        b.DisplayName,
+                        b.Name,
+                        b.ID,
+                        b.Flags,
+                        b.UserStyle,
+                        b.Suspended,
                         a.Browser
                     }).OrderBy<User>(u => u.Name);
 
-                return db.Connection.Select<object>(expression);
+                return db.Connection.Select<ActiveUser>(expression);
             });
         }
 
@@ -183,7 +185,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<dynamic> List(
+        public static List<ActiveUser> List(
             this IRepository<Active> repository,
             [NotNull] bool showGuests,
             [NotNull] bool showCrawlers,
@@ -220,7 +222,7 @@ namespace YAF.Core.Model
                         else
                         {
                             expression.Where<User, Active>(
-                                (u, a) => a.BoardID == (boardId ?? repository.BoardID) && u.IsGuest == false);
+                                (u, a) => a.BoardID == (boardId ?? repository.BoardID) && (u.Flags & 4) != 4);
                         }
                     }
 
@@ -250,9 +252,9 @@ namespace YAF.Core.Model
                             a.TopicID,
                             ForumName = Sql.Custom($"({forumSql})"),
                             TopicName = Sql.Custom($"({topicSql})"),
-                            u.IsGuest,
+                            IsGuest = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
                             IsCrawler = a.Flags & 8,
-                            u.IsActiveExcluded,
+                            IsActiveExcluded = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&16")})"),
                             u.UserStyle,
                             u.Suspended,
                             UserCount = 1,
@@ -260,13 +262,13 @@ namespace YAF.Core.Model
                             a.LastActive,
                             a.Location,
                             Active = Sql.Custom(
-                                $"DATEDIFF(minute,{expression.Column<Active>(x => x.Login, true)}, {expression.Column<Active>(x => x.LastActive, true)})"),
+                                $"{OrmLiteConfig.DialectProvider.DateDiffFunction("minute", expression.Column<Active>(x => x.Login, true), expression.Column<Active>(x => x.LastActive, true))}"),
                             a.Browser,
                             a.Platform,
                             a.ForumPage
                         });
 
-                    return db.Connection.Select<dynamic>(expression);
+                    return db.Connection.Select<ActiveUser>(expression);
                 });
         }
 
@@ -337,7 +339,7 @@ namespace YAF.Core.Model
                         else
                         {
                             expression.Where<User, Active, ActiveAccess>(
-                                (u, a, x) => a.BoardID == (boardId ?? repository.BoardID) && u.IsGuest == false && x.UserID == userId);
+                                (u, a, x) => a.BoardID == (boardId ?? repository.BoardID) && (u.Flags & 4) != 4 && x.UserID == userId);
                         }
                     }
 
@@ -368,9 +370,9 @@ namespace YAF.Core.Model
                             a.TopicID,
                             ForumName = Sql.Custom($"({forumSql})"),
                             TopicName = Sql.Custom($"({topicSql})"),
-                            u.IsGuest,
+                            IsGuest = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
                             IsCrawler = a.Flags & 8,
-                            u.IsActiveExcluded,
+                            IsActiveExcluded = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&16")})"),
                             u.UserStyle,
                             u.Suspended,
                             UserCount = 1,
@@ -378,7 +380,7 @@ namespace YAF.Core.Model
                             a.LastActive,
                             a.Location,
                             Active = Sql.Custom(
-                                $"DATEDIFF(minute,{expression.Column<Active>(ac => ac.Login, true)}, {expression.Column<Active>(ac => ac.LastActive, true)})"),
+                                $"{OrmLiteConfig.DialectProvider.DateDiffFunction("minute", expression.Column<Active>(ac => ac.Login, true), expression.Column<Active>(ac => ac.LastActive, true))}"),
                             a.Browser,
                             a.Platform,
                             a.ForumPage
@@ -412,7 +414,7 @@ namespace YAF.Core.Model
                     expression.Join<User>((x, u) => u.ID == x.UserID);
 
                     expression.Where<User>(
-                        u => u.BoardID == boardId && u.IsActiveExcluded == false);
+                        u => u.BoardID == boardId && (u.Flags & 16) != 16);
 
                     // -- count Members
                     var countMembersExpression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
@@ -420,7 +422,7 @@ namespace YAF.Core.Model
                     countMembersExpression.Join<User>((x, u) => u.ID == x.UserID);
 
                     countMembersExpression.Where<Active, User>(
-                        (x, u) => x.BoardID == boardId && u.IsActiveExcluded == false && u.IsApproved == true);
+                        (x, u) => x.BoardID == boardId && (u.Flags & 16) != 16 && (u.Flags & 2) == 2);
 
                     var countMembersSql = countMembersExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
@@ -430,7 +432,7 @@ namespace YAF.Core.Model
                     countGuestsExpression.Join<User>((x, u) => u.ID == x.UserID);
 
                     countGuestsExpression.Where<Active, User>(
-                        (x, u) => x.BoardID == boardId && u.IsGuest == true);
+                        (x, u) => x.BoardID == boardId && (u.Flags & 4) == 4);
 
                     var countGuestsSql = countMembersExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
@@ -440,7 +442,7 @@ namespace YAF.Core.Model
                     countHiddenExpression.Join<User>((x, u) => u.ID == x.UserID);
 
                     countHiddenExpression.Where<Active, User>(
-                        (x, u) => x.BoardID == boardId && u.IsApproved == true && u.IsActiveExcluded == true);
+                        (x, u) => x.BoardID == boardId && (u.Flags & 2) == 2 && (u.Flags & 16) == 16);
 
                     var countHiddenSql = countHiddenExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
@@ -477,7 +479,7 @@ namespace YAF.Core.Model
                 var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
 
                 expression.Where(
-                    $"DATEDIFF(minute, {expression.Column<Active>(x => x.LastActive, true)}, GETUTCDATE()) > {activeTime}");
+                    $"{OrmLiteConfig.DialectProvider.DateDiffFunction("minute", expression.Column<Active>(x => x.LastActive, true), OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {activeTime}");
 
                 return db.Connection.Delete(expression);
             });

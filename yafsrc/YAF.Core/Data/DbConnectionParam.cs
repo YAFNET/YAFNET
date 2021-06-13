@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,26 +28,23 @@ namespace YAF.Core.Data
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    ///     The db connection param.
+    ///     The database connection parameter.
     /// </summary>
     public struct DbConnectionParam : IDbConnectionParam
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="DbConnectionParam" /> class.
+        /// Initializes a new instance of the <see cref="DbConnectionParam"/> struct.
         /// </summary>
         /// <param name="id">
-        ///     The id.
+        /// The id.
         /// </param>
         /// <param name="name">
-        ///     The name.
+        /// The name.
         /// </param>
         /// <param name="defaultValue">
-        ///     The value.
-        /// </param>
-        /// <param name="visible">
-        ///     The visible.
+        /// The default value.
         /// </param>
         public DbConnectionParam(int id, string name, [NotNull] string defaultValue = null)
         {
@@ -61,17 +58,17 @@ namespace YAF.Core.Data
         #region Public Properties
 
         /// <summary>
-        ///     Gets or sets ID.
+        ///     Gets or sets the ID.
         /// </summary>
         public int ID { get; set; }
 
         /// <summary>
-        ///     Gets or sets Label.
+        /// Gets the Label.
         /// </summary>
         public string Name { get; }
 
         /// <summary>
-        ///     Gets or sets DefaultValue.
+        /// Gets the Default Value.
         /// </summary>
         public string Value { get; }
 

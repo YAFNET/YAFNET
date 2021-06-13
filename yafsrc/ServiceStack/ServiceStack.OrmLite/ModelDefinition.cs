@@ -25,6 +25,7 @@ namespace ServiceStack.OrmLite
             this.FieldDefinitions = new List<FieldDefinition>();
             this.IgnoredFieldDefinitions = new List<FieldDefinition>();
             this.CompositeIndexes = new List<CompositeIndexAttribute>();
+            this.CompositePrimaryKeys = new List<CompositePrimaryKeyAttribute>();
             this.UniqueConstraints = new List<UniqueConstraintAttribute>();
         }
 
@@ -135,6 +136,8 @@ namespace ServiceStack.OrmLite
                 return fieldDefinitionMap;
             }
         }
+
+        public List<CompositePrimaryKeyAttribute> CompositePrimaryKeys { get; set; }
 
         public List<CompositeIndexAttribute> CompositeIndexes { get; set; }
 

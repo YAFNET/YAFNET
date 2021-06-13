@@ -25,11 +25,6 @@
                                                         LocalizedTag="NEED_QUERY" />
                                 </div>
                             </div>
-                            <div class="form-check form-switch">
-                                <asp:Checkbox ID="chkRunInTransaction" runat="server"
-                                              Text="Run In Transaction"
-                                              Checked="true" />
-                            </div>
                         </div>
                         <div class="card-footer text-center">
                             <YAF:ThemeButton ID="RunQuery" runat="server"

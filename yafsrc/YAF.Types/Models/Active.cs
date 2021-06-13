@@ -35,8 +35,7 @@ namespace YAF.Types.Models
     ///     A class which represents the Active table.
     /// </summary>
     [Serializable]
-    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" +
-                     "alter table [{databaseOwner}].[{tableName}] with nocheck add constraint [PK_{tableName}] primary key clustered (SessionID,BoardID)")]
+    [CompositePrimaryKey(nameof(SessionID), nameof(BoardID))]
     public class Active : IEntity, IHaveBoardID
     {
         #region Public Properties

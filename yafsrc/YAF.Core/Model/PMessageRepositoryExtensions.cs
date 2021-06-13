@@ -1,4 +1,4 @@
-namespace YAF.Core.Model
+﻿namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
@@ -50,7 +50,7 @@ namespace YAF.Core.Model
                     var q = db.Connection.From<UserPMessage>(db.Connection.TableAlias("a")).Join<PMessage>(
                         (a, b) => Sql.TableAlias(a.PMessageID, "a") == Sql.TableAlias(b.ID, "b"),
                         db.Connection.TableAlias("b")).Where(
-                        $"a.IsRead<>0 and DATEDIFF(dd, b.Created, '{DateTime.UtcNow}') > {daysRead}");
+                        $"a.IsRead<>0 and {OrmLiteConfig.DialectProvider.DateDiffFunction("dd", "b.Created", OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {daysRead}");
 
                     return db.Connection.Delete(q);
                 });
@@ -62,7 +62,7 @@ namespace YAF.Core.Model
                     var q = db.Connection.From<UserPMessage>(db.Connection.TableAlias("a")).Join<PMessage>(
                         (a, b) => Sql.TableAlias(a.PMessageID, "a") == Sql.TableAlias(b.ID, "b"),
                         db.Connection.TableAlias("b")).Where(
-                        $"a.IsRead = 0 and DATEDIFF(dd, b.Created, '{DateTime.UtcNow}') > {daysUnread}");
+                        $"a.IsRead = 0 and {OrmLiteConfig.DialectProvider.DateDiffFunction("dd", "b.Created", OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {daysUnread}");
 
                     return db.Connection.Delete(q);
                 });
@@ -114,7 +114,7 @@ namespace YAF.Core.Model
             var countOutBoxExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>();
 
             countOutBoxExpression.Join<PMessage>((a, b) => a.PMessageID == b.ID).Where<UserPMessage, PMessage>(
-                (a, b) => a.IsInOutbox == true && a.IsDeleted == false && a.IsArchived == false &&
+                (a, b) => (a.Flags & 2) == 2 && (a.Flags & 8) != 8 && (a.Flags & 4) != 4 &&
                           b.FromUserID == userId);
 
             var numberOut = repository.DbAccess.Execute(db => db.Connection.Count(countOutBoxExpression));
@@ -123,14 +123,14 @@ namespace YAF.Core.Model
             var countInBoxExpression = OrmLiteConfig.DialectProvider.SqlExpression<PMessage>();
 
             countInBoxExpression.Join<UserPMessage>((a, b) => b.PMessageID == a.ID).Where<PMessage, UserPMessage>(
-                (a, b) => b.IsDeleted == false && b.IsArchived == false && b.UserID == userId);
+                (a, b) => (b.Flags & 8) != 8 && (b.Flags & 4) != 4 && b.UserID == userId);
 
             var numberIn = repository.DbAccess.Execute(db => db.Connection.Count(countInBoxExpression));
 
             var countArchivedExpression = OrmLiteConfig.DialectProvider.SqlExpression<PMessage>();
 
             countArchivedExpression.Join<UserPMessage>((a, b) => b.PMessageID == a.ID).Where<PMessage, UserPMessage>(
-                (a, b) => b.IsDeleted == false && b.IsArchived == true && b.UserID == userId);
+                (a, b) => (b.Flags & 8) != 8 && (b.Flags & 4) == 4 && b.UserID == userId);
 
             var numberArchived = repository.DbAccess.Execute(db => db.Connection.Count(countArchivedExpression));
 
@@ -202,7 +202,7 @@ namespace YAF.Core.Model
             {
                 // Get all board users
                 var users = BoardContext.Current.GetRepository<User>().Get(
-                    u => u.BoardID == repository.BoardID && u.IsApproved == true && u.IsGuest == false);
+                    u => u.BoardID == repository.BoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4);
 
                 users.ForEach(
                     u => BoardContext.Current.GetRepository<UserPMessage>().Insert(
@@ -263,14 +263,14 @@ namespace YAF.Core.Model
                     {
                         case PmView.Inbox:
                             expression.Where<UserPMessage>(
-                                b => b.UserID == userId && b.IsArchived == false && b.IsDeleted == false);
+                                b => b.UserID == userId && (b.Flags & 4) != 4 && (b.Flags & 8) != 8);
                             break;
                         case PmView.Outbox:
                             expression.Where<PMessage, UserPMessage>(
-                                (a, b) => a.FromUserID == userId && b.IsArchived == false && b.IsInOutbox == true);
+                                (a, b) => a.FromUserID == userId && (b.Flags & 4) != 4 && (b.Flags & 2) == 2);
                             break;
                         case PmView.Archive:
-                            expression.Where<UserPMessage>(b => b.UserID == userId && b.IsArchived == true);
+                            expression.Where<UserPMessage>(b => b.UserID == userId && (b.Flags & 4) == 4);
                             break;
                     }
 
@@ -351,11 +351,11 @@ namespace YAF.Core.Model
                             a.Body,
                             a.Flags,
                             UserPMFlags = b.Flags,
-                            b.IsRead,
+                            IsRead = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&1")})"),
                             b.IsReply,
-                            b.IsInOutbox,
-                            b.IsArchived,
-                            b.IsDeleted
+                            IsInOutbox = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&2")})"),
+                            IsArchived = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&4")})"),
+                            IsDeleted = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&8")})")
                         });
 
                     return db.Connection.Select<PagedPm>(expression);
@@ -433,11 +433,11 @@ namespace YAF.Core.Model
                                 a.Body,
                                 a.Flags,
                                 UserPMFlags = b.Flags,
-                                b.IsRead,
+                                IsRead = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&1")})"),
                                 b.IsReply,
-                                b.IsInOutbox,
-                                b.IsArchived,
-                                b.IsDeleted
+                                IsInOutbox = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&2")})"),
+                                IsArchived = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&4")})"),
+                                IsDeleted = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&8")})")
                             });
 
                     return db.Connection.Select<object>(expression);
@@ -475,7 +475,7 @@ namespace YAF.Core.Model
 
             var replyTo = (int?)message.ReplyTo;
 
-            if (replyTo.HasValue && replyTo.Value > 0)
+            if (replyTo is > 0)
             {
                 var replyToId = (int)message.ReplyTo;
 
@@ -544,11 +544,11 @@ namespace YAF.Core.Model
                                 a.Subject,
                                 a.Body,
                                 a.Flags,
-                                b.IsRead,
+                                IsRead = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&1")})"),
                                 b.IsReply,
-                                b.IsInOutbox,
-                                b.IsArchived,
-                                b.IsDeleted
+                                IsInOutbox = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&2")})"),
+                                IsArchived = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&4")})"),
+                                IsDeleted = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&8")})")
                             });
 
                     return db.Connection.Select<object>(expression);

@@ -30,7 +30,7 @@ namespace YAF.Data.MsSql
     using YAF.Types.Interfaces.Events;
 
     /// <summary>
-    /// The set MS SQL dialect event.
+    /// Set the MS SQL dialect event.
     /// </summary>
     [ExportService(ServiceLifetimeScope.InstancePerDependency, new[] { typeof(IHandleEvent<InitDatabaseProviderEvent>) })]
     public class SetMsSqlDialectEvent : IHandleEvent<InitDatabaseProviderEvent>

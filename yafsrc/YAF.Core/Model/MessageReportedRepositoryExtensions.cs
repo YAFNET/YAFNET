@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,7 +25,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    
+
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
@@ -64,7 +64,7 @@ namespace YAF.Core.Model
                         .Join<Message, Topic>((m, t) => t.ID == m.TopicID)
                         .Join<Message, User>((m, u) => u.ID == m.UserID)
                         .Where<Message, Topic>(
-                            (m, t) => t.ForumID == forumId && m.IsDeleted == false && t.IsDeleted == false &&
+                            (m, t) => t.ForumID == forumId && (m.Flags & 8) != 8 && (t.Flags & 8) != 8 &&
                                       (m.Flags & 128) == 128);
 
                     var q = db.Connection.From<MessageReportedAudit>(db.Connection.TableAlias("x"));
@@ -153,8 +153,8 @@ namespace YAF.Core.Model
                 BoardContext.Current.GetRepository<MessageReportedAudit>().UpdateOnly(
                     () => new MessageReportedAudit
                     {
-                        ReportedNumber = reportAudit.ReportedNumber < 2147483647 ? reportAudit.ReportedNumber + 1 : reportAudit.ReportedNumber, 
-                        Reported = reportedDateTime, 
+                        ReportedNumber = reportAudit.ReportedNumber < 2147483647 ? reportAudit.ReportedNumber + 1 : reportAudit.ReportedNumber,
+                        Reported = reportedDateTime,
                         ReportText = $"{reportAudit.ReportText}|{DateTime.UtcNow}??{reportText}"
                     },
                     m => m.MessageID == message.Item2.ID && m.UserID == userId);

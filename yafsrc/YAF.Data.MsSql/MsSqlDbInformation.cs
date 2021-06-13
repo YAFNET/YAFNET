@@ -41,7 +41,7 @@ namespace YAF.Data.MsSql
     using Config = YAF.Configuration.Config;
 
     /// <summary>
-    /// MS SQL DB Information
+    /// MySQL DB Information
     /// </summary>
     public class MsSqlDbInformation : IDbInformation
     {
@@ -101,7 +101,7 @@ namespace YAF.Data.MsSql
         {
             var connectionParams = parameters.ToList();
 
-            CodeContracts.VerifyNotNull(connectionParams, "parameters");
+            CodeContracts.VerifyNotNull(connectionParams);
 
             var connBuilder = new SqlConnectionStringBuilder();
 
@@ -125,6 +125,7 @@ namespace YAF.Data.MsSql
 
             vaccessGroupSelect.Append(" select ");
 
+            vaccessGroupSelect.Append("e.BoardID,");
             vaccessGroupSelect.Append("b.UserID,");
             vaccessGroupSelect.Append("c.ForumID,");
             vaccessGroupSelect.Append("d.AccessMaskID,");
@@ -169,8 +170,8 @@ namespace YAF.Data.MsSql
 
             vaccessNullSelect.Append("a.UserID,");
             vaccessNullSelect.Append("ForumID = convert(int,0),");
+            vaccessNullSelect.Append("GroupID = convert(int,0),");
             vaccessNullSelect.Append("AccessMaskID = convert(int, 0),");
-            vaccessNullSelect.Append("GroupID = convert(int, 0),");
             vaccessNullSelect.Append("ReadAccess = convert(int, 0),");
             vaccessNullSelect.Append("PostAccess = convert(int, 0),");
             vaccessNullSelect.Append("ReplyAccess = convert(int, 0),");

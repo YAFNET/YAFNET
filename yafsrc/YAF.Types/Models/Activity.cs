@@ -34,12 +34,6 @@ namespace YAF.Types.Models
     /// A class which represents the Activity table.
     /// </summary>
     [Serializable]
-    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] add [CreatedTopic]   as (CONVERT([bit],sign([Flags]&(1)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [CreatedReply]   as (CONVERT([bit],sign([Flags]&(8)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [WasMentioned]   as (CONVERT([bit],sign([Flags]&(512)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [ReceivedThanks] as (CONVERT([bit],sign([Flags]&(1024)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [GivenThanks]    as (CONVERT([bit],sign([Flags]&(2048)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [WasQuoted]      as (CONVERT([bit],sign([Flags]&(4096)),(0)))")]
     public class Activity : IEntity, IHaveID
     {
         #region Properties
@@ -96,42 +90,6 @@ namespace YAF.Types.Models
         /// </summary>
         [Default(0)]
         public bool Notification { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether created topic.
-        /// </summary>
-        [Compute]
-        public bool CreatedTopic { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether created reply.
-        /// </summary>
-        [Compute]
-        public bool CreatedReply { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether was mentioned.
-        /// </summary>
-        [Compute]
-        public bool WasMentioned { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether received thanks.
-        /// </summary>
-        [Compute]
-        public bool ReceivedThanks { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether given thanks.
-        /// </summary>
-        [Compute]
-        public bool GivenThanks { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether was quoted.
-        /// </summary>
-        [Compute]
-        public bool WasQuoted { get; set; }
 
         #endregion
     }

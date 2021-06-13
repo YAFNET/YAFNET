@@ -17,10 +17,10 @@
     <form id="Form1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
-        <asp:Wizard ID="InstallWizard" runat="server" ActiveStepIndex="1" 
-                    DisplaySideBar="False" 
+        <asp:Wizard ID="InstallWizard" runat="server" ActiveStepIndex="1"
+                    DisplaySideBar="False"
                     OnActiveStepChanged="Wizard_ActiveStepChanged"
-                    OnFinishButtonClick="Wizard_FinishButtonClick" 
+                    OnFinishButtonClick="Wizard_FinishButtonClick"
                     OnPreviousButtonClick="Wizard_PreviousButtonClick"
                     OnNextButtonClick="Wizard_NextButtonClick">
             <StepStyle CssClass="wizStep" />
@@ -52,16 +52,16 @@
                         </li>
                     </ul>
                     <p>
-                       
+
                     </p>
-                   
+
                     <div class="alert alert-warning">
-                        <YAF:Icon runat="server" 
+                        <YAF:Icon runat="server"
                                   IconType="text-warning"
                                   IconName="exclamation-triangle" />
                         <%# YAF.App_GlobalResources.Install.WarningUpgrade %>
                     </div>
-                    
+
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Validate Permissions" ID="WizValidatePermission">
                     <h4>
@@ -74,14 +74,14 @@
                     </p>
                     <ul class="standardList">
                         <li>
-                            <asp:Label ID="lblPermissionApp" runat="server" 
+                            <asp:Label ID="lblPermissionApp" runat="server"
                                        CssClass="badge bg-info float-end">
                                 <%# YAF.App_GlobalResources.Install.Unchecked %>
                             </asp:Label>
                             <%# YAF.App_GlobalResources.Install.PermissionApp %>
                         </li>
                         <li>
-                            <asp:Label ID="lblPermissionUpload" runat="server" 
+                            <asp:Label ID="lblPermissionUpload" runat="server"
                                        CssClass="badge bg-info float-end">
                                 <%# YAF.App_GlobalResources.Install.Unchecked %>
                             </asp:Label>
@@ -91,28 +91,28 @@
                     <YAF:ThemeButton ID="btnTestPermissions" runat="server"
                                      Icon="clipboard-check"
                                      Type="Info"
-                                     Text="<%# YAF.App_GlobalResources.Install.TestPermission %>" 
+                                     Text="<%# YAF.App_GlobalResources.Install.TestPermission %>"
                                      OnClick="TestPermissions_Click" />
-                </asp:WizardStep> 
+                </asp:WizardStep>
                 <asp:WizardStep ID="WizCreatePassword" runat="server" Title="Create Config Password">
                     <h4>
                         <%# YAF.App_GlobalResources.Install.CreatePassword %>
                     </h4>
                     <p><%# YAF.App_GlobalResources.Install.CreatePasswordText %>
-                        
+
                     </p>
                     <p class="descriptionText"><%# YAF.App_GlobalResources.Install.PasswordFile %>
                         <asp:Label ID="lblConfigPasswordAppSettingFile" runat="server">app.config</asp:Label>
                     </p>
                     <div class="mb-3">
-                        <asp:TextBox ID="txtCreatePassword1" runat="server" 
+                        <asp:TextBox ID="txtCreatePassword1" runat="server"
                                      TextMode="Password"
                                      PlaceHolder="<%# YAF.App_GlobalResources.Install.EnterConfigPassword %>"
                                      LabelText="<%# YAF.App_GlobalResources.Install.ConfigPassword %>"
                                      CssClass="form-control"/>
                     </div>
                     <div class="mb-3">
-                        <asp:TextBox ID="txtCreatePassword2" runat="server" 
+                        <asp:TextBox ID="txtCreatePassword2" runat="server"
                                      TextMode="Password"
                                      PlaceHolder="<%# YAF.App_GlobalResources.Install.ReenterConfigPassword %>"
                                      LabelText="<%# YAF.App_GlobalResources.Install.ReenterConfigPassword %>"
@@ -131,7 +131,7 @@
                         <%# YAF.App_GlobalResources.Install.UpgradeNote %>
                     </div>
                     <asp:TextBox ID="txtEnteredPassword" runat="server" TextMode="Password" Type="Password"
-                                 PlaceHolder="<%# YAF.App_GlobalResources.Install.EnterConfigPassword %>" 
+                                 PlaceHolder="<%# YAF.App_GlobalResources.Install.EnterConfigPassword %>"
                                  RenderWrapper="True"
                                  CssClass="form-control"
                                  LabelText="Password"/>
@@ -159,7 +159,7 @@
                         <%# YAF.App_GlobalResources.Install.DBConnection %>
                     </h4>
                     <div class="form-check form-check-custom">
-                        <asp:RadioButtonList ID="rblYAFDatabase" runat="server" 
+                        <asp:RadioButtonList ID="rblYAFDatabase" runat="server"
                                              AutoPostBack="true"
                                              OnSelectedIndexChanged="YafDatabaseSelectedIndexChanged"
                                              RepeatLayout="UnorderedList"
@@ -173,7 +173,7 @@
                             <%# YAF.App_GlobalResources.Install.ConnectionExist %>
                         </h4>
                         <%# YAF.App_GlobalResources.Install.ConnectionExistDesc %>&nbsp;
-                        <asp:DropDownList ID="lbConnections" runat="server" 
+                        <asp:DropDownList ID="lbConnections" runat="server"
                                           CssClass="form-select">
                         </asp:DropDownList>
                     </asp:PlaceHolder>
@@ -187,15 +187,15 @@
                             runat="server" Text="yafnet" />".
                         </div>
                         <div class="mb-3">
-                            <asp:Label ID="Parameter1_Name" runat="server" 
+                            <asp:Label ID="Parameter1_Name" runat="server"
                                        AssociatedControlID="Parameter1_Value" />
-                            <asp:TextBox runat="server" ID="Parameter1_Value" 
+                            <asp:TextBox runat="server" ID="Parameter1_Value"
                                          Text="(local)"
                                          Placeholder="<%# YAF.App_GlobalResources.Install.DataSource %>"
                                          CssClass="form-control"/>
                         </div>
                         <div class="mb-3">
-                            <asp:Label ID="Parameter2_Name" runat="server" 
+                            <asp:Label ID="Parameter2_Name" runat="server"
                                        AssociatedControlID="Parameter2_Value" />
                             <asp:TextBox runat="server" ID="Parameter2_Value"
                                          CssClass="form-control"
@@ -203,102 +203,102 @@
                         </div>
                         <asp:PlaceHolder runat="server" Visible="false">
                         <div class="mb-3">
-                            <asp:Label ID="Parameter3_Name" runat="server" 
+                            <asp:Label ID="Parameter3_Name" runat="server"
                                        AssociatedControlID="Parameter3_Value" />
-                            <asp:TextBox runat="server" ID="Parameter3_Value" 
+                            <asp:TextBox runat="server" ID="Parameter3_Value"
                                          CssClass="form-control" />
                         </div>
                         <div class="mb-3">
-                            <asp:Label ID="Parameter4_Name" runat="server" 
+                            <asp:Label ID="Parameter4_Name" runat="server"
                                        AssociatedControlID="Parameter4_Value" />
-                            <asp:TextBox runat="server" ID="Parameter4_Value" 
+                            <asp:TextBox runat="server" ID="Parameter4_Value"
                                          CssClass="form-control" />
                         </div>
                         <div class="mb-3">
-                            <asp:Label ID="Parameter5_Name" runat="server" 
+                            <asp:Label ID="Parameter5_Name" runat="server"
                                        AssociatedControlID="Parameter5_Value" />
-                            <asp:TextBox runat="server" ID="Parameter5_Value" 
+                            <asp:TextBox runat="server" ID="Parameter5_Value"
                                          CssClass="form-control" />
                         </div>
                         <div class="mb-3">
-                            <asp:Label ID="Parameter6_Name" runat="server" 
+                            <asp:Label ID="Parameter6_Name" runat="server"
                                        AssociatedControlID="Parameter6_Value" />
-                            <asp:TextBox runat="server" ID="Parameter6_Value" 
+                            <asp:TextBox runat="server" ID="Parameter6_Value"
                                          CssClass="form-control" />
                         </div>
                         <div class="mb-3">
-                            <asp:Label ID="Parameter7_Name" runat="server" 
+                            <asp:Label ID="Parameter7_Name" runat="server"
                                        AssociatedControlID="Parameter7_Value" />
-                            <asp:TextBox runat="server" ID="Parameter7_Value" 
+                            <asp:TextBox runat="server" ID="Parameter7_Value"
                                          CssClass="form-control" />
                         </div>
                         <div class="mb-3">
-                            <asp:Label ID="Parameter8_Name" runat="server" 
+                            <asp:Label ID="Parameter8_Name" runat="server"
                                        AssociatedControlID="Parameter8_Value" />
-                            <asp:TextBox runat="server" ID="Parameter8_Value" 
+                            <asp:TextBox runat="server" ID="Parameter8_Value"
                                          CssClass="form-control" />
                         </div>
                         <div class="mb-3">
-                            <asp:Label ID="Parameter9_Name" runat="server" 
+                            <asp:Label ID="Parameter9_Name" runat="server"
                                        AssociatedControlID="Parameter9_Value" />
-                            <asp:TextBox runat="server" ID="Parameter9_Value" 
+                            <asp:TextBox runat="server" ID="Parameter9_Value"
                                          CssClass="form-control" />
                         </div>
                         <div class="mb-3">
-                            <asp:Label ID="Parameter10_Name" runat="server" 
+                            <asp:Label ID="Parameter10_Name" runat="server"
                                        AssociatedControlID="Parameter10_Value" />
-                            <asp:TextBox runat="server" ID="Parameter10_Value" 
+                            <asp:TextBox runat="server" ID="Parameter10_Value"
                                          CssClass="form-control" />
                         </div>
                         </asp:PlaceHolder>
-                        
+
                         <div class="form-check">
-                            <asp:CheckBox ID="Parameter11_Value" runat="server" 
-                                          Checked="true" 
+                            <asp:CheckBox ID="Parameter11_Value" runat="server"
+                                          Checked="true"
                                           Text="<%# YAF.App_GlobalResources.Install.Integrated %>"
-                                          AutoPostBack="true" 
+                                          AutoPostBack="true"
                                           OnCheckedChanged="Parameter11_Value_CheckChanged"/>
                         </div>
                         <asp:PlaceHolder runat="server" Visible="false">
                             <div class="mb-3">
-                                <asp:CheckBox ID="Parameter12_Value" runat="server" 
-                                              Checked="true" 
+                                <asp:CheckBox ID="Parameter12_Value" runat="server"
+                                              Checked="true"
                                               AutoPostBack="true" />
-                                <asp:CheckBox ID="Parameter13_Value" runat="server" 
-                                              Checked="true" 
+                                <asp:CheckBox ID="Parameter13_Value" runat="server"
+                                              Checked="true"
                                               AutoPostBack="true" />
-                                <asp:CheckBox ID="Parameter14_Value" runat="server" 
-                                              Checked="true" 
+                                <asp:CheckBox ID="Parameter14_Value" runat="server"
+                                              Checked="true"
                                               AutoPostBack="true" />
-                                <asp:CheckBox ID="Parameter15_Value" runat="server" 
-                                              Checked="true" 
+                                <asp:CheckBox ID="Parameter15_Value" runat="server"
+                                              Checked="true"
                                               AutoPostBack="true" />
-                                <asp:CheckBox ID="Parameter16_Value" runat="server" 
-                                              Checked="true" 
+                                <asp:CheckBox ID="Parameter16_Value" runat="server"
+                                              Checked="true"
                                               AutoPostBack="true" />
-                                <asp:CheckBox ID="Parameter17_Value" runat="server" 
-                                              Checked="true" 
+                                <asp:CheckBox ID="Parameter17_Value" runat="server"
+                                              Checked="true"
                                               AutoPostBack="true" />
-                                <asp:CheckBox ID="Parameter18_Value" runat="server" 
-                                              Checked="true" 
+                                <asp:CheckBox ID="Parameter18_Value" runat="server"
+                                              Checked="true"
                                               AutoPostBack="true" />
-                                <asp:CheckBox ID="Parameter19_Value" runat="server" 
-                                              Checked="true" 
+                                <asp:CheckBox ID="Parameter19_Value" runat="server"
+                                              Checked="true"
                                               AutoPostBack="true" />
                             </div>
                         </asp:PlaceHolder>
                         <asp:PlaceHolder ID="DBUsernamePasswordHolder" Visible="false" runat="server">
                             <div class="mb-3">
-                                <asp:TextBox runat="server" ID="txtDBUserID" 
-                                             Placeholder="<%# YAF.App_GlobalResources.Install.SqlUser %>" 
-                                             RenderWrapper="True" 
+                                <asp:TextBox runat="server" ID="txtDBUserID"
+                                             Placeholder="<%# YAF.App_GlobalResources.Install.SqlUser %>"
+                                             RenderWrapper="True"
                                              LabelText="<%# YAF.App_GlobalResources.Install.SqlUser %>"
                                              CssClass="form-control"/>
                             </div>
                             <div class="mb-3">
-                                <asp:TextBox runat="server" ID="txtDBPassword" 
-                                             Placeholder="<%# YAF.App_GlobalResources.Install.SqlPass %>" 
-                                             RenderWrapper="True" 
+                                <asp:TextBox runat="server" ID="txtDBPassword"
+                                             Placeholder="<%# YAF.App_GlobalResources.Install.SqlPass %>"
+                                             RenderWrapper="True"
                                              LabelText="<%# YAF.App_GlobalResources.Install.SqlPass %>"
                                              CssClass="form-control"/>
                             </div>
@@ -322,7 +322,7 @@
                         <div class="alert alert-danger">
                             <span class="badge bg-danger">
                                 <%# YAF.App_GlobalResources.Install.Error %>
-                            </span> 
+                            </span>
                             <%# YAF.App_GlobalResources.Install.NoWriteAppSettingsNote %>
                         </div>
                         <p>
@@ -339,7 +339,7 @@
                         <div class="alert alert-danger">
                             <span class="badge bg-danger">
                                 <%# YAF.App_GlobalResources.Install.Error %>
-                            </span> 
+                            </span>
                             <%# YAF.App_GlobalResources.Install.NoWriteConnSettingsNote %>
                         </div>
                         <p>
@@ -365,9 +365,9 @@
                     <h4>
                         <%# YAF.App_GlobalResources.Install.ConnectionTest %>
                     </h4>
-                    <YAF:ThemeButton ID="btnTestDBConnectionManual" runat="server" 
+                    <YAF:ThemeButton ID="btnTestDBConnectionManual" runat="server"
                                      Type="Info"
-                                     Text="<%# YAF.App_GlobalResources.Install.ConnectionTest %>" 
+                                     Text="<%# YAF.App_GlobalResources.Install.ConnectionTest %>"
                                      OnClick="TestDBConnectionManual_Click"/>
                     <asp:PlaceHolder ID="ManualConnectionInfoHolder" runat="server" Visible="false">
                         <hr/>
@@ -382,23 +382,23 @@
                     </p>
                     <div class="mb-3">
                         <asp:TextBox ID="txtTestFromEmail" runat="server"
-                                     Placeholder="<%# YAF.App_GlobalResources.Install.FromEmail %>" 
-                                     RenderWrapper="True" 
+                                     Placeholder="<%# YAF.App_GlobalResources.Install.FromEmail %>"
+                                     RenderWrapper="True"
                                      Type="Email"
                                      LabelText="<%# YAF.App_GlobalResources.Install.FromEmail %>"
                                      CssClass="form-control"/>
                     </div>
                     <div class="mb-3">
-                    <asp:TextBox ID="txtTestToEmail" runat="server" 
-                                 Placeholder="<%# YAF.App_GlobalResources.Install.ToEmail %>" 
-                                 RenderWrapper="True" 
+                    <asp:TextBox ID="txtTestToEmail" runat="server"
+                                 Placeholder="<%# YAF.App_GlobalResources.Install.ToEmail %>"
+                                 RenderWrapper="True"
                                  Type="Email"
                                  LabelText="<%# YAF.App_GlobalResources.Install.ToEmail %>"
                                  CssClass="form-control"/>
                     </div>
-                    <YAF:ThemeButton ID="btnTestSmtp" runat="server" 
-                                     Text="<%# YAF.App_GlobalResources.Install.TestEmail %>" 
-                                     Type="Info" 
+                    <YAF:ThemeButton ID="btnTestSmtp" runat="server"
+                                     Text="<%# YAF.App_GlobalResources.Install.TestEmail %>"
+                                     Type="Info"
                                      OnClick="TestSmtp_Click" />
                     <asp:PlaceHolder ID="SmtpInfoHolder" runat="server" Visible="false">
                         <hr/>
@@ -424,18 +424,18 @@
                         <%# YAF.App_GlobalResources.Install.CreateBoard %>
                     </h4>
                     <div class="mb-3">
-                        <asp:TextBox ID="TheForumName" runat="server" 
+                        <asp:TextBox ID="TheForumName" runat="server"
                                      Placeholder="<%# YAF.App_GlobalResources.Install.BoardName %>"
-                                     RenderWrapper="True" 
+                                     RenderWrapper="True"
                                      LabelText="Board Name"
                                      CssClass="form-control"/>
                     </div>
                     <div class="mb-3">
-                        <asp:Label id="Label7" runat="server" 
+                        <asp:Label id="Label7" runat="server"
                                    AssociatedControlId="Cultures">
                             <%# YAF.App_GlobalResources.Install.Culture %>
                         </asp:Label>
-                        <asp:DropDownList ID="Cultures" runat="server" 
+                        <asp:DropDownList ID="Cultures" runat="server"
                                           CssClass="form-select" />
                     </div>
                     <div class="mb-3">
@@ -443,7 +443,7 @@
                             <%# YAF.App_GlobalResources.Install.ForumEmail %>
                         </asp:Label>
                     <asp:TextBox ID="ForumEmailAddress" runat="server"
-                                 Placeholder="<%# YAF.App_GlobalResources.Install.ForumEmail %>"  
+                                 Placeholder="<%# YAF.App_GlobalResources.Install.ForumEmail %>"
                                  RenderWrapper="True"
                                  LabelText="Forum Email"
                                  Type="Email"
@@ -453,16 +453,16 @@
                         <asp:Label runat="server" AssociatedControlId="ForumBaseUrlMask">
                             <%# YAF.App_GlobalResources.Install.ForumUrl %>
                         </asp:Label>
-                        <asp:TextBox ID="ForumBaseUrlMask" runat="server" 
-                                     Placeholder="<%# YAF.App_GlobalResources.Install.ForumUrl %>" 
-                                     RenderWrapper="True" 
+                        <asp:TextBox ID="ForumBaseUrlMask" runat="server"
+                                     Placeholder="<%# YAF.App_GlobalResources.Install.ForumUrl %>"
+                                     RenderWrapper="True"
                                      LabelText="Forum Base Url Mask"
                                      Type="Url"
                                      CssClass="form-control"/>
                     </div>
                     <hr/>
                     <div class="form-check">
-                        <asp:RadioButtonList ID="UserChoice" runat="server" 
+                        <asp:RadioButtonList ID="UserChoice" runat="server"
                                              AutoPostBack="true"
                                              OnSelectedIndexChanged="UserChoice_SelectedIndexChanged"
                                              RepeatLayout="UnorderedList"
@@ -473,9 +473,9 @@
                     </div>
                     <asp:PlaceHolder ID="ExistingUserHolder" runat="server" Visible="false">
                         <div class="mb-3">
-                            <asp:TextBox ID="ExistingUserName" runat="server" 
-                                         Placeholder="<%# YAF.App_GlobalResources.Install.ExistingUserName %>" 
-                                         RenderWrapper="True" 
+                            <asp:TextBox ID="ExistingUserName" runat="server"
+                                         Placeholder="<%# YAF.App_GlobalResources.Install.ExistingUserName %>"
+                                         RenderWrapper="True"
                                          LabelText="Existing User Name"
                                          CssClass="form-control"/>
                         </div>
@@ -483,34 +483,34 @@
                     <asp:PlaceHolder ID="CreateAdminUserHolder" runat="server">
                         <div class="mb-3">
                             <asp:TextBox ID="UserName" runat="server"
-                                         Placeholder="<%# YAF.App_GlobalResources.Install.AdminName %>" 
-                                         RenderWrapper="True" 
+                                         Placeholder="<%# YAF.App_GlobalResources.Install.AdminName %>"
+                                         RenderWrapper="True"
                                          LabelText="Admin User Name"
                                          CssClass="form-control"/>
                         </div>
                         <div class="mb-3">
-                            <asp:TextBox ID="AdminEmail" runat="server" 
-                                         Placeholder="<%# YAF.App_GlobalResources.Install.AdminEmail %>" 
-                                         RenderWrapper="True" 
+                            <asp:TextBox ID="AdminEmail" runat="server"
+                                         Placeholder="<%# YAF.App_GlobalResources.Install.AdminEmail %>"
+                                         RenderWrapper="True"
                                          LabelText="Admin E-mail"
                                          Type="Email"
                                          CssClass="form-control"/>
                         </div>
                         <div class="mb-3">
-                            <asp:TextBox ID="Password1" runat="server" 
-                                         Placeholder="<%# YAF.App_GlobalResources.Install.AdminPassword %>" 
-                                         RenderWrapper="True" 
+                            <asp:TextBox ID="Password1" runat="server"
+                                         Placeholder="<%# YAF.App_GlobalResources.Install.AdminPassword %>"
+                                         RenderWrapper="True"
                                          LabelText="Admin Password"
-                                         TextMode="Password" 
+                                         TextMode="Password"
                                          Type="Password"
                                          CssClass="form-control"/>
                         </div>
                         <div class="mb-3">
                             <asp:TextBox ID="Password2" runat="server"
-                                         Placeholder="<%# YAF.App_GlobalResources.Install.AdminPassword2 %>" 
-                                         RenderWrapper="True" 
+                                         Placeholder="<%# YAF.App_GlobalResources.Install.AdminPassword2 %>"
+                                         RenderWrapper="True"
                                          LabelText="Confirm Password"
-                                         TextMode="Password" 
+                                         TextMode="Password"
                                          Type="Password"
                                          CssClass="form-control"/>
                         </div>
@@ -525,12 +525,12 @@
                 </asp:WizardStep>
             </WizardSteps>
             <FinishNavigationTemplate>
-                <YAF:ThemeButton ID="FinishPreviousButton" runat="server" 
+                <YAF:ThemeButton ID="FinishPreviousButton" runat="server"
                                  CommandName="MovePrevious"
                                  Icon="arrow-alt-circle-left"
-                                 Text="<%# YAF.App_GlobalResources.Install.Previous %>" 
+                                 Text="<%# YAF.App_GlobalResources.Install.Previous %>"
                                  Type="Secondary" />
-                <YAF:ThemeButton ID="FinishButton" runat="server" 
+                <YAF:ThemeButton ID="FinishButton" runat="server"
                                  Icon="check-circle"
                                  Type="Success"
                                  CommandName="MoveComplete"
@@ -562,7 +562,7 @@
                                     <%# this.IsForumInstalled ? YAF.App_GlobalResources.Install.Upgrade : YAF.App_GlobalResources.Install.Installation%> Wizard
                                 </h5>
                                 <span>
-                                    <asp:DropDownList ID="Languages" runat="server" 
+                                    <asp:DropDownList ID="Languages" runat="server"
                                                       AutoPostBack="true"
                                                       CssClass="form-select"
                                                       Visible="<%# !YAF.Configuration.Config.IsDotNetNuke %>">
@@ -615,20 +615,20 @@
                     <YAF:ThemeButton ID="StartNextButton" runat="server"
                                      Icon="arrow-alt-circle-right"
                                      Type="Primary"
-                                     CommandName="MoveNext" 
+                                     CommandName="MoveNext"
                                      Text="<%# YAF.App_GlobalResources.Install.Next %>"/>
             </StartNavigationTemplate>
             <StepNavigationTemplate>
-                    <YAF:ThemeButton ID="StepPreviousButton" runat="server" 
+                    <YAF:ThemeButton ID="StepPreviousButton" runat="server"
                                      Type="Secondary"
                                      Icon="arrow-alt-circle-left"
                                      Visible="false"
-                                     CommandName="MovePrevious" 
+                                     CommandName="MovePrevious"
                                      Text="<%# YAF.App_GlobalResources.Install.Previous %>" />
-                    <YAF:ThemeButton ID="StepNextButton" runat="server" 
+                    <YAF:ThemeButton ID="StepNextButton" runat="server"
                                      Type="Primary"
                                      Icon="arrow-alt-circle-right"
-                                     CommandName="MoveNext" 
+                                     CommandName="MoveNext"
                                      Text="<%# YAF.App_GlobalResources.Install.Next %>" />
             </StepNavigationTemplate>
         </asp:Wizard>

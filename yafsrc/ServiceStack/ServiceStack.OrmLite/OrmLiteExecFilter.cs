@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-
 namespace ServiceStack.OrmLite
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Threading.Tasks;
+
     public interface IOrmLiteExecFilter
     {
         SqlExpression<T> SqlExpression<T>(IDbConnection dbConn);
@@ -47,7 +47,10 @@ namespace ServiceStack.OrmLite
 
         public virtual void DisposeCommand(IDbCommand dbCmd, IDbConnection dbConn)
         {
-            if (dbCmd == null) return;
+            if (dbCmd == null)
+            {
+                return;
+            }
 
             OrmLiteConfig.AfterExecFilter?.Invoke(dbCmd);
 
@@ -58,7 +61,8 @@ namespace ServiceStack.OrmLite
 
         public virtual T Exec<T>(IDbConnection dbConn, Func<IDbCommand, T> filter)
         {
-            var dbCmd = CreateCommand(dbConn);
+            var dbCmd = this.CreateCommand(dbConn);
+
             try
             {
                 var ret = filter(dbCmd);
@@ -67,28 +71,29 @@ namespace ServiceStack.OrmLite
             catch (Exception ex)
             {
                 OrmLiteConfig.ExceptionFilter?.Invoke(dbCmd, ex);
-                throw;
+                       throw;
             }
             finally
             {
-                DisposeCommand(dbCmd, dbConn);
+                this.DisposeCommand(dbCmd, dbConn);
             }
         }
 
         public virtual IDbCommand Exec(IDbConnection dbConn, Func<IDbCommand, IDbCommand> filter)
         {
-            var dbCmd = CreateCommand(dbConn);
+            var dbCmd = this.CreateCommand(dbConn);
             var ret = filter(dbCmd);
             if (dbCmd != null)
             {
                 dbConn.SetLastCommandText(dbCmd.CommandText);
             }
+
             return ret;
         }
 
         public virtual void Exec(IDbConnection dbConn, Action<IDbCommand> filter)
         {
-            var dbCmd = CreateCommand(dbConn);
+            var dbCmd = this.CreateCommand(dbConn);
             try
             {
                 filter(dbCmd);
@@ -100,13 +105,13 @@ namespace ServiceStack.OrmLite
             }
             finally
             {
-                DisposeCommand(dbCmd, dbConn);
+                this.DisposeCommand(dbCmd, dbConn);
             }
         }
 
         public virtual async Task<T> Exec<T>(IDbConnection dbConn, Func<IDbCommand, Task<T>> filter)
         {
-            var dbCmd = CreateCommand(dbConn);
+            var dbCmd = this.CreateCommand(dbConn);
 
             try
             {
@@ -120,19 +125,19 @@ namespace ServiceStack.OrmLite
             }
             finally
             {
-                DisposeCommand(dbCmd, dbConn);
+                this.DisposeCommand(dbCmd, dbConn);
             }
         }
 
         public virtual async Task<IDbCommand> Exec(IDbConnection dbConn, Func<IDbCommand, Task<IDbCommand>> filter)
         {
-            var dbCmd = CreateCommand(dbConn);
+            var dbCmd = this.CreateCommand(dbConn);
             return await filter(dbCmd);
         }
 
         public virtual async Task Exec(IDbConnection dbConn, Func<IDbCommand, Task> filter)
         {
-            var dbCmd = CreateCommand(dbConn);
+            var dbCmd = this.CreateCommand(dbConn);
 
             try
             {
@@ -146,13 +151,13 @@ namespace ServiceStack.OrmLite
             }
             finally
             {
-                DisposeCommand(dbCmd, dbConn);
+                this.DisposeCommand(dbCmd, dbConn);
             }
         }
 
         public virtual IEnumerable<T> ExecLazy<T>(IDbConnection dbConn, Func<IDbCommand, IEnumerable<T>> filter)
         {
-            var dbCmd = CreateCommand(dbConn);
+            var dbCmd = this.CreateCommand(dbConn);
             try
             {
                 var results = filter(dbCmd);
@@ -164,7 +169,7 @@ namespace ServiceStack.OrmLite
             }
             finally
             {
-                DisposeCommand(dbCmd, dbConn);
+                this.DisposeCommand(dbCmd, dbConn);
             }
         }
     }

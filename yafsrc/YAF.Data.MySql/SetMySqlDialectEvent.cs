@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 BjÃ¸rnar Henden
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,45 +21,48 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Extensions.Data
+namespace YAF.Data.MySql
 {
-    #region Using
+    using ServiceStack.OrmLite;
 
-    using System;
-
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces.Data;
-
-    #endregion
+    using YAF.Core.Events;
+    using YAF.Types.Attributes;
+    using YAF.Types.Interfaces.Events;
 
     /// <summary>
-    ///     The i db function extensions.
+    /// Sets the MySQL dialect event.
     /// </summary>
-    public static class IDbFunctionExtensions
+    [ExportService(ServiceLifetimeScope.InstancePerDependency, new[] { typeof(IHandleEvent<InitDatabaseProviderEvent>) })]
+    public class SetMySqlDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
     {
+        #region Public Properties
+
+        /// <summary>
+        ///     Gets the order.
+        /// </summary>
+        public int Order => 1000;
+
+        #endregion
+
         #region Public Methods and Operators
 
         /// <summary>
-        /// The get scalar as.
+        /// The handle.
         /// </summary>
-        /// <param name="dbFunction">
-        /// The db function. 
+        /// <param name="event">
+        /// The event.
         /// </param>
-        /// <param name="function">
-        /// The function. 
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="T"/> . 
-        /// </returns>
-        [CanBeNull]
-        public static T GetScalar<T>([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
+        public void Handle(InitDatabaseProviderEvent @event)
         {
-            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
-            CodeContracts.VerifyNotNull(function, "function");
+            if (@event.ProviderName != MySqlDbAccess.ProviderTypeName)
+            {
+                return;
+            }
 
-            return ((object)function(dbFunction.Scalar)).ToType<T>();
+            // set the OrmLite dialect provider...
+            OrmLiteConfig.DialectProvider = YafMySqlDialectProvider.Instance;
+
+            OrmLiteConfig.DialectProvider.GetStringConverter().UseUnicode = true;
         }
 
         #endregion

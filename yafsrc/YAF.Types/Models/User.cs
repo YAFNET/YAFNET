@@ -27,6 +27,7 @@ namespace YAF.Types.Models
     using System;
 
     using ServiceStack.DataAnnotations;
+    using ServiceStack.OrmLite;
 
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -40,10 +41,6 @@ namespace YAF.Types.Models
     [Serializable]
 
     [UniqueConstraint(nameof(BoardID), nameof(Name))]
-    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] add [IsApproved]        as (CONVERT([bit],sign([Flags]&(2)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [IsGuest]	          as (CONVERT([bit],sign([Flags]&(4)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [IsCaptchaExcluded] as (CONVERT([bit],sign([Flags]&(8)),(0)))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [IsActiveExcluded]  as (CONVERT([bit],sign([Flags]&(16)),(0)))")]
     public class User : IEntity, IHaveBoardID, IHaveID
     {
         /// <summary>
@@ -53,11 +50,11 @@ namespace YAF.Types.Models
         {
             try
             {
-                this.ProviderUserKey = this.IsGuest.Value ? null : this.ProviderUserKey;
+                this.ProviderUserKey = this.UserFlags.IsGuest ? null : this.ProviderUserKey;
             }
             catch (Exception)
             {
-                this.IsGuest = true;
+                this.UserFlags.IsGuest = true;
                 this.ProviderUserKey = null;
             }
         }
@@ -76,7 +73,7 @@ namespace YAF.Types.Models
         /// </summary>
         [References(typeof(Board))]
         [Required]
-        [Index(NonClustered = true)]
+        [Index]
         public int BoardID { get; set; }
 
         /// <summary>
@@ -182,6 +179,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the signature.
         /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string Signature { get; set; }
 
         /// <summary>
@@ -315,24 +313,6 @@ namespace YAF.Types.Models
         /// </summary>
         [StringLength(10)]
         public string Culture { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is guest.
-        /// </summary>
-        [Compute]
-        public bool? IsGuest { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is active excluded.
-        /// </summary>
-        [Compute]
-        public bool? IsActiveExcluded { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is approved.
-        /// </summary>
-        [Compute]
-        public bool? IsApproved { get; set; }
 
         /// <summary>
         /// Gets or sets the user style.

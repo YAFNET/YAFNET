@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,6 +26,7 @@ namespace YAF.Types.Models
     using System;
 
     using ServiceStack.DataAnnotations;
+    using ServiceStack.OrmLite;
 
     using YAF.Types.Interfaces.Data;
 
@@ -33,8 +34,7 @@ namespace YAF.Types.Models
     /// A class which represents the MessageHistory table.
     /// </summary>
     [Serializable]
-    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] drop constraint [PK_{tableName}]" +
-                     "alter table [{databaseOwner}].[{tableName}] with nocheck add constraint [PK_{tableName}] primary key clustered (MessageID,Edited)")]
+    [CompositePrimaryKey(nameof(MessageID), nameof(Edited))]
     public class MessageHistory : IEntity
     {
         #region Properties
@@ -49,6 +49,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the message.
         /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string Message { get; set; }
 
         /// <summary>

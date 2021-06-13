@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -126,7 +126,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            if (parentID.HasValue && parentID.Equals(0))
+            if (parentID is 0)
             {
                 parentID = null;
             }
@@ -438,7 +438,7 @@ namespace YAF.Core.Model
                             $@"y.{topicAccessExpression.Column<TopicReadTracking>(y => y.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
                                     and y.{topicAccessExpression.Column<TopicReadTracking>(y => y.UserID)}={userId}");
                         lastTopicAccessSql = topicAccessExpression.Select(
-                                $"top 1 {topicAccessExpression.Column<TopicReadTracking>(x => x.LastAccessDate)}")
+                                $" {topicAccessExpression.Column<TopicReadTracking>(x => x.LastAccessDate)}")
                             .ToSelectStatement();
 
                         var forumAccessExpression =
@@ -447,14 +447,16 @@ namespace YAF.Core.Model
                             $@"x.{forumAccessExpression.Column<ForumReadTracking>(x => x.ForumID)}={expression.Column<Topic>(x => x.ForumID, true)}
                                     and x.{forumAccessExpression.Column<ForumReadTracking>(x => x.UserID)}={userId}");
                         lastForumAccessSql = forumAccessExpression.Select(
-                                $"top 1 {forumAccessExpression.Column<ForumReadTracking>(x => x.LastAccessDate)}")
+                                $" {forumAccessExpression.Column<ForumReadTracking>(x => x.LastAccessDate)}")
                             .ToSelectStatement();
                     }
+
+                    var functionLastTopicName = OrmLiteConfig.DialectProvider.GetFunctionName(db.Connection.Database, "forum_lasttopic");
 
                     expression.Join<Forum>((c, f) => c.ID == f.CategoryID)
                         .Join<Forum, ActiveAccess>((f, x) => x.ForumID == f.ID).CustomJoin(
                             $@" left outer join {expression.Table<Topic>()} on {expression.Column<Topic>(t => t.ID, true)} =
-                       [{Config.DatabaseOwner}].[{Config.DatabaseObjectQualifier}forum_lasttopic](
+                       {functionLastTopicName}(
                                 {expression.Column<Forum>(f => f.ID, true)},
                                 {userId},
                                 {expression.Column<Forum>(f => f.LastTopicID, true)},
@@ -476,6 +478,9 @@ namespace YAF.Core.Model
 
                     expression.OrderBy<Category>(a => a.SortOrder).ThenBy<Forum>(b => b.SortOrder);
 
+                    var functionForumTopicsName = OrmLiteConfig.DialectProvider.GetFunctionName(db.Connection.Database, "forum_topics");
+                    var functionForumPostsName = OrmLiteConfig.DialectProvider.GetFunctionName(db.Connection.Database, "forum_posts");
+
                     expression.Select<Category, Forum, ActiveAccess, Topic, User>(
                         (a, b, x, t, lastUser) => new
                         {
@@ -490,10 +495,10 @@ namespace YAF.Core.Model
                             b.ParentID,
                             Topics =
                                 Sql.Custom(
-                                    $"[{Config.DatabaseOwner}].[{Config.DatabaseObjectQualifier}forum_topics]({expression.Column<Forum>(f => f.ID, true)})"),
+                                    $"{functionForumTopicsName}({expression.Column<Forum>(f => f.ID, true)})"),
                             Posts =
                                 Sql.Custom(
-                                    $"[{Config.DatabaseOwner}].[{Config.DatabaseObjectQualifier}forum_posts]({expression.Column<Forum>(f => f.ID, true)})"),
+                                    $"{functionForumPostsName}({expression.Column<Forum>(f => f.ID, true)})"),
                             t.LastPosted,
                             t.LastMessageID,
                             t.LastMessageFlags,
@@ -537,12 +542,9 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            if (forumId.HasValue)
+            if (forumId is 0)
             {
-                if (forumId.Value == 0)
-                {
-                    forumId = null;
-                }
+                forumId = null;
             }
 
             if (forumId.HasValue)
@@ -615,8 +617,6 @@ namespace YAF.Core.Model
             BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.ForumID == forumId);
             BoardContext.Current.GetRepository<UserForum>().Delete(x => x.ForumID == forumId);
             BoardContext.Current.GetRepository<Forum>().DeleteById(forumId);
-
-            //repository.DbFunction.Scalar.forum_delete(ForumID: forumID);
 
             repository.FireDeleted(forumId);
 
@@ -739,9 +739,9 @@ namespace YAF.Core.Model
                         db.Connection.TableAlias("t"));
 
                     countMessagesExpression.Where(
-                        $@"m.{countMessagesExpression.Column<Message>(x => x.IsApproved)} = 0
-                                    and m.{countMessagesExpression.Column<Message>(x => x.IsDeleted)} = 0
-                                    and t.{countMessagesExpression.Column<Topic>(x => x.IsDeleted)} = 0 
+                        $@"(m.{countMessagesExpression.Column<Message>(x => x.Flags)} & 16) != 16
+                                    and (m.{countMessagesExpression.Column<Message>(x => x.Flags)} & 8) != 8
+                                    and (t.{countMessagesExpression.Column<Topic>(x => x.Flags)} & 8) != 8
                                     and t.{countMessagesExpression.Column<Topic>(x => x.ForumID)}=
                                     {expression.Column<Forum>(x => x.ID, true)}");
                     var countMessagesSql = countMessagesExpression
@@ -755,8 +755,8 @@ namespace YAF.Core.Model
 
                     countReportedExpression.Where(
                         $@"(m.{countReportedExpression.Column<Message>(x => x.Flags)} & 128) = 128
-                                    and m.{countReportedExpression.Column<Message>(x => x.IsDeleted)} = 0
-                                    and t.{countReportedExpression.Column<Topic>(x => x.IsDeleted)} = 0 
+                                    and (m.{countMessagesExpression.Column<Message>(x => x.Flags)} & 8) != 8
+                                    and (t.{countMessagesExpression.Column<Topic>(x => x.Flags)} & 8) != 8
                                     and t.{countReportedExpression.Column<Topic>(x => x.ForumID)}=
                                     {expression.Column<Forum>(x => x.ID, true)}");
                     var countReportedSql = countReportedExpression
@@ -795,7 +795,7 @@ namespace YAF.Core.Model
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
             expression.Join<Forum>((t, f) => f.ID == t.ForumID)
-                .Where<Topic, Forum>((t, f) => (f.ID == forumId || f.ParentID == forumId) && t.IsDeleted == false)
+                .Where<Topic, Forum>((t, f) => (f.ID == forumId || f.ParentID == forumId) && (t.Flags & 8) != 8)
                 .Select<Topic, Forum>(
                     (t, f) => new { PostsCount = Sql.Sum(t.NumPosts), TopicsCount = Sql.Count(t.ID), });
 
@@ -819,7 +819,7 @@ namespace YAF.Core.Model
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
             expression.Join<Message>((t, m) => m.TopicID == t.ID)
-                .Where<Topic, Message>((t, m) => t.ForumID == forumId && t.IsDeleted == false && (m.Flags & 24) == 16)
+                .Where<Topic, Message>((t, m) => t.ForumID == forumId && (t.Flags & 8) != 8 && (m.Flags & 24) == 16)
                 .OrderByDescending<Message>(m => m.Posted);
 
             var message = repository.DbAccess.Execute(db => db.Connection.Select<Message>(expression)).FirstOrDefault();
@@ -910,7 +910,7 @@ namespace YAF.Core.Model
         [NotNull]
         private static List<ForumSorted> SortList(
             this IRepository<Forum> repository,
-            [NotNull] List<Tuple<Forum, Category, ActiveAccess>> listSource,
+            [NotNull] IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource,
             [NotNull] int parentId,
             [NotNull] int categoryId,
             [NotNull] int startingIndent,
@@ -961,7 +961,7 @@ namespace YAF.Core.Model
         /// </param>
         private static void SortListRecursive(
             this IRepository<Forum> repository,
-            [NotNull] List<Tuple<Forum, Category, ActiveAccess>> listSource,
+            [NotNull] IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource,
             [NotNull] ICollection<ForumSorted> listDestination,
             [NotNull] int parentId,
             [NotNull] int categoryId,

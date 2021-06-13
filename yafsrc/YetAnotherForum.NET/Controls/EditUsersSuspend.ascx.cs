@@ -222,10 +222,8 @@ namespace YAF.Controls
                 return;
             }
 
-            var isGuest = this.User.IsGuest;
-
             // verify the user isn't guest...
-            if (isGuest.HasValue && isGuest.Value)
+            if (this.User.UserFlags.IsGuest)
             {
                 this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_GUESTACCOUNT"), MessageTypes.danger);
             }

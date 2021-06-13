@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-
 namespace ServiceStack.OrmLite.SqlServer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq.Expressions;
+
     public class SqlServer2016Expression<T> : SqlServerExpression<T>
     {
         public SqlServer2016Expression(IOrmLiteDialectProvider dialectProvider)

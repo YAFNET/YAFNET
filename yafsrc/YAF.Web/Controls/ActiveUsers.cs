@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -32,9 +32,9 @@ namespace YAF.Web.Controls
     using System.Web.UI;
 
     using YAF.Core.BaseControls;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Objects.Model;
 
     #endregion
 
@@ -48,7 +48,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   The _active user table.
         /// </summary>
-        private List<dynamic> activeUsers;
+        private List<ActiveUser> activeUsers;
 
         #endregion
 
@@ -58,7 +58,7 @@ namespace YAF.Web.Controls
         ///   Gets or sets list of users to display in control.
         /// </summary>
         [CanBeNull]
-        public List<dynamic> ActiveUsersList
+        public List<ActiveUser> ActiveUsersList
         {
             get
             {
@@ -71,7 +71,7 @@ namespace YAF.Web.Controls
                 if (this.ViewState["ActiveUsers"] != null)
                 {
                     // cast it
-                    this.activeUsers = this.ViewState["ActiveUsers"] as List<dynamic>;
+                    this.activeUsers = this.ViewState["ActiveUsers"] as List<ActiveUser>;
                 }
 
                 // return data table
@@ -88,14 +88,14 @@ namespace YAF.Web.Controls
             }
         }
 
-        /// <summary> 
-        /// Gets or sets the Instant ID for this control. 
-        /// </summary> 
-        /// <remarks> 
-        /// Multiple instants of this control can exist in the same page but 
-        /// each must have a different instant ID. Not specifying an Instant ID 
-        /// default to the ID being string.Empty. 
-        /// </remarks> 
+        /// <summary>
+        /// Gets or sets the Instant ID for this control.
+        /// </summary>
+        /// <remarks>
+        /// Multiple instants of this control can exist in the same page but
+        /// each must have a different instant ID. Not specifying an Instant ID
+        /// default to the ID being string.Empty.
+        /// </remarks>
         public string InstantId
         {
             get => (this.ViewState["InstantId"] as string) + string.Empty;
@@ -132,7 +132,7 @@ namespace YAF.Web.Controls
                     {
                         UserLink userLink;
 
-                        var isCrawler = (int)user.IsCrawler > 0;
+                        var isCrawler = user.IsCrawler;
 
                         // create new link and set its parameters
                         if (isCrawler)
@@ -148,7 +148,7 @@ namespace YAF.Web.Controls
                                 Suspended = user.Suspended,
                                 CrawlerName = user.Browser,
                                 UserID = user.UserID,
-                                Style = (string)user.UserStyle
+                                Style = user.UserStyle
                             };
                             userLink.ID += userLink.CrawlerName;
                         }
@@ -158,7 +158,7 @@ namespace YAF.Web.Controls
                             {
                                 Suspended = user.Suspended,
                                 UserID = user.UserID,
-                                Style = (string)user.UserStyle,
+                                Style = user.UserStyle,
                                 ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
                                     ? user.UserDisplayName
                                     : user.UserName
@@ -167,7 +167,7 @@ namespace YAF.Web.Controls
                         }
 
                         // how many users of this type is present (valid for guests, others have it 1)
-                        var userCount = (int)user.UserCount;
+                        var userCount = user.UserCount;
                         if (userCount > 1 && (!isCrawler || !this.PageContext.BoardSettings.ShowCrawlersInActiveList))
                         {
                             // add postfix if there is more the one user of this name
@@ -178,8 +178,8 @@ namespace YAF.Web.Controls
                         var addControl = true;
 
                         // we might not want to add this user link if user is marked as hidden
-                        if ((bool)user.IsActiveExcluded || // or if user is guest and guest should be hidden
-                            (bool)user.IsGuest)
+                        if (user.IsActiveExcluded || // or if user is guest and guest should be hidden
+                            user.IsGuest)
                         {
                             // hidden user are always visible to admin and himself)
                             if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)

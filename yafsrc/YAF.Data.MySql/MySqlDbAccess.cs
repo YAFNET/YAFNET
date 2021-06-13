@@ -1,0 +1,100 @@
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014-2021 Ingo Herbote
+ * https://www.yetanotherforum.net/
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * https://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+namespace YAF.Data.MySql
+{
+    #region Using
+
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.Common;
+    using System.Linq;
+
+    using YAF.Core.Data;
+    using YAF.Types;
+    using YAF.Types.Extensions;
+
+    #endregion
+
+    /// <summary>
+    /// The MySQL Database access.
+    /// </summary>
+    public class MySqlDbAccess : DbAccessBase
+    {
+        /// <summary>
+        /// The provider type name.
+        /// </summary>
+        public const string ProviderTypeName = "MySql.Data.MySqlClient";
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MySqlDbAccess"/> class.
+        /// </summary>
+        /// <param name="dbProviderFactory">
+        /// The database provider factory.
+        /// </param>
+        public MySqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
+            : base(dbProviderFactory, new MySqlDbInformation())
+        {
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The map parameters.
+        /// </summary>
+        /// <param name="cmd">
+        /// The Database Command.
+        /// </param>
+        /// <param name="parameters">
+        /// The key value parameters.
+        /// </param>
+        protected override void MapParameters(IDbCommand cmd, IEnumerable<KeyValuePair<string, object>> parameters)
+        {
+            // convert to list so there is no chance of multiple iterations.
+            var paramList = parameters.ToList();
+
+            // handle positional stored procedure parameter call
+            if (cmd.CommandType == CommandType.StoredProcedure && paramList.Any() && !paramList.All(x => x.Key.IsSet()))
+            {
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText =
+                    $"EXEC {cmd.CommandText} {Enumerable.Range(0, paramList.Count).Select(x => $"@{x}").ToDelimitedString(",")}";
+
+                // add params without "keys" as they need to be index (0, 1, 2, 3)...
+                base.MapParameters(cmd, paramList.Select(x => new KeyValuePair<string, object>(null, x.Value)));
+            }
+            else
+            {
+                // map named parameters...
+                base.MapParameters(cmd, paramList);
+            }
+        }
+
+        #endregion
+    }
+}

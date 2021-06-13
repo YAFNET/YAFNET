@@ -29,7 +29,7 @@ namespace YAF.Types.Interfaces.Data
     using System.Data;
 
     /// <summary>
-    /// The DB Information Interface
+    /// The Database Information Interface
     /// </summary>
     public interface IDbInformation
     {

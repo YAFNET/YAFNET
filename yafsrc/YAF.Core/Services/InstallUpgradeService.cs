@@ -33,6 +33,7 @@ namespace YAF.Core.Services
     using ServiceStack.OrmLite;
 
     using YAF.Configuration;
+    using YAF.Core.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -43,6 +44,7 @@ namespace YAF.Core.Services
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Events;
@@ -425,7 +427,10 @@ namespace YAF.Core.Services
                 throw new IOException($"Failed to read {fileName}", x);
             }
 
-            this.Get<IDbFunction>().SystemInitializeExecuteScripts(script, scriptFile);
+            this.Get<IDbAccess>().SystemInitializeExecuteScripts(
+                CommandTextHelpers.GetCommandTextReplaced(script),
+                scriptFile,
+                Config.SqlCommandTimeout.ToType<int>());
         }
 
         /// <summary>

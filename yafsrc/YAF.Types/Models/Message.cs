@@ -26,6 +26,7 @@ namespace YAF.Types.Models
     using System;
 
     using ServiceStack.DataAnnotations;
+    using ServiceStack.OrmLite;
 
     using YAF.Types.Flags;
     using YAF.Types.Interfaces.Data;
@@ -35,8 +36,6 @@ namespace YAF.Types.Models
     /// A class which represents the Message table.
     /// </summary>
     [Serializable]
-    [PostCreateTable("alter table [{databaseOwner}].[{tableName}] add [IsDeleted]  as (CONVERT([bit],sign([Flags]&(8)),0))" +
-                         "alter table [{databaseOwner}].[{tableName}] add [IsApproved] as (CONVERT([bit],sign([Flags]&(16)),(0)))")]
     public class Message : IEntity, IHaveID
     {
         /// <summary>
@@ -209,6 +208,7 @@ namespace YAF.Types.Models
         /// Gets or sets the message text.
         /// </summary>
         [Alias("Message")]
+        [CustomField(OrmLiteVariables.MaxText)]
         public string MessageText { get; set; }
 
         /// <summary>
@@ -266,18 +266,6 @@ namespace YAF.Types.Models
         /// </summary>
         [StringLength(100)]
         public string DeleteReason { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is deleted.
-        /// </summary>
-        [Compute]
-        public bool? IsDeleted { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is approved.
-        /// </summary>
-        [Compute]
-        public bool? IsApproved { get; set; }
 
         /// <summary>
         /// Gets or sets the edited by.

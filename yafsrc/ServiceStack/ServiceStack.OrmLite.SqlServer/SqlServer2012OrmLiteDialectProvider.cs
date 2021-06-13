@@ -12,7 +12,7 @@ namespace ServiceStack.OrmLite.SqlServer
 {
     public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvider
     {
-        public new static SqlServer2012OrmLiteDialectProvider Instance = new SqlServer2012OrmLiteDialectProvider();
+        public static new SqlServer2012OrmLiteDialectProvider Instance = new SqlServer2012OrmLiteDialectProvider();
 
         public override bool DoesSequenceExist(IDbCommand dbCmd, string sequenceName)
         {
@@ -113,7 +113,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 return $"{fieldDef.FieldName} rowversion NOT NULL";
 
             var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
-                GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+                                  GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
 
             var sql = StringBuilderCache.Allocate();
             sql.Append($"{GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
@@ -159,6 +159,66 @@ namespace ServiceStack.OrmLite.SqlServer
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
+        public override string GetColumnDefinition(FieldDefinition fieldDef, ModelDefinition modelDef)
+        {
+            // https://msdn.microsoft.com/en-us/library/ms182776.aspx
+            if (fieldDef.IsRowVersion)
+                return $"{fieldDef.FieldName} rowversion NOT NULL";
+
+            var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
+                GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+
+            var sql = StringBuilderCache.Allocate();
+            sql.Append($"{GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+
+            if (fieldDef.FieldType == typeof(string))
+            {
+                // https://msdn.microsoft.com/en-us/library/ms184391.aspx
+                var collation = fieldDef.PropertyInfo?.FirstAttribute<SqlServerCollateAttribute>()?.Collation;
+                if (!string.IsNullOrEmpty(collation))
+                {
+                    sql.Append($" COLLATE {collation}");
+                }
+            }
+
+            if (modelDef.CompositePrimaryKeys.Any())
+            {
+                sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
+            }
+            else
+            {
+                if (fieldDef.IsPrimaryKey)
+                {
+                    sql.Append(" PRIMARY KEY");
+
+                    if (fieldDef.IsNonClustered)
+                        sql.Append(" NONCLUSTERED");
+
+                    if (fieldDef.AutoIncrement)
+                    {
+                        sql.Append(" ").Append(AutoIncrementDefinition);
+                    }
+                }
+                else
+                {
+                    sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
+                }
+            }
+
+            if (fieldDef.IsUniqueConstraint)
+            {
+                sql.Append(" UNIQUE");
+            }
+
+            var defaultValue = GetDefaultValue(fieldDef);
+            if (!string.IsNullOrEmpty(defaultValue))
+            {
+                sql.AppendFormat(DefaultValueFormat, defaultValue);
+            }
+
+            return StringBuilderCache.ReturnAndFree(sql);
+        }
+
         public override string ToCreateTableStatement(Type tableType)
         {
             var sbColumns = StringBuilderCache.Allocate();
@@ -176,7 +236,7 @@ namespace ServiceStack.OrmLite.SqlServer
                     if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
                         continue;
 
-                    var columnDefinition = GetColumnDefinition(fieldDef);
+                    var columnDefinition = GetColumnDefinition(fieldDef, modelDef);
 
                     if (columnDefinition == null)
                         continue;
@@ -231,6 +291,21 @@ namespace ServiceStack.OrmLite.SqlServer
             if (uniqueConstraints != null)
             {
                 sbConstraints.Append(",\n" + uniqueConstraints);
+            }
+
+            if (modelDef.CompositePrimaryKeys.Any())
+            {
+                sbConstraints.Append(",\n");
+
+                var primaryKeyName = $"PK_{this.NamingStrategy.GetTableName(modelDef)}";
+
+                sbConstraints.AppendFormat(" CONSTRAINT {0} PRIMARY KEY CLUSTERED  (", primaryKeyName);
+
+                sbConstraints.Append(
+                    modelDef.CompositePrimaryKeys.FirstOrDefault().FieldNames.Map(f => modelDef.GetQuotedName(f, this))
+                        .Join(","));
+
+                sbConstraints.Append(") ");
             }
 
             var sql = $"CREATE TABLE {GetQuotedTableName(modelDef)} ";

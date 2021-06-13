@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,11 +29,13 @@ namespace YAF.Pages.Admin
     using System;
 
     using YAF.Core.BasePages;
-    using YAF.Core.Helpers;
+    using YAF.Core.Data;
     using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Web.Extensions;
@@ -63,8 +65,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.chkRunInTransaction.Text = this.GetText("ADMIN_RUNSQL", "RUN_TRANSCATION");
-
             this.BindData();
         }
 
@@ -91,7 +91,9 @@ namespace YAF.Pages.Admin
             this.txtResult.Text = string.Empty;
             this.ResultHolder.Visible = true;
 
-            this.txtResult.Text = this.Get<IDbFunction>().RunSQL(this.txtQuery.Text.Trim(), this.chkRunInTransaction.Checked);
+            this.txtResult.Text = this.Get<IDbAccess>().RunSQL(
+                CommandTextHelpers.GetCommandTextReplaced(this.txtQuery.Text.Trim()),
+                Configuration.Config.SqlCommandTimeout.ToType<int>());
         }
 
         /// <summary>

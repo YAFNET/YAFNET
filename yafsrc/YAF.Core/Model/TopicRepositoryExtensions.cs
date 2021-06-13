@@ -252,7 +252,7 @@ namespace YAF.Core.Model
                 pageSize,
                 false,
                 findLastRead,
-                (t, x, c) => x.UserID == pageUserId && x.ReadAccess && t.IsDeleted == false && t.TopicMovedID == null &&
+                (t, x, c) => x.UserID == pageUserId && x.ReadAccess && (t.Flags & 8) != 8 && t.TopicMovedID == null &&
                              t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate &&
                              t.NumPosts == 1);
         }
@@ -302,7 +302,7 @@ namespace YAF.Core.Model
                 false,
                 findLastRead,
                 (t, x, c) => x.UserID == pageUserId && x.ReadAccess &&
-                             t.IsDeleted == false && t.TopicMovedID == null && t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate);
+                             (t.Flags & 8) != 8 && t.TopicMovedID == null && t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate);
         }
 
         /// <summary>
@@ -350,7 +350,7 @@ namespace YAF.Core.Model
                 false,
                 findLastRead,
                 (t, x, c) => x.UserID == pageUserId && x.ReadAccess &&
-                             t.IsDeleted == false && t.TopicMovedID == null && t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate);
+                             (t.Flags & 8) != 8 && t.TopicMovedID == null && t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate);
         }
 
         /// <summary>
@@ -397,7 +397,7 @@ namespace YAF.Core.Model
                 pageSize,
                 false,
                 findLastRead,
-                (t, x, c) => x.UserID == pageUserId && x.ReadAccess && t.IsDeleted == false && t.TopicMovedID == null &&
+                (t, x, c) => x.UserID == pageUserId && x.ReadAccess && (t.Flags & 8) != 8 && t.TopicMovedID == null &&
                              t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate &&
                              t.UserID == pageUserId);
         }
@@ -479,8 +479,8 @@ namespace YAF.Core.Model
                 .Join<Category, ActiveAccess>((d, x) => x.ForumID == d.ID)
                 .Where<Topic, Message, ActiveAccess, Category>(
                     (topic, message, x, e) => e.BoardID == boardId && topic.TopicMovedID == null &&
-                                              x.UserID == pageUserId && x.ReadAccess && topic.IsDeleted == false &&
-                                              message.IsDeleted == false && topic.LastPosted != null)
+                                              x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
+                                              (message.Flags & 8) != 8 && topic.LastPosted != null)
                 .OrderByDescending<Message>(x => x.Posted).Take(numOfPostsToRetrieve);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic, User>(expression));
@@ -523,7 +523,7 @@ namespace YAF.Core.Model
 
                     expression.Where<Topic, Forum, ActiveAccess, Category>(
                         (topic, f, x, c) => c.BoardID == repository.BoardID && topic.TopicMovedID == null &&
-                                            x.UserID == pageUserId && x.ReadAccess && topic.IsDeleted == false &&
+                                            x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
                                             topic.LastPosted != null && topic.NumPosts > 0);
 
                     expression.OrderByDescending<Topic>(t => t.LastPosted);
@@ -603,14 +603,14 @@ namespace YAF.Core.Model
                     {
                         expression.Where<Topic, Forum, ActiveAccess, Category>(
                             (topic, f, x, c) => c.BoardID == boardId && topic.TopicMovedID == null &&
-                                                x.UserID == pageUserId && x.ReadAccess && topic.IsDeleted == false &&
+                                                x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
                                                 topic.LastPosted != null && (f.Flags & 4) != 4);
                     }
                     else
                     {
                         expression.Where<Topic, Forum, ActiveAccess, Category>(
                             (topic, f, x, c) => c.BoardID == boardId && topic.TopicMovedID == null &&
-                                                x.UserID == pageUserId && x.ReadAccess && topic.IsDeleted == false &&
+                                                x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
                                                 topic.LastPosted != null && (f.Flags & 4) != -1);
                     }
 
@@ -771,7 +771,7 @@ namespace YAF.Core.Model
                 findLastRead,
                 (t, x, c) => t.ForumID == forumId &&
                              (t.Priority == 1 || t.Priority <= 0 && t.LastPosted >= sinceDate) &&
-                             t.IsDeleted == false && (t.TopicMovedID != null || t.NumPosts > 0 && x.UserID == userId && x.ReadAccess));
+                             (t.Flags & 8) != 8 && (t.TopicMovedID != null || t.NumPosts > 0 && x.UserID == userId && x.ReadAccess));
         }
 
         /// <summary>
@@ -837,14 +837,14 @@ namespace YAF.Core.Model
                     var countFavoriteExpression = db.Connection.From<FavoriteTopic>(db.Connection.TableAlias("f"));
                     countFavoriteExpression.Where(
                         $@"f.{countFavoriteExpression.Column<FavoriteTopic>(f => f.TopicID)}=
-                                    IsNull({expression.Column<Topic>(x => x.TopicMovedID, true)},{expression.Column<Topic>(x => x.ID, true)})");
+                                    {OrmLiteConfig.DialectProvider.IsNullFunction(expression.Column<Topic>(x => x.TopicMovedID, true),expression.Column<Topic>(x => x.ID, true))}");
                     var countFavoriteSql = countFavoriteExpression.Select(Sql.Count("1")).ToSelectStatement();
 
                     // -- count deleted posts
                     var countDeletedExpression = db.Connection.From<Message>(db.Connection.TableAlias("mes"));
                     countDeletedExpression.Where(
                         $@"mes.{countDeletedExpression.Column<Message>(x => x.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
-                                    and mes.{countDeletedExpression.Column<Message>(x => x.IsDeleted)}=1
+                                    and (mes.{countDeletedExpression.Column<Message>(x => x.Flags)} & 8) = 8
                                     and mes.{countDeletedExpression.Column<Message>(x => x.UserID)}={userId}");
                     var countDeletedSql = countDeletedExpression.Select(Sql.Count("1")).ToSelectStatement();
 
@@ -859,7 +859,7 @@ namespace YAF.Core.Model
                             $@"y.{topicAccessExpression.Column<TopicReadTracking>(y => y.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
                                     and y.{topicAccessExpression.Column<TopicReadTracking>(y => y.UserID)}={userId}");
                         lastTopicAccessSql = topicAccessExpression.Select(
-                                $"top 1 {topicAccessExpression.Column<TopicReadTracking>(x => x.LastAccessDate)}")
+                                $"{topicAccessExpression.Column<TopicReadTracking>(x => x.LastAccessDate)}").Limit(1)
                             .ToSelectStatement();
 
                         var forumAccessExpression =
@@ -868,7 +868,7 @@ namespace YAF.Core.Model
                             $@"x.{forumAccessExpression.Column<ForumReadTracking>(x => x.ForumID)}={expression.Column<Topic>(x => x.ForumID, true)}
                                     and x.{forumAccessExpression.Column<ForumReadTracking>(x => x.UserID)}={userId}");
                         lastForumAccessSql = forumAccessExpression.Select(
-                                $"top 1 {forumAccessExpression.Column<ForumReadTracking>(x => x.LastAccessDate)}")
+                                $"{forumAccessExpression.Column<ForumReadTracking>(x => x.LastAccessDate)}").Limit(1)
                             .ToSelectStatement();
                     }
 
@@ -878,25 +878,25 @@ namespace YAF.Core.Model
                         $@"usr.{lastUserNameExpression.Column<User>(x => x.ID)}=
                                    {expression.Column<Topic>(x => x.LastUserID, true)}");
                     var lastUserNameSql = lastUserNameExpression.Select(
-                        $"top 1 {lastUserNameExpression.Column<User>(x => x.Name)}").ToSelectStatement();
+                        $"{lastUserNameExpression.Column<User>(x => x.Name)}").Limit(1).ToSelectStatement();
 
                     var lastUserDisplayNameSql = lastUserNameExpression.Select(
-                        $"top 1 {lastUserNameExpression.Column<User>(x => x.DisplayName)}").ToSelectStatement();
+                        $"{lastUserNameExpression.Column<User>(x => x.DisplayName)}").Limit(1).ToSelectStatement();
 
                     var lastUserSuspendedSql = lastUserNameExpression.Select(
-                        $"top 1 {lastUserNameExpression.Column<User>(x => x.Suspended)}").ToSelectStatement();
+                        $"{lastUserNameExpression.Column<User>(x => x.Suspended)}").Limit(1).ToSelectStatement();
 
                     var lastUserStyleSql = lastUserNameExpression.Select(
-                        $"top 1 {lastUserNameExpression.Column<User>(x => x.UserStyle)}").ToSelectStatement();
+                        $"{lastUserNameExpression.Column<User>(x => x.UserStyle)}").Limit(1).ToSelectStatement();
 
                     // -- first message
                     var firstMessageExpression = db.Connection.From<Message>(db.Connection.TableAlias("fm"));
                     firstMessageExpression.Where(
                         $@"fm.{firstMessageExpression.Column<Message>(x => x.TopicID)}=
-                                   IsNull({expression.Column<Topic>(x => x.TopicMovedID, true)},{expression.Column<Topic>(x => x.ID, true)})
+                                   {OrmLiteConfig.DialectProvider.IsNullFunction(expression.Column<Topic>(x => x.TopicMovedID, true),expression.Column<Topic>(x => x.ID, true))}
                                    and fm.{firstMessageExpression.Column<Message>(x => x.Position)} = 0");
                     var firstMessageSql = firstMessageExpression.Select(
-                        $"top 1 {firstMessageExpression.Column<Message>(x => x.MessageText)}").ToSelectStatement();
+                        $"{firstMessageExpression.Column<Message>(x => x.MessageText)}").Limit(1).ToSelectStatement();
 
                     expression.Select<Topic, User, Forum>(
                         (c, b, d) => new
@@ -992,7 +992,7 @@ namespace YAF.Core.Model
                 pageSize,
                 showMoved,
                 findLastRead,
-                (t, x, c) => t.ForumID == forumId && t.Priority == 2 && t.IsDeleted == false &&
+                (t, x, c) => t.ForumID == forumId && t.Priority == 2 && (t.Flags & 8) != 8 &&
                              (t.TopicMovedID != null || t.NumPosts > 0) && x.UserID == userId && x.ReadAccess);
         }
 
@@ -1218,11 +1218,10 @@ namespace YAF.Core.Model
                             (t, f, c) => c.BoardID == boardId && f.ID == forumId && t.Priority == 0);
 
                     expression.And(
-                        $@"({expression.Column<Topic>(x => x.Flags, true)} & 512) = 0 
-                                       and datediff(
-                                             dd, 
-                                             {expression.Column<Topic>(x => x.LastPosted, true)}, 
-                                             GETUTCDATE()) > {days}");
+                        $@"({expression.Column<Topic>(x => x.Flags, true)} & 512) = 0
+                                       and {OrmLiteConfig.DialectProvider.DateDiffFunction("dd",
+                                             expression.Column<Topic>(x => x.LastPosted, true),
+                                             OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {days}");
 
                     return db.Connection.Select(expression);
                 });
@@ -1398,7 +1397,7 @@ namespace YAF.Core.Model
 
             return repository.Get(
                 t => t.LastPosted > currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
-                     !t.TopicFlags.IsDeleted && t.TopicMovedID == null).OrderBy(t => t.LastPosted).FirstOrDefault();
+                     (t.Flags & 8) != 8 && t.TopicMovedID == null).OrderBy(t => t.LastPosted).FirstOrDefault();
         }
 
         /// <summary>
@@ -1514,13 +1513,13 @@ namespace YAF.Core.Model
                 expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                     .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
                         (t, category) =>
-                            category.BoardID == boardId && t.IsDeleted == true && t.TopicName.Contains(filter));
+                            category.BoardID == boardId && (t.Flags & 8) == 8 && t.TopicName.Contains(filter));
             }
             else
             {
                 expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                     .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
-                        (t, category) => category.BoardID == boardId && t.IsDeleted == true);
+                        (t, category) => category.BoardID == boardId && (t.Flags & 8) == 8);
             }
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic>(expression));

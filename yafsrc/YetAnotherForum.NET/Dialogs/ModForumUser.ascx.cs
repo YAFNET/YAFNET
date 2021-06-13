@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -129,7 +129,7 @@ namespace YAF.Dialogs
             // we don't need to find users now
             this.FindUsers.Visible = false;
 
-            // get access mask for this user                
+            // get access mask for this user
             if (this.AccessMaskID.Items.FindByValue(userForum.Item2.AccessMaskID.ToString()) != null)
             {
                 this.AccessMaskID.Items.FindByValue(userForum.Item2.AccessMaskID.ToString()).Selected = true;
@@ -184,7 +184,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            if (user.IsGuest.Value)
+            if (user.UserFlags.IsGuest)
             {
                 this.PageContext.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.warning);
                 return;

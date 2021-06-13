@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -40,18 +40,30 @@ namespace YAF.Core.Data
     #endregion
 
     /// <summary>
-    ///     The db connection provider base.
+    ///     The Database connection provider base.
     /// </summary>
     public class DbAccessProvider : IDbAccessProvider
     {
         #region Fields
 
+        /// <summary>
+        /// The database access providers.
+        /// </summary>
         private readonly IIndex<string, IDbAccess> _dbAccessProviders;
 
+        /// <summary>
+        /// The database access safe.
+        /// </summary>
         private readonly SafeReadWriteProvider<IDbAccess> _dbAccessSafe;
 
+        /// <summary>
+        /// The service locator.
+        /// </summary>
         private readonly IServiceLocator _serviceLocator;
 
+        /// <summary>
+        /// The provider name.
+        /// </summary>
         private string _providerName;
 
         #endregion
@@ -62,7 +74,7 @@ namespace YAF.Core.Data
         ///     Initializes a new instance of the <see cref="DbAccessProvider" /> class.
         /// </summary>
         /// <param name="dbAccessProviders">
-        ///     The db access providers.
+        ///     The database access providers.
         /// </param>
         /// <param name="serviceLocator">
         ///     The service locator.

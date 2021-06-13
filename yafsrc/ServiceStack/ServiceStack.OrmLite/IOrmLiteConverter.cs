@@ -1,9 +1,10 @@
-using System;
-using System.Data;
-using ServiceStack.Logging;
-
 namespace ServiceStack.OrmLite
 {
+    using System;
+    using System.Data;
+
+    using ServiceStack.Logging;
+
     public interface IOrmLiteConverter
     {
         IOrmLiteDialectProvider DialectProvider { get; set; }
@@ -43,7 +44,7 @@ namespace ServiceStack.OrmLite
         public IOrmLiteDialectProvider DialectProvider { get; set; }
 
         /// <summary>
-        /// SQL Column Definition used in CREATE Table. 
+        /// SQL Column Definition used in CREATE Table.
         /// </summary>
         public abstract string ColumnDefinition { get; }
 
@@ -57,7 +58,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public virtual string ToQuotedString(Type fieldType, object value)
         {
-            return DialectProvider.GetQuotedValue(value.ToString());
+            return this.DialectProvider.GetQuotedValue(value.ToString());
         }
 
         /// <summary>
@@ -65,7 +66,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public virtual void InitDbParam(IDbDataParameter p, Type fieldType)
         {
-            p.DbType = DbType;
+            p.DbType = this.DbType;
         }
 
         /// <summary>
@@ -118,9 +119,12 @@ namespace ServiceStack.OrmLite
         public static object ConvertNumber(this IOrmLiteDialectProvider dialectProvider, Type toIntegerType, object value)
         {
             if (value.GetType() == toIntegerType)
+            {
                 return value;
+            }
 
             var typeCode = toIntegerType.GetUnderlyingTypeCode();
+
             switch (typeCode)
             {
                 case TypeCode.Byte:

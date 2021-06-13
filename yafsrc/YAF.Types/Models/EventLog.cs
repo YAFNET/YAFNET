@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -51,13 +51,12 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the event time.
         /// </summary>
-        [Default(OrmLiteVariables.SystemUtc)]
+        [Required]
         public DateTime EventTime { get; set; }
 
         /// <summary>
         /// Gets or sets the user id.
         /// </summary>
-        [References(typeof(User))]
         public int? UserID { get; set; }
 
         /// <summary>
@@ -70,6 +69,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the description.
         /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string Description { get; set; }
 
         /// <summary>

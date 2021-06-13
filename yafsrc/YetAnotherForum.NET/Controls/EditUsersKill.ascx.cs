@@ -198,7 +198,7 @@ namespace YAF.Controls
                         }
 
                         // get user(s) we are about to delete
-                        if (this.User.Item1.IsGuest.Value)
+                        if (this.User.Item1.UserFlags.IsGuest)
                         {
                             // we cannot delete guest
                             this.PageContext.AddLoadMessage(
@@ -301,7 +301,7 @@ namespace YAF.Controls
             this.ViewPostsLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                 ForumPages.Search,
                 "postedby={0}",
-                !this.User.Item1.IsGuest.Value
+                !this.User.Item1.UserFlags.IsGuest
                     ? this.User.Item1.DisplayOrUserName()
                     : this.Get<IAspNetUsersHelper>().GuestUserName);
 
