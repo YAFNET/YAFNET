@@ -41,6 +41,7 @@ namespace YAF.Core.Services.Logger
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Services;
 
     using EventLog = YAF.Types.Models.EventLog;
 
@@ -49,7 +50,7 @@ namespace YAF.Core.Services.Logger
     /// <summary>
     ///     The YAF Data Base logger.
     /// </summary>
-    public class DbLogger : ILogger, IHaveServiceLocator
+    public class DbLogger : ILoggerService, IHaveServiceLocator
     {
 #if (DEBUG)
         /// <summary>

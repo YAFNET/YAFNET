@@ -5,6 +5,7 @@
 <%@ Import Namespace="YAF.Types.Models" %>
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 

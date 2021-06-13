@@ -44,6 +44,7 @@ namespace YAF.Core.BasePages
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models.Identity;
 
     #endregion
@@ -177,7 +178,7 @@ namespace YAF.Core.BasePages
         ///   Gets or sets Logger.
         /// </summary>
         [Inject]
-        public ILogger Logger { get; set; }
+        public ILoggerService Logger { get; set; }
 
         /// <summary>
         ///   Gets cache associated with this page.

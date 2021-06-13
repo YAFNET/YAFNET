@@ -39,6 +39,7 @@ namespace YAF.Core.Services
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects;
 
@@ -229,7 +230,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(
+                this.Get<ILoggerService>().Log(
                     BoardContext.Current.User.ID,
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
@@ -313,7 +314,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(
+                this.Get<ILoggerService>().Log(
                     BoardContext.Current.User.ID,
                     this,
                     x,
@@ -374,7 +375,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(
+                this.Get<ILoggerService>().Log(
                     BoardContext.Current.User.ID,
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
@@ -477,7 +478,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(
+                this.Get<ILoggerService>().Log(
                     BoardContext.Current.User.ID,
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",

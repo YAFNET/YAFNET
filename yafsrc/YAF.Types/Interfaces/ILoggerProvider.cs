@@ -27,6 +27,8 @@ namespace YAF.Types.Interfaces
 
     using System;
 
+    using YAF.Types.Interfaces.Services;
+
     #endregion
 
     /// <summary>
@@ -44,7 +46,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         /// <returns>
         /// </returns>
-        ILogger Create([CanBeNull] Type type);
+        ILoggerService Create([CanBeNull] Type type);
 
         #endregion
     }

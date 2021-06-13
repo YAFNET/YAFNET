@@ -141,7 +141,7 @@ namespace YAF.Pages.Profile
 
                         if (user != null)
                         {
-                            this.Get<ILogger>().Log(
+                            this.Get<ILoggerService>().Log(
                                 this.PageContext.PageUserID,
                                 this,
                                 $"User {user.DisplayOrUserName()} Suspended his own account until: {suspend} (UTC)",
@@ -176,7 +176,7 @@ namespace YAF.Pages.Profile
                                 true,
                                 false));
 
-                        this.Get<ILogger>().UserDeleted(
+                        this.Get<ILoggerService>().UserDeleted(
                             this.PageContext.PageUserID,
                             $"User {this.PageContext.User.DisplayOrUserName()} Deleted his own account");
                     }

@@ -31,6 +31,7 @@ namespace YAF.Core.Extensions
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     ///     The Logger extensions.
@@ -58,7 +59,7 @@ namespace YAF.Core.Extensions
         /// The event type.
         /// </param>
         public static void Log(
-            [NotNull] this ILogger logger, 
+            [NotNull] this ILoggerService logger, 
             [CanBeNull] int? userId, 
             [CanBeNull] object source, 
             [NotNull] Exception exception, 

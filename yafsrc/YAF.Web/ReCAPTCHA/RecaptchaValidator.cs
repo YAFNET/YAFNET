@@ -38,6 +38,7 @@ namespace YAF.Web.ReCAPTCHA
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -143,7 +144,7 @@ namespace YAF.Web.ReCAPTCHA
             }
             catch (WebException exception)
             {
-                BoardContext.Current.Get<ILogger>().Log(
+                BoardContext.Current.Get<ILoggerService>().Log(
                     BoardContext.Current.PageUserID,
                     this.GetType().Name,
                     exception.ToString());

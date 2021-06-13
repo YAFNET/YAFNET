@@ -40,6 +40,7 @@ namespace YAF.Core.Model
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     /// <summary>
@@ -170,7 +171,7 @@ namespace YAF.Core.Model
                 catch (Exception e)
                 {
                     // error deleting that file...
-                    BoardContext.Current.Get<ILogger>().Warn(e, "Error Deleting Attachment");
+                    BoardContext.Current.Get<ILoggerService>().Warn(e, "Error Deleting Attachment");
                 }
             }
 

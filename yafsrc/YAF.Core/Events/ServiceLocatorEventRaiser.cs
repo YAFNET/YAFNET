@@ -33,6 +33,7 @@ namespace YAF.Core.Events
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -61,7 +62,7 @@ namespace YAF.Core.Events
         /// <param name="logger">
         /// The logger.
         /// </param>
-        public ServiceLocatorEventRaiser([NotNull] IServiceLocator serviceLocator, ILogger logger)
+        public ServiceLocatorEventRaiser([NotNull] IServiceLocator serviceLocator, ILoggerService logger)
         {
             this.Logger = logger;
             this._serviceLocator = serviceLocator;
@@ -74,7 +75,7 @@ namespace YAF.Core.Events
         /// <summary>
         ///     Gets or sets the logger.
         /// </summary>
-        public ILogger Logger { get; set; }
+        public ILoggerService Logger { get; set; }
 
         #endregion
 

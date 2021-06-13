@@ -38,6 +38,7 @@ namespace YAF.Core.Services.Startup
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     #endregion
@@ -62,7 +63,7 @@ namespace YAF.Core.Services.Startup
             [NotNull] HttpResponseBase httpResponseBase,
             [NotNull] HttpRequestBase httpRequestBase,
             IRepository<BannedIP> bannedIpRepository,
-            [NotNull] ILogger logger)
+            [NotNull] ILoggerService logger)
         {
             this.DataCache = dataCache;
             this.HttpResponseBase = httpResponseBase;
@@ -101,7 +102,7 @@ namespace YAF.Core.Services.Startup
         /// <summary>
         /// Gets or sets Logger.
         /// </summary>
-        public ILogger Logger { get; set; }
+        public ILoggerService Logger { get; set; }
 
         /// <summary>
         ///   Gets the service name.

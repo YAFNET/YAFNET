@@ -37,6 +37,7 @@ namespace YAF.Core.Nntp
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Objects.Nntp;
 
     #endregion
@@ -247,7 +248,7 @@ namespace YAF.Core.Nntp
             }
             catch (Exception ex)
             {
-                BoardContext.Current.Get<ILogger>().Log(
+                BoardContext.Current.Get<ILoggerService>().Log(
                     BoardContext.Current.PageUserID,
                     "NntpUtil",
                     $"Unhandled NNTP DateTime nntpDateTime '{nntpDateTime}': {ex}");

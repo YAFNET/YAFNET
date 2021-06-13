@@ -40,6 +40,7 @@ namespace YAF.Core.Services.Localization
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Objects;
 
     #endregion
@@ -336,7 +337,7 @@ namespace YAF.Core.Services.Localization
 
                 BoardContext.Current.Get<IDataCache>().Remove($"Localizer.{filename}");
 #endif
-                BoardContext.Current.Get<ILogger>()
+                BoardContext.Current.Get<ILoggerService>()
                     .Log(
                         BoardContext.Current.PageUserID,
                         $"{page.ToLower()}.ascx",
@@ -431,7 +432,7 @@ namespace YAF.Core.Services.Localization
 
                 BoardContext.Current.Get<IDataCache>().Remove($"Localizer.{filename}");
 #endif
-                BoardContext.Current.Get<ILogger>().Log(
+                BoardContext.Current.Get<ILoggerService>().Log(
                     BoardContext.Current.PageUserID,
                     $"{page.ToLower()}.ascx",
                     $"Missing Translation For {page.ToUpper()}.{tag.ToUpper()}");

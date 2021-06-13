@@ -36,6 +36,7 @@ namespace YAF.Core.Nntp
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects.Nntp;
 
@@ -65,7 +66,7 @@ namespace YAF.Core.Nntp
         /// <param name="applicationStateBase">
         /// The application state base.
         /// </param>
-        public Nntp([NotNull] ILogger logger)
+        public Nntp([NotNull] ILoggerService logger)
         {
             this.Logger = logger;
         }
@@ -77,7 +78,7 @@ namespace YAF.Core.Nntp
         /// <summary>
         /// Gets or sets Logger.
         /// </summary>
-        public ILogger Logger { get; set; }
+        public ILoggerService Logger { get; set; }
 
         #endregion
 

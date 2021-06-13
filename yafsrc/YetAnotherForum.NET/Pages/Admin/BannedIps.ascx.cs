@@ -41,6 +41,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Web.Extensions;
 
@@ -148,7 +149,7 @@ namespace YAF.Pages.Admin
 
                         if (this.PageContext.BoardSettings.LogBannedIP)
                         {
-                            this.Get<ILogger>()
+                            this.Get<ILoggerService>()
                                 .Log(
                                     this.PageContext.PageUserID,
                                     " YAF.Pages.Admin.bannedip",

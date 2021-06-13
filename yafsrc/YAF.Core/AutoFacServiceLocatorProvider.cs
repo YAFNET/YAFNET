@@ -37,6 +37,7 @@ namespace YAF.Core
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     using NamedParameter = YAF.Types.Objects.NamedParameter;
     using TypedParameter = YAF.Types.Objects.TypedParameter;
@@ -263,7 +264,7 @@ namespace YAF.Core
             properties.ForEach(
                 injectProp =>
                 {
-                    var serviceInstance = injectProp.Item1 == typeof(ILogger)
+                    var serviceInstance = injectProp.Item1 == typeof(ILoggerService)
                                               ? this.Container.Resolve<ILoggerProvider>().Create(injectProp.Item2)
                                               : this.Container.Resolve(injectProp.Item1);
 

@@ -48,6 +48,7 @@ namespace YAF.Core.Helpers
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
 
@@ -216,7 +217,7 @@ namespace YAF.Core.Helpers
 
                     if (this.Get<BoardSettings>().LogUserDeleted)
                     {
-                        this.Get<ILogger>().UserDeleted(
+                        this.Get<ILoggerService>().UserDeleted(
                             BoardContext.Current.User.ID,
                             $"User {user.UserName} was deleted by user id {BoardContext.Current.PageUserID} as unapproved.");
                     }
@@ -290,7 +291,7 @@ namespace YAF.Core.Helpers
 
             if (this.Get<BoardSettings>().LogUserDeleted)
             {
-                this.Get<ILogger>().UserDeleted(
+                this.Get<ILoggerService>().UserDeleted(
                     BoardContext.Current.User.ID,
                     $"User {user.UserName} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.User.DisplayOrUserName())}.");
             }
@@ -323,7 +324,7 @@ namespace YAF.Core.Helpers
 
                 if (this.Get<BoardSettings>().LogBannedIP)
                 {
-                    this.Get<ILogger>().Log(
+                    this.Get<ILoggerService>().Log(
                         userID,
                         "IP BAN of Bot",
                         $"A spam Bot who was banned by IP {userIpAddress}",
@@ -370,7 +371,7 @@ namespace YAF.Core.Helpers
 
             if (this.Get<BoardSettings>().LogUserDeleted)
             {
-                this.Get<ILogger>().UserDeleted(
+                this.Get<ILoggerService>().UserDeleted(
                     BoardContext.Current.User.ID,
                     $"User {user.UserName} was deleted by the automatic spam check system.");
             }

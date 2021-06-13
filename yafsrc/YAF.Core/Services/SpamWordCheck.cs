@@ -35,6 +35,7 @@ namespace YAF.Core.Services
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects;
 
@@ -62,7 +63,7 @@ namespace YAF.Core.Services
         /// <param name="objectStore">The object Store.</param>
         /// <param name="logger">The logger.</param>
         /// <param name="serviceLocator">The service locator.</param>
-        public SpamWordCheck([NotNull] IObjectStore objectStore, [NotNull] ILogger logger, IServiceLocator serviceLocator)
+        public SpamWordCheck([NotNull] IObjectStore objectStore, [NotNull] ILoggerService logger, IServiceLocator serviceLocator)
         {
             this.ServiceLocator = serviceLocator;
             this.ObjectStore = objectStore;
@@ -81,7 +82,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// Gets or sets Logger.
         /// </summary>
-        public ILogger Logger { get; set; }
+        public ILoggerService Logger { get; set; }
 
         /// <summary>
         /// Gets or sets ObjectStore.

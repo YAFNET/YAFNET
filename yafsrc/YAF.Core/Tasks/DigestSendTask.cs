@@ -177,13 +177,13 @@ namespace YAF.Core.Tasks
                             }
                             else
                             {
-                                this.Get<ILogger>().Info("no user found");
+                                this.Get<ILoggerService>().Info("no user found");
                             }
                         });
             }
             catch (Exception ex)
             {
-                this.Get<ILogger>().Error(ex, $"Error In {TaskName} Task");
+                this.Get<ILoggerService>().Error(ex, $"Error In {TaskName} Task");
             }
         }
 
@@ -239,7 +239,7 @@ namespace YAF.Core.Tasks
                         }
                         catch (Exception e)
                         {
-                            this.Get<ILogger>().Error(e, $"Error In Creating Digest for User {user.ID}");
+                            this.Get<ILoggerService>().Error(e, $"Error In Creating Digest for User {user.ID}");
                         }
                         finally
                         {
@@ -249,7 +249,7 @@ namespace YAF.Core.Tasks
 
             this.Get<IMailService>().SendAll(mailMessages);
 
-            this.Get<ILogger>().Log(
+            this.Get<ILoggerService>().Log(
                 $"Digest send to {mailMessages.Count} user(s)",
                 EventLogTypes.Information,
                 null,

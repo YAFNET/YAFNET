@@ -176,7 +176,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
+                this.Get<ILoggerService>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -218,7 +218,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
+                this.Get<ILoggerService>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -264,7 +264,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
+                this.Get<ILoggerService>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -307,7 +307,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>()
+                this.Get<ILoggerService>()
                    .Log(
                        BoardContext.Current.PageUserID,
                        this,
@@ -345,7 +345,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x);
+                this.Get<ILoggerService>().Log(BoardContext.Current.PageUserID, this, x);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }

@@ -50,13 +50,14 @@ namespace YAF.Core.Services
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects;
 
     /// <summary>
     /// The YAF Search Functions
     /// </summary>
-    /// <seealso cref="YAF.Types.Interfaces.ISearch" />
+    /// <seealso cref="ISearch" />
     /// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
     public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
@@ -130,7 +131,7 @@ namespace YAF.Core.Services
                     }
                     catch (Exception ex)
                     {
-                        this.Get<ILogger>().Log(null, this, ex);
+                        this.Get<ILoggerService>().Log(null, this, ex);
                     }
                 }
 
@@ -636,7 +637,7 @@ namespace YAF.Core.Services
                 }
                 catch (Exception ex)
                 {
-                    this.Get<ILogger>().Log(null, this, ex);
+                    this.Get<ILoggerService>().Log(null, this, ex);
                     this.DisposeWriter();
                     this.Writer.UpdateDocument(
                         new Term("MessageId", message.MessageId.Value.ToString()),

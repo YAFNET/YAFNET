@@ -33,6 +33,7 @@ namespace YAF.Core.Services
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     /// LatestInformation service class
@@ -88,7 +89,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Error(x, "Exception In LatestInformationService");
+                this.Get<ILoggerService>().Error(x, "Exception In LatestInformationService");
             }
 
             return version;

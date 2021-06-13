@@ -43,6 +43,7 @@ namespace YAF.Core.Handlers
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects;
 
@@ -250,7 +251,7 @@ namespace YAF.Core.Handlers
             }
             catch (Exception ex)
             {
-                this.Get<ILogger>().Error(ex, "Error during Attachment upload");
+                this.Get<ILoggerService>().Error(ex, "Error during Attachment upload");
             }
         }
 

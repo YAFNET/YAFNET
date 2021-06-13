@@ -42,6 +42,7 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects.Model;
 
@@ -1346,7 +1347,7 @@ namespace YAF.Core.Model
 
             BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByTopicId(topicId);
 
-            BoardContext.Current.Get<ILogger>().Log(
+            BoardContext.Current.Get<ILoggerService>().Log(
                 BoardContext.Current.PageUserID,
                 "YAF",
                 BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_TOPIC", topicId),

@@ -31,6 +31,7 @@ namespace YAF.Core.BaseControls
 
     using YAF.Core.Context;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -49,7 +50,7 @@ namespace YAF.Core.BaseControls
         /// <summary>
         /// The _logger.
         /// </summary>
-        private ILogger _logger;
+        private ILoggerService _logger;
 
         #endregion
 
@@ -75,7 +76,7 @@ namespace YAF.Core.BaseControls
         /// <summary>
         ///   Gets or sets Logger.
         /// </summary>
-        public ILogger Logger => this._logger ?? (this._logger = this.Get<ILoggerProvider>().Create(this.GetType()));
+        public ILoggerService Logger => this._logger ?? (this._logger = this.Get<ILoggerProvider>().Create(this.GetType()));
 
         /// <summary>
         ///   Gets PageContext.

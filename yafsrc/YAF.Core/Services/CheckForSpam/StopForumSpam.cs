@@ -38,7 +38,8 @@ namespace YAF.Core.Services.CheckForSpam
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.CheckForSpam;
-    
+    using YAF.Types.Interfaces.Services;
+
     #endregion
 
     /// <summary>
@@ -114,7 +115,7 @@ namespace YAF.Core.Services.CheckForSpam
             }
             catch (Exception ex)
             {
-                BoardContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
+                BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot");
 
                 return false;
             }
@@ -143,7 +144,7 @@ namespace YAF.Core.Services.CheckForSpam
 
             if (!result.Contains("success"))
             {
-                BoardContext.Current.Get<ILogger>().Log(
+                BoardContext.Current.Get<ILoggerService>().Log(
                     null,
                     " Report to StopForumSpam.com Failed",
                     result);

@@ -39,6 +39,7 @@ namespace YAF.Core.Helpers
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
 
@@ -138,7 +139,7 @@ namespace YAF.Core.Helpers
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Error(x, "Error in CreateForumUser");
+                this.Get<ILoggerService>().Error(x, "Error in CreateForumUser");
             }
 
             return userId;
@@ -377,7 +378,7 @@ namespace YAF.Core.Helpers
             if (user.Id == null)
             {
                 // problem -- log and move on...
-                this.Get<ILogger>().Log(
+                this.Get<ILoggerService>().Log(
                     userId,
                     "UpdateForumUser",
                     $"Null User Provider Key for UserName {user.UserName}. Please check your provider key settings for your ASP.NET membership provider.");
@@ -446,7 +447,7 @@ namespace YAF.Core.Helpers
             }
             catch (Exception ex)
             {
-                this.Get<ILogger>().Log(
+                this.Get<ILoggerService>().Log(
                     userId,
                     "UpdateForumUser",
                     $"Failed to save default notifications for new user: {ex}");

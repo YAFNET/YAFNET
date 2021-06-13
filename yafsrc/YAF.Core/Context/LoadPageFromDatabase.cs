@@ -39,6 +39,7 @@ namespace YAF.Core.Context
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Objects.Model;
 
     /// <summary>
@@ -56,7 +57,7 @@ namespace YAF.Core.Context
         /// <param name="logger">The logger.</param>
         /// <param name="dataCache">The data cache.</param>
         public LoadPageFromDatabase(
-            [NotNull] IServiceLocator serviceLocator, ILogger logger, [NotNull] IDataCache dataCache)
+            [NotNull] IServiceLocator serviceLocator, ILoggerService logger, [NotNull] IDataCache dataCache)
         {
             this.ServiceLocator = serviceLocator;
             this.Logger = logger;
@@ -73,7 +74,7 @@ namespace YAF.Core.Context
         /// <value>
         /// The logger.
         /// </value>
-        public ILogger Logger { get; set; }
+        public ILoggerService Logger { get; set; }
 
         /// <summary>
         /// Gets or sets DataCache.

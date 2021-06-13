@@ -39,6 +39,7 @@ namespace YAF.Core.Services
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Objects;
 
     #endregion
@@ -108,7 +109,7 @@ namespace YAF.Core.Services
                 return userIpLocator;
             }
 
-            this.Get<ILogger>().Log(
+            this.Get<ILoggerService>().Log(
                 null,
                 this,
                 $"Geolocation Service reports: {userIpLocator.StatusMessage}",

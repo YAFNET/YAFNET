@@ -35,6 +35,7 @@ namespace YAF.Core.Services.CheckForSpam
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.CheckForSpam;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -111,7 +112,7 @@ namespace YAF.Core.Services.CheckForSpam
             }
             catch (Exception ex)
             {
-                BoardContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
+                BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot");
 
                 responseText = ex.Message;
 

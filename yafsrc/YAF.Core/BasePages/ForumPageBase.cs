@@ -36,6 +36,7 @@ namespace YAF.Core.BasePages
     using YAF.Core.Services.Startup;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -107,13 +108,13 @@ namespace YAF.Core.BasePages
             {
                 if (this.PageContext.BoardSettings.LogViewStateError)
                 {
-                    this.Get<ILogger>()
+                    this.Get<ILoggerService>()
                         .Log(BoardContext.Current.User.ID, error.Source, error, EventLogTypes.Information);
                 }
             }
             else
             {
-                this.Get<ILogger>()
+                this.Get<ILoggerService>()
                     .Log(
                         BoardContext.Current.User.ID,
                         error.Source,

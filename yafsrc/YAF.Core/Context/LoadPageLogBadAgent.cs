@@ -33,6 +33,7 @@ namespace YAF.Core.Context
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     /// The load page log bad agent.
@@ -56,7 +57,7 @@ namespace YAF.Core.Context
         /// </param>
         public LoadPageLogBadAgent(
             [NotNull] IServiceLocator serviceLocator,
-            [NotNull] ILogger logger,
+            [NotNull] ILoggerService logger,
             [NotNull] HttpRequestBase httpRequestBase)
         {
             CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
@@ -80,7 +81,7 @@ namespace YAF.Core.Context
         /// <summary>
         /// Gets or sets Logger.
         /// </summary>
-        public ILogger Logger { get; set; }
+        public ILoggerService Logger { get; set; }
 
         /// <summary>
         ///   Gets Order.

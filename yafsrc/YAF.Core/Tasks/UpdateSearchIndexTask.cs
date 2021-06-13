@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2021 Ingo Herbote
@@ -35,6 +35,7 @@ namespace YAF.Core.Tasks
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     #endregion
@@ -98,7 +99,7 @@ namespace YAF.Core.Tasks
                             this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
                         });
 
-                this.Get<ILogger>().Log(
+                this.Get<ILoggerService>().Log(
                     "search index updated",
                     EventLogTypes.Information,
                     null,

@@ -34,6 +34,7 @@ namespace YAF.Core.Modules
     using YAF.Core.Services.Logger;
     using YAF.Types;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -66,7 +67,7 @@ namespace YAF.Core.Modules
                     new[]
                     {
                         new ResolvedParameter(
-                            (p, i) => p.ParameterType == typeof(ILogger),
+                            (p, i) => p.ParameterType == typeof(ILoggerService),
                             (p, i) => i.Resolve<ILoggerProvider>().Create(t))
                     });
             });

@@ -176,7 +176,7 @@ namespace YAF.Controls
 
             if (this.PageContext.BoardSettings.LogUserSuspendedUnsuspended)
             {
-                this.Get<ILogger>().Log(
+                this.Get<ILoggerService>().Log(
                     this.PageContext.PageUserID,
                     "YAF.Controls.EditUsersSuspend",
                     $"User {this.User.DisplayOrUserName()} was unsuspended by {this.PageContext.User.DisplayOrUserName()}.",
@@ -259,7 +259,7 @@ namespace YAF.Controls
                 this.SuspendedReason.Text.Trim(),
                 this.PageContext.PageUserID);
 
-            this.Get<ILogger>().Log(
+            this.Get<ILoggerService>().Log(
                 this.PageContext.PageUserID,
                 "YAF.Controls.EditUsersSuspend",
                 $"User {this.User.DisplayOrUserName()} was suspended by {this.PageContext.User.DisplayOrUserName()} until: {suspend} (UTC)",

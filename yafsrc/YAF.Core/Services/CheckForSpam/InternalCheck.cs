@@ -37,6 +37,7 @@ namespace YAF.Core.Services.CheckForSpam
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.CheckForSpam;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     #endregion
@@ -105,7 +106,7 @@ namespace YAF.Core.Services.CheckForSpam
                 }
                 catch (Exception ex)
                 {
-                    BoardContext.Current.Get<ILogger>().Error(
+                    BoardContext.Current.Get<ILoggerService>().Error(
                         ex,
                         "Error while Checking for Bot Email");
                 }
@@ -131,7 +132,7 @@ namespace YAF.Core.Services.CheckForSpam
                     }
                     catch (Exception ex)
                     {
-                        BoardContext.Current.Get<ILogger>().Error(
+                        BoardContext.Current.Get<ILoggerService>().Error(
                             ex,
                             $"Error while Checking for Bot Name (Check: {name.Mask})");
                     }
@@ -141,7 +142,7 @@ namespace YAF.Core.Services.CheckForSpam
             }
             catch (Exception ex)
             {
-                BoardContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
+                BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot");
 
                 return false;
             }

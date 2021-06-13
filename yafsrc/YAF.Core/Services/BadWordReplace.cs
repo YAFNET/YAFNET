@@ -35,6 +35,7 @@ namespace YAF.Core.Services
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects;
 
@@ -64,7 +65,7 @@ namespace YAF.Core.Services
         /// <param name="serviceLocator">The service locator.</param>
         public BadWordReplace(
             [NotNull] IObjectStore objectStore,
-            [NotNull] ILogger logger,
+            [NotNull] ILoggerService logger,
             IServiceLocator serviceLocator)
         {
             this.ServiceLocator = serviceLocator;
@@ -84,7 +85,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// Gets or sets Logger.
         /// </summary>
-        public ILogger Logger { get; set; }
+        public ILoggerService Logger { get; set; }
 
         /// <summary>
         /// Gets or sets ObjectStore.

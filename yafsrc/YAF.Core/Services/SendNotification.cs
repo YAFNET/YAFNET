@@ -273,7 +273,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 // report exception to the forum's event log
-                this.Get<ILogger>().Error(
+                this.Get<ILoggerService>().Error(
                     x,
                     $"Send Message Report Notification Error for UserID {BoardContext.Current.PageUserID}");
             }
@@ -345,7 +345,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 // report exception to the forum's event log
-                this.Get<ILogger>().Error(x, $"Send PM Notification Error for UserID {BoardContext.Current.PageUserID}");
+                this.Get<ILoggerService>().Error(x, $"Send PM Notification Error for UserID {BoardContext.Current.PageUserID}");
 
                 // tell user about failure
                 BoardContext.Current.AddLoadMessage(
@@ -479,7 +479,7 @@ namespace YAF.Core.Services
                 // Now send all mails..
                 this.Get<IMailService>().SendAll(
                     mailMessages,
-                    (_, exception) => this.Get<ILogger>().Log(
+                    (_, exception) => this.Get<ILoggerService>().Log(
                         "Mail Error",
                         EventLogTypes.Error,
                         null,

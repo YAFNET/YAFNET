@@ -29,6 +29,7 @@ namespace YAF.Core.Tasks
     using YAF.Core.Context;
     using YAF.Types.Attributes;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     /// The base background task.
@@ -67,7 +68,7 @@ namespace YAF.Core.Tasks
         /// Gets or sets the logger.
         /// </summary>
         [Inject]
-        public ILogger Logger { get; set; }
+        public ILoggerService Logger { get; set; }
 
         #endregion
 
