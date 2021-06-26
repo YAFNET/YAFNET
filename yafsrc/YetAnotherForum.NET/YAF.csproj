@@ -907,6 +907,13 @@
     <Compile Include="Pages\Admin\TaskManager.ascx.designer.cs">
       <DependentUpon>TaskManager.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Admin\TestData.ascx.cs">
+      <DependentUpon>TestData.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\TestData.ascx.designer.cs">
+      <DependentUpon>TestData.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Admin\Users.ascx.designer.cs">
       <DependentUpon>Users.ascx</DependentUpon>
     </Compile>
@@ -2088,7 +2095,6 @@
     <Content Include="Images\Medals\medal_silver_2_small.png" />
     <Content Include="Images\Medals\medal_small.png" />
     <Content Include="Images\Logos\YAFLogo.svg" />
-    <Content Include="Images\noavatar.svg" />
     <Content Include="Install\custom\dnn.sql" />
     <Content Include="Install\mssql\upgrade\identity\upgrade.sql" />
     <Content Include="Install\SpamWords.xml" />
@@ -2185,6 +2191,7 @@
     <Content Include="Pages\Admin\RestartApp.ascx" />
     <Content Include="Pages\Admin\RunSql.ascx" />
     <Content Include="Pages\Admin\TaskManager.ascx" />
+    <Content Include="Pages\Admin\TestData.ascx" />
     <Content Include="Pages\Admin\Users.ascx" />
     <Content Include="Pages\Admin\Version.ascx" />
     <Content Include="Pages\Album.ascx" />
@@ -3631,7 +3638,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

@@ -127,7 +127,7 @@ namespace YAF.Core.Services
             // Return NoAvatar Image is no Avatar available for that user.
             if (avatarUrl.IsNotSet())
             {
-                avatarUrl = $"{BoardInfo.ForumClientFileRoot}images/noavatar.svg";
+                avatarUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?avatar={userId}";
             }
 
             return avatarUrl;

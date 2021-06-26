@@ -354,7 +354,8 @@ namespace YAF.Controls
             }
             else
             {
-                this.AvatarImg.ImageUrl = "../images/noavatar.svg";
+                this.AvatarImg.ImageUrl =
+                    $"{BoardInfo.ForumClientFileRoot}resource.ashx?avatar={this.currentUserId}&v={DateTime.Now.Ticks}";
                 this.NoAvatar.Visible = true;
             }
 

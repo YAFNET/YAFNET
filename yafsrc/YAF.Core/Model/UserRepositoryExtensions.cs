@@ -28,7 +28,6 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Data.SqlClient;
     using System.Dynamic;
-    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Linq.Expressions;
@@ -1827,21 +1826,15 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="timeSinceLastLogin">
-        /// The time since last login in minutes.
-        /// </param>
-        /// <param name="useStyledNicks">
-        /// The use Styled Nicks.
-        /// </param>
         /// <returns>
         /// The list of users in Data table format.
         /// </returns>
         public static List<ActiveUser> GetRecentUsers(
-            this IRepository<User> repository,
-            [NotNull] int timeSinceLastLogin,
-            [NotNull] bool useStyledNicks)
+            this IRepository<User> repository)
         {
             CodeContracts.VerifyNotNull(repository);
+
+            var timeSinceLastLogin = DateTime.UtcNow.AddMinutes(0 - 60 * 24 * 30);
 
             var users = repository.DbAccess.Execute(
                 db =>
@@ -1849,10 +1842,10 @@ namespace YAF.Core.Model
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
                     expression.Where<User>(
-                        u => (u.Flags & 2) == 2 && u.BoardID == repository.BoardID && (u.Flags & 4) != 4);
-                    expression.And(
-                            $"(DATEADD(mi, 0 - {timeSinceLastLogin}, getdate()) < {expression.Column<User>(u => u.LastVisit, true)})")
-                        .OrderBy(u => u.LastVisit);
+                        u => (u.Flags & 2) == 2 && u.BoardID == repository.BoardID && (u.Flags & 4) != 4 &&
+                             timeSinceLastLogin < u.LastVisit);
+
+                    expression.OrderBy(u => u.LastVisit);
 
                     expression.Select<User>(
                         u => new
@@ -1917,6 +1910,7 @@ namespace YAF.Core.Model
                    expression2
                        .Join<vaccess_group>((usr, access) => access.UserID == usr.ID)
                        .Join<vaccess_group, Forum>((access, f) => f.ID == access.ForumID)
+                       .Where<vaccess_group>(x => x.ModeratorAccess > 0)
                        .OrderBy("Name").Select<User, vaccess_group, Forum>(
                            (usr, access, f) => new
                            {

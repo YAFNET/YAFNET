@@ -126,9 +126,7 @@ namespace YAF.Pages
         {
             var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId, avatarString, hasAvatarImage);
 
-            return avatarUrl.IsNotSet()
-                       ? $"{BoardInfo.ForumClientFileRoot}images/noavatar.svg"
-                       : avatarUrl;
+            return avatarUrl.IsNotSet() ? $"{BoardInfo.ForumClientFileRoot}resource.ashx?u={userId}" : avatarUrl;
         }
 
         /// <summary>

@@ -168,7 +168,6 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the reply to.
         /// </summary>
-        [References(typeof(Message))]
         public int? ReplyTo { get; set; }
 
         /// <summary>

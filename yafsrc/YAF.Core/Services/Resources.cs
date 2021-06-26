@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,7 +27,10 @@ namespace YAF.Core.Services
     #region Using
 
     using System;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
     using System.Drawing.Imaging;
+    using System.Drawing.Text;
     using System.Linq;
     using System.Runtime.Caching;
     using System.Text;
@@ -42,7 +45,6 @@ namespace YAF.Core.Services
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.Utilities;
     using YAF.Core.Utilities.Helpers.ImageUtils;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -119,7 +121,7 @@ namespace YAF.Core.Services
                 var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(user.Item1);
 
                 avatarUrl = avatarUrl.IsNotSet()
-                           ? $"{BoardInfo.ForumClientFileRoot}images/noavatar.svg"
+                           ? $"{BoardInfo.ForumClientFileRoot}resource.ashx?avatar={user.Item1.ID}"
                            : avatarUrl;
 
                 var activeUsers = this.Get<IDataCache>().GetOrSet(
@@ -132,7 +134,7 @@ namespace YAF.Core.Services
 
                 var userIsOnline =
                     activeUsers.Any(
-                        x => (int)x.UserID == userId && x.IsActiveExcluded == false);
+                        x => x.UserID == userId && x.IsActiveExcluded == false);
 
                 var userName = user.Item1.DisplayOrUserName();
 
@@ -265,6 +267,102 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 this.Get<ILoggerService>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
+
+                context.Response.Write(
+                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+            }
+        }
+
+        /// <summary>
+        /// Gets the Default Text Avatar
+        /// </summary>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        public void GetTextAvatar([NotNull] HttpContext context)
+        {
+            try
+            {
+                var user = BoardContext.Current.GetRepository<User>()
+                    .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("avatar"));
+
+                if (user == null)
+                {
+                    return;
+                }
+
+                var backgroundColors = new[]
+                {
+                    "#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e", "#16a085", "#27ae60", "#2980b9",
+                    "#8e44ad", "#2c3e50", "#f1c40f", "#e67e22", "#e74c3c", "#95a5a6", "#f39c12", "#d35400",
+                    "#c0392b", "#bdc3c7", "#7f8c8d"
+                };
+
+                var abbreviation = user.DisplayOrUserName().GetAbbreviation();
+
+                var backgroundColor = backgroundColors.ElementAt(abbreviation[0] % (backgroundColors.Count() - 1));
+
+                using (var bmp = new Bitmap(this.Get<BoardSettings>().AvatarWidth, this.Get<BoardSettings>().AvatarHeight))
+                {
+                    using (var graphics = Graphics.FromImage(bmp))
+                    {
+                        graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+                        graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+                        using (Brush brush = new SolidBrush(
+                            (Color)new ColorConverter().ConvertFromString(backgroundColor)))
+                        {
+                            graphics.FillRectangle(
+                                brush,
+                                0,
+                                0,
+                                this.Get<BoardSettings>().AvatarWidth,
+                                this.Get<BoardSettings>().AvatarHeight);
+                        }
+
+                        var sf = new StringFormat
+                        {
+                            Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center
+                        };
+
+                        var font = new Font("Arial", 48, FontStyle.Bold, GraphicsUnit.Pixel);
+
+                        graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+                        graphics.DrawString(
+                            abbreviation,
+                            font,
+                            new SolidBrush(Color.WhiteSmoke),
+                            new RectangleF(
+                                0,
+                                0,
+                                this.Get<BoardSettings>().AvatarWidth,
+                                this.Get<BoardSettings>().AvatarHeight),
+                            sf);
+                        graphics.Flush();
+
+                        var converter = new ImageConverter();
+
+                        var image = (byte[])converter.ConvertTo(bmp, typeof(byte[]));
+
+                        context.Response.Clear();
+
+                        context.Response.ContentType = "image/png";
+                        context.Response.Cache.SetCacheability(HttpCacheability.Public);
+                        context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(36));
+                        context.Response.Cache.SetLastModified(DateTime.UtcNow);
+
+                        context.Response.OutputStream.Write(image, 0, image.Length);
+                    }
+                }
+            }
+            catch (Exception x)
+            {
+                this.Get<ILoggerService>()
+                    .Log(
+                        BoardContext.Current.PageUserID,
+                        this,
+                        $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
+                        EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");

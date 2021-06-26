@@ -87,13 +87,28 @@ namespace YAF.Core.Model
         /// <summary>
         /// Save a Category
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="categoryId">The category id.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="categoryImage">The category image.</param>
-        /// <param name="sortOrder">The sort order.</param>
-        /// <param name="boardId">The board id.</param>
-        public static void Save(
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="categoryId">
+        /// The category id.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="categoryImage">
+        /// The category image.
+        /// </param>
+        /// <param name="sortOrder">
+        /// The sort order.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <returns>
+        /// Returns the Category ID of the Updated or new Category
+        /// </returns>
+        public static int Save(
             this IRepository<Category> repository,
             [CanBeNull] int? categoryId,
             [NotNull] string name,
@@ -103,7 +118,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.Upsert(
+            return repository.Upsert(
                 new Category
                 {
                     BoardID = boardId ?? repository.BoardID,

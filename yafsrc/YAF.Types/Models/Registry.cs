@@ -54,7 +54,7 @@ namespace YAF.Types.Models
         /// </summary>
         [Required]
         [Index]
-        [StringLength(255)]
+        [CustomField(OrmLiteVariables.MaxText)]
         public string Name { get; set; }
 
         /// <summary>

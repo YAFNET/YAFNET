@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -159,7 +159,7 @@ namespace YAF.Pages
             if (messages != null && messages.Any())
             {
                 messages.ForEach(
-                    m => this.GetRepository<UserPMessage>().MarkAsRead((int)m.PMessageID, new PMessageFlags(m.UserPMFlags)));
+                    m => this.GetRepository<UserPMessage>().MarkAsRead(m.PMessageID, new PMessageFlags(m.UserPMFlags)));
 
                 var message = messages.FirstOrDefault();
 
@@ -181,7 +181,7 @@ namespace YAF.Pages
                     this.PageLinks.AddLink(this.GetText("INBOX"), this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages));
                 }
 
-                this.PageLinks.AddLink((string)message.Subject);
+                this.PageLinks.AddLink(message.Subject);
 
                 this.Inbox.DataSource = messages;
             }

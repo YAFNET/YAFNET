@@ -130,7 +130,7 @@
                                         </asp:DropDownList>
                                     </div>
                             <small>
-                                <div class="btn-group" role="group">
+                                <div class="btn-group mt-2" role="group">
                                     <YAF:ThemeButton ID="PM" runat="server"
                                                      Size="Small" Visible="false"
                                                      TextLocalizedPage="POSTS" TextLocalizedTag="PM"

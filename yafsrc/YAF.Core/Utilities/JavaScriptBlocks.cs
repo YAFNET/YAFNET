@@ -521,7 +521,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         {
             return $@"{Config.JQueryAlias}(document).ready(function() {{  
                                 {Config.JQueryAlias}('{openLink}').click(function () {{ 
-                                        {Config.JQueryAlias}('{dialogId}').modal('show')   
+                                        {Config.JQueryAlias}('{dialogId}').modal('show');
                                 }}); 
                    }});";
         }
@@ -1113,7 +1113,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull]
         public static string OpenModalJs([NotNull] string clientId)
         {
-            return $"{Config.JQueryAlias}('#{clientId}').modal('show');";
+            return $"var myModal = new bootstrap.Modal(document.getElementById('{clientId}'), null);myModal.show();";
         }
 
         /// <summary>

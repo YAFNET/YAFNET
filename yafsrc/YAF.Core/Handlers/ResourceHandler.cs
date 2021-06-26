@@ -107,6 +107,10 @@ namespace YAF.Core.Handlers
                 {
                     this.Get<IResources>().GetResponseLocalAvatar(context);
                 }
+                else if (context.Request.QueryString.Exists("avatar"))
+                {
+                    this.Get<IResources>().GetTextAvatar(context);
+                }
                 else if (context.Request.QueryString.Exists("a"))
                 {
                     this.Get<IAttachment>().GetResponseAttachment(context);

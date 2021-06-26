@@ -328,8 +328,8 @@ namespace YAF.Pages
                 }
 
                 // get message sender/recipient
-                var toUserId = (int)replyMessage.ToUserID;
-                var fromUserId = (int)replyMessage.FromUserID;
+                var toUserId = replyMessage.ToUserID;
+                var fromUserId = replyMessage.FromUserID;
 
                 // verify access to this PM
                 if (toUserId != this.PageContext.PageUserID && fromUserId != this.PageContext.PageUserID)
@@ -338,7 +338,7 @@ namespace YAF.Pages
                 }
 
                 // handle subject
-                var subject = replyMessage.Subject.ToString();
+                var subject = replyMessage.Subject;
                 if (!subject.StartsWith("Re: "))
                 {
                     subject = $"Re: {subject}";
@@ -361,7 +361,7 @@ namespace YAF.Pages
                 }
 
                 // PM is a quoted reply
-                var body = replyMessage.Body.ToString();
+                var body = replyMessage.Body;
 
                 if (this.PageContext.BoardSettings.RemoveNestedQuotes)
                 {
@@ -390,7 +390,7 @@ namespace YAF.Pages
 
                     this.PmSubjectTextBox.Text = this.GetTextFormatted("REPORT_SUBJECT", displayName);
 
-                    var bodyReport = $"[QUOTE={displayName}]{replyMessage.Body.ToString()}[/QUOTE]";
+                    var bodyReport = $"[QUOTE={displayName}]{replyMessage.Body}[/QUOTE]";
 
                     // Quote the original message
                     bodyReport = this.GetTextFormatted("REPORT_BODY", bodyReport);
@@ -582,7 +582,7 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.ToList.SelectedItem != null && this.ToList.SelectedItem.Value == "0")
+            if (this.ToList.SelectedItem is { Value: "0" })
             {
                 // administrator is sending PMs to all users
                 var body = this.editor.Text;

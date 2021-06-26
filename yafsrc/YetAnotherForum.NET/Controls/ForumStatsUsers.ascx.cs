@@ -183,11 +183,9 @@ namespace YAF.Controls
             if (this.PageContext.BoardSettings.ShowRecentUsers)
             {
                 var activeUsers30Day = this.Get<IDataCache>().GetOrSet(
-                     Constants.Cache.VisitorsInTheLast30Days,
-                     () => this.GetRepository<User>().GetRecentUsers(
-                         60 * 24 * 30,
-                         this.PageContext.BoardSettings.UseStyledNicks),
-                     TimeSpan.FromMinutes(this.PageContext.BoardSettings.ForumStatisticsCacheTimeout));
+                    Constants.Cache.VisitorsInTheLast30Days,
+                    () => this.GetRepository<User>().GetRecentUsers(),
+                    TimeSpan.FromMinutes(this.PageContext.BoardSettings.ForumStatisticsCacheTimeout));
 
                 if (activeUsers30Day != null && activeUsers30Day.Any())
                 {

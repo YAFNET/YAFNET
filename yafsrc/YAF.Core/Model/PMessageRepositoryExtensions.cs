@@ -87,9 +87,6 @@
         /// <param name="userId">
         /// The user id.
         /// </param>
-        /// <returns>
-        /// The <see cref="dynamic"/>.
-        /// </returns>
         public static dynamic UserMessageCount(this IRepository<PMessage> repository, [NotNull] int userId)
         {
             CodeContracts.VerifyNotNull(repository);
@@ -371,10 +368,7 @@
         /// <param name="userPMessageID">
         /// The user Private Message ID.
         /// </param>
-        /// <returns>
-        /// The <see cref="dynamic"/>.
-        /// </returns>
-        public static dynamic GetMessage(this IRepository<PMessage> repository, [NotNull] int userPMessageID)
+        public static PagedPm GetMessage(this IRepository<PMessage> repository, [NotNull] int userPMessageID)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -396,14 +390,14 @@
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<dynamic> List(
+        public static List<PagedPm> List(
             this IRepository<PMessage> repository,
             [NotNull] int userPMessageID,
             [NotNull] bool includeReplies)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            List<dynamic> messages = repository.DbAccess.Execute(
+            List<PagedPm> messages = repository.DbAccess.Execute(
                 db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<PMessage>();
@@ -440,7 +434,7 @@
                                 IsDeleted = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&8")})")
                             });
 
-                    return db.Connection.Select<object>(expression);
+                    return db.Connection.Select<PagedPm>(expression);
                 });
 
             return includeReplies
@@ -457,12 +451,9 @@
         /// <param name="messages">
         /// The messages.
         /// </param>
-        /// <returns>
-        /// The <see cref="IEnumerable"/>.
-        /// </returns>
-        private static IEnumerable<dynamic> GetReplies(
+        private static IEnumerable<PagedPm> GetReplies(
             this IRepository<PMessage> repository,
-            [CanBeNull] List<dynamic> messages)
+            [CanBeNull] List<PagedPm> messages)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -473,7 +464,7 @@
 
             var message = messages.FirstOrDefault();
 
-            var replyTo = (int?)message.ReplyTo;
+            var replyTo = message.ReplyTo;
 
             if (replyTo is > 0)
             {
@@ -488,7 +479,7 @@
             else
             {
                 // Check if this Message has replies
-                var replies = repository.ListReplies((int)message.PMessageID);
+                var replies = repository.ListReplies(message.PMessageID);
 
                 if (replies.Any())
                 {
@@ -511,11 +502,11 @@
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        private static List<dynamic> ListReplies(this IRepository<PMessage> repository, [NotNull] int replyPMessageId)
+        private static List<PagedPm> ListReplies(this IRepository<PMessage> repository, [NotNull] int replyPMessageId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            List<dynamic> messages = repository.DbAccess.Execute(
+            List<PagedPm> messages = repository.DbAccess.Execute(
                 db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<PMessage>();
@@ -544,14 +535,13 @@
                                 a.Subject,
                                 a.Body,
                                 a.Flags,
-                                IsRead = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&1")})"),
                                 b.IsReply,
                                 IsInOutbox = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&2")})"),
                                 IsArchived = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&4")})"),
                                 IsDeleted = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&8")})")
                             });
 
-                    return db.Connection.Select<object>(expression);
+                    return db.Connection.Select<PagedPm>(expression);
                 });
 
             return messages.OrderBy(m => m.Created).ToList();
