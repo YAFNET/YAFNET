@@ -14189,21 +14189,6 @@
         }
         return null;
     };
-    const emulateTransitionEnd = (element, duration) => {
-        let called = false;
-        const durationPadding = 5;
-        const emulatedDuration = duration + durationPadding;
-        function listener() {
-            called = true;
-            element.removeEventListener(TRANSITION_END, listener);
-        }
-        element.addEventListener(TRANSITION_END, listener);
-        setTimeout(() => {
-            if (!called) {
-                triggerTransitionEnd(element);
-            }
-        }, emulatedDuration);
-    };
     const typeCheckConfig = (componentName, config, configTypes) => {
         Object.keys(configTypes).forEach(property => {
             const expectedTypes = configTypes[property];
@@ -14215,15 +14200,10 @@
         });
     };
     const isVisible = element => {
-        if (!element) {
+        if (!isElement$1(element) || element.getClientRects().length === 0) {
             return false;
         }
-        if (element.style && element.parentNode && element.parentNode.style) {
-            const elementStyle = getComputedStyle(element);
-            const parentNodeStyle = getComputedStyle(element.parentNode);
-            return elementStyle.display !== "none" && parentNodeStyle.display !== "none" && elementStyle.visibility !== "hidden";
-        }
-        return false;
+        return getComputedStyle(element).getPropertyValue("visibility") === "visible";
     };
     const isDisabled = element => {
         if (!element || element.nodeType !== Node.ELEMENT_NODE) {
@@ -14264,9 +14244,15 @@
         }
         return null;
     };
+    const DOMContentLoadedCallbacks = [];
     const onDOMContentLoaded = callback => {
         if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", callback);
+            if (!DOMContentLoadedCallbacks.length) {
+                document.addEventListener("DOMContentLoaded", () => {
+                    DOMContentLoadedCallbacks.forEach(callback => callback());
+                });
+            }
+            DOMContentLoadedCallbacks.push(callback);
         } else {
             callback();
         }
@@ -14292,35 +14278,42 @@
             callback();
         }
     };
-    const elementMap = new Map();
-    var Data = {
-        set(element, key, instance) {
-            if (!elementMap.has(element)) {
-                elementMap.set(element, new Map());
-            }
-            const instanceMap = elementMap.get(element);
-            if (!instanceMap.has(key) && instanceMap.size !== 0) {
-                console.error(`Bootstrap doesn't allow more than one instance per element. Bound instance: ${Array.from(instanceMap.keys())[0]}.`);
-                return;
-            }
-            instanceMap.set(key, instance);
-        },
-        get(element, key) {
-            if (elementMap.has(element)) {
-                return elementMap.get(element).get(key) || null;
-            }
-            return null;
-        },
-        remove(element, key) {
-            if (!elementMap.has(element)) {
-                return;
-            }
-            const instanceMap = elementMap.get(element);
-            instanceMap.delete(key);
-            if (instanceMap.size === 0) {
-                elementMap.delete(element);
-            }
+    const executeAfterTransition = (callback, transitionElement, waitForTransition = true) => {
+        if (!waitForTransition) {
+            execute(callback);
+            return;
         }
+        const durationPadding = 5;
+        const emulatedDuration = getTransitionDurationFromElement(transitionElement) + durationPadding;
+        let called = false;
+        const handler = ({
+            target
+        }) => {
+            if (target !== transitionElement) {
+                return;
+            }
+            called = true;
+            transitionElement.removeEventListener(TRANSITION_END, handler);
+            execute(callback);
+        };
+        transitionElement.addEventListener(TRANSITION_END, handler);
+        setTimeout(() => {
+            if (!called) {
+                triggerTransitionEnd(transitionElement);
+            }
+        }, emulatedDuration);
+    };
+    const getNextActiveElement = (list, activeElement, shouldGetNext, isCycleAllowed) => {
+        let index = list.indexOf(activeElement);
+        if (index === -1) {
+            return list[!shouldGetNext && isCycleAllowed ? list.length - 1 : 0];
+        }
+        const listLength = list.length;
+        index += shouldGetNext ? 1 : -1;
+        if (isCycleAllowed) {
+            index = (index + listLength) % listLength;
+        }
+        return list[Math.max(0, Math.min(index, listLength - 1))];
     };
     const namespaceRegex = /[^.]*(?=\..*)\.|.*/;
     const stripNameRegex = /\..*/;
@@ -14536,7 +14529,37 @@
             return evt;
         }
     };
-    const VERSION = "5.0.1";
+    const elementMap = new Map();
+    var Data = {
+        set(element, key, instance) {
+            if (!elementMap.has(element)) {
+                elementMap.set(element, new Map());
+            }
+            const instanceMap = elementMap.get(element);
+            if (!instanceMap.has(key) && instanceMap.size !== 0) {
+                console.error(`Bootstrap doesn't allow more than one instance per element. Bound instance: ${Array.from(instanceMap.keys())[0]}.`);
+                return;
+            }
+            instanceMap.set(key, instance);
+        },
+        get(element, key) {
+            if (elementMap.has(element)) {
+                return elementMap.get(element).get(key) || null;
+            }
+            return null;
+        },
+        remove(element, key) {
+            if (!elementMap.has(element)) {
+                return;
+            }
+            const instanceMap = elementMap.get(element);
+            instanceMap.delete(key);
+            if (instanceMap.size === 0) {
+                elementMap.delete(element);
+            }
+        }
+    };
+    const VERSION = "5.0.2";
     class BaseComponent {
         constructor(element) {
             element = getElement(element);
@@ -14554,16 +14577,13 @@
             });
         }
         _queueCallback(callback, element, isAnimated = true) {
-            if (!isAnimated) {
-                execute(callback);
-                return;
-            }
-            const transitionDuration = getTransitionDurationFromElement(element);
-            EventHandler.one(element, "transitionend", () => execute(callback));
-            emulateTransitionEnd(element, transitionDuration);
+            executeAfterTransition(callback, element, isAnimated);
         }
         static getInstance(element) {
             return Data.get(element, this.DATA_KEY);
+        }
+        static getOrCreateInstance(element, config = {}) {
+            return this.getInstance(element) || new this(element, typeof config === "object" ? config : null);
         }
         static get VERSION() {
             return VERSION;
@@ -14613,17 +14633,12 @@
             this._queueCallback(() => this._destroyElement(element), element, isAnimated);
         }
         _destroyElement(element) {
-            if (element.parentNode) {
-                element.parentNode.removeChild(element);
-            }
+            element.remove();
             EventHandler.trigger(element, EVENT_CLOSED);
         }
         static jQueryInterface(config) {
             return this.each(function() {
-                let data = Data.get(this, DATA_KEY$b);
-                if (!data) {
-                    data = new Alert(this);
-                }
+                const data = Alert.getOrCreateInstance(this);
                 if (config === "close") {
                     data[config](this);
                 }
@@ -14656,10 +14671,7 @@
         }
         static jQueryInterface(config) {
             return this.each(function() {
-                let data = Data.get(this, DATA_KEY$a);
-                if (!data) {
-                    data = new Button(this);
-                }
+                const data = Button.getOrCreateInstance(this);
                 if (config === "toggle") {
                     data[config]();
                 }
@@ -14669,10 +14681,7 @@
     EventHandler.on(document, EVENT_CLICK_DATA_API$6, SELECTOR_DATA_TOGGLE$5, event => {
         event.preventDefault();
         const button = event.target.closest(SELECTOR_DATA_TOGGLE$5);
-        let data = Data.get(button, DATA_KEY$a);
-        if (!data) {
-            data = new Button(button);
-        }
+        const data = Button.getOrCreateInstance(button);
         data.toggle();
     });
     defineJQueryPlugin(Button);
@@ -14758,6 +14767,10 @@
     const ORDER_PREV = "prev";
     const DIRECTION_LEFT = "left";
     const DIRECTION_RIGHT = "right";
+    const KEY_TO_DIRECTION = {
+        [ARROW_LEFT_KEY]: DIRECTION_RIGHT,
+        [ARROW_RIGHT_KEY]: DIRECTION_LEFT
+    };
     const EVENT_SLIDE = `slide${EVENT_KEY$9}`;
     const EVENT_SLID = `slid${EVENT_KEY$9}`;
     const EVENT_KEYDOWN = `keydown${EVENT_KEY$9}`;
@@ -14814,9 +14827,7 @@
             return NAME$a;
         }
         next() {
-            if (!this._isSliding) {
-                this._slide(ORDER_NEXT);
-            }
+            this._slide(ORDER_NEXT);
         }
         nextWhenVisible() {
             if (!document.hidden && isVisible(this._element)) {
@@ -14824,9 +14835,7 @@
             }
         }
         prev() {
-            if (!this._isSliding) {
-                this._slide(ORDER_PREV);
-            }
+            this._slide(ORDER_PREV);
         }
         pause(event) {
             if (!event) {
@@ -14873,7 +14882,8 @@
         _getConfig(config) {
             config = {
                 ...Default$9,
-                ...config
+                ...Manipulator.getDataAttributes(this._element),
+                ...typeof config === "object" ? config : {}
             };
             typeCheckConfig(NAME$a, config, DefaultType$9);
             return config;
@@ -14943,12 +14953,10 @@
             if (/input|textarea/i.test(event.target.tagName)) {
                 return;
             }
-            if (event.key === ARROW_LEFT_KEY) {
+            const direction = KEY_TO_DIRECTION[event.key];
+            if (direction) {
                 event.preventDefault();
-                this._slide(DIRECTION_RIGHT);
-            } else if (event.key === ARROW_RIGHT_KEY) {
-                event.preventDefault();
-                this._slide(DIRECTION_LEFT);
+                this._slide(direction);
             }
         }
         _getItemIndex(element) {
@@ -14957,16 +14965,7 @@
         }
         _getItemByOrder(order, activeElement) {
             const isNext = order === ORDER_NEXT;
-            const isPrev = order === ORDER_PREV;
-            const activeIndex = this._getItemIndex(activeElement);
-            const lastItemIndex = this._items.length - 1;
-            const isGoingToWrap = isPrev && activeIndex === 0 || isNext && activeIndex === lastItemIndex;
-            if (isGoingToWrap && !this._config.wrap) {
-                return activeElement;
-            }
-            const delta = isPrev ? -1 : 1;
-            const itemIndex = (activeIndex + delta) % this._items.length;
-            return itemIndex === -1 ? this._items[this._items.length - 1] : this._items[itemIndex];
+            return getNextActiveElement(this._items, activeElement, isNext, this._config.wrap);
         }
         _triggerSlideEvent(relatedTarget, eventDirectionName) {
             const targetIndex = this._getItemIndex(relatedTarget);
@@ -15019,6 +15018,9 @@
             const eventDirectionName = this._orderToDirection(order);
             if (nextElement && nextElement.classList.contains(CLASS_NAME_ACTIVE$2)) {
                 this._isSliding = false;
+                return;
+            }
+            if (this._isSliding) {
                 return;
             }
             const slideEvent = this._triggerSlideEvent(nextElement, eventDirectionName);
@@ -15084,11 +15086,10 @@
             return order === ORDER_PREV ? DIRECTION_RIGHT : DIRECTION_LEFT;
         }
         static carouselInterface(element, config) {
-            let data = Data.get(element, DATA_KEY$9);
-            let _config = {
-                ...Default$9,
-                ...Manipulator.getDataAttributes(element)
-            };
+            const data = Carousel.getOrCreateInstance(element, config);
+            let {
+                _config
+            } = data;
             if (typeof config === "object") {
                 _config = {
                     ..._config,
@@ -15096,9 +15097,6 @@
                 };
             }
             const action = typeof config === "string" ? config : _config.slide;
-            if (!data) {
-                data = new Carousel(element, _config);
-            }
             if (typeof config === "number") {
                 data.to(config);
             } else if (typeof action === "string") {
@@ -15131,7 +15129,7 @@
             }
             Carousel.carouselInterface(target, config);
             if (slideIndex) {
-                Data.get(target, DATA_KEY$9).to(slideIndex);
+                Carousel.getInstance(target).to(slideIndex);
             }
             event.preventDefault();
         }
@@ -15140,7 +15138,7 @@
     EventHandler.on(window, EVENT_LOAD_DATA_API$2, () => {
         const carousels = SelectorEngine.find(SELECTOR_DATA_RIDE);
         for (let i = 0, len = carousels.length; i < len; i++) {
-            Carousel.carouselInterface(carousels[i], Data.get(carousels[i], DATA_KEY$9));
+            Carousel.carouselInterface(carousels[i], Carousel.getInstance(carousels[i]));
         }
     });
     defineJQueryPlugin(Carousel);
@@ -15226,7 +15224,7 @@
             const container = SelectorEngine.findOne(this._selector);
             if (actives) {
                 const tempActiveData = actives.find(elem => container !== elem);
-                activesData = tempActiveData ? Data.get(tempActiveData, DATA_KEY$8) : null;
+                activesData = tempActiveData ? Collapse.getInstance(tempActiveData) : null;
                 if (activesData && activesData._isTransitioning) {
                     return;
                 }
@@ -15344,7 +15342,7 @@
             });
         }
         static collapseInterface(element, config) {
-            let data = Data.get(element, DATA_KEY$8);
+            let data = Collapse.getInstance(element);
             const _config = {
                 ...Default$8,
                 ...Manipulator.getDataAttributes(element),
@@ -15377,7 +15375,7 @@
         const selector = getSelectorFromElement(this);
         const selectorElements = SelectorEngine.find(selector);
         selectorElements.forEach(element => {
-            const data = Data.get(element, DATA_KEY$8);
+            const data = Collapse.getInstance(element);
             let config;
             if (data) {
                 if (data._parent === null && typeof triggerData.parent === "string") {
@@ -16229,7 +16227,7 @@
             return overflow[side] >= 0;
         });
     }
-    function hide$1(_ref) {
+    function hide(_ref) {
         var state = _ref.state, name = _ref.name;
         var referenceRect = state.rects.reference;
         var popperRect = state.rects.popper;
@@ -16255,12 +16253,12 @@
             "data-popper-escaped": hasPopperEscaped
         });
     }
-    var hide$2 = {
+    var hide$1 = {
         name: "hide",
         enabled: true,
         phase: "main",
         requiresIfExists: [ "preventOverflow" ],
-        fn: hide$1
+        fn: hide
     };
     function distanceAndSkiddingToXY(placement, rects, offset) {
         var basePlacement = getBasePlacement(placement);
@@ -16639,7 +16637,7 @@
     var createPopper$1 = popperGenerator({
         defaultModifiers: defaultModifiers$1
     });
-    var defaultModifiers = [ eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1, offset$1, flip$1, preventOverflow$1, arrow$1, hide$2 ];
+    var defaultModifiers = [ eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1, offset$1, flip$1, preventOverflow$1, arrow$1, hide$1 ];
     var createPopper = popperGenerator({
         defaultModifiers: defaultModifiers
     });
@@ -16679,7 +16677,7 @@
         computeStyles: computeStyles$1,
         eventListeners: eventListeners,
         flip: flip$1,
-        hide: hide$2,
+        hide: hide$1,
         offset: offset$1,
         popperOffsets: popperOffsets$1,
         preventOverflow: preventOverflow$1
@@ -16919,27 +16917,18 @@
                 ...typeof this._config.popperConfig === "function" ? this._config.popperConfig(defaultBsPopperConfig) : this._config.popperConfig
             };
         }
-        _selectMenuItem(event) {
+        _selectMenuItem({
+            key,
+            target
+        }) {
             const items = SelectorEngine.find(SELECTOR_VISIBLE_ITEMS, this._menu).filter(isVisible);
             if (!items.length) {
                 return;
             }
-            let index = items.indexOf(event.target);
-            if (event.key === ARROW_UP_KEY && index > 0) {
-                index--;
-            }
-            if (event.key === ARROW_DOWN_KEY && index < items.length - 1) {
-                index++;
-            }
-            index = index === -1 ? 0 : index;
-            items[index].focus();
+            getNextActiveElement(items, target, key === ARROW_DOWN_KEY, !items.includes(target)).focus();
         }
         static dropdownInterface(element, config) {
-            let data = Data.get(element, DATA_KEY$7);
-            const _config = typeof config === "object" ? config : null;
-            if (!data) {
-                data = new Dropdown(element, _config);
-            }
+            const data = Dropdown.getOrCreateInstance(element, config);
             if (typeof config === "string") {
                 if (typeof data[config] === "undefined") {
                     throw new TypeError(`No method named "${config}"`);
@@ -16958,7 +16947,7 @@
             }
             const toggles = SelectorEngine.find(SELECTOR_DATA_TOGGLE$3);
             for (let i = 0, len = toggles.length; i < len; i++) {
-                const context = Data.get(toggles[i], DATA_KEY$7);
+                const context = Dropdown.getInstance(toggles[i]);
                 if (!context || context._config.autoClose === false) {
                     continue;
                 }
@@ -17006,15 +16995,16 @@
                 Dropdown.clearMenus();
                 return;
             }
-            if (!isActive && (event.key === ARROW_UP_KEY || event.key === ARROW_DOWN_KEY)) {
-                getToggleButton().click();
+            if (event.key === ARROW_UP_KEY || event.key === ARROW_DOWN_KEY) {
+                if (!isActive) {
+                    getToggleButton().click();
+                }
+                Dropdown.getInstance(getToggleButton())._selectMenuItem(event);
                 return;
             }
             if (!isActive || event.key === SPACE_KEY) {
                 Dropdown.clearMenus();
-                return;
             }
-            Dropdown.getInstance(getToggleButton())._selectMenuItem(event);
         }
     }
     EventHandler.on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE$3, Dropdown.dataApiKeydownHandler);
@@ -17028,62 +17018,82 @@
     defineJQueryPlugin(Dropdown);
     const SELECTOR_FIXED_CONTENT = ".fixed-top, .fixed-bottom, .is-fixed, .sticky-top";
     const SELECTOR_STICKY_CONTENT = ".sticky-top";
-    const getWidth = () => {
-        const documentWidth = document.documentElement.clientWidth;
-        return Math.abs(window.innerWidth - documentWidth);
-    };
-    const hide = (width = getWidth()) => {
-        _disableOverFlow();
-        _setElementAttributes("body", "paddingRight", calculatedValue => calculatedValue + width);
-        _setElementAttributes(SELECTOR_FIXED_CONTENT, "paddingRight", calculatedValue => calculatedValue + width);
-        _setElementAttributes(SELECTOR_STICKY_CONTENT, "marginRight", calculatedValue => calculatedValue - width);
-    };
-    const _disableOverFlow = () => {
-        const actualValue = document.body.style.overflow;
-        if (actualValue) {
-            Manipulator.setDataAttribute(document.body, "overflow", actualValue);
+    class ScrollBarHelper {
+        constructor() {
+            this._element = document.body;
         }
-        document.body.style.overflow = "hidden";
-    };
-    const _setElementAttributes = (selector, styleProp, callback) => {
-        const scrollbarWidth = getWidth();
-        SelectorEngine.find(selector).forEach(element => {
-            if (element !== document.body && window.innerWidth > element.clientWidth + scrollbarWidth) {
-                return;
-            }
+        getWidth() {
+            const documentWidth = document.documentElement.clientWidth;
+            return Math.abs(window.innerWidth - documentWidth);
+        }
+        hide() {
+            const width = this.getWidth();
+            this._disableOverFlow();
+            this._setElementAttributes(this._element, "paddingRight", calculatedValue => calculatedValue + width);
+            this._setElementAttributes(SELECTOR_FIXED_CONTENT, "paddingRight", calculatedValue => calculatedValue + width);
+            this._setElementAttributes(SELECTOR_STICKY_CONTENT, "marginRight", calculatedValue => calculatedValue - width);
+        }
+        _disableOverFlow() {
+            this._saveInitialAttribute(this._element, "overflow");
+            this._element.style.overflow = "hidden";
+        }
+        _setElementAttributes(selector, styleProp, callback) {
+            const scrollbarWidth = this.getWidth();
+            const manipulationCallBack = element => {
+                if (element !== this._element && window.innerWidth > element.clientWidth + scrollbarWidth) {
+                    return;
+                }
+                this._saveInitialAttribute(element, styleProp);
+                const calculatedValue = window.getComputedStyle(element)[styleProp];
+                element.style[styleProp] = `${callback(Number.parseFloat(calculatedValue))}px`;
+            };
+            this._applyManipulationCallback(selector, manipulationCallBack);
+        }
+        reset() {
+            this._resetElementAttributes(this._element, "overflow");
+            this._resetElementAttributes(this._element, "paddingRight");
+            this._resetElementAttributes(SELECTOR_FIXED_CONTENT, "paddingRight");
+            this._resetElementAttributes(SELECTOR_STICKY_CONTENT, "marginRight");
+        }
+        _saveInitialAttribute(element, styleProp) {
             const actualValue = element.style[styleProp];
-            const calculatedValue = window.getComputedStyle(element)[styleProp];
-            Manipulator.setDataAttribute(element, styleProp, actualValue);
-            element.style[styleProp] = `${callback(Number.parseFloat(calculatedValue))}px`;
-        });
-    };
-    const reset = () => {
-        _resetElementAttributes("body", "overflow");
-        _resetElementAttributes("body", "paddingRight");
-        _resetElementAttributes(SELECTOR_FIXED_CONTENT, "paddingRight");
-        _resetElementAttributes(SELECTOR_STICKY_CONTENT, "marginRight");
-    };
-    const _resetElementAttributes = (selector, styleProp) => {
-        SelectorEngine.find(selector).forEach(element => {
-            const value = Manipulator.getDataAttribute(element, styleProp);
-            if (typeof value === "undefined") {
-                element.style.removeProperty(styleProp);
-            } else {
-                Manipulator.removeDataAttribute(element, styleProp);
-                element.style[styleProp] = value;
+            if (actualValue) {
+                Manipulator.setDataAttribute(element, styleProp, actualValue);
             }
-        });
-    };
+        }
+        _resetElementAttributes(selector, styleProp) {
+            const manipulationCallBack = element => {
+                const value = Manipulator.getDataAttribute(element, styleProp);
+                if (typeof value === "undefined") {
+                    element.style.removeProperty(styleProp);
+                } else {
+                    Manipulator.removeDataAttribute(element, styleProp);
+                    element.style[styleProp] = value;
+                }
+            };
+            this._applyManipulationCallback(selector, manipulationCallBack);
+        }
+        _applyManipulationCallback(selector, callBack) {
+            if (isElement$1(selector)) {
+                callBack(selector);
+            } else {
+                SelectorEngine.find(selector, this._element).forEach(callBack);
+            }
+        }
+        isOverflowing() {
+            return this.getWidth() > 0;
+        }
+    }
     const Default$6 = {
         isVisible: true,
         isAnimated: false,
-        rootElement: document.body,
+        rootElement: "body",
         clickCallback: null
     };
     const DefaultType$6 = {
         isVisible: "boolean",
         isAnimated: "boolean",
-        rootElement: "element",
+        rootElement: "(element|string)",
         clickCallback: "(function|null)"
     };
     const NAME$7 = "backdrop";
@@ -17138,7 +17148,7 @@
                 ...Default$6,
                 ...typeof config === "object" ? config : {}
             };
-            config.rootElement = config.rootElement || document.body;
+            config.rootElement = getElement(config.rootElement);
             typeCheckConfig(NAME$7, config, DefaultType$6);
             return config;
         }
@@ -17157,17 +17167,11 @@
                 return;
             }
             EventHandler.off(this._element, EVENT_MOUSEDOWN);
-            this._getElement().parentNode.removeChild(this._element);
+            this._element.remove();
             this._isAppended = false;
         }
         _emulateAnimation(callback) {
-            if (!this._config.isAnimated) {
-                execute(callback);
-                return;
-            }
-            const backdropTransitionDuration = getTransitionDurationFromElement(this._getElement());
-            EventHandler.one(this._getElement(), "transitionend", () => execute(callback));
-            emulateTransitionEnd(this._getElement(), backdropTransitionDuration);
+            executeAfterTransition(callback, this._getElement(), this._config.isAnimated);
         }
     }
     const NAME$6 = "modal";
@@ -17214,6 +17218,7 @@
             this._isShown = false;
             this._ignoreBackdropClick = false;
             this._isTransitioning = false;
+            this._scrollBar = new ScrollBarHelper();
         }
         static get Default() {
             return Default$5;
@@ -17228,17 +17233,17 @@
             if (this._isShown || this._isTransitioning) {
                 return;
             }
-            if (this._isAnimated()) {
-                this._isTransitioning = true;
-            }
             const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$3, {
                 relatedTarget: relatedTarget
             });
-            if (this._isShown || showEvent.defaultPrevented) {
+            if (showEvent.defaultPrevented) {
                 return;
             }
             this._isShown = true;
-            hide();
+            if (this._isAnimated()) {
+                this._isTransitioning = true;
+            }
+            this._scrollBar.hide();
             document.body.classList.add(CLASS_NAME_OPEN);
             this._adjustDialog();
             this._setEscapeEvent();
@@ -17254,7 +17259,7 @@
             this._showBackdrop(() => this._showElement(relatedTarget));
         }
         hide(event) {
-            if (event) {
+            if (event && [ "A", "AREA" ].includes(event.target.tagName)) {
                 event.preventDefault();
             }
             if (!this._isShown || this._isTransitioning) {
@@ -17296,7 +17301,7 @@
             config = {
                 ...Default$5,
                 ...Manipulator.getDataAttributes(this._element),
-                ...config
+                ...typeof config === "object" ? config : {}
             };
             typeCheckConfig(NAME$6, config, DefaultType$5);
             return config;
@@ -17371,7 +17376,7 @@
             this._backdrop.hide(() => {
                 document.body.classList.remove(CLASS_NAME_OPEN);
                 this._resetAdjustments();
-                reset();
+                this._scrollBar.reset();
                 EventHandler.trigger(this._element, EVENT_HIDDEN$3);
             });
         }
@@ -17400,28 +17405,32 @@
             if (hideEvent.defaultPrevented) {
                 return;
             }
-            const isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
-            if (!isModalOverflowing) {
-                this._element.style.overflowY = "hidden";
+            const {
+                classList,
+                scrollHeight,
+                style
+            } = this._element;
+            const isModalOverflowing = scrollHeight > document.documentElement.clientHeight;
+            if (!isModalOverflowing && style.overflowY === "hidden" || classList.contains(CLASS_NAME_STATIC)) {
+                return;
             }
-            this._element.classList.add(CLASS_NAME_STATIC);
-            const modalTransitionDuration = getTransitionDurationFromElement(this._dialog);
-            EventHandler.off(this._element, "transitionend");
-            EventHandler.one(this._element, "transitionend", () => {
-                this._element.classList.remove(CLASS_NAME_STATIC);
+            if (!isModalOverflowing) {
+                style.overflowY = "hidden";
+            }
+            classList.add(CLASS_NAME_STATIC);
+            this._queueCallback(() => {
+                classList.remove(CLASS_NAME_STATIC);
                 if (!isModalOverflowing) {
-                    EventHandler.one(this._element, "transitionend", () => {
-                        this._element.style.overflowY = "";
-                    });
-                    emulateTransitionEnd(this._element, modalTransitionDuration);
+                    this._queueCallback(() => {
+                        style.overflowY = "";
+                    }, this._dialog);
                 }
-            });
-            emulateTransitionEnd(this._element, modalTransitionDuration);
+            }, this._dialog);
             this._element.focus();
         }
         _adjustDialog() {
             const isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
-            const scrollbarWidth = getWidth();
+            const scrollbarWidth = this._scrollBar.getWidth();
             const isBodyOverflowing = scrollbarWidth > 0;
             if (!isBodyOverflowing && isModalOverflowing && !isRTL() || isBodyOverflowing && !isModalOverflowing && isRTL()) {
                 this._element.style.paddingLeft = `${scrollbarWidth}px`;
@@ -17436,7 +17445,7 @@
         }
         static jQueryInterface(config, relatedTarget) {
             return this.each(function() {
-                const data = Modal.getInstance(this) || new Modal(this, typeof config === "object" ? config : {});
+                const data = Modal.getOrCreateInstance(this, config);
                 if (typeof config !== "string") {
                     return;
                 }
@@ -17462,7 +17471,7 @@
                 }
             });
         });
-        const data = Modal.getInstance(target) || new Modal(target);
+        const data = Modal.getOrCreateInstance(target);
         data.toggle(this);
     });
     defineJQueryPlugin(Modal);
@@ -17525,7 +17534,7 @@
             this._element.style.visibility = "visible";
             this._backdrop.show();
             if (!this._config.scroll) {
-                hide();
+                new ScrollBarHelper().hide();
                 this._enforceFocusOnElement(this._element);
             }
             this._element.removeAttribute("aria-hidden");
@@ -17558,7 +17567,7 @@
                 this._element.removeAttribute("role");
                 this._element.style.visibility = "hidden";
                 if (!this._config.scroll) {
-                    reset();
+                    new ScrollBarHelper().reset();
                 }
                 EventHandler.trigger(this._element, EVENT_HIDDEN$2);
             };
@@ -17605,7 +17614,7 @@
         }
         static jQueryInterface(config) {
             return this.each(function() {
-                const data = Data.get(this, DATA_KEY$5) || new Offcanvas(this, typeof config === "object" ? config : {});
+                const data = Offcanvas.getOrCreateInstance(this, config);
                 if (typeof config !== "string") {
                     return;
                 }
@@ -17633,12 +17642,10 @@
         if (allReadyOpen && allReadyOpen !== target) {
             Offcanvas.getInstance(allReadyOpen).hide();
         }
-        const data = Data.get(target, DATA_KEY$5) || new Offcanvas(target);
+        const data = Offcanvas.getOrCreateInstance(target);
         data.toggle(this);
     });
-    EventHandler.on(window, EVENT_LOAD_DATA_API$1, () => {
-        SelectorEngine.find(OPEN_SELECTOR).forEach(el => (Data.get(el, DATA_KEY$5) || new Offcanvas(el)).show());
-    });
+    EventHandler.on(window, EVENT_LOAD_DATA_API$1, () => SelectorEngine.find(OPEN_SELECTOR).forEach(el => Offcanvas.getOrCreateInstance(el).show()));
     defineJQueryPlugin(Offcanvas);
     const uriAttrs = new Set([ "background", "cite", "href", "itemtype", "longdesc", "poster", "src", "xlink:href" ]);
     const ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
@@ -17707,7 +17714,7 @@
             const el = elements[i];
             const elName = el.nodeName.toLowerCase();
             if (!allowlistKeys.includes(elName)) {
-                el.parentNode.removeChild(el);
+                el.remove();
                 continue;
             }
             const attributeList = [].concat(...el.attributes);
@@ -17852,8 +17859,8 @@
         dispose() {
             clearTimeout(this._timeout);
             EventHandler.off(this._element.closest(`.${CLASS_NAME_MODAL}`), "hide.bs.modal", this._hideModalHandler);
-            if (this.tip && this.tip.parentNode) {
-                this.tip.parentNode.removeChild(this.tip);
+            if (this.tip) {
+                this.tip.remove();
             }
             if (this._popper) {
                 this._popper.destroy();
@@ -17927,8 +17934,8 @@
                 if (this._isWithActiveTrigger()) {
                     return;
                 }
-                if (this._hoverState !== HOVER_STATE_SHOW && tip.parentNode) {
-                    tip.parentNode.removeChild(tip);
+                if (this._hoverState !== HOVER_STATE_SHOW) {
+                    tip.remove();
                 }
                 this._cleanTipClass();
                 this._element.removeAttribute("aria-describedby");
@@ -18233,14 +18240,7 @@
         }
         static jQueryInterface(config) {
             return this.each(function() {
-                let data = Data.get(this, DATA_KEY$4);
-                const _config = typeof config === "object" && config;
-                if (!data && /dispose|hide/.test(config)) {
-                    return;
-                }
-                if (!data) {
-                    data = new Tooltip(this, _config);
-                }
+                const data = Tooltip.getOrCreateInstance(this, config);
                 if (typeof config === "string") {
                     if (typeof data[config] === "undefined") {
                         throw new TypeError(`No method named "${config}"`);
@@ -18300,6 +18300,19 @@
         isWithContent() {
             return this.getTitle() || this._getContent();
         }
+        getTipElement() {
+            if (this.tip) {
+                return this.tip;
+            }
+            this.tip = super.getTipElement();
+            if (!this.getTitle()) {
+                SelectorEngine.findOne(SELECTOR_TITLE, this.tip).remove();
+            }
+            if (!this._getContent()) {
+                SelectorEngine.findOne(SELECTOR_CONTENT, this.tip).remove();
+            }
+            return this.tip;
+        }
         setContent() {
             const tip = this.getTipElement();
             this.setElementContent(SelectorEngine.findOne(SELECTOR_TITLE, tip), this.getTitle());
@@ -18325,15 +18338,7 @@
         }
         static jQueryInterface(config) {
             return this.each(function() {
-                let data = Data.get(this, DATA_KEY$3);
-                const _config = typeof config === "object" ? config : null;
-                if (!data && /dispose|hide/.test(config)) {
-                    return;
-                }
-                if (!data) {
-                    data = new Popover(this, _config);
-                    Data.set(this, DATA_KEY$3, data);
-                }
+                const data = Popover.getOrCreateInstance(this, config);
                 if (typeof config === "string") {
                     if (typeof data[config] === "undefined") {
                         throw new TypeError(`No method named "${config}"`);
@@ -18499,7 +18504,7 @@
         }
         static jQueryInterface(config) {
             return this.each(function() {
-                const data = ScrollSpy.getInstance(this) || new ScrollSpy(this, typeof config === "object" ? config : {});
+                const data = ScrollSpy.getOrCreateInstance(this, config);
                 if (typeof config !== "string") {
                     return;
                 }
@@ -18622,7 +18627,7 @@
         }
         static jQueryInterface(config) {
             return this.each(function() {
-                const data = Data.get(this, DATA_KEY$1) || new Tab(this);
+                const data = Tab.getOrCreateInstance(this);
                 if (typeof config === "string") {
                     if (typeof data[config] === "undefined") {
                         throw new TypeError(`No method named "${config}"`);
@@ -18639,7 +18644,7 @@
         if (isDisabled(this)) {
             return;
         }
-        const data = Data.get(this, DATA_KEY$1) || new Tab(this);
+        const data = Tab.getOrCreateInstance(this);
         data.show();
     });
     defineJQueryPlugin(Tab);
@@ -18785,11 +18790,7 @@
         }
         static jQueryInterface(config) {
             return this.each(function() {
-                let data = Data.get(this, DATA_KEY);
-                const _config = typeof config === "object" && config;
-                if (!data) {
-                    data = new Toast(this, _config);
-                }
+                const data = Toast.getOrCreateInstance(this, config);
                 if (typeof config === "string") {
                     if (typeof data[config] === "undefined") {
                         throw new TypeError(`No method named "${config}"`);
