@@ -572,6 +572,7 @@ namespace ServiceStack.OrmLite
         }
 
         public virtual string ToSelectStatement(
+            QueryType queryType,
             ModelDefinition modelDef,
             string selectExpression,
             string bodyExpression,
@@ -587,7 +588,7 @@ namespace ServiceStack.OrmLite
                 sb.Append(orderByExpression);
             }
 
-            if (offset != null || rows != null)
+            if ((queryType == QueryType.Select || (rows == 1 && offset is null or 0)) && (offset != null || rows != null))
             {
                 sb.Append("\n");
                 sb.Append(this.SqlLimit(offset, rows));
@@ -1808,8 +1809,8 @@ namespace ServiceStack.OrmLite
                    $"ADD CONSTRAINT {name} FOREIGN KEY ({this.GetQuotedColumnName(fieldName)}) " +
                    $"REFERENCES {this.GetQuotedTableName(referenceMD)} " +
                    $"({this.GetQuotedColumnName(referenceFieldName)})" +
-                   $"{this.GetForeignKeyOnDeleteClause(new ForeignKeyConstraint(typeof(T), onDelete: this.FkOptionToString(onDelete)))}" +
-                   $"{this.GetForeignKeyOnUpdateClause(new ForeignKeyConstraint(typeof(T), onUpdate: this.FkOptionToString(onUpdate)))};";
+                   $" {this.GetForeignKeyOnDeleteClause(new ForeignKeyConstraint(typeof(T), onDelete: this.FkOptionToString(onDelete)))}" +
+                   $" {this.GetForeignKeyOnUpdateClause(new ForeignKeyConstraint(typeof(T), onUpdate: this.FkOptionToString(onUpdate)))};";
         }
 
         public virtual string ToCreateIndexStatement<T>(
@@ -1887,7 +1888,7 @@ namespace ServiceStack.OrmLite
             var modelDef = expr.ModelDef;
             expr.UnsafeSelect(this.GetQuotedColumnName(modelDef, modelDef.PrimaryKey));
 
-            var subSql = expr.ToSelectStatement();
+            var subSql = expr.ToSelectStatement(QueryType.Select);
 
             return subSql;
         }

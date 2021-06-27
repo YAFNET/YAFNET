@@ -878,6 +878,7 @@ namespace ServiceStack.OrmLite.SqlServer
         }
 
         public override string ToSelectStatement(
+            QueryType queryType,
             ModelDefinition modelDef,
             string selectExpression,
             string bodyExpression,
@@ -887,13 +888,13 @@ namespace ServiceStack.OrmLite.SqlServer
         {
             var sb = StringBuilderCache.Allocate().Append(selectExpression).Append(bodyExpression);
 
-            if (!offset.HasValue && !rows.HasValue)
+            if (!offset.HasValue && !rows.HasValue || (queryType != QueryType.Select && rows != 1))
                 return StringBuilderCache.ReturnAndFree(sb) + orderByExpression;
 
-            if (offset.HasValue && offset.Value < 0)
+            if (offset is < 0)
                 throw new ArgumentException($"Skip value:'{offset.Value}' must be>=0");
 
-            if (rows.HasValue && rows.Value < 0)
+            if (rows is < 0)
                 throw new ArgumentException($"Rows value:'{rows.Value}' must be>=0");
 
             var skip = offset ?? 0;
@@ -901,7 +902,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
             var selectType = selectExpression.StartsWithIgnoreCase("SELECT DISTINCT") ? "SELECT DISTINCT" : "SELECT";
 
-            // Temporary hack till we come up with a more robust paging sln for SqlServer
+            //Temp hack for SqlServer <= 2008
             if (skip == 0)
             {
                 var sql = StringBuilderCache.ReturnAndFree(sb) + orderByExpression;

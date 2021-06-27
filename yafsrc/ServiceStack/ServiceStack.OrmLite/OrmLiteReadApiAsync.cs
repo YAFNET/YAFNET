@@ -187,7 +187,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public static Task<T> ScalarAsync<T>(this IDbConnection dbConn, ISqlExpression sqlExpression, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.ScalarAsync<T>(sqlExpression.ToSelectStatement(), sqlExpression.Params, token));
+            return dbConn.Exec(dbCmd => dbCmd.ScalarAsync<T>(sqlExpression.ToSelectStatement(QueryType.Scalar), sqlExpression.Params, token));
         }
 
         /// <summary>
@@ -214,7 +214,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public static Task<List<T>> ColumnAsync<T>(this IDbConnection dbConn, ISqlExpression query, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.ColumnAsync<T>(query.ToSelectStatement(), query.Params, token));
+            return dbConn.Exec(dbCmd => dbCmd.ColumnAsync<T>(query.ToSelectStatement(QueryType.Scalar), query.Params, token));
         }
 
         /// <summary>
@@ -241,7 +241,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public static Task<HashSet<T>> ColumnDistinctAsync<T>(this IDbConnection dbConn, ISqlExpression query, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.ColumnDistinctAsync<T>(query.ToSelectStatement(), query.Params, token));
+            return dbConn.Exec(dbCmd => dbCmd.ColumnDistinctAsync<T>(query.ToSelectStatement(QueryType.Scalar), query.Params, token));
         }
 
         /// <summary>
@@ -268,7 +268,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public static Task<Dictionary<K, List<V>>> LookupAsync<K, V>(this IDbConnection dbConn, ISqlExpression sqlExpression, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.LookupAsync<K, V>(sqlExpression.ToSelectStatement(), sqlExpression.Params, token));
+            return dbConn.Exec(dbCmd => dbCmd.LookupAsync<K, V>(sqlExpression.ToSelectStatement(QueryType.Scalar), sqlExpression.Params, token));
         }
 
         /// <summary>
@@ -295,7 +295,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public static Task<Dictionary<K, V>> DictionaryAsync<K, V>(this IDbConnection dbConn, ISqlExpression query, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.DictionaryAsync<K, V>(query.ToSelectStatement(), query.Params, token));
+            return dbConn.Exec(dbCmd => dbCmd.DictionaryAsync<K, V>(query.ToSelectStatement(QueryType.Scalar), query.Params, token));
         }
 
         /// <summary>
@@ -322,7 +322,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public static Task<List<KeyValuePair<K, V>>> KeyValuePairsAsync<K, V>(this IDbConnection dbConn, ISqlExpression query, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.KeyValuePairsAsync<K, V>(query.ToSelectStatement(), query.Params, token));
+            return dbConn.Exec(dbCmd => dbCmd.KeyValuePairsAsync<K, V>(query.ToSelectStatement(QueryType.Scalar), query.Params, token));
         }
 
         /// <summary>
@@ -385,7 +385,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public static Task<List<T>> SqlListAsync<T>(this IDbConnection dbConn, ISqlExpression sqlExpression, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.SqlListAsync<T>(sqlExpression.ToSelectStatement(), sqlExpression.Params, token));
+            return dbConn.Exec(dbCmd => dbCmd.SqlListAsync<T>(sqlExpression.ToSelectStatement(QueryType.Scalar), sqlExpression.Params, token));
         }
 
         /// <summary>
@@ -430,7 +430,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public static Task<List<T>> SqlColumnAsync<T>(this IDbConnection dbConn, ISqlExpression sqlExpression, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.SqlColumnAsync<T>(sqlExpression.ToSelectStatement(), sqlExpression.Params, token));
+            return dbConn.Exec(dbCmd => dbCmd.SqlColumnAsync<T>(sqlExpression.ToSelectStatement(QueryType.Scalar), sqlExpression.Params, token));
         }
 
         /// <summary>
@@ -466,7 +466,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public static Task<T> SqlScalarAsync<T>(this IDbConnection dbConn, ISqlExpression sqlExpression, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.SqlScalarAsync<T>(sqlExpression.ToSelectStatement(), sqlExpression.Params, token));
+            return dbConn.Exec(dbCmd => dbCmd.SqlScalarAsync<T>(sqlExpression.ToSelectStatement(QueryType.Scalar), sqlExpression.Params, token));
         }
 
         /// <summary>
@@ -561,7 +561,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Loads all the related references onto the instance. E.g:
-        /// <para>db.LoadReferencesAsync(customer)</para> 
+        /// <para>db.LoadReferencesAsync(customer)</para>
         /// </summary>
         public static Task LoadReferencesAsync<T>(this IDbConnection dbConn, T instance, string[] include = null, CancellationToken token = default)
         {

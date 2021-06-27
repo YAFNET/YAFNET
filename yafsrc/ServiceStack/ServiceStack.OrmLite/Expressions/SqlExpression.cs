@@ -21,16 +21,13 @@
         private List<string> orderByProperties = new();
         private string selectExpression = string.Empty;
         private string fromExpression;
-        private string whereExpression;
-        private string groupBy = string.Empty;
-        private string havingExpression;
+
         private string orderBy = string.Empty;
         public HashSet<string> OnlyFields { get; protected set; }
 
         public List<string> UpdateFields { get; set; }
         public List<string> InsertFields { get; set; }
 
-        private string sep = string.Empty;
         protected ModelDefinition modelDef;
         public string TableAlias { get; set; }
         public IOrmLiteDialectProvider DialectProvider { get; set; }
@@ -51,7 +48,7 @@
         private bool hasEnsureConditions = false;
         private bool inSqlMethodCall = false;
 
-        protected string Sep => this.sep;
+        protected string Sep { get; private set; } = string.Empty;
 
         protected SqlExpression(IOrmLiteDialectProvider dialectProvider)
         {
@@ -91,9 +88,9 @@
 
             to.TableAlias = this.TableAlias;
             to.fromExpression = this.fromExpression;
-            to.whereExpression = this.whereExpression;
-            to.groupBy = this.groupBy;
-            to.havingExpression = this.havingExpression;
+            to.WhereExpression = this.WhereExpression;
+            to.GroupByExpression = this.GroupByExpression;
+            to.HavingExpression = this.HavingExpression;
             to.orderBy = this.orderBy;
             to.orderByProperties = this.orderByProperties;
 
@@ -165,14 +162,14 @@
             if (!string.IsNullOrEmpty(this.fromExpression))
                 sb.AppendLine(this.fromExpression);
 
-            if (!string.IsNullOrEmpty(this.whereExpression))
-                sb.AppendLine(this.whereExpression);
+            if (!string.IsNullOrEmpty(this.WhereExpression))
+                sb.AppendLine(this.WhereExpression);
 
-            if (!string.IsNullOrEmpty(this.groupBy))
-                sb.AppendLine(this.groupBy);
+            if (!string.IsNullOrEmpty(this.GroupByExpression))
+                sb.AppendLine(this.GroupByExpression);
 
-            if (!string.IsNullOrEmpty(this.havingExpression))
-                sb.AppendLine(this.havingExpression);
+            if (!string.IsNullOrEmpty(this.HavingExpression))
+                sb.AppendLine(this.HavingExpression);
 
             if (!string.IsNullOrEmpty(this.orderBy))
                 sb.AppendLine(this.orderBy);
@@ -345,7 +342,7 @@
 
         private SqlExpression<T> InternalSelect(Expression fields, bool distinct = false)
         {
-            this.Reset(this.sep = string.Empty);
+            this.Reset(this.Sep = string.Empty);
 
             this.CustomSelect = true;
             var selectSql = this.Visit(fields);
@@ -364,7 +361,6 @@
         /// <param name='fields'>
         /// x=> x.SomeProperty1 or x=> new{ x.SomeProperty1, x.SomeProperty2}
         /// </param>
-        /// </typeparam>
         public virtual SqlExpression<T> Select(Expression<Func<T, object>> fields)
         {
             return this.InternalSelect(fields);
@@ -542,7 +538,7 @@
         {
             this.underlyingExpression = null; // Where() clears the expression
 
-            this.whereExpression = null;
+            this.WhereExpression = null;
             return this;
         }
 
@@ -644,7 +640,7 @@
 
         void Reset(string sep = " ", bool useFieldName = true)
         {
-            this.sep = sep;
+            this.Sep = sep;
             this.useFieldName = useFieldName;
             this.originalLambda = null;
         }
@@ -681,30 +677,30 @@
 
         protected SqlExpression<T> AppendToWhere(string condition, string sqlExpression)
         {
-            var addExpression = string.IsNullOrEmpty(this.whereExpression)
+            var addExpression = string.IsNullOrEmpty(this.WhereExpression)
                 ? (this.WhereStatementWithoutWhereString ? string.Empty : "WHERE ") + sqlExpression
                 : " " + condition + " " + sqlExpression;
 
             if (!this.hasEnsureConditions)
             {
-                this.whereExpression += addExpression;
+                this.WhereExpression += addExpression;
             }
             else
             {
-                if (this.whereExpression[this.whereExpression.Length - 1] != ')')
+                if (this.WhereExpression[this.WhereExpression.Length - 1] != ')')
                     throw new NotSupportedException("Invalid whereExpression Expression with Ensure Conditions");
 
                 // insert before normal WHERE parens: {EnsureConditions} AND (1+1)
-                if (this.whereExpression.EndsWith(TrueLiteral, StringComparison.Ordinal))
+                if (this.WhereExpression.EndsWith(TrueLiteral, StringComparison.Ordinal))
                 {
                     // insert before ^1+1)
-                    this.whereExpression = this.whereExpression.Substring(0, this.whereExpression.Length - (TrueLiteral.Length - 1))
+                    this.WhereExpression = this.WhereExpression.Substring(0, this.WhereExpression.Length - (TrueLiteral.Length - 1))
                                            + sqlExpression + ")";
                 }
                 else
                 {
                     // insert before ^)
-                    this.whereExpression = this.whereExpression.Substring(0, this.whereExpression.Length - 1)
+                    this.WhereExpression = this.WhereExpression.Substring(0, this.WhereExpression.Length - 1)
                                            + addExpression + ")";
                 }
             }
@@ -736,27 +732,27 @@
         public SqlExpression<T> Ensure(string sqlFilter, params object[] filterParams)
         {
             var condition = this.FormatFilter(sqlFilter, filterParams);
-            if (string.IsNullOrEmpty(this.whereExpression))
+            if (string.IsNullOrEmpty(this.WhereExpression))
             {
-                this.whereExpression = "WHERE " + condition
+                this.WhereExpression = "WHERE " + condition
                                                 + " AND " + TrueLiteral; // allow subsequent WHERE conditions to be inserted before parens
             }
             else
             {
                 if (!this.hasEnsureConditions)
                 {
-                    var existingExpr = this.whereExpression.StartsWith("WHERE ", StringComparison.OrdinalIgnoreCase)
-                        ? this.whereExpression.Substring("WHERE ".Length)
-                        : this.whereExpression;
+                    var existingExpr = this.WhereExpression.StartsWith("WHERE ", StringComparison.OrdinalIgnoreCase)
+                        ? this.WhereExpression.Substring("WHERE ".Length)
+                        : this.WhereExpression;
 
-                    this.whereExpression = "WHERE " + condition + " AND (" + existingExpr + ")";
+                    this.WhereExpression = "WHERE " + condition + " AND (" + existingExpr + ")";
                 }
                 else
                 {
-                    if (!this.whereExpression.StartsWith("WHERE ", StringComparison.OrdinalIgnoreCase))
+                    if (!this.WhereExpression.StartsWith("WHERE ", StringComparison.OrdinalIgnoreCase))
                         throw new NotSupportedException("Invalid whereExpression Expression with Ensure Conditions");
 
-                    this.whereExpression = "WHERE " + condition + " AND " + this.whereExpression.Substring("WHERE ".Length);
+                    this.WhereExpression = "WHERE " + condition + " AND " + this.WhereExpression.Substring("WHERE ".Length);
                 }
             }
 
@@ -793,13 +789,13 @@
         public virtual SqlExpression<T> UnsafeGroupBy(string groupBy)
         {
             if (!string.IsNullOrEmpty(groupBy))
-                this.groupBy = "GROUP BY " + groupBy;
+                this.GroupByExpression = "GROUP BY " + groupBy;
             return this;
         }
 
         private SqlExpression<T> InternalGroupBy(Expression expr)
         {
-            this.Reset(this.sep = string.Empty);
+            this.Reset(this.Sep = string.Empty);
 
             var groupByExpr = this.Visit(expr);
             if (IsSqlClass(groupByExpr))
@@ -849,18 +845,18 @@
 
         public virtual SqlExpression<T> Having(string sqlFilter, params object[] filterParams)
         {
-            this.havingExpression = this.FormatFilter(sqlFilter.SqlVerifyFragment(), filterParams);
+            this.HavingExpression = this.FormatFilter(sqlFilter.SqlVerifyFragment(), filterParams);
 
-            if (this.havingExpression != null) this.havingExpression = "HAVING " + this.havingExpression;
+            if (this.HavingExpression != null) this.HavingExpression = "HAVING " + this.HavingExpression;
 
             return this;
         }
 
         public virtual SqlExpression<T> UnsafeHaving(string sqlFilter, params object[] filterParams)
         {
-            this.havingExpression = this.FormatFilter(sqlFilter, filterParams);
+            this.HavingExpression = this.FormatFilter(sqlFilter, filterParams);
 
-            if (this.havingExpression != null) this.havingExpression = "HAVING " + this.havingExpression;
+            if (this.HavingExpression != null) this.HavingExpression = "HAVING " + this.HavingExpression;
 
             return this;
         }
@@ -871,10 +867,10 @@
             {
                 this.Reset();
 
-                this.havingExpression = WhereExpressionToString(this.Visit(predicate));
-                if (!string.IsNullOrEmpty(this.havingExpression)) this.havingExpression = "HAVING " + this.havingExpression;
+                this.HavingExpression = WhereExpressionToString(this.Visit(predicate));
+                if (!string.IsNullOrEmpty(this.HavingExpression)) this.HavingExpression = "HAVING " + this.HavingExpression;
             }
-            else this.havingExpression = string.Empty;
+            else this.HavingExpression = string.Empty;
 
             return this;
         }
@@ -1005,7 +1001,7 @@
 
         private SqlExpression<T> OrderByInternal(Expression expr)
         {
-            this.Reset(this.sep = string.Empty);
+            this.Reset(this.Sep = string.Empty);
 
             this.orderByProperties.Clear();
             var orderBySql = this.Visit(expr);
@@ -1047,7 +1043,7 @@
 
         private SqlExpression<T> ThenByInternal(Expression keySelector)
         {
-            this.Reset(this.sep = string.Empty);
+            this.Reset(this.Sep = string.Empty);
 
             var orderBySql = this.Visit(keySelector);
             if (IsSqlClass(orderBySql))
@@ -1073,7 +1069,7 @@
 
         private SqlExpression<T> OrderByDescendingInternal(Expression keySelector)
         {
-            this.Reset(this.sep = string.Empty);
+            this.Reset(this.Sep = string.Empty);
 
             this.orderByProperties.Clear();
             var orderBySql = this.Visit(keySelector);
@@ -1117,7 +1113,7 @@
 
         private SqlExpression<T> ThenByDescendingInternal(Expression keySelector)
         {
-            this.Reset(this.sep = string.Empty);
+            this.Reset(this.Sep = string.Empty);
 
             var orderBySql = this.Visit(keySelector);
             if (IsSqlClass(orderBySql))
@@ -1266,7 +1262,7 @@
         /// </param>
         public virtual SqlExpression<T> Update(Expression<Func<T, object>> fields)
         {
-            this.Reset(this.sep = string.Empty, this.useFieldName = false);
+            this.Reset(this.Sep = string.Empty, this.useFieldName = false);
             this.UpdateFields = fields.GetFieldNames().ToList();
             return this;
         }
@@ -1291,7 +1287,7 @@
         /// </typeparam>
         public virtual SqlExpression<T> Insert<TKey>(Expression<Func<T, TKey>> fields)
         {
-            this.Reset(this.sep = string.Empty, this.useFieldName = false);
+            this.Reset(this.Sep = string.Empty, this.useFieldName = false);
             var fieldList = this.Visit(fields);
             this.InsertFields = fieldList.ToString().Split(',').Select(f => f.Trim()).ToList();
             return this;
@@ -1381,7 +1377,7 @@
                 var clone = this.Clone();
                 var pk = this.DialectProvider.GetQuotedColumnName(this.modelDef, this.modelDef.PrimaryKey);
                 clone.Select(pk);
-                var subSql = clone.ToSelectStatement();
+                var subSql = clone.ToSelectStatement(QueryType.Select);
                 sql = $"DELETE FROM {this.DialectProvider.GetQuotedTableName(this.modelDef)} WHERE {pk} IN ({subSql})";
             }
             else
@@ -1476,13 +1472,15 @@
                 : sql;
         }
 
-        public virtual string ToSelectStatement()
+        public virtual string ToSelectStatement() => ToSelectStatement(QueryType.Select);
+
+        public virtual string ToSelectStatement(QueryType forType)
         {
             SelectFilter?.Invoke(this);
             OrmLiteConfig.SqlExpressionSelectFilter?.Invoke(this.GetUntyped());
 
             var sql = this.DialectProvider
-                .ToSelectStatement(this.modelDef, this.SelectExpression, this.BodyExpression, this.OrderByExpression, this.Offset, this.Rows);
+                .ToSelectStatement(forType, modelDef, this.SelectExpression, this.BodyExpression, this.OrderByExpression, offset: Offset, rows: Rows);
 
             return this.SqlFilter != null
                 ? this.SqlFilter(sql)
@@ -1494,7 +1492,7 @@
         /// </summary>
         public virtual string ToMergedParamsSelectStatement()
         {
-            var sql = this.ToSelectStatement();
+            var sql = this.ToSelectStatement(QueryType.Select);
             var mergedSql = this.DialectProvider.MergeParamsIntoSql(sql, this.Params);
             return mergedSql;
         }
@@ -1519,10 +1517,7 @@
                 return this.selectExpression;
             }
 
-            set
-            {
-                this.selectExpression = value;
-            }
+            set => this.selectExpression = value;
         }
 
         public string FromExpression
@@ -1539,24 +1534,11 @@
             + (string.IsNullOrEmpty(this.GroupByExpression) ? string.Empty : "\n" + this.GroupByExpression)
             + (string.IsNullOrEmpty(this.HavingExpression) ? string.Empty : "\n" + this.HavingExpression);
 
-        public string WhereExpression
-        {
-            get => this.whereExpression;
-            set => this.whereExpression = value;
-        }
+        public string WhereExpression { get; set; }
 
-        public string GroupByExpression
-        {
-            get => this.groupBy;
-            set => this.groupBy = value;
-        }
+        public string GroupByExpression { get; set; } = string.Empty;
 
-        public string HavingExpression
-        {
-            get => this.havingExpression;
-            set => this.havingExpression = value;
-        }
-
+        public string HavingExpression { get; set; }
 
         public string OrderByExpression
         {
@@ -1657,7 +1639,7 @@
         {
             if (this.originalLambda == null) this.originalLambda = lambda;
 
-            if (lambda.Body.NodeType == ExpressionType.MemberAccess && this.sep == " ")
+            if (lambda.Body.NodeType == ExpressionType.MemberAccess && this.Sep == " ")
             {
                 MemberExpression m = lambda.Body as MemberExpression;
 
@@ -1674,7 +1656,7 @@
                 }
 
             }
-            else if (lambda.Body.NodeType == ExpressionType.Conditional && this.sep == " ")
+            else if (lambda.Body.NodeType == ExpressionType.Conditional && this.Sep == " ")
             {
                 ConditionalExpression c = lambda.Body as ConditionalExpression;
 
@@ -1826,7 +1808,7 @@
                 Swap(ref left, ref right); // "null is x" will not work, so swap the operands
             }
 
-            var separator = this.sep;
+            var separator = this.Sep;
             if (right.ToString().Equals("null", StringComparison.OrdinalIgnoreCase))
             {
                 if (operand == "=")
@@ -2192,8 +2174,22 @@
             var methodCallExpr = arg as MethodCallExpression;
             var mi = methodCallExpr?.Method;
             var declareType = mi?.DeclaringType;
-            if (declareType != null && declareType.Name == "Sql" && mi.Name != "Desc" && mi.Name != "Asc" && mi.Name != "As" && mi.Name != "AllFields")
-                return new PartialSqlString(expr + " AS " + member.Name);    // new { Alias = Sql.Count("*") }
+
+            if (declareType != null && declareType.Name == nameof(Sql))
+            {
+                if (mi.Name == nameof(Sql.TableAlias) || mi.Name == nameof(Sql.JoinAlias))
+                {
+                    if (expr is PartialSqlString ps && ps.Text.IndexOf(',') >= 0)
+                        return ps;                                               // new { buyer = Sql.TableAlias(b, "buyer")
+                    return new PartialSqlString(expr + " AS " + member.Name);    // new { BuyerName = Sql.TableAlias(b.Name, "buyer") }
+                }
+
+                if (mi.Name != nameof(Sql.Desc) && mi.Name != nameof(Sql.Asc) && mi.Name != nameof(Sql.As) && mi.Name != nameof(Sql.AllFields))
+                    return new PartialSqlString(expr + " AS " + member.Name);    // new { Alias = Sql.Count("*") }
+            }
+
+            if (expr is string s && s == Sql.EOT) // new { t1 = Sql.EOT, t2 = "0 EOT" }
+                return new PartialSqlString(s);
 
             if (arg is ConditionalExpression ce ||                           // new { Alias = x.Value > 1 ? 1 : x.Value }
                 arg is BinaryExpression be ||                           // new { Alias = x.First + " " + x.Last }
@@ -2331,7 +2327,7 @@
                     var ifTrue = this.Visit(e.IfTrue);
                     if (!IsSqlClass(ifTrue))
                     {
-                        if (this.sep == " ")
+                        if (this.Sep == " ")
                             ifTrue = new PartialSqlString(this.ConvertToParam(ifTrue));
                     }
                     else if (e.IfTrue.Type == typeof(bool))
@@ -2339,7 +2335,7 @@
                         var isBooleanComparison = this.IsBooleanComparison(e.IfTrue);
                         if (!isBooleanComparison)
                         {
-                            if (this.sep == " ")
+                            if (this.Sep == " ")
                                 ifTrue = ifTrue.ToString();
                             else
                                 ifTrue = new PartialSqlString($"(CASE WHEN {ifTrue} THEN {1} ELSE {0} END)");
@@ -2352,7 +2348,7 @@
                 var ifFalse = this.Visit(e.IfFalse);
                 if (!IsSqlClass(ifFalse))
                 {
-                    if (this.sep == " ")
+                    if (this.Sep == " ")
                         ifFalse = new PartialSqlString(this.ConvertToParam(ifFalse));
                 }
                 else if (e.IfFalse.Type == typeof(bool))
@@ -2360,7 +2356,7 @@
                     var isBooleanComparison = this.IsBooleanComparison(e.IfFalse);
                     if (!isBooleanComparison)
                     {
-                        if (this.sep == " ")
+                        if (this.Sep == " ")
                             ifFalse = ifFalse.ToString();
                         else
                             ifFalse = new PartialSqlString($"(CASE WHEN {ifFalse} THEN {1} ELSE {0} END)");
@@ -2853,6 +2849,9 @@
                 case nameof(Sql.In):
                     statement = this.ConvertInExpressionToSql(m, quotedColName);
                     break;
+                case nameof(Sql.Asc):
+                    statement = $"{quotedColName} ASC";
+                    break;
                 case nameof(Sql.Desc):
                     statement = $"{quotedColName} DESC";
                     break;
@@ -2878,7 +2877,16 @@
                     break;
                 case nameof(Sql.JoinAlias):
                 case nameof(Sql.TableAlias):
-                    statement = args[0] + "." + quotedColName.ToString().LastRightPart('.');
+                    if (quotedColName is SelectList && m.Arguments.Count == 2 && m.Arguments[0] is ParameterExpression p)
+                    {
+                        var paramModelDef = p.Type.GetModelDefinition();
+                        var alias = this.Visit(m.Arguments[1]).ToString();
+                        statement = new SelectList(this.DialectProvider.GetColumnNames(paramModelDef, alias)).ToString();
+                    }
+                    else
+                    {
+                        statement = args[0] + "." + quotedColName.ToString().LastRightPart('.');
+                    }
                     break;
                 case nameof(Sql.Custom):
                     statement = quotedColName.ToString();
@@ -2909,7 +2917,7 @@
 
             if (argValue is ISqlExpression exprArg)
             {
-                var subSelect = exprArg.ToSelectStatement();
+                var subSelect = exprArg.ToSelectStatement(QueryType.Select);
                 var renameParams = new List<Tuple<string, string>>();
                 foreach (var p in exprArg.Params)
                 {
@@ -3064,8 +3072,15 @@
     {
         List<IDbDataParameter> Params { get; }
 
-        string ToSelectStatement();
+        string ToSelectStatement(QueryType forType);
         string SelectInto<TModel>();
+    }
+
+    public enum QueryType
+    {
+        Select,
+        Single,
+        Scalar,
     }
 
     public interface IHasDialectProvider

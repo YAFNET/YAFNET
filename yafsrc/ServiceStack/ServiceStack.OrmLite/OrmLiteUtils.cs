@@ -54,18 +54,20 @@ namespace ServiceStack.OrmLite
 
             sb.Append("SQL: ").Append(cmd.CommandText);
 
-            if (cmd.Parameters.Count > 0)
+            if (cmd.Parameters.Count <= 0)
             {
-                sb.AppendLine()
-                    .Append("PARAMS: ");
+                return StringBuilderCache.ReturnAndFree(sb);
+            }
 
-                for (var i = 0; i < cmd.Parameters.Count; i++)
-                {
-                    var p = (IDataParameter)cmd.Parameters[i];
-                    if (i > 0)
-                        sb.Append(", ");
-                    sb.Append($"{p.ParameterName}={p.Value}");
-                }
+            sb.AppendLine()
+                .Append("PARAMS: ");
+
+            for (var i = 0; i < cmd.Parameters.Count; i++)
+            {
+                var p = (IDataParameter)cmd.Parameters[i];
+                if (i > 0)
+                    sb.Append(", ");
+                sb.Append($"{p.ParameterName}={p.Value}");
             }
 
             return StringBuilderCache.ReturnAndFree(sb);
@@ -301,6 +303,12 @@ namespace ServiceStack.OrmLite
             foreach (var modelType in genericArgs)
             {
                 var modelDef = modelType.GetModelDefinition();
+
+                if (modelDef == null)
+                {
+                    throw new Exception($"'{modelType.Name}' is not a table type");
+                }
+
                 var endPos = startPos;
                 for (; endPos < reader.FieldCount; endPos++)
                 {
@@ -308,12 +316,18 @@ namespace ServiceStack.OrmLite
                         break;
                 }
 
+                var noEOT = endPos == reader.FieldCount; // If no explicit EOT delimiter, split by field count
+                if (genericArgs.Length > 0 && noEOT)
+                {
+                    endPos = startPos + modelDef.FieldDefinitionsArray.Length;
+                }
+
                 var indexCache = reader.GetIndexFieldsCache(modelDef, dialectProvider, onlyFields,
                     startPos: startPos, endPos: endPos);
 
                 modelIndexCaches.Add(indexCache);
 
-                startPos = endPos + 1;
+                startPos = noEOT ? endPos : endPos + 1;
             }
             return modelIndexCaches;
         }
@@ -371,7 +385,10 @@ namespace ServiceStack.OrmLite
             foreach (var item in items)
             {
                 if (sb.Length > 0)
+                {
                     sb.Append(", ");
+                }
+
                 sb.Append(item);
             }
 

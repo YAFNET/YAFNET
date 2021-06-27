@@ -1,10 +1,10 @@
-using System;
-using System.Collections;
-using System.Linq;
-using System.Collections.Generic;
-
 namespace ServiceStack.OrmLite
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public static partial class Sql
     {
         public static string VARCHAR = nameof(VARCHAR);
@@ -18,7 +18,7 @@ namespace ServiceStack.OrmLite
             {
                 if (item == null) continue;
 
-                if (item is IEnumerable arr && !(item is string))
+                if (item is IEnumerable arr && item is not string)
                 {
                     ret.AddRange(arr.Cast<object>());
                 }
@@ -34,6 +34,7 @@ namespace ServiceStack.OrmLite
 
         public static bool In<T, TItem>(T value, SqlExpression<TItem> query) => value != null && query != null;
 
+        public static string Asc<T>(T value) => value == null ? "" : value + " ASC";
         public static string Desc<T>(T value) => value == null ? "" : value + " DESC";
 
         public static string As<T>(T value, object asValue) => value == null ? "" : $"{value} AS {asValue}";
@@ -100,7 +101,7 @@ namespace ServiceStack.OrmLite
         /// </param>
         /// <param name="path">
         /// A JSON path that specifies the property to extract. For more info, see <see cref="https://docs.microsoft.com/en-us/sql/relational-databases/json/json-path-expressions-sql-server">JSON Path Expressions (SQL Server)</see>.<br/><br/>
-        /// In SQL Server 2017 and in Azure SQL Database, you can provide a variable as the value of <i>path</i>.<br/><br/> 
+        /// In SQL Server 2017 and in Azure SQL Database, you can provide a variable as the value of <i>path</i>.<br/><br/>
         /// If the format of path isn't valid, <b>JSON_VALUE</b> returns an error.<br/><br/>
         /// </param>
         /// <returns>
@@ -123,7 +124,7 @@ namespace ServiceStack.OrmLite
         /// </param>
         /// <param name="path">
         /// A JSON path that specifies the property to extract. For more info, see <see cref="https://docs.microsoft.com/en-us/sql/relational-databases/json/json-path-expressions-sql-server">JSON Path Expressions (SQL Server)</see>.<br/><br/>
-        /// In SQL Server 2017 and in Azure SQL Database, you can provide a variable as the value of <i>path</i>.<br/><br/> 
+        /// In SQL Server 2017 and in Azure SQL Database, you can provide a variable as the value of <i>path</i>.<br/><br/>
         /// If the format of path isn't valid, <b>JSON_VALUE</b> returns an error.<br/><br/>
         /// </param>
         /// <returns>
@@ -142,7 +143,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Extracts an object or an array from a JSON string.<br/><br/>
-        /// To extract a scalar value from a JSON string instead of an object or an array, see <see cref="https://docs.microsoft.com/en-us/sql/t-sql/functions/json-value-transact-sql">JSON_VALUE(Transact-SQL)</see>. 
+        /// To extract a scalar value from a JSON string instead of an object or an array, see <see cref="https://docs.microsoft.com/en-us/sql/t-sql/functions/json-value-transact-sql">JSON_VALUE(Transact-SQL)</see>.
         /// For info about the differences between <b>JSON_VALUE</b> and <b>JSON_QUERY</b>, see <see cref="https://docs.microsoft.com/en-us/sql/relational-databases/json/validate-query-and-change-json-data-with-built-in-functions-sql-server#JSONCompare">Compare JSON_VALUE and JSON_QUERY</see>.
         /// </summary>
         /// <typeparam name="T">Type of objects returned</typeparam>

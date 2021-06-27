@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -22,6 +22,7 @@
  * under the License.
  */
 
+#if DEBUG
 namespace YAF.Pages.Admin
 {
     #region Using
@@ -875,3 +876,5 @@ namespace YAF.Pages.Admin
         #endregion
     }
 }
+
+#endif

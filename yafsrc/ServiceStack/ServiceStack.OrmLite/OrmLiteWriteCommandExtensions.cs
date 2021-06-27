@@ -841,7 +841,7 @@ namespace ServiceStack.OrmLite
         {
             var dialectProvider = dbCmd.GetDialectProvider();
 
-            var sql = query.ToSelectStatement();
+            var sql = query.ToSelectStatement(QueryType.Select);
             var selectFields = query.GetUntypedSqlExpression()
                 .SelectExpression
                 .Substring("SELECT ".Length)
