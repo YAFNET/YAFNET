@@ -24,7 +24,11 @@
 
 namespace YAF.Data.MySql
 {
+    using System.Data.Common;
+
     using Autofac;
+
+    using global::MySql.Data.MySqlClient;
 
     using YAF.Types.Interfaces.Data;
 
@@ -41,6 +45,8 @@ namespace YAF.Data.MySql
         /// </param>
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterInstance<DbProviderFactory>(MySqlClientFactory.Instance);
+
             builder.RegisterType<MySqlDbAccess>()
                 .Named<IDbAccess>(MySqlDbAccess.ProviderTypeName)
                 .InstancePerLifetimeScope();

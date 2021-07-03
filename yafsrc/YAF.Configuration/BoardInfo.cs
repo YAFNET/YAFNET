@@ -132,7 +132,7 @@ namespace YAF.Configuration
         /// </returns>
         public static string GetURLToContent([NotNull] string resourceName)
         {
-            CodeContracts.VerifyNotNull(resourceName, "resourceName");
+            CodeContracts.VerifyNotNull(resourceName);
 
             return $"{ForumClientFileRoot}Content/{resourceName}";
         }

@@ -53,9 +53,6 @@
                 <h6 class="card-subtitle text-muted mb-1" runat="server" Visible="<%# ((ForumRead)Container.DataItem).Description.IsSet()  %>">
                     <%# ((ForumRead)Container.DataItem).Description  %>
                 </h6>
-                <YAF:ForumSubForumList ID="SubForumList" runat="server"
-                                       DataSource="<%# this.GetSubForums((ForumRead)Container.DataItem) %>"
-                                       Visible="<%# this.HasSubForums((ForumRead)Container.DataItem) %>" />
             </div>
             <asp:PlaceHolder runat="server" Visible="<%# ((ForumRead)Container.DataItem).RemoteURL.IsNotSet() %>">
                 <div class="col-md-4 text-secondary">
@@ -67,6 +64,13 @@
                     </div>
                 </div>
             </asp:PlaceHolder>
+        </div>
+        <div class="row">
+            <div class="col">
+                <YAF:ForumSubForumList ID="SubForumList" runat="server"
+                                       DataSource="<%# this.GetSubForums((ForumRead)Container.DataItem) %>"
+                                       Visible="<%# this.HasSubForums((ForumRead)Container.DataItem) %>" />
+            </div>
         </div>
     </ItemTemplate>
 </asp:Repeater>

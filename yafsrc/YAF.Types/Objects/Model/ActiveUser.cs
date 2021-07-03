@@ -26,22 +26,54 @@ namespace YAF.Types.Objects.Model
 {
     using System;
 
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Flags;
-
     public class ActiveUser
     {
         public int UserID { get; set; }
+
         public string UserName { get; set; }
+
         public string UserDisplayName { get; set; }
+
         public bool IsActiveExcluded { get; set; }
+
         public bool IsCrawler { get; set; }
+
         public string UserStyle { get; set; }
+
         public bool IsGuest { get; set; }
+
         public DateTime? Suspended { get; set; }
+
         public int UserCount { get; set; }
+
         public string Browser { get; set; }
+
         public DateTime LastVisit { get; set; }
+
+        public bool HasForumAccess { get; set; }
+
+        public string ForumPage { get; set; }
+
+        public string Location { get; set; }
+
+        public int? ForumID { get; set; }
+
+        public string ForumName { get; set; }
+
+        public int? TopicID { get; set; }
+
+        public string TopicName { get; set; }
+
+        public DateTime Login { get; set; }
+
+        public DateTime LastActive { get; set; }
+
+        public int Active { get; set; }
+
+        public string Platform { get; set; }
+
+        public string IP { get; set; }
+
+        public string SessionID { get; set; }
     }
 }

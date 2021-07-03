@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using ServiceStack.Text;
-
-namespace ServiceStack.OrmLite.Support
+﻿namespace ServiceStack.OrmLite.Support
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using ServiceStack.Text;
+
     internal abstract class LoadList<Into, From>
     {
         protected IDbCommand dbCmd;
@@ -37,7 +37,7 @@ namespace ServiceStack.OrmLite.Support
 
             //Use .Clone() to prevent SqlExpressionSelectFilter from adding params to original query
             var parentQ = q.Clone();
-            var sql = parentQ.SelectInto<Into>();
+            var sql = parentQ.SelectInto<Into>(QueryType.Select);
             parentResults = dbCmd.ExprConvertToList<Into>(sql, parentQ.Params, onlyFields: q.OnlyFields);
 
             modelDef = ModelDefinition<Into>.Definition;

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,6 +24,8 @@
 namespace YAF.Types.Interfaces
 {
     using System.Collections.Generic;
+
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     /// The Friends interface.
@@ -71,7 +73,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        List<dynamic> ListAll();
+        List<BuddyUser> ListAll();
 
         /// <summary>
         /// Clears the buddies cache for the current user.
@@ -103,7 +105,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// a List of all buddies.
         /// </returns>
-        List<dynamic> GetForUser(int userId);
+        List<BuddyUser> GetForUser(int userId);
 
         /// <summary>
         /// determines if the "<paramref name="buddyUserId"/>" and current user are buddies.

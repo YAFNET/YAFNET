@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -42,6 +42,7 @@ namespace YAF.Core.Helpers
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
+    using YAF.Types.Objects;
 
     #endregion
 
@@ -51,7 +52,7 @@ namespace YAF.Core.Helpers
     public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AspNetRolesHelper"/> class. 
+        /// Initializes a new instance of the <see cref="AspNetRolesHelper"/> class.
         /// </summary>
         /// <param name="serviceLocator">
         /// The service locator.
@@ -251,10 +252,10 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool IsMemberOfGroup([NotNull] string groupName, [NotNull] List<dynamic> groups)
+        public bool IsMemberOfGroup([NotNull] string groupName, [NotNull] List<GroupMember> groups)
         {
             return groups.Any(
-                row => (int)row.Member == 1 && row.Name == groupName);
+                row => row.MemberCount == 1 && row.Name == groupName);
         }
 
         /// <summary>
@@ -322,7 +323,7 @@ namespace YAF.Core.Helpers
 
         /// <summary>
         /// Goes through every membership user and manually "syncs" them to the forum.
-        ///   Best for an existing membership structure -- will migrate all users at once 
+        ///   Best for an existing membership structure -- will migrate all users at once
         ///   rather then one at a time...
         /// </summary>
         /// <param name="pageBoardId">
@@ -419,8 +420,8 @@ namespace YAF.Core.Helpers
                 role => this.GetRepository<UserGroup>().SetRole(pageBoardID, userId, role));
 
             // remove groups...remove since there is no longer an association in the membership...
-            groupsMember.Where(row => !userRoles.Contains((string)row.Name)).ForEach(
-                row => this.GetRepository<UserGroup>().Remove(userId, (int)row.GroupID));
+            groupsMember.Where(row => !userRoles.Contains(row.Name)).ForEach(
+                row => this.GetRepository<UserGroup>().Remove(userId, row.GroupID));
 
             if (!isNewUser || userId <= 0)
             {

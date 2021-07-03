@@ -3072,8 +3072,10 @@
     {
         List<IDbDataParameter> Params { get; }
 
+        string ToSelectStatement();
         string ToSelectStatement(QueryType forType);
         string SelectInto<TModel>();
+        string SelectInto<TModel>(QueryType forType);
     }
 
     public enum QueryType

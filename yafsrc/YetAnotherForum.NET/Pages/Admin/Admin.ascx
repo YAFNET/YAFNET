@@ -3,6 +3,7 @@
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Utilities.Helpers" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
+<%@ Import Namespace="YAF.Types.Objects.Model" %>
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <div class="row">
@@ -254,32 +255,33 @@
                         <div class="d-flex w-100 justify-content-start align-items-baseline">
                             <div class="me-2">
                                 <YAF:UserLabel ID="ActiveUserLink"
-                                               ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).UserDisplayName : (Container.DataItem as dynamic).UserName %>"
-                                               UserID="<%# (Container.DataItem as dynamic).UserID %>"
-                                               CrawlerName="<%# (Container.DataItem as dynamic).IsCrawler > 0 ? (string)(Container.DataItem as dynamic).Browser : string.Empty %>"
-                                               Style="<%# (Container.DataItem as dynamic).UserStyle %>" runat="server" />
+                                               ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as ActiveUser).UserDisplayName : (Container.DataItem as ActiveUser).UserName %>"
+                                               UserID="<%# (Container.DataItem as ActiveUser).UserID %>"
+                                               CrawlerName="<%# (Container.DataItem as ActiveUser).IsCrawler ? (Container.DataItem as ActiveUser).Browser : string.Empty %>"
+                                               Style="<%# (Container.DataItem as ActiveUser).UserStyle %>" runat="server" />
                             </div>
                             <div class="me-2">
                                 <span class="fw-bold">
                                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
                                                         LocalizedTag="ADMIN_IPADRESS" LocalizedPage="ADMIN_ADMIN" />
                                 </span>
-                                <a id="A1" href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL, IPHelper.GetIp4Address((string)(Container.DataItem as dynamic).IP)) %>"
+                                <a id="A1" href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL, IPHelper.GetIp4Address((Container.DataItem as ActiveUser).IP)) %>"
                                    title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
-                                    <%# IPHelper.GetIp4Address((string)(Container.DataItem as dynamic).IP)%></a>
+                                    <%# IPHelper.GetIp4Address((Container.DataItem as ActiveUser).IP)%></a>
                             </div>
                             <div>
                                 <span class="fw-bold">
                                     <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                                                        LocalizedTag="BOARD_LOCATION" LocalizedPage="ADMIN_ADMIN" />
+                                                        LocalizedTag="BOARD_LOCATION" LocalizedPage="ADMI<N_ADMIN" />
                                 </span>
                                 <YAF:ActiveLocation ID="ActiveLocation2"
-                                                    UserID="<%# (Container.DataItem as dynamic).UserID == null ? 0 : (Container.DataItem as dynamic).UserID %>"
-                                                    Location="<%#(Container.DataItem as dynamic).Location %>"
-                                                    ForumPage="<%# (Container.DataItem as dynamic).ForumPage %>"
-                                                    ForumID="<%# (Container.DataItem as dynamic).ForumID == null ? 0 : (Container.DataItem as dynamic).ForumID %>"
-                                                    ForumName="<%# (Container.DataItem as dynamic).ForumName %>" TopicID="<%# (Container.DataItem as dynamic).TopicID == null ? 0 : (Container.DataItem as dynamic).TopicID %>"
-                                                    TopicName="<%# (Container.DataItem as dynamic).TopicName %>" LastLinkOnly="false" runat="server">
+                                                    UserID="<%# (Container.DataItem as ActiveUser).UserID %>"
+                                                    Location="<%#(Container.DataItem as ActiveUser).Location %>"
+                                                    ForumPage="<%# (Container.DataItem as ActiveUser).ForumPage %>"
+                                                    ForumID="<%# (Container.DataItem as ActiveUser).ForumID ?? 0 %>"
+                                                    ForumName="<%# (Container.DataItem as ActiveUser).ForumName %>"
+                                                    TopicID="<%# (Container.DataItem as ActiveUser).TopicID ?? 0 %>"
+                                                    TopicName="<%# (Container.DataItem as ActiveUser).TopicName %>" LastLinkOnly="false" runat="server">
                                 </YAF:ActiveLocation>
                             </div>
                         </div>

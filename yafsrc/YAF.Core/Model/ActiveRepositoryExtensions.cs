@@ -302,7 +302,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<dynamic> ListUsersPaged(
+        public static List<ActiveUser> ListUsersPaged(
             this IRepository<Active> repository,
             [NotNull] int userId,
             [NotNull] bool showGuests,
@@ -386,7 +386,7 @@ namespace YAF.Core.Model
                             a.ForumPage
                         });
 
-                    return db.Connection.Select<dynamic>(expression);
+                    return db.Connection.Select<ActiveUser>(expression);
                 });
         }
 
@@ -400,9 +400,11 @@ namespace YAF.Core.Model
         /// The board Id.
         /// </param>
         /// <returns>
-        /// The <see cref="dynamic"/>.
+        /// The <see cref="(int ActiveUsers, int ActiveMembers, int ActiveGuests, int ActiveHidden)"/>.
         /// </returns>
-        public static dynamic Stats(this IRepository<Active> repository, [NotNull] int boardId)
+        public static (int ActiveUsers, int ActiveMembers, int ActiveGuests, int ActiveHidden) Stats(
+            this IRepository<Active> repository,
+            [NotNull] int boardId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -413,8 +415,7 @@ namespace YAF.Core.Model
 
                     expression.Join<User>((x, u) => u.ID == x.UserID);
 
-                    expression.Where<User>(
-                        u => u.BoardID == boardId && (u.Flags & 16) != 16);
+                    expression.Where<User>(u => u.BoardID == boardId && (u.Flags & 16) != 16);
 
                     // -- count Members
                     var countMembersExpression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
@@ -431,8 +432,7 @@ namespace YAF.Core.Model
 
                     countGuestsExpression.Join<User>((x, u) => u.ID == x.UserID);
 
-                    countGuestsExpression.Where<Active, User>(
-                        (x, u) => x.BoardID == boardId && (u.Flags & 4) == 4);
+                    countGuestsExpression.Where<Active, User>((x, u) => x.BoardID == boardId && (u.Flags & 4) == 4);
 
                     var countGuestsSql = countMembersExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
@@ -455,7 +455,8 @@ namespace YAF.Core.Model
                             ActiveHidden = Sql.Custom($"({countHiddenSql})")
                         });
 
-                    return db.Connection.Select<dynamic>(expression);
+                    return db.Connection
+                        .Select<(int ActiveUsers, int ActiveMembers, int ActiveGuests, int ActiveHidden)>(expression);
                 }).FirstOrDefault();
         }
 

@@ -24,7 +24,6 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Dynamic;
     using System.Linq;
 
     using ServiceStack.OrmLite;
@@ -35,6 +34,7 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
 
     /// <summary>
     ///     The board repository extensions.
@@ -311,9 +311,9 @@ namespace YAF.Core.Model
         /// The show no count posts.
         /// </param>
         /// <returns>
-        /// The <see cref="dynamic"/>.
+        /// The <see cref="BoardStat"/>.
         /// </returns>
-        public static dynamic PostStats(this IRepository<Board> repository, [NotNull] int boardId, [NotNull] bool showNoCountPosts)
+        public static BoardStat PostStats(this IRepository<Board> repository, [NotNull] int boardId, [NotNull] bool showNoCountPosts)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -379,7 +379,7 @@ namespace YAF.Core.Model
                             LastUserSuspended = e.Suspended
                         });
 
-                    return db.Connection.Select<dynamic>(expression);
+                    return db.Connection.Select<BoardStat>(expression);
                 });
 
             if (data != null && data.Any())
@@ -394,18 +394,19 @@ namespace YAF.Core.Model
 
             topics.ForEach(t => BoardContext.Current.GetRepository<Topic>().Delete(t.ForumID, t.ID, true));
 
-            dynamic stats = new ExpandoObject();
-
             // Get defaults
-            stats.Posts = 0;
-            stats.Topics = 0;
-            stats.Forums = 1;
-            stats.LastPost = null;
-            stats.LastUserID = null;
-            stats.LastUser = null;
-            stats.LastUserDisplayName = null;
-            stats.LastUserStyle = string.Empty;
-            stats.LastUserSuspended = null;
+            var stats = new BoardStat
+            {
+                Posts = 0,
+                Topics = 0,
+                Forums = 1,
+                LastPost = null,
+                LastUserID = null,
+                LastUser = null,
+                LastUserDisplayName = null,
+                LastUserStyle = string.Empty,
+                LastUserSuspended = null
+            };
 
             return stats;
         }
@@ -445,9 +446,9 @@ namespace YAF.Core.Model
         /// The board Id.
         /// </param>
         /// <returns>
-        /// The <see cref="dynamic"/>.
+        /// The <see cref="BoardStat"/>.
         /// </returns>
-        public static dynamic Stats(this IRepository<Board> repository, [NotNull] int boardId)
+        public static BoardStat Stats(this IRepository<Board> repository, [NotNull] int boardId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -495,7 +496,7 @@ namespace YAF.Core.Model
                             BoardStart = Sql.Min(x.Joined)
                         });
 
-                    return db.Connection.Select<dynamic>(expression);
+                    return db.Connection.Select<BoardStat>(expression);
                 }).FirstOrDefault();
         }
 

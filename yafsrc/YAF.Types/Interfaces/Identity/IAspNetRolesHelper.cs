@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,6 +28,7 @@ namespace YAF.Types.Interfaces.Identity
 
     using YAF.Types;
     using YAF.Types.Models.Identity;
+    using YAF.Types.Objects;
 
     /// <summary>
     /// The AspNetRolesHelper interface.
@@ -140,13 +141,13 @@ namespace YAF.Types.Interfaces.Identity
         /// <param name="groupName">
         /// The group name.
         /// </param>
-        /// <param name="memberGroups">
+        /// <param name="groups">
         /// The member Groups.
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        bool IsMemberOfGroup([NotNull] string groupName, [NotNull] List<dynamic> groups);
+        bool IsMemberOfGroup([NotNull] string groupName, [NotNull] List<GroupMember> groups);
 
         /// <summary>
         /// Determines whether [is user in role] [the specified username].
@@ -195,7 +196,7 @@ namespace YAF.Types.Interfaces.Identity
 
         /// <summary>
         /// Goes through every membership user and manually "syncs" them to the forum.
-        ///   Best for an existing membership structure -- will migrate all users at once 
+        ///   Best for an existing membership structure -- will migrate all users at once
         ///   rather then one at a time...
         /// </summary>
         /// <param name="pageBoardId">

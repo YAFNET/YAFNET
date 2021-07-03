@@ -399,21 +399,21 @@ namespace YAF.Pages.Admin
             // get stats for current board, selected board or all boards (see function)
             var data = this.GetRepository<Board>().Stats(this.GetSelectedBoardId());
 
-            this.NumPosts.Text = $"{(int)data.Posts:N0}";
-            this.NumTopics.Text = $"{(int)data.Topics:N0}";
-            this.NumUsers.Text = $"{(int)data.Users:N0}";
+            this.NumPosts.Text = $"{data.Posts:N0}";
+            this.NumTopics.Text = $"{data.Topics:N0}";
+            this.NumUsers.Text = $"{data.Users:N0}";
 
-            var span = DateTime.UtcNow - (DateTime)data.BoardStart;
+            var span = DateTime.UtcNow - data.BoardStart;
             double days = span.Days;
 
             this.BoardStart.Text = this.Get<IDateTimeService>().FormatDateTimeTopic(
                 this.PageContext.BoardSettings.UseFarsiCalender
-                    ? PersianDateConverter.ToPersianDate((DateTime)data.BoardStart)
+                    ? PersianDateConverter.ToPersianDate(data.BoardStart)
                     : data.BoardStart);
 
             this.BoardStartAgo.Text = new DisplayDateTime
             {
-                DateTime = (DateTime)data.BoardStart, Format = DateTimeFormat.BothTopic
+                DateTime = data.BoardStart, Format = DateTimeFormat.BothTopic
             }.RenderToString();
 
             if (days < 1)
@@ -421,14 +421,12 @@ namespace YAF.Pages.Admin
                 days = 1;
             }
 
-            this.DayPosts.Text = $"{(int)data.Posts / days:N2}";
-            this.DayTopics.Text = $"{(int)data.Topics / days:N2}";
-            this.DayUsers.Text = $"{(int)data.Users / days:N2}";
+            this.DayPosts.Text = $"{data.Posts / days:N2}";
+            this.DayTopics.Text = $"{data.Topics / days:N2}";
+            this.DayUsers.Text = $"{data.Users / days:N2}";
 
             try
             {
-
-
                 this.DBSize.Text = $"{this.Get<IDbAccess>().GetDatabaseSize()} MB";
             }
             catch (SqlException)

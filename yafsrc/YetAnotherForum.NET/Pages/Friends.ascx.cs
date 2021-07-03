@@ -36,6 +36,7 @@ namespace YAF.Pages
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects.Model;
     using YAF.Web.Extensions;
 
     #endregion
@@ -119,7 +120,7 @@ namespace YAF.Pages
         /// <param name="buddyList">
         /// The buddy List.
         /// </param>
-        private void InitializeBuddyList([NotNull] BuddyList customBuddyList, int mode, List<dynamic> buddyList)
+        private void InitializeBuddyList([NotNull] BuddyList customBuddyList, int mode, List<BuddyUser> buddyList)
         {
             customBuddyList.FriendsList = buddyList;
             customBuddyList.CurrentUserID = this.PageContext.PageUserID;

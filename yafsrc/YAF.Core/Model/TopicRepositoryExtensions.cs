@@ -505,7 +505,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<dynamic> RssList(
+        public static List<LatestTopic> RssList(
             this IRepository<Topic> repository,
             [NotNull] int forumId,
             [NotNull] int pageUserId,
@@ -534,7 +534,7 @@ namespace YAF.Core.Model
                         {
                             Topic = t.TopicName,
                             TopicID = t.ID,
-                            f.Name,
+                            Forum = f.Name,
                             LastPosted = t.LastPosted != null ? t.LastPosted : t.Posted,
                             LastUserID = t.LastUserID != null ? t.LastUserID : t.UserID,
                             t.LastMessageID,
@@ -542,7 +542,7 @@ namespace YAF.Core.Model
                             LastMessage = m.MessageText
                         });
 
-                    return db.Connection.Select<object>(expression);
+                    return db.Connection.Select<LatestTopic>(expression);
                 });
         }
 
@@ -576,7 +576,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The List of Latest Topics
         /// </returns>
-        public static List<dynamic> Latest(
+        public static List<LatestTopic> Latest(
             this IRepository<Topic> repository,
             [NotNull] int boardId,
             [NotNull] int categoryId,
@@ -605,14 +605,14 @@ namespace YAF.Core.Model
                         expression.Where<Topic, Forum, ActiveAccess, Category>(
                             (topic, f, x, c) => c.BoardID == boardId && topic.TopicMovedID == null &&
                                                 x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
-                                                topic.LastPosted != null && (f.Flags & 4) != 4);
+                                                topic.LastPosted != null);
                     }
                     else
                     {
                         expression.Where<Topic, Forum, ActiveAccess, Category>(
                             (topic, f, x, c) => c.BoardID == boardId && topic.TopicMovedID == null &&
                                                 x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
-                                                topic.LastPosted != null && (f.Flags & 4) != -1);
+                                                topic.LastPosted != null && (f.Flags & 4) != 4);
                     }
 
                     if (categoryId > 0)
@@ -714,7 +714,7 @@ namespace YAF.Core.Model
                             });
                     }
 
-                    return db.Connection.Select<object>(expression);
+                    return db.Connection.Select<LatestTopic>(expression);
                 });
         }
 
@@ -1039,9 +1039,6 @@ namespace YAF.Core.Model
         /// <param name="posted">
         /// The posted.
         /// </param>
-        /// <param name="blogPostId">
-        /// The blog Post Id.
-        /// </param>
         /// <param name="flags">
         /// The flags.
         /// </param>
@@ -1068,7 +1065,6 @@ namespace YAF.Core.Model
             [NotNull] string userDisplayName,
             [NotNull] string ip,
             [NotNull] DateTime posted,
-            [NotNull] string blogPostId,
             [NotNull] MessageFlags flags,
             [CanBeNull] string topicTags,
             out int messageId)

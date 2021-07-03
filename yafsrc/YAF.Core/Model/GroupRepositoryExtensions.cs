@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -39,6 +39,7 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
 
     /// <summary>
     /// The group repository extensions.
@@ -89,7 +90,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<dynamic> Member(
+        public static List<GroupMember> Member(
             this IRepository<Group> repository,
             [NotNull] int boardId,
             [NotNull] int userId)
@@ -111,7 +112,7 @@ namespace YAF.Core.Model
                         .Select<Group>(a => new { GroupID = a.ID, a.Name, Member = Sql.Custom($"({countSql})") })
                         .OrderBy<Group>(a => a.Name);
 
-                    return db.Connection.Select<object>(expression);
+                    return db.Connection.Select<GroupMember>(expression);
                 });
         }
 

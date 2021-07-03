@@ -25,7 +25,6 @@
 namespace YAF.Core.Modules
 {
     using System.Collections.Generic;
-    using System.Data.Common;
     using System.Linq;
     using System.Reflection;
 
@@ -76,8 +75,6 @@ namespace YAF.Core.Modules
             builder.RegisterType<DbAccessProvider>().As<IDbAccessProvider>().SingleInstance();
             builder.Register(c => c.Resolve<IComponentContext>().Resolve<IDbAccessProvider>().Instance).As<IDbAccess>()
                 .InstancePerDependency().PreserveExistingDefaults();
-            builder.Register((c, p) => DbProviderFactories.GetFactory(p.TypedAs<string>())).ExternallyOwned()
-                .PreserveExistingDefaults();
 
             // register generic IRepository handler, which can be easily overriden by more advanced repository handler
             builder.RegisterGeneric(typeof(BasicRepository<>)).As(typeof(IRepository<>)).InstancePerDependency();

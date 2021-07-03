@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.MostActiveUsers" Codebehind="MostActiveUsers.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Objects.Model" %>
 
 
 <div class="card mb-3">
@@ -15,7 +16,7 @@
             </HeaderTemplate>
             <ItemTemplate>
                 <li><YAF:UserLink runat="server" ID="UserLink"/>
-                (<%# (Container.DataItem as dynamic).NumOfPosts %>)</li>
+                (<%# (Container.DataItem as LastActive).NumOfPosts %>)</li>
             </ItemTemplate>
             <FooterTemplate>
                 </ol>

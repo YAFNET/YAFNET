@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text.RegularExpressions;
 using System.Threading;
-using ServiceStack.Text;
 using PropertyAttributes = System.Reflection.PropertyAttributes;
 
 namespace ServiceStack.OrmLite
@@ -69,7 +68,7 @@ namespace ServiceStack.OrmLite
             public object CreateDynamicType()
             {
                 var assemblyName = new AssemblyName { Name = "tmpAssembly" };
-#if NETSTANDARD2_0
+#if NET5_0_OR_GREATER
                 var typeBuilder =
                     AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run)
                     .DefineDynamicModule("tmpModule")
@@ -235,10 +234,8 @@ namespace ServiceStack.OrmLite
                 return RawSql;
             }
 
-            public string SelectInto<T>()
-            {
-                return RawSql;
-            }
+            public string SelectInto<T>() => RawSql;
+            public string SelectInto<T>(QueryType queryType) => RawSql;
         }
 
         public Template AddTemplate(string sql, object parameters = null)

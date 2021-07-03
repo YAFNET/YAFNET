@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Controls.EditUsersGroups" Codebehind="EditUsersGroups.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Objects" %>
 
 
 <asp:Repeater ID="UserGroups" runat="server">
@@ -14,13 +15,13 @@
         <ItemTemplate>
               <div class="mb-3 col-md-4">
                 <asp:Label runat="server" AssociatedControlID="GroupMember">
-                    <%# (Container.DataItem as dynamic).Name %>
+                    <%# (Container.DataItem as GroupMember).Name %>
                 </asp:Label>
                 <div class="form-check form-switch">
                     <asp:CheckBox Text="&nbsp;" runat="server" ID="GroupMember"
-                                  Checked="<%# this.IsMember((Container.DataItem as dynamic).Member) %>"/>
+                                  Checked="<%# this.IsMember((Container.DataItem as GroupMember).MemberCount) %>"/>
                 </div>
-                    <asp:Label ID="GroupID" Visible="false" runat="server" Text="<%# (Container.DataItem as dynamic).GroupID %>"></asp:Label>
+                    <asp:Label ID="GroupID" Visible="false" runat="server" Text="<%# (Container.DataItem as GroupMember).GroupID %>"></asp:Label>
               </div>
         </ItemTemplate>
        <FooterTemplate>

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -40,6 +40,7 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
     using YAF.Web.Extensions;
 
     #endregion
@@ -103,7 +104,7 @@ namespace YAF.Pages
         /// <param name="activeUsers">
         /// The active users.
         /// </param>
-        private static void RemoveAllButGuests([NotNull] ref List<dynamic> activeUsers)
+        private static void RemoveAllButGuests([NotNull] ref List<ActiveUser> activeUsers)
         {
             if (!activeUsers.Any())
             {
@@ -119,7 +120,7 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            List<dynamic> activeUsers = null;
+            List<ActiveUser> activeUsers = null;
 
             switch (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("v"))
             {
@@ -162,7 +163,7 @@ namespace YAF.Pages
                     break;
                 case 3:
 
-                    // Show hidden                         
+                    // Show hidden
                     if (this.PageContext.IsAdmin)
                     {
                         activeUsers = this.GetActiveUsersData(false, false);
@@ -207,7 +208,7 @@ namespace YAF.Pages
         /// <returns>
         /// Returns the Active user list
         /// </returns>
-        private List<dynamic> GetActiveUsersData(bool showGuests, bool showCrawlers)
+        private List<ActiveUser> GetActiveUsersData(bool showGuests, bool showCrawlers)
         {
             var activeUsers = this.GetRepository<Active>().ListUsersPaged(
                 this.PageContext.PageUserID,
@@ -226,7 +227,7 @@ namespace YAF.Pages
         /// <param name="activeUsers">
         /// The active users.
         /// </param>
-        private void RemoveAllButHiddenUsers([NotNull] ref List<dynamic> activeUsers)
+        private void RemoveAllButHiddenUsers([NotNull] ref List<ActiveUser> activeUsers)
         {
             if (!activeUsers.Any())
             {
@@ -235,7 +236,7 @@ namespace YAF.Pages
 
             // remove hidden users...
             activeUsers.RemoveAll(
-                row => row.IsActiveExcluded == false && this.PageContext.PageUserID != (int)row.UserID);
+                row => row.IsActiveExcluded == false && this.PageContext.PageUserID != row.UserID);
         }
 
         /// <summary>
@@ -244,7 +245,7 @@ namespace YAF.Pages
         /// <param name="activeUsers">
         /// The active users.
         /// </param>
-        private void RemoveHiddenUsers([NotNull] ref List<dynamic> activeUsers)
+        private void RemoveHiddenUsers([NotNull] ref List<ActiveUser> activeUsers)
         {
             if (!activeUsers.Any())
             {
@@ -253,8 +254,8 @@ namespace YAF.Pages
 
             // remove hidden users...
             activeUsers.RemoveAll(
-                row => row.IsActiveExcluded == true && !this.PageContext.IsAdmin &&
-                       this.PageContext.PageUserID != (int)row.UserID);
+                row => row.IsActiveExcluded && !this.PageContext.IsAdmin &&
+                       this.PageContext.PageUserID != row.UserID);
         }
 
         #endregion

@@ -255,11 +255,12 @@
             return this;
         }
 
-        public string SelectInto<TModel>()
+        public string SelectInto<TModel>() => SelectInto<TModel>(QueryType.Select);
+        public string SelectInto<TModel>(QueryType queryType)
         {
             if (this.CustomSelect && this.OnlyFields == null || typeof(TModel) == typeof(T) && !this.PrefixFieldWithTableName)
             {
-                return this.ToSelectStatement(QueryType.Select);
+                return this.ToSelectStatement(queryType);
             }
 
             this.useFieldName = true;
@@ -398,7 +399,7 @@
             var columns = select.Length > 0 ? select : "*";
             this.SelectExpression = "SELECT " + (this.selectDistinct ? "DISTINCT " : string.Empty) + columns;
 
-            return this.ToSelectStatement(QueryType.Select);
+            return this.ToSelectStatement(queryType);
         }
 
         private static FieldDefinition FindWeakMatch(ModelDefinition tableDef, FieldDefinition fieldDef)

@@ -38,6 +38,7 @@ namespace YAF.Core.Services
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
 
     #endregion
 
@@ -102,9 +103,9 @@ namespace YAF.Core.Services
         /// </param>
         public void ApproveAllRequests(bool mutual)
         {
-            var dt = this.ListAll().Where(x => (bool)x.Approved && x.UserID == BoardContext.Current.PageUserID);
+            var dt = this.ListAll().Where(x => x.Approved && x.UserID == BoardContext.Current.PageUserID);
 
-            dt.ForEach(drv => this.ApproveRequest((int)drv.FromUserID, mutual));
+            dt.ForEach(drv => this.ApproveRequest(drv.FromUserID, mutual));
         }
 
         /// <summary>
@@ -135,7 +136,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// A <see cref="List"/> of all buddies.
         /// </returns>
-        public List<dynamic> ListAll()
+        public List<BuddyUser> ListAll()
         {
             return this.Get<IDataCache>().GetOrSet(
                 string.Format(Constants.Cache.UserBuddies, BoardContext.Current.PageUserID),
@@ -162,7 +163,7 @@ namespace YAF.Core.Services
                 .Where(x => x.Approved == false && x.UserID == BoardContext.Current.PageUserID);
 
             dt.Where(x => Convert.ToDateTime(x.Requested).AddDays(14) < DateTime.UtcNow)
-                .ForEach(x => this.DenyRequest((int)x.FromUserID));
+                .ForEach(x => this.DenyRequest(x.FromUserID));
         }
 
         /// <summary>
@@ -189,7 +190,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public List<dynamic> GetForUser(int userId)
+        public List<BuddyUser> GetForUser(int userId)
         {
             return this.GetRepository<Buddy>().ListAll(userId);
         }

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -39,6 +39,7 @@ namespace YAF.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects.Model;
 
     #endregion
 
@@ -72,7 +73,7 @@ namespace YAF.Controls
         /// <summary>
         /// Gets or sets the Friends Table.
         /// </summary>
-        public List<dynamic> FriendsList { get; set; }
+        public List<BuddyUser> FriendsList { get; set; }
 
         #endregion
 
@@ -312,7 +313,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Initializes the values of BuddyList control's properties and calls the BindData() 
+        /// Initializes the values of BuddyList control's properties and calls the BindData()
         ///   method of the control.
         /// </summary>
         /// <param name="customBuddyList">

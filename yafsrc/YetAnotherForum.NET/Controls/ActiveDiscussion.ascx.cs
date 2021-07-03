@@ -44,6 +44,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
     using YAF.Web.Controls;
 
     #endregion
@@ -72,9 +73,9 @@ namespace YAF.Controls
                 return;
             }
 
-            var item = (dynamic)e.Item.DataItem;
+            var item = (LatestTopic)e.Item.DataItem;
 
-            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode((string)item.Topic));
+            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(item.Topic));
 
             // get the controls
             var postIcon = e.Item.FindControlAs<Label>("PostIcon");
@@ -84,10 +85,10 @@ namespace YAF.Controls
             var lastUserLink = new UserLink();
             var lastPostedDateLabel = new DisplayDateTime { Format = DateTimeFormat.BothTopic };
 
-            var topicStyle = (string)item.Styles;
+            var topicStyle = item.Styles;
 
             var styles = this.PageContext.BoardSettings.UseStyledTopicTitles && topicStyle.IsSet()
-                ? this.Get<IStyleTransform>().Decode((string)item.Styles)
+                ? this.Get<IStyleTransform>().Decode(item.Styles)
                 : string.Empty;
 
             if (styles.IsSet())
@@ -99,9 +100,9 @@ namespace YAF.Controls
 
             var startedByText = this.GetTextFormatted(
                 "VIEW_TOPIC_STARTED_BY",
-                this.PageContext.BoardSettings.EnableDisplayName ? (string)item.UserDisplayName : (string)item.UserName);
+                this.PageContext.BoardSettings.EnableDisplayName ? item.UserDisplayName : item.UserName);
 
-            var inForumText = this.GetTextFormatted("IN_FORUM", this.HtmlEncode((string)item.Forum));
+            var inForumText = this.GetTextFormatted("IN_FORUM", this.HtmlEncode(item.Forum));
 
             textMessageLink.TitleNonLocalized = $"{startedByText} {inForumText}";
             textMessageLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(
@@ -113,7 +114,7 @@ namespace YAF.Controls
             forumLink.Text = $"({item.Forum})";
             forumLink.NavigateUrl = this.Get<LinkBuilder>().GetForumLink(item.ForumID, item.Forum);
 
-            lastUserLink.UserID = item.LastUserID;
+            lastUserLink.UserID = item.LastUserID.Value;
             lastUserLink.Style = item.LastUserStyle;
             lastUserLink.Suspended = item.LastUserSuspended;
             lastUserLink.ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
@@ -123,10 +124,10 @@ namespace YAF.Controls
             lastPostedDateLabel.DateTime = item.LastPosted;
 
             var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                (int)item.ForumID,
-                (int)item.TopicID,
-                (DateTime?)item.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
-                (DateTime?)item.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
+                item.ForumID,
+                item.TopicID,
+                item.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
+                item.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
             if ((DateTime)item.LastPosted > lastRead)
             {
@@ -197,12 +198,12 @@ namespace YAF.Controls
             // Shows the latest n number of posts on the main forum list page
             const string CacheKey = Constants.Cache.ActiveDiscussions;
 
-            List<dynamic> activeTopics = null;
+            List<LatestTopic> activeTopics = null;
 
             if (this.PageContext.IsGuest)
             {
                 // allow caching since this is a guest...
-                activeTopics = this.Get<IDataCache>()[CacheKey] as List<dynamic>;
+                activeTopics = this.Get<IDataCache>()[CacheKey] as List<LatestTopic>;
             }
 
             if (activeTopics == null)

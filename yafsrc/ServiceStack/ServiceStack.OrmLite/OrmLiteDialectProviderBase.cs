@@ -583,7 +583,8 @@ namespace ServiceStack.OrmLite
             var sb = StringBuilderCache.Allocate();
             sb.Append(selectExpression);
             sb.Append(bodyExpression);
-            if (orderByExpression != null)
+
+            if (!string.IsNullOrEmpty(orderByExpression))
             {
                 sb.Append(orderByExpression);
             }
@@ -1715,11 +1716,6 @@ namespace ServiceStack.OrmLite
             throw new NotImplementedException();
         }
 
-        public virtual string GetFunctionName(string database, string functionName)
-        {
-            return null;
-        }
-
         public virtual string GetDropFunction(string database, string functionName)
         {
             return null;
@@ -2092,6 +2088,11 @@ namespace ServiceStack.OrmLite
         }
 
         public virtual string SQLVersion()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual string SQLServerName()
         {
             throw new NotImplementedException();
         }

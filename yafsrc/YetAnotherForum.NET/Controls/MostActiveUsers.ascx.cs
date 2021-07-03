@@ -37,6 +37,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
     using YAF.Web.Controls;
 
     #endregion
@@ -94,12 +95,12 @@ namespace YAF.Controls
                 return;
             }
 
-            var item = (dynamic)e.Item.DataItem;
+            var item = (LastActive)e.Item.DataItem;
 
             var userLink = e.Item.FindControlAs<UserLink>("UserLink");
 
             // render UserLink...
-            userLink.UserID = (int)item.ID;
+            userLink.UserID = item.ID;
             userLink.Suspended = item.Suspended;
             userLink.Style = item.UserStyle;
             userLink.ReplaceName = this.PageContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name;

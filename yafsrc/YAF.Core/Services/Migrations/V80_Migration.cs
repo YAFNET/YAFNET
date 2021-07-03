@@ -193,8 +193,6 @@ namespace YAF.Core.Services.Migrations
                 {
                     this.DropFunctions(dbCommand);
 
-                    dbAccess.Information.CreateFunctions(dbAccess, dbCommand);
-
                     return true;
                 });
         }

@@ -680,9 +680,9 @@ namespace YAF.Pages
                     var count = this.GetRepository<PMessage>().UserMessageCount(user.ID);
 
                     // test receiving user's PM count
-                    if ((int)count.NumberTotal + 1
-                        < (int)count.NumberAllowed || this.PageContext.IsAdmin
-                        || this.GetRepository<User>().GetBoardUser(user.ID, this.PageContext.PageBoardID).Item4.IsAdmin)
+                    if (count.NumberTotal + 1
+                        < count.Allowed || this.PageContext.IsAdmin
+                                        || this.GetRepository<User>().GetBoardUser(user.ID, this.PageContext.PageBoardID).Item4.IsAdmin)
                     {
                         continue;
                     }
@@ -801,7 +801,7 @@ namespace YAF.Pages
             // get user's name
             var countInfo = this.GetRepository<PMessage>().UserMessageCount(this.PageContext.PageUserID);
 
-            if ((int)countInfo.NumberTotal + count <= (int)countInfo.NumberAllowed
+            if (countInfo.NumberTotal + count <= countInfo.Allowed
                 || this.PageContext.IsAdmin)
             {
                 return true;
@@ -809,7 +809,7 @@ namespace YAF.Pages
 
             // user has full PM box
             this.PageContext.AddLoadMessage(
-                this.GetTextFormatted("OWN_PMBOX_FULL", (int)countInfo.NumberAllowed),
+                this.GetTextFormatted("OWN_PMBOX_FULL", countInfo.Allowed),
                 MessageTypes.danger);
 
             return false;

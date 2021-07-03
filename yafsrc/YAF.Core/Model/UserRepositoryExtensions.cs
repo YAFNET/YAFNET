@@ -273,7 +273,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns the Last Active Members
         /// </returns>
-        public static List<dynamic> LastActive(
+        public static List<LastActive> LastActive(
             this IRepository<User> repository,
             [NotNull] int boardId,
             [NotNull] int guestUserId,
@@ -304,7 +304,7 @@ namespace YAF.Core.Model
                             counter.NumOfPosts").Take(displayNumber);
 
                   return db.Connection
-                      .Select<dynamic>(expression);
+                      .Select<LastActive>(expression);
               });
         }
 

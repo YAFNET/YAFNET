@@ -328,8 +328,6 @@ namespace YAF.Core.Services
             this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateViews(this.DbAccess, dbCommand));
 
             this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateIndexViews(this.DbAccess, dbCommand));
-
-            this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateFunctions(this.DbAccess, dbCommand));
         }
 
         /// <summary>

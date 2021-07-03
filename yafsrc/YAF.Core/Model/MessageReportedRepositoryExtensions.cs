@@ -34,6 +34,7 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     ///     The MessageReported repository extensions.
@@ -50,7 +51,7 @@ namespace YAF.Core.Model
         /// The forum Id.
         /// </param>
         public static
-            List<dynamic> ListReported(this IRepository<MessageReported> repository, [NotNull] int forumId)
+            List<ReportedMessage> ListReported(this IRepository<MessageReported> repository, [NotNull] int forumId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -96,7 +97,7 @@ namespace YAF.Core.Model
                         });
 
                     return db.Connection
-                        .Select<dynamic>(expression);
+                        .Select<ReportedMessage>(expression);
                 });
         }
 
@@ -106,8 +107,8 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="messageId">
-        /// The message Id.
+        /// <param name="message">
+        /// The Message
         /// </param>
         /// <param name="userId">
         /// The user Id.

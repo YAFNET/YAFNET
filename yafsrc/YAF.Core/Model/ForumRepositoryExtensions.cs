@@ -30,7 +30,6 @@ namespace YAF.Core.Model
 
     using ServiceStack.OrmLite;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -451,16 +450,10 @@ namespace YAF.Core.Model
                             .ToSelectStatement();
                     }
 
-                    var functionLastTopicName = OrmLiteConfig.DialectProvider.GetFunctionName(db.Connection.Database, "forum_lasttopic");
-
                     expression.Join<Forum>((c, f) => c.ID == f.CategoryID)
                         .Join<Forum, ActiveAccess>((f, x) => x.ForumID == f.ID).CustomJoin(
                             $@" left outer join {expression.Table<Topic>()} on {expression.Column<Topic>(t => t.ID, true)} =
-                       {functionLastTopicName}(
-                                {expression.Column<Forum>(f => f.ID, true)},
-                                {userId},
-                                {expression.Column<Forum>(f => f.LastTopicID, true)},
-                                {expression.Column<Forum>(f => f.LastPosted, true)}) ")
+                                                                               {expression.Column<Forum>(f => f.LastTopicID, true)} ")
                         .CustomJoin(
                             $@" left outer join {expression.Table<User>()} on {expression.Column<User>(x => x.ID, true)} = {expression.Column<Topic>(t => t.LastUserID, true)} ")
                         .Where<Forum, Category, ActiveAccess>(
@@ -478,9 +471,6 @@ namespace YAF.Core.Model
 
                     expression.OrderBy<Category>(a => a.SortOrder).ThenBy<Forum>(b => b.SortOrder);
 
-                    var functionForumTopicsName = OrmLiteConfig.DialectProvider.GetFunctionName(db.Connection.Database, "forum_topics");
-                    var functionForumPostsName = OrmLiteConfig.DialectProvider.GetFunctionName(db.Connection.Database, "forum_posts");
-
                     expression.Select<Category, Forum, ActiveAccess, Topic, User>(
                         (a, b, x, t, lastUser) => new
                         {
@@ -493,12 +483,8 @@ namespace YAF.Core.Model
                             b.ImageURL,
                             b.Styles,
                             b.ParentID,
-                            Topics =
-                                Sql.Custom(
-                                    $"{functionForumTopicsName}({expression.Column<Forum>(f => f.ID, true)})"),
-                            Posts =
-                                Sql.Custom(
-                                    $"{functionForumPostsName}({expression.Column<Forum>(f => f.ID, true)})"),
+                            Topics = b.NumTopics,
+                            Posts = b.NumPosts,
                             t.LastPosted,
                             t.LastMessageID,
                             t.LastMessageFlags,

@@ -32,9 +32,9 @@ namespace YAF.Pages.Admin
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
-    using YAF.Core.Helpers;
     using YAF.Core.Utilities;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -140,7 +140,11 @@ namespace YAF.Pages.Admin
                 _ => string.Empty
             };
 
-            this.txtIndexStatistics.Text = this.Get<IDbAccess>().ChangeRecoveryMode(recoveryMode);
+            const string result = "Done";
+
+            var stats = this.txtIndexStatistics.Text = this.Get<IDbAccess>().ChangeRecoveryMode(recoveryMode);
+
+            this.txtIndexStatistics.Text = stats.IsSet() ? stats : result;
         }
 
         /// <summary>
@@ -150,7 +154,11 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReindexClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.txtIndexStatistics.Text = this.Get<IDbAccess>().ReIndexDatabase(Config.DatabaseObjectQualifier);
+            const string result = "Done";
+
+            var stats = this.Get<IDbAccess>().ReIndexDatabase(Config.DatabaseObjectQualifier);
+
+            this.txtIndexStatistics.Text = stats.IsSet() ? stats : result;
         }
 
         /// <summary>
@@ -172,6 +180,8 @@ namespace YAF.Pages.Admin
                 result.AppendLine(this.GetTextFormatted(
                     "INDEX_SHRINK",
                     this.Get<IDbAccess>().GetDatabaseSize()));
+
+                result.Append(" ");
 
                 this.txtIndexStatistics.Text = result.ToString();
             }

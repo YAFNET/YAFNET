@@ -214,24 +214,34 @@ namespace YAF.Types.Extensions.Data
         {
             CodeContracts.VerifyNotNull(dbAccess);
 
-            var infos = dbAccess.Execute(
-                db => db.Connection.SqlList<dynamic>(
-                    OrmLiteConfig.DialectProvider.DatabaseFragmentationInfo(db.Connection.Database)));
-
             var result = new StringBuilder();
 
-            infos.ForEach(
-                info =>
+            try
+            {
+                var infos = dbAccess.Execute(
+                    db => db.Connection.SqlList<dynamic>(
+                        OrmLiteConfig.DialectProvider.DatabaseFragmentationInfo(db.Connection.Database)));
+
+                if (infos == null)
                 {
-                    IDictionary<string, object> propertyValues = info;
+                    return null;
+                }
 
-                    foreach (var property in propertyValues.Keys)
+                infos.ForEach(
+                    info =>
                     {
-                        result.AppendFormat("{0} : {1} ", property, propertyValues[property]);
-                    }
+                        IDictionary<string, object> propertyValues = info;
 
-                    result.Append("\r\n");
-                });
+                        propertyValues.Keys.ForEach(
+                            property => result.AppendFormat("{0} : {1} ", property, propertyValues[property]));
+
+                        result.Append("\r\n");
+                    });
+            }
+            catch (Exception)
+            {
+                return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
+            }
 
             return result.ToString();
         }
@@ -260,7 +270,8 @@ namespace YAF.Types.Extensions.Data
         {
             CodeContracts.VerifyNotNull(dbAccess);
 
-            return dbAccess.Execute(db => db.Connection.Scalar<string>(OrmLiteConfig.DialectProvider.SQLVersion()));
+            return
+                $"{OrmLiteConfig.DialectProvider.SQLServerName()} {dbAccess.Execute(db => db.Connection.Scalar<string>(OrmLiteConfig.DialectProvider.SQLVersion()))}";
         }
 
         /// <summary>
@@ -277,9 +288,14 @@ namespace YAF.Types.Extensions.Data
         }
 
         /// <summary>
-        /// The re index database.
+        /// Re-Index the Database
         /// </summary>
-        /// <param name="dbAccess">The database access.</param>
+        /// <param name="dbAccess">
+        /// The database access.
+        /// </param>
+        /// <param name="objectQualifier">
+        /// The object Qualifier.
+        /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
@@ -292,10 +308,8 @@ namespace YAF.Types.Extensions.Data
                     OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Connection.Database, objectQualifier)));
         }
 
-
-
         /// <summary>
-        /// The db_recovery_mode.
+        /// Change Database Recovery Mode
         /// </summary>
         /// <param name="dbAccess">
         /// The Database access.
@@ -315,18 +329,9 @@ namespace YAF.Types.Extensions.Data
             }
             catch (Exception error)
             {
-                var expressDb = string.Empty;
-
-                if (error.Message.ToUpperInvariant().Contains("'SET'"))
-                {
-                    expressDb = "MS SQL Server Express Editions are not supported by the application.";
-                }
-
-                return $"\r\n{error.Message}\r\n{expressDb}";
+                return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
             }
         }
-
-
 
         /// <summary>
         /// Run the SQL Statement.

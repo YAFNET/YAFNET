@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Core.Utilities.Helpers" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
+<%@ Import Namespace="YAF.Types.Objects.Model" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -60,43 +61,43 @@
                         <tr>
                         <td>
                             <YAF:UserLink ID="NameLink" runat="server"
-                                          Suspended="<%# (Container.DataItem as dynamic).Suspended %>"
-                                          ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).UserDisplayName : (Container.DataItem as dynamic).UserName %>"
-                                          CrawlerName="<%# (Container.DataItem as dynamic).IsCrawler > 0 ? (string)(Container.DataItem as dynamic).Browser : string.Empty %>"
-                                          UserID="<%# (Container.DataItem as dynamic).UserID %>"
-                                          Style="<%# (string)(Container.DataItem as dynamic).UserStyle %>"
-                                          PostfixText='<%# (Container.DataItem as dynamic).IsActiveExcluded ? new Icon{IconName = "user-secret"}.RenderToString() : "" %>'/>
+                                          Suspended="<%# (Container.DataItem as ActiveUser).Suspended %>"
+                                          ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as ActiveUser).UserDisplayName : (Container.DataItem as ActiveUser).UserName %>"
+                                          CrawlerName="<%# (Container.DataItem as ActiveUser).IsCrawler ? (Container.DataItem as ActiveUser).Browser : string.Empty %>"
+                                          UserID="<%# (Container.DataItem as ActiveUser).UserID %>"
+                                          Style="<%# (Container.DataItem as ActiveUser).UserStyle %>"
+                                          PostfixText='<%# (Container.DataItem as ActiveUser).IsActiveExcluded ? new Icon{IconName = "user-secret"}.RenderToString() : "" %>'/>
                         </td>
                         <td>
                             <YAF:ActiveLocation ID="ActiveLocation2"
-                                                UserID="<%# (Container.DataItem as dynamic).UserID %>"
-                                                HasForumAccess="<%# (Container.DataItem as dynamic).HasForumAccess %>"
-                                                ForumPage="<%#(Container.DataItem as dynamic).ForumPage %>"
-                                                Location="<%#(Container.DataItem as dynamic).Location %>"
-                                                ForumID="<%# (Container.DataItem as dynamic).ForumID == null ? 0 : (Container.DataItem as dynamic).ForumID %>"
-                                                ForumName="<%# (Container.DataItem as dynamic).ForumName %>"
-                                                TopicID="<%# (Container.DataItem as dynamic).TopicID == null ? 0 : (Container.DataItem as dynamic).TopicID %>"
-                                                TopicName="<%# (Container.DataItem as dynamic).TopicName %>"
+                                                UserID="<%# (Container.DataItem as ActiveUser).UserID %>"
+                                                HasForumAccess="<%# (Container.DataItem as ActiveUser).HasForumAccess %>"
+                                                ForumPage="<%#(Container.DataItem as ActiveUser).ForumPage %>"
+                                                Location="<%#(Container.DataItem as ActiveUser).Location %>"
+                                                ForumID="<%# (Container.DataItem as ActiveUser).ForumID ?? 0  %>"
+                                                ForumName="<%# (Container.DataItem as ActiveUser).ForumName %>"
+                                                TopicID="<%# (Container.DataItem as ActiveUser).TopicID ?? 0  %>"
+                                                TopicName="<%# (Container.DataItem as ActiveUser).TopicName %>"
                                                 LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>
                         </td>
                         <td>
-                            <%# this.Get<IDateTimeService>().FormatTime((DateTime)(Container.DataItem as dynamic).Login) %>
+                            <%# this.Get<IDateTimeService>().FormatTime((Container.DataItem as ActiveUser).Login) %>
                         </td>
                         <td>
-                            <%# this.Get<IDateTimeService>().FormatTime((DateTime)(Container.DataItem as dynamic).LastActive) %>
+                            <%# this.Get<IDateTimeService>().FormatTime((Container.DataItem as ActiveUser).LastActive) %>
                         </td>
                         <td>
-                            <%# this.Get<ILocalization>().GetTextFormatted("minutes", (Container.DataItem as dynamic).Active)%>
+                            <%# this.Get<ILocalization>().GetTextFormatted("minutes", (Container.DataItem as ActiveUser).Active)%>
                         </td>
-                        <td><%# (Container.DataItem as dynamic).Browser %>
+                        <td><%# (Container.DataItem as ActiveUser).Browser %>
                         </td>
                         <td>
-                            <%#(Container.DataItem as dynamic).Platform %>
+                            <%#(Container.DataItem as ActiveUser).Platform %>
                         </td>
                         <td id="Iptd1" runat="server" visible="<%# this.PageContext.IsAdmin %>">
-                             <a id="Iplink1" href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIp4Address((string)(Container.DataItem as dynamic).IP)) %>"
+                             <a id="Iplink1" href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIp4Address((Container.DataItem as ActiveUser).IP)) %>"
                                 title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
-                             <%# IPHelper.GetIp4Address((string)(Container.DataItem as dynamic).IP)%></a>
+                             <%# IPHelper.GetIp4Address((Container.DataItem as ActiveUser).IP)%></a>
                         </td>
                     </tr>
                         </ItemTemplate>

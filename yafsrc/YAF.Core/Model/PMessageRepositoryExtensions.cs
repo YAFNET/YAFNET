@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Dynamic;
     using System.Linq;
 
     using ServiceStack.OrmLite;
@@ -12,9 +11,11 @@
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
     using YAF.Types.Objects.Model;
 
     /// <summary>
@@ -87,7 +88,7 @@
         /// <param name="userId">
         /// The user id.
         /// </param>
-        public static dynamic UserMessageCount(this IRepository<PMessage> repository, [NotNull] int userId)
+        public static PMessageCount UserMessageCount(this IRepository<PMessage> repository, [NotNull] int userId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -98,13 +99,14 @@
                 .OrderByDescending<Group>(c => c.PMLimit).ThenByDescending<Rank>(c => c.PMLimit).Limit(1)
                 .Select<Group, Rank>((c, d) => new { GroupLimit = c.PMLimit, RankLimit = d.PMLimit });
 
-            var limit = repository.DbAccess.Execute(db => db.Connection.Select<dynamic>(expression)).FirstOrDefault();
+            var limit = repository.DbAccess
+                .Execute(db => db.Connection.Select<(int GroupLimit, int? RankLimit)>(expression)).FirstOrDefault();
 
-            var numberAllowed = (int)limit.RankLimit;
+            var numberAllowed = limit.RankLimit.Value;
 
             if (limit.GroupLimit > limit.RankLimit)
             {
-                numberAllowed = (int)limit.GroupLimit;
+                numberAllowed = limit.GroupLimit;
             }
 
             // -- get count of pm's in user's sent items
@@ -114,7 +116,7 @@
                 (a, b) => (a.Flags & 2) == 2 && (a.Flags & 8) != 8 && (a.Flags & 4) != 4 &&
                           b.FromUserID == userId);
 
-            var numberOut = repository.DbAccess.Execute(db => db.Connection.Count(countOutBoxExpression));
+            var numberOut = repository.DbAccess.Execute(db => db.Connection.Count(countOutBoxExpression)).ToType<int>();
 
             // -- get count of pm's in user's received items
             var countInBoxExpression = OrmLiteConfig.DialectProvider.SqlExpression<PMessage>();
@@ -122,22 +124,23 @@
             countInBoxExpression.Join<UserPMessage>((a, b) => b.PMessageID == a.ID).Where<PMessage, UserPMessage>(
                 (a, b) => (b.Flags & 8) != 8 && (b.Flags & 4) != 4 && b.UserID == userId);
 
-            var numberIn = repository.DbAccess.Execute(db => db.Connection.Count(countInBoxExpression));
+            var numberIn = repository.DbAccess.Execute(db => db.Connection.Count(countInBoxExpression)).ToType<int>();
 
             var countArchivedExpression = OrmLiteConfig.DialectProvider.SqlExpression<PMessage>();
 
             countArchivedExpression.Join<UserPMessage>((a, b) => b.PMessageID == a.ID).Where<PMessage, UserPMessage>(
                 (a, b) => (b.Flags & 8) != 8 && (b.Flags & 4) == 4 && b.UserID == userId);
 
-            var numberArchived = repository.DbAccess.Execute(db => db.Connection.Count(countArchivedExpression));
+            var numberArchived = repository.DbAccess.Execute(db => db.Connection.Count(countArchivedExpression)).ToType<int>();
 
-            dynamic count = new ExpandoObject();
-
-            count.NumberIn = numberIn;
-            count.NumberOut = numberOut;
-            count.NumberTotal = numberIn + numberOut + numberArchived;
-            count.NumberArchived = numberArchived;
-            count.NumberAllowed = numberAllowed;
+            var count = new PMessageCount
+            {
+                InboxCount = numberIn,
+                OutBoxCount = numberOut,
+                NumberTotal = numberIn + numberOut + numberArchived,
+                ArchivedCount = numberArchived,
+                Allowed = numberAllowed
+            };
 
             return count;
         }
@@ -397,7 +400,7 @@
         {
             CodeContracts.VerifyNotNull(repository);
 
-            List<PagedPm> messages = repository.DbAccess.Execute(
+            var messages = repository.DbAccess.Execute(
                 db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<PMessage>();

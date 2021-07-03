@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Linq.Expressions;
-
-namespace ServiceStack.OrmLite
+﻿namespace ServiceStack.OrmLite
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Linq.Expressions;
+
     public interface IHasUntypedSqlExpression
     {
         IUntypedSqlExpression GetUntyped();
@@ -641,10 +641,8 @@ namespace ServiceStack.OrmLite
             return q.FirstMatchingField(fieldName);
         }
 
-        public string SelectInto<TModel>()
-        {
-            return q.SelectInto<TModel>();
-        }
+        public string SelectInto<TModel>() => q.SelectInto<TModel>();
+        public string SelectInto<TModel>(QueryType queryType) => q.SelectInto<TModel>(queryType);
     }
 
     public static class SqlExpressionExtensions

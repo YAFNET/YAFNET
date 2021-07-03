@@ -286,11 +286,6 @@ namespace ServiceStack.OrmLite.SqlServer
                 : base.GetForeignKeyOnUpdateClause(foreignKey);
         }
 
-        public override string GetFunctionName(string database, string functionName)
-        {
-            return this.GetTableNameWithBrackets(functionName);
-        }
-
         public override string GetDropFunction(string database, string functionName)
         {
             var sb = StringBuilderCache.Allocate();
@@ -902,18 +897,12 @@ namespace ServiceStack.OrmLite.SqlServer
 
             var selectType = selectExpression.StartsWithIgnoreCase("SELECT DISTINCT") ? "SELECT DISTINCT" : "SELECT";
 
-            //Temp hack for SqlServer <= 2008
+            //avoid Windowing function if unnecessary
             if (skip == 0)
             {
                 var sql = StringBuilderCache.ReturnAndFree(sb) + orderByExpression;
 
-                if (take == int.MaxValue)
-                    return sql;
-
-                if (sql.Length < "SELECT".Length)
-                    return sql;
-
-                return $"{selectType} TOP {take + sql.Substring(selectType.Length)}";
+                return SqlTop(sql, take, selectType);
             }
 
             // Required because ordering is done by Windowing function
@@ -931,6 +920,19 @@ namespace ServiceStack.OrmLite.SqlServer
                 $"SELECT * FROM (SELECT {selectExpression.Substring(selectType.Length)}, ROW_NUMBER() OVER ({orderByExpression}) As RowNum {bodyExpression}) AS RowConstrainedResult WHERE RowNum > {skip} AND RowNum <= {row}";
 
             return ret;
+        }
+
+        protected static string SqlTop(string sql, int take, string selectType = null)
+        {
+            selectType ??= sql.StartsWithIgnoreCase("SELECT DISTINCT") ? "SELECT DISTINCT" : "SELECT";
+
+            if (take == int.MaxValue)
+                return sql;
+
+            if (sql.Length < "SELECT".Length)
+                return sql;
+
+            return selectType + " TOP " + take + sql.Substring(selectType.Length);
         }
 
         // SELECT without RowNum and prefer aliases to be able to use in SELECT IN () Reference Queries
@@ -1161,6 +1163,11 @@ namespace ServiceStack.OrmLite.SqlServer
         public override string SQLVersion()
         {
             return "select @@version";
+        }
+
+        public override string SQLServerName()
+        {
+            return "MS SQL Server";
         }
 
         public override string ShrinkDatabase(string database)

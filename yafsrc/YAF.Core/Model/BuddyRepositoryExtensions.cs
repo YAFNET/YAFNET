@@ -33,6 +33,7 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     /// The Buddy repository extensions.
@@ -199,9 +200,9 @@ namespace YAF.Core.Model
         /// <param name="repository">The repository.</param>
         /// <param name="fromUserId">From user identifier.</param>
         /// <returns>
-        /// The <see cref="List" /> containing the buddy list.
+        /// The containing the buddy list.
         /// </returns>
-        public static List<dynamic> ListAll(this IRepository<Buddy> repository, [NotNull] int fromUserId)
+        public static List<BuddyUser> ListAll(this IRepository<Buddy> repository, [NotNull] int fromUserId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -230,7 +231,7 @@ namespace YAF.Core.Model
 
             expression2.Join<Rank>((u, r) => r.ID == u.RankID)
                 .Join<Buddy>((u, b) => b.ToUserID == fromUserId && b.FromUserID == u.ID && (u.Flags & 2) == 2)
-                /*.OrderBy(u => u.Name)*/.Select<User, Rank, Buddy>(
+                .Select<User, Rank, Buddy>(
                     (a, b, c) => new
                     {
                         UserID = fromUserId,
@@ -248,7 +249,7 @@ namespace YAF.Core.Model
                     });
 
             return repository.DbAccess.Execute(
-                db => db.Connection.Select<dynamic>(
+                db => db.Connection.Select<BuddyUser>(
                     $"{expression.ToSelectStatement()} UNION {expression2.ToSelectStatement()}"));
         }
 

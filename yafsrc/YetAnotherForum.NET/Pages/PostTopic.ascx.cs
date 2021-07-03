@@ -410,7 +410,6 @@ namespace YAF.Pages
                 this.PageContext.IsGuest ? this.From.Text : this.PageContext.User.DisplayName,
                 this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                 DateTime.UtcNow,
-                string.Empty,
                 messageFlags,
                 this.Tags.Text,
                 out var messageId);

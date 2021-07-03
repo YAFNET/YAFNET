@@ -542,13 +542,13 @@ namespace YAF.Core.Services
                                     IsMobileDevice = isMobileDevice,
                                     CategoryID = Sql.Custom($"{(category != null ? category.ID : 0)}"),
                                     CategoryName =
-                                        Sql.Custom($"{(category != null ? $"N'{category.Name}'" : "NULL")}"),
-                                    ForumName = Sql.Custom($"{(forum != null ? $"N'{forum.Name}'" : "NULL")}"),
+                                        Sql.Custom($"{(category != null ? $"'{category.Name}'" : "NULL")}"),
+                                    ForumName = Sql.Custom($"{(forum != null ? $"'{forum.Name}'" : "NULL")}"),
                                     TopicID = Sql.Custom($"{(topic != null ? topic.ID : 0)}"),
                                     TopicName =
-                                        Sql.Custom($"{(topic != null ? $"N'{topic.TopicName}'" : "NULL")}"),
-                                    ForumTheme = Sql.Custom($"{(forum != null && forum.ThemeURL.IsSet() ? $"N'{forum.ThemeURL}'" : "NULL")}"),
-                                    ParentForumID = Sql.Custom($"{(forum != null && forum.ParentID.HasValue ? $"N'{forum.ParentID}'" : "NULL")}")
+                                        Sql.Custom($"{(topic != null ? $"'{topic.TopicName}'" : "NULL")}"),
+                                    ForumTheme = Sql.Custom($"{(forum != null && forum.ThemeURL.IsSet() ? $"'{forum.ThemeURL}'" : "NULL")}"),
+                                    ParentForumID = Sql.Custom($"{(forum != null && forum.ParentID.HasValue ? $"'{forum.ParentID}'" : "NULL")}")
                                 });
 
                             return db.Connection.Select<PageLoad>(expression);
@@ -652,7 +652,7 @@ namespace YAF.Core.Services
         [NotNull]
         private SimpleTopic LoadSimpleTopic([NotNull] PagedTopic topic, [NotNull] SimpleForum forum)
         {
-            CodeContracts.VerifyNotNull(forum, "forum");
+            CodeContracts.VerifyNotNull(forum);
 
             return new SimpleTopic
             {

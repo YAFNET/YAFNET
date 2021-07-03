@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -83,26 +83,26 @@ namespace YAF.Controls
             // Posts and Topic Count...
             this.StatsPostsTopicCount.Text = this.GetTextFormatted(
                 "stats_posts",
-                (int)postsStatistics.Posts,
-                (int)postsStatistics.Topics,
-                (int)postsStatistics.Forums);
+                postsStatistics.Posts,
+                postsStatistics.Topics,
+                postsStatistics.Forums);
 
             // Last post
-            if (postsStatistics.LastPost != null)
+            if (postsStatistics.LastPost.HasValue)
             {
                 this.StatsLastPostHolder.Visible = true;
 
-                this.LastPostUserLink.UserID = postsStatistics.LastUserID;
+                this.LastPostUserLink.UserID = postsStatistics.LastUserID.Value;
                 this.LastPostUserLink.ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
                     ? postsStatistics.LastUserDisplayName
                     : postsStatistics.LastUser;
-                this.LastPostUserLink.Suspended = (DateTime?)postsStatistics.LastUserSuspended;
+                this.LastPostUserLink.Suspended = postsStatistics.LastUserSuspended;
                 this.LastPostUserLink.Style = postsStatistics.LastUserStyle;
                 this.StatsLastPost.Text = this.GetTextFormatted(
                     "stats_lastpost",
                     new DisplayDateTime
                     {
-                        DateTime = (DateTime)postsStatistics.LastPost, Format = DateTimeFormat.BothTopic
+                        DateTime = postsStatistics.LastPost, Format = DateTimeFormat.BothTopic
                     }.RenderToString());
             }
             else

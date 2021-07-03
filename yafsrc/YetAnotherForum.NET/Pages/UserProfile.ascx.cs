@@ -312,7 +312,7 @@ namespace YAF.Pages
             }
 
             this.Friends.DataSource = this.Get<IFriends>().GetForUser(userID)
-                .Where(x => x.Approved == true && x.FromUserID == userID).ToList();
+                .Where(x => x.Approved && x.FromUserID == userID).ToList();
             this.Friends.DataBind();
 
             this.BuddyCard.Visible = this.Friends.Items.Count > 0;
@@ -543,8 +543,8 @@ namespace YAF.Pages
             this.ThanksFrom.Text = this.GetRepository<Thanks>().ThanksFromUser(user.Item1.ID).ToString();
 
             var thanks = this.GetRepository<Thanks>().ThanksToUser(user.Item1.ID);
-            this.ThanksToTimes.Text = thanks.ThankesReceived.ToString();
-            this.ThanksToPosts.Text = thanks.ThankesPosts.ToString();
+            this.ThanksToTimes.Text = thanks.ThanksReceived;
+            this.ThanksToPosts.Text = thanks.Posts.ToString();
 
             this.ReputationReceived.Text =
                 this.Get<IReputation>().GenerateReputationBar(user.Item1.Points, user.Item1.ID);

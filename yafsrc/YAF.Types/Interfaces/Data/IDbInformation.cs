@@ -87,19 +87,5 @@ namespace YAF.Types.Interfaces.Data
         /// The <see cref="bool"/>.
         /// </returns>
         bool CreateIndexViews(IDbAccess dbAccess, IDbCommand dbCommand);
-
-        /// <summary>
-        /// Create Functions
-        /// </summary>
-        /// <param name="dbAccess">
-        /// The database access.
-        /// </param>
-        /// <param name="dbCommand">
-        /// The database command.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        bool CreateFunctions(IDbAccess dbAccess, IDbCommand dbCommand);
     }
 }

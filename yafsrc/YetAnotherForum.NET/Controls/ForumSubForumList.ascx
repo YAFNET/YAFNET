@@ -18,6 +18,26 @@
         <li class="list-inline-item">
             <YAF:Icon IconName="comments" IconType="text-secondary" runat="server" />
             <%#  this.GetForumLink((ForumRead)Container.DataItem) %>
+            <asp:Label runat="server"
+                       Visible="<%# ((ForumRead)Container.DataItem).ReadAccess  %>"
+                       CssClass="badge bg-light text-dark me-1"
+                       ToolTip='<%# this.GetText("TOPICS") %>'
+                       data-bs-toggle="tooltip">
+                <YAF:Icon runat="server"
+                          IconName="comments"
+                          IconStyle="far"></YAF:Icon>
+                <%# this.Topics((ForumRead)Container.DataItem) %>
+            </asp:Label>
+            <asp:Label runat="server"
+                       Visible="<%# ((ForumRead)Container.DataItem).ReadAccess  %>"
+                       CssClass="badge bg-light text-dark"
+                       ToolTip='<%# this.GetText("Posts") %>'
+                       data-bs-toggle="tooltip">
+            <YAF:Icon runat="server"
+                      IconName="comment"
+                      IconStyle="far"></YAF:Icon>
+            <%# this.Posts((ForumRead)Container.DataItem) %>
+            </asp:Label>
         </li>
     </ItemTemplate>
     <FooterTemplate>

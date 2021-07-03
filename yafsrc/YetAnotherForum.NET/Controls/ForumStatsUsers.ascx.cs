@@ -70,14 +70,14 @@ namespace YAF.Controls
         /// Returns the formatted active users.
         /// </returns>
         [NotNull]
-        protected string FormatActiveUsers([NotNull] dynamic activeStats)
+        protected string FormatActiveUsers([NotNull] (int ActiveUsers, int ActiveMembers, int ActiveGuests, int ActiveHidden) activeStats)
         {
             var sb = new StringBuilder();
 
-            var activeUsers = (int)activeStats.ActiveUsers;
-            var activeHidden = (int)activeStats.ActiveHidden;
-            var activeMembers = (int)activeStats.ActiveMembers;
-            var activeGuests = (int)activeStats.ActiveGuests;
+            var activeUsers = activeStats.ActiveUsers;
+            var activeHidden = activeStats.ActiveHidden;
+            var activeMembers = activeStats.ActiveMembers;
+            var activeGuests = activeStats.ActiveGuests;
 
             // show hidden count to admin...
             if (this.PageContext.IsAdmin)
@@ -183,9 +183,9 @@ namespace YAF.Controls
             if (this.PageContext.BoardSettings.ShowRecentUsers)
             {
                 var activeUsers30Day = this.Get<IDataCache>().GetOrSet(
-                    Constants.Cache.VisitorsInTheLast30Days,
-                    () => this.GetRepository<User>().GetRecentUsers(),
-                    TimeSpan.FromMinutes(this.PageContext.BoardSettings.ForumStatisticsCacheTimeout));
+                     Constants.Cache.VisitorsInTheLast30Days,
+                     () => this.GetRepository<User>().GetRecentUsers(),
+                     TimeSpan.FromMinutes(this.PageContext.BoardSettings.ForumStatisticsCacheTimeout));
 
                 if (activeUsers30Day != null && activeUsers30Day.Any())
                 {
@@ -229,7 +229,7 @@ namespace YAF.Controls
             {
                 this.MostUsersCount.Text = this.GetTextFormatted(
                     "MAX_ONLINE",
-                    (int)activeStats.ActiveUsers,
+                    activeStats.ActiveUsers,
                     this.Get<IDateTimeService>().FormatDateTimeTopic(DateTime.UtcNow));
             }
         }

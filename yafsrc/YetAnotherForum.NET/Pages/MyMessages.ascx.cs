@@ -123,11 +123,11 @@ namespace YAF.Pages
             {
                 this.InfoInbox.Text = this.InfoArchive.Text = this.InfoOutbox.Text = this.GetPMessageText(
                     "PMLIMIT_ALL",
-                    (int)count.NumberTotal,
-                    (int)count.NumberIn,
-                    (int)count.NumberOut,
-                    (int)count.NumberArchived,
-                    (int)count.NumberAllowed);
+                    count.NumberTotal,
+                    count.InboxCount,
+                    count.OutBoxCount,
+                    count.ArchivedCount,
+                    count.Allowed);
             }
         }
 

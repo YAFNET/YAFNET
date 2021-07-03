@@ -24,6 +24,9 @@
 
 namespace YAF.Data.MsSql
 {
+    using System.Data.Common;
+    using System.Data.SqlClient;
+
     using Autofac;
 
     using YAF.Types.Interfaces.Data;
@@ -41,6 +44,8 @@ namespace YAF.Data.MsSql
         /// </param>
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterInstance<DbProviderFactory>(SqlClientFactory.Instance);
+
             builder.RegisterType<MsSqlDbAccess>()
                 .Named<IDbAccess>(MsSqlDbAccess.ProviderTypeName)
                 .InstancePerLifetimeScope();

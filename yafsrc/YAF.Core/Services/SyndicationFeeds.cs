@@ -757,14 +757,14 @@ namespace YAF.Core.Services
             topics.ForEach(
                 topic =>
                 {
-                    var lastPosted = (DateTime)topic.LastPosted + this.Get<IDateTimeService>().TimeOffset;
+                    var lastPosted = topic.LastPosted + this.Get<IDateTimeService>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
                     {
                         feed.Authors.Add(
                             SyndicationItemExtensions.NewSyndicationPerson(
                                 string.Empty,
-                                (int)topic.LastUserID,
+                                topic.LastUserID.Value,
                                 null,
                                 null));
                         feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
@@ -773,7 +773,7 @@ namespace YAF.Core.Services
                     feed.Contributors.Add(
                         SyndicationItemExtensions.NewSyndicationPerson(
                             string.Empty,
-                            (int)topic.LastUserID,
+                            topic.LastUserID.Value,
                             null,
                             null));
 
@@ -781,24 +781,24 @@ namespace YAF.Core.Services
                         ForumPages.Posts,
                         true,
                         "m={0}&name={1}",
-                        (int)topic.LastMessageID,
-                        (string)topic.Topic);
+                        topic.LastMessageID.Value,
+                        topic.Topic);
 
                     var content = this.GetPostLatestContent(
                         postLink,
                         lastPostName,
-                        (string)topic.LastMessage,
-                        (int)topic.LastMessageFlags,
+                        topic.LastMessage,
+                        topic.LastMessageFlags.Value,
                         false);
 
                     syndicationItems.AddSyndicationItem(
-                        (string)topic.Topic,
+                        topic.Topic,
                         content,
                         null,
                         postLink,
                         $"urn:{urlAlphaNum}:ft{feedType}:tid{topic.TopicID}:lmid{topic.LastMessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
-                        lastPosted,
+                        lastPosted.Value,
                         feed);
                 });
 

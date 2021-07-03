@@ -230,8 +230,6 @@ namespace ServiceStack.OrmLite
 
         IDbDataParameter CreateParam();
 
-        string GetFunctionName(string database, string functionName);
-
         string GetDropFunction(string database, string functionName);
 
         string GetCreateView(string database, ModelDefinition modelDef, StringBuilder selectSql);
@@ -314,6 +312,8 @@ namespace ServiceStack.OrmLite
         string DatabaseSize(string database);
 
         string SQLVersion();
+
+        string SQLServerName();
 
         string ShrinkDatabase(string database);
 

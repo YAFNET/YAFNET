@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -32,6 +32,7 @@ namespace YAF.Controls
     using YAF.Core.BaseControls;
     using YAF.Core.Services;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects.Model;
 
@@ -102,6 +103,36 @@ namespace YAF.Controls
             {
                 e.Item.FindControl("CutOff").Visible = true;
             }
+        }
+
+
+
+        /// <summary>
+        /// Gets the Posts string
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// Returns the Posts string
+        /// </returns>
+        protected string Posts([NotNull] ForumRead item)
+        {
+            return item.RemoteURL.IsNotSet() ? $"{item.Posts:N0}" : "-";
+        }
+
+        /// <summary>
+        /// Gets the Topics string
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// Returns the Topics string
+        /// </returns>
+        protected string Topics([NotNull] ForumRead item)
+        {
+            return item.RemoteURL.IsNotSet() ? $"{item.Topics:N0}" : "-";
         }
 
         #endregion

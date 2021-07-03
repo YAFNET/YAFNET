@@ -685,11 +685,6 @@
         }
 #endif
 
-        public override string GetFunctionName(string database, string functionName)
-        {
-            return $"{database}.{base.NamingStrategy.GetTableName(functionName)}";
-        }
-
         public override string GetDropFunction(string database, string functionName)
         {
             var sb = StringBuilderCache.Allocate();
@@ -790,6 +785,11 @@
         public override string SQLVersion()
         {
             return "select @@version";
+        }
+
+        public override string SQLServerName()
+        {
+            return "MySQL";
         }
 
         public override string ShrinkDatabase(string database)

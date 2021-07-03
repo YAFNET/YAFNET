@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -79,7 +79,9 @@ namespace YAF.Core.Model
         /// Returns the number of times and posts that other users have thanked the
         /// user with the provided userID.
         /// </returns>
-        public static dynamic ThanksToUser(this IRepository<Thanks> repository, [NotNull] int thanksToUserId)
+        public static (int Posts, string ThanksReceived) ThanksToUser(
+            this IRepository<Thanks> repository,
+            [NotNull] int thanksToUserId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -88,7 +90,8 @@ namespace YAF.Core.Model
             expression.Where<Thanks>(t => t.ThanksToUserID == thanksToUserId).Select(
                 u => new { ThankesPosts = Sql.CountDistinct(u.MessageID), ThankesReceived = Sql.Count("*") });
 
-            return repository.DbAccess.Execute(db => db.Connection.Select<dynamic>(expression)).FirstOrDefault();
+            return repository.DbAccess
+                .Execute(db => db.Connection.Select<(int Posts, string ThanksReceived)>(expression)).FirstOrDefault();
         }
 
         /// <summary>
