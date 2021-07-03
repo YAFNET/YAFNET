@@ -61,40 +61,5 @@ namespace YAF.Data.Sqlite
         }
 
         #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The map parameters.
-        /// </summary>
-        /// <param name="cmd">
-        /// The Database Command.
-        /// </param>
-        /// <param name="parameters">
-        /// The key value parameters.
-        /// </param>
-        protected override void MapParameters(IDbCommand cmd, IEnumerable<KeyValuePair<string, object>> parameters)
-        {
-            // convert to list so there is no chance of multiple iterations.
-            var paramList = parameters.ToList();
-
-            // handle positional stored procedure parameter call
-            if (cmd.CommandType == CommandType.StoredProcedure && paramList.Any() && !paramList.All(x => x.Key.IsSet()))
-            {
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText =
-                    $"EXEC {cmd.CommandText} {Enumerable.Range(0, paramList.Count).Select(x => $"@{x}").ToDelimitedString(",")}";
-
-                // add params without "keys" as they need to be index (0, 1, 2, 3)...
-                base.MapParameters(cmd, paramList.Select(x => new KeyValuePair<string, object>(null, x.Value)));
-            }
-            else
-            {
-                // map named parameters...
-                base.MapParameters(cmd, paramList);
-            }
-        }
-
-        #endregion
     }
 }

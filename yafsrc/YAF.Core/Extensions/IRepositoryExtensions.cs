@@ -30,10 +30,8 @@ namespace YAF.Core.Extensions
     using System.Linq;
     using System.Linq.Expressions;
 
-    using ServiceStack;
     using ServiceStack.OrmLite;
 
-    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Extensions.Data;
@@ -202,7 +200,7 @@ namespace YAF.Core.Extensions
             IDbTransaction transaction = null)
             where T : class, IEntity, new()
         {
-            CodeContracts.VerifyNotNull(entity, "entity");
+            CodeContracts.VerifyNotNull(entity);
             CodeContracts.VerifyNotNull(repository);
 
             return repository.DbAccess.Execute(db => db.Connection.Insert(entity, true)).ToType<int>();
@@ -228,7 +226,7 @@ namespace YAF.Core.Extensions
             [NotNull] T entity)
             where T : class, IEntity, IHaveID, new()
         {
-            CodeContracts.VerifyNotNull(entity, "entity");
+            CodeContracts.VerifyNotNull(entity);
             CodeContracts.VerifyNotNull(repository);
 
             var newId = entity.ID;
@@ -273,7 +271,7 @@ namespace YAF.Core.Extensions
             IDbTransaction transaction = null)
             where T : class, IEntity, new()
         {
-            CodeContracts.VerifyNotNull(entity, "entity");
+            CodeContracts.VerifyNotNull(entity);
             CodeContracts.VerifyNotNull(repository);
 
             var success = repository.DbAccess.Update(entity) > 0;
@@ -376,7 +374,7 @@ namespace YAF.Core.Extensions
             where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(repository);
-            CodeContracts.VerifyNotNull(criteria, "criteria");
+            CodeContracts.VerifyNotNull(criteria);
 
             return repository.DbAccess.Execute(db => db.Connection.Count(criteria));
         }
@@ -457,7 +455,7 @@ namespace YAF.Core.Extensions
             where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(repository);
-            CodeContracts.VerifyNotNull(criteria, "criteria");
+            CodeContracts.VerifyNotNull(criteria);
 
             return repository.DbAccess.Execute(db => db.Connection.Select(criteria));
         }
@@ -483,52 +481,6 @@ namespace YAF.Core.Extensions
         }
 
         /// <summary>
-        /// Returns results from an arbitrary parameterized raw sql query. E.g:
-        /// <para>db.SqlList&lt;Person&gt;("EXEC GetRockstarsAged @age", new[] { db.CreateParam("age",50) })</para>
-        /// </summary>
-        /// <typeparam name="T">The type parameter.</typeparam>
-        /// <param name="repository">The repository.</param>
-        /// <param name="sql">The SQL.</param>
-        /// <param name="anonType">Type of the anon.</param>
-        /// <returns>Returns results from an arbitrary parameterized raw sql query</returns>
-        public static List<T> SqlList<T>([NotNull] this IRepository<T> repository, string sql, object anonType)
-        {
-            return repository.DbAccess.Execute(
-                db => db.Connection.SqlList<T>(
-                    $"{Config.DatabaseObjectQualifier}{sql}",
-                    cmd =>
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-
-                            anonType.ToObjectDictionary().ForEach(p => cmd.AddParam(p.Key, p.Value));
-                        }));
-        }
-
-        /// <summary>
-        /// Returns results from an arbitrary parameterized raw sql query with a dbCmd filter. E.g:
-        /// <para>
-        /// db.SqlList&lt;Person&gt;("EXEC GetRockstarsAged @age", dbCmd =&gt; ...)
-        /// </para>
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="sql">
-        /// The sql.
-        /// </param>
-        /// <param name="dbCmdFilter">
-        /// The db Cmd Filter.
-        /// </param>
-        public static List<T> SqlList<T>(
-            [NotNull] this IRepository<T> repository,
-            string sql,
-            Action<IDbCommand> dbCmdFilter)
-        {
-            return repository.DbAccess.Execute(
-                dbCmd => dbCmd.Connection.SqlList<T>($"{Config.DatabaseObjectQualifier}{sql}", dbCmdFilter));
-        }
-
-        /// <summary>
         /// Gets the paged list of entities by the criteria.
         /// </summary>
         /// <typeparam name="T">The type parameter.</typeparam>
@@ -547,7 +499,7 @@ namespace YAF.Core.Extensions
             where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(repository);
-            CodeContracts.VerifyNotNull(criteria, "criteria");
+            CodeContracts.VerifyNotNull(criteria);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<T>();
 

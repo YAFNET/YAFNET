@@ -90,7 +90,7 @@ namespace YAF.Types.Interfaces.Data
         /// </returns>
         IDbCommand GetCommand(
             [NotNull] string sql,
-            CommandType commandType = CommandType.StoredProcedure,
+            CommandType commandType,
             [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null);
 
         #endregion

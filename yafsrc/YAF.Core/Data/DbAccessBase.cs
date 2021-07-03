@@ -29,6 +29,7 @@ namespace YAF.Core.Data
     using System.Collections.Generic;
     using System.Data;
     using System.Data.Common;
+    using System.Linq;
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
@@ -51,9 +52,6 @@ namespace YAF.Core.Data
         /// </summary>
         /// <param name="dbProviderFactory">
         /// The db provider factory.
-        /// </param>
-        /// <param name="profiler">
-        /// The profiler.
         /// </param>
         /// <param name="information">
         /// The information.
@@ -149,7 +147,7 @@ namespace YAF.Core.Data
         /// The <see cref="DbCommand"/> .
         /// </returns>
         public virtual IDbCommand GetCommand(
-            [NotNull] string sql, CommandType commandType = CommandType.StoredProcedure, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
+            [NotNull] string sql, CommandType commandType, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
         {
             var cmd = this.DbProviderFactory.CreateCommand();
             parameters = parameters.IfNullEmpty();
@@ -157,7 +155,7 @@ namespace YAF.Core.Data
             cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
             cmd.CommandType = commandType;
 
-            cmd.CommandText = commandType == CommandType.StoredProcedure ? this.FormatProcedureText(sql) : sql;
+            cmd.CommandText = sql;
 
             // map parameters for this command...
             this.MapParameters(cmd, parameters);
@@ -170,20 +168,6 @@ namespace YAF.Core.Data
         #region Methods
 
         /// <summary>
-        /// The format procedure text.
-        /// </summary>
-        /// <param name="functionName">
-        /// The function name.
-        /// </param>
-        /// <returns>
-        /// The format procedure text.
-        /// </returns>
-        protected virtual string FormatProcedureText(string functionName)
-        {
-            return $"[{{databaseOwner}}].[{{objectQualifier}}{functionName}]";
-        }
-
-        /// <summary>
         /// The map parameters.
         /// </summary>
         /// <param name="cmd">
@@ -194,11 +178,13 @@ namespace YAF.Core.Data
         /// </param>
         protected virtual void MapParameters([NotNull] IDbCommand cmd, [NotNull] IEnumerable<KeyValuePair<string, object>> parameters)
         {
+            var keyValuePairs = parameters.ToList();
+
             CodeContracts.VerifyNotNull(cmd);
-            CodeContracts.VerifyNotNull(parameters);
+            CodeContracts.VerifyNotNull(keyValuePairs);
 
             // add all/any parameters...
-            parameters.ForEach(cmd.AddParam);
+            keyValuePairs.ForEach(cmd.AddParam);
         }
 
         #endregion
