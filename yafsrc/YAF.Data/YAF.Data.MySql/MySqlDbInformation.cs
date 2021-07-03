@@ -58,9 +58,7 @@ namespace YAF.Data.MySql
         /// </summary>
         private readonly DbConnectionParam[] connectionParameters = {
             new(0, "Password", string.Empty),
-            new(1, "Data Source", "(local)"),
-            new(2, "Initial Catalog", string.Empty),
-            new(11, "Use Integrated Security", "true")
+            new(1, "Data Source", "(local)")
         };
 
         /// <summary>

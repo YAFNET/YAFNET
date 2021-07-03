@@ -171,7 +171,7 @@ namespace ServiceStack.OrmLite
 
         public string ParamString { get; set; } = "@";
 
-        public INamingStrategy NamingStrategy { get; set; } = new OrmLiteNamingStrategyBase();
+        public INamingStrategy NamingStrategy { get; set; } = new OrmLiteDefaultNamingStrategy();
 
         public IStringSerializer StringSerializer { get; set; }
 
@@ -656,7 +656,7 @@ namespace ServiceStack.OrmLite
         {
             var insertColumns = insertFields?.Map(this.ColumnNameOnly);
             return insertColumns != null
-                ? this.NamingStrategy.GetType() == typeof(OrmLiteNamingStrategyBase)
+                ? this.NamingStrategy.GetType() == typeof(OrmLiteDefaultNamingStrategy)
                     ?
                     modelDef.GetOrderedFieldDefinitions(insertColumns)
                     : modelDef.GetOrderedFieldDefinitions(
