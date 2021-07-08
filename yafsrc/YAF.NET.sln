@@ -78,6 +78,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YAF.Data.PostgreSQL", "YAF.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YAF.Data.Sqlite", "YAF.Data\YAF.Data.Sqlite\YAF.Data.Sqlite.csproj", "{BDF8CC7B-3BF1-4161-A2BE-A81C4EEF0F8C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack.OrmLite.PostgreSQL", "ServiceStack\ServiceStack.OrmLite.PostgreSQL\ServiceStack.OrmLite.PostgreSQL.csproj", "{2431978E-D1C9-4F99-83D9-CC59DAD8B4F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack.OrmLite.Sqlite", "ServiceStack\ServiceStack.OrmLite.Sqlite\ServiceStack.OrmLite.Sqlite.csproj", "{221A4E2A-68C7-452D-BB10-49F5CE6E328A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -332,6 +336,30 @@ Global
 		{BDF8CC7B-3BF1-4161-A2BE-A81C4EEF0F8C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BDF8CC7B-3BF1-4161-A2BE-A81C4EEF0F8C}.Release|x86.ActiveCfg = Release|Any CPU
 		{BDF8CC7B-3BF1-4161-A2BE-A81C4EEF0F8C}.Release|x86.Build.0 = Release|Any CPU
+		{2431978E-D1C9-4F99-83D9-CC59DAD8B4F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2431978E-D1C9-4F99-83D9-CC59DAD8B4F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2431978E-D1C9-4F99-83D9-CC59DAD8B4F8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2431978E-D1C9-4F99-83D9-CC59DAD8B4F8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2431978E-D1C9-4F99-83D9-CC59DAD8B4F8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2431978E-D1C9-4F99-83D9-CC59DAD8B4F8}.Debug|x86.Build.0 = Debug|Any CPU
+		{2431978E-D1C9-4F99-83D9-CC59DAD8B4F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2431978E-D1C9-4F99-83D9-CC59DAD8B4F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2431978E-D1C9-4F99-83D9-CC59DAD8B4F8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2431978E-D1C9-4F99-83D9-CC59DAD8B4F8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2431978E-D1C9-4F99-83D9-CC59DAD8B4F8}.Release|x86.ActiveCfg = Release|Any CPU
+		{2431978E-D1C9-4F99-83D9-CC59DAD8B4F8}.Release|x86.Build.0 = Release|Any CPU
+		{221A4E2A-68C7-452D-BB10-49F5CE6E328A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{221A4E2A-68C7-452D-BB10-49F5CE6E328A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{221A4E2A-68C7-452D-BB10-49F5CE6E328A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{221A4E2A-68C7-452D-BB10-49F5CE6E328A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{221A4E2A-68C7-452D-BB10-49F5CE6E328A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{221A4E2A-68C7-452D-BB10-49F5CE6E328A}.Debug|x86.Build.0 = Debug|Any CPU
+		{221A4E2A-68C7-452D-BB10-49F5CE6E328A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{221A4E2A-68C7-452D-BB10-49F5CE6E328A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{221A4E2A-68C7-452D-BB10-49F5CE6E328A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{221A4E2A-68C7-452D-BB10-49F5CE6E328A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{221A4E2A-68C7-452D-BB10-49F5CE6E328A}.Release|x86.ActiveCfg = Release|Any CPU
+		{221A4E2A-68C7-452D-BB10-49F5CE6E328A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -354,6 +382,8 @@ Global
 		{695DFFF4-057E-4CCA-9AF8-E9F151125C73} = {BDA94567-4516-4110-9743-085C36B24E35}
 		{C6B2703E-8EB8-4502-99EC-4E9533D1174D} = {BDA94567-4516-4110-9743-085C36B24E35}
 		{BDF8CC7B-3BF1-4161-A2BE-A81C4EEF0F8C} = {BDA94567-4516-4110-9743-085C36B24E35}
+		{2431978E-D1C9-4F99-83D9-CC59DAD8B4F8} = {A61BA819-987E-4F04-B4D8-0960363558C5}
+		{221A4E2A-68C7-452D-BB10-49F5CE6E328A} = {A61BA819-987E-4F04-B4D8-0960363558C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {054A8305-B197-4A6B-9218-29A2456037AB}
