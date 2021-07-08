@@ -185,6 +185,7 @@ namespace YAF.Core.Extensions
         /// <param name="entity">
         /// The entity.
         /// </param>
+        /// <param name="selectIdentity"></param>
         /// <param name="transaction">
         /// The transaction.
         /// </param>
@@ -197,13 +198,14 @@ namespace YAF.Core.Extensions
         public static int Insert<T>(
             [NotNull] this IRepository<T> repository,
             [NotNull] T entity,
+            bool selectIdentity = true,
             IDbTransaction transaction = null)
             where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(entity);
             CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbAccess.Execute(db => db.Connection.Insert(entity, true)).ToType<int>();
+            return repository.DbAccess.Execute(db => db.Connection.Insert(entity, selectIdentity)).ToType<int>();
         }
 
         /// <summary>

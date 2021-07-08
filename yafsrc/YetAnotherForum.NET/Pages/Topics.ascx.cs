@@ -372,7 +372,6 @@ namespace YAF.Pages
             var list = this.GetRepository<Topic>().ListAnnouncementsPaged(
                 this.PageContext.PageForumID,
                 this.PageContext.PageUserID,
-                DateTime.UtcNow,
                 0,
                 10,
                 true,

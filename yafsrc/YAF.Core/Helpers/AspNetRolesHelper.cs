@@ -255,7 +255,7 @@ namespace YAF.Core.Helpers
         public bool IsMemberOfGroup([NotNull] string groupName, [NotNull] List<GroupMember> groups)
         {
             return groups.Any(
-                row => row.MemberCount == 1 && row.Name == groupName);
+                row => row.IsMember && row.Name == groupName);
         }
 
         /// <summary>
@@ -400,6 +400,7 @@ namespace YAF.Core.Helpers
 
             // get user groups...
             var groupsMember = this.GetRepository<Group>().Member(pageBoardID, userId);
+
             var userRoles = this.Get<IAspNetRolesHelper>().GetRolesForUser(user);
 
             if (Config.IsDotNetNuke && roles != null)

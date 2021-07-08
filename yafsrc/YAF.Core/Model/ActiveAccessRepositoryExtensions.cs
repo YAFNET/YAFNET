@@ -121,7 +121,9 @@ namespace YAF.Core.Model
                         $@"{OrmLiteConfig.DialectProvider.DateDiffFunction(
                                              "minute",
                                              expression.Column<ActiveAccess>(x => x.LastActive, true),
-                                             OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {activeTime} and {expression.Column<ActiveAccess>(x => x.IsGuestX, true)} = 0");
+                                             OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {activeTime} ");
+
+                    expression.And(x => x.IsGuestX == false);
 
                     return db.Connection.Delete(expression);
                 });

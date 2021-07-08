@@ -406,7 +406,10 @@ namespace ServiceStack.OrmLite
         public virtual string GetQuotedTableName(string tableName, string schema = null)
         {
             /*if (schema == null)
-                return GetQuotedName(NamingStrategy.GetTableName(tableName));*/
+            {
+                return this.GetQuotedName(this.NamingStrategy.GetTableName(tableName));
+            }*/
+
             var escapedSchema = this.NamingStrategy.GetSchemaName(schema).Replace(".", "\".\"");
 
             return
@@ -471,6 +474,7 @@ namespace ServiceStack.OrmLite
             }
 
             var defaultValue = this.GetDefaultValue(fieldDef);
+
             if (!string.IsNullOrEmpty(defaultValue))
             {
                 sql.AppendFormat(this.DefaultValueFormat, defaultValue);
@@ -690,8 +694,7 @@ namespace ServiceStack.OrmLite
                     sbColumnNames.Append(this.GetQuotedColumnName(fieldDef.FieldName));
                     sbColumnValues.Append(this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName)));
 
-                    var p = this.AddParameter(cmd, fieldDef);
-                    p.Value = this.GetFieldValue(fieldDef, fieldDef.GetValue(objWithProperties)) ?? DBNull.Value;
+                    AddParameter(cmd, fieldDef);
                 }
                 catch (Exception ex)
                 {
@@ -1071,7 +1074,7 @@ namespace ServiceStack.OrmLite
                     continue;
                 }
 
-                this.SetParameterValue<T>(fieldDef, p, obj);
+                this.SetParameterValue(fieldDef, p, obj);
             }
         }
 
@@ -1080,20 +1083,24 @@ namespace ServiceStack.OrmLite
             return modelDef.GetFieldDefinitionMap(this.SanitizeFieldNameForParamName);
         }
 
-        public virtual void SetParameterValue<T>(FieldDefinition fieldDef, IDataParameter p, object obj)
+        public virtual void SetParameterValue(FieldDefinition fieldDef, IDataParameter p, object obj)
         {
-            var value = this.GetValueOrDbNull<T>(fieldDef, obj);
+            var value = GetValueOrDbNull(fieldDef, obj);
             p.Value = value;
 
-            if (p.Value is string s && p is IDbDataParameter dataParam && dataParam.Size > 0 &&
-                s.Length > dataParam.Size)
+            SetParameterSize(fieldDef, p);
+        }
+
+        protected virtual void SetParameterSize(FieldDefinition fieldDef, IDataParameter p)
+        {
+            if (p.Value is string s && p is IDbDataParameter dataParam && dataParam.Size > 0 && s.Length > dataParam.Size)
             {
                 // db param Size set in StringConverter
                 dataParam.Size = s.Length;
             }
         }
 
-        protected virtual object GetValue<T>(FieldDefinition fieldDef, object obj)
+        protected virtual object GetValue(FieldDefinition fieldDef, object obj)
         {
             return this.GetFieldValue(fieldDef, fieldDef.GetValue(obj));
         }
@@ -1136,9 +1143,9 @@ namespace ServiceStack.OrmLite
             }
         }
 
-        protected virtual object GetValueOrDbNull<T>(FieldDefinition fieldDef, object obj)
+        protected virtual object GetValueOrDbNull(FieldDefinition fieldDef, object obj)
         {
-            var value = this.GetValue<T>(fieldDef, obj);
+            var value = this.GetValue(fieldDef, obj);
             if (value == null)
                 return DBNull.Value;
 

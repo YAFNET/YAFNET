@@ -80,7 +80,7 @@ namespace YAF.Types.Models
         /// Gets or sets a value indicating whether is moderator changed.
         /// </summary>
         [Required]
-        [Default(0)]
+        [Default(typeof(bool), "0")]
         public bool IsModeratorChanged { get; set; }
 
         /// <summary>

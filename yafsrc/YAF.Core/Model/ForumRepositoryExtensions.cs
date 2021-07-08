@@ -387,20 +387,17 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="boardID">
+        /// <param name="boardId">
         /// The Board ID
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user ID.
         /// </param>
-        /// <param name="categoryID">
+        /// <param name="categoryId">
         /// The category ID.
         /// </param>
-        /// <param name="parentID">
+        /// <param name="parentId">
         /// The Parent ID.
-        /// </param>
-        /// <param name="useStyledNicks">
-        /// The use Styled Nicks.
         /// </param>
         /// <param name="findLastRead">
         /// Indicates if the Table should Contain the last Access Date
@@ -560,7 +557,7 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="forumID">
+        /// <param name="forumId">
         /// The forum ID.
         /// </param>
         /// <returns>
@@ -614,6 +611,12 @@ namespace YAF.Core.Model
         /// </summary>
         /// <param name="repository">
         /// The repository.
+        /// </param>
+        /// <param name="oldForumId">
+        /// The Current Forum ID
+        /// </param>
+        /// <param name="newForumId">
+        /// The New Forum ID
         /// </param>
         /// <returns>
         /// Indicates that forum has been deleted
@@ -810,17 +813,34 @@ namespace YAF.Core.Model
 
             var message = repository.DbAccess.Execute(db => db.Connection.Select<Message>(expression)).FirstOrDefault();
 
-            repository.UpdateOnly(
-                () => new Forum
-                {
-                    LastPosted = message.Posted,
-                    LastTopicID = message.TopicID,
-                    LastMessageID = message.ID,
-                    LastUserID = message.UserID,
-                    LastUserName = message.UserName,
-                    LastUserDisplayName = message.UserDisplayName
-                },
-                f => f.ID == forumId);
+            if (message != null)
+            {
+                repository.UpdateOnly(
+                    () => new Forum
+                    {
+                        LastPosted = message.Posted,
+                        LastTopicID = message.TopicID,
+                        LastMessageID = message.ID,
+                        LastUserID = message.UserID,
+                        LastUserName = message.UserName,
+                        LastUserDisplayName = message.UserDisplayName
+                    },
+                    f => f.ID == forumId);
+            }
+            else
+            {
+                repository.UpdateOnly(
+                    () => new Forum
+                    {
+                        LastPosted = null,
+                        LastTopicID = null,
+                        LastMessageID = null,
+                        LastUserID = null,
+                        LastUserName = null,
+                        LastUserDisplayName = null
+                    },
+                    f => f.ID == forumId);
+            }
         }
 
         #endregion
@@ -881,10 +901,10 @@ namespace YAF.Core.Model
         /// <param name="listSource">
         /// The list source.
         /// </param>
-        /// <param name="parentID">
+        /// <param name="parentId">
         /// The parent id.
         /// </param>
-        /// <param name="categoryID">
+        /// <param name="categoryId">
         /// The category id.
         /// </param>
         /// <param name="startingIndent">
@@ -936,10 +956,10 @@ namespace YAF.Core.Model
         /// <param name="listDestination">
         /// The list destination.
         /// </param>
-        /// <param name="parentID">
+        /// <param name="parentId">
         /// The parent id.
         /// </param>
-        /// <param name="categoryID">
+        /// <param name="categoryId">
         /// The category id.
         /// </param>
         /// <param name="currentIndent">

@@ -2885,7 +2885,8 @@
                     }
                     else
                     {
-                        statement = args[0] + "." + quotedColName.ToString().LastRightPart('.');
+                        //statement = args[0] + "." + quotedColName.ToString().LastRightPart('.');
+                        statement = this.DialectProvider.GetQuotedName(args[0].ToString()) + "." + quotedColName.ToString().LastRightPart('.');
                     }
                     break;
                 case nameof(Sql.Custom):

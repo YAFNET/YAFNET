@@ -116,7 +116,7 @@ namespace YAF.Core.Model
             [NotNull] int toUserId,
             [NotNull] int messageId)
         {
-            CodeContracts.VerifyNotNull(repository, nameof(repository));
+            CodeContracts.VerifyNotNull(repository);
 
             var newIdentity = repository.Insert(
                 new Thanks

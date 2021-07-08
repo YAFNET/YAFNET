@@ -1022,7 +1022,7 @@ namespace ServiceStack.OrmLite
                 if (!string.IsNullOrEmpty(dialectProvider.GetDefaultValue(fieldDef)))
                 {
                     var value = fieldDef.GetValue(obj);
-                    if (value == null || value.Equals(fieldDef.FieldTypeDefaultValue))
+                    if (value == null/* || value.Equals(fieldDef.FieldTypeDefaultValue)*/)
                         continue;
                 }
                 insertFields.Add(fieldDef.Name);

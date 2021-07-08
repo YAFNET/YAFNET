@@ -427,7 +427,7 @@ namespace YAF.Core.Model
             [NotNull] int forumId,
             [NotNull] string newTopicSubject)
         {
-            CodeContracts.VerifyNotNull(repository, nameof(repository));
+            CodeContracts.VerifyNotNull(repository);
 
             var message = BoardContext.Current.GetRepository<Message>().GetById(messageId);
 
@@ -957,9 +957,6 @@ namespace YAF.Core.Model
         /// <param name="userId">
         /// The user id.
         /// </param>
-        /// <param name="toDate">
-        /// The to Date.
-        /// </param>
         /// <param name="pageIndex">
         /// The page Index.
         /// </param>
@@ -979,7 +976,6 @@ namespace YAF.Core.Model
             this IRepository<Topic> repository,
             [NotNull] int forumId,
             [NotNull] int userId,
-            [NotNull] DateTime toDate,
             [NotNull] int pageIndex,
             [NotNull] int pageSize,
             [NotNull] bool showMoved,
@@ -1547,6 +1543,12 @@ namespace YAF.Core.Model
                 .OrderByDescending<Message>(m => m.Posted);
 
             var message = repository.DbAccess.Execute(db => db.Connection.Select(expression)).FirstOrDefault();
+
+            if (message == null)
+            {
+                // Don't update if there are no more messages
+                return;
+            }
 
             if (topicId.HasValue)
             {

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,7 +26,6 @@ namespace YAF.Types.Extensions
     using System;
 
     using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Services;
 
     /// <summary>
@@ -144,7 +143,7 @@ namespace YAF.Types.Extensions
             [CanBeNull] int? userId,
             [NotNull] string description)
         {
-            CodeContracts.VerifyNotNull(logger, "logger");
+            CodeContracts.VerifyNotNull(logger);
 
             logger.Log(description, EventLogTypes.UserDeleted, userId, "User Deleted");
         }
@@ -166,7 +165,7 @@ namespace YAF.Types.Extensions
             [CanBeNull] int? userId,
             [NotNull] string description)
         {
-            CodeContracts.VerifyNotNull(logger, "logger");
+            CodeContracts.VerifyNotNull(logger);
 
             logger.Log(description, EventLogTypes.SpamMessageDetected, userId, "Spam Message Detected");
         }
@@ -188,7 +187,7 @@ namespace YAF.Types.Extensions
             [CanBeNull] int? userId,
             [NotNull] string description)
         {
-            CodeContracts.VerifyNotNull(logger, "logger");
+            CodeContracts.VerifyNotNull(logger);
 
             logger.Log(description, EventLogTypes.SpamBotDetected, userId, "Bot Detected");
         }
@@ -218,7 +217,7 @@ namespace YAF.Types.Extensions
             [NotNull] string description,
             [NotNull] EventLogTypes eventType = EventLogTypes.Error)
         {
-            CodeContracts.VerifyNotNull(logger, "logger");
+            CodeContracts.VerifyNotNull(logger);
 
             var sourceDescription = "unknown";
 

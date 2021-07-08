@@ -503,8 +503,14 @@ namespace YAF.Core.Services
                         {
                             var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
 
-                            expression.Where<ActiveAccess>(
-                                x => x.UserID == userId && x.ForumID == (forumId.HasValue ? forumId.Value : 0));
+                            if (forumId.HasValue)
+                            {
+                                expression.Where<ActiveAccess>(x => x.UserID == userId && x.ForumID == forumId.Value);
+                            }
+                            else
+                            {
+                                expression.Where<ActiveAccess>(x => x.UserID == userId && x.ForumID == 0);
+                            }
 
                             // -- is Moderator Any
                             var isModeratorAnyExpression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();

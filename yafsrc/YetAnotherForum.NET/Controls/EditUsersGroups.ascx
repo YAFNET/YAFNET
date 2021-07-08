@@ -19,7 +19,7 @@
                 </asp:Label>
                 <div class="form-check form-switch">
                     <asp:CheckBox Text="&nbsp;" runat="server" ID="GroupMember"
-                                  Checked="<%# this.IsMember((Container.DataItem as GroupMember).MemberCount) %>"/>
+                                  Checked="<%# (Container.DataItem as GroupMember).IsMember %>"/>
                 </div>
                     <asp:Label ID="GroupID" Visible="false" runat="server" Text="<%# (Container.DataItem as GroupMember).GroupID %>"></asp:Label>
               </div>

@@ -327,7 +327,7 @@ namespace YAF.Types.Extensions.Data
                     db => db.Connection.Scalar<string>(
                         OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Connection.Database, recoveryMode)));
             }
-            catch (Exception error)
+            catch (Exception)
             {
                 return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
             }

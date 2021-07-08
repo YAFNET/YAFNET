@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,6 +24,8 @@
 namespace YAF.Types.Objects
 {
     using System;
+
+    using ServiceStack.DataAnnotations;
 
     using YAF.Types.Flags;
 
@@ -113,5 +115,11 @@ namespace YAF.Types.Objects
         /// Gets or sets the suspended.
         /// </summary>
         public DateTime? Suspended { get; set; }
+
+        /// <summary>
+        /// Gets or sets the selected forum id.
+        /// </summary>
+        [Ignore]
+        public string SelectedForumId { get; set; }
     }
 }

@@ -62,14 +62,14 @@ namespace YAF.Types.Models
         /// Gets or sets a value indicating whether hide.
         /// </summary>
         [Required]
-        [Default(0)]
+        [Default(typeof(bool), "0")]
         public bool Hide { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether only ribbon.
         /// </summary>
         [Required]
-        [Default(0)]
+        [Default(typeof(bool), "0")]
         public bool OnlyRibbon { get; set; }
 
         /// <summary>

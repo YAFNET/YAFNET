@@ -327,7 +327,7 @@ namespace YAF.Core.Model
                             b.Signature,
                             Posts = b.NumPosts,
                             b.Points,
-                            ReputationVoteDate = Sql.Custom($"CAST({OrmLiteConfig.DialectProvider.IsNullFunction(reputationSql, "null")} as datetime)"),
+                            ReputationVoteDate = Sql.Custom<DateTime>($"{OrmLiteConfig.DialectProvider.IsNullFunction(reputationSql, "null")}"),
                             IsGuest = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
                             d.Views,
                             d.ForumID,
@@ -899,9 +899,10 @@ namespace YAF.Core.Model
 
             var flags = new MessageFlags(
                 repository.DbAccess.Execute(
-                    db => db.Connection.Scalar<Message, int>(m => m.Flags, m => m.ID == messageId)));
-
-            flags.IsReported = false;
+                    db => db.Connection.Scalar<Message, int>(m => m.Flags, m => m.ID == messageId)))
+            {
+                IsReported = false
+            };
 
             repository.UpdateFlags(messageId, flags.BitValue);
 

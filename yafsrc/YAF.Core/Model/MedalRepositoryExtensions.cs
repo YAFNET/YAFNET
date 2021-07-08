@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -83,7 +83,9 @@ namespace YAF.Core.Model
 
             var userMedals = repository.DbAccess.Execute(
                 db => db.Connection
-                    .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags, DateTime DateAwarded)>(expressionUser));
+                    .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string
+                        SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags,
+                        DateTime DateAwarded)>(expressionUser));
 
             var expressionUserGroup = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
@@ -108,7 +110,9 @@ namespace YAF.Core.Model
 
             var userGroupMedals = repository.DbAccess.Execute(
                 db => db.Connection
-                    .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags, DateTime DateAwarded)>(expressionUserGroup));
+                    .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string
+                        SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags,
+                        DateTime DateAwarded)>(expressionUserGroup));
 
             return userMedals.Union(userGroupMedals).Distinct().ToList();
         }
@@ -117,37 +121,37 @@ namespace YAF.Core.Model
         /// The save.
         /// </summary>
         /// <param name="repository">
-        /// The repository. 
+        /// The repository.
         /// </param>
         /// <param name="medalId">
         /// The medal Id.
         /// </param>
         /// <param name="name">
-        /// The name. 
+        /// The name.
         /// </param>
         /// <param name="description">
-        /// The description. 
+        /// The description.
         /// </param>
         /// <param name="message">
-        /// The message. 
+        /// The message.
         /// </param>
         /// <param name="category">
-        /// The category. 
+        /// The category.
         /// </param>
         /// <param name="medalURL">
-        /// The medal url. 
+        /// The medal url.
         /// </param>
         /// <param name="ribbonURL">
-        /// The ribbon url. 
+        /// The ribbon url.
         /// </param>
         /// <param name="smallMedalURL">
-        /// The small medal url. 
+        /// The small medal url.
         /// </param>
         /// <param name="smallRibbonURL">
-        /// The small ribbon url. 
+        /// The small ribbon url.
         /// </param>
         /// <param name="flags">
-        /// The flags. 
+        /// The flags.
         /// </param>
         /// <param name="boardId">
         /// The board Id.

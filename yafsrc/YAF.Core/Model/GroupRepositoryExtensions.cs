@@ -102,15 +102,9 @@ namespace YAF.Core.Model
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<Group>();
 
-                    var countExpression = db.Connection.From<UserGroup>(db.Connection.TableAlias("x"));
-                    countExpression.Where(
-                        $@"x.{countExpression.Column<UserGroup>(x => x.UserID)}={userId}
-                                    and x.{countExpression.Column<UserGroup>(x => x.GroupID)}={expression.Column<Group>(a => a.ID, true)}");
-                    var countSql = countExpression.Select(Sql.Count("1")).ToSelectStatement();
-
-                    expression.Where(a => a.BoardID == boardId)
-                        .Select<Group>(a => new { GroupID = a.ID, a.Name, Member = Sql.Custom($"({countSql})") })
-                        .OrderBy<Group>(a => a.Name);
+                    expression.LeftJoin<UserGroup>((g, u) => u.UserID == userId && u.GroupID == g.ID)
+                        .Where(g => g.BoardID == boardId).OrderBy<Group>(a => a.Name).Select<Group, UserGroup>(
+                            (g, u) => new { GroupID = g.ID, g.Name, IsMember = u.UserID > 0 });
 
                     return db.Connection.Select<GroupMember>(expression);
                 });

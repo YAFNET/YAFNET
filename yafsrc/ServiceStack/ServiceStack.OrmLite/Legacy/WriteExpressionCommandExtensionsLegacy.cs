@@ -1,9 +1,10 @@
-﻿using System;
-using System.Data;
-using ServiceStack.Text;
-
-namespace ServiceStack.OrmLite.Legacy
+﻿namespace ServiceStack.OrmLite.Legacy
 {
+    using System;
+    using System.Data;
+
+    using ServiceStack.Text;
+
     [Obsolete(Messages.LegacyApi)]
     internal static class WriteExpressionCommandExtensionsLegacy
     {
@@ -97,7 +98,11 @@ namespace ServiceStack.OrmLite.Legacy
             if (OrmLiteConfig.InsertFilter != null)
                 OrmLiteConfig.InsertFilter(dbCmd, obj);
 
-            var sql = dbCmd.GetDialectProvider().ToInsertRowStatement(dbCmd, obj, onlyFields.InsertFields);
+            var dialectProvider = dbCmd.GetDialectProvider();
+            var sql = dialectProvider.ToInsertRowStatement(dbCmd, obj, onlyFields.InsertFields);
+
+            dialectProvider.SetParameterValues<T>(dbCmd, obj);
+
             dbCmd.ExecuteSql(sql);
         }
     }

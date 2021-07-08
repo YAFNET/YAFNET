@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -194,6 +194,28 @@ namespace YAF.Core.Model
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<User, Rank>(expression))
                 .FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gets the Style from Current User Rank.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>Returns the Style if the Rank has one</returns>
+        public static string GetRankStyeForUser(
+            this IRepository<Rank> repository,
+            [NotNull] int userId)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Rank>();
+
+            expression.Join<User>((rank, user) => rank.ID == user.RankID)
+                .Where<Rank, User>((rank, user) => rank.Style != null && user.ID == userId);
+
+            var results = repository.DbAccess.Execute(db => db.Connection.Select(expression));
+
+            return results.Any() ? results.FirstOrDefault().Style : null;
         }
     }
 }

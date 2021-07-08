@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -37,7 +37,7 @@ namespace YAF.Core.Identity
     /// <summary>
     /// The role store.
     /// </summary>
-    public class RoleStore : IQueryableRoleStore<AspNetRoles, string>, 
+    public class RoleStore : IQueryableRoleStore<AspNetRoles, string>,
         IHaveServiceLocator
     {
         /// <summary>
@@ -48,7 +48,7 @@ namespace YAF.Core.Identity
         /// </param>
         public RoleStore([NotNull] IServiceLocator serviceLocator)
         {
-            this.ServiceLocator = serviceLocator; 
+            this.ServiceLocator = serviceLocator;
         }
 
         /// <summary>
@@ -72,9 +72,9 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task CreateAsync([NotNull]AspNetRoles role)
         {
-            CodeContracts.VerifyNotNull(role, nameof(role));
+            CodeContracts.VerifyNotNull(role);
 
-            return Task.FromResult(this.GetRepository<AspNetRoles>().Insert(role));
+            return Task.FromResult(this.GetRepository<AspNetRoles>().Insert(role, false));
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task DeleteAsync([NotNull]AspNetRoles role)
         {
-            CodeContracts.VerifyNotNull(role, nameof(role));
+            CodeContracts.VerifyNotNull(role);
 
             return Task.FromResult(this.GetRepository<AspNetRoles>().Delete(r => r.Id == role.Id));
         }
@@ -132,7 +132,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task UpdateAsync([NotNull]AspNetRoles role)
         {
-            CodeContracts.VerifyNotNull(role, nameof(role));
+            CodeContracts.VerifyNotNull(role);
 
             this.GetRepository<AspNetRoles>().Update(role);
 

@@ -669,8 +669,7 @@ namespace ServiceStack.OrmLite.SqlServer
                     sbColumnNames.Append(this.GetQuotedColumnName(fieldDef.FieldName));
                     sbColumnValues.Append(this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName)));
 
-                    var p = this.AddParameter(cmd, fieldDef);
-                    p.Value = this.GetFieldValue(fieldDef, fieldDef.GetValue(objWithProperties)) ?? DBNull.Value;
+                    AddParameter(cmd, fieldDef);
                 }
                 catch (Exception ex)
                 {

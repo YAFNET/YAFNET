@@ -24,7 +24,7 @@
 
 namespace YAF.Types.Objects
 {
-    using System;
+    using ServiceStack.DataAnnotations;
 
     public class GroupMember
     {
@@ -32,6 +32,9 @@ namespace YAF.Types.Objects
 
         public string Name { get; set; }
 
-        public int MemberCount { get; set; }
+        public int? UserID { get; set; }
+
+        [Ignore]
+        public bool IsMember => this.UserID.HasValue;
     }
 }

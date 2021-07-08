@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,6 +24,7 @@
 namespace YAF.Core.Model
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using ServiceStack.OrmLite;
 
@@ -161,25 +162,22 @@ namespace YAF.Core.Model
                     groupId = BoardContext.Current.GetRepository<Group>()
                         .Insert(new Group { Name = role, BoardID = boardId, Flags = 0 });
 
-                    repository.DbAccess.Execute(
-                        db =>
-                        {
-                            var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
 
-                            // TODO : Add typed for Insert From Table
-                            return db.Connection.ExecuteSql(
-                                $@" insert into {expression.Table<ForumAccess>()}(
-                                        GroupID,   ForumID, AccessMaskID)
-                         select {groupId.Value}, a.ForumID, min(a.AccessMaskID)
-                         from {expression.Table<ForumAccess>()} a
-                         join {expression.Table<Group>()} b on b.GroupID=a.GroupID
-                         where b.BoardID={boardId} and (b.Flags & 4)=4
-                         group by a.ForumID");
-                        });
+                    expression.Join<Group>((a, b) => b.ID == a.GroupID)
+                        .Where<ForumAccess, Group>((a, b) => b.BoardID == boardId && (b.Flags & 4) == 4)
+                        .GroupBy(a => a.ForumID).Select<ForumAccess>(
+                            a => new { a.GroupID, a.ForumID, AccessMaskID = Sql.Min(a.AccessMaskID) });
+
+                    var list = repository.DbAccess.Execute(
+                        db => db.Connection.Select(expression));
+
+                    list.ForEach(
+                        access => BoardContext.Current.GetRepository<ForumAccess>().Insert(access));
                 }
                 else
                 {
-                    groupId = group.ID;
+                     groupId = group.ID;
                 }
 
                 // -- user already can be in the group even if Role isn't null, an extra check is required
@@ -188,6 +186,35 @@ namespace YAF.Core.Model
                     repository.Insert(new UserGroup { UserID = userId, GroupID = groupId.Value });
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets the User Style from the Groups.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string GetGroupStyeForUser(
+            this IRepository<UserGroup> repository,
+            [NotNull] int userId)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserGroup>();
+
+            expression.Join<Group>((userGroup, group) => group.ID == userGroup.GroupID)
+                .Where<UserGroup, Group>((userGroup, group) => group.Style != null && userGroup.UserID == userId)
+                .OrderBy<Group>(group => group.SortOrder);
+
+            var groups = repository.DbAccess.Execute(db => db.Connection.Select<Group>(expression)).FirstOrDefault();
+
+            return groups?.Style;
         }
 
         #endregion

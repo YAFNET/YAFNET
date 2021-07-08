@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -89,15 +89,15 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task AddLoginAsync([NotNull] AspNetUsers user, [NotNull] UserLoginInfo login)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
-            CodeContracts.VerifyNotNull(login, nameof(login));
+            CodeContracts.VerifyNotNull(user);
+            CodeContracts.VerifyNotNull(login);
 
             var userLogin = new AspNetUserLogins
             {
                 UserId = user.Id, ProviderKey = login.ProviderKey, LoginProvider = login.LoginProvider
             };
 
-            this.GetRepository<AspNetUserLogins>().Insert(userLogin);
+            this.GetRepository<AspNetUserLogins>().Insert(userLogin, false);
 
             return Task.FromResult(0);
         }
@@ -130,7 +130,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task<IList<UserLoginInfo>> GetLoginsAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             var logins = this.GetRepository<AspNetUserLogins>().Get(l => l.UserId == user.Id)
                 .Select(l => new UserLoginInfo(l.LoginProvider, l.ProviderKey));
@@ -153,8 +153,8 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task RemoveLoginAsync([NotNull] AspNetUsers user, [NotNull] UserLoginInfo login)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
-            CodeContracts.VerifyNotNull(login, nameof(login));
+            CodeContracts.VerifyNotNull(user);
+            CodeContracts.VerifyNotNull(login);
 
             return Task.FromResult(this.GetRepository<AspNetUserLogins>().Delete(
                 l => l.UserId == user.Id && l.ProviderKey == login.ProviderKey &&
@@ -172,9 +172,9 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task CreateAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
-            this.GetRepository<AspNetUsers>().Insert(user);
+            this.GetRepository<AspNetUsers>().Insert(user, false);
 
             return Task.FromResult(0);
         }
@@ -190,7 +190,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task DeleteAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             return Task.FromResult(this.GetRepository<AspNetUsers>().Delete(u => u.Id == user.Id));
         }
@@ -206,7 +206,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task<AspNetUsers> FindByIdAsync([NotNull] string userId)
         {
-            CodeContracts.VerifyNotNull(userId, nameof(userId));
+            CodeContracts.VerifyNotNull(userId);
 
             return Task.FromResult(this.GetRepository<AspNetUsers>().GetSingle(u => u.Id == userId));
         }
@@ -222,7 +222,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task<AspNetUsers> FindByNameAsync([NotNull] string userName)
         {
-            CodeContracts.VerifyNotNull(userName, nameof(userName));
+            CodeContracts.VerifyNotNull(userName);
 
             return Task.FromResult(this.GetRepository<AspNetUsers>().GetSingle(u => u.UserName == userName));
         }
@@ -238,7 +238,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task UpdateAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             return this.UpdateUser(user);
         }
@@ -264,15 +264,15 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task AddClaimAsync([NotNull] AspNetUsers user, [NotNull] Claim claim)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
-            CodeContracts.VerifyNotNull(claim, nameof(claim));
+            CodeContracts.VerifyNotNull(user);
+            CodeContracts.VerifyNotNull(claim);
 
             var userClaim = new AspNetUserClaims
             {
                 UserId = user.Id, ClaimType = claim.ValueType, ClaimValue = claim.Value
             };
 
-            var result = this.GetRepository<AspNetUserClaims>().Insert(userClaim);
+            var result = this.GetRepository<AspNetUserClaims>().Insert(userClaim, false);
             this.UpdateUser(user);
             return Task.FromResult(result);
         }
@@ -288,7 +288,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task<IList<Claim>> GetClaimsAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             var claims = this.GetRepository<AspNetUserClaims>().Get(l => l.UserId == user.Id)
                 .Select(c => new Claim(c.ClaimType, c.ClaimValue));
@@ -311,8 +311,8 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task RemoveClaimAsync([NotNull] AspNetUsers user, [NotNull] Claim claim)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
-            CodeContracts.VerifyNotNull(claim, nameof(claim));
+            CodeContracts.VerifyNotNull(user);
+            CodeContracts.VerifyNotNull(claim);
 
             var result = this.GetRepository<AspNetUserClaims>().Delete(
                 c => c.UserId == user.Id && c.ClaimValue == claim.Value && c.ClaimType == claim.Type);
@@ -336,8 +336,8 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task AddToRoleAsync([NotNull] AspNetUsers user, [NotNull] string roleName)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
-            CodeContracts.VerifyNotNull(roleName, nameof(roleName));
+            CodeContracts.VerifyNotNull(user);
+            CodeContracts.VerifyNotNull(roleName);
 
             var role = this.GetRepository<AspNetRoles>().GetSingle(r => r.Name == roleName);
 
@@ -348,7 +348,7 @@ namespace YAF.Core.Identity
 
             var newUserRole = new AspNetUserRoles { RoleId = role.Id, UserId = user.Id };
 
-            this.GetRepository<AspNetUserRoles>().Insert(newUserRole);
+            this.GetRepository<AspNetUserRoles>().Insert(newUserRole, false);
             this.UpdateUser(user);
 
             return Task.FromResult(0);
@@ -365,7 +365,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task<IList<string>> GetRolesAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             var roles = this.GetRepository<AspNetUserRoles>().Get(r => r.UserId == user.Id).Select(r => r.RoleId)
                 .ToArray();
@@ -390,8 +390,8 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task<bool> IsInRoleAsync([NotNull] AspNetUsers user, [NotNull] string roleName)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
-            CodeContracts.VerifyNotNull(roleName, nameof(roleName));
+            CodeContracts.VerifyNotNull(user);
+            CodeContracts.VerifyNotNull(roleName);
 
             var role = this.GetRepository<AspNetRoles>().GetSingle(r => r.Name == roleName);
 
@@ -420,8 +420,8 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task RemoveFromRoleAsync([NotNull] AspNetUsers user, [NotNull] string roleName)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
-            CodeContracts.VerifyNotNull(roleName, nameof(roleName));
+            CodeContracts.VerifyNotNull(user);
+            CodeContracts.VerifyNotNull(roleName);
 
             var role = this.GetRepository<AspNetRoles>().GetSingle(r => r.Name == roleName);
 
@@ -446,7 +446,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual async Task<string> GetPasswordHashAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             return await Task.FromResult(user.PasswordHash);
         }
@@ -480,7 +480,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task SetPasswordHashAsync([NotNull] AspNetUsers user, [NotNull] string passwordHash)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             user.PasswordHash = passwordHash;
             return this.UpdateUser(user);
@@ -497,7 +497,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual async Task<string> GetSecurityStampAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             return await Task.FromResult(user.SecurityStamp);
         }
@@ -516,7 +516,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task SetSecurityStampAsync([NotNull] AspNetUsers user, [NotNull] string stamp)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             user.SecurityStamp = stamp;
             return this.UpdateUser(user);
@@ -547,7 +547,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual async Task<string> GetEmailAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             return await Task.FromResult(user.Email);
         }
@@ -563,7 +563,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual async Task<bool> GetEmailConfirmedAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             return await Task.FromResult(user.EmailConfirmed);
         }
@@ -582,7 +582,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task SetEmailAsync([NotNull] AspNetUsers user, string email)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             user.Email = email;
             return this.UpdateUser(user);
@@ -602,7 +602,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task SetEmailConfirmedAsync([NotNull] AspNetUsers user, bool confirmed)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             user.EmailConfirmed = confirmed;
             return this.UpdateUser(user);
@@ -619,7 +619,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual async Task<string> GetPhoneNumberAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             return await Task.FromResult(user.PhoneNumber);
         }
@@ -635,7 +635,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual async Task<bool> GetPhoneNumberConfirmedAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             return await Task.FromResult(user.PhoneNumberConfirmed);
         }
@@ -654,7 +654,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task SetPhoneNumberAsync([NotNull] AspNetUsers user, string phoneNumber)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             user.PhoneNumber = phoneNumber;
             return this.UpdateUser(user);
@@ -674,7 +674,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task SetPhoneNumberConfirmedAsync([NotNull] AspNetUsers user, bool confirmed)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             user.PhoneNumberConfirmed = confirmed;
             return this.UpdateUser(user);
@@ -691,7 +691,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual async Task<bool> GetTwoFactorEnabledAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             return await Task.FromResult(user.TwoFactorEnabled);
         }
@@ -710,7 +710,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task SetTwoFactorEnabledAsync([NotNull] AspNetUsers user, bool enabled)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             user.TwoFactorEnabled = enabled;
             return this.UpdateUser(user);
@@ -727,7 +727,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual async Task<int> GetAccessFailedCountAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             return await Task.FromResult(user.AccessFailedCount);
         }
@@ -743,7 +743,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual async Task<bool> GetLockoutEnabledAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             return await Task.FromResult(user.LockoutEnabled);
         }
@@ -759,7 +759,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual async Task<DateTimeOffset> GetLockoutEndDateAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             return await Task.FromResult(
                 user.LockoutEndDateUtc.HasValue
@@ -778,7 +778,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task<int> IncrementAccessFailedCountAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             user.AccessFailedCount++;
             this.UpdateUser(user).Wait();
@@ -796,7 +796,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task ResetAccessFailedCountAsync([NotNull] AspNetUsers user)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             user.AccessFailedCount = 0;
             return this.UpdateUser(user);
@@ -816,7 +816,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task SetLockoutEnabledAsync([NotNull] AspNetUsers user, bool enabled)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             user.LockoutEnabled = enabled;
             return this.UpdateUser(user);
@@ -836,7 +836,7 @@ namespace YAF.Core.Identity
         /// </returns>
         public virtual Task SetLockoutEndDateAsync([NotNull] AspNetUsers user, DateTimeOffset lockoutEnd)
         {
-            CodeContracts.VerifyNotNull(user, nameof(user));
+            CodeContracts.VerifyNotNull(user);
 
             user.LockoutEndDateUtc = lockoutEnd.UtcDateTime;
             return this.UpdateUser(user);

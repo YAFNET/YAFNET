@@ -88,7 +88,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets a value indicating whether notification.
         /// </summary>
-        [Default(0)]
+        [Default(typeof(bool), "0")]
         public bool Notification { get; set; }
 
         #endregion

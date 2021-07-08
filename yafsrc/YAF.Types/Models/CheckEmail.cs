@@ -27,7 +27,6 @@ namespace YAF.Types.Models
     using System;
 
     using ServiceStack.DataAnnotations;
-    using ServiceStack.OrmLite;
 
     using YAF.Types.Interfaces.Data;
 
@@ -72,7 +71,7 @@ namespace YAF.Types.Models
         /// </summary>
         [Required]
         [Index]
-        [CustomField(OrmLiteVariables.MaxText)]
+        [StringLength(255)]
         public string Hash { get; set; }
 
         #endregion

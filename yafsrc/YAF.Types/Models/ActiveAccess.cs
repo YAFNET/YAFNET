@@ -84,7 +84,7 @@ namespace YAF.Types.Models
         /// Gets or sets a value indicating whether is guest x.
         /// </summary>
         [Required]
-        [Default(1)]
+        [Default(typeof(bool), "1")]
         public bool IsGuestX { get; set; }
 
         /// <summary>

@@ -81,7 +81,7 @@ namespace YAF.Types.Models
         /// Gets or sets a value indicating whether active.
         /// </summary>
         [Required]
-        [Default(1)]
+        [Default(typeof(bool), "1")]
         public bool Active { get; set; }
 
         /// <summary>

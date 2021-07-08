@@ -111,22 +111,10 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.DbAccess.Execute(
-                db =>
-                {
-                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+            var users = repository.GetByBoardId();
 
-                    // TODO : Add typed for Update From Table
-                    return db.Connection.ExecuteSql(
-                        $@" update d
-                               set d.UserStyle = {OrmLiteConfig.DialectProvider.IsNullFunction(@$"(select f.Style FROM {expression.Table<UserGroup>()} e join {expression.Table<Group>()} f on f.GroupID=e.GroupID
-                                     WHERE f.Style IS NOT NULL and e.UserID = d.UserID order by f.SortOrder)",
-                                    @$"(SELECT r.Style FROM {expression.Table<Rank>()} r
-                                    join {expression.Table<User>()} u on u.RankID = r.RankID
-                                    where u.UserID = d.UserID)")}
-                               from  {expression.Table<User>()} d
-                               where d.BoardID = {boardId}");
-                });
+            users.ForEach(
+                user => repository.UpdateStyle(user.ID));
         }
 
         /// <summary>
@@ -142,22 +130,20 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.DbAccess.Execute(
-                db =>
-                {
-                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+            var groupStyle = BoardContext.Current.GetRepository<UserGroup>().GetGroupStyeForUser(userId);
+            var rankStyle = BoardContext.Current.GetRepository<Rank>().GetRankStyeForUser(userId);
 
-                    // TODO : Add typed for Update From Table
-                    return db.Connection.ExecuteSql(
-                        $@" update d
-                               set d.UserStyle = {OrmLiteConfig.DialectProvider.IsNullFunction(@$"(select f.Style FROM {expression.Table<UserGroup>()} e join {expression.Table<Group>()} f on f.GroupID=e.GroupID
-                                     WHERE f.Style IS NOT NULL and e.UserID = d.UserID order by f.SortOrder)",
-                                   @$"(SELECT r.Style FROM {expression.Table<Rank>()} r
-                                    join {expression.Table<User>()} u on u.RankID = r.RankID
-                                    where u.UserID = d.UserID )")}
-                               from  {expression.Table<User>()} d
-                               where d.UserID = {userId}");
-                });
+            if (groupStyle.IsSet())
+            {
+                repository.UpdateOnly(() => new User { UserStyle = groupStyle }, u => u.ID == userId);
+            }
+            else
+            {
+                if (rankStyle.IsSet())
+                {
+                    repository.UpdateOnly(() => new User { UserStyle = rankStyle }, u => u.ID == userId);
+                }
+            }
         }
 
         /// <summary>
@@ -169,6 +155,9 @@ namespace YAF.Core.Model
         /// <param name="boardId">
         /// The board id.
         /// </param>
+        /// <returns>
+        /// The <see cref="long"/>.
+        /// </returns>
         public static long BoardMembers(this IRepository<User> repository, [NotNull] int boardId)
         {
             CodeContracts.VerifyNotNull(repository);
@@ -185,6 +174,9 @@ namespace YAF.Core.Model
         /// <param name="boardId">
         /// The board id.
         /// </param>
+        /// <returns>
+        /// The <see cref="User"/>.
+        /// </returns>
         public static User Latest(this IRepository<User> repository, [NotNull] int boardId)
         {
             CodeContracts.VerifyNotNull(repository);
@@ -211,6 +203,9 @@ namespace YAF.Core.Model
         /// <param name="messageId">
         /// The message id.
         /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
         public static List<Tuple<MessageReportedAudit, User>> MessageReporters(
             this IRepository<User> repository,
             [NotNull] int messageId)
@@ -237,6 +232,9 @@ namespace YAF.Core.Model
         /// <param name="userId">
         /// The user id.
         /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
         public static List<Tuple<User, MessageReportedAudit>> MessageReporter(
             this IRepository<User> repository,
             [NotNull] int messageId,
@@ -285,23 +283,25 @@ namespace YAF.Core.Model
             return repository.DbAccess.Execute(
               db =>
               {
-                  var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+                  var provider = OrmLiteConfig.DialectProvider;
+                  var expression = provider.SqlExpression<User>();
 
                   expression.CustomJoin(
-                          $@" inner join (select m.UserID as ID, Count(m.UserID) as NumOfPosts
+                          $@" inner join (select m.{expression.Column<Message>(x => x.UserID)} as ID, 
+                                                 Count(m.{expression.Column<Message>(x => x.UserID)}) as {provider.GetQuotedName("NumOfPosts")}
                                            from {expression.Table<Message>()} m
-                                           where m.Posted >= {OrmLiteConfig.DialectProvider.GetQuotedValue(startDate, startDate.GetType())}
-                                           and (m.Flags & 16) = 16
-                                           and (m.Flags & 8) != 8
-                                           group by m.UserID
+                                           where m.{expression.Column<Message>(x => x.Posted)} >= {OrmLiteConfig.DialectProvider.GetQuotedValue(startDate, startDate.GetType())}
+                                           and (m.{expression.Column<Message>(x => x.Flags)} & 16) = 16
+                                           and (m.{expression.Column<Message>(x => x.Flags)} & 8) != 8
+                                           group by m.{expression.Column<Message>(x => x.UserID)}
                                          ) as counter on {expression.Column<User>(u => u.ID, true)} = counter.ID ")
                       .Where<User>(u => u.BoardID == boardId && u.ID != guestUserId).Select(
                           $@"counter.ID,
-                            {expression.Column<User>(u => u.Name, true)}, 
+                            {expression.Column<User>(u => u.Name, true)},
                             {expression.Column<User>(u => u.DisplayName, true)},
                             {expression.Column<User>(u => u.Suspended, true)},
-                            {expression.Column<User>(u => u.UserStyle, true)}, 
-                            counter.NumOfPosts").Take(displayNumber);
+                            {expression.Column<User>(u => u.UserStyle, true)},
+                            counter.{provider.GetQuotedName("NumOfPosts")}").Take(displayNumber);
 
                   return db.Connection
                       .Select<LastActive>(expression);
@@ -491,7 +491,7 @@ namespace YAF.Core.Model
                 approvedFlag = 2;
             }
 
-            var user =  repository.GetSingle(
+            var user = repository.GetSingle(
                 u => u.BoardID == boardId && (u.ProviderUserKey == providerUserKey || u.Name == userName));
 
             if (user != null)
@@ -677,6 +677,9 @@ namespace YAF.Core.Model
         /// <param name="userId">
         /// The user id.
         /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
         public static List<User> WatchMailList(
             this IRepository<User> repository,
             [NotNull] int topicId,
@@ -765,6 +768,9 @@ namespace YAF.Core.Model
         /// <param name="boardId">
         /// The boardID
         /// </param>
+        /// <returns>
+        /// The <see cref="dynamic"/>.
+        /// </returns>
         public static dynamic MaxAlbumData(
             this IRepository<User> repository,
             [NotNull] int userId,
@@ -805,6 +811,9 @@ namespace YAF.Core.Model
         /// <param name="boardId">
         /// The Board Id
         /// </param>
+        /// <returns>
+        /// The <see cref="dynamic"/>.
+        /// </returns>
         public static dynamic SignatureData(
             this IRepository<User> repository,
             [NotNull] int userId,
@@ -845,7 +854,6 @@ namespace YAF.Core.Model
                 data.UsrSigBBCodes = string.Empty;
             }
 
-
             return data;
         }
 
@@ -885,6 +893,9 @@ namespace YAF.Core.Model
         /// <param name="showUserAlbums">
         /// The show User Albums.
         /// </param>
+        /// <returns>
+        /// The <see cref="UserLazyData"/>.
+        /// </returns>
         public static UserLazyData LazyData(
             this IRepository<User> repository,
             [NotNull] int userId,
@@ -919,7 +930,7 @@ namespace YAF.Core.Model
                                 (a, b, c, d, access) =>
                                     (a.Flags & 128) == 128 && (a.Flags & 8) != 8 && (b.Flags & 8) != 8 &&
                                     d.BoardID == boardId && access.ModeratorAccess && access.UserID == userId ||
-                                    (a.Flags & 16 ) != 16 && (a.Flags & 8) != 8 && (b.Flags & 8) != 8 &&
+                                    (a.Flags & 16) != 16 && (a.Flags & 8) != 8 && (b.Flags & 8) != 8 &&
                                     d.BoardID == boardId && access.ModeratorAccess && access.UserID == userId);
 
                             var moderatePostsSql = moderatePostsExpression.Select(Sql.Count("1"))
@@ -1026,7 +1037,6 @@ namespace YAF.Core.Model
                             var hasBuddiesSql = hasBuddiesExpression.Select(Sql.Count("1"))
                                 .ToMergedParamsSelectStatement();
 
-
                             expression.Select<User>(
                                 a => new
                                 {
@@ -1069,21 +1079,54 @@ namespace YAF.Core.Model
         /// <summary>
         /// List Members Paged
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="boardId">The board id.</param>
-        /// <param name="groupId">The group id.</param>
-        /// <param name="rankId">The rank id.</param>
-        /// <param name="startLetter">The start letter.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="pageIndex">The page index.</param>
-        /// <param name="pageSize">The page size.</param>
-        /// <param name="sortName">The sort Name.</param>
-        /// <param name="sortRank">The sort Rank.</param>
-        /// <param name="sortJoined">The sort Joined.</param>
-        /// <param name="sortPosts">The sort Posts.</param>
-        /// <param name="sortLastVisit">The sort Last Visit.</param>
-        /// <param name="numPosts">The number of Posts.</param>
-        /// <param name="numPostCompare">The number of Post Compare.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="groupId">
+        /// The group id.
+        /// </param>
+        /// <param name="rankId">
+        /// The rank id.
+        /// </param>
+        /// <param name="startLetter">
+        /// The start letter.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page size.
+        /// </param>
+        /// <param name="sortName">
+        /// The sort Name.
+        /// </param>
+        /// <param name="sortRank">
+        /// The sort Rank.
+        /// </param>
+        /// <param name="sortJoined">
+        /// The sort Joined.
+        /// </param>
+        /// <param name="sortPosts">
+        /// The sort Posts.
+        /// </param>
+        /// <param name="sortLastVisit">
+        /// The sort Last Visit.
+        /// </param>
+        /// <param name="numPosts">
+        /// The number of Posts.
+        /// </param>
+        /// <param name="numPostCompare">
+        /// The number of Post Compare.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
         public static List<PagedUser> ListMembersPaged(
             this IRepository<User> repository,
             [CanBeNull] int? boardId,
@@ -1531,7 +1574,7 @@ namespace YAF.Core.Model
         /// The board identifier.
         /// </param>
         /// <returns>
-        /// Returns List ith all Admin. Users
+        /// Returns List with all Admin. Users
         /// </returns>
         public static List<User> ListAdmins(
             this IRepository<User> repository,
@@ -1874,6 +1917,9 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
         public static List<SimpleModerator> GetForumModerators(
             this IRepository<User> repository)
         {
@@ -1902,7 +1948,7 @@ namespace YAF.Core.Model
                                 DisplayName = b.Name,
                                 b.Style,
                                 IsGroup = 1,
-                                Suspended = 0
+                                Suspended = Sql.Custom("NULL")
                             });
 
                    var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<User>();
@@ -1911,7 +1957,7 @@ namespace YAF.Core.Model
                        .Join<vaccess_group>((usr, access) => access.UserID == usr.ID)
                        .Join<vaccess_group, Forum>((access, f) => f.ID == access.ForumID)
                        .Where<vaccess_group>(x => x.ModeratorAccess > 0)
-                       .OrderBy("Name").Select<User, vaccess_group, Forum>(
+                       /*.OrderBy("Name")*/.Select<User, vaccess_group, Forum>(
                            (usr, access, f) => new
                            {
                                access.ForumID,

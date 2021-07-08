@@ -1,15 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using ServiceStack.Data;
-using ServiceStack.Text;
-
 namespace ServiceStack.OrmLite
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Linq.Expressions;
+
+    using ServiceStack.Text;
+
     internal static class WriteExpressionCommandExtensions
     {
         public static int UpdateOnly<T>(this IDbCommand dbCmd,
@@ -338,6 +337,8 @@ namespace ServiceStack.OrmLite
 
             var dialectProvider = dbCmd.GetDialectProvider();
             var sql = dialectProvider.ToInsertRowStatement(dbCmd, obj, onlyFields);
+
+            dialectProvider.SetParameterValues<T>(dbCmd, obj);
 
             if (selectIdentity)
                 return dbCmd.ExecLongScalar(sql + dialectProvider.GetLastInsertIdSqlSuffix<T>());

@@ -78,7 +78,7 @@ namespace YAF.Install
         /// <summary>
         ///     The _config.
         /// </summary>
-        private readonly ConfigHelper config = new();
+        private readonly ConfigHelper config = new ();
 
         /// <summary>
         ///     The _load message.
@@ -134,32 +134,6 @@ namespace YAF.Install
         {
             get
             {
-                if (this.rblYAFDatabase.SelectedValue != "existing")
-                {
-                    return DbInformationHelper.BuildConnectionString(
-                        this.Parameter1_Value.Text.Trim(),
-                        this.Parameter2_Value.Text.Trim(),
-                        this.Parameter3_Value.Text.Trim(),
-                        this.Parameter4_Value.Text.Trim(),
-                        this.Parameter5_Value.Text.Trim(),
-                        this.Parameter6_Value.Text.Trim(),
-                        this.Parameter7_Value.Text.Trim(),
-                        this.Parameter8_Value.Text.Trim(),
-                        this.Parameter9_Value.Text.Trim(),
-                        this.Parameter10_Value.Text.Trim(),
-                        this.Parameter11_Value.Checked,
-                        this.Parameter12_Value.Checked,
-                        this.Parameter13_Value.Checked,
-                        this.Parameter14_Value.Checked,
-                        this.Parameter15_Value.Checked,
-                        this.Parameter16_Value.Checked,
-                        this.Parameter17_Value.Checked,
-                        this.Parameter18_Value.Checked,
-                        this.Parameter19_Value.Checked,
-                        this.txtDBUserID.Text.Trim(),
-                        this.txtDBPassword.Text.Trim());
-                }
-
                 var connName = this.lbConnections.SelectedValue;
 
                 return connName.IsSet()
@@ -210,16 +184,6 @@ namespace YAF.Install
             }
 
             this.DbAccess.Information.ConnectionString = DynamicConnectionString;
-        }
-
-        /// <summary>
-        /// The parameter 11_ value_ check changed.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Parameter11_Value_CheckChanged([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.DBUsernamePasswordHolder.Visible = !this.Parameter11_Value.Checked;
         }
 
         /// <summary>
@@ -418,7 +382,6 @@ namespace YAF.Install
                     previousVisible = true;
 
                     // fill with connection strings...
-                    this.lblConnStringAppSettingName.Text = Config.ConnectionStringName;
                     this.FillWithConnectionStrings();
                     break;
                 case "WizManualDatabaseConnection":
@@ -501,11 +464,6 @@ namespace YAF.Install
                             break;
                         case UpdateDBFailureType.AppSettingsWrite:
                             this.NoWriteAppSettingsHolder.Visible = true;
-                            break;
-                        case UpdateDBFailureType.ConnectionStringWrite:
-                            this.NoWriteDBSettingsHolder.Visible = true;
-                            this.lblDBConnStringName.Text = Config.ConnectionStringName;
-                            this.lblDBConnStringValue.Text = this.CurrentConnString;
                             break;
                     }
 
@@ -619,30 +577,6 @@ namespace YAF.Install
             }
 
             e.Cancel = false;
-        }
-
-        /// <summary>
-        /// Handles the SelectedIndexChanged event of the YAFDatabase control.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event.
-        /// </param>
-        /// <param name="e">
-        /// The <see cref="System.EventArgs"/> instance containing the event data.
-        /// </param>
-        protected void YafDatabaseSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            switch (this.rblYAFDatabase.SelectedValue)
-            {
-                case "create":
-                    this.ExistingConnectionHolder.Visible = false;
-                    this.NewConnectionHolder.Visible = true;
-                    break;
-                case "existing":
-                    this.ExistingConnectionHolder.Visible = true;
-                    this.NewConnectionHolder.Visible = false;
-                    break;
-            }
         }
 
         /// <summary>
@@ -973,9 +907,6 @@ namespace YAF.Install
                 this.Cultures.DataValueField = "CultureTag";
                 this.Cultures.DataTextField = "CultureNativeName";
 
-                this.rblYAFDatabase.Items[0].Text = Install.ExistConnection;
-                this.rblYAFDatabase.Items[1].Text = Install.NewConnection;
-
                 this.UserChoice.Items[0].Text = Install.CreateUser;
                 this.UserChoice.Items[1].Text = Install.ExistingUser;
 
@@ -987,8 +918,6 @@ namespace YAF.Install
                 }
 
                 this.ForumBaseUrlMask.Text = BaseUrlBuilder.GetBaseUrlFromVariables();
-
-                this.DBUsernamePasswordHolder.Visible = false;
 
                 // Connection string parameters text boxes
                 Enumerable.Range(1, 20).ForEach(
@@ -1048,53 +977,26 @@ namespace YAF.Install
         /// </returns>
         private UpdateDBFailureType UpdateDatabaseConnection()
         {
-            switch (this.rblYAFDatabase.SelectedValue)
+            var selectedConnection = this.lbConnections.SelectedValue;
+            if (selectedConnection == Config.ConnectionStringName)
             {
-                case "existing" when this.lbConnections.SelectedIndex >= 0:
-                    {
-                        var selectedConnection = this.lbConnections.SelectedValue;
-                        if (selectedConnection == Config.ConnectionStringName)
-                        {
-                            return UpdateDBFailureType.None;
-                        }
+                return UpdateDBFailureType.None;
+            }
 
-                        try
-                        {
-                            // have to write to the appSettings...
-                            if (!this.config.WriteAppSetting("YAF.ConnectionStringName", selectedConnection))
-                            {
-                                this.lblConnectionStringName.Text = selectedConnection;
+            try
+            {
+                // have to write to the appSettings...
+                if (!this.config.WriteAppSetting("YAF.ConnectionStringName", selectedConnection))
+                {
+                    this.lblConnectionStringName.Text = selectedConnection;
 
-                                // failure to write App Settings..
-                                return UpdateDBFailureType.AppSettingsWrite;
-                            }
-                        }
-                        catch
-                        {
-                            return UpdateDBFailureType.AppSettingsWrite;
-                        }
-
-                        break;
-                    }
-
-                case "create":
-                    try
-                    {
-                        if (!this.config.WriteConnectionString(
-                            Config.ConnectionStringName,
-                            this.CurrentConnString,
-                            this.DbAccess.Information.ProviderName))
-                        {
-                            // failure to write db Settings..
-                            return UpdateDBFailureType.ConnectionStringWrite;
-                        }
-                    }
-                    catch
-                    {
-                        return UpdateDBFailureType.ConnectionStringWrite;
-                    }
-
-                    break;
+                    // failure to write App Settings..
+                    return UpdateDBFailureType.AppSettingsWrite;
+                }
+            }
+            catch
+            {
+                return UpdateDBFailureType.AppSettingsWrite;
             }
 
             return UpdateDBFailureType.None;

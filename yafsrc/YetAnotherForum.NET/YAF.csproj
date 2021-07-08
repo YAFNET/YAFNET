@@ -909,7 +909,6 @@
     </Compile>
     <Compile Include="Pages\Admin\TestData.ascx.cs">
       <DependentUpon>TestData.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\Admin\TestData.ascx.designer.cs">
       <DependentUpon>TestData.ascx</DependentUpon>
@@ -3410,8 +3409,8 @@
       <Project>{BCEFE9BE-7417-47FB-A0E8-75E0201E88E8}</Project>
       <Name>YAF.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Data.MsSql\YAF.Data.MsSql.csproj">
-      <Project>{900b3fcf-bd78-4718-a34d-2662576565c8}</Project>
+    <ProjectReference Include="..\YAF.Data\YAF.Data.MsSql\YAF.Data.MsSql.csproj">
+      <Project>{7c82affa-fb8a-4227-bc7f-0697f7ed58f6}</Project>
       <Name>YAF.Data.MsSql</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj">

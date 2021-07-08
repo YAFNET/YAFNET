@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -64,7 +64,7 @@ namespace YAF.Core.Model
             this IRepository<Poll> repository,
             [NotNull] int pollId)
         {
-            CodeContracts.VerifyNotNull(repository, nameof(repository));
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Poll>();
 
@@ -86,7 +86,7 @@ namespace YAF.Core.Model
             this IRepository<Poll> repository,
             [NotNull] int pollId)
         {
-            CodeContracts.VerifyNotNull(repository, nameof(repository));
+            CodeContracts.VerifyNotNull(repository);
 
             // delete vote records first
             BoardContext.Current.GetRepository<PollVote>().Delete(p => p.PollID == pollId);
@@ -142,7 +142,7 @@ namespace YAF.Core.Model
             [NotNull] bool showVoters,
             [CanBeNull] string questionPath)
         {
-            CodeContracts.VerifyNotNull(repository, nameof(repository));
+            CodeContracts.VerifyNotNull(repository);
 
             var flags = new PollFlags
             {
@@ -203,7 +203,7 @@ namespace YAF.Core.Model
             [NotNull] bool showVoters,
             [CanBeNull] string questionPath)
         {
-            CodeContracts.VerifyNotNull(repository, nameof(repository));
+            CodeContracts.VerifyNotNull(repository);
 
             var flags = new PollFlags
             {

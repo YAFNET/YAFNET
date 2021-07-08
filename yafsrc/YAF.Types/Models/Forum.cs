@@ -182,7 +182,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets a value indicating whether is moderated new topic only.
         /// </summary>
-        [Default(0)]
+        [Default(typeof(bool), "0")]
         public bool IsModeratedNewTopicOnly { get; set; }
 
         #endregion

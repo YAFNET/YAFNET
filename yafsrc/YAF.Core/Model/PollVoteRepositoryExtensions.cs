@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,7 +26,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    
+
     using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
@@ -62,7 +62,7 @@ namespace YAF.Core.Model
             [NotNull] int pollId,
             [NotNull] int userId)
         {
-            CodeContracts.VerifyNotNull(repository, nameof(repository));
+            CodeContracts.VerifyNotNull(repository);
 
             return repository.Get(p => p.UserID == userId);
         }
@@ -83,7 +83,7 @@ namespace YAF.Core.Model
             this IRepository<PollVote> repository,
             [NotNull] int pollId)
         {
-            CodeContracts.VerifyNotNull(repository, nameof(repository));
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<PollVote>();
 
@@ -113,7 +113,7 @@ namespace YAF.Core.Model
             [CanBeNull] int userId,
             [NotNull] int pollId)
         {
-            CodeContracts.VerifyNotNull(repository, nameof(repository));
+            CodeContracts.VerifyNotNull(repository);
 
             var entity = new PollVote { PollID = pollId, UserID = userId, ChoiceID = choiceId };
 

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -78,20 +78,6 @@ namespace YAF.Controls
         {
             // redirect to user admin page.
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
-        }
-
-        /// <summary>
-        /// Checks if user is member of role or not depending on value of parameter.
-        /// </summary>
-        /// <param name="o">
-        /// Parameter if 0, user is not member of a role.
-        /// </param>
-        /// <returns>
-        /// True if user is member of role (o &gt; 0), false otherwise.
-        /// </returns>
-        protected bool IsMember([NotNull] object o)
-        {
-            return long.Parse(o.ToString()) > 0;
         }
 
         /// <summary>

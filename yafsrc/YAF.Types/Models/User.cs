@@ -221,28 +221,28 @@ namespace YAF.Types.Models
         /// Gets or sets a value indicating whether pm notification.
         /// </summary>
         [Required]
-        [Default(1)]
+        [Default(typeof(bool), "1")]
         public bool PMNotification { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether auto watch topics.
         /// </summary>
         [Required]
-        [Default(1)]
+        [Default(typeof(bool), "1")]
         public bool AutoWatchTopics { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether daily digest.
         /// </summary>
         [Required]
-        [Default(0)]
+        [Default(typeof(bool), "0")]
         public bool DailyDigest { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether activity.
         /// </summary>
         [Required]
-        [Default(1)]
+        [Default(typeof(bool), "1")]
         public bool Activity { get; set; }
 
         /// <summary>

@@ -38,6 +38,7 @@ namespace YAF.Types.Models
     {
         #region Public Properties
 
+
         /// <summary>
         /// Gets or sets the board id.
         /// </summary>
@@ -45,88 +46,25 @@ namespace YAF.Types.Models
         [Required]
         public int BoardID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
         [Required]
         public int UserID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
         [Required]
         public int ForumID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the access mask id.
-        /// </summary>
         [Required]
         public int AccessMaskID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the group id.
-        /// </summary>
         [Required]
         public int GroupID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the read access.
-        /// </summary>
         public int? ReadAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets the post access.
-        /// </summary>
         public int? PostAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets the reply access.
-        /// </summary>
         public int? ReplyAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets the priority access.
-        /// </summary>
         public int? PriorityAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets the poll access.
-        /// </summary>
         public int? PollAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets the vote access.
-        /// </summary>
         public int? VoteAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets the moderator access.
-        /// </summary>
         public int? ModeratorAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets the edit access.
-        /// </summary>
         public int? EditAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets the delete access.
-        /// </summary>
         public int? DeleteAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets the upload access.
-        /// </summary>
         public int? UploadAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets the download access.
-        /// </summary>
         public int? DownloadAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets the admin group.
-        /// </summary>
         public int? AdminGroup { get; set; }
 
         #endregion

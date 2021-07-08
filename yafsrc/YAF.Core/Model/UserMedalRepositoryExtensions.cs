@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,7 +25,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    
+
     using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
@@ -75,10 +75,10 @@ namespace YAF.Core.Model
             else
             {
                 expression.Join<UserMedal>((a, b) => b.MedalID == a.ID)
-                    .Join<UserMedal, User>((b, c) => c.ID == b.UserID)
-                    .Where(a => a.ID == medalId).OrderBy<User>(x => x.Name).ThenBy<UserMedal>(x => x.SortOrder);
+                    .Join<UserMedal, User>((b, c) => c.ID == b.UserID).Where(a => a.ID == medalId)
+                    .OrderBy<User>(x => x.Name).ThenBy<UserMedal>(x => x.SortOrder);
             }
-            
+
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Medal, UserMedal, User>(expression));
         }
 
@@ -118,13 +118,7 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(
-                () => new UserMedal
-                          {
-                              Message = message,
-                              Hide = hide,
-                              OnlyRibbon = onlyRibbon,
-                              SortOrder = sortOrder
-                          },
+                () => new UserMedal { Message = message, Hide = hide, OnlyRibbon = onlyRibbon, SortOrder = sortOrder },
                 m => m.UserID == userID && m.MedalID == medalID);
 
             repository.FireUpdated(medalID);
@@ -167,15 +161,15 @@ namespace YAF.Core.Model
 
             var newId = repository.Insert(
                 new UserMedal
-                    {
-                        UserID = userID,
-                        MedalID = medalID,
-                        Message = message,
-                        Hide = hide,
-                        OnlyRibbon = onlyRibbon,
-                        SortOrder = sortOrder,
-                        DateAwarded = DateTime.UtcNow
-                    });
+                {
+                    UserID = userID,
+                    MedalID = medalID,
+                    Message = message,
+                    Hide = hide,
+                    OnlyRibbon = onlyRibbon,
+                    SortOrder = sortOrder,
+                    DateAwarded = DateTime.UtcNow
+                });
 
             repository.FireNew(newId);
         }

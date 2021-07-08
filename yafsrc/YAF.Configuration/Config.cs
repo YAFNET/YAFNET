@@ -150,6 +150,9 @@ namespace YAF.Configuration
             }
         }
 
+        [NotNull]
+        public static string DatabaseSchema => GetConfigValueAsString("YAF.DatabaseSchema") ?? "public";
+
         /// <summary>
         ///    Gets the Database Schema.
         /// </summary>

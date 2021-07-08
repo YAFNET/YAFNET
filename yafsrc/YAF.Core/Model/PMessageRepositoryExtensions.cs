@@ -6,7 +6,6 @@
 
     using ServiceStack.OrmLite;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -48,10 +47,12 @@
             repository.DbAccess.Execute(
                 db =>
                 {
-                    var q = db.Connection.From<UserPMessage>(db.Connection.TableAlias("a")).Join<PMessage>(
-                        (a, b) => Sql.TableAlias(a.PMessageID, "a") == Sql.TableAlias(b.ID, "b"),
-                        db.Connection.TableAlias("b")).Where(
-                        $"a.IsRead<>0 and {OrmLiteConfig.DialectProvider.DateDiffFunction("dd", "b.Created", OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {daysRead}");
+                    var q = db.Connection.From<UserPMessage>().Join<PMessage>((a, b) => a.PMessageID == b.ID);
+
+                    q.Where(
+                        $"{OrmLiteConfig.DialectProvider.DateDiffFunction("dd", q.Column<PMessage>(b1 => b1.Created, true), OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {daysRead}");
+
+                    q.And(a => (a.Flags & 1) == 1);
 
                     return db.Connection.Delete(q);
                 });
@@ -60,10 +61,12 @@
             repository.DbAccess.Execute(
                 db =>
                 {
-                    var q = db.Connection.From<UserPMessage>(db.Connection.TableAlias("a")).Join<PMessage>(
-                        (a, b) => Sql.TableAlias(a.PMessageID, "a") == Sql.TableAlias(b.ID, "b"),
-                        db.Connection.TableAlias("b")).Where(
-                        $"a.IsRead = 0 and {OrmLiteConfig.DialectProvider.DateDiffFunction("dd", "b.Created", OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {daysUnread}");
+                    var q = db.Connection.From<UserPMessage>().Join<PMessage>((a, b) => a.PMessageID == b.ID);
+
+                    q.Where(
+                        $"{OrmLiteConfig.DialectProvider.DateDiffFunction("dd", q.Column<PMessage>(b1 => b1.Created, true), OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {daysUnread}");
+
+                    q.And(a => (a.Flags & 1) != 1);
 
                     return db.Connection.Delete(q);
                 });
@@ -72,8 +75,11 @@
             repository.DbAccess.Execute(
                 db =>
                 {
-                    var q = db.Connection.From<PMessage>().UnsafeWhere(
-                        $"not exists (select 1 from {Config.DatabaseObjectQualifier}UserPMessage x where x.PMessageID = {Config.DatabaseObjectQualifier}PMessage.PMessageID)");
+                    var q = db.Connection.From<PMessage>();
+
+                    q.UnsafeWhere(
+                        $@"not exists (select 1 from {q.Table<UserPMessage>()} where {q.Column<UserPMessage>(x => x.PMessageID, true)} 
+                                                                                       = {q.Column<PMessage>(p => p.ID, true)})");
 
                     return db.Connection.Delete(q);
                 });
@@ -416,15 +422,15 @@
                                 PMessageID = a.ID,
                                 UserPMessageID = b.ID,
                                 a.FromUserID,
-                                FromUser = Sql.TableAlias("d.Name", "d"),
-                                FromUserDisplayName = Sql.TableAlias("d.DisplayName", "d"),
-                                FromStyle = Sql.TableAlias("d.UserStyle", "d"),
-                                FromSuspended = Sql.TableAlias("d.Suspended", "d"),
+                                FromUser = Sql.TableAlias(d.Name, "d"),
+                                FromUserDisplayName = Sql.TableAlias(d.DisplayName, "d"),
+                                FromStyle = Sql.TableAlias(d.UserStyle, "d"),
+                                FromSuspended = Sql.TableAlias(d.Suspended, "d"),
                                 ToUserID = b.UserID,
-                                ToUser = Sql.TableAlias("c.Name", "c"),
-                                ToUserDisplayName = Sql.TableAlias("c.DisplayName", "c"),
-                                ToStyle = Sql.TableAlias("c.UserStyle", "c"),
-                                ToSuspended = Sql.TableAlias("c.Suspended", "c"),
+                                ToUser = Sql.TableAlias(c.Name, "c"),
+                                ToUserDisplayName = Sql.TableAlias(c.DisplayName, "c"),
+                                ToStyle = Sql.TableAlias(c.UserStyle, "c"),
+                                ToSuspended = Sql.TableAlias(c.Suspended, "c"),
                                 a.Created,
                                 a.Subject,
                                 a.Body,
@@ -525,15 +531,15 @@
                                 PMessageID = a.ID,
                                 UserPMessageID = b.ID,
                                 a.FromUserID,
-                                FromUser = Sql.TableAlias("d.Name", "d"),
-                                FromUserDisplayName = Sql.TableAlias("d.DisplayName", "d"),
-                                FromStyle = Sql.TableAlias("d.UserStyle", "d"),
-                                FromSuspended = Sql.TableAlias("d.Suspended", "d"),
+                                FromUser = Sql.TableAlias(d.Name, "d"),
+                                FromUserDisplayName = Sql.TableAlias(d.DisplayName, "d"),
+                                FromStyle = Sql.TableAlias(d.UserStyle, "d"),
+                                FromSuspended = Sql.TableAlias(d.Suspended, "d"),
                                 ToUserID = b.UserID,
-                                ToUser = Sql.TableAlias("c.Name", "c"),
-                                ToUserDisplayName = Sql.TableAlias("c.DisplayName", "c"),
-                                ToStyle = Sql.TableAlias("c.UserStyle", "c"),
-                                ToSuspended = Sql.TableAlias("c.Suspended", "c"),
+                                ToUser = Sql.TableAlias(c.Name, "c"),
+                                ToUserDisplayName = Sql.TableAlias(c.DisplayName, "c"),
+                                ToStyle = Sql.TableAlias(c.UserStyle, "c"),
+                                ToSuspended = Sql.TableAlias(c.Suspended, "c"),
                                 a.Created,
                                 a.Subject,
                                 a.Body,

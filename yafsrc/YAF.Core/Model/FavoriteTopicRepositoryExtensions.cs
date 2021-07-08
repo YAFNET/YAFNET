@@ -119,7 +119,7 @@ namespace YAF.Core.Model
         /// The find last read.
         /// </param>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// Returns the Paged List of Favorite Topics.
         /// </returns>
         public static List<PagedTopic> ListPaged(
             this IRepository<FavoriteTopic> repository,
