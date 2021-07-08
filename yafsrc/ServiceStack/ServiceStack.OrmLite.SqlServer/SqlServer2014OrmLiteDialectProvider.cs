@@ -1,6 +1,7 @@
 ﻿namespace ServiceStack.OrmLite.SqlServer
 {
     using System;
+    using System.Linq;
 
     using ServiceStack.DataAnnotations;
     using ServiceStack.Text;
@@ -120,48 +121,53 @@
 
             var bucketCount = fieldDef.PropertyInfo?.FirstAttribute<SqlServerBucketCountAttribute>()?.Count;
 
-
-            // TODO : Add Composite Key Support
-            if (fieldDef.IsPrimaryKey)
+            if (modelDef.CompositePrimaryKeys.Any())
             {
-                if (isMemoryTable)
-                {
-                    sql.Append($" NOT NULL PRIMARY KEY NONCLUSTERED");
-                }
-                else
-                {
-                    sql.Append(" PRIMARY KEY");
-
-                    if (fieldDef.IsNonClustered)
-                        sql.Append(" NONCLUSTERED");
-                }
-
-                if (fieldDef.AutoIncrement)
-                {
-                    sql.Append(" ").Append(GetAutoIncrementDefinition(fieldDef));
-                }
-
-                if (isMemoryTable && bucketCount.HasValue)
-                {
-                    sql.Append($" HASH WITH (BUCKET_COUNT = {bucketCount.Value})");
-                }
+                sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
             }
             else
             {
-                if (isMemoryTable && bucketCount.HasValue)
+                if (fieldDef.IsPrimaryKey)
                 {
-                    sql.Append($" NOT NULL INDEX {GetQuotedColumnName("IDX_" + fieldDef.FieldName)}");
-
-                    if (fieldDef.IsNonClustered)
+                    if (isMemoryTable)
                     {
-                        sql.Append(" NONCLUSTERED");
+                        sql.Append($" NOT NULL PRIMARY KEY NONCLUSTERED");
+                    }
+                    else
+                    {
+                        sql.Append(" PRIMARY KEY");
+
+                        if (fieldDef.IsNonClustered)
+                            sql.Append(" NONCLUSTERED");
                     }
 
-                    sql.Append($" HASH WITH (BUCKET_COUNT = {bucketCount.Value})");
+                    if (fieldDef.AutoIncrement)
+                    {
+                        sql.Append(" ").Append(GetAutoIncrementDefinition(fieldDef));
+                    }
+
+                    if (isMemoryTable && bucketCount.HasValue)
+                    {
+                        sql.Append($" HASH WITH (BUCKET_COUNT = {bucketCount.Value})");
+                    }
                 }
                 else
                 {
-                    sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
+                    if (isMemoryTable && bucketCount.HasValue)
+                    {
+                        sql.Append($" NOT NULL INDEX {GetQuotedColumnName("IDX_" + fieldDef.FieldName)}");
+
+                        if (fieldDef.IsNonClustered)
+                        {
+                            sql.Append(" NONCLUSTERED");
+                        }
+
+                        sql.Append($" HASH WITH (BUCKET_COUNT = {bucketCount.Value})");
+                    }
+                    else
+                    {
+                        sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
+                    }
                 }
             }
 

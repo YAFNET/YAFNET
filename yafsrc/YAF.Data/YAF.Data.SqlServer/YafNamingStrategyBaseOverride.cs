@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Data.MsSql
+namespace YAF.Data.SqlServer
 {
     using ServiceStack.OrmLite;
 

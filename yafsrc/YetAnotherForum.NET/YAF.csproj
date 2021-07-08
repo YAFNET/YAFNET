@@ -3409,9 +3409,9 @@
       <Project>{BCEFE9BE-7417-47FB-A0E8-75E0201E88E8}</Project>
       <Name>YAF.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Data\YAF.Data.MsSql\YAF.Data.MsSql.csproj">
+    <ProjectReference Include="..\YAF.Data\YAF.Data.SqlServer\YAF.Data.SqlServer.csproj">
       <Project>{7c82affa-fb8a-4227-bc7f-0697f7ed58f6}</Project>
-      <Name>YAF.Data.MsSql</Name>
+      <Name>YAF.Data.SqlServer</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj">
       <Project>{B9CF38B0-39CF-43C7-9589-166DCC665652}</Project>
@@ -3637,7 +3637,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Data.MsSql
+namespace YAF.Data.SqlServer
 {
     using ServiceStack.OrmLite;
 
@@ -33,7 +33,7 @@ namespace YAF.Data.MsSql
     /// Set the MS SQL dialect event.
     /// </summary>
     [ExportService(ServiceLifetimeScope.InstancePerDependency, new[] { typeof(IHandleEvent<InitDatabaseProviderEvent>) })]
-    public class SetMsSqlDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
+    public class SetSqlServerDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
     {
         #region Public Properties
 
@@ -54,7 +54,7 @@ namespace YAF.Data.MsSql
         /// </param>
         public void Handle(InitDatabaseProviderEvent @event)
         {
-            if (@event.ProviderName != MsSqlDbAccess.ProviderTypeName)
+            if (@event.ProviderName != SqlServerDbAccess.ProviderTypeName)
             {
                 return;
             }

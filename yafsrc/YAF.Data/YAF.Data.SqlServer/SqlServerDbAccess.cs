@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -21,30 +21,44 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-namespace YAF.Data.MsSql
+namespace YAF.Data.SqlServer
 {
-    using ServiceStack.OrmLite.SqlServer;
+    #region Using
+
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.Common;
+    using System.Linq;
+
+    using YAF.Core.Data;
+    using YAF.Types;
+    using YAF.Types.Extensions;
+
+    #endregion
 
     /// <summary>
-    /// The YAF SQL Server 2012 ORM lite dialect provider.
+    /// The MS SQL Database access.
     /// </summary>
-    public class YafSqlServer2012OrmLiteDialectProvider : SqlServer2012OrmLiteDialectProvider
+    public class SqlServerDbAccess : DbAccessBase
     {
+        /// <summary>
+        /// The provider type name.
+        /// </summary>
+        public const string ProviderTypeName = "System.Data.SqlClient";
+
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YafSqlServer2012OrmLiteDialectProvider"/> class.
+        /// Initializes a new instance of the <see cref="SqlServerDbAccess"/> class.
         /// </summary>
-        public YafSqlServer2012OrmLiteDialectProvider()
+        /// <param name="dbProviderFactory">
+        /// The database provider factory.
+        /// </param>
+        public SqlServerDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
+            : base(dbProviderFactory, new SqlServerDbInformation())
         {
-            this.NamingStrategy = new YafNamingStrategyBaseOverride();
         }
-
-        /// <summary>
-        /// Gets or sets the instance.
-        /// </summary>
-        public static new YafSqlServer2012OrmLiteDialectProvider Instance { get; set; } = new ();
 
         #endregion
     }

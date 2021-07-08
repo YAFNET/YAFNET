@@ -28,11 +28,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("YAF.Data.MsSql")]
+[assembly: AssemblyTitle("YAF.Data.PostgreSQL")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("YetAnotherForum.NET")]
-[assembly: AssemblyProduct("YAF.Data.MsSql")]
+[assembly: AssemblyProduct("YAF.Data.PostgreSQL")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

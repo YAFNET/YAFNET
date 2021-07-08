@@ -22,19 +22,20 @@
  * under the License.
  */
 
-namespace YAF.Data.MsSql
+namespace YAF.Data.PostgreSQL
 {
     using System.Data.Common;
-    using System.Data.SqlClient;
 
     using Autofac;
+
+    using Npgsql;
 
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// The MS SQL module.
+    /// The PostgreSQL module.
     /// </summary>
-    public class MsSqlModule : Module
+    public class PostgreSQLModule : Module
     {
         /// <summary>
         /// The load.
@@ -44,10 +45,10 @@ namespace YAF.Data.MsSql
         /// </param>
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance<DbProviderFactory>(SqlClientFactory.Instance);
+            builder.RegisterInstance<DbProviderFactory>(NpgsqlFactory.Instance);
 
-            builder.RegisterType<MsSqlDbAccess>()
-                .Named<IDbAccess>(MsSqlDbAccess.ProviderTypeName)
+            builder.RegisterType<PostgreSQLDbAccess>()
+                .Named<IDbAccess>(PostgreSQLDbAccess.ProviderTypeName)
                 .InstancePerLifetimeScope();
         }
     }

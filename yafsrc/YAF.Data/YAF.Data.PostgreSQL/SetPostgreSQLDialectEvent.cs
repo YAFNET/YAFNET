@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 BjÃ¸rnar Henden
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -21,43 +21,48 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Data.MsSql
+namespace YAF.Data.PostgreSQL
 {
-    #region Using
+    using ServiceStack.OrmLite;
 
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Data.Common;
-    using System.Linq;
-
-    using YAF.Core.Data;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-
-    #endregion
+    using YAF.Core.Events;
+    using YAF.Types.Attributes;
+    using YAF.Types.Interfaces.Events;
 
     /// <summary>
-    /// The MS SQL Database access.
+    /// Set the PostgreSQL dialect event.
     /// </summary>
-    public class MsSqlDbAccess : DbAccessBase
+    [ExportService(ServiceLifetimeScope.InstancePerDependency, new[] { typeof(IHandleEvent<InitDatabaseProviderEvent>) })]
+    public class SetPostgreSQLDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
     {
-        /// <summary>
-        /// The provider type name.
-        /// </summary>
-        public const string ProviderTypeName = "System.Data.SqlClient";
-
-        #region Constructors and Destructors
+        #region Public Properties
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MsSqlDbAccess"/> class.
+        ///     Gets the order.
         /// </summary>
-        /// <param name="dbProviderFactory">
-        /// The database provider factory.
+        public int Order => 1000;
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// The handle.
+        /// </summary>
+        /// <param name="event">
+        /// The event.
         /// </param>
-        public MsSqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
-            : base(dbProviderFactory, new MsSqlDbInformation())
+        public void Handle(InitDatabaseProviderEvent @event)
         {
+            if (@event.ProviderName != PostgreSQLDbAccess.ProviderTypeName)
+            {
+                return;
+            }
+
+            // set the OrmLite dialect provider...
+            OrmLiteConfig.DialectProvider = YafPostgreSQLOrmLiteDialectProvider.Instance;
+
+            OrmLiteConfig.DialectProvider.GetStringConverter().UseUnicode = true;
         }
 
         #endregion

@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Data.MsSql
+namespace YAF.Data.SqlServer
 {
     using ServiceStack.OrmLite;
 
@@ -43,7 +43,7 @@ namespace YAF.Data.MsSql
     /// <summary>
     /// MySQL DB Information
     /// </summary>
-    public class MsSqlDbInformation : IDbInformation
+    public class SqlServerDbInformation : IDbInformation
     {
         /// <summary>
         /// The YAF Provider Upgrade script list
@@ -63,12 +63,12 @@ namespace YAF.Data.MsSql
         };
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MsSqlDbInformation"/> class.
+        /// Initializes a new instance of the <see cref="SqlServerDbInformation"/> class.
         /// </summary>
-        public MsSqlDbInformation()
+        public SqlServerDbInformation()
         {
             this.ConnectionString = () => Config.ConnectionString;
-            this.ProviderName = MsSqlDbAccess.ProviderTypeName;
+            this.ProviderName = SqlServerDbAccess.ProviderTypeName;
         }
 
         /// <summary>
