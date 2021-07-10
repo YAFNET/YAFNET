@@ -159,7 +159,7 @@ namespace YAF.Controls
                 }
             }
 
-            this.GetRepository<User>().UpdateStyle(this.CurrentUserID);
+            this.Get<IRaiseEvent>().Raise(new UpdateUserStyleEvent(this.CurrentUserID));
 
             if (this.SendEmail.Checked)
             {

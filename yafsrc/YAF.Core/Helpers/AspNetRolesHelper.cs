@@ -36,8 +36,10 @@ namespace YAF.Core.Helpers
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
@@ -137,6 +139,11 @@ namespace YAF.Core.Helpers
 
                 this.Get<IAspNetRolesHelper>().GetRolesForUser(user).ForEach(
                     role => this.GetRepository<UserGroup>().SetRole(pageBoardID, userId.Value, role));
+
+                if (this.Get<BoardSettings>().UseStyledNicks)
+                {
+                    this.Get<IRaiseEvent>().Raise(new UpdateUserStyleEvent(userId.Value));
+                }
             }
             catch (Exception x)
             {

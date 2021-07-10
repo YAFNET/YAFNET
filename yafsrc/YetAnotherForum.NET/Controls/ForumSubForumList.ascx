@@ -3,7 +3,7 @@
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 
 
-<asp:Repeater ID="SubforumList" runat="server" OnItemCreated="SubForumList_ItemCreated">
+<asp:Repeater ID="SubforumList" runat="server" OnItemDataBound="SubForumList_ItemCreated">
     <HeaderTemplate>
         <div class="card my-1">
         <div class="card-body ps-2 py-1">

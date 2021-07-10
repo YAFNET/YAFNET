@@ -104,7 +104,7 @@ namespace YAF.Core.Model
 
                     expression.LeftJoin<UserGroup>((g, u) => u.UserID == userId && u.GroupID == g.ID)
                         .Where(g => g.BoardID == boardId).OrderBy<Group>(a => a.Name).Select<Group, UserGroup>(
-                            (g, u) => new { GroupID = g.ID, g.Name, IsMember = u.UserID > 0 });
+                            (g, u) => new { GroupID = g.ID, g.Name, u.UserID });
 
                     return db.Connection.Select<GroupMember>(expression);
                 });

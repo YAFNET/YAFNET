@@ -31,8 +31,10 @@ namespace YAF.Core.Model
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Types.Objects;
 
@@ -108,7 +110,7 @@ namespace YAF.Core.Model
                     Flags = 0,
                     MinPosts = 0,
                     PMLimit = 2147483647,
-                    Style = "font-size: 8pt; color: #811334",
+                    Style = "color: #811334",
                     SortOrder = 0
                 });
 
@@ -128,7 +130,7 @@ namespace YAF.Core.Model
                 {
                     BoardID = newBoardId,
                     Name = "Newbie",
-                    Flags = 0,
+                    Flags = 1,
                     MinPosts = 3,
                     PMLimit = 0,
                     SortOrder = 3
@@ -180,7 +182,7 @@ namespace YAF.Core.Model
                     Name = $"{rolePrefix}Administrators",
                     Flags = 1,
                     PMLimit = 2147483647,
-                    Style = "font-size: 8pt; color: red",
+                    Style = "color: red",
                     SortOrder = 0,
                     UsrSigChars = 256,
                     UsrSigBBCodes = "URL,IMG,SPOILER,QUOTE",
@@ -292,6 +294,9 @@ namespace YAF.Core.Model
 
             BoardContext.Current.GetRepository<ForumAccess>().Insert(
                 new ForumAccess { GroupID = groupIDMember, ForumID = forumID, AccessMaskID = accessMaskIDMember });
+
+
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(newBoardId));
 
             repository.FireNew(newBoardId);
 

@@ -28,7 +28,6 @@ namespace YAF.Core.Services
 
     using System;
     using System.Collections.Generic;
-    using System.Data.SqlClient;
     using System.Linq;
 
     using ServiceStack.OrmLite;
@@ -208,373 +207,351 @@ namespace YAF.Core.Services
             [NotNull] bool isMobileDevice,
             [NotNull] bool doNotTrack)
         {
-            var tries = 0;
             while (true)
             {
-                try
+                int userId;
+                bool isGuest;
+                DateTime? previousVisit = null;
+                User currentUser = null;
+                var activeUpdate = false;
+
+                // -- set IsActiveNow ActiveFlag - it's a default
+                var activeFlags = 1;
+
+                // -- find a guest id should do it every time to be sure that guest access rights are in ActiveAccess table
+                var guest = this.GetRepository<User>().Get(u => u.BoardID == boardId && (u.Flags & 4) == 4);
+
+                if (guest == null)
                 {
-                    int userId;
-                    bool isGuest;
-                    DateTime? previousVisit = null;
-                    User currentUser = null;
-                    var activeUpdate = false;
+                    throw new ApplicationException($"No candidates for a guest were found for the board {boardId}.");
+                }
 
-                    // -- set IsActiveNow ActiveFlag - it's a default
-                    var activeFlags = 1;
+                if (guest.Count > 1)
+                {
+                    throw new ApplicationException(
+                        $"Found {guest.Count} possible guest users. There should be one and only one user marked as guest.");
+                }
 
-                    // -- find a guest id should do it every time to be sure that guest access rights are in ActiveAccess table
-                    var guest = this.GetRepository<User>().Get(u => u.BoardID == boardId && (u.Flags & 4) == 4);
+                if (userKey == null)
+                {
+                    var guestUser = guest.FirstOrDefault();
 
-                    if (guest == null)
+                    // -- this is a guest
+                    userId = guestUser.ID;
+                    previousVisit = guestUser.LastVisit;
+                    isGuest = true;
+
+                    // -- set IsGuest ActiveFlag  1 | 2
+                    activeFlags = 3;
+
+                    // -- crawlers are always guests
+                    if (isCrawler)
                     {
-                        throw new ApplicationException(
-                            $"No candidates for a guest were found for the board {boardId}.");
+                        // -- set IsCrawler ActiveFlag
+                        activeFlags |= 8;
                     }
+                }
+                else
+                {
+                    currentUser = this.GetRepository<User>()
+                        .GetSingle(u => u.BoardID == boardId && u.ProviderUserKey == userKey);
+                    userId = currentUser.ID;
 
-                    if (guest.Count > 1)
+                    isGuest = false;
+
+                    // make sure that registered users are not crawlers
+                    isCrawler = false;
+
+                    // -- set IsRegistered ActiveFlag
+                    activeFlags |= 4;
+                }
+
+                // -- Check valid ForumID
+                var forum = this.GetRepository<Forum>().GetById(forumId.Value);
+
+                if (forum == null)
+                {
+                    forumId = null;
+                }
+
+                // -- Check valid CategoryID
+                var category = this.GetRepository<Category>().GetById(categoryId.Value);
+
+                if (category == null)
+                {
+                    categoryId = null;
+                }
+
+                // -- Check valid MessageID
+                var message = this.GetRepository<Message>().GetById(messageId.Value);
+
+                if (message == null)
+                {
+                    messageId = null;
+                }
+
+                // -- Check valid TopicID
+                var topic = this.GetRepository<Topic>().GetById(topicId.Value);
+
+                if (topic == null)
+                {
+                    topicId = null;
+                }
+
+                // -- find missing ForumID/TopicID
+                if (messageId.HasValue && (!forumId.HasValue || !categoryId.HasValue || !topicId.HasValue))
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+                    var id = messageId;
+                    expression.Join<Topic>((m, t) => t.ID == m.TopicID).Join<Topic, Forum>((t, f) => f.ID == t.ForumID)
+                        .Join<Forum, Category>((f, c) => c.ID == f.CategoryID)
+                        .Where<Message, Category>((m, c) => m.ID == id.Value && c.BoardID == boardId);
+
+                    var result = this.GetRepository<ActiveAccess>().DbAccess.Execute(
+                        db => db.Connection.SelectMulti<Message, Topic, Forum, Category>(expression)).FirstOrDefault();
+
+                    categoryId = result.Item3.CategoryID;
+                    category = result.Item4;
+
+                    forumId = result.Item3.ID;
+                    forum = result.Item3;
+
+                    topicId = result.Item1.TopicID;
+                    topic = result.Item2;
+                }
+
+                if (topicId.HasValue && (!categoryId.HasValue || !forumId.HasValue))
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
+
+                    var id = topicId;
+                    expression.Join<Forum>((t, f) => f.ID == t.ForumID)
+                        .Join<Forum, Category>((f, c) => c.ID == f.CategoryID)
+                        .Where<Topic, Category>((t, c) => t.ID == id.Value && c.BoardID == boardId)
+                        .Select<Topic, Forum, Message>((t, f, m) => new { f.CategoryID, t.ForumID, });
+
+                    var result = this.GetRepository<ActiveAccess>().DbAccess
+                        .Execute(db => db.Connection.SelectMulti<Topic, Forum, Category>(expression)).FirstOrDefault();
+
+                    categoryId = result.Item2.CategoryID;
+                    category = result.Item3;
+
+                    forumId = result.Item1.ForumID;
+                    forum = result.Item2;
+                }
+
+                if (forumId.HasValue && !categoryId.HasValue)
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+                    var id = forumId;
+                    expression.Join<Category>((f, c) => c.ID == f.CategoryID)
+                        .Where<Forum, Category>((f, c) => f.ID == id.Value && c.BoardID == boardId);
+
+                    category = this.GetRepository<ActiveAccess>().DbAccess
+                        .Execute(db => db.Connection.Select<Category>(expression)).FirstOrDefault();
+                }
+
+                var accessList = this.GetRepository<vaccess>().Get(x => x.UserID == userId);
+
+                if (!this.GetRepository<ActiveAccess>().Exists(a => a.UserID == userId))
+                {
+                    accessList.ForEach(
+                        access => this.GetRepository<ActiveAccess>().Insert(
+                            new ActiveAccess
+                            {
+                                UserID = userId,
+                                BoardID = boardId,
+                                ForumID = access.ForumID,
+                                IsAdmin = access.IsAdmin > 0,
+                                IsForumModerator = access.IsForumModerator > 0,
+                                IsModerator = access.IsModerator > 0,
+                                IsGuestX = isGuest,
+                                LastActive = DateTime.UtcNow,
+                                ReadAccess = access.ReadAccess > 0,
+                                PostAccess = access.PostAccess > 0,
+                                ReplyAccess = access.ReplyAccess > 0,
+                                PriorityAccess = access.PriorityAccess > 0,
+                                PollAccess = access.PollAccess > 0,
+                                VoteAccess = access.VoteAccess > 0,
+                                ModeratorAccess = access.ModeratorAccess > 0,
+                                EditAccess = access.EditAccess > 0,
+                                DeleteAccess = access.DeleteAccess > 0,
+                                UploadAccess = access.UploadAccess > 0,
+                                DownloadAccess = access.DownloadAccess > 0
+                            }));
+                }
+
+                var idForum2 = forumId ?? 0;
+
+                if (this.GetRepository<ActiveAccess>().Exists(
+                    x => x.UserID == userId && x.ForumID == idForum2 && idForum2 == 0 || x.ReadAccess))
+                {
+                    // -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
+                    this.GetRepository<Active>().Delete(
+                        x => x.SessionID == sessionID && (x.BoardID != boardId || x.UserID != userId));
+
+                    // -- get previous visit
+                    if (!isGuest)
                     {
-                        throw new ApplicationException(
-                            $"Found {guest.Count} possible guest users. There should be one and only one user marked as guest.");
+                        previousVisit = currentUser.LastVisit;
+
+                        // -- update last visit
+                        this.GetRepository<User>().UpdateOnly(
+                            () => new User { LastVisit = DateTime.UtcNow, IP = ip },
+                            u => u.ID == userId);
                     }
+                }
 
-                    if (userKey == null)
+                if (!doNotTrack)
+                {
+                    if (this.GetRepository<Active>().Exists(
+                        x => x.BoardID == boardId && x.SessionID == sessionID ||
+                             x.Browser == browser && (x.Flags & 8) == 8))
                     {
-                        var guestUser = guest.FirstOrDefault();
-
-                        // -- this is a guest
-                        userId = guestUser.ID;
-                        previousVisit = guestUser.LastVisit;
-                        isGuest = true;
-
-                        // -- set IsGuest ActiveFlag  1 | 2
-                        activeFlags = 3;
-
-                        // -- crawlers are always guests
-                        if (isCrawler)
+                        if (!isCrawler)
                         {
-                            // -- set IsCrawler ActiveFlag
-                            activeFlags = activeFlags | 8;
-                        }
-                    }
-                    else
-                    {
-                        currentUser = this.GetRepository<User>()
-                            .GetSingle(u => u.BoardID == boardId && u.ProviderUserKey == userKey);
-                        userId = currentUser.ID;
-
-                        isGuest = false;
-
-                        // make sure that registered users are not crawlers
-                        isCrawler = false;
-
-                        // -- set IsRegistered ActiveFlag
-                        activeFlags = activeFlags | 4;
-                    }
-
-                    // -- Check valid ForumID
-                    var forum = this.GetRepository<Forum>().GetById(forumId.Value);
-
-                    if (forumId.HasValue && forum == null)
-                    {
-                        forumId = null;
-                    }
-
-                    // -- Check valid CategoryID
-                    var category = this.GetRepository<Category>().GetById(categoryId.Value);
-
-                    if (categoryId.HasValue && category == null)
-                    {
-                        categoryId = null;
-                    }
-
-                    // -- Check valid MessageID
-                    var message = this.GetRepository<Message>().GetById(messageId.Value);
-
-                    if (messageId.HasValue && message == null)
-                    {
-                        messageId = null;
-                    }
-
-                    // -- Check valid TopicID
-                    var topic = this.GetRepository<Topic>().GetById(topicId.Value);
-
-                    if (topicId.HasValue && topic == null)
-                    {
-                        topicId = null;
-                    }
-
-                    // -- find missing ForumID/TopicID
-                    if (messageId.HasValue && (!forumId.HasValue || !categoryId.HasValue || !topicId.HasValue))
-                    {
-                        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
-
-                        var id = messageId;
-                        expression.Join<Topic>((m, t) => t.ID == m.TopicID)
-                            .Join<Topic, Forum>((t, f) => f.ID == t.ForumID)
-                            .Join<Forum, Category>((f, c) => c.ID == f.CategoryID)
-                            .Where<Message, Category>((m, c) => m.ID == id.Value && c.BoardID == boardId);
-
-                        var result = this.GetRepository<ActiveAccess>().DbAccess.Execute(
-                                db => db.Connection.SelectMulti<Message, Topic, Forum, Category>(expression))
-                            .FirstOrDefault();
-
-                        categoryId = result.Item3.CategoryID;
-                        category = result.Item4;
-
-                        forumId = result.Item3.ID;
-                        forum = result.Item3;
-
-                        topicId = result.Item1.TopicID;
-                        topic = result.Item2;
-                    }
-
-                    if (topicId.HasValue && (!categoryId.HasValue || !forumId.HasValue))
-                    {
-                        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
-
-                        var id = topicId;
-                        expression.Join<Forum>((t, f) => f.ID == t.ForumID)
-                            .Join<Forum, Category>((f, c) => c.ID == f.CategoryID)
-                            .Where<Topic, Category>((t, c) => t.ID == id.Value && c.BoardID == boardId)
-                            .Select<Topic, Forum, Message>((t, f, m) => new { f.CategoryID, t.ForumID, });
-
-                        var result = this.GetRepository<ActiveAccess>().DbAccess
-                            .Execute(db => db.Connection.SelectMulti<Topic, Forum, Category>(expression))
-                            .FirstOrDefault();
-
-                        categoryId = result.Item2.CategoryID;
-                        category = result.Item3;
-
-                        forumId = result.Item1.ForumID;
-                        forum = result.Item2;
-                    }
-
-                    if (forumId.HasValue && !categoryId.HasValue)
-                    {
-                        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
-
-                        var id = forumId;
-                        expression.Join<Category>((f, c) => c.ID == f.CategoryID)
-                            .Where<Forum, Category>((f, c) => f.ID == id.Value && c.BoardID == boardId);
-
-                        category = this.GetRepository<ActiveAccess>().DbAccess
-                            .Execute(db => db.Connection.Select<Category>(expression)).FirstOrDefault();
-                        categoryId = category.ID;
-                    }
-
-                    var accessList = this.GetRepository<vaccess>().Get(x => x.UserID == userId);
-
-                    if (!this.GetRepository<ActiveAccess>().Exists(a => a.UserID == userId))
-                    {
-                        accessList.ForEach(
-                            access => this.GetRepository<ActiveAccess>().Insert(
-                                new ActiveAccess
+                            // -- user is not a crawler - use his session id
+                            this.GetRepository<Active>().UpdateOnly(
+                                () => new Active
                                 {
                                     UserID = userId,
-                                    BoardID = boardId,
-                                    ForumID = access.ForumID,
-                                    IsAdmin = access.IsAdmin,
-                                    IsForumModerator = access.IsForumModerator,
-                                    IsModerator = access.IsModerator,
-                                    IsGuestX = isGuest,
-                                    LastActive = DateTime.UtcNow,
-                                    ReadAccess = access.ReadAccess,
-                                    PostAccess = access.PostAccess,
-                                    ReplyAccess = access.ReplyAccess,
-                                    PriorityAccess = access.PriorityAccess,
-                                    PollAccess = access.PollAccess,
-                                    VoteAccess = access.VoteAccess,
-                                    ModeratorAccess = access.ModeratorAccess,
-                                    EditAccess = access.EditAccess,
-                                    DeleteAccess = access.DeleteAccess,
-                                    UploadAccess = access.UploadAccess,
-                                    DownloadAccess = access.DownloadAccess
-                                }));
-                    }
-
-                    var idForum2 = forumId ?? 0;
-
-                    if (this.GetRepository<ActiveAccess>().Exists(
-                        x => x.UserID == userId && x.ForumID == idForum2 &&
-                            idForum2 == 0 || x.ReadAccess))
-                    {
-                        // -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
-                        this.GetRepository<Active>().Delete(
-                            x => x.SessionID == sessionID && (x.BoardID != boardId || x.UserID != userId));
-
-                        // -- get previous visit
-                        if (!isGuest)
-                        {
-                            previousVisit = currentUser.LastVisit;
-
-                            // -- update last visit
-                            this.GetRepository<User>().UpdateOnly(
-                                () => new User { LastVisit = DateTime.UtcNow, IP = ip },
-                                u => u.ID == userId);
-                        }
-                    }
-
-                    if (!doNotTrack)
-                    {
-                        if (this.GetRepository<Active>().Exists(
-                            x => x.BoardID == boardId && x.SessionID == sessionID ||
-                                 x.Browser == browser && (x.Flags & 8) == 8))
-                        {
-                            if (!isCrawler)
-                            {
-                                // -- user is not a crawler - use his session id
-                                this.GetRepository<Active>().UpdateOnly(
-                                    () => new Active
-                                    {
-                                        UserID = userId,
-                                        IP = ip,
-                                        LastActive = DateTime.UtcNow,
-                                        Location = location,
-                                        ForumID = forumId,
-                                        TopicID = topicId,
-                                        Browser = browser,
-                                        Platform = platform,
-                                        ForumPage = forumPage,
-                                        Flags = activeFlags
-                                    },
-                                    a => a.SessionID == sessionID && a.BoardID == boardId);
-                            }
-                            else
-                            {
-                                // -- search crawler by other parameters then session id
-                                this.GetRepository<Active>().UpdateOnly(
-                                    () => new Active
-                                    {
-                                        UserID = userId,
-                                        IP = ip,
-                                        LastActive = DateTime.UtcNow,
-                                        Location = location,
-                                        ForumID = forumId,
-                                        TopicID = topicId,
-                                        Browser = browser,
-                                        Platform = platform,
-                                        ForumPage = forumPage,
-                                        Flags = activeFlags
-                                    },
-                                    a => a.Browser == browser && a.IP == ip && a.BoardID == boardId);
-                            }
-                        }
-                        else
-                        {
-                            // -- we set @ActiveFlags ready flags
-                            this.GetRepository<Active>().Insert(
-                                new Active
-                                {
-                                    UserID = userId,
-                                    SessionID = sessionID,
-                                    BoardID = boardId,
                                     IP = ip,
-                                    Login = DateTime.UtcNow,
                                     LastActive = DateTime.UtcNow,
                                     Location = location,
                                     ForumID = forumId,
                                     TopicID = topicId,
                                     Browser = browser,
                                     Platform = platform,
+                                    ForumPage = forumPage,
                                     Flags = activeFlags
-                                });
-
-                            // -- update max user stats
-                            this.GetRepository<Registry>().UpdateMaxStats(boardId);
-
-                            // -- parameter to update active users cache if this is a new user
-                            if (!isGuest)
-                            {
-                                activeUpdate = true;
-                            }
+                                },
+                                a => a.SessionID == sessionID && a.BoardID == boardId);
                         }
-
-                        // -- remove duplicate users
-                        if (!isGuest)
+                        else
                         {
-                            this.GetRepository<Active>().Delete(
-                                x => x.UserID == userId && x.BoardID == boardId && x.SessionID != sessionID);
-                        }
-                    }
-
-                    // -- return information
-                    return this.GetRepository<ActiveAccess>().DbAccess.Execute(
-                        db =>
-                        {
-                            var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
-
-                            if (forumId.HasValue)
-                            {
-                                expression.Where<ActiveAccess>(x => x.UserID == userId && x.ForumID == forumId.Value);
-                            }
-                            else
-                            {
-                                expression.Where<ActiveAccess>(x => x.UserID == userId && x.ForumID == 0);
-                            }
-
-                            // -- is Moderator Any
-                            var isModeratorAnyExpression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
-
-                            isModeratorAnyExpression.Where(x => x.UserID == userId && x.ModeratorAccess);
-
-                            var isModeratorAnySql = isModeratorAnyExpression.Select(Sql.Count("1"))
-                                .ToMergedParamsSelectStatement();
-
-                            expression.Select<ActiveAccess>(
-                                x => new
+                            // -- search crawler by other parameters then session id
+                            this.GetRepository<Active>().UpdateOnly(
+                                () => new Active
                                 {
-                                    ActiveUpdate = activeUpdate,
-                                    PreviousVisit = previousVisit,
-                                    x.BoardID,
-                                    x.DeleteAccess,
-                                    x.EditAccess,
-                                    x.ForumID,
-                                    x.IsAdmin,
-                                    x.IsForumModerator,
-                                    x.IsGuestX,
-                                    x.LastActive,
-                                    x.ModeratorAccess,
-                                    x.DownloadAccess,
-                                    x.PollAccess,
-                                    x.PostAccess,
-                                    x.PriorityAccess,
-                                    x.ReadAccess,
-                                    x.ReplyAccess,
-                                    x.UploadAccess,
-                                    x.UserID,
-                                    x.VoteAccess,
-                                    IsModeratorAny = Sql.Custom($"sign({OrmLiteConfig.DialectProvider.IsNullFunction(isModeratorAnySql, 0)})"),
-                                    IsCrawler = isCrawler,
-                                    IsMobileDevice = isMobileDevice,
-                                    CategoryID = Sql.Custom($"{(category != null ? category.ID : 0)}"),
-                                    CategoryName =
-                                        Sql.Custom($"{(category != null ? $"'{category.Name}'" : "NULL")}"),
-                                    ForumName = Sql.Custom($"{(forum != null ? $"'{forum.Name}'" : "NULL")}"),
-                                    TopicID = Sql.Custom($"{(topic != null ? topic.ID : 0)}"),
-                                    TopicName =
-                                        Sql.Custom($"{(topic != null ? $"'{topic.TopicName}'" : "NULL")}"),
-                                    ForumTheme = Sql.Custom($"{(forum != null && forum.ThemeURL.IsSet() ? $"'{forum.ThemeURL}'" : "NULL")}"),
-                                    ParentForumID = Sql.Custom($"{(forum != null && forum.ParentID.HasValue ? $"'{forum.ParentID}'" : "NULL")}")
-                                });
-
-                            return db.Connection.Select<PageLoad>(expression);
-                        }).FirstOrDefault();
-                }
-                catch (SqlException x)
-                {
-                    if (x.Number == 1205 && tries < 3)
-                    {
-                        // Transaction (Process ID XXX) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
+                                    UserID = userId,
+                                    IP = ip,
+                                    LastActive = DateTime.UtcNow,
+                                    Location = location,
+                                    ForumID = forumId,
+                                    TopicID = topicId,
+                                    Browser = browser,
+                                    Platform = platform,
+                                    ForumPage = forumPage,
+                                    Flags = activeFlags
+                                },
+                                a => a.Browser == browser && a.IP == ip && a.BoardID == boardId);
+                        }
                     }
                     else
                     {
-                        throw new ApplicationException(
-                            $"Sql Exception with error number {x.Number} (Tries={tries})",
-                            x);
+                        // -- we set @ActiveFlags ready flags
+                        this.GetRepository<Active>().Insert(
+                            new Active
+                            {
+                                UserID = userId,
+                                SessionID = sessionID,
+                                BoardID = boardId,
+                                IP = ip,
+                                Login = DateTime.UtcNow,
+                                LastActive = DateTime.UtcNow,
+                                Location = location,
+                                ForumID = forumId,
+                                TopicID = topicId,
+                                Browser = browser,
+                                Platform = platform,
+                                Flags = activeFlags
+                            });
+
+                        // -- update max user stats
+                        this.GetRepository<Registry>().UpdateMaxStats(boardId);
+
+                        // -- parameter to update active users cache if this is a new user
+                        if (!isGuest)
+                        {
+                            activeUpdate = true;
+                        }
+                    }
+
+                    // -- remove duplicate users
+                    if (!isGuest)
+                    {
+                        this.GetRepository<Active>().Delete(
+                            x => x.UserID == userId && x.BoardID == boardId && x.SessionID != sessionID);
                     }
                 }
 
-                ++tries;
+                // -- return information
+                return this.GetRepository<ActiveAccess>().DbAccess.Execute(
+                    db =>
+                    {
+                        var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
+
+                        if (forumId.HasValue)
+                        {
+                            expression.Where<ActiveAccess>(x => x.UserID == userId && x.ForumID == forumId.Value);
+                        }
+                        else
+                        {
+                            expression.Where<ActiveAccess>(x => x.UserID == userId && x.ForumID == 0);
+                        }
+
+                        // -- is Moderator Any
+                        var isModeratorAnyExpression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
+
+                        isModeratorAnyExpression.Where(x => x.UserID == userId && x.ModeratorAccess);
+
+                        var isModeratorAnySql = isModeratorAnyExpression.Select(Sql.Count("1"))
+                            .ToMergedParamsSelectStatement();
+
+                        expression.Select<ActiveAccess>(
+                            x => new
+                            {
+                                ActiveUpdate = activeUpdate,
+                                PreviousVisit = previousVisit,
+                                x.BoardID,
+                                x.DeleteAccess,
+                                x.EditAccess,
+                                x.ForumID,
+                                x.IsAdmin,
+                                x.IsForumModerator,
+                                x.IsGuestX,
+                                x.LastActive,
+                                x.ModeratorAccess,
+                                x.DownloadAccess,
+                                x.PollAccess,
+                                x.PostAccess,
+                                x.PriorityAccess,
+                                x.ReadAccess,
+                                x.ReplyAccess,
+                                x.UploadAccess,
+                                x.UserID,
+                                x.VoteAccess,
+                                IsModeratorAny =
+                                    Sql.Custom(
+                                        $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(isModeratorAnySql, 0)})"),
+                                IsCrawler = isCrawler,
+                                IsMobileDevice = isMobileDevice,
+                                CategoryID = Sql.Custom($"{(category != null ? category.ID : 0)}"),
+                                CategoryName = Sql.Custom($"{(category != null ? $"'{category.Name}'" : "NULL")}"),
+                                ForumName = Sql.Custom($"{(forum != null ? $"'{forum.Name}'" : "NULL")}"),
+                                TopicID = Sql.Custom($"{(topic != null ? topic.ID : 0)}"),
+                                TopicName = Sql.Custom($"{(topic != null ? $"'{topic.TopicName}'" : "NULL")}"),
+                                ForumTheme =
+                                    Sql.Custom(
+                                        $"{(forum != null && forum.ThemeURL.IsSet() ? $"'{forum.ThemeURL}'" : "NULL")}"),
+                                ParentForumID = Sql.Custom(
+                                    $"{(forum != null && forum.ParentID.HasValue ? $"'{forum.ParentID}'" : "NULL")}")
+                            });
+
+                        return db.Connection.Select<PageLoad>(expression);
+                    }).FirstOrDefault();
             }
         }
 

@@ -27,7 +27,6 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data.SqlClient;
     using System.Linq;
     using System.Net.Mail;
     using System.Web.UI.WebControls;
@@ -429,7 +428,7 @@ namespace YAF.Pages.Admin
             {
                 this.DBSize.Text = $"{this.Get<IDbAccess>().GetDatabaseSize()} MB";
             }
-            catch (SqlException)
+            catch (Exception)
             {
                 this.DBSize.Text = this.GetText("ADMIN_ADMIN", "ERROR_DATABASESIZE");
             }

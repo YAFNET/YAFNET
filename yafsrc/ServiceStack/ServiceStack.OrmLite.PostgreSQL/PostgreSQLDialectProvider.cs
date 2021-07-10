@@ -336,6 +336,74 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
+        public override string ToCreateTableStatement(Type tableType)
+        {
+            var sbColumns = StringBuilderCache.Allocate();
+            var sbConstraints = StringBuilderCacheAlt.Allocate();
+
+            var modelDef = GetModel(tableType);
+
+            foreach (var fieldDef in this.CreateTableFieldsStrategy(modelDef))
+            {
+                if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
+                    continue;
+
+                var columnDefinition = this.GetColumnDefinition(fieldDef, modelDef);
+
+                if (columnDefinition == null)
+                    continue;
+
+                if (sbColumns.Length != 0)
+                    sbColumns.Append(", \n  ");
+
+                sbColumns.Append(columnDefinition);
+
+                var sqlConstraint = this.GetCheckConstraint(modelDef, fieldDef);
+                if (sqlConstraint != null)
+                {
+                    sbConstraints.Append(",\n" + sqlConstraint);
+                }
+
+                if (fieldDef.ForeignKey == null || OrmLiteConfig.SkipForeignKeys)
+                    continue;
+
+                var refModelDef = GetModel(fieldDef.ForeignKey.ReferenceType);
+                sbConstraints.Append(
+                    $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} " +
+                    $"FOREIGN KEY ({this.GetQuotedColumnName(fieldDef.FieldName)}) " +
+                    $"REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
+
+                sbConstraints.Append(this.GetForeignKeyOnDeleteClause(fieldDef.ForeignKey));
+                sbConstraints.Append(this.GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));
+            }
+
+            var uniqueConstraints = this.GetUniqueConstraints(modelDef);
+            if (uniqueConstraints != null)
+            {
+                sbConstraints.Append(",\n" + uniqueConstraints);
+            }
+
+            if (modelDef.CompositePrimaryKeys.Any())
+            {
+                sbConstraints.Append(",\n");
+
+                var primaryKeyName = $"{this.NamingStrategy.GetTableName(modelDef)}_pkey";
+
+                sbConstraints.AppendFormat(" CONSTRAINT {0} PRIMARY KEY (", primaryKeyName);
+
+                sbConstraints.Append(
+                    modelDef.CompositePrimaryKeys.FirstOrDefault().FieldNames.Map(f => modelDef.GetQuotedName(f, this))
+                        .Join(","));
+
+                sbConstraints.Append(") ");
+            }
+
+            var sql = $"CREATE TABLE {this.GetQuotedTableName(modelDef)} " +
+                      $"\n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n); \n";
+
+            return sql;
+        }
+
         public override string GetAutoIdDefaultValue(FieldDefinition fieldDef)
         {
             return fieldDef.FieldType == typeof(Guid)

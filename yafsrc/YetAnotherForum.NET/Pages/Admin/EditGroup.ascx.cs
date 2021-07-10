@@ -322,9 +322,8 @@ namespace YAF.Pages.Admin
                 this.Get<IAspNetRolesHelper>().CreateRole(roleName);
             }
 
-            // Access masks for a newly created or an existing role
-            if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
-            {
+            //if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
+            //{
                 // go through all forums
                 for (var i = 0; i < this.AccessList.Items.Count; i++)
                 {
@@ -337,15 +336,15 @@ namespace YAF.Pages.Admin
                     // save forum access masks for this role
                     this.GetRepository<ForumAccess>().Save(
                         forumId,
-                        roleId.ToType<int>(),
+                        roleId.Value,
                         item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue.ToType<int>());
                 }
 
                 this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Groups);
-            }
+            //}
 
             // Done, redirect to role editing page
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditGroup, "i={0}", roleId);
+            ///this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditGroup, "i={0}", roleId);
         }
 
         /// <summary>
@@ -353,7 +352,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RepeaterItemEventArgs"/> instance containing the event data.</param>
-        protected void AccessList_OnItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
+        protected void AccessList_OnItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
             {

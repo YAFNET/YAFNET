@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -40,12 +40,14 @@ namespace YAF.Types.Models.Identity
     /// </summary>
     /// <typeparam name="TKey">
     /// </typeparam>
+    [CompositePrimaryKey(nameof(UserId), nameof(LoginProvider), nameof(ProviderKey))]
     public class AspNetUserLogins<TKey> : IEntity
     {
         /// <summary>
         /// Gets or sets the user id.
         /// </summary>
         [StringLength(56)]
+        [Index(NonClustered = true)]
         [ForeignKey(typeof(AspNetUsers), OnDelete = "CASCADE")]
         [Required]
         public TKey UserId { get; set; }

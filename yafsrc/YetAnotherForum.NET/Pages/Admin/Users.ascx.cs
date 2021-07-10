@@ -115,7 +115,7 @@ namespace YAF.Pages.Admin
                         return;
                     }
 
-                    if (userToDelete.Item4.IsAdmin || userToDelete.Item1.UserFlags.IsHostAdmin)
+                    if (userToDelete.Item4.IsAdmin > 0 || userToDelete.Item1.UserFlags.IsHostAdmin)
                     {
                         // admin are not deletable either
                         this.PageContext.AddLoadMessage(

@@ -1740,7 +1740,7 @@ namespace YAF.Configuration
         /// </summary>
         public bool UseStyledNicks
         {
-            get => this.Registry.GetValue("UseStyledNicks", false);
+            get => this.Registry.GetValue("UseStyledNicks", true);
 
             set => this.Registry.SetValue("UseStyledNicks", value);
         }

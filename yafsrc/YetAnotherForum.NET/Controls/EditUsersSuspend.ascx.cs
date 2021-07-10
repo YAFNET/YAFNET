@@ -207,7 +207,7 @@ namespace YAF.Controls
             var access = this.GetRepository<vaccess>().GetSingle(v => v.UserID == this.CurrentUserID);
 
             // is user to be suspended admin?
-            if (access.IsAdmin)
+            if (access.IsAdmin > 0)
             {
                 // tell user he can't suspend admin
                 this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_ADMINISTRATORS"), MessageTypes.danger);
@@ -215,7 +215,7 @@ namespace YAF.Controls
             }
 
             // is user to be suspended forum moderator, while user suspending him is not admin?
-            if (!this.PageContext.IsAdmin && access.IsForumModerator)
+            if (!this.PageContext.IsAdmin && access.IsForumModerator > 0)
             {
                 // tell user he can't suspend forum moderator when he's not admin
                 this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_FORUMMODERATORS"), MessageTypes.danger);

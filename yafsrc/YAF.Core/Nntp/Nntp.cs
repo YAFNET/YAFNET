@@ -26,7 +26,6 @@ namespace YAF.Core.Nntp
     #region Using
 
     using System;
-    using System.Data.SqlClient;
     using System.Linq;
     using System.Runtime.Caching;
 
@@ -63,9 +62,6 @@ namespace YAF.Core.Nntp
         /// <param name="logger">
         /// The logger.
         /// </param>
-        /// <param name="applicationStateBase">
-        /// The application state base.
-        /// </param>
         public Nntp([NotNull] ILoggerService logger)
         {
             this.Logger = logger;
@@ -98,7 +94,7 @@ namespace YAF.Core.Nntp
         [NotNull]
         public static NntpConnection GetNntpConnection([NotNull] Tuple<NntpForum, NntpServer, Forum> nntpForum)
         {
-            CodeContracts.VerifyNotNull(nntpForum, "nntpForum");
+            CodeContracts.VerifyNotNull(nntpForum);
 
             var nntpConnection = new NntpConnection();
 
@@ -316,7 +312,7 @@ namespace YAF.Core.Nntp
                                     this.Logger.Error(exception, "YafNntp");
                                 }
                             }
-                            catch (SqlException exception)
+                            catch (Exception exception)
                             {
                                 this.Logger.Error(exception, "YafNntp DB Failure");
                             }

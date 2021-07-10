@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.BuddyList" Codebehind="BuddyList.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.BuddyList" Codebehind="BuddyList.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-    <asp:Repeater ID="rptBuddy" runat="server" OnItemCreated="rptBuddy_ItemCreated" OnItemCommand="rptBuddy_ItemCommand">
+    <asp:Repeater ID="rptBuddy" runat="server" OnItemDataBound="rptBuddy_ItemCreated" OnItemCommand="rptBuddy_ItemCommand">
     <HeaderTemplate>
         <asp:PlaceHolder runat="server" ID="HeaderHolder">
             <ul class="list-group list-group-flush">

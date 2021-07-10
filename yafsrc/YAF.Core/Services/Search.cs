@@ -564,7 +564,7 @@ namespace YAF.Core.Services
         {
             var forumId = doc.Get("ForumId").ToType<int>();
 
-            if (!userAccessList.Any() || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess))
+            if (!userAccessList.Any() || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess > 0))
             {
                 return null;
             }
@@ -694,7 +694,7 @@ namespace YAF.Core.Services
         {
             var forumId = doc.Get("ForumId").ToType<int>();
 
-            if (!userAccessList.Any() || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess))
+            if (!userAccessList.Any() || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess > 0))
             {
                 return null;
             }
@@ -916,7 +916,7 @@ namespace YAF.Core.Services
                     // filter user access
                     if (userAccessList.Any())
                     {
-                        userAccessList.Where(a => !a.ReadAccess).ForEach(
+                        userAccessList.Where(a => a.ReadAccess == 0).ForEach(
                             access => fil.Add(
                                 new FilterClause(
                                     new TermsFilter(new Term("ForumId", access.ForumID.ToString())),

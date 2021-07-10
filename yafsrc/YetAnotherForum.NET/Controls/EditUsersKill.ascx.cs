@@ -207,7 +207,7 @@ namespace YAF.Controls
                             return;
                         }
 
-                        if (!this.User.Item4.IsAdmin &&
+                        if (this.User.Item4.IsAdmin == 0 &&
                             !this.User.Item1.UserFlags.IsHostAdmin)
                         {
                             return;

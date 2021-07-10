@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -21,45 +21,41 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-namespace YAF.Types.Models.Identity
+namespace YAF.Types.EventProxies
 {
-    using ServiceStack.DataAnnotations;
+    #region Using
 
-    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
 
-    /// <summary>
-    /// The asp net user roles.
-    /// </summary>
-    public class AspNetUserRoles : AspNetUserRoles<string, string>
-    {
-    }
+    #endregion
 
     /// <summary>
-    /// The asp net user roles.
+    /// The Update User Style Event
     /// </summary>
-    /// <typeparam name="TKey">
-    /// </typeparam>
-    /// <typeparam name="TRoleKey">
-    /// </typeparam>
-    [CompositePrimaryKey(nameof(UserId), nameof(RoleId))]
-    public class AspNetUserRoles<TKey, TRoleKey> : IEntity
+    public class UpdateUserStyleEvent : IAmEvent
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UpdateUserStyleEvent"/> class.
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        public UpdateUserStyleEvent(int userId)
+        {
+            this.UserId = userId;
+        }
+
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// Gets or sets the user id.
         /// </summary>
-        [StringLength(56)]
-        [ForeignKey(typeof(AspNetUsers), OnDelete = "CASCADE")]
-        [Required]
-        public TKey UserId { get; set; }
+        public int UserId { get; set; }
 
-        /// <summary>
-        /// Gets or sets the role id.
-        /// </summary>
-        [StringLength(56)]
-        [PrimaryKey]
-        [ForeignKey(typeof(AspNetRoles), OnDelete = "CASCADE")]
-        [Required]
-        public TRoleKey RoleId { get; set; }
+        #endregion
     }
 }

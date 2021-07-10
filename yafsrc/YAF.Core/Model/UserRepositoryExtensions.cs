@@ -26,7 +26,6 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.SqlClient;
     using System.Dynamic;
     using System.IO;
     using System.Linq;
@@ -111,7 +110,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var users = repository.GetByBoardId();
+            var users = repository.Get(u => u.BoardID == boardId);
 
             users.ForEach(
                 user => repository.UpdateStyle(user.ID));
@@ -195,7 +194,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// List the reporters as data table.
+        /// List the reporters.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -204,7 +203,7 @@ namespace YAF.Core.Model
         /// The message id.
         /// </param>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// Returns the List of Message Reporters
         /// </returns>
         public static List<Tuple<MessageReportedAudit, User>> MessageReporters(
             this IRepository<User> repository,
@@ -221,7 +220,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// List the reporters as data table.
+        /// List the reporters.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -233,7 +232,7 @@ namespace YAF.Core.Model
         /// The user id.
         /// </param>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// The List of Message Reporters
         /// </returns>
         public static List<Tuple<User, MessageReportedAudit>> MessageReporter(
             this IRepository<User> repository,
@@ -521,7 +520,7 @@ namespace YAF.Core.Model
             else
             {
                 var rankId = BoardContext.Current.GetRepository<Rank>()
-                    .GetSingle(r => r.BoardID == boardId && (r.Flags & 2) == 2).ID;
+                    .GetSingle(r => r.BoardID == boardId && (r.Flags & 1) == 1).ID;
 
                 if (displayName.IsNotSet())
                 {
@@ -666,7 +665,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The watch mail list as data table.
+        /// Gets the watch mail list.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -769,7 +768,7 @@ namespace YAF.Core.Model
         /// The boardID
         /// </param>
         /// <returns>
-        /// The <see cref="dynamic"/>.
+        /// Returns the Stats.
         /// </returns>
         public static dynamic MaxAlbumData(
             this IRepository<User> repository,
@@ -812,7 +811,7 @@ namespace YAF.Core.Model
         /// The Board Id
         /// </param>
         /// <returns>
-        /// The <see cref="dynamic"/>.
+        /// Returns the Stats
         /// </returns>
         public static dynamic SignatureData(
             this IRepository<User> repository,
@@ -906,173 +905,156 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var tries = 0;
-
             while (true)
             {
-                try
-                {
-                    return repository.DbAccess.Execute(
-                        db =>
+                return repository.DbAccess.Execute(
+                    db =>
+                    {
+                        var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+                        expression.Where<User>(u => u.ID == userId);
+
+                        // -- moderate Posts
+                        var moderatePostsExpression = OrmLiteConfig.DialectProvider.SqlExpression<Message>()
+                            .Join<Topic>((a, b) => b.ID == a.TopicID).Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
+                            .Join<Forum, Category>((c, d) => d.ID == c.CategoryID)
+                            .Join<Topic, ActiveAccess>((b, access) => access.ForumID == b.ForumID);
+
+                        moderatePostsExpression.Where<Message, Topic, Forum, Category, ActiveAccess>(
+                            (a, b, c, d, access) =>
+                                (a.Flags & 128) == 128 && (a.Flags & 8) != 8 && (b.Flags & 8) != 8 &&
+                                d.BoardID == boardId && access.ModeratorAccess && access.UserID == userId ||
+                                (a.Flags & 16) != 16 && (a.Flags & 8) != 8 && (b.Flags & 8) != 8 &&
+                                d.BoardID == boardId && access.ModeratorAccess && access.UserID == userId);
+
+                        var moderatePostsSql = moderatePostsExpression.Select(Sql.Count("1"))
+                            .ToMergedParamsSelectStatement();
+
+                        var countAlbumsSql = "0";
+
+                        if (showUserAlbums)
                         {
-                            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+                            // -- count Albums
+                            var countAlbumsExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbum>();
 
-                            expression.Where<User>(u => u.ID == userId);
+                            countAlbumsExpression.Where(u => u.UserID == userId);
 
-                            // -- moderate Posts
-                            var moderatePostsExpression = OrmLiteConfig.DialectProvider.SqlExpression<Message>()
-                                .Join<Topic>((a, b) => b.ID == a.TopicID)
-                                .Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
-                                .Join<Forum, Category>((c, d) => d.ID == c.CategoryID)
-                                .Join<Topic, ActiveAccess>((b, access) => access.ForumID == b.ForumID);
+                            countAlbumsSql = countAlbumsExpression.Select(Sql.Count("1"))
+                                .ToMergedParamsSelectStatement();
+                        }
 
-                            moderatePostsExpression.Where<Message, Topic, Forum, Category, ActiveAccess>(
-                                (a, b, c, d, access) =>
-                                    (a.Flags & 128) == 128 && (a.Flags & 8) != 8 && (b.Flags & 8) != 8 &&
-                                    d.BoardID == boardId && access.ModeratorAccess && access.UserID == userId ||
-                                    (a.Flags & 16) != 16 && (a.Flags & 8) != 8 && (b.Flags & 8) != 8 &&
-                                    d.BoardID == boardId && access.ModeratorAccess && access.UserID == userId);
+                        // -- count ReceivedThanks
+                        var countThanksExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
-                            var moderatePostsSql = moderatePostsExpression.Select(Sql.Count("1"))
+                        countThanksExpression.Where(
+                            a => a.UserID == userId && (a.Flags & 1024) == 1024 && a.Notification);
+
+                        var countThanksSql = countThanksExpression.Select(Sql.Count("1"))
+                            .ToMergedParamsSelectStatement();
+
+                        // -- count Mention
+                        var countMentionExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+
+                        countMentionExpression.Where(
+                            a => a.UserID == userId && (a.Flags & 512) == 512 && a.Notification);
+
+                        var countMentionSql = countMentionExpression.Select(Sql.Count("1"))
+                            .ToMergedParamsSelectStatement();
+
+                        // -- count Quoted
+                        var countQuotedExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+
+                        countQuotedExpression.Where(
+                            a => a.UserID == userId && (a.Flags & 1024) == 1024 && a.Notification);
+
+                        var countQuotedSql = countQuotedExpression.Select(Sql.Count("1"))
+                            .ToMergedParamsSelectStatement();
+
+                        var countUnreadSql = "0";
+                        var lastUnreadSql = "null";
+
+                        if (showUnreadPMs)
+                        {
+                            // -- count Unread
+                            var countUnreadExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>();
+
+                            countUnreadExpression.Where(
+                                x => x.UserID == userId && (x.Flags & 1) != 1 && (x.Flags & 8) != 8 &&
+                                     (x.Flags & 4) != 4);
+
+                            countUnreadSql = countUnreadExpression.Select(Sql.Count("1"))
                                 .ToMergedParamsSelectStatement();
 
-                            var countAlbumsSql = "0";
+                            // -- last Unread
+                            var lastUnreadExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>()
+                                .Join<PMessage>((a, b) => b.ID == a.PMessageID)
+                                .OrderByDescending<PMessage>(x => x.Created).Limit(1);
 
-                            if (showUserAlbums)
+                            lastUnreadExpression.Where(
+                                x => x.UserID == userId && (x.Flags & 1) != 1 && (x.Flags & 8) != 8 &&
+                                     (x.Flags & 4) != 4);
+
+                            lastUnreadSql = lastUnreadExpression
+                                .Select(lastUnreadExpression.Column<PMessage>(x => x.Created))
+                                .ToMergedParamsSelectStatement();
+                        }
+
+                        var countBuddiesSql = "0";
+                        var lastBuddySql = "null";
+
+                        if (showPendingBuddies)
+                        {
+                            // -- count Buddies
+                            var countBuddiesExpression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
+
+                            countBuddiesExpression.Where(x => x.ToUserID == userId && x.Approved == false);
+
+                            countBuddiesSql = countBuddiesExpression.Select(Sql.Count("1"))
+                                .ToMergedParamsSelectStatement();
+
+                            // -- last Buddy
+                            var lastBuddyExpression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>()
+                                .OrderByDescending<Buddy>(x => x.Requested).Limit(1);
+
+                            lastBuddyExpression.Where(x => x.ToUserID == userId && x.Approved == false);
+
+                            lastBuddySql = lastBuddyExpression
+                                .Select(lastBuddyExpression.Column<Buddy>(x => x.Requested))
+                                .ToMergedParamsSelectStatement();
+                        }
+
+                        // -- has Buddies
+                        var hasBuddiesExpression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
+
+                        hasBuddiesExpression.Where(x => x.FromUserID == userId || x.ToUserID == userId).Limit(1);
+
+                        var hasBuddiesSql = hasBuddiesExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
+
+                        expression.Select<User>(
+                            a => new
                             {
-                                // -- count Albums
-                                var countAlbumsExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbum>();
+                                a.ProviderUserKey,
+                                a.Suspended,
+                                a.SuspendedReason,
+                                TimeZoneUser = a.TimeZone,
+                                IsGuest =
+                                    Sql.Custom<bool>(
+                                        $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
+                                ModeratePosts = Sql.Custom($"({moderatePostsSql})"),
+                                ReceivedThanks = Sql.Custom($"({countThanksSql})"),
+                                Mention = Sql.Custom($"({countMentionSql})"),
+                                Quoted = Sql.Custom($"({countQuotedSql})"),
+                                UnreadPrivate = Sql.Custom($"({countUnreadSql})"),
+                                LastUnreadPm = Sql.Custom($"({lastUnreadSql})"),
+                                PendingBuddies = Sql.Custom($"({countBuddiesSql})"),
+                                LastPendingBuddies = Sql.Custom($"({lastBuddySql})"),
+                                NumAlbums = Sql.Custom($"({countAlbumsSql})"),
+                                UserHasBuddies = Sql.Custom(
+                                    $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(hasBuddiesSql, 0)})")
+                            });
 
-                                countAlbumsExpression.Where(u => u.UserID == userId);
-
-                                countAlbumsSql = countAlbumsExpression.Select(Sql.Count("1"))
-                                    .ToMergedParamsSelectStatement();
-                            }
-
-                            // -- count ReceivedThanks
-                            var countThanksExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
-
-                            countThanksExpression.Where(
-                                a => a.UserID == userId && (a.Flags & 1024) == 1024 && a.Notification);
-
-                            var countThanksSql = countThanksExpression.Select(Sql.Count("1"))
-                                .ToMergedParamsSelectStatement();
-
-                            // -- count Mention
-                            var countMentionExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
-
-                            countMentionExpression.Where(
-                                a => a.UserID == userId && (a.Flags & 512) == 512 && a.Notification);
-
-                            var countMentionSql = countMentionExpression.Select(Sql.Count("1"))
-                                .ToMergedParamsSelectStatement();
-
-                            // -- count Quoted
-                            var countQuotedExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
-
-                            countQuotedExpression.Where(
-                                a => a.UserID == userId && (a.Flags & 1024) == 1024 && a.Notification);
-
-                            var countQuotedSql = countQuotedExpression.Select(Sql.Count("1"))
-                                .ToMergedParamsSelectStatement();
-
-                            var countUnreadSql = "0";
-                            var lastUnreadSql = "null";
-
-                            if (showUnreadPMs)
-                            {
-                                // -- count Unread
-                                var countUnreadExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>();
-
-                                countUnreadExpression.Where(
-                                    x => x.UserID == userId && (x.Flags & 1) != 1 && (x.Flags & 8) != 8 &&
-                                         (x.Flags & 4) != 4);
-
-                                countUnreadSql = countUnreadExpression.Select(Sql.Count("1"))
-                                    .ToMergedParamsSelectStatement();
-
-                                // -- last Unread
-                                var lastUnreadExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>()
-                                    .Join<PMessage>((a, b) => b.ID == a.PMessageID)
-                                    .OrderByDescending<PMessage>(x => x.Created).Limit(1);
-
-                                lastUnreadExpression.Where(
-                                    x => x.UserID == userId && (x.Flags & 1) != 1 && (x.Flags & 8) != 8 &&
-                                         (x.Flags & 4) != 4);
-
-                                lastUnreadSql = lastUnreadExpression
-                                    .Select(lastUnreadExpression.Column<PMessage>(x => x.Created))
-                                    .ToMergedParamsSelectStatement();
-                            }
-
-                            var countBuddiesSql = "0";
-                            var lastBuddySql = "null";
-
-                            if (showPendingBuddies)
-                            {
-                                // -- count Buddies
-                                var countBuddiesExpression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
-
-                                countBuddiesExpression.Where(x => x.ToUserID == userId && x.Approved == false);
-
-                                countBuddiesSql = countBuddiesExpression.Select(Sql.Count("1"))
-                                    .ToMergedParamsSelectStatement();
-
-                                // -- last Buddy
-                                var lastBuddyExpression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>()
-                                    .OrderByDescending<Buddy>(x => x.Requested).Limit(1);
-
-                                lastBuddyExpression.Where(x => x.ToUserID == userId && x.Approved == false);
-
-                                lastBuddySql = lastBuddyExpression
-                                    .Select(lastBuddyExpression.Column<Buddy>(x => x.Requested))
-                                    .ToMergedParamsSelectStatement();
-                            }
-
-                            // -- has Buddies
-                            var hasBuddiesExpression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
-
-                            hasBuddiesExpression.Where(x => x.FromUserID == userId || x.ToUserID == userId).Limit(1);
-
-                            var hasBuddiesSql = hasBuddiesExpression.Select(Sql.Count("1"))
-                                .ToMergedParamsSelectStatement();
-
-                            expression.Select<User>(
-                                a => new
-                                {
-                                    a.ProviderUserKey,
-                                    a.Suspended,
-                                    a.SuspendedReason,
-                                    TimeZoneUser = a.TimeZone,
-                                    IsGuest = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
-                                    ModeratePosts = Sql.Custom($"({moderatePostsSql})"),
-                                    ReceivedThanks = Sql.Custom($"({countThanksSql})"),
-                                    Mention = Sql.Custom($"({countMentionSql})"),
-                                    Quoted = Sql.Custom($"({countQuotedSql})"),
-                                    UnreadPrivate = Sql.Custom($"({countUnreadSql})"),
-                                    LastUnreadPm = Sql.Custom($"({lastUnreadSql})"),
-                                    PendingBuddies = Sql.Custom($"({countBuddiesSql})"),
-                                    LastPendingBuddies = Sql.Custom($"({lastBuddySql})"),
-                                    NumAlbums = Sql.Custom($"({countAlbumsSql})"),
-                                    UserHasBuddies = Sql.Custom($"sign({OrmLiteConfig.DialectProvider.IsNullFunction(hasBuddiesSql, 0)})")
-                                });
-
-                            return db.Connection.Select<UserLazyData>(expression);
-                        }).FirstOrDefault();
-                }
-                catch (SqlException x)
-                {
-                    if (x.Number == 1205 && tries < 3)
-                    {
-                        // Transaction (Process ID XXX) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
-                    }
-                    else
-                    {
-                        throw new ApplicationException($"Sql Exception with error number {x.Number} (Tries={tries}", x);
-                    }
-                }
-
-                ++tries;
+                        return db.Connection.Select<UserLazyData>(expression);
+                    }).FirstOrDefault();
             }
         }
 
@@ -1586,7 +1568,7 @@ namespace YAF.Core.Model
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
             expression.Join<vaccess>((u, v) => v.UserID == u.ID).Where<vaccess, User>(
-                (v, u) => u.BoardID == (boardId ?? repository.BoardID) && (u.Flags & 4) != 4 && v.IsAdmin &&
+                (v, u) => u.BoardID == (boardId ?? repository.BoardID) && (u.Flags & 4) != 4 && v.IsAdmin > 0 &&
                           v.ForumID == 0).OrderBy<User>(u => u.DisplayName);
 
             return repository.DbAccess.Execute(db => db.Connection.Select(expression));
@@ -1864,13 +1846,13 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Get the list of recently logged in users.
+        /// Gets the list of recently (last 24 hours) logged in users.
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
         /// <returns>
-        /// The list of users in Data table format.
+        /// The list of users.
         /// </returns>
         public static List<ActiveUser> GetRecentUsers(
             this IRepository<User> repository)
@@ -1912,13 +1894,13 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets the forum moderators as data table.
+        /// Gets the forum moderators.
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// Returns the List of Forum Moderators
         /// </returns>
         public static List<SimpleModerator> GetForumModerators(
             this IRepository<User> repository)

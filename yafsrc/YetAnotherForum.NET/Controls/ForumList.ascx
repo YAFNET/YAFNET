@@ -6,7 +6,7 @@
 <%@ Register TagPrefix="YAF" TagName="ForumModeratorList" Src="ForumModeratorList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumSubForumList" Src="ForumSubForumList.ascx" %>
 
-<asp:Repeater ID="ForumList1" runat="server" OnItemCreated="ForumList1_ItemCreated">
+<asp:Repeater ID="ForumList1" runat="server" OnItemDataBound="ForumList1_ItemCreated">
     <SeparatorTemplate>
         <div class="row">
             <div class="col">
