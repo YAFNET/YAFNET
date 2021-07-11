@@ -270,8 +270,12 @@ namespace YAF.Types.Extensions.Data
         {
             CodeContracts.VerifyNotNull(dbAccess);
 
-            return
-                $"{OrmLiteConfig.DialectProvider.SQLServerName()} {dbAccess.Execute(db => db.Connection.Scalar<string>(OrmLiteConfig.DialectProvider.SQLVersion()))}";
+            var version = dbAccess.Execute(
+                db => db.Connection.Scalar<string>(OrmLiteConfig.DialectProvider.SQLVersion()));
+
+            var serverName = OrmLiteConfig.DialectProvider.SQLServerName();
+
+            return version.StartsWith(serverName) ? version : $"{serverName} {version}";
         }
 
         /// <summary>
