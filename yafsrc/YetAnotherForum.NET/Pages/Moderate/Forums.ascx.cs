@@ -247,7 +247,7 @@ namespace YAF.Pages.Moderate
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            if (!this.PageContext.IsForumModerator || !this.PageContext.IsAdmin)
+            if (!this.PageContext.IsForumModerator && !this.PageContext.IsAdmin)
             {
                 this.ModerateUsersHolder.Visible = false;
             }
