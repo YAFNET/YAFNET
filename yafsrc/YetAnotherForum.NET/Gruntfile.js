@@ -1,4 +1,4 @@
-﻿/// <binding AfterBuild='watch' />
+﻿/// <binding />
 module.exports = function(grunt) {
 
     // CONFIGURATION
@@ -323,12 +323,12 @@ module.exports = function(grunt) {
 
     grunt.registerTask("watch",
         [
-            "uglify", "postcss", "cssmin"
+            "uglify", "sass", "postcss", "cssmin"
         ]);
 
     grunt.registerTask("default",
         [
-            "uglify", "postcss", "cssmin"
+            "uglify", "sass", "postcss", "cssmin"
         ]);
 
     grunt.registerTask("js",
