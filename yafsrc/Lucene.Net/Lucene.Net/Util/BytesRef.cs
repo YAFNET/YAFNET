@@ -3,10 +3,11 @@ using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;
-using WritableArrayAttribute  = YAF.Lucene.Net.Support.WritableArrayAttribute;
+using WritableArrayAttribute = YAF.Lucene.Net.Support.WritableArrayAttribute;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -43,6 +44,7 @@ namespace YAF.Lucene.Net.Util
     [Serializable]
 #endif
     // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
+    [DebuggerDisplay("{ToString()} {Utf8ToString()}")]
     public sealed class BytesRef : IComparable<BytesRef>, IComparable, IEquatable<BytesRef> // LUCENENET specific - implemented IComparable for FieldComparator, IEquatable<BytesRef>
     {
         /// <summary>
@@ -201,7 +203,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Calculates the hash code as required by <see cref="Index.TermsHash"/> during indexing.
         /// <para/> This is currently implemented as MurmurHash3 (32
-        /// bit), using the seed from 
+        /// bit), using the seed from
         /// <see cref="StringHelper.GOOD_FAST_HASH_SEED"/>, but is subject to
         /// change from release to release.
         /// </summary>
@@ -501,7 +503,7 @@ namespace YAF.Lucene.Net.Util
         UTF8AsHex
     }
 
-    // LUCENENET specific - when this object is a parameter of 
+    // LUCENENET specific - when this object is a parameter of
     // a method that calls string.Format(),
     // defers execution of building a string until
     // string.Format() is called.

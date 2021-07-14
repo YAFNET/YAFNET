@@ -237,7 +237,7 @@ namespace YAF.Lucene.Net.Store
     // Note that using NativeFSLock would be ideal for all platforms. However, there is a
     // small chance that provoking lock/share exceptions will fail. In that rare case, we
     // fallback to this substandard implementation.
-    // 
+    //
     // Reference: https://stackoverflow.com/q/46380483
     internal class FallbackNativeFSLock : Lock
     {
@@ -689,6 +689,7 @@ namespace YAF.Lucene.Net.Store
                             }
                             catch
                             {
+                                // try to delete the file if we created it, but it's not an error if we can't.
                             }
                         }
                     }

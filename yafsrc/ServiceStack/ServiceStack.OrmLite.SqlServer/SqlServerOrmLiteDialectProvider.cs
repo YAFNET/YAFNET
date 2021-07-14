@@ -1166,7 +1166,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
         public override string SQLServerName()
         {
-            return "MS SQL Server";
+            return "Microsoft SQL Server";
         }
 
         public override string ShrinkDatabase(string database)

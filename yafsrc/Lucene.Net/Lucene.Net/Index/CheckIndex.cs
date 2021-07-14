@@ -107,7 +107,7 @@ namespace YAF.Lucene.Net.Index
             /// <summary>
             /// Empty unless you passed specific segments list to check as optional 3rd argument. </summary>
             /// <seealso cref="CheckIndex.DoCheckIndex(IList{string})"/>
-            public IList<string> SegmentsChecked { get; internal set; } // LUCENENET specific - made setter internal 
+            public IList<string> SegmentsChecked { get; internal set; } // LUCENENET specific - made setter internal
 
             /// <summary>
             /// True if the index was created with a newer version of Lucene than the <see cref="CheckIndex"/> tool. </summary>
@@ -137,7 +137,7 @@ namespace YAF.Lucene.Net.Index
             public int NumBadSegments { get; internal set; } // LUCENENET specific - made setter internal
 
             /// <summary>
-            /// True if we checked only specific segments 
+            /// True if we checked only specific segments
             /// (<see cref="DoCheckIndex(IList{string})"/> was called with non-null
             /// argument).
             /// </summary>
@@ -680,7 +680,9 @@ namespace YAF.Lucene.Net.Index
                 }
                 catch
                 {
+                    segmentName = 0;
                 }
+
                 if (segmentName > result.MaxSegmentName)
                 {
                     result.MaxSegmentName = segmentName;
