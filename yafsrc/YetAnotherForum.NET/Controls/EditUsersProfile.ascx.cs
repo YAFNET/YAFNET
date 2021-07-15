@@ -421,18 +421,8 @@ namespace YAF.Controls
 
             this.UpdateUserProfile();
 
-            // save remaining settings to the DB
-            this.GetRepository<User>().Save(
-                this.currentUserId,
-                this.PageContext.PageBoardID,
-                null,
-                displayName,
-                null,
-                this.User.Item1.TimeZoneInfo.Id,
-                this.User.Item1.LanguageFile,
-                this.User.Item1.Culture,
-                this.User.Item1.ThemeFile,
-                this.User.Item1.UserFlags.IsActiveExcluded);
+            // save display name
+            this.GetRepository<User>().UpdateDisplayName(this.User.Item1, displayName);
 
             // Save Custom Profile
             if (this.CustomProfile.Visible)

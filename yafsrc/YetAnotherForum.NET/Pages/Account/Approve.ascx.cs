@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -109,7 +109,7 @@ namespace YAF.Pages.Account
                 // tell the provider to update...
                 this.Get<IAspNetUsersHelper>().Update(user);
 
-                this.GetRepository<User>().Approve(userEmail.UserID, userEmail.Email);
+                this.GetRepository<User>().Approve(userEmail.UserID);
 
                 this.GetRepository<CheckEmail>().DeleteById(userEmail.ID);
 

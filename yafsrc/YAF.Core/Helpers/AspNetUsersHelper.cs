@@ -120,7 +120,7 @@ namespace YAF.Core.Helpers
         /// Gets the Username of the Guest user for the current board.
         /// </summary>
         public string GuestUserName =>
-            this.GetRepository<User>().GetGuestUser(BoardContext.Current.PageBoardID).Name;
+            this.GetRepository<User>().GetById(this.Get<IAspNetUsersHelper>().GuestUserId).Name;
 
         #endregion
 
@@ -142,14 +142,16 @@ namespace YAF.Core.Helpers
                     // approve this user...
                     user.IsApproved = true;
                     this.Get<AspNetUsersManager>().Update(user);
-                    var id = this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id);
+                    var checkUser  = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+
+                    var id = checkUser?.ID ?? 0;
 
                     if (id <= 0)
                     {
                         return;
                     }
 
-                    this.GetRepository<User>().Approve(id, user.Email);
+                    this.GetRepository<User>().Approve(checkUser);
 
                     var checkEmail = this.GetRepository<CheckEmail>().GetSingle(m => m.UserID == id);
 
@@ -177,6 +179,7 @@ namespace YAF.Core.Helpers
             }
 
             var user = this.Get<IAspNetUsersHelper>().GetUser(providerUserKey);
+
             if (!user.IsApproved)
             {
                 user.IsApproved = true;
@@ -184,7 +187,7 @@ namespace YAF.Core.Helpers
 
             this.Get<AspNetUsersManager>().Update(user);
 
-            this.GetRepository<User>().Approve(userID, user.Email);
+            this.GetRepository<User>().Approve(userID);
 
             var checkEmail = this.GetRepository<CheckEmail>().GetSingle(m => m.UserID == userID);
 
@@ -212,7 +215,7 @@ namespace YAF.Core.Helpers
                 user =>
                 {
                     // delete this user...
-                    this.GetRepository<User>().Delete(this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id));
+                    this.GetRepository<User>().Delete(this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id).ID);
                     this.Get<AspNetUsersManager>().Delete(user);
 
                     if (this.Get<BoardSettings>().LogUserDeleted)
@@ -488,15 +491,15 @@ namespace YAF.Core.Helpers
         }
 
         /// <summary>
-        /// Get the UserID from the ProviderUserKey
+        /// Get the User from the ProviderUserKey
         /// </summary>
         /// <param name="providerUserKey">The provider user key.</param>
         /// <returns>
-        /// The get user id from provider user key.
+        /// The get user from provider user key.
         /// </returns>
-        public int GetUserIDFromProviderUserKey(object providerUserKey)
+        public User GetUserFromProviderUserKey(object providerUserKey)
         {
-            return this.GetRepository<User>().GetUserId(BoardContext.Current.PageBoardID, providerUserKey.ToString());
+            return this.GetRepository<User>().GetUserByProviderKey(BoardContext.Current.PageBoardID, providerUserKey.ToString());
         }
 
         /// <summary>
@@ -876,8 +879,8 @@ namespace YAF.Core.Helpers
         /// </param>
         public void AddLogin(string userId, UserLoginInfo login)
         {
-            CodeContracts.VerifyNotNull(userId, nameof(userId));
-            CodeContracts.VerifyNotNull(login, nameof(login));
+            CodeContracts.VerifyNotNull(userId);
+            CodeContracts.VerifyNotNull(login);
 
             if (this.GetRepository<AspNetUserLogins>().GetSingle(l => l.UserId == userId) != null)
             {

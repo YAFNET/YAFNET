@@ -35,6 +35,7 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.BoardSettings;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Core.Services.Localization;
@@ -43,6 +44,7 @@ namespace YAF.Controls
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
 
     #endregion
@@ -271,8 +273,10 @@ namespace YAF.Controls
 
             if (this.CurrentUserID == 0)
             {
-                this.CurrentUserID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("UserID").ToType<int>();
+                this.CurrentUserID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("UserID").Value;
             }
+
+            var currentUser = this.GetRepository<User>().GetById(this.CurrentUserID);
 
             // get topic hours...
             this.topicHours = -this.BoardSettings.DigestSendEveryXHours;
@@ -297,10 +301,10 @@ namespace YAF.Controls
             }
 
             this.languageFile = UserHelper.GetUserLanguageFile(
-                this.CurrentUserID);
+                currentUser);
 
             var theme = UserHelper.GetUserThemeFile(
-                this.CurrentUserID,
+                currentUser,
                 this.BoardSettings.AllowUserTheme,
                 this.BoardSettings.Theme);
 

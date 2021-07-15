@@ -26,7 +26,7 @@ namespace YAF.Core.Identity.Owin
 {
     using System;
     using System.Linq;
-    
+
     using Microsoft.Owin.Security;
 
     using YAF.Configuration;
@@ -127,7 +127,7 @@ namespace YAF.Core.Identity.Owin
                 message = this.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
                 return false;
             }
-            
+
             // Check if user name is null
             var userName = name;
             var displayName = userName;
@@ -183,18 +183,6 @@ namespace YAF.Core.Identity.Owin
 
             var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
-
-            this.GetRepository<User>().Save(
-                userID.Value,
-                BoardContext.Current.PageBoardID,
-                user.UserName,
-                user.UserName,
-                user.Email,
-                TimeZoneInfo.Local.Id,
-                null,
-                null,
-                null,
-                false);
 
             // save the settings...
             this.GetRepository<User>().SaveNotification(

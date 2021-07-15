@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -113,7 +113,7 @@ namespace YAF.Pages.Admin
             this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userId, newUsername);
 
             this.GetRepository<User>().SaveNotification(
-                this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id),
+                this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id).ID,
                 true,
                 autoWatchTopicsEnabled,
                 this.PageContext.BoardSettings.DefaultNotificationSetting.ToInt(),

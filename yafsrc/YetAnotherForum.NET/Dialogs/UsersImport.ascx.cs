@@ -372,7 +372,7 @@ namespace YAF.Dialogs
                 user, pass, "NOTIFICATION_ON_REGISTER");
 
             // save the time zone...
-            var userId = this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id);
+            var userId = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id).ID;
 
             var timeZone = 0;
 
@@ -386,15 +386,12 @@ namespace YAF.Dialogs
 
             this.GetRepository<User>().Save(
                 userId,
-                this.PageContext.PageBoardID,
-                row["Name"].ToString(),
-                row.Table.Columns.Contains("DisplayName") ? row["DisplayName"].ToString() : null,
-                row["Email"].ToString(),
                 timeZone.ToString(),
                 row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"].ToString() : null,
                 row.Table.Columns.Contains("Culture") ? row["Culture"].ToString() : null,
                 row.Table.Columns.Contains("ThemeFile") ? row["ThemeFile"].ToString() : null,
-                false);
+                false,
+                true);
 
             // save the settings...
             this.GetRepository<User>().SaveNotification(

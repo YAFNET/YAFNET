@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -32,6 +32,7 @@ namespace YAF.Types.Interfaces.Identity
     using Microsoft.AspNet.Identity;
 
     using YAF.Types.Exceptions;
+    using YAF.Types.Models;
     using YAF.Types.Models.Identity;
 
     /// <summary>
@@ -189,13 +190,13 @@ namespace YAF.Types.Interfaces.Identity
         AspNetUsers GetUser(object providerKey);
 
         /// <summary>
-        /// Get the UserID from the ProviderUserKey
+        /// Get the User from the ProviderUserKey
         /// </summary>
         /// <param name="providerUserKey">The provider user key.</param>
         /// <returns>
-        /// The get user id from provider user key.
+        /// The get user from provider user key.
         /// </returns>
-        int GetUserIDFromProviderUserKey(object providerUserKey);
+        User GetUserFromProviderUserKey(object providerUserKey);
 
         /// <summary>
         /// Helper function that gets user data from the DB (or cache)

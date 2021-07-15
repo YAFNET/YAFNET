@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,8 +28,8 @@ namespace YAF.Core.Helpers
     using System.Linq;
 
     using YAF.Core.Context;
-    using YAF.Core.Extensions;
     using YAF.Core.Services;
+    using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -44,19 +44,17 @@ namespace YAF.Core.Helpers
         /// <summary>
         /// Gets the user language file.
         /// </summary>
-        /// <param name="userId">The user id.</param>
+        /// <param name="user">
+        /// The user.
+        /// </param>
         /// <returns>
         /// language file name. If null -- use default language
         /// </returns>
-        public static string GetUserLanguageFile(int userId)
+        public static string GetUserLanguageFile([CanBeNull] User user)
         {
-            // get the user information...
-            var row = BoardContext.Current.GetRepository<User>().GetById(userId);
-
-            if (row != null && row.LanguageFile.IsSet()
-                && BoardContext.Current.BoardSettings.AllowUserLanguage)
+            if (user != null && user.LanguageFile.IsSet() && BoardContext.Current.BoardSettings.AllowUserLanguage)
             {
-                return row.LanguageFile;
+                return user.LanguageFile;
             }
 
             return null;
@@ -78,16 +76,14 @@ namespace YAF.Core.Helpers
             var languageRow = languages.FirstOrDefault(
                 row => row.CultureTag.Equals(CultureInfo.CurrentCulture.TwoLetterISOLanguageName));
 
-            return languageRow != null
-                       ? languageRow.CultureFile
-                       : BoardContext.Current.BoardSettings.Language;
+            return languageRow != null ? languageRow.CultureFile : BoardContext.Current.BoardSettings.Language;
         }
 
         /// <summary>
         /// Gets the user theme file.
         /// </summary>
-        /// <param name="userId">
-        /// The user id.
+        /// <param name="user">
+        /// The user.
         /// </param>
         /// <param name="allowUserTheme">
         /// if set to <c>true</c> [allow user theme].
@@ -98,15 +94,11 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// Returns User theme
         /// </returns>
-        public static string GetUserThemeFile(int userId, bool allowUserTheme, string theme)
+        public static string GetUserThemeFile([CanBeNull] User user, [NotNull] bool allowUserTheme, [NotNull] string theme)
         {
             // get the user information...
-            var row = BoardContext.Current.GetRepository<User>().GetById(userId);
+            var themeFile = user != null && user.ThemeFile.IsSet() && allowUserTheme ? user.ThemeFile : theme;
 
-            var themeFile = row != null && row.ThemeFile.IsSet() && allowUserTheme
-                                   ? row.ThemeFile
-                                   : theme;
-            
             if (!Theme.IsValidTheme(themeFile))
             {
                 themeFile = "yaf";

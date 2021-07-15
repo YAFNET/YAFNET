@@ -430,18 +430,37 @@ namespace YAF.Core.Model
         /// <param name="userId">
         /// The user Id.
         /// </param>
-        /// <param name="email">
-        /// The email.
-        /// </param>
-        public static void Approve(this IRepository<User> repository, [NotNull] int userId, [NotNull] string email)
+        public static void Approve(this IRepository<User> repository, [NotNull] int userId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var userFlags = repository.GetById(userId).UserFlags;
+            repository.Approve(repository.GetById(userId));
+        }
+
+        /// <summary>
+        /// Approves the User
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        public static void Approve(this IRepository<User> repository, [NotNull] User user)
+        {
+            CodeContracts.VerifyNotNull(repository);
+            CodeContracts.VerifyNotNull(user);
+
+            var userFlags = user.UserFlags;
+
+            if (userFlags.IsApproved)
+            {
+                return;
+            }
 
             userFlags.IsApproved = true;
 
-            repository.UpdateOnly(() => new User { Email = email, Flags = userFlags.BitValue }, u => u.ID == userId);
+            repository.UpdateOnly(() => new User { Flags = userFlags.BitValue }, u => u.ID == user.ID);
         }
 
         /// <summary>
@@ -468,6 +487,9 @@ namespace YAF.Core.Model
         /// <param name="isApproved">
         /// The is approved.
         /// </param>
+        /// <param name="existingUser">
+        /// The existing User.
+        /// </param>
         /// <returns>
         /// The <see cref="int"/>.
         /// </returns>
@@ -478,7 +500,8 @@ namespace YAF.Core.Model
             [CanBeNull] string displayName,
             [NotNull] string email,
             [NotNull] string providerUserKey,
-            [NotNull] bool isApproved)
+            [NotNull] bool isApproved,
+            [CanBeNull] User existingUser = null)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -490,32 +513,50 @@ namespace YAF.Core.Model
                 approvedFlag = 2;
             }
 
-            var user = repository.GetSingle(
-                u => u.BoardID == boardId && (u.ProviderUserKey == providerUserKey || u.Name == userName));
+            User user;
+
+            if (existingUser == null)
+            {
+                user = repository.GetSingle(
+                    u => u.BoardID == boardId && (u.ProviderUserKey == providerUserKey || u.Name == userName));
+            }
+            else
+            {
+                user = existingUser;
+            }
+
+            var updateExisting = false;
 
             if (user != null)
             {
                 userId = user.ID;
                 var flags = user.UserFlags;
 
-                if (isApproved)
+                if (isApproved && !flags.IsApproved)
                 {
                     flags.IsApproved = true;
+
+                    updateExisting = true;
                 }
 
                 if (displayName.IsNotSet())
                 {
                     displayName = user.DisplayName;
+
+                    updateExisting = true;
                 }
 
-                repository.UpdateOnly(
-                    () => new User
-                    {
-                        DisplayName = displayName,
-                        Email = email,
-                        Flags = flags.BitValue
-                    },
-                    u => u.ID == user.ID);
+                if (updateExisting)
+                {
+                    repository.UpdateOnly(
+                        () => new User
+                        {
+                            DisplayName = displayName,
+                            Email = email,
+                            Flags = flags.BitValue
+                        },
+                        u => u.ID == user.ID);
+                }
             }
             else
             {
@@ -746,13 +787,13 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns the User Id
         /// </returns>
-        public static int GetUserId(this IRepository<User> repository, int boardId, [NotNull] string providerUserKey)
+        public static User GetUserByProviderKey(this IRepository<User> repository, [NotNull] int boardId, [NotNull] string providerUserKey)
         {
             CodeContracts.VerifyNotNull(repository);
 
             var user = repository.GetSingle(u => u.BoardID == boardId && u.ProviderUserKey == providerUserKey);
 
-            return user?.ID ?? 0;
+            return user;
         }
 
         /// <summary>
@@ -1330,7 +1371,7 @@ namespace YAF.Core.Model
 
             var user = repository.GetSingle(u => u.BoardID == boardId && u.Name == userName);
 
-            repository.Save(user.ID, boardId, $"{userName} (NNTP)", null, email, null, null, null, null, true);
+            repository.UpdateDisplayName(user, $"{userName} (NNTP)");
 
             return user.ID;
         }
@@ -1343,18 +1384,6 @@ namespace YAF.Core.Model
         /// </param>
         /// <param name="userId">
         /// The user Id.
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <param name="userName">
-        /// The user name.
-        /// </param>
-        /// <param name="displayName">
-        /// the display name.
-        /// </param>
-        /// <param name="email">
-        /// The email.
         /// </param>
         /// <param name="timeZone">
         /// The time zone.
@@ -1371,31 +1400,65 @@ namespace YAF.Core.Model
         /// <param name="hideUser">
         /// The hide User.
         /// </param>
+        /// <param name="activity">
+        /// The activity.
+        /// </param>
         public static void Save(
             this IRepository<User> repository,
             [NotNull] int userId,
-            [NotNull] int boardId,
-            [NotNull] string userName,
-            [CanBeNull] string displayName,
-            [CanBeNull] string email,
             [CanBeNull] string timeZone,
             [CanBeNull] string languageFile,
             [CanBeNull] string culture,
             [CanBeNull] string themeFile,
-            [NotNull] bool hideUser)
+            [NotNull] bool hideUser,
+            [NotNull] bool activity)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var updateDisplayName = false;
             var user = repository.GetById(userId);
-
-            var oldDisplayName = user.DisplayName;
 
             var flags = user.UserFlags;
 
             // -- set user dirty
             flags.IsDirty = true;
             flags.IsActiveExcluded = hideUser;
+
+            repository.UpdateOnly(
+                () => new User
+                {
+                    Activity = activity,
+                    TimeZone = timeZone,
+                    LanguageFile = languageFile,
+                    ThemeFile = themeFile,
+                    Culture = culture,
+                    Flags = flags.BitValue
+                },
+                u => u.ID == userId);
+        }
+
+        /// <summary>
+        /// The update display name.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <param name="displayName">
+        /// The display name.
+        /// </param>
+        public static void UpdateDisplayName(
+            this IRepository<User> repository,
+            [NotNull] User user,
+            [CanBeNull] string displayName)
+        {
+            CodeContracts.VerifyNotNull(repository);
+            CodeContracts.VerifyNotNull(user);
+
+            var updateDisplayName = false;
+
+            var oldDisplayName = user.DisplayName;
 
             if (displayName.IsNotSet())
             {
@@ -1406,48 +1469,37 @@ namespace YAF.Core.Model
                 updateDisplayName = displayName != oldDisplayName;
             }
 
-            if (email.IsNotSet())
-            {
-                email = user.Email;
-            }
-
-            repository.UpdateOnly(
-                () => new User
-                {
-                    TimeZone = timeZone,
-                    LanguageFile = languageFile,
-                    ThemeFile = themeFile,
-                    Culture = culture,
-                    Flags = flags.BitValue,
-                    DisplayName = displayName,
-                    Email = email
-                },
-                u => u.ID == userId);
-
             if (!updateDisplayName)
             {
                 return;
             }
 
+            repository.UpdateOnly(
+                () => new User
+                {
+                    DisplayName = displayName
+                },
+                u => u.ID == user.ID);
+
             // -- here we sync a new display name everywhere
             BoardContext.Current.GetRepository<Forum>().UpdateOnly(
                 () => new Forum { LastUserDisplayName = displayName },
-                x => x.LastUserID == userId &&
+                x => x.LastUserID == user.ID &&
                      (x.LastUserDisplayName == null || x.LastUserDisplayName == oldDisplayName));
 
             BoardContext.Current.GetRepository<Topic>().UpdateOnly(
                 () => new Topic { LastUserDisplayName = displayName },
-                x => x.LastUserID == userId &&
+                x => x.LastUserID == user.ID &&
                      (x.LastUserDisplayName == null || x.LastUserDisplayName == oldDisplayName));
 
             BoardContext.Current.GetRepository<Topic>().UpdateOnly(
                 () => new Topic { UserDisplayName = displayName },
-                x => x.UserID == userId &&
+                x => x.UserID == user.ID &&
                      (x.UserDisplayName == null || x.UserDisplayName == oldDisplayName));
 
             BoardContext.Current.GetRepository<Message>().UpdateOnly(
                 () => new Message { UserDisplayName = displayName },
-                x => x.UserID == userId &&
+                x => x.UserID == user.ID &&
                      (x.UserDisplayName == null || x.UserDisplayName == oldDisplayName));
         }
 

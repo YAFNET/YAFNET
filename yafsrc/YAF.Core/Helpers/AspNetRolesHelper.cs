@@ -376,7 +376,9 @@ namespace YAF.Core.Helpers
                 return null;
             }
 
-            var userId = this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id);
+            var boardUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+
+            var userId = boardUser?.ID ?? 0;
 
             if (userId == this.Get<IAspNetUsersHelper>().GuestUserId)
             {
@@ -403,7 +405,8 @@ namespace YAF.Core.Helpers
                 null,
                 user.Email,
                 user.Id,
-                user.IsApproved);
+                user.IsApproved,
+                boardUser);
 
             // get user groups...
             var groupsMember = this.GetRepository<Group>().Member(pageBoardID, userId);

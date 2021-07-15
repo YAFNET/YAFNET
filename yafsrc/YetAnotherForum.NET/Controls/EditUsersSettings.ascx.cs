@@ -212,19 +212,12 @@ namespace YAF.Controls
             // save remaining settings to the DB
             this.GetRepository<User>().Save(
                 this.currentUserId,
-                this.PageContext.PageBoardID,
-                null,
-                this.User.DisplayName,
-                null,
                 this.TimeZones.SelectedValue,
                 language,
                 culture,
                 theme,
-                this.HideMe.Checked);
-
-            this.GetRepository<User>().UpdateOnly(
-                () => new User { Activity = this.Activity.Checked },
-                u => u.ID == this.currentUserId);
+                this.HideMe.Checked,
+                this.Activity.Checked);
 
             if (this.User.UserFlags.IsGuest)
             {

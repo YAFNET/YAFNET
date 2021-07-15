@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -78,7 +78,7 @@ namespace YAF.Core.Controllers
 
             // if the user is empty, return a null object...
             return userName.IsNotSet()
-                ? (IHttpActionResult)this.NotFound()
+                ? this.NotFound()
                 : this.Ok(
                     this.Get<IThankYou>().GetThankYou(
                         new UnicodeEncoder().XSSEncode(userName),
@@ -86,7 +86,7 @@ namespace YAF.Core.Controllers
                         "BUTTON_THANKSDELETE_TT",
                         messageId));
         }
-        
+
         /// <summary>
          /// Add Thanks to post
          /// </summary>
@@ -107,7 +107,7 @@ namespace YAF.Core.Controllers
                 return this.NotFound();
             }
 
-            var fromUserId = this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(membershipUser.Id);
+            var fromUserId = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(membershipUser.Id).ID;
 
             var message = this.GetRepository<Message>().GetById(messageId);
 
@@ -120,7 +120,7 @@ namespace YAF.Core.Controllers
 
             // if the user is empty, return a null object...
             return userName.IsNotSet()
-                       ? (IHttpActionResult)this.NotFound()
+                       ? this.NotFound()
                        : this.Ok(
                            this.Get<IThankYou>().CreateThankYou(
                                new UnicodeEncoder().XSSEncode(userName),
