@@ -178,7 +178,6 @@ namespace YAF.Core.Services
             var browser =
                 $"{HttpContext.Current.Request.Browser.Browser} {HttpContext.Current.Request.Browser.Version}";
             var platform = HttpContext.Current.Request.Browser.Platform;
-            var isMobileDevice = HttpContext.Current.Request.Browser.IsMobileDevice;
             var userAgent = HttpContext.Current.Request.UserAgent;
 
             // try and get more verbose platform name by ref and other parameters
@@ -187,8 +186,9 @@ namespace YAF.Core.Services
                 this.Get<HttpRequestBase>().Browser.Crawler,
                 ref platform,
                 ref browser,
-                out var isSearchEngine,
-                out var doNotTrack);
+                out var isSearchEngine);
+
+            var doNotTrack = !this.Get<BoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
 
             this.Get<StartupInitializeDb>().Run();
 
@@ -212,8 +212,7 @@ namespace YAF.Core.Services
                 0,
                 0,
                 messageId,
-                isSearchEngine, // don't track if this is a search engine
-                isMobileDevice,
+                isSearchEngine,
                 doNotTrack);
 
             return pageRow.DownloadAccess || pageRow.ModeratorAccess;

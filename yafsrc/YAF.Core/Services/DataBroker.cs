@@ -172,23 +172,50 @@ namespace YAF.Core.Services
         /// <summary>
         /// The Page Load as Data Row
         /// </summary>
-        /// <param name="sessionID">The session id.</param>
-        /// <param name="boardId">The board id.</param>
-        /// <param name="userKey">The user key.</param>
-        /// <param name="ip">The IP Address.</param>
-        /// <param name="location">The location.</param>
-        /// <param name="forumPage">The forum page name.</param>
-        /// <param name="browser">The browser.</param>
-        /// <param name="platform">The platform.</param>
-        /// <param name="categoryId">The category Id.</param>
-        /// <param name="forumId">The forum Id.</param>
-        /// <param name="topicId">The topic Id.</param>
-        /// <param name="messageId">The message Id.</param>
-        /// <param name="isCrawler">The is Crawler.</param>
-        /// <param name="isMobileDevice">The browser is a mobile device.</param>
-        /// <param name="doNotTrack">The do Not Track.</param>
+        /// <param name="sessionID">
+        /// The session id.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="userKey">
+        /// The user key.
+        /// </param>
+        /// <param name="ip">
+        /// The IP Address.
+        /// </param>
+        /// <param name="location">
+        /// The location.
+        /// </param>
+        /// <param name="forumPage">
+        /// The forum page name.
+        /// </param>
+        /// <param name="browser">
+        /// The browser.
+        /// </param>
+        /// <param name="platform">
+        /// The platform.
+        /// </param>
+        /// <param name="categoryId">
+        /// The category Id.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <param name="isCrawler">
+        /// The is Crawler.
+        /// </param>
+        /// <param name="doNotTrack">
+        /// The do Not Track.
+        /// </param>
         /// <returns>
-        /// The <see cref="PageLoad" />.
+        /// The <see cref="PageLoad"/>.
         /// </returns>
         public PageLoad GetPageLoad(
             [NotNull] string sessionID,
@@ -199,12 +226,11 @@ namespace YAF.Core.Services
             [NotNull] string forumPage,
             [NotNull] string browser,
             [NotNull] string platform,
-            [NotNull] int? categoryId,
-            [NotNull] int? forumId,
-            [NotNull] int? topicId,
-            [NotNull] int? messageId,
+            [CanBeNull] int? categoryId,
+            [CanBeNull] int? forumId,
+            [CanBeNull] int? topicId,
+            [CanBeNull] int? messageId,
             [NotNull] bool isCrawler,
-            [NotNull] bool isMobileDevice,
             [NotNull] bool doNotTrack)
         {
             while (true)
@@ -537,7 +563,6 @@ namespace YAF.Core.Services
                                     Sql.Custom(
                                         $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(isModeratorAnySql, 0)})"),
                                 IsCrawler = isCrawler,
-                                IsMobileDevice = isMobileDevice,
                                 CategoryID = Sql.Custom($"{(category != null ? category.ID : 0)}"),
                                 CategoryName = Sql.Custom($"{(category != null ? $"'{category.Name}'" : "NULL")}"),
                                 ForumName = Sql.Custom($"{(forum != null ? $"'{forum.Name}'" : "NULL")}"),

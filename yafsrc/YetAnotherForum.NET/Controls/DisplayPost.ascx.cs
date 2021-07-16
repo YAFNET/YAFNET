@@ -187,11 +187,11 @@ namespace YAF.Controls
                 "data-search",
                 this.GetText("COMMON", "SELECTED_SEARCH"));
 
-            if (!this.PageContext.IsMobileDevice)
-            {
-                this.Quote.Text = this.GetText("BUTTON_QUOTE_TT");
-                this.ReplyFooter.Text = this.GetText("REPLY");
-            }
+            this.Quote.Text = this.GetText("BUTTON_QUOTE_TT");
+            this.Quote.IconMobileOnly = true;
+
+            this.ReplyFooter.Text = this.GetText("REPLY");
+            this.ReplyFooter.IconMobileOnly = true;
 
             this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
 
@@ -223,9 +223,7 @@ namespace YAF.Controls
 
                 var icon = new Icon { IconName = "quote-left", IconNameBadge = "plus" };
 
-                this.MultiQuote.Text = this.PageContext.IsMobileDevice
-                                           ? icon.RenderToString()
-                                           : $"{icon.RenderToString()}&nbsp;{this.GetText("BUTTON_MULTI_QUOTE")}";
+                this.MultiQuote.Text = $"{icon.RenderToString()}<span class=\"ms-1 d-none d-lg-inline-block\">{this.GetText("BUTTON_MULTI_QUOTE")}</span>";
 
                 this.MultiQuote.ToolTip = this.GetText("BUTTON_MULTI_QUOTE_TT");
             }
@@ -767,14 +765,10 @@ namespace YAF.Controls
 
             // Register Javascript
             var addThankBoxHTML =
-                this.PageContext.IsMobileDevice ?
-                "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"fas fa-heart text-danger fa-fw\"></i></span></a>'" :
-                "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"fas fa-heart text-danger fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
+                "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><i class=\"fas fa-heart text-danger fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.Text + '</span></a>'";
 
             var removeThankBoxHTML =
-                this.PageContext.IsMobileDevice ?
-                "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"far fa-heart fa-fw\"></i></a>'" :
-                "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"far fa-heart fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
+                "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><i class=\"far fa-heart fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.Text + '</span></a>'";
 
             var thanksJs =
                 $"{JavaScriptBlocks.AddThanksJs(removeThankBoxHTML)}{Environment.NewLine}{JavaScriptBlocks.RemoveThanksJs(addThankBoxHTML)}";
@@ -782,15 +776,11 @@ namespace YAF.Controls
             this.PageContext.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
 
             this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest;
+            this.Thank.IconMobileOnly = true;
 
             if (this.DataSource.IsThankedByUser)
             {
                 this.Thank.NavigateUrl = $"javascript:removeThanks({this.DataSource.MessageID});";
-
-                if (!this.PageContext.IsMobileDevice)
-                {
-                    this.Thank.Text = this.GetText("BUTTON_THANKSDELETE");
-                }
 
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKSDELETE_TT";
                 this.Thank.Icon = "heart";
@@ -799,11 +789,6 @@ namespace YAF.Controls
             else
             {
                 this.Thank.NavigateUrl = $"javascript:addThanks({this.DataSource.MessageID});";
-
-                if (!this.PageContext.IsMobileDevice)
-                {
-                    this.Thank.Text = this.GetText("BUTTON_THANKS");
-                }
 
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
                 this.Thank.Icon = "heart";

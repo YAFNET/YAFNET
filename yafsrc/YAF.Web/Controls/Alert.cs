@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,6 +28,7 @@ namespace YAF.Web.Controls
     using System.Web.UI;
 
     using YAF.Core.BaseControls;
+    using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
 
@@ -46,18 +47,11 @@ namespace YAF.Web.Controls
         public string CssClass { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether dismissing.
+        /// Gets or sets a value indicating whether Alert can be closed.
         /// </summary>
         [Category("Appearance")]
         [DefaultValue(false)]
         public bool Dismissing { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether dismissing.
-        /// </summary>
-        [Category("Appearance")]
-        [DefaultValue(false)]
-        public bool MobileOnly { get; set; }
 
         /// <summary>
         /// Gets or sets the type.
@@ -73,7 +67,7 @@ namespace YAF.Web.Controls
         /// Outputs server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object and stores tracing information about the control if tracing is enabled.
         /// </summary>
         /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
-        public override void RenderControl(HtmlTextWriter writer)
+        public override void RenderControl([NotNull] HtmlTextWriter writer)
         {
             if (!this.Visible)
             {
@@ -86,18 +80,18 @@ namespace YAF.Web.Controls
 
             if (this.CssClass.IsSet())
             {
-                cssClass = this.MobileOnly ? $" d-sm-none {this.CssClass}" : $" {this.CssClass}";
+                cssClass = $" {this.CssClass}";
             }
             else
             {
-                cssClass = this.MobileOnly ? " d-sm-none" : string.Empty;
+                cssClass = string.Empty;
             }
 
             writer.WriteAttribute(
                 HtmlTextWriterAttribute.Class.ToString(),
                 this.Dismissing
-                    ? $"text-break alert alert-{this.Type.ToString()} alert-dismissible fade show{cssClass}"
-                    : $"text-break alert alert-{this.Type.ToString()}{cssClass}");
+                    ? $"text-break alert alert-{this.Type} alert-dismissible fade show{cssClass}"
+                    : $"text-break alert alert-{this.Type}{cssClass}");
 
             writer.WriteAttribute("role", "alert");
 

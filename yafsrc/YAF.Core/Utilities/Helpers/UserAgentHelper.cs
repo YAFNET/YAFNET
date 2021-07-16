@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,11 +25,8 @@ namespace YAF.Core.Utilities.Helpers
 {
     #region Using
 
-    using System;
     using System.Linq;
-    using System.Web;
 
-    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Extensions;
 
@@ -84,49 +81,6 @@ namespace YAF.Core.Utilities.Helpers
         }
 
         /// <summary>
-        /// Validates if the user agent is a known ignored UA string
-        /// </summary>
-        /// <param name="userAgent">The user agent.</param>
-        /// <returns>
-        /// The true if the UA string pattern should not be displayed in active users.
-        /// </returns>
-        public static bool IsIgnoredForDisplay([CanBeNull] string userAgent)
-        {
-            if (!userAgent.IsSet())
-            {
-                return false;
-            }
-
-            // Apple-PubSub - Safari RSS reader
-            string[] stringContains = { "PlaceHolder" };
-
-            return stringContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
-        }
-
-        /// <summary>
-        /// Tests if the user agent is a mobile device.
-        /// </summary>
-        /// <param name="requestBase">
-        /// The request Base.
-        /// </param>
-        /// <returns>
-        /// The is mobile device.
-        /// </returns>
-        public static bool IsMobileDevice([CanBeNull] HttpRequestBase requestBase)
-        {
-            if (requestBase.Browser.IsMobileDevice)
-            {
-                return true;
-            }
-
-            var mobileContains = Config.MobileUserAgents.Split(',').Where(m => m.IsSet())
-                .Select(m => m.Trim().ToLowerInvariant());
-
-            return requestBase.UserAgent != null && requestBase.UserAgent.IsSet()
-                   && mobileContains.Any(s => requestBase.UserAgent.Contains(s));
-        }
-
-        /// <summary>
         /// Validates if the user agent is a search engine spider
         /// </summary>
         /// <param name="userAgent">The user agent.</param>
@@ -147,24 +101,20 @@ namespace YAF.Core.Utilities.Helpers
         /// <param name="platform">The platform.</param>
         /// <param name="browser">The browser.</param>
         /// <param name="isSearchEngine">if set to <c>true</c> [is search engine].</param>
-        /// <param name="isIgnoredForDisplay">if set to <c>true</c> [is ignored for display].</param>
         public static void Platform(
             [CanBeNull] string userAgent,
             bool isCrawler,
             [NotNull] ref string platform,
             [NotNull] ref string browser,
-            out bool isSearchEngine,
-            out bool isIgnoredForDisplay)
+            out bool isSearchEngine)
         {
-            CodeContracts.VerifyNotNull(platform, "platform");
+            CodeContracts.VerifyNotNull(platform);
 
             isSearchEngine = false;
-            isIgnoredForDisplay = false;
 
             if (userAgent.IsNotSet())
             {
                 platform = "[Empty]";
-                isIgnoredForDisplay = true;
 
                 return;
             }
@@ -250,7 +200,6 @@ namespace YAF.Core.Utilities.Helpers
                 }
 
                 isSearchEngine = isCrawler || san.IsSet();
-                isIgnoredForDisplay = IsIgnoredForDisplay(userAgent) || isSearchEngine;
             }
         }
 
