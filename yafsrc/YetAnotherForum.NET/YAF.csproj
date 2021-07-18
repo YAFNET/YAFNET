@@ -2411,9 +2411,7 @@
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\images\plug-solid.svg" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\lang\en.js" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\plugin.js" />
-    <Content Include="Scripts\ckeditor\plugins\bbcode\dev\bbcode.html" />
     <Content Include="Scripts\ckeditor\plugins\bbcode\plugin.js" />
-    <Content Include="Scripts\ckeditor\plugins\bbcode\samples\bbcode.html" />
     <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\css\codemirror.min.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\icons\autocomplete.png" />
@@ -3640,11 +3638,4 @@ del *.xml</PostBuildEvent>
       <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
-  </Target>
 </Project>

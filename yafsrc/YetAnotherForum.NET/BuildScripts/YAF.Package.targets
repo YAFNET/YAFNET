@@ -70,6 +70,7 @@
       <DefaultExclude Include="**\*ReSharper.*\**" />
       <DefaultExclude Include="**\.nuget\**" />
       <DefaultExclude Include="**\_source\**" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Gruntfile.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.FileUpload\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootbox.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.js" />
