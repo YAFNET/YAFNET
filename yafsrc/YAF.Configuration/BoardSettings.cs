@@ -706,7 +706,7 @@ namespace YAF.Configuration
         /// </summary>
         public int AvatarWidth
         {
-            get => this.Registry.GetValue("AvatarWidth", 50);
+            get => this.Registry.GetValue("AvatarWidth", 200);
 
             set => this.Registry.SetValue("AvatarWidth", value);
         }
@@ -716,7 +716,7 @@ namespace YAF.Configuration
         /// </summary>
         public int AvatarHeight
         {
-            get => this.Registry.GetValue("AvatarHeight", 80);
+            get => this.Registry.GetValue("AvatarHeight", 100);
 
             set => this.Registry.SetValue("AvatarHeight", value);
         }
