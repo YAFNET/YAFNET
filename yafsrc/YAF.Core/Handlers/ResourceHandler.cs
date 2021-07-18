@@ -69,7 +69,7 @@ namespace YAF.Core.Handlers
         /// </param>
         public void ProcessRequest([NotNull] HttpContext context)
         {
-            if (context.Session["lastvisit"] != null)
+            if (this.Get<ISession>().LastVisit.HasValue)
             {
                 // defaults
                 var previewCropped = false;
