@@ -721,6 +721,11 @@ namespace YAF.Core.Services.Migrations
             {
                 dbCommand.Connection.AlterColumn<CheckEmail>(x => x.Hash);
             }
+
+            if (dbCommand.Connection.ColumnMaxLength<CheckEmail>(x => x.Hash) < 255)
+            {
+                dbCommand.Connection.AlterColumn<CheckEmail>(x => x.Hash);
+            }
         }
 
         public void UpgradeTableChoice(IDbAccess dbAccess, IDbCommand dbCommand)
@@ -809,14 +814,16 @@ namespace YAF.Core.Services.Migrations
 
             dbCommand.Connection.DropForeignKey<Category>($"{Config.DatabaseObjectQualifier}PollGroupCluster");
 
+            dbCommand.Connection.DropForeignKey<PollGroupCluster>($"{Config.DatabaseObjectQualifier}PollGroupCluster");
+
             if (dbCommand.Connection.TableExists("PollVoteRefuse"))
             {
                 dbCommand.Connection.DropTable("PollVoteRefuse");
             }
 
-            if (dbCommand.Connection.TableExists("PollGroupCluster"))
+            if (dbCommand.Connection.TableExists<PollGroupCluster>())
             {
-                dbCommand.Connection.DropTable("PollGroupCluster");
+                dbCommand.Connection.DropTable<PollGroupCluster>();
             }
 
             if (dbCommand.Connection.ColumnExists<Poll>("PollGroupID"))
