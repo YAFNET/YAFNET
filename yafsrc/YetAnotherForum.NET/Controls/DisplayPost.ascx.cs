@@ -782,6 +782,7 @@ namespace YAF.Controls
             {
                 this.Thank.NavigateUrl = $"javascript:removeThanks({this.DataSource.MessageID});";
 
+                this.Thank.Text = this.GetText("BUTTON_THANKSDELETE");
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKSDELETE_TT";
                 this.Thank.Icon = "heart";
                 this.Thank.IconCssClass = "far";
@@ -790,6 +791,7 @@ namespace YAF.Controls
             {
                 this.Thank.NavigateUrl = $"javascript:addThanks({this.DataSource.MessageID});";
 
+                this.Thank.Text = this.GetText("BUTTON_THANKS");
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
                 this.Thank.Icon = "heart";
                 this.Thank.IconCssClass = "fas";
@@ -821,7 +823,7 @@ namespace YAF.Controls
                            data-url=""{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}""
                            title=""{thanksLabelText}""
                            data-bs-content=""{this.FormatThanksInfo().ToJsString()}"">
-                           <i class=""fa fa-heart"" style=""color:#e74c3c""></i>&nbsp;+{thanksNumber}
+                           <i class=""fa fa-heart me-1"" style=""color:#e74c3c""></i>+{thanksNumber}
                   </a>";
 
             this.ThanksDataLiteral.Visible = true;

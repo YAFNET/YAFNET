@@ -140,7 +140,6 @@ namespace YAF.Core.Context
                     (int?)@event.Data.TopicID,
                     (int?)@event.Data.MessageID,
                     (bool)@event.Data.IsSearchEngine,
-                    (bool)@event.Data.IsMobileDevice,
                     (bool)@event.Data.DontTrack);
 
                 // if the user doesn't exist create the user...

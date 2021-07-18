@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -117,6 +117,13 @@ namespace YAF.Web.Controls
             get => this.ViewState["Enabled"] == null || this.ViewState["Enabled"].ToType<bool>();
 
             set => this.ViewState["Enabled"] = value;
+        }
+
+        public bool IconMobileOnly
+        {
+            get => this.ViewState["IconMobileOnly"] == null || this.ViewState["IconMobileOnly"].ToType<bool>();
+
+            set => this.ViewState["IconMobileOnly"] = value;
         }
 
         /// <summary>
@@ -640,13 +647,18 @@ namespace YAF.Web.Controls
                 var iconColorClass = this.IconColor.IsSet() ? $" {this.IconColor}" : this.IconColor;
 
                 writer.Write("<i class=\"{2} fa-{0} fa-fw{1}\"></i>", this.Icon, iconColorClass, this.IconCssClass);
-
-                // space separator only for icon + text
-                if (this.TextLocalizedTag.IsSet() || this.Text.IsSet())
-                {
-                    writer.Write("&nbsp;");
-                }
             }
+
+            writer.WriteBeginTag("span");
+
+            if (this.TextLocalizedTag.IsSet() || this.Text.IsSet())
+            {
+                writer.WriteAttribute(
+                    HtmlTextWriterAttribute.Class.ToString(),
+                    this.IconMobileOnly ? "ms-1 d-none d-lg-inline-block" : "ms-1");
+            }
+
+            writer.Write(HtmlTextWriter.TagRightChar);
 
             if (this.Text.IsSet())
             {
@@ -655,6 +667,8 @@ namespace YAF.Web.Controls
 
             // render the optional controls (if any)
             base.Render(writer);
+
+            writer.WriteEndTag("span");
 
             writer.WriteEndTag("a");
             writer.EndRender();
@@ -665,7 +679,7 @@ namespace YAF.Web.Controls
         /// <param name="mode">The button action.</param>
         /// <returns>Returns the CSS Class for the button</returns>
         /// <exception cref="InvalidOperationException">Exception when other value</exception>
-        private static string GetAttributeValue(ButtonStyle mode)
+        private static string GetAttributeValue([CanBeNull] ButtonStyle mode)
         {
             return mode switch
             {
@@ -698,7 +712,7 @@ namespace YAF.Web.Controls
         /// <exception cref="InvalidOperationException">
         /// Exception when other value
         /// </exception>
-        private static string GetButtonSizeClass(ButtonSize size)
+        private static string GetButtonSizeClass([CanBeNull] ButtonSize size)
         {
             return size switch
             {

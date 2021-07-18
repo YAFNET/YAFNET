@@ -352,7 +352,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <returns>
         /// Returns the the Bootstrap Tab Load JS string
         /// </returns>
-        public static string BootstrapTabLoadJs([NotNull] string tabId, string hiddenId)
+        public static string BootstrapTabLoadJs([NotNull] string tabId, [NotNull] string hiddenId)
         {
             return $@"{Config.JQueryAlias}(document).ready(function() {{
             var selectedTab = {Config.JQueryAlias}(""#{hiddenId}"");
@@ -407,7 +407,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public static string CollapseToggleJs(string hideText, string showText)
+        public static string CollapseToggleJs([NotNull] string hideText, [NotNull] string showText)
         {
             return $@"{Config.JQueryAlias}(document).ready(function() {{
                           {Config.JQueryAlias}('a[data-bs-toggle=""collapse""]').click(function() {{
@@ -679,7 +679,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         public static string CKEditorLoadJs(
             [NotNull] string editorId,
             [NotNull] string editorLanguage,
-            [NotNull] int maxCharacters,
+            int maxCharacters,
             [NotNull] string themeCssUrl,
             [NotNull] string forumCssUrl,
             [NotNull] string toolbar)
@@ -755,7 +755,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         public static string CKEditorBasicLoadJs(
             [NotNull] string editorId,
             [NotNull] string editorLanguage,
-            [NotNull] int maxCharacters,
+            int maxCharacters,
             [NotNull] string themeCssUrl,
             [NotNull] string forumCssUrl,
             [NotNull] string toolbar)

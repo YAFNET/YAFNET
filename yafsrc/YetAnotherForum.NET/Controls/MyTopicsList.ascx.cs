@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -247,12 +247,10 @@ namespace YAF.Controls
                 new ListItem(
                     this.GetTextFormatted(
                         "last_visit",
-                        !this.PageContext.IsMobileDevice
-                            ? this.Get<IDateTimeService>().FormatDateTime(
-                                lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
-                                    ? lastVisit.Value
-                                    : DateTime.UtcNow)
-                            : string.Empty),
+                        this.Get<IDateTimeService>().FormatDateTime(
+                            lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
+                                ? lastVisit.Value
+                                : DateTime.UtcNow)),
                     "0"));
 
             // negative values for hours backward
@@ -444,7 +442,7 @@ namespace YAF.Controls
             var accessActive = this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ActiveTopicFeedAccess);
             var accessFavorite = this.Get<IPermissions>().Check(this.PageContext.BoardSettings.FavoriteTopicFeedAccess);
 
-            // RSS link setup 
+            // RSS link setup
             if (!this.PageContext.BoardSettings.ShowAtomLink)
             {
                 return;
