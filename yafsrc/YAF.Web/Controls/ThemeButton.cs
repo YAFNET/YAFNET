@@ -121,7 +121,7 @@ namespace YAF.Web.Controls
 
         public bool IconMobileOnly
         {
-            get => this.ViewState["IconMobileOnly"] == null || this.ViewState["IconMobileOnly"].ToType<bool>();
+            get => this.ViewState["IconMobileOnly"]?.ToType<bool>() ?? false;
 
             set => this.ViewState["IconMobileOnly"] = value;
         }

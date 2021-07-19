@@ -436,23 +436,3 @@ set @ApplicationID = (select top 1 ApplicationId from [{databaseOwner}].[{object
 -- Import Application Id
 insert into [{databaseOwner}].[{objectQualifier}Registry](Name,Value) values('applicationid',@ApplicationID)
 go
-
-if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Application]') and type in (N'U'))
-    drop table [{databaseOwner}].[{objectQualifier}prov_Application]
-GO
-
-if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Membership]') and type in (N'U'))
-    drop table [{databaseOwner}].[{objectQualifier}prov_Membership]
-GO
-
-if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Profile]') and type in (N'U'))
-    drop table [{databaseOwner}].[{objectQualifier}prov_Profile]
-GO
-
-if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Role]') and type in (N'U'))
-    drop table [{databaseOwner}].[{objectQualifier}prov_Role]
-GO
-
-if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_RoleMembership]') and type in (N'U'))
-    drop table [{databaseOwner}].[{objectQualifier}prov_RoleMembership]
-GO

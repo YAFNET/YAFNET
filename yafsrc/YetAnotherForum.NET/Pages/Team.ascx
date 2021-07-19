@@ -33,8 +33,7 @@
                              <div class="d-flex w-100 justify-content-between mb-3">
                                  <h5 class="mb-1 text-break">
                                      <asp:Image ID="AdminAvatar" runat="server"
-                                                Width="40px"
-                                                Height="40px"
+                                                style="max-height: 50px; max-width:50px"
                                                 CssClass="rounded img-fluid"/>
                                      <YAF:UserLink ID="AdminLink" runat="server"
                                                    IsGuest="False"
@@ -105,8 +104,7 @@
                              <div class="d-flex w-100 justify-content-between mb-3">
                                  <h5 class="mb-1 text-break">
                                      <asp:Image ID="ModAvatar" runat="server"
-                                                Width="40px"
-                                                Height="40px"
+                                                style="max-height: 50px; max-width:50px"
                                                 CssClass="rounded img-fluid"/>
                                      <YAF:UserLink ID="ModLink" runat="server"
                                                    Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'

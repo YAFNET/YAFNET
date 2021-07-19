@@ -121,9 +121,13 @@ namespace YAF.Core.Events
                     // have previous visit cookie...
                     var previousVisitInsecure = this.request.Cookies.Get(previousVisitKey).Value;
 
-                    if (DateTime.TryParse(previousVisitInsecure, out var previousVisit))
+                    try
                     {
-                        this.YafSession.LastVisit = previousVisit;
+                        this.YafSession.LastVisit = DateTime.Parse(previousVisitInsecure, CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        this.YafSession.LastVisit = DateTimeHelper.SqlDbMinTime();
                     }
                 }
                 else

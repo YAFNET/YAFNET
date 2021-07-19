@@ -53,7 +53,7 @@ namespace YAF.Core.Services
         /// </param>
         public Session([NotNull] HttpSessionStateBase sessionState)
         {
-            CodeContracts.VerifyNotNull(sessionState, "sessionState");
+            CodeContracts.VerifyNotNull(sessionState);
 
             this.SessionState = sessionState;
         }
@@ -80,26 +80,6 @@ namespace YAF.Core.Services
             get => (int?)this.SessionState["UserTopicSince"];
 
             set => this.SessionState["UserTopicSince"] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets Twitter Token.
-        /// </summary>
-        public string TwitterToken
-        {
-            get => (string)this.SessionState["TwitterToken"];
-
-            set => this.SessionState["TwitterToken"] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets Twitter Token Secret.
-        /// </summary>
-        public string TwitterTokenSecret
-        {
-            get => (string)this.SessionState["TwitterTokenSecret"];
-
-            set => this.SessionState["TwitterTokenSecret"] = value;
         }
 
         /// <summary>

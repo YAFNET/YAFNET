@@ -782,10 +782,10 @@ namespace YAF.Core.BBCode
 
                 if (messageId > 0)
                 {
-                    imageHtml = "<a href=\"${http}${inner}\" data-gallery=\"#blueimp-gallery-" + 
+                    imageHtml = "<a href=\"${http}${inner}\" data-gallery=\"#blueimp-gallery-" +
                                     messageId +
                                     "\"><img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-height:${height}px;\"></a>";
-                    imageHtmlWithDesc = "<a href=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" data-gallery=\"#blueimp-gallery-" + 
+                    imageHtmlWithDesc = "<a href=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" data-gallery=\"#blueimp-gallery-" +
                                 messageId +
                                 "\"><img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-height:${height}px;\"></a>";
                 }
@@ -863,6 +863,19 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(horizontalLineRule);
 
                 ruleEngine.AddRule(isEditMode ? breakRule : new SingleRegexReplaceRule(@"\r\n", "<p>", Options));
+
+                if (!isEditMode)
+                {
+                    var breakRule2 = new SingleRegexReplaceRule(
+                        "\n\n",
+                        "<br /><br />",
+                        RegexOptions.IgnoreCase | RegexOptions.Multiline)
+                    {
+                        RuleRank = horizontalLineRule.RuleRank + 2
+                    };
+
+                    ruleEngine.AddRule(breakRule2);
+                }
             }
 
             // add rule for code block type with syntax highlighting

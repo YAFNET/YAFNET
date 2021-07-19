@@ -124,7 +124,7 @@
                     </li>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="LocationTR" Visible="false">
-                    <li class="list-group-item text-end">
+                    <li class="list-group-item text-end text-break">
                         <span class="float-start fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="location" />
                         </span>
@@ -140,7 +140,7 @@
                     </li>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" ID="OccupationTR" Visible="false">
-                    <li class="list-group-item text-end">
+                    <li class="list-group-item text-end text-break">
                         <span class="float-start fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="occupation" />
                         </span>

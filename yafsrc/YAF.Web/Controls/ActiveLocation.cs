@@ -96,12 +96,12 @@ namespace YAF.Web.Controls
         {
             get
             {
-                if (this.ViewState["ForumPage"] != null || this.ViewState["ForumPage"] != DBNull.Value)
+                if (this.ViewState["ForumPage"] != null && this.ViewState["ForumPage"] != DBNull.Value)
                 {
                     return this.ViewState["ForumPage"].ToString();
                 }
 
-                return "MAINPAGE";
+                return "Board";
             }
 
             set => this.ViewState["ForumPage"] = value;

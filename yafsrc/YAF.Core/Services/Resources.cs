@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2021 Ingo Herbote
@@ -121,8 +121,8 @@ namespace YAF.Core.Services
                 var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(user.Item1);
 
                 avatarUrl = avatarUrl.IsNotSet()
-                           ? $"{BoardInfo.ForumClientFileRoot}resource.ashx?avatar={user.Item1.ID}"
-                           : avatarUrl;
+                    ? $"{BoardInfo.ForumClientFileRoot}resource.ashx?avatar={user.Item1.ID}"
+                    : avatarUrl;
 
                 var activeUsers = this.Get<IDataCache>().GetOrSet(
                     Constants.Cache.UsersOnlineStatus,
@@ -291,16 +291,9 @@ namespace YAF.Core.Services
                     return;
                 }
 
-                var backgroundColors = new[]
-                {
-                    "#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e", "#16a085", "#27ae60", "#2980b9",
-                    "#8e44ad", "#2c3e50", "#f1c40f", "#e67e22", "#e74c3c", "#95a5a6", "#f39c12", "#d35400",
-                    "#c0392b", "#bdc3c7", "#7f8c8d"
-                };
-
                 var abbreviation = user.DisplayOrUserName().GetAbbreviation();
 
-                var backgroundColor = backgroundColors.ElementAt(abbreviation[0] % (backgroundColors.Count() - 1));
+                var backgroundColor = $"#{user.ProviderUserKey.Substring(0, 6)}";
 
                 using (var bmp = new Bitmap(this.Get<BoardSettings>().AvatarWidth, this.Get<BoardSettings>().AvatarHeight))
                 {
@@ -309,8 +302,7 @@ namespace YAF.Core.Services
                         graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
                         graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-                        using (Brush brush = new SolidBrush(
-                            (Color)new ColorConverter().ConvertFromString(backgroundColor)))
+                        using (Brush brush = new SolidBrush((Color)new ColorConverter().ConvertFromString(backgroundColor)))
                         {
                             graphics.FillRectangle(
                                 brush,
