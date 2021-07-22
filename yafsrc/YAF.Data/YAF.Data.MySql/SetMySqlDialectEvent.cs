@@ -25,8 +25,10 @@ namespace YAF.Data.MySql
 {
     using ServiceStack.OrmLite;
 
+    using YAF.Configuration;
     using YAF.Core.Events;
     using YAF.Types.Attributes;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Events;
 
     /// <summary>
@@ -63,6 +65,7 @@ namespace YAF.Data.MySql
             OrmLiteConfig.DialectProvider = YafMySqlDialectProvider.Instance;
 
             OrmLiteConfig.DialectProvider.GetStringConverter().UseUnicode = true;
+            OrmLiteConfig.CommandTimeout = Config.SqlCommandTimeout;
         }
 
         #endregion
