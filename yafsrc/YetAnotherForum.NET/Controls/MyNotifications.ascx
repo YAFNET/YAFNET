@@ -37,19 +37,19 @@
                                 <div class="px-3 py-1">
                                     <div class="mb-3">
                                         <div class="form-check form-switch">
-                                            <asp:CheckBox runat="server" ID="WasMentioned" 
+                                            <asp:CheckBox runat="server" ID="WasMentioned"
                                                           Checked="True"/>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <div class="form-check form-switch">
-                                            <asp:CheckBox runat="server" ID="ReceivedThanks" 
+                                            <asp:CheckBox runat="server" ID="ReceivedThanks"
                                                           Checked="True"/>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <div class="form-check form-switch">
-                                            <asp:CheckBox runat="server" ID="WasQuoted" 
+                                            <asp:CheckBox runat="server" ID="WasQuoted"
                                                           Checked="True"/>
                                         </div>
                                     </div>
@@ -74,8 +74,8 @@
                     </div>
                 </div>
             </div>
-            <asp:Repeater runat="server" ID="ActivityStream" 
-                          OnItemDataBound="ActivityStream_OnItemDataBound" 
+            <asp:Repeater runat="server" ID="ActivityStream"
+                          OnItemDataBound="ActivityStream_OnItemDataBound"
                           OnItemCommand="ActivityStream_OnItemCommand">
                     <HeaderTemplate>
                         <ul class="list-group list-group-flush">
@@ -85,10 +85,10 @@
                             <asp:Label runat="server" ID="Icon"
                                        CssClass="fa-stack"></asp:Label>
                             <asp:PlaceHolder runat="server" ID="Message"></asp:PlaceHolder>
-                            <YAF:Icon runat="server" 
+                            <YAF:Icon runat="server"
                                       IconName="calendar-day"
                                       IconType="text-secondary"
-                                      IconNameBadge="clock" 
+                                      IconNameBadge="clock"
                                       IconBadgeType="text-secondary"></YAF:Icon>
                             <YAF:DisplayDateTime id="DisplayDateTime" runat="server"></YAF:DisplayDateTime>
                             <YAF:ThemeButton runat="server" ID="MarkRead"
@@ -108,9 +108,7 @@
                 </asp:Repeater>
             <asp:Panel runat="server" ID="NoItems" Visible="False" CssClass="card-body">
                 <YAF:Alert runat="server" Type="info">
-                    <YAF:Icon runat="server" 
-                              IconName="check"
-                              IconType="text-success"></YAF:Icon>
+                    <YAF:Icon runat="server" IconName="check" />
                     <YAF:LocalizedLabel runat="server"
                                         LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
                 </YAF:Alert>
@@ -128,11 +126,11 @@
                         </div>
                     </div>
                 </div>
-                
-                
+
+
             </div>
         </div>
-        
+
     </div>
 </div>
 <div class="row justify-content-end">

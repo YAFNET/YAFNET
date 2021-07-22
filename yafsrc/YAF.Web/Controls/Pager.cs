@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -193,7 +193,7 @@ namespace YAF.Web.Controls
             writer.Write(@"<div class=""btn-group mb-1"" role=""group"">");
 
             writer.WriteLine(
-                @"<button type=""button"" title=""{0}"" class=""btn btn-secondary disabled"" aria-disabled=""true"">
+                @"<button type=""button"" title=""{0}"" class=""btn btn-secondary disabled d-none d-lg-inline-block"" aria-disabled=""true"">
                           <i class=""fas fa-copy""></i>&nbsp;{1:N0} {2}
                       </button>",
                 this.Get<ILocalization>().TransPage.IsSet()

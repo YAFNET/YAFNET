@@ -458,6 +458,11 @@ namespace YAF.Pages.Admin
             // bind list
             this.UserList.DataSource = unverifiedUsers;
             this.UserList.DataBind();
+
+            if (this.UserList.Items.Count == 0)
+            {
+                this.NoInfo.Visible = true;
+            }
         }
 
         /// <summary>

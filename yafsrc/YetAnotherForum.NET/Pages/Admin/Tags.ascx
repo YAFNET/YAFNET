@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" EnableViewState="true" Inherits="YAF.Pages.Admin.Tags"
+﻿<%@ Control Language="c#" AutoEventWireup="True" EnableViewState="true" Inherits="YAF.Pages.Admin.Tags"
     CodeBehind="Tags.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
@@ -61,12 +61,12 @@
                                              "tag={0}",
                                              this.Eval("TagName")) %>"
                                class="btn btn-info"><YAF:LocalizedLabel runat="server" LocalizedTag="SHOW_TOPICS"></YAF:LocalizedLabel></a>
-                            <YAF:ThemeButton runat="server" 
+                            <YAF:ThemeButton runat="server"
                                              Type="Danger"
                                              Size="Small"
                                              CommandName="delete" CommandArgument="<%# ((Tag)Container.DataItem).ID %>"
                                              ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
-                                             Icon="trash" 
+                                             Icon="trash"
                                              TextLocalizedTag="DELETE">
                             </YAF:ThemeButton>
                         </div>
@@ -77,10 +77,10 @@
                </ul>
             </FooterTemplate>
         </asp:Repeater>
-                    <YAF:Alert runat="server" ID="NoInfo" 
-                               Type="success" 
+                    <YAF:Alert runat="server" ID="NoInfo"
+                               Type="success"
                                Visible="False">
-                        <YAF:Icon runat="server" IconName="check" IconType="text-success" />
+                        <YAF:Icon runat="server" IconName="check" />
                         <YAF:LocalizedLabel runat="server"
                                             LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
                     </YAF:Alert>

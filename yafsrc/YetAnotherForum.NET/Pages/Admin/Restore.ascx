@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Restore" CodeBehind="Restore.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Restore" CodeBehind="Restore.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
@@ -47,7 +47,7 @@
                                              CssClass="form-control"></asp:TextBox>
                             </div>
                             <div class="mb-3 d-grid gap-2">
-                                <YAF:ThemeButton runat="server" 
+                                <YAF:ThemeButton runat="server"
                                                  Icon="sync-alt"
                                                  Type="Primary"
                                                  TextLocalizedTag="SEARCH"
@@ -70,7 +70,7 @@
                             <asp:HiddenField ID="hiddenID" runat="server" Value='<%# this.Eval("Item2.ID") + ";" + this.Eval("Item1.ID") %>' />
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
-                                    <%# this.Eval("Item2.TopicName") %> 
+                                    <%# this.Eval("Item2.TopicName") %>
                                     <YAF:ThemeButton runat="server" ID="ThemeButton1"
                                                      Type="Link"
                                                      Icon="external-link-alt"
@@ -81,7 +81,7 @@
                                 <small><%# "{0} {1}".Fmt(this.Eval("Item2.NumPosts"), this.GetText("POSTS")) %></small>
                             </div>
                             <p class="mb-1">
-                                
+
                             </p>
                             <small>
                                 <div class="btn-group">
@@ -105,30 +105,30 @@
                     </ItemTemplate>
                     <FooterTemplate>
                         </ul>
-                    <YAF:Alert runat="server" ID="NoInfo" 
-                               Type="success" 
+                    <YAF:Alert runat="server" ID="NoInfo"
+                               Type="success"
                                Visible="<%# this.DeletedTopics.Items.Count == 0 %>">
-                        <i class="fa fa-check fa-fw text-success"></i>
+                        <YAF:Icon runat="server" IconName="check" />
                         <YAF:LocalizedLabel runat="server"
                                             LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
                     </YAF:Alert>
                         </div>
                     <asp:PlaceHolder runat="server" Visible="<%# this.DeletedTopics.Items.Count > 0 %>">
                         <div class="card-footer text-center">
-                            <YAF:ThemeButton runat="server" 
-                                             CommandName="delete_all" 
+                            <YAF:ThemeButton runat="server"
+                                             CommandName="delete_all"
                                              CssClass="me-2"
-                                             ID="Linkbutton4" 
+                                             ID="Linkbutton4"
                                              Type="Danger"
-                                             Icon="dumpster" 
+                                             Icon="dumpster"
                                              TextLocalizedTag="DELETE_ALL"
                                              TextLocalizedPage="ADMIN_EVENTLOG">
                             </YAF:ThemeButton>
-                            <YAF:ThemeButton runat="server" 
-                                             CommandName="delete_zero" 
-                                             ID="ThemeButton2" 
+                            <YAF:ThemeButton runat="server"
+                                             CommandName="delete_zero"
+                                             ID="ThemeButton2"
                                              Type="Danger"
-                                             Icon="dumpster" 
+                                             Icon="dumpster"
                                              TextLocalizedTag="DELETE_ALL_ZERO"
                                              TextLocalizedPage="ADMIN_RESTORE">
                             </YAF:ThemeButton>
@@ -137,12 +137,12 @@
                     </FooterTemplate>
                 </asp:Repeater>
             </div>
-           
+
         </div>
 </div>
 <div class="row justify-content-end">
 <div class="col-auto">
-    <YAF:Pager ID="PagerTop" runat="server" 
+    <YAF:Pager ID="PagerTop" runat="server"
                OnPageChange="PagerTop_PageChange" />
 </div>
 </div>
@@ -154,7 +154,7 @@
                     <div class="col-auto">
                         <YAF:IconHeader runat="server"
                                         IconName="trash-restore"
-                                        LocalizedTag="TITLE_MESSAGE" 
+                                        LocalizedTag="TITLE_MESSAGE"
                                         LocalizedPage="ADMIN_RESTORE"></YAF:IconHeader>
                     </div>
                     <div class="col-auto">
@@ -181,7 +181,7 @@
                             <asp:HiddenField ID="hiddenID" runat="server" Value='<%# this.Eval("Item3.ID") + ";" + this.Eval("Item1.ID") + ";" + this.Eval("Item2.ID") %>' />
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
-                                    <%# this.Eval("Item2.TopicName") %> 
+                                    <%# this.Eval("Item2.TopicName") %>
                                     <YAF:ThemeButton runat="server" ID="ThemeButton1"
                                                      Type="Link"
                                                      Icon="external-link-alt"
@@ -191,7 +191,7 @@
                                 </h5>
                             </div>
                             <p class="mb-1">
-                                <%# this.Eval("Item3.MessageText") %> 
+                                <%# this.Eval("Item3.MessageText") %>
                             </p>
                             <small>
                                 <div class="btn-group">
@@ -215,21 +215,21 @@
                     </ItemTemplate>
                     <FooterTemplate>
                         </ul>
-                    <YAF:Alert runat="server" ID="NoInfo" 
-                               Type="success" 
+                    <YAF:Alert runat="server" ID="NoInfo"
+                               Type="success"
                                Visible="<%# this.DeletedMessages.Items.Count == 0 %>">
-                        <i class="fa fa-check fa-fw text-success"></i>
+                        <YAF:Icon runat="server" IconName="check" />
                         <YAF:LocalizedLabel runat="server"
                                             LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
                     </YAF:Alert>
                     </div>
                     <asp:PlaceHolder runat="server" Visible="<%# this.DeletedMessages.Items.Count > 0 %>">
                         <div class="card-footer text-center">
-                            <YAF:ThemeButton runat="server" 
-                                             CommandName="delete_all" 
-                                             ID="Linkbutton4" 
+                            <YAF:ThemeButton runat="server"
+                                             CommandName="delete_all"
+                                             ID="Linkbutton4"
                                              Type="Danger"
-                                             Icon="dumpster" 
+                                             Icon="dumpster"
                                              TextLocalizedTag="DELETE_ALL"
                                              TextLocalizedPage="ADMIN_EVENTLOG">
                             </YAF:ThemeButton>
@@ -242,7 +242,7 @@
 </div>
 <div class="row justify-content-end">
     <div class="col-auto">
-        <YAF:Pager ID="PagerMessages" runat="server" 
+        <YAF:Pager ID="PagerMessages" runat="server"
                    OnPageChange="PagerTop_PageChange" />
     </div>
 </div>

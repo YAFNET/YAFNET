@@ -29,6 +29,7 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Threading;
     using System.Web;
+    using System.Web.Configuration;
 
     using ServiceStack.OrmLite;
 
@@ -40,6 +41,7 @@ namespace YAF.Core.Services
     using YAF.Core.Services.Import;
     using YAF.Core.Services.Migrations;
     using YAF.Core.Tasks;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -250,6 +252,8 @@ namespace YAF.Core.Services
             {
                 if (prevVersion < 80)
                 {
+                    this.MigrateConfig();
+
                     this.Get<V80_Migration>().MigrateDatabase(this.DbAccess);
 
                     // Upgrade to ASPNET Identity
@@ -469,6 +473,52 @@ namespace YAF.Core.Services
                         // load default spam word if available...
                         loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(boardId, s));
                     });
+        }
+
+        /// <summary>
+        /// Migrate Legacy Membership Settings
+        /// </summary>
+        private void MigrateConfig()
+        {
+            try
+            {
+                var membershipSection = (MembershipSection)WebConfigurationManager.GetSection("system.web/membership");
+
+                var defaultProvider = membershipSection.DefaultProvider;
+                var hashAlgorithmType = membershipSection.HashAlgorithmType;
+
+                var providerSettings = membershipSection.Providers[defaultProvider];
+
+                var hashHex = providerSettings.Parameters["hashHex"];
+                var hashCase = providerSettings.Parameters["hashCase"];
+                var passwordFormat = providerSettings.Parameters["passwordFormat"];
+
+                ConfigHelper config = new ();
+
+                if (hashAlgorithmType.IsSet())
+                {
+                    config.WriteAppSetting("YAF.LegacyMembershipHashAlgorithmType", hashAlgorithmType);
+                }
+
+                if (hashHex.IsSet())
+                {
+                    config.WriteAppSetting("YAF.LegacyMembershipHashHex", hashHex);
+                }
+
+                if (hashCase.IsSet())
+                {
+                    config.WriteAppSetting("YAF.LegacyMembershipHashCase", hashCase);
+                }
+
+                if (passwordFormat.IsSet())
+                {
+                    config.WriteAppSetting("YAF.LegacyMembershipPasswordFormat", passwordFormat);
+                }
+            }
+            catch (Exception)
+            {
+                // Can Be ignored if settings have already been removed
+            }
         }
 
         #endregion

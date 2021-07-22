@@ -8,16 +8,18 @@
     <div class="row">
         <div class="col-lg-6 col-md-8 mx-auto">
             <h1 class="fw-light">
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
                                     LocalizedTag="Albums_Title" />
             </h1>
             <p>
                 <YAF:ThemeButton runat="server" ID="EditAlbums"
-                                 OnClick="EditAlbums_Click" 
+                                 OnClick="EditAlbums_Click"
+                                 CssClass="mb-1"
                                  TextLocalizedTag="BUTTON_EDITALBUMIMAGES"
                                  Icon="plus"/>
-                <YAF:ThemeButton runat="server" ID="Back" 
+                <YAF:ThemeButton runat="server" ID="Back"
                                  OnClick="Back_Click"
+                                 CssClass="mb-1"
                                  TextLocalizedTag="BACK_ALBUMS"
                                  Type="Secondary"
                                  Icon="arrow-circle-left"/>

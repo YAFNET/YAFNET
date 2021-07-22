@@ -9,13 +9,15 @@
         <div class="card mx-auto" style="max-width:450px">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                LocalizedPage="LOGIN"
+                                LocalizedTag="TITLE"
                                 IconName="sign-in-alt"></YAF:IconHeader>
             </div>
             <div class="card-body">
                     <div class="mb-3">
-                            <asp:Label runat="server" 
+                            <asp:Label runat="server"
                                        AssociatedControlID="UserName">
-                                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
                                                     LocalizedTag="username" />
                             </asp:Label>
                         <div class="input-group">
@@ -34,7 +36,7 @@
                         </div>
                     </div>
                         <div class="mb-3">
-                            <asp:Label runat="server" 
+                            <asp:Label runat="server"
                                        AssociatedControlID="Password">
                                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="PASSWORD" />
                             </asp:Label>
@@ -44,7 +46,7 @@
                                           IconName="key"
                                           IconType="text-secondary"/>
                             </span>
-                            <asp:TextBox runat="server" ID="Password" 
+                            <asp:TextBox runat="server" ID="Password"
                                          CssClass="form-control"
                                          TextMode="Password"
                                          required="required"/>
@@ -65,7 +67,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 col-md-6 text-end">
-                                <YAF:ThemeButton ID="PasswordRecovery" runat="server" 
+                                <YAF:ThemeButton ID="PasswordRecovery" runat="server"
                                                  CausesValidation="False"
                                                  Type="Secondary"
                                                  Size="Small"

@@ -167,7 +167,7 @@
                     <YAF:Alert runat="server" ID="NoInfo"
                                Type="success"
                                Visible="False">
-                        <YAF:Icon runat="server" IconName="check" IconType="text-success" />
+                        <YAF:Icon runat="server" IconName="check" />
                         <YAF:LocalizedLabel runat="server"
                                             LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
                     </YAF:Alert>
