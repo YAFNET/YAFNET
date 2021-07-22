@@ -93,7 +93,7 @@ namespace YAF.Pages.Admin
 
             this.txtResult.Text = this.Get<IDbAccess>().RunSQL(
                 CommandTextHelpers.GetCommandTextReplaced(this.txtQuery.Text.Trim()),
-                Configuration.Config.SqlCommandTimeout.ToType<int>());
+                Configuration.Config.SqlCommandTimeout);
         }
 
         /// <summary>

@@ -29,8 +29,7 @@ namespace YAF.Core.Membership
 
     using Microsoft.AspNet.Identity;
 
-    using ServiceStack;
-
+    using YAF.Configuration;
     using YAF.Core.Utilities.Helpers;
 
     /// <summary>
@@ -62,8 +61,10 @@ namespace YAF.Core.Membership
             var passwordHash = passwordProperties[0];
             var salt = passwordProperties[2];
 
+            var encryptedPassword = EncryptPassword(providedPassword, Config.LegacyMembershipPasswordFormat, salt);
+
             return string.Equals(
-                EncryptPassword(providedPassword, MembershipPasswordFormat.Hashed, salt),
+                encryptedPassword,
                 passwordHash,
                 StringComparison.CurrentCultureIgnoreCase)
                 ? PasswordVerificationResult.SuccessRehashNeeded
@@ -87,17 +88,6 @@ namespace YAF.Core.Membership
         /// </returns>
         private static string EncryptPassword(string pass, MembershipPasswordFormat passwordFormat, string salt)
         {
-            var hashAlgorithmType = HashHelper.HashAlgorithmType.SHA1;
-
-            try
-            {
-                Membership.HashAlgorithmType.ToEnum<HashHelper.HashAlgorithmType>();
-            }
-            catch (Exception)
-            {
-                hashAlgorithmType = HashHelper.HashAlgorithmType.SHA1;
-            }
-
             switch (passwordFormat)
             {
                 case MembershipPasswordFormat.Clear:
@@ -105,10 +95,10 @@ namespace YAF.Core.Membership
                 case MembershipPasswordFormat.Hashed:
                     return HashHelper.Hash(
                         pass,
-                        hashAlgorithmType,
+                        Config.LegacyMembershipHashAlgorithmType,
                         salt,
-                        false,
-                        HashHelper.HashCaseType.None,
+                        Config.LegacyMembershipHashHex,
+                        Config.LegacyMembershipHashCase,
                         null,
                         false);
                 case MembershipPasswordFormat.Encrypted:

@@ -22,30 +22,36 @@
  * under the License.
  */
 
-namespace YAF.Core.Utilities
+namespace YAF.Types.Constants
 {
-    using System.Web;
-
-    using YAF.Types.Extensions;
-
     /// <summary>
-    /// The security.
+    /// The hash algorithm type.
     /// </summary>
-    public static class Security
+    public enum HashAlgorithmType
     {
         /// <summary>
-        /// This method validates request whether it comes from same server in case it's HTTP POST.
+        /// The MD5.
         /// </summary>
-        /// <param name="request">
-        /// Request to validate.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool CheckRequestValidity(HttpRequest request)
-        {
-            return request.UrlReferrer == null || !request.Url.Host.IsSet() ||
-                   request.UrlReferrer.Host == request.Url.Host;
-        }
+        MD5,
+
+        /// <summary>
+        /// The SHA1.
+        /// </summary>
+        SHA1,
+
+        /// <summary>
+        /// The SHA256.
+        /// </summary>
+        SHA256,
+
+        /// <summary>
+        /// The SHA384.
+        /// </summary>
+        SHA384,
+
+        /// <summary>
+        /// The SHA512.
+        /// </summary>
+        SHA512
     }
 }

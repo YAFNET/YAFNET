@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -34,8 +34,6 @@ namespace YAF.Core.BasePages
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Handlers;
-    using YAF.Core.Services;
-    using YAF.Core.Utilities;
     using YAF.Core.Utilities.Helpers;
     using YAF.Core.Utilities.Helpers.StringUtils;
     using YAF.Types;
@@ -217,8 +215,8 @@ namespace YAF.Core.BasePages
         public bool ShowFooter { get; protected set; } = Config.ShowFooter;
 
         /// <summary>
-        ///   Gets or sets a value indicating whether 
-        ///   if you don't want the menus at top and bottom. 
+        ///   Gets or sets a value indicating whether
+        ///   if you don't want the menus at top and bottom.
         ///   Only admin pages will set this to false
         /// </summary>
         public bool ShowToolBar { get; protected set; } = Config.ShowToolBar;
@@ -263,18 +261,6 @@ namespace YAF.Core.BasePages
         #region Public Methods
 
         /// <summary>
-        /// Determines whether the specified value is null.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>
-        /// The is null.
-        /// </returns>
-        public static object IsNull([NotNull] string value)
-        {
-            return value == null || value.ToLower() == string.Empty ? (object)DBNull.Value : value;
-        }
-
-        /// <summary>
         /// Encodes the HTML
         /// </summary>
         /// <param name="data">The data.</param>
@@ -282,7 +268,7 @@ namespace YAF.Core.BasePages
         [CanBeNull]
         public string HtmlEncode([NotNull] object data)
         {
-            return !(data is string) ? null : this.unicodeEncoder.XSSEncode(data.ToString());
+            return data is not string ? null : this.unicodeEncoder.XSSEncode(data.ToString());
         }
 
         /// <summary>
@@ -386,14 +372,6 @@ namespace YAF.Core.BasePages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.PageContext.BoardSettings.DoUrlReferrerSecurityCheck)
-            {
-                if (Security.CheckRequestValidity(this.Request))
-                {
-                    this.Get<LinkBuilder>().AccessDenied();
-                }
-            }
-
             if (!this.IsPostBack)
             {
                 this.CreatePageLinks();

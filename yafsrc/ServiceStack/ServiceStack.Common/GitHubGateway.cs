@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
@@ -331,6 +331,8 @@ namespace ServiceStack
                 webClient.Headers.Add(HttpHeaders.Authorization, "token " + AccessToken);
 
             webClient.DownloadFile(downloadUrl, fileName);
+
+            webClient.Dispose();
         }
 
         public virtual GithubGist GetGithubGist(string gistId)

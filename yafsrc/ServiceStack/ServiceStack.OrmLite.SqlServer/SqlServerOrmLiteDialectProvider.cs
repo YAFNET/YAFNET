@@ -817,8 +817,8 @@ namespace ServiceStack.OrmLite.SqlServer
             strReturning = strReturning.Length > 0 ? "OUTPUT " + strReturning + " " : string.Empty;
             cmd.CommandText = sbColumnNames.Length > 0
                 ? $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) {strReturning}" +
-                  $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})"
-                : $"INSERT INTO {this.GetQuotedTableName(modelDef)}{strReturning} DEFAULT VALUES";
+                  $" VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})"
+                : $" INSERT INTO {this.GetQuotedTableName(modelDef)}{strReturning} DEFAULT VALUES";
         }
 
         public override void PrepareInsertRowStatement<T>(IDbCommand dbCmd, Dictionary<string, object> args)
@@ -867,8 +867,8 @@ namespace ServiceStack.OrmLite.SqlServer
             strReturning = strReturning.Length > 0 ? "OUTPUT " + strReturning + " " : string.Empty;
             dbCmd.CommandText = sbColumnNames.Length > 0
                 ? $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) {strReturning}" +
-                  $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})"
-                : $"INSERT INTO {this.GetQuotedTableName(modelDef)} {strReturning}DEFAULT VALUES";
+                  $" VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})"
+                : $" INSERT INTO {this.GetQuotedTableName(modelDef)} {strReturning}DEFAULT VALUES";
         }
 
         public override string ToSelectStatement(

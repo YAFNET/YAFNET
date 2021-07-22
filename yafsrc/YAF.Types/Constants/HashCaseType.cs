@@ -22,30 +22,26 @@
  * under the License.
  */
 
-namespace YAF.Core.Utilities
+namespace YAF.Types.Constants
 {
-    using System.Web;
-
-    using YAF.Types.Extensions;
-
     /// <summary>
-    /// The security.
+    /// The hash case type.
     /// </summary>
-    public static class Security
+    public enum HashCaseType
     {
         /// <summary>
-        /// This method validates request whether it comes from same server in case it's HTTP POST.
+        /// The upper.
         /// </summary>
-        /// <param name="request">
-        /// Request to validate.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool CheckRequestValidity(HttpRequest request)
-        {
-            return request.UrlReferrer == null || !request.Url.Host.IsSet() ||
-                   request.UrlReferrer.Host == request.Url.Host;
-        }
+        Upper,
+
+        /// <summary>
+        /// The lower.
+        /// </summary>
+        Lower,
+
+        /// <summary>
+        /// The none.
+        /// </summary>
+        None
     }
 }

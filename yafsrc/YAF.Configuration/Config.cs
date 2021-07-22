@@ -31,8 +31,9 @@ namespace YAF.Configuration
     using System.Linq;
     using System.Web;
     using System.Web.Configuration;
-
+    using System.Web.Security;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
 
     #endregion
@@ -64,8 +65,7 @@ namespace YAF.Configuration
         /// <summary>
         ///     Gets the Current BoardID -- default is 1.
         /// </summary>
-        [NotNull]
-        public static string BoardID => GetConfigValueAsString("YAF.BoardID") ?? "1";
+        public static int BoardID => GetConfigValueAsInt("YAF.BoardID", 1);
 
         /// <summary>
         ///     Gets the Folder to use for board specific uploads, images Example : /Boards/
@@ -76,7 +76,7 @@ namespace YAF.Configuration
         /// <summary>
         ///     Gets the Current CategoryID -- default is null.
         /// </summary>
-        public static string CategoryID => GetConfigValueAsString("YAF.CategoryID");
+        public static int CategoryID => GetConfigValueAsInt("YAF.CategoryID", 0);
 
         /// <summary>
         ///     Gets ClientFileRoot.
@@ -150,11 +150,14 @@ namespace YAF.Configuration
             }
         }
 
+        /// <summary>
+        ///    Gets the Database Schema.
+        /// </summary>
         [NotNull]
         public static string DatabaseSchema => GetConfigValueAsString("YAF.DatabaseSchema") ?? "public";
 
         /// <summary>
-        ///    Gets the Database Schema.
+        ///    Gets the Database Owner.
         /// </summary>
         [NotNull]
         public static string DatabaseOwner => GetConfigValueAsString("YAF.DatabaseOwner") ?? "dbo";
@@ -308,8 +311,7 @@ namespace YAF.Configuration
         /// <summary>
         ///     Gets the Current BoardID -- default is 1.
         /// </summary>
-        [NotNull]
-        public static string SqlCommandTimeout => GetConfigValueAsString("YAF.SqlCommandTimeout") ?? "99999";
+        public static int SqlCommandTimeout => GetConfigValueAsInt("YAF.SqlCommandTimeout", 99999);
 
         /// <summary>
         ///     Gets TwitterConsumerKey
@@ -335,9 +337,76 @@ namespace YAF.Configuration
         /// </value>
         public static string BannedIpRedirectUrl => GetConfigValueAsString("YAF.BannedIpRedirectUrl");
 
+        #region Legacy Membership Settings
+
+        /// <summary>
+        /// Gets the legacy membership hash algorithm type.
+        /// </summary>
+        public static HashAlgorithmType LegacyMembershipHashAlgorithmType
+        {
+            get
+            {
+                var value = GetConfigValueAsString("YAF.LegacyMembershipHashAlgorithmType");
+
+                return value.IsSet()
+                    ? value.ToEnum<HashAlgorithmType>()
+                    : HashAlgorithmType.SHA1;
+            }
+        }
+
+        /// <summary>
+        /// Gets the legacy membership password format.
+        /// </summary>
+        public static MembershipPasswordFormat LegacyMembershipPasswordFormat
+        {
+            get
+            {
+                var value = GetConfigValueAsString("YAF.LegacyMembershipPasswordFormat");
+
+                return value.IsSet()
+                    ? value.ToEnum<MembershipPasswordFormat>()
+                    : MembershipPasswordFormat.Hashed;
+            }
+        }
+
+        /// <summary>
+        /// Gets the legacy membership hash case.
+        /// </summary>
+        public static HashCaseType LegacyMembershipHashCase
+        {
+            get
+            {
+                var value = GetConfigValueAsString("YAF.LegacyMembershipHashCase");
+
+                return value.IsSet()
+                    ? value.ToEnum<HashCaseType>()
+                    : HashCaseType.None;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether legacy membership hash hex.
+        /// </summary>
+        public static bool LegacyMembershipHashHex => GetConfigValueAsBool("YAF.LegacyMembershipHashHex", false);
+
+        #endregion
+
         #endregion
 
         #region Public Methods and Operators
+
+        /// <summary>
+        ///     Gets the config value as Integer.
+        /// </summary>
+        /// <param name="configKey"> The config key. </param>
+        /// <param name="defaultValue"> if set to <c>true</c> [default value]. </param>
+        /// <returns> Returns the Integer Value </returns>
+        public static int GetConfigValueAsInt([NotNull] string configKey, int defaultValue)
+        {
+            var value = GetConfigValueAsString(configKey);
+
+            return value.IsSet() ? value.ToLower().ToType<int>() : defaultValue;
+        }
 
         /// <summary>
         ///     Gets the config value as Boolean.
@@ -375,6 +444,6 @@ namespace YAF.Configuration
             return GetConfigValueAsString(key);
         }
 
-        #endregion
+#endregion
     }
 }

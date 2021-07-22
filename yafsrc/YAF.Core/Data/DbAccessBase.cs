@@ -152,7 +152,7 @@ namespace YAF.Core.Data
             var cmd = this.DbProviderFactory.CreateCommand();
             parameters = parameters.IfNullEmpty();
 
-            cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
+            cmd.CommandTimeout = Config.SqlCommandTimeout;
             cmd.CommandType = commandType;
 
             cmd.CommandText = sql;

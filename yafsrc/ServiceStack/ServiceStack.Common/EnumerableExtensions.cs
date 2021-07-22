@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +15,12 @@ namespace ServiceStack
         {
             if (items == null)
                 return null;
+
             foreach (var item in items)
             {
                 return item;
             }
+
             return null;
         }
 

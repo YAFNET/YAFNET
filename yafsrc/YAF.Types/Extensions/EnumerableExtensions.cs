@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -49,8 +49,8 @@ namespace YAF.Types.Extensions
         /// <param name="action"> </param>
         public static void ForEach<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T> action)
         {
-            CodeContracts.VerifyNotNull(list, "list");
-            CodeContracts.VerifyNotNull(action, "action");
+            CodeContracts.VerifyNotNull(list);
+            CodeContracts.VerifyNotNull(action);
 
             list.ToList().ForEach(action);
         }
@@ -63,8 +63,8 @@ namespace YAF.Types.Extensions
         /// <param name="action"> </param>
         public static void ForEachFirst<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, bool> action)
         {
-            CodeContracts.VerifyNotNull(list, "list");
-            CodeContracts.VerifyNotNull(action, "action");
+            CodeContracts.VerifyNotNull(list);
+            CodeContracts.VerifyNotNull(action);
 
             var isFirst = true;
 
@@ -84,8 +84,8 @@ namespace YAF.Types.Extensions
         /// <param name="action"> </param>
         public static void ForEachIndex<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, int> action)
         {
-            CodeContracts.VerifyNotNull(list, "list");
-            CodeContracts.VerifyNotNull(action, "action");
+            CodeContracts.VerifyNotNull(list);
+            CodeContracts.VerifyNotNull(action);
 
             var i = 0;
 
@@ -113,7 +113,7 @@ namespace YAF.Types.Extensions
         /// <returns> </returns>
         public static IEnumerable<T> Infinite<T>([NotNull] this IEnumerable<T> currentEnumerable)
         {
-            CodeContracts.VerifyNotNull(currentEnumerable, "currentEnumerable");
+            CodeContracts.VerifyNotNull(currentEnumerable);
 
             foreach (var item in currentEnumerable)
             {

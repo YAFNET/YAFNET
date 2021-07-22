@@ -129,7 +129,9 @@ namespace YAF.Web.Controls
             }
 
             writer.Write(
-                @"<br /><br /><div style=""margin:auto;padding:5px;text-align:right;font-size:7pt;""><span class=""text-danger"">YAF Compiled in <strong>DEBUG MODE</strong></span>.<br />Recompile in <strong>RELEASE MODE</strong> to remove this information:");
+                @"<br /><br /><div style=""margin:auto;padding:5px;text-align:right;font-size:7pt;"">
+                              <span class=""text-danger"">YAF Compiled in <strong>DEBUG MODE</strong></span>.
+                  <br />Recompile in <strong>RELEASE MODE</strong> to remove this information:");
 
             var extensions = this.Get<IList<Assembly>>("ExtensionAssemblies").Select(a => a.FullName).ToList();
 
@@ -137,6 +139,10 @@ namespace YAF.Web.Controls
             {
                 writer.Write("Offical YAF.NET Release: Modules with Public Key of f3828393ba2d803c Loaded.");
             }
+
+            writer.Write(
+                @"<div style=""margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color: green"">{0}</span></div>",
+                Config.ConnectionProviderName);
 
             if (extensions.Any(x => x.Contains(".Module")))
             {
@@ -193,7 +199,7 @@ namespace YAF.Web.Controls
 
                 var currentDomainHash = HashHelper.Hash(
                     dnsSafeHost,
-                    HashHelper.HashAlgorithmType.SHA1,
+                    HashAlgorithmType.SHA1,
                     this.GetType().GetSigningKey().ToString(),
                     false);
 

@@ -428,7 +428,7 @@ namespace YAF.Core.Services
             this.Get<IDbAccess>().SystemInitializeExecuteScripts(
                 CommandTextHelpers.GetCommandTextReplaced(script),
                 scriptFile,
-                Config.SqlCommandTimeout.ToType<int>());
+                Config.SqlCommandTimeout);
         }
 
         /// <summary>

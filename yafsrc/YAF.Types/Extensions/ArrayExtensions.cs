@@ -108,7 +108,7 @@ namespace YAF.Types.Extensions
         [NotNull]
         public static string ToHexString([NotNull] this byte[] hashedBytes)
         {
-            CodeContracts.VerifyNotNull(hashedBytes, "hashedBytes");
+            CodeContracts.VerifyNotNull(hashedBytes);
 
             var builder = new StringBuilder(hashedBytes.Length * 2 + 2);
 

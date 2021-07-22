@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,17 +26,8 @@ namespace YAF.Types.Extensions
     #region Using
 
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
     using System.ComponentModel;
-    using System.Dynamic;
     using System.Linq;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Web.UI;
-
-    using YAF.Types.Attributes;
 
     #endregion
 
@@ -62,22 +53,6 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        /// Turns any object into a Dictionary
-        /// </summary>
-        /// <param name="thingy">
-        /// The thingy. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="IDictionary"/>.
-        /// </returns>
-        public static IDictionary<string, object> AnyToDictionary([NotNull] this object thingy)
-        {
-            CodeContracts.VerifyNotNull(thingy, "thingy");
-
-            return (IDictionary<string, object>)thingy.ToExpando();
-        }
-
-        /// <summary>
         /// The get attribute.
         /// </summary>
         /// <typeparam name="TAttribute">The type of the attribute.</typeparam>
@@ -87,7 +62,7 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static TAttribute GetAttribute<TAttribute>([NotNull] this Type objectType) where TAttribute : Attribute
         {
-            CodeContracts.VerifyNotNull(objectType, "objectType");
+            CodeContracts.VerifyNotNull(objectType);
 
             return objectType.GetCustomAttributes(typeof(TAttribute), false).OfType<TAttribute>().FirstOrDefault();
         }
@@ -100,28 +75,11 @@ namespace YAF.Types.Extensions
         /// <param name="instance">
         /// </param>
         /// <returns>
-        /// The has interface. 
+        /// The has interface.
         /// </returns>
         public static bool HasInterface<T>([NotNull] this object instance)
         {
             return instance is T;
-        }
-
-        /// <summary>
-        /// The is default.
-        /// </summary>
-        /// <param name="valueType">
-        /// The value type.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool IsDefault<T>(this T valueType)
-            where T : struct
-        {
-            return Equals(valueType, default(T));
         }
 
         /// <summary>
@@ -134,7 +92,7 @@ namespace YAF.Types.Extensions
         /// <param name="list">
         /// </param>
         /// <returns>
-        /// The is in. 
+        /// The is in.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="source"/>
@@ -144,26 +102,9 @@ namespace YAF.Types.Extensions
         /// </exception>
         public static bool IsIn<T>(this T source, [NotNull] params T[] list)
         {
-            CodeContracts.VerifyNotNull(list, "list");
+            CodeContracts.VerifyNotNull(list);
 
             return list.Contains(source);
-        }
-
-        /// <summary>
-        /// The is not default.
-        /// </summary>
-        /// <param name="valueType">
-        /// The value type.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public static bool IsNotDefault<T>(this T valueType)
-            where T : struct
-        {
-            return !Equals(valueType, default(T));
         }
 
         /// <summary>
@@ -180,146 +121,6 @@ namespace YAF.Types.Extensions
         public static T ToClass<T>([CanBeNull] this object instance) where T : class
         {
             return instance as T;
-        }
-
-        /// <summary>
-        /// The to dynamic.
-        /// </summary>
-        /// <param name="instance">
-        /// The instance. 
-        /// </param>
-        /// <returns>
-        /// The to dynamic. 
-        /// </returns>
-        public static dynamic ToDynamic([NotNull] this object instance)
-        {
-            return instance;
-        }
-
-        /// <summary>
-        /// Turns the object into an ExpandoObject
-        /// </summary>
-        /// <param name="obj">
-        /// The object. 
-        /// </param>
-        /// <returns>
-        /// The to expando. 
-        /// </returns>
-        [NotNull]
-        public static dynamic ToExpando([NotNull] this object obj)
-        {
-            CodeContracts.VerifyNotNull(obj, "obj");
-
-            var result = new ExpandoObject();
-
-            var d = (IDictionary<string, object>)result;
-
-            if (obj is ExpandoObject)
-            {
-                return obj;
-            }
-
-            if (obj.GetType().IsSubclassOf(typeof(NameValueCollection)))
-            {
-                var nameValueCollection = (NameValueCollection)obj;
-                nameValueCollection.Cast<string>()
-                    .Select(key => new KeyValuePair<string, object>(key, nameValueCollection[key]))
-                    .ToList()
-                    .ForEach(d.Add);
-            }
-            else
-            {
-                var props = obj.GetType().GetProperties();
-
-                props.Where(p => !p.GetCustomAttributes(typeof(ExcludeAttribute), true).Any()).ToList().ForEach(
-                    item => d.Add(item.Name, item.GetValue(obj, null)));
-            }
-
-            return result;
-        }
-
-        // The ToString overloads are inspired by:
-        // A Smarter (or Pure Evil) ToString with Extension Methods (4)
-        // FormatWith 2.0 - String formatting with named variables (5)
-        // This implementation is a combination of both: the regular expressions 
-        // from Scott Hanselman combined with the DataBinder.Eval idea 
-        // from James Newton-King.
-
-        /// <summary>
-        /// Enables you to get a string representation of the object using string formatting with property names, rather than index based values.
-        /// </summary>
-        /// <param name="anObject">
-        /// The object being extended. 
-        /// </param>
-        /// <param name="aFormat">
-        /// The formatting string, like "Hi, my name is {FirstName} {LastName}". 
-        /// </param>
-        /// <param name="formatProvider">
-        /// An System. <see cref="IFormatProvider"/> that provides culture-specific formatting information. 
-        /// </param>
-        /// <returns>
-        /// A formatted string with the values from the object replaced in the format string. 
-        /// </returns>
-        /// <remarks>
-        /// To embed a pair of {} on the string, simply double them: "I am a {{Literal}}".
-        /// </remarks>
-        [NotNull]
-        public static string ToString(
-            [NotNull] this object anObject, [NotNull] string aFormat, [NotNull] IFormatProvider formatProvider)
-        {
-            var sb = new StringBuilder();
-            var reg = new Regex(@"({)([^}]+)(})", RegexOptions.IgnoreCase);
-            var mc = reg.Matches(aFormat);
-
-            var startIndex = 0;
-
-            foreach (Match m in mc)
-            {
-                var g = m.Groups[2];
-                var length = g.Index - startIndex - 1;
-                sb.Append(aFormat.Substring(startIndex, length));
-
-                string getValue;
-                var format = string.Empty;
-
-                var formatIndex = g.Value.IndexOf(":", StringComparison.Ordinal);
-                if (formatIndex == -1)
-                {
-                    getValue = g.Value;
-                }
-                else
-                {
-                    getValue = g.Value.Substring(0, formatIndex);
-                    format = g.Value.Substring(formatIndex + 1);
-                }
-
-                // Make sure we're not dealing 
-                if (!getValue.StartsWith("{"))
-                {
-                    // with a string literal wrapped in {} Get the object's value using DataBinder.Eval.
-                    var resultAsObject = DataBinder.Eval(anObject, getValue);
-
-                    // Format the value based on the incoming formatProvider 
-                    // and format string
-                    var result = string.Format(formatProvider, "{0:" + format + "}", resultAsObject);
-
-                    sb.Append(result);
-                }
-                else
-                {
-                    // Property name started with a { which means we treat it as a literal.
-                    sb.Append(g.Value);
-                }
-
-                startIndex = g.Index + g.Length + 1;
-            }
-
-            if (startIndex < aFormat.Length)
-            {
-                sb.Append(aFormat.Substring(startIndex));
-            }
-
-            return sb.ToString();
         }
 
         /// <summary>
@@ -358,7 +159,7 @@ namespace YAF.Types.Extensions
                     return default;
                 }
             }
-            else if (instanceType.IsClass && !(instance is IConvertible))
+            else if (instanceType.IsClass && instance is not IConvertible)
             {
                 // just cast since it's a class....
                 return (T)instance;
@@ -378,10 +179,10 @@ namespace YAF.Types.Extensions
         /// The to type or default.
         /// </summary>
         /// <param name="instance">
-        /// The instance. 
+        /// The instance.
         /// </param>
         /// <param name="defaultValue">
-        /// The default value. 
+        /// The default value.
         /// </param>
         /// <typeparam name="T">
         /// </typeparam>

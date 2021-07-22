@@ -59,7 +59,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUsers](
     [Profile_Skype] NVARCHAR (255) NULL,
     [Profile_XMPP] NVARCHAR (255) NULL,
     [Profile_LastSyncedWithDNN] DateTime NULL
-    CONSTRAINT [PK_{databaseOwner}.AspNetUsers] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [PK_{databaseOwner}.AspNetUsers] PRIMARY KEY CLUSTERED ([Id] ASC)
     /*FOREIGN KEY ([ApplicationId]) REFERENCES [{databaseOwner}].[aspnet_Applications] ([ApplicationId]),*/
 );
 
