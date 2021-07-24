@@ -26,8 +26,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using CollectionUtil  = YAF.Lucene.Net.Util.CollectionUtil;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using CollectionUtil = YAF.Lucene.Net.Util.CollectionUtil;
+    using Directory = YAF.Lucene.Net.Store.Directory;
 
     /// <summary>
     /// A <see cref="MergeScheduler"/> that runs each merge using a
@@ -429,7 +429,7 @@ namespace YAF.Lucene.Net.Index
                         // updateMergeThreads).  We stall this producer
                         // thread to prevent creation of new segments,
                         // until merging has caught up:
-                        startStallTime = Environment.TickCount;
+                        startStallTime = J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond; // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
                         if (IsVerbose)
                         {
                             Message("    too many merges; stalling...");
@@ -442,7 +442,7 @@ namespace YAF.Lucene.Net.Index
                     {
                         if (startStallTime != 0)
                         {
-                            Message("  stalled for " + (Environment.TickCount - startStallTime) + " msec");
+                            Message("  stalled for " + ((J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond) - startStallTime) + " msec"); // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
                         }
                     }
 

@@ -1,6 +1,5 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+﻿using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Search;
-using System;
 using System.Collections.Generic;
 
 namespace YAF.Lucene.Net.QueryParsers.Surround.Query
@@ -44,7 +43,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
                 throw AssertionError.Create("Too few subqueries: " + queries.Count);
             }
             BooleanQuery bq = new BooleanQuery();
-            AddQueriesToBoolean(bq, queries, occur);
+            AddQueriesToBoolean(bq, queries.GetView(0, queries.Count), occur);
             return bq;
         }
     }

@@ -1,6 +1,6 @@
-﻿using J2N.Collections.Generic.Extensions;
+﻿using J2N;
+using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
-using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,17 +25,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Codec  = YAF.Lucene.Net.Codecs.Codec;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using DocValuesConsumer  = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using FieldInfosWriter  = YAF.Lucene.Net.Codecs.FieldInfosWriter;
-    using FieldsConsumer  = YAF.Lucene.Net.Codecs.FieldsConsumer;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using InfoStream  = YAF.Lucene.Net.Util.InfoStream;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using StoredFieldsWriter  = YAF.Lucene.Net.Codecs.StoredFieldsWriter;
-    using TermVectorsWriter  = YAF.Lucene.Net.Codecs.TermVectorsWriter;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using FieldInfosWriter = YAF.Lucene.Net.Codecs.FieldInfosWriter;
+    using FieldsConsumer = YAF.Lucene.Net.Codecs.FieldsConsumer;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using StoredFieldsWriter = YAF.Lucene.Net.Codecs.StoredFieldsWriter;
+    using TermVectorsWriter = YAF.Lucene.Net.Codecs.TermVectorsWriter;
 
     /// <summary>
     /// The <see cref="SegmentMerger"/> class combines two or more Segments, represented by an

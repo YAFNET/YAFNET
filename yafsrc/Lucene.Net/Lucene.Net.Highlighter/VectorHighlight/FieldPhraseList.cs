@@ -1,11 +1,11 @@
 ﻿using J2N.Numerics;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using QueryPhraseMap  = YAF.Lucene.Net.Search.VectorHighlight.FieldQuery.QueryPhraseMap;
-using TermInfo  = YAF.Lucene.Net.Search.VectorHighlight.FieldTermStack.TermInfo;
+using Float = J2N.Numerics.Single;
+using QueryPhraseMap = YAF.Lucene.Net.Search.VectorHighlight.FieldQuery.QueryPhraseMap;
+using TermInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldTermStack.TermInfo;
 
 namespace YAF.Lucene.Net.Search.VectorHighlight
 {
@@ -223,7 +223,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
         /// <summary>
         /// Represents the list of term offsets and boost for some text
         /// </summary>
-        public class WeightedPhraseInfo : IComparable<WeightedPhraseInfo>
+        public class WeightedPhraseInfo : IComparable<WeightedPhraseInfo>, IFormattable // LUCENENET specific - implemented IFormattable for floating point representations
         {
             private readonly List<Toffs> termsOffsets;   // usually termsOffsets.size() == 1, // LUCENENET: marked readonly
                                                          // but if position-gap > 1 and slop > 0 then size() could be greater than 1
@@ -378,8 +378,14 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
 
             public override string ToString()
             {
+                return ToString(null);
+            }
+
+            public virtual string ToString(IFormatProvider provider)
+            {
                 StringBuilder sb = new StringBuilder();
-                sb.Append(GetText()).Append('(').Append(Number.ToString(boost)).Append(")(");
+                // LUCENENET: allow passing culture
+                sb.Append(GetText()).Append('(').Append(Float.ToString(boost, provider)).Append(")(");
                 foreach (Toffs to in termsOffsets)
                 {
                     sb.Append(to);
@@ -387,6 +393,8 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
                 sb.Append(')');
                 return sb.ToString();
             }
+
+            string IFormattable.ToString(string format, IFormatProvider provider) => ToString(provider);
 
             /// <summary>
             /// the seqnum

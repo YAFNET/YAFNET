@@ -1,11 +1,12 @@
 ﻿using J2N;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Automaton;
 using System;
+using System.Globalization;
 using System.Text;
+using Float = J2N.Numerics.Single;
 
 namespace YAF.Lucene.Net.Sandbox.Queries
 {
@@ -165,7 +166,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             }
             buffer.Append(m_term.Text);
             buffer.Append('~');
-            buffer.Append(Number.ToString(minimumSimilarity));
+            buffer.Append(Float.ToString(minimumSimilarity, NumberFormatInfo.InvariantInfo));
             buffer.Append(ToStringUtils.Boost(Boost));
             return buffer.ToString();
         }

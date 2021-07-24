@@ -12,6 +12,7 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
 using JCG = J2N.Collections.Generic;
+using Long = J2N.Numerics.Int64;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -32,18 +33,18 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ChecksumIndexInput  = YAF.Lucene.Net.Store.ChecksumIndexInput;
-    using Codec  = YAF.Lucene.Net.Codecs.Codec;
-    using CodecUtil  = YAF.Lucene.Net.Codecs.CodecUtil;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using Lucene3xCodec  = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
-    using Lucene3xSegmentInfoFormat  = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
-    using Lucene3xSegmentInfoReader  = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoReader;
-    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
+    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using Lucene3xCodec = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
+    using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
+    using Lucene3xSegmentInfoReader = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoReader;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// A collection of segmentInfo objects with methods for operating on
@@ -154,7 +155,7 @@ namespace YAF.Lucene.Net.Index
         /// Opaque <see cref="T:IDictionary{string, string}"/> that user can specify during <see cref="IndexWriter.Commit()"/> </summary>
         private IDictionary<string, string> userData = Collections.EmptyMap<string, string>();
 
-        private IList<SegmentCommitInfo> segments = new JCG.List<SegmentCommitInfo>();
+        private JCG.List<SegmentCommitInfo> segments = new JCG.List<SegmentCommitInfo>();
 
         /// <summary>
         /// If non-null, information about loading segments_N files 
@@ -266,7 +267,8 @@ namespace YAF.Lucene.Net.Index
             }
             else if (fileName.StartsWith(IndexFileNames.SEGMENTS, StringComparison.Ordinal))
             {
-                return Number.Parse(fileName.Substring(1 + IndexFileNames.SEGMENTS.Length), Character.MaxRadix);
+                // LUCENENET: Optimized parse so we don't allocate a substring
+                return Long.Parse(fileName, 1 + IndexFileNames.SEGMENTS.Length, fileName.Length - (1 + IndexFileNames.SEGMENTS.Length), Character.MaxRadix);
             }
             else
             {
@@ -705,7 +707,7 @@ namespace YAF.Lucene.Net.Index
         {
             var sis = (SegmentInfos)base.MemberwiseClone();
             // deep clone, first recreate all collections:
-            sis.segments = new List<SegmentCommitInfo>(Count);
+            sis.segments = new JCG.List<SegmentCommitInfo>(Count);
             foreach (SegmentCommitInfo info in segments)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(info.Info.Codec != null);
@@ -1354,7 +1356,7 @@ namespace YAF.Lucene.Net.Index
             }
 
             // the rest of the segments in list are duplicates, so don't remove from map, only list!
-            segments.SubList(newSegIdx, segments.Count).Clear();
+            segments.RemoveRange(newSegIdx, segments.Count - newSegIdx); // LUCENENET: Converted end index to length
 
             // Either we found place to insert segment, or, we did
             // not, but only because all segments we merged becamee

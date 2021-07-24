@@ -10,7 +10,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Threading;
-using Console  = YAF.Lucene.Net.Util.SystemConsole;
+using Console = YAF.Lucene.Net.Util.SystemConsole;
+using Integer = J2N.Numerics.Int32;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -31,21 +32,21 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using BlockTreeTermsReader  = YAF.Lucene.Net.Codecs.BlockTreeTermsReader;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using Codec  = YAF.Lucene.Net.Codecs.Codec;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BlockTreeTermsReader = YAF.Lucene.Net.Codecs.BlockTreeTermsReader;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
     using Document = Documents.Document;
-    using DocValuesStatus  = YAF.Lucene.Net.Index.CheckIndex.Status.DocValuesStatus;
-    using FixedBitSet  = YAF.Lucene.Net.Util.FixedBitSet;
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using Int64BitSet  = YAF.Lucene.Net.Util.Int64BitSet;
-    using Lucene3xSegmentInfoFormat  = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
-    using PostingsFormat  = YAF.Lucene.Net.Codecs.PostingsFormat;
-    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
+    using DocValuesStatus = YAF.Lucene.Net.Index.CheckIndex.Status.DocValuesStatus;
+    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using Int64BitSet = YAF.Lucene.Net.Util.Int64BitSet;
+    using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
+    using PostingsFormat = YAF.Lucene.Net.Codecs.PostingsFormat;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// Basic tool and API to check the health of an index and
@@ -107,7 +108,7 @@ namespace YAF.Lucene.Net.Index
             /// <summary>
             /// Empty unless you passed specific segments list to check as optional 3rd argument. </summary>
             /// <seealso cref="CheckIndex.DoCheckIndex(IList{string})"/>
-            public IList<string> SegmentsChecked { get; internal set; } // LUCENENET specific - made setter internal
+            public IList<string> SegmentsChecked { get; internal set; } // LUCENENET specific - made setter internal 
 
             /// <summary>
             /// True if the index was created with a newer version of Lucene than the <see cref="CheckIndex"/> tool. </summary>
@@ -137,7 +138,7 @@ namespace YAF.Lucene.Net.Index
             public int NumBadSegments { get; internal set; } // LUCENENET specific - made setter internal
 
             /// <summary>
-            /// True if we checked only specific segments
+            /// True if we checked only specific segments 
             /// (<see cref="DoCheckIndex(IList{string})"/> was called with non-null
             /// argument).
             /// </summary>
@@ -676,13 +677,12 @@ namespace YAF.Lucene.Net.Index
                 int segmentName = 0;
                 try
                 {
-                    segmentName = int.Parse(info.Info.Name.Substring(1), CultureInfo.InvariantCulture);
+                    // LUCENENET: Optimized to not allocate a substring during the parse
+                    segmentName = Integer.Parse(info.Info.Name, 1, info.Info.Name.Length - 1, radix: 10);
                 }
                 catch
                 {
-                    segmentName = 0;
                 }
-
                 if (segmentName > result.MaxSegmentName)
                 {
                     result.MaxSegmentName = segmentName;

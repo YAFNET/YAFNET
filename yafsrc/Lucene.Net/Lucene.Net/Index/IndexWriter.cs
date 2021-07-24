@@ -34,24 +34,24 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Analyzer  = YAF.Lucene.Net.Analysis.Analyzer;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using Codec  = YAF.Lucene.Net.Codecs.Codec;
-    using CompoundFileDirectory  = YAF.Lucene.Net.Store.CompoundFileDirectory;
-    using Constants  = YAF.Lucene.Net.Util.Constants;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using FieldNumbers  = YAF.Lucene.Net.Index.FieldInfos.FieldNumbers;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using InfoStream  = YAF.Lucene.Net.Util.InfoStream;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using Lock  = YAF.Lucene.Net.Store.Lock;
-    using LockObtainFailedException  = YAF.Lucene.Net.Store.LockObtainFailedException;
-    using Lucene3xCodec  = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
-    using Lucene3xSegmentInfoFormat  = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
-    using MergeInfo  = YAF.Lucene.Net.Store.MergeInfo;
-    using Query  = YAF.Lucene.Net.Search.Query;
-    using TrackingDirectoryWrapper  = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
+    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
+    using Constants = YAF.Lucene.Net.Util.Constants;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FieldNumbers = YAF.Lucene.Net.Index.FieldInfos.FieldNumbers;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using Lock = YAF.Lucene.Net.Store.Lock;
+    using LockObtainFailedException = YAF.Lucene.Net.Store.LockObtainFailedException;
+    using Lucene3xCodec = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
+    using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
+    using MergeInfo = YAF.Lucene.Net.Store.MergeInfo;
+    using Query = YAF.Lucene.Net.Search.Query;
+    using TrackingDirectoryWrapper = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
 
     /// <summary>
     /// An <see cref="IndexWriter"/> creates and maintains an index.
@@ -349,7 +349,7 @@ namespace YAF.Lucene.Net.Index
         {
             EnsureOpen();
 
-            long tStart = Environment.TickCount;
+            long tStart = Time.NanoTime() / Time.MillisecondsPerNanosecond; // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
 
             if (infoStream.IsEnabled("IW"))
             {
@@ -425,7 +425,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 if (infoStream.IsEnabled("IW"))
                 {
-                    infoStream.Message("IW", "getReader took " + (Environment.TickCount - tStart) + " msec");
+                    infoStream.Message("IW", "getReader took " + ((Time.NanoTime() / Time.MillisecondsPerNanosecond) - tStart) + " msec"); // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
                 }
                 success2 = true;
             }
@@ -4502,7 +4502,7 @@ namespace YAF.Lucene.Net.Index
         {
             bool success = false;
 
-            long t0 = Environment.TickCount;
+            long t0 = Time.NanoTime() / Time.MillisecondsPerNanosecond; // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
 
             try
             {
@@ -4565,7 +4565,7 @@ namespace YAF.Lucene.Net.Index
             {
                 if (infoStream.IsEnabled("IW"))
                 {
-                    infoStream.Message("IW", "merge time " + (Environment.TickCount - t0) + " msec for " + merge.info.Info.DocCount + " docs");
+                    infoStream.Message("IW", "merge time " + ((Time.NanoTime() / Time.MillisecondsPerNanosecond) - t0) + " msec for " + merge.info.Info.DocCount + " docs"); // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
                 }
             }
         }

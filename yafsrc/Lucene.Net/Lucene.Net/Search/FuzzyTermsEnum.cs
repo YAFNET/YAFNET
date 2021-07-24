@@ -29,24 +29,24 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using Attribute  = YAF.Lucene.Net.Util.Attribute;
-    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
-    using Automaton  = YAF.Lucene.Net.Util.Automaton.Automaton;
-    using BasicAutomata  = YAF.Lucene.Net.Util.Automaton.BasicAutomata;
-    using BasicOperations  = YAF.Lucene.Net.Util.Automaton.BasicOperations;
-    using ByteRunAutomaton  = YAF.Lucene.Net.Util.Automaton.ByteRunAutomaton;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using CompiledAutomaton  = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
-    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
-    using FilteredTermsEnum  = YAF.Lucene.Net.Index.FilteredTermsEnum;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using LevenshteinAutomata  = YAF.Lucene.Net.Util.Automaton.LevenshteinAutomata;
-    using Term  = YAF.Lucene.Net.Index.Term;
-    using Terms  = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
-    using TermState  = YAF.Lucene.Net.Index.TermState;
-    using UnicodeUtil  = YAF.Lucene.Net.Util.UnicodeUtil;
+    using Attribute = YAF.Lucene.Net.Util.Attribute;
+    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
+    using Automaton = YAF.Lucene.Net.Util.Automaton.Automaton;
+    using BasicAutomata = YAF.Lucene.Net.Util.Automaton.BasicAutomata;
+    using BasicOperations = YAF.Lucene.Net.Util.Automaton.BasicOperations;
+    using ByteRunAutomaton = YAF.Lucene.Net.Util.Automaton.ByteRunAutomaton;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using CompiledAutomaton = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using FilteredTermsEnum = YAF.Lucene.Net.Index.FilteredTermsEnum;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using LevenshteinAutomata = YAF.Lucene.Net.Util.Automaton.LevenshteinAutomata;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using Terms = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using TermState = YAF.Lucene.Net.Index.TermState;
+    using UnicodeUtil = YAF.Lucene.Net.Util.UnicodeUtil;
 
     /// <summary>
     /// Subclass of <see cref="TermsEnum"/> for enumerating all terms that are similar
@@ -174,7 +174,7 @@ namespace YAF.Lucene.Net.Search
             {
                 //if (BlockTreeTermsWriter.DEBUG) System.out.println("FuzzyTE.getAEnum: ed=" + editDistance + " lastTerm=" + (lastTerm==null ? "null" : lastTerm.utf8ToString()));
                 CompiledAutomaton compiled = runAutomata[editDistance];
-                return new AutomatonFuzzyTermsEnum(this, m_terms.Intersect(compiled, lastTerm == null ? null : compiled.Floor(lastTerm, new BytesRef())), runAutomata.SubList(0, editDistance + 1).ToArray(/*new CompiledAutomaton[editDistance + 1]*/));
+                return new AutomatonFuzzyTermsEnum(this, m_terms.Intersect(compiled, lastTerm == null ? null : compiled.Floor(lastTerm, new BytesRef())), runAutomata.GetView(0, editDistance + 1).ToArray(/*new CompiledAutomaton[editDistance + 1]*/)); // LUCENENET: Checked count parameter of GetView()
             }
             else
             {

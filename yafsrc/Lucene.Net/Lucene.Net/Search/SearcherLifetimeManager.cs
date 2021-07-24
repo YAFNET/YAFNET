@@ -1,4 +1,4 @@
-﻿using YAF.Lucene.Net.Support;
+﻿using J2N;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -23,8 +23,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using DirectoryReader  = YAF.Lucene.Net.Index.DirectoryReader;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using DirectoryReader = YAF.Lucene.Net.Index.DirectoryReader;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Keeps track of current plus old <see cref="IndexSearcher"/>s, disposing
@@ -291,7 +291,7 @@ namespace YAF.Lucene.Net.Search
                     // recordTime, etc:
                     if (pruner.DoPrune(ageSec, tracker.Searcher))
                     {
-                        //System.out.println("PRUNE version=" + tracker.version + " age=" + ageSec + " ms=" + System.currentTimeMillis());
+                        //System.out.println("PRUNE version=" + tracker.version + " age=" + ageSec + " ms=" + Time.CurrentTimeMilliseconds());
                         Lazy<SearcherTracker> _;
                         _searchers.TryRemove(tracker.Version, out _);
                         tracker.Dispose();

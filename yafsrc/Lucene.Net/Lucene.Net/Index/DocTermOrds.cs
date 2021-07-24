@@ -23,13 +23,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using PagedBytes  = YAF.Lucene.Net.Util.PagedBytes;
-    using PostingsFormat  = YAF.Lucene.Net.Codecs.PostingsFormat; // javadocs
-    using SeekStatus  = YAF.Lucene.Net.Index.TermsEnum.SeekStatus;
-    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
+    using PostingsFormat = YAF.Lucene.Net.Codecs.PostingsFormat; // javadocs
+    using SeekStatus = YAF.Lucene.Net.Index.TermsEnum.SeekStatus;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// This class enables fast access to multiple term ords for
@@ -334,7 +334,7 @@ namespace YAF.Lucene.Net.Index
                 throw IllegalStateException.Create("Type mismatch: " + m_field + " was indexed as " + info.DocValuesType);
             }
             //System.out.println("DTO uninvert field=" + field + " prefix=" + termPrefix);
-            long startTime = Environment.TickCount;
+            long startTime = J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond; // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
             m_prefix = termPrefix == null ? null : BytesRef.DeepCopyOf(termPrefix);
 
             int maxDoc = reader.MaxDoc;
@@ -555,7 +555,7 @@ namespace YAF.Lucene.Net.Index
 
             m_numTermsInField = termNum;
 
-            long midPoint = Environment.TickCount;
+            long midPoint = J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond; // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
 
             if (m_termInstances == 0)
             {
@@ -665,7 +665,7 @@ namespace YAF.Lucene.Net.Index
                 indexedTerms.CopyTo(m_indexedTermsArray, 0);
             }
 
-            long endTime = Environment.TickCount;
+            long endTime = J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond; // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
 
             m_total_time = (int)(endTime - startTime);
             m_phase1_time = (int)(midPoint - startTime);

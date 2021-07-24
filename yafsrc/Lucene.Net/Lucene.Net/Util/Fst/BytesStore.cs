@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Runtime.CompilerServices;
 using JCG = J2N.Collections.Generic;
@@ -22,8 +22,8 @@ namespace YAF.Lucene.Net.Util.Fst
      * limitations under the License.
      */
 
-    using DataInput  = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
 
     // TODO: merge with PagedBytes, except PagedBytes doesn't
     // let you read while writing which FST needs
@@ -371,7 +371,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 blockIndex--;
                 nextWrite = blockSize;
             }
-            blocks.RemoveRange(blockIndex + 1, blocks.Count - (blockIndex + 1));
+            blocks.RemoveRange(blockIndex + 1, blocks.Count - (blockIndex + 1)); // LUCENENET: Converted end index to length
             if (newLen == 0)
             {
                 current = null;

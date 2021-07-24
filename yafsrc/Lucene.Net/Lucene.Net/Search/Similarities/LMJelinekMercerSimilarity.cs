@@ -1,6 +1,6 @@
-using YAF.Lucene.Net.Support;
-using System;
+﻿using System;
 using System.Globalization;
+using Float = J2N.Numerics.Single;
 
 namespace YAF.Lucene.Net.Search.Similarities
 {
@@ -75,7 +75,8 @@ namespace YAF.Lucene.Net.Search.Similarities
 
         public override string GetName()
         {
-            return "Jelinek-Mercer(" + Number.ToString(Lambda) + ")";
+            // LUCENENET: Intentionally using current culture
+            return "Jelinek-Mercer(" + Float.ToString(Lambda) + ")";
         }
     }
 }

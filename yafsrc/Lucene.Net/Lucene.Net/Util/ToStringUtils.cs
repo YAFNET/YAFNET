@@ -1,6 +1,7 @@
 ﻿using J2N.Numerics;
 using System.Globalization;
 using System.Text;
+using Float = J2N.Numerics.Single;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -34,7 +35,7 @@ namespace YAF.Lucene.Net.Util
             if (boost != 1.0f)
             {
                 // .NET compatibility fix
-                return "^" + boost.ToString("0.0######", CultureInfo.InvariantCulture);
+                return "^" + Float.ToString(boost, CultureInfo.InvariantCulture);
             }
             else
                 return "";

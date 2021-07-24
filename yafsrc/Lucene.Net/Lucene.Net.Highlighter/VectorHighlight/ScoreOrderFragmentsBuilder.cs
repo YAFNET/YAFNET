@@ -1,6 +1,6 @@
 ﻿using YAF.Lucene.Net.Util;
 using System.Collections.Generic;
-using WeightedFragInfo  = YAF.Lucene.Net.Search.VectorHighlight.FieldFragList.WeightedFragInfo;
+using WeightedFragInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldFragList.WeightedFragInfo;
 
 namespace YAF.Lucene.Net.Search.VectorHighlight
 {
@@ -59,7 +59,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
         /// </summary>
         public override IList<WeightedFragInfo> GetWeightedFragInfoList(IList<WeightedFragInfo> src)
         {
-            CollectionUtil.TimSort(src, new ScoreComparer());
+            CollectionUtil.TimSort(src, ScoreComparer.Default);
             return src;
         }
 
@@ -69,6 +69,13 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
         /// </summary>
         public class ScoreComparer : IComparer<WeightedFragInfo>
         {
+            private ScoreComparer() { } // Singleton only
+
+            /// <summary>
+            /// Returns a default score comparer.
+            /// </summary>
+            public static IComparer<WeightedFragInfo> Default { get; } = new ScoreComparer(); // LUCENENET specific: use singleton pattern
+
             public virtual int Compare(WeightedFragInfo o1, WeightedFragInfo o2)
             {
                 if (o1.TotalBoost > o2.TotalBoost) return -1;

@@ -4,7 +4,7 @@ using YAF.Lucene.Net.QueryParsers.Flexible.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Resources;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
 {
@@ -41,13 +41,13 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
 
         private Dictionary<string, object> tags = new Dictionary<string, object>();
 
-        private List<IQueryNode> clauses = null;
+        private JCG.List<IQueryNode> clauses = null;
 
         protected virtual void Allocate()
         {
             if (this.clauses == null)
             {
-                this.clauses = new List<IQueryNode>();
+                this.clauses = new JCG.List<IQueryNode>();
             }
             else
             {
@@ -129,7 +129,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
             // copy children
             if (this.clauses != null)
             {
-                List<IQueryNode> localClauses = new List<IQueryNode>();
+                JCG.List<IQueryNode> localClauses = new JCG.List<IQueryNode>();
                 foreach (IQueryNode clause in this.clauses)
                 {
                     localClauses.Add(clause.CloneTree());
@@ -155,7 +155,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
             {
                 return null;
             }
-            return new List<IQueryNode>(this.clauses);
+            return new JCG.List<IQueryNode>(this.clauses);
         }
 
         public virtual void SetTag(string tagName, object value)
@@ -181,7 +181,11 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
             return this.tags[CultureInfo.InvariantCulture.TextInfo.ToLower(tagName)];
         }
 
-        // LUCENENET TODO: API - Create TryGetTag method to combine the above 2 operations
+        /// <inheritdoc/>
+        public virtual bool TryGetTag(string tagName, out object tag)
+        {
+            return this.tags.TryGetValue(tagName, out tag);
+        }
 
         private IQueryNode parent = null;
 
@@ -240,23 +244,24 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
         /// </summary>
         public virtual IDictionary<string, object> TagMap => new Dictionary<string, object>(this.tags);
 
+        // LUCENENET NOTE: There was a bug in 4.8.1 here because parent.GetChildren() returns a copy of the
+        // children, so removing items from it is pointless. We therefore diverge to the version 8.8.1 source of Lucene
+        // from this point. Not sure when this patch was applied.
+
+        public virtual void RemoveChildren(IQueryNode childNode)
+        {
+            // LUCENENET: Use RemoveAll() method for optimal performance.
+            clauses.RemoveAll((value) => value == childNode);
+            childNode.RemoveFromParent();
+        }
+
         public virtual void RemoveFromParent()
         {
             if (this.parent != null)
             {
-                IList<IQueryNode> parentChildren = this.parent.GetChildren();
-
-                // LUCENENET NOTE: Loop in reverse so we can remove items
-                // without screwing up our iterator.
-                for (int i = parentChildren.Count - 1; i >= 0; i--)
-                {
-                    if (parentChildren[i] == this)
-                    {
-                        parentChildren.RemoveAt(i);
-                    }
-                }
-
+                IQueryNode parent = this.parent;
                 this.parent = null;
+                parent.RemoveChildren(this);
             }
         }
 

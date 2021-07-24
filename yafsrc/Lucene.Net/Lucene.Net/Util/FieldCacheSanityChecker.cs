@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
 
     /// <summary>
     /// <para>
@@ -296,7 +296,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         private static IList<object> GetAllDescendantReaderKeys(object seed) // LUCENENET: CA1822: Mark members as static
         {
-            var all = new List<object>(17) {seed}; // will grow as we iter
+            var all = new JCG.List<object>(17) { seed }; // will grow as we iter
             for (var i = 0; i < all.Count; i++)
             {
                 var obj = all[i];
@@ -322,7 +322,7 @@ namespace YAF.Lucene.Net.Util
                 }
             }
             // need to skip the first, because it was the seed
-            return all.GetRange(1, all.Count - 1);
+            return all.GetView(1, all.Count - 1); // LUCENENET: Converted end index to length
         }
 
         /// <summary>

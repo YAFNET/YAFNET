@@ -25,9 +25,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using CollectionUtil  = YAF.Lucene.Net.Util.CollectionUtil;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using InfoStream  = YAF.Lucene.Net.Util.InfoStream;
+    using CollectionUtil = YAF.Lucene.Net.Util.CollectionUtil;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
 
     /// <summary>
     /// This class keeps track of each SegmentInfos instance that
@@ -501,7 +501,7 @@ namespace YAF.Lucene.Net.Index
             long t0 = 0;
             if (infoStream.IsEnabled("IFD"))
             {
-                t0 = Time.NanoTime();
+                t0 = J2N.Time.NanoTime();
                 infoStream.Message("IFD", "now checkpoint \"" + writer.SegString(writer.ToLiveInfos(segmentInfos).Segments) + "\" [" + segmentInfos.Count + " segments " + "; isCommit = " + isCommit + "]");
             }
 
@@ -534,7 +534,7 @@ namespace YAF.Lucene.Net.Index
             }
             if (infoStream.IsEnabled("IFD"))
             {
-                long t1 = Time.NanoTime();
+                long t1 = J2N.Time.NanoTime();
                 infoStream.Message("IFD", ((t1 - t0) / 1000000) + " msec to checkpoint");
             }
         }
