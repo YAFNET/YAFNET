@@ -680,7 +680,7 @@ namespace YAF.Core.BBCode
                         new Regex(
                             @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://)(www.)?youtube\.com\/watch\?v=(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)",
                             RegexOptions.Multiline | RegexOptions.Compiled),
-                        "${before}<div data-oembed-url=\"//youtube.com/embed/${id}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
+                        "${before}<div data-oembed-url=\"//youtube.com/embed/${videoId}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
                         new[]
                         {
                             "before", "videoId"
@@ -695,7 +695,7 @@ namespace YAF.Core.BBCode
                         new Regex(
                             @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://)youtu\.be\/(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)",
                             RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
-                        "${before}<div data-oembed-url=\"//youtube.com/embed/${id}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
+                        "${before}<div data-oembed-url=\"//youtube.com/embed/${videoId}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
                         new[]
                         {
                             "before", "videoId"
