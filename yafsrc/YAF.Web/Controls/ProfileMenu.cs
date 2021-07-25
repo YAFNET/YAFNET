@@ -31,6 +31,7 @@ namespace YAF.Web.Controls
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -82,7 +83,7 @@ namespace YAF.Web.Controls
                 ForumPages.UserProfile,
                 this.GetText("VIEW_PROFILE"),
                 "user",
-                $"u={this.PageContext.PageUserID}&name={this.PageContext.MembershipUser.UserName}");
+                $"u={this.PageContext.PageUserID}&name={this.PageContext.User.DisplayOrUserName()}");
 
             htmlDropDown.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("PERSONAL_PROFILE"));
 
