@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -138,17 +138,6 @@ namespace YAF.Controls
                 return;
             }
 
-            this.user =
-                this.PageContext.CurrentForumPage.IsAdminPage ||
-                this.PageContext.ForumPageType == ForumPages.UserProfile
-                    ? this.GetRepository<User>().GetById(this.CurrentUserID)
-                    : this.PageContext.User;
-
-            this.signatureEditor.Text = this.user.Signature;
-
-            this.signaturePreview.Signature = this.signatureEditor.Text;
-            this.signaturePreview.DisplayUserID = this.CurrentUserID;
-
             var data = this.GetRepository<User>().SignatureData(this.CurrentUserID, this.PageContext.PageBoardID);
 
             if (data == null)
@@ -159,6 +148,28 @@ namespace YAF.Controls
             this.allowedBbcodes = (string)data.UsrSigBBCodes.Trim().Trim(',').Trim();
 
             this.allowedNumberOfCharacters = (int)data.UsrSigChars;
+
+            this.signatureEditor = new CKEditorBBCodeEditorBasic
+            {
+                UserCanUpload = false,
+                MaxCharacters = this.allowedNumberOfCharacters
+            };
+
+            this.EditorLine.Controls.Add(this.signatureEditor);
+
+            this.signaturePreview = new SignaturePreview();
+            this.PreviewLine.Controls.Add(this.signaturePreview);
+
+            this.user =
+                this.PageContext.CurrentForumPage.IsAdminPage ||
+                this.PageContext.ForumPageType == ForumPages.UserProfile
+                    ? this.GetRepository<User>().GetById(this.CurrentUserID)
+                    : this.PageContext.User;
+
+            this.signatureEditor.Text = this.user.Signature;
+
+            this.signaturePreview.Signature = this.signatureEditor.Text;
+            this.signaturePreview.DisplayUserID = this.CurrentUserID;
         }
 
         /// <summary>
@@ -167,17 +178,6 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            // Quick Reply Modification Begin
-            this.signatureEditor = new CKEditorBBCodeEditorBasic
-            {
-                UserCanUpload = false, MaxCharacters = this.allowedNumberOfCharacters
-            };
-
-            this.EditorLine.Controls.Add(this.signatureEditor);
-
-            this.signaturePreview = new SignaturePreview();
-            this.PreviewLine.Controls.Add(this.signaturePreview);
-
             this.save.Click += this.Save_Click;
             this.preview.Click += this.Preview_Click;
             this.cancel.Click += this.Cancel_Click;

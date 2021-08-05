@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,6 +26,7 @@ namespace YAF.Web.Editors
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -80,13 +81,20 @@ namespace YAF.Web.Editors
                 toolbar = toolbar.Replace(", \"albumsbrowser\"", string.Empty);
             }
 
+            var language = BoardContext.Current.User.Culture.IsSet()
+                ? BoardContext.Current.User.Culture.Substring(0, 2)
+                : this.PageContext.BoardSettings.Culture.Substring(0, 2);
+
+            if (ValidationHelper.IsNumeric(language))
+            {
+                language = this.PageContext.BoardSettings.Culture; //.Substring(0, 2);
+            }
+
             BoardContext.Current.PageElements.RegisterJsBlock(
                 "ckeditorinitbbcode",
                 JavaScriptBlocks.CKEditorLoadJs(
                     this.TextAreaControl.ClientID,
-                    BoardContext.Current.User.Culture.IsSet()
-                        ? BoardContext.Current.User.Culture.Substring(0, 2)
-                        : this.PageContext.BoardSettings.Culture.Substring(0, 2),
+                    language,
                     this.MaxCharacters,
                     this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"),
                     BoardInfo.GetURLToContent("forum.min.css"),

@@ -249,6 +249,7 @@
                         </YAF:ThemeButton>
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton ID="NewGroup" runat="server"
+                                         Visible="<%# !YAF.Configuration.Config.IsDotNetNuke %>"
                                          OnClick="NewGroupClick"
                                          Type="None"
                                          CssClass="dropdown-item"
@@ -267,6 +268,7 @@
             <div class="card-footer text-center">
                     <YAF:ThemeButton ID="NewGroup" runat="server"
                                      OnClick="NewGroupClick"
+                                     Visible="<%# !YAF.Configuration.Config.IsDotNetNuke %>"
                                      Type="Primary"
                                      Icon="plus-square"
                                      TextLocalizedTag="NEW_ROLE">

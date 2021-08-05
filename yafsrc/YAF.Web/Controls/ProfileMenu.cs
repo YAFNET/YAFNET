@@ -93,7 +93,7 @@ namespace YAF.Web.Controls
                 ForumPages.UserProfile,
                 this.GetText("VIEW_PROFILE"),
                 "user",
-                $"u={this.PageContext.PageUserID}&name={this.PageContext.MembershipUser.UserName}");
+                $"u={this.PageContext.PageUserID}&name={this.PageContext.User.DisplayOrUserName()}");
 
             if (!Config.IsDotNetNuke)
             {

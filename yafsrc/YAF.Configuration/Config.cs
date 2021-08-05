@@ -32,6 +32,7 @@ namespace YAF.Configuration
     using System.Web;
     using System.Web.Configuration;
     using System.Web.Security;
+
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
