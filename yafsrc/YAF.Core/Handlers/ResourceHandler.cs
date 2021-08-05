@@ -31,7 +31,9 @@ namespace YAF.Core.Handlers
     using System.Web;
     using System.Web.SessionState;
 
+    using YAF.Configuration;
     using YAF.Core.Context;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -69,7 +71,7 @@ namespace YAF.Core.Handlers
         /// </param>
         public void ProcessRequest([NotNull] HttpContext context)
         {
-            if (this.Get<ISession>().LastVisit.HasValue)
+            if (this.Get<ISession>().LastVisit.HasValue && Security.CheckRequestValidity(context.Request))
             {
                 // defaults
                 var previewCropped = false;
@@ -126,7 +128,8 @@ namespace YAF.Core.Handlers
                 }
                 else if (context.Request.QueryString.Exists("p"))
                 {
-                    var etagCodeCode = $@"""{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}""";
+                    var etagCodeCode =
+                        $@"""{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}""";
 
                     if (!CheckETagCode(context, etagCodeCode))
                     {
@@ -138,10 +141,10 @@ namespace YAF.Core.Handlers
                     // captcha
                     this.Get<IResources>().GetResponseCaptcha(context);
                 }
-                else if (context.Request.QueryString.Exists("cover")
-                         && context.Request.QueryString.Exists("album"))
+                else if (context.Request.QueryString.Exists("cover") && context.Request.QueryString.Exists("album"))
                 {
-                    var etagCode = $@"""{context.Request.QueryString.GetFirstOrDefault("cover")}{localizationFile.GetHashCode()}""";
+                    var etagCode =
+                        $@"""{context.Request.QueryString.GetFirstOrDefault("cover")}{localizationFile.GetHashCode()}""";
 
                     if (!CheckETagCode(context, etagCode))
                     {

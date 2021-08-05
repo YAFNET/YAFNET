@@ -26,7 +26,10 @@ namespace YAF.Core.Utilities
 {
     using System.Web;
 
+    using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
     /// <summary>
     /// The security.
@@ -44,7 +47,12 @@ namespace YAF.Core.Utilities
         /// </returns>
         public static bool CheckRequestValidity(HttpRequest request)
         {
-            return request.UrlReferrer == null || !request.Url.Host.IsSet() ||
+            if (!BoardContext.Current.Get<BoardSettings>().DoUrlReferrerSecurityCheck)
+            {
+                return true;
+            }
+
+            return request.UrlReferrer != null || request.Url.Host.IsSet() ||
                    request.UrlReferrer.Host == request.Url.Host;
         }
     }
