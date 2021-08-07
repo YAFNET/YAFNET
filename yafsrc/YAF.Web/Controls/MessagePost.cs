@@ -31,8 +31,8 @@ namespace YAF.Web.Controls
     using System.Web.UI;
 
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Services;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -63,7 +63,7 @@ namespace YAF.Web.Controls
         /// </summary>
         public virtual int? MessageID
         {
-            get => this.ViewState["MessageID"]?.ToType<int>();
+            get => this.ViewState["MessageID"] != null ? this.ViewState["MessageID"].ToType<int?>() : 0;
 
             set => this.ViewState["MessageID"] = value;
         }

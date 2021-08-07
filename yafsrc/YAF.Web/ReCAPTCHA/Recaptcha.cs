@@ -32,7 +32,7 @@ namespace YAF.Web.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Core.Context;
-    using YAF.Core.Utilities.Helpers;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Web.ReCAPTCHA;

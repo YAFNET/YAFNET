@@ -34,7 +34,7 @@ namespace YAF.Web.Controls
 
     using YAF.Core.BaseControls;
     using YAF.Core.BBCode;
-    using YAF.Core.Utilities.Helpers;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;

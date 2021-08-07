@@ -25,8 +25,8 @@ namespace YAF.Web.Editors
 {
     using YAF.Configuration;
     using YAF.Core.Context;
+    using YAF.Core.Helpers;
     using YAF.Core.Utilities;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

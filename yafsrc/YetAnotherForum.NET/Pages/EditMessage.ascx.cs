@@ -38,7 +38,6 @@ namespace YAF.Pages
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Core.Utilities;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -609,7 +608,7 @@ namespace YAF.Pages
                 IsBBCode = this.forumEditor.UsesBBCode
             };
 
-            this.PreviewMessagePost.MessageID = 0;
+            this.PreviewMessagePost.MessageID = this.EditMessageId;
 
             this.PreviewMessagePost.Message = this.forumEditor.Text;
         }
@@ -626,7 +625,7 @@ namespace YAF.Pages
         /// <returns>
         /// Returns if user can edit post check.
         /// </returns>
-        private bool CanEditPostCheck([NotNull] Message message, Topic topicInfo)
+        private bool CanEditPostCheck([NotNull] Message message, [NotNull] Topic topicInfo)
         {
             var postLocked = false;
 
