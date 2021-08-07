@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -34,10 +34,8 @@ namespace YAF.Core.Utilities.Helpers
     using System.Net.Sockets;
     using System.Web;
 
-    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
 
     #endregion
 

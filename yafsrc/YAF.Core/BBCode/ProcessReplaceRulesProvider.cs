@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -77,9 +77,9 @@ namespace YAF.Core.BBCode
     /// The unique Flags.
     /// </param>
     public ProcessReplaceRulesProvider(
-      [NotNull] IObjectStore objectStore, 
-      [NotNull] IServiceLocator serviceLocator, 
-      [NotNull] IInjectServices injectServices, 
+      [NotNull] IObjectStore objectStore,
+      [NotNull] IServiceLocator serviceLocator,
+      [NotNull] IInjectServices injectServices,
       [NotNull] IEnumerable<bool> uniqueFlags)
     {
       this.ServiceLocator = serviceLocator;
@@ -95,23 +95,18 @@ namespace YAF.Core.BBCode
     /// <summary>
     ///   Gets the Instance of this provider.
     /// </summary>
-    public IProcessReplaceRules Instance
-    {
-      get
-      {
-        return this.objectStore.GetOrSet(
-          string.Format(Constants.Cache.ReplaceRules, this.uniqueFlags.ToIntOfBits()), 
-          () =>
+    public IProcessReplaceRules Instance =>
+        this.objectStore.GetOrSet(
+            string.Format(Constants.Cache.ReplaceRules, this.uniqueFlags.ToIntOfBits()),
+            () =>
             {
-              var processRules = new ProcessReplaceRules();
+                var processRules = new ProcessReplaceRules();
 
-              // inject
-              this.injectServices.Inject(processRules);
+                // inject
+                this.injectServices.Inject(processRules);
 
-              return processRules;
+                return processRules;
             });
-      }
-    }
 
     /// <summary>
     ///   Gets or sets ServiceLocator.

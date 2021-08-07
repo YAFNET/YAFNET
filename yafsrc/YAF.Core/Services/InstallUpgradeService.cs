@@ -173,25 +173,37 @@ namespace YAF.Core.Services
             [NotNull] Guid applicationId,
             [NotNull] string forumName,
             [NotNull] string culture,
-            [NotNull] string forumEmail,
+            [CanBeNull] string forumEmail,
             [NotNull] string forumLogo,
             [NotNull] string forumBaseUrlMask,
             [NotNull] string adminUserName,
             [NotNull] string adminEmail,
             [NotNull] string adminProviderUserKey)
         {
-            var cult = StaticDataHelper.Cultures();
-            var langFile = "english.xml";
+            CodeContracts.VerifyNotNull(forumName);
+            CodeContracts.VerifyNotNull(forumName);
+            CodeContracts.VerifyNotNull(culture);
+            CodeContracts.VerifyNotNull(forumLogo);
+            CodeContracts.VerifyNotNull(forumBaseUrlMask);
+            CodeContracts.VerifyNotNull(adminUserName);
+            CodeContracts.VerifyNotNull(adminEmail);
+            CodeContracts.VerifyNotNull(adminProviderUserKey);
 
-            cult.Where(c => c.CultureTag == culture)
-                .ForEach(c => langFile = c.CultureFile);
+            var cult = StaticDataHelper.Cultures();
+
+            var languageFromCulture = cult
+                .FirstOrDefault(c => c.CultureTag == culture);
+
+            var langFile = languageFromCulture != null ? languageFromCulture.CultureFile : "english.xml";
 
             // -- initialize required 'registry' settings
             this.GetRepository<Registry>().Save("applicationid", applicationId.ToString());
-            this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
-            this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
 
-            this.GetRepository<Registry>().Save("forumemail", forumEmail);
+            if (forumEmail.IsSet())
+            {
+                this.GetRepository<Registry>().Save("forumemail", forumEmail);
+            }
+
             this.GetRepository<Registry>().Save("forumlogo", forumLogo);
             this.GetRepository<Registry>().Save("baseurlmask", forumBaseUrlMask);
 
@@ -252,12 +264,18 @@ namespace YAF.Core.Services
             {
                 if (prevVersion < 80)
                 {
-                    this.MigrateConfig();
+                    if (!Config.IsDotNetNuke)
+                    {
+                        this.MigrateConfig();
+                    }
 
                     this.Get<V80_Migration>().MigrateDatabase(this.DbAccess);
 
                     // Upgrade to ASPNET Identity
-                    this.DbAccess.Information.IdentityUpgradeScripts.ForEach(this.ExecuteScript);
+                    if (!Config.IsDotNetNuke)
+                    {
+                        this.DbAccess.Information.IdentityUpgradeScripts.ForEach(this.ExecuteScript);
+                    }
 
                     this.Get<ITaskModuleManager>().StartTask(MigrateAttachmentsTask.TaskName, () => new MigrateAttachmentsTask());
 
@@ -301,12 +319,6 @@ namespace YAF.Core.Services
                 this.Get<IDataCache>().Remove(Constants.Cache.Version);
             }
 
-            if (Config.IsDotNetNuke)
-            {
-                // run dnn custom script...
-                this.ExecuteScript("custom/dnn.sql");
-            }
-
             return true;
         }
 
@@ -319,14 +331,15 @@ namespace YAF.Core.Services
         /// </summary>
         private void ExecuteInstallScripts()
         {
-            // Install Membership Scripts
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUsers>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetRoles>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserClaims>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserLogins>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserRoles>());
-
-            //////
+            if (!Config.IsDotNetNuke)
+            {
+                // Install Membership Scripts
+                this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUsers>());
+                this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetRoles>());
+                this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserClaims>());
+                this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserLogins>());
+                this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserRoles>());
+            }
 
             // Run other
             this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateViews(this.DbAccess, dbCommand));

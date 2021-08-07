@@ -381,7 +381,7 @@ namespace YAF.Core.Nntp
                             values[3].Substring(i + 1, values[3].Length - 7 - i),
                             out var offTz),
                         TimeZoneOffset = offTz,
-                        ReferenceIds = values[5].Trim().Length == 0 ? new string[0] : values[5].Split(' '),
+                        ReferenceIds = values[5].Trim().Length == 0 ? Array.Empty<string>() : values[5].Split(' '),
                         LineCount = values.Length < 8 || values[7].Trim() == string.Empty ? 0 : int.Parse(values[7])
                     };
 
@@ -665,7 +665,7 @@ namespace YAF.Core.Nntp
             string response;
             var header = new ArticleHeader();
             string name = null;
-            header.ReferenceIds = new string[0];
+            header.ReferenceIds = Array.Empty<string>();
             part = null;
             while ((response = this.sr.ReadLine()) != null && response != string.Empty)
             {
@@ -714,12 +714,13 @@ namespace YAF.Core.Nntp
                         header.LineCount = int.Parse(value);
                         break;
                     case "MIME-VERSION":
-                        part = new MIMEPart();
-                        part.ContentType = "TEXT/PLAIN";
-                        part.Charset = "US-ASCII";
-                        part.ContentTransferEncoding = "7BIT";
-                        part.Filename = null;
-                        part.Boundary = null;
+                        part = new MIMEPart {
+                            ContentType = "TEXT/PLAIN",
+                            Charset = "US-ASCII",
+                            ContentTransferEncoding = "7BIT",
+                            Filename = null,
+                            Boundary = null
+                        };
                         break;
                     case "CONTENT-TYPE":
                         if (part != null)

@@ -77,8 +77,8 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static int FastIndexOf([NotNull] this string source, [NotNull] string pattern)
         {
-            CodeContracts.VerifyNotNull(source, "source");
-            CodeContracts.VerifyNotNull(pattern, "pattern");
+            CodeContracts.VerifyNotNull(source);
+            CodeContracts.VerifyNotNull(pattern);
 
             switch (pattern.Length)
             {
@@ -143,8 +143,8 @@ namespace YAF.Types.Extensions
         /// <param name="forEachAction">For each action.</param>
         public static void ForEachChar([NotNull] this string input, [NotNull] Action<char> forEachAction)
         {
-            CodeContracts.VerifyNotNull(input, "input");
-            CodeContracts.VerifyNotNull(forEachAction, "forEachAction");
+            CodeContracts.VerifyNotNull(input);
+            CodeContracts.VerifyNotNull(forEachAction);
 
             input.ForEach(forEachAction);
         }
@@ -188,12 +188,12 @@ namespace YAF.Types.Extensions
         /// <paramref name="inputList"/> is <c>null</c>.
         /// </exception>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// Returns the Cleaned List
         /// </returns>
         [NotNull]
         public static List<string> GetNewNoEmptyStrings([NotNull] this IEnumerable<string> inputList)
         {
-            CodeContracts.VerifyNotNull(inputList, "inputList");
+            CodeContracts.VerifyNotNull(inputList);
 
             return inputList.Where(x => x.IsSet()).ToList();
         }
@@ -213,7 +213,7 @@ namespace YAF.Types.Extensions
         [NotNull]
         public static List<string> GetNewNoSmallStrings([NotNull] this IEnumerable<string> inputList, int minSize)
         {
-            CodeContracts.VerifyNotNull(inputList, "inputList");
+            CodeContracts.VerifyNotNull(inputList);
 
             return inputList.Where(x => x.Length >= minSize).ToList();
         }
@@ -350,8 +350,8 @@ namespace YAF.Types.Extensions
             char delimiter,
             [NotNull] List<string> exclude)
         {
-            CodeContracts.VerifyNotNull(str, "str");
-            CodeContracts.VerifyNotNull(exclude, "exclude");
+            CodeContracts.VerifyNotNull(str);
+            CodeContracts.VerifyNotNull(exclude);
 
             var list = str.Split(delimiter).ToList();
 
@@ -409,7 +409,7 @@ namespace YAF.Types.Extensions
         [NotNull]
         public static string ToRegExString([NotNull] this string input)
         {
-            CodeContracts.VerifyNotNull(input, "input");
+            CodeContracts.VerifyNotNull(input);
 
             var sb = new StringBuilder();
 
@@ -465,7 +465,7 @@ namespace YAF.Types.Extensions
             int inputLimit,
             [NotNull] string cutOfString = "...")
         {
-            CodeContracts.VerifyNotNull(cutOfString, "cutOfString");
+            CodeContracts.VerifyNotNull(cutOfString);
 
             var output = input;
 
@@ -536,8 +536,8 @@ namespace YAF.Types.Extensions
             }
 
             // figure out how much to make it fit...
-            var left = limit / 2 - Middle.Length / 2;
-            var right = limit - left - Middle.Length / 2;
+            var left = (limit / 2 - Middle.Length) / 2;
+            var right = (limit - left - Middle.Length) / 2;
 
             if (left + right + Middle.Length < limit)
             {
@@ -600,6 +600,24 @@ namespace YAF.Types.Extensions
             };
 
             return lettersDictionary.Aggregate(persianString, (current, item) => current.Replace(item.Key, item.Value));
+        }
+
+        /// <summary>
+        /// Converts a String Number to GUID.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Guid"/>.
+        /// </returns>
+        public static Guid ToGuid([NotNull] this string value)
+        {
+            CodeContracts.VerifyNotNull(value);
+
+            byte[] bytes = new byte[16];
+            BitConverter.GetBytes(value.ToType<int>()).CopyTo(bytes, 0);
+            return new Guid(bytes);
         }
 
         #endregion

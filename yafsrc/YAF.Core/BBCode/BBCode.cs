@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -100,21 +100,16 @@ namespace YAF.Core.BBCode
         /// <summary>
         /// Gets CustomBBCode.
         /// </summary>
-        protected IDictionary<Types.Models.BBCode, Regex> CustomBBCode
-        {
-            get
-            {
-                return this.Get<IObjectStore>().GetOrSet(
-                    "CustomBBCodeRegExDictionary",
-                    () =>
-                        {
-                            var bbcodeTable = this.GetCustomBBCode();
-                            return bbcodeTable
-                                .Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
-                                .ToDictionary(codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
-                        });
-            }
-        }
+        protected IDictionary<Types.Models.BBCode, Regex> CustomBBCode =>
+            this.Get<IObjectStore>().GetOrSet(
+                "CustomBBCodeRegExDictionary",
+                () =>
+                {
+                    var bbcodeTable = this.GetCustomBBCode();
+                    return bbcodeTable
+                        .Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
+                        .ToDictionary(codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
+                });
 
         #region Implemented Interfaces
 

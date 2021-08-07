@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -55,46 +55,26 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets SettingsString.
         /// </summary>
-        public Dictionary<string, PropertyInfo> SettingsString
-        {
-            get
-            {
-                return this.settings.Where(x => x.PropertyType == typeof(string)).ToDictionary(x => x.Name, x => x);
-            }
-        }
+        public Dictionary<string, PropertyInfo> SettingsString =>
+            this.settings.Where(x => x.PropertyType == typeof(string)).ToDictionary(x => x.Name, x => x);
 
         /// <summary>
-        /// Gets SettingsBool.
+        /// Gets Boolean Settings.
         /// </summary>
-        public Dictionary<string, PropertyInfo> SettingsBool
-        {
-            get
-            {
-                return this.settings.Where(x => x.PropertyType == typeof(bool)).ToDictionary(x => x.Name, x => x);
-            }
-        }
+        public Dictionary<string, PropertyInfo> SettingsBool =>
+            this.settings.Where(x => x.PropertyType == typeof(bool)).ToDictionary(x => x.Name, x => x);
 
         /// <summary>
-        /// Gets SettingsInt.
+        /// Gets Integer Settings.
         /// </summary>
-        public Dictionary<string, PropertyInfo> SettingsInt
-        {
-            get
-            {
-                return this.settings.Where(x => x.PropertyType == typeof(int)).ToDictionary(x => x.Name, x => x);
-            }
-        }
+        public Dictionary<string, PropertyInfo> SettingsInt =>
+            this.settings.Where(x => x.PropertyType == typeof(int)).ToDictionary(x => x.Name, x => x);
 
         /// <summary>
         /// Gets SettingsDouble.
         /// </summary>
-        public Dictionary<string, PropertyInfo> SettingsDouble
-        {
-            get
-            {
-                return this.settings.Where(x => x.PropertyType == typeof(double)).ToDictionary(x => x.Name, x => x);
-            }
-        }
+        public Dictionary<string, PropertyInfo> SettingsDouble =>
+            this.settings.Where(x => x.PropertyType == typeof(double)).ToDictionary(x => x.Name, x => x);
 
         /// <summary>
         /// Gets SettingsOther.

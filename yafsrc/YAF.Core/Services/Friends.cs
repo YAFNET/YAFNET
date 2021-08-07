@@ -224,7 +224,7 @@ namespace YAF.Core.Services
             // Filter
             if (approved)
             {
-                if (userBuddyList.Any(x => x.UserID == buddyUserId && x.Approved == true))
+                if (userBuddyList.Any(x => x.UserID == buddyUserId && x.Approved))
                 {
                     return true;
                 }

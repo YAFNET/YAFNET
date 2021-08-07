@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -29,7 +29,6 @@ namespace YAF.Web.BBCodes
     using YAF.Core.BBCode;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.Utilities;
     using YAF.Core.Utilities.Helpers;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -143,7 +142,7 @@ namespace YAF.Web.BBCodes
 
                 writer.Write(
                     @"<i class=""fa fa-file fa-fw""></i>&nbsp;
-                         <a href=""{0}resource.ashx?a={1}&b={4}"">{2}</a> 
+                         <a href=""{0}resource.ashx?a={1}&b={4}"">{2}</a>
                          <span>{3}</span>",
                     BoardInfo.ForumClientFileRoot,
                     attachment.ID,

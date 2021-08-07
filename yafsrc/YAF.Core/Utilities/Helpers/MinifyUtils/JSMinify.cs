@@ -1,8 +1,8 @@
-/*
+﻿/*
  * This code is an extender of JSMin project
- * http://www.crockford.com/javascript/jsmin.html 
+ * http://www.crockford.com/javascript/jsmin.html
  * Please give credit to Douglas Crockford
- * 
+ *
  * Haiyan Du, May 22nd, 2009
  * */
 
@@ -72,10 +72,10 @@ namespace YAF.Core.Utilities.Helpers.MinifyUtils
         /// Minifies the specified input code.
         /// </summary>
         /// <param name="inputCode">
-        /// The input code. 
+        /// The input code.
         /// </param>
         /// <returns>
-        /// The minify. 
+        /// The minify.
         /// </returns>
         public static string Minify(string inputCode)
         {
@@ -101,7 +101,7 @@ namespace YAF.Core.Utilities.Helpers.MinifyUtils
         /// action -- do something! What you do is determined by the argument: 1 Output A. Copy B to A. Get the next B. 2 Copy B to A. Get the next B. (Delete A). 3 Get the next B. (Delete B). action treats a string as a single character. Wow! action recognizes a regular expression if it is preceded by ( or , or =.
         /// </summary>
         /// <param name="d">
-        /// The d. 
+        /// The d.
         /// </param>
         /// <exception cref="Exception">
         /// Error: JSMIN unterminated string literal:
@@ -116,7 +116,7 @@ namespace YAF.Core.Utilities.Helpers.MinifyUtils
             if (d <= 2)
             {
                 this.theA = this.theB;
-                if (this.theA == '\'' || this.theA == '"')
+                if (this.theA is '\'' or '"')
                 {
                     for (;;)
                     {
@@ -191,7 +191,7 @@ namespace YAF.Core.Utilities.Helpers.MinifyUtils
         /// Watch out for lookahead. If the character is a control character, translate it to a space or linefeed.
         /// </summary>
         /// <returns>
-        /// return the next character from stdin. 
+        /// return the next character from stdin.
         /// </returns>
         private int Get()
         {
@@ -202,7 +202,7 @@ namespace YAF.Core.Utilities.Helpers.MinifyUtils
                 c = this.textReader.Read();
             }
 
-            if (c >= ' ' || c == '\n' || c == EOF)
+            if (c is >= ' ' or '\n' or EOF)
             {
                 return c;
             }
@@ -214,22 +214,21 @@ namespace YAF.Core.Utilities.Helpers.MinifyUtils
         /// Check if Alphanum
         /// </summary>
         /// <param name="c">
-        /// The c. 
+        /// The c.
         /// </param>
         /// <returns>
-        /// return true if the character is a letter, digit, underscore, dollar sign, or non-ASCII character. 
+        /// return true if the character is a letter, digit, underscore, dollar sign, or non-ASCII character.
         /// </returns>
         private static bool IsAlphanum(int c)
         {
-            return c >= 'a' && c <= 'z' || c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c == '_' || c == '$'
-                   || c == '\\' || c > 126;
+            return c is >= 'a' and <= 'z' or >= '0' and <= '9' or >= 'A' and <= 'Z' or '_' or '$' or '\\' or > 126;
         }
 
         /// <summary>
         /// next -- get the next character, excluding comments. peek() is used to see if a '/' is followed by a '/' or '*'.
         /// </summary>
         /// <returns>
-        /// The next. 
+        /// The next.
         /// </returns>
         /// <exception cref="Exception">
         /// Error: JSMIN Unterminated comment.
@@ -397,7 +396,7 @@ namespace YAF.Core.Utilities.Helpers.MinifyUtils
         /// Get the next character without getting it.
         /// </summary>
         /// <returns>
-        /// The peek. 
+        /// The peek.
         /// </returns>
         private int Peek()
         {
@@ -409,7 +408,7 @@ namespace YAF.Core.Utilities.Helpers.MinifyUtils
         /// Puts the specified c.
         /// </summary>
         /// <param name="c">
-        /// The c. 
+        /// The c.
         /// </param>
         private void Put(int c)
         {

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -143,7 +143,7 @@ namespace YAF.Web.Controls
         /// </returns>
         public static string TruncateMessage([NotNull] string message)
         {
-            CodeContracts.VerifyNotNull(message, "message");
+            CodeContracts.VerifyNotNull(message);
 
             var maxPostSize = Math.Max(BoardContext.Current.BoardSettings.MaxPostSize, 0);
 
@@ -161,7 +161,7 @@ namespace YAF.Web.Controls
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            CodeContracts.VerifyNotNull(this.MessageFlags, "MessageFlags");
+            CodeContracts.VerifyNotNull(this.MessageFlags);
 
             if (!this.MessageFlags.IsDeleted && !this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentMessage.UserID))
             {
@@ -177,9 +177,9 @@ namespace YAF.Web.Controls
         /// <param name="writer">The writer.</param>
         protected override void RenderMessage([NotNull] HtmlTextWriter writer)
         {
-            CodeContracts.VerifyNotNull(writer, "writer");
-            CodeContracts.VerifyNotNull(this.MessageFlags, "MessageFlags");
-            CodeContracts.VerifyNotNull(this.CurrentMessage, "CurrentMessage");
+            CodeContracts.VerifyNotNull(writer);
+            CodeContracts.VerifyNotNull(this.MessageFlags);
+            CodeContracts.VerifyNotNull(this.CurrentMessage);
 
             if (this.MessageFlags.IsDeleted)
             {

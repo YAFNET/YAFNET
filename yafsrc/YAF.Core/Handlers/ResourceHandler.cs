@@ -31,7 +31,6 @@ namespace YAF.Core.Handlers
     using System.Web;
     using System.Web.SessionState;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Utilities;
     using YAF.Types;

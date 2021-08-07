@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -50,9 +50,9 @@ namespace YAF.Types.Interfaces
             [NotNull] string page,
             [NotNull] string tag)
         {
-            CodeContracts.VerifyNotNull(haveLocalization, "haveLocalization");
-            CodeContracts.VerifyNotNull(page, "page");
-            CodeContracts.VerifyNotNull(tag, "tag");
+            CodeContracts.VerifyNotNull(haveLocalization);
+            CodeContracts.VerifyNotNull(page);
+            CodeContracts.VerifyNotNull(tag);
 
             return haveLocalization.Localization.GetText(page, tag);
         }
@@ -71,8 +71,8 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static string GetText([NotNull] this IHaveLocalization haveLocalization, [NotNull] string tag)
         {
-            CodeContracts.VerifyNotNull(haveLocalization, "haveLocalization");
-            CodeContracts.VerifyNotNull(tag, "tag");
+            CodeContracts.VerifyNotNull(haveLocalization);
+            CodeContracts.VerifyNotNull(tag);
 
             return haveLocalization.Localization.GetText(tag);
         }
@@ -97,8 +97,8 @@ namespace YAF.Types.Interfaces
             [NotNull] string tag,
             [CanBeNull] params object[] args)
         {
-            CodeContracts.VerifyNotNull(haveLocalization, "haveLocalization");
-            CodeContracts.VerifyNotNull(tag, "tag");
+            CodeContracts.VerifyNotNull(haveLocalization);
+            CodeContracts.VerifyNotNull(tag);
 
             return haveLocalization.Localization.GetTextFormatted(tag, args);
         }

@@ -821,11 +821,7 @@ namespace YAF.Core.Services.Migrations
                 dbCommand.Connection.DropTable("PollVoteRefuse");
             }
 
-            if (dbCommand.Connection.TableExists<PollGroupCluster>())
-            {
-                dbCommand.Connection.DropTable<PollGroupCluster>();
-            }
-
+            // Drop Columns first
             if (dbCommand.Connection.ColumnExists<Poll>("PollGroupID"))
             {
                 dbCommand.Connection.DropColumn<Poll>("PollGroupID");
@@ -839,6 +835,11 @@ namespace YAF.Core.Services.Migrations
             if (dbCommand.Connection.ColumnExists<Forum>("PollGroupID"))
             {
                 dbCommand.Connection.DropColumn<Forum>("PollGroupID");
+            }
+
+            if (dbCommand.Connection.TableExists<PollGroupCluster>())
+            {
+                dbCommand.Connection.DropTable<PollGroupCluster>();
             }
         }
 

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2021 Ingo Herbote
@@ -45,11 +45,13 @@ namespace YAF.Core.Services
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Utilities.Helpers;
     using YAF.Core.Utilities.Helpers.ImageUtils;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects;
@@ -91,7 +93,7 @@ namespace YAF.Core.Services
             {
                 var userId = context.Request.QueryString.GetFirstOrDefaultAs<int>("userinfo");
 
-                var user = this.GetRepository<User>().GetBoardUser(userId);
+                var user = this.Get<IAspNetUsersHelper>().GetBoardUser(userId);
 
                 if (user == null || user.Item1.ID == 0)
                 {
@@ -293,7 +295,9 @@ namespace YAF.Core.Services
 
                 var abbreviation = user.DisplayOrUserName().GetAbbreviation();
 
-                var backgroundColor = $"#{user.ProviderUserKey.Substring(0, 6)}";
+                var backgroundColor = ValidationHelper.IsNumeric(user.ProviderUserKey)
+                    ? $"#{user.ProviderUserKey.ToGuid().ToString().Substring(0, 6)}"
+                    : $"#{user.ProviderUserKey.Substring(0, 6)}";
 
                 using (var bmp = new Bitmap(this.Get<BoardSettings>().AvatarWidth, this.Get<BoardSettings>().AvatarHeight))
                 {

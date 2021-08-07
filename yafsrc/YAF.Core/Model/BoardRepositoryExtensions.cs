@@ -28,6 +28,7 @@ namespace YAF.Core.Model
 
     using ServiceStack.OrmLite;
 
+    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -209,7 +210,7 @@ namespace YAF.Core.Model
                 new Group
                 {
                     BoardID = newBoardId,
-                    Name = $"{rolePrefix}Registered",
+                    Name = Config.IsDotNetNuke ? $"{rolePrefix}Registered Users" : $"{rolePrefix}Registered",
                     Flags = 4,
                     PMLimit = 100,
                     SortOrder = 2,
@@ -294,7 +295,6 @@ namespace YAF.Core.Model
 
             BoardContext.Current.GetRepository<ForumAccess>().Insert(
                 new ForumAccess { GroupID = groupIDMember, ForumID = forumID, AccessMaskID = accessMaskIDMember });
-
 
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(newBoardId));
 

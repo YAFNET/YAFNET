@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -34,6 +34,7 @@ namespace YAF.Types.Interfaces.Identity
     using YAF.Types.Exceptions;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     /// The AspNetUsersHelper interface.
@@ -471,5 +472,111 @@ namespace YAF.Types.Interfaces.Identity
         /// The <see cref="AspNetUsers"/>.
         /// </returns>
         AspNetUsers ValidateUser(string userName);
+
+        /// <summary>
+        /// Gets the board user by Id.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Tuple"/>.
+        /// </returns>
+        public Tuple<User, AspNetUsers, Rank, vaccess> GetBoardUser(
+            [NotNull] int userId,
+            [CanBeNull] int? boardId = null);
+
+        /// <summary>
+        /// Gets the users paged.
+        /// </summary>
+        /// <param name="boardId">The board identifier.</param>
+        /// <param name="pageIndex">Index of the page.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="email">The email.</param>
+        /// <param name="joinedDate">The joined date.</param>
+        /// <param name="onlySuspended">if set to <c>true</c> [only suspended].</param>
+        /// <param name="groupId">The group identifier.</param>
+        /// <param name="rankId">The rank identifier.</param>
+        /// <returns>
+        /// Returns the board users.
+        /// </returns>
+        public List<PagedUser> GetUsersPaged(
+            [NotNull] int? boardId,
+            [NotNull] int pageIndex,
+            [NotNull] int pageSize,
+            [CanBeNull] string name,
+            [CanBeNull] string email,
+            [CanBeNull] DateTime? joinedDate,
+            [NotNull] bool onlySuspended,
+            [CanBeNull] int? groupId,
+            [CanBeNull] int? rankId);
+
+        /// <summary>
+        /// List Members Paged
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="groupId">
+        /// The group id.
+        /// </param>
+        /// <param name="rankId">
+        /// The rank id.
+        /// </param>
+        /// <param name="startLetter">
+        /// The start letter.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page size.
+        /// </param>
+        /// <param name="sortName">
+        /// The sort Name.
+        /// </param>
+        /// <param name="sortRank">
+        /// The sort Rank.
+        /// </param>
+        /// <param name="sortJoined">
+        /// The sort Joined.
+        /// </param>
+        /// <param name="sortPosts">
+        /// The sort Posts.
+        /// </param>
+        /// <param name="sortLastVisit">
+        /// The sort Last Visit.
+        /// </param>
+        /// <param name="numPosts">
+        /// The number of Posts.
+        /// </param>
+        /// <param name="numPostCompare">
+        /// The number of Post Compare.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public List<PagedUser> ListMembersPaged(
+            [CanBeNull] int? boardId,
+            [CanBeNull] int? groupId,
+            [CanBeNull] int? rankId,
+            [NotNull] char startLetter,
+            [CanBeNull] string name,
+            [CanBeNull] int pageIndex,
+            [CanBeNull] int pageSize,
+            [CanBeNull] int? sortName,
+            [CanBeNull] int? sortRank,
+            [CanBeNull] int? sortJoined,
+            [CanBeNull] int? sortPosts,
+            [CanBeNull] int? sortLastVisit,
+            [CanBeNull] int? numPosts,
+            [NotNull] int numPostCompare);
     }
 }

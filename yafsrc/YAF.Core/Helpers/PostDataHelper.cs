@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,7 +25,7 @@
 namespace YAF.Core.Helpers
 {
     using System;
-    
+
     using YAF.Core.Context;
     using YAF.Core.Utilities.Helpers;
     using YAF.Types.Flags;
@@ -132,7 +132,7 @@ namespace YAF.Core.Helpers
         /// IsLocked flag should only be used for "ghost" posts such as the
         /// Sponsor post that isn't really there.
         /// </summary>
-        public bool IsLocked => this.messageFlags != null && this.messageFlags.IsLocked;
+        public bool IsLocked => this.messageFlags is { IsLocked: true };
 
         /// <summary>
         /// Gets a value indicating whether CanThankPost.

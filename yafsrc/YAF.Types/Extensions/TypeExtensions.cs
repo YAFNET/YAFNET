@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -48,10 +48,11 @@ namespace YAF.Types.Extensions
         /// The source type.
         /// </param>
         /// <returns>
+        /// Returns the Signing Key
         /// </returns>
         public static StrongNamePublicKeyBlob GetSigningKey([NotNull] this Type sourceType)
         {
-            CodeContracts.VerifyNotNull(sourceType, "sourceType");
+            CodeContracts.VerifyNotNull(sourceType);
 
             return sourceType.Assembly.Evidence.OfType<StrongName>().Select(t => t.PublicKey).FirstOrDefault();
         }

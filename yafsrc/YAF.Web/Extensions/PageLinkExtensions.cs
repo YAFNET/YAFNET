@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -47,7 +47,7 @@ namespace YAF.Web.Extensions
         /// <returns>returns the Page links including the root</returns>
         public static PageLinks AddRoot(this PageLinks pageLinks)
         {
-            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
+            CodeContracts.VerifyNotNull(pageLinks);
 
             pageLinks.AddLink(
                 pageLinks.PageContext.BoardSettings.Name,
@@ -67,7 +67,7 @@ namespace YAF.Web.Extensions
         /// </returns>
         public static PageLinks AddAdminIndex(this PageLinks pageLinks)
         {
-            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
+            CodeContracts.VerifyNotNull(pageLinks);
 
             pageLinks.AddLink(
                 pageLinks.GetText("ADMIN_ADMIN", "Administration"),
@@ -118,7 +118,7 @@ namespace YAF.Web.Extensions
         /// </returns>
         public static PageLinks AddTopic(this PageLinks pageLinks, [NotNull] string topicName, [NotNull] int topicId)
         {
-            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
+            CodeContracts.VerifyNotNull(pageLinks);
 
             pageLinks.AddLink(topicName, BoardContext.Current.Get<LinkBuilder>().GetTopicLink(topicId, topicName));
 
@@ -137,8 +137,8 @@ namespace YAF.Web.Extensions
             [NotNull] string categoryName,
             [NotNull] int categoryId)
         {
-            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
-            CodeContracts.VerifyNotNull(categoryName, "categoryName");
+            CodeContracts.VerifyNotNull(pageLinks);
+            CodeContracts.VerifyNotNull(categoryName);
 
             pageLinks.AddLink(
                 categoryName,
@@ -156,7 +156,7 @@ namespace YAF.Web.Extensions
         /// <returns>Returns the page links</returns>
         public static PageLinks AddForum(this PageLinks pageLinks, int forumId, bool noForumLink = false)
         {
-            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
+            CodeContracts.VerifyNotNull(pageLinks);
 
             if (BoardContext.Current.PageParentForumID.HasValue)
             {
@@ -194,8 +194,8 @@ namespace YAF.Web.Extensions
         /// <returns>Returns the page links</returns>
         public static PageLinks AddLink(this PageLinks pageLinks, [NotNull] string title, [CanBeNull] string url = "")
         {
-            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
-            CodeContracts.VerifyNotNull(title, "title");
+            CodeContracts.VerifyNotNull(pageLinks);
+            CodeContracts.VerifyNotNull(title);
 
             pageLinks.Add(new PageLink { Title = title.Trim(), URL = url?.Trim() });
 

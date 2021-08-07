@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -290,7 +290,7 @@ namespace YAF.Core.BasePages
         /// </summary>
         void IRaiseControlLifeCycles.RaiseInit()
         {
-            this.OnInit(new EventArgs());
+            this.OnInit(EventArgs.Empty);
         }
 
         /// <summary>
@@ -298,7 +298,7 @@ namespace YAF.Core.BasePages
         /// </summary>
         void IRaiseControlLifeCycles.RaiseLoad()
         {
-            this.OnLoad(new EventArgs());
+            this.OnLoad(EventArgs.Empty);
         }
 
         /// <summary>
@@ -306,7 +306,7 @@ namespace YAF.Core.BasePages
         /// </summary>
         void IRaiseControlLifeCycles.RaisePreRender()
         {
-            this.OnPreRender(new EventArgs());
+            this.OnPreRender(EventArgs.Empty);
         }
 
         #endregion

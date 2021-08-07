@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -23,6 +23,7 @@
  */
 namespace YAF.Core.Model
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -162,18 +163,37 @@ namespace YAF.Core.Model
                     groupId = BoardContext.Current.GetRepository<Group>()
                         .Insert(new Group { Name = role, BoardID = boardId, Flags = 0 });
 
-                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
+                    try
+                    {
+                        var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
 
-                    expression.Join<Group>((a, b) => b.ID == a.GroupID)
-                        .Where<ForumAccess, Group>((a, b) => b.BoardID == boardId && (b.Flags & 4) == 4)
-                        .GroupBy(a => a.ForumID).Select<ForumAccess>(
-                            a => new { a.GroupID, a.ForumID, AccessMaskID = Sql.Min(a.AccessMaskID) });
+                        expression.Join<Group>((a, b) => b.ID == a.GroupID)
+                            .Where<ForumAccess, Group>((a, b) => b.BoardID == boardId && (b.Flags & 4) == 4)
+                            .GroupBy(a => a.ForumID).Select<ForumAccess>(
+                                a => new { a.GroupID, a.ForumID, AccessMaskID = Sql.Min(a.AccessMaskID) });
 
-                    var list = repository.DbAccess.Execute(
-                        db => db.Connection.Select(expression));
+                        var list = repository.DbAccess.Execute(
+                            db => db.Connection.Select(expression));
 
-                    list.ForEach(
-                        access => BoardContext.Current.GetRepository<ForumAccess>().Insert(access));
+                        list.ForEach(
+                            access => BoardContext.Current.GetRepository<ForumAccess>().Insert(access));
+                    }
+                    catch (Exception exception)
+                    {
+                        var guestAccessMask = BoardContext.Current.GetRepository<AccessMask>()
+                            .GetSingle(a => a.BoardID == boardId && (a.Flags & 4) == 4);
+
+                        var forums = BoardContext.Current.GetRepository<Forum>().ListAll(boardId);
+
+                        forums.ForEach(
+                            forum => BoardContext.Current.GetRepository<ForumAccess>().Insert(
+                                new ForumAccess
+                                {
+                                    AccessMaskID = guestAccessMask.ID,
+                                    ForumID = forum.Item1.ID,
+                                    GroupID = groupId.Value
+                                }));
+                    }
                 }
                 else
                 {

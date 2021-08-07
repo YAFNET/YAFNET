@@ -35,7 +35,6 @@ namespace YAF.Core.Helpers
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Services.Localization;
-    using YAF.Core.Utilities;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
@@ -45,7 +44,7 @@ namespace YAF.Core.Helpers
     /// </summary>
     public static class StaticDataHelper
     {
-        #region Public Methods  
+        #region Public Methods
 
         /// <summary>
         /// The country.

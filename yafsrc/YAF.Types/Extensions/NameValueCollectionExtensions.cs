@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -55,8 +55,8 @@ namespace YAF.Types.Extensions
         public static string GetFirstOrDefault(
             [NotNull] this NameValueCollection collection, [NotNull] string paramName, IEqualityComparer<string> comparer = null)
         {
-            CodeContracts.VerifyNotNull(collection, "collection");
-            CodeContracts.VerifyNotNull(paramName, "paramName");
+            CodeContracts.VerifyNotNull(collection);
+            CodeContracts.VerifyNotNull(paramName);
 
             return collection.ToLookup(comparer)[paramName].FirstOrDefault();
         }
@@ -82,8 +82,8 @@ namespace YAF.Types.Extensions
         public static T GetFirstOrDefaultAs<T>(
             [NotNull] this NameValueCollection collection, [NotNull] string paramName, IEqualityComparer<string> comparer = null)
         {
-            CodeContracts.VerifyNotNull(collection, "collection");
-            CodeContracts.VerifyNotNull(paramName, "paramName");
+            CodeContracts.VerifyNotNull(collection);
+            CodeContracts.VerifyNotNull(paramName);
 
             return collection.GetFirstOrDefault(paramName, comparer).ToType<T>();
         }
@@ -106,8 +106,8 @@ namespace YAF.Types.Extensions
         public static int? GetFirstOrDefaultAsInt(
             [NotNull] this NameValueCollection collection, [NotNull] string paramName, IEqualityComparer<string> comparer = null)
         {
-            CodeContracts.VerifyNotNull(collection, "collection");
-            CodeContracts.VerifyNotNull(paramName, "paramName");
+            CodeContracts.VerifyNotNull(collection);
+            CodeContracts.VerifyNotNull(paramName);
 
             if (collection.GetFirstOrDefault(paramName, comparer) != null && int.TryParse(
                     collection.GetFirstOrDefault(paramName),
@@ -133,8 +133,8 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static IEnumerable<string> GetValueList([NotNull] this NameValueCollection collection, [NotNull] string paramName)
         {
-            CodeContracts.VerifyNotNull(collection, "collection");
-            CodeContracts.VerifyNotNull(paramName, "paramName");
+            CodeContracts.VerifyNotNull(collection);
+            CodeContracts.VerifyNotNull(paramName);
 
             return collection[paramName] == null ? Enumerable.Empty<string>() : collection[paramName].Split(',').AsEnumerable();
         }
@@ -154,7 +154,7 @@ namespace YAF.Types.Extensions
         [NotNull]
         public static ILookup<string, string> ToLookup([NotNull] this NameValueCollection collection, IEqualityComparer<string> comparer = null)
         {
-            CodeContracts.VerifyNotNull(collection, "collection");
+            CodeContracts.VerifyNotNull(collection);
 
             return collection.Cast<string>().ToLookup(key => key, key => collection[key], comparer ?? StringComparer.OrdinalIgnoreCase);
         }
@@ -173,8 +173,8 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static bool Exists([NotNull] this NameValueCollection collection, [NotNull] string paramName)
         {
-            CodeContracts.VerifyNotNull(collection, "collection");
-            CodeContracts.VerifyNotNull(paramName, "paramName");
+            CodeContracts.VerifyNotNull(collection);
+            CodeContracts.VerifyNotNull(paramName);
 
             return collection[paramName] != null;
         }

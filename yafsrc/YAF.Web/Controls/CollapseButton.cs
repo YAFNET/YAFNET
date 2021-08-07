@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -188,7 +188,7 @@ namespace YAF.Web.Controls
         /// </returns>
         private static string GetCollapsiblePanelIcon([NotNull] string panelId, CollapsiblePanelState defaultState)
         {
-            CodeContracts.VerifyNotNull(panelId, "panelID");
+            CodeContracts.VerifyNotNull(panelId);
 
             var stateValue = BoardContext.Current.Get<ISession>().PanelState[panelId];
 

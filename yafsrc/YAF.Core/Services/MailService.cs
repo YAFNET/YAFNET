@@ -32,7 +32,6 @@ namespace YAF.Core.Services
     using System.Net.Mail;
 
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Services;
 
     #endregion

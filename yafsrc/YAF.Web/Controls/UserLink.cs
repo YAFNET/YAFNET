@@ -165,7 +165,7 @@ namespace YAF.Web.Controls
             {
                 output.WriteBeginTag("a");
 
-                output.WriteAttribute("href", this.Get<LinkBuilder>().GetUserProfileLink(this.UserID, displayName));
+               output.WriteAttribute("href", this.Get<LinkBuilder>().GetUserProfileLink(this.UserID, displayName));
 
                 var cssClass = new StringBuilder();
 

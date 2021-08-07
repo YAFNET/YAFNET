@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -104,7 +104,7 @@ namespace YAF.Core.Handlers
                 return;
             }
 
-            this.BeforeInit?.Invoke(this, new EventArgs());
+            this.BeforeInit?.Invoke(this, EventArgs.Empty);
 
             string themeFile;
 
@@ -131,7 +131,7 @@ namespace YAF.Core.Handlers
             // create the theme class
             this.Theme = new Theme(themeFile);
 
-            this.AfterInit?.Invoke(this, new EventArgs());
+            this.AfterInit?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

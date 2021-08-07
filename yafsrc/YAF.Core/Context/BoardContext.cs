@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -28,7 +28,7 @@ namespace YAF.Core.Context
 
     using System;
     using System.Web;
-    
+
     using Autofac;
 
     using YAF.Configuration;
@@ -45,7 +45,7 @@ namespace YAF.Core.Context
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    
+
     using AspNetUsers = YAF.Types.Models.Identity.AspNetUsers;
 
     #endregion
@@ -100,7 +100,7 @@ namespace YAF.Core.Context
             this.Globals = new ContextVariableRepository(this.Vars);
 
             // init context...
-            this.Init?.Invoke(this, new EventArgs());
+            this.Init?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
@@ -276,7 +276,7 @@ namespace YAF.Core.Context
         /// </summary>
         public void Dispose()
         {
-            this.Unload?.Invoke(this, new EventArgs());
+            this.Unload?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
@@ -293,7 +293,7 @@ namespace YAF.Core.Context
                 return;
             }
 
-            this.BeforeInit?.Invoke(this, new EventArgs());
+            this.BeforeInit?.Invoke(this, EventArgs.Empty);
 
             if (this.MembershipUser != null && (this.Get<HttpSessionStateBase>()["UserUpdated"] == null
                                       || this.Get<HttpSessionStateBase>()["UserUpdated"].ToString()
@@ -309,7 +309,7 @@ namespace YAF.Core.Context
 
             this.Page = pageLoadEvent.DataDictionary;
 
-            this.AfterInit?.Invoke(this, new EventArgs());
+            this.AfterInit?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

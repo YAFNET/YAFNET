@@ -115,7 +115,7 @@ namespace YAF.Web.Controls
 
             this.CurrentPageIndex = int.Parse(eventArgument) - 1;
             this.ignorePageIndex = true;
-            this.PageChange(this, new EventArgs());
+            this.PageChange(this, EventArgs.Empty);
         }
 
         #endregion

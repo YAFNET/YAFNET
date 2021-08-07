@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -26,14 +26,10 @@ namespace YAF.Data.SqlServer
     #region Using
 
     using System;
-    using System.Collections.Generic;
-    using System.Data;
     using System.Data.Common;
-    using System.Linq;
 
     using YAF.Core.Data;
     using YAF.Types;
-    using YAF.Types.Extensions;
 
     #endregion
 

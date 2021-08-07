@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -69,13 +69,7 @@ namespace YAF.Core.Tasks
         ///     Gets TaskManagerSnapshot.
         /// </summary>
         [NotNull]
-        public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot
-        {
-            get
-            {
-                return taskManager.ToDictionary(k => k.Key, v => v.Value);
-            }
-        }
+        public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot => taskManager.ToDictionary(k => k.Key, v => v.Value);
 
         #endregion
 
@@ -93,7 +87,7 @@ namespace YAF.Core.Tasks
         public virtual bool AreTasksRunning([NotNull] string[] instanceName)
         {
             var isRunning = false;
-            
+
             foreach (var s in instanceName)
             {
                 isRunning = this.TryGetTask(s, out var task) && task.IsRunning;

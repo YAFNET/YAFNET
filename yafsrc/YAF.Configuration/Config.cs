@@ -32,7 +32,6 @@ namespace YAF.Configuration
     using System.Web;
     using System.Web.Configuration;
     using System.Web.Security;
-
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -217,8 +216,9 @@ namespace YAF.Configuration
                 }
 
                 var obj = HttpContext.Current.Items["PortalSettings"];
+
                 return obj != null
-                       && obj.ToString().ToLower().IndexOf("dotnetnuke", StringComparison.Ordinal) >= 0;
+                       && obj.ToString().Contains("DotNetNuke");
             }
         }
 
@@ -279,13 +279,6 @@ namespace YAF.Configuration
         /// </summary>
         public static string JQueryVersion => GetConfigValueAsString("YAF.JQueryVersion")
                                                    ?? "3.6.0";
-
-        /// <summary>
-        ///     Gets MobileUserAgents.
-        /// </summary>
-        [NotNull]
-        public static string MobileUserAgents => GetConfigValueAsString("YAF.MobileUserAgents")
-                                                 ?? "iphone,ipad,midp,windows ce,windows phone,android,blackberry,opera mini,mobile,palm,portable,webos,htc,armv,lg/u,elaine,nokia,playstation,symbian,sonyericsson,mmp,hd_mini";
 
         /// <summary>
         ///     Gets a value indicating whether Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot Example : true /false

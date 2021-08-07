@@ -76,16 +76,7 @@ namespace YAF.Web.Controls
 
             writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
 
-            string cssClass;
-
-            if (this.CssClass.IsSet())
-            {
-                cssClass = $" {this.CssClass}";
-            }
-            else
-            {
-                cssClass = string.Empty;
-            }
+            var cssClass = this.CssClass.IsSet() ? $" {this.CssClass}" : string.Empty;
 
             writer.WriteAttribute(
                 HtmlTextWriterAttribute.Class.ToString(),

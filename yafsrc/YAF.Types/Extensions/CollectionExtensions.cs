@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -56,7 +56,7 @@ namespace YAF.Types.Extensions
             TKey key,
             TValue value)
         {
-            CodeContracts.VerifyNotNull(dictionary, "dictionary");
+            CodeContracts.VerifyNotNull(dictionary);
 
             if (dictionary.ContainsKey(key))
             {
@@ -85,8 +85,8 @@ namespace YAF.Types.Extensions
             [NotNull] this IDictionary<TKey, TValue> dictionaryFirst,
             [NotNull] IDictionary<TKey, TValue> dictionarySecondary)
         {
-            CodeContracts.VerifyNotNull(dictionaryFirst, "dictionaryFirst");
-            CodeContracts.VerifyNotNull(dictionarySecondary, "dictionarySecondary");
+            CodeContracts.VerifyNotNull(dictionaryFirst);
+            CodeContracts.VerifyNotNull(dictionarySecondary);
 
             dictionarySecondary.ToList().ForEach(i => dictionaryFirst.AddOrUpdate(i.Key, i.Value));
         }
