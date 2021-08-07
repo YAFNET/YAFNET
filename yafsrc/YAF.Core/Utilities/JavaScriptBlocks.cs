@@ -831,7 +831,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         {
             return $@"{Config.JQueryAlias}('.EditorDiv').yafFileUpload({{
                 url: '{fileUploaderUrl}',
-                acceptFileTypes: new RegExp('(\.|\/)(' + '{acceptedFileTypes}' + ')', 'i'),
+                acceptFileTypes: /(\.|\/)({acceptedFileTypes})$/i,
                 imageMaxWidth: {imageMaxWidth},
                 imageMaxHeight: {imageMaxHeight},
                 autoUpload: true,
@@ -896,7 +896,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 
             {Config.JQueryAlias}('#fileupload').yafFileUpload({{
                 url: '{fileUploaderUrl}',
-                acceptFileTypes: new RegExp('(\.|\/)(' + '{acceptedFileTypes}' + ')', 'i'),
+                acceptFileTypes: /(\.|\/)({acceptedFileTypes})$/i,
                 imageMaxWidth: {imageMaxWidth},
                 imageMaxHeight: {imageMaxHeight},
                 disableImageResize: /Android(?!.*Chrome)|Opera/

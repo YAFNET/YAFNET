@@ -42,7 +42,6 @@ namespace YAF.Controls
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -112,7 +111,7 @@ namespace YAF.Controls
         /// </summary>
         [NotNull]
         private Tuple<User, AspNetUsers, Rank, vaccess> User =>
-            this.user ??= this.GetRepository<User>().GetBoardUser(this.currentUserId);
+            this.user ??= this.Get<IAspNetUsersHelper>().GetBoardUser(this.currentUserId);
         private IEnumerable<ProfileCustom> UserProfileCustom =>
             this.userProfileCustom ??= this.GetRepository<ProfileCustom>().Get(p => p.UserID == this.currentUserId);
 

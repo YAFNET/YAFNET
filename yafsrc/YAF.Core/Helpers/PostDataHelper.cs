@@ -27,7 +27,6 @@ namespace YAF.Core.Helpers
     using System;
 
     using YAF.Core.Context;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types.Flags;
     using YAF.Types.Objects.Model;
 

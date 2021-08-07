@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -40,9 +40,9 @@ namespace YAF.Pages.Admin
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
+    using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Core.Utilities;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

@@ -58,7 +58,7 @@
       <small class="text-muted size">Processing...</small>
     </div>
     <div class="mb-1"> <p class="name">{%=file.name%}</p>
-                                  <strong class="error"></strong>
+                                  <strong class="error text-danger"></strong>
                                   <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
    </div>
     <small class="text-muted"><div class="btn-group" role="group">

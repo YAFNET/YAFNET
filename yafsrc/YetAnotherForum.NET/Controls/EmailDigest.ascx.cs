@@ -40,7 +40,6 @@ namespace YAF.Controls
     using YAF.Core.Services;
     using YAF.Core.Services.Localization;
     using YAF.Core.Services.Startup;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

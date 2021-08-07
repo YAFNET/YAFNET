@@ -31,7 +31,7 @@ namespace YAF.Core.Services.Syndication
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Services;
-    using YAF.Core.Utilities.Helpers.StringUtils;
+    using YAF.Core.Utilities.StringUtils;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

@@ -1,7 +1,7 @@
-// Written by Paul Seal. Licensed under MIT. Free for private and commercial uses.
+﻿// Written by Paul Seal. Licensed under MIT. Free for private and commercial uses.
 // https://codeshare.co.uk/blog/how-to-create-a-random-password-generator-in-c/#final-code
 
-namespace YAF.Core.Utilities.Helpers
+namespace YAF.Core.Helpers
 {
     using System.Text.RegularExpressions;
 

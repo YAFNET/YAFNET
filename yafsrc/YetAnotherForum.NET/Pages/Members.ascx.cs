@@ -36,13 +36,13 @@ namespace YAF.Pages
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
-    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Objects.Model;
     using YAF.Web.Extensions;
@@ -146,7 +146,7 @@ namespace YAF.Pages
         /// </returns>
         protected List<PagedUser> GetUserList(char startLetter, string userName, out int totalCount)
         {
-            this.userList = this.GetRepository<User>().ListMembersPaged(
+            this.userList = this.Get<IAspNetUsersHelper>().ListMembersPaged(
                 this.PageContext.PageBoardID,
                 this.Group.SelectedIndex <= 0 ? null : this.Group.SelectedValue.ToType<int?>(),
                 this.Ranks.SelectedIndex <= 0 ? null : this.Ranks.SelectedValue.ToType<int?>(),

@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Utilities.Helpers
+namespace YAF.Core.Helpers
 {
     #region Using
 

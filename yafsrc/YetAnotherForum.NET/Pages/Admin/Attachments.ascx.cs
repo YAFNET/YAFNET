@@ -35,7 +35,6 @@ namespace YAF.Pages.Admin
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

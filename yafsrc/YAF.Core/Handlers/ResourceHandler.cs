@@ -32,7 +32,7 @@ namespace YAF.Core.Handlers
     using System.Web.SessionState;
 
     using YAF.Core.Context;
-    using YAF.Core.Utilities;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -70,7 +70,7 @@ namespace YAF.Core.Handlers
         /// </param>
         public void ProcessRequest([NotNull] HttpContext context)
         {
-            if (this.Get<ISession>().LastVisit.HasValue && Security.CheckRequestValidity(context.Request))
+            if (this.Get<ISession>().LastVisit.HasValue && context.Request.CheckRequestValidity())
             {
                 // defaults
                 var previewCropped = false;

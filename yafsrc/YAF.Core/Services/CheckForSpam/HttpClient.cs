@@ -90,7 +90,8 @@ namespace YAF.Core.Services.CheckForSpam
             request.KeepAlive = true;
 
             var response = (HttpWebResponse)request.GetResponse();
-            if (response.StatusCode is < HttpStatusCode.OK and >= HttpStatusCode.Ambiguous)
+
+            if (response.StatusCode < HttpStatusCode.OK && response.StatusCode >= HttpStatusCode.Ambiguous)
             {
                 throw new InvalidResponseException(
                     string.Format(
@@ -201,7 +202,8 @@ namespace YAF.Core.Services.CheckForSpam
             }
 
             var response = (HttpWebResponse)request.GetResponse();
-            if (response.StatusCode is < HttpStatusCode.OK and >= HttpStatusCode.Ambiguous)
+
+            if (response.StatusCode < HttpStatusCode.OK && response.StatusCode >= HttpStatusCode.Ambiguous)
             {
                 throw new InvalidResponseException(
                     string.Format(

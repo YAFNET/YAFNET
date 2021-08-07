@@ -40,7 +40,6 @@ namespace YAF.Pages
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -682,7 +681,7 @@ namespace YAF.Pages
                     // test receiving user's PM count
                     if (count.NumberTotal + 1
                         < count.Allowed || this.PageContext.IsAdmin
-                                        || this.GetRepository<User>().GetBoardUser(user.ID, this.PageContext.PageBoardID).Item4.IsAdmin > 0)
+                                        || this.Get<IAspNetUsersHelper>().GetBoardUser(user.ID, this.PageContext.PageBoardID).Item4.IsAdmin > 0)
                     {
                         continue;
                     }

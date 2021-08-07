@@ -39,15 +39,6 @@ namespace YAF.Core.Utilities
     /// </summary>
     public static class SystemInfo
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The is mono.
-        /// </summary>
-        private static bool isMono;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -61,37 +52,10 @@ namespace YAF.Core.Utilities
         public static long MappedMemory => Environment.WorkingSet;
 
         /// <summary>
-        /// Gets a value indicating whether IsMono.
-        /// </summary>
-        public static bool IsMono
-        {
-            get
-            {
-                Init();
-
-                return isMono;
-            }
-        }
-
-        /// <summary>
         /// Gets Processors.
         /// </summary>
         [NotNull]
         public static string Processors => Environment.ProcessorCount.ToString();
-
-        /// <summary>
-        /// Gets RuntimeName.
-        /// </summary>
-        [NotNull]
-        public static string RuntimeName
-        {
-            get
-            {
-                Init();
-
-                return isMono ? "Mono" : ".NET";
-            }
-        }
 
         /// <summary>
         /// Gets Runtime String.
@@ -134,15 +98,6 @@ namespace YAF.Core.Utilities
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        private static void Init()
-        {
-            var t = Type.GetType("Mono.Runtime");
-            isMono = t != null;
-        }
 
         /// <summary>
         /// Checking the version using >= will enable forward compatibility.

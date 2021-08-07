@@ -99,7 +99,7 @@ namespace YAF.Controls
         /// Gets the User Data.
         /// </summary>
         [NotNull]
-        private Tuple<User, AspNetUsers, Rank, vaccess> User => this.user ??= this.GetRepository<User>().GetBoardUser(this.CurrentUserId);
+        private Tuple<User, AspNetUsers, Rank, vaccess> User => this.user ??= this.Get<IAspNetUsersHelper>().GetBoardUser(this.CurrentUserId);
 
         /// <summary>
         ///   Gets CurrentUserID.

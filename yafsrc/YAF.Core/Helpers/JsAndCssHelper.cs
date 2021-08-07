@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,52 +21,57 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Utilities
+namespace YAF.Core.Helpers
 {
-    #region Using
+    using System;
 
-    using System.Web;
-
-    using YAF.Types;
-
-    #endregion
+    using YAF.Core.Utilities.MinifyUtils;
 
     /// <summary>
-    /// General Utils.
+    /// The JS and CSS helper.
     /// </summary>
-    public static class General
+    public static class JsAndCssHelper
     {
-        #region Public Methods
-
         /// <summary>
-        /// Gets the safe raw URL.
+        /// Compresses JavaScript
         /// </summary>
-        /// <returns>Returns the safe raw URL</returns>
-        public static string GetSafeRawUrl()
-        {
-            return GetSafeRawUrl(HttpContext.Current.Request.RawUrl);
-        }
-
-        /// <summary>
-        /// Cleans up a URL so that it doesn't contain any problem characters.
-        /// </summary>
-        /// <param name="url">The URL.</param>
+        /// <param name="javaScript">
+        /// The Uncompressed Input JS
+        /// </param>
         /// <returns>
-        /// The get safe raw URL.
+        /// The compressed java script.
         /// </returns>
-        [NotNull]
-        public static string GetSafeRawUrl([NotNull] string url)
+        public static string CompressJavaScript(string javaScript)
         {
-            CodeContracts.VerifyNotNull(url, "url");
-
-            var processedRaw = url;
-            processedRaw = processedRaw.Replace("\"", string.Empty);
-            processedRaw = processedRaw.Replace("<", "%3C");
-            processedRaw = processedRaw.Replace(">", "%3E");
-            processedRaw = processedRaw.Replace("&", "%26");
-            return processedRaw.Replace("'", string.Empty);
+            try
+            {
+                return JSMinify.Minify(javaScript);
+            }
+            catch (Exception)
+            {
+                return javaScript;
+            }
         }
 
-        #endregion
+        /// <summary>
+        /// Compresses CSS
+        /// </summary>
+        /// <param name="css">
+        /// The Uncompressed Input CSS
+        /// </param>
+        /// <returns>
+        /// The compressed CSS output.
+        /// </returns>
+        public static string CompressCss(string css)
+        {
+            try
+            {
+                return JSMinify.Minify(css);
+            }
+            catch (Exception)
+            {
+                return css;
+            }
+        }
     }
 }

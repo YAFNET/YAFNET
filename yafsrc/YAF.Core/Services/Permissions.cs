@@ -30,9 +30,8 @@ namespace YAF.Core.Services
 
     using YAF.Configuration;
     using YAF.Core.Context;
+    using YAF.Core.Helpers;
     using YAF.Core.Services.Startup;
-    using YAF.Core.Utilities;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -112,14 +111,6 @@ namespace YAF.Core.Services
                     {
                         var loginRedirectUrl = this.Get<BoardSettings>().CustomLoginRedirectUrl;
 
-                        if (loginRedirectUrl.Contains("{0}"))
-                        {
-                            // process for return url..
-                            loginRedirectUrl = string.Format(
-                                loginRedirectUrl, HttpUtility.UrlEncode(
-                                    General.GetSafeRawUrl(this.Get<HttpRequestBase>().Url.ToString())));
-                        }
-
                         // allow custom redirect...
                         this.Get<HttpResponseBase>().Redirect(loginRedirectUrl);
                         noAccess = false;
@@ -136,15 +127,12 @@ namespace YAF.Core.Services
 
                         // redirect to DNN login...
                         this.Get<HttpResponseBase>().Redirect(
-                            $"{appPath}Login.aspx?ReturnUrl={HttpUtility.UrlEncode(General.GetSafeRawUrl())}");
+                            $"{appPath}Login.aspx?ReturnUrl={HttpUtility.UrlEncode(this.Get<LinkBuilder>().GetSafeRawUrl())}");
                         noAccess = false;
                         break;
                     }
                     case true:
-                        this.Get<LinkBuilder>().Redirect(
-                            ForumPages.Account_Login,
-                            "ReturnUrl={0}",
-                            HttpUtility.UrlEncode(General.GetSafeRawUrl()));
+                        this.Get<LinkBuilder>().Redirect(ForumPages.Account_Login);
                         noAccess = false;
                         break;
                 }

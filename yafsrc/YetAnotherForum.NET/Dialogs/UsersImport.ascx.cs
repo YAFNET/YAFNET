@@ -33,9 +33,9 @@ namespace YAF.Dialogs
     using System.Text.RegularExpressions;
 
     using YAF.Core.BaseControls;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

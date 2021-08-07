@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright company="Intelligencia" file="RewriterEngine.cs">
 //   Copyright (c)2011 Seth Yates
 //   //   Author Seth Yates
@@ -10,13 +10,13 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-
 namespace YAF.UrlRewriter
 {
     using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.IO;
+    using System.Linq;
     using System.Net;
     using System.Text.RegularExpressions;
     using System.Web;
@@ -166,7 +166,7 @@ namespace YAF.UrlRewriter
                          * |	${[a-zA-Z0-9\-]+}
                          * |	${fn( <replacement> )}
                          * |	${<replacement-or-id>:<replacement-or-value>:<replacement-or-value>}
-                         * 
+                         *
                          * replacement-or-id :- <replacement> | <id>
                          * replacement-or-value :- <replacement> | <value>
                          */
@@ -206,7 +206,7 @@ namespace YAF.UrlRewriter
             this.ProcessRules(context, this._configuration.Rules, 0);
         }
 
-        private void ProcessRules(IRewriteContext context, IList<IRewriteAction> rewriteRules, int restarts)
+        private void ProcessRules(IRewriteContext context, IEnumerable<IRewriteAction> rewriteRules, int restarts)
         {
             foreach (var action in rewriteRules)
             {
@@ -247,41 +247,6 @@ namespace YAF.UrlRewriter
                     break;
                 }
             }
-        }
-
-        private bool HandleDefaultDocument(IRewriteContext context)
-        {
-            var uri = new Uri(this._httpContext.RequestUrl, context.Location);
-            var b = new UriBuilder(uri);
-            b.Path += "/";
-            uri = b.Uri;
-
-            if (uri.Host != this._httpContext.RequestUrl.Host)
-            {
-                return false;
-            }
-
-            var filename = this._httpContext.MapPath(uri.AbsolutePath);
-
-            if (!Directory.Exists(filename))
-            {
-                return false;
-            }
-
-            foreach (var document in this._configuration.DefaultDocuments)
-            {
-                var pathName = Path.Combine(filename, document);
-
-                if (!File.Exists(pathName))
-                {
-                    continue;
-                }
-
-                context.Location = new Uri(uri, document).AbsolutePath;
-                return true;
-            }
-
-            return false;
         }
 
         private void HandleError(IRewriteContext context)

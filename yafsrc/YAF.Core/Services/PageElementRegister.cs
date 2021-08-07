@@ -31,7 +31,7 @@ namespace YAF.Core.Services
 
     using YAF.Configuration;
     using YAF.Core.Context;
-    using YAF.Core.Utilities.Helpers;
+    using YAF.Core.Helpers;
 
     #endregion
 

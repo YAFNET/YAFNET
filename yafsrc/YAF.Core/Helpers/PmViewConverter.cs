@@ -22,7 +22,7 @@
  * under the License.
  */
 
- namespace YAF.Core.Utilities.Helpers
+ namespace YAF.Core.Helpers
 {
     using YAF.Types;
     using YAF.Types.Constants;

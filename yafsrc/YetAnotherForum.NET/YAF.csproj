@@ -352,8 +352,8 @@
       <DependentUpon>AdminMenu.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\AlbumImageList.ascx.cs">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>AlbumImageList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\AlbumImageList.ascx.designer.cs">
       <DependentUpon>AlbumImageList.ascx</DependentUpon>
@@ -2094,7 +2094,6 @@
     <Content Include="Images\Medals\medal_silver_2_small.png" />
     <Content Include="Images\Medals\medal_small.png" />
     <Content Include="Images\Logos\YAFLogo.svg" />
-    <Content Include="Install\custom\dnn.sql" />
     <Content Include="Install\mssql\upgrade\identity\upgrade.sql" />
     <Content Include="Install\SpamWords.xml" />
     <Content Include="languages\arabic.xml">
@@ -3404,7 +3403,7 @@
       <Name>YAF.Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Core\YAF.Core.csproj">
-      <Project>{BCEFE9BE-7417-47FB-A0E8-75E0201E88E8}</Project>
+      <Project>{b8d47386-06dc-42e8-9f95-3f75d895e393}</Project>
       <Name>YAF.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Data\YAF.Data.SqlServer\YAF.Data.SqlServer.csproj">
@@ -3635,7 +3634,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

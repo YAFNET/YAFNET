@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -33,7 +33,7 @@ namespace YAF.Core.Services.Logger
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
-    using YAF.Core.Utilities.Helpers;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;

@@ -19,7 +19,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-namespace YAF.Core.Utilities.Helpers.StringUtils
+namespace YAF.Core.Utilities.StringUtils
 {
     using System;
     using System.Linq;

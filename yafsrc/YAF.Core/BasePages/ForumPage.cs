@@ -34,8 +34,8 @@ namespace YAF.Core.BasePages
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Handlers;
-    using YAF.Core.Utilities.Helpers;
-    using YAF.Core.Utilities.Helpers.StringUtils;
+    using YAF.Core.Helpers;
+    using YAF.Core.Utilities.StringUtils;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;

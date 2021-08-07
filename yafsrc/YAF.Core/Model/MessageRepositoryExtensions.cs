@@ -32,7 +32,7 @@ namespace YAF.Core.Model
 
     using YAF.Core.Context;
     using YAF.Core.Extensions;
-    using YAF.Core.Utilities.Helpers;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;

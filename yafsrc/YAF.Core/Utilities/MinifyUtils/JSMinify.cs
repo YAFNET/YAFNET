@@ -6,7 +6,7 @@
  * Haiyan Du, May 22nd, 2009
  * */
 
-namespace YAF.Core.Utilities.Helpers.MinifyUtils
+namespace YAF.Core.Utilities.MinifyUtils
 {
     #region Using
 

@@ -31,7 +31,7 @@ namespace YAF.Core.Extensions
     using System.Web.UI;
 
     using YAF.Core.Context;
-    using YAF.Core.Utilities.Helpers.StringUtils;
+    using YAF.Core.Utilities.StringUtils;
     using YAF.Types.Extensions;
 
     #endregion

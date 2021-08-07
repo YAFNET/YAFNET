@@ -31,9 +31,9 @@ namespace YAF.Core.Identity.Owin
 
     using YAF.Configuration;
     using YAF.Core.Context;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;

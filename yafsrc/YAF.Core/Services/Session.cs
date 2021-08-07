@@ -31,7 +31,7 @@ namespace YAF.Core.Services
     using System.Collections.Generic;
     using System.Web;
 
-    using YAF.Core.Utilities.Helpers;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;

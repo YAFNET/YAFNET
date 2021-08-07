@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -22,19 +22,29 @@
  * under the License.
  */
 
-namespace YAF.Core.Utilities
+namespace YAF.Core.Extensions
 {
+    #region Using
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
     using System.Web;
 
     using YAF.Configuration;
     using YAF.Core.Context;
+    using YAF.Types;
+    using YAF.Types.Attributes;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
+    #endregion
+
     /// <summary>
-    /// The security.
+    /// The HttpRequest extensions.
     /// </summary>
-    public static class Security
+    public static class HttpRequestExtensions
     {
         /// <summary>
         /// This method validates request whether it comes from same server in case it's HTTP POST.
@@ -45,7 +55,7 @@ namespace YAF.Core.Utilities
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public static bool CheckRequestValidity(HttpRequest request)
+        public static bool CheckRequestValidity(this HttpRequest request)
         {
             if (!BoardContext.Current.Get<BoardSettings>().DoUrlReferrerSecurityCheck)
             {

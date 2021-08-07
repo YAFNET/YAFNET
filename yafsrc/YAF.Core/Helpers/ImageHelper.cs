@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,57 +21,63 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Utilities.Helpers
-{
-    using System;
 
-    using YAF.Core.Utilities.Helpers.MinifyUtils;
+namespace YAF.Core.Helpers
+{
+    #region Using
+
+    using System;
+    using System.Drawing;
+    using System.IO;
+
+    #endregion
 
     /// <summary>
-    /// The JS and CSS helper.
+    /// The Image Helper.
     /// </summary>
-    public static class JsAndCssHelper
+    public static class ImageHelper
     {
-        /// <summary>
-        /// Compresses JavaScript
-        /// </summary>
-        /// <param name="javaScript">
-        /// The Uncompressed Input JS
-        /// </param>
-        /// <returns>
-        /// The compressed java script.
-        /// </returns>
-        public static string CompressJavaScript(string javaScript)
-        {
-            try
-            {
-                return JSMinify.Minify(javaScript);
-            }
-            catch (Exception)
-            {
-                return javaScript;
-            }
-        }
+        #region Public Methods
 
         /// <summary>
-        /// Compresses CSS
+        /// Returns resized image stream.
         /// </summary>
-        /// <param name="css">
-        /// The Uncompressed Input CSS
+        /// <param name="img">
+        /// The Image.
+        /// </param>
+        /// <param name="x">
+        /// The image width.
+        /// </param>
+        /// <param name="y">
+        /// The image height.
         /// </param>
         /// <returns>
-        /// The compressed CSS output.
+        /// A resized image stream Stream.
         /// </returns>
-        public static string CompressCss(string css)
+        public static Stream GetResizedImageStreamFromImage(Image img, long x, long y)
         {
-            try
+            double newWidth = img.Width;
+            double newHeight = img.Height;
+            if (newWidth > x)
             {
-                return JSMinify.Minify(css);
+                newHeight = newHeight * x / newWidth;
+                newWidth = x;
             }
-            catch (Exception)
+
+            if (newHeight > y)
             {
-                return css;
+                newWidth = newWidth * y / newHeight;
+                newHeight = y;
             }
+
+            // TODO : Save an Animated Gif
+            var bitmap = img.GetThumbnailImage((int)newWidth, (int)newHeight, null, IntPtr.Zero);
+
+            var resized = new MemoryStream();
+            bitmap.Save(resized, img.RawFormat);
+            return resized;
         }
+
+        #endregion
     }
 }

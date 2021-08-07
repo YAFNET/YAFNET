@@ -1,4 +1,4 @@
-/*
+﻿/*
 COPYRIGHT
 
 Character transliteration tables:
@@ -22,7 +22,7 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl.
 */
 
-namespace YAF.Core.Utilities.Helpers.StringUtils
+namespace YAF.Core.Utilities.StringUtils
 {
     #region Using
 

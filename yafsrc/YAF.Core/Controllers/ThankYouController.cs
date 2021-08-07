@@ -30,7 +30,7 @@ namespace YAF.Core.Controllers
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.Utilities.Helpers.StringUtils;
+    using YAF.Core.Utilities.StringUtils;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

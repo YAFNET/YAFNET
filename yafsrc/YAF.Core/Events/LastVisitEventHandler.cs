@@ -30,7 +30,7 @@ namespace YAF.Core.Events
     using System.Web;
 
     using YAF.Core.Context;
-    using YAF.Core.Utilities.Helpers;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;

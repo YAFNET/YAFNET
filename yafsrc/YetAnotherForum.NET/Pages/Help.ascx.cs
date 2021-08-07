@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -271,41 +271,16 @@ namespace YAF.Pages
 
             foreach (var helpPage in helpNavigation.SelectMany(category => category.HelpPages))
             {
-                string helpContent;
-
-                switch (helpPage.HelpPage)
-                {
-                    case "RECOVER":
-                        {
-                            helpContent = this.GetTextFormatted(
-                                $"{helpPage.HelpPage}CONTENT",
-                                this.Get<LinkBuilder>().GetLink(ForumPages.Account_ForgotPassword));
-                        }
-
-                        break;
-                    case "BBCODES":
-                        {
-                            helpContent = this.GetTextFormatted(
-                                $"{helpPage.HelpPage}CONTENT",
-                                BoardInfo.ForumBaseUrl);
-                        }
-
-                        break;
-                    case "POSTING":
-                        {
-                            helpContent = this.GetTextFormatted(
-                                $"{helpPage.HelpPage}CONTENT",
-                                this.Get<LinkBuilder>().GetLink(ForumPages.Help, "faq=bbcodes"));
-                        }
-
-                        break;
-                    default:
-                        {
-                            helpContent = this.GetText($"{helpPage.HelpPage}CONTENT");
-                        }
-
-                        break;
-                }
+                string helpContent = helpPage.HelpPage switch {
+                    "RECOVER" => this.GetTextFormatted(
+                        $"{helpPage.HelpPage}CONTENT",
+                        this.Get<LinkBuilder>().GetLink(ForumPages.Account_ForgotPassword)),
+                    "BBCODES" => this.GetTextFormatted($"{helpPage.HelpPage}CONTENT", BoardInfo.ForumBaseUrl),
+                    "POSTING" => this.GetTextFormatted(
+                        $"{helpPage.HelpPage}CONTENT",
+                        this.Get<LinkBuilder>().GetLink(ForumPages.Help, "faq=bbcodes")),
+                    _ => this.GetText($"{helpPage.HelpPage}CONTENT")
+                };
 
                 this.helpContents.Add(
                     new HelpContent

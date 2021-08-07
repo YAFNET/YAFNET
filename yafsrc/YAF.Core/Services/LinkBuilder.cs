@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -67,6 +67,35 @@ namespace YAF.Core.Services
         /// Gets full URL to the Root of the Forum
         /// </summary>
         public string ForumUrl => this.Get<LinkBuilder>().GetLink(ForumPages.Board, true);
+
+        /// <summary>
+        /// Gets the safe raw URL.
+        /// </summary>
+        /// <returns>Returns the safe raw URL</returns>
+        public string GetSafeRawUrl()
+        {
+            return this.Get<LinkBuilder>().GetSafeRawUrl(this.Get<HttpContextBase>().Request.RawUrl);
+        }
+
+        /// <summary>
+        /// Cleans up a URL so that it doesn't contain any problem characters.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>
+        /// The get safe raw URL.
+        /// </returns>
+        [NotNull]
+        public string GetSafeRawUrl([NotNull] string url)
+        {
+            CodeContracts.VerifyNotNull(url, "url");
+
+            var processedRaw = url;
+            processedRaw = processedRaw.Replace("\"", string.Empty);
+            processedRaw = processedRaw.Replace("<", "%3C");
+            processedRaw = processedRaw.Replace(">", "%3E");
+            processedRaw = processedRaw.Replace("&", "%26");
+            return processedRaw.Replace("'", string.Empty);
+        }
 
         /// <summary>
         /// Function that verifies a string is an integer value or it redirects to invalid "info" page.

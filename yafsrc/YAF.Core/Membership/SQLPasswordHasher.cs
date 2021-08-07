@@ -30,7 +30,7 @@ namespace YAF.Core.Membership
     using Microsoft.AspNet.Identity;
 
     using YAF.Configuration;
-    using YAF.Core.Utilities.Helpers;
+    using YAF.Core.Helpers;
 
     /// <summary>
     /// The SQL password hasher.

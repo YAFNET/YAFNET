@@ -44,7 +44,6 @@ namespace YAF.Pages.Admin
     using YAF.Core.Services;
     using YAF.Core.Tasks;
     using YAF.Core.Utilities;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -102,7 +101,7 @@ namespace YAF.Pages.Admin
                     }
 
                     // get user(s) we are about to delete
-                    var userToDelete = this.GetRepository<User>().GetBoardUser(
+                    var userToDelete = this.Get<IAspNetUsersHelper>().GetBoardUser(
                         e.CommandArgument.ToType<int>(),
                         this.PageContext.PageBoardID);
 
@@ -448,7 +447,7 @@ namespace YAF.Pages.Admin
             }
 
             // get users, eventually filter by groups or ranks
-            var users = this.GetRepository<User>().GetUsersPaged(
+            var users = this.Get<IAspNetUsersHelper>().GetUsersPaged(
                 this.PageContext.PageBoardID,
                 this.PagerTop.CurrentPageIndex,
                 this.PagerTop.PageSize,

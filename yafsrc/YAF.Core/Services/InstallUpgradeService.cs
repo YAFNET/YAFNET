@@ -41,7 +41,6 @@ namespace YAF.Core.Services
     using YAF.Core.Services.Import;
     using YAF.Core.Services.Migrations;
     using YAF.Core.Tasks;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;

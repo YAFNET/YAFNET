@@ -45,8 +45,7 @@ namespace YAF.Core.Services
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.Utilities.Helpers;
-    using YAF.Core.Utilities.Helpers.ImageUtils;
+    using YAF.Core.Utilities.ImageUtils;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
