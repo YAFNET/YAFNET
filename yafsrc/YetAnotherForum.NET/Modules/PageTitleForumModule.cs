@@ -28,7 +28,7 @@ namespace YAF.Modules
     using System;
     using System.Web.UI.HtmlControls;
 
-    using YAF.Core.Utilities.Helpers;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Web.EventsArgs;

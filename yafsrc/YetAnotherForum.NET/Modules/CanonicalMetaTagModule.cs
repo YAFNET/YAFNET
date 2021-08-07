@@ -29,8 +29,8 @@ namespace YAF.Modules
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
 
+    using YAF.Core.Helpers;
     using YAF.Core.Services;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;

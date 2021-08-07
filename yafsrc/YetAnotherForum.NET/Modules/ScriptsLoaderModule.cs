@@ -32,8 +32,8 @@ namespace YAF.Modules
     using System.Web.UI;
 
     using YAF.Configuration;
+    using YAF.Core.Helpers;
     using YAF.Core.Utilities;
-    using YAF.Core.Utilities.Helpers;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Interfaces;
