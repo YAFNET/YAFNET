@@ -3,7 +3,7 @@ YetAnotherForum.NET Changelog
 
 # YetAnotherForum.NET v3.0.0
 * Minimum .NET Version v4.8
-* Upgraded to Bootstrap 5.0.2
+* Upgraded to Bootstrap 5.1.0
 * [NEW] Added Support for MySQL
 * [NEW] Added Support for SQLite
 * [NEW] Added Support for PostgreSQL
