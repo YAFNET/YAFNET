@@ -25,14 +25,13 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
+using Microsoft.Owin;
+
 using YAF.Types.Attributes;
 
-using Microsoft.Owin;
 using Startup = YAF.Core.Context.Start.Startup;
 
 [assembly: OwinStartup(typeof(Startup))]
-
-
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information

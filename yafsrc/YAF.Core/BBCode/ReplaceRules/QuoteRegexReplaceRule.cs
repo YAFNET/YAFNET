@@ -95,14 +95,18 @@ namespace YAF.Core.BBCode.ReplaceRules
                 // extract post id if exists
                 if (quote.Contains(";"))
                 {
-                    string postId;
-
-                    string userName;
+                    string postId, userName, topicLink = string.Empty;
 
                     try
                     {
                         postId = quote.Substring(quote.LastIndexOf(";", StringComparison.Ordinal) + 1);
                         userName = quote = quote.Remove(quote.LastIndexOf(";", StringComparison.Ordinal));
+
+                        topicLink = BoardContext.Current.Get<LinkBuilder>().GetLink(
+                            ForumPages.Posts,
+                            "m={0}&name={1}",
+                            postId,
+                            BoardContext.Current.GetRepository<Topic>().GetNameFromMessage(postId.ToType<int>()));
                     }
                     catch (Exception)
                     {
@@ -110,12 +114,6 @@ namespace YAF.Core.BBCode.ReplaceRules
                         postId = string.Empty;
                         userName = quote;
                     }
-
-                    var topicLink = BoardContext.Current.Get<LinkBuilder>().GetLink(
-                        ForumPages.Posts,
-                        "m={0}&name={1}",
-                        postId,
-                        BoardContext.Current.GetRepository<Topic>().GetNameFromMessage(postId.ToType<int>()));
 
                     quote = postId.IsSet()
                                 ? $@"<footer class=""blockquote-footer"">
