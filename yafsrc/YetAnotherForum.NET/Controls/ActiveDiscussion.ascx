@@ -22,20 +22,20 @@
                                      IconCssClass="far"
                                      IconColor="text-secondary"
                                      Type="Link"
-                                     CssClass="fw-bold p-0"
+                                     CssClass="fw-bold p-0 d-inline"
                                      DataToggle="tooltip" />
                     <asp:Label runat="server" ID="PostIcon" Visible="False" />
 
                     <YAF:ThemeButton runat="server"
                                      ID="ForumLink"
                                      Type="Link"
-                                     CssClass="p-0" />
+                                     CssClass="p-0 d-inline" />
                     <YAF:ThemeButton runat="server" ID="Info"
                                      Icon="info-circle"
                                      IconColor="text-secondary"
                                      Type="Link"
                                      DataToggle="popover"
-                                     CssClass="topic-link-popover p-0"/>
+                                     CssClass="topic-link-popover p-0 d-inline"/>
                 </li>
             </ItemTemplate>
             <FooterTemplate>
