@@ -31856,7 +31856,7 @@ function formatState(state) {
 }
 
 $(document).on("click", '[data-bs-toggle="confirm"]', function(e) {
-    if ($(this).prop("tagName") === "a") {
+    if ($(this).prop("tagName").toLowerCase() === "a") {
         e.preventDefault();
         var link = $(this).attr("href");
         var text = $(this).data("title");
@@ -32648,7 +32648,7 @@ jQuery(document).ready(function() {
 });
 
 function goToURL(messageId, input, url) {
-    window.location.href = url + "test" + "&q=" + messageId + "&text=" + encodeURIComponent(input);
+    window.location.href = url + "&q=" + messageId + "&text=" + encodeURIComponent(input);
 }
 
 function searchText(input) {

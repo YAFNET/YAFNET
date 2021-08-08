@@ -16,7 +16,7 @@ function formatState(state) {
 $(document).on("click",
     "[data-bs-toggle=\"confirm\"]",
     function (e) {
-        if ($(this).prop("tagName") === "a") {
+        if ($(this).prop("tagName").toLowerCase() === "a") {
             e.preventDefault();
             var link = $(this).attr("href");
             var text = $(this).data("title");
@@ -103,7 +103,7 @@ $(function () {
     });
 });
 
-// Toggle password visibility 
+// Toggle password visibility
 document.addEventListener("DOMContentLoaded", function () {
 
     if (document.body.contains(document.getElementById("PasswordToggle"))) {

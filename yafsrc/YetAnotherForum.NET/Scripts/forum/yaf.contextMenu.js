@@ -1,4 +1,4 @@
-jQuery(document).ready(function () {
+﻿jQuery(document).ready(function () {
     $(".list-group-item-menu, .message").each(function () {
 
         var isMessageContext = !!$(this).hasClass("message");
@@ -158,7 +158,7 @@ jQuery(document).ready(function () {
                     }
                 );
             }
-           
+
             contextMenu.removeClass("show").hide();
         });
 
@@ -170,7 +170,7 @@ jQuery(document).ready(function () {
 });
 
 function goToURL(messageId, input, url) {
-    window.location.href = url + "test" + "&q=" + messageId + "&text=" + encodeURIComponent(input);
+    window.location.href = url + "&q=" + messageId + "&text=" + encodeURIComponent(input);
 }
 
 function searchText(input) {

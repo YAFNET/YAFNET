@@ -175,7 +175,8 @@
                             gutters: ["CodeMirror-linenumbbers", "CodeMirror-foldgutter"]
                         });
        
-
+                        window["codemirror_" + editor.id].display.wrapper.classList.add('cke_enable_context_menu');
+                        
                         var holderHeight = height + "px";
                         var holderWidth = width + "px";
 
@@ -905,6 +906,8 @@
                     foldGutter: true,
                     gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
                 });
+                
+                window["codemirror_" + editor.id].display.wrapper.classList.add('cke_enable_context_menu');
 
                 var holderHeight = holderElement.$.clientHeight == 0 ? editor.ui.space("contents").getStyle("height") : holderElement.$.clientHeight + "px";
                 var holderWidth = holderElement.$.clientWidth + "px";
@@ -1101,9 +1104,6 @@
             });
 
             editor.on("instanceReady", function (evt) {
-
-                //editor.container.getPrivate().events.contextmenu.listeners.splice(0, 1);
-
                 var selectAllCommand = editor.commands.selectAll;
 
                 // Replace Complete SelectAll command from the plugin, otherwise it will not work in IE10
@@ -1135,8 +1135,8 @@
                 }
             });
 
-            if (typeof (jQuery) != "undefined" && jQuery('a[data-bs-toggle="tab"]') && window["codemirror_" + editor.id]) {
-                jQuery('a[data-bs-toggle="tab"]').on("shown.bs.tab", function() {
+            if (typeof (jQuery) != "undefined" && jQuery('a[data-toggle="tab"]') && window["codemirror_" + editor.id]) {
+                jQuery('a[data-toggle="tab"]').on("shown.bs.tab", function() {
                     window["codemirror_" + editor.id].refresh();
                 });
             }
@@ -1166,46 +1166,11 @@
                 return this.getValue();
             },
             // Insertions are not supported in source editable.
-            insertHtml: function (insert) {
-                var selection = window["codemirror_" + this.editor.id].getSelection();
-
-                if (selection.length > 0) {
-                    window["codemirror_" + this.editor.id].replaceSelection(insert);
-                }
-                else {
-
-                    var doc = window["codemirror_" + this.editor.id].getDoc();
-                    var cursor = doc.getCursor();
-
-                    var pos = {
-                        line: cursor.line,
-                        ch: cursor.ch
-                    }
-
-                    doc.replaceRange(insert, pos);
-
-                }
+            insertHtml: function() {
             },
             insertElement: function() {
             },
-            insertText: function(insert) {
-                var selection = window["codemirror_" + this.editor.id].getSelection();
-
-                if (selection.length > 0) {
-                    window["codemirror_" + this.editor.id].replaceSelection(insert);
-                } else {
-
-                    var doc = window["codemirror_" + this.editor.id].getDoc();
-                    var cursor = doc.getCursor();
-
-                    var pos = {
-                        line: cursor.line,
-                        ch: cursor.ch
-                    }
-
-                    doc.replaceRange(insert, pos);
-
-                }
+            insertText: function() {
             },
             // Read-only support for textarea.
             setReadOnly: function(isReadOnly) {
