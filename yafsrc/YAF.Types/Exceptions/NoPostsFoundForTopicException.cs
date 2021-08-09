@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -78,7 +78,7 @@ namespace YAF.Types.Exceptions
             [NotNull] int messagePosition)
             : base(
                 $@"No posts were found for topic [
-                            topicId:{topicId}, userId,:{userId}, authorUserId:{authorUserId}, updateViewCount:{updateViewCount}, 
+                            topicId:{topicId}, userId:{userId}, authorUserId:{authorUserId}, updateViewCount:{updateViewCount}, 
                             showDeleted:{showDeleted}, sincePostedDate:{sincePostedDate}, toPostedDate:{toPostedDate}, 
                             pageIndex:{pageIndex}, pageSize:{pageSize},messagePosition: {messagePosition}]")
         {
