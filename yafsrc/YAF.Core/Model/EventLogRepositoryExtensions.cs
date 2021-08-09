@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -28,9 +28,12 @@ namespace YAF.Core.Model
 
     using ServiceStack.OrmLite;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Objects.Model;
 
@@ -98,7 +101,9 @@ namespace YAF.Core.Model
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<EventLog>();
 
-                    expression.Join<User>((e, u) => u.ID == e.UserID);
+                    var guestUserId = BoardContext.Current.Get<IAspNetUsersHelper>().GuestUserId;
+
+                    expression.Join<User>((e, u) => u.ID == (e.UserID != null ? e.UserID : guestUserId));
 
                     expression.Where<EventLog, User>(
                         (a, b) => b.BoardID == (boardId ?? repository.BoardID) && a.EventTime >= sinceDate &&
