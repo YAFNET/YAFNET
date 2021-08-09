@@ -352,6 +352,14 @@ namespace YAF.Controls
         {
             this.pollAndChoices = this.GetRepository<Poll>().GetPollAndChoices(this.PollId.Value);
 
+            // Check if Poll Exist
+            if (this.pollAndChoices.FirstOrDefault() == null)
+            {
+                this.Visible = false;
+
+                return;
+            }
+
             this.poll = this.pollAndChoices.FirstOrDefault().Item1;
 
             // if the page user can change the poll. Only a group owner, forum moderator  or an admin can do it.   );
@@ -407,14 +415,12 @@ namespace YAF.Controls
                 var isClosedBound = this.poll.Closes.HasValue && this.poll.PollFlags.IsClosedBound &&
                                     this.poll.Closes.Value < DateTime.UtcNow;
 
-                if (isClosedBound && isPollClosed)
+                switch (isClosedBound)
                 {
-                    this.showResults = true;
-                }
-
-                if (!isClosedBound)
-                {
-                    this.showResults = true;
+                    case true when isPollClosed:
+                    case false:
+                        this.showResults = true;
+                        break;
                 }
 
                 // The poll had an expiration date and expired without voting
