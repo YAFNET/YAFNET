@@ -98,13 +98,11 @@ namespace YAF.Core.Model
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
-            expression.Join<Message>((t, m) => m.TopicID == t.ID)
-                .Join<Message, User>((m, u) => u.ID == m.UserID)
-                .Join<Forum>((t, f) => f.ID == t.ForumID)
-                .Where<Message>(m => m.ID == messageId);
+            expression.Join<Message>((t, m) => m.TopicID == t.ID).Join<Message, User>((m, u) => u.ID == m.UserID)
+                .Join<Forum>((t, f) => f.ID == t.ForumID).Where<Message>(m => m.ID == messageId);
 
-            return repository.DbAccess.Execute(
-                db => db.Connection.SelectMulti<Topic, Message, User, Forum>(expression)).FirstOrDefault();
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Topic, Message, User, Forum>(expression))
+                .FirstOrDefault();
         }
 
         /// <summary>
@@ -222,8 +220,13 @@ namespace YAF.Core.Model
 
             if (updateViewCount)
             {
-                BoardContext.Current.GetRepository<Topic>().UpdateAdd(() => new Topic { Views = 1 }, t => t.ID == topicId);
+                BoardContext.Current.GetRepository<Topic>().UpdateAdd(
+                    () => new Topic { Views = 1 },
+                    t => t.ID == topicId);
             }
+
+            // Get Total Rows
+            var totalRows = GetMessageCount(topicId, showDeleted, sincePostedDate, toPostedDate);
 
             if (messagePosition > 0)
             {
@@ -245,50 +248,49 @@ namespace YAF.Core.Model
                         m => m.TopicID == topicId && (m.Flags & 16) == 16 && m.Posted >= sincePostedDate &&
                              m.Posted <= toPostedDate);
 
-                    // -- find total returned count
-                    var countTotalExpression = db.Connection.From<Message>();
-
-                    countTotalExpression.Where<Message>(
-                        m => m.TopicID == topicId && (m.Flags & 16) == 16 && m.Posted >= sincePostedDate &&
-                             m.Posted <= toPostedDate);
-
                     if (!showDeleted)
                     {
-                        countTotalExpression.And(m => (m.Flags & 8) != 8);
                         expression.And(m => (m.Flags & 8) != 8);
                     }
 
-                    expression.OrderBy<Message>(m => m.Posted).Page(pageIndex + 1, pageSize);
+                    var pageIndexCheck = pageIndex + 1;
+                    var totalPages = totalRows / pageSize;
 
-                    var countTotalSql = countTotalExpression
-                        .Select(Sql.Count($"{countTotalExpression.Column<Message>(x => x.ID)}")).ToSelectStatement();
+                    if (totalPages == 0)
+                    {
+                        totalPages = 1;
+                    }
+
+                    if (pageIndexCheck > totalPages)
+                    {
+                        // Fix if position is wrong
+                        expression.OrderBy<Message>(m => m.Posted).Page(totalPages, pageSize);
+                    }
+                    else
+                    {
+                        expression.OrderBy<Message>(m => m.Posted).Page(pageIndex + 1, pageSize);
+                    }
 
                     // -- Count favorite
-                    var reputationExpression =
-                        db.Connection.From<ReputationVote>(db.Connection.TableAlias("x"));
+                    var reputationExpression = db.Connection.From<ReputationVote>(db.Connection.TableAlias("x"));
                     reputationExpression.Where(
                         $@"x.{reputationExpression.Column<ReputationVote>(x => x.ReputationToUserID)}={expression.Column<User>(b => b.ID, true)}
                                         and x.{reputationExpression.Column<ReputationVote>(x => x.ReputationFromUserID)}={userId}");
                     var reputationSql = reputationExpression
-                        .Select($"{reputationExpression.Column<ReputationVote>(x => x.VoteDate)}")
-                        .Limit(1).ToSelectStatement();
-
-                     var isThankByUserExpression =
-                        db.Connection.From<Thanks>(db.Connection.TableAlias("ta"));
-                     isThankByUserExpression.Where(
-                         $@"ta.{isThankByUserExpression.Column<Thanks>(x => x.ThanksFromUserID)}={userId}
-                                    and ta.{isThankByUserExpression.Column<Thanks>(x => x.MessageID)}={expression.Column<Message>(x => x.ID, true)}");
-                    var isThankByUserSql = isThankByUserExpression
-                        .Select(Sql.Count("1"))
+                        .Select($"{reputationExpression.Column<ReputationVote>(x => x.VoteDate)}").Limit(1)
                         .ToSelectStatement();
 
-                    var thanksCountExpression =
-                        db.Connection.From<Thanks>(db.Connection.TableAlias("ta"));
+                    var isThankByUserExpression = db.Connection.From<Thanks>(db.Connection.TableAlias("ta"));
+                    isThankByUserExpression.Where(
+                        $@"ta.{isThankByUserExpression.Column<Thanks>(x => x.ThanksFromUserID)}={userId}
+                                    and ta.{isThankByUserExpression.Column<Thanks>(x => x.MessageID)}={expression.Column<Message>(x => x.ID, true)}");
+                    var isThankByUserSql = isThankByUserExpression.Select(Sql.Count("1")).ToSelectStatement();
+
+                    var thanksCountExpression = db.Connection.From<Thanks>(db.Connection.TableAlias("ta"));
                     thanksCountExpression.Where(
                         $@"ta.{thanksCountExpression.Column<Thanks>(x => x.MessageID)}={expression.Column<Message>(x => x.ID, true)}");
                     var thanksCountSql = thanksCountExpression
-                        .Select(Sql.Count($"{thanksCountExpression.Column<Thanks>(x => x.ID)}"))
-                        .ToSelectStatement();
+                        .Select(Sql.Count($"{thanksCountExpression.Column<Thanks>(x => x.ID)}")).ToSelectStatement();
 
                     expression.Select<Message, User, Topic, Forum, Category, Rank>(
                         (m, b, d, g, h, c) => new
@@ -313,7 +315,9 @@ namespace YAF.Core.Model
                             m.Flags,
                             m.EditReason,
                             m.IsModeratorChanged,
-                            IsDeleted = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<Message>(x => x.Flags, true)}&8")})"),
+                            IsDeleted =
+                                Sql.Custom<bool>(
+                                    $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<Message>(x => x.Flags, true)}&8")})"),
                             m.Position,
                             m.DeleteReason,
                             m.ExternalMessageId,
@@ -327,8 +331,12 @@ namespace YAF.Core.Model
                             b.Signature,
                             Posts = b.NumPosts,
                             b.Points,
-                            ReputationVoteDate = Sql.Custom<DateTime>($"{OrmLiteConfig.DialectProvider.IsNullFunction(reputationSql, "null")}"),
-                            IsGuest = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
+                            ReputationVoteDate =
+                                Sql.Custom<DateTime>(
+                                    $"{OrmLiteConfig.DialectProvider.IsNullFunction(reputationSql, "null")}"),
+                            IsGuest =
+                                Sql.Custom<bool>(
+                                    $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
                             d.Views,
                             d.ForumID,
                             RankName = c.Name,
@@ -339,7 +347,7 @@ namespace YAF.Core.Model
                             IsThankedByUser = Sql.Custom($"({isThankByUserSql})"),
                             ThanksNumber = Sql.Custom($"({thanksCountSql})"),
                             PageIndex = pageIndex,
-                            TotalRows = Sql.Custom($"({countTotalSql})")
+                            TotalRows = totalRows
                         });
 
                     return db.Connection.Select<PagedMessage>(expression);
@@ -358,16 +366,15 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="IEnumerable"/>.
         /// </returns>
-        public static List<Tuple<Message, User>> LastPosts(
-            this IRepository<Message> repository,
-            [NotNull] int topicId)
+        public static List<Tuple<Message, User>> LastPosts(this IRepository<Message> repository, [NotNull] int topicId)
         {
             CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
             expression.Join<Message, User>((m, u) => m.UserID == u.ID)
-                .Where<Message>(m => m.TopicID == topicId && (m.Flags & 24) == 16).OrderByDescending(m => m.Posted).Take(10);
+                .Where<Message>(m => m.TopicID == topicId && (m.Flags & 24) == 16).OrderByDescending(m => m.Posted)
+                .Take(10);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, User>(expression));
         }
@@ -384,7 +391,9 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns all the post by a user.
         /// </returns>
-        public static IOrderedEnumerable<Tuple<Message, Topic>> GetAllUserMessages(this IRepository<Message> repository, int userId)
+        public static IOrderedEnumerable<Tuple<Message, Topic>> GetAllUserMessages(
+            this IRepository<Message> repository,
+            int userId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -434,8 +443,8 @@ namespace YAF.Core.Model
                 .Where<Topic, Message, ActiveAccess, Category>(
                     (topic, message, x, e) => message.UserID == userId && x.UserID == pageUserId && x.ReadAccess &&
                                               e.BoardID == boardId && (topic.Flags & 8) != 8 &&
-                                              (message.Flags & 8) != 8)
-                .OrderByDescending<Message>(x => x.Posted).Take(count);
+                                              (message.Flags & 8) != 8).OrderByDescending<Message>(x => x.Posted)
+                .Take(count);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic, User>(expression));
         }
@@ -519,7 +528,8 @@ namespace YAF.Core.Model
                 },
                 x => x.ID == message.Item2.ForumID);
 
-            var numPostsCount = repository.Count(m => m.TopicID == message.Item1.TopicID && (m.Flags & 8) != 8).ToType<int>();
+            var numPostsCount = repository.Count(m => m.TopicID == message.Item1.TopicID && (m.Flags & 8) != 8)
+                .ToType<int>();
 
             // -- update Topic table with info about last post in topic
             BoardContext.Current.GetRepository<Topic>().UpdateOnly(
@@ -546,7 +556,10 @@ namespace YAF.Core.Model
         /// <param name="repository">The repository.</param>
         /// <param name="messageId">The message identifier.</param>
         /// <param name="flags">The flags.</param>
-        public static void UpdateFlags(this IRepository<Message> repository, [NotNull] int messageId, [NotNull] int flags)
+        public static void UpdateFlags(
+            this IRepository<Message> repository,
+            [NotNull] int messageId,
+            [NotNull] int flags)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -592,7 +605,15 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.Delete(forumId, topicId, messageId, isModeratorChanged, deleteReason, isDeleteAction, deleteLinked, true);
+            repository.Delete(
+                forumId,
+                topicId,
+                messageId,
+                isModeratorChanged,
+                deleteReason,
+                isDeleteAction,
+                deleteLinked,
+                true);
 
             repository.FireDeleted(messageId);
         }
@@ -717,7 +738,7 @@ namespace YAF.Core.Model
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
             expression.Join<User>((message, user) => user.ID == message.UserID).Where<Message>(
-                    m => (m.Flags & 16) == 16 && m.ReplyTo == messageId);
+                m => (m.Flags & 16) == 16 && m.ReplyTo == messageId);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, User>(expression));
         }
@@ -769,23 +790,21 @@ namespace YAF.Core.Model
 
                         if (showDeleted)
                         {
-                            expression.Where<Message>(m => m.ID == messageId && m.TopicID == topicId && (m.Flags & 16) == 16);
+                            expression.Where<Message>(
+                                m => m.ID == messageId && m.TopicID == topicId && (m.Flags & 16) == 16);
                         }
                         else
                         {
                             expression.Where<Message>(
-                                m => m.ID == messageId && m.TopicID == topicId && (m.Flags & 16) == 16 && (m.Flags & 8) != 8);
+                                m => m.ID == messageId && m.TopicID == topicId && (m.Flags & 16) == 16 &&
+                                     (m.Flags & 8) != 8);
                         }
 
                         expression.OrderByDescending(m => m.Posted);
 
                         expression.Limit(1);
 
-                        expression.Select(
-                            m => new {
-                                MessagePosition = m.Position,
-                                MessageID = m.ID
-                            });
+                        expression.Select(m => new { MessagePosition = m.Position, MessageID = m.ID });
 
                         return db.Connection.Select<(int MessagePosition, int MessageID)>(expression).FirstOrDefault();
                     });
@@ -813,18 +832,15 @@ namespace YAF.Core.Model
                         else
                         {
                             expression.Where<Message>(
-                                m => m.TopicID == topicId && (m.Flags & 16) == 16 && (m.Flags & 8) != 8 && m.Posted > lastRead);
+                                m => m.TopicID == topicId && (m.Flags & 16) == 16 && (m.Flags & 8) != 8 &&
+                                     m.Posted > lastRead);
                         }
 
                         expression.OrderByDescending(m => m.Posted);
 
                         expression.Limit(1);
 
-                        expression.Select(
-                            m => new {
-                                MessagePosition = m.Position,
-                                MessageID = m.ID
-                            });
+                        expression.Select(m => new { MessagePosition = m.Position, MessageID = m.ID });
 
                         return db.Connection.Select<(int MessagePosition, int MessageID)>(expression).FirstOrDefault();
 
@@ -844,8 +860,7 @@ namespace YAF.Core.Model
 
                     if (showDeleted)
                     {
-                        expression.Where<Message>(
-                            m => m.TopicID == topicId && (m.Flags & 16) == 16);
+                        expression.Where<Message>(m => m.TopicID == topicId && (m.Flags & 16) == 16);
                     }
                     else
                     {
@@ -857,11 +872,7 @@ namespace YAF.Core.Model
 
                     expression.Limit(1);
 
-                    expression.Select(
-                        m => new {
-                            MessagePosition = m.Position,
-                            MessageID = m.ID
-                        });
+                    expression.Select(m => new { MessagePosition = m.Position, MessageID = m.ID });
 
                     return db.Connection.Select<(int MessagePosition, int MessageID)>(expression).FirstOrDefault();
 
@@ -978,46 +989,49 @@ namespace YAF.Core.Model
             // Add points to Users total reputation points
             if (!BoardContext.Current.IsGuest)
             {
-                BoardContext.Current.GetRepository<User>().UpdateAdd(() => new User { Points = 3 }, u => u.ID == userId);
+                BoardContext.Current.GetRepository<User>().UpdateAdd(
+                    () => new User { Points = 3 },
+                    u => u.ID == userId);
             }
 
             var replaceName = BoardContext.Current.IsGuest ? guestUserName : BoardContext.Current.User.DisplayName;
 
-            var newMessageId = repository.Insert(new Message
-            {
-                UserID = userId,
-                MessageText = message,
-                TopicID = topicId,
-                Posted = posted,
-                UserName = guestUserName,
-                UserDisplayName = replaceName,
-                IP = ipAddress,
-                ReplyTo = replyTo,
-                Position = position,
-                Indent = 0,
-                Flags = flags.BitValue,
-                ExternalMessageId = null,
-                ReferenceMessageId = null
-            });
+            var newMessageId = repository.Insert(
+                new Message
+                {
+                    UserID = userId,
+                    MessageText = message,
+                    TopicID = topicId,
+                    Posted = posted,
+                    UserName = guestUserName,
+                    UserDisplayName = replaceName,
+                    IP = ipAddress,
+                    ReplyTo = replyTo,
+                    Position = position,
+                    Indent = 0,
+                    Flags = flags.BitValue,
+                    ExternalMessageId = null,
+                    ReferenceMessageId = null
+                });
 
             // Add to search index
             var newMessage = new SearchMessage
-                                    {
-                                        MessageId = newMessageId,
-                                        Message = message,
-                                        Flags = flags.BitValue,
-                                        Posted = posted.ToString(CultureInfo.InvariantCulture),
-                                        UserName = BoardContext.Current.MembershipUser.UserName,
-                                        UserDisplayName = BoardContext.Current.User.DisplayName,
-                                        UserStyle = BoardContext.Current.User.UserStyle,
-                                        UserId = BoardContext.Current.PageUserID,
-                                        TopicId = BoardContext.Current.PageTopicID,
-                                        Topic = BoardContext.Current.PageTopicName,
-                                        ForumId = forumId,
-                                        TopicTags = string.Empty,
-                                        ForumName = BoardContext.Current.PageForumName,
-                                        Description = string.Empty
-                                    };
+            {
+                MessageId = newMessageId,
+                Message = message,
+                Flags = flags.BitValue,
+                Posted = posted.ToString(CultureInfo.InvariantCulture),
+                UserName = BoardContext.Current.MembershipUser.UserName,
+                UserDisplayName = BoardContext.Current.User.DisplayName,
+                UserStyle = BoardContext.Current.User.UserStyle,
+                UserId = BoardContext.Current.PageUserID,
+                TopicId = BoardContext.Current.PageTopicID,
+                Topic = BoardContext.Current.PageTopicName,
+                ForumId = forumId,
+                TopicTags = string.Empty,
+                ForumName = BoardContext.Current.PageForumName,
+                Description = string.Empty
+            };
 
             BoardContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
 
@@ -1044,7 +1058,9 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Tuple<Topic, Message, User>> Unapproved(this IRepository<Message> repository, [NotNull] int forumId)
+        public static List<Tuple<Topic, Message, User>> Unapproved(
+            this IRepository<Message> repository,
+            [NotNull] int forumId)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -1122,32 +1138,34 @@ namespace YAF.Core.Model
                 .Exists(m => m.MessageID == originalMessage.Item2.ID))
             {
                 // -- insert current message variant - use OriginalMessage in future
-                BoardContext.Current.GetRepository<MessageHistory>().Insert(new MessageHistory
-                {
-                    MessageID = originalMessage.Item2.ID,
-                    Message = originalMessage.Item2.MessageText,
-                    IP = originalMessage.Item2.IP,
-                    Edited = DateTime.UtcNow,
-                    EditedBy = editedBy,
-                    EditReason = reasonOfEdit,
-                    IsModeratorChanged = originalMessage.Item2.IsModeratorChanged.Value,
-                    Flags = originalMessage.Item2.Flags
-                });
+                BoardContext.Current.GetRepository<MessageHistory>().Insert(
+                    new MessageHistory
+                    {
+                        MessageID = originalMessage.Item2.ID,
+                        Message = originalMessage.Item2.MessageText,
+                        IP = originalMessage.Item2.IP,
+                        Edited = DateTime.UtcNow,
+                        EditedBy = editedBy,
+                        EditReason = reasonOfEdit,
+                        IsModeratorChanged = originalMessage.Item2.IsModeratorChanged.Value,
+                        Flags = originalMessage.Item2.Flags
+                    });
             }
             else
             {
                 // -- save original message in the history if this is the first edit
-                BoardContext.Current.GetRepository<MessageHistory>().Insert(new MessageHistory
-                {
-                    MessageID = originalMessage.Item2.ID,
-                    Message = originalMessage.Item2.MessageText,
-                    IP = originalMessage.Item2.IP,
-                    Edited = originalMessage.Item2.Posted,
-                    EditedBy = originalMessage.Item2.UserID,
-                    EditReason = null,
-                    IsModeratorChanged = originalMessage.Item2.IsModeratorChanged.Value,
-                    Flags = originalMessage.Item2.Flags
-                });
+                BoardContext.Current.GetRepository<MessageHistory>().Insert(
+                    new MessageHistory
+                    {
+                        MessageID = originalMessage.Item2.ID,
+                        Message = originalMessage.Item2.MessageText,
+                        IP = originalMessage.Item2.IP,
+                        Edited = originalMessage.Item2.Posted,
+                        EditedBy = originalMessage.Item2.UserID,
+                        EditReason = null,
+                        IsModeratorChanged = originalMessage.Item2.IsModeratorChanged.Value,
+                        Flags = originalMessage.Item2.Flags
+                    });
             }
 
             repository.UpdateOnly(
@@ -1165,10 +1183,7 @@ namespace YAF.Core.Model
             if (priority.HasValue)
             {
                 BoardContext.Current.GetRepository<Topic>().UpdateOnly(
-                    () => new Topic
-                    {
-                        Priority = priority.Value
-                    },
+                    () => new Topic { Priority = priority.Value },
                     t => t.ID == originalMessage.Item1.ID);
             }
 
@@ -1184,21 +1199,21 @@ namespace YAF.Core.Model
 
             // Update Search index Item
             var updateMessage = new SearchMessage
-                                    {
-                                        MessageId = originalMessage.Item2.ID,
-                                        Message = message,
-                                        Flags = originalMessage.Item1.Flags,
-                                        Posted = originalMessage.Item1.Posted.ToString(CultureInfo.InvariantCulture),
-                                        UserName = originalMessage.Item4.Name,
-                                        UserDisplayName = originalMessage.Item3.DisplayName,
-                                        UserStyle = originalMessage.Item3.UserStyle,
-                                        UserId = originalMessage.Item4.ID,
-                                        TopicId = originalMessage.Item2.ID,
-                                        Topic = originalMessage.Item1.TopicName,
-                                        ForumId = originalMessage.Item3.ID,
-                                        ForumName = originalMessage.Item3.Name,
-                                        Description = description
-                                    };
+            {
+                MessageId = originalMessage.Item2.ID,
+                Message = message,
+                Flags = originalMessage.Item1.Flags,
+                Posted = originalMessage.Item1.Posted.ToString(CultureInfo.InvariantCulture),
+                UserName = originalMessage.Item4.Name,
+                UserDisplayName = originalMessage.Item3.DisplayName,
+                UserStyle = originalMessage.Item3.UserStyle,
+                UserId = originalMessage.Item4.ID,
+                TopicId = originalMessage.Item2.ID,
+                Topic = originalMessage.Item1.TopicName,
+                ForumId = originalMessage.Item3.ID,
+                ForumName = originalMessage.Item3.Name,
+                Description = description
+            };
 
             BoardContext.Current.Get<ISearch>().UpdateSearchIndexItem(updateMessage, true);
 
@@ -1283,12 +1298,7 @@ namespace YAF.Core.Model
                     EventLogTypes.Information);
             }
 
-            repository.Delete(
-                messageID,
-                isModeratorChanged,
-                deleteReason,
-                eraseMessages,
-                isDeleteAction);
+            repository.Delete(messageID, isModeratorChanged, deleteReason, eraseMessages, isDeleteAction);
 
             // Delete Message from Search Index
             if (isDeleteAction)
@@ -1444,14 +1454,10 @@ namespace YAF.Core.Model
                 .Exists(f => f.ID == message.Item2.ForumID && (f.Flags & 4) != 4))
             {
                 var postCount = repository.Count(
-                        x => x.UserID == message.Item1.UserID && (x.Flags & 8) != 8 && (x.Flags & 16) == 16)
-                    .ToType<int>();
+                    x => x.UserID == message.Item1.UserID && (x.Flags & 8) != 8 && (x.Flags & 16) == 16).ToType<int>();
 
                 BoardContext.Current.GetRepository<User>().UpdateOnly(
-                    () => new User
-                    {
-                        NumPosts = postCount
-                    },
+                    () => new User { NumPosts = postCount },
                     u => u.ID == message.Item1.UserID);
             }
 
@@ -1541,21 +1547,13 @@ namespace YAF.Core.Model
             }
 
             repository.UpdateOnly(
-                () => new Message
-                {
-                    TopicID = moveToTopicId,
-                    ReplyTo = replyToId,
-                    Position = position
-                },
+                () => new Message { TopicID = moveToTopicId, ReplyTo = replyToId, Position = position },
                 x => x.ID == messageId);
 
             // -- Delete topic if there are no more messages
             if (repository.Count(x => x.TopicID == message.Item1.TopicID && (x.Flags & 8) != 8) == 0)
             {
-                BoardContext.Current.GetRepository<Topic>().Delete(
-                    message.Item2.ForumID,
-                    message.Item1.TopicID,
-                    true);
+                BoardContext.Current.GetRepository<Topic>().Delete(message.Item2.ForumID, message.Item1.TopicID, true);
             }
 
             // -- update topic Post Count
@@ -1566,6 +1564,33 @@ namespace YAF.Core.Model
             BoardContext.Current.GetRepository<Topic>().UpdateAdd(
                 () => new Topic { NumPosts = 1 },
                 x => x.ID == moveToTopicId);
+        }
+
+        private static int GetMessageCount(
+            int topicId,
+            bool showDeleted,
+            DateTime sincePostedDate,
+            DateTime toPostedDate)
+        {
+            // -- find total returned count
+            return BoardContext.Current.GetRepository<Message>().DbAccess.Execute(
+                db =>
+                {
+                    var countTotalExpression = db.Connection.From<Message>();
+
+                    countTotalExpression.Where<Message>(
+                        m => m.TopicID == topicId && (m.Flags & 16) == 16 && m.Posted >= sincePostedDate &&
+                             m.Posted <= toPostedDate);
+
+                    if (!showDeleted)
+                    {
+                        countTotalExpression.And(m => (m.Flags & 8) != 8);
+                    }
+
+                    countTotalExpression.Select(Sql.Count($"{countTotalExpression.Column<Message>(x => x.ID)}"));
+
+                    return db.Connection.SqlScalar<int>(countTotalExpression);
+                });
         }
     }
 }

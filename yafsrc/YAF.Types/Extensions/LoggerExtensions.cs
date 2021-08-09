@@ -41,32 +41,12 @@ namespace YAF.Types.Extensions
         /// <param name="logger">
         /// The logger.
         /// </param>
-        /// <param name="format">
-        /// The format.
+        /// <param name="message">
+        /// The message.
         /// </param>
-        /// <param name="args">
-        /// The args.
-        /// </param>
-        public static void Debug(this ILoggerService logger, [NotNull] string format, [NotNull] params object[] args)
+        public static void Debug(this ILoggerService logger, [NotNull] string message)
         {
-            logger.Log(string.Format(format, args), EventLogTypes.Debug);
-        }
-
-        /// <summary>
-        /// The error.
-        /// </summary>
-        /// <param name="logger">
-        /// The logger.
-        /// </param>
-        /// <param name="format">
-        /// The format.
-        /// </param>
-        /// <param name="args">
-        /// The args.
-        /// </param>
-        public static void Error(this ILoggerService logger, [NotNull] string format, [NotNull] params object[] args)
-        {
-            logger.Log(string.Format(format, args));
+            logger.Log(message, EventLogTypes.Debug);
         }
 
         /// <summary>
@@ -78,35 +58,12 @@ namespace YAF.Types.Extensions
         /// <param name="ex">
         /// The ex.
         /// </param>
-        /// <param name="format">
-        /// The format.
+        /// <param name="message">
+        /// The message.
         /// </param>
-        /// <param name="args">
-        /// The args.
-        /// </param>
-        public static void Error(this ILoggerService logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
+        public static void Error(this ILoggerService logger, Exception ex, [NotNull] string message)
         {
-            logger.Log(string.Format(format, args), EventLogTypes.Error, exception: ex);
-        }
-
-        /// <summary>
-        /// The fatal.
-        /// </summary>
-        /// <param name="logger">
-        /// The logger.
-        /// </param>
-        /// <param name="ex">
-        /// The ex.
-        /// </param>
-        /// <param name="format">
-        /// The format.
-        /// </param>
-        /// <param name="args">
-        /// The args.
-        /// </param>
-        public static void Fatal(this ILoggerService logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
-        {
-            logger.Log(string.Format(format, args), EventLogTypes.Error, exception: ex);
+            logger.Log(message, EventLogTypes.Error, exception: ex);
         }
 
         /// <summary>
@@ -115,15 +72,12 @@ namespace YAF.Types.Extensions
         /// <param name="logger">
         /// The logger.
         /// </param>
-        /// <param name="format">
-        /// The format.
+        /// <param name="message">
+        /// The message.
         /// </param>
-        /// <param name="args">
-        /// The args.
-        /// </param>
-        public static void Info(this ILoggerService logger, [NotNull] string format, [NotNull] params object[] args)
+        public static void Info(this ILoggerService logger, [NotNull] string message)
         {
-            logger.Log(string.Format(format, args), EventLogTypes.Information);
+            logger.Log(message, EventLogTypes.Information);
         }
 
         /// <summary>

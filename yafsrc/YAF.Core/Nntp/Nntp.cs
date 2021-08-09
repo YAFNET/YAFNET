@@ -211,7 +211,7 @@ namespace YAF.Core.Nntp
                                 }
                                 catch (InvalidOperationException ex)
                                 {
-                                    this.Logger.Error(ex, "Error Downloading Message ID {0}", currentMessage);
+                                    this.Logger.Error(ex, $"Error Downloading Message ID {currentMessage}");
 
                                     // just advance to the next message
                                     currentMessage++;
@@ -231,9 +231,7 @@ namespace YAF.Core.Nntp
                                 if (dateTime < cutOffDate)
                                 {
                                     this.Logger.Debug(
-                                        "Skipped message id {0} due to date being {1}.",
-                                        currentMessage,
-                                        dateTime);
+                                        $"Skipped message id {currentMessage} due to date being {dateTime}.");
                                     continue;
                                 }
 
