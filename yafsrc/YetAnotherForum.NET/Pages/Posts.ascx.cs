@@ -786,7 +786,7 @@ namespace YAF.Pages
 
             if (!postList.Any())
             {
-                throw new NoPostsFoundForTopicException(
+                var topicException = new NoPostsFoundForTopicException(
                     this.PageContext.PageTopicID,
                     this.PageContext.PageUserID,
                     userId,
@@ -797,6 +797,10 @@ namespace YAF.Pages
                     this.Pager.CurrentPageIndex,
                     this.Pager.PageSize,
                     messagePosition);
+
+                this.Logger.Error(topicException, "No posts were found for topic");
+
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
 
             var firstPost = postList.FirstOrDefault();
