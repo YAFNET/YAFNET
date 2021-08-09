@@ -7,21 +7,21 @@
                          IconColor="text-secondary"
                          IconCssClass="far"
                          Type="Link"
-                         CssClass="fw-bold p-0"
+                         CssClass="fw-bold p-0 d-inline"
                          DataToggle="tooltip"
                          TitleLocalizedTag="VIEW_TOPIC"
                          TitleLocalizedPage="COMMON"
                          DataContent="tooltip" />
     </asp:PlaceHolder>
-    <asp:Label runat="server" ID="NewMessage" 
-               CssClass="me-1" />
+    <asp:Label runat="server" ID="NewMessage"
+               CssClass="me-1 d-inline" />
     <YAF:ThemeButton runat="server" ID="Info"
                      Icon="info-circle"
                      IconColor="text-secondary"
                      Type="Link"
                      DataToggle="popover"
                      Size="Small"
-                     CssClass="topic-link-popover">
+                     CssClass="topic-link-popover d-inline">
     </YAF:ThemeButton>
 </asp:PlaceHolder>
 
