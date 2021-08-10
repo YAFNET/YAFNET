@@ -51,7 +51,7 @@ namespace YAF.Core.Services.Logger
     /// </summary>
     public class DbLogger : ILoggerService, IHaveServiceLocator
     {
-#if (DEBUG)
+#if DEBUG
         /// <summary>
         ///     The is debug.
         /// </summary>
@@ -253,7 +253,7 @@ namespace YAF.Core.Services.Logger
                 return;
             }
 
-            var logTypes = EnumHelper.EnumToList<EventLogTypes>().ToDictionary(t => t, v => true);
+            var logTypes = EnumHelper.EnumToList<EventLogTypes>().ToDictionary(t => t, _ => true);
 
             new[] { EventLogTypes.Debug, EventLogTypes.Trace }.ForEach(
                 debugTypes => logTypes.AddOrUpdate(debugTypes, IsDebug));

@@ -207,7 +207,7 @@
                                         </li>
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="RANK"></YAF:LocalizedLabel> </strong>
-                                            <%# ((PagedUser)Container.DataItem).Name %>
+                                            <%# this.HtmlEncode(((PagedUser)Container.DataItem).Name) %>
                                         </li>
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="POSTS" LocalizedPage="ADMIN_USERS" />:</strong>
