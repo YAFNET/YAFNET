@@ -103,11 +103,11 @@
                     </div>
                     <p class="mb-1"
                        onclick="javascript:document.querySelector('<%# ".btn-toggle-{0}".Fmt(((PagedEventLog)Container.DataItem).ID) %>').click();">
-                        <span class="fw-bold">
+                        <asp:Label runat="server" Visible="<%# ((PagedEventLog)Container.DataItem).UserID != 0 %>" CssClass="fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
                                                 LocalizedTag="NAME"
                                                 LocalizedPage="ADMIN_EVENTLOG" />:
-                        </span>
+                        </asp:Label>
                         <%# this.UserLink((PagedEventLog)Container.DataItem) %>
                     </p>
                     <small>
