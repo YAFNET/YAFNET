@@ -76,14 +76,11 @@
                   <script id="template-download" type="text/x-tmpl">
                   </script>
         </div>
-
-            <asp:PlaceHolder ID="UploadNodePlaceHold" runat="server">
-                <div class="alert alert-info" role="alert">
-                    <asp:Label ID="UploadNote" runat="server"></asp:Label>
-                </div>
-            </asp:PlaceHolder>
       </div>
       <div class="modal-footer">
+          <asp:PlaceHolder ID="UploadNodePlaceHold" runat="server">
+              <YAF:Alert runat="server" Type="warning"><asp:Label ID="UploadNote" runat="server"></asp:Label></YAF:Alert>
+          </asp:PlaceHolder>
         <div class="alert alert-info" role="alert">
                 <strong><YAF:LocalizedLabel ID="ExtensionTitle"
                                             LocalizedTag="ALLOWED_EXTENSIONS" runat="server" /></strong>
