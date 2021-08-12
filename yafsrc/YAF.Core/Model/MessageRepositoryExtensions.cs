@@ -437,9 +437,11 @@ namespace YAF.Core.Model
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
-            expression.Join<User>((a, b) => b.ID == a.UserID).Join<Topic>((a, c) => c.ID == a.TopicID)
-                .Join<Topic, Forum>((c, d) => d.ID == c.ForumID).Join<Forum, Category>((d, e) => e.ID == d.CategoryID)
-                .Join<Category, ActiveAccess>((d, x) => x.ForumID == d.ID)
+            expression.Join<User>((a, b) => b.ID == a.UserID)
+                .Join<Topic>((a, c) => c.ID == a.TopicID)
+                .Join<Topic, Forum>((c, d) => d.ID == c.ForumID)
+                .Join<Forum, Category>((d, e) => e.ID == d.CategoryID)
+                .Join<Forum, ActiveAccess>((forum, access) => access.ForumID == forum.ID)
                 .Where<Topic, Message, ActiveAccess, Category>(
                     (topic, message, x, e) => message.UserID == userId && x.UserID == pageUserId && x.ReadAccess &&
                                               e.BoardID == boardId && (topic.Flags & 8) != 8 &&
