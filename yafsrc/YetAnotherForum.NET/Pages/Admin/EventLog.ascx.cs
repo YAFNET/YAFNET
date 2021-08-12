@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -41,6 +41,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Objects.Model;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
@@ -174,6 +175,11 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected string UserLink([NotNull] PagedEventLog item)
         {
+            if (item.UserID == 0)
+            {
+                return string.Empty;
+            }
+
             var userLink = new UserLink
             {
                 UserID = item.UserID,
