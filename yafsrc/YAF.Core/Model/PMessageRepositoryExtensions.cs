@@ -11,6 +11,7 @@
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -204,6 +205,10 @@
                     x => x.ID == replyTo.Value);
             }
 
+            var userPMFlags = new PMessageFlags {
+                IsInOutbox = true
+            };
+
             if (toUserId == 0)
             {
                 // Get all board users
@@ -212,12 +217,12 @@
 
                 users.ForEach(
                     u => BoardContext.Current.GetRepository<UserPMessage>().Insert(
-                        new UserPMessage { UserID = u.ID, PMessageID = newMessageId, Flags = 2 }));
+                        new UserPMessage { UserID = u.ID, PMessageID = newMessageId, Flags = userPMFlags.BitValue }));
             }
             else
             {
                 BoardContext.Current.GetRepository<UserPMessage>().Insert(
-                    new UserPMessage { UserID = toUserId, PMessageID = newMessageId, Flags = 2 });
+                    new UserPMessage { UserID = toUserId, PMessageID = newMessageId, Flags = userPMFlags.BitValue, IsReply = replyTo.HasValue});
             }
 
             repository.FireNew(newMessageId);

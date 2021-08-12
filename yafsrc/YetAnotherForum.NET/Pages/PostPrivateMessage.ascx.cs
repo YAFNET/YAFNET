@@ -538,17 +538,16 @@ namespace YAF.Pages
         protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             var replyTo = this.Get<HttpRequestBase>().QueryString.Exists("p")
-                              ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p").ToType<int>()
-                              : -1;
+                              ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("p")
+                              : null;
 
             // Check if quoted message is Reply
-            if (this.Get<HttpRequestBase>().QueryString.Exists("p"))
+            if (replyTo.HasValue)
             {
-                var replyId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p").ToType<int>();
                 var reply = this.GetRepository<PMessage>().GetSingle(
-                    m => m.ID == replyId);
+                    m => m.ID == replyTo.Value);
 
-                if (reply.ReplyTo.HasValue)
+                if (reply.ReplyTo is > 0)
                 {
                     replyTo = reply.ReplyTo.Value;
                 }

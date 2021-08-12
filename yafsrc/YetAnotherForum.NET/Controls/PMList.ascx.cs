@@ -101,11 +101,15 @@ namespace YAF.Controls
                     archivedCount++;
                 });
 
-            this.BindData();
             this.ClearCache();
-            this.PageContext.AddLoadMessage(
+
+            this.PageContext.LoadMessage.AddSession(
                 this.GetTextFormatted("MSG_ARCHIVED+", archivedCount),
                 MessageTypes.success);
+
+            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages,
+                "#View{0}",
+                PmViewConverter.ToQueryStringParam(this.View));
         }
 
         /// <summary>
@@ -130,14 +134,17 @@ namespace YAF.Controls
                         archivedCount++;
                     });
 
-            this.BindData();
             this.ClearCache();
 
-            this.PageContext.AddLoadMessage(
+            this.PageContext.LoadMessage.AddSession(
                 archivedCount == 1
                     ? this.GetText("MSG_ARCHIVED")
                     : this.GetTextFormatted("MSG_ARCHIVED+", archivedCount),
                 MessageTypes.success);
+
+            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages,
+                "#View{0}",
+                PmViewConverter.ToQueryStringParam(this.View));
         }
 
         /// <summary>
@@ -219,9 +226,16 @@ namespace YAF.Controls
                     }
             }
 
-            this.BindData();
-            this.PageContext.AddLoadMessage(this.GetTextFormatted("msgdeleted2", itemCount), MessageTypes.success);
             this.ClearCache();
+
+            this.PageContext.LoadMessage.AddSession(
+                this.GetTextFormatted("msgdeleted2", itemCount),
+                MessageTypes.success);
+
+
+            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages,
+                "#View{0}",
+                PmViewConverter.ToQueryStringParam(this.View));
         }
 
         /// <summary>
@@ -237,23 +251,29 @@ namespace YAF.Controls
         {
             long itemCount = 0;
 
-            this.Messages.Items.Cast<RepeaterItem>().Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
-                .ForEach(
-                    item =>
-                    {
-                        this.GetRepository<UserPMessage>().Delete(
-                            item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>(),
-                            this.View == PmView.Outbox);
+            var selectedMessages = this.Messages.Items.Cast<RepeaterItem>()
+                .Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked);
 
-                        itemCount++;
-                    });
+            selectedMessages.ForEach(
+                item =>
+                {
+                    this.GetRepository<UserPMessage>().Delete(
+                        item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>(),
+                        this.View == PmView.Outbox);
 
-            this.BindData();
+                    itemCount++;
+                });
 
-            this.PageContext.AddLoadMessage(
+            this.ClearCache();
+
+            this.PageContext.LoadMessage.AddSession(
                 itemCount == 1 ? this.GetText("msgdeleted1") : this.GetTextFormatted("msgdeleted2", itemCount),
                 MessageTypes.success);
-            this.ClearCache();
+
+
+            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages,
+                "#View{0}",
+                PmViewConverter.ToQueryStringParam(this.View));
         }
 
         /// <summary>
@@ -560,7 +580,6 @@ namespace YAF.Controls
 
             this.SortFromAsc.Text = this.GetText(this.View == PmView.Outbox ? "TO_ASC" : "FROM_ASC");
             this.SortFromDesc.Text = this.GetText(this.View == PmView.Outbox ? "TO_DESC" : "FROM_DESC");
-
 
             var messages = this.GetRepository<PMessage>().List(
                 this.PageContext.PageUserID,

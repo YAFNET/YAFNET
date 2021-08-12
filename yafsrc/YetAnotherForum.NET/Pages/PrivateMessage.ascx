@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.PrivateMessage" Codebehind="PrivateMessage.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.PrivateMessage" Codebehind="PrivateMessage.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Flags" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
@@ -74,7 +74,7 @@
                                                          Visible="<%# (Container.DataItem as PagedPm).FromUserID != this.PageContext.PageUserID %>"/>
                                         <YAF:ThemeButton ID="QuoteMessage" runat="server"
                                                          CommandName="quote" CommandArgument="<%# (Container.DataItem as PagedPm).UserPMessageID %>"
-                                                         TextLocalizedTag="BUTTON_QUOTE" TitleLocalizedTag="BUTTON_QUOTE_TT"
+                                                         TextLocalizedTag="BUTTON_QUOTE_TT" TitleLocalizedTag="BUTTON_QUOTE_TT"
                                                          DataToggle="tooltip"
                                                          Type="Secondary"
                                                          Icon="reply"
