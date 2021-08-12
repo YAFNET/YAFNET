@@ -126,8 +126,6 @@ namespace YAF.Pages.Admin
                         this.Get<IAspNetUsersHelper>().DeleteUser(e.CommandArgument.ToType<int>());
                     }
 
-                    this.GetRepository<User>().Delete(e.CommandArgument.ToType<int>());
-
                     this.BindData();
                     break;
                 case "approve":
