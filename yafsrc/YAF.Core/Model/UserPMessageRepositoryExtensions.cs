@@ -68,7 +68,7 @@ namespace YAF.Core.Model
 
             messageFlags.IsRead = true;
 
-            repository.UpdateOnly(() => new UserPMessage { Flags = messageFlags.BitValue }, m => m.ID == messageId);
+            repository.UpdateOnly(() => new UserPMessage { Flags = messageFlags.BitValue }, m => m.PMessageID == messageId);
         }
 
         /// <summary>
