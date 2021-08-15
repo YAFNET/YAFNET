@@ -124,25 +124,11 @@ namespace YAF.Pages
                 return;
             }
 
-            var showDeleted = false;
-            var userId = 0;
-            if (this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
-            {
-                showDeleted = true;
-            }
-
-            if (!showDeleted && (this.PageContext.BoardSettings.ShowDeletedMessages &&
-                                 !this.PageContext.BoardSettings.ShowDeletedMessagesToAll
-                                 || this.PageContext.IsAdmin ||
-                                 this.PageContext.ForumModeratorAccess))
-            {
-                userId = this.PageContext.PageUserID;
-            }
+            var showDeleted = this.PageContext.BoardSettings.ShowDeletedMessagesToAll;
 
             var posts = this.GetRepository<Message>().PostListPaged(
                 this.PageContext.PageTopicID,
                 this.PageContext.PageUserID,
-                userId,
                 !this.PageContext.IsCrawler,
                 showDeleted,
                 DateTimeHelper.SqlDbMinTime(),

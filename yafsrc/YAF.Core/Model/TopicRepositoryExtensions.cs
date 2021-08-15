@@ -477,7 +477,7 @@ namespace YAF.Core.Model
 
             expression.Join<Topic>((m, t) => m.ID == t.LastMessageID).Join<Topic, User>((t, u) => u.ID == t.LastUserID)
                 .Join<Topic, Forum>((c, d) => d.ID == c.ForumID).Join<Forum, Category>((d, e) => e.ID == d.CategoryID)
-                .Join<Category, ActiveAccess>((d, x) => x.ForumID == d.ID)
+                .Join<Forum, ActiveAccess>((d, x) => x.ForumID == d.ID)
                 .Where<Topic, Message, ActiveAccess, Category>(
                     (topic, message, x, e) => e.BoardID == boardId && topic.TopicMovedID == null &&
                                               x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
@@ -525,7 +525,7 @@ namespace YAF.Core.Model
                     expression.Where<Topic, Forum, ActiveAccess, Category>(
                         (topic, f, x, c) => c.BoardID == repository.BoardID && topic.TopicMovedID == null &&
                                             x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
-                                            topic.LastPosted != null && topic.NumPosts > 0);
+                                            topic.LastPosted != null && topic.NumPosts > 0 && f.ID == forumId);
 
                     expression.OrderByDescending<Topic>(t => t.LastPosted);
 

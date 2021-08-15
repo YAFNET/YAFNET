@@ -750,23 +750,10 @@ namespace YAF.Pages
 
             this.dataBound = true;
 
-            var showDeleted = false;
-            var userId = this.PageContext.PageUserID;
+            var showDeleted = this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
+                          this.PageContext.BoardSettings.ShowDeletedMessagesToAll;
 
-            if (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
-                this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
-            {
-                showDeleted = true;
-            }
-
-            if (!this.PageContext.BoardSettings.ShowDeletedMessages ||
-                !this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
-            {
-                // normally, users can always see own deleted topics or stubs we set a false id to hide them.
-                userId = -1;
-            }
-
-            var findMessageId = this.GetFindMessageId(showDeleted, userId, out var messagePosition);
+            var findMessageId = this.GetFindMessageId(showDeleted, out var messagePosition);
 
             // Mark topic read
             this.Get<IReadTrackCurrentUser>().SetTopicRead(this.PageContext.PageTopicID);
@@ -775,7 +762,6 @@ namespace YAF.Pages
             var postList = this.GetRepository<Message>().PostListPaged(
                 this.PageContext.PageTopicID,
                 this.PageContext.PageUserID,
-                userId,
                 !this.IsPostBack && !this.PageContext.IsCrawler,
                 showDeleted,
                 DateTimeHelper.SqlDbMinTime(),
@@ -789,7 +775,6 @@ namespace YAF.Pages
                 var topicException = new NoPostsFoundForTopicException(
                     this.PageContext.PageTopicID,
                     this.PageContext.PageUserID,
-                    userId,
                     !this.IsPostBack && !this.PageContext.IsCrawler,
                     showDeleted,
                     DateTimeHelper.SqlDbMinTime(),
@@ -850,16 +835,13 @@ namespace YAF.Pages
         /// <param name="showDeleted">
         /// The show Deleted.
         /// </param>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
         /// <param name="messagePosition">
         /// The message Position.
         /// </param>
         /// <returns>
         /// The get find message id.
         /// </returns>
-        private int GetFindMessageId(bool showDeleted, int userId, out int messagePosition)
+        private int GetFindMessageId(bool showDeleted, out int messagePosition)
         {
             var findMessageId = 0;
             messagePosition = -1;
@@ -879,8 +861,7 @@ namespace YAF.Pages
                         this.PageContext.PageTopicID,
                         messageId,
                         DateTimeHelper.SqlDbMinTime(),
-                        showDeleted,
-                        userId);
+                        showDeleted);
 
                     findMessageId = unreadFirst.MessageID;
                     messagePosition = unreadFirst.MessagePosition;
@@ -900,8 +881,7 @@ namespace YAF.Pages
                         this.PageContext.PageTopicID,
                         null,
                         lastRead,
-                        showDeleted,
-                        userId);
+                        showDeleted);
 
                     findMessageId = unreadFirst.MessageID;
                     messagePosition = unreadFirst.MessagePosition;

@@ -41,9 +41,6 @@ namespace YAF.Types.Exceptions
         /// <param name="userId">
         /// The current user identifier.
         /// </param>
-        /// <param name="authorUserId">
-        /// The author user identifier.
-        /// </param>
         /// <param name="updateViewCount">
         /// The update view count.
         /// </param>
@@ -68,7 +65,6 @@ namespace YAF.Types.Exceptions
         public NoPostsFoundForTopicException(
             [NotNull] int topicId,
             [NotNull] int userId,
-            [NotNull] int authorUserId,
             [NotNull] bool updateViewCount,
             [NotNull] bool showDeleted,
             [NotNull] DateTime sincePostedDate,
@@ -78,9 +74,9 @@ namespace YAF.Types.Exceptions
             [NotNull] int messagePosition)
             : base(
                 $@"No posts were found for topic [
-                            topicId:{topicId}, userId:{userId}, authorUserId:{authorUserId}, updateViewCount:{updateViewCount}, 
+                            topicId:{topicId}, userId:{userId}, updateViewCount:{updateViewCount}, 
                             showDeleted:{showDeleted}, sincePostedDate:{sincePostedDate}, toPostedDate:{toPostedDate}, 
-                            pageIndex:{pageIndex}, pageSize:{pageSize},messagePosition: {messagePosition}]")
+                            pageIndex:{pageIndex}, pageSize:{pageSize}, messagePosition:{messagePosition}]")
         {
         }
     }
