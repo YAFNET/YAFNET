@@ -14,7 +14,7 @@
             <div class="card-header">
                 <YAF:IconHeader runat="server"
                                 LocalizedTag="TITLE"
-                                LocalizedPage="RECOVER_PASSWORD"
+                                LocalizedPage="ACCOUNT_RESEST_PASSWORD"
                                 IconName="key"/>
             </div>
             <asp:Panel runat="server" ID="ContentBody"
@@ -72,6 +72,7 @@
                     <YAF:ThemeButton runat="server" ID="Forgot"
                                      CausesValidation="True"
                                      Icon="key"
+                                     TextLocalizedPage="ACCOUNT_RESEST_PASSWORD"
                                      TextLocalizedTag="TITLE"
                                      OnClick="ResetClick" />
                 </div>

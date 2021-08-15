@@ -4706,9 +4706,6 @@
     <Resource tag="YIM">Yahoo Messenger:</Resource>
   </page>
   <page name="ACCOUNT_RESEST_PASSWORD">
-    <Resource tag="TITLE">Lost Password</Resource>
-  </page>
-  <page name="ACCOUNT_RESEST_PASSWORD">
     <Resource tag="TITLE">Reset Password</Resource>
     <Resource tag="PASSWORD">Enter New Password</Resource>
     <Resource tag="CONFIRM_PASSWORD">Confirm New Password</Resource>

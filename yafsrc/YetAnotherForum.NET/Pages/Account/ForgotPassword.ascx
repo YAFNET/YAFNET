@@ -4,8 +4,8 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
-    <div class="col">
-        <div class="card w-25 mx-auto">
+    <div class="col-auto mx-auto">
+        <div class="card">
             <div class="card-body">
                 <h5 class="card-title">
                     <YAF:LocalizedLabel runat="server"
