@@ -622,12 +622,14 @@ namespace YAF.Pages.Admin
             {
                 this.randomGuid = Guid.NewGuid().ToString();
 
+                var messageFlags = new MessageFlags { IsHtml = false, IsBBCode = true };
+
                 this.GetRepository<PMessage>().SendMessage(
                     fromUser.ID,
                     toUser.ID,
                     this.TopicPrefixTB.Text.Trim() + this.randomGuid,
                     $"{PMessagePrefix}{this.randomGuid}   {this.PMessageText.Text.Trim()}",
-                    6,
+                    messageFlags.BitValue,
                     -1);
             }
 
