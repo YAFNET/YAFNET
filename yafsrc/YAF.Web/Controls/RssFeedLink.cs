@@ -61,7 +61,7 @@ namespace YAF.Web.Controls
         /// </value>
         public RssFeeds FeedType
         {
-            get => this.ViewState["FeedType"]?.ToString().ToEnum<RssFeeds>() ?? RssFeeds.Forum;
+            get => this.ViewState["FeedType"]?.ToString().ToEnum<RssFeeds>() ?? RssFeeds.LatestPosts;
 
             set => this.ViewState["FeedType"] = value;
         }

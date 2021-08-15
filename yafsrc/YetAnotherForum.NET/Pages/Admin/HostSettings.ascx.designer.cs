@@ -2085,24 +2085,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.DropDownList PostLatestFeedAccess;
 
         /// <summary>
-        /// HelpLabel135 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel135;
-
-        /// <summary>
-        /// ForumFeedAccess control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ForumFeedAccess;
-
-        /// <summary>
         /// HelpLabel136 control.
         /// </summary>
         /// <remarks>
@@ -2119,24 +2101,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList TopicsFeedAccess;
-
-        /// <summary>
-        /// HelpLabel137 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel137;
-
-        /// <summary>
-        /// ActiveTopicFeedAccess control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ActiveTopicFeedAccess;
 
         /// <summary>
         /// HelpLabel138 control.

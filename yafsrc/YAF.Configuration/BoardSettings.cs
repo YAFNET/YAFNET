@@ -672,26 +672,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets ForumFeedAccess.
-        /// </summary>
-        public int ForumFeedAccess
-        {
-            get => this.Registry.GetValue("ForumFeedAccess", 1);
-
-            set => this.Registry.SetValue("ForumFeedAccess", value);
-        }
-
-        /// <summary>
-        /// Gets or sets ActiveTopicFeedAccess.
-        /// </summary>
-        public int ActiveTopicFeedAccess
-        {
-            get => this.Registry.GetValue("ActiveTopicFeedAccess", 1);
-
-            set => this.Registry.SetValue("ActiveTopicFeedAccess", value);
-        }
-
-        /// <summary>
         /// Gets or sets FavoriteTopicFeedAccess.
         /// </summary>
         public int FavoriteTopicFeedAccess

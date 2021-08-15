@@ -28,7 +28,6 @@ namespace YAF.Controls
 
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Web.UI.WebControls;
 
@@ -438,7 +437,6 @@ namespace YAF.Controls
         /// </summary>
         private void BindFeeds()
         {
-            var accessActive = this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ActiveTopicFeedAccess);
             var accessFavorite = this.Get<IPermissions>().Check(this.PageContext.BoardSettings.FavoriteTopicFeedAccess);
 
             // RSS link setup
@@ -447,30 +445,14 @@ namespace YAF.Controls
                 return;
             }
 
-            switch (this.CurrentMode)
+            if (this.CurrentMode == TopicListMode.Favorite)
             {
-                case TopicListMode.User:
-                    this.RssFeed.Visible = false;
-                    break;
-                case TopicListMode.Unread:
-                    this.RssFeed.Visible = false;
-                    break;
-                case TopicListMode.Unanswered:
-                    this.RssFeed.Visible = false;
-                    break;
-                case TopicListMode.Active:
-                    this.RssFeed.FeedType = RssFeeds.Active;
-                    this.RssFeed.AdditionalParameters =
-                        $"txt={this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text))}&d={this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString(CultureInfo.InvariantCulture)))}";
-
-                    this.RssFeed.Visible = accessActive;
-                    break;
-                case TopicListMode.Favorite:
-                    this.RssFeed.FeedType = RssFeeds.Favorite;
-                    this.RssFeed.AdditionalParameters =
-                        $"txt={this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text))}&d={this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString(CultureInfo.InvariantCulture)))}";
-                    this.RssFeed.Visible = accessFavorite;
-                    break;
+                this.RssFeed.FeedType = RssFeeds.Favorite;
+                this.RssFeed.Visible = accessFavorite;
+            }
+            else
+            {
+                this.RssFeed.Visible = false;
             }
         }
 

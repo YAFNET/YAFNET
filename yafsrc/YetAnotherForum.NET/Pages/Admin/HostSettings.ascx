@@ -1038,37 +1038,19 @@
                                 </asp:DropDownList>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel135" runat="server"
-                                               AssociatedControlID="ForumFeedAccess"
-                                               LocalizedTag="FORUM_FEEDS_ACCESS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <asp:DropDownList CssClass="form-select" ID="ForumFeedAccess" runat="server">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel136" runat="server"
-                                               AssociatedControlID="TopicsFeedAccess"
-                                               LocalizedTag="TOPIC_FEEDS_ACCESS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <asp:DropDownList CssClass="form-select" ID="TopicsFeedAccess" runat="server">
-                                </asp:DropDownList>
-                            </div>
+                        <div class="mb-3">
+                            <YAF:HelpLabel ID="HelpLabel136" runat="server"
+                                           AssociatedControlID="TopicsFeedAccess"
+                                           LocalizedTag="TOPIC_FEEDS_ACCESS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <asp:DropDownList CssClass="form-select" ID="TopicsFeedAccess" runat="server">
+                            </asp:DropDownList>
                         </div>
-                        <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel137" runat="server"
-                                               AssociatedControlID="ActiveTopicFeedAccess"
-                                               LocalizedTag="ACTIVETOPIC_FEEDS_ACCESS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <asp:DropDownList CssClass="form-select" ID="ActiveTopicFeedAccess" runat="server">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel138" runat="server"
-                                               AssociatedControlID="FavoriteTopicFeedAccess"
-                                               LocalizedTag="FAVTOPIC_FEEDS_ACCESS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <asp:DropDownList CssClass="form-select" ID="FavoriteTopicFeedAccess" runat="server">
-                                </asp:DropDownList>
-                            </div>
+                        <div class="mb-3">
+                            <YAF:HelpLabel ID="HelpLabel138" runat="server"
+                                           AssociatedControlID="FavoriteTopicFeedAccess"
+                                           LocalizedTag="FAVTOPIC_FEEDS_ACCESS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <asp:DropDownList CssClass="form-select" ID="FavoriteTopicFeedAccess" runat="server">
+                            </asp:DropDownList>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="geo" role="tabpanel" aria-labelledby="geo-tab">
