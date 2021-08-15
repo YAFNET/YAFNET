@@ -176,9 +176,6 @@ namespace YAF.Core.Model
         /// <param name="userId">
         /// The user Id.
         /// </param>
-        /// <param name="authorUserId">
-        /// The author User Id.
-        /// </param>
         /// <param name="updateViewCount">
         /// The update view count.
         /// </param>
@@ -207,7 +204,6 @@ namespace YAF.Core.Model
             this IRepository<Message> repository,
             [NotNull] int topicId,
             [NotNull] int userId,
-            [NotNull] int authorUserId,
             [NotNull] bool updateViewCount,
             [NotNull] bool showDeleted,
             [NotNull] DateTime sincePostedDate,
@@ -343,7 +339,7 @@ namespace YAF.Core.Model
                             RankStyle = c.Style,
                             Style = b.UserStyle,
                             Edited = m.Edited != null ? m.Edited : m.Posted,
-                            HasAvatarImage = 0,
+                            HasAvatarImage = b.AvatarImage != null ? true : false,
                             IsThankedByUser = Sql.Custom($"({isThankByUserSql})"),
                             ThanksNumber = Sql.Custom($"({thanksCountSql})"),
                             PageIndex = pageIndex,
@@ -763,9 +759,6 @@ namespace YAF.Core.Model
         /// <param name="showDeleted">
         /// The show Deleted.
         /// </param>
-        /// <param name="authorUserId">
-        /// The author User Id.
-        /// </param>
         /// <returns>
         /// The <see cref="(int MessagePosition, int MessageID)"/>.
         /// </returns>
@@ -774,8 +767,7 @@ namespace YAF.Core.Model
             [NotNull] int topicId,
             [CanBeNull] int? messageId,
             [NotNull] DateTime lastRead,
-            [NotNull] bool showDeleted,
-            [NotNull] int authorUserId)
+            [NotNull] bool showDeleted)
         {
             CodeContracts.VerifyNotNull(repository);
 

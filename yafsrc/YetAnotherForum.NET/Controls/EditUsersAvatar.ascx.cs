@@ -249,7 +249,7 @@ namespace YAF.Controls
 
                     this.GetRepository<User>().SaveAvatar(
                         this.currentUserId,
-                        $"{BoardInfo.ForumBaseUrl}{this.Get<BoardFolders>().Uploads}/{newFileName}",
+                        $"{BoardInfo.ForumServerFileRoot}{this.Get<BoardFolders>().Uploads}/{newFileName}",
                         null,
                         null);
                 }
@@ -325,33 +325,43 @@ namespace YAF.Controls
                 }
             }
 
+            var showNoAvatar = false;
+
             if (!user.AvatarImage.IsNullOrEmptyField())
             {
                 this.AvatarImg.ImageUrl =
                     $"{BoardInfo.ForumClientFileRoot}resource.ashx?u={this.currentUserId}&v={DateTime.Now.Ticks}";
                 this.DeleteAvatar.Visible = true;
             }
-            else if (user.Avatar.IsSet())
+            else if (user.Avatar.IsSet() && user.Avatar.StartsWith("/"))
             {
-                if (!user.Avatar.StartsWith("/"))
+                if (user.Avatar.Contains(this.Get<BoardFolders>().Avatars))
                 {
-                    return;
+                    var item = this.AvatarGallery.Items.FindByValue(user.Avatar);
+
+                    if (item == null)
+                    {
+                        showNoAvatar = true;
+                    }
+
+                    this.AvatarImg.ImageUrl = user.Avatar;
+
+                    item.Selected = true;
+
+                    this.DeleteAvatar.Visible = true;
                 }
-
-                var item = this.AvatarGallery.Items.FindByValue(user.Avatar);
-
-                if (item == null)
+                else
                 {
-                    return;
+                    this.AvatarImg.ImageUrl = user.Avatar;
+                    this.DeleteAvatar.Visible = true;
                 }
-
-                this.AvatarImg.ImageUrl = user.Avatar;
-
-                item.Selected = true;
-
-                this.DeleteAvatar.Visible = true;
             }
             else
+            {
+                showNoAvatar = true;
+            }
+
+            if (showNoAvatar)
             {
                 this.AvatarImg.ImageUrl =
                     $"{BoardInfo.ForumClientFileRoot}resource.ashx?avatar={this.currentUserId}&v={DateTime.Now.Ticks}";

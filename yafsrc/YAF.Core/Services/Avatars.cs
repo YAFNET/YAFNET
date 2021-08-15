@@ -88,7 +88,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetAvatarUrlForUser([NotNull] User user)
         {
-            CodeContracts.VerifyNotNull(user, "user");
+            CodeContracts.VerifyNotNull(user);
 
             return this.GetAvatarUrlForUser(
                 user.ID,
