@@ -373,23 +373,23 @@ namespace YAF.Core.Services
             var boardName = this.BoardSettings.Name;
             var forumEmail = this.BoardSettings.ForumEmail;
 
-            var message = this.GetRepository<Message>().GetById(newMessageId);
+            var message = this.GetRepository<Message>().GetMessage(newMessageId);
 
-            var messageAuthorUserID = message.UserID;
+            var messageAuthorUserID = message.Item2.UserID;
 
             // cleaned body as text...
             var bodyText = this.Get<IBadWordReplace>()
                 .Replace(
-                    BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.MessageText))))
+                    BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.Item2.MessageText))))
                 .RemoveMultipleWhitespace();
 
-            var watchUsers = this.GetRepository<User>().WatchMailList(message.TopicID, messageAuthorUserID);
+            var watchUsers = this.GetRepository<User>().WatchMailList(message.Item2.TopicID, messageAuthorUserID);
 
             var watchEmail = new TemplateEmail("TOPICPOST")
             {
                 TemplateParams =
                 {
-                    ["{topic}"] = HttpUtility.HtmlDecode(this.Get<IBadWordReplace>().Replace(message.Topic)),
+                    ["{topic}"] = HttpUtility.HtmlDecode(this.Get<IBadWordReplace>().Replace(message.Item1.TopicName)),
                     ["{postedby}"] = this.Get<IUserDisplayName>().GetNameById(messageAuthorUserID),
                     ["{body}"] = bodyText,
                     ["{bodytruncated}"] = bodyText.Truncate(160),
@@ -398,7 +398,7 @@ namespace YAF.Core.Services
                         true,
                         "m={0}&name={1}",
                         newMessageId,
-                        message.Topic),
+                        message.Item1.TopicName),
                     ["{subscriptionlink}"] = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Profile_Subscriptions,
                         true)
