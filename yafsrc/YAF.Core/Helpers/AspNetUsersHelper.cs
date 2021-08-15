@@ -956,9 +956,6 @@ namespace YAF.Core.Helpers
         /// <summary>
         /// Gets the board user by Id.
         /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
         /// <param name="userId">
         /// The user id.
         /// </param>
@@ -986,7 +983,6 @@ namespace YAF.Core.Helpers
         /// <summary>
         /// Gets the users paged.
         /// </summary>
-        /// <param name="repository">The repository.</param>
         /// <param name="boardId">The board identifier.</param>
         /// <param name="pageIndex">Index of the page.</param>
         /// <param name="pageSize">Size of the page.</param>
@@ -1118,9 +1114,6 @@ namespace YAF.Core.Helpers
         /// <summary>
         /// List Members Paged
         /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
         /// <param name="boardId">
         /// The board id.
         /// </param>
@@ -1305,7 +1298,7 @@ namespace YAF.Core.Helpers
                         }
                     }
 
-                    if (sortRank.HasValue)
+                    if (sortRank is > 0)
                     {
                         if (sortRank.Value == 1)
                         {
@@ -1317,7 +1310,7 @@ namespace YAF.Core.Helpers
                         }
                     }
 
-                    if (sortJoined.HasValue)
+                    if (sortJoined is > 0)
                     {
                         if (sortJoined.Value == 1)
                         {
@@ -1329,7 +1322,7 @@ namespace YAF.Core.Helpers
                         }
                     }
 
-                    if (sortLastVisit.HasValue)
+                    if (sortLastVisit is > 0)
                     {
                         if (sortLastVisit.Value == 1)
                         {
@@ -1341,7 +1334,7 @@ namespace YAF.Core.Helpers
                         }
                     }
 
-                    if (sortPosts.HasValue)
+                    if (sortPosts is > 0)
                     {
                         if (sortPosts.Value == 1)
                         {

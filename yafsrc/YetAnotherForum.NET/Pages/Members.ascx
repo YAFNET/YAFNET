@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Members" CodeBehind="Members.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Members" CodeBehind="Members.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="ServiceStack" %>
@@ -37,33 +37,33 @@
                                          Icon="filter"
                                          TextLocalizedTag="FILTER_DROPDOWN"
                                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
-                        
+
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                             <div class="px-3 py-1">
                                 <div class="mb-3">
                                     <asp:Label runat="server" AssociatedControlID="Group">
-                                        <YAF:LocalizedLabel ID="SearchRolesLocalizedLabel" runat="server" 
+                                        <YAF:LocalizedLabel ID="SearchRolesLocalizedLabel" runat="server"
                                                             LocalizedTag="Search_Role" />
                                     </asp:Label>
-                                    <asp:DropDownList ID="Group" runat="server" 
+                                    <asp:DropDownList ID="Group" runat="server"
                                                       CssClass="select2-select">
                                     </asp:DropDownList>
                                 </div>
                                 <div class="mb-3">
                                     <asp:Label runat="server" AssociatedControlID="Ranks">
-                                        <YAF:LocalizedLabel ID="SearchRankLocalizedLabel" runat="server" 
+                                        <YAF:LocalizedLabel ID="SearchRankLocalizedLabel" runat="server"
                                                             LocalizedTag="Search_Rank" />
                                     </asp:Label>
-                                    <asp:DropDownList ID="Ranks" runat="server" 
+                                    <asp:DropDownList ID="Ranks" runat="server"
                                                       CssClass="select2-select">
                                     </asp:DropDownList>
                                 </div>
                                 <div class="mb-3">
                                     <asp:Label runat="server" AssociatedControlID="NumPostDDL">
-                                        <YAF:LocalizedLabel ID="NumPostsLabel" runat="server" 
+                                        <YAF:LocalizedLabel ID="NumPostsLabel" runat="server"
                                                             LocalizedTag="NUMPOSTS" />
                                     </asp:Label>
-                                    <asp:DropDownList ID="NumPostDDL" runat="server" 
+                                    <asp:DropDownList ID="NumPostDDL" runat="server"
                                                       CssClass="select2-select">
                                     </asp:DropDownList>
                                 </div>
@@ -74,10 +74,10 @@
                                 </div>
                                 <div class="mb-3">
                                     <asp:Label runat="server" AssociatedControlID="UserSearchName">
-                                        <YAF:LocalizedLabel ID="SearchMemberLocalizedLabel" runat="server" 
+                                        <YAF:LocalizedLabel ID="SearchMemberLocalizedLabel" runat="server"
                                                             LocalizedTag="Search_Member" />
                                     </asp:Label>
-                                    <asp:TextBox ID="UserSearchName" runat="server" 
+                                    <asp:TextBox ID="UserSearchName" runat="server"
                                                  CssClass="form-control"></asp:TextBox>
                                 </div>
                                 <YAF:ThemeButton ID="SearchByUserName" runat="server"
@@ -93,7 +93,7 @@
                                                  Type="Secondary"
                                                  Icon="trash">
                                 </YAF:ThemeButton>
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -108,56 +108,56 @@
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                                      <YAF:ThemeButton ID="SortUserNameAsc" runat="server"
                                          CssClass="dropdown-item"
-                                         Type="None" 
+                                         Type="None"
                                          OnClick="UserNameAsc_Click"
                                          TextLocalizedTag="USERNAME_ASC"/>
                         <YAF:ThemeButton ID="SortUserNameDesc" runat="server"
                                          CssClass="dropdown-item"
-                                         Type="None" 
+                                         Type="None"
                                          OnClick="UserNameDesc_Click"
                                          TextLocalizedTag="USERNAME_DESC"/>
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton ID="SortRankAsc" runat="server"
                                          CssClass="dropdown-item"
-                                         Type="None" 
+                                         Type="None"
                                          OnClick="RankAsc_Click"
                                          TextLocalizedTag="RANK_ASC" />
                         <YAF:ThemeButton ID="SortRankDesc" runat="server"
                                          CssClass="dropdown-item"
-                                         Type="None" 
+                                         Type="None"
                                          OnClick="RankDesc_Click"
                                          TextLocalizedTag="RANK_DESC" />
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton ID="SortJoinedAsc" runat="server"
                                          CssClass="dropdown-item"
-                                         Type="None" 
+                                         Type="None"
                                          OnClick="JoinedAsc_Click"
                                          TextLocalizedTag="JOINED_ASC" />
                         <YAF:ThemeButton ID="SortJoinedDesc" runat="server"
                                          CssClass="dropdown-item"
-                                         Type="None" 
+                                         Type="None"
                                          OnClick="JoinedDesc_Click"
                                          TextLocalizedTag="JOINED_DESC" />
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton ID="SortPostsAsc" runat="server"
                                          CssClass="dropdown-item"
-                                         Type="None" 
+                                         Type="None"
                                          OnClick="PostsAsc_Click"
                                          TextLocalizedTag="POSTS_ASC" />
                         <YAF:ThemeButton ID="SortPostsDesc" runat="server"
                                          CssClass="dropdown-item"
-                                         Type="None" 
+                                         Type="None"
                                          OnClick="PostsDesc_Click"
                                          TextLocalizedTag="POSTS_DESC" />
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton ID="SortLastVisitAsc" runat="server"
                                          CssClass="dropdown-item"
-                                         Type="None" 
+                                         Type="None"
                                          OnClick="LastVisitAsc_Click"
                                          TextLocalizedTag="LASTVISIT_ASC" />
                         <YAF:ThemeButton ID="SortLastVisitDesc" runat="server"
                                          CssClass="dropdown-item"
-                                         Type="None" 
+                                         Type="None"
                                          OnClick="LastVisitDesc_Click"
                                          TextLocalizedTag="LASTVISIT_DESC" />
                                 </div>
@@ -179,19 +179,19 @@
                                 <li class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 text-break">
-                                        <img src="<%# this.GetAvatarUrlFileName(((PagedUser)Container.DataItem).UserID, ((PagedUser)Container.DataItem).Avatar, ((PagedUser)Container.DataItem).AvatarImage != null, ((PagedUser)Container.DataItem).Email) %>" alt="<%# this.HtmlEncode(((PagedUser)Container.DataItem).Name) %>"
-                                             title="<%# this.HtmlEncode(this.PageContext.BoardSettings.EnableDisplayName ? ((PagedUser)Container.DataItem).DisplayName : ((PagedUser)Container.DataItem).Name) %>" 
+                                        <img src="<%# this.GetAvatarUrlFileName(((PagedUser)Container.DataItem).UserID, ((PagedUser)Container.DataItem).Avatar, ((PagedUser)Container.DataItem).AvatarImage != null) %>" alt="<%# this.HtmlEncode(((PagedUser)Container.DataItem).Name) %>"
+                                             title="<%# this.HtmlEncode(this.PageContext.BoardSettings.EnableDisplayName ? ((PagedUser)Container.DataItem).DisplayName : ((PagedUser)Container.DataItem).Name) %>"
                                              class="rounded img-fluid"
                                              style="max-height: 50px; max-width:50px"/>
-                                        <YAF:UserLink ID="UserProfileLink" runat="server" 
+                                        <YAF:UserLink ID="UserProfileLink" runat="server"
                                                       Suspended="<%# ((PagedUser)Container.DataItem).Suspended %>"
-                                                      IsGuest="False" 
-                                                      ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? ((PagedUser)Container.DataItem).DisplayName : ((PagedUser)Container.DataItem).Name %>" 
+                                                      IsGuest="False"
+                                                      ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? ((PagedUser)Container.DataItem).DisplayName : ((PagedUser)Container.DataItem).Name %>"
                                                       UserID="<%# ((PagedUser)Container.DataItem).UserID %>"
                                                       Style="<%# ((PagedUser)Container.DataItem).UserStyle %>" />
                                     </h5>
                                     <small class="d-none d-md-block">
-                                        <strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                        <strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
                                                                     LocalizedTag="JOINED"
                                                                     LocalizedPage="POSTS"/>:</strong>
                                         <%# this.Get<IDateTimeService>().FormatDateLong(((PagedUser)Container.DataItem).Joined) %>

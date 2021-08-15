@@ -120,9 +120,8 @@ namespace YAF.Pages
         /// <param name="userId">The user id.</param>
         /// <param name="avatarString">The avatar string.</param>
         /// <param name="hasAvatarImage">if set to <c>true</c> [has avatar image].</param>
-        /// <param name="email">The email.</param>
         /// <returns>Returns the File Url</returns>
-        protected string GetAvatarUrlFileName(int userId, string avatarString, bool hasAvatarImage, string email)
+        protected string GetAvatarUrlFileName(int userId, string avatarString, bool hasAvatarImage)
         {
             var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId, avatarString, hasAvatarImage);
 
@@ -471,28 +470,23 @@ namespace YAF.Pages
         private void BindData()
         {
             this.Pager.PageSize = this.PageSize.SelectedValue.ToType<int>();
-            var selectedCharLetter = this.AlphaSort1.CurrentLetter;
 
-            // get the user list...
-            var selectedLetter = selectedCharLetter;
+            this.NumPostDDL.SelectedValue = "3";
 
-            var numberOfPosts = this.NumPostsTB.Text.ToType<int>();
-
-            if (this.NumPostsTB.Text.IsNotSet())
+            if (this.NumPostsTB.Text.IsSet())
             {
-                this.NumPostsTB.Text = "0";
-                this.NumPostDDL.SelectedValue = "3";
-            }
+                var numberOfPosts = this.NumPostsTB.Text.ToType<int>();
 
-            if (numberOfPosts < 0)
-            {
-                this.PageContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
-                return;
+                if (numberOfPosts < 0)
+                {
+                    this.PageContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
+                    return;
+                }
             }
 
             // get the user list...
             this.userList = this.GetUserList(
-                selectedLetter,
+                this.AlphaSort1.CurrentLetter,
                 this.UserSearchName.Text.Trim(),
                 out var totalCount);
 
