@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -106,9 +106,7 @@ namespace YAF.Core.Services.CheckForSpam
                 }
                 catch (Exception ex)
                 {
-                    BoardContext.Current.Get<ILoggerService>().Error(
-                        ex,
-                        "Error while Checking for Bot Email");
+                    BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot Email");
                 }
 
                 if (bannedIpList.Any(i => i.Equals(ipAddress)))
@@ -132,6 +130,8 @@ namespace YAF.Core.Services.CheckForSpam
                     }
                     catch (Exception ex)
                     {
+                        isBot = false;
+
                         BoardContext.Current.Get<ILoggerService>().Error(
                             ex,
                             $"Error while Checking for Bot Name (Check: {name.Mask})");
