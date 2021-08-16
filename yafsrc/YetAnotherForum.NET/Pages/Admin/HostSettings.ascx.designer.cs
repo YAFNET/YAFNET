@@ -429,6 +429,33 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox ServerTimeCorrection;
 
         /// <summary>
+        /// SSLSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder SSLSettings;
+
+        /// <summary>
+        /// HelpLabel71 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel71;
+
+        /// <summary>
+        /// RequireSSL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox RequireSSL;
+
+        /// <summary>
         /// HelpLabel5 control.
         /// </summary>
         /// <remarks>
@@ -976,51 +1003,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox CustomLoginRedirectUrl;
-
-        /// <summary>
-        /// SSLSettings control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder SSLSettings;
-
-        /// <summary>
-        /// HelpLabel71 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel71;
-
-        /// <summary>
-        /// UseSSLToLogIn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox UseSSLToLogIn;
-
-        /// <summary>
-        /// HelpLabel70 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel70;
-
-        /// <summary>
-        /// UseSSLToRegister control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox UseSSLToRegister;
 
         /// <summary>
         /// HelpLabel175 control.

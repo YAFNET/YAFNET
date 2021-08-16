@@ -1519,6 +1519,7 @@
     <Resource tag="SSL_LOGIN_HELP">الزام در ورود امن برای کاربران.</Resource>
     <Resource tag="SSL_REGISTER">از SSL برای ثبت نام استفاده کن :</Resource>
     <Resource tag="SSL_REGISTER_HELP">الزام در ثبت نام امن برای کاربران.</Resource>
+    <Resource tag="SSL_REQUIRE">Require SSL</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">انقضای حافظه موقت آمار انجمن:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">به دقیقه</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>

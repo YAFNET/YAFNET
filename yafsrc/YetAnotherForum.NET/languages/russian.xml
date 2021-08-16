@@ -1515,6 +1515,7 @@
     <Resource tag="SSL_LOGIN_HELP">Требовать безопасного соединения при входе пользователей на форум.</Resource>
     <Resource tag="SSL_REGISTER">Использовать SSL при регистрации:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Требовать безопасного соединения при регистрации пользователей.</Resource>
+    <Resource tag="SSL_REQUIRE">Require SSL</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Таймаут кэша статистики форума:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">В минутах</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>

@@ -1516,6 +1516,7 @@
     <Resource tag="SSL_LOGIN_HELP">Forceer een beveiligde verbinding bij het inloggen van de gebruikers.</Resource>
     <Resource tag="SSL_REGISTER">Gebruik SSL bij het registratieproces:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Forceer een beveiligde verbinding bij het registreren van nieuwe gebruikers.</Resource>
+    <Resource tag="SSL_REQUIRE">Require SSL</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistieken Cache Timeout:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minuten</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>

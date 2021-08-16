@@ -241,6 +241,16 @@
                                 <asp:TextBox CssClass="form-control serverTime-Input" ID="ServerTimeCorrection" runat="server"></asp:TextBox>
                                 <small class="form-text text-muted"><%# DateTime.UtcNow %></small>
                             </div>
+                            <asp:PlaceHolder runat="server" ID="SSLSettings">
+                                <div class="mb-3 col-md-6">
+                                    <YAF:HelpLabel ID="HelpLabel71" runat="server"
+                                                   AssociatedControlID="RequireSSL"
+                                                   LocalizedTag="SSL_REQUIRE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                    <div class="form-check form-switch">
+                                        <asp:CheckBox Text="&nbsp;" ID="RequireSSL" runat="server"></asp:CheckBox>
+                                    </div>
+                                </div>
+                            </asp:PlaceHolder>
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <YAF:HelpLabel ID="HelpLabel5" runat="server"
@@ -481,26 +491,6 @@
                                                LocalizedTag="LOGIN_REDIR_URL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                 <asp:TextBox CssClass="form-control" ID="CustomLoginRedirectUrl" runat="server"></asp:TextBox>
                             </div>
-                            <asp:PlaceHolder runat="server" ID="SSLSettings">
-                                <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <YAF:HelpLabel ID="HelpLabel71" runat="server"
-                                                       AssociatedControlID="UseSSLToLogIn"
-                                                       LocalizedTag="SSL_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                        <div class="form-check form-switch">
-                                            <asp:CheckBox Text="&nbsp;" ID="UseSSLToLogIn" runat="server"></asp:CheckBox>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <YAF:HelpLabel ID="HelpLabel70" runat="server"
-                                                       AssociatedControlID="UseSSLToRegister"
-                                                       LocalizedTag="SSL_REGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                        <div class="form-check form-switch">
-                                            <asp:CheckBox Text="&nbsp;" ID="UseSSLToRegister" runat="server"></asp:CheckBox>
-                                        </div>
-                                    </div>
-                                </div>
-                            </asp:PlaceHolder>
                             <div class="mb-3">
                                 <YAF:HelpLabel ID="HelpLabel175" runat="server"
                                                AssociatedControlID="ShowRulesForRegistration"

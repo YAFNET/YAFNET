@@ -1514,6 +1514,7 @@
     <Resource tag="SSL_LOGIN_HELP">Erzwingen einer sicheren Verbindung für die Benutzer Anmeldung</Resource>
     <Resource tag="SSL_REGISTER">SSL bei der Registrierung verwenden:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Erzwingen einer sicheren Verbindung für die Benutzer Registrierung.</Resource>
+    <Resource tag="SSL_REQUIRE">Require SSL</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistiken Speicher Ablaufzeit:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In Minuten</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>

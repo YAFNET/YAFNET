@@ -1209,22 +1209,12 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether Use SSL To Log In.
+        /// Gets or sets a value indicating whether [require SSL].
         /// </summary>
-        /// <remarks>
-        /// vzrus: 10/4/10 SSL registration and login options
-        /// </remarks>
-        public bool UseSSLToLogIn
-        {
-            get => this.Registry.GetValue("UseSSLToLogIn", false);
-
-            set => this.Registry.SetValue("UseSSLToLogIn", value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether Use SSL To Register.
-        /// </summary>
-        public bool UseSSLToRegister
+        /// <value>
+        ///   <c>true</c> if [require SSL]; otherwise, <c>false</c>.
+        /// </value>
+        public bool RequireSSL
         {
             get => this.Registry.GetValue("UseSSLToRegister", false);
 

@@ -1528,6 +1528,7 @@
     <Resource tag="SSL_LOGIN_HELP">Forzar una conexión segura para que los usuarios inicien sesión.</Resource>
     <Resource tag="SSL_REGISTER">Usar SSL durante el registro:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Forzar una conexión segura para registrarse usuarios.</Resource>
+    <Resource tag="SSL_REQUIRE">Require SSL</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Caducidad de la caché de las estadísticas del foro.</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">En minutos</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>

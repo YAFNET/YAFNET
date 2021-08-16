@@ -1541,6 +1541,7 @@
     <Resource tag="SSL_LOGIN_HELP">Enforce a secure connection for users to log in.</Resource>
     <Resource tag="SSL_REGISTER">Use SSL while registering:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Enforce a secure connection for users to register.</Resource>
+    <Resource tag="SSL_REQUIRE">Require SSL</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistics Cache Timeout:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minutes</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
