@@ -30730,17 +30730,9 @@ jQuery(document).ready(function() {
         $(this).html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...");
     });
     $(".dropdown-menu a.dropdown-toggle").on("click", function(e) {
-        var $el = $(this);
-        var $parent = $el.parents(".dropdown-menu");
-        var parentDropDown = $parent.prev();
-        var $subMenu = $el.next();
-        if (!$subMenu.hasClass("show")) {
-            $(".dropdown-menu").find(".show").removeClass("show");
-        }
-        if (!$parent.hasClass("show")) {
-            parentDropDown.dropdown("show");
-        }
-        $subMenu.toggleClass("show");
+        var $el = $(this), $subMenu = $el.next();
+        $(".dropdown-menu").find(".show").removeClass("show");
+        $subMenu.addClass("show");
         $subMenu.css({
             top: $el[0].offsetTop - 10,
             left: $el.outerWidth() - 4

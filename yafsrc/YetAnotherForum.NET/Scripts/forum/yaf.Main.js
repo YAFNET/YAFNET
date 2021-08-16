@@ -9,20 +9,11 @@ jQuery(document).ready(function () {
 
     // Main Menu
     $(".dropdown-menu a.dropdown-toggle").on("click", function (e) {
-        var $el = $(this);
-        var $parent = $el.parents(".dropdown-menu");
-        var parentDropDown = $parent.prev();
-        var $subMenu = $el.next();
+        var $el = $(this), $subMenu = $el.next();
 
-        if (!$subMenu.hasClass("show")) {
-            $(".dropdown-menu").find(".show").removeClass("show");
-        }
+        $(".dropdown-menu").find(".show").removeClass("show");
 
-        if (!$parent.hasClass("show")) {
-            parentDropDown.dropdown("show");
-        }
-
-        $subMenu.toggleClass("show");
+        $subMenu.addClass("show");
 
         $subMenu.css({ "top": $el[0].offsetTop - 10, "left": $el.outerWidth() - 4 });
 
