@@ -564,15 +564,21 @@ namespace YAF.Core.Services
                                         $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(isModeratorAnySql, 0)})"),
                                 IsCrawler = isCrawler,
                                 CategoryID = Sql.Custom($"{(category != null ? category.ID : 0)}"),
-                                CategoryName = Sql.Custom($"{(category != null ? $"'{category.Name}'" : "NULL")}"),
-                                ForumName = Sql.Custom($"{(forum != null ? $"'{forum.Name}'" : "NULL")}"),
+                                CategoryName =
+                                    Sql.Custom(
+                                        $"{(category != null ? OrmLiteConfig.DialectProvider.GetQuotedValue(category.Name) : "NULL")}"),
+                                ForumName =
+                                    Sql.Custom(
+                                        $"{(forum != null ? OrmLiteConfig.DialectProvider.GetQuotedValue(forum.Name) : "NULL")}"),
                                 TopicID = Sql.Custom($"{(topic != null ? topic.ID : 0)}"),
-                                TopicName = Sql.Custom($"{(topic != null ? $"'{topic.TopicName}'" : "NULL")}"),
+                                TopicName =
+                                    Sql.Custom(
+                                        $"{(topic != null ? OrmLiteConfig.DialectProvider.GetQuotedValue(topic.TopicName) : "NULL")}"),
                                 ForumTheme =
                                     Sql.Custom(
-                                        $"{(forum != null && forum.ThemeURL.IsSet() ? $"'{forum.ThemeURL}'" : "NULL")}"),
+                                        $"{(forum != null && forum.ThemeURL.IsSet() ? OrmLiteConfig.DialectProvider.GetQuotedValue(forum.ThemeURL) : "NULL")}"),
                                 ParentForumID = Sql.Custom(
-                                    $"{(forum != null && forum.ParentID.HasValue ? $"'{forum.ParentID}'" : "NULL")}")
+                                    $"{(forum != null && forum.ParentID.HasValue ? OrmLiteConfig.DialectProvider.GetQuotedValue(forum.ParentID.Value, typeof(int)) : "NULL")}")
                             });
 
                         return db.Connection.Select<PageLoad>(expression);

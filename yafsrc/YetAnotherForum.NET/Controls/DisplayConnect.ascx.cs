@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -90,8 +90,7 @@ namespace YAF.Controls
             if (!this.PageContext.BoardSettings.DisableRegistrations)
             {
                 // show register link
-                var registerLink = new ThemeButton
-                {
+                var registerLink = new ThemeButton {
                     TextLocalizedTag = "REGISTER_CONNECT",
                     TextLocalizedPage = "TOOLBAR",
                     TitleLocalizedTag = "REGISTER",
@@ -99,11 +98,8 @@ namespace YAF.Controls
                     Type = ButtonStyle.Link,
                     Icon = "user-plus",
                     NavigateUrl = this.PageContext.BoardSettings.ShowRulesForRegistration
-                        ?
-                        this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
-                        : !this.PageContext.BoardSettings.UseSSLToRegister
-                            ? this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register)
-                            : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register, true).Replace("http:", "https:")
+                        ? this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
+                        : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register)
                 };
 
                 this.ConnectHolder.Controls.Add(registerLink);

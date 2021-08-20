@@ -162,6 +162,14 @@ namespace YAF.Pages.Profile
 
                         this.Get<IAspNetUsersHelper>().Update(user);
 
+                        var yafUser = this.PageContext.User;
+
+                        yafUser.UserFlags.IsApproved = true;
+
+                        this.GetRepository<User>().UpdateOnly(
+                            () => new User { Flags = yafUser.UserFlags.BitValue },
+                            u => u.ID == yafUser.ID);
+
                         // delete posts...
                         var messages = this.GetRepository<Message>().GetAllUserMessages(this.PageContext.PageUserID);
 

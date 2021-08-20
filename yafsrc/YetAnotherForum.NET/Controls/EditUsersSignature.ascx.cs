@@ -55,16 +55,6 @@ namespace YAF.Controls
         #region Constants and Fields
 
         /// <summary>
-        ///   The string with allowed BBCodes info.
-        /// </summary>
-        private string allowedBbcodes;
-
-        /// <summary>
-        ///   The number of characters which is allowed in user signature.
-        /// </summary>
-        private int allowedNumberOfCharacters;
-
-        /// <summary>
         ///   The _sig.
         /// </summary>
         private ForumEditor signatureEditor;
@@ -73,12 +63,6 @@ namespace YAF.Controls
         ///  The signature Preview
         /// </summary>
         private SignaturePreview signaturePreview;
-
-        /// <summary>
-        /// Gets the User Data.
-        /// </summary>
-        [NotNull]
-        private User user;
 
         #endregion
 
@@ -124,6 +108,40 @@ namespace YAF.Controls
             }
         }
 
+        /// <summary>
+        /// Gets or sets the string with allowed BBCodes info.
+        /// </summary>
+        /// <value>
+        /// The allowed BBCodes.
+        /// </value>
+        private string AllowedBBCodes
+        {
+            get => this.ViewState["AllowedBBCodes"].ToString();
+
+            set => this.ViewState["AllowedBBCodes"] = value;
+        }
+
+        /// <summary>
+        ///   Gets or sets the number of characters which is allowed in user signature.
+        /// </summary>
+        private int AllowedNumberOfCharacters
+        {
+            get => this.ViewState["AllowedNumberOfCharacters"].ToType<int>();
+
+            set => this.ViewState["AllowedNumberOfCharacters"] = value;
+        }
+
+        /// <summary>
+        /// Gets the User Data.
+        /// </summary>
+        [NotNull]
+        private User user
+        {
+            get => this.ViewState["User"].ToType<User>();
+
+            set => this.ViewState["User"] = value;
+        }
+
         #endregion
 
         #region Methods
@@ -138,28 +156,6 @@ namespace YAF.Controls
                 return;
             }
 
-            var data = this.GetRepository<User>().SignatureData(this.CurrentUserID, this.PageContext.PageBoardID);
-
-            if (data == null)
-            {
-                return;
-            }
-
-            this.allowedBbcodes = (string)data.UsrSigBBCodes.Trim().Trim(',').Trim();
-
-            this.allowedNumberOfCharacters = (int)data.UsrSigChars;
-
-            this.signatureEditor = new CKEditorBBCodeEditorBasic
-            {
-                UserCanUpload = false,
-                MaxCharacters = this.allowedNumberOfCharacters
-            };
-
-            this.EditorLine.Controls.Add(this.signatureEditor);
-
-            this.signaturePreview = new SignaturePreview();
-            this.PreviewLine.Controls.Add(this.signaturePreview);
-
             this.user =
                 this.PageContext.CurrentForumPage.IsAdminPage ||
                 this.PageContext.ForumPageType == ForumPages.UserProfile
@@ -170,6 +166,19 @@ namespace YAF.Controls
 
             this.signaturePreview.Signature = this.signatureEditor.Text;
             this.signaturePreview.DisplayUserID = this.CurrentUserID;
+
+            var data = this.GetRepository<User>().SignatureData(this.CurrentUserID, this.PageContext.PageBoardID);
+
+            if (data == null)
+            {
+                return;
+            }
+
+            this.AllowedBBCodes = (string)data.UsrSigBBCodes.Trim().Trim(',').Trim();
+
+            this.AllowedNumberOfCharacters = (int)data.UsrSigChars;
+
+            this.signatureEditor.MaxCharacters = this.AllowedNumberOfCharacters;
         }
 
         /// <summary>
@@ -178,6 +187,17 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
+            this.signatureEditor = new CKEditorBBCodeEditorBasic
+            {
+                UserCanUpload = false,
+                MaxCharacters = this.AllowedNumberOfCharacters
+            };
+
+            this.EditorLine.Controls.Add(this.signatureEditor);
+
+            this.signaturePreview = new SignaturePreview();
+            this.PreviewLine.Controls.Add(this.signaturePreview);
+
             this.save.Click += this.Save_Click;
             this.preview.Click += this.Preview_Click;
             this.cancel.Click += this.Cancel_Click;
@@ -247,9 +267,9 @@ namespace YAF.Controls
             var body = this.signatureEditor.Text;
 
             // find forbidden BBCodes in signature
-            var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this.allowedBbcodes, ',');
+            var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this.AllowedBBCodes, ',');
 
-            if (this.allowedBbcodes.IndexOf("ALL", StringComparison.Ordinal) < 0)
+            if (this.AllowedBBCodes.IndexOf("ALL", StringComparison.Ordinal) < 0)
             {
                 if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
                 {
@@ -268,7 +288,7 @@ namespace YAF.Controls
 
             if (this.signatureEditor.Text.Length > 0)
             {
-                if (this.signatureEditor.Text.Length <= this.allowedNumberOfCharacters)
+                if (this.signatureEditor.Text.Length <= this.AllowedNumberOfCharacters)
                 {
                     if (this.user.NumPosts < this.PageContext.BoardSettings.IgnoreSpamWordCheckPostCount)
                     {
@@ -319,7 +339,7 @@ namespace YAF.Controls
                 else
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("SIGNATURE_MAX", this.allowedNumberOfCharacters),
+                        this.GetTextFormatted("SIGNATURE_MAX", this.AllowedNumberOfCharacters),
                         MessageTypes.warning);
 
                     return;
@@ -357,9 +377,9 @@ namespace YAF.Controls
             var body = this.signatureEditor.Text;
 
             // find forbidden BBCodes in signature
-            var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this.allowedBbcodes, ',');
+            var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this.AllowedBBCodes, ',');
 
-            if (this.allowedBbcodes.IndexOf("ALL", StringComparison.Ordinal) < 0)
+            if (this.AllowedBBCodes.IndexOf("ALL", StringComparison.Ordinal) < 0)
             {
                 if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
                 {
@@ -376,7 +396,7 @@ namespace YAF.Controls
                 }
             }
 
-            if (this.signatureEditor.Text.Length <= this.allowedNumberOfCharacters)
+            if (this.signatureEditor.Text.Length <= this.AllowedNumberOfCharacters)
             {
                 this.signaturePreview.Signature = this.Get<IBadWordReplace>().Replace(body);
                 this.signaturePreview.DisplayUserID = this.CurrentUserID;
@@ -384,9 +404,11 @@ namespace YAF.Controls
             else
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("SIGNATURE_MAX", this.allowedNumberOfCharacters),
+                    this.GetTextFormatted("SIGNATURE_MAX", this.AllowedNumberOfCharacters),
                     MessageTypes.warning);
             }
+
+            this.signatureEditor.MaxCharacters = this.AllowedNumberOfCharacters;
         }
 
         /// <summary>

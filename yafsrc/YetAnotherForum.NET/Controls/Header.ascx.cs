@@ -391,9 +391,7 @@ namespace YAF.Controls
                     "REGISTER_TITLE",
                     this.PageContext.BoardSettings.ShowRulesForRegistration
                         ? this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
-                        : !this.PageContext.BoardSettings.UseSSLToRegister
-                            ? this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register)
-                            : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register, true).Replace("http:", "https:"),
+                        : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register),
                     true,
                     false,
                     null,
@@ -462,17 +460,11 @@ namespace YAF.Controls
                     }
 
                     // show register link
-                    var registerLink = new HyperLink
-                    {
+                    var registerLink = new HyperLink {
                         Text = this.GetText("TOOLBAR", "REGISTER"),
-                        NavigateUrl =
-                                                   this.PageContext.BoardSettings.ShowRulesForRegistration
-                                                       ? this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
-                                                       : !this.PageContext.BoardSettings.UseSSLToRegister
-                                                           ? this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register)
-                                                           : this.Get<LinkBuilder>().GetLink(
-                                                               ForumPages.Account_Register,
-                                                               true).Replace("http:", "https:"),
+                        NavigateUrl = this.PageContext.BoardSettings.ShowRulesForRegistration
+                            ? this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
+                            : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register),
                         CssClass = "alert-link"
                     };
 

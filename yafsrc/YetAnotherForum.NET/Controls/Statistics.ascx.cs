@@ -100,8 +100,7 @@ namespace YAF.Controls
                 this.LastPostUserLink.Style = postsStatistics.LastUserStyle;
                 this.StatsLastPost.Text = this.GetTextFormatted(
                     "stats_lastpost",
-                    new DisplayDateTime
-                    {
+                    new DisplayDateTime {
                         DateTime = postsStatistics.LastPost, Format = DateTimeFormat.BothTopic
                     }.RenderToString());
             }
@@ -125,9 +124,8 @@ namespace YAF.Controls
             this.NewestMemberUserLink.Style = latestUser.UserStyle;
             this.NewestMemberUserLink.Suspended = latestUser.Suspended;
 
-            if (this.PageContext.BoardSettings.DeniedRegistrations > 0 || this.PageContext.BoardSettings.BannedUsers > 0
-                                                                     || this.PageContext.BoardSettings.ReportedSpammers
-                                                                     > 0)
+            if (this.PageContext.BoardSettings.DeniedRegistrations > 0 ||
+                this.PageContext.BoardSettings.BannedUsers > 0 || this.PageContext.BoardSettings.ReportedSpammers > 0)
             {
                 this.AntiSpamStatsHolder.Visible = true;
                 this.StatsSpamDenied.Param0 = this.PageContext.BoardSettings.DeniedRegistrations.ToString();

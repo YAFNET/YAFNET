@@ -15,7 +15,7 @@
                             </li>
                             <asp:PlaceHolder runat="server" ID="StatsLastPostHolder" Visible="False">
                                 <li class="list-group-item">
-                                    <asp:Label ID="StatsLastPost" runat="server" 
+                                    <asp:Label ID="StatsLastPost" runat="server"
                                                CssClass="me-2" /><YAF:UserLink ID="LastPostUserLink" runat="server" />
                                 </li>
                             </asp:PlaceHolder>
@@ -23,7 +23,7 @@
                                 <asp:Label ID="StatsMembersCount" runat="server" />
                             </li>
                             <li class="list-group-item">
-                                <asp:Label ID="StatsNewestMember" runat="server" 
+                                <asp:Label ID="StatsNewestMember" runat="server"
                                            CssClass="me-2" /><YAF:UserLink ID="NewestMemberUserLink" runat="server" />
                             </li>
                         </ul>
@@ -32,7 +32,7 @@
                         <div class="col-md-6">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <h6>
+                                    <h6 class="fw-bold">
                                         <YAF:LocalizedLabel runat="server"
                                                             LocalizedTag="STATS_SPAM">
                                         </YAF:LocalizedLabel>
