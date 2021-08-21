@@ -13172,3 +13172,28 @@ legend {
 .select2-results {
   background-color: #fff;
 }
+
+.stacktrace .st-type {
+  color: #f3969a;
+  font-weight: bolder;
+}
+.stacktrace .st-method {
+  color: #78c2ad;
+  font-weight: bolder;
+}
+.stacktrace .st-frame-params {
+  color: #f3969a;
+  font-weight: normal;
+}
+.stacktrace .st-param-type {
+  color: #343a40;
+}
+.stacktrace .st-param-name {
+  color: #56cc9d;
+}
+.stacktrace .st-file {
+  color: #ffce67;
+}
+.stacktrace .st-line {
+  color: #6cc3d5;
+}

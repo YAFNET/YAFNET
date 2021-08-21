@@ -1,5 +1,5 @@
 ﻿// Generic Functions
-jQuery(document).ready(function () {
+$(document).ready(function () {
     $("a.btn-login,input.btn-login").click(function () {
         // add spinner to button
         $(this).html(
@@ -38,7 +38,7 @@ jQuery(document).ready(function () {
         }
     });
 
-    jQuery(".serverTime-Input").TouchSpin({
+    $(".serverTime-Input").TouchSpin({
         min: -720,
         max: 720
     });
@@ -68,7 +68,7 @@ jQuery(document).ready(function () {
         $(".select2-image-select").val(selected);
     }
 
-    jQuery(".yafnet .select2-image-select").select2({
+    $(".yafnet .select2-image-select").select2({
         width: "100%",
         theme: "bootstrap4",
         allowClear: false,
@@ -79,15 +79,15 @@ jQuery(document).ready(function () {
 
 
 
-    if (jQuery("#PostAttachmentListPlaceholder").length) {
+    if ($("#PostAttachmentListPlaceholder").length) {
         var pageSize = 5;
         var pageNumber = 0;
         getPaginationData(pageSize, pageNumber, false);
     }
 
-    if (jQuery("#SearchResultsPlaceholder").length) {
+    if ($("#SearchResultsPlaceholder").length) {
 
-         jQuery(".searchInput").keypress(function (e) {
+        $(".searchInput").keypress(function (e) {
 
             var code = e.which;
 
@@ -116,9 +116,11 @@ jQuery(document).ready(function () {
     $(".form-check li > label").addClass("form-check-label");
 
     $(".img-user-posted").on("error",
-        function () {
+        function() {
             $(this).parent().parent().hide();
         });
+
+    $(".stacktrace").netStack({ prettyprint: true });
 });
 
 document.addEventListener("DOMContentLoaded", function () {

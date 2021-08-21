@@ -13191,3 +13191,28 @@ label,
 .select2-results {
   background-color: #0f2537;
 }
+
+.stacktrace .st-type {
+  color: #4e5d6c;
+  font-weight: bolder;
+}
+.stacktrace .st-method {
+  color: #4c9be8;
+  font-weight: bolder;
+}
+.stacktrace .st-frame-params {
+  color: #4e5d6c;
+  font-weight: normal;
+}
+.stacktrace .st-param-type {
+  color: #20374c;
+}
+.stacktrace .st-param-name {
+  color: #5cb85c;
+}
+.stacktrace .st-file {
+  color: #ffc107;
+}
+.stacktrace .st-line {
+  color: #5bc0de;
+}

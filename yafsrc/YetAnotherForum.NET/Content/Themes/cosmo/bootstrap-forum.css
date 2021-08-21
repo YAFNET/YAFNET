@@ -12763,3 +12763,28 @@ body {
 .select2-results {
   background-color: #fff;
 }
+
+.stacktrace .st-type {
+  color: #373a3c;
+  font-weight: bolder;
+}
+.stacktrace .st-method {
+  color: #2780e3;
+  font-weight: bolder;
+}
+.stacktrace .st-frame-params {
+  color: #373a3c;
+  font-weight: normal;
+}
+.stacktrace .st-param-type {
+  color: #373a3c;
+}
+.stacktrace .st-param-name {
+  color: #3fb618;
+}
+.stacktrace .st-file {
+  color: #ff7518;
+}
+.stacktrace .st-line {
+  color: #9954bb;
+}

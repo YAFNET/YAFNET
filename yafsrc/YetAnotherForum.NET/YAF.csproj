@@ -1186,6 +1186,7 @@
     <Content Include="Content\favicons\safari-pinned-tab.svg" />
     <Content Include="Content\fontawesome\LICENSE-fontawesome.txt" />
     <Content Include="Content\jquery.fileupload.comb.min.css" />
+    <None Include="Content\jquery.netStack.scss" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\images\spacer.gif" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
@@ -2827,6 +2828,7 @@
     </Content>
     <Content Include="Scripts\jsdifflib.js" />
     <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\jquery.netStack.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.js" />

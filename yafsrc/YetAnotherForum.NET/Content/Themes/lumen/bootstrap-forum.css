@@ -13347,3 +13347,28 @@ a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
 .select2-results {
   background-color: #fff;
 }
+
+.stacktrace .st-type {
+  color: #f0f0f0;
+  font-weight: bolder;
+}
+.stacktrace .st-method {
+  color: #158cba;
+  font-weight: bolder;
+}
+.stacktrace .st-frame-params {
+  color: #f0f0f0;
+  font-weight: normal;
+}
+.stacktrace .st-param-type {
+  color: #555;
+}
+.stacktrace .st-param-name {
+  color: #28b62c;
+}
+.stacktrace .st-file {
+  color: #ff851b;
+}
+.stacktrace .st-line {
+  color: #75caeb;
+}

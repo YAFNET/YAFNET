@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -52,18 +52,28 @@ namespace YAF
                 return;
             }
 
-            var errorMessage = @"There has been a serious error loading the forum. No further information is available.";
-
             // show error message if one was provided...
             if (this.Session["StartupException"] != null)
             {
-                errorMessage =
-                    $"<strong>Error:</strong> {this.Server.HtmlEncode(this.Session["StartupException"].ToString())}";
+                this.ErrorMessage.Text = this.Server.HtmlEncode(this.Session["StartupException"].ToString());
 
                 this.Session["StartupException"] = null;
             }
+            else if (this.Application["Exception"] != null)
+            {
+                this.ErrorDescriptionHolder.Visible = true;
 
-            this.ErrorMessage.Text = errorMessage;
+                this.ErrorMessage.Text = this.Server.HtmlEncode(this.Application["ExceptionMessage"].ToString());
+                this.ErrorDescription.Text = this.Server.HtmlEncode(this.Application["Exception"].ToString());
+
+                this.Session["Exception"] = null;
+                this.Session["ExceptionMessage"] = null;
+            }
+            else
+            {
+                this.ErrorMessage.Text =
+                    "There has been a serious error loading the forum. No further information is available.";
+            }
         }
 
         #endregion

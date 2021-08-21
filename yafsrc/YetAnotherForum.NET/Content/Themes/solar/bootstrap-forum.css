@@ -13131,3 +13131,28 @@ textarea.form-control-lg {
 .select2-results {
   background-color: #002b36;
 }
+
+.stacktrace .st-type {
+  color: #839496;
+  font-weight: bolder;
+}
+.stacktrace .st-method {
+  color: #b58900;
+  font-weight: bolder;
+}
+.stacktrace .st-frame-params {
+  color: #839496;
+  font-weight: normal;
+}
+.stacktrace .st-param-type {
+  color: #073642;
+}
+.stacktrace .st-param-name {
+  color: #2aa198;
+}
+.stacktrace .st-file {
+  color: #cb4b16;
+}
+.stacktrace .st-line {
+  color: #268bd2;
+}
