@@ -389,9 +389,10 @@ namespace YAF.Controls
                     "nav-link",
                     this.GetText("TOOLBAR", "REGISTER"),
                     "REGISTER_TITLE",
-                    this.PageContext.BoardSettings.ShowRulesForRegistration
-                        ? this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
-                        : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register),
+                    this.Get<LinkBuilder>().GetLink(
+                        this.PageContext.BoardSettings.ShowRulesForRegistration
+                            ? ForumPages.RulesAndPrivacy
+                            : ForumPages.Account_Register),
                     true,
                     false,
                     null,

@@ -176,14 +176,14 @@ namespace YAF.Core.Helpers
         /// </returns>
         public bool ApproveUser(int userID)
         {
-            var providerUserKey = this.Get<IAspNetUsersHelper>().GetUserProviderKeyFromUserID(userID);
+            var yafUser = this.GetRepository<User>().GetById(userID);
 
-            if (providerUserKey == null)
+            if (yafUser?.ProviderUserKey == null)
             {
                 return false;
             }
 
-            var user = this.Get<IAspNetUsersHelper>().GetUser(providerUserKey);
+            var user = this.Get<IAspNetUsersHelper>().GetUser(yafUser.ProviderUserKey);
 
             if (!user.IsApproved)
             {
@@ -192,7 +192,7 @@ namespace YAF.Core.Helpers
 
             this.Get<AspNetUsersManager>().Update(user);
 
-            this.GetRepository<User>().Approve(userID);
+            this.GetRepository<User>().Approve(yafUser);
 
             var checkEmail = this.GetRepository<CheckEmail>().GetSingle(m => m.UserID == userID);
 

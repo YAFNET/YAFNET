@@ -90,16 +90,18 @@ namespace YAF.Controls
             if (!this.PageContext.BoardSettings.DisableRegistrations)
             {
                 // show register link
-                var registerLink = new ThemeButton {
+                var registerLink = new ThemeButton
+                {
                     TextLocalizedTag = "REGISTER_CONNECT",
                     TextLocalizedPage = "TOOLBAR",
                     TitleLocalizedTag = "REGISTER",
                     TitleLocalizedPage = "TOOLBAR",
                     Type = ButtonStyle.Link,
                     Icon = "user-plus",
-                    NavigateUrl = this.PageContext.BoardSettings.ShowRulesForRegistration
-                        ? this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
-                        : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register)
+                    NavigateUrl = this.Get<LinkBuilder>().GetLink(
+                        this.PageContext.BoardSettings.ShowRulesForRegistration
+                            ? ForumPages.RulesAndPrivacy
+                            : ForumPages.Account_Register)
                 };
 
                 this.ConnectHolder.Controls.Add(registerLink);
