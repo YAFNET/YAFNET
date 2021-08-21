@@ -844,19 +844,6 @@ namespace YAF.Controls
                     "info");
             }
 
-            // Admin Version
-            if (this.PageContext.User.UserFlags.IsHostAdmin)
-            {
-                RenderMenuItem(
-                    list,
-                    "dropdown-item dropdown",
-                    this.GetText("ADMINMENU", "Upgrade"),
-                    this.ResolveUrl("~/install/default.aspx"),
-                    false,
-                    false,
-                    "download");
-            }
-
             listItem.Controls.Add(list);
 
             this.MenuHolder.Controls.Add(listItem);
