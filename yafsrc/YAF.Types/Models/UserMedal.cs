@@ -66,13 +66,6 @@ namespace YAF.Types.Models
         public bool Hide { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether only ribbon.
-        /// </summary>
-        [Required]
-        [Default(typeof(bool), "0")]
-        public bool OnlyRibbon { get; set; }
-
-        /// <summary>
         /// Gets or sets the sort order.
         /// </summary>
         [Required]

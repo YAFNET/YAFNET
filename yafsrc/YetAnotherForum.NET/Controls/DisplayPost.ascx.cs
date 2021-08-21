@@ -607,7 +607,7 @@ namespace YAF.Controls
                         CssClass = "dropdown-item"
                     };
 
-                    showButton.Click += (sender, args) =>
+                    showButton.Click += (_, _) =>
                         {
                             this.Get<IUserIgnored>().RemoveIgnored(this.PostData.UserId);
                             this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
@@ -626,7 +626,7 @@ namespace YAF.Controls
                         CssClass = "dropdown-item"
                     };
 
-                    hideButton.Click += (sender, args) =>
+                    hideButton.Click += (_, _) =>
                         {
                             this.Get<IUserIgnored>().AddIgnored(this.PostData.UserId);
                             this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
@@ -658,7 +658,7 @@ namespace YAF.Controls
                         ? this.DataSource.DisplayName
                         : this.DataSource.UserName;
 
-                    addFriendButton.Click += (sender, args) =>
+                    addFriendButton.Click += (_, _) =>
                         {
                             if (this.Get<IFriends>().AddRequest(this.PostData.UserId))
                             {
@@ -693,7 +693,7 @@ namespace YAF.Controls
                                                          "NOTIFICATION_REMOVE")
                     };
 
-                    removeFriendButton.Click += (sender, args) =>
+                    removeFriendButton.Click += (_, _) =>
                         {
                             this.Get<IFriends>().Remove(this.PostData.UserId);
 

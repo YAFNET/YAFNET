@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -79,7 +79,7 @@ namespace YAF.Pages
         /// </param>
         protected void Accept_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Account_Register);
         }
 
         /// <summary>

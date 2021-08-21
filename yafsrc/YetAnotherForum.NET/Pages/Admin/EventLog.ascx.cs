@@ -41,6 +41,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Objects.Model;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;

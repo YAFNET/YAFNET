@@ -96,7 +96,6 @@ namespace YAF.Dialogs
             this.UserName.Text = null;
             this.UserNameList.Items.Clear();
             this.UserMessage.Text = null;
-            this.UserOnlyRibbon.Checked = false;
             this.UserHide.Checked = false;
             this.UserSortOrder.Text = "0";
 
@@ -126,7 +125,6 @@ namespace YAF.Dialogs
                 this.UserName.Text = row.Item3.Name;
                 this.UserMessage.Text = row.Item2.Message.IsSet() ? row.Item2.Message : row.Item1.Message;
                 this.UserSortOrder.Text = row.Item2.SortOrder.ToString();
-                this.UserOnlyRibbon.Checked = row.Item2.OnlyRibbon;
                 this.UserHide.Checked = row.Item2.Hide;
                 this.Name = row.Item1.Name;
 
@@ -304,7 +302,6 @@ namespace YAF.Dialogs
                     this.MedalId.Value,
                     this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
                     this.UserHide.Checked,
-                    this.UserOnlyRibbon.Checked,
                     this.UserSortOrder.Text.ToType<byte>());
             }
             else
@@ -314,7 +311,6 @@ namespace YAF.Dialogs
                     this.MedalId.Value,
                     this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
                     this.UserHide.Checked,
-                    this.UserOnlyRibbon.Checked,
                     this.UserSortOrder.Text.ToType<byte>());
             }
 

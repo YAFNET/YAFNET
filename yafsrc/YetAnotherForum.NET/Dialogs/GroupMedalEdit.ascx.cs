@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -87,7 +87,6 @@ namespace YAF.Dialogs
             // clear controls
             this.AvailableGroupList.SelectedIndex = -1;
             this.GroupMessage.Text = null;
-            this.GroupOnlyRibbon.Checked = false;
             this.GroupHide.Checked = false;
             this.GroupSortOrder.Text = "1";
 
@@ -122,7 +121,6 @@ namespace YAF.Dialogs
 
                 this.GroupMessage.Text = row.Item2.Message.IsSet() ? row.Item2.Message : row.Item1.Message;
                 this.GroupSortOrder.Text = row.Item2.SortOrder.ToString();
-                this.GroupOnlyRibbon.Checked = row.Item2.OnlyRibbon;
                 this.GroupHide.Checked = row.Item2.Hide;
 
                 // remove all user medals...
@@ -152,7 +150,6 @@ namespace YAF.Dialogs
                     this.MedalId.Value,
                     this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
                     this.GroupHide.Checked,
-                    this.GroupOnlyRibbon.Checked,
                     this.GroupSortOrder.Text.ToType<byte>());
             }
             else
@@ -162,7 +159,6 @@ namespace YAF.Dialogs
                     this.MedalId.Value,
                     this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
                     this.GroupHide.Checked,
-                    this.GroupOnlyRibbon.Checked,
                     this.GroupSortOrder.Text.ToType<byte>());
             }
 

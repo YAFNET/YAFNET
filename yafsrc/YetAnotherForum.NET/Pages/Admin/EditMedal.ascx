@@ -76,43 +76,13 @@
                         <YAF:ImageListBox ID="MedalImage" runat="server" CssClass="select2-image-select" />
                     </div>
                     <div class="mb-3">
-                        <YAF:HelpLabel ID="HelpLabel6" runat="server"
-                                       AssociatedControlID="RibbonImage"
-                                       LocalizedTag="RIBBON_IMAGE" LocalizedPage="ADMIN_EDITMEDAL" />
-                        <YAF:ImageListBox ID="RibbonImage" runat="server" CssClass="select2-image-select" />
-                    </div>
-                    <div class="mb-3">
-                        <YAF:HelpLabel ID="HelpLabel7" runat="server"
-                                       AssociatedControlID="SmallMedalImage"
-                                       LocalizedTag="SMALL_IMAGE" LocalizedPage="ADMIN_EDITMEDAL" />
-                        <YAF:ImageListBox ID="SmallMedalImage" runat="server" CssClass="select2-image-select" />
-                    </div>
-                    <div class="mb-3">
-                        <YAF:HelpLabel ID="HelpLabel8" runat="server"
-                                       AssociatedControlID="SmallRibbonImage"
-                                       LocalizedTag="SMALL_RIBBON" LocalizedPage="ADMIN_EDITMEDAL" />
-                        <YAF:ImageListBox ID="SmallRibbonImage" runat="server" CssClass="select2-image-select" />
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 col-md-4">
-                            <YAF:HelpLabel ID="HelpLabel11" runat="server"
-                                           AssociatedControlID="AllowRibbon"
-                                           LocalizedTag="ALLOW_RIBBON" LocalizedPage="ADMIN_EDITMEDAL" />
-                            <div class="form-check form-switch">
-                                <asp:CheckBox ID="AllowRibbon" runat="server"
-                                              Checked="true"
-                                              Text="&nbsp;" />
-                            </div>
-                        </div>
-                        <div class="mb-3 col-md-4">
-                            <YAF:HelpLabel ID="HelpLabel12" runat="server"
-                                           AssociatedControlID="AllowHiding"
-                                           LocalizedTag="ALLOW_HIDING" LocalizedPage="ADMIN_EDITMEDAL" />
-                            <div class="form-check form-switch">
-                                <asp:CheckBox ID="AllowHiding" runat="server"
-                                              Checked="true"
-                                              Text="&nbsp;" />
-                            </div>
+                        <YAF:HelpLabel ID="HelpLabel12" runat="server"
+                                       AssociatedControlID="AllowHiding"
+                                       LocalizedTag="ALLOW_HIDING" LocalizedPage="ADMIN_EDITMEDAL" />
+                        <div class="form-check form-switch">
+                            <asp:CheckBox ID="AllowHiding" runat="server"
+                                          Checked="true"
+                                          Text="&nbsp;" />
                         </div>
                     </div>
                 </div>

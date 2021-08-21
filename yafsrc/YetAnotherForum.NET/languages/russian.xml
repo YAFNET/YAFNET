@@ -757,23 +757,14 @@
     <Resource tag="MSG_NAME">You must enter a medal name!</Resource>
     <Resource tag="MSG_SMALL_IMAGE">Уменьшенное изображение медали должно быть выбрано!</Resource>
     <Resource tag="MSG_VALID_USER">Пожалуйста, введите верное имя/ник!</Resource>
-    <Resource tag="ONLY_RIBBON">Показывать только орденскую планку:</Resource>
-    <Resource tag="ONLY_RIBBON_HELP">Если выбрано, то только орденская планка будет отображаться в боксе пользователя в сообщениях.</Resource>
     <Resource tag="OVERRIDE_MESSAGE">Сообщение:</Resource>
     <Resource tag="OVERRIDE_MESSAGE_HELP">Перекрывает сообщение по-умолчанию(по выбору).</Resource>
     <Resource tag="OVERRIDE_ORDER">Порядок сортировки:</Resource>
     <Resource tag="OVERRIDE_ORDER_HELP">Перекрывает порядок по-умолчанию(по выбору).</Resource>
-    <Resource tag="RIBBON_IMAGE">Изображение орденской планки:</Resource>
-    <Resource tag="RIBBON_IMAGE_HELP">Это изображение будет отображаться в информации о медали(по выбору).</Resource>
     <Resource tag="SELECT_IMAGE">Выберите изображение медали</Resource>
+    <Resource tag="SELECT_IMAGE_HELP">Medal will be shown in User Profile</Resource>
     <Resource tag="SHOW_MESSAGE">Показать сообщение:</Resource>
     <Resource tag="SHOW_MESSAGE_HELP">Сообщение о том, за что пользователю вручена медаль будет отображаться.</Resource>
-    <Resource tag="SMALL_IMAGE">Уменьшенное изображение медали:</Resource>
-    <Resource tag="SMALL_IMAGE_HELP">Это изображение будет показываться в данных пользователя в постах.</Resource>
-    <Resource tag="SMALL_RIBBON">Уменьшенное изображение орденской планки:</Resource>
-    <Resource tag="SMALL_RIBBON_HELP">Это изображение будет показываться в данных пользователя в постах(по выбору).</Resource>
-    <Resource tag="SORT_ORDER">Порядок сортировки:</Resource>
-    <Resource tag="SORT_ORDER_HELP">Порядок сортировки по-умолчанию для медали.</Resource>
     <Resource tag="TITLE">Добавить/Изменить медаль</Resource>
   </page>
   <page name="ADMIN_EDITNNTPFORUM">

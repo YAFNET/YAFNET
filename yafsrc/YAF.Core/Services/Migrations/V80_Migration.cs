@@ -73,6 +73,8 @@ namespace YAF.Core.Services.Migrations
 
                     this.UpgradeTableGroup(dbAccess, dbCommand);
 
+                    this.UpgradeTableUserMedal(dbAccess, dbCommand);
+
                     this.UpgradeTableGroupMedal(dbAccess, dbCommand);
 
                     this.UpgradeTableAccessMask(dbAccess, dbCommand);
@@ -1070,6 +1072,11 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
+        public void UpgradeTableUserMedal(IDbAccess dbAccess, IDbCommand dbCommand)
+        {
+            dbCommand.Connection.DropColumn<UserMedal>("OnlyRibbon");
+        }
+
         public void UpgradeTableGroupMedal(IDbAccess dbAccess, IDbCommand dbCommand)
         {
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<GroupMedal>();
@@ -1077,6 +1084,8 @@ namespace YAF.Core.Services.Migrations
             // delete any old medals without valid groups.
             dbCommand.Connection.ExecuteSql(
                 $@"DELETE FROM {expression.Table<GroupMedal>()} WHERE GroupID NOT IN (SELECT GroupID FROM {expression.Table<Group>()})");
+
+            dbCommand.Connection.DropColumn<GroupMedal>("OnlyRibbon");
         }
 
         public void UpgradeTableIgnoreUser(IDbAccess dbAccess, IDbCommand dbCommand)
@@ -1097,6 +1106,10 @@ namespace YAF.Core.Services.Migrations
                 dbCommand.Connection.DropColumn<Medal>("SmallMedalHeight");
                 dbCommand.Connection.DropColumn<Medal>("SmallRibbonWidth");
                 dbCommand.Connection.DropColumn<Medal>("SmallRibbonHeight");
+                dbCommand.Connection.DropColumn<Medal>("RibbonURL");
+                dbCommand.Connection.DropColumn<Medal>("SmallMedalURL");
+                dbCommand.Connection.DropColumn<Medal>("SmallRibbonURL");
+                dbCommand.Connection.DropColumn<Medal>("SortOrder");
             }
         }
 

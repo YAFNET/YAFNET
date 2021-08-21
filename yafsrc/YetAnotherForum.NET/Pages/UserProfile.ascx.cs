@@ -578,10 +578,7 @@ namespace YAF.Pages
             var ribbonBar = new StringBuilder();
             var medals = new StringBuilder();
 
-            // var inRow = 0;
-
-            // do ribbon bar first
-            userMedals.Where(x => x.OnlyRibbon).ForEach(
+            userMedals.ForEach(
                 medal =>
                 {
                     var flags = new MedalFlags(medal.Flags);
@@ -597,29 +594,8 @@ namespace YAF.Pages
                     ribbonBar.AppendFormat(
                         "<li class=\"list-inline-item\"><img src=\"{0}{3}/{1}\" alt=\"{2}\" title=\"{2}\" data-bs-toggle=\"tooltip\"></li>",
                         BoardInfo.ForumClientFileRoot,
-                        medal.SmallRibbonURL,
+                        medal.MedalURL,
                         title,
-                        this.Get<BoardFolders>().Medals);
-                });
-
-            // follow with the rest
-            userMedals.Where(x => !x.OnlyRibbon).ForEach(
-                medal =>
-                {
-                    var flags = new MedalFlags(medal.Flags);
-
-                    // skip hidden medals
-                    if (flags.AllowHiding && medal.Hide)
-                    {
-                        return;
-                    }
-
-                    medals.AppendFormat(
-                        "<li class=\"list-inline-item\"><img src=\"{0}{4}/{1}\" alt=\"{2}{3}\" title=\"{2}{3}\" data-bs-toggle=\"tooltip\"></li>",
-                        BoardInfo.ForumClientFileRoot,
-                        medal.SmallMedalURL,
-                        medal.Name,
-                        flags.ShowMessage ? $": {medal.Message}" : string.Empty,
                         this.Get<BoardFolders>().Medals);
                 });
 

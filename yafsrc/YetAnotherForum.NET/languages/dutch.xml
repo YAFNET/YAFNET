@@ -757,23 +757,14 @@
     <Resource tag="MSG_NAME">You must enter a medal name!</Resource>
     <Resource tag="MSG_SMALL_IMAGE">Er moet een kleine afbeelding van de Medaille worden opgegeven!</Resource>
     <Resource tag="MSG_VALID_USER">Kies een bestaande Gebruiker!</Resource>
-    <Resource tag="ONLY_RIBBON">Alleen Lint laten zien:</Resource>
-    <Resource tag="ONLY_RIBBON_HELP">Als deze is aangevinkt, wordt alleen het lint getoond in het gebruikersvak.</Resource>
     <Resource tag="OVERRIDE_MESSAGE">Bericht:</Resource>
     <Resource tag="OVERRIDE_MESSAGE_HELP">Overschrijf de standaard als deze gespecificeerd is (Optioneel).</Resource>
     <Resource tag="OVERRIDE_ORDER">Sorteervolgorde:</Resource>
     <Resource tag="OVERRIDE_ORDER_HELP">Overschrijf de standaard als deze gespecificeerd is (Optioneel).</Resource>
-    <Resource tag="RIBBON_IMAGE">Lint afbeelding:</Resource>
-    <Resource tag="RIBBON_IMAGE_HELP">Deze afbeelding wordt weergegeven in de info van de medaille (optioneel).</Resource>
     <Resource tag="SELECT_IMAGE">Selecteer Medaille Afbeelding</Resource>
+    <Resource tag="SELECT_IMAGE_HELP">Medal will be shown in User Profile</Resource>
     <Resource tag="SHOW_MESSAGE">Laat Omschrijving zien:</Resource>
     <Resource tag="SHOW_MESSAGE_HELP">Laat de beschrijving zien waarom de Gebruiker de medaille heeft gekregen.</Resource>
-    <Resource tag="SMALL_IMAGE">Kleine Afbeelding bij de Medaille:</Resource>
-    <Resource tag="SMALL_IMAGE_HELP">Deze afbeelding wordt weergegeven in het Gebruikersvak.</Resource>
-    <Resource tag="SMALL_RIBBON">Kleine Lint afbeelding:</Resource>
-    <Resource tag="SMALL_RIBBON_HELP">Deze afbeelding wordt weergegeven in het Gebruikersvak (optioneel).</Resource>
-    <Resource tag="SORT_ORDER">Sorteervolgorde:</Resource>
-    <Resource tag="SORT_ORDER_HELP">Standaard sorteervolgorde van een medaillesort .</Resource>
     <Resource tag="TITLE">Medaille bewerken/toevoegen</Resource>
   </page>
   <page name="ADMIN_EDITNNTPFORUM">

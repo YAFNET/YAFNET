@@ -763,17 +763,10 @@
     <Resource tag="OVERRIDE_MESSAGE_HELP">پیش فرض ها در صورت تعریف باطل می شوند(اختیاری).</Resource>
     <Resource tag="OVERRIDE_ORDER">ترتیب:</Resource>
     <Resource tag="OVERRIDE_ORDER_HELP">پیش فرض ها در صورت تعریف باطل می شوند(اختیاری).</Resource>
-    <Resource tag="RIBBON_IMAGE">تصویر نوار روبان:</Resource>
-    <Resource tag="RIBBON_IMAGE_HELP">این تصویر در اصلاعات نشان نمایش داده خواهد شد(اختیاری).</Resource>
     <Resource tag="SELECT_IMAGE">تصویر مدال را انتخاب نمائید</Resource>
+    <Resource tag="SELECT_IMAGE_HELP">Medal will be shown in User Profile</Resource>
     <Resource tag="SHOW_MESSAGE">نمایش پیام:</Resource>
     <Resource tag="SHOW_MESSAGE_HELP">یعنی پیامی که دلیل دریافت نشان را نمایش داده یا مخفی کند.</Resource>
-    <Resource tag="SMALL_IMAGE">تصویر کوچک نشان:</Resource>
-    <Resource tag="SMALL_IMAGE_HELP">این تصویر در کادر کاربر نمایش داده خواهد شد.</Resource>
-    <Resource tag="SMALL_RIBBON">تصویر کوچک نوار روبان:</Resource>
-    <Resource tag="SMALL_RIBBON_HELP">این تصویر در کادر کاربر نمایش داده می شود (اختیاری).</Resource>
-    <Resource tag="SORT_ORDER">ترتیب :</Resource>
-    <Resource tag="SORT_ORDER_HELP">ترتیب پیش فرض نشان.</Resource>
     <Resource tag="TITLE">افزودن/ویرایش نشان</Resource>
   </page>
   <page name="ADMIN_EDITNNTPFORUM">

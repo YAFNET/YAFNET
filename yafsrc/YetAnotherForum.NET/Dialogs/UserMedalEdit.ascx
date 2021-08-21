@@ -15,7 +15,7 @@
                     <div class="modal-body">
                         <!-- Modal Content START !-->
                         <div class="mb-3">
-                            <YAF:HelpLabel ID="HelpLabel23" runat="server" 
+                            <YAF:HelpLabel ID="HelpLabel23" runat="server"
                                            AssociatedControlID="UserName"
                                            LocalizedTag="MEDAL_USER" LocalizedPage="ADMIN_EDITMEDAL"/>
                             <div class="input-group">
@@ -46,53 +46,41 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <YAF:HelpLabel ID="HelpLabel19" runat="server" 
+                            <YAF:HelpLabel ID="HelpLabel19" runat="server"
                                            AssociatedControlID="UserMessage"
                                            LocalizedTag="OVERRIDE_MESSAGE" LocalizedPage="ADMIN_EDITMEDAL"/>
-                            <asp:TextBox ID="UserMessage" runat="server" 
-                                         MaxLength="100" 
+                            <asp:TextBox ID="UserMessage" runat="server"
+                                         MaxLength="100"
                                          CssClass="form-control"/>
                         </div>
                         <div class="mb-3">
-                            <YAF:HelpLabel ID="HelpLabel20" runat="server" 
+                            <YAF:HelpLabel ID="HelpLabel20" runat="server"
                                            AssociatedControlID="UserSortOrder"
                                            LocalizedTag="OVERRIDE_ORDER" LocalizedPage="ADMIN_EDITMEDAL"/>
-                            <asp:TextBox ID="UserSortOrder" runat="server" 
-                                         CssClass="form-control" 
+                            <asp:TextBox ID="UserSortOrder" runat="server"
+                                         CssClass="form-control"
                                          TextMode="Number"/>
                         </div>
-                        <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel21" runat="server" 
-                                               AssociatedControlID="UserOnlyRibbon"
-                                               LocalizedTag="ONLY_RIBBON" LocalizedPage="ADMIN_EDITMEDAL"/>
-                                <div class="form-check form-switch">
-                                    <asp:CheckBox runat="server" ID="UserOnlyRibbon" 
-                                                  Checked="false" 
-                                                  Text="&nbsp;"/>
-                                </div>
+                        <div class="mb-3">
+                            <YAF:HelpLabel ID="HelpLabel22" runat="server"
+                                           AssociatedControlID="UserHide"
+                                           LocalizedTag="HIDE" LocalizedPage="ADMIN_EDITMEDAL"/>
+                            <div class="form-check form-switch">
+                                <asp:CheckBox runat="server" ID="UserHide"
+                                              Checked="false"
+                                              Text="&nbsp;"/>
                             </div>
-                            <div class="mb-3 col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel22" runat="server" 
-                                               AssociatedControlID="UserHide"
-                                               LocalizedTag="HIDE" LocalizedPage="ADMIN_EDITMEDAL"/>
-                                <div class="form-check form-switch">
-                                    <asp:CheckBox runat="server" ID="UserHide" 
-                                                  Checked="false" 
-                                                  Text="&nbsp;"/>
-                                </div>
-                            </div>
-                            </div>
+                        </div>
                         <!-- Modal Content END !-->
                     </div>
                     <div class="modal-footer">
-                        <YAF:ThemeButton runat="server" 
-                                         OnClick="Save_OnClick" 
+                        <YAF:ThemeButton runat="server"
+                                         OnClick="Save_OnClick"
                                          CssClass="me-2"
-                                         ID="AddUserSave" 
+                                         ID="AddUserSave"
                                          Type="Primary"
-                                         Icon="save" 
-                                         TextLocalizedTag="SAVE" 
+                                         Icon="save"
+                                         TextLocalizedTag="SAVE"
                                          CausesValidation="True" />
                         <YAF:ThemeButton runat="server" ID="Cancel"
                                          DataDismiss="modal"

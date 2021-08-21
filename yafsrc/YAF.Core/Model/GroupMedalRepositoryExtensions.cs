@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -100,9 +100,6 @@ namespace YAF.Core.Model
         /// <param name="hide">
         /// Hide medal in user box.
         /// </param>
-        /// <param name="onlyRibbon">
-        /// Show only ribbon bar in user box.
-        /// </param>
         /// <param name="sortOrder">
         /// Sort order in user box. Overrides medal's default sort order.
         /// </param>
@@ -112,7 +109,6 @@ namespace YAF.Core.Model
             [NotNull] int medalId,
             [CanBeNull] string message,
             [NotNull] bool hide,
-            [NotNull] bool onlyRibbon,
             [NotNull] byte sortOrder)
         {
             CodeContracts.VerifyNotNull(repository);
@@ -122,7 +118,6 @@ namespace YAF.Core.Model
                 {
                     Message = message,
                     Hide = hide,
-                    OnlyRibbon = onlyRibbon,
                     SortOrder = sortOrder
                 },
                 m => m.GroupID == groupId && m.MedalID == medalId);
@@ -146,9 +141,6 @@ namespace YAF.Core.Model
         /// <param name="hide">
         /// Hide medal in user box.
         /// </param>
-        /// <param name="onlyRibbon">
-        /// Show only ribbon bar in user box.
-        /// </param>
         /// <param name="sortOrder">
         /// Sort order in user box. Overrides medal's default sort order.
         /// </param>
@@ -158,7 +150,6 @@ namespace YAF.Core.Model
             [NotNull] int medalId,
             [CanBeNull] string message,
             [NotNull] bool hide,
-            [NotNull] bool onlyRibbon,
             [NotNull] byte sortOrder)
         {
             CodeContracts.VerifyNotNull(repository);
@@ -170,7 +161,6 @@ namespace YAF.Core.Model
                     MedalID = medalId,
                     Message = message,
                     Hide = hide,
-                    OnlyRibbon = onlyRibbon,
                     SortOrder = sortOrder
                 });
         }

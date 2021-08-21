@@ -757,23 +757,14 @@
     <Resource tag="MSG_NAME">You must enter a medal name!</Resource>
     <Resource tag="MSG_SMALL_IMAGE">Kleines Medaillenbild muss angegeben werden!</Resource>
     <Resource tag="MSG_VALID_USER">Bitte geben Sie gültige Benutzer  an!</Resource>
-    <Resource tag="ONLY_RIBBON">Nur Anzeigen in Ribbon Bar:</Resource>
-    <Resource tag="ONLY_RIBBON_HELP">Wenn aktiviert, wird nur die Ribbon Bart in der Benutzerbox angezeigt.</Resource>
     <Resource tag="OVERRIDE_MESSAGE">Nachricht:</Resource>
     <Resource tag="OVERRIDE_MESSAGE_HELP">Überschreibt Standard, wenn angegeben (optional).</Resource>
     <Resource tag="OVERRIDE_ORDER">Sortiert nach:</Resource>
     <Resource tag="OVERRIDE_ORDER_HELP">Überschreibt Standard, wenn angegeben (optional).</Resource>
-    <Resource tag="RIBBON_IMAGE">Ribbon Bar Bild:</Resource>
-    <Resource tag="RIBBON_IMAGE_HELP">Dieses Bild wird in der Info-Medaille gezeigt (Optional).</Resource>
     <Resource tag="SELECT_IMAGE">Medaillenbild wählen</Resource>
+    <Resource tag="SELECT_IMAGE_HELP">Medal will be shown in User Profile</Resource>
     <Resource tag="SHOW_MESSAGE">Zeige Nachricht:</Resource>
     <Resource tag="SHOW_MESSAGE_HELP">Damit ist die Nachricht gemeint die erscheint warum der Benutzer diese Medaille erhalten hat, wird gezeigt.</Resource>
-    <Resource tag="SMALL_IMAGE">Kleines Medaillen Bild:</Resource>
-    <Resource tag="SMALL_IMAGE_HELP">Dieses Bild wird in der Benutzer Box gezeigt.</Resource>
-    <Resource tag="SMALL_RIBBON">Kleines Ribbonbar Bild:</Resource>
-    <Resource tag="SMALL_RIBBON_HELP">Dieses Bild wird in der Benutzer Box gezeigt (Optional).</Resource>
-    <Resource tag="SORT_ORDER">Sortiert nach:</Resource>
-    <Resource tag="SORT_ORDER_HELP">Standard Sortierung einer Medaille.</Resource>
     <Resource tag="TITLE">Medaille Hinzufügen / Bearbeiten</Resource>
   </page>
   <page name="ADMIN_EDITNNTPFORUM">

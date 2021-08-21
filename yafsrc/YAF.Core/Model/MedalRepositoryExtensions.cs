@@ -55,8 +55,7 @@ namespace YAF.Core.Model
         /// The <see cref="List"/>.
         /// </returns>
         public static
-            List<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string SmallMedalURL,
-                string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags, DateTime DateAwarded)>
+            List<(int MedalID, string Name, string Message, string MedalURL, byte SortOrder, bool Hide, int Flags, DateTime DateAwarded)>
             ListUserMedals(this IRepository<Medal> repository, [NotNull] int userId)
         {
             CodeContracts.VerifyNotNull(repository);
@@ -71,21 +70,16 @@ namespace YAF.Core.Model
                         a.Name,
                         Message = b.Message != null ? b.Message : a.Message,
                         a.MedalURL,
-                        a.RibbonURL,
-                        a.SmallMedalURL,
-                        SmallRibbonURL = a.SmallRibbonURL != null ? a.SmallRibbonURL : a.SmallMedalURL,
-                        SortOrder = (a.Flags & 8) == 0 ? a.SortOrder : b.SortOrder,
+                        b.SortOrder,
                         Hide = (a.Flags & 4) == 0 ? false : b.Hide,
-                        OnlyRibbon = a.RibbonURL == null || (a.Flags & 2) == 0 ? false : b.OnlyRibbon,
                         a.Flags,
                         b.DateAwarded
                     });
 
             var userMedals = repository.DbAccess.Execute(
                 db => db.Connection
-                    .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string
-                        SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags,
-                        DateTime DateAwarded)>(expressionUser));
+                    .Select<(int MedalID, string Name, string Message, string MedalURL, byte SortOrder, bool Hide, int
+                        Flags, DateTime DateAwarded)>(expressionUser));
 
             var expressionUserGroup = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
@@ -98,21 +92,16 @@ namespace YAF.Core.Model
                         a.Name,
                         Message = b.Message != null ? b.Message : a.Message,
                         a.MedalURL,
-                        a.RibbonURL,
-                        a.SmallMedalURL,
-                        SmallRibbonURL = a.SmallRibbonURL != null ? a.SmallRibbonURL : a.SmallMedalURL,
-                        SortOrder = (a.Flags & 8) == 0 ? a.SortOrder : b.SortOrder,
+                        b.SortOrder,
                         Hide = (a.Flags & 4) == 0 ? false : b.Hide,
-                        OnlyRibbon = a.RibbonURL == null || (a.Flags & 2) == 0 ? false : b.OnlyRibbon,
                         a.Flags,
                         DateAwarded = default(DateTime)
                     });
 
             var userGroupMedals = repository.DbAccess.Execute(
                 db => db.Connection
-                    .Select<(int MedalID, string Name, string Message, string MedalURL, string RibbonURL, string
-                        SmallMedalURL, string SmallRibbonURL, byte SortOrder, bool Hide, bool OnlyRibbon, int Flags,
-                        DateTime DateAwarded)>(expressionUserGroup));
+                    .Select<(int MedalID, string Name, string Message, string MedalURL, byte SortOrder, bool Hide, int
+                        Flags, DateTime DateAwarded)>(expressionUserGroup));
 
             return userMedals.Union(userGroupMedals).Distinct().ToList();
         }
@@ -141,15 +130,6 @@ namespace YAF.Core.Model
         /// <param name="medalURL">
         /// The medal url.
         /// </param>
-        /// <param name="ribbonURL">
-        /// The ribbon url.
-        /// </param>
-        /// <param name="smallMedalURL">
-        /// The small medal url.
-        /// </param>
-        /// <param name="smallRibbonURL">
-        /// The small ribbon url.
-        /// </param>
         /// <param name="flags">
         /// The flags.
         /// </param>
@@ -164,9 +144,6 @@ namespace YAF.Core.Model
             [CanBeNull] string message,
             [CanBeNull] string category,
             [CanBeNull] string medalURL,
-            [CanBeNull] string ribbonURL,
-            [CanBeNull] string smallMedalURL,
-            [CanBeNull] string smallRibbonURL,
             [NotNull] int flags,
             [CanBeNull] int? boardId = null)
         {
@@ -183,10 +160,6 @@ namespace YAF.Core.Model
                         Message = message,
                         Category = category,
                         MedalURL = medalURL,
-                        RibbonURL = ribbonURL,
-                        SmallMedalURL = smallMedalURL,
-                        SmallRibbonURL = smallRibbonURL,
-                        SortOrder = 0,
                         Flags = flags
                     },
                     medal => medal.ID == medalId.Value);
@@ -204,10 +177,6 @@ namespace YAF.Core.Model
                         Message = message,
                         Category = category,
                         MedalURL = medalURL,
-                        RibbonURL = ribbonURL,
-                        SmallMedalURL = smallMedalURL,
-                        SmallRibbonURL = smallRibbonURL,
-                        SortOrder = 0,
                         Flags = flags
                     });
 

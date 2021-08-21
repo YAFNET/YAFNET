@@ -758,23 +758,14 @@
     <Resource tag="MSG_NAME">You must enter a medal name!</Resource>
     <Resource tag="MSG_SMALL_IMAGE">Debe especificarse una imagen pequeña para la medalla.</Resource>
     <Resource tag="MSG_VALID_USER">Por favor, especifica un usuario válido.</Resource>
-    <Resource tag="ONLY_RIBBON">Mostrar solo la cinta:</Resource>
-    <Resource tag="ONLY_RIBBON_HELP">Si está seleccionado, solo la cinta es mostrada en la caja de usuario.</Resource>
     <Resource tag="OVERRIDE_MESSAGE">Mensaje:</Resource>
     <Resource tag="OVERRIDE_MESSAGE_HELP">Sobreescribe el mensaje por defecto si se introduce (opcional).</Resource>
     <Resource tag="OVERRIDE_ORDER">Orden de clasificación:</Resource>
     <Resource tag="OVERRIDE_ORDER_HELP">Sobreescribe el original si se especifica (opcional).</Resource>
-    <Resource tag="RIBBON_IMAGE">Imagen para la cinta:</Resource>
-    <Resource tag="RIBBON_IMAGE_HELP">Esta imagen será mostrada en la información de la medalla (opcional).</Resource>
     <Resource tag="SELECT_IMAGE">Selecciona una imagen para la medalla</Resource>
+    <Resource tag="SELECT_IMAGE_HELP">Medal will be shown in User Profile</Resource>
     <Resource tag="SHOW_MESSAGE">Mostrar mensaje:</Resource>
     <Resource tag="SHOW_MESSAGE_HELP">Significa que el el mensaje descrito cuando el usuario recibió la medalla será mostrado o ocultado.</Resource>
-    <Resource tag="SMALL_IMAGE">Imagen pequeña de la medalla:</Resource>
-    <Resource tag="SMALL_IMAGE_HELP">Esta medalla será mostrada en la caja del usuario.</Resource>
-    <Resource tag="SMALL_RIBBON">Imagen pequeña para la cinta:</Resource>
-    <Resource tag="SMALL_RIBBON_HELP">Esta imagen será mostrada en la caja de usuario (opcional).</Resource>
-    <Resource tag="SORT_ORDER">Orden de clasificación:</Resource>
-    <Resource tag="SORT_ORDER_HELP">Orden de clasificación por defecto para una medalla.</Resource>
     <Resource tag="TITLE">Añadir/Editar medalla</Resource>
   </page>
   <page name="ADMIN_EDITNNTPFORUM">

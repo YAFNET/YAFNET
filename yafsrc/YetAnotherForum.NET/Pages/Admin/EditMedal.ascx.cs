@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -59,7 +59,7 @@ namespace YAF.Pages.Admin
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "EditMedal" /> class. 
+        ///   Initializes a new instance of the <see cref = "EditMedal" /> class.
         ///   Default constructor.
         /// </summary>
         public EditMedal()
@@ -255,38 +255,11 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            if (this.SmallMedalImage.SelectedIndex <= 0)
-            {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITMEDAL", "MSG_SMALL_IMAGE"),
-                    MessageTypes.warning);
-                return;
-            }
-
-            // data
-            string ribbonUrl = null, smallRibbonUrl = null;
-
-            // flags
             var flags = new MedalFlags(0)
             {
                 ShowMessage = this.ShowMessage.Checked,
-                AllowRibbon = this.AllowRibbon.Checked,
-                AllowReOrdering = false,
                 AllowHiding = this.AllowHiding.Checked
             };
-
-            // get medal images
-            var imageUrl = this.MedalImage.SelectedItem.Text;
-            var smallImageUrl = this.SmallMedalImage.SelectedItem.Text;
-            if (this.RibbonImage.SelectedIndex > 0)
-            {
-                ribbonUrl = this.RibbonImage.SelectedItem.Text;
-            }
-
-            if (this.SmallRibbonImage.SelectedIndex > 0)
-            {
-                smallRibbonUrl = this.SmallRibbonImage.SelectedItem.Text;
-            }
 
             // save medal
             this.GetRepository<Medal>().Save(
@@ -295,10 +268,7 @@ namespace YAF.Pages.Admin
                 this.Description.Text,
                 this.Message.Text,
                 this.Category.Text,
-                imageUrl,
-                ribbonUrl,
-                smallImageUrl,
-                smallRibbonUrl,
+                this.MedalImage.SelectedItem.Text,
                 flags.BitValue);
 
             // go back to medals administration
@@ -391,21 +361,6 @@ namespace YAF.Pages.Admin
             this.MedalImage.DataValueField = "Value";
             this.MedalImage.DataTextField = "Name";
 
-            // ribbon bar image
-            this.RibbonImage.DataSource = medals;
-            this.RibbonImage.DataValueField = "Value";
-            this.RibbonImage.DataTextField = "Name";
-
-            // small medal image
-            this.SmallMedalImage.DataSource = medals;
-            this.SmallMedalImage.DataValueField = "Value";
-            this.SmallMedalImage.DataTextField = "Name";
-
-            // small ribbon bar image
-            this.SmallRibbonImage.DataSource = medals;
-            this.SmallRibbonImage.DataValueField = "Value";
-            this.SmallRibbonImage.DataTextField = "Name";
-
             // bind data to controls
             this.DataBind();
 
@@ -432,14 +387,10 @@ namespace YAF.Pages.Admin
             this.Message.Text = medal.Message;
             this.Category.Text = medal.Category;
             this.ShowMessage.Checked = medal.MedalFlags.ShowMessage;
-            this.AllowRibbon.Checked = medal.MedalFlags.AllowRibbon;
             this.AllowHiding.Checked = medal.MedalFlags.AllowHiding;
 
             // select images
             SelectImage(this.MedalImage, medal.MedalURL);
-            SelectImage(this.RibbonImage, medal.RibbonURL);
-            SelectImage(this.SmallMedalImage, medal.SmallMedalURL);
-            SelectImage(this.SmallRibbonImage, medal.SmallRibbonURL);
         }
 
         #endregion

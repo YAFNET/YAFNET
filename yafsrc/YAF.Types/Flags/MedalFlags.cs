@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -182,6 +182,7 @@ namespace YAF.Types.Flags
         /// <summary>
         /// Gets or sets whether medal can be displayed as ribbon bar.
         /// </summary>
+        [Obsolete]
         public virtual bool AllowRibbon
         {
             // int value 2
@@ -204,6 +205,7 @@ namespace YAF.Types.Flags
         /// <summary>
         /// Gets or sets whether medal can be re-ordered by user.
         /// </summary>
+        [Obsolete]
         public virtual bool AllowReOrdering
         {
             // int value 8

@@ -100,9 +100,6 @@ namespace YAF.Core.Model
         /// <param name="hide">
         /// Hide medal in user box.
         /// </param>
-        /// <param name="onlyRibbon">
-        /// Show only ribbon bar in user box.
-        /// </param>
         /// <param name="sortOrder">
         /// Sort order in user box. Overrides medal's default sort order.
         /// </param>
@@ -112,13 +109,12 @@ namespace YAF.Core.Model
             [NotNull] int medalID,
             [NotNull] string message,
             [NotNull] bool hide,
-            [NotNull] bool onlyRibbon,
             [NotNull] byte sortOrder)
         {
             CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(
-                () => new UserMedal { Message = message, Hide = hide, OnlyRibbon = onlyRibbon, SortOrder = sortOrder },
+                () => new UserMedal { Message = message, Hide = hide, SortOrder = sortOrder },
                 m => m.UserID == userID && m.MedalID == medalID);
 
             repository.FireUpdated(medalID);
@@ -142,9 +138,6 @@ namespace YAF.Core.Model
         /// <param name="hide">
         /// Hide medal in user box.
         /// </param>
-        /// <param name="onlyRibbon">
-        /// Show only ribbon bar in user box.
-        /// </param>
         /// <param name="sortOrder">
         /// Sort order in user box. Overrides medal's default sort order.
         /// </param>
@@ -154,7 +147,6 @@ namespace YAF.Core.Model
             [NotNull] int medalID,
             [NotNull] string message,
             [NotNull] bool hide,
-            [NotNull] bool onlyRibbon,
             [NotNull] byte sortOrder)
         {
             CodeContracts.VerifyNotNull(repository);
@@ -166,7 +158,6 @@ namespace YAF.Core.Model
                     MedalID = medalID,
                     Message = message,
                     Hide = hide,
-                    OnlyRibbon = onlyRibbon,
                     SortOrder = sortOrder,
                     DateAwarded = DateTime.UtcNow
                 });

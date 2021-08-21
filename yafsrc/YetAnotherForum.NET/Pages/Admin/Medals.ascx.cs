@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -35,7 +35,6 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Services;
-    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -53,7 +52,7 @@ namespace YAF.Pages.Admin
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "Medals" /> class. 
+        ///   Initializes a new instance of the <see cref = "Medals" /> class.
         ///   Default constructor.
         /// </summary>
         public Medals()
@@ -157,20 +156,9 @@ namespace YAF.Pages.Admin
             output.AppendFormat(
                 "<img src=\"{0}{3}/{1}\" width=\"{2}\" />",
                 BoardInfo.ForumClientFileRoot,
-                medal.SmallMedalURL,
+                medal.MedalURL,
                 this.GetText("ADMIN_MEDALS", "DISPLAY_BOX"),
                 this.Get<BoardFolders>().Medals);
-
-            // if available, create also ribbon bar image of medal
-            if (medal.SmallRibbonURL.IsSet())
-            {
-                output.AppendFormat(
-                    " &nbsp; <img src=\"{0}{3}/{1}\" alt=\"{2}\" />",
-                    BoardInfo.ForumClientFileRoot,
-                    medal.SmallRibbonURL,
-                    this.GetText("ADMIN_MEDALS", "DISPLAY_RIBBON"),
-                    this.Get<BoardFolders>().Medals);
-            }
 
             return output.ToString();
         }
@@ -182,7 +170,7 @@ namespace YAF.Pages.Admin
         {
             // list medals for this board
             this.MedalList.DataSource = this.GetRepository<Medal>().Get(m => m.BoardID == this.PageContext.PageBoardID)
-                .OrderBy(m => m.Category).ThenBy(m => m.SortOrder);
+                .OrderBy(m => m.Category);
 
             // bind data to controls
             this.DataBind();

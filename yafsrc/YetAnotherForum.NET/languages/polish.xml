@@ -757,23 +757,14 @@
     <Resource tag="MSG_NAME">You must enter a medal name!</Resource>
     <Resource tag="MSG_SMALL_IMAGE">Small medal image must be specified!</Resource>
     <Resource tag="MSG_VALID_USER">Please specify valid user!</Resource>
-    <Resource tag="ONLY_RIBBON">Show Only Ribbon Bar:</Resource>
-    <Resource tag="ONLY_RIBBON_HELP">If checked, only ribbon bar is displayed in user box.</Resource>
     <Resource tag="OVERRIDE_MESSAGE">Message:</Resource>
     <Resource tag="OVERRIDE_MESSAGE_HELP">Overrides default if specified (Optional).</Resource>
     <Resource tag="OVERRIDE_ORDER">Sort Order:</Resource>
     <Resource tag="OVERRIDE_ORDER_HELP">Overrides default if specified (Optional).</Resource>
-    <Resource tag="RIBBON_IMAGE">Ribbon Bar Image:</Resource>
-    <Resource tag="RIBBON_IMAGE_HELP">This image will be shown in medal's info (optional).</Resource>
     <Resource tag="SELECT_IMAGE">Select Medal Image</Resource>
+    <Resource tag="SELECT_IMAGE_HELP">Medal will be shown in User Profile</Resource>
     <Resource tag="SHOW_MESSAGE">Show Message:</Resource>
     <Resource tag="SHOW_MESSAGE_HELP">Means that message describing why user received medal will be shown/hidden.</Resource>
-    <Resource tag="SMALL_IMAGE">Small Medal Image:</Resource>
-    <Resource tag="SMALL_IMAGE_HELP">This image will be shown in user box.</Resource>
-    <Resource tag="SMALL_RIBBON">Small Ribbon Bar Image:</Resource>
-    <Resource tag="SMALL_RIBBON_HELP">This image will be shown in user box (optional).</Resource>
-    <Resource tag="SORT_ORDER">Sort Order:</Resource>
-    <Resource tag="SORT_ORDER_HELP">Default sort order of a medal.</Resource>
     <Resource tag="TITLE">Add/Edit Medal</Resource>
   </page>
   <page name="ADMIN_EDITNNTPFORUM">
