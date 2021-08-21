@@ -34,7 +34,8 @@ namespace YAF.Core.Helpers
 
     using YAF.Configuration;
     using YAF.Core.Context;
-    using YAF.Core.Services.Localization;
+    using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
@@ -46,6 +47,11 @@ namespace YAF.Core.Helpers
     {
         #region Public Methods
 
+        public static IReadOnlyCollection<ListItem> Gender()
+        {
+            return Gender(BoardContext.Current.Get<ILocalization>());
+        }
+
         /// <summary>
         /// The country.
         /// </summary>
@@ -55,7 +61,40 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// Returns a Data Table with all country names (localized).
         /// </returns>
-        public static IReadOnlyCollection<ListItem> Country(ILocalization localization)
+        public static IReadOnlyCollection<ListItem> Gender([NotNull] ILocalization localization)
+        {
+            var genderList = new List<ListItem>();
+
+            var genders = EnumExtensions.GetAllItems<Gender>();
+
+            genders.ForEach(
+                gender => genderList.Add(
+                    new ListItem(localization.GetText("GENDER", gender.ToString()), gender.ToString())));
+
+            return genderList;
+        }
+
+        /// <summary>
+        /// Gets all country names list(localized).
+        /// </summary>
+        /// <returns>
+        /// Returns a List with all country names list(localized)
+        /// </returns>
+        public static IReadOnlyCollection<ListItem> Country()
+        {
+            return Country(BoardContext.Current.Get<ILocalization>());
+        }
+
+        /// <summary>
+        /// The country.
+        /// </summary>
+        /// <param name="localization">
+        /// The localization.
+        /// </param>
+        /// <returns>
+        /// Returns a Data Table with all country names (localized).
+        /// </returns>
+        public static IReadOnlyCollection<ListItem> Country([NotNull] ILocalization localization)
         {
             var countriesList = new List<ListItem>();
 
@@ -80,40 +119,12 @@ namespace YAF.Core.Helpers
         /// <summary>
         /// Gets all country names list(localized).
         /// </summary>
-        /// <returns>
-        /// Returns a Data Table with all country names list(localized)
-        /// </returns>
-        public static IReadOnlyCollection<ListItem> Country()
-        {
-            return Country(BoardContext.Current.Get<ILocalization>());
-        }
-
-        /// <summary>
-        /// Gets all country names list(localized).
-        /// </summary>
-        /// <param name="forceLanguage">
-        /// The force a specific language.
-        /// </param>
-        /// <returns>
-        /// Returns a Data Table with all country names list(localized)
-        /// </returns>
-        public static IReadOnlyCollection<ListItem> Country(string forceLanguage)
-        {
-            var localization = new Localization();
-            localization.LoadTranslation(forceLanguage);
-
-            return Country(localization);
-        }
-
-        /// <summary>
-        /// Gets all country names list(localized).
-        /// </summary>
         /// <param name="localization">The localization.</param>
         /// <param name="culture">The culture.</param>
         /// <returns>
-        /// Returns a Data Table with all country names list(localized)
+        /// Returns a List with all country names list(localized)
         /// </returns>
-        public static IReadOnlyCollection<ListItem> Region(ILocalization localization, string culture)
+        public static IReadOnlyCollection<ListItem> Region([NotNull] ILocalization localization, [NotNull] string culture)
         {
             var list = new List<ListItem> { new(null, null) };
 
@@ -131,9 +142,9 @@ namespace YAF.Core.Helpers
         /// </summary>
         /// <param name="culture">The culture.</param>
         /// <returns>
-        /// Returns a Data Table with all region names (localized)
+        /// Returns a List with all region names (localized)
         /// </returns>
-        public static IReadOnlyCollection<ListItem> Region(string culture)
+        public static IReadOnlyCollection<ListItem> Region([NotNull] string culture)
         {
             return Region(BoardContext.Current.Get<ILocalization>(), culture);
         }
@@ -275,7 +286,7 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// A default full 4-letter culture from the existing language file.
         /// </returns>
-        public static string CultureDefaultFromFile(string fileName)
+        public static string CultureDefaultFromFile([CanBeNull] string fileName)
         {
             if (fileName.IsNotSet())
             {
@@ -318,7 +329,7 @@ namespace YAF.Core.Helpers
         /// Get All Themes
         /// </summary>
         /// <returns>
-        /// Returns a Data Table with all Themes
+        /// Returns a List with all Themes
         /// </returns>
         public static IReadOnlyCollection<string> Themes()
         {
@@ -333,7 +344,7 @@ namespace YAF.Core.Helpers
         /// Get all time zones.
         /// </summary>
         /// <returns>
-        /// Returns a Data Table with all time zones.
+        /// Returns a List with all time zones.
         /// </returns>
         public static IReadOnlyCollection<ListItem> TimeZones()
         {
@@ -345,9 +356,9 @@ namespace YAF.Core.Helpers
         /// </summary>
         /// <param name="getSystemTimeZones">The get system time zones.</param>
         /// <returns>
-        /// Returns a Data Table with all Time Zones
+        /// Returns a List with all Time Zones
         /// </returns>
-        public static IReadOnlyCollection<ListItem> TimeZones(IReadOnlyCollection<TimeZoneInfo> getSystemTimeZones)
+        public static IReadOnlyCollection<ListItem> TimeZones([NotNull] IReadOnlyCollection<TimeZoneInfo> getSystemTimeZones)
         {
             var list = new List<ListItem>();
 
@@ -360,7 +371,7 @@ namespace YAF.Core.Helpers
         /// Gets all topic times.
         /// </summary>
         /// <returns>
-        /// Returns a Data Table with all topic times.
+        /// Returns a List with all topic times.
         /// </returns>
         public static IReadOnlyCollection<ListItem> TopicTimes()
         {

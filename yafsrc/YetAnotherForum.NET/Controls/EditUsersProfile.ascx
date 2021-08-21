@@ -44,7 +44,7 @@
             CssClass="form-control" />
     </div>
     <div class="mb-3">
-        <asp:Label runat="server" AssociatedControlID="Gender">
+        <asp:Label runat="server" AssociatedControlID="Interests">
             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server"
                 LocalizedPage="EDIT_PROFILE"
                 LocalizedTag="INTERESTS" />
@@ -61,11 +61,8 @@
                 LocalizedPage="EDIT_PROFILE"
                 LocalizedTag="GENDER" />
         </asp:Label>
-        <div class="form-check form-check-inline">
-            <asp:RadioButtonList ID="Gender" runat="server"
-                RepeatLayout="UnorderedList"
-                CssClass="list-unstyled" />
-        </div>
+        <asp:DropDownList ID="Gender" runat="server"
+                          CssClass="select2-select" />
     </div>
     <h4>
         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"

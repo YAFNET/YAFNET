@@ -252,10 +252,9 @@ namespace YAF.Controls
                 return;
             }
 
-            // Begin Modifications for enhanced profile
-            this.Gender.Items.Add(this.GetText("PROFILE", "gender0"));
-            this.Gender.Items.Add(this.GetText("PROFILE", "gender1"));
-            this.Gender.Items.Add(this.GetText("PROFILE", "gender2"));
+            this.Gender.DataSource = StaticDataHelper.Gender();
+            this.Gender.DataValueField = "Value";
+            this.Gender.DataTextField = "Name";
 
             // End Modifications for enhanced profile
             this.DisplayNamePlaceholder.Visible = this.PageContext.BoardSettings.EnableDisplayName &&

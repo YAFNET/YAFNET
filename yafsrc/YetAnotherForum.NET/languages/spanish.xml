@@ -1632,20 +1632,20 @@
   </page>
   <page name="ADMIN_NNTPRETRIEVE">
     <Resource tag="BETA_WARNING">&lt;p style="color: red"&gt;
-		La funcionalidad NNTP de YAF es todavía beta, y &lt;strong&gt;tendrá&lt;/strong&gt; bugs.
+    La funcionalidad NNTP de YAF es todavía beta, y &lt;strong&gt;tendrá&lt;/strong&gt; bugs.
         Los errores que debes buscar son la conversión del set de caracteres, y los tiempos incorrectos en las publicaciones.
         Los artículos de Usenet serán publicados en el foro con la fecha de la cabecera del artículo,
         lo que significa que puedes obtener fechas en el futuro. Por favor, haznos saber de cualquier
         Zona horaria desconocida que sea encontrada.
-	&lt;/p&gt;
-	&lt;p style="color: red"&gt;
-		Los artículos de los foros Usenet son publicados en solo lectura, los mensajes &lt;strong&gt;no&lt;/strong&gt;
+  &lt;/p&gt;
+  &lt;p style="color: red"&gt;
+    Los artículos de los foros Usenet son publicados en solo lectura, los mensajes &lt;strong&gt;no&lt;/strong&gt;
         será publicados de vuelta en Usenet. Por razones de velocidad los artículos en Usenet son aprobados automáticamente,
         lo que significa que si el foro es moderado, la publicación será automáticamente aprobada.
-	&lt;/p&gt;
-	&lt;p style="color: red"&gt;
-		Para proteger los servidores Usenet, un grupo de noticias solo puede ser actualizado cada 10 minutos.
-	&lt;/p&gt;</Resource>
+  &lt;/p&gt;
+  &lt;p style="color: red"&gt;
+    Para proteger los servidores Usenet, un grupo de noticias solo puede ser actualizado cada 10 minutos.
+  &lt;/p&gt;</Resource>
     <Resource tag="GROUPS">Grupos listos para obtención</Resource>
     <Resource tag="HEADER">Obtener artículos NNTP</Resource>
     <Resource tag="LAST_MESSAGE">Último mensaje</Resource>
@@ -2343,7 +2343,7 @@
   <page name="COOKIES">
     <Resource tag="COOKIES_TEXT">
     Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.
-    
+
     [br]
     [b]Standard Cookies[/b][br]
     We’re using cookies for the following purposes:
@@ -2357,7 +2357,7 @@
 
     [b]Third Party Cookies[/b][br]
     The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.
-    
+
     [br]
 
     [b]How do I change my cookie settings?[/b][br]
@@ -2773,7 +2773,6 @@
     <Resource tag="FIELD_TOOLONG">El largo de {0} no puede exceder los {1} caracteres.</Resource>
     <Resource tag="FORUM_SETTINGS">Configuración del foro</Resource>
     <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
-    <Resource tag="GOOGLE">Tu URL del perfil de Google:</Resource>
     <Resource tag="HIDEME">Ocultarme de los usuarios activos</Resource>
     <Resource tag="HOMEPAGE">Página web</Resource>
     <Resource tag="HOMEPAGE2">Tu página web:</Resource>
@@ -2864,6 +2863,32 @@
     <Resource tag="REQUEST_DATE">Fecha de petición</Resource>
     <Resource tag="YOUR_BUDDYLIST">Tu lista de amigos</Resource>
     <Resource tag="YOUR_REQUESTS">Tus peticiones</Resource>
+  </page>
+  <page name="GENDER">
+    <Resource tag="AGENDER">Agender</Resource>
+    <Resource tag="ANDROGYNE">Androgyne</Resource>
+    <Resource tag="BIGENDER">Bigender</Resource>
+    <Resource tag="CISGENDER">Cisgender</Resource>
+    <Resource tag="FEMALETOMALE">Female to Male</Resource>
+    <Resource tag="GENDERFLUID">Gender Fluid</Resource>
+    <Resource tag="GENDERNONCONFORMING">Gender Nonconforming</Resource>
+    <Resource tag="GENDERQUEER">Genderqueer</Resource>
+    <Resource tag="GENDERQUESTIONING">Gender Questioning</Resource>
+    <Resource tag="INTERSEX">Intersex</Resource>
+    <Resource tag="MALETOFEMALE">Male to Female</Resource>
+    <Resource tag="MAN">Man</Resource>
+    <Resource tag="NONBINARY">Non-binary</Resource>
+    <Resource tag="OTHER">Other</Resource>
+    <Resource tag="PANGENDER">Pangender</Resource>
+    <Resource tag="TRANS">Trrans</Resource>
+    <Resource tag="TRANSFEMININE">Transfeminine</Resource>
+    <Resource tag="TRANSGENDER">Transgender</Resource>
+    <Resource tag="TRANSMAN">Transgender Man</Resource>
+    <Resource tag="TRANSMASCULINE">Transmasculine</Resource>
+    <Resource tag="TRANSSEXUAL">Transsexual</Resource>
+    <Resource tag="TRANSWOMAN">Transgender Woman</Resource>
+    <Resource tag="TWOSPIRIT">Two-Spirit</Resource>
+    <Resource tag="WOMAN">Woman</Resource>
   </page>
   <page name="HELP_INDEX">
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;Los avisos son mensajes especiales publicados por el administrador o moderadores. Son comunicaciones de solo lectura que no pueden ser respondidas. Si quieres responder a un aviso tendrás que crear un nuevo hilo en el foro.&lt;/p&gt;
@@ -3808,8 +3833,8 @@ public class Hello1
                 Si no tienes permiso para ver el contenido, verás un aviso que te informa de que
                 no puedes ver el contenido.&lt;/p&gt;
             &lt;img src="{0}Content/images/HiddenWarnDescription.png" alt="The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post"
-            
-            
+
+
                 title="The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post" /&gt;
             &lt;p&gt;
                 De lo contrario, como invitado verás este mensaje&lt;/p&gt;
@@ -4159,7 +4184,7 @@ public class Hello1
         &lt;td&gt;
             &lt;style type="text/css"&gt;
                 .yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}
-	        &lt;/style&gt;
+          &lt;/style&gt;
             &lt;span class="userLinkContainer"&gt;&lt;a href="{0}yaf_profile1234.aspx" rel="nofollow"
                 title="View profile" target="_blank" id="UserLinkBBCodeFor12224" class="UserLinkBBCode"&gt;
                 N&lt;/a&gt;&lt;a href="{0}yaf_profile1234.aspx"&gt;ombreDeUsuario&lt;/a&gt;
@@ -4203,76 +4228,76 @@ public class Hello1
     NOTA: No olvides cerrar una etiqueta BBCode. Las etiquetas que no estén cerradas
     no serán interpretadas.&lt;/p&gt;</Resource>
     <Resource tag="BBCODESTITLE">Lista de BBCodes</Resource>
-    <Resource tag="BUDDIESCONTENT">&lt;p&gt;Amigos es una función de amistad de relación de doble dirección entre dos 
+    <Resource tag="BUDDIESCONTENT">&lt;p&gt;Amigos es una función de amistad de relación de doble dirección entre dos
     usuarios. Es iniciada por un usuario y aceptada por el otro.
 &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;¿Dónde se muestra la lista de amigos?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Tus amigos se muestran en &amp;quot;Mis amigos&amp;quot;. Puedes acceder a esta página a través del 
-    enlace &amp;quot;Mis amigos&amp;quot; de la cabecera, o desde el panel de control de usuario en el 
+&lt;p&gt;Tus amigos se muestran en &amp;quot;Mis amigos&amp;quot;. Puedes acceder a esta página a través del
+    enlace &amp;quot;Mis amigos&amp;quot; de la cabecera, o desde el panel de control de usuario en el
     enlace &amp;quot;Editar amigos&amp;quot;. &lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Nota: Si tu no ves est enlace es que no tienes ningún amigo, no has recibido 
-    ninguna solicitud de amistad o no tienes pendiente ninguna solicitud de amistad 
+&lt;p&gt;&lt;em&gt;Nota: Si tu no ves est enlace es que no tienes ningún amigo, no has recibido
+    ninguna solicitud de amistad o no tienes pendiente ninguna solicitud de amistad
     que hayas enviado.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Tus amigos también se muestran en tu página de perfil.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;¿Como puedo enviar o aceptar una solicitud de amistad?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Para envair una solicitud de amistad, vete a la página de perfil de la persona 
+&lt;p&gt;Para envair una solicitud de amistad, vete a la página de perfil de la persona
     que quieres convertir en amigo y haz click en el enlace &amp;quot;Añadir como amigo&amp;quot;.&lt;/p&gt;
-&lt;p&gt;Para aceptar una solicitud de amistad, vete a tu página de &amp;quot;Mis amigos&amp;quot;. On la 
-    pestaña &amp;quot;Peticiones pendientes&amp;quot; verás una lista de usuarios con peticiones 
+&lt;p&gt;Para aceptar una solicitud de amistad, vete a tu página de &amp;quot;Mis amigos&amp;quot;. On la
+    pestaña &amp;quot;Peticiones pendientes&amp;quot; verás una lista de usuarios con peticiones
     pendientes. Tienes tres opciones...&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Aprobar&lt;/strong&gt; - Te conviertes en amigo de la persona que te lo ha 
+  &lt;li&gt;&lt;strong&gt;Aprobar&lt;/strong&gt; - Te conviertes en amigo de la persona que te lo ha
       pedido.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Denegar&lt;/strong&gt; - Rechazas la petición.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt; Aprobar y añadir - &lt;/strong&gt;Te conviertes en amigo de la persona que te 
+  &lt;li&gt;&lt;strong&gt; Aprobar y añadir - &lt;/strong&gt;Te conviertes en amigo de la persona que te
       lo ha pedido y también añades al usuario a tu propia lista de amigos.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Eliminar un amigo&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Para eliminar un amigo de tu lista vete a tu página de &amp;quot;Mis amigos&amp;quot;. En la 
-    pestaña &amp;quot;Lista de amigos&amp;quot; haz click en el botón &amp;quot;Eliminar amigo&amp;quot; en el usuario 
+&lt;p&gt;Para eliminar un amigo de tu lista vete a tu página de &amp;quot;Mis amigos&amp;quot;. En la
+    pestaña &amp;quot;Lista de amigos&amp;quot; haz click en el botón &amp;quot;Eliminar amigo&amp;quot; en el usuario
     que quieres eliminar.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Tus peticiones&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;La tercera pesta de la página &amp;quot;Mis amigos&amp;quot; te muestra las peticiones que has 
+&lt;p&gt;La tercera pesta de la página &amp;quot;Mis amigos&amp;quot; te muestra las peticiones que has
     hecho que todavía están pendientes.&lt;/p&gt;</Resource>
     <Resource tag="BUDDIESTITLE">Amigos</Resource>
-    <Resource tag="DISPLAYCONTENT">&lt;p&gt;Tienes la posibilidad de elegir como quieres ver los temas. Cuando estás en un 
-    hilo, mira la barra superior. En la derecha verás &amp;quot;Ver&amp;quot;. Haz click en esta 
+    <Resource tag="DISPLAYCONTENT">&lt;p&gt;Tienes la posibilidad de elegir como quieres ver los temas. Cuando estás en un
+    hilo, mira la barra superior. En la derecha verás &amp;quot;Ver&amp;quot;. Haz click en esta
     opción y podrás cambiar el orden de las publicaciones.&lt;/p&gt;
 &lt;p&gt;Tienes dos opciones:&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Normal&lt;/strong&gt; - Las publicaciones son mistradas cronológicamente, 
-      normalmente de la más antigua a la más nueva. Las publicaciones son mostradas de 
+  &lt;li&gt;&lt;strong&gt;Normal&lt;/strong&gt; - Las publicaciones son mistradas cronológicamente,
+      normalmente de la más antigua a la más nueva. Las publicaciones son mostradas de
       un modo plano de manera que puedes visualizar muchos mensajes simultáneamente.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Por hilos&lt;/strong&gt; - Un árbol es mostrado a lo largo de cada 
-      publicación. Este te muestra la relación que cada publicación tiene con las 
-      demás. A tree is shown along with every post. This shows you the relationship each post has to the others. 
-      Es fácil ver quién respondió a quién. Solo una publicación es mostrada al mismo 
-      tiempo. Haciendo click en una publicación en el árbol, la página mostrará la 
+  &lt;li&gt;&lt;strong&gt;Por hilos&lt;/strong&gt; - Un árbol es mostrado a lo largo de cada
+      publicación. Este te muestra la relación que cada publicación tiene con las
+      demás. A tree is shown along with every post. This shows you the relationship each post has to the others.
+      Es fácil ver quién respondió a quién. Solo una publicación es mostrada al mismo
+      tiempo. Haciendo click en una publicación en el árbol, la página mostrará la
       publicación y todas las publicaciones hechas en respuesta a ella.&lt;/li&gt;
 &lt;/ul&gt;</Resource>
     <Resource tag="DISPLAYTITLE">Opciones para mostrar hilos</Resource>
-    <Resource tag="EDITDELETECONTENT">&lt;p&gt;Si estás registrado y con la sesión iniciada, puedes editar y eliminar tus 
+    <Resource tag="EDITDELETECONTENT">&lt;p&gt;Si estás registrado y con la sesión iniciada, puedes editar y eliminar tus
     mensajes (si el administrador no ha desactivado esta opción). &lt;/p&gt;
-&lt;p&gt;Para editar o eliminar tus publicaciones, haz clien en el botón de &amp;quot;Editar&amp;quot; en la 
-    publicación en concreto. Si tu publicación es la primera del hilo, al eliminarla 
+&lt;p&gt;Para editar o eliminar tus publicaciones, haz clien en el botón de &amp;quot;Editar&amp;quot; en la
+    publicación en concreto. Si tu publicación es la primera del hilo, al eliminarla
     eliminarás el hilo entero.&lt;/p&gt;
-&lt;p&gt;Cuando hayas hecho tus modificaciones, una nota en la parte de abajo de la 
-    publicación aparecerá para informar a los demás usuarios de que has editado la 
+&lt;p&gt;Cuando hayas hecho tus modificaciones, una nota en la parte de abajo de la
+    publicación aparecerá para informar a los demás usuarios de que has editado la
     publicación.&lt;/p&gt;
-&lt;p&gt;Por favor, intenta introducir en el campo &amp;quot;Razón para editar&amp;quot; el motivo por el 
+&lt;p&gt;Por favor, intenta introducir en el campo &amp;quot;Razón para editar&amp;quot; el motivo por el
     que has editado este mensaje.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;¿Pueden otros editar mis publicaciones?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Administradores y moderadores pueden editar tus mensajes. Si ellos lo hace, una 
-    nota en la parte de abajo de la publicación informará de que esta ha sido 
+&lt;p&gt;Administradores y moderadores pueden editar tus mensajes. Si ellos lo hace, una
+    nota en la parte de abajo de la publicación informará de que esta ha sido
     modificada.&lt;/p&gt;</Resource>
     <Resource tag="EDITDELETETITLE">Editando y eliminando tus publicaciones</Resource>
-    <Resource tag="EDITPROFILECONTENT">&lt;p&gt;Puedes cambiar la información de tu cuenta usando la opción &amp;quot;Perfil personal &amp;gt; 
-    Editar Perfil&amp;quot; desde el panel de control de usuario. Si quieres cambiar tu 
-    contraseña hay una página adicional (Cambiar contraseña) en el panel de control 
+    <Resource tag="EDITPROFILECONTENT">&lt;p&gt;Puedes cambiar la información de tu cuenta usando la opción &amp;quot;Perfil personal &amp;gt;
+    Editar Perfil&amp;quot; desde el panel de control de usuario. Si quieres cambiar tu
+    contraseña hay una página adicional (Cambiar contraseña) en el panel de control
     de usuario en la que puedes establecer una nueva contraseña.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Editar la página de perfil&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Esta página te permite especificar detalles requeridos y opciones, algunos de los 
-    cuales serán mostrados en tu perfil público. Con excepción de tu dirección de 
+&lt;p&gt;Esta página te permite especificar detalles requeridos y opciones, algunos de los
+    cuales serán mostrados en tu perfil público. Con excepción de tu dirección de
     email, no introduzcas información que no quieras que sea visible.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Sobre ti&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Esta es la información básica sobre ti.&lt;/p&gt;
@@ -4281,69 +4306,69 @@ public class Hello1
 &lt;p&gt;&lt;strong&gt;Página web&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Aquí puedes introducir una dirección web de una págian o blog personal.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Servicios de mensajería instantánea&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Aquí puedes introducir tus IDs de servicios como MSN, yahoo, AIM, ICQ, XMPP, 
+&lt;p&gt;Aquí puedes introducir tus IDs de servicios como MSN, yahoo, AIM, ICQ, XMPP,
     Skype, Facebook o Twitter.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Zona horaria&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Aquí puedes especificar la zona horaria en la que te encuentras para ajustar las 
-    horas del foro a tu hora local. También si quieres que el horario de verano se 
+&lt;p&gt;Aquí puedes especificar la zona horaria en la que te encuentras para ajustar las
+    horas del foro a tu hora local. También si quieres que el horario de verano se
     ajuste automáticamente.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Preferencias del foro&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Aquí puedes cambiar tu dirección de email.&lt;/p&gt;
-&lt;p&gt;Y, si los administradores lo han activado, puedes cambiar el idioma del foro, el 
+&lt;p&gt;Y, si los administradores lo han activado, puedes cambiar el idioma del foro, el
     tema y el editor de textos (que es usado para publicar mensajes).&lt;/p&gt;
-&lt;p&gt;Existe una opción &amp;quot;Inicio de sesión único&amp;quot; (si está activada). Si la tienes 
-    activada puedes iniciar sesión a través de Facebook, introduciendo tu ID de 
+&lt;p&gt;Existe una opción &amp;quot;Inicio de sesión único&amp;quot; (si está activada). Si la tienes
+    activada puedes iniciar sesión a través de Facebook, introduciendo tu ID de
     Facebook más arriba.&lt;/p&gt;
 </Resource>
     <Resource tag="EDITPROFILETITLE">Editando el perfil de usuario y la configuración de los foros.</Resource>
     <Resource tag="FORUMSCONTENT">&lt;p&gt;&lt;strong&gt;Qué es YAF?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;YetAnotherForum.NET (YAF) es un foro de discusión de software libre en ASP.NET 
-    100% escrito en C#. YAF es una combinación única de software libre, .NET de 
-    Microsoft y una colaboración internación de la comunidad de desarrolladores de 
-    .NET. Creciendo y cambiando diariamente, el proyecto YAF está liderado por Ingo Herbote. YAF funciona en cualquier servidor web que soporte 
+&lt;p&gt;YetAnotherForum.NET (YAF) es un foro de discusión de software libre en ASP.NET
+    100% escrito en C#. YAF es una combinación única de software libre, .NET de
+    Microsoft y una colaboración internación de la comunidad de desarrolladores de
+    .NET. Creciendo y cambiando diariamente, el proyecto YAF está liderado por Ingo Herbote. YAF funciona en cualquier servidor web que soporte
     ASP.NET v4.8 o superior y SQL Server. YAF está licenciado bajo Apache 2.0.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;¿Cómo está todo esto estructurado?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;El foro contiene varias áreas, las cuales contienen foros (áreas de asuntos más 
-    específicos) que contienen temas compuestos de mensajes individuales (cuando un 
+&lt;p&gt;El foro contiene varias áreas, las cuales contienen foros (áreas de asuntos más
+    específicos) que contienen temas compuestos de mensajes individuales (cuando un
     usuario escribe algo).&lt;/p&gt;
-&lt;p&gt;En la página de inicio de los foros hay una lista de categorías y foros, con 
-    estadísticas básicas para cada uno de ellos, includos el número de temas y 
+&lt;p&gt;En la página de inicio de los foros hay una lista de categorías y foros, con
+    estadísticas básicas para cada uno de ellos, includos el número de temas y
     mensajes y qué miembro a publicado el mensaje más reciente.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;¿Cómo sé por dónde ir?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Cuando haces click en el nombre de un foro, estás entrando en la lista de temas 
-    que contiene. Un tema es una conversación entre miembro o invitados. Cada tema 
-    comienza con un simple mensaje y crece con más mensajes individuales de 
+&lt;p&gt;Cuando haces click en el nombre de un foro, estás entrando en la lista de temas
+    que contiene. Un tema es una conversación entre miembro o invitados. Cada tema
+    comienza con un simple mensaje y crece con más mensajes individuales de
     diferentes usuarios. &lt;/p&gt;
-&lt;p&gt;Para comenzar un nuevo tema simplemente haz click en el botón de &amp;quot;Nuevo tema&amp;quot; (si 
+&lt;p&gt;Para comenzar un nuevo tema simplemente haz click en el botón de &amp;quot;Nuevo tema&amp;quot; (si
     tienes acceso para ello).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Paginación&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Cuando hay más temas de los que se pueden mostrar en una página, verás el 
-    paginador que contiene números. Esto indica que la lista de temas ha sido 
+&lt;p&gt;Cuando hay más temas de los que se pueden mostrar en una página, verás el
+    paginador que contiene números. Esto indica que la lista de temas ha sido
     dividida en dos o más páginas.&lt;/p&gt;
 &lt;p&gt;El método de división de listados por páginas es usado en todo el foro.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;¿Qué son temas fijos?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Los temas fijos pueden ser creados por los moderadores o administradores y 
-    permanecen pegados en la parte superior de la lista, como si tuvieran mensajes 
-    recientemente. Su propósito es mantener información importante visible y 
+&lt;p&gt;Los temas fijos pueden ser creados por los moderadores o administradores y
+    permanecen pegados en la parte superior de la lista, como si tuvieran mensajes
+    recientemente. Su propósito es mantener información importante visible y
     accesible en todo momento.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;¿Cómo leo un tema?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Para leer un tema haz clinc en su título. Cada mensaje en el tema es creado por 
-    un miembro o un invitado. Podrás ver una breve información sobre el miembro que 
+&lt;p&gt;Para leer un tema haz clinc en su título. Cada mensaje en el tema es creado por
+    un miembro o un invitado. Podrás ver una breve información sobre el miembro que
     ha creado el tema a la izquierda del mensaje.&lt;/p&gt;
-&lt;p&gt;Para enviar una respuesta a un tema existenten, haz click en el botón de 
-    &amp;quot;Publicar respuesta&amp;quot;. Si el botón de publicar respuesta no aparece, puede 
-    significar que no has iniciado sesión como miembro del foro, que no tienes 
+&lt;p&gt;Para enviar una respuesta a un tema existenten, haz click en el botón de
+    &amp;quot;Publicar respuesta&amp;quot;. Si el botón de publicar respuesta no aparece, puede
+    significar que no has iniciado sesión como miembro del foro, que no tienes
     permisos para responder, o que el tema ha sido cerrado a nuevas respuestas.&lt;/p&gt;
-&lt;p&gt;Si está activado, también existe un recuadro de &amp;quot;Respuesta rápida&amp;quot; en el que 
-    puedes entrar rápidamente a responder sin tener que ir a la página de &amp;quot;Publicar 
-    respuesta&amp;quot;. Necesitas hacer click en el botón de &amp;quot;Respuesta rápida&amp;quot; en un 
+&lt;p&gt;Si está activado, también existe un recuadro de &amp;quot;Respuesta rápida&amp;quot; en el que
+    puedes entrar rápidamente a responder sin tener que ir a la página de &amp;quot;Publicar
+    respuesta&amp;quot;. Necesitas hacer click en el botón de &amp;quot;Respuesta rápida&amp;quot; en un
     mensaje para activar el recuadro antes de escribir en él.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;¿Como puedo obtener más información acerca de los miembros?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Para ver información sobre un miembro en particular, haz click en el nombre de 
+&lt;p&gt;Para ver información sobre un miembro en particular, haz click en el nombre de
     usuario. Esto te llevará a su página de perfil público.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;¿Qué es la cabecera?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;La cabecera en la parte de arriba de todas las páginas tiene enlace para ayudarte 
-    a moverte por el foro. Con un click puedes acceder a áreas como Mi perfil, Ayuda 
+&lt;p&gt;La cabecera en la parte de arriba de todas las páginas tiene enlace para ayudarte
+    a moverte por el foro. Con un click puedes acceder a áreas como Mi perfil, Ayuda
     (que estás leyendo ahora), Búsqueda y otras funcionalidades útiles.&lt;/p&gt;</Resource>
     <Resource tag="FORUMSTITLE">Foros, temas y mensajes</Resource>
     <Resource tag="GENERALTOPICS">Uso general del foro</Resource>
@@ -4937,10 +4962,10 @@ public class Hello1
     </Resource>
     <Resource tag="PREVIEWTITLE">Vista previa:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">El usuario {0} tiene su bandeja de entrada de mensajes privados llena. Lo sentimos, no recibirá tu mensaje privado hasta que libere espacio.</Resource>
-    <Resource tag="REPORT_BODY">I would like to Report the Message: 
+    <Resource tag="REPORT_BODY">I would like to Report the Message:
 
-  {0} 
-     
+  {0}
+
   for the following Reason...</Resource>
     <Resource tag="REPORT_SUBJECT">Report a Private Message from User: {0}</Resource>
     <Resource tag="REPORTED_SUBJECT">Re: Respuesta a tu informe de sobre una publicación</Resource>
@@ -5081,9 +5106,6 @@ public class Hello1
     <Resource tag="FACEBOOK_TOPIC">"Me gusta" a este tema</Resource>
     <Resource tag="FORUM_JUMP">Salto de foro</Resource>
     <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
-    <Resource tag="GOOGLE">Google+</Resource>
-    <Resource tag="GOOGLE_TITLE">Visita el perfil de Google+ de {0}</Resource>
-    <Resource tag="GOOGLEPLUS_TOPIC">Compartir en Google+</Resource>
     <Resource tag="GROUPS">Grupos</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Visita la página de {0}</Resource>
@@ -5226,9 +5248,6 @@ public class Hello1
     <Resource tag="FACEBOOK">Perfil de Facebook:</Resource>
     <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Género:</Resource>
-    <Resource tag="GENDER0">No Especificado</Resource>
-    <Resource tag="GENDER1">Masculino</Resource>
-    <Resource tag="GENDER2">Femenino</Resource>
     <Resource tag="GOOGLE">Perfil de Google+:</Resource>
     <Resource tag="GROUPS">Grupos:</Resource>
     <Resource tag="HOURS">horas</Resource>
@@ -5723,29 +5742,29 @@ public class Hello1
   </page>
   <page name="TEMPLATES">
     <Resource tag="CHANGEEMAIL_TEXT">
-			Hola {user},
+      Hola {user},
 
-			Su petición de cambiar su direccion de correo a {newemail} casi esta lista!
+      Su petición de cambiar su direccion de correo a {newemail} casi esta lista!
 
-			Solo confirme el cambio dando clic en esta liga:
+      Solo confirme el cambio dando clic en esta liga:
 
-			{link}
+      {link}
 
-			Y teclee el codigo de aprobacion:
+      Y teclee el codigo de aprobacion:
 
-			{key}
+      {key}
 
-			Si Ud. no solicito un cambio de direccion de correo, solo ignore este correo.
+      Si Ud. no solicito un cambio de direccion de correo, solo ignore este correo.
 
-			{forumname} en {forumlink}
-		</Resource>
+      {forumname} en {forumlink}
+    </Resource>
     <Resource tag="EMAILTOPIC">
-			Hola!
+      Hola!
 
-			{user} Pensamos que pudiera estar interesado en leer esto:
+      {user} Pensamos que pudiera estar interesado en leer esto:
 
-			{link}
-		</Resource>
+      {link}
+    </Resource>
     <Resource tag="EMAILTOPIC_TEXT">
      {message}
 
@@ -5779,7 +5798,7 @@ Te has registrado correctamente en el foro {forumname} usando tu cuenta de Faceb
 Nombre de Usuario: {user}
 Contraseña autogenerada: {pass}
 Email de usuario: {email} (Por favor, no cambies tu email o dejarás de poder entrar con Facebook)
-	  
+
 </Resource>
     <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT">
       Hello {user}.
@@ -5787,8 +5806,8 @@ Email de usuario: {email} (Por favor, no cambies tu email o dejarás de poder en
       You have been successfully registered on the {forumname} forum using Facebook Login:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  
+    Auto Generated Password: {pass}
+
       User Email: {email} (Please don't change your email, or you are unable to login with Facebook)
 
     </Resource>
@@ -5800,7 +5819,7 @@ Te has registrado correctamente en el foro {forumname} usando tu cuenta de Googl
 Nombre de Usuario: {user}
 Contraseña autogenerada: {pass}
 Email de usuario: {email} (Por favor, no cambies tu email o dejarás de poder entrar con Google)
-	  
+
     </Resource>
     <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER_TEXT">
       Hello {user}.
@@ -5808,8 +5827,8 @@ Email de usuario: {email} (Por favor, no cambies tu email o dejarás de poder en
       You have been successfully registered on the {forumname} forum using Google Login:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  
+    Auto Generated Password: {pass}
+
       User Email: {email} (Please don't change your email, or you are unable to login with Google)
 
     </Resource>
@@ -5820,19 +5839,19 @@ Felicidades, has sido galardonado con {medalname} en el foro {forumname}.
   </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
 Un nuevo mensaje que necesita tu aprobación ha sido publicado en el foro {forumname}:
-		
+
 Enlace de administración: {adminlink}
-	</Resource>
+  </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
 Un mensaje ha sido denunciado por {reporter} por la siguiente razón: {reason}
-	  
+
 El mensaje ha sido publicado en {forumname}.
-      
+
 Enlace de administración: {adminlink}
    </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_TEXT">
       A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked:
-      
+
       Administration Link: {adminlink}
    </Resource>
     <Resource tag="NOTIFICATION_ON_REGISTER">
@@ -5852,7 +5871,7 @@ Email de usuario: {email}
 
     User Name: {user}
     Auto Generated Password: {pass}
-    
+
     User Email: {email}
 
   </Resource>
@@ -5880,7 +5899,7 @@ Email de usuario: {email}
     Hello {user},
 
     Your forum account on the {forumname} forum has been temporarily suspended.
-    
+
     This suspension is due to end on {suspendedUntil}.
 
     For the following Reason: '{suspendReason}'
@@ -5911,18 +5930,18 @@ Te has registrado correctamente en el foro {forumname} usando tu cuenta de Twitt
 
 Nombre de Usuario: {user}
 Contraseña autogenerada: {pass}
-Email de usuario: {email} (Por favor, cambia tu email a tu dirección real para poder recibir emails)	  
+Email de usuario: {email} (Por favor, cambia tu email a tu dirección real para poder recibir emails)
     </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
-		Hola!
+    Hola!
 
-		Un nuevo usuario se ha registrado en el foro {forumname}:
-		
-		Nombre de usuario: {user}
-		Email: {email}
-		
-		Enlace de administración: {adminlink}
-	</Resource>
+    Un nuevo usuario se ha registrado en el foro {forumname}:
+
+    Nombre de usuario: {user}
+    Email: {email}
+
+    Enlace de administración: {adminlink}
+  </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_TEXT">
       Hello!
 
@@ -5971,7 +5990,7 @@ Email de usuario: {email} (Por favor, cambia tu email a tu dirección real para 
      Hello {user},
 
      Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
-     
+
      {roles}
 
      Thanks!
@@ -5983,7 +6002,7 @@ Email de usuario: {email} (Por favor, cambia tu email a tu dirección real para 
      Hello {user},
 
      Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
-     
+
      {roles}
 
 
@@ -5996,7 +6015,7 @@ Email de usuario: {email} (Por favor, cambia tu email a tu dirección real para 
      Hello {user},
 
      Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
-     
+
      {roles}
 
      Thanks!
@@ -6008,7 +6027,7 @@ Email de usuario: {email} (Por favor, cambia tu email a tu dirección real para 
      Hello {user},
 
      Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
-     
+
      {roles}
 
 
@@ -6045,7 +6064,7 @@ Un nuevo mensaje privado de {fromuser} a cerca de {subject} te ha sido enviado e
 Para leer el mensaje abre el siguiente enlae en tu navegador:
 
 {link}
-		</Resource>
+    </Resource>
     <Resource tag="RESET_PASS_TEXT">
      You have requested to reset your password for {forumname}.
 
@@ -6061,9 +6080,9 @@ Para leer el mensaje, abre el siguiente enlace en tu navegador:
 {link}
 
       You can manage your subscriptions here:
-      
+
       {subscriptionlink}
-		</Resource>
+    </Resource>
     <Resource tag="VERIFYEMAIL_TEXT">
 Has pedido unirte a {forumname}, pero antes de que puedas entrar, tu email tiene que ser verificado. Para hacerlo abre el siguiente enlace en tu navegador:
 
@@ -6074,7 +6093,7 @@ Tu código de aprobación es:
 {key}
 
 Visita {forumname} en {forumlink}
-		</Resource>
+    </Resource>
   </page>
   <page name="TOOLBAR">
     <Resource tag="ACTIVETOPICS">Temas activos</Resource>

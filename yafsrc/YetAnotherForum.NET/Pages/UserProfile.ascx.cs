@@ -514,24 +514,11 @@ namespace YAF.Pages
 
             if (user.Item2.Profile_Gender > 0)
             {
-                var imagePath = string.Empty;
-                var imageAlt = string.Empty;
-
                 this.GenderTR.Visible = true;
 
-                switch (user.Item2.Profile_Gender)
-                {
-                    case 1:
-                        imagePath = "male";
-                        imageAlt = this.GetText("USERGENDER_MAS");
-                        break;
-                    case 2:
-                        imagePath = "female";
-                        imageAlt = this.GetText("USERGENDER_FEM");
-                        break;
-                }
+                var genders = EnumExtensions.GetAllItems<Gender>().ToList();
 
-                this.Gender.Text = $@"<i class=""fa fa-{imagePath} fa-fw""></i>&nbsp;{imageAlt}";
+                this.Gender.Text = this.GetText("GENDER", genders[user.Item2.Profile_Gender].ToString());
             }
 
             if (user.Item2.Profile_Occupation.IsSet())

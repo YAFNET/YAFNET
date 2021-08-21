@@ -1619,10 +1619,10 @@
   <page name="ADMIN_NNTPRETRIEVE">
     <Resource tag="BETA_WARNING">&lt;p style="color: red"&gt; &lt;span title="The NNTP feature of Yet Another Forum.net is still beta, and will have bugs." onmouseover="this.style.backgroundColor='#ebeff9'" onmouseout="this.style.backgroundColor='#fff'"&gt;Die NNTP Funktion des Yet Another Forum.net ist noch in der Beta Phase, und hat noch einige Bugs. &lt;/span&gt;&lt;span title="Bugs" onmouseover="this.style.backgroundColor='#ebeff9'" onmouseout="this.style.backgroundColor='#fff'"&gt;Bugs auf die &lt;/span&gt;&lt;span title="you should look for is character set conversion, and incorrect time on posts." onmouseover="this.style.backgroundColor='#ebeff9'" onmouseout="this.style.backgroundColor='#fff'"&gt;Sie achten sollten sind bei der Zeichensatzkonvertierung und falsche Zeiten bei Beiträgen. &lt;br&gt;
 &lt;/span&gt;&lt;span title="Usenet articles will be posted to the forum with the date from the article header," onmouseover="this.style.backgroundColor='#ebeff9'" onmouseout="this.style.backgroundColor='#fff'"&gt;Usenet-Artikel werden im Forum veröffentlicht mit dem Datum des Artikelkopfes  &lt;/span&gt;&lt;span title="meaning that you well could get future dates." onmouseover="this.style.backgroundColor='#ebeff9'" onmouseout="this.style.backgroundColor='#fff'"&gt;bedeutet, dass zukünftige Daten erhalten können. Bitte melden Sie Unbekannte Zeitzonen den YAF Programmieren&lt;/span&gt;&lt;span title="time zones that are encountered." onmouseover="this.style.backgroundColor='#ebeff9'" onmouseout="this.style.backgroundColor='#fff'"&gt;.&lt;/span&gt;&lt;/p&gt;
-	&lt;p style="color: red"&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Die&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Foren&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;in denen die &lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Usenet-Artikel&lt;/span&gt; veröffentlicht werden sollten schreibge&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;schützt sein&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;,&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;da&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Nachrichten&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;&lt;strong&gt;nicht&lt;/strong&gt; zurück in der&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Usenet&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;gepostet werden&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;.&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Aus&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Geschwindigkeit&lt;/span&gt;sgründen werden &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Usenet-Artikel&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt; automatisch genehmigt&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;, was bedeutet,&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;dass&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;, wenn&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;das Forum&lt;/span&gt; moderiert &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;wird&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;,&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt; die&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Beiträge&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;automatisch&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;genehmigt werden&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;.&lt;/span&gt;&lt;/p&gt;
-	&lt;p style="color: red"&gt;
-		Zum Schutz der Usenet-Server, kann eine Newsgroup nur einmal alle 10 Minuten aktualisiert werden.
-	&lt;/p&gt;</Resource>
+  &lt;p style="color: red"&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Die&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Foren&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;in denen die &lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Usenet-Artikel&lt;/span&gt; veröffentlicht werden sollten schreibge&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;schützt sein&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;,&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;da&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Nachrichten&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;&lt;strong&gt;nicht&lt;/strong&gt; zurück in der&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Usenet&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;gepostet werden&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;.&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Aus&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Geschwindigkeit&lt;/span&gt;sgründen werden &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Usenet-Artikel&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt; automatisch genehmigt&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;, was bedeutet,&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;dass&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;, wenn&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;das Forum&lt;/span&gt; moderiert &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;wird&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;,&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt; die&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;Beiträge&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;automatisch&lt;/span&gt; &lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;genehmigt werden&lt;/span&gt;&lt;span title="Zur Anzeige alternativer Übersetzungen klicken"&gt;.&lt;/span&gt;&lt;/p&gt;
+  &lt;p style="color: red"&gt;
+    Zum Schutz der Usenet-Server, kann eine Newsgroup nur einmal alle 10 Minuten aktualisiert werden.
+  &lt;/p&gt;</Resource>
     <Resource tag="GROUPS">Gruppen zum Abruf bereit</Resource>
     <Resource tag="HEADER">NNTP Artikel abrufen</Resource>
     <Resource tag="LAST_MESSAGE">Letzte Nachricht</Resource>
@@ -2315,7 +2315,7 @@
   <page name="COOKIES">
     <Resource tag="COOKIES_TEXT">
     Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.
-    
+
     [br]
     [b]Standard Cookies[/b][br]
     We’re using cookies for the following purposes:
@@ -2329,7 +2329,7 @@
 
     [b]Third Party Cookies[/b][br]
     The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.
-    
+
     [br]
 
     [b]How do I change my cookie settings?[/b][br]
@@ -2745,7 +2745,6 @@
     <Resource tag="FIELD_TOOLONG">{0} Länge darf nicht länder als {1} Zeichen lang sein.</Resource>
     <Resource tag="FORUM_SETTINGS">Einstellungen des Forums</Resource>
     <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
-    <Resource tag="GOOGLE">Ihre Google Profil URL:</Resource>
     <Resource tag="HIDEME">Verstecken Sie mich aus der aktiven Nutzerliste</Resource>
     <Resource tag="HOMEPAGE">Webseite</Resource>
     <Resource tag="HOMEPAGE2">Deine Webseite:</Resource>
@@ -2836,6 +2835,32 @@
     <Resource tag="REQUEST_DATE">Anfragedatum</Resource>
     <Resource tag="YOUR_BUDDYLIST">Ihre Freundesliste</Resource>
     <Resource tag="YOUR_REQUESTS">Ihre Anfragen</Resource>
+  </page>
+  <page name="GENDER">
+    <Resource tag="AGENDER">Agender</Resource>
+    <Resource tag="ANDROGYNE">Androgyne</Resource>
+    <Resource tag="BIGENDER">Bigender</Resource>
+    <Resource tag="CISGENDER">Cisgender</Resource>
+    <Resource tag="FEMALETOMALE">Female to Male</Resource>
+    <Resource tag="GENDERFLUID">Gender Fluid</Resource>
+    <Resource tag="GENDERNONCONFORMING">Gender Nonconforming</Resource>
+    <Resource tag="GENDERQUEER">Genderqueer</Resource>
+    <Resource tag="GENDERQUESTIONING">Gender Questioning</Resource>
+    <Resource tag="INTERSEX">Intersex</Resource>
+    <Resource tag="MALETOFEMALE">Male to Female</Resource>
+    <Resource tag="MAN">Man</Resource>
+    <Resource tag="NONBINARY">Non-binary</Resource>
+    <Resource tag="OTHER">Other</Resource>
+    <Resource tag="PANGENDER">Pangender</Resource>
+    <Resource tag="TRANS">Trrans</Resource>
+    <Resource tag="TRANSFEMININE">Transfeminine</Resource>
+    <Resource tag="TRANSGENDER">Transgender</Resource>
+    <Resource tag="TRANSMAN">Transgender Man</Resource>
+    <Resource tag="TRANSMASCULINE">Transmasculine</Resource>
+    <Resource tag="TRANSSEXUAL">Transsexual</Resource>
+    <Resource tag="TRANSWOMAN">Transgender Woman</Resource>
+    <Resource tag="TWOSPIRIT">Two-Spirit</Resource>
+    <Resource tag="WOMAN">Woman</Resource>
   </page>
   <page name="HELP_INDEX">
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;Ankündigungen sind spezielle Beiträge, die von einem Administrator oder  Moderator geschrieben werden. Sie sind eine einfache Ein-Wege-Kommunikation mit dem Benutzer und Sie können nicht antworten. Wenn Sie eine Ankündigung diskutieren möchten, müssen Sie ein neues Thema  im Forum erstellen.&lt;/p&gt;
@@ -3041,7 +3066,7 @@
     &lt;/td&gt;
     &lt;td&gt;
       [left]Dieser Text ist links ausgerichtet[/left]&lt;br /&gt;
-	  [center]Dieser Text ist mittig ausgerichtet[/center]&lt;br /&gt;
+    [center]Dieser Text ist mittig ausgerichtet[/center]&lt;br /&gt;
       [right]Dieser Text ist rechts ausgerichtet[/right]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
@@ -3049,8 +3074,8 @@
       &lt;strong&gt;Ausgabe&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;&lt;div align="left"&gt;Dieser Text ist links ausgerichtet&lt;/div&gt;
-			&lt;div align="center"&gt;Dieser Text ist mittig ausgerichtet&lt;/div&gt;
-			&lt;div align="right"&gt;Dieser Text ist rechts ausgerichtet&lt;/div&gt;&lt;/td&gt;
+      &lt;div align="center"&gt;Dieser Text ist mittig ausgerichtet&lt;/div&gt;
+      &lt;div align="right"&gt;Dieser Text ist rechts ausgerichtet&lt;/div&gt;&lt;/td&gt;
   &lt;/tr&gt;
 &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Hervorheben&lt;/td&gt;
@@ -3098,14 +3123,14 @@
     &lt;/td&gt;
     &lt;td&gt;
       [email]irgendjemand@mydomain.com[/email]&lt;br /&gt;
-			[email=irgendjemande@mydomain.com]Mir eine E-Mail schicken[/email]&lt;/td&gt;
+      [email=irgendjemande@mydomain.com]Mir eine E-Mail schicken[/email]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
       &lt;strong&gt;Ausgabe&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;&lt;a href="mailto:irgendjemand@mydomain.com"&gt;irgendjemand&lt;/a&gt;&lt;br /&gt;
-			&lt;a href="mailto:irgendjemand@mydomain.com"&gt;Mir eine E-Mail Schicken&lt;/a&gt;&lt;/td&gt;
+      &lt;a href="mailto:irgendjemand@mydomain.com"&gt;Mir eine E-Mail Schicken&lt;/a&gt;&lt;/td&gt;
   &lt;/tr&gt;
 &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;URL Hyper Links&lt;/td&gt;
@@ -3123,7 +3148,7 @@
     &lt;/td&gt;
     &lt;td&gt;
       [url]{0}[/url]&lt;br /&gt;
-	 [url={0}]mydomain[/url]&lt;/td&gt;
+   [url={0}]mydomain[/url]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
@@ -3148,7 +3173,7 @@
     &lt;/td&gt;
     &lt;td&gt;
       [modalurl]{0}[/modalurl]&lt;br /&gt;
-	 [modalurl={0}]mydomain[/modalurl]&lt;/td&gt;
+   [modalurl={0}]mydomain[/modalurl]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
@@ -3336,18 +3361,18 @@
     &lt;td&gt;
       [img]{0}Content/images/YAFLogo.svg[/img]&lt;br /&gt;&lt;br /&gt;
       [img={0}Content/images/YAFLogo.svg]YAF Logo[/img]&lt;br /&gt;&lt;br /&gt;
-	  [url={0}] [img]{0}Content/images/YAFLogo.svg[/img] [/url] (Verlinkt)
-	&lt;/td&gt;
+    [url={0}] [img]{0}Content/images/YAFLogo.svg[/img] [/url] (Verlinkt)
+  &lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
       &lt;strong&gt;Ausgabe&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;&lt;img src="{0}Content/images/YAFLogo.svg" alt="" /&gt;&lt;br /&gt;
-		&lt;br /&gt;&lt;img src="{0}Content/images/YAFLogo.svg" alt="YAF Logo" title="YAF Logo" /&gt;&lt;br /&gt;
-		&lt;br /&gt;
-		&lt;a href="{0}" target="_blank"&gt;&lt;img class="inlineimg" src="{0}Content/images/YAFLogo.svg" alt="" /&gt;&lt;/a&gt; (Verlinkt)
-	&lt;/td&gt;
+    &lt;br /&gt;&lt;img src="{0}Content/images/YAFLogo.svg" alt="YAF Logo" title="YAF Logo" /&gt;&lt;br /&gt;
+    &lt;br /&gt;
+    &lt;a href="{0}" target="_blank"&gt;&lt;img class="inlineimg" src="{0}Content/images/YAFLogo.svg" alt="" /&gt;&lt;/a&gt; (Verlinkt)
+  &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;You Tube&lt;/td&gt;
@@ -3477,8 +3502,8 @@
     &lt;/td&gt;
     &lt;td&gt;
       [quote]Zitierter Text.[/quote]&lt;br /&gt;&lt;br /&gt;
-		[quote=John Doe]Zitierter Text.[/quote]&lt;br /&gt;&lt;br /&gt;
-		[quote=John Doe;123]Zitierter Text.[/quote]&lt;/td&gt;
+    [quote=John Doe]Zitierter Text.[/quote]&lt;br /&gt;&lt;br /&gt;
+    [quote=John Doe;123]Zitierter Text.[/quote]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
@@ -3506,7 +3531,7 @@
     &lt;/td&gt;
     &lt;td&gt;
       [code]&lt;br /&gt;
-		// Hello1.cs&lt;br /&gt;
+    // Hello1.cs&lt;br /&gt;
 public class Hello1&lt;br /&gt;
 {{&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
@@ -3514,9 +3539,9 @@ public class Hello1&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine("Hallo Welt!");&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;}}&lt;br /&gt;
 }}&lt;br /&gt;
-		[/code]&lt;br /&gt;&lt;br /&gt;
+    [/code]&lt;br /&gt;&lt;br /&gt;
         [code=csharp]&lt;br /&gt;
-		// Hello1.cs&lt;br /&gt;
+    // Hello1.cs&lt;br /&gt;
 public class Hello1&lt;br /&gt;
 {{&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
@@ -3524,7 +3549,7 @@ public class Hello1&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine("Hallo Welt!!");&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;}}&lt;br /&gt;
 }}&lt;br /&gt;
-		[/code]&lt;/td&gt;
+    [/code]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
@@ -3586,7 +3611,7 @@ public class Hello1
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können&lt;/div&gt;&lt;/div&gt;
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Group Hide&lt;/td&gt;
@@ -3620,7 +3645,7 @@ public class Hello1
 
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Hide-Thanks&lt;/td&gt;
@@ -3655,7 +3680,7 @@ public class Hello1
 
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
 
   &lt;tr&gt;
@@ -3691,7 +3716,7 @@ public class Hello1
 
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
 
   &lt;tr&gt;
@@ -3726,7 +3751,7 @@ public class Hello1
 
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Hide-Reply-Thanks&lt;/td&gt;
@@ -3760,7 +3785,7 @@ public class Hello1
 
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
 &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Spoiler&lt;/td&gt;
@@ -3786,8 +3811,8 @@ public class Hello1
     &lt;td&gt;
     &lt;!-- BEGIN spoiler --&gt;
     &lt;script type="text/javascript"&gt;
-	function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Spoiler-Text anzeigen'}}else{{el.style.display='';btn.value='Spoiler-Text verbergen'}}}}
-	&lt;/script&gt;
+  function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Spoiler-Text anzeigen'}}else{{el.style.display='';btn.value='Spoiler-Text verbergen'}}}}
+  &lt;/script&gt;
 &lt;div class="spoilertitle"&gt;
 &lt;input type="button" value="Show Spoiler" class="spoilerbutton" name="spoilerBtn4360a" onclick="toggleSpoiler(this,'spoil_c3a3b');"/&gt;
 &lt;/div&gt;
@@ -3795,7 +3820,7 @@ public class Hello1
 Spoiler Content
 &lt;/div&gt;
 &lt;!-- END spoiler --&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/table&gt;
 &lt;br /&gt;
@@ -3827,12 +3852,12 @@ Spoiler Content
     &lt;/td&gt;
     &lt;td&gt;
     &lt;style type="text/css"&gt;.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}
-	&lt;/style&gt;
+  &lt;/style&gt;
     &lt;span class="userLinkContainer"&gt;
 &lt;a href="{0}yaf_profile1234.aspx" rel="nofollow" title="View profile" target="_blank" id="UserLinkBBCodeFor1234" class="UserLinkBBCode"&gt;Benutzername&lt;/a&gt;
 &lt;img id="OnlineStatusImage" src="{0}/Themes/OrangeGrey/icon_useronline.png" alt="Online" style="vertical-align: bottom" title="User is Online"/&gt;
 &lt;/span&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;BB Code parsen stoppen&lt;/td&gt;
@@ -3856,7 +3881,7 @@ Spoiler Content
       &lt;strong&gt;Ausgabe&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;[noparse][b]Beispiel Text.[/b][/noparse]
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/table&gt;
 
@@ -4520,10 +4545,10 @@ Spoiler Content
     </Resource>
     <Resource tag="PREVIEWTITLE">Vorschau:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">Du wolltest eine Nachricht an einen Benutzer mit einem vollen Posteingang schicken. Der Benutzer muss zuerst seinen Posteingang leeren, bevor wieder neue Nachrichten empfangen werden können.</Resource>
-    <Resource tag="REPORT_BODY">I would like to Report the Message: 
+    <Resource tag="REPORT_BODY">I would like to Report the Message:
 
-  {0} 
-     
+  {0}
+
   for the following Reason...</Resource>
     <Resource tag="REPORT_SUBJECT">Report a Private Message from User: {0}</Resource>
     <Resource tag="REPORTED_SUBJECT">Re: Antworten auf diesen Beitragsbericht.</Resource>
@@ -4664,9 +4689,6 @@ Spoiler Content
     <Resource tag="FACEBOOK_TOPIC">Thema mögen</Resource>
     <Resource tag="FORUM_JUMP">Das Forum wechseln</Resource>
     <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
-    <Resource tag="GOOGLE">Google+</Resource>
-    <Resource tag="GOOGLE_TITLE">{0}'s Google+ Profil besuchen</Resource>
-    <Resource tag="GOOGLEPLUS_TOPIC">Thema auf Google+ teilen</Resource>
     <Resource tag="GROUPS">Gruppe</Resource>
     <Resource tag="HOME">www</Resource>
     <Resource tag="HOME_TITLE">{0}'s Webseite besuchen</Resource>
@@ -4809,9 +4831,6 @@ Spoiler Content
     <Resource tag="FACEBOOK">Facebook Profil:</Resource>
     <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Geschlecht:</Resource>
-    <Resource tag="GENDER0">nicht angegeben</Resource>
-    <Resource tag="GENDER1">Männlich</Resource>
-    <Resource tag="GENDER2">Weiblich</Resource>
     <Resource tag="GOOGLE">Google+ Profil:</Resource>
     <Resource tag="GROUPS">Gruppen:</Resource>
     <Resource tag="HOURS">Stunden</Resource>
@@ -5359,7 +5378,7 @@ Hallo!
       Sie haben sich erfolgreich im forum {forumname} über Facebook registriert:
 
       Benutzername: {user}
-	  Automatisch generiertes Passwort: {pass}
+    Automatisch generiertes Passwort: {pass}
       E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Facebook anmelden)
 
     </Resource>
@@ -5369,8 +5388,8 @@ Hallo!
       You have been successfully registered on the {forumname} forum using Facebook Login:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  
+    Auto Generated Password: {pass}
+
       User Email: {email} (Please don't change your email, or you are unable to login with Facebook)
 
     </Resource>
@@ -5390,8 +5409,8 @@ Hallo!
       You have been successfully registered on the {forumname} forum using Google Login:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  
+    Auto Generated Password: {pass}
+
       User Email: {email} (Please don't change your email, or you are unable to login with Google)
 
     </Resource>
@@ -5401,10 +5420,10 @@ Hallo!
       Glückwunsch Sie wurden mit der {medalname} Ausgezeichnet im {forumname} forum.
     </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
-		Eine neue Nachricht muß bestätigt werden die im forum {forumname} geschrieben wurde:
+    Eine neue Nachricht muß bestätigt werden die im forum {forumname} geschrieben wurde:
 
-		Administration Link: {adminlink}
-	</Resource>
+    Administration Link: {adminlink}
+  </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
       Ein Beitrag wurde durch {reporter} gemeldet mit der folgenden Begründung: {reason}
 
@@ -5434,7 +5453,7 @@ Der Beitrag wurde im {forumname} forum veröffentlicht.
 
     User Name: {user}
     Auto Generated Password: {pass}
-    
+
     User Email: {email}
 
   </Resource>
@@ -5492,7 +5511,7 @@ Der Beitrag wurde im {forumname} forum veröffentlicht.
       Sie haben sich erfolgreich im forum {forumname} über Twitter registriert:
 
       Benutzername: {user}
-	  Automatisch generiertes Passwort: {pass}
+    Automatisch generiertes Passwort: {pass}
       E-Mail: {email} (Bitte ändern umgehend ihre E-Mail Adresse.)
 
     </Resource>
@@ -5505,7 +5524,7 @@ Benutzername: {user}
 E-Mail: {email}
 
 Admin-Link: {adminlink}
-	</Resource>
+  </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_TEXT">
       Hello!
 
@@ -5554,7 +5573,7 @@ Admin-Link: {adminlink}
      Hello {user},
 
      Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
-     
+
      {roles}
 
      Thanks!
@@ -5566,7 +5585,7 @@ Admin-Link: {adminlink}
      Hello {user},
 
      Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
-     
+
      {roles}
 
 
@@ -5579,7 +5598,7 @@ Admin-Link: {adminlink}
      Hello {user},
 
      Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
-     
+
      {roles}
 
      Thanks!
@@ -5591,7 +5610,7 @@ Admin-Link: {adminlink}
      Hello {user},
 
      Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
-     
+
      {roles}
 
 

@@ -2581,6 +2581,32 @@
     <Resource tag="YOUR_BUDDYLIST">My Friends</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
   </page>
+  <page name="GENDER">
+    <Resource tag="MAN">Man</Resource>
+    <Resource tag="WOMAN">Woman</Resource>
+    <Resource tag="AGENDER">Agender</Resource>
+    <Resource tag="ANDROGYNE">Androgyne</Resource>
+    <Resource tag="BIGENDER">Bigender</Resource>
+    <Resource tag="CISGENDER">Cisgender</Resource>
+    <Resource tag="FEMALETOMALE">Female to Male</Resource>
+    <Resource tag="GENDERFLUID">Gender Fluid</Resource>
+    <Resource tag="GENDERNONCONFORMING">Gender Nonconforming</Resource>
+    <Resource tag="GENDERQUESTIONING">Gender Questioning</Resource>
+    <Resource tag="GENDERQUEER">Genderqueer</Resource>
+    <Resource tag="INTERSEX">Intersex</Resource>
+    <Resource tag="MALETOFEMALE">Male to Female</Resource>
+    <Resource tag="NONBINARY">Non-binary</Resource>
+    <Resource tag="PANGENDER">Pangender</Resource>
+    <Resource tag="TRANS">Trrans</Resource>
+    <Resource tag="TRANSGENDER">Transgender</Resource>
+    <Resource tag="TRANSMAN">Transgender Man</Resource>
+    <Resource tag="TRANSWOMAN">Transgender Woman</Resource>
+    <Resource tag="TRANSFEMININE">Transfeminine</Resource>
+    <Resource tag="TRANSMASCULINE">Transmasculine</Resource>
+    <Resource tag="TRANSSEXUAL">Transsexual</Resource>
+    <Resource tag="TWOSPIRIT">Two-Spirit</Resource>
+    <Resource tag="OTHER">Other</Resource>
+  </page>
   <page name="EDIT_PROFILE">
     <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="ABOUTYOU">About You</Resource>
@@ -2607,7 +2633,6 @@
     <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
     <Resource tag="FORUM_SETTINGS">Forum Settings</Resource>
     <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
-    <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Home Page</Resource>
     <Resource tag="HOMEPAGE2">Your Web Site (public):</Resource>
@@ -4509,9 +4534,6 @@
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Forum Jump</Resource>
     <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
-    <Resource tag="GOOGLE">Google+</Resource>
-    <Resource tag="GOOGLE_TITLE">Visit {0}'s Google+ Profile</Resource>
-    <Resource tag="GOOGLEPLUS_TOPIC">Share Topic on Google+</Resource>
     <Resource tag="GROUPS">Groups</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
@@ -4651,9 +4673,6 @@
     <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GENDER">Gender:</Resource>
-    <Resource tag="GENDER0">None Specified</Resource>
-    <Resource tag="GENDER1">Male</Resource>
-    <Resource tag="GENDER2">Female</Resource>
     <Resource tag="GROUPS">Groups:</Resource>
     <Resource tag="HOURS">hours</Resource>
     <Resource tag="ICQ">ICQ-Number:</Resource>
