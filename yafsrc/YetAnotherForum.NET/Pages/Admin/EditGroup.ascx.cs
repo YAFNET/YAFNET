@@ -185,9 +185,6 @@ namespace YAF.Pages.Admin
             this.UsrSigBBCodes.Text = row.UsrSigBBCodes;
             this.UsrSigBBCodes.Enabled = !flags.IsGuest;
 
-            this.UsrSigHTMLTags.Text = row.UsrSigHTMLTags;
-            this.UsrSigHTMLTags.Enabled = !flags.IsGuest;
-
             this.Description.Text = row.Description;
 
             this.IsGuestX.Checked = flags.IsGuest;
@@ -270,8 +267,7 @@ namespace YAF.Pages.Admin
                 groups.ForEach(group => oldRoleName = group.Name);
             }
 
-            var groupFlags = new GroupFlags
-            {
+            var groupFlags = new GroupFlags {
                 IsGuest = this.IsGuestX.Checked,
                 IsAdmin = this.IsAdminX.Checked,
                 IsModerator = this.IsModeratorX.Checked,
@@ -291,13 +287,13 @@ namespace YAF.Pages.Admin
                 this.Description.Text,
                 this.UsrSigChars.Text.ToType<int>(),
                 this.UsrSigBBCodes.Text,
-                this.UsrSigHTMLTags.Text,
                 this.UsrAlbums.Text.Trim().ToType<int>(),
                 this.UsrAlbumImages.Text.Trim().ToType<int>());
 
             // see if need to rename an existing role...
-            if (oldRoleName.IsSet() && roleName != oldRoleName && this.Get<IAspNetRolesHelper>().RoleExists(oldRoleName)
-                && !this.Get<IAspNetRolesHelper>().RoleExists(roleName) && !this.IsGuestX.Checked)
+            if (oldRoleName.IsSet() && roleName != oldRoleName &&
+                this.Get<IAspNetRolesHelper>().RoleExists(oldRoleName) &&
+                !this.Get<IAspNetRolesHelper>().RoleExists(roleName) && !this.IsGuestX.Checked)
             {
                 // transfer users in addition to changing the name of the role...
                 var users = this.Get<IAspNetRolesHelper>().GetUsersInRole(oldRoleName);
@@ -322,29 +318,24 @@ namespace YAF.Pages.Admin
                 this.Get<IAspNetRolesHelper>().CreateRole(roleName);
             }
 
-            //if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
-            //{
-                // go through all forums
-                for (var i = 0; i < this.AccessList.Items.Count; i++)
-                {
-                    // get current repeater item
-                    var item = this.AccessList.Items[i];
 
-                    // get forum ID
-                    var forumId = int.Parse(item.FindControlAs<HiddenField>("ForumID").Value);
+            // go through all forums
+            for (var i = 0; i < this.AccessList.Items.Count; i++)
+            {
+                // get current repeater item
+                var item = this.AccessList.Items[i];
 
-                    // save forum access masks for this role
-                    this.GetRepository<ForumAccess>().Save(
-                        forumId,
-                        roleId.Value,
-                        item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue.ToType<int>());
-                }
+                // get forum ID
+                var forumId = int.Parse(item.FindControlAs<HiddenField>("ForumID").Value);
 
-                this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Groups);
-            //}
+                // save forum access masks for this role
+                this.GetRepository<ForumAccess>().Save(
+                    forumId,
+                    roleId.Value,
+                    item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue.ToType<int>());
+            }
 
-            // Done, redirect to role editing page
-            ///this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditGroup, "i={0}", roleId);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Groups);
         }
 
         /// <summary>

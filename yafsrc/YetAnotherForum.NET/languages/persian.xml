@@ -700,8 +700,6 @@
     <Resource tag="ROLE_NAME_HELP">نام این نقش.</Resource>
     <Resource tag="SIG_BBCODES">BBCode ها برای امضای کاربر:</Resource>
     <Resource tag="SIG_BBCODES_HELP">بی بی کدهایی که با کاما جدا شده اند در امضای کاربر در گروه مجاز می‌باشند.</Resource>
-    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
-    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the group.</Resource>
     <Resource tag="SIGNATURE_LENGTH">حداکثر تعداد کاراکتر در امضا کاربر:</Resource>
     <Resource tag="SIGNATURE_LENGTH_HELP">حداکثر تعداد کاراکتر مجاز برای امضا  کاربران این نقش</Resource>
     <Resource tag="STYLE">استایل</Resource>
@@ -829,8 +827,6 @@
     <Resource tag="SELECT_IMAGE">تصویر رتبه را انتخاب نمایید</Resource>
     <Resource tag="SIG_BBCODE">BBCode های امضا کاربر:</Resource>
     <Resource tag="SIG_BBCODE_HELP">BBCode های مجاز در امضا کاربران این رتبه که با کاما جدا شده اند.</Resource>
-    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
-    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the rank.</Resource>
     <Resource tag="SIG_LENGTH">حداکثر تعداد حروف مجاز در امضا کاربر:</Resource>
     <Resource tag="SIG_LENGTH_HELP">حداکثر تعداد حروف مجاز در امضا کاربران این رتبه:</Resource>
     <Resource tag="TITLE">افزودن/ویرایش رتبه</Resource>

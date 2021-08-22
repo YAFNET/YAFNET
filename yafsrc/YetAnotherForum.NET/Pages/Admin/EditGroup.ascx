@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.EditGroup"
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.EditGroup"
     CodeBehind="EditGroup.ascx.cs" %>
 
 
@@ -111,13 +111,6 @@
                                        LocalizedTag="SIG_BBCODES" LocalizedPage="ADMIN_EDITGROUP" />
                         <asp:TextBox ID="UsrSigBBCodes" runat="server"
                                      CssClass="form-control"/>
-                    </div>
-                    <div class="mb-3">
-                        <YAF:HelpLabel ID="HelpLabel9" runat="server"
-                                       AssociatedControlID="UsrSigHTMLTags"
-                                       LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITGROUP" />
-                        <asp:TextBox ID="UsrSigHTMLTags" runat="server"
-                                     CssClass="form-control" />
                     </div>
                     <div class="row">
                         <div class="mb-3 col-md-4">

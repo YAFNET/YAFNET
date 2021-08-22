@@ -700,8 +700,6 @@
     <Resource tag="ROLE_NAME_HELP">Name dieser Rolle.</Resource>
     <Resource tag="SIG_BBCODES">Benutzer Signatur BBCodes:</Resource>
     <Resource tag="SIG_BBCODES_HELP">Komma getrennte BBCodes erlaubt in einer Signatur des Benutzers in der Gruppe.</Resource>
-    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
-    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the group.</Resource>
     <Resource tag="SIGNATURE_LENGTH">Max. Anzahl von Zeichen in einem Benutzer Signatur:</Resource>
     <Resource tag="SIGNATURE_LENGTH_HELP">Max. Anzahl von Zeichen in einer Benutzer Signatur in dieser Gruppe.</Resource>
     <Resource tag="STYLE">Stil:</Resource>
@@ -827,8 +825,6 @@
     <Resource tag="SELECT_IMAGE">Rang Bild wählen</Resource>
     <Resource tag="SIG_BBCODE">Benutzer Signatur BBCodes:</Resource>
     <Resource tag="SIG_BBCODE_HELP">Durch Komma getrennt erlaubte BBCodes die erlaubt sind für diesen Rang.</Resource>
-    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
-    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the rank.</Resource>
     <Resource tag="SIG_LENGTH">Max. Anzahl von Zeichen in einem Benutzer Signatur:</Resource>
     <Resource tag="SIG_LENGTH_HELP">Max. Anzahl von Zeichen in einem Benutzer Signatur in diesem Rang.</Resource>
     <Resource tag="TITLE">Rang Hinzufügen / Bearbeiten</Resource>

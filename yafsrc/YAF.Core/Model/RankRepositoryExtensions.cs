@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -83,9 +83,6 @@ namespace YAF.Core.Model
         /// <param name="signatureBBCodes">
         /// Defines comma separated BBCodes allowed for a rank, i.e in a user signature
         /// </param>
-        /// <param name="signatureHTMLTags">
-        /// Defines comma separated tags allowed for a rank, i.e in a user signature
-        /// </param>
         /// <param name="userAlbums">
         /// Defines allowed number of albums.
         /// </param>
@@ -105,7 +102,6 @@ namespace YAF.Core.Model
             [CanBeNull] string description,
             [CanBeNull] int signatureChars,
             [CanBeNull] string signatureBBCodes,
-            [CanBeNull] string signatureHTMLTags,
             [NotNull] int userAlbums,
             [NotNull] int userAlbumImages)
         {
@@ -135,7 +131,6 @@ namespace YAF.Core.Model
                         Description = description,
                         UsrSigChars = signatureChars,
                         UsrSigBBCodes = signatureBBCodes,
-                        UsrSigHTMLTags = signatureHTMLTags,
                         UsrAlbums = userAlbums,
                         UsrAlbumImages = userAlbumImages
                     },
@@ -158,7 +153,6 @@ namespace YAF.Core.Model
                         Description = description,
                         UsrSigChars = signatureChars,
                         UsrSigBBCodes = signatureBBCodes,
-                        UsrSigHTMLTags = signatureHTMLTags,
                         UsrAlbums = userAlbums,
                         UsrAlbumImages = userAlbumImages
                     });

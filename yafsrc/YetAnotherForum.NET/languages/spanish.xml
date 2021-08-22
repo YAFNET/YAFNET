@@ -701,8 +701,6 @@
     <Resource tag="ROLE_NAME_HELP">Nobre de este rol.</Resource>
     <Resource tag="SIG_BBCODES">BBCodes para la firma de usuario:</Resource>
     <Resource tag="SIG_BBCODES_HELP">BBCodes separados por comas que serán permitidos en las firmas de usuarios.</Resource>
-    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
-    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the group.</Resource>
     <Resource tag="SIGNATURE_LENGTH">Número máximo de caracteres en una firma de usuario:</Resource>
     <Resource tag="SIGNATURE_LENGTH_HELP">Número máximo de caracteres en la firma de un usuario con este rol.</Resource>
     <Resource tag="STYLE">Estilo:</Resource>
@@ -829,8 +827,6 @@
     <Resource tag="SELECT_IMAGE">Selecciona un rango de imagen</Resource>
     <Resource tag="SIG_BBCODE">BBCodes para la firma de usurio:</Resource>
     <Resource tag="SIG_BBCODE_HELP">BBCodes separados por comasque están permitidos en las firmas de los usuarios en este rango.</Resource>
-    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
-    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the rank.</Resource>
     <Resource tag="SIG_LENGTH">Número máximo de caracteres en la firma de usuario:</Resource>
     <Resource tag="SIG_LENGTH_HELP">Número máximo de caracteres en la firma de un usuario de este rango.</Resource>
     <Resource tag="TITLE">Añadir/Editar rango</Resource>

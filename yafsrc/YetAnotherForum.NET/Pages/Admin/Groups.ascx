@@ -197,14 +197,6 @@
                                 <%# ((YAF.Types.Models.Group)Container.DataItem).UsrSigBBCodes.IsSet() ? this.Eval("UsrSigBBCodes").ToString() : this.GetItemName(false) %>
                             </asp:Label>
                         </li>
-                        <li class="list-inline-item"><YAF:LocalizedLabel ID="HelpLabel9" runat="server"
-                                                                         LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITGROUP" />
-                            <asp:Label ID="Label8" runat="server"
-                                       CssClass="<%# this.GetItemColorString(((YAF.Types.Models.Group)Container.DataItem).UsrSigHTMLTags) %>">
-                                <%#  ((YAF.Types.Models.Group)Container.DataItem).UsrSigHTMLTags.IsSet() ? this.Eval("UsrSigHTMLTags").ToString() : this.GetItemName(false)%>
-                            </asp:Label>
-
-                        </li>
                     </ul>
                 </p>
                 <small>

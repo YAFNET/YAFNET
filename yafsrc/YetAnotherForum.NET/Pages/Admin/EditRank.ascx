@@ -98,13 +98,6 @@
                         <asp:TextBox ID="UsrSigBBCodes" runat="server"
                                      CssClass="form-control" />
                     </div>
-                    <div class="mb-3">
-                        <YAF:HelpLabel ID="HelpLabel9" runat="server"
-                                       AssociatedControlID="UsrSigHTMLTags"
-                                       LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITRANK" />
-                        <asp:TextBox ID="UsrSigHTMLTags" runat="server"
-                                     CssClass="form-control" />
-                    </div>
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <YAF:HelpLabel ID="HelpLabel10" runat="server"

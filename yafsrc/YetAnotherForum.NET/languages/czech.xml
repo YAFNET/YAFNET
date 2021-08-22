@@ -829,8 +829,6 @@
     <Resource tag="SELECT_IMAGE">Select Rank Image</Resource>
     <Resource tag="SIG_BBCODE">User signature BBCodes:</Resource>
     <Resource tag="SIG_BBCODE_HELP">Comma separated  BBCodes allowed in a user signature in the rank.</Resource>
-    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
-    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the rank.</Resource>
     <Resource tag="SIG_LENGTH">Max number of chars in a user signature:</Resource>
     <Resource tag="SIG_LENGTH_HELP">Max number of chars in a user signature in the rank.</Resource>
     <Resource tag="TITLE">Add/Edit Rank</Resource>

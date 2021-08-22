@@ -623,11 +623,6 @@ namespace YAF.Core.Services.Migrations
                 dbCommand.Connection.AddColumn<Rank>(x => x.UsrSigBBCodes);
             }
 
-            if (!dbCommand.Connection.ColumnExists<Rank>(x => x.UsrSigHTMLTags))
-            {
-                dbCommand.Connection.AddColumn<Rank>(x => x.UsrSigHTMLTags);
-            }
-
             if (!dbCommand.Connection.ColumnExists<Rank>(x => x.UsrAlbums))
             {
                 dbCommand.Connection.AddColumn<Rank>(x => x.UsrAlbums);
@@ -662,6 +657,8 @@ namespace YAF.Core.Services.Migrations
 
                 dbCommand.Connection.DropColumn<Rank>("IsLadder");
             }
+
+            dbCommand.Connection.DropColumn<Rank>("UsrSigHTMLTags");
         }
 
         public void UpgradeTableRegistry(IDbAccess dbAccess, IDbCommand dbCommand)
@@ -1056,11 +1053,6 @@ namespace YAF.Core.Services.Migrations
                 dbCommand.Connection.AddColumn<Group>(x => x.UsrSigBBCodes);
             }
 
-            if (!dbCommand.Connection.ColumnExists<Group>(x => x.UsrSigHTMLTags))
-            {
-                dbCommand.Connection.AddColumn<Group>(x => x.UsrSigHTMLTags);
-            }
-
             if (!dbCommand.Connection.ColumnExists<Group>(x => x.UsrAlbums))
             {
                 dbCommand.Connection.AddColumn<Group>(x => x.UsrAlbums);
@@ -1070,6 +1062,8 @@ namespace YAF.Core.Services.Migrations
             {
                 dbCommand.Connection.AddColumn<Group>(x => x.UsrAlbumImages);
             }
+
+            dbCommand.Connection.DropColumn<Group>("UsrSigHTMLTags");
         }
 
         public void UpgradeTableUserMedal(IDbAccess dbAccess, IDbCommand dbCommand)

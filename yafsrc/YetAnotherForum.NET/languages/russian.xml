@@ -700,8 +700,6 @@
     <Resource tag="ROLE_NAME_HELP">Название роли.</Resource>
     <Resource tag="SIG_BBCODES">Разрешённые BBCode в подписи:</Resource>
     <Resource tag="SIG_BBCODES_HELP">Разделённые запятой BBCode разрешённые в подписи для исполнителей этой роли.</Resource>
-    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
-    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the group.</Resource>
     <Resource tag="SIGNATURE_LENGTH">Максимальное число символов в подписи пользователя:</Resource>
     <Resource tag="SIGNATURE_LENGTH_HELP">Максимальное число символов для пользователей в этой роли.</Resource>
     <Resource tag="STYLE">Стиль ника:</Resource>
@@ -827,8 +825,6 @@
     <Resource tag="SELECT_IMAGE">Выберите изображение статуса</Resource>
     <Resource tag="SIG_BBCODE">Разрешённые BBCodes в подписи:</Resource>
     <Resource tag="SIG_BBCODE_HELP">Разделённые запятой BBCodes, разрешённые в подписи обладателя статуса.</Resource>
-    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
-    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the rank.</Resource>
     <Resource tag="SIG_LENGTH">Кол-во символов в подписи:</Resource>
     <Resource tag="SIG_LENGTH_HELP">Максимально разрешённое кол-во символов в подписи пользователя для данного статуса.</Resource>
     <Resource tag="TITLE">Добавить/Изменить статус</Resource>

@@ -97,7 +97,6 @@ namespace YAF.Pages.Admin
             this.UsrAlbumImages.Text = rank.UsrAlbumImages.ToString();
             this.UsrSigChars.Text = rank.UsrSigChars.ToString();
             this.UsrSigBBCodes.Text = rank.UsrSigBBCodes;
-            this.UsrSigHTMLTags.Text = rank.UsrSigHTMLTags;
             this.Description.Text = rank.Description;
 
             this.DataBind();
@@ -181,7 +180,6 @@ namespace YAF.Pages.Admin
                 this.Description.Text,
                 this.UsrSigChars.Text.Trim().ToType<int>(),
                 this.UsrSigBBCodes.Text.Trim(),
-                this.UsrSigHTMLTags.Text.Trim(),
                 this.UsrAlbums.Text.Trim().ToType<int>(),
                 this.UsrAlbumImages.Text.Trim().ToType<int>());
 

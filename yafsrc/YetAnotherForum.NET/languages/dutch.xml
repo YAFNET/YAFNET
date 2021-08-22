@@ -827,8 +827,6 @@
     <Resource tag="SELECT_IMAGE">Selecteer Rang Afbeelding</Resource>
     <Resource tag="SIG_BBCODE">Toegestane BBCodes voor handtekening:</Resource>
     <Resource tag="SIG_BBCODE_HELP">Kommagescheiden lijst van toegestane BBCodes die gebruikers van deze rang mogen gebruiken in hun handtekening (onderschrift).</Resource>
-    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
-    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the rank.</Resource>
     <Resource tag="SIG_LENGTH">Maximum aantal tekens in de handtekening (onderschrift) van de gebruiker:</Resource>
     <Resource tag="SIG_LENGTH_HELP">Maximum aantal tekens dat een gebruiker mag gebruiken in zijn handtekening (onderschrift) bij deze rang.</Resource>
     <Resource tag="TITLE">Rangen bewerken/toevoegen</Resource>
