@@ -21817,7 +21817,7 @@
             }
             Search.prototype.render = function(decorated) {
                 var searchLabel = this.options.get("translations").get("search");
-                var $search = $('<span class="select2-search select2-search--inline">' + '<textarea class="select2-search__field"' + ' type="search" tabindex="-1"' + ' autocorrect="off" autocapitalize="none"' + ' spellcheck="false" role="searchbox" aria-autocomplete="list" >' + "</textarea>" + "</span>");
+                var $search = $('<span class="select2-search select2-search--inline">' + '<textarea class="select2-search__field"' + ' type="search" tabindex="-1"' + ' autocorrect="off" autocapitalize="none"' + ' placeholder="search..."' + ' spellcheck="false" role="searchbox" aria-autocomplete="list" >' + "</textarea>" + "</span>");
                 this.$searchContainer = $search;
                 this.$search = $search.find("textarea");
                 this.$search.prop("autocomplete", this.options.get("autocomplete"));
@@ -23488,7 +23488,7 @@
             Search.prototype.render = function(decorated) {
                 var $rendered = decorated.call(this);
                 var searchLabel = this.options.get("translations").get("search");
-                var $search = $('<span class="select2-search select2-search--dropdown">' + '<input class="select2-search__field" type="search" tabindex="-1"' + ' autocorrect="off" autocapitalize="none"' + ' spellcheck="false" role="searchbox" aria-autocomplete="list" />' + "</span>");
+                var $search = $('<span class="select2-search select2-search--dropdown">' + '<input class="select2-search__field" type="search" tabindex="-1"' + ' placeholder="search..."' + ' autocorrect="off" autocapitalize="none"' + ' spellcheck="false" role="searchbox" aria-autocomplete="list" />' + "</span>");
                 this.$searchContainer = $search;
                 this.$search = $search.find("input");
                 this.$search.prop("autocomplete", this.options.get("autocomplete"));

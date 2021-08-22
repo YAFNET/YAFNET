@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="GroupMedalEdit.ascx.cs" Inherits="YAF.Dialogs.GroupMedalEdit" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="GroupMedalEdit.ascx.cs" Inherits="YAF.Dialogs.GroupMedalEdit" %>
 
 <div class="modal fade" id="GroupEditDialog" tabindex="-1" role="dialog" aria-labelledby="GroupEditDialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -16,7 +16,7 @@
                             <YAF:HelpLabel ID="HelpLabel14" runat="server"
                                            AssociatedControlID="AvailableGroupList"
                                            LocalizedTag="MEDAL_GROUP" LocalizedPage="ADMIN_EDITMEDAL"/>
-                            <asp:DropDownList runat="server" ID="AvailableGroupList" CssClass="form-select"/>
+                            <asp:DropDownList runat="server" ID="AvailableGroupList" CssClass="select2-select"/>
                         </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel15" runat="server"

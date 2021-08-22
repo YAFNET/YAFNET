@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NntpForumEdit.ascx.cs" Inherits="YAF.Dialogs.NntpForumEdit" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NntpForumEdit.ascx.cs" Inherits="YAF.Dialogs.NntpForumEdit" %>
 
 
 <div class="modal fade" id="NntpForumEditDialog" tabindex="-1" role="dialog" aria-labelledby="NntpForumEditDialog" aria-hidden="true">
@@ -6,7 +6,7 @@
         <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            <YAF:LocalizedLabel ID="Title" runat="server" 
+                            <YAF:LocalizedLabel ID="Title" runat="server"
                                 LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITNNTPFORUM" />
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
@@ -20,7 +20,7 @@
                                                AssociatedControlID="NntpServerID"
                                                LocalizedTag="SERVER" LocalizedPage="ADMIN_EDITNNTPFORUM" />
                                 <asp:DropDownList ID="NntpServerID" runat="server"
-                                                  CssClass="form-select" />
+                                                  CssClass="select2-select" />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <YAF:HelpLabel ID="LocalizedLabel3" runat="server"
@@ -30,7 +30,7 @@
                                              required="required"
                                              CssClass="form-control" />
                                 <div class="invalid-feedback">
-                                    <YAF:LocalizedLabel runat="server" 
+                                    <YAF:LocalizedLabel runat="server"
                                                         LocalizedPage="ADMIN_EDITNNTPFORUM"
                                                         LocalizedTag="MSG_VALID_GROUP" />
                                 </div>
@@ -40,7 +40,7 @@
                             <YAF:HelpLabel ID="LocalizedLabel4" runat="server"
                                            AssociatedControlID="ForumID"
                                            LocalizedTag="FORUM" LocalizedPage="ADMIN_EDITNNTPFORUM" />
-                            <asp:DropDownList ID="ForumID" runat="server" 
+                            <asp:DropDownList ID="ForumID" runat="server"
                                               CssClass="select2-image-select" />
                         </div>
                         <div class="row">
@@ -48,9 +48,9 @@
                                 <YAF:HelpLabel ID="HelpLabel10" runat="server"
                                                AssociatedControlID="DateCutOff"
                                                LocalizedTag="DATECUTOFF" LocalizedPage="ADMIN_EDITNNTPFORUM" />
-                                <asp:TextBox ID="DateCutOff" runat="server" 
-                                             CssClass="form-control" 
-                                             Enabled="true" 
+                                <asp:TextBox ID="DateCutOff" runat="server"
+                                             CssClass="form-control"
+                                             Enabled="true"
                                              TextMode="DateTime" />
                             </div>
                             <div class="mb-3 col-auto">
@@ -65,10 +65,10 @@
                         <!-- Modal Content END !-->
                     </div>
                     <div class="modal-footer">
-                        <YAF:ThemeButton id="Save" runat="server" 
+                        <YAF:ThemeButton id="Save" runat="server"
                                          OnClick="Save_OnClick"
                                          TextLocalizedTag="ADMIN_EDITNNTPFORUM" TextLocalizedPage="TITLE"
-                                         Type="Primary"  
+                                         Type="Primary"
                                          CausesValidation="True"
                                          Icon="save">
                         </YAF:ThemeButton>

@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditProfileDefinition.ascx.cs" Inherits="YAF.Dialogs.EditProfileDefinition" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditProfileDefinition.ascx.cs" Inherits="YAF.Dialogs.EditProfileDefinition" %>
 
 <div class="modal fade" id="EditDialog" tabindex="-1" role="dialog" aria-labelledby="EditDialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -23,7 +23,7 @@
                                  required="required"
                                  CssClass="form-control" />
                     <div class="invalid-feedback">
-                        <YAF:LocalizedLabel runat="server" 
+                        <YAF:LocalizedLabel runat="server"
                                             LocalizedPage="ADMIN_EDIT_PROFILEDEFINITION"
                                             LocalizedTag="NEED_NAME" />
                     </div>
@@ -34,7 +34,7 @@
                                    LocalizedTag="DATA_TYPE"
                                    LocalizedPage="ADMIN_EDIT_PROFILEDEFINITION"/>
                     <asp:DropDownList runat="server" ID="DataTypes"
-                                      CssClass="form-select"/>
+                                      CssClass="select2-select"/>
                 </div>
                 <div class="mb-3">
                     <YAF:HelpLabel ID="HelpLabel2" runat="server"

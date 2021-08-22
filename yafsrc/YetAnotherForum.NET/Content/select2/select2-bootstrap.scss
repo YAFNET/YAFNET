@@ -137,11 +137,6 @@ $s2bs-form-control-transition: $input-transition !default;
 validation-state-focus($color) {
     $shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px tint-color($color, 20%);
 
-    .select2-dropdown,
-    .select2-selection {
-        border-color: $color;
-    }
-
     .select2-container--focus .select2-selection,
     .select2-container--open .select2-selection {
         @include
@@ -161,24 +156,6 @@ validation-state-focus($color) {
         }
     }
 }
-
-// dropdown arrow when dropdown is open
-@mixin dropdown-arrow {
-    .select2-selection--single {
-        /**
-     * Make the dropdown arrow point up while the dropdown is visible.
-     */
-        .select2-selection__arrow b {
-            background-color: #fff;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-        }
-    }
-}
-
-
-
-
 
 .select2-container--bootstrap4 {
     display: block;
@@ -325,14 +302,6 @@ validation-state-focus($color) {
 
     &.select2-container--open {
         /**
-     * Make the dropdown arrow point up while the dropdown is visible.
-     */
-        .select2-selection .select2-selection__arrow b {
-            background-color: #fff;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-        }
-        /**
      * Handle border radii of the container when the dropdown is showing.
      */
         &.select2-container--below {
@@ -423,6 +392,11 @@ validation-state-focus($color) {
         height: $s2bs-input-height-base;
         line-height: $s2bs-line-height-base;
         padding: $s2bs-padding-base-vertical ($s2bs-padding-base-horizontal + $s2bs-caret-width-base*3) $s2bs-padding-base-vertical $s2bs-padding-base-horizontal;
+
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 16px 12px;
         /**
      * Adjust the single Select2's dropdown arrow button appearance.
      */
@@ -432,19 +406,6 @@ validation-state-focus($color) {
             right: $s2bs-padding-base-horizontal;
             top: 0;
             width: $s2bs-caret-width-base;
-
-            b {
-                background-color: #fff;
-                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-                background-repeat: no-repeat;
-                width: 16px;
-                height: 12px;
-                left: -8px;
-                margin-left: -$s2bs-caret-width-base;
-                margin-top: -$s2bs-caret-width-base/2;
-                position: absolute;
-                top: 50%;
-            }
         }
 
         .select2-selection__rendered {
@@ -622,15 +583,6 @@ validation-state-focus($color) {
         }
     }
 
-    .select2-selection.form-control-lg.select2-container--open {
-        @include dropdown-arrow;
-    }
-
-    .input-group-lg & .select2-selection {
-        &.select2-container--open {
-            @include dropdown-arrow;
-        }
-    }
     /*------------------------------------*\
     #RTL SUPPORT
   \*------------------------------------*/

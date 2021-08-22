@@ -12757,16 +12757,8 @@ label,
 }
 .select2-container--bootstrap4.select2-container--open {
   /**
-  * Make the dropdown arrow point up while the dropdown is visible.
-  */
-  /**
   * Handle border radii of the container when the dropdown is showing.
   */
-}
-.select2-container--bootstrap4.select2-container--open .select2-selection .select2-selection__arrow b {
-  background-color: #fff;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
 }
 .select2-container--bootstrap4.select2-container--open.select2-container--below .select2-selection {
   border-bottom-right-radius: 0;
@@ -12823,6 +12815,10 @@ label,
   height: calc(1.5em + 0.75rem);
   line-height: 1.5;
   padding: 0.375rem 1.5rem 0.375rem 0.75rem;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
   /**
   * Adjust the single Select2's dropdown arrow button appearance.
   */
@@ -12833,18 +12829,6 @@ label,
   right: 0.75rem;
   top: 0;
   width: 0.25rem;
-}
-.select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow b {
-  background-color: #fff;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  width: 16px;
-  height: 12px;
-  left: -8px;
-  margin-left: -0.25rem;
-  margin-top: -0.125rem;
-  position: absolute;
-  top: 50%;
 }
 .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
   color: #212529;
@@ -12983,26 +12967,6 @@ label,
 .select2-container--bootstrap4 .select2-selection--multiple.form-control-lg .select2-selection__clear, .input-group-lg .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__clear, .form-group-lg .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__clear {
   margin-top: 0.5rem;
 }
-.select2-container--bootstrap4 .select2-selection.form-control-lg.select2-container--open .select2-selection--single {
-  /**
-  * Make the dropdown arrow point up while the dropdown is visible.
-  */
-}
-.select2-container--bootstrap4 .select2-selection.form-control-lg.select2-container--open .select2-selection--single .select2-selection__arrow b {
-  background-color: #fff;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-}
-.input-group-lg .select2-container--bootstrap4 .select2-selection.select2-container--open .select2-selection--single {
-  /**
-  * Make the dropdown arrow point up while the dropdown is visible.
-  */
-}
-.input-group-lg .select2-container--bootstrap4 .select2-selection.select2-container--open .select2-selection--single .select2-selection__arrow b {
-  background-color: #fff;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-}
 .select2-container--bootstrap4[dir=rtl] {
   /**
   * Single Select2
@@ -13064,10 +13028,6 @@ label,
  *
  * @see https://getbootstrap.com/docs/4.0/components/forms/#validation
  */
-.is-valid .select2-dropdown,
-.is-valid .select2-selection {
-  border-color: #5cb85c;
-}
 .is-valid .select2-container--focus .select2-selection,
 .is-valid .select2-container--open .select2-selection {
   border-color: #53a653;
@@ -13084,10 +13044,6 @@ label,
   border-top-color: #53a653;
 }
 
-.is-invalid .select2-dropdown,
-.is-invalid .select2-selection {
-  border-color: #d9534f;
-}
 .is-invalid .select2-container--focus .select2-selection,
 .is-invalid .select2-container--open .select2-selection {
   border-color: #c34b47;

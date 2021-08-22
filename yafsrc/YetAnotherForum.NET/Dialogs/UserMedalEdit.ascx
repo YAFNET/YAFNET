@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserMedalEdit.ascx.cs" Inherits="YAF.Dialogs.UserMedalEdit" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserMedalEdit.ascx.cs" Inherits="YAF.Dialogs.UserMedalEdit" %>
 
 
 <div class="modal fade" id="UserEditDialog" tabindex="-1" role="dialog" aria-labelledby="UserEditDialog" aria-hidden="true">
@@ -21,7 +21,7 @@
                             <div class="input-group">
                                 <asp:DropDownList runat="server" ID="UserNameList"
                                                   Visible="false"
-                                                  CssClass="form-select"/>
+                                                  CssClass="select2-select"/>
                                 <asp:TextBox ID="UserName" runat="server"
                                              required="required"
                                              CssClass="form-control"/>
