@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -222,7 +222,7 @@ namespace YAF.Core.Services
                 // output stream...
                 context.Response.OutputStream.Write(ms.ToArray(), 0, ms.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+                context.Response.Cache.SetMaxAge(TimeSpan.FromHours(2));
                 context.Response.Cache.SetLastModified(DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 
@@ -306,7 +306,7 @@ namespace YAF.Core.Services
                 // output stream...
                 context.Response.OutputStream.Write(data.ToArray(), 0, data.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+                context.Response.Cache.SetMaxAge(TimeSpan.FromHours(2));
                 context.Response.Cache.SetLastModified(DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 
@@ -470,7 +470,7 @@ namespace YAF.Core.Services
                 // output stream...
                 context.Response.OutputStream.Write(data.ToArray(), 0, data.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+                context.Response.Cache.SetMaxAge(TimeSpan.FromHours(2));
                 context.Response.Cache.SetLastModified(DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 

@@ -34041,7 +34041,7 @@ Prism.languages.vba = Prism.languages["visual-basic"];
             resizableStorage: "tablesorter-resizable"
         });
         $(function() {
-            var s = "<style>" + "body." + ts.css.resizableNoSelect + " { -ms-user-select: none; -moz-user-select: -moz-none;" + "-khtml-user-select: none; -webkit-user-select: none; user-select: none; }" + "." + ts.css.resizableContainer + " { position: relative; height: 1px; }" + "." + ts.css.resizableHandle + " { position: absolute; display: inline-block; width: 8px;" + "top: 1px; cursor: ew-resize; z-index: 3; user-select: none; -moz-user-select: none; }" + "</style>";
+            var s = "<style>" + "body." + ts.css.resizableNoSelect + " { -ms-user-select: none; -moz-user-select: -moz-none;" + "-khtml-user-select: none; -webkit-user-select: none; user-select: none; }" + "." + ts.css.resizableContainer + " { position: relative; height: 1px; }" + "." + ts.css.resizableHandle + " { position: absolute; display: inline-block; width: 8px;" + "top: 1px; cursor: ew-resize; z-index: 3; -ms-user-select: none; -moz-user-select: -moz-none;" + "-khtml-user-select: none; -webkit-user-select: none; user-select: none; }" + "</style>";
             $("head").append(s);
         });
         ts.resizable = {

@@ -23,7 +23,6 @@ pre[class*=language-] {
   -o-tab-size: 4;
   tab-size: 4;
   -webkit-hyphens: none;
-  -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
 }
@@ -136,6 +135,7 @@ pre[data-line] {
   margin-top: 1em;
   /* Same as .prism’s padding-top */
   background: hsla(24, 20%, 50%, 0.08);
+  background: -webkit-gradient(linear, left top, right top, color-stop(70%, hsla(24, 20%, 50%, 0.1)), to(hsla(24, 20%, 50%, 0)));
   background: linear-gradient(to right, hsla(24, 20%, 50%, 0.1) 70%, hsla(24, 20%, 50%, 0));
   pointer-events: none;
   line-height: inherit;
@@ -167,7 +167,8 @@ pre[data-line] {
   vertical-align: 0.3em;
   border-radius: 999px;
   text-shadow: none;
-  box-shadow: 0 1px white;
+  -webkit-box-shadow: 0 1px white;
+          box-shadow: 0 1px white;
 }
 
 .line-highlight[data-end]:after {
@@ -245,6 +246,7 @@ div.code-toolbar > .toolbar {
   position: absolute;
   top: 0.3em;
   right: 0.2em;
+  -webkit-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
   opacity: 0;
 }
@@ -289,7 +291,8 @@ div.code-toolbar > .toolbar > .toolbar-item > span {
   padding: 0 0.5em;
   background: #f5f2f0;
   background: rgba(224, 224, 224, 0.2);
-  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
   border-radius: 0.5em;
 }
 
@@ -325,7 +328,6 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
   position: absolute;
   padding: 2em 10px 10px;
   display: none;
-  -moz-box-shadow: rgba(42, 73, 133, 0.4) 0 4px 12px 0, rgba(255, 255, 255, 0.506) 0 1px 0 0 inset;
   -webkit-box-shadow: rgba(42, 73, 133, 0.4) 0 4px 12px 0, rgba(255, 255, 255, 0.506) 0 1px 0 0 inset;
   box-shadow: rgba(42, 73, 133, 0.4) 0 4px 12px 0, rgba(255, 255, 255, 0.506) 0 1px 0 0 inset;
   border: solid 1px #ddd;
@@ -606,49 +608,70 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
 }
 
 .fa-spin {
-  animation: fa-spin 2s infinite linear;
+  -webkit-animation: fa-spin 2s infinite linear;
+          animation: fa-spin 2s infinite linear;
 }
 
 .fa-pulse {
-  animation: fa-spin 1s infinite steps(8);
+  -webkit-animation: fa-spin 1s infinite steps(8);
+          animation: fa-spin 1s infinite steps(8);
+}
+
+@-webkit-keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
 
 @keyframes fa-spin {
   0% {
-    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
   }
   100% {
-    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }
 .fa-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
-  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
 }
 
 .fa-rotate-180 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
-  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 
 .fa-rotate-270 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
-  transform: rotate(270deg);
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg);
 }
 
 .fa-flip-horizontal {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
-  transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+          transform: scale(-1, 1);
 }
 
 .fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
-  transform: scale(1, -1);
+  -webkit-transform: scale(1, -1);
+          transform: scale(1, -1);
 }
 
 .fa-flip-both, .fa-flip-horizontal.fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
-  transform: scale(-1, -1);
+  -webkit-transform: scale(-1, -1);
+          transform: scale(-1, -1);
 }
 
 :root .fa-rotate-90,
@@ -657,7 +680,8 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
 :root .fa-flip-horizontal,
 :root .fa-flip-vertical,
 :root .fa-flip-both {
-  filter: none;
+  -webkit-filter: none;
+          filter: none;
 }
 
 .fa-stack {
@@ -8532,18 +8556,18 @@ readers do not read off random characters that represent icons */
   width: 98%;
   margin: 0;
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-transition: height 0.1s ease;
-  -moz-transition: height 0.1s ease;
-  -o-transition: height 0.1s ease;
   transition: height 0.1s ease;
 }
 
 .tablesorter-bootstrap .tablesorter-filter-row .tablesorter-filter.disabled {
   cursor: not-allowed;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
-  box-sizing: border-box;
+  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+          box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition: height 0.1s ease;
   transition: height 0.1s ease;
 }
 
@@ -8553,8 +8577,6 @@ readers do not read off random characters that represent icons */
   padding: 4px 6px;
   vertical-align: middle;
   -webkit-transition: line-height 0.1s ease;
-  -moz-transition: line-height 0.1s ease;
-  -o-transition: line-height 0.1s ease;
   transition: line-height 0.1s ease;
 }
 
@@ -8603,7 +8625,6 @@ readers do not read off random characters that represent icons */
   .ui-table-reflow td,
 .ui-table-reflow th {
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     float: right;
     /* if not using the stickyHeaders widget (not the css3 version)
@@ -8634,7 +8655,8 @@ readers do not read off random characters that represent icons */
 }
 
 .select2-container {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   display: inline-block;
   margin: 0;
   position: relative;
@@ -8642,10 +8664,13 @@ readers do not read off random characters that represent icons */
 }
 
 .select2-container .select2-selection--single {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   cursor: pointer;
   display: block;
-  user-select: none;
+  -moz-user-select: none;
+   -ms-user-select: none;
+       user-select: none;
   -webkit-user-select: none;
 }
 
@@ -8668,11 +8693,14 @@ readers do not read off random characters that represent icons */
 }
 
 .select2-container .select2-selection--multiple {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   cursor: pointer;
   display: block;
   min-height: 32px;
-  user-select: none;
+  -moz-user-select: none;
+   -ms-user-select: none;
+       user-select: none;
   -webkit-user-select: none;
 }
 
@@ -8689,7 +8717,8 @@ readers do not read off random characters that represent icons */
 }
 
 .select2-container .select2-search--inline .select2-search__field {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   border: none;
   font-size: 100%;
   margin-top: 5px;
@@ -8703,7 +8732,8 @@ readers do not read off random characters that represent icons */
 
 .select2-dropdown {
   background-color: white;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   display: block;
   position: absolute;
   left: -100000px;
@@ -8723,7 +8753,9 @@ readers do not read off random characters that represent icons */
 
 .select2-results__option {
   padding: 6px;
-  user-select: none;
+  -moz-user-select: none;
+   -ms-user-select: none;
+       user-select: none;
   -webkit-user-select: none;
 }
 
@@ -8755,7 +8787,8 @@ readers do not read off random characters that represent icons */
 .select2-search--dropdown .select2-search__field {
   padding: 4px;
   width: 100%;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .select2-search--dropdown .select2-search__field::-webkit-search-cancel-button {
@@ -8974,7 +9007,8 @@ readers do not read off random characters that represent icons */
   background: transparent;
   border: none;
   outline: 0;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   -webkit-appearance: textfield;
 }
 
@@ -9044,8 +9078,7 @@ readers do not read off random characters that represent icons */
   border: 1px solid #aaa;
   border-radius: 4px;
   outline: 0;
-  background-image: -webkit-linear-gradient(top, white 50%, #eeeeee 100%);
-  background-image: -o-linear-gradient(top, white 50%, #eeeeee 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(50%, white), to(#eeeeee));
   background-image: linear-gradient(to bottom, white 50%, #eeeeee 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FFFFFFFF", endColorstr="#FFEEEEEE", GradientType=0);
@@ -9083,8 +9116,7 @@ readers do not read off random characters that represent icons */
   top: 1px;
   right: 1px;
   width: 20px;
-  background-image: -webkit-linear-gradient(top, #eeeeee 50%, #cccccc 100%);
-  background-image: -o-linear-gradient(top, #eeeeee 50%, #cccccc 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(50%, #eeeeee), to(#cccccc));
   background-image: linear-gradient(to bottom, #eeeeee 50%, #cccccc 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FFEEEEEE", endColorstr="#FFCCCCCC", GradientType=0);
@@ -9135,8 +9167,7 @@ readers do not read off random characters that represent icons */
   border-top: none;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  background-image: -webkit-linear-gradient(top, white 0%, #eeeeee 50%);
-  background-image: -o-linear-gradient(top, white 0%, #eeeeee 50%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(white), color-stop(50%, #eeeeee));
   background-image: linear-gradient(to bottom, white 0%, #eeeeee 50%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FFFFFFFF", endColorstr="#FFEEEEEE", GradientType=0);
@@ -9146,8 +9177,7 @@ readers do not read off random characters that represent icons */
   border-bottom: none;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  background-image: -webkit-linear-gradient(top, #eeeeee 50%, white 100%);
-  background-image: -o-linear-gradient(top, #eeeeee 50%, white 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(50%, #eeeeee), to(white));
   background-image: linear-gradient(to bottom, #eeeeee 50%, white 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FFEEEEEE", endColorstr="#FFFFFFFF", GradientType=0);
@@ -9244,7 +9274,8 @@ readers do not read off random characters that represent icons */
 
 .select2-container--classic .select2-search--inline .select2-search__field {
   outline: 0;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .select2-container--classic .select2-dropdown {
@@ -9379,7 +9410,8 @@ readers do not read off random characters that represent icons */
 }
 
 .bootstrap-datetimepicker-widget a[data-action]:active {
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .bootstrap-datetimepicker-widget .timepicker-hour,
@@ -9733,7 +9765,6 @@ readers do not read off random characters that represent icons */
   white-space: nowrap;
   overflow: hidden;
   -ms-text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
 .AttachmentList .attachment-icon {
@@ -9797,7 +9828,11 @@ div#UploadDialog {
 }
 
 .dropdown-menu {
+  max-height: -webkit-max-content;
+  max-height: -moz-max-content;
   max-height: max-content;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
   min-width: max-content;
 }
 
@@ -9919,5 +9954,3 @@ div#UploadDialog {
 .tab-content {
   padding-top: 10px;
 }
-
-/*# sourceMappingURL=forum-admin.css.map */
