@@ -5,7 +5,9 @@
 <li class="nav-item dropdown">
     <YAF:Themebutton runat="server" ID="UserDropDown">
         <span class="badge bg-light text-dark p-0 border border-light me-1">
-            <asp:Image runat="server" ID="UserAvatar" CssClass="img-navbar-avatar rounded"/>
+            <asp:Image runat="server" ID="UserAvatar"
+                       AlternateText="avatar"
+                       CssClass="img-navbar-avatar rounded"/>
         </span>
         <%= this.HtmlEncode(this.PageContext.User.DisplayOrUserName()) %>
         <asp:PlaceHolder runat="server" id="UnreadPlaceHolder">
