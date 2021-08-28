@@ -35,7 +35,7 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
 
-    [UniqueConstraint(nameof(ProfileDefinitionID), nameof(UserID))]
+    [CompositePrimaryKey(nameof(ProfileDefinitionID), nameof(UserID))]
     public class ProfileCustom : IEntity
     {
         #region Properties
