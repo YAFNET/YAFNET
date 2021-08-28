@@ -38,8 +38,10 @@ namespace YAF.Pages.Account
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
@@ -376,7 +378,7 @@ namespace YAF.Pages.Account
                     return false;
                 }
 
-                if (this.Get<IUserDisplayName>().FindUserByName(displayName.Trim()) != null)
+                if (this.Get<IUserDisplayName>().FindUserByName(displayName) != null)
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ALREADY_REGISTERED_DISPLAYNAME"),
@@ -407,37 +409,11 @@ namespace YAF.Pages.Account
                 {
                     this.GetRepository<Registry>().IncrementBannedUsers();
 
-                    this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.danger);
-
                     if (this.PageContext.BoardSettings.BanBotIpOnDetection)
                     {
-                        this.GetRepository<BannedIP>().Save(
-                            null,
-                            userIpAddress,
-                            $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
-                            this.PageContext.PageUserID);
-
-                        if (this.PageContext.BoardSettings.LogBannedIP)
-                        {
-                            this.Logger.Log(
-                                this.PageContext.PageUserID,
-                                "IP BAN of Bot During Registration",
-                                $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
-                                EventLogTypes.IpBanSet);
-                        }
+                        this.Get<IRaiseEvent>().Raise(
+                            new BanUserEvent(this.PageContext.PageUserID, userName, this.Email.Text, userIpAddress));
                     }
-
-                    // Ban Name ?
-                    this.PageContext.GetRepository<BannedName>().Save(
-                        null,
-                        userName,
-                        "Name was reported by the automatic spam system.");
-
-                    // Ban User Email?
-                    this.PageContext.GetRepository<BannedEmail>().Save(
-                        null,
-                        this.Email.Text,
-                        "Email was reported by the automatic spam system.");
 
                     return false;
                 }

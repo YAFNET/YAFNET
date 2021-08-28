@@ -324,33 +324,8 @@ namespace YAF.Core.Helpers
             // Ban IP ?
             if (this.Get<BoardSettings>().BanBotIpOnDetection)
             {
-                this.GetRepository<BannedIP>().Save(
-                    null,
-                    userIpAddress,
-                    $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
-                    userID);
-
-                if (this.Get<BoardSettings>().LogBannedIP)
-                {
-                    this.Get<ILoggerService>().Log(
-                        userID,
-                        "IP BAN of Bot",
-                        $"A spam Bot who was banned by IP {userIpAddress}",
-                        EventLogTypes.IpBanSet);
-                }
+                this.Get<IRaiseEvent>().Raise(new BanUserEvent(userID, user.UserName, user.Email, userIpAddress));
             }
-
-            // Ban Name ?
-            this.GetRepository<BannedName>().Save(
-                null,
-                user.UserName,
-                "Name was reported by the automatic spam system.");
-
-            // Ban User Email?
-            this.GetRepository<BannedEmail>().Save(
-                null,
-                user.Email,
-                "Email was reported by the automatic spam system.");
 
             // Delete the images/albums both from database and physically.
             var uploadDir = HttpContext.Current.Server.MapPath(
