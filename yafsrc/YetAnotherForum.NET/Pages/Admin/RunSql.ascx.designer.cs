@@ -24,13 +24,13 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
-        /// txtQuery control.
+        /// EditorLine control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtQuery;
+        protected global::System.Web.UI.WebControls.PlaceHolder EditorLine;
 
         /// <summary>
         /// RunQuery control.

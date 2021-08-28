@@ -28,16 +28,17 @@ namespace YAF.Pages.Admin
 
     using System;
 
+    using YAF.Core.BaseModules;
     using YAF.Core.BasePages;
     using YAF.Core.Data;
     using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Web.Editors;
     using YAF.Web.Extensions;
 
     #endregion
@@ -47,6 +48,11 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class RunSql : AdminPage
     {
+        /// <summary>
+        ///   The editor.
+        /// </summary>
+        private ForumEditor editor;
+
         #region Methods
 
         /// <summary>
@@ -66,6 +72,23 @@ namespace YAF.Pages.Admin
             }
 
             this.BindData();
+        }
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        protected override void OnInit([NotNull] EventArgs e)
+        {
+            this.editor = new CKEditorBBCodeEditorSql
+            {
+                UserCanUpload = false,
+                MaxCharacters = int.MaxValue
+            };
+
+            this.EditorLine.Controls.Add(this.editor);
+
+            base.OnInit(e);
         }
 
         /// <summary>
@@ -92,7 +115,7 @@ namespace YAF.Pages.Admin
             this.ResultHolder.Visible = true;
 
             this.txtResult.Text = this.Get<IDbAccess>().RunSQL(
-                CommandTextHelpers.GetCommandTextReplaced(this.txtQuery.Text.Trim()),
+                CommandTextHelpers.GetCommandTextReplaced(this.editor.Text.Trim()),
                 Configuration.Config.SqlCommandTimeout);
         }
 

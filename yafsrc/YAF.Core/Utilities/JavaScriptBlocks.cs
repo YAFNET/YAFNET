@@ -789,6 +789,64 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         }
 
         /// <summary>
+        /// The CKEditor Load JS.
+        /// </summary>
+        /// <param name="editorId">
+        /// The editor Id.
+        /// </param>
+        /// <param name="editorLanguage">
+        /// The editor language.
+        /// </param>
+        /// <param name="maxCharacters">
+        /// The max characters.
+        /// </param>
+        /// <param name="themeCssUrl">
+        /// The theme CSS url.
+        /// </param>
+        /// <param name="forumCssUrl">
+        /// The forum CSS url.
+        /// </param>
+        /// <param name="mime">
+        /// The mime.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        [NotNull]
+        public static string CKEditorSqlLoadJs(
+            [NotNull] string editorId,
+            [NotNull] string editorLanguage,
+            int maxCharacters,
+            [NotNull] string themeCssUrl,
+            [NotNull] string forumCssUrl,
+            [NotNull] string mime)
+        {
+            return $@"{Config.JQueryAlias}(document).ready(function() {{
+                      var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
+                          extraPlugins: ""wordcount,codemirror"",
+                          removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
+                          toolbar: [],
+                          startupMode: 'source',
+                          entities_greek: false,
+                          entities_latin: false,
+                          language: '{editorLanguage}',
+                          disableObjectResizing: true,
+                          forcePasteAsPlainText: true,
+                          contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
+                          wordcount:
+                          {{
+                              maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
+                          }},
+                          codemirror: {{mode: ""{mime}"",  theme: ""monokai""}}
+                          }});
+
+                          {Config.JQueryAlias}(""a[id*='_RunQuery']"").click(function () {{
+                              yafCKEditor.editor.updateElement();
+                          }});
+                  }});";
+        }
+
+        /// <summary>
         /// Gets the FileUpload Java Script.
         /// </summary>
         /// <param name="acceptedFileTypes">

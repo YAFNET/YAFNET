@@ -14,22 +14,13 @@
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <asp:TextBox ID="txtQuery" runat="server"
-                                             TextMode="MultiLine"
-                                             Width="100%"
-                                             Height="100px"
-                                             CssClass="form-control"
-                                             required="required" />
-                                <div class="invalid-feedback">
-                                    <YAF:LocalizedLabel runat="server"
-                                                        LocalizedTag="NEED_QUERY" />
-                                </div>
+                                <asp:PlaceHolder id="EditorLine" runat="server">
+                                </asp:PlaceHolder>
                             </div>
                         </div>
                         <div class="card-footer text-center">
                             <YAF:ThemeButton ID="RunQuery" runat="server"
                                              Type="Primary"
-                                             CausesValidation="True"
                                              OnClick="RunQueryClick"
                                              Icon="rocket"
                                              TextLocalizedTag="RUN_QUERY"
