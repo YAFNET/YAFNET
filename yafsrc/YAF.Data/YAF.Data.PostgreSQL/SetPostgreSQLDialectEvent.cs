@@ -23,6 +23,8 @@
  */
 namespace YAF.Data.PostgreSQL
 {
+    using System;
+
     using ServiceStack.OrmLite;
 
     using YAF.Configuration;
@@ -63,6 +65,7 @@ namespace YAF.Data.PostgreSQL
             // set the OrmLite dialect provider...
             OrmLiteConfig.DialectProvider = YafPostgreSQLOrmLiteDialectProvider.Instance;
 
+            OrmLiteConfig.DialectProvider.GetDateTimeConverter().DateStyle = DateTimeKind.Utc;
             OrmLiteConfig.DialectProvider.GetStringConverter().UseUnicode = true;
             OrmLiteConfig.CommandTimeout = Config.SqlCommandTimeout;
         }
