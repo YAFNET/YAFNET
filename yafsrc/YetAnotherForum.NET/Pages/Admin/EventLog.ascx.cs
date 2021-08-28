@@ -175,7 +175,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected string UserLink([NotNull] PagedEventLog item)
         {
-            if (item.UserID == 0)
+            if (item.UserID == 0 || item.UserID == this.Get<IAspNetUsersHelper>().GuestUserId)
             {
                 return string.Empty;
             }
