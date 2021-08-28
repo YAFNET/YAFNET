@@ -182,7 +182,7 @@ namespace YAF.Types.Flags
         /// <summary>
         /// Gets or sets whether medal can be displayed as ribbon bar.
         /// </summary>
-        [Obsolete]
+        [Obsolete("Not Used anymore")]
         public virtual bool AllowRibbon
         {
             // int value 2
@@ -205,7 +205,7 @@ namespace YAF.Types.Flags
         /// <summary>
         /// Gets or sets whether medal can be re-ordered by user.
         /// </summary>
-        [Obsolete]
+        [Obsolete("Not Used anymore")]
         public virtual bool AllowReOrdering
         {
             // int value 8
