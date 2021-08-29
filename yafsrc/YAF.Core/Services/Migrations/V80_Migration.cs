@@ -237,8 +237,7 @@ namespace YAF.Core.Services.Migrations
             {
                 var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
 
-                dbCommand.Connection.ExecuteSql(
-                    $@" alter table {expression.Table<Active>()} drop constraint [PK_{Config.DatabaseObjectQualifier}Active] with ( online = off )");
+                dbCommand.Connection.DropPrimaryKey<Active>(string.Empty, false);
 
                 dbCommand.Connection.AlterColumn<Active>(x => x.SessionID);
 
@@ -1068,6 +1067,11 @@ namespace YAF.Core.Services.Migrations
 
         public void UpgradeTableUserMedal(IDbAccess dbAccess, IDbCommand dbCommand)
         {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserMedal>();
+
+            dbCommand.Connection.DropConstraint<UserMedal>(
+                $"DF_{Config.DatabaseObjectQualifier}{nameof(UserMedal)}_OnlyRibbon");
+
             dbCommand.Connection.DropColumn<UserMedal>("OnlyRibbon");
         }
 
@@ -1078,6 +1082,9 @@ namespace YAF.Core.Services.Migrations
             // delete any old medals without valid groups.
             dbCommand.Connection.ExecuteSql(
                 $@"DELETE FROM {expression.Table<GroupMedal>()} WHERE GroupID NOT IN (SELECT GroupID FROM {expression.Table<Group>()})");
+
+            dbCommand.Connection.DropConstraint<GroupMedal>(
+                $"DF_{Config.DatabaseObjectQualifier}{nameof(GroupMedal)}_OnlyRibbon");
 
             dbCommand.Connection.DropColumn<GroupMedal>("OnlyRibbon");
         }
@@ -1103,6 +1110,8 @@ namespace YAF.Core.Services.Migrations
                 dbCommand.Connection.DropColumn<Medal>("RibbonURL");
                 dbCommand.Connection.DropColumn<Medal>("SmallMedalURL");
                 dbCommand.Connection.DropColumn<Medal>("SmallRibbonURL");
+
+                dbCommand.Connection.DropConstraint<Medal>($"DF_{Config.DatabaseObjectQualifier}{nameof(Medal)}_DefaultOrder");
                 dbCommand.Connection.DropColumn<Medal>("SortOrder");
             }
         }

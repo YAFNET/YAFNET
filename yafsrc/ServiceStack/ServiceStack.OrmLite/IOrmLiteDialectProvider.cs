@@ -246,6 +246,8 @@ namespace ServiceStack.OrmLite
 
         string GetDropForeignKeyConstraint(ModelDefinition modelDef, string name);
 
+        string GetDropConstraint(ModelDefinition modelDef, string name);
+
         //DDL
         string GetDropForeignKeyConstraints(ModelDefinition modelDef);
 

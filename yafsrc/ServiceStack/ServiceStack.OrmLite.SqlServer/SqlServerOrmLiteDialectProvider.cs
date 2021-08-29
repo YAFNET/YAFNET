@@ -422,12 +422,15 @@ namespace ServiceStack.OrmLite.SqlServer
         {
             var sb = StringBuilderCache.Allocate();
 
-            var foreignKeyName = $"PK_{this.NamingStrategy.GetTableName(modelDef)}_{name}";
+            var foreignKeyName = name.IsNullOrEmpty()
+                ? $"PK_{this.NamingStrategy.GetTableName(modelDef)}"
+                : $"PK_{this.NamingStrategy.GetTableName(modelDef)}_{name}";
+
 
             var tableName = this.GetQuotedTableName(modelDef);
 
             sb.Append("IF EXISTS (");
-            sb.Append("SELECT top 1 1 FROM sys.foreign_keys WHERE ");
+            sb.Append("SELECT top 1 1 FROM sys.indexes WHERE ");
             sb.AppendFormat(
                 "object_id = OBJECT_ID(N'[{0}].[{1}]')",
                 this.NamingStrategy.GetSchemaName(modelDef),
@@ -451,12 +454,29 @@ namespace ServiceStack.OrmLite.SqlServer
             sb.Append("IF EXISTS (");
             sb.Append("SELECT top 1 1 FROM sys.foreign_keys WHERE ");
             sb.AppendFormat(
-                "object_id = OBJECT_ID(N'[{0}].[{1}]')",
+                "parent_object_id = OBJECT_ID(N'[{0}].[{1}]')",
                 this.NamingStrategy.GetSchemaName(modelDef),
                 this.NamingStrategy.GetTableName(modelDef));
             sb.AppendFormat("and name = N'{0}')", foreignKeyName);
-            sb.Append("BEGIN");
+            sb.Append(" BEGIN");
             sb.AppendFormat("  ALTER TABLE {1} DROP constraint {0}", foreignKeyName, tableName);
+            sb.Append(" END");
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        public override string GetDropConstraint(ModelDefinition modelDef, string name)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var tableName = this.GetQuotedTableName(modelDef);
+
+            sb.Append("IF ");
+            sb.AppendFormat(
+                "OBJECTPROPERTY(OBJECT_ID(N'{0}'), 'IsConstraint') = 1",
+                name);
+            sb.Append("BEGIN");
+            sb.AppendFormat("  ALTER TABLE {1} DROP constraint {0}", name, tableName);
             sb.Append(" END");
 
             return StringBuilderCache.ReturnAndFree(sb);

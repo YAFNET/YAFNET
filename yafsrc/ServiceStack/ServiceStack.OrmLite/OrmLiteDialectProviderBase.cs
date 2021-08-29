@@ -159,7 +159,7 @@ namespace ServiceStack.OrmLite
 
         public IOrmLiteExecFilter ExecFilter { get; set; }
 
-        public Dictionary<Type, IOrmLiteConverter> Converters = new Dictionary<Type, IOrmLiteConverter>();
+        public Dictionary<Type, IOrmLiteConverter> Converters = new();
 
         public string AutoIncrementDefinition = "AUTOINCREMENT"; // SqlServer express limit
 
@@ -1759,6 +1759,11 @@ namespace ServiceStack.OrmLite
         }
 
         public virtual string GetDropForeignKeyConstraint(ModelDefinition modelDef, string name)
+        {
+            return null;
+        }
+
+        public virtual string GetDropConstraint(ModelDefinition modelDef, string name)
         {
             return null;
         }

@@ -141,6 +141,16 @@
             dbConn.ExecuteSql(command);
         }
 
+        public static void DropConstraint<T>(this IDbConnection dbConn, string name)
+        {
+            var provider = dbConn.GetDialectProvider();
+            var modelDef = ModelDefinition<T>.Definition;
+
+            var command = provider.GetDropConstraint(modelDef, name);
+
+            dbConn.ExecuteSql(command);
+        }
+
 
         public static void CreateIndex<T>(this IDbConnection dbConn, Expression<Func<T, object>> field,
             string indexName = null, bool unique = false)
