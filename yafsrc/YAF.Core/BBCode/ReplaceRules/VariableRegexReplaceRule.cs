@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -39,11 +39,6 @@ namespace YAF.Core.BBCode.ReplaceRules
         #region Constants and Fields
 
         /// <summary>
-        ///   The truncate length.
-        /// </summary>
-        protected readonly int TruncateLength;
-
-        /// <summary>
         ///   The variable defaults.
         /// </summary>
         protected readonly string[] VariableDefaults;
@@ -61,37 +56,6 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
         /// </summary>
         /// <param name="regExSearch">
-        /// The Search Regex
-        /// </param>
-        /// <param name="regExReplace">
-        /// The Replace Regex.
-        /// </param>
-        /// <param name="variables">
-        /// The variables.
-        /// </param>
-        /// <param name="defaults">
-        /// The defaults.
-        /// </param>
-        /// <param name="truncateLength">
-        /// The truncate length.
-        /// </param>
-        public VariableRegexReplaceRule(
-            Regex regExSearch,
-            string regExReplace,
-            string[] variables,
-            string[] defaults,
-            int truncateLength)
-            : base(regExSearch, regExReplace)
-        {
-            this.Variables = variables;
-            this.VariableDefaults = defaults;
-            this.TruncateLength = truncateLength;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
-        /// </summary>
-        /// <param name="regExSearch">
         /// The Search Regex.
         /// </param>
         /// <param name="regExReplace">
@@ -103,13 +67,11 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// <param name="defaults">
         /// The defaults.
         /// </param>
-        public VariableRegexReplaceRule(
-            Regex regExSearch,
-            string regExReplace,
-            string[] variables,
-            string[] defaults)
-            : this(regExSearch, regExReplace, variables, defaults, 0)
+        public VariableRegexReplaceRule(Regex regExSearch, string regExReplace, string[] variables, string[] defaults)
+            : base(regExSearch, regExReplace)
         {
+            this.Variables = variables;
+            this.VariableDefaults = defaults;
         }
 
         /// <summary>
@@ -125,43 +87,10 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// The variables.
         /// </param>
         public VariableRegexReplaceRule(Regex regExSearch, string regExReplace, string[] variables)
-            : this(regExSearch, regExReplace, variables, null, 0)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
-        /// </summary>
-        /// <param name="regExSearch">
-        /// The Search Regex.
-        /// </param>
-        /// <param name="regExReplace">
-        /// The Replace Regex.
-        /// </param>
-        /// <param name="regExOptions">
-        /// The Regex options.
-        /// </param>
-        /// <param name="variables">
-        /// The variables.
-        /// </param>
-        /// <param name="defaults">
-        /// The defaults.
-        /// </param>
-        /// <param name="truncateLength">
-        /// The truncate length.
-        /// </param>
-        public VariableRegexReplaceRule(
-            string regExSearch,
-            string regExReplace,
-            RegexOptions regExOptions,
-            string[] variables,
-            string[] defaults,
-            int truncateLength)
-            : base(regExSearch, regExReplace, regExOptions)
+            : base(regExSearch, regExReplace)
         {
             this.Variables = variables;
-            this.VariableDefaults = defaults;
-            this.TruncateLength = truncateLength;
+            this.VariableDefaults = null;
         }
 
         /// <summary>
@@ -188,8 +117,10 @@ namespace YAF.Core.BBCode.ReplaceRules
             RegexOptions regExOptions,
             string[] variables,
             string[] defaults)
-            : this(regExSearch, regExReplace, regExOptions, variables, defaults, 0)
+            : base(regExSearch, regExReplace, regExOptions)
         {
+            this.Variables = variables;
+            this.VariableDefaults = defaults;
         }
 
         /// <summary>
@@ -212,8 +143,10 @@ namespace YAF.Core.BBCode.ReplaceRules
             string regExReplace,
             RegexOptions regExOptions,
             string[] variables)
-            : this(regExSearch, regExReplace, regExOptions, variables, null, 0)
+            : base(regExSearch, regExReplace, regExOptions)
         {
+            this.Variables = variables;
+            this.VariableDefaults = null;
         }
 
         #endregion
@@ -241,39 +174,33 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                 this.Variables.ForEach(
                     tVar =>
+                    {
+                        var varName = tVar;
+                        var handlingValue = string.Empty;
+
+                        if (varName.Contains(":"))
                         {
-                            var varName = tVar;
-                            var handlingValue = string.Empty;
+                            // has handling section
+                            var tmpSplit = varName.Split(':');
+                            varName = tmpSplit[0];
+                            handlingValue = tmpSplit[1];
+                        }
 
-                            if (varName.Contains(":"))
-                            {
-                                // has handling section
-                                var tmpSplit = varName.Split(':');
-                                varName = tmpSplit[0];
-                                handlingValue = tmpSplit[1];
-                            }
+                        var tValue = m.Groups[varName].Value;
 
-                            var tValue = m.Groups[varName].Value;
+                        if (this.VariableDefaults != null && tValue.Length == 0)
+                        {
+                            // use default instead
+                            tValue = this.VariableDefaults[i];
+                        }
 
-                            if (this.VariableDefaults != null && tValue.Length == 0)
-                            {
-                                // use default instead
-                                tValue = this.VariableDefaults[i];
-                            }
-
-                            innerReplace.Replace(
-                                $"${{{varName}}}",
-                                this.ManageVariableValue(varName, tValue, handlingValue));
-                            i++;
-                        });
+                        innerReplace.Replace(
+                            $"${{{varName}}}",
+                            this.ManageVariableValue(varName, tValue, handlingValue));
+                        i++;
+                    });
 
                 innerReplace.Replace("${inner}", m.Groups["inner"].Value);
-
-                if (this.TruncateLength > 0)
-                {
-                    // special handling to truncate urls
-                    innerReplace.Replace("${innertrunc}", m.Groups["inner"].Value.TruncateMiddle(this.TruncateLength));
-                }
 
                 // pulls the html's into the replacement collection before it's inserted back into the main text
                 replacement.ReplaceHtmlFromText(ref innerReplace);
@@ -318,11 +245,11 @@ namespace YAF.Core.BBCode.ReplaceRules
             }
 
             variableValue = handlingValue.ToLower() switch
-                {
-                    "decode" => HttpUtility.HtmlDecode(variableValue),
-                    "encode" => HttpUtility.HtmlEncode(variableValue),
-                    _ => variableValue
-                };
+            {
+                "decode" => HttpUtility.HtmlDecode(variableValue),
+                "encode" => HttpUtility.HtmlEncode(variableValue),
+                _ => variableValue
+            };
 
             return variableValue;
         }

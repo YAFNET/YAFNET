@@ -507,60 +507,6 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        /// Truncates a string with the specified limits by adding (...) to the middle
-        /// </summary>
-        /// <param name="input">
-        /// input string
-        /// </param>
-        /// <param name="limit">
-        /// max size of string
-        /// </param>
-        /// <returns>
-        /// truncated string
-        /// </returns>
-        public static string TruncateMiddle(this string input, int limit)
-        {
-            if (input.IsNotSet())
-            {
-                return null;
-            }
-
-            var output = input;
-            const string Middle = "...";
-
-            // Check if the string is longer than the allowed amount
-            // otherwise do nothing
-            if (output.Length <= limit || limit <= 0)
-            {
-                return output;
-            }
-
-            // figure out how much to make it fit...
-            var left = (limit / 2 - Middle.Length) / 2;
-            var right = (limit - left - Middle.Length) / 2;
-
-            if (left + right + Middle.Length < limit)
-            {
-                right++;
-            }
-            else if (left + right + Middle.Length > limit)
-            {
-                right--;
-            }
-
-            // cut the left side
-            output = input.Substring(0, left);
-
-            // add the middle
-            output += Middle;
-
-            // add the right side...
-            output += input.Substring(input.Length - right, right);
-
-            return output;
-        }
-
-        /// <summary>
         /// Determines whether [is image name] [the specified input string].
         /// </summary>
         /// <param name="inputString">The input string.</param>

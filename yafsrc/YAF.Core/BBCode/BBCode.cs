@@ -197,6 +197,7 @@ namespace YAF.Core.BBCode
             return workingMessage;
         }
 
+        /*
         /// <summary>
         /// Converts a message containing BBCode to HTML appropriate for editing in a rich text editor.
         /// </summary>
@@ -211,7 +212,7 @@ namespace YAF.Core.BBCode
         /// The converted text
         /// </returns>
         [Obsolete]
-        /*public string ConvertBBCodeToHtmlForEdit(string message)
+        public string ConvertBBCodeToHtmlForEdit(string message)
         {
             // get the rules engine from the creator...
             var ruleEngine = this.ProcessReplaceRulesFactory(
@@ -638,8 +639,7 @@ namespace YAF.Core.BBCode
                         new[]
                             {
                                 string.Empty, string.Empty // "http://"
-                            },
-                        50) { RuleRank = 11 });
+                            }) { RuleRank = 11 });
 
                 // urls
                ruleEngine.AddRule(
@@ -653,8 +653,7 @@ namespace YAF.Core.BBCode
                             {
                                 "before"
                             },
-                        new[] { string.Empty },
-                        50) { RuleRank = 12 });
+                        new[] { string.Empty }) { RuleRank = 12 });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
@@ -667,8 +666,7 @@ namespace YAF.Core.BBCode
                             {
                                 "before"
                             },
-                        new[] { string.Empty },
-                        50) { RuleRank = 13 });
+                        new[] { string.Empty }) { RuleRank = 13 });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
