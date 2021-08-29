@@ -205,7 +205,8 @@
                                          TextLocalizedTag="REPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                                          Icon="reply"
                                          CssClass="dropdown-item"  />
-                        <div class="dropdown-divider"></div>
+                        <asp:Panel runat="server" CssClass="dropdown-divider" ID="Separator1"
+                                   Visible="False"></asp:Panel>
                         <YAF:ThemeButton ID="Edit2" runat="server"
                                          Type="None"
                                          Icon="edit"
@@ -234,7 +235,8 @@
                                          TextLocalizedTag="BUTTON_UNDELETE"
                                          TitleLocalizedTag="BUTTON_UNDELETE_TT"
                                          CssClass="dropdown-item" />
-                        <div class="dropdown-divider"></div>
+                        <asp:Panel CssClass="dropdown-divider" runat="server" ID="Separator2"
+                                   Visible="False"></asp:Panel>
                         <asp:PlaceHolder runat="server" ID="UserDropHolder2"></asp:PlaceHolder>
                         <YAF:ThemeButton ID="ReportPost2" runat="server"
                                          Visible="false"
