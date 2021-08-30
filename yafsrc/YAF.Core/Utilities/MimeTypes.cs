@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -167,6 +167,10 @@ namespace YAF.Core.Utilities
                 { "dir", "application/x-director" },
                 { "dl", "video/dl" },
                 { "doc", "application/msword" },
+                { "docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
+                { "dotx", "application/vnd.openxmlformats-officedocument.wordprocessingml.template" },
+                { "docm", "application/vnd.ms-word.document.macroEnabled.12" },
+                { "dotm", "application/vnd.ms-word.template.macroEnabled.12" },
                 { "dot", "application/msword" },
                 { "dp", "application/commonground" },
                 { "drw", "application/drafting" },
@@ -265,6 +269,7 @@ namespace YAF.Core.Utilities
                 { "mcd", "application/mcad" },
                 { "mcf", "image/vasa" },
                 { "mcp", "application/netmc" },
+                { "mdb", "application/vnd.ms-access" },
                 { "me", "application/x-troff-me" },
                 { "mht", "message/rfc822" },
                 { "mhtml", "message/rfc822" },
@@ -334,11 +339,18 @@ namespace YAF.Core.Utilities
                 { "png", "image/png" },
                 { "pnm", "application/x-portable-anymap" },
                 { "pot", "application/mspowerpoint" },
+                { "potm", "application/vnd.ms-powerpoint.template.macroEnabled.12" },
                 { "pov", "model/x-pov" },
                 { "ppa", "application/vnd.ms-powerpoint" },
                 { "ppm", "image/x-portable-pixmap" },
                 { "pps", "application/mspowerpoint" },
+                { "ppsm", "application/vnd.ms-powerpoint.slideshow.macroEnabled.12" },
                 { "ppt", "application/mspowerpoint" },
+                { "pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
+                { "potx", "application/vnd.openxmlformats-officedocument.presentationml.template" },
+                { "ppsx", "application/vnd.openxmlformats-officedocument.presentationml.slideshow" },
+                { "ppam", "application/vnd.ms-powerpoint.addin.macroEnabled.12" },
+                { "pptm", "application/vnd.ms-powerpoint.presentation.macroEnabled.12" },
                 { "ppz", "application/mspowerpoint" },
                 { "pre", "application/x-freelance" },
                 { "prt", "application/pro_eng" },
@@ -502,6 +514,10 @@ namespace YAF.Core.Utilities
                 { "xll", "application/excel" },
                 { "xlm", "application/excel" },
                 { "xls", "application/excel" },
+                { "xlsm", "application/vnd.ms-excel.sheet.macroEnabled.12" },
+                { "xltm", "application/vnd.ms-excel.template.macroEnabled.12" },
+                { "xlam", "application/vnd.ms-excel.addin.macroEnabled.12" },
+                { "xlsb", "application/vnd.ms-excel.sheet.binary.macroEnabled.12" },
                 { "xlsx", "application/excel" },
                 { "xlt", "application/excel" },
                 { "xlv", "application/excel" },
