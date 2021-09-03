@@ -3,7 +3,6 @@
   "version": "3.0.0",
   "private": true,
   "devDependencies": {
-    "app": "^0.1.0",
     "grunt": "~1.4.0",
     "grunt-postcss": "*",
     "grunt-contrib-cssmin": "*",
