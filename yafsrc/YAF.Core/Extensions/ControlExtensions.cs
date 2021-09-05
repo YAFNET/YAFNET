@@ -44,28 +44,6 @@ namespace YAF.Core.Extensions
         #region Public Methods
 
         /// <summary>
-        /// Creates a ID Based on the Control Structure
-        /// </summary>
-        /// <param name="currentControl">The current Control.</param>
-        /// <param name="prefix">The prefix.</param>
-        /// <returns>
-        /// The get extended id.
-        /// </returns>
-        public static string GetExtendedID(this Control currentControl, string prefix)
-        {
-            var createdID = new StringBuilder();
-
-            if (currentControl.ID.IsSet())
-            {
-                createdID.AppendFormat("{0}_", currentControl.ID);
-            }
-
-            createdID.Append(prefix.IsSet() ? prefix : Guid.NewGuid().ToString().Substring(0, 5));
-
-            return createdID.ToString();
-        }
-
-        /// <summary>
         /// Creates a Unique ID
         /// </summary>
         /// <param name="currentControl">The current Control.</param>

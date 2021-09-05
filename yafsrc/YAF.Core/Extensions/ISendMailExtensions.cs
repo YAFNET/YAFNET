@@ -71,40 +71,6 @@ namespace YAF.Core.Extensions
         /// <summary>
         /// The send.
         /// </summary>
-        /// <param name="sendMail">The send mail.</param>
-        /// <param name="fromEmail">The from email.</param>
-        /// <param name="fromName">The from name.</param>
-        /// <param name="toEmail">The to email.</param>
-        /// <param name="toName">The to name.</param>
-        /// <param name="senderEmail">The sender email.</param>
-        /// <param name="senderName">Name of the sender.</param>
-        /// <param name="subject">The subject.</param>
-        /// <param name="bodyText">The body text.</param>
-        /// <param name="bodyHtml">The body html.</param>
-        public static void Send(
-            [NotNull] this IMailService sendMail,
-            [NotNull] string fromEmail,
-            [CanBeNull] string fromName,
-            [NotNull] string toEmail,
-            [CanBeNull] string toName,
-            [NotNull] string senderEmail,
-            [CanBeNull] string senderName,
-            [CanBeNull] string subject,
-            [CanBeNull] string bodyText,
-            [CanBeNull] string bodyHtml)
-        {
-            sendMail.Send(
-                new MailAddress(fromEmail, fromName),
-                new MailAddress(toEmail, toName),
-                new MailAddress(senderEmail, senderName),
-                subject,
-                bodyText,
-                bodyHtml);
-        }
-
-        /// <summary>
-        /// The send.
-        /// </summary>
         /// <param name="sendMail">The send Mail.</param>
         /// <param name="fromAddress">The from address.</param>
         /// <param name="toAddress">The to address.</param>
