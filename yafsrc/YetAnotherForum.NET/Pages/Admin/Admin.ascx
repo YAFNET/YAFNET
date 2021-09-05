@@ -251,8 +251,8 @@
                         <ul class="list-group">
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li class="list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-start align-items-baseline">
+                        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-start">
+                        <div class="align-items-baseline">
                             <div class="me-2">
                                 <YAF:UserLabel ID="ActiveUserLink"
                                                ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as ActiveUser).UserDisplayName : (Container.DataItem as ActiveUser).UserName %>"
@@ -335,8 +335,8 @@
                                     <ul class="list-group">
                                 </HeaderTemplate>
                                 <ItemTemplate>
-                                    <li class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-start align-items-baseline">
+                                    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
+                                    <div class="align-items-baseline">
                                         <div class="me-2">
                                             <span class="fw-bold">
                                                 <%# this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name") %>
@@ -345,14 +345,14 @@
                                         <div class="me-2">
                                             <span class="fw-bold">
                                                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="ADMIN_JOINED"
-                                                                    LocalizedPage="ADMIN_ADMIN" />
+                                                                    LocalizedPage="ADMIN_ADMIN" />:
                                             </span>
                                             <%# this.Get<IDateTimeService>().FormatDateTime((DateTime)this.Eval("Joined")) %>
                                         </div>
                                         <div>
                                             <span class="fw-bold">
                                                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ADMIN_EMAIL"
-                                                                    LocalizedPage="ADMIN_ADMIN" />
+                                                                    LocalizedPage="ADMIN_ADMIN" />:
                                             </span>
                                             <%# this.Eval("Email") %>
                                         </div>
