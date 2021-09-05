@@ -202,6 +202,8 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                 innerReplace.Replace("${inner}", m.Groups["inner"].Value);
 
+                innerReplace.Replace("${innertrunc}", m.Groups["inner"].Value);
+
                 // pulls the html's into the replacement collection before it's inserted back into the main text
                 replacement.ReplaceHtmlFromText(ref innerReplace);
 
@@ -211,7 +213,6 @@ namespace YAF.Core.BBCode.ReplaceRules
                 // insert replaced value(s)
                 sb.Insert(m.Groups[0].Index, innerReplace.ToString());
 
-                // text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
                 m = this.RegExSearch.Match(sb.ToString());
             }
 

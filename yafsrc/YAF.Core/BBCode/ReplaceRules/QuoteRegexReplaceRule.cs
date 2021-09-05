@@ -79,6 +79,11 @@ namespace YAF.Core.BBCode.ReplaceRules
                 var innerReplace = new StringBuilder(this.RegExReplace);
                 var i = 0;
 
+                // special handling to truncate urls
+                innerReplace.Replace(
+                    "${innertrunc}",
+                    match.Groups["inner"].Value);
+
                 var quote = match.Groups["quote"].Value;
 
                 var localQuoteWrote = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
