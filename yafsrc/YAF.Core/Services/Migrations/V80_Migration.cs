@@ -144,6 +144,11 @@ namespace YAF.Core.Services.Migrations
                         dbCommand.Connection.DropTable("UserProfile");
                     }
 
+                    if (dbCommand.Connection.TableExists<FileExtension>())
+                    {
+                        dbCommand.Connection.DropTable<FileExtension>();
+                    }
+
                     return true;
                 });
 

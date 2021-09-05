@@ -268,6 +268,14 @@ namespace YAF.Core.Services
                         this.MigrateConfig();
                     }
 
+                    // Migrate File Extensions
+                    var extensions = this.GetRepository<FileExtension>()
+                        .Get(x => x.BoardId == this.Get<BoardSettings>().BoardID);
+
+                    this.GetRepository<Registry>().Save(
+                        "allowedfileextensions",
+                        extensions.Select(x => x.Extension).ToDelimitedString(","));
+
                     this.Get<V80_Migration>().MigrateDatabase(this.DbAccess);
 
                     // Upgrade to ASPNET Identity
