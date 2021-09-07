@@ -228,9 +228,9 @@ namespace YAF.Pages
         /// </returns>
         protected string GetIpAddress(MessageHistoryTopic dataItem)
         {
-            var ip = IPHelper.GetIp4Address(dataItem.IP);
+            var ip = IPHelper.GetIpAddressAsString(dataItem.IP);
 
-            return ip.IsSet() ? ip : IPHelper.GetIp4Address(dataItem.MessageIP);
+            return ip.IsSet() ? ip : IPHelper.GetIpAddressAsString(dataItem.MessageIP);
         }
 
         /// <summary>

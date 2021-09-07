@@ -265,9 +265,9 @@
                                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
                                                         LocalizedTag="ADMIN_IPADRESS" LocalizedPage="ADMIN_ADMIN" />
                                 </span>
-                                <a id="A1" href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL, IPHelper.GetIp4Address((Container.DataItem as ActiveUser).IP)) %>"
+                                <a id="A1" href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL, IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)) %>"
                                    title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
-                                    <%# IPHelper.GetIp4Address((Container.DataItem as ActiveUser).IP)%></a>
+                                    <%# IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)%></a>
                             </div>
                             <div>
                                 <span class="fw-bold">

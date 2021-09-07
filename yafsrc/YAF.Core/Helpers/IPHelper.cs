@@ -123,6 +123,73 @@ namespace YAF.Core.Helpers
             return ip4Address;
         }
 
+
+
+        /// <summary>
+        /// Attempts to get an IPv4 from IPv6 address - falls back to IPv6, then localhost.
+        /// </summary>
+        /// <param name="inputIpAddress">The input IP Address.</param>
+        /// <returns>
+        /// IPv4 address if found, else IPv6 address, else localhost.
+        /// </returns>
+        public static string GetIpAddressAsString(string inputIpAddress)
+        {
+            var ipAddrString = string.Empty;
+
+            // don't resolve nntp
+            if (inputIpAddress.IsSet() && inputIpAddress.ToLower().Contains("nntp"))
+            {
+                return ipAddrString;
+            }
+
+            // don't resolve ip regex
+            if (inputIpAddress.IsSet() && inputIpAddress.ToLower().Contains("*"))
+            {
+                return ipAddrString;
+            }
+
+            try
+            {
+                // attempt to find IPv4 address from input IP - may fail because IPv6 does not map to IPv4 under most circumstances
+                var address = Dns.GetHostAddresses(inputIpAddress)
+                    .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork);
+
+                if (address != null)
+                {
+                    return address.ToString();
+                }
+
+                // return IPv6 if IPv4 not found
+                address = Dns.GetHostAddresses(inputIpAddress)
+                    .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetworkV6);
+
+                
+
+                if (address != null)
+                {
+                    return address.ToString();
+                }
+
+                // to find by host name - is not in use so far (does not work properly via rDNSing a host from it's IPv6 to IPv4).
+                // address = Dns.GetHostAddresses(Dns.GetHostName())
+                //     .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork);
+
+
+                // return localhost if no IP address found or detected (prevents server IP from being listed as user IP
+                // we should never get here -- connections to server ALWAYS return some form of remote IP address
+                return "127.0.0.1";
+
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception in GetIpAddressAsString: {0}", ex);
+            }
+
+
+            return ipAddrString;
+        }
+
         /// <summary>
         /// Gets User IP considering X-Forwarded-For and X-Real-IP HTTP headers
         /// </summary>
