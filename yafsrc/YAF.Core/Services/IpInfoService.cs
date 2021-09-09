@@ -145,7 +145,7 @@ namespace YAF.Core.Services
             try
             {
                 var url = $"{this.Get<BoardSettings>().IPLocatorUrlPath}&format=json";
-                var path = string.Format(url, IPHelper.GetIp4Address(ip));
+                var path = string.Format(url, IPHelper.GetIpAddressAsString(ip));
 
                 var webRequest = (HttpWebRequest)WebRequest.Create(path);
                 var response = (HttpWebResponse)webRequest.GetResponse();

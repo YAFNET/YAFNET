@@ -95,9 +95,9 @@
                             <%#(Container.DataItem as ActiveUser).Platform %>
                         </td>
                         <td id="Iptd1" runat="server" visible="<%# this.PageContext.IsAdmin %>">
-                             <a id="Iplink1" href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIp4Address((Container.DataItem as ActiveUser).IP)) %>"
+                             <a id="Iplink1" href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)) %>"
                                 title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
-                             <%# IPHelper.GetIp4Address((Container.DataItem as ActiveUser).IP)%></a>
+                             <%# IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)%></a>
                         </td>
                     </tr>
                         </ItemTemplate>

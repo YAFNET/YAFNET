@@ -530,7 +530,7 @@ namespace YAF.Controls
             // We should show IP
             this.IPInfo.Visible = true;
             this.IPHolder.Visible = true;
-            var ip = IPHelper.GetIp4Address(this.PostData.DataRow.IP);
+            var ip = IPHelper.GetIpAddressAsString(this.PostData.DataRow.IP);
             this.IPLink1.HRef = string.Format(this.PageContext.BoardSettings.IPInfoPageURL, ip);
             this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
             this.IPLink1.InnerText = this.HtmlEncode(ip);
