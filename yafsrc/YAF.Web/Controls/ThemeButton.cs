@@ -649,16 +649,16 @@ namespace YAF.Web.Controls
                 writer.Write("<i class=\"{2} fa-{0} fa-fw{1}\"></i>", this.Icon, iconColorClass, this.IconCssClass);
             }
 
-            writer.WriteBeginTag("span");
-
             if (this.TextLocalizedTag.IsSet() || this.Text.IsSet())
             {
+                writer.WriteBeginTag("span");
+
                 writer.WriteAttribute(
                     HtmlTextWriterAttribute.Class.ToString(),
                     this.IconMobileOnly ? "ms-1 d-none d-lg-inline-block" : "ms-1");
-            }
 
-            writer.Write(HtmlTextWriter.TagRightChar);
+                writer.Write(HtmlTextWriter.TagRightChar);
+            }
 
             if (this.Text.IsSet())
             {

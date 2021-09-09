@@ -338,7 +338,7 @@ namespace YAF.Controls
 
                 // is user suspended?
                 this.SuspendedTo.Text =
-                    $"<div class=\"alert alert-info\" role=\"alert\">{this.GetText("PROFILE", "ENDS")} {this.Get<IDateTimeService>().FormatDateTime(this.CurrentUser.Suspended)}</div>";
+                    $"<div class=\"alert alert-info\" role=\"alert\">{this.GetText("PROFILE", "ENDS")} {this.Get<IDateTimeService>().FormatDateTime(this.CurrentUser.Suspended.Value)}</div>";
             }
 
             this.DataBind();
