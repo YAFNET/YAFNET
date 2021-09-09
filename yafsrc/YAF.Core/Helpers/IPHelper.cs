@@ -28,14 +28,16 @@ namespace YAF.Core.Helpers
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using System.Net;
     using System.Net.Sockets;
     using System.Web;
 
+    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -76,76 +78,26 @@ namespace YAF.Core.Helpers
         #region Public Methods and Operators
 
         /// <summary>
-        /// Converts IP v6 or hostname to IP v4.
-        /// </summary>
-        /// <param name="addressIpv6">The address IP v6.</param>
-        /// <returns>
-        /// IP v4 address string.
-        /// </returns>
-        public static string GetIp4Address(string addressIpv6)
-        {
-            var ip4Address = string.Empty;
-
-            // don't resolve nntp
-            if (addressIpv6.IsSet() && addressIpv6.ToLower().Contains("nntp"))
-            {
-                return addressIpv6;
-            }
-
-            // don't resolve ip regex
-            if (addressIpv6.IsSet() && addressIpv6.ToLower().Contains("*"))
-            {
-                return addressIpv6;
-            }
-
-            try
-            {
-                // Loop through all address InterNetwork - Address for IP version 4))
-                var address = Dns.GetHostAddresses(addressIpv6)
-                    .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork);
-
-                if (address != null)
-                {
-                    return address.ToString();
-                }
-
-                // to find by host name - is not in use so far.
-                address = Dns.GetHostAddresses(Dns.GetHostName())
-                    .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork);
-
-                return address.ToString();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Exception in GetIp4Address: {0}", ex);
-            }
-
-            return ip4Address;
-        }
-
-
-
-        /// <summary>
         /// Attempts to get an IPv4 from IPv6 address - falls back to IPv6, then localhost.
         /// </summary>
         /// <param name="inputIpAddress">The input IP Address.</param>
         /// <returns>
         /// IPv4 address if found, else IPv6 address, else localhost.
         /// </returns>
-        public static string GetIpAddressAsString(string inputIpAddress)
+        public static string GetIpAddressAsString([CanBeNull]string inputIpAddress)
         {
-            var ipAddrString = string.Empty;
+            var ipAddressAsString = string.Empty;
 
             // don't resolve nntp
             if (inputIpAddress.IsSet() && inputIpAddress.ToLower().Contains("nntp"))
             {
-                return ipAddrString;
+                return ipAddressAsString;
             }
 
             // don't resolve ip regex
             if (inputIpAddress.IsSet() && inputIpAddress.ToLower().Contains("*"))
             {
-                return ipAddrString;
+                return ipAddressAsString;
             }
 
             try
@@ -162,8 +114,6 @@ namespace YAF.Core.Helpers
                 // return IPv6 if IPv4 not found
                 address = Dns.GetHostAddresses(inputIpAddress)
                     .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetworkV6);
-
-                
 
                 if (address != null)
                 {
@@ -183,11 +133,11 @@ namespace YAF.Core.Helpers
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Exception in GetIpAddressAsString: {0}", ex);
+                BoardContext.Current.Get<ILoggerService>().Log("Exception in GetIpAddressAsString", exception: ex);
             }
 
 
-            return ipAddrString;
+            return ipAddressAsString;
         }
 
         /// <summary>
