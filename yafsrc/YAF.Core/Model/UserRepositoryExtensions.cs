@@ -652,6 +652,8 @@ namespace YAF.Core.Model
             BoardContext.Current.GetRepository<IgnoreUser>().Delete(x => x.UserID == userId);
             BoardContext.Current.GetRepository<AdminPageUserAccess>().Delete(x => x.UserID == userId);
 
+            BoardContext.Current.GetRepository<ProfileCustom>().Delete(x => x.UserID == userId);
+
             repository.DeleteById(userId);
 
             repository.FireDeleted(userId);
