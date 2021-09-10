@@ -207,20 +207,23 @@ namespace YAF.Controls
                             return;
                         }
 
-                        if (this.User.Item4.IsAdmin == 0 &&
-                            !this.User.Item1.UserFlags.IsHostAdmin)
+                        if (this.User.Item4.IsAdmin == 1 ||
+                            this.User.Item1.UserFlags.IsHostAdmin)
                         {
+                            // admin are not deletable either
+                            this.PageContext.AddLoadMessage(
+                                this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
+                                MessageTypes.danger);
+
                             return;
                         }
 
-                        // admin are not deletable either
-                        this.PageContext.AddLoadMessage(
-                            this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
-                            MessageTypes.danger);
-
-
                         // all is good, user can be deleted
                         this.Get<IAspNetUsersHelper>().DeleteUser(this.CurrentUserId);
+
+                        this.PageContext.LoadMessage.AddSession(
+                            this.GetTextFormatted("MSG_USER_KILLED", this.User.Item1.Name),
+                            MessageTypes.success);
 
                         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
                     }
@@ -236,10 +239,6 @@ namespace YAF.Controls
 
                     break;
             }
-
-            this.PageContext.AddLoadMessage(
-                this.GetTextFormatted("MSG_USER_KILLED", this.User.Item1.Name),
-                MessageTypes.success);
 
             // update the displayed data...
             this.BindData();

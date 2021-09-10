@@ -436,45 +436,47 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets or sets a value indicating whether
         /// which Spam Service Type should been used
-        /// 0 = No Service
-        /// 1 = BlogSpam.NET Service
-        /// 2 = Akismet.com Service
-        /// 3 = Use Internal Spam Check
+        /// </summary>
+        public SpamService SpamService => this.SpamServiceType.ToEnum<SpamService>();
+
+        /// <summary>
+        /// Gets or sets a value indicating whether
+        /// which Spam Service Type should been used
         /// </summary>
         public int SpamServiceType
         {
-            get => this.Registry.GetValue("SpamServiceType", 3);
+            get => this.Registry.GetValue("SpamServiceType", SpamService.Internal.ToInt());
 
             set => this.Registry.SetValue("SpamServiceType", value);
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether which Spam Service Type should been used
+        /// </summary>
+        public BotSpamService BotSpamService => this.BotSpamServiceType.ToEnum<BotSpamService>();
+
+        /// <summary>
         /// Gets or sets a value indicating whether
         /// which Spam Service Type should been used
-        /// 0 = No Service
-        /// 1 = StopForumSpam.com Service
-        /// 2 = BotScout.com Service
-        /// 3 = StopForumSpam.com and BotScout.com Service
-        /// 4 = StopForumSpam.com or BotScout.com Service
         /// </summary>
         public int BotSpamServiceType
         {
-            get => this.Registry.GetValue("BotSpamServiceType", 0);
+            get => this.Registry.GetValue("BotSpamServiceType", BotSpamService.NoService.ToInt());
 
             set => this.Registry.SetValue("BotSpamServiceType", value);
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether
-        /// what to to with a SPAM Message
-        /// 0 = Do nothing
-        /// 1 = Flag Message as Unapproved
-        /// 2 = Don't allow posting
-        /// 3 = Delete and Ban User
+        /// Gets or sets a value indicating whether what to to with a SPAM Message
+        /// </summary>
+        public SpamPostHandling SpamPostHandling => this.SpamMessageHandling.ToEnum<SpamPostHandling>();
+
+        /// <summary>
+        /// Gets or sets a value indicating whether what to to with a SPAM Message
         /// </summary>
         public int SpamMessageHandling
         {
-            get => this.Registry.GetValue("SpamMessageHandling", 0);
+            get => this.Registry.GetValue("SpamMessageHandling", SpamPostHandling.DoNothing.ToInt());
 
             set => this.Registry.SetValue("SpamMessageHandling", value);
         }

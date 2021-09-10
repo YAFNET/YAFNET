@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.BannedIps" Codebehind="BannedIps.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 <%@ Import Namespace="YAF.Core.Helpers" %>
+<%@ Import Namespace="YAF.Types.Models" %>
 
 <%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/BannedIpImport.ascx" %>
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/BannedIpEdit.ascx" %>
@@ -87,7 +87,7 @@
                         <span class="fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="SINCE" LocalizedPage="ADMIN_BANNEDIP" />
                         </span>
-                        <%# this.Get<IDateTimeService>().FormatDateTime(this.Eval("Since")) %>
+                        <%# this.Get<IDateTimeService>().FormatDateTime(((BannedIP)Container.DataItem).Since) %>
 
                     </small>
                 </div>

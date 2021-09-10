@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.BannedEmails" Codebehind="BannedEmails.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
+<%@ Import Namespace="YAF.Types.Models" %>
 
 <%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/BannedEmailImport.ascx" %>
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/BannedEmailEdit.ascx" %>
@@ -83,7 +83,7 @@
                         <span class="fw-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="SINCE" LocalizedPage="ADMIN_BANNEDEMAIL" />
                         </span>
-                        <%# this.Get<IDateTimeService>().FormatDateTime(this.Eval("Since")) %>
+                        <%# this.Get<IDateTimeService>().FormatDateTime(((BannedEmail)Container.DataItem).Since) %>
                     </small>
                 </div>
                 <p class="mb-1">

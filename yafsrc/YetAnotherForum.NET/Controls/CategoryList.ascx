@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.CategoryList"
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.CategoryList"
     CodeBehind="CategoryList.ascx.cs" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>

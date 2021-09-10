@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.UserProfile" CodeBehind="UserProfile.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
+<%@ Import Namespace="YAF.Types.Models" %>
 
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
@@ -287,7 +287,7 @@
                                                         LocalizedTag="topic" />
                                 </span><a
                                     title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>'
-                                    href='<%# this.Get<LinkBuilder>().GetTopicLink(this.Eval("Item2.ID").ToType<int>(), this.Eval("Item2.TopicName").ToString()) %>'>
+                                    href='<%# this.Get<LinkBuilder>().GetTopicLink(((Tuple<Message, Topic, User>)Container.DataItem).Item2.ID, this.Eval("Item2.TopicName").ToString()) %>'>
                                     <%# this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.Eval("Item2.TopicName").ToString())) %>
                                 </a>
                             </div>
@@ -301,7 +301,7 @@
                                     <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server"
                                                         LocalizedTag="posted" />
                                     &nbsp;
-                                            <%# this.Get<IDateTimeService>().FormatDateTime(this.Eval("Item1.Posted").ToType<DateTime>())%>
+                                            <%# this.Get<IDateTimeService>().FormatDateTime(((Tuple<Message, Topic, User>)Container.DataItem).Item1.Posted)%>
                                 </small>
                             </div>
                         </div>

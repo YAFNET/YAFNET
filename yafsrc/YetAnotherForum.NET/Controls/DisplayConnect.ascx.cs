@@ -98,10 +98,10 @@ namespace YAF.Controls
                     TitleLocalizedPage = "TOOLBAR",
                     Type = ButtonStyle.Link,
                     Icon = "user-plus",
-                    NavigateUrl = this.Get<LinkBuilder>().GetLink(
-                        this.PageContext.BoardSettings.ShowRulesForRegistration
-                            ? ForumPages.RulesAndPrivacy
-                            : ForumPages.Account_Register)
+                    NavigateUrl = this.PageContext.BoardSettings.ShowRulesForRegistration
+                        ?
+                        this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
+                        : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register)
                 };
 
                 this.ConnectHolder.Controls.Add(registerLink);

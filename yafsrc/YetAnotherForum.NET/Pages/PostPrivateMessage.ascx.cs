@@ -740,7 +740,7 @@ namespace YAF.Pages
         private bool VerifyMessageAllowed(int count, string message)
         {
             // Check if SPAM Message first...
-            if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess && !this.PageContext.BoardSettings.SpamServiceType.Equals(0))
+            if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess && this.PageContext.BoardSettings.SpamService != SpamService.NoService)
             {
                 // Check content for spam
                 if (!this.Get<ISpamCheck>().CheckPostForSpam(
@@ -757,19 +757,19 @@ namespace YAF.Pages
                     $@"Spam Check detected possible SPAM ({spamResult}) 
                        posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
 
-                switch (this.PageContext.BoardSettings.SpamMessageHandling)
+                switch (this.PageContext.BoardSettings.SpamPostHandling)
                 {
-                    case 0:
+                    case SpamPostHandling.DoNothing:
                         this.Logger.SpamMessageDetected(
                             this.PageContext.PageUserID,
                             description);
                         break;
-                    case 1:
+                    case SpamPostHandling.FlagMessageUnapproved:
                         this.Logger.SpamMessageDetected(
                             this.PageContext.PageUserID,
                             $"{description}, it was flagged as unapproved post");
                         break;
-                    case 2:
+                    case SpamPostHandling.RejectMessage:
                         this.Logger.SpamMessageDetected(
                             this.PageContext.PageUserID,
                             $"{description}, post was rejected");
@@ -777,7 +777,7 @@ namespace YAF.Pages
                         this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
 
                         break;
-                    case 3:
+                    case SpamPostHandling.DeleteBanUser:
                         this.Logger.SpamMessageDetected(
                             this.PageContext.PageUserID,
                             $"{description}, user was deleted and bannded");

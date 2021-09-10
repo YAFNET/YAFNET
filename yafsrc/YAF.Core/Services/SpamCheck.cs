@@ -105,7 +105,7 @@ namespace YAF.Core.Services
                 case 2:
                     {
                         return this.Get<BoardSettings>().AkismetApiKey.IsSet()
-                                     && CheckWithAkismet(userName, postMessage, ipAddress, out result);
+                                     && this.CheckWithAkismet(userName, postMessage, ipAddress, out result);
                     }
 
                 case 1:
@@ -141,23 +141,23 @@ namespace YAF.Core.Services
                 return true;
             }
 
-            if (BoardContext.Current.Get<BoardSettings>().BotSpamServiceType.Equals(0))
+            if (this.Get<BoardSettings>().BotSpamServiceType == BotSpamService.NoService)
             {
                 return false;
             }
 
-            switch (BoardContext.Current.Get<BoardSettings>().BotSpamServiceType)
+            switch (this.Get<BoardSettings>().BotSpamServiceType)
             {
-                case 1:
+                case BotSpamService.StopForumSpam:
                     {
                         var stopForumSpam = new StopForumSpam();
 
                         return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                     }
 
-                case 2:
+                case BotSpamService.BotScout:
                     {
-                        if (BoardContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet())
+                        if (this.Get<BoardSettings>().BotScoutApiKey.IsSet())
                         {
                             var botScout = new BotScout();
 
@@ -170,12 +170,11 @@ namespace YAF.Core.Services
                         return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                     }
 
-                case 3:
+                case BotSpamService.BothServiceMatch:
                     {
-                        // use StopForumSpam instead
                         var stopForumSpam = new StopForumSpam();
 
-                        if (!BoardContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet())
+                        if (!this.Get<BoardSettings>().BotScoutApiKey.IsSet())
                         {
                             return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                         }
@@ -186,12 +185,12 @@ namespace YAF.Core.Services
                                && stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                     }
 
-                case 4:
+                case BotSpamService.OneServiceMatch:
                     {
                         // use StopForumSpam instead
                         var stopForumSpam = new StopForumSpam();
 
-                        if (!BoardContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet())
+                        if (!this.Get<BoardSettings>().BotScoutApiKey.IsSet())
                         {
                             return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                         }
@@ -237,21 +236,21 @@ namespace YAF.Core.Services
 
             switch (this.Get<BoardSettings>().SpamMessageHandling)
             {
-                case 0:
+                case SpamPostHandling.DoNothing:
                     this.Get<ILoggerService>().Log(
                         BoardContext.Current.PageUserID,
                         "Spam Message Detected",
                         $"Spam Check detected possible SPAM ({spamResult}) posted by User: {BoardContext.Current.User.DisplayOrUserName()}",
                         EventLogTypes.SpamMessageDetected);
                     break;
-                case 1:
+                case SpamPostHandling.FlagMessageUnapproved:
                     this.Get<ILoggerService>().Log(
                         BoardContext.Current.PageUserID,
                         "Spam Message Detected",
                         $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(BoardContext.Current.IsGuest ? "Guest" : BoardContext.Current.User.DisplayOrUserName())}, it was flagged as unapproved post",
                         EventLogTypes.SpamMessageDetected);
                     break;
-                case 2:
+                case SpamPostHandling.RejectMessage:
                     this.Get<ILoggerService>().Log(
                         BoardContext.Current.PageUserID,
                         "Spam Message Detected",
@@ -261,7 +260,7 @@ namespace YAF.Core.Services
                     BoardContext.Current.AddLoadMessage(this.Get<ILocalization>().GetText("SPAM_MESSAGE"), MessageTypes.danger);
 
                     break;
-                case 3:
+                case SpamPostHandling.DeleteBanUser:
                     this.Get<ILoggerService>().Log(
                         BoardContext.Current.PageUserID,
                         "Spam Message Detected",
@@ -288,7 +287,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// Returns if the Content or the User was flagged as Spam, or not
         /// </returns>
-        private static bool CheckWithAkismet(
+        private bool CheckWithAkismet(
             [NotNull] string userName,
             [NotNull] string postMessage,
             [NotNull] string ipAddress,
@@ -296,11 +295,11 @@ namespace YAF.Core.Services
         {
             try
             {
-                var service = new AkismetSpamClient(BoardContext.Current.Get<BoardSettings>().AkismetApiKey, new Uri(BaseUrlBuilder.BaseUrl));
+                var service = new AkismetSpamClient(this.Get<BoardSettings>().AkismetApiKey, new Uri(BaseUrlBuilder.BaseUrl));
 
                 return
                     service.CheckCommentForSpam(
-                        new Comment(IPAddress.Parse(ipAddress), BoardContext.Current.Get<HttpRequestBase>().UserAgent)
+                        new Comment(IPAddress.Parse(ipAddress), this.Get<HttpRequestBase>().UserAgent)
                             {
                                 Content
                                     =
@@ -313,7 +312,7 @@ namespace YAF.Core.Services
             }
             catch (Exception ex)
             {
-                BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Spam via BlogSpam");
+                this.Get<ILoggerService>().Error(ex, "Error while Checking for Spam via BlogSpam");
 
                 result = string.Empty;
                 return false;
