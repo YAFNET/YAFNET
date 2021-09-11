@@ -141,12 +141,12 @@ namespace YAF.Core.Services
                 return true;
             }
 
-            if (this.Get<BoardSettings>().BotSpamServiceType == BotSpamService.NoService)
+            if (this.Get<BoardSettings>().BotSpamService == BotSpamService.NoService)
             {
                 return false;
             }
 
-            switch (this.Get<BoardSettings>().BotSpamServiceType)
+            switch (this.Get<BoardSettings>().BotSpamService)
             {
                 case BotSpamService.StopForumSpam:
                     {
@@ -234,7 +234,7 @@ namespace YAF.Core.Services
             var spamResult =
                 $"The user posted {urlCount} urls but allowed only {this.Get<BoardSettings>().AllowedNumberOfUrls}";
 
-            switch (this.Get<BoardSettings>().SpamMessageHandling)
+            switch (this.Get<BoardSettings>().SpamPostHandling)
             {
                 case SpamPostHandling.DoNothing:
                     this.Get<ILoggerService>().Log(
