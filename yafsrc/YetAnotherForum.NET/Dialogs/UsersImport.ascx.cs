@@ -349,8 +349,7 @@ namespace YAF.Dialogs
                 Profile_Occupation = userProfile.Occupation,
                 Profile_RealName = userProfile.RealName,
                 Profile_Skype = userProfile.Skype,
-                Profile_XMPP = userProfile.XMPP,
-                Profile_LastSyncedWithDNN = userProfile.LastSyncedWithDNN
+                Profile_XMPP = userProfile.XMPP
             };
 
             this.Get<IAspNetUsersHelper>().Create(user, pass);
