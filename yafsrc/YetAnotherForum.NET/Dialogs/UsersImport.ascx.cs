@@ -390,7 +390,8 @@ namespace YAF.Dialogs
                 row.Table.Columns.Contains("Culture") ? row["Culture"].ToString() : null,
                 row.Table.Columns.Contains("ThemeFile") ? row["ThemeFile"].ToString() : null,
                 false,
-                true);
+                true,
+                5);
 
             // save the settings...
             this.GetRepository<User>().SaveNotification(
