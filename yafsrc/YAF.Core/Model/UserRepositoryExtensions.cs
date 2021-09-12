@@ -581,7 +581,8 @@ namespace YAF.Core.Model
                         NumPosts = 0,
                         TimeZone = TimeZoneInfo.Local.Id,
                         Flags = approvedFlag,
-                        ProviderUserKey = providerUserKey
+                        ProviderUserKey = providerUserKey,
+                        PageSize = 5
                     });
             }
 
@@ -1168,7 +1169,8 @@ namespace YAF.Core.Model
             [CanBeNull] string culture,
             [CanBeNull] string themeFile,
             [NotNull] bool hideUser,
-            [NotNull] bool activity)
+            [NotNull] bool activity,
+            [NotNull] int pageSize)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -1188,7 +1190,8 @@ namespace YAF.Core.Model
                     LanguageFile = languageFile,
                     ThemeFile = themeFile,
                     Culture = culture,
-                    Flags = flags.BitValue
+                    Flags = flags.BitValue,
+                    PageSize = pageSize
                 },
                 u => u.ID == userId);
         }
