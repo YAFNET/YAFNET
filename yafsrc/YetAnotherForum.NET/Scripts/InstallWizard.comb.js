@@ -10616,7 +10616,7 @@
             }
         }
     };
-    const VERSION = "5.1.0";
+    const VERSION = "5.1.1";
     class BaseComponent {
         constructor(element) {
             element = getElement(element);
@@ -11015,8 +11015,11 @@
             }
         }
         _addTouchEventListeners() {
+            const hasPointerPenTouch = event => {
+                return this._pointerEvent && (event.pointerType === POINTER_TYPE_PEN || event.pointerType === POINTER_TYPE_TOUCH);
+            };
             const start = event => {
-                if (this._pointerEvent && (event.pointerType === POINTER_TYPE_PEN || event.pointerType === POINTER_TYPE_TOUCH)) {
+                if (hasPointerPenTouch(event)) {
                     this.touchStartX = event.clientX;
                 } else if (!this._pointerEvent) {
                     this.touchStartX = event.touches[0].clientX;
@@ -11026,7 +11029,7 @@
                 this.touchDeltaX = event.touches && event.touches.length > 1 ? 0 : event.touches[0].clientX - this.touchStartX;
             };
             const end = event => {
-                if (this._pointerEvent && (event.pointerType === POINTER_TYPE_PEN || event.pointerType === POINTER_TYPE_TOUCH)) {
+                if (hasPointerPenTouch(event)) {
                     this.touchDeltaX = event.clientX - this.touchStartX;
                 }
                 this._handleSwipe();
@@ -11268,7 +11271,7 @@
     const CLASS_NAME_HORIZONTAL = "collapse-horizontal";
     const WIDTH = "width";
     const HEIGHT = "height";
-    const SELECTOR_ACTIVES = ".show, .collapsing";
+    const SELECTOR_ACTIVES = ".collapse.show, .collapse.collapsing";
     const SELECTOR_DATA_TOGGLE$4 = '[data-bs-toggle="collapse"]';
     class Collapse extends BaseComponent {
         constructor(element, config) {
@@ -11593,8 +11596,14 @@
         var scaleX = 1;
         var scaleY = 1;
         if (isHTMLElement(element) && includeScale) {
-            scaleX = rect.width / element.offsetWidth || 1;
-            scaleY = rect.height / element.offsetHeight || 1;
+            var offsetHeight = element.offsetHeight;
+            var offsetWidth = element.offsetWidth;
+            if (offsetWidth > 0) {
+                scaleX = rect.width / offsetWidth || 1;
+            }
+            if (offsetHeight > 0) {
+                scaleY = rect.height / offsetHeight || 1;
+            }
         }
         return {
             width: round$1(rect.width / scaleX),
@@ -11778,6 +11787,9 @@
         requires: [ "popperOffsets" ],
         requiresIfExists: [ "preventOverflow" ]
     };
+    function getVariation(placement) {
+        return placement.split("-")[1];
+    }
     var unsetSides = {
         top: "auto",
         right: "auto",
@@ -11795,7 +11807,7 @@
     }
     function mapToStyles(_ref2) {
         var _Object$assign2;
-        var popper = _ref2.popper, popperRect = _ref2.popperRect, placement = _ref2.placement, offsets = _ref2.offsets, position = _ref2.position, gpuAcceleration = _ref2.gpuAcceleration, adaptive = _ref2.adaptive, roundOffsets = _ref2.roundOffsets;
+        var popper = _ref2.popper, popperRect = _ref2.popperRect, placement = _ref2.placement, variation = _ref2.variation, offsets = _ref2.offsets, position = _ref2.position, gpuAcceleration = _ref2.gpuAcceleration, adaptive = _ref2.adaptive, roundOffsets = _ref2.roundOffsets;
         var _ref3 = roundOffsets === true ? roundOffsetsByDPR(offsets) : typeof roundOffsets === "function" ? roundOffsets(offsets) : offsets, _ref3$x = _ref3.x, x = _ref3$x === void 0 ? 0 : _ref3$x, _ref3$y = _ref3.y, y = _ref3$y === void 0 ? 0 : _ref3$y;
         var hasX = offsets.hasOwnProperty("x");
         var hasY = offsets.hasOwnProperty("y");
@@ -11808,18 +11820,18 @@
             var widthProp = "clientWidth";
             if (offsetParent === getWindow(popper)) {
                 offsetParent = getDocumentElement(popper);
-                if (getComputedStyle$1(offsetParent).position !== "static") {
+                if (getComputedStyle$1(offsetParent).position !== "static" && position === "absolute") {
                     heightProp = "scrollHeight";
                     widthProp = "scrollWidth";
                 }
             }
             offsetParent = offsetParent;
-            if (placement === top) {
+            if (placement === top || (placement === left || placement === right) && variation === end) {
                 sideY = bottom;
                 y -= offsetParent[heightProp] - popperRect.height;
                 y *= gpuAcceleration ? 1 : -1;
             }
-            if (placement === left) {
+            if (placement === left || (placement === top || placement === bottom) && variation === end) {
                 sideX = right;
                 x -= offsetParent[widthProp] - popperRect.width;
                 x *= gpuAcceleration ? 1 : -1;
@@ -11831,7 +11843,7 @@
         if (gpuAcceleration) {
             var _Object$assign;
             return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? "0" : "", 
-            _Object$assign[sideX] = hasX ? "0" : "", _Object$assign.transform = (win.devicePixelRatio || 1) < 2 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", 
+            _Object$assign[sideX] = hasX ? "0" : "", _Object$assign.transform = (win.devicePixelRatio || 1) <= 1 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", 
             _Object$assign));
         }
         return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : "", 
@@ -11842,6 +11854,7 @@
         var _options$gpuAccelerat = options.gpuAcceleration, gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat, _options$adaptive = options.adaptive, adaptive = _options$adaptive === void 0 ? true : _options$adaptive, _options$roundOffsets = options.roundOffsets, roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
         var commonStyles = {
             placement: getBasePlacement(state.placement),
+            variation: getVariation(state.placement),
             popper: state.elements.popper,
             popperRect: state.rects.popper,
             gpuAcceleration: gpuAcceleration
@@ -12059,9 +12072,6 @@
         clippingRect.y = clippingRect.top;
         return clippingRect;
     }
-    function getVariation(placement) {
-        return placement.split("-")[1];
-    }
     function computeOffsets(_ref) {
         var reference = _ref.reference, element = _ref.element, placement = _ref.placement;
         var basePlacement = placement ? getBasePlacement(placement) : null;
@@ -12126,11 +12136,10 @@
         var _options = options, _options$placement = _options.placement, placement = _options$placement === void 0 ? state.placement : _options$placement, _options$boundary = _options.boundary, boundary = _options$boundary === void 0 ? clippingParents : _options$boundary, _options$rootBoundary = _options.rootBoundary, rootBoundary = _options$rootBoundary === void 0 ? viewport : _options$rootBoundary, _options$elementConte = _options.elementContext, elementContext = _options$elementConte === void 0 ? popper : _options$elementConte, _options$altBoundary = _options.altBoundary, altBoundary = _options$altBoundary === void 0 ? false : _options$altBoundary, _options$padding = _options.padding, padding = _options$padding === void 0 ? 0 : _options$padding;
         var paddingObject = mergePaddingObject(typeof padding !== "number" ? padding : expandToHashMap(padding, basePlacements));
         var altContext = elementContext === popper ? reference : popper;
-        var referenceElement = state.elements.reference;
         var popperRect = state.rects.popper;
         var element = state.elements[altBoundary ? altContext : elementContext];
         var clippingClientRect = getClippingRect(isElement(element) ? element : element.contextElement || getDocumentElement(state.elements.popper), boundary, rootBoundary);
-        var referenceClientRect = getBoundingClientRect(referenceElement);
+        var referenceClientRect = getBoundingClientRect(state.elements.reference);
         var popperOffsets = computeOffsets({
             reference: referenceClientRect,
             element: popperRect,
@@ -12627,7 +12636,8 @@
             var isDestroyed = false;
             var instance = {
                 state: state,
-                setOptions: function setOptions(options) {
+                setOptions: function setOptions(setOptionsAction) {
+                    var options = typeof setOptionsAction === "function" ? setOptionsAction(state.options) : setOptionsAction;
                     cleanupModifierEffects();
                     state.options = Object.assign({}, defaultOptions, state.options, options);
                     state.scrollParents = {
@@ -13358,6 +13368,7 @@
     const CLASS_NAME_FADE$3 = "fade";
     const CLASS_NAME_SHOW$4 = "show";
     const CLASS_NAME_STATIC = "modal-static";
+    const OPEN_SELECTOR$1 = ".modal.show";
     const SELECTOR_DIALOG = ".modal-dialog";
     const SELECTOR_MODAL_BODY = ".modal-body";
     const SELECTOR_DATA_TOGGLE$2 = '[data-bs-toggle="modal"]';
@@ -13614,6 +13625,10 @@
                 }
             });
         });
+        const allReadyOpen = SelectorEngine.findOne(OPEN_SELECTOR$1);
+        if (allReadyOpen) {
+            Modal.getInstance(allReadyOpen).hide();
+        }
         const data = Modal.getOrCreateInstance(target);
         data.toggle(this);
     });
@@ -14005,9 +14020,7 @@
             if (this.tip) {
                 this.tip.remove();
             }
-            if (this._popper) {
-                this._popper.destroy();
-            }
+            this._disposePopper();
             super.dispose();
         }
         show() {
@@ -14022,6 +14035,11 @@
             const isInTheDom = shadowRoot === null ? this._element.ownerDocument.documentElement.contains(this._element) : shadowRoot.contains(this._element);
             if (showEvent.defaultPrevented || !isInTheDom) {
                 return;
+            }
+            if (this.constructor.NAME === "tooltip" && this.tip && this.getTitle() !== this.tip.querySelector(SELECTOR_TOOLTIP_INNER).innerHTML) {
+                this._disposePopper();
+                this.tip.remove();
+                this.tip = null;
             }
             const tip = this.getTipElement();
             const tipId = getUID(this.constructor.NAME);
@@ -14082,10 +14100,7 @@
                 this._cleanTipClass();
                 this._element.removeAttribute("aria-describedby");
                 EventHandler.trigger(this._element, this.constructor.Event.HIDDEN);
-                if (this._popper) {
-                    this._popper.destroy();
-                    this._popper = null;
-                }
+                this._disposePopper();
             };
             const hideEvent = EventHandler.trigger(this._element, this.constructor.Event.HIDE);
             if (hideEvent.defaultPrevented) {
@@ -14384,6 +14399,12 @@
             this.tip = state.elements.popper;
             this._cleanTipClass();
             this._addAttachmentClass(this._getAttachment(state.placement));
+        }
+        _disposePopper() {
+            if (this._popper) {
+                this._popper.destroy();
+                this._popper = null;
+            }
         }
         static jQueryInterface(config) {
             return this.each(function() {

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
-* Bootstrap v5.1.0 (https://getbootstrap.com/)
+* Bootstrap v5.1.1 (https://getbootstrap.com/)
 * Copyright 2011-2021 The Bootstrap Authors
 * Copyright 2011-2021 Twitter, Inc.
 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -46,7 +46,8 @@
   --bs-dark-rgb: 33, 37, 41;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
-  --bs-body-rgb: 255, 255, 255;
+  --bs-body-color-rgb: 255, 255, 255;
+  --bs-body-bg-rgb: 104, 109, 195;
   --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
@@ -5170,7 +5171,7 @@ textarea.form-control-lg {
   font-size: 1rem;
   color: #fff;
   text-align: left;
-  background-color: #686dc3;
+  background-color: rgba(255, 255, 255, 0.4);
   border: 0;
   border-radius: 0;
   overflow-anchor: none;
@@ -5186,13 +5187,13 @@ textarea.form-control-lg {
   }
 }
 .accordion-button:not(.collapsed) {
-  color: #d12d76;
-  background-color: #fdebf3;
+  color: #fff;
+  background-color: #e83283;
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
           box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
 }
 .accordion-button:not(.collapsed)::after {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23d12d76'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
   -webkit-transform: rotate(-180deg);
           transform: rotate(-180deg);
 }
@@ -5628,7 +5629,7 @@ textarea.form-control-lg {
   position: relative;
   display: block;
   padding: 1rem 2rem;
-  color: #212529;
+  color: #fff;
   text-decoration: none;
   background-color: transparent;
   border: 0 solid rgba(255, 255, 255, 0.2);
@@ -8510,7 +8511,7 @@ textarea.form-control-lg {
 
 .text-body {
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-body-rgb), var(--bs-text-opacity)) !important;
+  color: rgba(var(--bs-body-color-rgb), var(--bs-text-opacity)) !important;
 }
 
 .text-muted {
@@ -8601,7 +8602,7 @@ textarea.form-control-lg {
 
 .bg-body {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-body-rgb), var(--bs-bg-opacity)) !important;
+  background-color: rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .bg-transparent {
@@ -12672,6 +12673,9 @@ body {
   color: #fff;
 }
 
+.badge.bg-secondary {
+  --bs-bg-opacity: .4;
+}
 .badge.bg-light {
   color: #343a40;
 }
@@ -12700,6 +12704,7 @@ body {
   background-image: linear-gradient(125deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2) 70%);
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
+  --bs-secondary-rgb: transparent;
 }
 .card a {
   color: #fff;
@@ -12708,9 +12713,6 @@ body {
   color: rgba(255, 255, 255, 0.7) !important;
 }
 .card.bg-primary {
-  background-image: none;
-}
-.card.bg-secondary {
   background-image: none;
 }
 .card.bg-success {
@@ -12890,6 +12892,24 @@ body {
 }
 .card-header {
   font-weight: 700;
+}
+
+.accordion-item {
+  border: none;
+  -webkit-box-shadow: inset 1px 1px rgba(255, 255, 255, 0.2), inset -1px -1px rgba(255, 255, 255, 0.1), 1px 3px 24px -1px rgba(0, 0, 0, 0.15);
+          box-shadow: inset 1px 1px rgba(255, 255, 255, 0.2), inset -1px -1px rgba(255, 255, 255, 0.1), 1px 3px 24px -1px rgba(0, 0, 0, 0.15);
+  background-color: transparent;
+  background-image: linear-gradient(125deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2) 70%);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.accordion-item a {
+  color: #fff;
+}
+.accordion-item .text-muted {
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .toast {

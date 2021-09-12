@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
-* Bootstrap v5.1.0 (https://getbootstrap.com/)
+* Bootstrap v5.1.1 (https://getbootstrap.com/)
 * Copyright 2011-2021 The Bootstrap Authors
 * Copyright 2011-2021 Twitter, Inc.
 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -47,7 +47,8 @@
   --bs-dark-rgb: 85, 85, 85;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
-  --bs-body-rgb: 34, 34, 34;
+  --bs-body-color-rgb: 34, 34, 34;
+  --bs-body-bg-rgb: 255, 255, 255;
   --bs-font-sans-serif: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
@@ -4089,7 +4090,7 @@ textarea.form-control-lg {
   border: 0;
 }
 .dropdown-item:hover, .dropdown-item:focus {
-  color: #1f1f1f;
+  color: rgba(0, 0, 0, 0.55);
   background-color: #f0f0f0;
 }
 .dropdown-item.active, .dropdown-item:active {
@@ -8506,7 +8507,7 @@ textarea.form-control-lg {
 
 .text-body {
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-body-rgb), var(--bs-text-opacity)) !important;
+  color: rgba(var(--bs-body-color-rgb), var(--bs-text-opacity)) !important;
 }
 
 .text-muted {
@@ -8597,7 +8598,7 @@ textarea.form-control-lg {
 
 .bg-body {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-body-rgb), var(--bs-bg-opacity)) !important;
+  background-color: rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .bg-transparent {
@@ -12866,7 +12867,7 @@ a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
 }
 .select2-container--bootstrap4 .select2-results__option[aria-selected=true] {
   background-color: #f0f0f0;
-  color: #1f1f1f;
+  color: rgba(0, 0, 0, 0.55);
 }
 .select2-container--bootstrap4 .select2-results__option--highlighted[aria-selected] {
   background-color: #158cba;
