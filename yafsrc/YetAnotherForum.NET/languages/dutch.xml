@@ -1035,8 +1035,6 @@
     <Resource tag="ALLOW_MULTI_VOTING_HELP">Als deze is aangevinkt, kunnen er multiple choice vragen worden aangemaakt.</Resource>
     <Resource tag="ALLOW_NOTIFICATION_ONALL">Sta bericht abbonnementen toe op Alle Berichten van Alle Topics:</Resource>
     <Resource tag="ALLOW_NOTIFICATION_ONALL_HELP">Sta e-mails to op alle berichten van alle topics -- HEEL VEEL Emailverkeer.</Resource>
-    <Resource tag="ALLOW_PASS_CHANGE">Sta wachtwoord wijzigen toe:</Resource>
-    <Resource tag="ALLOW_PASS_CHANGE_HELP">Gebruikers mogen hun wachtwoord wijzigen.</Resource>
     <Resource tag="ALLOW_PM_NOTIFICATION">bericht Notificaties toe:</Resource>
     <Resource tag="ALLOW_PM_NOTIFICATION_HELP">bericht krijgen.</Resource>
     <Resource tag="ALLOW_PMS"> berichten toe:</Resource>
@@ -1215,6 +1213,7 @@
     <Resource tag="HEADER_LOGIN">Login/Registratie instellingen</Resource>
     <Resource tag="HEADER_LOGSCOPE">Log scope</Resource>
     <Resource tag="HEADER_MESSAGE_NOTIFICATION">Message Notification Settings</Resource>
+    <Resource tag="HEADER_PASSWORD">Password Strength Settings</Resource>
     <Resource tag="HEADER_PERMISSION">Machtiging instellingen</Resource>
     <Resource tag="HEADER_PMS"> Berichten</Resource>
     <Resource tag="HEADER_POLL">Poll Opties</Resource>
@@ -1333,6 +1332,16 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Online Gebruiker Status Cache Timeout:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Dit kun je Fine-tunen afhankelijk van de activiteit op je forum in milliseconden)</Resource>
+    <Resource tag="PASSWORD_LOWER_CASE">Require Lower Case:</Resource>
+    <Resource tag="PASSWORD_LOWER_CASE_HELP">Option to require a lower case letter ('a' - 'z') in a Password.</Resource>
+    <Resource tag="PASSWORD_MIN_LENGTH">Minimum Length:</Resource>
+    <Resource tag="PASSWORD_MIN_LENGTH_HELP">The minimum required password length.</Resource>
+    <Resource tag="PASSWORD_REQUIRE_DIGIT">Require Digit:</Resource>
+    <Resource tag="PASSWORD_REQUIRE_DIGIT_HELP">Option to require a numeric digit ('0' - '9') in a Password.</Resource>
+    <Resource tag="PASSWORD_REQUIRE_NON_LETTER">Require non Letter Or Digit:</Resource>
+    <Resource tag="PASSWORD_REQUIRE_NON_LETTER_HELP">Option to requires a non-letter or digit character in a Password.</Resource>
+    <Resource tag="PASSWORD_UPPER_CASE">Require Upper Case:</Resource>
+    <Resource tag="PASSWORD_UPPER_CASE_HELP">Option to require a upper case letter ('A' - 'Z') in a Password.</Resource>
     <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
     <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Poll Afbeelding Bestandsgrootte:</Resource>

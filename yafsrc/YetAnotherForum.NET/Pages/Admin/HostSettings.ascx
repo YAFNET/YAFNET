@@ -183,6 +183,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="password-tab" data-bs-toggle="tab" href="#password" role="tab" aria-controls="password" aria-selected="false">
+                                <YAF:LocalizedLabel ID="LocalizedLabel28" runat="server"
+                                                    LocalizedTag="HEADER_PASSWORD"
+                                                    LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="spam-tab" data-bs-toggle="tab" href="#spam" role="tab" aria-controls="spam" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel32" runat="server"
                                                     LocalizedTag="HEADER_SPAM"
@@ -343,6 +350,53 @@
                                 </div>
                             </div>
                         </div>
+                    <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                        <div class="mb-3">
+                            <YAF:HelpLabel ID="HelpLabel52" runat="server"
+                                           AssociatedControlID="MinRequiredPasswordLength"
+                                           LocalizedTag="PASSWORD_MIN_LENGTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <asp:TextBox ID="MinRequiredPasswordLength"
+                                         CssClass="form-control"
+                                         TextMode="Number"
+                                         runat="server"></asp:TextBox>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <YAF:HelpLabel ID="HelpLabel44" runat="server"
+                                               AssociatedControlID="PasswordRequireNonLetterOrDigit"
+                                               LocalizedTag="PASSWORD_REQUIRE_NON_LETTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <div class="form-check form-switch">
+                                    <asp:CheckBox Text="&nbsp;" ID="PasswordRequireNonLetterOrDigit" runat="server"></asp:CheckBox>
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <YAF:HelpLabel ID="HelpLabel46" runat="server"
+                                               AssociatedControlID="PasswordRequireDigit"
+                                               LocalizedTag="PASSWORD_REQUIRE_DIGIT" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <div class="form-check form-switch">
+                                    <asp:CheckBox Text="&nbsp;" ID="PasswordRequireDigit" runat="server" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <YAF:HelpLabel ID="HelpLabel50" runat="server"
+                                               AssociatedControlID="PasswordRequireLowercase"
+                                               LocalizedTag="PASSWORD_LOWER_CASE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <div class="form-check form-switch">
+                                    <asp:CheckBox Text="&nbsp;" ID="PasswordRequireLowercase" runat="server"></asp:CheckBox>
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <YAF:HelpLabel ID="HelpLabel53" runat="server"
+                                               AssociatedControlID="PasswordRequireUppercase"
+                                               LocalizedTag="PASSWORD_UPPER_CASE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <div class="form-check form-switch">
+                                    <asp:CheckBox Text="&nbsp;" ID="PasswordRequireUppercase" runat="server" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                         <div class="tab-pane fade" id="spam" role="tabpanel" aria-labelledby="spam-tab">
                             <div class="mb-3">
                                 <YAF:HelpLabel ID="HelpLabel185" runat="server"
@@ -1579,15 +1633,6 @@
                                LocalizedTag="ALLOW_EMAIL_CHANGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                 <div class="form-check form-switch">
                     <asp:CheckBox Text="&nbsp;" ID="AllowEmailChange" runat="server"></asp:CheckBox>
-
-                </div>
-            </div>
-            <div class="mb-3 col-md-6">
-                <YAF:HelpLabel ID="HelpLabel79" runat="server"
-                               AssociatedControlID="AllowPasswordChange"
-                               LocalizedTag="ALLOW_PASS_CHANGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                <div class="form-check form-switch">
-                    <asp:CheckBox Text="&nbsp;" ID="AllowPasswordChange" runat="server"></asp:CheckBox>
 
                 </div>
             </div>

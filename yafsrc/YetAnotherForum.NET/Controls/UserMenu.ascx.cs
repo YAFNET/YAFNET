@@ -339,7 +339,7 @@ namespace YAF.Controls
                 this.PageContext.ForumPageType == ForumPages.Profile_BlockOptions,
                 "user-lock");
 
-            if (!Config.IsDotNetNuke && this.PageContext.BoardSettings.AllowPasswordChange)
+            if (!Config.IsDotNetNuke)
             {
                 // Render Change Password Item
                 RenderMenuItem(

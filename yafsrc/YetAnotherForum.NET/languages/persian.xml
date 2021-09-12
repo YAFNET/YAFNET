@@ -700,6 +700,8 @@
     <Resource tag="ROLE_NAME_HELP">نام این نقش.</Resource>
     <Resource tag="SIG_BBCODES">BBCode ها برای امضای کاربر:</Resource>
     <Resource tag="SIG_BBCODES_HELP">بی بی کدهایی که با کاما جدا شده اند در امضای کاربر در گروه مجاز می‌باشند.</Resource>
+    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
+    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the group.</Resource>
     <Resource tag="SIGNATURE_LENGTH">حداکثر تعداد کاراکتر در امضا کاربر:</Resource>
     <Resource tag="SIGNATURE_LENGTH_HELP">حداکثر تعداد کاراکتر مجاز برای امضا  کاربران این نقش</Resource>
     <Resource tag="STYLE">استایل</Resource>
@@ -1034,8 +1036,6 @@
     <Resource tag="ALLOW_MULTI_VOTING_HELP">در صورت انتخاب کاربران می توانند نظرسنجی هایی ایجاد کنند که در آن می توان به چند گزینه رای داد</Resource>
     <Resource tag="ALLOW_NOTIFICATION_ONALL">مجوز اطلاع‌رسانی برای تمام ارسال ها در تمام موضوعات:</Resource>
     <Resource tag="ALLOW_NOTIFICATION_ONALL_HELP">به کاربران اجازه می دهد نامه های جداگانه به ازای هر ارسال داشته باشند -- حجم وسیعی از نامه ها (خطر ناک)</Resource>
-    <Resource tag="ALLOW_PASS_CHANGE">مجوز تغییر کلمه عبور:</Resource>
-    <Resource tag="ALLOW_PASS_CHANGE_HELP">مجوز تغییر کلمه عبور به کاربران</Resource>
     <Resource tag="ALLOW_PM_NOTIFICATION">مجوز اطلاع‌رسانی برای پیام خصوصی :</Resource>
     <Resource tag="ALLOW_PM_NOTIFICATION_HELP">به کاربران هنگام دریافت پیام خصوصی جدید از طریق ایمیل اطلاع‌رسانی خواهد شد</Resource>
     <Resource tag="ALLOW_PMS">مجوز پیام خصوصی:</Resource>
@@ -1214,6 +1214,7 @@
     <Resource tag="HEADER_LOGIN">تنظیمات ورود/ثبت نام</Resource>
     <Resource tag="HEADER_LOGSCOPE">دامنه‌ی لاگ</Resource>
     <Resource tag="HEADER_MESSAGE_NOTIFICATION">تنظیمات اطلاع‌رسانی پیام‌ها</Resource>
+    <Resource tag="HEADER_PASSWORD">Password Strength Settings</Resource>
     <Resource tag="HEADER_PERMISSION">تنظیمات دسترسی‌ها</Resource>
     <Resource tag="HEADER_PMS">پیام شخصی</Resource>
     <Resource tag="HEADER_POLL">تنظیمات نظرسنجی</Resource>
@@ -1333,6 +1334,16 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">انقضای حافظه موقت وضعیت کاربران بر خط:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">می توانید بر اساس فعالیت سایت خود بر حسب میلی ثانیه تنظمی کنید.</Resource>
+    <Resource tag="PASSWORD_LOWER_CASE">Require Lower Case:</Resource>
+    <Resource tag="PASSWORD_LOWER_CASE_HELP">Option to require a lower case letter ('a' - 'z') in a Password.</Resource>
+    <Resource tag="PASSWORD_MIN_LENGTH">Minimum Length:</Resource>
+    <Resource tag="PASSWORD_MIN_LENGTH_HELP">The minimum required password length.</Resource>
+    <Resource tag="PASSWORD_REQUIRE_DIGIT">Require Digit:</Resource>
+    <Resource tag="PASSWORD_REQUIRE_DIGIT_HELP">Option to require a numeric digit ('0' - '9') in a Password.</Resource>
+    <Resource tag="PASSWORD_REQUIRE_NON_LETTER">Require non Letter Or Digit:</Resource>
+    <Resource tag="PASSWORD_REQUIRE_NON_LETTER_HELP">Option to requires a non-letter or digit character in a Password.</Resource>
+    <Resource tag="PASSWORD_UPPER_CASE">Require Upper Case:</Resource>
+    <Resource tag="PASSWORD_UPPER_CASE_HELP">Option to require a upper case letter ('A' - 'Z') in a Password.</Resource>
     <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
     <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">اندازه تصویر نظر سنجی :</Resource>

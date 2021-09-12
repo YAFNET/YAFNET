@@ -243,7 +243,7 @@ namespace YAF.Web.Controls
                 this.GetText("BLOCK_OPTIONS", "TITLE"),
                 "user-lock");
 
-            if (!Config.IsDotNetNuke && this.PageContext.BoardSettings.AllowPasswordChange)
+            if (!Config.IsDotNetNuke)
             {
                 // Render Change Password Item
                 this.RenderMenuItem(

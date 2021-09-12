@@ -700,6 +700,8 @@
     <Resource tag="ROLE_NAME_HELP">Name dieser Rolle.</Resource>
     <Resource tag="SIG_BBCODES">Benutzer Signatur BBCodes:</Resource>
     <Resource tag="SIG_BBCODES_HELP">Komma getrennte BBCodes erlaubt in einer Signatur des Benutzers in der Gruppe.</Resource>
+    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
+    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the group.</Resource>
     <Resource tag="SIGNATURE_LENGTH">Max. Anzahl von Zeichen in einem Benutzer Signatur:</Resource>
     <Resource tag="SIGNATURE_LENGTH_HELP">Max. Anzahl von Zeichen in einer Benutzer Signatur in dieser Gruppe.</Resource>
     <Resource tag="STYLE">Stil:</Resource>
@@ -1032,8 +1034,6 @@
     <Resource tag="ALLOW_MULTI_VOTING_HELP">Wenn diese Option aktiviert ist, können Benutzer können Umfragen erstellen, bei denen für mehrere Optionen gleichzeitig abgestimmt werden kann.</Resource>
     <Resource tag="ALLOW_NOTIFICATION_ONALL">Benachrichtigungen für alle Beiträge und Themen erlauben:</Resource>
     <Resource tag="ALLOW_NOTIFICATION_ONALL_HELP">Benutzern erlauben, eine einzelne E-Mail-Benachrichtigungen für jede E-Mail zu bekommen.</Resource>
-    <Resource tag="ALLOW_PASS_CHANGE">Passwort ändern erlauben:</Resource>
-    <Resource tag="ALLOW_PASS_CHANGE_HELP">Zulassen, dass Benutzer ihre Passwörter ändern können.</Resource>
     <Resource tag="ALLOW_PM_NOTIFICATION">Private Nachrichten Benachrichtigung</Resource>
     <Resource tag="ALLOW_PM_NOTIFICATION_HELP">Benutzern erlauben eine E-Mail Benachrichtigung zu erhalten wenn sie eine Private Nachricht erhalten.</Resource>
     <Resource tag="ALLOW_PMS">Private Nachrichten erlauben:</Resource>
@@ -1211,6 +1211,7 @@
     <Resource tag="HEADER_LOGIN">Login / Registrierungseinstellungen</Resource>
     <Resource tag="HEADER_LOGSCOPE">Ereignisprotokoll Anwendungsbereich</Resource>
     <Resource tag="HEADER_MESSAGE_NOTIFICATION">Nachrichten Einstellungen</Resource>
+    <Resource tag="HEADER_PASSWORD">Password Strength Settings</Resource>
     <Resource tag="HEADER_PERMISSION">Berechtigungseinstellungen</Resource>
     <Resource tag="HEADER_PMS">Private Nachrichten</Resource>
     <Resource tag="HEADER_POLL">Abstimmungseinstellungen</Resource>
@@ -1329,6 +1330,16 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option um die Native Benachrichtungs Dialoge zuverwenden anstelle der Benachrichtigungsleiste bzw den Modalen Dialogen.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Online Benutzer Status Speicher Ablaufzeit:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Sie können eine Feinabstimmung je nach der Webseiten Aktivität (in Millisekunden)</Resource>
+    <Resource tag="PASSWORD_LOWER_CASE">Require Lower Case:</Resource>
+    <Resource tag="PASSWORD_LOWER_CASE_HELP">Option to require a lower case letter ('a' - 'z') in a Password.</Resource>
+    <Resource tag="PASSWORD_MIN_LENGTH">Minimum Length:</Resource>
+    <Resource tag="PASSWORD_MIN_LENGTH_HELP">The minimum required password length.</Resource>
+    <Resource tag="PASSWORD_REQUIRE_DIGIT">Require Digit:</Resource>
+    <Resource tag="PASSWORD_REQUIRE_DIGIT_HELP">Option to require a numeric digit ('0' - '9') in a Password.</Resource>
+    <Resource tag="PASSWORD_REQUIRE_NON_LETTER">Require non Letter Or Digit:</Resource>
+    <Resource tag="PASSWORD_REQUIRE_NON_LETTER_HELP">Option to requires a non-letter or digit character in a Password.</Resource>
+    <Resource tag="PASSWORD_UPPER_CASE">Require Upper Case:</Resource>
+    <Resource tag="PASSWORD_UPPER_CASE_HELP">Option to require a upper case letter ('A' - 'Z') in a Password.</Resource>
     <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
     <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Max. Dateigröße für Benutzer definierte Umfrage Bilder:</Resource>

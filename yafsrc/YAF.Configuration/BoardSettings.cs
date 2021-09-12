@@ -115,6 +115,46 @@ namespace YAF.Configuration
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the password requires a non-letter or digit character.
+        /// </summary>
+        public bool PasswordRequireNonLetterOrDigit
+        {
+            get => this.RegistryBoard.GetValue("PasswordRequireNonLetterOrDigit", true);
+
+            set => this.RegistryBoard.SetValue("PasswordRequireNonLetterOrDigit", value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether whether the password requires a numeric digit ('0' - '9').
+        /// </summary>
+        public bool PasswordRequireDigit
+        {
+            get => this.RegistryBoard.GetValue("PasswordRequireDigit", true);
+
+            set => this.RegistryBoard.SetValue("PasswordRequireDigit", value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the password requires a lower case letter ('a' - 'z').
+        /// </summary>
+        public bool PasswordRequireLowercase
+        {
+            get => this.RegistryBoard.GetValue("PasswordRequireLowercase", true);
+
+            set => this.RegistryBoard.SetValue("PasswordRequireLowercase", value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the password requires an upper case letter ('A' - 'Z').
+        /// </summary>
+        public bool PasswordRequireUppercase
+        {
+            get => this.RegistryBoard.GetValue("PasswordRequireUppercase", true);
+
+            set => this.RegistryBoard.SetValue("PasswordRequireUppercase", value);
+        }
+
+        /// <summary>
         /// Gets Name.
         /// individual board settings
         /// </summary>
@@ -1412,16 +1452,6 @@ namespace YAF.Configuration
             get => this.Registry.GetValue("AllowEmailChange", true);
 
             set => this.Registry.SetValue("AllowEmailChange", value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether AllowPasswordChange.
-        /// </summary>
-        public bool AllowPasswordChange
-        {
-            get => this.Registry.GetValue("AllowPasswordChange", true);
-
-            set => this.Registry.SetValue("AllowPasswordChange", value);
         }
 
         /// <summary>

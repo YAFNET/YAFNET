@@ -75,8 +75,10 @@ namespace YAF.Core.Identity
             this.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = requiredLength,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true
+                RequireNonLetterOrDigit = BoardContext.Current.BoardSettings.PasswordRequireNonLetterOrDigit,
+                RequireDigit = BoardContext.Current.BoardSettings.PasswordRequireDigit,
+                RequireLowercase = BoardContext.Current.BoardSettings.PasswordRequireLowercase,
+                RequireUppercase = BoardContext.Current.BoardSettings.PasswordRequireUppercase
             };
 
             this.UserLockoutEnabledByDefault = true;

@@ -965,8 +965,6 @@
     <Resource tag="ALLOW_MULTI_VOTING_HELP">If enabled users can create poll questions allowing multiple choices voting.</Resource>
     <Resource tag="ALLOW_NOTIFICATION_ONALL">Allow Notification of All Posts on All topics:</Resource>
     <Resource tag="ALLOW_NOTIFICATION_ONALL_HELP">Allow users to get individual email notifications on all emails -- tons of email traffic.</Resource>
-    <Resource tag="ALLOW_PASS_CHANGE">Allow Password Change:</Resource>
-    <Resource tag="ALLOW_PASS_CHANGE_HELP">Allow users to change their passwords.</Resource>
     <Resource tag="ALLOW_PM_NOTIFICATION">Allow Private Message Notifications:</Resource>
     <Resource tag="ALLOW_PM_NOTIFICATION_HELP">Allow users email notifications when new private messages arrive.</Resource>
     <Resource tag="ALLOW_PMS">Allow Private Messages:</Resource>
@@ -1122,6 +1120,7 @@
     <Resource tag="HEADER_LOGIN">Login/Registration Settings</Resource>
     <Resource tag="HEADER_LOGSCOPE">Log scope</Resource>
     <Resource tag="HEADER_MESSAGE_NOTIFICATION">Message Notification Settings</Resource>
+    <Resource tag="HEADER_PASSWORD">Password Strength Settings</Resource>
     <Resource tag="HEADER_PERMISSION">Permission Settings</Resource>
     <Resource tag="HEADER_PMS">Private Messages</Resource>
     <Resource tag="HEADER_POLL">Poll Settings</Resource>
@@ -1240,6 +1239,19 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notification Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Online User Status Cache Timeout:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">You can fine-tune it depending on your site activity (in milliseconds)</Resource>
+
+    <Resource tag="PASSWORD_MIN_LENGTH">Minimum Length:</Resource>
+    <Resource tag="PASSWORD_MIN_LENGTH_HELP">The minimum required password length.</Resource>
+    <Resource tag="PASSWORD_REQUIRE_NON_LETTER">Require non Letter Or Digit:</Resource>
+    <Resource tag="PASSWORD_REQUIRE_NON_LETTER_HELP">Option to requires a non-letter or digit character in a Password.</Resource>
+    <Resource tag="PASSWORD_REQUIRE_DIGIT">Require Digit:</Resource>
+    <Resource tag="PASSWORD_REQUIRE_DIGIT_HELP">Option to require a numeric digit ('0' - '9') in a Password.</Resource>
+    <Resource tag="PASSWORD_LOWER_CASE">Require Lower Case:</Resource>
+    <Resource tag="PASSWORD_LOWER_CASE_HELP">Option to require a lower case letter ('a' - 'z') in a Password.</Resource>
+    <Resource tag="PASSWORD_UPPER_CASE">Require Upper Case:</Resource>
+    <Resource tag="PASSWORD_UPPER_CASE_HELP">Option to require a upper case letter ('A' - 'Z') in a Password.</Resource>
+
+
     <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
     <Resource tag="PM_ATTACHMENTS_HELP">Allows the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Max. File Size for User Poll Images:</Resource>

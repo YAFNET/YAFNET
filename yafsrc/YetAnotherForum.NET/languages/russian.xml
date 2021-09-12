@@ -700,6 +700,8 @@
     <Resource tag="ROLE_NAME_HELP">Название роли.</Resource>
     <Resource tag="SIG_BBCODES">Разрешённые BBCode в подписи:</Resource>
     <Resource tag="SIG_BBCODES_HELP">Разделённые запятой BBCode разрешённые в подписи для исполнителей этой роли.</Resource>
+    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
+    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the group.</Resource>
     <Resource tag="SIGNATURE_LENGTH">Максимальное число символов в подписи пользователя:</Resource>
     <Resource tag="SIGNATURE_LENGTH_HELP">Максимальное число символов для пользователей в этой роли.</Resource>
     <Resource tag="STYLE">Стиль ника:</Resource>
@@ -1033,8 +1035,6 @@
     <Resource tag="ALLOW_MULTI_VOTING_HELP">Создатель опроса может разрешить голосование за несколько вариантов.</Resource>
     <Resource tag="ALLOW_NOTIFICATION_ONALL">Разрешить уведомление о всех постах во всех темах:</Resource>
     <Resource tag="ALLOW_NOTIFICATION_ONALL_HELP">Разрешить пользователям получать индивидуальные отчёты по электронной почте(внимание: много трафика).</Resource>
-    <Resource tag="ALLOW_PASS_CHANGE">Разрешить изменение пароля:</Resource>
-    <Resource tag="ALLOW_PASS_CHANGE_HELP">Разрешить пользователям изменять их пароли.</Resource>
     <Resource tag="ALLOW_PM_NOTIFICATION">Разрешить уведомления о личных сообщениях:</Resource>
     <Resource tag="ALLOW_PM_NOTIFICATION_HELP">Разрешить пользователям получать сообщения по электронной почте при появлении нового ЛС.</Resource>
     <Resource tag="ALLOW_PMS">Разрешить ЛС:</Resource>
@@ -1212,6 +1212,7 @@
     <Resource tag="HEADER_LOGIN">Настройки входа/регистрации</Resource>
     <Resource tag="HEADER_LOGSCOPE">Журналируемые события</Resource>
     <Resource tag="HEADER_MESSAGE_NOTIFICATION">Message Notification Settings</Resource>
+    <Resource tag="HEADER_PASSWORD">Password Strength Settings</Resource>
     <Resource tag="HEADER_PERMISSION">Настройки разрешений</Resource>
     <Resource tag="HEADER_PMS">Личные сообщения</Resource>
     <Resource tag="HEADER_POLL">Опции опроса</Resource>
@@ -1330,6 +1331,16 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Таймаут кэша пользователя онлайн:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Вы можете устанавливать это значение в зависимости от активности на сайте(в миллисекундах)</Resource>
+    <Resource tag="PASSWORD_LOWER_CASE">Require Lower Case:</Resource>
+    <Resource tag="PASSWORD_LOWER_CASE_HELP">Option to require a lower case letter ('a' - 'z') in a Password.</Resource>
+    <Resource tag="PASSWORD_MIN_LENGTH">Minimum Length:</Resource>
+    <Resource tag="PASSWORD_MIN_LENGTH_HELP">The minimum required password length.</Resource>
+    <Resource tag="PASSWORD_REQUIRE_DIGIT">Require Digit:</Resource>
+    <Resource tag="PASSWORD_REQUIRE_DIGIT_HELP">Option to require a numeric digit ('0' - '9') in a Password.</Resource>
+    <Resource tag="PASSWORD_REQUIRE_NON_LETTER">Require non Letter Or Digit:</Resource>
+    <Resource tag="PASSWORD_REQUIRE_NON_LETTER_HELP">Option to requires a non-letter or digit character in a Password.</Resource>
+    <Resource tag="PASSWORD_UPPER_CASE">Require Upper Case:</Resource>
+    <Resource tag="PASSWORD_UPPER_CASE_HELP">Option to require a upper case letter ('A' - 'Z') in a Password.</Resource>
     <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
     <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Размер файла изображения в опросах:</Resource>
