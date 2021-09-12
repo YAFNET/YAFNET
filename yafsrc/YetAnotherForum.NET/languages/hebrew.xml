@@ -2807,6 +2807,7 @@
     <Resource tag="REALNAME2">מהו שמך האמיתי?</Resource>
     <Resource tag="REGION">State:</Resource>
     <Resource tag="SELECT_LANGUAGE">באיזו שפה ברצונך להשתמש:</Resource>
+    <Resource tag="SELECT_PAGESIZE">Standard Page Size:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">בחר את ערכת הדיון המועדפת עליך:</Resource>
     <Resource tag="SKYPE">Your SKYPE ID:</Resource>

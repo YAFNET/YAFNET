@@ -2784,6 +2784,7 @@
     <Resource tag="REALNAME2">ما هو اسمك الحقيقي؟ </Resource>
     <Resource tag="REGION">State:</Resource>
     <Resource tag="SELECT_LANGUAGE">:ماهي اللغة التي تود استخدامها</Resource>
+    <Resource tag="SELECT_PAGESIZE">Standard Page Size:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME"> :اختيار الموضوع المفضل لديك </Resource>
     <Resource tag="SKYPE">Your SKYPE ID:</Resource>

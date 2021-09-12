@@ -2778,6 +2778,7 @@
     <Resource tag="REALNAME2">Oikea nimesi:</Resource>
     <Resource tag="REGION">State:</Resource>
     <Resource tag="SELECT_LANGUAGE">Mitä kieltä haluat käyttää:</Resource>
+    <Resource tag="SELECT_PAGESIZE">Standard Page Size:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Valitse haluamasi teema:</Resource>
     <Resource tag="SKYPE">Your SKYPE ID:</Resource>

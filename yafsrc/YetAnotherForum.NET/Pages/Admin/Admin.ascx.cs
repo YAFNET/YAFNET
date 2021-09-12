@@ -240,6 +240,8 @@ namespace YAF.Pages.Admin
             this.PageSize.DataValueField = "Value";
             this.PageSize.DataBind();
 
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
             this.PageSizeUnverified.DataSource = StaticDataHelper.PageEntries();
             this.PageSizeUnverified.DataTextField = "Name";
             this.PageSizeUnverified.DataValueField = "Value";

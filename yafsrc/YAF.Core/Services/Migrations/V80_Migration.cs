@@ -360,6 +360,11 @@ namespace YAF.Core.Services.Migrations
             {
                 dbCommand.Connection.AddColumn<User>(x => x.Activity);
             }
+
+            if (!dbCommand.Connection.ColumnExists<User>(x => x.PageSize))
+            {
+                dbCommand.Connection.AddColumn<User>(x => x.PageSize);
+            }
         }
 
         public void UpgradeTableUserAlbum(IDbAccess dbAccess, IDbCommand dbCommand)

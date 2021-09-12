@@ -2785,6 +2785,7 @@
     <Resource tag="REALNAME2">您的真实名字?</Resource>
     <Resource tag="REGION">国家:</Resource>
     <Resource tag="SELECT_LANGUAGE">请选择您使用的语言:</Resource>
+    <Resource tag="SELECT_PAGESIZE">Standard Page Size:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">选择你用的编辑器:</Resource>
     <Resource tag="SELECT_THEME">请选择您要使用的页面主题:</Resource>
     <Resource tag="SKYPE">Your SKYPE ID:</Resource>

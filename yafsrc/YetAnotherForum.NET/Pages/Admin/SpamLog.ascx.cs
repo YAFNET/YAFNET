@@ -116,6 +116,8 @@ namespace YAF.Pages.Admin
             this.PageSize.DataValueField = "Value";
             this.PageSize.DataBind();
 
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
             var ci = this.Get<ILocalization>().Culture;
 
             if (this.PageContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())

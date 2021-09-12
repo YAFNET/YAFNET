@@ -2857,6 +2857,7 @@
     <Resource tag="REALNAME2">Koks jūsų vardas? </Resource>
     <Resource tag="REGION">State:</Resource>
     <Resource tag="SELECT_LANGUAGE">Kokia kalba norėtumėte naudoti: </Resource>
+    <Resource tag="SELECT_PAGESIZE">Standard Page Size:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Pasirinkite norimą temą: </Resource>
     <Resource tag="SKYPE">Your SKYPE ID:</Resource>

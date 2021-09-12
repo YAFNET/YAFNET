@@ -2785,6 +2785,7 @@
     <Resource tag="REALNAME2">Jméno a příjmení</Resource>
     <Resource tag="REGION">State:</Resource>
     <Resource tag="SELECT_LANGUAGE">Jaký jazyk chcete používat:</Resource>
+    <Resource tag="SELECT_PAGESIZE">Standard Page Size:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Vyberte si oblíbené téma:</Resource>
     <Resource tag="SKYPE">Your SKYPE ID:</Resource>

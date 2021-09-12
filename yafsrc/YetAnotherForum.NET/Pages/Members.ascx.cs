@@ -185,6 +185,8 @@ namespace YAF.Pages
             this.PageSize.DataValueField = "Value";
             this.PageSize.DataBind();
 
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
             this.ViewState["SortNameField"] = 1;
             this.ViewState["SortRankNameField"] = 0;
             this.ViewState["SortJoinedField"] = 0;

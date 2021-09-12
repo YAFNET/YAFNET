@@ -2802,6 +2802,7 @@
     <Resource tag="REALNAME2">نام حقیقی شما چیست؟</Resource>
     <Resource tag="REGION">وضعیت:</Resource>
     <Resource tag="SELECT_LANGUAGE">مایل به استفاده از چه زبانی هستید:</Resource>
+    <Resource tag="SELECT_PAGESIZE">Standard Page Size:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">ویرایشگر متنی خود رار انتخاب کنید:</Resource>
     <Resource tag="SELECT_THEME">قالب مورد علاقه خود را انتخاب کنید:</Resource>
     <Resource tag="SKYPE">شناسه اسکایپ شما:</Resource>

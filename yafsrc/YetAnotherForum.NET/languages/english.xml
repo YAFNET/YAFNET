@@ -2650,6 +2650,7 @@
     <Resource tag="REALNAME2">What's your real name?</Resource>
     <Resource tag="REGION">State:</Resource>
     <Resource tag="SELECT_LANGUAGE">What language do you want to use:</Resource>
+    <Resource tag="SELECT_PAGESIZE">Standard Page Size:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Select your preferred theme:</Resource>
     <Resource tag="SKYPE">Your SKYPE ID:</Resource>

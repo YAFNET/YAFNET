@@ -2779,6 +2779,7 @@
     <Resource tag="REALNAME2">Hva er ditt fulle navn?</Resource>
     <Resource tag="REGION">State:</Resource>
     <Resource tag="SELECT_LANGUAGE">Hvilket språk ønsker du å bruke:</Resource>
+    <Resource tag="SELECT_PAGESIZE">Standard Page Size:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Velg ditt favoritt tema:</Resource>
     <Resource tag="SKYPE">Your SKYPE ID:</Resource>

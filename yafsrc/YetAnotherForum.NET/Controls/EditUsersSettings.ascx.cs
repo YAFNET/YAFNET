@@ -191,6 +191,7 @@ namespace YAF.Controls
             string language = null;
             var culture = this.Culture.SelectedValue;
             var theme = this.Theme.SelectedValue;
+            var pageSize = this.PageSize.SelectedValue.ToType<int>();
 
             if (this.Theme.SelectedValue.IsNotSet())
             {
@@ -216,7 +217,8 @@ namespace YAF.Controls
                 culture,
                 theme,
                 this.HideMe.Checked,
-                this.Activity.Checked);
+                this.Activity.Checked,
+                pageSize);
 
             if (this.User.UserFlags.IsGuest)
             {
@@ -260,7 +262,15 @@ namespace YAF.Controls
                 this.Culture.DataTextField = "CultureNativeName";
             }
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
             this.DataBind();
+
+            this.PageSize.SelectedValue = this.User.PageSize.ToString();
 
             this.Email.Text = this.User.Email;
 

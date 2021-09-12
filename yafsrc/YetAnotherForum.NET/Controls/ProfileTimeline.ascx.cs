@@ -92,6 +92,8 @@ namespace YAF.Controls
             this.PageSize.DataValueField = "Value";
             this.PageSize.DataBind();
 
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
             var previousPageSize = this.Get<ISession>().UserActivityPageSize;
 
             if (previousPageSize.HasValue)

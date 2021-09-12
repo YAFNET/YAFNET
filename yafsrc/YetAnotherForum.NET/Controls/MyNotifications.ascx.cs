@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -93,6 +93,8 @@ namespace YAF.Controls
             this.PageSize.DataTextField = "Name";
             this.PageSize.DataValueField = "Value";
             this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
 
             var previousPageSize = this.Get<ISession>().UserActivityPageSize;
 

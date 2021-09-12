@@ -2784,6 +2784,7 @@
     <Resource tag="REALNAME2">Tên thật của bạn?</Resource>
     <Resource tag="REGION">State:</Resource>
     <Resource tag="SELECT_LANGUAGE">Chọn ngôn ngữ:</Resource>
+    <Resource tag="SELECT_PAGESIZE">Standard Page Size:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Chọn giao diện:</Resource>
     <Resource tag="SKYPE">Your SKYPE ID:</Resource>

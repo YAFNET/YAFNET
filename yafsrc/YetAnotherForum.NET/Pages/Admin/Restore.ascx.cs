@@ -68,10 +68,14 @@ namespace YAF.Pages.Admin
             this.PageSize.DataValueField = "Value";
             this.PageSize.DataBind();
 
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
             this.PageSizeMessages.DataSource = StaticDataHelper.PageEntries();
             this.PageSizeMessages.DataTextField = "Name";
             this.PageSizeMessages.DataValueField = "Value";
             this.PageSizeMessages.DataBind();
+
+            this.PageSizeMessages.SelectedValue = this.PageContext.User.PageSize.ToString();
 
             this.BindData();
         }

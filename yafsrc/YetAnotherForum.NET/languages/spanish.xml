@@ -2790,6 +2790,7 @@
     <Resource tag="REALNAME2">Nombre verdadero</Resource>
     <Resource tag="REGION">Región:</Resource>
     <Resource tag="SELECT_LANGUAGE">Idioma preferido:</Resource>
+    <Resource tag="SELECT_PAGESIZE">Standard Page Size:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Selecciona tu editor de texto:</Resource>
     <Resource tag="SELECT_THEME">Estilo preferido:</Resource>
     <Resource tag="SKYPE">Tu ID de SKYPE:</Resource>

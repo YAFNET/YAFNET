@@ -2778,6 +2778,7 @@
     <Resource tag="REALNAME2">Wat is je echte naam?</Resource>
     <Resource tag="REGION">Staat/Provincie:</Resource>
     <Resource tag="SELECT_LANGUAGE">Welke taal wil je gebruiken:</Resource>
+    <Resource tag="SELECT_PAGESIZE">Standard Page Size:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Kies je texteditor:</Resource>
     <Resource tag="SELECT_THEME">Selecteer je gewenste forum-thema:</Resource>
     <Resource tag="SKYPE">Je SKYPE ID:</Resource>

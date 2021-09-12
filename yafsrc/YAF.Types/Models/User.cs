@@ -333,6 +333,13 @@ namespace YAF.Types.Models
         [Default(0)]
         public int SuspendedBy { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Page Size.
+        /// </summary>
+        [Required]
+        [Default(5)]
+        public int PageSize { get; set; }
+
         #endregion
     }
 }

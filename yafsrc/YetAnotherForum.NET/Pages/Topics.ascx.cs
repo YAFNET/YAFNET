@@ -351,6 +351,8 @@ namespace YAF.Pages
             this.PageSize.DataValueField = "Value";
             this.PageSize.DataBind();
 
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
             var forums = this.Get<DataBroker>().BoardLayout(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,

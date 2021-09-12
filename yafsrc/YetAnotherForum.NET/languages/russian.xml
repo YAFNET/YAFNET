@@ -2765,6 +2765,7 @@
     <Resource tag="REALNAME2">Ваше настоящее имя:</Resource>
     <Resource tag="REGION">Регион:</Resource>
     <Resource tag="SELECT_LANGUAGE">Какой язык вы хотите использовать:</Resource>
+    <Resource tag="SELECT_PAGESIZE">Standard Page Size:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Текстовой редактор:</Resource>
     <Resource tag="SELECT_THEME">Выберите нужную тему:</Resource>
     <Resource tag="SKYPE">Ваш SKYPE ID:</Resource>

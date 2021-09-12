@@ -69,6 +69,8 @@ namespace YAF.Pages.Admin
             this.PageSize.DataValueField = "Value";
             this.PageSize.DataBind();
 
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
             this.BindData();
         }
 
@@ -170,6 +172,8 @@ namespace YAF.Pages.Admin
             this.PageSize.DataTextField = "Name";
             this.PageSize.DataValueField = "Value";
             this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
 
             this.BindData();
         }
