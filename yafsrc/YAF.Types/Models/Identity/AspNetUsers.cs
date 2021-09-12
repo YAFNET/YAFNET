@@ -57,30 +57,6 @@ namespace YAF.Types.Models.Identity
             this.FailedPasswordAnswerAttemptWindowStart = DateTime.MinValue.AddYears(1902);
             this.FailedPasswordAttemptWindowStart = DateTime.MinValue.AddYears(1902);
             this.Profile_Birthday = DateTime.MinValue.AddYears(1902);
-
-            /*this.Profile = new ProfileInfo
-            {
-                Birthday = this.Profile_Birthday,
-                Blog = this.Profile_Blog,
-                Gender = this.Profile_Gender,
-                GoogleId = this.Profile_GoogleId,
-                Homepage = this.Profile_Homepage,
-                ICQ = this.Profile_ICQ,
-                Facebook = this.Profile_Facebook,
-                FacebookId = this.Profile_FacebookId,
-                Twitter = this.Profile_Twitter,
-                TwitterId = this.Profile_TwitterId,
-                Interests = this.Profile_Interests,
-                Location = this.Profile_Location,
-                Country = this.Profile_Country,
-                Region = this.Profile_Region,
-                City = this.Profile_City,
-                Occupation = this.Profile_Occupation,
-                RealName = this.Profile_RealName,
-                Skype = this.Profile_Skype,
-                XMPP = this.Profile_XMPP,
-                LastSyncedWithDNN = this.Profile_LastSyncedWithDNN
-            };*/
         }
 
         /// <summary>
@@ -102,30 +78,6 @@ namespace YAF.Types.Models.Identity
             this.FailedPasswordAnswerAttemptWindowStart = DateTime.MinValue.AddYears(1902);
             this.FailedPasswordAttemptWindowStart = DateTime.MinValue.AddYears(1902);
             this.Profile_Birthday = DateTime.MinValue.AddYears(1902);
-
-            /*this.Profile = new ProfileInfo
-            {
-                Birthday = this.Profile_Birthday,
-                Blog = this.Profile_Blog,
-                Gender = this.Profile_Gender,
-                GoogleId = this.Profile_GoogleId,
-                Homepage = this.Profile_Homepage,
-                ICQ = this.Profile_ICQ,
-                Facebook = this.Profile_Facebook,
-                FacebookId = this.Profile_FacebookId,
-                Twitter = this.Profile_Twitter,
-                TwitterId = this.Profile_TwitterId,
-                Interests = this.Profile_Interests,
-                Location = this.Profile_Location,
-                Country = this.Profile_Country,
-                Region = this.Profile_Region,
-                City = this.Profile_City,
-                Occupation = this.Profile_Occupation,
-                RealName = this.Profile_RealName,
-                Skype = this.Profile_Skype,
-                XMPP = this.Profile_XMPP,
-                LastSyncedWithDNN = this.Profile_LastSyncedWithDNN
-            };*/
         }
 
         /// <summary>
@@ -208,35 +160,35 @@ namespace YAF.Types.Models.Identity
         public virtual string Email { get; set; }
 
         /// <summary>
-        ///   Gets or sets the True if the email is confirmed, default is false
+        /// Gets or sets a value indicating whether the email is confirmed, default is false
         /// </summary>
         public virtual bool EmailConfirmed { get; set; }
 
         /// <summary>
-        ///    Gets or sets the  The salted/hashed form of the user password
+        ///    Gets or sets a value indicating whether The salted/hashed form of the user password
         /// </summary>
         [StringLength(100)]
         public virtual string PasswordHash { get; set; }
 
         /// <summary>
-        ///   Gets or sets the   A random value that should change whenever a users credentials have changed (password changed, login removed)
+        ///   Gets or sets a value indicating whether a random value that should change whenever a users credentials have changed (password changed, login removed)
         /// </summary>
         [StringLength(100)]
         public virtual string SecurityStamp { get; set; }
 
         /// <summary>
-        ///   Gets or sets the   PhoneNumber for the user
+        ///   Gets or sets the PhoneNumber for the user
         /// </summary>
         [StringLength(40)]
         public virtual string PhoneNumber { get; set; }
 
         /// <summary>
-        ///   Gets or sets the   True if the phone number is confirmed, default is false
+        ///   Gets or sets a value indicating whether the phone number is confirmed, default is false
         /// </summary>
         public virtual bool PhoneNumberConfirmed { get; set; }
 
         /// <summary>
-        ///   Gets or sets the   Is two factor enabled for the user
+        ///   Gets or sets a value indicating whether two factor enabled for the user
         /// </summary>
         public virtual bool TwoFactorEnabled { get; set; }
 
@@ -246,7 +198,7 @@ namespace YAF.Types.Models.Identity
         public virtual DateTime? LockoutEndDateUtc { get; set; }
 
         /// <summary>
-        ///   Gets or sets the   Is lockout enabled for this user
+        ///   Gets or sets a value indicating whether lockout enabled for this user
         /// </summary>
         public virtual bool LockoutEnabled { get; set; }
 
@@ -388,10 +340,5 @@ namespace YAF.Types.Models.Identity
         /// Gets or sets XMPP.
         /// </summary>
         public string Profile_XMPP { get; set; }
-
-        /// <summary>
-        /// Gets or sets Last Synced With DNN.
-        /// </summary>
-        public DateTime? Profile_LastSyncedWithDNN { get; set; }
     }
 }

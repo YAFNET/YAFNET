@@ -57,8 +57,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUsers](
     [Profile_Occupation] NVARCHAR (400) NULL,
     [Profile_RealName] NVARCHAR (255) NULL,
     [Profile_Skype] NVARCHAR (255) NULL,
-    [Profile_XMPP] NVARCHAR (255) NULL,
-    [Profile_LastSyncedWithDNN] DateTime NULL
+    [Profile_XMPP] NVARCHAR (255) NULL
     CONSTRAINT [PK_{databaseOwner}.AspNetUsers] PRIMARY KEY CLUSTERED ([Id] ASC)
     /*FOREIGN KEY ([ApplicationId]) REFERENCES [{databaseOwner}].[aspnet_Applications] ([ApplicationId]),*/
 );
@@ -118,12 +117,6 @@ GO
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='XMPP')
 begin
     alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add XMPP nvarchar(255) Null
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='LastSyncedWithDNN')
-begin
-    alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add LastSyncedWithDNN nvarchar(255) Null
 end
 GO
 
@@ -247,8 +240,7 @@ GO
        Profile_Occupation,
        Profile_RealName,
        Profile_Skype,
-       Profile_XMPP,
-       Profile_LastSyncedWithDNN
+       Profile_XMPP
       )
   SELECT
        [{databaseOwner}].[{objectQualifier}prov_Membership].ApplicationId,
@@ -296,8 +288,7 @@ GO
       p.Occupation,
       p.RealName,
       p.Skype,
-      p.XMPP,
-      p.LastSyncedWithDNN
+      p.XMPP
   FROM
       [{databaseOwner}].[{objectQualifier}prov_Membership]
       LEFT OUTER JOIN [{databaseOwner}].[{objectQualifier}AspNetUsers] ON [{databaseOwner}].[{objectQualifier}prov_Membership].UserId = [{databaseOwner}].[{objectQualifier}AspNetUsers].Id

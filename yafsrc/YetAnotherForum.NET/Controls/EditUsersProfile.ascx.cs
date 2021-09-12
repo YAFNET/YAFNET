@@ -720,7 +720,6 @@ namespace YAF.Controls
             this.User.Item2.Profile_RealName = userProfile.RealName;
             this.User.Item2.Profile_Skype = userProfile.Skype;
             this.User.Item2.Profile_XMPP = userProfile.XMPP;
-            this.User.Item2.Profile_LastSyncedWithDNN = userProfile.LastSyncedWithDNN;
 
             this.Get<IAspNetUsersHelper>().Update(this.User.Item2);
         }

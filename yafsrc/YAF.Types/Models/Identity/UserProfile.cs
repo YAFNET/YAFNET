@@ -133,10 +133,5 @@ namespace YAF.Types.Models.Identity
         /// Gets or sets XMPP.
         /// </summary>
         public string XMPP { get; set; }
-
-        /// <summary>
-        /// Gets or sets Last Synced With DNN.
-        /// </summary>
-        public DateTime? LastSyncedWithDNN { get; set; }
     }
 }
