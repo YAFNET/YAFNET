@@ -63,16 +63,6 @@ namespace YAF.Core.Services
         #region Properties
 
         /// <summary>
-        /// Gets or sets the user activity page size.
-        /// </summary>
-        public int? UserActivityPageSize
-        {
-            get => (int?)this.SessionState["UserActivityPageSize"];
-
-            set => this.SessionState["UserActivityPageSize"] = value;
-        }
-
-        /// <summary>
         ///   Gets or sets UserTopicSince.
         /// </summary>
         public int? UserTopicSince

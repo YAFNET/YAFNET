@@ -268,6 +268,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// URL to the given page with parameters.
         /// </returns>
+        //public string GetLink(ForumPages page, bool fullUrl, object values)
         public string GetLink(ForumPages page, bool fullUrl, string format, params object[] args)
         {
             return fullUrl

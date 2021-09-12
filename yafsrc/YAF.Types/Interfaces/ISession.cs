@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -41,11 +41,6 @@ namespace YAF.Types.Interfaces
         /// The multi quote ids.
         /// </value>
         List<MultiQuote> MultiQuoteIds { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user activity page size.
-        /// </summary>
-        int? UserActivityPageSize { get; set; }
 
         /// <summary>
         ///   Gets or sets Unread Topic Since.

@@ -96,20 +96,6 @@ namespace YAF.Controls
 
             this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
 
-            var previousPageSize = this.Get<ISession>().UserActivityPageSize;
-
-            if (previousPageSize.HasValue)
-            {
-                // look for value previously selected
-                var sinceItem = this.PageSize.Items.FindByValue(previousPageSize.Value.ToString());
-
-                // and select it if found
-                if (sinceItem != null)
-                {
-                    this.PageSize.SelectedIndex = this.PageSize.Items.IndexOf(sinceItem);
-                }
-            }
-
             this.BindData();
         }
 
