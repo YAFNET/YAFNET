@@ -248,8 +248,6 @@ namespace YAF.Controls
         /// </param>
         protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
         {
-            this.Get<ISession>().UserActivityPageSize = this.PageSize.SelectedValue.ToType<int>();
-
             this.BindData();
         }
 
